@@ -1150,6 +1150,11 @@
        </configdescription>
       </case>
      </configswitch>
+     <configboolean name="filemtime" desc="Expire cache if the modification
+     time of a CSS file has changed? This setting is useful for development
+     installations. It should not be used in production environments, as it
+     requires a filestat of every CSS file loaded on a
+     page">false</configboolean>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">86400</configinteger>
     </configsection>

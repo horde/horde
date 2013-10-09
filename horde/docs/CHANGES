@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mms] Added 'filemtime' configuration option for CSS caching.
 [mjr] Add support for X509 authentication support.
 [mjr] Improve logging options for ActiveSync logging configuration.
 [mjr] Add support for managing ActiveSync devices through the API.
