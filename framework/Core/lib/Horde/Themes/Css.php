@@ -108,6 +108,12 @@ class Horde_Themes_Css
             return $css_out;
         }
 
+        if (empty($conf['cachecssparams']['filemtime'])) {
+            foreach ($css as &$val) {
+                $val['mtime'] = @filemtime($val['fs']);
+            }
+        }
+
         $out = '';
         $sig = hash('md5', serialize($css) . $this->_cacheid);
 
