@@ -115,16 +115,16 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         switch($d) {
         case self::ACTION_KEEP_A:
             $this->_output .= $this->_a;
-            if (($this->_a == $this->_b) &&
-                ($this->_y != $this->_a) &&
-                strspn($this->_a, '+-')) {
-                $this->_output .= ' ';
+            if (strspn($this->_y, "\n ") &&
+                strspn($this->_a, '+-*/') &&
+                strspn($this->_b, '+-*/')) {
+                $this->_output .= $this->_y;
             }
 
         case self::ACTION_DELETE_A:
             $this->_a = $this->_b;
 
-            if ($this->_a === '\'' || $this->_a === '"') {
+            if (strspn($this->_a, '\'"`')) {
                 while (true) {
                     $this->_output .= $this->_a;
                     $this->_a = $this->_get();
@@ -147,8 +147,12 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*\n')) {
-                $this->_output .= $this->_a . $this->_b;
+            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*/{\n')) {
+                $this->_output .= $this->_a;
+                if (strspn($this->_a, '/*')) {
+                    $this->_output .= ' ';
+                }
+                $this->_output .= $this->_b;
 
                 while (true) {
                     $this->_a = $this->_get();
@@ -170,6 +174,9 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                             }
                         }
                     } elseif ($this->_a === '/') {
+                        if (strspn($this->_a, '/*')) {
+                            throw new Exception('Unterminated regular expression set in regex literal.');
+                        }
                         break;
                     } elseif ($this->_a === '\\') {
                         $this->_output .= $this->_a;
@@ -195,16 +202,14 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             ($this->_inputIndex < $this->_inputLength)) {
             $c = $this->_input[$this->_inputIndex];
             $this->_inputIndex += 1;
-            $this->_y = $this->_x;
-            $this->_x = $c;
-        }
-
-        if ($c === "\r") {
-            return "\n";
         }
 
         if (is_null($c) || ($c === "\n") || (ord($c) >= self::ORD_SPACE)) {
             return $c;
+        }
+
+        if ($c === "\r") {
+            return "\n";
         }
 
         return ' ';
@@ -217,57 +222,57 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _next()
     {
-
         $c = $this->_get();
 
-        if ($c !== '/') {
-            return $c;
-        }
+        if ($c === '/') {
+            switch ($this->_peek()) {
+            case '/':
+                $comment = '';
 
-        switch ($this->_peek()) {
-        case '/':
-            $comment = '';
-
-            while (true) {
-                $c = $this->_get();
-                $comment .= $c;
-                if (ord($c) <= self::ORD_LF) {
-                    // IE conditional comment
-                    if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
-                        return '/' . $comment;
-                    }
-
-                    return $c;
-                }
-            }
-
-        case '*':
-            $comment = '';
-            $this->_get();
-
-            while (true) {
-                $get = $this->_get();
-                switch ($get) {
-                case '*':
-                    if ($this->_peek() === '/') {
-                        $this->_get();
-
+                while (true) {
+                    $c = $this->_get();
+                    $comment .= $c;
+                    if (ord($c) <= self::ORD_LF) {
                         // IE conditional comment
-                        if (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
-                            return '/*' . $comment . '*/';
+                        if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
+                            return '/' . $comment;
                         }
-
-                        return ' ';
+                        break;
                     }
-                    break;
-
-                case null:
-                    throw new Exception('Unterminated comment.');
                 }
+                break;
 
-                $comment .= $get;
+            case '*':
+                $comment = '';
+                $this->_get();
+
+                while ($c != ' ') {
+                    switch ($get = $this->_get()) {
+                    case '*':
+                        if ($this->_peek() === '/') {
+                            $this->_get();
+
+                            // IE conditional comment
+                            if (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
+                                return '/*' . $comment . '*/';
+                            }
+
+                            $c = ' ';
+                        }
+                        break;
+
+                    case null:
+                        throw new Exception('Unterminated comment.');
+                    }
+
+                    $comment .= $get;
+                }
+                break;
             }
         }
+
+        $this->_y = $this->_x;
+        $this->_x = $c;
 
         return $c;
     }

@@ -31,6 +31,7 @@ class Ansel_Tile_Gallery
     {
         global $prefs, $registry, $injector;
 
+        // Create view
         $view = $injector->createInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/tile');
         $view->gallery = $gallery;
@@ -45,11 +46,33 @@ class Ansel_Tile_Gallery
             $showOwner = false;
         }
 
-        // Check gallery permissions and get appropriate tile image
-        if ($gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
-            if (is_null($style)) {
-                $style = $gallery->getStyle();
-            }
+        // Use the galleries style if not explicitly passed.
+        if (is_null($style)) {
+            $style = $gallery->getStyle();
+        }
+
+        // If the gallery has subgalleries, and no images, use one of the
+        // subgalleries' stack image. hasSubGalleries already takes
+        // permissions into account.
+        if ($gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) &&
+            !$gallery->countImages() && $gallery->hasSubGalleries()) {
+
+            try {
+                $galleries = $injector
+                    ->getInstance('Ansel_Storage')
+                    ->listGalleries(array('parent' => $gallery->id, 'all_levels' => false, 'perm' => Horde_Perms::READ));
+
+                foreach ($galleries as $sgallery) {
+                    if ($default_img = $sgallery->getKeyImage($style)) {
+                        $view->gallery_image = Ansel::getImageUrl(
+                            $default_img, ($mini ? 'mini' : 'thumb'), true, $style);
+                    }
+                }
+            } catch (Ansel_Exception $e) {}
+
+        } elseif ($gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) &&
+                  $gallery->countImages()) {
+
             $thumbstyle = $mini ? 'mini' : 'thumb';
             if ($gallery->hasPasswd()) {
                 $view->gallery_image = Horde_Themes::img('gallery-locked.png');
@@ -60,8 +83,12 @@ class Ansel_Tile_Gallery
                     true,
                     $style);
             }
-        } else {
-            $gallery_image = Horde_Themes::img('thumb-error.png');
+
+        }
+
+        // If no image at this point, we can't get one.
+        if (empty($view->gallery_image)) {
+            $view->gallery_image = Horde_Themes::img('thumb-error.png');
         }
 
         // Check for being called via the api and generate correct view links

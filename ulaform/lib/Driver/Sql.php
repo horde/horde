@@ -80,7 +80,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         } else {
             $sql = 'UPDATE ulaform_forms SET user_uid = ?, form_name = ?, form_action = ?, form_params = ?, form_onsubmit = ? WHERE form_id = ?';
             try {
-                $this->_db->execute($sql, $values);
+                $this->_db->update($sql, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ulaform_Exception($e->getMessage());
             }
@@ -140,14 +140,14 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         if (empty($info['field_id'])) {
             $sql = 'INSERT INTO ulaform_fields (form_id, field_name, field_label, field_type, field_params, field_required, field_readonly, field_desc, field_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
             try {
-                $this->_db->execute($sql, $values);
+                $this->_db->insert($sql, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ulaform_Exception($e->getMessage());
             }
         } else {
             $sql = 'UPDATE ulaform_fields SET form_id = ?, field_name = ?, field_label = ?, field_type = ?, field_params = ?, field_required = ?, field_readonly = ?, field_desc = ?, field_order = ? WHERE field_id = ?';
             try {
-                $this->_db->execute($sql, $values);
+                $this->_db->update($sql, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ulaform_Exception($e->getMessage());
             }
@@ -177,7 +177,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
                    SET field_order = ?
                    WHERE field_id = ?';
             try {
-                $this->_db->execute($sql, array((int)$field_order, (int)$field_id));
+                $this->_db->update($sql, array((int)$field_order, (int)$field_id));
             } catch (Horde_Db_Exception $e) {
                 throw new Ulaform_Exception($e->getMessage());
             }
@@ -327,7 +327,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         /* Delete the form. */
         $sql = 'DELETE FROM ulaform_forms WHERE form_id = ?';
         try {
-            $this->_db->execute($sql, array((int)$form_id));
+            $this->_db->delete($sql, array((int)$form_id));
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }
@@ -335,7 +335,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         /* Delete the fields for this form. */
         $sql = 'DELETE FROM ulaform_fields WHERE form_id = ?';
         try {
-            $this->_db->execute($sql, array((int)$form_id));
+            $this->_db->delete($sql, array((int)$form_id));
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }
@@ -356,7 +356,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         /* Delete the field. */
         $sql = 'DELETE FROM ulaform_fields WHERE field_id = ?';
         try {
-            $this->_db->execute($sql, array((int)$field_id));
+            $this->_db->delete($sql, array((int)$field_id));
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }

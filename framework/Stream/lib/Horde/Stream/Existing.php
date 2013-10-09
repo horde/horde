@@ -1,19 +1,27 @@
 <?php
 /**
- * Implementation of Horde_Stream for an existing stream resource. This
- * resource will be directly modified when manipulating using this class.
- *
- * @since 1.2.0
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Stream
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Stream
+ */
+
+/**
+ * Implementation of Horde_Stream for an existing stream resource. This
+ * resource will be directly modified when manipulating using this class.
+ *
+ * @since 1.2.0
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Stream
  */
 class Horde_Stream_Existing extends Horde_Stream
 {

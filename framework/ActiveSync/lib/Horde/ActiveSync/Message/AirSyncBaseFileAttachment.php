@@ -77,8 +77,7 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
 
     /**
      * Checks if the data needs to be encoded like e.g., when outputing binary
-     * data in-line during ITEMOPERATIONS requests. Concrete classes should
-     * override this if needed.
+     * data in-line during ITEMOPERATIONS requests.
      *
      * @param mixed  $data  The data to check. A string or stream resource.
      * @param string $tag   The tag we are outputing.
@@ -90,7 +89,7 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
     {
         if ($tag == Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA) {
             if (is_resource($data)) {
-                stream_filter_append($data, 'convert.base64-encode');
+                stream_filter_append($data, 'convert.base64-encode', STREAM_FILTER_READ);
             } else {
                 $data = base64_encode($data);
             }

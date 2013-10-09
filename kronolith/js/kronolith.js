@@ -1194,7 +1194,7 @@ KronolithCore = {
             break;
         }
 
-        if ($w('tasklists remote external holiday').include(type)) {
+        if ($w('tasklists remote external holiday resource').include(type)) {
             calendar = type + '_' + calendar;
         }
         HordeCore.doAction('saveCalPref', { toggle_calendar: calendar });
@@ -6585,7 +6585,13 @@ KronolithCore = {
         }
 
         /* Start polling. */
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
+        new PeriodicalExecuter(function()
+            {
+                HordeCore.doAction('poll');
+                $(kronolithGotoToday).update(Date.today().toString(Kronolith.conf.date_format));
+            },
+            60
+        );
     }
 
 };

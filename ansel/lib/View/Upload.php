@@ -522,7 +522,7 @@ EOT;
             try {
                 $zip = Horde_Compress::factory('zip');
                 $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
-            } catch (Horde_Exception $e) {
+            } catch (Horde_Compress_Exception $e) {
                 throw new Ansel_Exception($e);
                 continue;
             }
@@ -541,7 +541,7 @@ EOT;
                             'action' => Horde_Compress_Zip::ZIP_DATA,
                             'info' => $files,
                             'key' => $key));
-                } catch (Horde_Exception $e) {
+                } catch (Horde_Compress_Exception $e) {
                     throw new Ansel_Exception($e);
                 }
 

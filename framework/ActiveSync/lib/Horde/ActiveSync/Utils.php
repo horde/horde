@@ -25,7 +25,6 @@
  */
 class Horde_ActiveSync_Utils
 {
-
     /**
      * Decode a base64 encoded URI
      *
@@ -35,63 +34,101 @@ class Horde_ActiveSync_Utils
      */
     static public function decodeBase64($uri)
     {
-        $uri = base64_decode($uri);
-        $lenDevID = ord($uri{4});
-        $lenPolKey = ord($uri{4 + (1 + $lenDevID)});
-        $lenDevType = ord($uri{4 + (1 + $lenDevID) + (1 + $lenPolKey)});
-        $arr_ret = unpack(
-            'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
-                . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
-                . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
+        $commandMap = array(
+                0  => 'Sync',
+                1  => 'SendMail',
+                2  => 'SmartForward',
+                3  => 'SmartReply',
+                4  => 'GetAttachment',
+                9  => 'FolderSync',
+                10 => 'FolderCreate',
+                11 => 'FolderDelete',
+                12 => 'FolderUpdate',
+                13 => 'MoveItems',
+                14 => 'GetItemEstimate',
+                15 => 'MeetingResponse',
+                16 => 'Search',
+                17 => 'Settings',
+                18 => 'Ping',
+                19 => 'ItemOperations',
+                20 => 'Provision',
+                21 => 'ResolveRecipients',
+                22 => 'ValidateCert'
+            );
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, base64_decode($uri));
+        rewind($stream);
+        $results = array();
+        // Version, command, locale
+        $data = unpack('CprotocolVersion/Ccommand/vlocale', fread($stream, 4));
+        $results['ProtVer'] = substr($data['protocolVersion'], 0, -1) . '.' . substr($data['protocolVersion'], -1);
+        $results['Cmd'] = $commandMap[$data['command']];
+        $results['Locale'] = $data['locale'];
 
-        // Long integers might overflow on 32bit systems.
-        if ($arr_ret['PolKeyLen'] > 0 && $arr_ret['PolKey'] < 0) {
-            $arr_ret['PolKey'] += pow(2, 32);
-        } elseif ($arr_ret['PolKeyLen'] == 0) {
-            $arr_ret['PolKey'] = 0;
+        // deviceId
+        $length = ord(fread($stream, 1));
+        if ($length > 0) {
+            $data = fread($stream, $length);
+            $data = unpack('H' . ($length * 2) . 'DevID', $data);
+            $results['DeviceId'] = $data['DevID'];
         }
-        $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
-        $uri = substr($uri, $pos);
-        while (strlen($uri) > 0) {
-            $lenToken = ord($uri{1});
-            switch (ord($uri{0})) {
+
+        // policyKey
+        $length = ord(fread($stream, 1));
+        if ($length > 0) {
+            $data  = unpack('VpolicyKey', fread($stream, $length));
+            $results['PolicyKey'] = $data['policyKey'];
+        }
+
+        // deviceType
+        $length = ord(fread($stream, 1));
+        if ($length > 0) {
+            $data  = unpack('A' . $length . 'devType', fread($stream, $length));
+            $results['DeviceType'] = $data['devType'];
+        }
+
+        // Remaining properties
+        while (!feof($stream)) {
+            $tag = ord(fread($stream, 1));
+            $length = ord(fread($stream, 1));
+            switch ($tag) {
             case 0:
-                $type = 'AttachmentName';
+                $data = unpack('A' . $length . 'AttName', fread($stream, $length));
+                $results['AttachmentName'] = $data['AttName'];
                 break;
             case 1:
-                $type = 'CollectionId';
-                break;
-            case 2:
-                $type = 'CollectionName';
+                $data = unpack('A' . $length . 'CollId', fread($stream, $length));
+                $results['CollectionId'] = $data['CollId'];
                 break;
             case 3:
-                $type = 'ItemId';
+                $data = unpack('A' . $length . 'ItemId', fread($stream, $length));
+                $results['ItemId'] = $data['ItemId'];
                 break;
             case 4:
-                $type = 'LongId';
+                $data = unpack('A' . $length . 'Lid', fread($stream, $length));
+                $results['LongId'] = $data['Lid'];
                 break;
             case 5:
-                $type = 'ParentId';
+                $data = unpack('A' . $length . 'Pid', fread($stream, $length));
+                $results['ParentId'] = $data['Pid'];
                 break;
             case 6:
-                $type = 'Occurrence';
+                $data = unpack('A' . $length . 'Oc', fread($stream, $length));
+                $results['Occurrence'] = $data['Oc'];
                 break;
             case 7:
-                $type = 'Options';
+                $options = ord(fread($stream, 1));
+                $results['SaveInSent'] = !!($options & 0x01);
+                $results['AcceptMultiPart'] = !!($options & 0x02);
                 break;
             case 8:
-                $type = 'User';
-                break;
-            default:
-                $type = 'unknown' . ord($uri{0});
+                $data = unpack('A' . $length . 'User', fread($stream, $length));
+                $results['User'] = $data['User'];
                 break;
             }
-            $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
-            $arr_ret[$type] = $value['Value'];
-            $pos = 2 + $lenToken;
-            $uri = substr($uri, $pos);
         }
-        return $arr_ret;
+
+        return $results;
     }
 
     /**

@@ -107,4 +107,14 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInboxCaseInsensitive()
+    {
+        $mailbox = new Horde_Imap_Client_Mailbox('inbox');
+
+        $this->assertEquals(
+            'INBOX',
+            $mailbox
+        );
+    }
+
 }

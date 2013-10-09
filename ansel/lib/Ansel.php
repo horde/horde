@@ -912,4 +912,24 @@ class Ansel
         return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
+    /**
+     * Send appropriate headers for sendfile support based on server.
+     *
+     * @param string $filename  The full file path of the file to send.
+     * @param string $type      The MIME type of the file.
+     */
+    static public function doSendfile($filename, $type)
+    {
+        header('Content-Type: ' . $type);
+        if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false) {
+            header('x-accel-redirect: /x-sendfile' . $filename);
+        } elseif (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) {
+            // Different lightty versions support different headers.
+            header('X-LIGHTTPD-send-file: ' . $filename);
+            header('X-Sendfile: ' . $filename);
+        } else {
+            header('X-Sendfile: ' . $filename);
+        }
+    }
+
 }

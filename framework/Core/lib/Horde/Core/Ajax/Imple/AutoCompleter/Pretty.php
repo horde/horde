@@ -57,10 +57,10 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Pretty extends Horde_Core_Ajax_Imple_A
     {
         $dom_id = $ac->getDomId();
 
-        if (!isset($this->params->trigger)) {
+        if (!isset($this->params['trigger'])) {
             $this->params['trigger'] = $dom_id;
         }
-        if (!isset($this->params->uri)) {
+        if (!isset($this->params['uri'])) {
             $this->params['uri'] = strval($ac->getImpleUrl()->setRaw(true));
         }
 

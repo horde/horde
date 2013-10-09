@@ -653,7 +653,10 @@ Object.extend(String.prototype, (function() {
         var key = decodeURIComponent(pair.shift()),
             value = pair.length > 1 ? pair.join('=') : pair[0];
 
-        if (value != undefined) value = decodeURIComponent(value);
+        if (value != undefined) {
+          value = value.gsub('+', ' ');
+          value = decodeURIComponent(value);
+        }
 
         if (key in hash) {
           if (!Object.isArray(hash[key])) hash[key] = [hash[key]];
@@ -747,12 +750,17 @@ Object.extend(String.prototype, (function() {
     return this.indexOf(pattern) > -1;
   }
 
-  function startsWith(pattern) {
-    return this.lastIndexOf(pattern, 0) === 0;
+  function startsWith(pattern, position) {
+    position = Object.isNumber(position) ? position : 0;
+    return this.lastIndexOf(pattern, position) === position;
   }
 
-  function endsWith(pattern) {
-    var d = this.length - pattern.length;
+  function endsWith(pattern, position) {
+    pattern = String(pattern);
+    position = Object.isNumber(position) ? position : this.length;
+    if (position < 0) position = 0;
+    if (position > this.length) position = this.length;
+    var d = position - pattern.length;
     return d >= 0 && this.indexOf(pattern, d) === d;
   }
 
@@ -794,8 +802,8 @@ Object.extend(String.prototype, (function() {
     isJSON:         isJSON,
     evalJSON:       NATIVE_JSON_PARSE_SUPPORT ? parseJSON : evalJSON,
     include:        include,
-    startsWith:     startsWith,
-    endsWith:       endsWith,
+    startsWith:     String.prototype.startsWith || startsWith,
+    endsWith:       String.prototype.endsWith || endsWith,
     empty:          empty,
     blank:          blank,
     interpolate:    interpolate
@@ -1104,7 +1112,7 @@ Array.from = $A;
 (function() {
   var arrayProto = Array.prototype,
       slice = arrayProto.slice,
-      _each = Prototype.Browser.IE ? null : arrayProto.forEach; // use native browser JS 1.6 implementation if available
+      _each = arrayProto.forEach; // use native browser JS 1.6 implementation if available
 
   function each(iterator, context) {
     for (var i = 0, length = this.length >>> 0; i < length; i++) {
@@ -1780,7 +1788,8 @@ Ajax.Request = Class.create(Ajax.Base, {
     }
 
     for (var name in headers)
-      this.transport.setRequestHeader(name, headers[name]);
+      if (headers[name] != null)
+        this.transport.setRequestHeader(name, headers[name]);
   },
 
   success: function() {
@@ -2759,9 +2768,9 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   var PROBLEMATIC_ATTRIBUTE_READING = (function() {
-    DIV.setAttribute('onclick', Prototype.emptyFunction);
+    DIV.setAttribute('onclick', []);
     var value = DIV.getAttribute('onclick');
-    var isFunction = (typeof value === 'function');
+    var isFunction = Object.isArray(value);
     DIV.removeAttribute('onclick');
     return isFunction;
   })();
@@ -3161,7 +3170,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
     var filter = Element.getStyle(element, 'filter');
     if (filter.length === 0) return 1.0;
     var match = (filter || '').match(/alpha\(opacity=(.*)\)/);
-    if (match[1]) return parseFloat(match[1]) / 100;
+    if (match && match[1]) return parseFloat(match[1]) / 100;
     return 1.0;
   }
 
@@ -4078,7 +4087,8 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   function viewportOffset(forElement) {
     var valueT = 0, valueL = 0, docBody = document.body;
 
-    var element = $(forElement);
+    forElement = $(forElement);
+    var element = forElement;
     do {
       valueT += element.offsetTop  || 0;
       valueL += element.offsetLeft || 0;

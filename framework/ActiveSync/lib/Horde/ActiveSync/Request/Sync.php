@@ -416,9 +416,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 !empty($collection['fetchids']) ||
                 $this->_collections->hasPingChangeFlag($id))) {
 
-                // Increment the loop detection counter.
-                $this->_collections->incrementLoopCounter($id, $collection['synckey']);
-
                 try {
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
                     $this->_logger->info(sprintf(
@@ -783,9 +780,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_collections->addCollection($collection);
             if (!empty($collection['importedchanges'])) {
                 $this->_collections->importedChanges = true;
-            }
-            if ($collection['fetchids']) {
-                $this->_fetchids = true;
             }
             if ($this->_collections->collectionExists($collection['id']) && !empty($collection['windowsize'])) {
                 $this->_collections->updateWindowSize($collection['id'], $collection['windowsize']);

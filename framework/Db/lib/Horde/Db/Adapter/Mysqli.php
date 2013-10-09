@@ -26,12 +26,6 @@
 class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
 {
     /**
-     * Mysqli database connection object.
-     * @var mysqli
-     */
-    protected $_connection = null;
-
-    /**
      * Last auto-generated insert_id
      * @var integer
      */
@@ -206,7 +200,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @return  array
+     * @return  Horde_Db_Adapter_Mysqli_Result
      */
     public function select($sql, $arg1=null, $arg2=null)
     {
@@ -291,9 +285,16 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     /**
      * Executes the SQL statement in the context of this connection.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     * @deprecated  Deprecated for external usage. Use select() instead.
+     *
+     * @param string $sql   SQL statement.
+     * @param mixed $arg1   Either an array of bound parameters or a query
+     *                      name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query
+     *                      name.
+     *
+     * @return mysqli_result
+     * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1=null, $arg2=null)
     {
@@ -310,8 +311,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $this->_lastQuery = $sql;
         $stmt = $this->_connection->query($sql);
         if (!$stmt) {
-            $this->_logInfo($sql, 'QUERY FAILED: ' . $this->_connection->error);
             $this->_logInfo($sql, $name);
+            $this->_logError($sql, 'QUERY FAILED: ' . $this->_connection->error);
             throw new Horde_Db_Exception('QUERY FAILED: ' . $this->_connection->error . "\n\n" . $sql,
                                          $this->_errorCode($this->_connection->sqlstate, $this->_connection->errno));
         }
@@ -355,8 +356,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function commitDbTransaction()
     {
-        parent::commitDbTransaction();
+        $this->_transactionStarted--;
         if (!$this->_transactionStarted) {
+            $this->_connection->commit();
             $this->_connection->autocommit(true);
         }
     }
@@ -367,10 +369,13 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function rollbackDbTransaction()
     {
-        parent::rollbackDbTransaction();
         if (!$this->_transactionStarted) {
-            $this->_connection->autocommit(true);
+            return;
         }
+
+        $this->_connection->rollback();
+        $this->_transactionStarted = 0;
+        $this->_connection->autocommit(true);
     }
 
 

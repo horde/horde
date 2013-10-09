@@ -86,7 +86,7 @@ class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage_Base
     }
 
     /**
-     * Set expire time on each call since memcache sets it on cache creation.
+     * Set expire time on each call since xcache sets it on cache creation.
      *
      * @param string $key        Cache key to expire.
      * @param integer $lifetime  Lifetime of the data in seconds.
@@ -97,7 +97,6 @@ class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage_Base
             // don't expire
             return;
         }
-        $key = $this->_params['prefix'] . $key;
         $expire = xcache_get($key . '_expire');
 
         // set prune period

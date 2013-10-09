@@ -13,8 +13,8 @@
  <date>2013-08-05</date>
  <time>06:02:57</time>
  <version>
-  <release>1.3.1</release>
-  <api>1.3.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,20 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Stream#substring().
+* [mms] Fix getString() in certain use cases.
+* [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
+* [mms] Horde_Stream#search() now supports multiple characters in search string.
+* [mms] Add ability to get UTF-8 character length of stream from Horde_Stream#length().
+* [mms] Add length argument to peek().
+* [mms] Add Horde_Stream#close().
+* [mms] Add support for parsing UTF-8 characters in stream via Horde_Stream#getChar().
+* [mms] Add Horde_Stream#eof().
+* [mms] Add Horde_Stream#end().
+* [mms] Add Horde_Stream#seek().
+* [mms] Add Horde_Stream#rewind().
+* [mms] Add Horde_Stream#pos().
+* [mms] Add Horde_Stream#__destruct().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -186,15 +199,28 @@
   </release>
   <release>
    <version>
-    <release>1.3.1</release>
-    <api>1.3.0</api></version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Stream#substring().
+* [mms] Fix getString() in certain use cases.
+* [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
+* [mms] Horde_Stream#search() now supports multiple characters in search string.
+* [mms] Add ability to get UTF-8 character length of stream from Horde_Stream#length().
+* [mms] Add length argument to peek().
+* [mms] Add Horde_Stream#close().
+* [mms] Add support for parsing UTF-8 characters in stream via Horde_Stream#getChar().
+* [mms] Add Horde_Stream#eof().
+* [mms] Add Horde_Stream#end().
+* [mms] Add Horde_Stream#seek().
+* [mms] Add Horde_Stream#rewind().
+* [mms] Add Horde_Stream#pos().
+* [mms] Add Horde_Stream#__destruct().
    </notes>
   </release>
  </changelog>

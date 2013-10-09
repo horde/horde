@@ -31,7 +31,7 @@ class Horde_View_Topbar extends Horde_View
      */
     public function __construct($config = array())
     {
-        global $registry;
+        global $injector, $prefs, $registry, $session;
 
         if (empty($config['templatePath'])) {
             $config['templatePath'] = $registry->get('templates', 'horde') . '/topbar';
@@ -49,7 +49,7 @@ class Horde_View_Topbar extends Horde_View
         }
 
         /* Main menu. */
-        $this->menu = $GLOBALS['injector']
+        $this->menu = $injector
             ->getInstance('Horde_Core_Factory_Topbar')
             ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
             ->getTree();
@@ -82,25 +82,25 @@ class Horde_View_Topbar extends Horde_View
         }
 
         /* Sub bar. */
-        $this->date = strftime($GLOBALS['prefs']->getValue('date_format'));
-        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $this->date = strftime($prefs->getValue('date_format'));
+        $pageOutput = $injector->getInstance('Horde_PageOutput');
         $pageOutput->addScriptPackage('Datejs');
         $pageOutput->addScriptFile('topbar.js', 'horde');
         $pageOutput->addInlineJsVars(array('HordeTopbar.conf' => array(
             'URI_AJAX' =>
                 $registry->getServiceLink('ajax', 'horde')->url,
             'SID' => SID,
-            'TOKEN' => $GLOBALS['session']->getToken(),
+            'TOKEN' => $session->getToken(),
             'app' => $registry->getApp(),
             'format' =>
                 Horde_Core_Script_Package_Datejs::translateFormat(
-                    $GLOBALS['prefs']->getValue('date_format')),
+                    $prefs->getValue('date_format')),
             'refresh' =>
-                (int)$GLOBALS['prefs']->getValue('menu_refresh_time'),
+                (int)$prefs->getValue('menu_refresh_time'),
         )));
 
         /* Sidebar. */
-        $this->sidebarWidth = $GLOBALS['prefs']->getValue('sidebar_width');
+        $this->sidebarWidth = $prefs->getValue('sidebar_width');
     }
 
     /**

@@ -199,7 +199,7 @@
         </para>
         <heading>S/MIME Encrypt Message</heading>
         <para>
-            This option will encrypt the current message, using S/MIME and the recipients certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
+            This option will encrypt the current message, using S/MIME and the recipient's certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
         </para>
         <heading>S/MIME Sign Message</heading>
         <para>
@@ -359,7 +359,7 @@
         <title>S/MIME: Overview</title>
         <heading>What is S/MIME?</heading>
         <para>
-            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in a open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
+            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in an open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
         </para>
         <heading>Enable S/MIME functionality?</heading>
         <para>
@@ -403,7 +403,7 @@
         </para>
         <heading>Delete</heading>
         <para>
-            Deletes the selected public key from storage.  Deleting a public key for a user will prevent your from encrypting a message to that user.
+            Deletes the selected public key from storage.  Deleting a public key for a user will prevent you from encrypting a message to that user.
         </para>
     </entry>
 
@@ -562,7 +562,7 @@
             1. Do nothing. The message will be reported as spam but will otherwise remain unchanged in your mailbox.
         </para>
         <para>
-            2. If reporting a message as spam, you can instead have the message be immediately deleted.
+            2. If reporting a message as spam, the message will be immediately deleted.
         </para>
         <para>
             3. After reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.

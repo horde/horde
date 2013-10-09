@@ -294,9 +294,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'addAttachment':
-                this.uploading = false;
-                $('upload_wait').hide();
-                this.initAttachList();
+                this._addAttachmentEnd();
                 break;
             }
         } else {
@@ -769,6 +767,13 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
+    _addAttachmentEnd: function()
+    {
+        this.uploading = false;
+        $('upload_wait').hide();
+        this.initAttachList();
+    },
+
     resizeMsgArea: function(e)
     {
         if (!document.loaded || $('dimpLoading').visible()) {
@@ -956,7 +961,7 @@ var DimpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (elt.match('TD.label SPAN')) {
+            if (DimpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
@@ -1025,7 +1030,7 @@ var DimpCompose = {
                 tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
-                e.stop();
+                e.memo.stop();
             }
             break;
         }
@@ -1203,7 +1208,8 @@ var DimpCompose = {
                 }
             }.bindAsEventListener(this));
             DragHandler.dropelt = $('atcdrop');
-            DragHandler.droptarget = $('atctd');
+            DragHandler.droptarget = $('atcdiv');
+            DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });
@@ -1300,6 +1306,13 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
+}.bindAsEventListener(DimpCompose));
+
+/* AJAX related events. */
+document.observe('HordeCore:ajaxFailure', function(e) {
+    if (this.uploading) {
+        this._addAttachmentEnd();
+    }
 }.bindAsEventListener(DimpCompose));
 
 

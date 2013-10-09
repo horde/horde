@@ -73,6 +73,7 @@ div.partsTreeDiv span span:last-child {
 }
 .searchElement input.checkbox {
     margin-right: 3px;
+    vertical-align: sub;
 }
 
 #search_label, #search_type {

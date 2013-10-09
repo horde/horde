@@ -28,10 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-04</date>
- <time>10:49:14</time>
+ <date>2013-10-08</date>
  <version>
-  <release>2.9.0</release>
+  <release>2.9.1</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -40,9 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mjr] Support for X509 certificate authentication in ActiveSync requests.
-* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+* [mms] Add ability to expire CSS cache based on file modification time.
+* [mms] Allow disabling VFS via the configuration interface.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -101,6 +99,13 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
+    <dir name="excanvas">
+     <file name="excanvas.js" role="horde" />
+     <file name="excanvas.min.js" role="horde" />
+    </dir> <!-- /js/excanvas -->
+    <dir name="flotr2">
+     <file name="flotr2.js" role="horde" />
+    </dir> <!-- /js/flotr2 -->
     <dir name="jquery.mobile">
      <dir name="images">
       <file name="ajax-loader.gif" role="horde" />
@@ -971,7 +976,7 @@
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1211,7 +1216,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.4.0</min>
+    <min>2.8.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1514,6 +1519,9 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/excanvas/excanvas.js" name="js/excanvas/excanvas.js" />
+   <install as="js/excanvas/excanvas.min.js" name="js/excanvas/excanvas.min.js" />
+   <install as="js/flotr2/flotr2.js" name="js/flotr2/flotr2.js" />
    <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
    <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
    <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
@@ -3148,12 +3156,31 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-04</date>
+   <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12738).
+* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
+* [mms] Cache permission results within a PHP access.
+* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
+* [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add ability to expire CSS cache based on file modification time.
+* [mms] Allow disabling VFS via the configuration interface.
    </notes>
   </release>
  </changelog>

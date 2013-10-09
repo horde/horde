@@ -149,7 +149,8 @@ $_prefs['comment_sort_dir'] = array(
 // address book selection widget
 $_prefs['sourceselect'] = array(
     'type' => 'special',
-    'requires_nolock' => array('search_sources')
+    'requires_nolock' => array('search_sources'),
+    'handler' => 'Whups_Prefs_Special_Sourceselect'
 );
 
 // Address book(s) to use when expanding addresses

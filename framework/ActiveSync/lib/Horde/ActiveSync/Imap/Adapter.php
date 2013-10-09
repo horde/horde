@@ -243,10 +243,7 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a list of messages from the specified mailbox. If CONDSTORE is NOT
-     * available, or if CONDSTORE IS available, but this is the first request
-     * then the entire message list is returned. Otherwise, only changes since
-     * the last MODSEQ value are taken into consideration.
+     * Return message changes from the specified mailbox.
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      * @param array $options                        Additional options:
@@ -254,6 +251,8 @@ class Horde_ActiveSync_Imap_Adapter
      *               DEFAULT: 0 (Don't filter).
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
+     *  - softdelete: (boolean)  If true, calculate SOFTDELETE data.
+     *                           @since 2.8.0
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -340,6 +339,30 @@ class Horde_ActiveSync_Imap_Adapter
                 throw new Horde_ActiveSync_Exception($e);
             }
             $folder->setRemoved($deleted->ids);
+
+            if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
+                $this->_logger->info(sprintf(
+                    '[%s] Polling for SOFTDELETE in %s before %d',
+                    getmypid(), $folder->serverid(), $options['sincedate']));
+
+                $query = new Horde_Imap_Client_Search_Query();
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_BEFORE);
+                $query->ids(new Horde_Imap_Client_Ids($folder->messages()));
+                $search_ret = $imap->search(
+                    $mbox,
+                    $query,
+                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+                if ($search_ret['count']) {
+                    $this->_logger->info(sprintf('Found %d messages to SOFTDELETE.', count($search_ret['match']->ids)));
+                    $folder->setSoftDeleted($search_ret['match']->ids);
+                } else {
+                     $this->_logger->info('Found NO messages to SOFTDELETE.');
+                }
+                $folder->setSoftDeleteTimes($options['sincedate'], time());
+            }
+
         } elseif ($folder->uidnext() == 0) {
             $this->_logger->info('INITIAL SYNC');
             $query = new Horde_Imap_Client_Search_Query();
@@ -352,7 +375,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $mbox,
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-
+            // @todo change to $search_ret['count'] when Bug: 12682 is fixed
             if ($modseq && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
                 $folder->setChanges($search_ret['match']->ids, array());
             } elseif (count($search_ret['match']->ids)) {
@@ -827,10 +850,14 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->displayto = $eas_message->to;
         }
 
+        // Ensure we don't send broken UTF8 data to the client. It makes clients
+        // angry. And we don't like angry clients.
+        $hdr_charset = $imap_message->getStructure()->getHeaderCharset();
+
         // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
-        $eas_message->subject = $imap_message->getSubject();
-        $eas_message->threadtopic = $imap_message->getSubject();
+        $eas_message->subject = $this->_validateUtf8($imap_message->getSubject(), $hdr_charset);
+        $eas_message->threadtopic = $eas_message->subject;
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
@@ -888,6 +915,9 @@ class Horde_ActiveSync_Imap_Adapter
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
 
+                    // We will need the eol filter to work around PHP bug 65776.
+                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
                     // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
@@ -896,7 +926,13 @@ class Horde_ActiveSync_Imap_Adapter
                             $message_body_data['plain']['body'],
                             $message_body_data['plain']['charset']
                         );
-                        $plain_mime->setContents($message_body_data['plain']['body']);
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['plain']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $plain_mime->setContents($stream->stream);
+                        fclose($stream->stream);
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -909,7 +945,13 @@ class Horde_ActiveSync_Imap_Adapter
                             $message_body_data['html']['body'],
                             $message_body_data['html']['charset']
                         );
-                        $html_mime->setContents($message_body_data['html']['body']);
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['html']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $html_mime->setContents($stream->stream);
+                        fclose($stream->stream);
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }

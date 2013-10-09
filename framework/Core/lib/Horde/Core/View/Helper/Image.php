@@ -1,6 +1,6 @@
 <?php
 /**
- * View helper class to allow access to the Horde::img() method.
+ * View helper class to allow access to the Horde_Themes_Image::tag() method.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -15,13 +15,16 @@
 class Horde_Core_View_Helper_Image extends Horde_View_Helper_Base
 {
     /**
-     * Wrapper around the Horde::img() method.
+     * Wrapper around the Horde_Themes_Image::tag() method.
      *
-     * @see Horde::img()
+     * @see Horde_Themes_Image::tag()
      */
     public function hordeImage($src, $alt = '', $attr = '')
     {
-        return Horde::img($src, $alt, $attr);
+        return Horde_Themes_Image::tag($src, array(
+            'alt' => $alt,
+            'attr' => $attr
+        ));
     }
 
 }

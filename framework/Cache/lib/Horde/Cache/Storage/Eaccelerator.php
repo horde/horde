@@ -100,7 +100,6 @@ class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
             return;
         }
 
-        $key = $this->_params['prefix'] . $key;
         $expire = eaccelerator_get($key . '_expire');
 
         // Set prune period.

@@ -10,11 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-02</date>
- <time>18:50:01</time>
+ <date>2013-10-08</date>
  <version>
-  <release>2.7.3</release>
-  <api>2.7.0</api>
+  <release>2.8.4</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -201,6 +200,7 @@
       <file name="17_horde_activesync_clearallstate.php" role="data" />
       <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
       <file name="19_horde_activesync_addtimestamp.php" role="data" />
+      <file name="20_horde_activesync_removesynccounters.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -231,6 +231,7 @@
       </dir> <!-- /test/Horde/ActiveSync/StateTest -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
+      <file name="AutodiscoverTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
@@ -285,6 +286,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Stream</name>
+    <channel>pear.horde.org</channel>
+    <min>1.3.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -310,7 +318,7 @@
    <package>
      <name>Horde_Imap_Client</name>
      <channel>pear.horde.org</channel>
-     <min>2.14.0</min>
+     <min>2.15.1</min>
      <max>3.0.0alpha1</max>
      <exclude>3.0.0alpha1</exclude>
    </package>
@@ -449,8 +457,10 @@
    <install as="migration/17_horde_activesync_clearallstate.php" name="migration/Horde/ActiveSync/17_horde_activesync_clearallstate.php" />
    <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
    <install as="migration/19_horde_activesync_addtimestamp.php" name="migration/Horde/ActiveSync/19_horde_activesync_addtimestamp.php" />
+   <install as="migration/20_horde_activesync_removesynccounters.php" name="migration/Horde/ActiveSync/20_horde_activesync_removesynccounters.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
+   <install as="Horde/ActiveSync/AutodiscoverTest.php" name="test/Horde/ActiveSync/AutodiscoverTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
@@ -1679,7 +1689,78 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-02</date>
+   <date>2013-09-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix possible infinite loop when a requested message is not found on the serer during a SYNC request.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Remove loop counter code that was incorrectly growing sync_cache data (Bug #12707).
+* [mjr] Ignore incoming SMS delete command. Prevents breaking sync on clients that send SMS data, even though we do not return it as an available collection.
+* [mjr] Prevent sending invalid UTF-8 data in the Subject header, which could break sync in some clients.
+* [mjr] Support for SOFTDELETE.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.1</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Work around for PHP bug 65776, preventing segfaults with certain emails.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.2</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Remove dependency on unreleased Horde_Stream code.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.3</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix returning contact image in GAL search for those clients that support it.
+* [mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
+* [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
+* [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.4</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

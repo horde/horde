@@ -185,12 +185,17 @@ class Horde_ActiveSync_Connector_Exporter
         } else {
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
+
+                // Ignore this change, no UID value, keep trying until we get a
+                // good entry or we run out of entries.
                 while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
                     $this->_logger->err('Missing UID value for an entry in: ' . $this->_currentCollection['id']);
                     $this->_step++;
                     $change = $this->_changes[$this->_step];
                 }
 
+                // Actually export the change by calling the appropriate
+                // method to output the correct wbxml for this change.
                 if (empty($change['ignore'])) {
                     switch($change['type']) {
                     case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
@@ -204,6 +209,7 @@ class Horde_ActiveSync_Connector_Exporter
                         } catch (Horde_Exception_NotFound $e) {
                             $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
                             $this->_as->state->updateState($change['type'], $change);
+                            $this->_step++;
                             return $e;
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
@@ -212,6 +218,10 @@ class Horde_ActiveSync_Connector_Exporter
 
                     case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                         $this->messageDeletion($change['id']);
+                        break;
+
+                    case Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE:
+                        $this->messageDeletion($change['id'], true);
                         break;
 
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
@@ -306,10 +316,15 @@ class Horde_ActiveSync_Connector_Exporter
      * Stream a message deletion to the PIM
      *
      * @param string $id  The uid of the message we are deleting.
+     * @param boolean $soft  If true, send a SOFTDELETE, otherwise a REMOVE.
      */
-    public function messageDeletion($id)
+    public function messageDeletion($id, $soft = false)
     {
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+        if ($soft) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SOFTDELETE);
+        } else {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+        }
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();

@@ -38,8 +38,14 @@ class IMP_Compose_Ui
     public function attachAutoCompleter($fields)
     {
         /* Attach autocompleters to the compose form elements. */
-        foreach ($fields as $val) {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ContactAutoCompleter', array('id' => $val));
+        if ($GLOBALS['registry']->hasMethod('contacts/search')) {
+            foreach ($fields as $val) {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+                    ->create(
+                        'IMP_Ajax_Imple_ContactAutoCompleter',
+                        array('id' => $val)
+                    );
+            }
         }
     }
 

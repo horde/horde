@@ -389,7 +389,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             try {
                 $imp_compose->redirectMessage($this->indices);
                 $redirect = true;
-                $this->title = ngettext(_("Redirect"), _("Redirect Messages"), count($this->indices));
+                $this->title = ngettext("Redirect", "Redirect Messages", count($this->indices));
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e, 'horde.error');
             }

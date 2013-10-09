@@ -22,14 +22,12 @@ if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
         $image->createView('mini', Ansel::getStyleDefinition('ansel_default'));
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('mini'), $image->getVFSName('mini'));
-    header('Content-Type: ' . $image->getType('mini'));
-    header('X-LIGHTTPD-send-file: ' . $filename);
-    header('X-Sendfile: ' . $filename);
+    Ansel::doSendFile($filename, $image->getType('mini'));
     exit;
 }
 $image->display('mini', Ansel::getStyleDefinition('ansel_default'));

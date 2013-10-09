@@ -1851,7 +1851,7 @@
        </configinteger>
       </configsection>
     </case>
-    <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
+    <case name="Wwo" desc="World Weather Online API. Free, requires registration.">
       <configsection name="params">
         <configstring name="key" desc="API Key. For information on registration
         and obtaining an API key for this driver, see
@@ -2165,17 +2165,17 @@
          <configsection name="hosts">
            <configsection name="imap">
              <configstring name="host" desc="IMAP host" required="false"></configstring>
-             <configinteger name="port" desc="IMAP port" required="fasle"></configinteger>
+             <configinteger name="port" desc="IMAP port" required="false"></configinteger>
              <configboolean name="ssl" desc="Use SSL?" />
            </configsection>
            <configsection name="pop">
              <configstring name="host" desc="POP3 host" required="false"></configstring>
-             <configinteger name="port" desc="POP3 port" required="fasle"></configinteger>
+             <configinteger name="port" desc="POP3 port" required="false"></configinteger>
              <configboolean name="ssl" desc="Use SSL?" />
            </configsection>
            <configsection name="smtp">
-             <configstring name="host" desc="SMTP host" required="false"></configstring>
-             <configinteger name="port" desc="SMTP port" required="fasle"></configinteger>
+             <configstring name="host" desc="SMTP host"></configstring>
+             <configinteger name="port" desc="SMTP port" required="false"></configinteger>
              <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
              <configboolean name="ssl" desc="Use SSL?" />
            </configsection>

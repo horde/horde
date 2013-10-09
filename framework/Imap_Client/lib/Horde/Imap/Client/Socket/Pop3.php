@@ -209,6 +209,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                         Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                     );
                 }
+                $this->_debug->info('Successfully completed TLS negotiation.');
             }
 
             // Expire cached CAPABILITY information
@@ -417,7 +418,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _openMailbox(Horde_Imap_Client_Mailbox $mailbox, $mode)
     {
-        if (strcasecmp($mailbox, 'INBOX') !== 0) {
+        if ($mailbox != 'INBOX') {
             throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
         $this->_changeSelected($mailbox, $mode);
@@ -482,8 +483,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _status($mboxes, $flags)
     {
-        if ((count($mboxes) > 1) ||
-            (strcasecmp(reset($mboxes), 'INBOX') !== 0)) {
+        if ((count($mboxes) > 1) || (reset($mboxes) != 'INBOX')) {
             throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
 
