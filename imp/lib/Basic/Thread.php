@@ -71,6 +71,9 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
 
+        /* Force images to show in HTML data. */
+        $injector->getInstance('IMP_Images')->alwaysShow = true;
+
         foreach ($imp_indices as $ob) {
             $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($ob->uids)
