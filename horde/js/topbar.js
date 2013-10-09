@@ -5,7 +5,6 @@ var HordeTopbar = {
 
     // Vars used and defaulting to null/false:
     //   conf, searchGhost
-    jsfiles: $H(),
 
     /**
      * Updates the date in the sub bar.
@@ -33,14 +32,7 @@ var HordeTopbar = {
     onUpdateTopbar: function(r)
     {
         $('horde-navigation').update();
-
         this._renderTree(r.nodes, r.root_nodes);
-        r.files.each(function(file) {
-            if (!this.jsfiles.get(file)) {
-                $$('head')[0].insert(new Element('script', { src: file }));
-                this.jsfiles.set(file, 1);
-            }
-        }.bind(this));
     },
 
     _renderTree: function(nodes, root_nodes)
