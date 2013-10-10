@@ -30,8 +30,8 @@
  </developer>
  <date>2013-10-08</date>
  <version>
-  <release>2.9.1</release>
-  <api>2.9.0</api>
+  <release>2.10.0</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
 * [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
  </notes>
@@ -3169,14 +3170,15 @@
   </release>
   <release>
    <version>
-    <release>2.9.1</release>
-    <api>2.9.0</api></version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
 * [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
    </notes>

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mms] Improved UI when viewing search results from Advanced Search.
 * [mms] Remove features from UI when VFS is not available or disabled.
 * [mjr] Fix filtering Facebook driver results (Bug #12739).
 * [jan] Gracefully deal with columns removed from the backend.
@@ -1698,6 +1699,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Improved UI when viewing search results from Advanced Search.
 * [mms] Remove features from UI when VFS is not available or disabled.
 * [mjr] Fix filtering Facebook driver results (Bug #12739).
 * [jan] Gracefully deal with columns removed from the backend.

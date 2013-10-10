@@ -2,6 +2,7 @@
 v5.1.5-git
 ----------
 
+[mms] Only update topbar if the underlying tree data has changed.
 
 
 ------

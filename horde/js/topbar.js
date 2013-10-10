@@ -2,6 +2,7 @@
  * Scripts for the Horde topbar.
  */
 var HordeTopbar = {
+
     // Vars used and defaulting to null/false:
     //   conf, searchGhost
 
@@ -20,30 +21,22 @@ var HordeTopbar = {
 
     refreshTopbar: function()
     {
-        var params = $H({ app: this.conf.app });
-        if (this.conf.SID) {
-            params.update(this.conf.SID.toQueryParams());
-        }
-        params.set('token', this.conf.TOKEN);
-        new Ajax.Request(this.conf.URI_AJAX + 'topbarUpdate', {
-            onComplete: this.onUpdateTopbar.bind(this),
-            parameters: params
+        HordeCore.doAction('topbarUpdate', {
+            app: this.conf.app,
+            hash: this.conf.hash
+        }, {
+            callback: this.onUpdateTopbar.bind(this),
+            uri: this.conf.URI_AJAX
         });
     },
 
-    onUpdateTopbar: function(response)
+    onUpdateTopbar: function(r)
     {
-        if (!response.responseJSON) {
-            return;
+        if (this.conf.hash != r.hash) {
+            $('horde-navigation').update();
+            this._renderTree(r.nodes, r.root_nodes);
+            this.conf.hash = r.hash;
         }
-
-        var r = response.responseJSON.response;
-        $('horde-navigation').update();
-
-        this._renderTree(r.nodes, r.root_nodes);
-        r.files.each(function(file) {
-            $$('head')[0].insert(new Element('script', { src: file }));
-        });
     },
 
     _renderTree: function(nodes, root_nodes)

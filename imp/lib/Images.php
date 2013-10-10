@@ -23,6 +23,13 @@
 class IMP_Images
 {
     /**
+     * Always show inline images?
+     *
+     * @var boolean
+     */
+    public $alwaysShow = false;
+
+    /**
      * Show inline images in messages?
      *
      * @param IMP_Contents $contents  The contents object containing the
@@ -34,7 +41,7 @@ class IMP_Images
     {
         global $injector, $prefs, $registry;
 
-        if (!$prefs->getValue('image_replacement')) {
+        if ($this->alwaysShow || !$prefs->getValue('image_replacement')) {
             return true;
         }
 
