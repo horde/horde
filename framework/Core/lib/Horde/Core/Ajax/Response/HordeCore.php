@@ -77,10 +77,12 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
      */
     protected function _jsonData()
     {
+        global $notification, $page_output;
+
         $ob = new stdClass;
         $ob->response = $this->data;
 
-        $stack = $GLOBALS['notification']->notify(array(
+        $stack = $notification->notify(array(
             'listeners' => array('status', 'audio'),
             'raw' => true
         ));
@@ -88,6 +90,11 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
         if (!empty($stack)) {
             $ob->msgs = $stack;
         }
+
+        foreach ($page_output->hsl as $val) {
+            $this->jsfiles[] = strval($val->url);
+        }
+        $page_output->hsl->clear();
 
         if (!empty($this->jsfiles)) {
             $ob->jsfiles = array_unique($this->jsfiles);
