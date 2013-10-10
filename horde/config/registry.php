@@ -94,7 +94,8 @@ $this->applications = array(
             'mail/showWhitelist',
             'mail/applyFilters',
             'mail/canApplyFilters',
-            'mail/showFilters'
+            'mail/showFilters',
+            'mail/newEmailFilter'
         ),
         'menu_parent' => 'imp'
     ),

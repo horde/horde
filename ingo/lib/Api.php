@@ -5,9 +5,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 
 /**
@@ -16,9 +17,10 @@
  * This file defines Ingo's external API interface. Other applications
  * can interact with Ingo through this API.
  *
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 class Ingo_Api extends Horde_Registry_Api
 {
@@ -58,6 +60,8 @@ class Ingo_Api extends Horde_Registry_Api
         $pushed = $registry->pushApp('ingo');
 
         $links = array(
+            // @since 3.2.0
+            'newEmailFilter' => strval(Ingo_Basic_Rule::url()) . '&actionID=rule_update&field[0]=From&match[0]=is&value[0]=|email|',
             'showFilters' => strval(Ingo_Basic_Filters::url())
         );
 
