@@ -507,12 +507,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output any SYNC_CHANGE failures
+                    // Output any SYNC_MODIFY failures
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CHANGE);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $tihs->_encoder->content($id);
+                            $this->_encoder->content($id);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                             $this->_encoder->content($reason);
