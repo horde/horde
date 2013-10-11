@@ -1002,10 +1002,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param array $cache   The cache to save.
      * @param string $devid  The device id.
      * @param string $user   The user id.
+     * @param array $dirty   An array of dirty properties. @since 2.9.0
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function saveSyncCache(array $cache, $devid, $user)
+    public function saveSyncCache(array $cache, $devid, $user, array $dirty = null)
     {
         $cache['timestamp'] = strval($cache['timestamp']);
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable

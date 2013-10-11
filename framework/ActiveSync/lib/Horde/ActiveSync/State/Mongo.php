@@ -50,6 +50,19 @@
  *      - sync_deleted:   Flag to indicate change is a message deletion.
  *
  *  - cache:   Holds the sync cache.
+ *      - cache_user:
+ *      - cache_devid:
+ *      - cache_data: An object containing:
+ *          - confirmed_synckeys: Array to hold synckeys for confirmation.
+ *          - lasthbsyncstarted:  Timestamp of the start of last heartbeat sync.
+ *          - lastsyncendnormal:  Timestamp of the last successfully ended sync.
+ *          - timestamp:          Timestamp of cache.
+ *          - wait:               Current wait interval.
+ *          - hbinterval:         Current heartbeat interval.
+ *          - folders:            Array of known folders.
+ *          - hierarchy:          Current hierarchy key.
+ *          - collections:
+ *          - pingheartbeat:
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2013 Horde LLC (http://www.horde.org/)
@@ -1021,8 +1034,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 'folders' => array(),
                 'hierarchy' => false,
                 'collections' => array(),
-                'pingheartbeat' => false,
-                'synckeycounter' => array());
+                'pingheartbeat' => false);
         } else {
             return $data['cache_data'];
         }
@@ -1034,25 +1046,37 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * @param array $cache   The cache to save.
      * @param string $devid  The device id.
      * @param string $user   The user id.
+     * @param array $dirty   An array of dirty properties. @since 2.9.0
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function saveSyncCache(array $cache, $devid, $user)
+    public function saveSyncCache(array $cache, $devid, $user, array $dirty = array())
     {
         $cache['timestamp'] = strval($cache['timestamp']);
         $this->_logger->info(
-            sprintf('[%s] Saving SYNC_CACHE entry for user %s and device %s.',
-                $this->_procid, $user, $devid));
+            sprintf('[%s] Saving SYNC_CACHE entry fields %s for user %s and device %s.',
+                $this->_procid, serialize($dirty), $user, $devid));
 
         $query = array(
             'cache_devid' => $devid,
             'cache_user' => $user
         );
 
+        $update = array();
+        foreach ($dirty as $property => $value) {
+            if ($property == 'collections' && is_array($value)) {
+                foreach (array_keys($value) as $collection) {
+                    $update['cache_data.collections.' . $collection] = $cache['collections'][$collection];
+                }
+            } else {
+                $update['cache_data.' . $property] = $cache[$property];
+            }
+        }
+
         try {
             $this->_db->cache->update(
                 $query,
-                array('$set' => array('cache_data' => $cache)),
+                array('$set' => $update),
                 array('upsert' => true)
             );
         } catch (Exception $e) {

@@ -995,10 +995,11 @@ abstract class Horde_ActiveSync_State_Base
      * @param array $cache   The cache to save.
      * @param string $devid  The device id.
      * @param string $user   The userid.
+     * @param array $dirty   An array of dirty properties. @since 2.9.0
      *
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function saveSyncCache(array $cache, $devid, $user);
+    abstract public function saveSyncCache(array $cache, $devid, $user, array $dirty = null);
 
     /**
      * Delete a complete sync cache
