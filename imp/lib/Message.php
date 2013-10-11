@@ -50,7 +50,7 @@ class IMP_Message
     public function copy($targetMbox, $action, IMP_Indices $indices,
                          array $opts = array())
     {
-        global $conf, $injector, $notification;
+        global $conf, $notification;
 
         if (!count($indices)) {
             return false;

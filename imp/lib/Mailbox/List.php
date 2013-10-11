@@ -281,7 +281,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function buildMailboxPage($page = 0, $start = 0)
     {
-        global $injector, $prefs, $session;
+        global $prefs, $session;
 
         $this->_buildMailbox();
 
