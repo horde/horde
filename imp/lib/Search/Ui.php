@@ -43,15 +43,19 @@ class IMP_Search_Ui
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
-        $mask = $unsub
-            ? IMP_Ftree_IteratorFilter::UNSUB
-            : 0;
+        $ftree = $injector->getInstance('IMP_Ftree');
+        if ($unsub) {
+            $mask = IMP_Ftree_IteratorFilter::UNSUB;
+            $ftree->loadUnsubscribed();
+        } else {
+            $mask = 0;
+        }
         if ($registry->getView() != $registry::VIEW_DYNAMIC) {
             $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
         }
         $filter = IMP_Ftree_IteratorFilter::create($mask);
 
-        $ob->tree = $injector->getInstance('IMP_Ftree')->createTree('imp_search', array(
+        $ob->tree = $ftree->createTree('imp_search', array(
             'iterator' => $filter,
             'render_params' => array(
                 'abbrev' => 0,
