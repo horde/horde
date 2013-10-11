@@ -23,9 +23,6 @@
 class IMP_Test extends Horde_Test
 {
     /**
-     * The module list
-     *
-     * @var array
      */
     protected $_moduleList = array(
         'openssl' => array(
@@ -35,9 +32,6 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * PHP settings list.
-     *
-     * @var array
      */
     protected $_settingsList = array(
         'file_uploads'  =>  array(
@@ -47,16 +41,10 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * PEAR modules list.
-     *
-     * @var array
      */
     protected $_pearList = array();
 
     /**
-     * Inter-Horde application dependencies.
-     *
-     * @var array
      */
     protected $_appList = array(
         'ingo' => array(
@@ -74,9 +62,6 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * Any application specific tests that need to be done.
-     *
-     * @return string  HTML output.
      */
     public function appTests()
     {
