@@ -93,7 +93,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
         new Ajax.Autocompleter(this.input, this.p.uri, p_clone);
 
-        this.processValue($F(this.elt));
+        this.reset();
 
         document.observe('AutoComplete:focus', function(e) {
             if (e.memo == this.elt) {
@@ -118,9 +118,11 @@ var IMP_PrettyAutocompleter = Class.create({
 
     reset: function()
     {
-        this.currentEntries().invoke('remove');
-        this.updateInput('');
-        this.processValue($F(this.elt));
+        if ($F(this.input)) {
+            this.currentEntries().invoke('remove');
+            this.updateInput('');
+        }
+        this.addNewItem(this.processValue($F(this.elt)));
     },
 
     processInput: function()
