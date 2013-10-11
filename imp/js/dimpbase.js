@@ -1051,6 +1051,14 @@ var DimpBase = {
             this.viewport.getSelected().get('dataob').each(this.msgWindow.bind(this));
             break;
 
+        case 'ctx_message_addfilter':
+            DimpCore.doAction('newFilter', {
+                mailbox: this.view
+            }, {
+                uids: this.viewport.getSelected()
+            });
+            break;
+
         case 'ctx_reply_reply':
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
@@ -1405,9 +1413,10 @@ var DimpBase = {
                 } else {
                     $('ctx_message_resume').up('DIV').hide();
                 }
+                [ $('ctx_message_addfilter') ].compact().invoke('show');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
-                $('ctx_message_resume').up('DIV').hide();
+                [ $('ctx_message_resume').up('DIV'), $('ctx_message_addfilter') ].compact().invoke('hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;

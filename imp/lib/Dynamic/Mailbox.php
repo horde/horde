@@ -309,6 +309,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'innocent' => _("Report as Innocent"),
             'blacklist' => _("Blacklist"),
             'whitelist' => _("Whitelist"),
+            'addfilter' => _("Create Filter"),
             'delete' => _("Delete"),
             'undelete' => _("Undelete"),
             '_sub3' => array(
@@ -322,6 +323,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
+        }
+        if (!$registry->hasInterface('mail/newEmailFilter')) {
+            unset($context['ctx_message']['addfilter']);
         }
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_message']['undelete']);

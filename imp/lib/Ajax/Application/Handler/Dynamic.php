@@ -1095,6 +1095,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: Redirect to the filter edit page and pre-populate with
      * an e-mail address.
      *
+     * Requires EITHER 'addr' -or- mailbox/indices from form params.
+     *
      * Variables used:
      * <pre>
      *   - addr: (string) The e-mail address to use.
@@ -1107,7 +1109,20 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     {
         global $injector, $notification, $registry;
 
-        $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        if (isset($this->vars->addr)) {
+            $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        } else {
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+
+            $imp_imap = $this->_base->indices->mailbox->imp_imap;
+            list($mbox, $uid) = $this->_base->indices->getSingle();
+            $ret = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
+            ));
+
+            $addr_ob = $ret[$uid]->getEnvelope()->from;
+        }
 
         // TODO: Currently supports only a single, non-group contact.
         $ob = $addr_ob[0];
