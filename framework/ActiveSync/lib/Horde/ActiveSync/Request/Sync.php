@@ -510,6 +510,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     // Output any SYNC_MODIFY failures
+                    $ensure_sent = array();
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
@@ -520,7 +521,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $this->_encoder->content($reason);
                             $this->_encoder->endTag();
                             $this->_encoder->endTag();
+                            // If we have a conflict, ensure we send the new server
+                            // data in the response, if possible. Some android
+                            // clients require this, or never accept the response.
+                            if ($reason == self::STATUS_CONFLICT) {
+                                $ensure_sent[] = $id;
+                            }
                         }
+
                     }
 
                     if (!empty($collection['fetchids'])) {
@@ -576,7 +584,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     if (!empty($changecount)) {
-                        $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
+                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
                         while ($cnt_collection < $collection['windowsize'] &&
