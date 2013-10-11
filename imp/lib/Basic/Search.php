@@ -459,11 +459,8 @@ class IMP_Basic_Search extends IMP_Basic_Base
             $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
             $ob = $injector->getInstance('IMP_Search_Ui')->getSearchMboxList();
             $mbox_list = $ob->mbox_list;
+            $view->subscribe = $prefs->getValue('subscribe');
             $view->tree = $ob->tree->getTree();
-
-            if ($prefs->getValue('subscribe')) {
-                $view->subscribe = true;
-            }
         }
 
         /* Prepare the topbar. */
