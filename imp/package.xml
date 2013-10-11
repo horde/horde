@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-04</date>
+ <date>2013-10-11</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -105,6 +105,7 @@
     <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
+    <file name="prettyautocomplete.js" role="horde" />
     <file name="remoteprefs.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
@@ -134,6 +135,9 @@
       <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
+      <dir name="AutoCompleter">
+       <file name="Pretty.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Imple/AutoCompleter -->
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
@@ -1071,6 +1075,7 @@
       <file name="clearflag.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
@@ -1499,6 +1504,7 @@
    <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
+   <install as="imp/js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
    <install as="imp/js/remoteprefs.js" name="js/remoteprefs.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
@@ -1558,6 +1564,7 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
@@ -2043,6 +2050,7 @@
    <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
+   <install as="imp/themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />

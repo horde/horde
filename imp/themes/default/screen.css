@@ -69,7 +69,7 @@ div.partsTreeDiv span span:last-child {
     padding-left: 3px;
 }
 .searchElement span.notMatch, .searchElement .searchuiDelete, .searchElement span.subfolders {
-    padding-left: 10px;
+    margin-left: 10px;
 }
 .searchElement input.checkbox {
     margin-right: 3px;
@@ -503,7 +503,9 @@ span.mimePartInfoSize {
     background-image: url("graphics/gallery.png");
 }
 .deleteImg, .searchuiDelete {
-    background-image: url("graphics/delete.png");
+    background-image: url("graphics/delete-small.png");
+    height: 8px;
+    width: 8px;
 }
 .closeImg {
     background-image: url("graphics/close.png");
