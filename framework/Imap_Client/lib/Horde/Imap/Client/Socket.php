@@ -423,8 +423,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
                 $auth_mech[] = 'XOAUTH2';
-                unset($auth['XOAUTH2']);
             }
+            unset($auth['XOAUTH2']);
 
             // 'PLAIN' authentication always exists if under TLS. Use it over
             // all over authentication methods.
