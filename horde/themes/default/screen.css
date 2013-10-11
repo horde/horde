@@ -380,7 +380,7 @@ form[action^="https://"] input[type="submit"].horde-default {
     background-image: url("graphics/locked-inv.png"), url("graphics/button-default.png");
     background-position: 95% center, left top;
     background-repeat: no-repeat, repeat-x;
-    padding-right: 33px;
+    padding: 2px 33px 2px 4px;
 }
 input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
     background-color: #e9e9e9;
@@ -1349,7 +1349,6 @@ div.GrowlerNoticeExit {
     background:white none repeat scroll 0 0;
     border: 1px solid #d0d0d0;
     cursor:default;
-    /*overflow:hidden;*/
     text-align:left;
     min-height: 58px;
     padding: 4px;
@@ -1372,15 +1371,11 @@ div.GrowlerNoticeExit {
     background:transparent none repeat scroll 0 0;
     border:0 none;
     display:inline;
+    outline: none;
     position:static;
     width:80px;
     font-size: 111%;
 }
-/*.hordeACContainer {
-    height:18px;
-    margin:2px;
-    padding:2px 2px 2px 0;
-}*/
 .hordeACItemRemove:hover {
     cursor:pointer;
 }
@@ -2250,7 +2245,7 @@ left.horde-point-right {
     background-image: url("graphics/alerts/alarm.png");
 }
 .horde-admin-php {
-    background-image: url("graphics/mime/php.png");
+    background-image: url("graphics/php.png");
 }
 .horde-admin-sql {
     background-image: url("graphics/sql.png");

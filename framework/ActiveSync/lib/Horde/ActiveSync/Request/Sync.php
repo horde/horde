@@ -459,7 +459,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if ($statusCode == self::STATUS_SUCCESS) {
-                if (!empty($collection['clientids']) || !empty($collection['fetchids']) || !empty($collection['missing'])) {
+                if (!empty($collection['clientids']) || !empty($collection['fetchids'])
+                    || !empty($collection['missing']) || !empty($collection['importfailures'])) {
+
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
                     // Output any errors from missing messages in REMOVE requests.
@@ -507,18 +509,26 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output any SYNC_CHANGE failures
+                    // Output any SYNC_MODIFY failures
+                    $ensure_sent = array();
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CHANGE);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $tihs->_encoder->content($id);
+                            $this->_encoder->content($id);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                             $this->_encoder->content($reason);
                             $this->_encoder->endTag();
                             $this->_encoder->endTag();
+                            // If we have a conflict, ensure we send the new server
+                            // data in the response, if possible. Some android
+                            // clients require this, or never accept the response.
+                            if ($reason == self::STATUS_CONFLICT) {
+                                $ensure_sent[] = $id;
+                            }
                         }
+
                     }
 
                     if (!empty($collection['fetchids'])) {
@@ -574,7 +584,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     if (!empty($changecount)) {
-                        $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
+                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
                         while ($cnt_collection < $collection['windowsize'] &&

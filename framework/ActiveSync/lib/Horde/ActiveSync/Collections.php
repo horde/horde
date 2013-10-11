@@ -1134,16 +1134,39 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * we are not PINGing.
      *
      * @param boolean $ping  True if this is a PING request, false otherwise.
+     * @param array $ensure  An array of UIDs that should be sent in the
+     *                       current response if possible, and not put off
+     *                       because of a MOREAVAILABLE situation.
      *
      * @return array  The changes array.
      */
-    public function getCollectionChanges($ping = false)
+    public function getCollectionChanges($ping = false, array $ensure = array())
     {
         if (empty($this->_changes)) {
             $this->_changes = $this->_as->state->getChanges(array('ping' => $ping));
         }
 
+        if (!empty($ensure)) {
+            $this->_changes = $this->_reorderChanges($ensure);
+        }
+
         return $this->_changes;
+    }
+
+    protected function _reorderChanges(array $ensure)
+    {
+        $changes = array();
+        foreach ($this->_changes as $change) {
+            if (array_search($change['id'], $ensure) !== false) {
+                $this->_logger->info(sprintf(
+                    'Placing %s at beginning of changes array.', $change['id']));
+                array_unshift($changes, $change);
+            } else {
+                $changes[] = $change;
+            }
+        }
+
+        return $changes;
     }
 
     /**

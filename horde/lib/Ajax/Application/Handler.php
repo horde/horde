@@ -1,33 +1,61 @@
 <?php
 /**
- * Defines the AJAX actions used in Horde.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl LGPL-2
- * @package  Horde
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+/**
+ * Defines the AJAX actions used in Horde.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Update topbar.
      *
-     * @return object  See Horde_Tree_Renderer_Menu#renderNodeDefinitions().
+     * @return Horde_Core_Ajax_Response_HordeCore  Response object.
      */
     public function topbarUpdate()
     {
-        $GLOBALS['registry']->pushApp($this->vars->app);
-        return $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Topbar')
-            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
-            ->getTree()
-            ->renderNodeDefinitions();
-        $GLOBALS['registry']->popApp();
+        global $injector, $registry;
+
+        $registry->pushApp($this->vars->app);
+        $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
+            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
+        $hash = $topbar->getHash();
+        $tree = $topbar->getTree();
+        $registry->popApp();
+
+        if ($this->vars->hash == $hash) {
+            return false;
+        }
+
+        $node_defs = $tree->renderNodeDefinitions();
+        $node_defs->hash = $hash;
+
+        if (isset($node_defs->files)) {
+            $jsfiles = $node_defs->files;
+            unset($node_defs->files);
+        } else {
+            $jsfiles = array();
+        }
+
+        $ob = new Horde_Core_Ajax_Response_HordeCore($node_defs);
+        $ob->jsfiles = $jsfiles;
+
+        return $ob;
     }
 
     /**

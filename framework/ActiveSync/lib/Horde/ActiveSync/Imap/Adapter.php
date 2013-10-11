@@ -375,8 +375,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $mbox,
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            // @todo change to $search_ret['count'] when Bug: 12682 is fixed
-            if ($modseq && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
+            if ($modseq && $folder->modseq() > 0 && $search_ret['count']) {
                 $folder->setChanges($search_ret['match']->ids, array());
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();

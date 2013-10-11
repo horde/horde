@@ -7,5 +7,4 @@
   <input type="text" id="vbook_name" name="vbook_name" />
 </div>
 <?php endif; ?>
-</form>
 <br />

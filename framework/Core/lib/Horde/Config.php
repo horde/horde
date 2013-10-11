@@ -1401,6 +1401,10 @@ class Horde_Config
             'default' => $default,
             'is_default' => $isDefault,
             'switch' => array(
+                'None' => array(
+                    'desc' => 'None',
+                    'fields' => array()
+                ),
                 'File' => array(
                     'desc' => 'Files on the local system',
                     'fields' => array(

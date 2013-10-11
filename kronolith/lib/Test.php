@@ -44,20 +44,22 @@ class Kronolith_Test extends Horde_Test
     );
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => null,
-    );
-
-    /**
      * Inter-Horde application dependencies.
      *
      * @var array
      */
     protected $_appList = array();
+
+    /**
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_fileList += array(
+            'config/prefs.php' => null
+        );
+    }
 
     /**
      * Any application specific tests that need to be done.
