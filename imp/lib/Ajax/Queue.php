@@ -114,10 +114,11 @@ class IMP_Ajax_Queue
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
+     *   - buids: (string) Indices of the messages that have changed (IMAP
+     *            sequence string; mboxes are base64url encoded).
      *   - deselect: (boolean) If true, deselect the uids.
      *   - remove: (array) The list of flags that were removed.
-     *   - uids: (string) Indices of the messages that have changed (IMAP
-     *           sequence string; mboxes are base64url encoded).
+     *   - replace: (array) Replace the flag list with these flags.
      *
      * For flag configuration data (key: 'flag-config'), an array containing
      * flag data:
@@ -356,6 +357,44 @@ class IMP_Ajax_Queue
 
         $result->buids = $indices->toArray();
         $this->_flag[] = $result;
+    }
+
+    /**
+     * Sends replacement flag information for the indices provided.
+     *
+     * @param IMP_Indices $indices  Indices object.
+     */
+    public function flagReplace(IMP_Indices $indices)
+    {
+        global $injector, $prefs;
+
+        $imp_flags = $injector->getInstance('IMP_Flags');
+
+        foreach ($indices as $ob) {
+            $list_ob = $ob->mbox->list_ob;
+            $msgnum = array();
+
+            foreach ($ob->uids as $uid) {
+                $msgnum[] = $list_ob->getArrayIndex($uid) + 1;
+            }
+
+            $marray = $list_ob->getMailboxArray($msgnum, array(
+                'headers' => true,
+                'type' => $prefs->getValue('atc_flag')
+            ));
+
+            foreach ($marray['overview'] as $val) {
+                $result = new stdClass;
+                $result->buids = $ob->mbox->toBuids(new IMP_Indices($ob->mbox, $val['uid']))->toArray();
+                $result->replace = array_map('strval', $imp_flags->parse(array(
+                    'flags' => $val['flags'],
+                    'headers' => $val['headers'],
+                    'runhook' => $val,
+                    'personal' => $val['envelope']->to
+                )));
+                $this->_flag[] = $result;
+            }
+        }
     }
 
     /**

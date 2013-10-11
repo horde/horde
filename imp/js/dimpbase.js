@@ -3138,6 +3138,14 @@ var DimpBase = {
                     VP_id: { equal: m.value.parseViewportUidString() }
                 });
 
+                if (entry.replace) {
+                    s.get('dataob').each(function(d) {
+                        d.flag = [];
+                        this.viewport.updateRow(d);
+                    }, this);
+                    entry.add = entry.replace;
+                }
+
                 if (entry.add) {
                     entry.add.each(function(f) {
                         this.updateFlag(s, f, true);

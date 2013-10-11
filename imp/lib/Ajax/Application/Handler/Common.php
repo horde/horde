@@ -128,12 +128,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     {
         if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($this->_base->indices)) {
+            $this->_base->queue->flagReplace($this->_base->indices);
             return false;
         }
 
         $change = $this->_base->changed(true);
 
         if (is_null($change)) {
+            $this->_base->queue->flagReplace($this->_base->indices);
             return false;
         }
 
@@ -156,6 +158,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         }
 
         $this->_base->checkUidvalidity();
+        $this->_base->queue->flagReplace($this->_base->indices);
 
         return false;
     }
@@ -212,20 +215,20 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function deleteMessages()
     {
-        if (!count($this->_base->indices)) {
-            return false;
+        if (count($this->_base->indices)) {
+            $change = $this->_base->changed(true);
+
+            if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($this->_base->indices)) {
+                $this->_base->deleteMsgs($this->_base->indices, $change);
+                return true;
+            }
+
+            if (!is_null($change)) {
+                $this->_base->checkUidvalidity();
+            }
         }
 
-        $change = $this->_base->changed(true);
-
-        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($this->_base->indices)) {
-            $this->_base->deleteMsgs($this->_base->indices, $change);
-            return true;
-        }
-
-        if (!is_null($change)) {
-            $this->_base->checkUidvalidity();
-        }
+        $this->_base->queue->flagReplace($this->_base->indices);
 
         return false;
     }

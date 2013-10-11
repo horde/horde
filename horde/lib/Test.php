@@ -298,7 +298,7 @@ class Horde_Test
      * @var array
      */
     protected $_fileList = array(
-        'config/conf.php' => null,
+        'config/conf.php' => 'You need to login to Horde as an administrator and create the configuration file.'
     );
 
     /**
@@ -684,6 +684,8 @@ class Horde_Test
         $output = '';
         $filedir = $GLOBALS['registry']->get('fileroot');
 
+        ksort($this->_fileList);
+
         foreach ($this->_fileList as $key => $val) {
             $entry = array();
             $result = file_exists($filedir . '/' . $key);
@@ -694,12 +696,6 @@ class Horde_Test
             if (!$result) {
                 if (empty($val)) {
                     $text = 'The file <code>' . $key . '</code> appears to be missing.';
-                    if ($key == 'config/conf.php') {
-                        $text .= ' You need to login to Horde as an administrator and create the initial configuration file.';
-                    } else {
-                        $text .= ' You probably just forgot to copy <code>' . $key . '.dist</code> over. While you do that, take a look at the settings and make sure they are appropriate for your site.';
-                    }
-
                     $entry[] = $text;
                 } else {
                     $entry[] = $val;
@@ -874,7 +870,7 @@ class Horde_Test
             $im = new Imagick();
             $imagick = is_callable(array($im, 'getIteratorIndex'));
             $ret .= '</li></ul><h1>Imagick</h1><ul>' .
-                '<li>Imagick compiled against current ImageMagick version: ' . ($imagick ? 'Yes' : 'No');
+                '<li>Imagick compiled against current ImageMagick version: <strong style="color:' . ($imagick ? 'green">Yes' : 'red">No') . '</strong>';
         }
 
         return $ret . '</li></ul>';
