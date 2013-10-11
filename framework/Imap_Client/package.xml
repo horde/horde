@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-09</date>
+ <date>2013-10-11</date>
  <version>
   <release>2.15.5</release>
   <api>2.15.0</api>
@@ -2028,7 +2028,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-09</date>
+   <date>2013-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not configured in the client (Bug #12756).
