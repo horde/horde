@@ -16,19 +16,39 @@
  *
  * Collections used:
  *  - state:   Holds sync state documents.
- *  - device:  Holds device and device_user info.
- *      - _id:
- *      - device_type:
- *      - device_agent:
- *      - device_rwstatus:
- *      - device_id:
- *      - device_supported:
- *      - device_user:
- *      - device_policykey:
- *      - device_properties:
  *
- *  - map:     Holds the incoming change (non-mail) map.
+ *  - device: Holds device and device_user info.
+ *      - _id:
+ *      - device_type:       The device's device_type.
+ *      - device_agent:      The client's user agent string.
+ *      - device_rwstatus:   The current RW status.
+ *      - device_supported:  An array of SUPPORTED properties.
+ *      - device_properties: An array of device properties.
+ *      - device_users:      An array of each user with a known account on device
+ *                           with each entry containing:
+ *         - device_user:
+ *         - device_policykey:
+ *
+ *  - map: Holds the incoming change (non-mail) map.
+ *      - message_uid:    The message's server uid.
+ *      - sync_modtime:   The modtime.
+ *      - sync_key:       The sync_key in effect when the change was imported.
+ *      - sync_devid:     The device_id sending the change.
+ *      - sync_folderid:  The folderid of the collection the change belongs to.
+ *      - sync_user:      The username.
+ *      - sync_clientid:  The client's clientid of incoming new items.
+ *      - sync_deleted:   Flag to indicate change was a deletion.
+ *
  *  - mailmap: Holds the incoming mail change map.
+ *      - message_uid:    The message's UID.
+ *      - sync_key:       The sync_key in effect when the change was imported.
+ *      - sync_devid:     The device_id sending the change.
+ *      - sync_folderid:  The folderid of the collection the change belongs to.
+ *      - sync_user:      The username.
+ *      - sync_read:      Flag to indicate change is a change in the /seen flag.
+ *      - sync_flagged:   Flag to indicate change is a change to the flagged status.
+ *      - sync_deleted:   Flag to indicate change is a message deletion.
+ *
  *  - cache:   Holds the sync cache.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
