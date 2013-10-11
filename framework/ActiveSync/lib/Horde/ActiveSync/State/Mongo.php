@@ -561,6 +561,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         try {
             $this->_db->device->update(
                 array('_id' => $data->id),
+                array('$pull' => array('users' => array('device_user' => $data->user)))
+            );
+            $this->_db->device->update(
+                array('_id' => $data->id),
                 array('$addToSet' => array('users' => $user_data))
             );
         } catch (Exception $e) {
