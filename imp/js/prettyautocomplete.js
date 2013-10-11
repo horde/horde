@@ -17,6 +17,10 @@
  */
 var IMP_PrettyAutocompleter = Class.create({
 
+    // box,
+    // elt,
+    // input,
+
     initialize: function(elt, params)
     {
         var active;
@@ -39,56 +43,57 @@ var IMP_PrettyAutocompleter = Class.create({
             filterCallback: this.filterChoices.bind(this),
             onAdd: Prototype.K,
             onRemove: Prototype.K,
-            requireSelection: false,
-
-            // The original input element is transformed into the hidden input
-            // field that hold the text values.
-            elt: $(elt)
+            requireSelection: false
         }, params || {});
 
-        this.p.box = new Element('DIV', { className: this.p.boxClass });
+        // The original input element is transformed into the hidden input
+        // field that hold the text values.
+        this.elt = $(elt);
+
+        this.box = new Element('DIV', { className: this.p.boxClass });
 
         // The input element and the <li> wrapper
-        this.p.input = new Element('INPUT', {
+        this.input = new Element('INPUT', {
             autocomplete: 'off',
             className: this.p.growingInputClass
         });
 
         // Build the outer box
-        this.p.box.insert(
+        this.box.insert(
             // The list - where the chosen items are placed as <li> nodes
             new Element('UL', { className: this.p.listClass }).insert(
-                new Element('LI').insert(this.p.input)
+                new Element('LI').insert(this.input)
             )
         );
 
         // Replace the single input element with the new structure and
         // move the old element into the structure while making sure it's
         // hidden.
-        active = (document.activeElement && (document.activeElement == this.p.elt));
-        this.p.box.insert(this.p.elt.replace(this.p.box).hide());
+        active = (document.activeElement && (document.activeElement == this.elt));
+        this.box.insert(this.elt.replace(this.box).hide());
         if (active) {
             this.focus();
         }
 
         // Look for clicks on the box to simulate clicking in an input box
-        this.p.box.observe('click', this.clickHandler.bindAsEventListener(this));
+        this.box.observe('click', this.clickHandler.bindAsEventListener(this));
 
         // Double-clicks cause an edit on existing entries.
-        this.p.box.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
+        this.box.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
-        this.p.input.observe('blur', this.blur.bind(this));
-        this.p.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
+        this.input.observe('blur', this.blur.bind(this));
+        this.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
+
 
         this.p.onSelect = this.updateElement.bind(this);
-        this.p.paramName = this.p.elt.readAttribute('name');
+        this.p.paramName = this.elt.readAttribute('name');
 
-        new Ajax.Autocompleter(this.p.input, this.p.uri, this.p);
+        new Ajax.Autocompleter(this.input, this.p.uri, this.p);
 
-        this.processValue($F(this.p.elt));
+        this.processValue($F(this.elt));
 
         document.observe('AutoComplete:focus', function(e) {
-            if (e.memo == this.p.elt) {
+            if (e.memo == this.elt) {
                 this.focus();
                 e.stop();
             }
@@ -99,25 +104,25 @@ var IMP_PrettyAutocompleter = Class.create({
 
     focus: function()
     {
-        this.p.input.focus();
-        this.p.box.addClassName(this.p.boxClassFocus);
+        this.input.focus();
+        this.box.addClassName(this.p.boxClassFocus);
     },
 
     blur: function()
     {
-        this.p.box.removeClassName(this.p.boxClassFocus);
+        this.box.removeClassName(this.p.boxClassFocus);
     },
 
     reset: function()
     {
         this.currentEntries().invoke('remove');
         this.updateInput('');
-        this.processValue($F(this.p.elt));
+        this.processValue($F(this.elt));
     },
 
     processInput: function()
     {
-        this.processValue($F(this.p.input));
+        this.processValue($F(this.input));
         this.updateInput('');
     },
 
@@ -155,7 +160,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
         displayValue = this.p.displayFilter(value);
 
-        this.p.input.up('LI').insert({
+        this.input.up('LI').insert({
             before: new Element('LI', {
                         className: this.p.listClassItem,
                         title: value
@@ -187,7 +192,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
     currentEntries: function()
     {
-        return this.p.input.up('UL').select('LI.' + this.p.listClassItem);
+        return this.input.up('UL').select('LI.' + this.p.listClassItem);
     },
 
     currentValues: function()
@@ -204,20 +209,20 @@ var IMP_PrettyAutocompleter = Class.create({
             this.updateHiddenInput();
         }
 
-        this.p.input.setValue(input);
+        this.input.setValue(input);
         this.resize();
         this.focus();
     },
 
     updateHiddenInput: function()
     {
-        this.p.elt.setValue(this.currentValues().join(', '));
+        this.elt.setValue(this.currentValues().join(', '));
     },
 
     resize: function()
     {
-        this.p.input.setStyle({
-            width: Math.max(80, $F(this.p.input).length * 9) + 'px'
+        this.input.setStyle({
+            width: Math.max(80, $F(this.input).length * 9) + 'px'
         });
     },
 
@@ -261,7 +266,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            if (!$F(this.p.input).length &&
+            if (!$F(this.input).length &&
                 (tmp = this.currentEntries().last())) {
                 this.updateInput(tmp);
                 e.stop();
