@@ -41,6 +41,20 @@ class Turba_Test extends Horde_Test
     protected $_appList = array();
 
     /**
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_fileList += array(
+            'config/attributes.php' => null,
+            'config/backends.php' => null,
+            'config/mime_drivers.php' => null,
+            'config/prefs.php' => null
+        );
+    }
+
+    /**
      * Any application specific tests that need to be done.
      *
      * @return string  HTML output.
