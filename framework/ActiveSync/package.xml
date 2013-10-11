@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Return proper status codes when OOF is unavailable (Bug #12757).
 * [mjr] Fix fatal crash when conflict is detected (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12755)
  </notes>
  <contents>
@@ -1763,6 +1764,7 @@
    <date>2013-10-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Return proper status codes when OOF is unavailable (Bug #12757).
 * [mjr] Fix fatal crash when conflict is detected (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12755)
    </notes>
   </release>

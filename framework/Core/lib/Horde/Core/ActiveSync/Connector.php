@@ -647,20 +647,30 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the currently set vacation message details.
      *
-     * @return array  The vacation rule properties.
+     * @return array|boolean  The vacation rule properties or false if
+     *                        interface unavailable.
      */
     public function filters_getVacation()
     {
-        return $this->_registry->filter->getVacation();
+        if ($this->horde_hasInterface('filter')) {
+            return $this->_registry->filter->getVacation();
+        } else {
+            return false;
+        }
     }
 
     /**
      * Set vacation message properties.
      *
      * @param array $setting  The vacation details.
+     *
+     * @throws Horde_Exception
      */
     public function filters_setVacation(array $setting)
     {
+        if (!$this->horde_hasInterface('filter')) {
+            throw new Horde_Exception('Filter interface unavailable.');
+        }
         if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
             // Only support a single message, the APPLIESTOINTERNAL message.
             foreach ($setting['oofmsgs'] as $msg) {
