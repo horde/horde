@@ -1807,7 +1807,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
-                $vacation = $this->_connector->filters_getVacation();
+                if (!$vacation = $this->_connector->filters_getVacation()) {
+                    return array('oof' => array('status' => Horde_ActiveSync_Request_Settings::STATUS_UNAVAILABLE));
+                }
                 $res['oof'] = array(
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
                     'oofstate' => ($vacation['disabled']

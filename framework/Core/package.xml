@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Do not assume that the filter API is available (Bug #12757).
 * [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
 * [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
@@ -1216,7 +1217,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.0</min>
+    <min>2.8.4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3178,6 +3179,7 @@
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Do not assume that the filter API is available (Bug #12757).
 * [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
 * [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
