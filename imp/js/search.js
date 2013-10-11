@@ -549,11 +549,10 @@ var ImpSearch = {
             break;
 
         case 'show_unsub':
-            new Ajax.Request(this.ajaxurl + 'searchMailboxList', {
-                onSuccess: this.showUnsubCallback.bind(this),
-                parameters: {
-                    unsub: 1
-                }
+            HordeCore.doAction('searchMailboxList', {
+                unsub: 1
+            }, {
+                callback: this.showUnsubCallback.bind(this)
             });
             elt.remove();
             e.memo.stop();
@@ -654,20 +653,16 @@ var ImpSearch = {
 
     showUnsubCallback: function(r)
     {
-        var resp, sfa, vals;
-
-        if (r.responseJSON.response) {
-            resp = r.responseJSON.response;
-            this.data.mbox_list = resp.mbox_list;
-            sfa = $('search_mboxes_add');
+        var sfa = $('search_mboxes_add'),
             vals = sfa.select('[disabled]').pluck('value');
-            sfa.update(resp.tree);
-            vals.each(function(v) {
-                if (v.length) {
-                    this.disableMailbox(true, v);
-                }
-            }, this);
-        }
+
+        this.data.mbox_list = r.mbox_list;
+        sfa.update(r.tree);
+        vals.each(function(v) {
+            if (v.length) {
+                this.disableMailbox(true, v);
+            }
+        }, this);
     },
 
     onDomLoad: function()

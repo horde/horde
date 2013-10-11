@@ -463,7 +463,6 @@ class IMP_Basic_Search extends IMP_Basic_Base
 
             if ($prefs->getValue('subscribe')) {
                 $view->subscribe = true;
-                $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
             }
         }
 
