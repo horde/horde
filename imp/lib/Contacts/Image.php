@@ -40,16 +40,6 @@ class IMP_Contacts_Image
     }
 
     /**
-     * URL.
-     *
-     * @return string  URL.
-     */
-    public function __toString()
-    {
-        return strval($this->getUrlOb());
-    }
-
-    /**
      * Return a URL object representing the contact image.
      *
      * @return Horde_Url|Horde_Url_Data  URL object

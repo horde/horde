@@ -1162,7 +1162,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     {
         $out = new stdClass;
         try {
-            $out->url = strval(new IMP_Contacts_Image($this->vars->addr));
+            $contacts_img = new IMP_Contacts_Image($this->vars->addr);
+            $out->url = strval($contacts_img->getUrlOb());
         } catch (IMP_Exception $e) {}
 
         $addr = new Horde_Mail_Rfc822_Address($this->vars->addr);
