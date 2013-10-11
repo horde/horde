@@ -33,6 +33,8 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
      */
     public function __construct(array $params = array())
     {
+        global $page_output;
+
         parent::__construct(array_merge(
             array(
                 'boxClass' => 'hordeACBox impACBox',
@@ -41,6 +43,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
                 'displayFilter' => 'new Function("t", "return t.sub(/<[^>]*>$/, \"\").strip().escapeHTML()")',
                 'growingInputClass' => 'hordeACTrigger impACTrigger',
                 'listClass' => 'hordeACList impACList',
+                'processValueCallback' => 'ImpComposeBase.autocompleteValue.bind(ImpComposeBase)',
                 'removeClass' => 'hordeACItemRemove impACItemRemove',
                 'triggerContainer' => strval(new Horde_Support_Randomid())
             ), $params)
@@ -50,10 +53,12 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
             'displayFilter',
             'filterCallback',
             'onAdd',
-            'onRemove'
+            'onRemove',
+            'processValueCallback'
         ));
 
-        $GLOBALS['page_output']->addScriptFile('prettyautocomplete.js');
+        $page_output->addScriptFile('compose-base.js');
+        $page_output->addScriptFile('prettyautocomplete.js');
     }
 
     /**

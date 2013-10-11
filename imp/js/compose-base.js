@@ -79,6 +79,52 @@ var ImpComposeBase = {
         elt = $(elt);
         elt.focus();
         $(document).fire('AutoComplete:focus', elt);
+    },
+
+    autocompleteValue: function(ob, val)
+    {
+        var pos = 0,
+            chr, in_group, in_quote, tmp;
+
+        chr = val.charAt(pos);
+        while (chr !== "") {
+            var orig_pos = pos;
+            ++pos;
+
+            if (!orig_pos || (val.charAt(orig_pos - 1) != '\\')) {
+                switch (chr) {
+                case ',':
+                    if (!orig_pos) {
+                        val = val.substr(1);
+                    } else if (!in_group && !in_quote) {
+                        ob.addNewItem(val.substr(0, orig_pos));
+                        val = val.substr(orig_pos + 2);
+                        pos = 0;
+                    }
+                    break;
+
+                case '"':
+                    in_quote = !in_quote;
+                    break;
+
+                case ':':
+                    if (!in_quote) {
+                        in_group = true;
+                    }
+                    break;
+
+                case ';':
+                    if (!in_quote) {
+                        in_group = false;
+                    }
+                    break;
+                }
+            }
+
+            chr = val.charAt(pos);
+        }
+
+        return val;
     }
 
 };

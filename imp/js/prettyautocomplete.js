@@ -24,7 +24,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
     initialize: function(elt, params)
     {
-        var active, p_clone;
+        var ac, active, p_clone;
 
         this.p = Object.extend({
             // Outer div/fake input box and CSS class
@@ -44,6 +44,7 @@ var IMP_PrettyAutocompleter = Class.create({
             filterCallback: this.filterChoices.bind(this),
             onAdd: Prototype.K,
             onRemove: Prototype.K,
+            processValueCallback: this.processValueCallback.bind(this),
             requireSelection: false
         }, params || {});
 
@@ -90,8 +91,12 @@ var IMP_PrettyAutocompleter = Class.create({
         p_clone = Object.toJSON(this.p).evalJSON();
         p_clone.onSelect = this.updateElement.bind(this);
         p_clone.paramName = this.elt.readAttribute('name');
+        p_clone.tokens = [];
 
-        new Ajax.Autocompleter(this.input, this.p.uri, p_clone);
+        ac = new Ajax.Autocompleter(this.input, this.p.uri, p_clone);
+        ac.getToken = function() {
+            return $F(this.input);
+        }.bind(this);
 
         this.reset();
 
@@ -133,23 +138,26 @@ var IMP_PrettyAutocompleter = Class.create({
 
     processValue: function(val)
     {
-        var chr, pos = 0, tmp;
-
         if (this.p.requireSelection) {
             return val;
         }
 
-        val = val.strip();
+        return this.p.processValueCallback(this, val.replace(/^\s+/, ''));
+    },
+
+    processValueCallback: function(ob, val)
+    {
+        var chr, pos = 0;
 
         chr = val.charAt(pos);
         while (chr !== "") {
-            if (this.p.tokens.indexOf(chr) === -1) {
+            if (ob.p.tokens.indexOf(chr) === -1) {
                 ++pos;
             } else {
                 if (!pos) {
                     val = val.substr(1);
-                } else if (val.charAt(pos - 1) != '\\') {
-                    this.addNewItem(val.substr(0, pos));
+                } else {
+                    ob.addNewItem(val.substr(0, pos));
                     val = val.substr(pos + 2);
                     pos = 0;
                 }
@@ -158,7 +166,7 @@ var IMP_PrettyAutocompleter = Class.create({
             chr = val.charAt(pos);
         }
 
-        return val;
+        return val.replace(/^\s+/, '');
     },
 
     // Used as the updateElement callback.
@@ -299,7 +307,7 @@ var IMP_PrettyAutocompleter = Class.create({
         var input = $F(this.input);
 
         if (input != this.lastinput) {
-            this.input.setValue(this.processValue(input).strip());
+            this.input.setValue(this.processValue(input));
             this.lastinput = $F(this.input);
             this.resize();
         }
