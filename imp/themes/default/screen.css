@@ -560,3 +560,6 @@ span.mimePartInfoSize {
 .impACItemRemove {
     padding-left: 3px;
 }
+.impACTrigger {
+    padding: 0;
+}

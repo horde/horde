@@ -36,7 +36,7 @@ var IMP_PrettyAutocompleter = Class.create({
             listClassItem: 'hordeACListItem',
             // input (created below)
             // CSS class for real input field
-            growingInputClass: 'hordeACTrigger',
+            growingInputClass: 'hordeACTrigger impACTrigger',
             removeClass: 'hordeACItemRemove',
             // Allow for a function that filters the display value
             // This function should *always* return escaped HTML
