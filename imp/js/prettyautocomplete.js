@@ -20,10 +20,11 @@ var IMP_PrettyAutocompleter = Class.create({
     // box,
     // elt,
     // input,
+    // lastinput,
 
     initialize: function(elt, params)
     {
-        var active;
+        var active, p_clone;
 
         this.p = Object.extend({
             // Outer div/fake input box and CSS class
@@ -84,11 +85,13 @@ var IMP_PrettyAutocompleter = Class.create({
         this.input.observe('blur', this.blur.bind(this));
         this.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
 
+        new PeriodicalExecuter(this.inputWatcher.bind(this), 0.25);
 
-        this.p.onSelect = this.updateElement.bind(this);
-        this.p.paramName = this.elt.readAttribute('name');
+        p_clone = Object.toJSON(this.p).evalJSON();
+        p_clone.onSelect = this.updateElement.bind(this);
+        p_clone.paramName = this.elt.readAttribute('name');
 
-        new Ajax.Autocompleter(this.input, this.p.uri, this.p);
+        new Ajax.Autocompleter(this.input, this.p.uri, p_clone);
 
         this.processValue($F(this.elt));
 
@@ -122,24 +125,44 @@ var IMP_PrettyAutocompleter = Class.create({
 
     processInput: function()
     {
-        this.processValue($F(this.input));
+        this.addNewItem($F(this.input));
         this.updateInput('');
     },
 
-    processValue: function(value)
+    processValue: function(val)
     {
-        value.split(',').invoke('strip').each(function(a) {
-            if (!a.empty() && this.addNewItem(a)) {
-                this.p.onAdd(a);
+        var chr, pos = 0, tmp;
+
+        if (this.p.requireSelection) {
+            return val;
+        }
+
+        val = val.strip();
+
+        chr = val.charAt(pos);
+        while (chr !== "") {
+            if (this.p.tokens.indexOf(chr) === -1) {
+                ++pos;
+            } else {
+                if (!pos) {
+                    val = val.substr(1);
+                } else if (val.charAt(pos - 1) != '\\') {
+                    this.addNewItem(val.substr(0, pos));
+                    val = val.substr(pos + 2);
+                    pos = 0;
+                }
             }
-        }, this);
+
+            chr = val.charAt(pos);
+        }
+
+        return val;
     },
 
     // Used as the updateElement callback.
     updateElement: function(item)
     {
         if (this.addNewItem(item)) {
-            this.p.onAdd(item);
             this.updateInput('');
         }
     },
@@ -154,7 +177,7 @@ var IMP_PrettyAutocompleter = Class.create({
         var displayValue;
 
         // Don't add if it's already present.
-        if (!this.filterChoices([ value ]).size()) {
+        if (value.empty() || !this.filterChoices([ value ]).size()) {
             return false;
         }
 
@@ -177,6 +200,8 @@ var IMP_PrettyAutocompleter = Class.create({
 
         // Add to hidden input field.
         this.updateHiddenInput();
+
+        this.p.onAdd(value);
 
         return true;
     },
@@ -255,27 +280,27 @@ var IMP_PrettyAutocompleter = Class.create({
     {
         var tmp;
 
-        switch (!e.shiftKey && (e.which || e.keyCode || e.charCode)) {
-        case 188:
-            // Comma
-            if (!this.p.requireSelection) {
-                this.processInput();
-            }
-            e.stop();
-            return;
-
+        switch (e.which || e.keyCode || e.charCode) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
             if (!$F(this.input).length &&
                 (tmp = this.currentEntries().last())) {
                 this.updateInput(tmp);
                 e.stop();
-                return;
             }
             break;
         }
+    },
 
-        this.resize();
+    inputWatcher: function()
+    {
+        var input = $F(this.input);
+
+        if (input != this.lastinput) {
+            this.input.setValue(this.processValue(input).strip());
+            this.lastinput = $F(this.input);
+            this.resize();
+        }
     }
 
 });
