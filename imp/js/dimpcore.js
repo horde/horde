@@ -41,7 +41,7 @@ var DimpCore = {
         params = params || {};
         params.type = type;
 
-        HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, params, {
+        HordeCore.popupWindow(this.conf.URI_COMPOSE, params, {
             name: 'compose' + new Date().getTime()
         });
     },
