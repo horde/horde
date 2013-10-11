@@ -59,15 +59,6 @@ class Ingo_Test extends Horde_Test
     );
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => null,
-    );
-
-    /**
      * Inter-Horde application dependencies.
      *
      * @var array

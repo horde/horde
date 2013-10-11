@@ -34,15 +34,6 @@ class Turba_Test extends Horde_Test
     protected $_pearList = array();
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => null,
-    );
-
-    /**
      * Inter-Horde application dependencies.
      *
      * @var array

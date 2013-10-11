@@ -298,7 +298,7 @@ class Horde_Test
      * @var array
      */
     protected $_fileList = array(
-        'config/conf.php' => null,
+        'config/conf.php' => 'You need to login to Horde as an administrator and create the configuration file.'
     );
 
     /**
@@ -694,12 +694,6 @@ class Horde_Test
             if (!$result) {
                 if (empty($val)) {
                     $text = 'The file <code>' . $key . '</code> appears to be missing.';
-                    if ($key == 'config/conf.php') {
-                        $text .= ' You need to login to Horde as an administrator and create the initial configuration file.';
-                    } else {
-                        $text .= ' You probably just forgot to copy <code>' . $key . '.dist</code> over. While you do that, take a look at the settings and make sure they are appropriate for your site.';
-                    }
-
                     $entry[] = $text;
                 } else {
                     $entry[] = $val;

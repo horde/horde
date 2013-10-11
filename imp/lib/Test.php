@@ -54,15 +54,6 @@ class IMP_Test extends Horde_Test
     protected $_pearList = array();
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => 'The file <code>./config/conf.php</code> appears to be missing. You must generate this file as an administrator via Horde.  See horde/docs/INSTALL.',
-    );
-
-    /**
      * Inter-Horde application dependencies.
      *
      * @var array
