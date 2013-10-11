@@ -63,6 +63,19 @@ class IMP_Test extends Horde_Test
 
     /**
      */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_fileList += array(
+            'config/backends.php' => null,
+            'config/mime_drivers.php' => null,
+            'config/prefs.php' => null
+        );
+    }
+
+    /**
+     */
     public function appTests()
     {
         $ret = '<h1>Mail Server Support Test</h1>';
