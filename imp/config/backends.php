@@ -111,23 +111,6 @@
  *     - hide_when_unlimited: (boolean) True if you want to hide quota
  *                            output when the server reports an unlimited
  *                            quota.
- *     - format: (array) Specifies the formats of the quota messages displayed
- *               to the user. The array must contain the following four keys:
- *                 - long
- *                 - short
- *                 - nolimit_long
- *                 - nolimit_short
- *               The values for each of these keys are strings that will be
- *               passed through PHP's sprintf() command.
- *
- *               The default values for each key is as follows (these might
- *               appear slightly different based on the current language;
- *               [UNIT] will be replaced with the value of the 'unit'
- *               parameter):
- *                 - long: Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
- *                 - nolimit_long: Quota status: %.2f [UNIT] / NO LIMIT
- *                 - short: %.0f%% of %.0f [UNIT]
- *                 - nolimit_short: %.0f [UNIT]
  *     - unit: (string) What storage unit the quota messages should be
  *             displayed in.  One of:
  *               - GB
