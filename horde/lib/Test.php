@@ -684,6 +684,8 @@ class Horde_Test
         $output = '';
         $filedir = $GLOBALS['registry']->get('fileroot');
 
+        ksort($this->_fileList);
+
         foreach ($this->_fileList as $key => $val) {
             $entry = array();
             $result = file_exists($filedir . '/' . $key);
