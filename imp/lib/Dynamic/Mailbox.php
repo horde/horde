@@ -279,6 +279,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             );
         }
 
+        $subscribe = $prefs->getValue('subscribe');
+        if (!$subscribe) {
+            unset(
+                $context['ctx_folderopts']['sub'],
+                $context['ctx_folderopts']['unsub']
+            );
+        }
+
         /* Message context menu. */
         $context['ctx_message'] = array(
             '_sub1' => array(
