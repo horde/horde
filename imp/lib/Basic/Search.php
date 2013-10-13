@@ -465,8 +465,10 @@ class IMP_Basic_Search extends IMP_Basic_Base
         }
 
         /* Prepare the topbar. */
-        $injector->getInstance('Horde_View_Topbar')->subinfo =
-            $injector->getInstance('IMP_View_Subinfo')->render();
+        if (!$dynamic_view) {
+            $injector->getInstance('Horde_View_Topbar')->subinfo =
+                $injector->getInstance('IMP_View_Subinfo')->render();
+        }
 
         Horde_Core_Ui_JsCalendar::init();
         $page_output->addScriptFile('hordecore.js', 'horde');
