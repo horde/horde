@@ -555,10 +555,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * Set new device info
      *
      * @param Horde_ActiveSync_Device $data  The device information
+     * @param array $dirty                   Array of dirty properties.
+     *                                       @since 2.9.0
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function setDeviceInfo($data)
+    public function setDeviceInfo(Horde_ActiveSync_Device $data, array $dirty = array())
     {
         // Make sure we have the device entry
         try {

@@ -934,8 +934,9 @@ abstract class Horde_ActiveSync_State_Base
      * Set new device info
      *
      * @param object $data  The device information
+     * @param array $dirty  Array of dirty properties. @since 2.9.0
      */
-    abstract public function setDeviceInfo($data);
+    abstract public function setDeviceInfo(Horde_ActiveSync_Device $data, array $dirty = array());
 
     /**
      * Set the device's properties as sent by a SETTINGS request.

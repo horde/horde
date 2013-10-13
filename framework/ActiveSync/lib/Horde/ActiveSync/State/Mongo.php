@@ -139,6 +139,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             )
         )
     );
+
+    protected $_propertyMap = array(
+        'deviceType' => 'device_type',
+        'userAgent'  => 'device_agent',
+        'rwstatus'   => 'device_rwstatus',
+        'supported'  => 'device_supported',
+        'properties' => 'device_properties',
+        'id'         => 'device_id',
+        'version'    => 'device_version'
+    );
+
     /**
      * Const'r
      *
@@ -499,30 +510,30 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         try {
-            $device = $this->_db->device->findOne($query);
+            $device_data = $this->_db->device->findOne($query);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-        if (empty($device)) {
+        if (empty($device_data)) {
             throw new Horde_ActiveSync_Exception('Device not found.');
         }
-
-        $this->_deviceInfo = new Horde_ActiveSync_Device($this);
-        $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
-        $this->_deviceInfo->deviceType = $device['device_type'];
-        $this->_deviceInfo->userAgent = $device['device_agent'];
-        $this->_deviceInfo->id = $devId;
-        $this->_deviceInfo->user = $user;
-        $this->_deviceInfo->supported = $device['device_supported'];
-        $this->_deviceInfo->policykey = 0;
-        foreach ($device['users'] as $user_entry) {
+        $map = array_flip($this->_propertyMap);
+        $device = array();
+        foreach ($device_data as $field => $data) {
+            if (!empty($map[$field])) {
+                $device[$map[$field]] = $data;
+            }
+        }
+        $device['id'] = $devId;
+        $device['user'] = $user;
+        foreach ($device_data['users'] as $user_entry) {
             if ($user_entry['device_user'] == $user) {
-                $this->_deviceInfo->policykey = $user_entry['device_policykey'];
+                $device['policykey'] = $user_entry['device_policykey'];
                 break;
             }
         }
-        $this->_deviceInfo->properties = $device['device_properties'];
+        $this->_deviceInfo = new Horde_ActiveSync_Device($this, $device);
 
         return $this->_deviceInfo;
     }
@@ -531,48 +542,60 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * Set new device info
      *
      * @param Horde_ActiveSync_Device $data  The device information
+     * @param array $dirty                   Array of dirty properties.
+     *                                       @since 2.9.0
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function setDeviceInfo($data)
+    public function setDeviceInfo(Horde_ActiveSync_Device $data, array $dirty = array())
     {
-        $user_data = array(
-            'device_user' => $data->user,
-            'device_policykey' => $data->policykey
-        );
-        $device = array(
-            'device_type' => $data->deviceType,
-            'device_agent' => !empty($data->userAgent) ? $data->userAgent : '',
-            'device_rwstatus' => $data->rwstatus,
-            'device_supported' => empty($data->supported) ? $data->supported : array(),
-            'device_properties' => $data->properties,
-        );
-        try {
-            $this->_db->device->update(
-                array('_id' => $data->id),
-                array('$set' => $device),
-                array('upsert' => true)
+        if (count($dirty)) {
+            $device = array();
+            foreach (array_keys($dirty) as $property) {
+                if (!empty($this->_propertyMap[$property])) {
+                    $device[$this->_propertyMap[$property]] = $data->$property;
+                }
+            }
+            $this->_logger->info(sprintf(
+                '[%s] setDeviceInfo saving properties: %s',
+                $this->_procid, serialize($dirty))
             );
-        } catch (Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
+            if (count($device)) {
+                try {
+                    $this->_db->device->update(
+                        array('_id' => $data->id),
+                        array('$set' => $device),
+                        array('upsert' => true)
+                    );
+                } catch (Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+            }
 
-        try {
-            $this->_db->device->update(
-                array('_id' => $data->id),
-                array('$pull' => array('users' => array('device_user' => $data->user)))
-            );
-            $this->_db->device->update(
-                array('_id' => $data->id),
-                array('$addToSet' => array('users' => $user_data))
-            );
-        } catch (Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
+            if (!empty($dirty['user']) || !empty($dirty['policykey'])) {
+                $user_data = array(
+                    'device_user' => $data->user,
+                    'device_policykey' => (string)$data->policykey
+                );
 
-        $this->_deviceInfo = $data;
+                try {
+                    $this->_db->device->update(
+                        array('_id' => $data->id),
+                        array('$pull' => array('users' => array('device_user' => $data->user)))
+                    );
+                    $this->_db->device->update(
+                        array('_id' => $data->id),
+                        array('$addToSet' => array('users' => $user_data))
+                    );
+                } catch (Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+            }
+
+            $this->_deviceInfo = $data;
+        }
     }
 
     /**
@@ -585,7 +608,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function setDeviceProperties(array $data, $deviceId)
     {
-        Horde::debug($data);
         $query = array('_id' => $deviceId);
         $update = array(
             '$set' => array(
@@ -827,14 +849,16 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $this->_logger->debug(sprintf(
             'Setting policykey: %s, %s, %s',
             $devId, $this->_backend->getUser(), $key));
-        $query = array('_id' => $devId, 'users.device_user' => $this->_backend->getUser());
-        $update = array('$set' => array('users.$.device_policykey' => "$key"));
-        try {
-            $this->_db->device->update($query, $update);
-        } catch (Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
+        $this->_deviceInfo->policykey = $key;
+        $this->_deviceInfo->save();
+        // $query = array('_id' => $devId, 'users.device_user' => $this->_backend->getUser());
+        // $update = array('$set' => array('users.$.device_policykey' => "$key"));
+        // try {
+        //     $this->_db->device->update($query, $update);
+        // } catch (Exception $e) {
+        //     $this->_logger->err($e->getMessage());
+        //     throw new Horde_ActiveSync_Exception($e);
+        // }
     }
 
     /**
@@ -1065,6 +1089,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'cache_devid' => $devid,
             'cache_user' => $user
         );
+        if (empty($cache['collections'])) {
+            $cache['collections'] = new stdClass();
+        }
 
         $update = array();
         foreach ($dirty as $property => $value) {
