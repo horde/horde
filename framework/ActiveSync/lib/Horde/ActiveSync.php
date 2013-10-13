@@ -744,28 +744,27 @@ class Horde_ActiveSync
         if (!$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
-                $device = $this->_state->loadDeviceInfo($devId);
+                $this->_device = $this->_state->loadDeviceInfo($devId);
             } else {
-                $device = new Horde_ActiveSync_Device($this->_state);
+                $this->_device = new Horde_ActiveSync_Device($this->_state);
             }
-            $device->policykey = 0;
-            $device->userAgent = $this->_request->getHeader('User-Agent');
-            $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
-            $device->rwstatus = self::RWSTATUS_NA;
-            $device->user = $this->_driver->getUser();
-            $device->id = $devId;
-            $device->properties['version'] = $version;
-            // Call this to be sure we add the announced versions.
-            $device->needsVersionUpdate($this->getSupportedVersions());
+            $this->_device->policykey = 0;
+            $this->_device->userAgent = $this->_request->getHeader('User-Agent');
+            $this->_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+            $this->_device->rwstatus = self::RWSTATUS_NA;
+            $this->_device->user = $this->_driver->getUser();
+            $this->_device->id = $devId;
+            $this->_device->version = $version;
+            $this->_device->needsVersionUpdate($this->getSupportedVersions());
 
             // @TODO: Remove is_callable check (and extra else clause) for H6.
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
-                $callback_ret = $this->_driver->createDeviceCallback($device);
+                $callback_ret = $this->_driver->createDeviceCallback($this->_device);
                 if ($callback_ret !== true) {
                     $msg = sprintf(
                         'The device %s was disallowed for user %s per policy settings.',
-                        $device->id,
-                        $device->user);
+                        $this->_device->id,
+                        $this->_device->user);
                     $this->_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
@@ -773,26 +772,30 @@ class Horde_ActiveSync
                         throw new Horde_ActiveSync_Exception($msg);
                     }
                 } else {
-                    $device->save();
+                    $this->_device->save();
                 }
             } else {
-                $device->save();
+                $this->_device->save();
             }
         } else {
-            $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
-            $device->properties['version'] = $version;
+            $this->_device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
+            $this->_device->version = $version;
             // Check this here so we only need to save the device object once.
-            if ($device->properties['version'] < $this->_maxVersion && $device->needsVersionUpdate($this->getSupportedVersions())) {
+            if ($this->_device->properties['version'] < $this->_maxVersion &&
+                $this->_device->needsVersionUpdate($this->getSupportedVersions())) {
+
                 $needMsRp = true;
             }
-            $device->save();
+
+            $this->_device->save();
+
             if (is_callable(array($this->_driver, 'deviceCallback'))) {
-                $callback_ret = $this->_driver->deviceCallback($device);
+                $callback_ret = $this->_driver->deviceCallback($this->_device);
                 if ($callback_ret !== true) {
                     $msg = sprintf(
                         'The device %s was disallowed for user %s per policy settings.',
-                        $device->id,
-                        $device->user);
+                        $this->_device->id,
+                        $this->_device->user);
                     $this->_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
@@ -802,11 +805,6 @@ class Horde_ActiveSync
                 }
             }
         }
-
-        // Always set the version information instead of caching it, some
-        // clients may allow changing the protocol version.
-        $device->version = $version;
-        $this->_device = $device;
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
