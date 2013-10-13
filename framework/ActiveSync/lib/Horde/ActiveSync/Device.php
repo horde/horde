@@ -63,9 +63,9 @@ class Horde_ActiveSync_Device
     /**
      * Dirty flag
      *
-     * @var boolean
+     * @var array
      */
-    protected $_dirty = false;
+    protected $_dirty = array();
 
     /**
      * Const'r
@@ -98,7 +98,7 @@ class Horde_ActiveSync_Device
     public function __set($property, $value)
     {
         if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
-            $this->_dirty = true;
+            $this->_dirty[$property] = true;
             $this->_properties[$property] = $value;
         }
     }
@@ -121,11 +121,13 @@ class Horde_ActiveSync_Device
     public function needsVersionUpdate($supported)
     {
         if (empty($this->properties['announcedVersion'])) {
-            $this->properties['announcedVersion'] = $supported;
+            $this->_properties['properties']['announcedVersion'] = $supported;
+            $this->_dirty['properties'] = true;
             return false;
         }
         if ($this->properties['announcedVersion'] != $supported) {
-            $this->properties['announcedVersion'] = $supported;
+            $this->_properties['properties']['announcedVersion'] = $supported;
+            $this->_dirty['properties'] = true;
             return true;
         }
 
@@ -231,10 +233,8 @@ class Horde_ActiveSync_Device
 
     public function save()
     {
-        if ($this->_dirty) {
-            $this->_state->setDeviceInfo($this);
-            $this->_dirty = false;
-        }
+        $this->_state->setDeviceInfo($this, $this->_dirty);
+        $this->_dirty = array();
     }
 
 }
