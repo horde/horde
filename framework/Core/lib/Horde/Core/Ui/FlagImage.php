@@ -36,12 +36,11 @@ class Horde_Core_Ui_FlagImage
      */
     static public function generateFlagImageByHost($host)
     {
-        $data = Horde_Nls::getCountryByHost($host, empty($GLOBALS['conf']['geoip']['datafile']) ? null : $GLOBALS['conf']['geoip']['datafile']);
-        if ($data === false) {
+        if (($data = self::getFlagImageObByHost($host)) === false) {
             return '';
         }
 
-        $img = Horde_Themes_Image::tag('flags/' . $data['code'] . '.png', array(
+        $img = Horde_Themes_Image::tag($data['ob'], array(
             'alt' => $data['name'],
             'attr' => array('title' => $data['name'])
         ));
@@ -49,6 +48,37 @@ class Horde_Core_Ui_FlagImage
         return $img
             ? $img
             : '[' . $data['name'] . ']';
+    }
+
+    /**
+     * Generate flag image object.
+     *
+     * @since 2.10.0
+     *
+     * @param string $host  The hostname.
+     *
+     * @return array  False if not found, or an array with these keys:
+     * <pre>
+     *   - name: (string) Country name.
+     *   - ob: (Horde_Themes_Image) Image object.
+     * </pre>
+     */
+    static public function getFlagImageObByHost($host)
+    {
+        global $conf;
+
+        $data = Horde_Nls::getCountryByHost(
+            $host,
+            empty($conf['geoip']['datafile']) ? null : $conf['geoip']['datafile']
+        );
+        if ($data === false) {
+            return false;
+        }
+
+        return array(
+            'name' => $data['name'],
+            'ob' => Horde_Themes::img('flags/' . $data['code'] . '.png')
+        );
     }
 
 }

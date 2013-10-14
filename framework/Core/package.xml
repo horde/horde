@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
 * [mms] Add base64img property to Horde_Themes_Image.
 * [mjr] Do not assume that the filter API is available (Bug #12757).
 * [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
@@ -3180,6 +3181,7 @@
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
 * [mms] Add base64img property to Horde_Themes_Image.
 * [mjr] Do not assume that the filter API is available (Bug #12757).
 * [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
