@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-08-27 14:53+0200\n"
-"PO-Revision-Date: 2013-08-27 14:55+0200\n"
+"PO-Revision-Date: 2013-10-14 14:09+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1329,7 +1329,7 @@ msgstr ""
 
 #: lib/Compose/View.php:39 lib/Compose/View.php:54
 msgid "Could not display attachment data."
-msgstr "Der Anhang konnte nicht angzeigt werden."
+msgstr "Der Anhang konnte nicht angezeigt werden."
 
 #: lib/Basic/Thread.php:49
 msgid "Could not load message."
@@ -5182,7 +5182,7 @@ msgstr ""
 #: lib/Mime/Viewer/Alternative.php:99
 msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
-"Es gibt keine alternativen Nachrichtenteile, die angzeigt werden können."
+"Es gibt keine alternativen Nachrichtenteile, die angezeigt werden können."
 
 #: lib/Dynamic/Mailbox.php:491
 #: templates/basic/mailbox/empty_mailbox.html.php:6
