@@ -40,7 +40,7 @@ var ImpSearch = {
         }
     },
 
-    updateCriteria: function(criteria, initial)
+    updateCriteria: function(criteria)
     {
         this.resetCriteria();
 
@@ -112,7 +112,7 @@ var ImpSearch = {
         }, this);
 
         if ($('search_criteria').childElements().size()) {
-            if (!initial) {
+            if ($('no_search_criteria').visible()) {
                 $('no_search_criteria', 'search_criteria').invoke('toggle');
             }
             this.showOr(true);
@@ -695,7 +695,7 @@ var ImpSearch = {
         }
 
         if (this.i_criteria) {
-            this.updateCriteria(this.i_criteria, true);
+            this.updateCriteria(this.i_criteria);
             delete this.i_criteria;
         }
 
