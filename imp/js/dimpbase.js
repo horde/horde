@@ -1513,7 +1513,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folderopts':
-            $('ctx_folderopts_sub').hide();
+            [ $('ctx_folderopts_sub') ].compact().invoke('hide');
             break;
         }
     },
