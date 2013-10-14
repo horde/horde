@@ -1656,6 +1656,7 @@ $prefGroups['folderdisplay'] = array(
 
 $_prefs['subscribe'] = array(
     'value' => 1,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Use IMAP mailbox subscriptions?"),
     'on_change' => function() {
