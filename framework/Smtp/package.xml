@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix reading translations in PEAR-installed package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,7 +43,9 @@
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Password.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Smtp -->
      <file name="Smtp.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -233,7 +235,7 @@
    <date>2013-09-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix reading translations in PEAR-installed package.
    </notes>
   </release>
  </changelog>

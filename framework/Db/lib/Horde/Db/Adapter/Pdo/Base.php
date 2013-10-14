@@ -61,8 +61,12 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function isActive()
     {
         $this->_lastQuery = $sql = 'SELECT 1';
-        return isset($this->_connection) &&
-            $this->_connection->query($sql);
+        try {
+            return isset($this->_connection) &&
+                $this->_connection->query($sql);
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
     }
 
 
@@ -191,7 +195,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         try {
             $this->_lastQuery = $sql;
             $stmt = $this->_connection->query($sql);
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             $this->_logInfo($sql, $name);
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
@@ -225,9 +229,13 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         $this->execute($sql, $arg1, $arg2);
 
-        return $idValue
-            ? $idValue
-            : $this->_connection->lastInsertId($sequenceName);
+        try {
+            return $idValue
+                ? $idValue
+                : $this->_connection->lastInsertId($sequenceName);
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
     }
 
     /**
@@ -236,7 +244,11 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function beginDbTransaction()
     {
         if (!$this->_transactionStarted) {
-            $this->_connection->beginTransaction();
+            try {
+                $this->_connection->beginTransaction();
+            } catch (PDOException $e) {
+                throw new Horde_Db_Exception($e);
+            }
         }
         $this->_transactionStarted++;
     }
@@ -248,7 +260,11 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         $this->_transactionStarted--;
         if (!$this->_transactionStarted) {
-            $this->_connection->commit();
+            try {
+                $this->_connection->commit();
+            } catch (PDOException $e) {
+                throw new Horde_Db_Exception($e);
+            }
         }
     }
 
@@ -262,7 +278,11 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             return;
         }
 
-        $this->_connection->rollBack();
+        try {
+            $this->_connection->rollBack();
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
         $this->_transactionStarted = 0;
     }
 
@@ -280,7 +300,11 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function quoteString($string)
     {
-        return $this->_connection->quote($string);
+        try {
+            return $this->_connection->quote($string);
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
     }
 
 

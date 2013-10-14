@@ -289,6 +289,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             );
         }
 
+        $subscribe = $prefs->getValue('subscribe');
+        if (!$subscribe) {
+            unset(
+                $context['ctx_folderopts']['sub'],
+                $context['ctx_folderopts']['unsub']
+            );
+        }
+
         /* Message context menu. */
         $context['ctx_message'] = array(
             '_sub1' => array(
@@ -365,7 +373,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        if (!$prefs->getValue('subscribe')) {
+        if (!$subscribe) {
             unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
         }
 
@@ -506,14 +514,19 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("%s selected."),
             'slidertext' => _("Messages %d - %d"),
-            'subscribe_mbox' => _("Subscribe to %s?"),
-            'subscribe_mbox_subfolders' => _("Subscribe to all subfolders of %s?"),
-            'unsubscribe_mbox' => _("Unsubscribe to %s?"),
-            'unsubscribe_mbox_subfolders' => _("Unsubscribe to all subfolders of %s?"),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),
             'vp_empty_search' => _("No messages matched the search query.")
         );
+
+        if ($subscribe) {
+            $this->js_text += array(
+                'subscribe_mbox' => _("Subscribe to %s?"),
+                'subscribe_mbox_subfolders' => _("Subscribe to all subfolders of %s?"),
+                'unsubscribe_mbox' => _("Unsubscribe to %s?"),
+                'unsubscribe_mbox_subfolders' => _("Unsubscribe to all subfolders of %s?"),
+            );
+        }
     }
 
 }

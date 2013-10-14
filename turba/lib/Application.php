@@ -465,7 +465,7 @@ class Turba_Application extends Horde_Registry_Application
 
         case 'export':
             $sources = array();
-            if ($vars->selected) {
+            if ($vars->objectkeys) {
                 foreach ($vars->objectkeys as $objectkey) {
                     list($source, $key) = explode(':', $objectkey, 2);
                     if (!isset($sources[$source])) {

@@ -591,25 +591,42 @@ var DimpCompose = {
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
             !this.auto_save_interval) {
-            this.auto_save_interval = new PeriodicalExecuter(function() {
-                if ($('compose').visible()) {
-                    var hdrs = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0'), this.seed), msg;
-                    if (this.md5_hdrs) {
-                        msg = this.msgHash();
-                        if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
-                            this.uniqueSubmit('autoSaveDraft');
-                        }
-                    } else {
-                        msg = this.md5_msgOrig;
-                    }
-                    this.md5_hdrs = hdrs;
-                    this.md5_msg = msg;
-                }
-            }.bind(this), DimpCore.conf.auto_save_interval_val * 60);
+            this.auto_save_interval = new PeriodicalExecuter(
+                this.autoSaveDraft.bind(this),
+                DimpCore.conf.auto_save_interval_val * 60
+            );
 
             /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
+    },
+
+    autoSaveDraft: function()
+    {
+        var hdrs, msg;
+
+        if (!$('compose').visible()) {
+            return;
+        }
+
+        hdrs = murmurhash3(
+            [$('to', 'cc', 'bcc', 'subject').compact().invoke('getValue'),
+             $('attach_list').select('SPAN.attachName').pluck('textContent')
+            ].flatten().join('\0'),
+            this.seed
+        );
+
+        if (this.md5_hdrs) {
+            msg = this.msgHash();
+            if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
+                this.uniqueSubmit('autoSaveDraft');
+            }
+        } else {
+            msg = this.md5_msgOrig;
+        }
+
+        this.md5_hdrs = hdrs;
+        this.md5_msg = msg;
     },
 
     msgHash: function()
