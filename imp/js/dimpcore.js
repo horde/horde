@@ -270,13 +270,14 @@ var DimpCore = {
                     addr: tmp2.b
                 }, {
                     callback: function (r) {
-                        if (r.flagimg) {
-                            tmp.insert({ top: r.flagimg })
-                                .down().addClassName('flagimg');
-                        }
-                        if (r.url) {
+                        if (r.flag) {
                             tmp.insert({
-                                top: new Element('IMG', { src: r.url }).addClassName('contactimg')
+                                top: new Element('IMG', { title: r.flagname, src: r.flag }).addClassName('contactimg')
+                            });
+                        }
+                        if (r.avatar) {
+                            tmp.insert({
+                                top: new Element('IMG', { src: r.avatar }).addClassName('contactimg')
                             });
                         }
                     }

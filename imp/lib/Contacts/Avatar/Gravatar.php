@@ -12,7 +12,7 @@
  */
 
 /**
- * Generate contact image using the Gravatar service.
+ * Generate contact avatar image using the Gravatar service.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,11 +20,11 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Contacts_Image_Gravatar implements IMP_Contacts_Image_Backend
+class IMP_Contacts_Avatar_Gravatar implements IMP_Contacts_Avatar_Backend
 {
     /**
      */
-    public function rawImage($email)
+    public function avatarImg($email)
     {
         if (class_exists('Horde_Service_Gravatar')) {
             $gravatar = new Horde_Service_Gravatar(
@@ -42,21 +42,14 @@ class IMP_Contacts_Image_Gravatar implements IMP_Contacts_Image_Backend
                 $img_data = stream_get_contents($data);
 
                 if (strlen($img_data)) {
-                    return Horde_Url_Data::create(
-                        'image/jpeg',
-                        $img_data
+                    return array(
+                        'desc' => '',
+                        'url' => Horde_Url_Data::create('image/jpeg', $img_data)
                     );
                 }
             }
         }
 
-        return null;
-    }
-
-    /**
-     */
-    public function urlImage($email)
-    {
         return null;
     }
 

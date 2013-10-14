@@ -271,26 +271,19 @@ class IMP_Basic_Message extends IMP_Basic_Base
         /* Build From address links. */
         $display_headers['from'] = $imp_ui->buildAddressLinks($envelope->from, $self_link);
 
-        /* Add country/flag image. Try X-Originating-IP first, then fall back
-         * to the sender's domain name. */
-        $from_img = '';
-        $origin_host = str_replace(array('[', ']'), '', $mime_headers->getValue('X-Originating-IP'));
-        if ($origin_host) {
-            if (!is_array($origin_host)) {
-                $origin_host = array($origin_host);
-            }
-            foreach ($origin_host as $host) {
-                $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($host) . ' ';
-            }
-            trim($from_img);
-        }
-
-        if (empty($from_img) && !empty($envelope->from)) {
-            $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($envelope->from[0]->host) . ' ';
-        }
-
-        if (!empty($from_img)) {
-            $display_headers['from'] .= '&nbsp;' . $from_img;
+        /* Add country/flag image. */
+        if (!empty($envelope->from)) {
+            $contacts_img = new IMP_Contacts_Image($envelope->from[0]);
+            try {
+                $res = $contacts_img->getData($contacts_img::FLAG);
+                $display_headers['from'] .= '&nbsp;' . Horde_Themes_Image::tag(
+                    $res['url'],
+                    array(
+                        'alt' => $res['desc'],
+                        'fullsrc' => true
+                    )
+                );
+            } catch (IMP_Exception $e) {}
         }
 
         /* Look for Face information. */

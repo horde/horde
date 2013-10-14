@@ -12,7 +12,7 @@
  */
 
 /**
- * Generate contact image by using local addressbook.
+ * Generate contact avatar image by using local addressbook.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,11 +20,11 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Contacts_Image_Addressbook implements IMP_Contacts_Image_Backend
+class IMP_Contacts_Avatar_Addressbook implements IMP_Contacts_Avatar_Backend
 {
     /**
      */
-    public function rawImage($email)
+    public function avatarImg($email)
     {
         global $injector, $registry;
 
@@ -55,18 +55,14 @@ class IMP_Contacts_Image_Addressbook implements IMP_Contacts_Image_Backend
                         $type = $res[$email][0]['phototype'];
                     }
 
-                    return Horde_Url_Data::create($type, $data);
+                    return array(
+                        'desc' => '',
+                        'url' => Horde_Url_Data::create($type, $data)
+                    );
                 }
             } catch (Horde_Exception $e) {}
         }
 
-        return null;
-    }
-
-    /**
-     */
-    public function urlImage($email)
-    {
         return null;
     }
 

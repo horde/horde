@@ -1142,7 +1142,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
-     * AJAX action: Return the contacts image for a given e-mail address.
+     * AJAX action: Return the contacts images for a given e-mail address.
      *
      * Variables used:
      * <pre>
@@ -1151,22 +1151,26 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * @return object  An object with the following properties:
      * <pre>
-     *   - flagimg: (string) An IMG tag with the country flag of the sender.
-     *   - url: (string) The URL of the contacts image.
+     *   - avatar: (string) The URL of the avatar image.
+     *   - flag: (string) The URL of the sender's country flag image.
+     *   - flagname: (string) The name of the country of the sender.
      * </pre>
      */
     public function getContactsImage()
     {
+        $contacts_img = new IMP_Contacts_Image($this->vars->addr);
         $out = new stdClass;
+
         try {
-            $contacts_img = new IMP_Contacts_Image($this->vars->addr);
-            $out->url = strval($contacts_img->getUrlOb());
+            $res = $contacts_img->getImage($contacts_img::AVATAR);
+            $out->avatar = strval($res['url']);
         } catch (IMP_Exception $e) {}
 
-        $addr = new Horde_Mail_Rfc822_Address($this->vars->addr);
-        if ($flag = Horde_Core_Ui_FlagImage::generateFlagImageByHost($addr->host)) {
-            $out->flagimg = $flag;
-        }
+        try {
+            $res = $contacts_img->getImage($contacts_img::FLAG);
+            $out->flag = strval($res['url']);
+            $out->flagname = $res['desc'];
+        } catch (IMP_Exception $e) {}
 
         return $out;
     }

@@ -12,7 +12,7 @@
  */
 
 /**
- * Generate image for an unknown contact.
+ * Interface for a contacts flag image backend.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,20 +20,15 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Contacts_Image_Unknown implements IMP_Contacts_Image_Backend
+interface IMP_Contacts_Flag_Backend
 {
     /**
+     * URL of the contact flag image.
+     *
+     * @param string $email  An email address.
+     *
+     * @return array  See IMP_Contacts_Image#getImage().
      */
-    public function rawImage($email)
-    {
-        return null;
-    }
-
-    /**
-     */
-    public function urlImage($email)
-    {
-        return Horde_Themes::img('unknown_contact.jpg');
-    }
+    public function flagImg($email);
 
 }

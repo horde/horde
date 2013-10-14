@@ -22,6 +22,10 @@
  */
 class IMP_Contacts_Image
 {
+    /* Image types. */
+    const AVATAR = 1;
+    const FLAG = 2;
+
     /**
      * The e-mail address.
      *
@@ -40,22 +44,40 @@ class IMP_Contacts_Image
     }
 
     /**
-     * Return a URL object representing the contact image.
+     * Return the data representing the contact image.
      *
-     * @return Horde_Url|Horde_Url_Data  URL object
+     * @param integer $type  The image type.
+     *
+     * @return array  Array with the following keys:
+     * <pre>
+     *   - desc: (string) Description.
+     *   - url: (Horde_Url|Horde_Url_Data) URL object.
+     * </pre>
      *
      * @throws IMP_Exception
      */
-    public function getUrlOb()
+    public function getImage($type)
     {
         global $conf;
 
         if (!empty($conf['contactsimage']['backends'])) {
+            switch ($type) {
+            case self::AVATAR:
+                $func = 'avatarImg';
+                $type = 'IMP_Contacts_Avatar_Backend';
+                break;
+
+            case self::FLAG:
+                $func = 'flagImg';
+                $type = 'IMP_Contacts_Flag_Backend';
+                break;
+            }
+
             foreach ($conf['contactsimage']['backends'] as $val) {
                 if (class_exists($val)) {
                     $backend = new $val();
-                    if (($url = $backend->rawImage($this->_email)) ||
-                        ($url = $backend->urlImage($this->_email))) {
+                    if (($backend instanceof $type) &&
+                        ($url = $backend->$func($this->_email))) {
                         return $url;
                     }
                 }
