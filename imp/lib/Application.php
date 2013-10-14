@@ -273,7 +273,7 @@ class IMP_Application extends Horde_Registry_Application
                     ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
 
                 $tree = $injector->getInstance('IMP_Ftree')->createTree($tree, array(
-                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER),
+                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                     'open' => false,
                     'poll_info' => true
                 ));

@@ -32,6 +32,7 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
     const NO_VFOLDER = 64;
     const INVISIBLE = 128;
     const UNSUB = 256;
+    const UNSUB_PREF = 512;
 
     /**
      * Cached data.
@@ -57,7 +58,12 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      */
     static public function create($mask = 0, $elt = null)
     {
-        $ob = new self(new IMP_Ftree_Iterator($elt));
+        global $prefs;
+
+        $unsub = (($mask & self::UNSUB) ||
+                  (($mask & self::UNSUB_PREF) && !$prefs->getValue('subscribe')));
+
+        $ob = new self(new IMP_Ftree_Iterator($elt, $unsub));
         $ob->setFilter($mask);
         return $ob->getIterator();
     }
@@ -76,10 +82,17 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      *   - self::NO_VFOLDER: Don't include Virtual Folders.
      *   - self::INVISIBLE: Include invisible elements.
      *   - self::UNSUB: Include unsubscribed elements.
+     *   - self::UNSUB_PREF: Include unsubscribed elements based on current
+     *                       subscribe preference value.
      * </pre>
      */
     public function setFilter($mask = 0)
     {
+        if ($mask & self::UNSUB_PREF) {
+            $mask |= self::UNSUB;
+            $mask &= ~self::UNSUB_PREF;
+        }
+
         $this->_mask = $mask;
         reset($this);
     }

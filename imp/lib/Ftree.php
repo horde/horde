@@ -852,8 +852,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function count()
     {
-        $this->loadUnsubscribed();
-
         return iterator_count(
             IMP_Ftree_IteratorFilter::create(
                 IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB

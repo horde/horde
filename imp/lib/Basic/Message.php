@@ -526,7 +526,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'heading' => _("This message to"),
                 'inc_tasklists' => true,
                 'inc_notepads' => true,
-                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP),
+                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                 'new_mbox' => true
             ));
         }

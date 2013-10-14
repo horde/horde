@@ -44,12 +44,9 @@ class IMP_Search_Ui
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
         $ftree = $injector->getInstance('IMP_Ftree');
-        if ($unsub) {
-            $mask = IMP_Ftree_IteratorFilter::UNSUB;
-            $ftree->loadUnsubscribed();
-        } else {
-            $mask = 0;
-        }
+        $mask = $unsub
+            ? IMP_Ftree_IteratorFilter::UNSUB
+            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
         if ($registry->getView() != $registry::VIEW_DYNAMIC) {
             $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
         }

@@ -283,12 +283,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $ftree->init();
         }
 
-        if ($this->vars->unsub) {
-            $ftree->loadUnsubscribed();
-            $mask = IMP_Ftree_IteratorFilter::UNSUB;
-        } else {
-            $mask = 0;
-        }
+        $mask = $this->vars->unsub
+            ? IMP_Ftree_IteratorFilter::UNSUB
+            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
 
         $this->_base->queue->ftreemask |= $mask |
             IMP_Ftree_IteratorFilter::NO_SPECIALMBOXES;

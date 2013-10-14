@@ -205,9 +205,6 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             if ($subscribe) {
                 $showAll = !$showAll;
                 $session->set('imp', 'showunsub', $showAll);
-                if ($showAll) {
-                    $ftree->loadUnsubscribed();
-                }
             }
             break;
 
@@ -412,10 +409,15 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         ));
 
         /* Build the folder tree. */
+        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
+                IMP_Ftree_IteratorFilter::NO_VFOLDER;
+        if ($showAll) {
+            $mask |= IMP_Ftree_IteratorFilter::UNSUB;
+        }
         $tree = $ftree->createTree('imp_folders', array(
             'checkbox' => true,
             'editvfolder' => true,
-            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER),
+            'iterator' => IMP_Ftree_IteratorFilter::create($mask),
             'poll_info' => true
         ));
 
