@@ -418,7 +418,7 @@ class Whups
     static public function getTicketTabs(&$vars, $id)
     {
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
-        $queue = $vars->get('queue');
+        $queue = Whups_Ticket::makeTicket($id)->get('queue');
 
         $tabs->addTab(_("_History"), self::urlFor('ticket', $id), 'history');
         $tabs->addTab(_("_Attachments"), self::urlFor('ticket_action', array('attachments', $id)), 'attachments');
