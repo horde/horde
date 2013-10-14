@@ -40,7 +40,7 @@ var ImpSearch = {
         }
     },
 
-    updateCriteria: function(criteria)
+    updateCriteria: function(criteria, initial)
     {
         this.resetCriteria();
 
@@ -112,7 +112,9 @@ var ImpSearch = {
         }, this);
 
         if ($('search_criteria').childElements().size()) {
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
+            if (!initial) {
+                $('no_search_criteria', 'search_criteria').invoke('toggle');
+            }
             this.showOr(true);
         }
     },
@@ -693,7 +695,7 @@ var ImpSearch = {
         }
 
         if (this.i_criteria) {
-            this.updateCriteria(this.i_criteria);
+            this.updateCriteria(this.i_criteria, true);
             delete this.i_criteria;
         }
 
