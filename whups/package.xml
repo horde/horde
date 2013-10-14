@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix empty notifications for assignees on ticket creation (Bug #12683).
 * [jan] Fix displaying of ticket tabs (Bug #12744).
 * [mjr] Fix sourceselect preference handling (Bug #12718).
 * [jan] Hide citings in comments by default.
@@ -1052,6 +1053,7 @@
    <date>2013-08-29</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix empty notifications for assignees on ticket creation (Bug #12683).
 * [jan] Fix displaying of ticket tabs (Bug #12744).
 * [mjr] Fix sourceselect preference handling (Bug #12718).
 * [jan] Hide citings in comments by default.
