@@ -134,7 +134,7 @@ var ImpComposeBase = {
             email: val,
             suggested: function(suggestion) {
                 HordeCore.notify(
-                    this.mailcheck_suggest.sub('%s', val.escapeHTML()).sub('%s', suggestion.full.escapeHTML()),
+                    this.mailcheck_suggest.sub('%s', val).sub('%s', suggestion.full),
                     'horde.warning'
                 );
             }.bind(this)
