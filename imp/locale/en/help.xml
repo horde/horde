@@ -871,7 +871,7 @@
                 <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Move one page up/down through the message list.
             </para>
             <para>
-                <css class="kbd">Alt</css> + <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Scroll up/down through the display of the previewed message.
+                <css class="kbd">Alt</css> + (<css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> / <css class="iconImg keyupImg"></css> / <css class="iconImg keydownImg"></css>): Scroll up/down through the display of the previewed message.
             </para>
             <para>
                 <css class="kbd">Home</css> / <css class="kbd">End</css> : Move to the beginning/end of the message list.

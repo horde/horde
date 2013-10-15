@@ -2467,7 +2467,12 @@ var DimpBase = {
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             tmp = this.viewport.getMetaData('lastrow');
-            if (e.shiftKey && tmp) {
+            if (e.altKey) {
+                pp = $('previewPane');
+                pp.scrollTop = prev
+                    ? Math.max(pp.scrollTop - 10, 0)
+                    : Math.min(pp.scrollTop + 10, pp.getHeight());
+            } else if (e.shiftKey && tmp) {
                 row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
