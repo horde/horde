@@ -9,6 +9,7 @@
 var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
+    // Vars initialized by PHP code: mailcheck_suggest
 
     getSpellChecker: function()
     {
@@ -125,6 +126,19 @@ var ImpComposeBase = {
         }
 
         return val;
+    },
+
+    mailcheck: function(val)
+    {
+        Kicksend.mailcheck.run({
+            email: val,
+            suggested: function(suggestion) {
+                HordeCore.notify(
+                    this.mailcheck_suggest.sub('%s', val.escapeHTML()).sub('%s', suggestion.full.escapeHTML()),
+                    'horde.warning'
+                );
+            }.bind(this)
+        });
     }
 
 };

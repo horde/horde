@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add a simple domain checker to the autocompleter that checks for common misspellings.
 * [mms] Add country flag graphic to contact image information in dynamic view.
 * [mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
 * [mms] Add ability to specify maximum total attachment size in composed message before all attachments are converted to links.

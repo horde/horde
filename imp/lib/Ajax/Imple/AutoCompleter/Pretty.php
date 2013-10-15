@@ -43,6 +43,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
                 'displayFilter' => 'new Function("t", "return t.sub(/<[^>]*>$/, \"\").strip().escapeHTML()")',
                 'growingInputClass' => 'hordeACTrigger impACTrigger',
                 'listClass' => 'hordeACList impACList',
+                'onAdd' => 'ImpComposeBase.mailcheck.bind(ImpComposeBase)',
                 'processValueCallback' => 'ImpComposeBase.autocompleteValue.bind(ImpComposeBase)',
                 'removeClass' => 'hordeACItemRemove impACItemRemove',
                 'triggerContainer' => strval(new Horde_Support_Randomid())
@@ -59,6 +60,11 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
 
         $page_output->addScriptFile('compose-base.js');
         $page_output->addScriptFile('prettyautocomplete.js');
+        $page_output->addScriptFile('external/mailcheck.js');
+
+        $page_output->addInlineJsVars(array(
+            'ImpComposeBase.mailcheck_suggest' => _("You added \"%s\" as an e-mail address. Did you mean \"%s?\"")
+        ));
     }
 
     /**
