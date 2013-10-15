@@ -16,8 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-28</date>
- <time>13:20:28</time>
+ <date>2013-10-15</date>
  <version>
   <release>2.0.7</release>
   <api>2.0.0</api>
@@ -934,7 +933,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-28</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Correct dates with very large days-of-month more efficiently (Bug #12615).
