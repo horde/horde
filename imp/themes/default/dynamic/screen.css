@@ -992,10 +992,14 @@ span.logoutIcon {
     background-image: url("../graphics/filters.png");
 }
 
-#ctx_contacts img.contactimg, #ctx_contacts img.flagimg {
+#ctx_contacts img.contactimg, #ctx_contacts div.flagimg {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+}
+#ctx_contacts div.flagimg img {
+    padding-right: 3px;
 }
 
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {

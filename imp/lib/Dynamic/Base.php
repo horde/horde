@@ -148,6 +148,8 @@ abstract class IMP_Dynamic_Base
          */
         $context = array(
             'ctx_contacts' => array(
+                // Empty sub item needs to be a javascript object
+                '_sub1' => new stdClass,
                 'new' => _("New Message"),
                 'add' => _("Add to Address Book")
             ),

@@ -250,18 +250,12 @@ var DimpCore = {
 
     contextOnShow: function(e)
     {
-        var remove, tmp, tmp2;
+        var tmp, tmp2;
 
         switch (e.memo) {
         case 'ctx_contacts':
-            tmp = $(e.memo);
-            remove = tmp.select('IMG');
-            tmp2 = tmp.down('DIV.contactAddr');
-            if (tmp2) {
-                remove.push(tmp2.next());
-                remove.push(tmp2);
-            }
-            remove.compact().invoke('remove');
+            tmp = $(e.memo).down('DIV');
+            tmp.hide().childElements().invoke('remove');
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
@@ -271,12 +265,15 @@ var DimpCore = {
                 }, {
                     callback: function (r) {
                         if (r.flag) {
-                            tmp.insert({
-                                top: new Element('IMG', { title: r.flagname, src: r.flag }).addClassName('contactimg')
+                            tmp.show().insert({
+                                top: new Element('DIV')
+                                    .addClassName('flagimg')
+                                    .insert(new Element('IMG', { title: r.flagname, src: r.flag }))
+                                    .insert(r.flagname.escapeHTML())
                             });
                         }
                         if (r.avatar) {
-                            tmp.insert({
+                            tmp.show().insert({
                                 top: new Element('IMG', { src: r.avatar }).addClassName('contactimg')
                             });
                         }
@@ -284,7 +281,7 @@ var DimpCore = {
                 });
 
                 if (!tmp2.g && tmp2.p) {
-                    tmp.insert({ top: new Element('DIV', { className: 'sep' }) })
+                    tmp.show().insert({ top: new Element('DIV', { className: 'sep' }) })
                         .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
                 }
             }
