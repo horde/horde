@@ -275,7 +275,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         if (!empty($envelope->from)) {
             $contacts_img = new IMP_Contacts_Image($envelope->from[0]);
             try {
-                $res = $contacts_img->getData($contacts_img::FLAG);
+                $res = $contacts_img->getImage($contacts_img::FLAG);
                 $display_headers['from'] .= '&nbsp;' . Horde_Themes_Image::tag(
                     $res['url'],
                     array(
