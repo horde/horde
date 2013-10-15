@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Add additional syntax checking for the configuration files in the test script.
 * [mms] Only update topbar if the underlying tree data has changed.
  </notes>
  <contents>
@@ -3768,6 +3769,7 @@
    <date>2013-10-09</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Add additional syntax checking for the configuration files in the test script.
 * [mms] Only update topbar if the underlying tree data has changed.
    </notes>
   </release>

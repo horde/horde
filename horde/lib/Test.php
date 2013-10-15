@@ -682,27 +682,92 @@ class Horde_Test
     public function requiredFileCheck()
     {
         $output = '';
-        $filedir = $GLOBALS['registry']->get('fileroot');
+
+        $php = trim(system('which php'));
+        if (!$php || !file_exists($php)) {
+            $output = '<p style="color:orange">Cannot find PHP command-line binary on your system. Syntax checking of configuration files is disabled.</p>';
+            $php = null;
+        } else {
+            $output = '';
+        }
 
         ksort($this->_fileList);
 
-        foreach ($this->_fileList as $key => $val) {
-            $entry = array();
-            $result = file_exists($filedir . '/' . $key);
+        return $output . $this->_requiredFileCheck($this->_fileList, $php);
+    }
 
-            $entry[] = $key;
-            $entry[] = $this->_status($result);
+    /**
+     * Check the list of required files
+     *
+     * @param array $filelist    List of files to check.
+     * @param string $php        PHP CLI location.
+     * @param boolean $is_local  Is filelist a "local" file?
+     *
+     * @return string  The HTML output.
+     */
+    protected function _requiredFileCheck($filelist, $php, $is_local = false)
+    {
+        $filedir = $GLOBALS['registry']->get('fileroot');
+        $output = $tmp = '';
 
-            if (!$result) {
-                if (empty($val)) {
-                    $text = 'The file <code>' . $key . '</code> appears to be missing.';
-                    $entry[] = $text;
+        foreach ($filelist as $key => $val) {
+            $entry = array($key);
+            $file = $filedir . '/' . $key;
+            $entry2 = null;
+
+            if (file_exists($file)) {
+                if (is_readable($file)) {
+                    if (is_null($php)) {
+                        $entry[] = $this->_status(true);
+                        $check_local = true;
+                    } else {
+                        exec(escapeshellcmd($php) . ' -l ' . escapeshellarg($file), $tmp, $error);
+                        if ($error === 255) {
+                            $entry[] = $this->_status(false);
+                            $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> has PHP syntax errors:' . "\n<pre>" . htmlspecialchars(trim(implode("\n", $tmp))) . '</pre>';
+                        } else {
+                            ob_start();
+                            include $file;
+                            $parse_contents = trim(ob_get_clean());
+
+                            if (strlen($parse_contents)) {
+                                $entry[] = $this->_status(false);
+                                $contents = file_get_contents($file);
+                                if (preg_match("/<?php\s+/", $contents)) {
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is outputting a non-empty string when parsed. Configuration files should not output anything. Output string:' . "\n<pre>" . htmlspecialchars($parse_contents) . '</pre>';
+                                } else {
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'<?php\' opening tag.';
+                                }
+                            } else {
+                                $entry[] = $this->_status(true);
+                                $check_local = true;
+                            }
+                        }
+                    }
+
+                    if ($check_local && !$is_local) {
+                        $local_file = preg_replace("/\.php$/", '.local.php', $key);
+                        if (file_exists($filedir . '/' . $local_file)) {
+                            $entry2 = $this->_requiredFileCheck(array(
+                                $local_file => null
+                            ), $php, true);
+                        }
+                    }
                 } else {
-                    $entry[] = $val;
+                    $entry[] = $this->_status(false);
+                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is not readable by the web user.';
                 }
+            } else {
+                $entry[] = $this->_status(false);
+                $entry[] = empty($val)
+                    ? 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing.'
+                    : $val;
             }
 
             $output .= $this->_outputLine($entry);
+            if (!is_null($entry2)) {
+                $output .= $entry2;
+            }
         }
 
         return $output;
