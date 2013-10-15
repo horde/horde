@@ -682,9 +682,9 @@ var DimpCompose = {
 
     focusEditor: function()
     {
-        try {
+        if (this.rte.focus) {
             this.rte.focus();
-        } catch (e) {
+        } else {
             this.focusEditor.bind(this).defer();
         }
     },
