@@ -88,7 +88,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
         new PeriodicalExecuter(this.inputWatcher.bind(this), 0.25);
 
-        p_clone = Object.toJSON(this.p).evalJSON();
+        p_clone = $H(this.p).toObject();
         p_clone.onSelect = this.updateElement.bind(this);
         p_clone.paramName = this.elt.readAttribute('name');
         p_clone.tokens = [];
@@ -232,9 +232,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
     currentValues: function()
     {
-        return this.currentEntries().collect(function(elt) {
-            return elt.retrieve('raw');
-        });
+        return this.currentEntries().invoke('retrieve', 'raw');
     },
 
     updateInput: function(input)
