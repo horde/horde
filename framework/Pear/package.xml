@@ -10,8 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>17:16:01</time>
+ <date>2013-10-15</date>
  <version>
   <release>1.0.0alpha5</release>
   <api>1.0.0</api>
@@ -494,7 +493,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove time elements by default.
