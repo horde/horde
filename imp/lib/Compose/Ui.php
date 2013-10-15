@@ -123,33 +123,16 @@ class IMP_Compose_Ui
      */
     public function addIdentityJs()
     {
+        global $injector, $page_output, $prefs;
+
         $identities = array();
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
+        $identity = $injector->getInstance('IMP_Identity');
+        $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
         foreach (array_keys($identity->getAll('id')) as $ident) {
             $sm = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
 
-            $sig = $identity->getSignature('text', $ident);
-            $html_sig = $identity->getSignature('html', $ident);
-            if (!strlen($html_sig) && strlen($sig)) {
-                $html_sig = IMP_Compose::text2html($sig);
-            }
-            $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
-            $html_sig = '';
-            foreach ($sig_dom->getBody()->childNodes as $child) {
-                $html_sig .= $sig_dom->dom->saveXml($child);
-            }
-            $sig = $filter->filter(
-                trim($sig),
-                array('Text2html', 'Space2html'),
-                array(
-                    array('parselevel' => Horde_Text_Filter_Text2html::NOHTML),
-                    array()
-                )
-            );
-
-            $identities[] = array(
+            $entry = array(
                 // Sent mail mailbox name
                 'sm_name' => $sm ? $sm->form_to : '',
                 // Save in sent mail mailbox by default?
@@ -157,15 +140,36 @@ class IMP_Compose_Ui
                 // Sent mail display name
                 'sm_display' => $sm ? $sm->display_html : '',
                 // Bcc addresses to add
-                'bcc' => strval($identity->getBccAddresses($ident)),
-                // Plain text signature
-                'sig' => $sig,
-                // HTML signature
-                'hsig' => $html_sig,
+                'bcc' => strval($identity->getBccAddresses($ident))
             );
+
+            if ($prefs->getValue('signature_show_compose')) {
+                $sig = $identity->getSignature('text', $ident);
+                $html_sig = $identity->getSignature('html', $ident);
+                if (!strlen($html_sig) && strlen($sig)) {
+                    $html_sig = IMP_Compose::text2html($sig);
+                }
+                $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
+                $html_sig = '';
+                foreach ($sig_dom->getBody()->childNodes as $child) {
+                    $html_sig .= $sig_dom->dom->saveXml($child);
+                }
+
+                $entry['sig'] = $filter->filter(
+                    trim($sig),
+                    array('Text2html', 'Space2html'),
+                    array(
+                        array('parselevel' => Horde_Text_Filter_Text2html::NOHTML),
+                        array()
+                    )
+                );
+                $entry['hsig'] = $html_sig;
+            }
+
+            $identities[] = $entry;
         }
 
-        $GLOBALS['page_output']->addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'ImpComposeBase.identities' => $identities
         ));
     }

@@ -60,14 +60,16 @@ var ImpComposeBase = {
 
     setSignature: function(identity)
     {
-        if (ImpComposeBase.editor_on) {
-            $('signature')
-                .removeClassName('fixed')
-                .update(identity.hsig);
-        } else {
-            $('signature')
-                .addClassName('fixed')
-                .update(identity.sig);
+        var s = $('signature');
+
+        if (s) {
+            if (ImpComposeBase.editor_on) {
+                s.removeClassName('fixed')
+                    .update(identity.hsig);
+            } else {
+                s.addClassName('fixed')
+                    .update(identity.sig);
+            }
         }
     },
 

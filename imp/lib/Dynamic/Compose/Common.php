@@ -145,6 +145,8 @@ class IMP_Dynamic_Compose_Common
             );
         }
         $view->select_list = $select_list;
+
+        $view->signature = $prefs->getValue('signature_show_compose');
     }
 
     /**

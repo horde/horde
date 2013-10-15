@@ -51,6 +51,14 @@ The following options have been removed::
    $conf['compose']['ac_threshold']
 
 
+Preferences (prefs.php)
+-----------------------
+
+The following preferences have been added::
+
+   signature_show_compose
+
+
 
 Upgrading IMP From 6.1.x To 6.1.4
 =================================

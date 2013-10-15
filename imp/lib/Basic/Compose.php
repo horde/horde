@@ -817,6 +817,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->identity_text = $select_list[0];
                 }
             }
+            $view->signature = $prefs->getValue('signature_show_compose');
 
             $addr_array = array(
                 'to' => _("_To"),

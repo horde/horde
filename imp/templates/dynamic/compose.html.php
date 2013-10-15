@@ -144,12 +144,14 @@
       <?php echo $this->textFieldTag('subject') ?>
      </td>
     </tr>
+<?php if ($this->signature): ?>
     <tr>
      <td class="label"><?php echo _("Signature")?>:</td>
      <td>
       <div id="signature"></div>
      </td>
     </tr>
+<?php endif; ?>
     <tr class="atcrow">
 <?php if ($this->attach): ?>
      <td class="label">
