@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not configured in the client.
 * [jan] Fix reading translations in PEAR-installed package.
  </notes>
  <contents>
@@ -235,6 +236,7 @@
    <date>2013-09-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not configured in the client.
 * [jan] Fix reading translations in PEAR-installed package.
    </notes>
   </release>
