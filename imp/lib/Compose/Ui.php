@@ -123,11 +123,13 @@ class IMP_Compose_Ui
      */
     public function addIdentityJs()
     {
-        global $injector, $page_output, $prefs;
+        global $injector, $page_output;
 
         $identities = array();
         $identity = $injector->getInstance('IMP_Identity');
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+
+        $sigs = $identity->hasSignature(true);
 
         foreach (array_keys($identity->getAll('id')) as $ident) {
             $sm = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
@@ -143,7 +145,7 @@ class IMP_Compose_Ui
                 'bcc' => strval($identity->getBccAddresses($ident))
             );
 
-            if ($prefs->getValue('signature_show_compose')) {
+            if ($sigs) {
                 $sig = $identity->getSignature('text', $ident);
                 $html_sig = $identity->getSignature('html', $ident);
                 if (!strlen($html_sig) && strlen($sig)) {
