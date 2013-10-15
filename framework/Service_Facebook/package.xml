@@ -10,8 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>13:33:35</time>
+ <date>2013-10-15</date>
  <version>
   <release>2.0.6</release>
   <api>2.0.0</api>
@@ -22,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Correctly catch HTTP client exceptions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -790,10 +789,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Correctly catch HTTP client exceptions.
    </notes>
   </release>
  </changelog>
