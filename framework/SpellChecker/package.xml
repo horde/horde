@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix spellchecking within the ALT HTML tag (Bug #12610).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -283,7 +283,7 @@ Initial Release.
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix spellchecking within the ALT HTML tag (Bug #12610).
    </notes>
   </release>
  </changelog>
