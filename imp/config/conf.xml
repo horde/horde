@@ -141,7 +141,7 @@
  <configtab name="contactsimage" desc="Contacts Images">
   <configsection name="contactsimage">
    <configmultienum name="backends" required="false" desc="The backends to
-   query for contacts images.">IMP_Contacts_Avatar_Addressbook, IMP_Contacts_Flag_Host
+   query for contacts images.">IMP_Contacts_Avatar_Addressbook
     <values>
      <value desc="Horde address book">IMP_Contacts_Avatar_Addressbook</value>
      <value desc="Gravatar">IMP_Contacts_Avatar_Gravatar</value>
