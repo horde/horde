@@ -22,8 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-04</date>
- <time>18:05:49</time>
+ <date>2013-10-15</date>
  <version>
   <release>2.1.1</release>
   <api>1.0.0</api>
@@ -34,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Correctly catch HTTP client exceptions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -838,10 +837,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-04</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Correctly catch HTTP client exceptions.
    </notes>
   </release>
  </changelog>
