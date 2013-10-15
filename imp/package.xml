@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-11</date>
+ <date>2013-10-15</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -85,6 +85,11 @@
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
     </dir> <!-- /js/ckeditor -->
+    <dir name="external">
+     <file name="base64.js" role="horde" />
+     <file name="mailcheck.js" role="horde" />
+     <file name="murmurhash3.js" role="horde" />
+    </dir> <!-- /js/external -->
     <dir name="jquery.mobile">
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
@@ -92,7 +97,6 @@
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
-    <file name="base64.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -108,7 +112,6 @@
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
-    <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
@@ -192,12 +195,16 @@
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Contacts">
-     <dir name="Image">
+     <dir name="Avatar">
       <file name="Addressbook.php" role="horde" />
       <file name="Backend.php" role="horde" />
       <file name="Gravatar.php" role="horde" />
       <file name="Unknown.php" role="horde" />
-     </dir> <!-- /lib/Contacts/Image -->
+     </dir> <!-- /lib/Contacts/Avatar -->
+     <dir name="Flag">
+      <file name="Backend.php" role="horde" />
+      <file name="Host.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Flag -->
      <file name="Image.php" role="horde" />
     </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
@@ -1491,7 +1498,6 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
-   <install as="imp/js/base64.js" name="js/base64.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1507,7 +1513,6 @@
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
-   <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
    <install as="imp/js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
@@ -1521,6 +1526,9 @@
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
+   <install as="imp/js/external/base64.js" name="js/external/base64.js" />
+   <install as="imp/js/external/mailcheck.js" name="js/external/mailcheck.js" />
+   <install as="imp/js/external/murmurhash3.js" name="js/external/murmurhash3.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
@@ -1599,10 +1607,12 @@
    <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
    <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
    <install as="imp/lib/Contacts/Image.php" name="lib/Contacts/Image.php" />
-   <install as="imp/lib/Contacts/Image/Addressbook.php" name="lib/Contacts/Image/Addressbook.php" />
-   <install as="imp/lib/Contacts/Image/Backend.php" name="lib/Contacts/Image/Backend.php" />
-   <install as="imp/lib/Contacts/Image/Gravatar.php" name="lib/Contacts/Image/Gravatar.php" />
-   <install as="imp/lib/Contacts/Image/Unknown.php" name="lib/Contacts/Image/Unknown.php" />
+   <install as="imp/lib/Contacts/Avatar/Addressbook.php" name="lib/Contacts/Avatar/Addressbook.php" />
+   <install as="imp/lib/Contacts/Avatar/Backend.php" name="lib/Contacts/Avatar/Backend.php" />
+   <install as="imp/lib/Contacts/Avatar/Gravatar.php" name="lib/Contacts/Avatar/Gravatar.php" />
+   <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
+   <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
+   <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
