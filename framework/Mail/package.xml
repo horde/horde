@@ -10,8 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-26</date>
- <time>13:09:41</time>
+ <date>2013-10-15</date>
  <version>
   <release>2.1.2</release>
   <api>2.1.0</api>
@@ -22,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Discard personal information when it is identical to e-mail address.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -508,10 +507,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-26</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Discard personal information when it is identical to e-mail address.
    </notes>
   </release>
  </changelog>
