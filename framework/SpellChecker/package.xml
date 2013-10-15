@@ -16,8 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>12:31:40</time>
+ <date>2013-10-15</date>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -280,7 +279,7 @@ Initial Release.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix spellchecking within the ALT HTML tag (Bug #12610).
