@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-08</date>
+ <date>2013-10-15</date>
  <version>
   <release>2.8.4</release>
   <api>2.8.0</api>
@@ -1761,7 +1761,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-07</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Return proper status codes when OOF is unavailable (Bug #12757).
