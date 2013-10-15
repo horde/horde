@@ -745,10 +745,6 @@ span.attachmentImg {
     background-image: url("../graphics/attachment.png");
 }
 
-#ctx_atcfile_delete span.iconImg {
-    background-image: url("../graphics/delete.png");
-}
-
 /* Context Menus */
 .context div.contactAddr, .context div.mboxName {
     font-style: italic;
@@ -908,7 +904,10 @@ span.logoutIcon {
 #ctx_message_forward span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
-#ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
+#ctx_mbox_empty span.iconImg,
+#ctx_message_delete span.iconImg,
+#ctx_oa_purge_deleted span.iconImg,
+#ctx_atcfile_delete span.iconImg {
     background-image: url("../graphics/delete.png");
 }
 #ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
