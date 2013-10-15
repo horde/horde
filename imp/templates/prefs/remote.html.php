@@ -88,7 +88,7 @@
    <td class="remoteSecure"><?php echo _("Yes") ?></td>
 <?php endif; ?>
    <td>
-    <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete.png') ?></a>
+    <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete-small.png') ?></a>
    </td>
   </tr>
 <?php endforeach; ?>
