@@ -135,8 +135,15 @@ div.partsTreeDiv span span:last-child {
 }
 
 /* Compose view */
-#to, #cc, #bcc, #subject {
+#to, #cc, #bcc, #subject, #signature {
     width: 500px;
+}
+#signature {
+    overflow: auto;
+    padding: 1px 5px;
+    min-height: 20px;
+    background-color: #ebeff0;
+    border: 1px solid #d0d0d0;
 }
 .spellcheck {
     white-space: pre;

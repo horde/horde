@@ -58,6 +58,19 @@ var ImpComposeBase = {
         }
     },
 
+    setSignature: function(identity)
+    {
+        if (ImpComposeBase.editor_on) {
+            $('signature')
+                .removeClassName('fixed')
+                .update(identity.hsig);
+        } else {
+            $('signature')
+                .addClassName('fixed')
+                .update(identity.sig);
+        }
+    },
+
     updateAddressField: function(e)
     {
         var elt = $(e.memo.field),

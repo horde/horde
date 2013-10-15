@@ -73,6 +73,7 @@ var ImpCompose = {
 
             bcc.setValue(bccval);
         }
+        ImpComposeBase.setSignature(next);
     },
 
     uniqSubmit: function(actionID, e)
@@ -294,6 +295,8 @@ var ImpCompose = {
         if (this.redirect) {
             ImpComposeBase.focus('to');
         } else {
+            ImpComposeBase.setSignature(ImpComposeBase.identities[$F('last_identity')]);
+
             handler = this.keyDownHandler.bindAsEventListener(this);
             /* Prevent Return from sending messages - it should bring us out
              * of autocomplete, not submit the whole form. */

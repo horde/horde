@@ -202,6 +202,15 @@
   </tr>
 
   <tr>
+   <td class="light rightAlign">
+    <strong><?php echo _("Signature") ?></strong>
+   </td>
+   <td class="item">
+    <div id="signature" title="<?php echo _("The signature is not editable.") ?>"><?php echo $this->signature ?></div>
+   </td>
+  </tr>
+
+  <tr>
    <td></td>
    <td class="nowrap">
 <?php if ($this->send_msg): ?>

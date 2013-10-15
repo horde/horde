@@ -114,6 +114,7 @@ var DimpCompose = {
             this.toggleCC('bcc');
         }
         this.setSaveSentMail(identity.sm_save);
+        ImpComposeBase.setSignature(identity);
     },
 
     setSaveSentMail: function(set)
@@ -357,7 +358,8 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var changed, sc, text, tmp;
+        var changed, sc, text, tmp,
+            identity = ImpComposeBase.identities[$F('identity')];
 
         if (!DimpCore.conf.rte_avail) {
             return;
@@ -416,6 +418,7 @@ var DimpCompose = {
         }
 
         ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
+        ImpComposeBase.setSignature(identity);
 
         $('htmlcheckbox').setValue(ImpComposeBase.editor_on);
         $('html').setValue(Number(ImpComposeBase.editor_on));

@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[jan] Display signature in compose view.
 [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic
       preview pane (Request #12750).
 [mms] Add a simple domain checker to the autocompleter that checks for common
