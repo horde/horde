@@ -41,7 +41,7 @@ class IMP_Dynamic_Compose_Common
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');
-        $page_output->addScriptFile('murmurhash3.js');
+        $page_output->addScriptFile('external/murmurhash3.js');
 
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {

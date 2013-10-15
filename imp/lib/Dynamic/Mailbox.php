@@ -47,7 +47,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
 
         if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
-            $page_output->addScriptFile('base64.js');
+            $page_output->addScriptFile('external/base64.js');
         }
 
         $this->_addMailboxVars();

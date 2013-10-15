@@ -1032,7 +1032,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose.js');
-        $page_output->addScriptFile('murmurhash3.js');
+        $page_output->addScriptFile('external/murmurhash3.js');
         $page_output->addInlineJsVars($js_vars);
         if (!$redirect) {
             $imp_ui->addIdentityJs();
