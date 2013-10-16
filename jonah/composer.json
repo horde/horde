@@ -1,18 +1,23 @@
 {
-    "name": "horde/horde-dav",
-    "description": "Horde library for WebDAV, CalDAV, CardDAV",
+    "name": "horde/jonah",
+    "description": "Jonah is an application for handling news.",
     "type": "library",
     "homepage": "http://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
         {
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
         }
     ],
-    "version": "1.0.3",
-    "time": "2013-07-17",
+    "version": "1.0.0alpha1",
+    "time": "2012-07-19",
     "repositories": [
         {
             "type": "pear",
@@ -21,8 +26,6 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Stream": ">=1.2.0@stable,<=2.0.0alpha1@stable"
+        "pear-pear.php.net/DB": "*"
     }
 }
