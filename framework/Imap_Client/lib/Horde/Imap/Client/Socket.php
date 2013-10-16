@@ -541,7 +541,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket($this, $this->_debug);
+        try {
+            $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket(
+                $this->getParam('hostspec'),
+                $this->getParam('port'),
+                $this->getParam('timeout'),
+                $this->getParam('secure'),
+                array(
+                    'debug' => $this->_debug,
+                    'debugliteral' => $this->getParam('debug_literal')
+                )
+            );
+            if (!$this->_connection->secure) {
+                $this->setParam('secure', false);
+            }
+        } catch (Horde\Socket\Client\Exception $e) {
+            $e2 = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
+            $e2->details($e->details);
+            throw $e2;
+        }
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the initial banner.
