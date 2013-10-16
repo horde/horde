@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Prevent data loss due to forced selection of incorrect database.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -133,7 +133,7 @@
    <date>2013-06-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Prevent data loss due to forced selection of incorrect database.
    </notes>
   </release>
  </changelog>
