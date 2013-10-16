@@ -400,6 +400,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     'class' => $change['class'],
                     'id' => $change['folderuid']);
             }
+            $syncKey = empty($this->_syncKey)
+                ? $this->getLatestSynckeyForCollection($this->_collection['id'])
+                : $this->_syncKey;
 
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
@@ -412,7 +415,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 }
                 $document = array(
                     'message_uid' => $change['id'],
-                    'sync_key' => (empty($this->_syncKey) ? 0 : $this->_syncKey),
+                    'sync_key' => $syncKey,
                     'sync_devid' => $this->_deviceInfo->id,
                     'sync_folderid' => $this->_collection['id'],
                     'sync_user' => $user
@@ -437,7 +440,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 $document = array(
                    'message_uid' => $change['id'],
                    'sync_modtime' => $change['mod'],
-                   'sync_key' => empty($this->_syncKey) ? 0 : $this->_syncKey,
+                   'sync_key' => $syncKey,
                    'sync_devid' => $this->_deviceInfo->id,
                    'sync_folderid' => $change['serverid'],
                    'sync_user' => $user,
