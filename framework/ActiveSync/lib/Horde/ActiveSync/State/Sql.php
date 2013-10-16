@@ -977,20 +977,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 default:
                     $pim_timestamps = $this->_getPIMChangeTS($changes);
                     foreach ($changes as $change) {
-                        if (!empty($pim_timestamps[$change['id']]) &&
-                            $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        if (empty($pim_timestamps[$change['id']])) {
+                            $this->_changes[] = $change;
+                            continue;
+                        }
+                        if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             // If we have a delete, don't bother stating the message,
-                            // If we have a delete entry in the map table, the
-                            // entry should already be deleted on the client, we
-                            // should never, ever need to send a REMOVE to the client
-                            // if we have a delete entry in the map table.
+                            // the entry should already be deleted on the client.
                             $stat['mod'] = 0;
-                        } elseif (!empty($pim_timestamps[$change['id']])) {
+                        } else {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
                         }
-                        if (!empty($pim_timestamps[$change['id']]) && $pim_timestamps[$change['id']] >= $stat['mod']) {
+                        if ($pim_timestamps[$change['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
