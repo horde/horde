@@ -712,7 +712,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         //     $this->_logger->err($e->getMessage());
         //     throw new Horde_ActiveSync_Exception($e);
         // }
-        $cursor = $this->_db->device->find();
+        $cursor = $this->_db->device->find(array(), array('users'));
         foreach ($cursor as $row) {
             foreach ($row['users'] as $user) {
                 $this->_db->device->update(
