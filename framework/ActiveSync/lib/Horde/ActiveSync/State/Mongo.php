@@ -447,12 +447,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                    'sync_clientid' => $clientid,
                    'sync_deleted' => $type == Horde_ActiveSync::CHANGE_TYPE_DELETE
                 );
-            }
 
-            try {
-                $this->_db->map->insert($document);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_ActiveSync_Exception($e);
+                try {
+                    $this->_db->map->insert($document);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                break;
             }
         } else {
             // We are sending server changes; $this->_changes will contain all
