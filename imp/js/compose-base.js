@@ -146,24 +146,58 @@ var ImpComposeBase = {
     {
         var handlers = {};
         $(document).fire('AutoComplete:handlers', handlers);
-        return handlers;
+        return $H(handlers);
     },
 
-    autocompleteItems: function()
+    autocompleteProcess: function(r)
     {
-        var out = [];
+        this.autocompleteHandlers().each(function(pair) {
+            var ob = $H(pair.value.toObject(true));
+            ob.values().each(function(v) {
+                v.className = pair.value.p.listClassItem;
+            });
 
-        $H(this.autocompleteHandlers()).each(function(pair) {
-            $H(pair.value.toObject()).each(function(pair2) {
-                out.push({
-                    addr: pair2.value,
-                    id: pair.key,
-                    itemid: pair2.key
+            $H(r[pair.key] || {}).each(function(pair2) {
+                $w(pair2.value).each(function(c) {
+                    ob.get(pair2.key).addClassName(c);
                 });
             });
         });
+    },
 
-        return out;
+    sendParams: function(params, ac)
+    {
+        var out = [];
+        params = $H(params);
+
+        if (ac) {
+            this.autocompleteHandlers().each(function(pair) {
+                $H(pair.value.toObject()).each(function(pair2) {
+                    out.push({
+                        addr: pair2.value,
+                        id: pair.key,
+                        itemid: pair2.key
+                    });
+                });
+            });
+            params.set('addr_ac', Object.toJSON(out));
+        }
+
+        return params;
+    },
+
+    tasksHandler: function(e)
+    {
+        var t = e.tasks || {};
+
+        if (t['imp:compose-addr']) {
+            this.autocompleteProcess(t['imp:compose-addr']);
+        }
     }
 
 };
+
+/* Catch tasks. */
+document.observe('HordeCore:runTasks', function(e) {
+    ImpComposeBase.tasksHandler(e.memo);
+});

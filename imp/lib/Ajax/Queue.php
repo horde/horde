@@ -33,6 +33,13 @@ class IMP_Ajax_Queue
     public $ftreemask = 0;
 
     /**
+     * The list of compose autocompleter address error data.
+     *
+     * @var array
+     */
+    protected $_addr = array();
+
+    /**
      * The list of attachments.
      *
      * @var array
@@ -97,6 +104,11 @@ class IMP_Ajax_Queue
 
     /**
      * Generates AJAX response task data from the queue.
+     *
+     * For compose autocomplete address error data (key: 'compose-addr'), an
+     * array with keys as the autocomplete DOM element and the values as
+     * arrays. The value arrays have keys as the autocomplete address ID, and
+     * the * value is a space-separated list of classnames to add.
      *
      * For compose attachment data (key: 'compose-atc'), an array of objects
      * with these properties:
@@ -165,6 +177,12 @@ class IMP_Ajax_Queue
     public function add(IMP_Ajax_Application $ajax)
     {
         global $injector;
+
+        /* Add autocomplete address error information. */
+        if (!empty($this->_addr)) {
+            $ajax->addTask('compose-addr', $this->_addr);
+            $this->_addr = array();
+        }
 
         /* Add compose attachment information. */
         if (!empty($this->_atc)) {
@@ -314,6 +332,18 @@ class IMP_Ajax_Queue
     public function compose(IMP_Compose $ob)
     {
         $this->_compose = $ob;
+    }
+
+    /**
+     * Add address autocomplete error info.
+     *
+     * @param string $domid   The autocomplete DOM ID.
+     * @param string $itemid  The autocomplete address ID.
+     * @param string $class   The classname to add to the address entry.
+     */
+    public function compose_addr($domid, $itemid, $class)
+    {
+        $this->_addr[$domid][$itemid] = $class;
     }
 
     /**

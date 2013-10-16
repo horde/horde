@@ -539,7 +539,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             );
             $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         } catch (IMP_Compose_Exception_Address $e) {
-            $this->_handleBadComposeAddr($e, $result);
+            $this->_handleBadComposeAddr($e);
             $result->success = 0;
             return $result;
         } catch (IMP_Compose_Exception $e) {
@@ -694,27 +694,24 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * Handle bad addresses entered during a compose.
      *
      * @param IMP_Compose_Exception_Address $e  The address exception.
-     * @param object $result                    The return object.
      */
-    protected function _handleBadComposeAddr(
-        IMP_Compose_Exception_Address $e, $result
-    )
+    protected function _handleBadComposeAddr(IMP_Compose_Exception_Address $e)
     {
         global $notification;
 
-        if ($this->vars->addr_ac) {
-            print $this->vars->addr_ac;
-            $addr_ac = json_decode($this->vars->addr_ac, true);
-            $result->addr_ac = array();
-        } else {
-            $addr_ac = array();
-        }
+        $addr_ac = $this->vars->addr_ac
+            ? json_decode($this->vars->addr_ac, true)
+            : array();
 
         foreach ($e->addresses as $key => $val) {
             $notification->push(sprintf(_("Invalid e-mail address (%s)."), $key), 'horde.warning');
             foreach ($addr_ac as $val2) {
                 if ($key == $val2['addr']) {
-                    $result->addr_ac[$val2['id']][] = $val2['itemid'];
+                    $this->_base->queue->compose_addr(
+                        $val2['id'],
+                        $val2['itemid'],
+                        'impACListItemBad'
+                    );
                 }
             }
         }

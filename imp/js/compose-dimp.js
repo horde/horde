@@ -184,7 +184,6 @@ var DimpCompose = {
     uniqueSubmit: function(action)
     {
         var c = (action == 'redirectMessage') ? $('redirect') : $('compose'),
-            form = $H(),
             sc = ImpComposeBase.getSpellChecker();
 
         if (sc && sc.isActive()) {
@@ -211,8 +210,6 @@ var DimpCompose = {
                 !window.confirm(DimpCore.text.nosubject)) {
                 return;
             }
-
-            form.set('addr_ac', Object.toJSON(ImpComposeBase.autocompleteItems()));
             // Fall-through
 
         case 'saveDraft':
@@ -240,14 +237,16 @@ var DimpCompose = {
                 this.rte.updateElement();
             }
 
-            // Use an AJAX submit here so that we can do javascript-y stuff
-            // before having to close the window on success.
-            DimpCore.doAction(action, form.update(c.serialize(true)), {
-                ajaxopts: {
-                    onFailure: this.uniqueSubmitFailure.bind(this)
-                },
-                callback: this.uniqueSubmitCallback.bind(this)
-            });
+            DimpCore.doAction(
+                action,
+                ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
+                {
+                    ajaxopts: {
+                        onFailure: this.uniqueSubmitFailure.bind(this)
+                    },
+                    callback: this.uniqueSubmitCallback.bind(this)
+                }
+            );
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
@@ -305,7 +304,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'addAttachment':
-                this._addAttachmentEnd();
+                this.addAttachmentEnd();
                 break;
             }
         } else {
@@ -321,18 +320,6 @@ var DimpCompose = {
                 this.old_action = d.action;
                 eval(d.encryptjs.join(';'));
             }
-
-            $H(ImpComposeBase.autocompleteHandlers()).each(function(pair) {
-                $H(pair.value.toObject(true)).each(function(pair2) {
-                    if (d.addr_ac &&
-                        d.addr_ac[pair.key] &&
-                        d.addr_ac[pair.key].indexOf(pair2.key) !== -1) {
-                        pair2.value.addClassName('impACListItemBad');
-                    } else {
-                        pair2.value.removeClassName('impACListItemBad');
-                    }
-                });
-            });
         }
 
         this.setDisabled(false);
@@ -809,7 +796,7 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    _addAttachmentEnd: function()
+    addAttachmentEnd: function()
     {
         this.uploading = false;
         $('upload_wait').hide();
@@ -1356,12 +1343,12 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {
-    this.tasksHandler(e.memo);
-}.bindAsEventListener(DimpCompose));
+    DimpCompose.tasksHandler(e.memo);
+});
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxFailure', function(e) {
-    if (this.uploading) {
-        this._addAttachmentEnd();
+    if (DimpCompose.uploading) {
+        DimpCompose.addAttachmentEnd();
     }
-}.bindAsEventListener(DimpCompose));
+});
