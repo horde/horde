@@ -78,7 +78,7 @@ class Horde_Db_SearchParser
                 $token = '!OR';
             } elseif (preg_match('/^(AND|OR|NOT)([^a-z].*)?$/i', $expr,
                                  $matches)) {
-                $token = '!' . Horde_String::lower($matches[1]);
+                $token = '!' . Horde_String::upper($matches[1]);
                 $expr = substr($expr, strlen($matches[1]));
             } elseif (preg_match('/^"(([^"]|\\[0-7]+|\\[Xx][0-9a-fA-F]+|\\[^Xx0-7])*)"/',
                                  $expr, $matches)) {

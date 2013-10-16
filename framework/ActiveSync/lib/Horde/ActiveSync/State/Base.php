@@ -336,8 +336,6 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Default implementation of change calculation.
-     *
      * Get all items that have changed since the last sync time
      *
      * @param array $options  An options array:
@@ -364,6 +362,11 @@ abstract class Horde_ActiveSync_State_Base
     public function getChanges(array $options = array())
     {
         if (!empty($this->_collection['id'])) {
+            // How far back to sync (for those collections that use this)
+            $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
+                ? $this->_collection['filtertype']
+                : 0);
+
             $this->_logger->info(sprintf(
                 '[%s] Initializing message diff engine for %s (%s)',
                 $this->_procid,
@@ -371,18 +374,12 @@ abstract class Horde_ActiveSync_State_Base
                 $this->_folder->serverid()
                 ));
 
-            // Left over changes?
             if (!empty($this->_changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] Returning previously found changes.',
                     $this->_procid));
                 return $this->_changes;
             }
-
-            // How far back to sync (for those collections that use this)
-            $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
-                ? $this->_collection['filtertype']
-                : 0);
 
             // Get the current syncStamp from the backend.
             $this->_thisSyncStamp = $this->_backend->getSyncStamp(
@@ -392,6 +389,7 @@ abstract class Horde_ActiveSync_State_Base
                 throw new Horde_ActiveSync_Exception_StaleState(
                     'Detecting a change in timestamp or modification sequence. Reseting state.');
             }
+
             $this->_logger->info(sprintf(
                 '[%s] Using SYNCSTAMP %s for %s.',
                 $this->_procid,
@@ -429,10 +427,11 @@ abstract class Horde_ActiveSync_State_Base
 
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
+                    $mailmap = $this->_getMailMapChanges($changes);
                     foreach ($changes as $change) {
                         switch ($change['type']) {
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                            if ($this->_isPIMChange($change['id'], $change['flags'], $change['type'])) {
+                            if (!empty($mailmap[$change['id']][$change['type']])) {
                                 $this->_logger->info(sprintf(
                                     '[%s] Ignoring PIM initiated flag change for %s',
                                     $this->_procid,
@@ -443,7 +442,7 @@ abstract class Horde_ActiveSync_State_Base
                             break;
 
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                            if ($this->_isPIMChange($change['id'], true, $change['type'])) {
+                            if (!empty($mailmap[$change['id']][$change['type']])) {
                                $this->_logger->info(sprintf(
                                     '[%s] Ignoring PIM initiated deletion for %s',
                                     $this->_procid,
@@ -461,25 +460,26 @@ abstract class Horde_ActiveSync_State_Base
                     break;
 
                 default:
+                    $pim_timestamps = $this->_getPIMChangeTS($changes);
                     foreach ($changes as $change) {
-                        $pim_ts = $this->_getPIMChangeTS($change['id'], $change['type']);
-                        if ($pim_ts && $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        if (empty($pim_timestamps[$change['id']])) {
+                            $this->_changes[] = $change;
+                            continue;
+                        }
+                        if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             // If we have a delete, don't bother stating the message,
-                            // If we have a delete entry in the map table, the
-                            // entry should already be deleted on the client, we
-                            // should never, ever need to send a REMOVE to the client
-                            // if we have a delete entry in the map table.
+                            // the entry should already be deleted on the client.
                             $stat['mod'] = 0;
                         } else {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
                         }
-                        if ($pim_ts && $pim_ts >= $stat['mod']) {
+                        if ($pim_timestamps[$change['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $pim_ts, $stat['mod']));
+                                $change['id'], $pim_timestamps[$change['id']], $stat['mod']));
                         } else {
                             $this->_changes[] = $change;
                         }
@@ -514,8 +514,8 @@ abstract class Horde_ActiveSync_State_Base
         // @TODO Remove in H6. We need to ensure we have 'serverid' in the
         // returned stat data.
         foreach ($folderlist as &$folder) {
-            // Either the backend populates all serverid, or none.
-            // So, if we have it, we can stop checking.
+            // Either the backend populates this or not. So, if we have it, we
+            // can stop checking.
             if (!empty($folder['serverid'])) {
                 break;
             } else {
@@ -839,16 +839,16 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get a timestamp from the map table for the last PIM-initiated change for
-     * the provided uid. Used to avoid mirroring back changes to the PIM that it
-     * sent to the server.
+     * Return an array of timestamps from the map table for the last
+     * PIM-initiated change for the provided uid. Used to avoid mirroring back
+     * changes to the PIM that it sent to the server.
      *
-     * @param string $uid  The uid of the entry to check.
+     * @param array $changes  The changes array, containing 'id' and 'type'.
      *
-     * @return integer|null The timestamp of the last PIM-initiated change for
-     *                      the specified uid, or null if none found.
+     * @return array  An array of UID -> timestamp of the last PIM-initiated
+     *                change for the specified uid, or null if none found.
      */
-    protected function _getPIMChangeTS($uid, $type)
+    protected function _getPIMChangeTS(array $changes)
     {
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }

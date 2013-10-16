@@ -112,7 +112,9 @@ var ImpSearch = {
         }, this);
 
         if ($('search_criteria').childElements().size()) {
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
+            if ($('no_search_criteria').visible()) {
+                $('no_search_criteria', 'search_criteria').invoke('toggle');
+            }
             this.showOr(true);
         }
     },

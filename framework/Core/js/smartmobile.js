@@ -221,6 +221,7 @@ var HordeMobile = {
         if (data) {
             opts.dataUrl = data.toPage;
         }
+        opts.changeHash = false;
 
         $.mobile.changePage($('#' + page), opts);
     },
@@ -304,6 +305,11 @@ var HordeMobile = {
         }
     },
 
+    onPageChange: function(e, data)
+    {
+        $.mobile.navigate(data.options.dataUrl || ('#' + HordeMobile.currentPage()), {}, true);
+    },
+
     /**
      * Commands to run when the DOM is ready.
      */
@@ -327,5 +333,6 @@ var HordeMobile = {
 };
 
 $(HordeMobile.onDocumentReady);
-$(document).bind('pagebeforechange', HordeMobile.onPageBeforeChange);
-$(document).bind('HordeMobile:runTasks', HordeMobile.runTasks);
+$(document).on('pagebeforechange', HordeMobile.onPageBeforeChange)
+    .on('pagechange', HordeMobile.onPageChange)
+    .on('HordeMobile:runTasks', HordeMobile.runTasks);

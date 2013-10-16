@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.1.3-git\n"
+"Project-Id-Version: Horde 5.1.5-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:52+0200\n"
+"POT-Creation-Date: 2013-10-14 14:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -802,7 +802,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr ""
 
@@ -916,7 +916,7 @@ msgstr ""
 #: templates/shares/edit.inc:196 templates/shares/edit.inc:231
 #: templates/shares/edit.inc:258 templates/shares/edit.inc:274
 #: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr ""
 
@@ -1669,10 +1669,11 @@ msgid "Locks"
 msgstr ""
 
 #: login.php:281 templates/login/login.inc:61
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr ""
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr ""
 
@@ -1994,7 +1995,6 @@ msgstr ""
 
 #: templates/prefs/activesync.html.php:42
 #: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
-#: templates/prefs/identityselect.html:20
 msgid "None"
 msgstr ""
 
@@ -2510,7 +2510,7 @@ msgstr ""
 msgid "Sea_rch"
 msgstr ""
 
-#: lib/View/Topbar.php:60 services/help/index.php:156
+#: lib/View/Topbar.php:59 services/help/index.php:156
 #: templates/admin/user/list.inc:14
 msgid "Search"
 msgstr ""

@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-11</date>
+ <date>2013-10-15</date>
  <version>
-  <release>1.2.4</release>
+  <release>1.2.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -43,7 +43,9 @@
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Password.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Smtp -->
      <file name="Smtp.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -230,7 +232,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-11</date>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not configured in the client.
+* [jan] Fix reading translations in PEAR-installed package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
