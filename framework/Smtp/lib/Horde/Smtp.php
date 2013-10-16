@@ -381,9 +381,11 @@ class Horde_Smtp implements Serializable
         $auth = array_flip(array_map('trim', explode(' ', $auth)));
 
         // XOAUTH2
-        if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+        if (isset($auth['XOAUTH2'])) {
             unset($auth['XOAUTH2']);
-            $auth = array('XOAUTH2' => true) + $auth;
+            if ($this->getParam('xoauth2_token')) {
+                $auth = array('XOAUTH2' => true) + $auth;
+            }
         }
 
         foreach (array_keys($auth) as $method) {

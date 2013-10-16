@@ -28,9 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-08</date>
+ <date>2013-10-15</date>
  <version>
-  <release>2.10.0</release>
+  <release>2.10.1</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -39,12 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
-* [mms] Add base64img property to Horde_Themes_Image.
-* [mjr] Do not assume that the filter API is available (Bug #12757).
-* [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
-* [mms] Add ability to expire CSS cache based on file modification time.
-* [mms] Allow disabling VFS via the configuration interface.
+* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3178,7 +3173,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-08</date>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
@@ -3187,6 +3182,19 @@
 * [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
 * [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
    </notes>
   </release>
  </changelog>
