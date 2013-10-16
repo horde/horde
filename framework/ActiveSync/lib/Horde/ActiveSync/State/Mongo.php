@@ -892,7 +892,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 '$or' => array(array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_PENDING), array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_WIPED))
             );
             try {
-                $results = $this->_db->device->findOne($query);
+                $results = $this->_db->device->findOne($query, arary('_id'));
             } catch (Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -1241,7 +1241,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'sync_folderid' => $this->_collection['id']
         );
         try {
-            return (bool)$c->find($query)->count();
+            return (bool)$c->find($query, array('_id'))->count();
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
