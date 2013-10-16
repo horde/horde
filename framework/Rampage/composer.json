@@ -1,0 +1,25 @@
+{
+    "name": "horde/horde-rampage",
+    "description": "Horde Rampage Application Server",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0beta1",
+    "time": "2011-03-07",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

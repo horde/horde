@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improve performance related to conflict detection and change mirroring protection.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1777,7 +1777,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improve performance related to conflict detection and change mirroring protection.
    </notes>
   </release>
  </changelog>

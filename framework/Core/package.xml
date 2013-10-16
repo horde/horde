@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
 * [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
  </notes>
  <contents>
@@ -3194,6 +3195,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
 * [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
    </notes>
   </release>

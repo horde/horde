@@ -2900,9 +2900,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             $bytes = $finfo['size'];
             $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-            $type = empty($finfo['type'])
-                ? 'application/octet-stream'
-                : $finfo['type'];
+
+            switch (empty($finfo['type']) ? $finfo['type'] : '') {
+            case 'application/unknown':
+            case '':
+                $type = 'application/octet-stream';
+                break;
+
+            default:
+                $type = $finfo['type'];
+                break;
+            }
         }
 
         return $this->_addAttachment(

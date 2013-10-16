@@ -1,0 +1,38 @@
+{
+    "name": "horde/horde-log",
+    "description": "Horde Logging library",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Mike Naberezny",
+            "email": "mike@maintainable.com",
+            "role": "lead"
+        }
+    ],
+    "version": "2.1.1",
+    "time": "2013-10-15",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Constraint": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Cli": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Scribe": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "ext-dom": "*"
+    }
+}

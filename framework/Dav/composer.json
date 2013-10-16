@@ -1,5 +1,28 @@
 {
+    "name": "horde/horde-dav",
+    "description": "Horde library for WebDAV, CalDAV, CardDAV",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.3",
+    "time": "2013-07-17",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
     "require": {
-        "sabre/dav": "1.8.*"
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Stream": ">=1.2.0@stable,<=2.0.0alpha1@stable"
     }
 }
