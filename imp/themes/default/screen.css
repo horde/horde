@@ -566,6 +566,10 @@ span.mimePartInfoSize {
 .impACList li.hordeACListItem {
     font-size: 100%;
 }
+.impACListItemBad {
+    background-color: #ff6347;
+    border: 1px solid darkred;
+}
 .impACItemRemove {
     padding-left: 3px;
 }

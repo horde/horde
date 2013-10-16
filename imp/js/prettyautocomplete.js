@@ -3,9 +3,11 @@
  * (completed elements are stored in separate DIV elements).
  *
  * Events handled by this class:
- *   - AutoCompleter:focus
- *   - AutoCompleter:reset
- *   - AutoCompleter:submit
+ * -----------------------------
+ *   - AutoComplete:focus
+ *   - AutoComplete:handlers
+ *   - AutoComplete:reset
+ *   - AutoComplete:submit
  *
  *
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
@@ -14,6 +16,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 var IMP_PrettyAutocompleter = Class.create({
 
@@ -21,6 +24,8 @@ var IMP_PrettyAutocompleter = Class.create({
     // elt,
     // input,
     // lastinput,
+
+    itemid: 0,
 
     initialize: function(elt, params)
     {
@@ -106,6 +111,9 @@ var IMP_PrettyAutocompleter = Class.create({
                 e.stop();
             }
         }.bindAsEventListener(this));
+        document.observe('AutoComplete:handlers', function(e) {
+            e.memo[this.elt.identify()] = this;
+        }.bind(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
         document.observe('AutoComplete:submit', this.processInput.bind(this));
     },
@@ -206,6 +214,7 @@ var IMP_PrettyAutocompleter = Class.create({
                         })
                     )
                     .store('raw', value)
+                    .store('itemid', ++this.itemid)
         });
 
         // Add to hidden input field.
@@ -257,6 +266,17 @@ var IMP_PrettyAutocompleter = Class.create({
         this.input.setStyle({
             width: Math.max(80, $F(this.input).length * 9) + 'px'
         });
+    },
+
+    toObject: function(elt)
+    {
+        var ob = {};
+
+        this.currentEntries().each(function(c) {
+            ob[c.retrieve('itemid')] = elt ? c : c.retrieve('raw');
+        });
+
+        return ob;
     },
 
     /* Event handlers. */

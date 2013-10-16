@@ -469,6 +469,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * See the list of variables needed for
      * IMP_Ajax_Application#composeSetup(). Additional variables used:
+     *   - addr_ac: (string) TODO
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
@@ -537,6 +538,10 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 )
             );
             $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
+        } catch (IMP_Compose_Exception_Address $e) {
+            $this->_handleBadComposeAddr($e, $result);
+            $result->success = 0;
+            return $result;
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
@@ -681,6 +686,38 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         }
 
         return $result;
+    }
+
+    /* Internal methods. */
+
+    /**
+     * Handle bad addresses entered during a compose.
+     *
+     * @param IMP_Compose_Exception_Address $e  The address exception.
+     * @param object $result                    The return object.
+     */
+    protected function _handleBadComposeAddr(
+        IMP_Compose_Exception_Address $e, $result
+    )
+    {
+        global $notification;
+
+        if ($this->vars->addr_ac) {
+            print $this->vars->addr_ac;
+            $addr_ac = json_decode($this->vars->addr_ac, true);
+            $result->addr_ac = array();
+        } else {
+            $addr_ac = array();
+        }
+
+        foreach ($e->addresses as $key => $val) {
+            $notification->push(sprintf(_("Invalid e-mail address (%s)."), $key), 'horde.warning');
+            foreach ($addr_ac as $val2) {
+                if ($key == $val2['addr']) {
+                    $result->addr_ac[$val2['id']][] = $val2['itemid'];
+                }
+            }
+        }
     }
 
 }

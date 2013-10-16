@@ -698,6 +698,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
+     * @throws IMP_Compose_Exception_Address
      * @throws IMP_Exception
      */
     public function buildAndSendMessage(
@@ -834,6 +835,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 /* Store history information. */
                 $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
+            } catch (IMP_Compose_Exception_Address $e) {
+                throw $e;
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 if ($e->log()) {
@@ -1157,11 +1160,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return string  The encoded $email list.
      *
-     * @throws IMP_Compose_Exception
+     * @throws IMP_Compose_Exception_Address
      */
     protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
                                               $charset)
     {
+        $exception = null;
         $out = array();
 
         foreach ($email as $val) {
@@ -1179,11 +1183,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
+                $out[] = $tmp;
             } catch (Horde_Mail_Exception $e) {
-                throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address (%s)."), $val->writeAddress()));
+                if (is_null($exception)) {
+                    $exception = new IMP_Compose_Exception_Address();
+                }
+                $exception->addresses[$val->writeAddress()] = $e;
             }
+        }
 
-            $out[] = $tmp;
+        if ($exception) {
+            throw $exception;
         }
 
         return implode(', ', $out);

@@ -140,6 +140,30 @@ var ImpComposeBase = {
         }
 
         return val;
+    },
+
+    autocompleteHandlers: function()
+    {
+        var handlers = {};
+        $(document).fire('AutoComplete:handlers', handlers);
+        return handlers;
+    },
+
+    autocompleteItems: function()
+    {
+        var out = [];
+
+        $H(this.autocompleteHandlers()).each(function(pair) {
+            $H(pair.value.toObject()).each(function(pair2) {
+                out.push({
+                    addr: pair2.value,
+                    id: pair.key,
+                    itemid: pair2.key
+                });
+            });
+        });
+
+        return out;
     }
 
 };
