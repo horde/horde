@@ -193,14 +193,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         );
 
         try {
-            $cursor = $this->_db->state->find($query);
+            $cursor = $this->_db->state->find($query, array('sync_data'));
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
         foreach ($cursor as $folder) {
-            $folder = unserialize($folder);
+            $folder = unserialize($folder['sync_data']);
             $folder->setServerId($serverid);
             $folder = serialize($folder);
             try {
