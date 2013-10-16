@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Remember currently open tab when switching between contact viewing and editing (Request #12609).
 * [jan] Replace categories with tags (Request #9544).
  </notes>
  <contents>
@@ -1734,6 +1735,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Remember currently open tab when switching between contact viewing and editing (Request #12609).
 * [jan] Replace categories with tags (Request #9544).
    </notes>
   </release>
