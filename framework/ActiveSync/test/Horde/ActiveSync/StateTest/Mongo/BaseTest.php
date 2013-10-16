@@ -74,6 +74,14 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
     /**
      * @depends testCacheFolders
      */
+    public function testCacheDataRestrictFields()
+    {
+        $this->_testCacheDataRestrictFields();
+    }
+
+    /**
+     * @depends testCacheFolders
+     */
     public function testCacheFoldersPersistence()
     {
         $this->_testCacheFoldersPersistence();

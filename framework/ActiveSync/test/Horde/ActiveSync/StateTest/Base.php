@@ -154,6 +154,14 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $cache->save();
     }
 
+    protected function _testCacheDataRestrictFields()
+    {
+        $cache_data = self::$state->getSyncCache('dev123', 'mike', array('folders'));
+        $this->assertCount(1, $cache_data);
+        list($key, $value) = each($cache_data);
+        $this->assertEquals('folders', $key);
+    }
+
     protected function _testCacheFoldersPersistence()
     {
         $cache = new Horde_ActiveSync_SyncCache(self::$state, 'dev123', 'mike', self::$logger->getLogger());
