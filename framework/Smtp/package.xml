@@ -3,7 +3,7 @@
  <name>Horde_Smtp</name>
  <channel>pear.horde.org</channel>
  <summary>Horde SMTP Client</summary>
- <description>Provides interfaces for connecting to a SMTP (RFC 5321) server to send e-mail messages..</description>
+ <description>Provides interfaces for connecting to a SMTP (RFC 5321) server to send e-mail messages.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
