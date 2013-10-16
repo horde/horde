@@ -1,0 +1,25 @@
+{
+    "name": "horde/horde-lz4",
+    "description": "Horde LZ4 Compression Extension",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "MIT (Expat)",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.3",
+    "time": "2013-08-02",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.0.0"
+    }
+}

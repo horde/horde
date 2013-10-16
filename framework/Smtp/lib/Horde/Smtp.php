@@ -331,7 +331,27 @@ class Horde_Smtp implements Serializable
         }
 
         if (!$this->_connection) {
-            $this->_connection = new Horde_Smtp_Connection($this, $this->_debug);
+            try {
+                $this->_connection = new Horde_Smtp_Connection(
+                    $this->getParam('host'),
+                    $this->getParam('port'),
+                    $this->getParam('timeout'),
+                    $this->getParam('secure'),
+                    array(
+                        'debug' => $this->_debug
+                    )
+                );
+                if (!$this->_connection->secure) {
+                    $this->setParam('secure', false);
+                }
+            } catch (Horde\Socket\Client\Exception $e) {
+                $e2 = new Horde_Smtp_Exception(
+                    Horde_Smtp_Translation::t("Error connecting to SMTP server."),
+                    Horde_Smtp_Exception::SERVER_CONNECT
+                );
+                $e2->details($e->details);
+                throw $e2;
+            }
 
             // Get initial line (RFC 5321 [3.1]).
             $this->_getResponse(220, 'logout');

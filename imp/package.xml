@@ -33,9 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix populating search fields when editing an advanced search query.
 * [mms] Trigger auto save draft in dynamic view if attachments have changed.
-* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Improved UI for dropping attachments on dynamic compose screen.
 * [mms] Fix manually loading all addresses in a header.
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.
@@ -3296,9 +3296,9 @@
    <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix populating search fields when editing an advanced search query.
 * [mms] Trigger auto save draft in dynamic view if attachments have changed.
-* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Improved UI for dropping attachments on dynamic compose screen.
 * [mms] Fix manually loading all addresses in a header.
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.

@@ -1,0 +1,28 @@
+{
+    "name": "horde/horde-text-textile",
+    "description": "Textile formatting library",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2012-11-19",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0,<=3.0.0alpha1"
+    }
+}

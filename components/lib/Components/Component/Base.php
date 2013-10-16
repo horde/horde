@@ -291,6 +291,20 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Updates the composer.json file.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function updateComposer($options)
+    {
+        throw new Components_Exception(
+            'Updating composer.json is not supported!'
+        );
+    }
+
+    /**
      * Add the next version to the package.xml.
      *
      * @param string $version           The new version number.
