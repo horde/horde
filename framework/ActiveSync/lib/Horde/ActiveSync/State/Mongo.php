@@ -1150,16 +1150,16 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     }
 
     /**
-     * Get a timestamp from the map table for the last PIM-initiated change for
-     * the provided uid. Used to avoid mirroring back changes to the PIM that it
-     * sent to the server.
+     * Return an array of timestamps from the map table for the last
+     * PIM-initiated change for the provided uid. Used to avoid mirroring back
+     * changes to the PIM that it sent to the server.
      *
-     * @param string $uid  The uid of the entry to check.
+     * @param array $changes  The changes array, containing 'id' and 'type'.
      *
-     * @return integer|null The timestamp of the last PIM-initiated change for
-     *                      the specified uid, or null if none found.
+     * @return array  An array of UID -> timestamp of the last PIM-initiated
+     *                change for the specified uid, or null if none found.
      */
-    protected function _getPIMChangeTS($uid, $type)
+    protected function _getPIMChangeTS(array $changes)
     {
         // // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
@@ -1171,27 +1171,37 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $match = array(
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
-            'message_uid' => $uid,
             'sync_key' => array('$in' => $keys)
         );
-
-        if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
-            $match['sync_deleted'] = true;
+        $uids = array();
+        $match['$or'] = array();
+        foreach ($changes as $change) {
+            $match['$or'][] = array(
+                '$and' => array(
+                    'message_uid' => $change['id'],
+                    'sync_deleted' => $change['type'] == Horde_ActiveSync_Exception::CHANGE_TYPE_DELETE
+                )
+            );
         }
         try {
-            $results = $this->_db->map->aggregate(
+            $rows = $this->_db->map->aggregate(
                 array('$match' => $match),
                 array('$group' => array('_id' => '$message_uid', 'max' => array('$max' => '$sync_modtime')))
+
             );
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-        if (empty($results) || empty($results['ok'])) {
+        if (empty($rows) || empty($rows['ok'])) {
             throw new Horde_ActiveSync_Exception('Error running aggregation.');
         }
-        $result = current($results);
-        return $result['max'];
+        $results = array();
+        foreach ($rows as $row) {
+            $results[$row['_id']] = $row['max'];
+        }
+
+        return $results;
     }
 
     /**
