@@ -2922,6 +2922,81 @@ var DimpBase = {
         this.loadingImg(e.memo, false);
     },
 
+    dialogClickHandler: function(e)
+    {
+        var elt = e.element();
+
+        switch (elt.identify()) {
+        case 'dimpbase_confirm':
+            this.viewaction(e);
+            HordeDialog.close();
+            break;
+
+        case 'flag_new':
+            DimpCore.doAction('createFlag', this.addViewportParams({
+                flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
+                flagname: $F(elt.down('INPUT[name="flagname"]'))
+            }), {
+                callback: function(r) {
+                    if (r.success) {
+                        HordeDialog.close();
+                    } else {
+                        this.displayFlagNew();
+                    }
+                }.bind(this),
+                uids: this.viewport.getSelected()
+            });
+            elt.update(DimpCore.text.newflag_wait);
+            break;
+
+        case 'mbox_import':
+            HordeCore.submit(elt, {
+                callback: function(r) {
+                    HordeDialog.close();
+                    if (r.action == 'importMailbox' &&
+                        r.mbox == this.view) {
+                        this.viewport.reload();
+                    }
+                }.bind(this)
+            });
+            elt.update(DimpCore.text.import_mbox_loading);
+            break;
+
+        case 'remote_login':
+            DimpCore.doAction('remoteLogin', {
+                // Base64 encode just to keep password data from being
+                // plaintext. A trivial obfuscation, but will prevent
+                // passwords from leaking in the event of some sort of data
+                // dump.
+                password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
+                password_base64: true,
+                remoteid: $F(elt.down('INPUT[name="remote_id"]')),
+                unsub: Number(this.showunsub)
+            }, {
+                callback: function(r) {
+                    if (r.success) {
+                        this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
+                            .removeClassName('imp-sidebar-remote')
+                            .addClassName('imp-sidebar-container');
+                        HordeDialog.close();
+                    } else {
+                        elt.enable().down('INPUT[name="remote_password"]').clear().focus();
+                    }
+                }.bind(this)
+            });
+            elt.disable();
+            break;
+        }
+    },
+
+    dialogCloseHandler: function()
+    {
+        if (this.colorpicker) {
+            this.colorpicker.hide();
+        }
+        delete this.colorpicker;
+    },
+
     updateSliderCount: function()
     {
         var range = this.viewport.currentViewableRange();
@@ -4067,82 +4142,14 @@ document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventList
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
 /* HordeDialog listener. */
-document.observe('HordeDialog:onClick', function(e) {
-    var elt = e.element();
-
-    switch (elt.identify()) {
-    case 'dimpbase_confirm':
-        this.viewaction(e);
-        HordeDialog.close();
-        break;
-
-    case 'flag_new':
-        DimpCore.doAction('createFlag', this.addViewportParams({
-            flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
-            flagname: $F(elt.down('INPUT[name="flagname"]'))
-        }), {
-            callback: function(r) {
-                if (r.success) {
-                    HordeDialog.close();
-                } else {
-                    this.displayFlagNew();
-                }
-            }.bind(this),
-            uids: this.viewport.getSelected()
-        });
-        elt.update(DimpCore.text.newflag_wait);
-        break;
-
-    case 'mbox_import':
-        HordeCore.submit(elt, {
-            callback: function(r) {
-                HordeDialog.close();
-                if (r.action == 'importMailbox' &&
-                    r.mbox == this.view) {
-                    this.viewport.reload();
-                }
-            }.bind(this)
-        });
-        elt.update(DimpCore.text.import_mbox_loading);
-        break;
-
-    case 'remote_login':
-        DimpCore.doAction('remoteLogin', {
-            // Base64 encode just to keep password data from being plaintext.
-            // A trivial obfuscation, but will prevent passwords from leaking
-            // in the event of some sort of data dump.
-            password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
-            password_base64: true,
-            remoteid: $F(elt.down('INPUT[name="remote_id"]')),
-            unsub: Number(this.showunsub)
-        }, {
-            callback: function(r) {
-                if (r.success) {
-                    this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
-                        .removeClassName('imp-sidebar-remote')
-                        .addClassName('imp-sidebar-container');
-                    HordeDialog.close();
-                } else {
-                    elt.enable().down('INPUT[name="remote_password"]').clear().focus();
-                }
-            }.bind(this)
-        });
-        elt.disable();
-        break;
-    }
-}.bindAsEventListener(DimpBase));
-document.observe('HordeDialog:close', function(e) {
-    if (this.colorpicker) {
-        this.colorpicker.hide();
-    }
-    delete this.colorpicker;
-}.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:onClick', DimpBase.dialogClickHandler.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:close', DimpBase.dialogCloseHandler.bind(DimpBase));
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
 document.observe('HordeCore:runTasks', function(e) {
-    this.tasksHandler(e.memo);
-}.bindAsEventListener(DimpBase));
+    DimpBase.tasksHandler(e.memo);
+});
 
 /* Click handlers. */
 document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));

@@ -424,6 +424,19 @@ var ImpMailbox = {
         e.stop();
     },
 
+    dialogClickHandler: function(e)
+    {
+        switch (e.element().identify()) {
+        case 'RB_ImpMailbox':
+            window.location = this.lastclick;
+            break;
+
+        case 'RB_ImpMailboxConfirm':
+            this.submit(this.actIDconfirm);
+            break;
+        }
+    },
+
     onDomLoad: function()
     {
         HordeCore.initHandler('click');
@@ -449,14 +462,4 @@ document.observe('HordeCore:click', ImpMailbox.clickHandler.bindAsEventListener(
 document.observe('keydown', ImpMailbox.keyDownHandler.bindAsEventListener(ImpMailbox));
 document.on('submit', '.navbarselect', Event.stop);
 
-document.observe('HordeDialog:onClick', function(e) {
-    switch (e.element().identify()) {
-    case 'RB_ImpMailbox':
-        window.location = this.lastclick;
-        break;
-
-    case 'RB_ImpMailboxConfirm':
-        this.submit(this.actIDconfirm);
-        break;
-    }
-}.bindAsEventListener(ImpMailbox));
+document.observe('HordeDialog:onClick', ImpMailbox.dialogClickHandler.bindAsEventListener(ImpMailbox));
