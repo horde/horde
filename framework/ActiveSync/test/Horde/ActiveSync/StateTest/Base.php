@@ -33,8 +33,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $deviceInfo->user = 'mike';
         $deviceInfo->policykey = 456;
         $deviceInfo->supported = array();
-
-        self::$state->setDeviceInfo($deviceInfo);
+        $deviceInfo->save();
         $this->assertEquals(true, (boolean)self::$state->deviceExists('dev123', 'mike'));
 
         $di = self::$state->loadDeviceInfo('dev123', 'mike');
@@ -57,7 +56,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $deviceInfo->user = 'ashley';
         $deviceInfo->policykey = 123;
         $deviceInfo->supported = array();
-        self::$state->setDeviceInfo($deviceInfo);
+        $deviceInfo->save();
 
         $devices = self::$state->listDevices();
         $this->assertCount(2, $devices);
