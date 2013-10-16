@@ -988,11 +988,13 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @param string $devid  The device id.
      * @param string $user   The user id.
+     * @param array $fields  An array of fields to return. Default is to return
+     *                       the full cache. @since 2.9.0
      *
      * @return array  The current sync cache for the user/device combination.
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function getSyncCache($devid, $user);
+    abstract public function getSyncCache($devid, $user, array $fields = null);
 
     /**
      * Save the provided sync_cache.

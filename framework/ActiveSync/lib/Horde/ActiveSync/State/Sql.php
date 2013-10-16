@@ -966,11 +966,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param string $devid  The device id.
      * @param string $user   The user id.
+     * @param array $fields  An array of fields to return. Default is to return
+     *                       the full cache. Unused in the SQL driver, all
+     *                       fields are always returned since the data is stored
+     *                       serialized in the backend. @since 2.9.0
      *
      * @return array  The current sync cache for the user/device combination.
      * @throws Horde_ActiveSync_Exception
      */
-    public function getSyncCache($devid, $user)
+    public function getSyncCache($devid, $user, array $fields = null)
     {
         $sql = 'SELECT cache_data FROM ' . $this->_syncCacheTable
             . ' WHERE cache_devid = ? AND cache_user = ?';

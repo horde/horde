@@ -1036,12 +1036,12 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * @param string $devid  The device id.
      * @param string $user   The user id.
      * @param array $fields  An array of fields to return. Default is to return
-     *                       the full cache.
+     *                       the full cache. @since 2.9.0
      *
      * @return array  The current sync cache for the user/device combination.
      * @throws Horde_ActiveSync_Exception
      */
-    public function getSyncCache($devid, $user, $fields = null)
+    public function getSyncCache($devid, $user, array $fields = null)
     {
         $this->_logger->info(sprintf(
             'Loading SyncCache from storage: %s',
