@@ -388,7 +388,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function addCollection(array $collection)
     {
-        $this->_data['collections'][strval($collection['id'])] = array(
+        $this->_data['collections'][$collection['id']] = array(
             'class' => $collection['class'],
             'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
             'deletesasmoves' => isset($collection['deletesasmoves']) ? $collection['deletesasmoves'] : null,
@@ -659,24 +659,24 @@ class Horde_ActiveSync_SyncCache
         switch ($folder->type) {
         case 7:
         case 15:
-            $this->_data['folders'][strval($folder->serverid)] = array('class' => 'Tasks');
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Tasks');
             break;
         case 8:
         case 13:
-            $this->_data['folders'][strval($folder->serverid)] = array('class' => 'Calendar');
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Calendar');
             break;
         case 9:
         case 14:
-            $this->_data['folders'][strval($folder->serverid)] = array('class' => 'Contacts');
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Contacts');
             break;
         case 17:
         case 10:
-            $this->_data['folders'][strval($folder->serverid)] = array('class' => 'Notes');
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Notes');
             break;
         default:
-            $this->_data['folders'][strval($folder->serverid)] = array('class' => 'Email');
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
-        $this->_data['folders'][strval($folder->serverid)]['serverid'] = $folder->_serverid;
+        $this->_data['folders'][$folder->serverid]['serverid'] = $folder->_serverid;
         $this->_dirty['folders'] = true;
     }
 
