@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * Runs a shell command (contained in $argv[1]) in the base of every
