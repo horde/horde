@@ -1257,7 +1257,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'sync_user' => $this->_deviceInfo->user,
             'message_uid' => array('$in' => $ids)
         );
-        Horde::debug($query);
         $rows = $this->_db->mailmap->find(
             $query,
             array('message_uid', 'sync_read', 'sync_flagged', 'sync_deleted')
