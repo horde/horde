@@ -235,6 +235,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollections()
     {
+        $this->_logger->info('Clearing collections data from cache.');
         $this->_data['collections'] = array();
         $this->_dirty['collections'] = true;
     }
@@ -414,6 +415,10 @@ class Horde_ActiveSync_SyncCache
     public function removeCollection($id, $purge = true)
     {
         if (!$purge) {
+            $this->_logger->info(sprintf(
+                'Removing collection %s from SyncCache.',
+                $id)
+            );
             unset($this->_data['collections'][$id]);
             $this->_dirty['collections'] = true;
         } elseif (!empty($this->_data['collections'][$id])) {
@@ -440,6 +445,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollectionKeys()
     {
+        $this->_logger->info('Clearing all collection synckeys from the cache.');
         foreach ($this->_data['collections'] as $id => &$c) {
             unset($c['synckey']);
         }
