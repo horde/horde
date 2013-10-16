@@ -967,9 +967,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $devid  The device id.
      * @param string $user   The user id.
      * @param array $fields  An array of fields to return. Default is to return
-     *                       the full cache. Unused in the SQL driver, all
-     *                       fields are always returned since the data is stored
-     *                       serialized in the backend. @since 2.9.0
+     *                       the full cache.  @since 2.9.0
      *
      * @return array  The current sync cache for the user/device combination.
      * @throws Horde_ActiveSync_Exception
@@ -985,7 +983,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
         if (!$data = unserialize($data)) {
-            return array(
+            $data = array(
                 'confirmed_synckeys' => array(),
                 'lasthbsyncstarted' => false,
                 'lastsyncendnormal' => false,
@@ -997,9 +995,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'collections' => array(),
                 'pingheartbeat' => false,
                 'synckeycounter' => array());
-        } else {
-            return $data;
         }
+        if (!is_null($fields)) {
+            $data = array_intersect_key($data, array_flip($fields));
+        }
+
+        return $data;
     }
 
     /**
