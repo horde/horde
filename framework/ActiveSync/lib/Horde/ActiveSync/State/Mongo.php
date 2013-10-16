@@ -1035,27 +1035,41 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @param string $devid  The device id.
      * @param string $user   The user id.
+     * @param array $fields  An array of fields to return. Default is to return
+     *                       the full cache.
      *
      * @return array  The current sync cache for the user/device combination.
      * @throws Horde_ActiveSync_Exception
      */
-    public function getSyncCache($devid, $user)
+    public function getSyncCache($devid, $user, $fields = null)
     {
+        $this->_logger->info(sprintf(
+            'Loading SyncCache from storage: %s',
+            serialize($fields)));
+
         $query = array(
             'cache_devid' => $devid,
             'cache_user' => $user
         );
+        $projection = array();
+        if (!is_null($fields)) {
+            foreach ($fields as $field) {
+                $projection[] = 'cache_data.' . $field;
+            }
+        } else {
+            $projection = array('cache_data');
+        }
         try {
             $data = $this->_db->cache->findOne(
                 $query,
-                array('cache_data')
+                $projection
             );
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        if (empty($data) || empty($data['cache_data'])) {
+        if (is_null($fields) && (empty($data) || empty($data['cache_data']))) {
             return array(
                 'confirmed_synckeys' => array(),
                 'lasthbsyncstarted' => false,
