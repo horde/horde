@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-10-14 14:26+0200\n"
-"PO-Revision-Date: 2013-10-14 14:30+0200\n"
+"PO-Revision-Date: 2013-10-16 14:18+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1129,7 +1129,7 @@ msgstr "Hier klicken um die Originalnachricht als Anhang einfügen."
 
 #: templates/dynamic/compose.html.php:183
 msgid "Click this box to add the original message text to the body."
-msgstr "Hier klicken um die Originalnachricht als einfachen Text einfügen."
+msgstr "Hier klicken um die Originalnachricht im Text einfügen."
 
 #: lib/Script/Package/Imp.php:33
 msgid "Click to always show images from this sender."
