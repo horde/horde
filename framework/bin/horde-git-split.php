@@ -18,10 +18,14 @@ system('git clone --bare ' . escapeshellarg($base) . ' tmp');
 chdir($tmp . '/tmp');
 system('git remote rm origin');
 
+$delete = array();
 foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
     if (strpos($val, $argv[1] . '-') === false) {
-        system('git tag -d ' . escapeshellarg($val));
+        $delete[] = escapeshellarg($val);
     }
+}
+if (count($delete)) {
+    system('git tag -d ' . implode(' ', $delete));
 }
 
 system("git filter-branch --prune-empty --subdirectory-filter " . $argv[2] . " --tag-name-filter cat -- --all");
