@@ -841,35 +841,21 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Determines if a specific email change originated from the client. Used to
-     * avoid mirroring back client initiated changes.
+     * Return all available mailMap changes for the current folder.
      *
-     * @param string $id     The object id.
-     * @param array  $flags  An array of item flags.
-     * @param string $type   The type of change;
-     *                       A Horde_ActiveSync::CHANGE_TYPE_* constant.
+     * @param  array  $changes  The chagnes array
      *
-     * @return boolean  True if changes is due to an incoming client change.
+     * @return array  An array of hashes, each in the form of
+     *   {uid} => array(
+     *     Horde_ActiveSync::CHANGE_TYPE_FLAGS => true|false,
+     *     Horde_ActiveSync::CHANGE_TYPE_DELETE => true|false
+     *   )
      */
-    protected function _isPIMChange($id, $flags, $type)
+    protected function _getMailMapChanges(array $changes)
     {
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }
 
-    /**
-     * Return an array of timestamps from the map table for the last
-     * PIM-initiated change for the provided uid. Used to avoid mirroring back
-     * changes to the PIM that it sent to the server.
-     *
-     * @param array $changes  The changes array, containing 'id' and 'type'.
-     *
-     * @return array  An array of UID -> timestamp of the last PIM-initiated
-     *                change for the specified uid, or null if none found.
-     */
-    protected function _getPIMChangeTS(array $changes)
-    {
-        throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
-    }
 
     /**
      * Save the current syncstate to storage
