@@ -265,6 +265,32 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Updates the composer.json file.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function updateComposer($options)
+    {
+        if (empty($options['pretend'])) {
+            $composer = new Components_Helper_Composer();
+            $composer->generateComposeJson(
+                $this->getPackageXmlPath()
+            );
+            $result = 'Updated composer.json.';
+        } else {
+            $result = 'Would update composer.json now.';
+        }
+        if (!empty($options['commit'])) {
+            $options['commit']->add(
+                $this->_directory . '/composer.json', $this->_directory
+            );
+        }
+        return $result;
+    }
+
+    /**
      * Set the version in the package.xml
      *
      * @param string $rel_version The new release version number.

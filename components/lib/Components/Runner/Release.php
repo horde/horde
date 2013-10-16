@@ -79,6 +79,11 @@ class Components_Runner_Release
             $pre_commit = true;
         }
 
+        if ($this->_doTask('composer')) {
+            $sequence[] = 'Composer';
+            $pre_commit = true;
+        }
+
         if ($this->_doTask('sentinel')) {
             $sequence[] = 'CurrentSentinel';
             $pre_commit = true;
