@@ -62,13 +62,13 @@ function analysedir($path, $list)
     }
     return $list;
 }
- 
+
 function substitute_skeleton($filename, $modulname, $author)
 {
     $prjUC=strtoupper(trim($modulname));
     $prjLC=strtolower($prjUC);
     $prjMC=substr($prjUC, 0, 1) . substr($prjLC, 1, strlen($prjLC)-1);
- 
+
     $filehandle=fopen(trim($filename), 'r');
     $file=fread($filehandle, filesize($filename));
     fclose($filehandle);
@@ -81,12 +81,12 @@ function substitute_skeleton($filename, $modulname, $author)
     fwrite($filehandle, $newfile);
     fclose($filehandle);
 }
- 
- 
+
+
 //
 // ------------------- Main-Code --------------------
 //
- 
+
 if (count($_SERVER['argv']) == 3) {
     // Preparation
     $module = trim($_SERVER['argv'][1]);
@@ -103,7 +103,7 @@ if (count($_SERVER['argv']) == 3) {
     // Fetch filelist
     $list = array();
     $list = analysedir($module_path, $list);
- 
+
     // Modify each file
     foreach ($list as $file) {
         substitute_skeleton($file, $module, $author);
