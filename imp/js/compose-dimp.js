@@ -818,6 +818,7 @@ var DimpCompose = {
 
         var mah,
             cmp = $('composeMessageParent'),
+            sp = $('signatureParent'),
             qreply = $('qreply');
 
         if (!cmp || (qreply && !qreply.visible())) {
@@ -830,6 +831,9 @@ var DimpCompose = {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
         } catch (ex) {
             return;
+        }
+        if (sp) {
+            mah -= sp.getHeight();
         }
 
         if (this.rte_loaded) {
@@ -947,6 +951,25 @@ var DimpCompose = {
 
         case 'togglecc':
             this.toggleCC('cc');
+            this.resizeMsgArea();
+            break;
+
+        case 'signatureToggle':
+            if ($('signature').visible()) {
+                $('signatureToggle').removeClassName('signatureExpanded');
+                $('signature').hide();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 0
+                });
+            } else {
+                $('signatureToggle').addClassName('signatureExpanded');
+                $('signature').show();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 1
+                });
+            }
             this.resizeMsgArea();
             break;
 

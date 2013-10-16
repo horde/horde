@@ -135,13 +135,14 @@ div.partsTreeDiv span span:last-child {
 }
 
 /* Compose view */
-#to, #cc, #bcc, #subject, #signature {
+#to, #cc, #bcc, #subject {
     width: 500px;
 }
 #signature {
     overflow: auto;
     padding: 1px 5px;
     min-height: 20px;
+    max-height: 52px;
     background-color: #ebeff0;
     border: 1px solid #d0d0d0;
 }

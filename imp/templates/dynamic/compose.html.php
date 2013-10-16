@@ -144,14 +144,6 @@
       <?php echo $this->textFieldTag('subject') ?>
      </td>
     </tr>
-<?php if ($this->signature): ?>
-    <tr>
-     <td class="label"><?php echo _("Signature")?>:</td>
-     <td>
-      <div id="signature"></div>
-     </td>
-    </tr>
-<?php endif; ?>
     <tr class="atcrow">
 <?php if ($this->attach): ?>
      <td class="label">
@@ -209,5 +201,15 @@
   <div id="composeMessageParent">
    <textarea name="message" id="composeMessage" class="fixed"></textarea>
   </div>
+
+<?php if ($this->signature): ?>
+  <div id="signatureParent">
+   <div class="label">
+    <span id="signatureToggle" class="iconImg<?php if ($this->sigExpanded) echo ' signatureExpanded' ?>"></span>
+    <?php echo _("Signature")?>:
+   </div>
+   <div id="signature"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?> title="<?php echo _("The signature is not editable.") ?>"></div>
+  </div>
+<?php endif; ?>
  </div>
 </form>

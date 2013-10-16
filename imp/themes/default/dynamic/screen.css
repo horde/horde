@@ -684,6 +684,36 @@ div.dimpActionsMsg #windowclose {
     width: 100%;
 }
 
+#signatureParent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #eceff0;
+    border-top: 1px solid #d0d0d0;
+    cursor: default;
+    padding: 10px;
+}
+#signature {
+    margin-top: 4px;
+}
+#signatureParent .label {
+    white-space: nowrap;
+    font-weight: bold;
+}
+#signatureToggle {
+    cursor: pointer;
+    float: left;
+    height: 14px;
+    width: 12px;
+}
+#signatureToggle {
+    background-image: url("../graphics/arrow_collapsed.png");
+}
+#signatureToggle.signatureExpanded {
+    background-image: url("../graphics/arrow_expanded.png");
+}
+
 #rteloading {
     position: absolute;
     z-index: 100;

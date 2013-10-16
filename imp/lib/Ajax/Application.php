@@ -85,6 +85,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->addHandler('IMP_Ajax_Application_Handler_ImageUnblock');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
 
         $this->queue = $injector->getInstance('IMP_Ajax_Queue');
 

@@ -224,7 +224,7 @@ div.msgActions, #fmanager div.folderActions {
 .composebody {
     padding: 2px;
 }
-#text_identity {
+#text_identity, #signature {
     width: 500px;
 }
 #compose td.light {

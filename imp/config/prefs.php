@@ -636,6 +636,10 @@ $_prefs['ckeditor_buttons'] = array(
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
 );
 
+$_prefs['signature_expanded'] = array(
+    'value' => 0,
+    'type' => 'implicit',
+);
 
 
 // *** Compose Templates Preferences ***
