@@ -1466,13 +1466,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param array $uids  An array of uids to check.
      *
-     * @return integer|null The timestamp of the last PIM-initiated change for
-     *                      the specified uid, or null if none found.
+     * @return array  An array of UID -> timestamp of the last PIM-initiated
+     *                change for the specified uid, or null if none found.
      */
     protected function _getPIMChangeTS($uids, $type)
     {
-        $sql = 'SELECT MAX(sync_modtime), message_uid FROM ' . $this->_syncMapTable
-            . ' WHERE message_uid IN (' . implode(',' array_fill(0, count($uids), '?'))
+        $sql = 'SELECT message_uid, MAX(sync_modtime) FROM ' . $this->_syncMapTable
+            . ' WHERE message_uid IN (' . implode(',', array_fill(0, count($uids), '?'))
             . ') AND sync_devid = ? AND sync_user = ?';
 
         if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
