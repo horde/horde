@@ -1284,42 +1284,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     }
 
     /**
-     * Perform the change query.
-     *
-     * @param string $id     The object id
-     * @param integer  $flag   The flag value.
-     * @param string $field  The field containing the change type.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _isPIMChangeQuery($id, $flag, $field)
-    {
-        $query = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_folderid' => $this->_collection['id'],
-            'message_uid' => "$id",
-        );
-
-        try {
-            $result = $this->_db->mailmap->findOne(
-                $query,
-                array($field)
-            );
-        } catch (Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
-
-        if (empty($result)) {
-            return false;
-        }
-
-        return $result[$field] == $flag;
-    }
-
-    /**
      * Garbage collector - clean up from previous sync requests.
      *
      * @param string $syncKey  The sync key
