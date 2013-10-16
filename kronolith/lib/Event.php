@@ -2515,8 +2515,10 @@ abstract class Kronolith_Event
     public function synchronizeTags($tags)
     {
         if (isset($this->_internaltags)) {
-            usort($tags, 'strcoll');
-            if (array_diff($this->_internaltags, $tags)) {
+            $lower_internaltags = array_map('Horde_String::lower', $this->_internaltags);
+            $lower_tags = array_map('Horde_String::lower', $tags);
+
+            if (array_diff($lower_internaltags, $lower_tags)) {
                 Kronolith::getTagger()->replaceTags(
                     $this->uid,
                     $this->_internaltags,
