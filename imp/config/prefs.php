@@ -486,9 +486,9 @@ $prefGroups['compose'] = array(
     'members' => array(
         'mailto_handler', 'compose_spellcheck', 'set_priority',
         'compose_html', 'compose_html_font_family', 'compose_html_font_size',
-        'mail_domain', 'compose_cursor', 'encryptselect',
-        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
-        'compose_popup', 'compose_confirm'
+        'mail_domain', 'compose_cursor', 'signature_show_compose',
+        'encryptselect', 'delete_attachments_monthly_keep', 'request_mdn',
+        'reply_lang', 'compose_popup', 'compose_confirm'
     )
 );
 
