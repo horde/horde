@@ -984,7 +984,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             // should never, ever need to send a REMOVE to the client
                             // if we have a delete entry in the map table.
                             $stat['mod'] = 0;
-                        } else {
+                        } elseif ($pim_ts) {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
