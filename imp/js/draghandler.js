@@ -16,10 +16,10 @@ var DragHandler = {
     handleDrop: function(e)
     {
         if (this.dropelt.hasClassName(this.hoverclass)) {
-            this.dropelt.hide();
-            this.droptarget.show();
             this.dropelt.fire('DragHandler:drop', e);
         }
+        this.dropelt.hide();
+        this.droptarget.show();
         e.stop();
     },
 
