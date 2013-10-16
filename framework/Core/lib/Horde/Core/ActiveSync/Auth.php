@@ -52,11 +52,16 @@ class Horde_Core_ActiveSync_Auth extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Auth_Exception
+     * @return boolean
      */
     public function authenticate($userId, $credentials, $login = true)
     {
-        $this->_authenticate($userId, $credentials);
+        try {
+            $this->_authenticate($userId, $credentials);
+        } catch (Horde_Auth_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            return false;
+        }
 
         return true;
     }
