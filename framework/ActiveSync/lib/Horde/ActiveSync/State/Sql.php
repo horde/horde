@@ -1145,19 +1145,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $values[] = $v;
         }
 
-        $conditions = '';
+        $conditions = array();
         foreach ($changes as $change) {
             $d = $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE;
-            if (strlen($conditions)) {
-                $conditions .= 'OR ';
-            }
-            $conditions .= '(message_uid = ?' . ($d ? ' AND sync_deleted = ?) ' : ') ');
+            $conditions[] = '(message_uid = ?' . ($d ? ' AND sync_deleted = ?) ' : ') ');
             $values[] = $change['id'];
             if ($d) {
                 $values[] = $d;
             }
         }
-        $sql .= 'AND ' . $conditions . 'GROUP BY message_uid';
+        $sql .= 'AND (' . explode('OR ', $conditions) . ') GROUP BY message_uid';
         try {
             return $this->_db->selectAssoc($sql, $values);
         } catch (Horde_Db_Exception $e) {

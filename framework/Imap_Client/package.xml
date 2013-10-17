@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-11</date>
+ <date>2013-10-17</date>
  <version>
   <release>2.15.6</release>
   <api>2.15.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,7 +43,6 @@
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
-        <file name="Connection.php" role="php" />
         <file name="Debug.php" role="php" />
         <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
@@ -133,7 +132,6 @@
         </dir> <!-- /lib/Horde/Imap/Client/Socket/Connection -->
         <file name="Catenate.php" role="php" />
         <file name="ClientSort.php" role="php" />
-        <file name="Connection.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
        <file name="Base.php" role="php" />
@@ -392,7 +390,6 @@
    <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
-   <install as="Horde/Imap/Client/Base/Connection.php" name="lib/Horde/Imap/Client/Base/Connection.php" />
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
@@ -448,7 +445,6 @@
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
-   <install as="Horde/Imap/Client/Socket/Connection.php" name="lib/Horde/Imap/Client/Socket/Connection.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Pop3.php" name="lib/Horde/Imap/Client/Socket/Connection/Pop3.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Socket.php" name="lib/Horde/Imap/Client/Socket/Connection/Socket.php" />
@@ -2048,10 +2044,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-11</date>
+   <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
    </notes>
   </release>
  </changelog>

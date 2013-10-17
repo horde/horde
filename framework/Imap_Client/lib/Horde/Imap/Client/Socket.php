@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;
@@ -542,17 +543,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         try {
+            $secure = $this->getParam('secure');
             $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket(
                 $this->getParam('hostspec'),
                 $this->getParam('port'),
                 $this->getParam('timeout'),
-                $this->getParam('secure'),
+                $secure,
                 array(
                     'debug' => $this->_debug,
                     'debugliteral' => $this->getParam('debug_literal')
                 )
             );
-            if (!$this->_connection->secure) {
+            if ($secure && !$this->_connection->secure) {
                 $this->setParam('secure', false);
             }
         } catch (Horde\Socket\Client\Exception $e) {
