@@ -1091,38 +1091,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get a EAS Folder Uid for the given backend server id.
-     *
-     * @param string $serverid  The backend server id. E.g., 'INBOX'.
-     *
-     * @return string|boolean  The EAS UID for the requested serverid, or false
-     *                         if it is not found.
-     * @since 2.4.0
-     */
-    public function getFolderUidForBackendId($serverid)
-    {
-        $cache = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
-        $folders = $cache['folders'];
-        foreach ($folders as $id => $folder) {
-            if ($folder['serverid'] == $serverid) {
-                $this->_logger->info(sprintf(
-                    '[%s] Found serverid for %s: %s',
-                    $this->_procid,
-                    $serverid,
-                    $id));
-                return $id;
-            }
-        }
-
-        $this->_logger->info(sprintf(
-            '[%s] No folderid found for %s',
-            $this->_procid,
-            $serverid));
-
-        return false;
-    }
-
-    /**
      * Return an array of timestamps from the map table for the last
      * PIM-initiated change for the provided uid. Used to avoid mirroring back
      * changes to the PIM that it sent to the server.
