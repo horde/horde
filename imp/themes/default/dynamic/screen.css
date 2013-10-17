@@ -694,7 +694,7 @@ div.dimpActionsMsg #windowclose {
     cursor: default;
     padding: 10px;
 }
-#signature {
+#signatureBorder {
     margin-top: 4px;
 }
 #signatureParent .label {
