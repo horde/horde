@@ -491,29 +491,36 @@ class Horde_Ldap
      */
     public function startTLS()
     {
-        /* Test to see if the server supports TLS first.
+        /* First try STARTTLS blindly, some servers don't even allow to receive
+         * the rootDSE without TLS. */
+        if (@ldap_start_tls($this->_link)) {
+            return;
+        }
+
+        /* Keep original error. */
+        $error = 'TLS not started: ' . @ldap_error($this->_link);
+        $errno = @ldap_errno($this->_link);
+
+        /* Test to see if the server supports TLS at all.
          * This is done via testing the extensions offered by the server.
          * The OID 1.3.6.1.4.1.1466.20037 tells whether TLS is supported. */
         try {
             $rootDSE = $this->rootDSE();
         } catch (Exception $e) {
-            throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supported: ' . $e->getMessage(), $e->getCode());
+            throw new Horde_Ldap_Exception('Unable to start TLS and unable to fetch rootDSE entry to see if TLS is supported: ' . $e->getMessage(), $e->getCode());
         }
 
         try {
             $supported_extensions = $rootDSE->getValue('supportedExtension');
         } catch (Exception $e) {
-            throw new Horde_Ldap_Exception('Unable to fetch rootDSE attribute "supportedExtension" to see if TLS is supoported: ' . $e->getMessage(), $e->getCode());
+            throw new Horde_Ldap_Exception('Unable to start TLS and unable to fetch rootDSE attribute "supportedExtension" to see if TLS is supoported: ' . $e->getMessage(), $e->getCode());
         }
 
         if (!in_array('1.3.6.1.4.1.1466.20037', $supported_extensions)) {
             throw new Horde_Ldap_Exception('Server reports that it does not support TLS');
         }
 
-        if (!@ldap_start_tls($this->_link)) {
-            throw new Horde_Ldap_Exception('TLS not started: ' . @ldap_error($this->_link),
-                                           @ldap_errno($this->_link));
-        }
+        throw new Horde_Ldap_Exception($error, $errno);
     }
 
     /**
