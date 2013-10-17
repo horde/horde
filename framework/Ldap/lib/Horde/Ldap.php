@@ -695,7 +695,7 @@ class Horde_Ldap
         /* Perform changes mentioned separately. */
         foreach (array('add', 'delete', 'replace') as $action) {
             if (!isset($parms[$action])) {
-                throw new Horde_Ldap_Exception('Unknown modify action: ' . $action);
+                continue;
             }
             $entry->$action($parms[$action]);
             $entry->setLDAP($this);
