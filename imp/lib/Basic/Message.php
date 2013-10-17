@@ -1013,7 +1013,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                     $output .= '&nbsp;(' . $val2 . ')';
                 }
                 break;
-            } elseif ($url = $text_filter->filter($val, 'linkurls')) {
+            } elseif ($url = $text_filter->filter($val->url, 'linkurls')) {
                 $output = $url;
                 foreach ($val->comments as $val2) {
                     $output .= '&nbsp;(' . $val2 . ')';
@@ -1022,7 +1022,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
             }
         }
 
-        return $output;
+        return strlen($output)
+            ? $output
+            : htmlspecialchars($data);
     }
 
 }

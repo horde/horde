@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;
@@ -397,6 +398,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_debug->info('Successfully completed TLS negotiation.');
 
             $this->setParam('secure', 'tls');
+            $secure = 'tls';
 
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -410,6 +412,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($this->_init['imapproxy'])) {
                 $this->setLanguage();
             }
+        }
+
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (($secure === true) && !$this->isSecureConnection()) {
+            $this->setParam('secure', false);
         }
 
         if ($first_login) {
@@ -552,9 +560,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     'debugliteral' => $this->getParam('debug_literal')
                 )
             );
-            if (!$this->_connection->secure) {
-                $this->setParam('secure', false);
-            }
         } catch (Horde\Socket\Client\Exception $e) {
             $e2 = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error connecting to mail server."),
