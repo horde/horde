@@ -692,6 +692,10 @@ class Horde_Ldap
             throw new Horde_Ldap_Exception('Parameter is not a string nor an entry object!');
         }
 
+        if ($unknown = array_diff(array_keys($parms), array('add', 'delete', 'replace', 'changes'))) {
+            throw new Horde_Ldap_Exception('Unknown modify action(s): ' . implode(', ', $unknown));
+        }
+
         /* Perform changes mentioned separately. */
         foreach (array('add', 'delete', 'replace') as $action) {
             if (!isset($parms[$action])) {
