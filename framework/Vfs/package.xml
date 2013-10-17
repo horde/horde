@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Bump minimum version of SSH2 extension to 0.12.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -475,7 +475,7 @@ Reading, writing and listing of files are all supported.</description>
    <package>
     <name>ssh2</name>
     <channel>pecl.php.net</channel>
-    <min>0.10</min>
+    <min>0.12</min>
     <providesextension>ssh2</providesextension>
    </package>
    <extension>
@@ -1179,7 +1179,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Bump minimum version of SSH2 extension to 0.12.
    </notes>
   </release>
  </changelog>
