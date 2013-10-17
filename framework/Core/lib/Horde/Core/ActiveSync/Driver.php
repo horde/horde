@@ -1416,6 +1416,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if (!empty($h_array['Bcc'])) {
                 $recipients .= ',' . $h_array['Bcc'];
+                unset($h_array['Bcc']);
             }
             $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
@@ -1424,7 +1425,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-               // $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -1808,7 +1808,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
-                $vacation = $this->_connector->filters_getVacation();
+                if (!$vacation = $this->_connector->filters_getVacation()) {
+                    return array('oof' => array('status' => Horde_ActiveSync_Request_Settings::STATUS_UNAVAILABLE));
+                }
                 $res['oof'] = array(
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
                     'oofstate' => ($vacation['disabled']

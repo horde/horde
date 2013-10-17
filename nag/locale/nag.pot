@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H5 (4.1.2-git)\n"
+"Project-Id-Version: Nag H5 (4.1.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:53+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -693,7 +693,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1189
+#: lib/Api.php:1195
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
@@ -746,7 +746,7 @@ msgstr ""
 msgid "No due date."
 msgstr ""
 
-#: lib/Api.php:866 lib/Api.php:889 lib/Api.php:1196
+#: lib/Api.php:866 lib/Api.php:895 lib/Api.php:1202
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -1127,7 +1127,7 @@ msgstr ""
 msgid "Tasklist does not exist or no permission to edit"
 msgstr ""
 
-#: lib/Api.php:1277 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1283 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr ""
 
@@ -1232,7 +1232,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:494 lib/Api.php:858 lib/Api.php:1181 lib/Application.php:551
+#: lib/Api.php:494 lib/Api.php:858 lib/Api.php:1187 lib/Application.php:551
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -1284,8 +1284,8 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:574 lib/Api.php:906 lib/Api.php:1030 lib/Api.php:1095
-#: lib/Api.php:1213
+#: lib/Api.php:574 lib/Api.php:912 lib/Api.php:1036 lib/Api.php:1101
+#: lib/Api.php:1219
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""

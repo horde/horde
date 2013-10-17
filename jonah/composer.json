@@ -1,0 +1,31 @@
+{
+    "name": "horde/jonah",
+    "description": "Jonah is an application for handling news.",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2012-07-19",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.php.net/DB": "*"
+    }
+}

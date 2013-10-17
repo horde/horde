@@ -3,16 +3,16 @@
  <name>Horde_Smtp</name>
  <channel>pear.horde.org</channel>
  <summary>Horde SMTP Client</summary>
- <description>Provides interfaces for connecting to a SMTP (RFC 5321) server to send e-mail messages..</description>
+ <description>Provides interfaces for connecting to a SMTP (RFC 5321) server to send e-mail messages.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-11</date>
+ <date>2013-10-15</date>
  <version>
-  <release>1.2.4</release>
+  <release>1.2.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -43,7 +43,9 @@
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Password.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Smtp -->
      <file name="Smtp.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -85,6 +87,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Socket_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
@@ -230,7 +239,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-11</date>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not configured in the client.
+* [jan] Fix reading translations in PEAR-installed package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

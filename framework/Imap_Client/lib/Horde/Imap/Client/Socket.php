@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;
@@ -397,6 +398,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_debug->info('Successfully completed TLS negotiation.');
 
             $this->setParam('secure', 'tls');
+            $secure = 'tls';
 
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -412,6 +414,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (($secure === true) && !$this->isSecureConnection()) {
+            $this->setParam('secure', false);
+        }
+
         if ($first_login) {
             // Add authentication methods.
             $auth_mech = array();
@@ -423,8 +431,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
                 $auth_mech[] = 'XOAUTH2';
-                unset($auth['XOAUTH2']);
             }
+            unset($auth['XOAUTH2']);
 
             // 'PLAIN' authentication always exists if under TLS. Use it over
             // all over authentication methods.
@@ -541,7 +549,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket($this, $this->_debug);
+        try {
+            $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket(
+                $this->getParam('hostspec'),
+                $this->getParam('port'),
+                $this->getParam('timeout'),
+                $this->getParam('secure'),
+                array(
+                    'debug' => $this->_debug,
+                    'debugliteral' => $this->getParam('debug_literal')
+                )
+            );
+        } catch (Horde\Socket\Client\Exception $e) {
+            $e2 = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
+            $e2->details($e->details);
+            throw $e2;
+        }
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the initial banner.

@@ -266,7 +266,27 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection_Pop3($this, $this->_debug);
+        try {
+            $this->_connection = new Horde_Imap_Client_Socket_Connection_Pop3(
+                $this->getParam('hostspec'),
+                $this->getParam('port'),
+                $this->getParam('timeout'),
+                $this->getParam('secure'),
+                array(
+                    'debug' => $this->_debug
+                )
+            );
+            if (!$this->_connection->secure) {
+                $this->setParam('secure', false);
+            }
+        } catch (Horde\Socket\Client\Exception $e) {
+            $e2 = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
+            $e2->details($e->details);
+            throw $e2;
+        }
 
         $line = $this->_getResponse();
 

@@ -24,6 +24,7 @@
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
+    /* CSS background regex. */
     const CSS_BG_PREG = '/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i';
 
     /**

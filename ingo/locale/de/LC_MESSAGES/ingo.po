@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
 "PO-Revision-Date: 2013-05-22 14:41+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -851,7 +851,7 @@ msgstr "Wählen Sie ein Feld aus"
 msgid "Select ruleset to display"
 msgstr "Anzuzeigenden Regelsatz auswählen"
 
-#: lib/Basic/Rule.php:339 templates/basic/blacklist/blacklist.html.php:30
+#: lib/Basic/Rule.php:341 templates/basic/blacklist/blacklist.html.php:30
 msgid "Select target folder"
 msgstr "Zielordner auswählen"
 
@@ -994,7 +994,7 @@ msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 "Abwesenheitsnachrichten werden vom aktuellen Filtertreiber nicht unterstützt."
 
-#: lib/Basic/Rule.php:345
+#: lib/Basic/Rule.php:347
 msgid "Value"
 msgstr "Wert"
 

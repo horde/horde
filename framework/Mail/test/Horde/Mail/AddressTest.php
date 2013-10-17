@@ -31,4 +31,19 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($address4->matchDomain('co.uk'));
     }
 
+    public function testPersonalIsSameAsEmail()
+    {
+        $address = new Horde_Mail_Rfc822_Address('"test@example.com" <test@example.com>');
+        $this->assertEquals(
+            'test@example.com',
+            strval($address)
+        );
+
+        $address = new Horde_Mail_Rfc822_Address('"TEST@EXAMPLE.COM" <test@example.com>');
+        $this->assertEquals(
+            'test@example.com',
+            strval($address)
+        );
+    }
+
 }

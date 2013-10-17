@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr ""
 
-#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:442
+#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:443
 msgid "The password is too simple to guess."
 msgstr ""
 

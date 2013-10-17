@@ -1,0 +1,25 @@
+{
+    "name": "horde/horde-queue",
+    "description": "Horde Queue",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.1.2",
+    "time": "2013-09-02",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

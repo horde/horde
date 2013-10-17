@@ -240,6 +240,11 @@ case 'basic':
 case 'advanced':
     $title = _("Advanced Search");
     $page_output->addScriptFile('search.js');
+    if (isset($results)) {
+        $page_output->addInlineJsVars(array(
+            'TurbaSearch.advanced' => true
+        ));
+    }
     $page_output->addInlineScript(array(
         '$("name").focus()'
     ), true);

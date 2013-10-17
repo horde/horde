@@ -71,6 +71,9 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
 
+        /* Force images to show in HTML data. */
+        $injector->getInstance('IMP_Images')->alwaysShow = true;
+
         foreach ($imp_indices as $ob) {
             $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($ob->uids)
@@ -87,6 +90,10 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
                     $ret = reset($ret);
                     $curr_msg['body'] = $ret['data'];
+
+                    if (!empty($ret['js'])) {
+                        $page_output->addInlineScript($ret['js'], true);
+                    }
                 } else {
                     $curr_msg['body'] = '<em>' . _("There is no text that can be displayed inline.") . '</em>';
                 }

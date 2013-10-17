@@ -1,0 +1,40 @@
+{
+    "name": "horde/sesha",
+    "description": "A simple Inventory App for Horde",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Ralf Lang",
+            "email": "lang@b1-systems.de",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0RC4",
+    "time": "2013-01-10",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/horde": ">=5.0.0,<=6.0.0alpha1",
+        "pear-pear.horde.org/Horde_Auth": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Autoloader": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Core": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Db": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Form": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Perms": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Prefs": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Rdo": ">=2.0.0,<=3.0.0alpha1"
+    }
+}

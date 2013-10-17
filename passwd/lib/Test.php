@@ -64,6 +64,17 @@ class Passwd_Test extends Horde_Test
     );
 
     /**
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_fileList += array(
+            'config/backends.php' => null
+        );
+    }
+
+    /**
      * Any application specific tests that need to be done.
      *
      * @return string  HTML output.

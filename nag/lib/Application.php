@@ -576,7 +576,7 @@ class Nag_Application extends Horde_Registry_Application
                 $modified = $this->_modified($internal, $existing_task->uid);
                 try {
                     if (!empty($modified) &&
-                        $content->getAttribute('LAST-MODIFIED')->before($modified)) {
+                        $content->getAttribute('LAST-MODIFIED') < $modified) {
                         /* LAST-MODIFIED timestamp of existing entry is newer:
                          * don't replace it. */
                         continue;

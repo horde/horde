@@ -72,6 +72,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
     const STATUS_SUCCESS                    = 1;
     const STATUS_ERROR                      = 2;
+    const STATUS_UNAVAILABLE                = 4;
 
     const OOF_STATE_ENABLED                 = 1;
     const OOF_STATE_DISABLED                = 0;
@@ -253,7 +254,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->startTag(self::SETTINGS_OOF);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
             if (!isset($result['set']['oof'])) {
-                $this->_encoder->content(0);
+                $this->_encoder->content(self::OOF_STATE_DISABLED);
             } else {
                 $this->_encoder->content($result['set']['oof']);
             }
@@ -303,46 +304,49 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         if (isset($request['get']['oof'])) {
             $this->_encoder->startTag(self::SETTINGS_OOF);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
-            $this->_encoder->content(1);
+            $this->_encoder->content($result['get']['oof']['status']);
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
 
-            $this->_encoder->startTag(self::SETTINGS_GET);
-            $this->_encoder->startTag(self::SETTINGS_OOFSTATE);
-            $this->_encoder->content($result['get']['oof']['oofstate']);
-            $this->_encoder->endTag(); // end self::SETTINGS_OOFSTATE
-            // This we maybe need later on (OOFSTATE=2). It shows that OOF
-            // Messages could be send depending on Time being set in here.
-            // Unfortunately cannot proof it working on my device.
-            if ($result['get']['oof']['oofstate'] == 2) {
-                $this->_encoder->startTag(self::SETTINGS_STARTTIME);
-                $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['starttime']));
-                $this->_encoder->endTag(); // end self::SETTINGS_STARTTIME
-                $this->_encoder->startTag(self::SETTINGS_ENDTIME);
-                $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['endtime']));
-                $this->_encoder->endTag(); // end self::SETTINGS_ENDTIME
-            }
-            foreach($result['get']['oof']['oofmsgs'] as $oofentry) {
-                $this->_encoder->startTag(self::SETTINGS_OOFMESSAGE);
-                $this->_encoder->startTag($oofentry['appliesto'],false,true);
-                $this->_encoder->startTag(self::SETTINGS_ENABLED);
-                $this->_encoder->content($oofentry['enabled']);
-                $this->_encoder->endTag(); // end self::SETTINGS_ENABLED
-                $this->_encoder->startTag(self::SETTINGS_REPLYMESSAGE);
-                $this->_encoder->content($oofentry['replymessage']);
-                $this->_encoder->endTag(); // end self::SETTINGS_REPLYMESSAGE
-                $this->_encoder->startTag(self::SETTINGS_BODYTYPE);
-                switch (strtolower($oofentry['bodytype'])) {
-                case 'text':
-                    $this->_encoder->content('Text');
-                    break;
-                case 'HTML':
-                    $this->_encoder->content('HTML');
+            if ($result['get']['oof']['status'] == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(self::SETTINGS_GET);
+                $this->_encoder->startTag(self::SETTINGS_OOFSTATE);
+                $this->_encoder->content($result['get']['oof']['oofstate']);
+                $this->_encoder->endTag(); // end self::SETTINGS_OOFSTATE
+                // This we maybe need later on (OOFSTATE=2). It shows that OOF
+                // Messages could be send depending on Time being set in here.
+                // Unfortunately cannot proof it working on my device.
+                if ($result['get']['oof']['oofstate'] == 2) {
+                    $this->_encoder->startTag(self::SETTINGS_STARTTIME);
+                    $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['starttime']));
+                    $this->_encoder->endTag(); // end self::SETTINGS_STARTTIME
+                    $this->_encoder->startTag(self::SETTINGS_ENDTIME);
+                    $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['endtime']));
+                    $this->_encoder->endTag(); // end self::SETTINGS_ENDTIME
                 }
-                $this->_encoder->endTag(); // end self::SETTINGS_BODYTYPE
-                $this->_encoder->endTag(); // end self::SETTINGS_OOFMESSAGE
+                foreach($result['get']['oof']['oofmsgs'] as $oofentry) {
+                    $this->_encoder->startTag(self::SETTINGS_OOFMESSAGE);
+                    $this->_encoder->startTag($oofentry['appliesto'],false,true);
+                    $this->_encoder->startTag(self::SETTINGS_ENABLED);
+                    $this->_encoder->content($oofentry['enabled']);
+                    $this->_encoder->endTag(); // end self::SETTINGS_ENABLED
+                    $this->_encoder->startTag(self::SETTINGS_REPLYMESSAGE);
+                    $this->_encoder->content($oofentry['replymessage']);
+                    $this->_encoder->endTag(); // end self::SETTINGS_REPLYMESSAGE
+                    $this->_encoder->startTag(self::SETTINGS_BODYTYPE);
+                    switch (strtolower($oofentry['bodytype'])) {
+                    case 'text':
+                        $this->_encoder->content('Text');
+                        break;
+                    case 'HTML':
+                        $this->_encoder->content('HTML');
+                    }
+                    $this->_encoder->endTag(); // end self::SETTINGS_BODYTYPE
+                    $this->_encoder->endTag(); // end self::SETTINGS_OOFMESSAGE
+                }
+                $this->_encoder->endTag(); // end self::SETTINGS_GET
+                $this->_encoder->endTag(); // end self::SETTINGS_OOF
             }
-            $this->_encoder->endTag(); // end self::SETTINGS_GET
-            $this->_encoder->endTag(); // end self::SETTINGS_OOF
+
         }
 
         $this->_encoder->endTag(); // end self::SETTINGS_SETTINGS
