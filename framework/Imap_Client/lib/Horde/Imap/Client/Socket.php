@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;

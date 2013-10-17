@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2047,7 +2047,7 @@
    <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
    </notes>
   </release>
  </changelog>
