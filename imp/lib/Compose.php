@@ -225,6 +225,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
             }
         }
+        $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
         $draft_headers = $this->_prepareHeaders($headers, array_merge($opts, array('bcc' => true)));
@@ -809,27 +810,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
-            switch ($this->_replytype) {
-            case self::COMPOSE:
-                $senttype = IMP_Sentmail::NEWMSG;
-                break;
-
+            switch (intval($this->replyType(true))) {
             case self::REPLY:
-            case self::REPLY_ALL:
-            case self::REPLY_LIST:
-            case self::REPLY_SENDER:
                 $senttype = IMP_Sentmail::REPLY;
                 break;
 
             case self::FORWARD:
-            case self::FORWARD_ATTACH:
-            case self::FORWARD_BODY:
-            case self::FORWARD_BOTH:
                 $senttype = IMP_Sentmail::FORWARD;
                 break;
 
             case self::REDIRECT:
                 $senttype = IMP_Sentmail::REDIRECT;
+                break;
+
+            default:
+                $senttype = IMP_Sentmail::NEWMSG;
                 break;
             }
 
@@ -976,19 +971,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $ob->addHeader('From', $headers['from']);
         }
 
-        if (isset($headers['to']) && strlen($headers['to'])) {
+        if (isset($headers['to']) &&
+            (is_object($headers['to']) || strlen($headers['to']))) {
             $ob->addHeader('To', $headers['to']);
         } elseif (!isset($headers['cc'])) {
             $ob->addHeader('To', 'undisclosed-recipients:;');
         }
 
-        if (isset($headers['cc']) && strlen($headers['cc'])) {
+        if (isset($headers['cc']) &&
+            (is_object($headers['cc']) || strlen($headers['cc']))) {
             $ob->addHeader('Cc', $headers['cc']);
         }
 
         if (!empty($opts['bcc']) &&
             isset($headers['bcc']) &&
-            strlen($headers['bcc'])) {
+            (is_object($headers['bcc']) || strlen($headers['bcc']))) {
             $ob->addHeader('Bcc', $headers['bcc']);
         }
 
@@ -1119,14 +1116,29 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_TIMELIMIT, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $injector->getInstance('IMP_Sentmail')->limit_period));
+            throw new IMP_Compose_Exception(sprintf(
+                ngettext(
+                    "You are not allowed to send messages to more than %d recipient within %d hours.",
+                    "You are not allowed to send messages to more than %d recipients within %d hours.",
+                    $imp_imap->max_compose_timelimit
+                ),
+                $imp_imap->max_compose_timelimit,
+                $injector->getInstance('IMP_Sentmail')->limit_period
+            ));
         }
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_RECIPIENTS, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_recipients');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $imp_imap->max_compose_recipients));
+            throw new IMP_Compose_Exception(sprintf(
+                ngettext(
+                    "You are not allowed to send messages to more than %d recipient.",
+                    "You are not allowed to send messages to more than %d recipients.",
+                    $imp_imap->max_compose_recipients
+                ),
+                $imp_imap->max_compose_recipients
+            ));
         }
 
         /* Pass to hook to allow alteration of message details. */
@@ -1231,9 +1243,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (isset($hdr[$key])) {
-                $obs = IMP::parseAddressList($hdr[$key]);
+                if (count($obs = IMP::parseAddressList($hdr[$key]))) {
+                    $addrlist->add($obs);
+                } else {
+                    $obs = null;
+                }
                 $header[$key] = $obs;
-                $addrlist->add($obs);
             }
         }
 
@@ -2855,9 +2870,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             $bytes = $finfo['size'];
             $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-            $type = empty($finfo['type'])
-                ? 'application/octet-stream'
-                : $finfo['type'];
+
+            switch (empty($finfo['type']) ? $finfo['type'] : '') {
+            case 'application/unknown':
+            case '':
+                $type = 'application/octet-stream';
+                break;
+
+            default:
+                $type = $finfo['type'];
+                break;
+            }
         }
 
         return $this->_addAttachment(
@@ -2933,10 +2956,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             foreach ($this as $val) {
                 if ($val->linked == $linked) {
                     $total_size -= $val->getPart()->getBytes();
-                    if ($total_size < 0) {
-                        throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
-                    }
                 }
+            }
+
+            if ($total_size < 0) {
+                throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
             }
         }
 

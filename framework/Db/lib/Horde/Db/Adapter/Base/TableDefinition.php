@@ -129,14 +129,18 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
                   'autoincrement' => null),
             $options);
 
-        $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
-        $column->setLimit($options['limit']);
-        $column->setPrecision($options['precision']);
-        $column->setScale($options['scale']);
-        $column->setUnsigned($options['unsigned']);
-        $column->setDefault($options['default']);
-        $column->setNull($options['null']);
-        $column->setAutoIncrement($options['autoincrement']);
+        $column = $this->_base->makeColumnDefinition(
+            $this->_base,
+            $name,
+            $type,
+            $options['limit'],
+            $options['precision'],
+            $options['scale'],
+            $options['unsigned'],
+            $options['default'],
+            $options['null'],
+            $options['autoincrement']
+        );
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
 

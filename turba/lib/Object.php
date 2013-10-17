@@ -347,10 +347,12 @@ class Turba_Object
         if (!$this->getValue('__uid')) {
             throw new Turba_Exception('VFS not supported for this object.');
         }
-        $this->_vfsInit();
+
+        $vfs = $this->vfsInit();
+
         $dir = Turba::VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
-        while ($this->_vfs->exists($dir, $file)) {
+        while ($vfs->exists($dir, $file)) {
             if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
                 $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
             } else {
@@ -363,7 +365,7 @@ class Turba_Object
             }
         }
         try {
-            $this->_vfs->write($dir, $file, $info['tmp_name'], true);
+            $vfs->write($dir, $file, $info['tmp_name'], true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -380,9 +382,9 @@ class Turba_Object
         if (!$this->getValue('__uid')) {
             throw new Turba_Exception('VFS not supported for this object.');
         }
-        $this->_vfsInit();
+
         try {
-            $this->_vfs->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
+            $this->vfsInit()->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
         } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -398,10 +400,12 @@ class Turba_Object
         if (!$this->getValue('__uid')) {
             throw new Turba_Exception('VFS not supported for this object.');
         }
-        $this->_vfsInit();
-        if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
+
+        $vfs = $this->vfsInit();
+
+        if ($vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
             try {
-                $this->_vfs->deleteFolder(Turba::VFS_PATH, $this->getValue('__uid'), true);
+                $vfs->deleteFolder(Turba::VFS_PATH, $this->getValue('__uid'), true);
             } catch (Horde_Vfs_Exception $e) {
                 throw new Turba_Exception($e);
             }
@@ -415,15 +419,14 @@ class Turba_Object
      */
     public function listFiles()
     {
-        if (!$this->getValue('__uid')) {
-            return array();
+        if ($this->getValue('__uid')) {
+            try {
+                $vfs = $this->vfsInit();
+                if ($vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
+                    return $vfs->listFolder(Turba::VFS_PATH . '/' . $this->getValue('__uid'));
+                }
+            } catch (Turba_Exception $e) {}
         }
-        try {
-            $this->_vfsInit();
-            if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
-                return $this->_vfs->listFolder(Turba::VFS_PATH . '/' . $this->getValue('__uid'));
-            }
-        } catch (Turba_Exception $e) {}
 
         return array();
     }
@@ -503,9 +506,10 @@ class Turba_Object
     /**
      * Loads the VFS configuration and initializes the VFS backend.
      *
+     * @return Horde_Vfs  A VFS object.
      * @throws Turba_Exception
      */
-    protected function _vfsInit()
+    public function vfsInit()
     {
         if (!isset($this->_vfs)) {
             try {
@@ -514,6 +518,8 @@ class Turba_Object
                 throw new Turba_Exception($e);
             }
         }
+
+        return $this->_vfs;
     }
 
 }

@@ -16,7 +16,7 @@ Horde_Registry::appInit('ansel');
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
 $view = 'Ansel_View_' . $viewname;
 if (!class_exists($view)) {
-    throw new Horde_Exception(sprintf("Could not load class definition of %s", $view));
+    throw new Ansel_Exception(sprintf("Could not load class definition of %s", $view));
 }
 
 /*

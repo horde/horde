@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
+ <date>2013-09-04</date>
  <version>
   <release>6.1.5</release>
   <api>6.1.0</api>
@@ -33,6 +33,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix populating search fields when editing an advanced search query.
+* [mms] Trigger auto save draft in dynamic view if attachments have changed.
+* [mms] Improved UI for dropping attachments on dynamic compose screen.
+* [mms] Fix manually loading all addresses in a header.
+* [mms] Fix regression where reloading dynamic view would not load the previously selected message.
+* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
+* [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
+* [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
+* [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
  </notes>
@@ -122,6 +134,7 @@
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
+      <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
@@ -1223,7 +1236,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1477,6 +1490,7 @@
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
+   <install as="imp/lib/Ajax/Application/Viewport.php" name="lib/Ajax/Application/Viewport.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
    <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
    <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
@@ -3279,9 +3293,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix populating search fields when editing an advanced search query.
+* [mms] Trigger auto save draft in dynamic view if attachments have changed.
+* [mms] Improved UI for dropping attachments on dynamic compose screen.
+* [mms] Fix manually loading all addresses in a header.
+* [mms] Fix regression where reloading dynamic view would not load the previously selected message.
+* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
+* [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
+* [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
+* [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
    </notes>

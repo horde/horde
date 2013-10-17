@@ -71,6 +71,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     protected $_removed = array();
 
     /**
+     * Array of messages to be SOFTDELETEd from client. Only used when we have
+     * a CONDSTORE server available, otherwise we calculate the uid list based
+     * on the cached data.
+     *
+     * @var array
+     */
+    protected $_softDeleted = array();
+
+    /**
      * Internal cache of message flag changes. Should be one entry for each UID
      * also listed in the $_changed array. Used for transporting changes back to
      * activesync. An array keyed by message UID:
@@ -115,6 +124,48 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 $this->_flags[$uid] = $data;
             }
         }
+    }
+
+    /**
+     * Return a list of message uids that should be SOFTDELETEd from the client.
+     * Must be called after setChanges and setRemoved, but before updateState.
+     *
+     * @return array
+     */
+    public function getSoftDeleted()
+    {
+        if (empty($this->_status[self::HIGHESTMODSEQ])) {
+            // non-CONDSTORE server, we actually already have this data without
+            // having to search the server again. If we don't have an entry in
+            // $this->_flags, the message was not returned in the latest query,
+            // so it is either deleted or outside the range.
+            $good_uids = array_keys($this->_flags);
+            $messages = array_diff(array_keys($this->_messages), $this->_removed);
+            $soft = array_diff($messages, $good_uids);
+
+            // Now remove them so we don't return them again next time, and we
+            // don't need to remember them since once they are SOFTDELETED, we
+            // no longer care about any changes to the message.
+            foreach ($soft as $id) {
+                unset($this->_messages[$id]);
+            }
+
+            return $soft;
+        } else {
+            return $this->_softDeleted;
+        }
+    }
+
+    /**
+     * Set the list of uids to be SOFTDELETEd. Only needed for CONDSTORE
+     * servers.
+     *
+     * @param array $softDeleted  The message UID list.
+     */
+    public function setSoftDeleted(array $softDeleted)
+    {
+        $this->_softDeleted = $softDeleted;
+        $this->_messages = array_diff($this->_messages, $this->_softDeleted);
     }
 
     /**
@@ -178,6 +229,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_added = array();
         $this->_changed = array();
         $this->_flags = array();
+        $this->_softDeleted = array();
     }
 
     /**
@@ -312,6 +364,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             'm' => $this->_messages,
             'f' => $this->_serverid,
             'c' => $this->_class,
+            'lsd' => $this->_lastSinceDate,
+            'sd' => $this->_softDelete,
             'v' => self::VERSION)
         );
     }
@@ -331,6 +385,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_messages = $data['m'];
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
+        $this->_lastSinceDate = empty($data['lsd']) ? 0 : $data['lsd'];
+        $this->_softDelete = empty($data['sd']) ? 0 : $data['sd'];
     }
 
     /**

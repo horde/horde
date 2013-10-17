@@ -11,6 +11,8 @@
 
 TurbaSearch = {
 
+    // Vars set by calling code: advanced
+
     criteria: {},
     shareSources: {},
 
@@ -34,7 +36,23 @@ TurbaSearch = {
                 $('vbook-form').hide();
             }
         }
+    },
+
+    onDomLoad: function()
+    {
+        if (this.advanced) {
+            $('advancedtoggle').show()
+                .observe('click', function() {
+                    $('advancedtoggle').remove();
+                    $('horde-content').down('FORM[name=directory_search]').show();
+                });
+        } else {
+            $('horde-content').down('FORM[name=directory_search]').show();
+        }
+
+        this.updateCriteria();
     }
+
 }
 
-document.observe('dom:loaded', TurbaSearch.updateCriteria.bind(TurbaSearch));
+document.observe('dom:loaded', TurbaSearch.onDomLoad.bind(TurbaSearch));

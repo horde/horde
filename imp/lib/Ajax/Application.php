@@ -133,6 +133,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function getTasks()
     {
         $this->queue->add($this);
+
+        /* Convert viewport to output format. */
+        $name = 'imp:viewport';
+        if (isset($this->tasks->$name)) {
+            $this->tasks->$name = $this->tasks->$name->toObject();
+        }
+
         return $this->tasks;
     }
 
@@ -201,7 +208,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @param boolean $change  True if cache information has changed.
      *
-     * @return array  See IMP_Ajax_Application_ListMessages::listMessages().
+     * @return IMP_Ajax_Application_Viewport  Viewport data object.
      */
     public function viewPortData($change)
     {
@@ -232,7 +239,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if ($vp->search) {
             $search = Horde_Serialize::unserialize($vp->search, Horde_Serialize::JSON);
             $args += array(
-                'search_uid' => isset($search->uid) ? $search->uid : null,
+                'search_buid' => isset($search->buid) ? $search->buid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null
             );
         } else {
@@ -286,27 +293,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         return ($this->indices->mailbox->cacheid_date != $this->_vars->viewport->cacheid);
-    }
-
-    /**
-     * Return a basic ViewPort object.
-     *
-     * @param IMP_Mailbox $mbox  The mailbox view of the ViewPort request.
-     *                           Defaults to current view.
-     *
-     * @return object  The ViewPort data object.
-     */
-    public function viewPortOb($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $mbox = $this->indices->mailbox;
-        }
-
-        $vp = new stdClass;
-        $vp->cacheid = $mbox->cacheid_date;
-        $vp->view = $mbox->form_to;
-
-        return $vp;
     }
 
     /**
@@ -378,7 +364,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->addTask('viewport', $vp);
         } elseif (($indices instanceof IMP_Indices_Mailbox) &&
                   ($force || $this->indices->mailbox->hideDeletedMsgs(true))) {
-            $vp = $this->viewPortOb();
+            $vp = new IMP_Ajax_Application_Viewport($this->indices->mailbox);
             $vp->disappear = $indices->buids[strval($this->indices->mailbox)];
             $this->addTask('viewport', $vp);
         }

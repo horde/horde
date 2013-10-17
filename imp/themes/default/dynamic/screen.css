@@ -650,10 +650,17 @@ div.dimpActionsMsg #windowclose {
 }
 
 #atcdrop {
-    border: 1px dashed #ccc;
+    border: 1px dashed #999;
+    display: table-cell;
+    color: #999;
     font-size: 110%;
     font-weight: bold;
-    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+}
+.atcdrop_over {
+    border-color: #111 !important;
+    color: #111 !important;
 }
 
 .msgwrite .sendtextarea {
@@ -814,6 +821,9 @@ span.attachmentImg {
 }
 .RB_Form input {
     margin: .2em;
+}
+#mbox_import {
+    overflow: hidden;
 }
 
 /* Popup message styling. */

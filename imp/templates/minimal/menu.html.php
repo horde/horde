@@ -7,4 +7,4 @@
 <?php foreach ($this->menu as $val): ?>
  <li><a accesskey="<?php echo ++$i ?>" href="<?php echo $val[1] ?>"><?php echo $this->h($val[0]) ?></a></li>
 <?php endforeach; ?>
-</ul>
+</ol>

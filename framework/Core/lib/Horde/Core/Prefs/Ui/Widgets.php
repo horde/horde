@@ -93,12 +93,12 @@ class Horde_Core_Prefs_Ui_Widgets
             ));
         }
 
-        $t->set('addimg', Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'lhand.png' : 'rhand.png', Horde_Core_Translation::t("Add source")));
-        $t->set('removeimg', Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'rhand.png' : 'lhand.png', Horde_Core_Translation::t("Remove source")));
+        $t->set('addimg', Horde_Themes_Image::tag($GLOBALS['registry']->nlsconfig->curr_rtl ? 'lhand.png' : 'rhand.png', array('alt' => Horde_Core_Translation::t("Add source"))));
+        $t->set('removeimg', Horde_Themes_Image::tag($GLOBALS['registry']->nlsconfig->curr_rtl ? 'rhand.png' : 'lhand.png', array('alt' => Horde_Core_Translation::t("Remove source"))));
 
         if (empty($data['no_up'])) {
-            $t->set('upimg', Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")));
-            $t->set('downimg', Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")));
+            $t->set('upimg', Horde_Themes_Image::tag('nav/up.png', array('alt' => Horde_Core_Translation::t("Move up"))));
+            $t->set('downimg', Horde_Themes_Image::tag('nav/down.png', array('alt' => Horde_Core_Translation::t("Move down"))));
         }
 
         return $t->fetch($GLOBALS['registry']->get('templates', 'horde') . '/prefs/source.html');

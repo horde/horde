@@ -1,5 +1,5 @@
 <div class="horde-buttonbar">
-  <form style="display:inline" name="f<?php echo $id = md5(mt_rand()) ?>" action="javascript:void(0);" onsubmit="return false;">
+  <form style="display:inline" name="f<?php echo $id = md5(mt_rand()) ?>" id="f<?php echo $id ?>" action="javascript:void(0);" onsubmit="return false;">
   <ul>
 <?php if ($hasDelete): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "Submit('delete'); return false;", 'title' => $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete"), 'class' => 'turba-delete')) ?></li>

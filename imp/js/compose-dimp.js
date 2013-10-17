@@ -294,9 +294,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'addAttachment':
-                this.uploading = false;
-                $('upload_wait').hide();
-                this.initAttachList();
+                this._addAttachmentEnd();
                 break;
             }
         } else {
@@ -586,25 +584,42 @@ var DimpCompose = {
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
             !this.auto_save_interval) {
-            this.auto_save_interval = new PeriodicalExecuter(function() {
-                if ($('compose').visible()) {
-                    var hdrs = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0'), this.seed), msg;
-                    if (this.md5_hdrs) {
-                        msg = this.msgHash();
-                        if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
-                            this.uniqueSubmit('autoSaveDraft');
-                        }
-                    } else {
-                        msg = this.md5_msgOrig;
-                    }
-                    this.md5_hdrs = hdrs;
-                    this.md5_msg = msg;
-                }
-            }.bind(this), DimpCore.conf.auto_save_interval_val * 60);
+            this.auto_save_interval = new PeriodicalExecuter(
+                this.autoSaveDraft.bind(this),
+                DimpCore.conf.auto_save_interval_val * 60
+            );
 
             /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
+    },
+
+    autoSaveDraft: function()
+    {
+        var hdrs, msg;
+
+        if (!$('compose').visible()) {
+            return;
+        }
+
+        hdrs = murmurhash3(
+            [$('to', 'cc', 'bcc', 'subject').compact().invoke('getValue'),
+             $('attach_list').select('SPAN.attachName').pluck('textContent')
+            ].flatten().join('\0'),
+            this.seed
+        );
+
+        if (this.md5_hdrs) {
+            msg = this.msgHash();
+            if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
+                this.uniqueSubmit('autoSaveDraft');
+            }
+        } else {
+            msg = this.md5_msgOrig;
+        }
+
+        this.md5_hdrs = hdrs;
+        this.md5_msg = msg;
     },
 
     msgHash: function()
@@ -667,9 +682,9 @@ var DimpCompose = {
 
     focusEditor: function()
     {
-        try {
+        if (this.rte.focus) {
             this.rte.focus();
-        } catch (e) {
+        } else {
             this.focusEditor.bind(this).defer();
         }
     },
@@ -767,6 +782,13 @@ var DimpCompose = {
         }
 
         this.resizeMsgArea();
+    },
+
+    _addAttachmentEnd: function()
+    {
+        this.uploading = false;
+        $('upload_wait').hide();
+        this.initAttachList();
     },
 
     resizeMsgArea: function(e)
@@ -956,7 +978,7 @@ var DimpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (elt.match('TD.label SPAN')) {
+            if (DimpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
@@ -1025,7 +1047,7 @@ var DimpCompose = {
                 tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
-                e.stop();
+                e.memo.stop();
             }
             break;
         }
@@ -1203,7 +1225,8 @@ var DimpCompose = {
                 }
             }.bindAsEventListener(this));
             DragHandler.dropelt = $('atcdrop');
-            DragHandler.droptarget = $('atctd');
+            DragHandler.droptarget = $('atcdiv');
+            DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });
@@ -1300,6 +1323,13 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
+}.bindAsEventListener(DimpCompose));
+
+/* AJAX related events. */
+document.observe('HordeCore:ajaxFailure', function(e) {
+    if (this.uploading) {
+        this._addAttachmentEnd();
+    }
 }.bindAsEventListener(DimpCompose));
 
 

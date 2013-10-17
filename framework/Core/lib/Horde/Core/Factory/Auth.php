@@ -39,7 +39,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
      *
      * @param string $app  The application to authenticate to.
      *
-     * @return Horde_Auth_Base  The singleton instance.
+     * @return Horde_Core_Auth_Application  The singleton instance.
      * @throws Horde_Auth_Exception
      */
     public function create($app = null)

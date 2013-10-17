@@ -23,13 +23,6 @@
 class IMP_Ajax_Application_ListMessages
 {
     /**
-     * Does the flags hook exist?
-     *
-     * @var boolean
-     */
-    protected $_flaghook = true;
-
-    /**
      * Returns a list of messages for use with ViewPort.
      *
      * @var array $args  TODO
@@ -43,7 +36,7 @@ class IMP_Ajax_Application_ListMessages
      *                  (base64url encoded).
      *   - qsearchfilter: TODO
      *
-     * @return array  TODO
+     * @return IMP_Ajax_Application_Viewport  Viewport data object.
      */
     public function listMessages($args)
     {
@@ -133,8 +126,8 @@ class IMP_Ajax_Application_ListMessages
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
 
         /* Create the base object. */
-        $result = $this->getBaseOb($mbox);
-        $result->cacheid = $mbox->cacheid_date;
+        $result = new IMP_Ajax_Application_Viewport($mbox);
+        $result->label = $mbox->label;
 
         if ($is_search) {
             /* For search mailboxes, we need to invalidate all browser data
@@ -160,65 +153,66 @@ class IMP_Ajax_Application_ListMessages
             if ($uid_expire) {
                 $args['cache'] = array();
                 $args['initial'] = true;
-                $result->data_reset = $result->metadata_reset = 1;
+                $result->data_reset = $result->metadata_reset = true;
             }
         } else {
             $parsed = null;
         }
 
         /* Mail-specific viewport information. */
-        $md = &$result->metadata;
         if (($args['initial'] ||
              $args['delhide'] ||
              !is_null($args['sortby'])) &&
             $mbox->hideDeletedMsgs(true)) {
-            $md->delhide = 1;
+            $result->setMetadata('delhide', 1);
         }
         if ($args['initial'] ||
             !is_null($args['sortby']) ||
             !is_null($args['sortdir'])) {
-            $md->sortby = intval($sortpref->sortby);
-            $md->sortdir = intval($sortpref->sortdir);
+            $result->setMetadata('sortby', $sortpref->sortby);
+            $result->setMetadata('sortdir', $sortpref->sortdir);
         }
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
             if (!$mbox->is_imap) {
-                $md->pop3 = 1;
+                $result->setMetadata('pop3', 1);
             }
             if ($sortpref->sortby_locked) {
-                $md->sortbylock = 1;
+                $result->setMetadata('sortbylock', 1);
             }
             if ($sortpref->sortdir_locked) {
-                $md->sortdirlock = 1;
+                $result->setMetadata('sortdirlock', 1);
             }
             if (!$mbox->access_sortthread) {
-                $md->nothread = 1;
+                $result->setMetadata('nothread', 1);
             }
             if ($mbox->special_outgoing) {
-                $md->special = 1;
+                $result->setMetadata('special', 1);
                 if ($mbox->drafts) {
-                    $md->drafts = 1;
+                    $result->setMetadata('drafts', 1);
                 } elseif ($mbox->templates) {
-                    $md->templates = 1;
+                    $result->setMetadata('templates', 1);
                 }
             } elseif ($mbox->spam) {
-                $md->innocent_show = 1;
+                $result->setMetadata('innocent_show', 1);
                 if ($mbox->spam_show) {
-                    $md->spam_show = 1;
+                    $result->setMetadata('spam_show', 1);
                 }
             } else {
                 if ($mbox->innocent_show) {
-                    $md->innocent_show = 1;
+                    $result->setMetadata('innocent_show', 1);
                 }
-                $md->spam_show = 1;
+                $result->setMetadata('spam_show', 1);
             }
 
             if ($is_search) {
-                $md->innocent_show = $md->search = $md->spam_show = 1;
+                $result->setMetadata('innocent_show', 1);
+                $result->setMetadata('search', 1);
+                $result->setMetadata('spam_show', 1);
             }
 
-            self::addFlagMetadata($result, $mbox);
+            $result->addFlagMetadata();
         }
 
         /* The search query may have changed. */
@@ -227,25 +221,26 @@ class IMP_Ajax_Application_ListMessages
             $imp_search = $injector->getInstance('IMP_Search');
 
             if ($mbox->vfolder) {
-                $md->slabel = $imp_search[$mbox]->label;
-                $md->vfolder = 1;
+                $result->setMetadata('slabel', $imp_search[$mbox]->label);
+                $result->setMetadata('vfolder', 1);
                 if (!$imp_search->isVFolder($mbox, true)) {
-                    $md->noedit = 1;
+                    $result->setMetadata('noedit', 1);
                 }
             } else {
-                $md->slabel = $imp_search[$mbox]->querytext;
+                $result->setMetadata('slabel', $imp_search[$mbox]->querytext);
             }
         }
 
         /* These entries may change during a session, so always need to
          * update them. */
-        $md->readonly = intval($mbox->readonly);
-        if (!$md->readonly) {
+        if ($mbox->readonly) {
+            $result->setMetadata('readonly', 1);
+        } else {
             if (!$mbox->access_deletemsgs) {
-                $md->nodelete = 1;
+                $result->setMetadata('nodelete', 1);
             }
             if (!$mbox->access_expunge) {
-                $md->noexpunge = 1;
+                $result->setMetadata('noexpunge', 1);
             }
         }
 
@@ -256,7 +251,6 @@ class IMP_Ajax_Application_ListMessages
         }
 
         $msgcount = count($mailbox_list);
-        $result->totalrows = $msgcount;
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
@@ -267,18 +261,20 @@ class IMP_Ajax_Application_ListMessages
             }
 
             if (!empty($args['change'])) {
-                unset($result->data, $result->rowlist, $result->totalrows);
-                $result->data_reset = $result->rowlist_reset = 1;
+                $result->data_reset = true;
+                $result->rowlist_reset = true;
             }
 
             return $result;
         }
 
+        $result->totalrows = $msgcount;
+
         /* TODO: This can potentially be optimized for arrival time sort - if
          * the cache ID changes, we know the changes must occur at end of
          * mailbox. */
-        if (!isset($result->data_reset) && !empty($args['change'])) {
-            $result->rowlist_reset = 1;
+        if (!$result->data_reset && !empty($args['change'])) {
+            $result->rowlist_reset = true;
         }
 
         /* Get the cached list. */
@@ -299,8 +295,9 @@ class IMP_Ajax_Application_ListMessages
                 return $result;
             }
             $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
-        } elseif (!empty($args['search_uid'])) {
-            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $mbox);
+        } elseif (!empty($args['search_buid'])) {
+            $search_buid = $mailbox_list->resolveBuid($args['search_buid']);
+            $rownum = $mailbox_list->getArrayIndex($search_buid['u'], $search_buid['m']);
         }
 
         /* If this is the initial request for a mailbox, figure out the
@@ -339,7 +336,7 @@ class IMP_Ajax_Application_ListMessages
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
-        if (!empty($cached) && isset($result->rowlist_reset)) {
+        if (!empty($cached) && $result->rowlist_reset) {
             $disappear = array();
             foreach (array_diff(array_keys($cached), $buidlist) as $uid) {
                 $disappear[] = $uid;
@@ -370,16 +367,15 @@ class IMP_Ajax_Application_ListMessages
                 $data[$seq] = 1;
             }
         }
-        $result->rowlist = $rowlist;
 
         /* Build the list for rangeslice information. */
         if ($args['rangeslice']) {
-            $slice = new stdClass;
+            $slice = new IMP_Ajax_Application_Viewport($mbox);
             $slice->rangelist = array_keys($rowlist);
-            $slice->view = $mbox->form_to;
-
             return $slice;
         }
+
+        $result->rowlist = $rowlist;
 
         /* Build the overview list. */
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
@@ -394,7 +390,7 @@ class IMP_Ajax_Application_ListMessages
                     : $tmp->raw;
             }
 
-            $md->thread = $thread;
+            $result->setMetadata('thread', $thread);
         }
 
         return $result;
@@ -412,6 +408,8 @@ class IMP_Ajax_Application_ListMessages
      */
     private function _getOverviewData($mbox, $msglist)
     {
+        global $injector, $prefs;
+
         $msgs = array();
 
         if (empty($msglist)) {
@@ -420,41 +418,28 @@ class IMP_Ajax_Application_ListMessages
 
         /* Get mailbox information. */
         $flags = $mbox->access_flags;
+        $imp_flags = $injector->getInstance('IMP_Flags');
         $imp_ui = new IMP_Mailbox_Ui($mbox);
         $list_ob = $mbox->list_ob;
         $overview = $list_ob->getMailboxArray($msglist, array(
             'headers' => true,
-            'type' => $GLOBALS['prefs']->getValue('atc_flag')
+            'type' => $prefs->getValue('atc_flag')
         ));
 
         /* Display message information. */
         reset($overview['overview']);
         while (list(,$ob) = each($overview['overview'])) {
-            /* Initialize the header fields. */
-            $msg = array(
-                'flag' => array()
-            );
-
             /* Get all the flag information. */
-            if ($flags) {
-                if ($this->_flaghook) {
-                    try {
-                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $this->_flaghook = false;
-                    }
-                }
-
-                $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
-                    'flags' => $ob['flags'],
-                    'headers' => $ob['headers'],
-                    'personal' => $ob['envelope']->to
-                ));
-
-                foreach ($flag_parse as $val) {
-                    $msg['flag'][] = $val->id;
-                }
-            }
+            $msg = array(
+                'flag' => $flags
+                    ? array_map('strval', $imp_flags->parse(array(
+                          'flags' => $ob['flags'],
+                          'headers' => $ob['headers'],
+                          'runhook' => $ob,
+                          'personal' => $ob['envelope']->to
+                      )))
+                    : array()
+            );
 
             /* Format size information. */
             $msg['size'] = IMP::sizeFormat($ob['size']);
@@ -486,50 +471,6 @@ class IMP_Ajax_Application_ListMessages
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;
-    }
-
-    /**
-     * Prepare the base object used by the ViewPort javascript class.
-     *
-     * @param IMP_Mailbox $mbox  The mailbox object.
-     *
-     * @return object  The base ViewPort object.
-     */
-    public function getBaseOb(IMP_Mailbox $mbox)
-    {
-        $ob = new stdClass;
-        $ob->cacheid = 0;
-        $ob->data = array();
-        $ob->label = $mbox->label;
-        $ob->metadata = new stdClass;
-        $ob->rowlist = array();
-        $ob->totalrows = 0;
-        $ob->view = $mbox->form_to;
-
-        return $ob;
-    }
-
-    /**
-     * Add flag metadata to output.
-     *
-     * @param object $ob         Output object.
-     * @param IMP_Mailbox $mbox  Current mailbox.
-     */
-    static public function addFlagMetadata($ob, IMP_Mailbox $mbox)
-    {
-        global $injector;
-
-        $flaglist = $injector->getInstance('IMP_Flags')->getList(array(
-            'imap' => true,
-            'mailbox' => $mbox->search ? null : $mbox
-        ));
-
-        $flags = array();
-        foreach ($flaglist as $val) {
-            $flags[] = $val->imapflag;
-        }
-
-        $ob->metadata->flags = $flags;
     }
 
 }

@@ -63,6 +63,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     protected $_parts = array();
 
     /**
+     * Private stream when handling multipart output
+     *
+     * @var resource
+     */
+    protected $_tempStream;
+
+    /**
      * Const'r
      *
      * @param stream $output  The output stream
@@ -98,6 +105,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     public function startWBXML($multipart = false)
     {
         $this->multipart = $multipart;
+        if ($multipart) {
+            $this->_tempStream = $this->_stream;
+            $this->_stream = fopen('php://temp', 'r+');
+        }
         $this->outputWbxmlHeader();
     }
 
@@ -146,37 +157,48 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if ($stackelem['sent']) {
             $this->_endTag();
             if (count($this->_stack) == 0 && $this->multipart) {
-                $len = ob_get_length();
-                $data = ob_get_contents();
-                ob_end_clean();
-                ob_start();
-                $blockstart = ((count($this->_parts) + 1) * 2) * 4 + 4;
-                $sizeinfo = pack('iii', count($this->_parts) + 1, $blockstart, $len);
-                $this->_logger->debug('Multipart Debug Output Total parts ' . (count($this->_parts) + 1));
+                rewind($this->_stream);
+                $stat = fstat($this->_stream);
+                $len = $stat['size'];
+
+                $totalCount = count($this->_parts) + 1;
+                $header = pack('i', $totalCount);
+                $offset = (($totalCount * 2) * 4) + 4;
+                $header .= pack('ii', $offset, $len);
+                $offset += $len;
+
+                // start/length of parts
                 foreach ($this->_parts as $bp) {
-                    $blockstart = $blockstart + $len;
                     if (is_resource($bp)) {
                         rewind($bp);
-                        fseek($bp, 0, SEEK_END);
-                        $len = ftell($bp);
+                        $stat = fstat($bp);
+                        $len = $stat['size'];
                     } else {
                         $len = strlen(bin2hex($bp)) / 2;
                     }
-                    $sizeinfo .= pack('ii', $blockstart, $len);
+                    $header .= pack('ii', $offset, $len);
+                    $offset += $len;
                 }
-                fwrite($this->_stream, $sizeinfo);
-                fwrite($this->_stream, $data);
+
+                // Output
+                fwrite($this->_tempStream, $header);
+                rewind($this->_stream);
+                while (!feof($this->_stream)) {
+                    fwrite($this->_tempStream, fread($this->_stream, 8192));
+                }
                 foreach($this->_parts as $bp) {
                     if (is_resource($bp)) {
                         rewind($bp);
                         while (!feof($bp)) {
-                            fwrite($this->_stream, fread($bp, 8192));
+                            fwrite($this->_tempStream, fread($bp, 8192));
                         }
                         fclose($bp);
                     } else {
-                        fwrite($this->_stream, $bp);
+                        fwrite($this->_tempStream, $bp);
                     }
                 }
+                fclose($this->_stream);
+                $this->_stream = $this->_tempStream;
             }
         }
     }

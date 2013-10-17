@@ -214,9 +214,6 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array(
             'forcemime' => true
         ));
-        $new_part->setContents($decrypted_data, array(
-            'encoding' => 'binary'
-        ));
 
         switch ($new_part->getType()) {
         case 'application/pkcs7-mime':
@@ -241,7 +238,11 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 'From:' . $hdrs->getValue('from') . "\n" .
                 $decrypted_data
             );
+
             $new_part->setMetadata('imp-smime-decrypt', $data);
+            $new_part->setContents($decrypted_data, array(
+                'encoding' => 'binary'
+            ));
         }
 
         return $new_part;

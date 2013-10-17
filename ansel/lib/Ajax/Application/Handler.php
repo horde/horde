@@ -67,7 +67,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             $token = unserialize($prefs->getValue('twitter'));
             if (empty($token['key']) && empty($token['secret'])) {
                 $pref_link = $registry->getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
-                throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
+                throw new Ansel_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
             }
 
             $twitter = $injector->getInstance('Horde_Service_Twitter');

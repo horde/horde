@@ -876,13 +876,10 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             }
 
             /* Get all the flag information. */
-            try {
-                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             $flag_parse = $imp_flags->parse(array(
                 'flags' => $ob['flags'],
                 'headers' => $ob['headers'],
+                'runhook' => $ob,
                 'personal' => $ob['envelope']->to
             ));
 

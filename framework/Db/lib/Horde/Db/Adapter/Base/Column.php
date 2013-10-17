@@ -251,8 +251,6 @@ class Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @TODO Return a Horde_Date object instead?
-     *
      * @param   string  $string
      * @return  Horde_Date
      */
@@ -274,7 +272,7 @@ class Horde_Db_Adapter_Base_Column
             return $value;
         }
 
-        $value = strtolower($value);
+        $value = Horde_String::lower($value);
         return $value == 'true' || $value == 't' || $value == '1';
     }
 

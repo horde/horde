@@ -558,7 +558,9 @@ class Turba_Driver implements Countable
             $strict_fields[$strict_field] = true;
         }
         foreach ($custom_strict as $strict_field) {
-            $strict_fields[$this->map[$strict_field]] = true;
+            if (isset($this->map[$strict_field])) {
+                $strict_fields[$this->map[$strict_field]] = true;
+            }
         }
 
         /* Translate the Turba attributes to driver-specific attributes. */

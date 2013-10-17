@@ -49,7 +49,7 @@ class Ansel_Application extends Horde_Registry_Application
     protected function _init()
     {
         if (!$GLOBALS['conf']['image']['driver']) {
-            throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');
+            throw new Ansel_Exception('You must configure a Horde_Image driver to use Ansel');
         }
 
         // For now, autoloading the Content_* classes depend on there being a
@@ -62,7 +62,7 @@ class Ansel_Application extends Horde_Registry_Application
               '/^Content_/',
               $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
+            throw new Ansel_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
 
         $factories = array(

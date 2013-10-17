@@ -31,7 +31,7 @@ class Horde_View_Topbar extends Horde_View
      */
     public function __construct($config = array())
     {
-        global $registry;
+        global $injector, $prefs, $registry, $session;
 
         if (empty($config['templatePath'])) {
             $config['templatePath'] = $registry->get('templates', 'horde') . '/topbar';
@@ -49,10 +49,9 @@ class Horde_View_Topbar extends Horde_View
         }
 
         /* Main menu. */
-        $this->menu = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Topbar')
-            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
-            ->getTree();
+        $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
+            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
+        $this->menu = $topbar->getTree();
 
         /* Search form. */
         $this->searchAction = '#';
@@ -82,25 +81,22 @@ class Horde_View_Topbar extends Horde_View
         }
 
         /* Sub bar. */
-        $this->date = strftime($GLOBALS['prefs']->getValue('date_format'));
-        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $this->date = strftime($prefs->getValue('date_format'));
+        $pageOutput = $injector->getInstance('Horde_PageOutput');
         $pageOutput->addScriptPackage('Datejs');
         $pageOutput->addScriptFile('topbar.js', 'horde');
         $pageOutput->addInlineJsVars(array('HordeTopbar.conf' => array(
-            'URI_AJAX' =>
-                $registry->getServiceLink('ajax', 'horde')->url,
-            'SID' => SID,
-            'TOKEN' => $GLOBALS['session']->getToken(),
+            /* Need explicit URI here, since topbar may be running in
+             * an application's scope. */
+            'URI_AJAX' => $registry->getServiceLink('ajax', 'horde')->url,
             'app' => $registry->getApp(),
-            'format' =>
-                Horde_Core_Script_Package_Datejs::translateFormat(
-                    $GLOBALS['prefs']->getValue('date_format')),
-            'refresh' =>
-                (int)$GLOBALS['prefs']->getValue('menu_refresh_time'),
+            'format' => Horde_Core_Script_Package_Datejs::translateFormat($prefs->getValue('date_format')),
+            'hash' => $topbar->getHash(),
+            'refresh' => intval($prefs->getValue('menu_refresh_time'))
         )));
 
         /* Sidebar. */
-        $this->sidebarWidth = $GLOBALS['prefs']->getValue('sidebar_width');
+        $this->sidebarWidth = $prefs->getValue('sidebar_width');
     }
 
     /**

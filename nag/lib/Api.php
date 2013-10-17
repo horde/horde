@@ -867,14 +867,19 @@ class Nag_Api extends Horde_Registry_Api
             }
 
             $ids = array();
+
             foreach ($components as $content) {
                 if ($content instanceof Horde_Icalendar_Vtodo) {
-                    $task = new Nag_Task();
+                    $task = new Nag_Task($storage);
                     $task->fromiCalendar($content);
                     if (isset($task->uid)) {
-                        $existing = $storage->getByUID($task->uid);
-                        $task->owner = $existing->owner;
-                        $storage->modify($existing->id, $task->toHash());
+                        try {
+                            $existing = $storage->getByUID($task->uid);
+                            $task->owner = $existing->owner;
+                            $storage->modify($existing->id, $task->toHash());
+                        } catch ( Horde_Exception_NotFound $e ) {
+                            $storage->add($task->toHash());
+                        }
                         $ids[] = $task->uid;
                     } else {
                         $hash = $task->toHash();
@@ -885,8 +890,9 @@ class Nag_Api extends Horde_Registry_Api
                     }
                 }
             }
+
             if (count($ids) == 0) {
-                throw Nag_Exception(_("No iCalendar data was found."));
+                throw new Nag_Exception(_("No iCalendar data was found."));
             } else if (count($ids) == 1) {
                 return $ids[0];
             }

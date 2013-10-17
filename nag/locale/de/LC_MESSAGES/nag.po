@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:53+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
 "PO-Revision-Date: 2013-06-03 23:41+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -724,7 +724,7 @@ msgstr "Keine gültigen Suchkriterien"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:1189
+#: lib/Api.php:1195
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vTodo wird unterstützt."
@@ -778,7 +778,7 @@ msgstr "Keine Verzögerung"
 msgid "No due date."
 msgstr "Kein Fälligkeitsdatum"
 
-#: lib/Api.php:866 lib/Api.php:889 lib/Api.php:1196
+#: lib/Api.php:866 lib/Api.php:895 lib/Api.php:1202
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -1168,7 +1168,7 @@ msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zu löschen."
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zum Ändern."
 
-#: lib/Api.php:1277 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1283 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -1276,7 +1276,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:494 lib/Api.php:858 lib/Api.php:1181 lib/Application.php:551
+#: lib/Api.php:494 lib/Api.php:858 lib/Api.php:1187 lib/Application.php:551
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
@@ -1330,8 +1330,8 @@ msgstr "Die Aufgabenliste \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unique ID"
 msgstr "Eindeutige ID"
 
-#: lib/Api.php:574 lib/Api.php:906 lib/Api.php:1030 lib/Api.php:1095
-#: lib/Api.php:1213
+#: lib/Api.php:574 lib/Api.php:912 lib/Api.php:1036 lib/Api.php:1101
+#: lib/Api.php:1219
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützer Inhaltstyp: %s"

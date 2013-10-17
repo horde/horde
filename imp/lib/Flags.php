@@ -31,6 +31,13 @@ class IMP_Flags implements ArrayAccess, Serializable
     public $changed = false;
 
     /**
+     * Does the msglist_flags hook exist?
+     *
+     * @var boolean
+     */
+    protected $_flaghook = true;
+
+    /**
      * The list of internal flags.
      *
      * @var array
@@ -162,19 +169,22 @@ class IMP_Flags implements ArrayAccess, Serializable
      * @param string $label  The label to use for the new flag.
      *
      * @return string  The IMAP flag name.
+     * @throws IMP_Exception
      */
     public function addFlag($label)
     {
-        if (strlen($label) == 0) {
-            return;
+        if (strlen($label) === 0) {
+            throw new IMP_Exception(_("Flag name must not be empty."));
         }
 
         $ob = new IMP_Flag_User($label);
 
-        if (!isset($this->_userflags[$ob->id])) {
-            $this->_userflags[$ob->id] = $ob;
-            $this->_save();
+        if (isset($this->_userflags[$ob->id])) {
+            throw new IMP_Exception(_("Flag name already exists."));
         }
+
+        $this->_userflags[$ob->id] = $ob;
+        $this->_save();
 
         return $ob->imapflag;
     }
@@ -212,13 +222,17 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Parse a list of flag information.
      *
      * @param array $opts  Options:
+     * <pre>
      *   - flags: (array) IMAP flag info. A lowercase list of flags returned
      *            by the IMAP server.
      *   - headers: (Horde_Mime_Headers) Determines message information
      *              from a headers object.
+     *   - runhook: (array) Run the msglist_flags hook? If yes, input is
+     *              return from IMP_Mailbox_List#getMailboxArray().
      *   - personal: (mixed) Personal message info. Either a list of To
      *               addresses (Horde_Mail_Rfc822_List object) or the identity
      *               that matched the address list.
+     * </pre>
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -229,6 +243,14 @@ class IMP_Flags implements ArrayAccess, Serializable
             'headers' => null,
             'personal' => null
         ), $opts);
+
+        if (!empty($opts['runhook']) && $this->_flaghook) {
+            try {
+                $opts['flags'] = array_merge($opts['flags'], Horde::callHook('msglist_flags', array($opts['runhook']), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                $this->_flaghook = false;
+            }
+        }
 
         $ret = array();
 

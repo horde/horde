@@ -43,7 +43,7 @@
         <li><?php echo $this->perms_link . Horde::img('perms.png') . ' ' . _("Set permissions")?></a></li>
       <?php endif; ?>
       <?php if (!empty($this->report_url)): ?>
-        <li><?php echo $this->report_url . _("Report") ?></a></li>
+        <li><?php echo $this->report_url . Horde::img('report.png') . ' ' . _("Report") ?></a></li>
       <?php endif; ?>
       <?php if (!empty($this->have_delete)): ?>
         <li><?php echo $this->deleteall_url . Horde::img('delete.png') . ' ' . _("Delete All Photos")?></a></li>

@@ -16,6 +16,13 @@
 class Horde_Core_Topbar
 {
     /**
+     * Has the tree been generated?
+     *
+     * @var Horde_Tree_Base
+     */
+    protected $_generated = false;
+
+    /**
      * A tree object for the main menu.
      *
      * @var Horde_Tree_Renderer_Base
@@ -40,6 +47,10 @@ class Horde_Core_Topbar
      */
     public function getTree()
     {
+        if ($this->_generated) {
+            return $this->_tree;
+        }
+
         global $registry;
 
         $isAdmin = $registry->isAdmin();
@@ -117,7 +128,7 @@ class Horde_Core_Topbar
 
         /* Add preferences. */
         if ($registry->showService('prefs') &&
-            !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
+            !($GLOBALS['prefs'] instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
                 'menu_parent' => 'settings',
@@ -245,7 +256,19 @@ class Horde_Core_Topbar
             }
         }
 
+        $this->_generated = true;
+
         return $this->_tree;
+    }
+
+    /**
+     * Get the hash ID for the tree object.
+     *
+     * @return string  Hash ID.
+     */
+    public function getHash()
+    {
+        return hash('md5', serialize($this->getTree()));
     }
 
     /**

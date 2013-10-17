@@ -32,7 +32,11 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
             break;
         }
 
-        $params['cache'] = $injector->getInstance('Horde_Cache');
+        $params['cache'] = new Horde_Cache(
+            new Horde_Cache_Storage_Memoryoverlay(array(
+                'backend' => $injector->getInstance('Horde_Cache')
+            ))
+        );
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $class = $this->_getDriverName($driver, 'Horde_Perms');

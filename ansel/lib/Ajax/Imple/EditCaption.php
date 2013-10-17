@@ -16,7 +16,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple_InPlaceEditor
         $as = $GLOBALS['injector']->getInstance('Ansel_Storage');
         try {
             $image = $as->getImage($vars->id);
-        } catch (Horde_Exception $e) {
+        } catch (Ansel_Exception $e) {
             Horde::log($e->message());
             return '';
         }

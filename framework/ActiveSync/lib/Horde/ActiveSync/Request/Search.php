@@ -103,7 +103,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
             '[%s] Handling SEARCH command.',
             $this->_device->id));
 
-        $search_range = '0';
         $search_status = self::SEARCH_STATUS_SUCCESS;
         $store_status = self::STORE_STATUS_SUCCESS;
 
@@ -254,6 +253,13 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         // Get search results from backend
         $search_result = $this->_driver->getSearchResults($search_name, $search_query);
 
+        // @TODO: Remove for H6. Total should be returned from the search call,
+        // if it's not, do the best we can an use the count of results from
+        // this page.
+        if (empty($search_result['total'])) {
+            $search_result['total'] = count($search_result['rows']);
+        }
+
         /* Send output */
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::SEARCH_SEARCH);
@@ -270,7 +276,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         $this->_encoder->endTag();
 
         if (is_array($search_result['rows']) && !empty($search_result['rows'])) {
-            $search_total = count($search_result['rows']);
             foreach ($search_result['rows'] as $u) {
                 switch (strtolower($search_name)) {
                 case 'documentlibrary':
@@ -353,12 +358,22 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            if (!empty($search_query['search_range'])) {
+                $range = explode('-', $search_query['search_range']);
+                // If total results are less than max range,
+                // we have all results and must modify the returned range.
+                if ($search_result['total'] < ($range[1] + 1)) {
+                    $search_range = $range[0] . '-' . ($search_result['total'] - 1);
+                } else {
+                    $search_range = $search_query['search_range'];
+                }
+            }
             $this->_encoder->startTag(self::SEARCH_RANGE);
             $this->_encoder->content($search_range);
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(self::SEARCH_TOTAL);
-            $this->_encoder->content($search_total);
+            $this->_encoder->content($search_result['total']);
             $this->_encoder->endTag();
         }
 
