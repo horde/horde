@@ -316,10 +316,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @return string The EAS uid.
      */
-
-    public function getFolderUidForBackendId($id)
+    public function getFolderUidForBackendId($folderid)
     {
-        return $this->_as->state->getFolderUidForBackendId($id);
+        $map = $this->_as->state->getFolderUidToBankendIdMap();
+        if (empty($map[$folderid])) {
+            return false;
+        }
+
+        return $map[$folderid];
     }
 
     /**
