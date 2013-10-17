@@ -92,7 +92,7 @@ extends Components_TestCase
             array(
                 'Would package NAME now.',
                 'Would run "scp [PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE] A:~/" now.',
-                'Would run "ssh A "pirum add B ~/[PACKAGE.TGZ - PRETEND MODE] && rm [PACKAGE.TGZ - PRETEND MODE]"" now.'
+                'Would run "ssh A "umask 0002 && pirum add B ~/[PACKAGE.TGZ - PRETEND MODE] && rm [PACKAGE.TGZ - PRETEND MODE]"" now.'
             ),
             $this->output->getOutput()
         );

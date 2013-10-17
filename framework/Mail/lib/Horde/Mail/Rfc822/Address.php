@@ -132,12 +132,14 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
                 : $this->host;
 
         case 'label':
-            return is_null($this->_personal)
+            return is_null($this->personal)
                 ? $this->bare_address
                 : $this->_personal;
 
         case 'personal':
-            return $this->_personal;
+            return (strcasecmp($this->_personal, $this->bare_address) === 0)
+                ? null
+                : $this->_personal;
 
         case 'personal_encoded':
             return Horde_Mime::encode($this->personal);

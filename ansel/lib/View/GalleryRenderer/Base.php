@@ -204,8 +204,8 @@ abstract class Ansel_View_GalleryRenderer_Base
                 'Ansel = window.Ansel || {};',
                 'Ansel.galleryview_strings = ' . Horde_Serialize::serialize($strings, Horde_Serialize::JSON),
                 'Ansel.galleryview_urls = ' . Horde_Serialize::serialize($urls, Horde_Serialize::JSON),
-                'Ansel.has_edit = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT),
-                'Ansel.has_delete = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)
+                'Ansel.has_edit = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT) ? 1 : 0,
+                'Ansel.has_delete = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE) ? 1 : 0
             );
             $page_output->addInlineScript($js, true);
         }
@@ -229,7 +229,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      */
     protected function _getHordeView()
     {
-        global $registry, $injector;
+        global $registry, $injector, $prefs;
 
         $view = $injector->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES .  '/view' . (!empty($this->view->api) ? '/api' : ''));
@@ -269,7 +269,7 @@ abstract class Ansel_View_GalleryRenderer_Base
                 $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
             }
         }
-        $view->tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $GLOBALS['prefs']->getValue('tilesperrow');
+        $view->tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $prefs->getValue('tilesperrow');
         $view->cellwidth = round(100 / $view->tilesperrow);
         $this->_setupPager($view);
 

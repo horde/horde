@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Composer file is now generated/updated before releasing.
 * [mms] Add PHP Composer generator.
 * [mms] Added PHPDCD QC test.
 * [mms] Added PHPLOC QC test.
@@ -868,6 +869,7 @@
    <date>2013-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Composer file is now generated/updated before releasing.
 * [mms] Add PHP Composer generator.
 * [mms] Added PHPDCD QC test.
 * [mms] Added PHPLOC QC test.

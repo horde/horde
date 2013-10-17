@@ -1,0 +1,26 @@
+{
+    "name": "horde/horde-imsp",
+    "description": "IMSP API",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Michael J Rubinsky",
+            "email": "mrubinsk@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.0.6",
+    "time": "2013-06-12",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Translation": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+    }
+}

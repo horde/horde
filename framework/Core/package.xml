@@ -28,11 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-02</date>
- <time>20:29:44</time>
+ <date>2013-10-15</date>
  <version>
-  <release>2.8.1</release>
-  <api>2.8.0</api>
+  <release>2.10.1</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,7 +39,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+* [mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
+* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
+* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -99,6 +100,13 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
+    <dir name="excanvas">
+     <file name="excanvas.js" role="horde" />
+     <file name="excanvas.min.js" role="horde" />
+    </dir> <!-- /js/excanvas -->
+    <dir name="flotr2">
+     <file name="flotr2.js" role="horde" />
+    </dir> <!-- /js/flotr2 -->
     <dir name="jquery.mobile">
      <dir name="images">
       <file name="ajax-loader.gif" role="horde" />
@@ -294,6 +302,7 @@
        <dir name="Logger">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
+       <file name="Auth.php" role="php" />
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
@@ -967,7 +976,7 @@
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1207,7 +1216,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.4.0</min>
+    <min>2.8.4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1510,6 +1519,9 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/excanvas/excanvas.js" name="js/excanvas/excanvas.js" />
+   <install as="js/excanvas/excanvas.min.js" name="js/excanvas/excanvas.min.js" />
+   <install as="js/flotr2/flotr2.js" name="js/flotr2/flotr2.js" />
    <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
    <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
    <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
@@ -1661,6 +1673,7 @@
    <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Secret.php" name="lib/Horde/Core/Secret.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
+   <install as="Horde/Core/ActiveSync/Auth.php" name="lib/Horde/Core/ActiveSync/Auth.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
@@ -3137,15 +3150,55 @@
   </release>
   <release>
    <version>
-    <release>2.8.1</release>
-    <api>2.8.0</api></version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-02</date>
+   <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12738).
+* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
+* [mms] Cache permission results within a PHP access.
+* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
+* [mjr] Support ActiveSync SOFTDELETE.
+* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
+* [mms] Add base64img property to Horde_Themes_Image.
+* [mjr] Do not assume that the filter API is available (Bug #12757).
+* [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
+* [mms] Add ability to expire CSS cache based on file modification time.
+* [mms] Allow disabling VFS via the configuration interface.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
+* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
+* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
    </notes>
   </release>
  </changelog>

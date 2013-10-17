@@ -317,7 +317,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $lastword = null;
         } else {
             /* Get the first and last word of the page name. */
-            $count = preg_match_all('/[A-Z][a-z]*/', $pagename, $matches);
+            $count = preg_match_all('/[A-Z][a-z0-9]*/', $pagename, $matches);
             if (!$count) {
                 return array();
             }

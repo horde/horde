@@ -16,10 +16,10 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 {
     /**
      * URL Parameters:
-     *   a: (string) actionID
+     *   a: (string) Action ID.
      *   allto: (boolean) View all To addresses?
-     *   buid: (string) TODO
-     *   mt: (string) Message token
+     *   buid: (string) Browser UID.
+     *   mt: (string) Message token.
      *   fullmsg: (boolean) View full message?
      */
     protected function _init()
@@ -45,7 +45,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         switch ($this->vars->a) {
         // 'd' = delete message
         case 'd':
-            $msg_index = $imp_mailbox->getIndex();
+            $old_index = $imp_mailbox->getIndex();
             try {
                 $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
                 $msg_delete = (bool)$injector->getInstance('IMP_Message')->delete(
@@ -59,7 +59,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         // 'u' = undelete message
         case 'u':
-            $msg_index = $imp_mailbox->getIndex();
+            $old_index = $imp_mailbox->getIndex();
             $injector->getInstance('IMP_Message')->undelete($this->indices);
             break;
 
@@ -67,7 +67,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            $msg_index = $imp_mailbox->getIndex();
+            $old_index = $imp_mailbox->getIndex();
             $msg_delete = ($injector->getInstance('IMP_Factory_Spam')->create($this->vars->a == 'rs' ? IMP_Spam::SPAM : IMP_Spam::INNOCENT)->report($this->indices, array('mailboxob' => $imp_mailbox)) === 1);
             break;
         }
@@ -80,10 +80,15 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
          * message array, so we will return to the mailbox. */
         if (!$imp_mailbox->isValidIndex() ||
             ($msg_delete && $prefs->getValue('mailbox_return'))) {
-            $mailbox_url->add('s', $msg_index)->redirect();
+            $mailbox_url->add('s', $old_index)->redirect();
         }
 
-        list($mailbox, $uid) = $this->indices->getSingle();
+        /* Now that we are done processing, get the index and array index of
+         * the current message. */
+        $msg_index = $imp_mailbox[$imp_mailbox->getIndex()];
+        $mailbox = $msg_index['m'];
+        $uid = $msg_index['u'];
+        $buid = $imp_mailbox->getBuid($mailbox, $uid);
 
         /* Get envelope/flag/header information. */
         try {
@@ -111,7 +116,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Parse the message. */
         try {
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
             $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
         } catch (IMP_Exception $e) {
             $mailbox_url->add('a', 'm')->redirect();
@@ -125,8 +130,8 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         /* Generate the mailbox link. */
         $mailbox_link = $mailbox_url->add('s', $msgindex);
         $self_link = self::url(array(
-            'buid' => $this->vars->buid,
-            'mailbox' => $mailbox
+            'buid' => $buid,
+            'mailbox' => $this->indices->mailbox
         ));
 
         /* Create the Identity object. */
@@ -216,7 +221,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         $this->view->msg = nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html'));
 
         $compose_params = array(
-            'buid' => $this->vars->buid,
+            'buid' => $buid,
             'identity' => $identity,
             'mailbox' => $this->indices->mailbox
         );
@@ -310,7 +315,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
                  * if attachment over a certain size. */
                 $tmp['download'] = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
                     ? IMP_Minimal_Messagepart::url(array(
-                          'buid' => $this->vars->buid,
+                          'buid' => $buid,
                           'mailbox' => $this->indices->mailbox
                       ))->add('atc', $key)
                     : $summary['download_url'];
@@ -318,7 +323,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
             if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {
                 $tmp['view'] = IMP_Minimal_Messagepart::url(array(
-                    'buid' => $this->vars->buid,
+                    'buid' => $buid,
                     'mailbox' => $this->indices->mailbox
                 ))->add('id', $key);
             }

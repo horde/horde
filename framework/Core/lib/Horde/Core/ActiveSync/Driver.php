@@ -155,7 +155,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @param string $username  The username to authenticate as
+     * @param string $username  The username to authenticate as (as passed by
+     *                          the device).
      * @param string $password  The password
      * @param string $domain    The user domain (unused in this driver).
      *
@@ -165,15 +166,41 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function authenticate($username, $password, $domain = null)
     {
-        global $injector;
+        global $injector, $conf;
 
         $this->_logger->info(sprintf(
             '[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s',
             $this->_pid,
             $username));
 
-        if (!$this->_auth->authenticate($username, array('password' => $password))) {
-            $injector->getInstance('Horde_Log_Logger')->err(sprintf('Login failed from ActiveSync client for user %s.', $username));
+        // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
+        if (!empty($conf['activesync']['auth']['type']) &&
+             $conf['activesync']['auth']['type'] != 'basic') {
+
+            if (!$this->_auth->transparent()) {
+                $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed ActiveSync client certificate for user %s.', $username));
+                return false;
+            }
+            if ($username != $GLOBALS['registry']->getAuth()) {
+                $injector->getInstance('Horde_Log_Logger')->notice(sprintf(
+                    'Access granted based on transparent authentication of user %s, but ActiveSync client is requesting access for %s.',
+                    $GLOBALS['registry']->getAuth(), $username));
+                return false;
+            }
+            $this->_logger->info(sprintf(
+                'Access granted based on transparent authentication for %s. Client certificate name: %s',
+                $GLOBALS['registry']->getAuth(), $username));
+        }
+
+        // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
+        if (empty($password)) {
+            $this->_logger->notice('Device failed to pass the user password.');
+            return false;
+        }
+        if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
+            !$this->_auth->authenticate($username, array('password' => $password))) {
+
+            $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
 
@@ -303,14 +330,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
             }
 
-            if (array_search('mail', $supported) !== false) {
-                try {
-                    $folders = array_merge($folders, $this->_getMailFolders());
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
+            // Always return at least the "dummy" IMAP folders since some
+            // clients refuse to consider a FOLDERSYNC successful without
+            // at least an INBOX, even with email sync turned off.
+            try {
+                $folders = array_merge($folders, $this->_getMailFolders());
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                return array();
             }
 
             $this->_endBuffer();
@@ -518,7 +546,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $changes = array(
             'add' => array(),
             'delete' => array(),
-            'modify' => array()
+            'modify' => array(),
+            'soft' => array()
         );
 
         ob_start();
@@ -538,6 +567,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return array();
                 }
+                $folder->setSoftDeleteTimes($cutoffdate, time());
+                // @TODO, do we need to save the folder here?
+
             } else {
                 try {
                     $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
@@ -548,6 +580,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return array();
+                }
+
+                // Softdelete. We check this once per close-to 24 hour period.
+                // We introduce an element of randomness in the time to help
+                // avoid a large number of clients performing a softdelete at
+                // once. It's 23 hours + some random number of minutes < 60.
+                $sd = $folder->getSoftDeleteTimes();
+                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                    $this->_logger->info(sprintf(
+                        '[%s] Polling for SOFTDELETE items in calendar collection',
+                        getmypid()));
+                    // Gets the list of ids contained between the last softdelete
+                    // run and the current cutoffdate.
+                    $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate);
+                    $folder->setSoftDeleteTimes($cutoffdate, time());
                 }
             }
             break;
@@ -661,13 +708,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
             } else {
+                // Calculate SOFTDELETE if needed?
+                $sd = $folder->getSoftDeleteTimes();
+                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                    $soft = true;
+                } else {
+                    $soft = false;
+                }
+
                 try {
-                    // Poll IMAP server for changes.
                     $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version));
+                            'protocolversion' => $this->_version,
+                            'softdelete' => $soft));
                     // Poll the maillog for reply/forward state changes.
                     $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
@@ -687,6 +742,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $changes['add'] = $folder->added();
                 $changes['delete'] = $folder->removed();
                 $changes['modify'] = $folder->changed();
+                $changes['soft'] = $folder->getSoftDeleted();
             }
         }
 
@@ -698,7 +754,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        // For CLASS_EMAIL, all changes are a change in flags.
+        // For CLASS_EMAIL, all changes are a change in flags or softdelete.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             foreach ($changes['modify'] as $uid) {
@@ -717,14 +773,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
-        // Server Deletions
+        // Server Deletions and Softdeletions
         foreach ($changes['delete'] as $deleted) {
             $results[] = array(
                 'id' => $deleted,
                 'type' => Horde_ActiveSync::CHANGE_TYPE_DELETE);
         }
-        $this->_endBuffer();
+        if (!empty($changes['soft'])) {
+            foreach ($changes['soft'] as $deleted) {
+                $results[] = array(
+                    'id' => $deleted,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE
+                );
+            }
+        }
 
+        $this->_endBuffer();
         return $results;
     }
 
@@ -1351,6 +1415,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if (!empty($h_array['Bcc'])) {
                 $recipients .= ',' . $h_array['Bcc'];
+                unset($h_array['Bcc']);
             }
             $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
@@ -1359,7 +1424,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-               // $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -1743,7 +1807,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
-                $vacation = $this->_connector->filters_getVacation();
+                if (!$vacation = $this->_connector->filters_getVacation()) {
+                    return array('oof' => array('status' => Horde_ActiveSync_Request_Settings::STATUS_UNAVAILABLE));
+                }
                 $res['oof'] = array(
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
                     'oofstate' => ($vacation['disabled']
@@ -1835,7 +1901,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Bring in the host configuration if needed.
         if (!empty($GLOBALS['conf']['activesync']['outlookdiscovery'])) {
-            $params = array_merge($params, $GLOBALS['conf']['activesync']['hosts']);
+            $ol = $GLOBALS['conf']['activesync']['hosts'];
+            if (empty($ol['imap']['host'])) {
+                unset($ol['imap']);
+            } else {
+                if (empty($ol['imap']['port'])) {
+                    unset($ol['imap']['port']);
+                }
+            }
+            if (empty($ol['pop']['host'])) {
+                unset($ol['pop']);
+            } else {
+                if (empty($ol['port']['port'])) {
+                    unset($ol['imap']['port']);
+                }
+            }
+            $params = array_merge($params, $ol);
         }
 
         try {
@@ -2578,7 +2659,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         $return = array(
             'rows' => array(),
-            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
+            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS,
+            'total' => 0
         );
         try {
             $results = $this->_connector->contacts_search(
@@ -2591,11 +2673,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Honor range, and don't bother if no results
+        $results = array_pop($results);
         $count = count($results);
         if (!$count) {
             $this->_endBuffer();
             return $return;
         }
+        $return['total'] = $count;
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::_searchGal() found %d matches.",
             $this->_pid,
@@ -2605,9 +2689,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             preg_match('/(.*)\-(.*)/', $query['range'], $matches);
             $return_count = $matches[2] - $matches[1];
             $rows = array_slice($results, $matches[1], $return_count + 1, true);
-            $rows = array_pop($rows);
-        } else {
-            $rows = array_pop($results);
         }
 
         $picture_count = 0;
@@ -2626,8 +2707,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
             if (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])) {
-                $picture = new Horde_ActiveSync_Message_GalPicture(
-                    array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                $picture = Horde_ActiveSync::messageFactory('GalPicture');
                 if (empty($row['photo'])) {
                     $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
@@ -2637,7 +2717,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                           strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
                     $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
                 } else {
-                    $picture->data = $row['photo'];
+                    $picture->data = base64_encode($row['photo']['load']['data']);
                     $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
                     ++$picture_count;
                 }

@@ -175,7 +175,12 @@ class Turba
                 $cols = explode("\t", $line);
                 if (count($cols) > 1) {
                     $source = array_splice($cols, 0, 1);
-                    $columns[$source[0]] = $cols;
+                    $columns[$source[0]] = array();
+                    foreach ($cols as $col) {
+                        if (isset($GLOBALS['cfgSources'][$source[0]]['map'][$col])) {
+                            $columns[$source[0]][] = $col;
+                        }
+                    }
                 }
             }
         }

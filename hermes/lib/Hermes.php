@@ -55,19 +55,28 @@ class Hermes
      * Return the HTML needed to build an enum or multienum for selecting
      * clients.
      *
-     * @param string $id      The DOM id to identify the select list.
-     * @param boolean $multi  Allow multi select?
+     * @param string $id           The DOM id to identify the select list.
+     * @param boolean $multi       Allow multi select?
+     * @param boolean $use_cotext  Instead of 'Select A Client', use 'General
+     *                             Cost Objects' for the top choice.
      *
      * @return string  The HTML to render the select element.
      */
-    public static function getClientSelect($id, $multi = false)
+    public static function getClientSelect($id, $multi = false, $use_cotext = false)
     {
         $clients = self::listClients();
         $select = '<select name="'
             . ($multi ? 'client[]' : 'client')
             . '" id="' . $id . '" '
             . ($multi ? 'multiple = "multiple"' : '') . '>';
-        $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
+        $select .= '<option value="">';
+        if ($use_cotext) {
+            $select .= _("--- General Cost Objects ---");
+        } else {
+            $select .= _("--- Select A Client ---");
+        }
+        $select .= '</option>';
+
         foreach ($clients as $cid => $client) {
             $select .= '<option value="' . $cid . '">' . htmlspecialchars($client) . '</option>';
         }
@@ -244,21 +253,16 @@ class Hermes
     }
 
     /**
-     * Return data for costobjects, optionally filtered by client_ids.
+     * Return a list of cost objects exported by available APIs, optionally
+     * filtered by client_ids.
      *
-     * @param mixed $client_ids  A client id or an array of client ids to
-     *                           filter cost obejcts by.
-     *
-     * @return array  An array of cost objects data.
      */
-    public static function getCostObjectType($client_ids = null)
+    public static function getCostObjects($client_ids = null, $external_only = false)
     {
-        global $registry;
+       global $registry;
 
-        // Check to see if any other active applications are exporting cost
-        // objects to which we might want to bill our time.
         $criteria = array(
-            'user'   => $GLOBALS['registry']->getAuth(),
+            'user'   => $registry->getAuth(),
             'active' => true
         );
         if (empty($client_ids)) {
@@ -271,7 +275,8 @@ class Hermes
         foreach ($client_ids as $client_id) {
             $criteria['client_id'] = $client_id;
             foreach ($registry->listApps() as $app) {
-                if (!$registry->hasMethod('listCostObjects', $app)) {
+                if (($external_only && $app == 'hermes') ||
+                    !$registry->hasMethod('listCostObjects', $app)) {
                     continue;
                 }
 
@@ -297,9 +302,22 @@ class Hermes
             }
         }
 
+        return $costobjects;
+    }
+
+    /**
+     * Return data for costobjects, optionally filtered by client_ids.
+     *
+     * @param mixed $client_ids  A client id or an array of client ids to
+     *                           filter cost obejcts by.
+     *
+     * @return array  An array of cost objects data.
+     */
+    public static function getCostObjectType($client_ids = null)
+    {
         $elts = array('' => _("--- No Cost Object ---"));
         $counter = 0;
-        foreach ($costobjects as $category) {
+        foreach (self::getCostObjects($client_ids) as $category) {
             Horde_Array::arraySort($category['objects'], 'name');
             $elts['category%' . $counter++] = sprintf('--- %s ---', $category['category']);
             foreach ($category['objects'] as $object) {

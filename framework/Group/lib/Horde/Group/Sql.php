@@ -193,7 +193,7 @@ class Horde_Group_Sql extends Horde_Group_Base
                 . ' = ' . $this->_db->quote($value);
         }
         try {
-            $this->_db->execute('UPDATE horde_groups SET ' . implode(', ', $updates) . ' WHERE group_uid = ?',
+            $this->_db->update('UPDATE horde_groups SET ' . implode(', ', $updates) . ' WHERE group_uid = ?',
                                 array($gid));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Group_Exception($e);

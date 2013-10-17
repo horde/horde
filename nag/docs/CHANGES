@@ -2,6 +2,8 @@
 v4.1.3-git
 ----------
 
+[jan] Fix updating alarm if completing a task recurrence.
+[jan] Fix editing tasks via CalDAV (Bug #12745).
 
 
 ------

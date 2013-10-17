@@ -39,7 +39,7 @@ if (!isset($params['adapter'])) {
 }
 
 $dir = $args[0];
-$module = strtolower($args[1]);
+$module = Horde_String::lower($args[1]);
 if (!is_dir($dir)) {
     die("$dir is not a migration directory");
 }

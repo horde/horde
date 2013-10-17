@@ -40,7 +40,7 @@ try {
       (int)Horde_Util::getFormData('x2'),
       (int)Horde_Util::getFormData('y2'),
       Horde_Util::getFormData('name'));
-} catch (Horde_Exception $e) {
+} catch (Ansel_Exception $e) {
     $notification->push($e->getMessage());
     $back_url->redirect();
     exit;

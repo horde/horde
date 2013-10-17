@@ -75,12 +75,12 @@ class Horde_Core_Perms_Ui
 
         $perms_node = array('icon' => Horde_Themes::img('perms.png'));
         $add = Horde::url('admin/perms/addchild.php');
-        $add_img = Horde::img('plus.png', Horde_Core_Translation::t("Add Permission"));
+        $add_img = Horde_Themes_Image::tag('plus.png', array('alt' => Horde_Core_Translation::t("Add Permission")));
         $edit = Horde::url('admin/perms/edit.php');
         $delete = Horde::url('admin/perms/delete.php');
-        $edit_img = Horde::img('edit.png', Horde_Core_Translation::t("Edit Permission"));
-        $delete_img = Horde::img('delete.png', Horde_Core_Translation::t("Delete Permission"));
-        $blank_img = Horde::img('blank.gif', '', array('width' => 16, 'height' => 16));
+        $edit_img = Horde_Themes_Image::tag('edit.png', array('alt' => Horde_Core_Translation::t("Edit Permission")));
+        $delete_img = Horde_Themes_Image::tag('delete.png', array('alt' => Horde_Core_Translation::t("Delete Permission")));
+        $blank_img = Horde_Themes_Image::tag('blank.gif', array('attr' => array('width' => 16, 'height' => 16)));
 
         /* Set up the tree. */
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('perms_ui', 'Javascript', array(
@@ -264,7 +264,7 @@ class Horde_Core_Perms_Ui
 
         /* Default permissions. */
         $perm_val = $permission->getDefaultPermissions();
-        $this->_form->setSection('default', Horde_Core_Translation::t("All Authenticated Users"), Horde::img('perms.png'), false);
+        $this->_form->setSection('default', Horde_Core_Translation::t("All Authenticated Users"), Horde_Themes_Image::tag('perms.png'), false);
 
         /* We MUST use 'deflt' for the variable name because 'default' is a
          * reserved word in JavaScript. */
@@ -295,7 +295,7 @@ class Horde_Core_Perms_Ui
 
         /* Object creator permissions. */
         $perm_val = $permission->getCreatorPermissions();
-        $this->_form->setSection('creator', Horde_Core_Translation::t("Creator Permissions"), Horde::img('user.png'), false);
+        $this->_form->setSection('creator', Horde_Core_Translation::t("Creator Permissions"), Horde_Themes_Image::tag('user.png'), false);
 
         if ($this->_type == 'matrix') {
             /* Define a single matrix row for creator perms. */
@@ -308,7 +308,7 @@ class Horde_Core_Perms_Ui
 
         /* Users permissions. */
         $perm_val = $permission->getUserPermissions();
-        $this->_form->setSection('users', Horde_Core_Translation::t("Individual Users"), Horde::img('user.png'), false);
+        $this->_form->setSection('users', Horde_Core_Translation::t("Individual Users"), Horde_Themes_Image::tag('user.png'), false);
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if ($auth->hasCapability('list')) {
             /* The auth driver has list capabilities so set up an array which
@@ -369,7 +369,7 @@ class Horde_Core_Perms_Ui
 
         /* Groups permissions. */
         $perm_val = $permission->getGroupPermissions();
-        $this->_form->setSection('groups', Horde_Core_Translation::t("Groups"), Horde::img('group.png'), false);
+        $this->_form->setSection('groups', Horde_Core_Translation::t("Groups"), Horde_Themes_Image::tag('group.png'), false);
         try {
             $group_list = $GLOBALS['injector']
                 ->getInstance('Horde_Group')

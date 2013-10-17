@@ -139,7 +139,7 @@ abstract class Ansel_View_Base
         }
 
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            throw new Horde_Exception(_("Access denied to this gallery."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied to this gallery."));
         }
 
         /* Set any date info we might have */

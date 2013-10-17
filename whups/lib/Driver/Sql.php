@@ -343,7 +343,8 @@ class Whups_Driver_Sql extends Whups_Driver
         // Set timestamps, if necessary.
         if ($state['category'] == 'assigned') {
             $this->updateLog($ticket_id, $requester,
-                             array('date_assigned' => $timestamp));
+                             array('date_assigned' => $timestamp),
+                             $transaction);
         }
 
         // Add any supplied attributes for this ticket.

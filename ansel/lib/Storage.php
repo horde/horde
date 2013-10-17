@@ -149,7 +149,7 @@ class Ansel_Storage
         // Check for slug uniqueness
         if (!empty($attributes['slug']) &&
             $this->galleryExists(null, $attributes['slug'])) {
-            throw new Horde_Exception(
+            throw new Ansel_Exception(
                 sprintf(_("The slug \"%s\" already exists."), $attributes['slug']));
         }
 
@@ -655,7 +655,7 @@ class Ansel_Storage
                . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
-            throw new Horde_Exception($e);
+            throw new Ansel_Exception($e);
         }
     }
 

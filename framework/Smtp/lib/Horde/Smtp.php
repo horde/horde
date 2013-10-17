@@ -331,7 +331,24 @@ class Horde_Smtp implements Serializable
         }
 
         if (!$this->_connection) {
-            $this->_connection = new Horde_Smtp_Connection($this, $this->_debug);
+            try {
+                $this->_connection = new Horde_Smtp_Connection(
+                    $this->getParam('host'),
+                    $this->getParam('port'),
+                    $this->getParam('timeout'),
+                    $this->getParam('secure'),
+                    array(
+                        'debug' => $this->_debug
+                    )
+                );
+            } catch (Horde\Socket\Client\Exception $e) {
+                $e2 = new Horde_Smtp_Exception(
+                    Horde_Smtp_Translation::t("Error connecting to SMTP server."),
+                    Horde_Smtp_Exception::SERVER_CONNECT
+                );
+                $e2->details($e->details);
+                throw $e2;
+            }
 
             // Get initial line (RFC 5321 [3.1]).
             $this->_getResponse(220, 'logout');
@@ -373,6 +390,13 @@ class Horde_Smtp implements Serializable
             return;
         }
 
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (!$this->isSecureConnection() &&
+            ($this->getParam('secure') === true)) {
+            $this->setParam('secure', false);
+        }
+
         if (!strlen($this->getParam('username')) ||
             !($auth = $this->queryExtension('AUTH'))) {
             return;
@@ -381,9 +405,11 @@ class Horde_Smtp implements Serializable
         $auth = array_flip(array_map('trim', explode(' ', $auth)));
 
         // XOAUTH2
-        if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+        if (isset($auth['XOAUTH2'])) {
             unset($auth['XOAUTH2']);
-            $auth = array('XOAUTH2' => true) + $auth;
+            if ($this->getParam('xoauth2_token')) {
+                $auth = array('XOAUTH2' => true) + $auth;
+            }
         }
 
         foreach (array_keys($auth) as $method) {
@@ -474,11 +500,10 @@ class Horde_Smtp implements Serializable
             $cmds[] = 'RCPT TO:<' . $val . '>';
         }
 
-        $error = null;
-
         if ($this->queryExtension('PIPELINING')) {
-            $this->_connection->write(array_merge($cmds, array('DATA')));
+            $this->_connection->write($cmds);
 
+            $error = null;
             foreach ($cmds as $val) {
                 try {
                     $this->_getResponse(array(250, 251));
@@ -488,14 +513,21 @@ class Horde_Smtp implements Serializable
                     }
                 }
             }
+
+            /* Can't pipeline DATA since we want to throw an exception if
+             * ANY of the recipients are bad. */
+            if (!is_null($error)) {
+                $this->resetCmd();
+                throw $error;
+            }
         } else {
             foreach ($cmds as $val) {
                 $this->_connection->write($val);
                 $this->_getResponse(array(250, 251), 'reset');
             }
-
-            $this->_connection->write('DATA');
         }
+
+        $this->_connection->write('DATA');
 
         try {
             $this->_getResponse(354, 'reset');
@@ -513,36 +545,29 @@ class Horde_Smtp implements Serializable
                 break;
             }
 
-            throw ($error ? $error : $e);
+            throw $e;
         }
 
-        if (!$error) {
-            if (!is_resource($data)) {
-                $stream = fopen('php://temp', 'r+');
-                fwrite($stream, $data);
-                $data = $stream;
-            }
-            rewind($data);
-
-            // Add SMTP escape filter.
-            stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-            $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
-
-            $this->_connection->write($data);
-            stream_filter_remove($res);
+        if (!is_resource($data)) {
+            $stream = fopen('php://temp', 'r+');
+            fwrite($stream, $data);
+            $data = $stream;
         }
+        rewind($data);
+
+        // Add SMTP escape filter.
+        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
+        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
+
+        $this->_connection->write($data);
+        stream_filter_remove($res);
 
         $this->_connection->write('.');
-
-        try {
-            $this->_getResponse(250, 'reset');
-        } catch (Horde_Smtp_Exception $e) {
-            throw ($error ? $error : $e);
-        }
+        $this->_getResponse(250, 'reset');
     }
 
     /**
-     * Send a RESET command.
+     * Send a reset command.
      *
      * @throws Horde_Smtp_Exception
      */
@@ -574,7 +599,6 @@ class Horde_Smtp implements Serializable
             $this->_getResponse(250);
         }
     }
-
 
     /* Internal methods. */
 
@@ -614,6 +638,10 @@ class Horde_Smtp implements Serializable
             $e->setSmtpCode(454);
             throw $e;
         }
+
+        $this->_debug->info('Successfully completed TLS negotiation.');
+
+        $this->setParam('secure', 'tls');
 
         return true;
     }
@@ -764,7 +792,7 @@ class Horde_Smtp implements Serializable
         $details = reset($text);
         if (!is_null($this->_extensions) &&
             $this->queryExtension('ENHANCEDSTATUSCODES')) {
-            list($enhanced, $details) = explode(' '. $details, 2);
+            list($enhanced, $details) = explode(' ', $details, 2);
         } else {
             $enhanced = null;
         }

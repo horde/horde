@@ -647,20 +647,30 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the currently set vacation message details.
      *
-     * @return array  The vacation rule properties.
+     * @return array|boolean  The vacation rule properties or false if
+     *                        interface unavailable.
      */
     public function filters_getVacation()
     {
-        return $this->_registry->filter->getVacation();
+        if ($this->horde_hasInterface('filter')) {
+            return $this->_registry->filter->getVacation();
+        } else {
+            return false;
+        }
     }
 
     /**
      * Set vacation message properties.
      *
      * @param array $setting  The vacation details.
+     *
+     * @throws Horde_Exception
      */
     public function filters_setVacation(array $setting)
     {
+        if (!$this->horde_hasInterface('filter')) {
+            throw new Horde_Exception('Filter interface unavailable.');
+        }
         if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
             // Only support a single message, the APPLIESTOINTERNAL message.
             foreach ($setting['oofmsgs'] as $msg) {
@@ -768,6 +778,68 @@ class Horde_Core_ActiveSync_Connector
                          'modify' => array(),
                          'delete' => array());
         }
+    }
+
+    /**
+     * Return message UIDs that should be SOFTDELETEd from the client.
+     *
+     * @param string $collection  The collection type.
+     * @param long $from_ts       The start of the time period to search.
+     * @param long $to_ts         The end of the time period to search.
+     *
+     * @return array  An array of message UIDs that occur within the $from_ts
+     *                and $to_ts range that are to be SOFTDELETEd from the
+     *                client.
+     */
+    public function softDelete($collection, $from_ts, $to_ts)
+    {
+        $results = array();
+        switch ($collection) {
+        case 'calendar':
+            // @TODO: For Horde 6, add API calls to the calendar API to
+            // get the default share and sync shares.  We need to hack this
+            // logic here since the methods to return the default calendar
+            // and sync calendars are not available in Kronolith 4's API.
+            $calendars = unserialize(
+                $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'sync_calendars'));
+            if (empty($calendars)) {
+                $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
+                $default_calendar = $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'default_share');
+                if (empty($calendars[$default_calendar])) {
+                    return array();
+                } else {
+                    $calendars = array($default_calendar);
+                }
+            }
+
+            // Need to use listEvents instead of listUids since we must
+            // ignore recurring events when softdeleting or else we run
+            // the risk of removing a still active recurrence.
+            $events = $this->_registry->calendar->listEvents(
+                $from_ts,
+                $to_ts,
+                $calendars,  // Calendars
+                false,       // showRecurrence
+                false,       // alarmsOnly
+                false,       // showRemote
+                true,        // hideExceptions
+                false        // coverDates
+            );
+
+            foreach ($events as $day) {
+                foreach ($day as $e) {
+                    if (empty($e->recurrence)) {
+                        $results[] = $e->uid;
+                    }
+                }
+            }
+        }
+
+        return $results;
     }
 
     /**

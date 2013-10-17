@@ -320,6 +320,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
 
         /* Get the action select output. */
         $actions = array();
+        $current_action = false;
         foreach ($availActions as $val) {
             $action = $ingo_storage->getActionInfo($val);
             $actions[] = array(
@@ -334,20 +335,22 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $view->actions = $actions;
 
         /* Get the action value output. */
-        switch ($current_action->type) {
-        case 'folder':
-            $view->actionvaluelabel = _("Select target folder");
-            $view->actionvalue = Ingo::flistSelect($rule['action-value']);
-            break;
+        if ($current_action) {
+            switch ($current_action->type) {
+            case 'folder':
+                $view->actionvaluelabel = _("Select target folder");
+                $view->actionvalue = Ingo::flistSelect($rule['action-value']);
+                break;
 
-        case 'text':
-        case 'int':
-            $view->actionvaluelabel = _("Value");
-            $view->actionvalue = '<input id="actionvalue" name="actionvalue" size="40" value="' . htmlspecialchars($rule['action-value']) . '" />';
-            break;
+            case 'text':
+            case 'int':
+                $view->actionvaluelabel = _("Value");
+                $view->actionvalue = '<input id="actionvalue" name="actionvalue" size="40" value="' . htmlspecialchars($rule['action-value']) . '" />';
+                break;
+            }
+            $view->flags = $current_action->flags && $ingo_script->hasFeature('imap_flags');
         }
 
-        $view->flags = $current_action->flags && $ingo_script->hasFeature('imap_flags');
         $view->stop = $ingo_script->hasFeature('stop_script');
 
         $page_output->addScriptFile('rule.js');

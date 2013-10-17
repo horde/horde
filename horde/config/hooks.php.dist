@@ -304,7 +304,7 @@ class Horde_Hooks
 //            $cmd = '/usr/bin/ldapsearch -b ' . $base_context .
 //                ' -s ' . $scope . ' cn=' .
 //                escapeshellcmd($username) .
-//                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
+//                ' | /bin/grep mail | /usr/bin/awk \'{print $2}\'';
 //            $mails = `$cmd`;
 //            $mail_array = explode("\n", $mails);
 //

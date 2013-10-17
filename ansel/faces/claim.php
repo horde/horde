@@ -17,7 +17,7 @@ $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $face_id = Horde_Util::getFormData('face');
 try {
     $face = $faces->getFaceById($face_id);
-} catch (Horde_Exception $e) {
+} catch (Ansel_Exception $e) {
     $notification->push($e->getMessage());
     Horde::url('faces/search/all.php')->redirect();
     exit;

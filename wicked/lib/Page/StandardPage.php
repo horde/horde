@@ -182,6 +182,12 @@ class Wicked_Page_StandardPage extends Wicked_Page
     public function displayContents($isBlock)
     {
         $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->text = $this->getProcessor()->transform($this->getText());
+        if ($isBlock) {
+            return $view->render('display/standard');
+        }
+
+        $view->showTools = true;
         if ($this->allows(Wicked::MODE_EDIT) &&
             !$this->isLocked(Wicked::lockUser())) {
             $view->edit = Horde::widget(array(
@@ -263,8 +269,7 @@ class Wicked_Page_StandardPage extends Wicked_Page
                 'title' => _("Permissio_ns")
             ));
         }
-        if (empty($isBlock) &&
-            ($histories = $GLOBALS['session']->get('wicked', 'history'))) {
+        if ($histories = $GLOBALS['session']->get('wicked', 'history')) {
             $view->history = Horde::widget(array(
                 'url' => '#',
                 'onclick' => 'document.location = document.display.history[document.display.history.selectedIndex].value;',
@@ -278,36 +283,33 @@ class Wicked_Page_StandardPage extends Wicked_Page
                 $view->histories[(string)Wicked::url($history)] = $history;
             }
         }
-        if (!$isBlock) {
-            $pageId = $GLOBALS['wicked']->getPageId($this->pageName());
-            $attachments = $GLOBALS['wicked']->getAttachedFiles($pageId);
-            if (count($attachments)) {
-                $view->attachments = array();
-                foreach ($attachments as $attachment) {
-                    $url = $GLOBALS['registry']
-                        ->downloadUrl(
-                            $attachment['attachment_name'],
-                            array(
-                                'page' => $this->pageName(),
-                                'file' => $attachment['attachment_name'],
-                                'version' => $attachment['attachment_version']
-                            )
-                        );
-                    $icon = $GLOBALS['injector']
-                        ->getInstance('Horde_Core_Factory_MimeViewer')
-                        ->getIcon(
-                            Horde_Mime_Magic::filenameToMime(
-                                $attachment['attachment_name']
-                            )
-                        );
-                    $view->attachments[] = Horde::link($url)
-                        . '<img src="' . $icon . '" width="16" height="16" alt="" />&nbsp;'
-                        . htmlspecialchars($attachment['attachment_name'])
-                        . '</a>';
-                }
+        $pageId = $GLOBALS['wicked']->getPageId($this->pageName());
+        $attachments = $GLOBALS['wicked']->getAttachedFiles($pageId);
+        if (count($attachments)) {
+            $view->attachments = array();
+            foreach ($attachments as $attachment) {
+                $url = $GLOBALS['registry']
+                    ->downloadUrl(
+                        $attachment['attachment_name'],
+                        array(
+                            'page' => $this->pageName(),
+                            'file' => $attachment['attachment_name'],
+                            'version' => $attachment['attachment_version']
+                        )
+                    );
+                $icon = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_MimeViewer')
+                    ->getIcon(
+                        Horde_Mime_Magic::filenameToMime(
+                            $attachment['attachment_name']
+                        )
+                    );
+                $view->attachments[] = Horde::link($url)
+                    . '<img src="' . $icon . '" width="16" height="16" alt="" />&nbsp;'
+                    . htmlspecialchars($attachment['attachment_name'])
+                    . '</a>';
             }
         }
-        $view->text = $this->getProcessor()->transform($this->getText());
         $view->downloadPlain = Wicked::url($this->pageName())
             ->add(array('actionID' => 'export', 'format' => 'plain'))
             ->link()

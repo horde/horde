@@ -24,6 +24,7 @@
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
+    /* CSS background regex. */
     const CSS_BG_PREG = '/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i';
 
     /**
@@ -147,10 +148,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        if (!$inline || $convert_text) {
-            $this->_imptmp = array();
-        } else {
-            $this->_imptmp = array(
+        $this->_imptmp = array(
+            'target' => strval(new Horde_Support_Randomid())
+        );
+        if ($inline && !$convert_text) {
+            $this->_imptmp += array(
                 'blockimg' => null,
                 'cid' => null,
                 'cid_used' => array(),

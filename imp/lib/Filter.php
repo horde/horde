@@ -73,7 +73,7 @@ class IMP_Filter
             return false;
         }
 
-        $GLOBALS['notification']->push(ngettext(_("The message has been deleted."), _("The messages have been deleted."), $msg_count), 'horde.message');
+        $GLOBALS['notification']->push(ngettext("The message has been deleted.", "The messages have been deleted.", $msg_count), 'horde.message');
 
         return true;
     }

@@ -43,15 +43,23 @@ HermesCore = {
         parentfunc(r, e);
     },
 
+    /**
+     * Sets the page title.
+     *
+     * @param string title  The new page title
+     */
     setTitle: function(title)
     {
         document.title = Hermes.conf.name + ' :: ' + title;
         return title;
     },
 
-    // url = (string) URL to redirect to
-    // hash = (boolean) If true, url is treated as hash information to alter
-    //        on the current page
+    /**
+     * Redirect to the requested url
+     *
+     * @param string url    URL to redirect to
+     * @param boolean hash  If true, url is treated as hash information to alter
+     */
     redirect: function(url, hash)
     {
         if (hash) {
@@ -62,6 +70,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Go to the requested view.
+     */
     go: function(fullloc, data)
     {
         if (this.viewLoading.size()) {
@@ -103,7 +114,7 @@ HermesCore = {
                 if (!$('hermesView' + locCap)) {
                     break;
                 }
-                this.addHistory(fullloc);
+                this.addHistory(fullloc, loc != 'admindeliverables');
                 this.view = loc;
                 $('hermesView' + locCap).appear({
                     duration: this.effectDur,
@@ -164,6 +175,9 @@ HermesCore = {
         this.openLocation = loc;
     },
 
+    /**
+     * The click handler.
+     */
     clickHandler: function(e, dblclick)
     {
         var slice, sid, elt, id;
@@ -316,6 +330,10 @@ HermesCore = {
                 this.go('search');
                 e.stop();
                 return;
+
+            case 'hermesDeliverablesClose':
+                RedBox.close();
+                return;
             }
 
             switch (elt.className) {
@@ -376,6 +394,10 @@ HermesCore = {
                 return;
             } else if (elt.hasClassName('deliverableDelete')) {
                 this.deleteDeliverable(elt.up().up());
+                e.stop();
+                return;
+            } else if (elt.hasClassName('deliverableDetail')) {
+                this.getDeliverableDetail(elt.up().up());
                 e.stop();
                 return;
             }
@@ -458,7 +480,7 @@ HermesCore = {
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
-        HordeCore.doAction('listDeliverables',
+        HordeCore.doAction('listDeliverablesSelect',
             { 'c': $F('hermesTimeFormClient') },
             { 'callback': function(r) {
                   this.listDeliverablesCallback(r);
@@ -595,6 +617,14 @@ HermesCore = {
         }
     },
 
+    /**
+     * Replaces a slice, represented by sid, with the provided slice in the
+     * specified view.
+     *
+     * @param string sid    The slice id
+     * @param object slice  The new slice
+     * @param string view   The view to replace in. 'search' | 'time'
+     */
     replaceSliceInUI: function(sid, slice, view)
     {
         var t;
@@ -626,7 +656,8 @@ HermesCore = {
     /**
      * Removes sid's slice from cache
      *
-     * @param sid  The slice id
+     * @param string sid    The slice id
+     * @param string cache  Which cache to remove from. 'time' | 'search'
      */
     removeSliceFromCache: function(sid, cache)
     {
@@ -647,6 +678,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Returns the keys from the search results array.
+     */
     getSearchResultKeys: function()
     {
         var s = this.searchSlices.length,
@@ -676,13 +710,13 @@ HermesCore = {
     {
         if (this.view == 'time') {
             $('hermesLoadingTime').show();
-            HordeCore.doAction('listDeliverables',
+            HordeCore.doAction('listDeliverablesSelect',
                 { 'c': $F('hermesTimeFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
         } else if (this.view == 'search') {
             $('hermesLoadingSearch').show();
-            HordeCore.doAction('listDeliverables',
+            HordeCore.doAction('listDeliverablesSelect',
                 { 'c': $F('hermesSearchFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
@@ -715,6 +749,243 @@ HermesCore = {
     },
 
     /**
+     * Begin to show the detail view of the deliverable.
+     *
+     */
+    getDeliverableDetail: function(elt)
+    {
+        var dname = $(elt).down(0).innerHTML, budget = $(elt).down(2).innerHTML;
+        HordeCore.doAction('getDeliverableDetail',
+            { id: elt.retrieve('did') },
+            { callback: this.getDeliverableDetailCallback.curry(dname, budget).bind(this) }
+        );
+    },
+
+    /**
+     * Callback for handling deliverable details. Responsible for calculating
+     * any stats needed to display the various details and graphs.
+     *
+     * @param string dname  The display name of the deliverable.
+     * @param long budget   The budgeted amount for this deliverable.
+     * @param object r      The response data.
+     */
+    getDeliverableDetailCallback: function(dname, budget, r)
+    {
+        var b = { 'billable': 0, 'nonbillable': 0 },
+        t = {}, h = 0, over = 0, employees = {};
+        r.each(function(s) {
+            // Billable data
+            b.billable += (s.b * 1) ? (s.h * 1) : 0;
+            b.nonbillable += (s.b * 1) ? 0 : (s.h * 1);
+
+            // Jobtype data.
+            if (!t[s.tn]) {
+                t[s.tn] = 0;
+            }
+            t[s.tn] += (s.h * 1);
+
+            // Hours
+            h += (s.h * 1);
+
+            // Employee
+            if (!employees[s.e]) {
+                employees[s.e] = {
+                    billable: 0,
+                    nonbillable: 0
+                };
+            }
+            employees[s.e].billable += (s.b * 1) ? (s.h * 1) : 0;
+            employees[s.e].nonbillable += (s.b * 1) ? 0 : (s.h * 1);
+        });
+        over = Math.max(h - budget, 0);
+        h -= over;
+
+        var cell = $('hermesStatText').down('th');
+        cell.update(h);
+        cell = cell.next().update(budget);
+        cell.next().update(budget - (h + over));
+
+        RedBox.onDisplay = function() {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
+
+            this.drawBudgetGraph(h, budget, over);
+            this.drawBillableGraph(b);
+            var typeData = [];
+            $H(t).each(function (type) {
+                typeData.push({ data: [ [0, type.value] ], label: type.key });
+            });
+            this.drawTypeGraph(typeData);
+            this.doDeliverableEmployeeStats(employees);
+        }.bind(this);
+
+        $('hermesDeliverableDetail').down('h1').down('span').update(dname);
+        RedBox.showHtml($('hermesDeliverableDetail').show());
+    },
+
+    /**
+     * Handles updating the employee detail of the deliverable view.
+     */
+     doDeliverableEmployeeStats: function(employees)
+     {
+        var i = -1, data, b_data = [], nb_data = [], emp = [];
+        $H(employees).each(function(m) {
+            i++;
+            b_data.push([m.value.billable, i]);
+            nb_data.push([m.value.nonbillable, i]);
+            emp[i] = m.key;
+        });
+        data = [
+            {
+                data: b_data,
+                markers: {
+                    show: true,
+                    position: 'rm',
+                    horizontal: true,
+                    fontSize: 11,
+                    color: '#666',
+                    labelFormatter: function(o) {
+                        return emp[o.index];
+                    }
+                }
+            },
+            { data: nb_data }
+        ];
+
+        Flotr.draw(
+            $('hermesDeliverableEmployees'),
+            data,
+            {
+                bars: {
+                    show: true,
+                    stacked: true,
+                    horizontal: true,
+                    barWidth: 0.6,
+                    lineWidth: 1,
+                    shadowSize: 0
+                },
+                yaxis: { showLabels: false },
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                legend: { show: false }
+            }
+        );
+     },
+
+    /**
+     * Draws the house by type chart.
+     *
+     * @param array  The data.
+     */
+    drawTypeGraph: function(typeData)
+    {
+        Flotr.draw(
+            $('hermesDeliverableType'),
+            typeData,
+            {
+                colors: ['#CB4B4B', '#4DA74D', '#9440ED', '#C0D800','#00A8F0'],
+                title: Hermes.text['type'],
+                HtmlText: false,
+                pie: { show: true, explode: 5, shadowSize: 2 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false, autoscale: true },
+                legend: {
+                  position : 'se',
+                  labelBoxBorderColor: 'transparent'
+                }
+            }
+        );
+    },
+
+    /**
+     * Draws the billable vs nonbillable chart.
+     *
+     * @param object b  An object containing billable and nonbillable properties
+     *                  containing the count of hours.
+     */
+    drawBillableGraph: function(b)
+    {
+        var data = [];
+
+        if (b.billable == 0 && b.nonbillable == 0) {
+            $('hermesDeliverableBillable').update();
+        } else {
+            if (b.billable != 0) {
+                data.push({ data: [ [0, b.billable ] ], label: Hermes.text['billable'] });
+            }
+            if (b.nonbillable != 0) {
+                data.push({ data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] });
+            }
+        }
+        Flotr.draw(
+            $('hermesDeliverableBillable'),
+            data,
+            {
+                title: Hermes.text['hours'],
+                HtmlText: false,
+                pie: { show: true, explode: 5, shadowSize: 2 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false },
+                legend: { position: 'sw', labelBoxBorderColor: 'transparent' }
+            }
+        );
+    },
+
+    /**
+     * Draw the budge bar chart.
+     *
+     * @param long h       The number of hours used, with a max value of budget.
+     * @param long budget  The budgeted hours.
+     * @param long over    Then number of hours over budget.
+     */
+    drawBudgetGraph: function(h, budget, over)
+    {
+        Flotr.draw(
+            $('hermesDeliverableStats'),
+            [
+                { data: [ [ h, 0] ] },
+                { data: [ [ budget - h, 0] ] },
+                { data: [ [ over, 0] ] }
+            ],
+            {
+                colors: ['#00ff00', 'transparent', '#ff0000'], // Green, transparent, red
+                bars: {
+                    show: true,
+                    stacked: true,
+                    horizontal: true,
+                    barWidth: 0.6,
+                    lineWidth: 0.5,
+                    shadowSize: 0
+                },
+                yaxis: { showLabels: false },
+                xaxis: { min: 0, max: (budget > h + over) ? budget : h + over },
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                legend: { show: false }
+            }
+        );
+     },
+
+    /**
      * Delete a deliverable.
      */
     deleteDeliverable: function(elt)
@@ -738,7 +1009,7 @@ HermesCore = {
      */
      deliverableEdit: function(id)
      {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'id': id },
             { 'callback': this.deliverableEditCallback.bind(this) }
         );
@@ -807,7 +1078,7 @@ HermesCore = {
      */
     saveDeliverableCallback: function(r)
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
@@ -889,7 +1160,7 @@ HermesCore = {
      */
     deliverablesClientChangeHandler: function()
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
@@ -922,7 +1193,13 @@ HermesCore = {
         cell = cell.next().update(jt.estimate);
         cell = cell.next().update(jt.description);
         if (!Hermes.conf.has_deliverableadmin) {
+            // No delverabile admin perms
             cell.next().remove();
+        } else if (jt.is_external) {
+            // Can't edit|delete, it's an API cost object.
+            cell = cell.next();
+            cell.down().remove();
+            cell.down().remove();
         }
 
         return row;
@@ -992,6 +1269,9 @@ HermesCore = {
         this.buildSliceTable();
     },
 
+    /**
+     * Initiate a timeslice search. Response received in this.searchCallback
+     */
     search: function()
     {
         var params = $H($('hermesSearchForm').serialize({ hash: true }));
@@ -1003,6 +1283,11 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback for timeslice search.
+     *
+     * @param array r  List of slices matching search.
+     */
     searchCallback: function(r)
     {
         $('hermesLoadingSearch').hide();
@@ -1478,6 +1763,10 @@ HermesCore = {
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
+    /**
+     * Updates the sum  of the timeslices in the UI matching the current search
+     * results.
+     */
     updateSearchTotal: function()
     {
         var total = 0;
@@ -1569,6 +1858,9 @@ HermesCore = {
         return row;
     },
 
+    /**
+     * Handles sorting the timeslice grid.
+     */
     handleEntrySort: function(e)
     {
         if (this.sortbyfield == e.identify()) {
@@ -1581,6 +1873,9 @@ HermesCore = {
         this.buildSliceTable();
     },
 
+    /**
+     * Handles sorting the search results grid.
+     */
     handleSearchSort: function(e)
     {
         if (this.searchSortbyfield == e.identify()) {
@@ -1724,6 +2019,12 @@ HermesCore = {
         return [start, end];
     },
 
+    /**
+     * Callback for the poll request.
+     *
+     * @param array r  The polling response. Contains an array of updated timer
+     *                 data.
+     */
     pollCallback: function(r)
     {
         // Update timers.
@@ -1739,6 +2040,10 @@ HermesCore = {
         }
     },
 
+    /**
+     * Check that any dates entered match a know recognizable format for the
+     * current locale and notify the user if not.
+     */
     checkDate: function(e) {
         var elm = e.element();
         if ($F(elm)) {
@@ -1810,7 +2115,7 @@ HermesCore = {
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
 
         // Populate the deliverables with the default list.
-        HordeCore.doAction('listDeliverables',
+        HordeCore.doAction('listDeliverablesSelect',
             { },
             { 'callback': function(r) {
                 this.updateCostObjects(r, 'time');
@@ -1823,6 +2128,15 @@ HermesCore = {
             { },
             { 'callback': this.loadJobListCallback.bind(this) }
         );
+
+        // Setup the deliverables
+        if ($('hermesDeliverablesClientSelect')) {
+            $('hermesDeliverablesClientSelect').observe('change', HermesCore.deliverablesClientChangeHandler.bindAsEventListener(HermesCore));
+            HordeCore.doAction('listDeliverables',
+                { },
+                { 'callback': this.listDeliverablesAdminCallback.bind(this) }
+            );
+        }
 
         new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll', {}, { 'callback': this.pollCallback.bind(this) }), 60);
     }

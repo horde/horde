@@ -1,8 +1,5 @@
 <?php
 /**
- * Class for MySQL-specific managing of database schemes and handling of SQL
- * dialects and quoting.
- *
  * Copyright 2007 Maintainable Software, LLC
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
@@ -17,6 +14,9 @@
  */
 
 /**
+ * Class for MySQL-specific managing of database schemes and handling of SQL
+ * dialects and quoting.
+ *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
@@ -81,26 +81,6 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function quoteTableName($name)
     {
         return str_replace('.', '`.`', $this->quoteColumnName($name));
-    }
-
-    /**
-     * Returns a quoted boolean true.
-     *
-     * @return string  The quoted boolean true.
-     */
-    public function quoteTrue()
-    {
-        return '1';
-    }
-
-    /**
-     * Returns a quoted boolean false.
-     *
-     * @return string  The quoted boolean false.
-     */
-    public function quoteFalse()
-    {
-        return '0';
     }
 
 

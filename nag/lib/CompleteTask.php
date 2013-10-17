@@ -22,7 +22,7 @@ class Nag_CompleteTask {
                 if ($task->completed) {
                     $result = array('data' => 'complete');
                     $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
-                } elseif (!$wasComplete) {
+                } elseif (!$wasCompleted) {
                     $result = array('data' => 'incomplete');
                     $notification->push(sprintf(_("%s is still incomplete."), $task->name), 'horde.success');
                 } else {

@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;
@@ -394,7 +395,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
             }
 
+            $this->_debug->info('Successfully completed TLS negotiation.');
+
             $this->setParam('secure', 'tls');
+            $secure = 'tls';
 
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -410,6 +414,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (($secure === true) && !$this->isSecureConnection()) {
+            $this->setParam('secure', false);
+        }
+
         if ($first_login) {
             // Add authentication methods.
             $auth_mech = array();
@@ -421,8 +431,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
                 $auth_mech[] = 'XOAUTH2';
-                unset($auth['XOAUTH2']);
             }
+            unset($auth['XOAUTH2']);
 
             // 'PLAIN' authentication always exists if under TLS. Use it over
             // all over authentication methods.
@@ -539,7 +549,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket($this, $this->_debug);
+        try {
+            $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket(
+                $this->getParam('hostspec'),
+                $this->getParam('port'),
+                $this->getParam('timeout'),
+                $this->getParam('secure'),
+                array(
+                    'debug' => $this->_debug,
+                    'debugliteral' => $this->getParam('debug_literal')
+                )
+            );
+        } catch (Horde\Socket\Client\Exception $e) {
+            $e2 = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
+            $e2->details($e->details);
+            throw $e2;
+        }
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the initial banner.
@@ -982,7 +1010,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                      * input strings (at least 8 KB), so 7 KB is as good as
                      * any guess as to an upper limit. If this occurs, provide
                      * a range string (min -> max) instead. */
-                    if (strlen($uid_str = strval($uids)) > 7000) {
+                    if (strlen($uid_str = $uids->tostring_sort) > 7000) {
                         $uid_str = $uids->range_string;
                     }
                 } else {
@@ -1202,7 +1230,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'ext' => false,
             'options' => $options,
             'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
-            'subscribed' => ($check ? array_flip(array_map('strval', $subscribed)) : null)
+            'subscribed' => ($check ? array_merge(array_flip(array_map('strval', $subscribed)), array('INBOX' => 1)) : null)
         );
         $pipeline->data['listresponse'] = array();
 
@@ -1215,11 +1243,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $pipeline->data['mailboxlist']['ext'] = true;
 
             $select_opts = new Horde_Imap_Client_Data_Format_List();
+            $subscribed = false;
 
             if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
                 ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
                 $select_opts->add('SUBSCRIBED');
                 $return_opts->add('SUBSCRIBED');
+                $subscribed = true;
             }
 
             if (!empty($options['remote'])) {
@@ -1237,9 +1267,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($pattern as $val) {
-                $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
+                if ($subscribed && (strcasecmp($val, 'INBOX') === 0)) {
+                    $cmds[] = $this->_command('LIST')->add(array(
+                        '',
+                        'INBOX'
+                    ));
+                } else {
+                    $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
+                }
             }
-            $cmd->add($tmp);
+
+            if (count($tmp)) {
+                $cmd->add($tmp);
+                $cmds[] = $cmd;
+            }
 
             if (!empty($options['children'])) {
                 $return_opts->add('CHILDREN');
@@ -1248,8 +1289,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts->add('SPECIAL-USE');
             }
-
-            $cmds[] = $cmd;
         } else {
             foreach ($pattern as $val) {
                 $cmds[] = $this->_command(
@@ -1355,7 +1394,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($ml['check'] &&
             $ml['subexist'] &&
-            // subscribed list is in UTF-8
+            // Subscribed list is in UTF-8.
             !isset($ml['subscribed'][strval($mbox)])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
@@ -1796,11 +1835,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // RFC 3691 defines 'UNSELECT' for precisely this purpose
                 $this->_sendCmd($this->_command('UNSELECT'));
             } else {
-                // RFC 3501 [6.4.2]: to close a mailbox without expunge,
-                // select a non-existent mailbox. Selecting a null mailbox
-                // should do the trick.
+                /* RFC 3501 [6.4.2]: to close a mailbox without expunge,
+                 * select a non-existent mailbox. */
                 try {
-                    $this->_sendCmd($this->_command('SELECT')->add(''));
+                    $this->_sendCmd($this->_command('EXAMINE')->add(
+                        new Horde_Imap_Client_Data_Format_Mailbox("\24nonexist\24")
+                    ));
+
+                    /* Not pipelining, since the odds that this CLOSE is even
+                     * needed is tiny; and it returns BAD, which should be
+                     * avoided, if possible. */
+                    $this->_sendCmd($this->_command('CLOSE'));
                 } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                     // Ignore error; it is expected.
                 }

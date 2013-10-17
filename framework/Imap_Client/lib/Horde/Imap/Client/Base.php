@@ -79,7 +79,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Connection to the IMAP server.
      *
-     * @var Horde_Imap_Client_Base_Connection
+     * @var Horde\Socket\Client
      */
     protected $_connection = null;
 
@@ -254,7 +254,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *      <li>'tls' (TLS)</li>
      *      <li>true (TLS if available/necessary) [since 2.15.0]</li>
      *     </ul>
-     *             DEFAULT: true</li>
+     *             DEFAULT: false</li>
      *    </li>
      *    <li>
      *     timeout: (integer)  Connection timeout, in seconds.
@@ -276,7 +276,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'secure' => true,
+            'secure' => false,
             'timeout' => 30
         ), array_filter($params));
 
@@ -2245,6 +2245,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 Horde_Imap_Client::SEARCH_RESULTS_MATCH,
                 Horde_Imap_Client::SEARCH_RESULTS_COUNT
             );
+        } elseif (!in_array(Horde_Imap_Client::SEARCH_RESULTS_COUNT, $options['results'])) {
+            $options['results'][] = Horde_Imap_Client::SEARCH_RESULTS_COUNT;
         }
 
         // Default to an ALL search.
@@ -2363,12 +2365,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             $ret = $this->_search($query, $options);
         } else {
-            $ret = array(
-                'count' => 0
-            );
+            $ret = array();
 
             foreach ($options['results'] as $val) {
                 switch ($val) {
+                case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
+                    $ret['count'] = 0;
+                    break;
+
                 case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
                     $ret['match'] = $this->getIdsOb();
                     break;

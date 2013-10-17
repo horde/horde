@@ -27,14 +27,12 @@ if ($conf['vfs']['src'] == 'sendfile') {
             ($GLOBALS['prefs']->getValue('watermark_auto') ?
                 $GLOBALS['prefs']->getValue('watermark_text', '') : '')
         );
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($result, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));
-    header('Content-Type: ' . $image->getType('screen'));
-    header('X-LIGHTTPD-send-file: ' . $filename);
-    header('X-Sendfile: ' . $filename);
+    Ansel::doSendfile($filename, $image->getType('screen'));
     exit;
 }
 $image->display('screen');

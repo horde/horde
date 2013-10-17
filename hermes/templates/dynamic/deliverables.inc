@@ -23,7 +23,7 @@
       </div>
     </div>
   </form>
-  <div class="header"><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect');?></div>
+  <div class="header"><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect', false, true);?></div>
   <div id="hermesDeliverablesListHeader">
     <div class="hermesDeliverablesName hermesBorderLeft"><?php echo _("Name") ?></div>
     <div class="hermesDeliverablesActive hermesBorderLeft"><?php echo _("Active") ?></div>
@@ -37,9 +37,8 @@
       <div class="hermesDeliverablesActive hermesBorderLeft"></div>
       <div class="hermesDeliverablesEstimate hermesBorderLeft"></div>
       <div class="hermesDeliverablesDesc hermesBorderLeft"></div>
-      <div class="hermesDeliverablesOptions"><span class="deliverableEdit sliceControl">&nbsp;</span><span class="deliverableDelete sliceControl">&nbsp;</span></div>
+      <div class="hermesDeliverablesOptions"><span class="deliverableEdit sliceControl">&nbsp;</span><span class="deliverableDelete sliceControl">&nbsp;</span><span class="deliverableDetail sliceControl">&nbsp;</span></div>
     </div>
     <div id="hermesDeliverablesListInternal"></div>
   </div>
-
 </div>

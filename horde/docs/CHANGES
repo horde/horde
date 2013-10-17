@@ -1,6 +1,15 @@
 ----------
-v5.1.4-git
+v5.1.5-git
 ----------
+
+[mms] Add additional syntax checking for the configuration files in the test
+      script.
+[mms] Only update topbar if the underlying tree data has changed.
+
+
+------
+v5.1.4
+------
 
 [mjr] Fix detecting ActiveSync policies for EAS version 12.0.
 [jan] Fix fatal error on ActiveSync preferences page (Bug #12631).

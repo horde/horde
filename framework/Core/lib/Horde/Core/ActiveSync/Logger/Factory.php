@@ -38,7 +38,7 @@
         $logger = false;
         if ($conf['activesync']['logging']['type'] == 'custom') {
             if (!empty($properties['DeviceId'])) {
-                $stream = fopen($conf['activesync']['logging']['path'] . '/' . $properties['DeviceId'] . '.txt', 'a');
+                $stream = fopen($conf['activesync']['logging']['path'] . '/' . strtoupper($properties['DeviceId']) . '.txt', 'a');
                 if ($stream) {
                     $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
                 }

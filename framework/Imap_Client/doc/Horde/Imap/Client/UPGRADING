@@ -18,8 +18,7 @@ Upgrading to 2.15.0
 
     - Constructor
 
-      Added true as an option for the 'secure' configuration parameter. This
-      option is now the default.
+      Added true as an option for the 'secure' configuration parameter.
 
 
 Upgrading to 2.14.0

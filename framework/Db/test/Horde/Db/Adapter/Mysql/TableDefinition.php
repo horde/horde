@@ -22,7 +22,7 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Mysql_TableDefinition extends Horde_Test_Case
+class Horde_Db_Adapter_Mysql_TableDefinition
 {
     public $conn;
 

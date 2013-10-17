@@ -137,8 +137,8 @@ class IMP_Perms
      */
     public function hasPermission($permission, $allowed, $opts)
     {
-        return isset($this->_perms['handle'])
-            ? (bool)call_user_func($this->_perms['handle'], $permission, $allowed, $opts)
+        return isset($this->_perms[$permission]['handle'])
+            ? (bool)call_user_func($this->_perms[$permission]['handle'], $allowed, $opts)
             : (bool)$allowed;
     }
 

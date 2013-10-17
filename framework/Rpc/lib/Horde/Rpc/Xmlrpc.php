@@ -102,7 +102,7 @@ class Horde_Rpc_Xmlrpc extends Horde_Rpc
             'Content-Type' => 'text/xml');
         try {
             $result = $client->post($url, xmlrpc_encode_request($method, $params), $headers);
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Rpc_Exception($result);
         }
         if ($result->code != 200) {
