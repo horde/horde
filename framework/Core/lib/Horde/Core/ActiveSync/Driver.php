@@ -1415,6 +1415,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if (!empty($h_array['Bcc'])) {
                 $recipients .= ',' . $h_array['Bcc'];
+                unset($h_array['Bcc']);
             }
             $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
