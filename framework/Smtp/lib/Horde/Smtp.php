@@ -332,19 +332,15 @@ class Horde_Smtp implements Serializable
 
         if (!$this->_connection) {
             try {
-                $secure = $this->getParam('secure');
                 $this->_connection = new Horde_Smtp_Connection(
                     $this->getParam('host'),
                     $this->getParam('port'),
                     $this->getParam('timeout'),
-                    $secure,
+                    $this->getParam('secure'),
                     array(
                         'debug' => $this->_debug
                     )
                 );
-                if ($secure && !$this->_connection->secure) {
-                    $this->setParam('secure', false);
-                }
             } catch (Horde\Socket\Client\Exception $e) {
                 $e2 = new Horde_Smtp_Exception(
                     Horde_Smtp_Translation::t("Error connecting to SMTP server."),
@@ -392,6 +388,13 @@ class Horde_Smtp implements Serializable
             $this->_extensions = null;
             $this->login();
             return;
+        }
+
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (!$this->isSecureConnection() &&
+            ($this->getParam('secure') === true)) {
+            $this->setParam('secure', false);
         }
 
         if (!strlen($this->getParam('username')) ||
