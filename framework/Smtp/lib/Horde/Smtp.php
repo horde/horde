@@ -331,7 +331,24 @@ class Horde_Smtp implements Serializable
         }
 
         if (!$this->_connection) {
-            $this->_connection = new Horde_Smtp_Connection($this, $this->_debug);
+            try {
+                $this->_connection = new Horde_Smtp_Connection(
+                    $this->getParam('host'),
+                    $this->getParam('port'),
+                    $this->getParam('timeout'),
+                    $this->getParam('secure'),
+                    array(
+                        'debug' => $this->_debug
+                    )
+                );
+            } catch (Horde\Socket\Client\Exception $e) {
+                $e2 = new Horde_Smtp_Exception(
+                    Horde_Smtp_Translation::t("Error connecting to SMTP server."),
+                    Horde_Smtp_Exception::SERVER_CONNECT
+                );
+                $e2->details($e->details);
+                throw $e2;
+            }
 
             // Get initial line (RFC 5321 [3.1]).
             $this->_getResponse(220, 'logout');
@@ -373,6 +390,13 @@ class Horde_Smtp implements Serializable
             return;
         }
 
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (!$this->isSecureConnection() &&
+            ($this->getParam('secure') === true)) {
+            $this->setParam('secure', false);
+        }
+
         if (!strlen($this->getParam('username')) ||
             !($auth = $this->queryExtension('AUTH'))) {
             return;
@@ -381,9 +405,11 @@ class Horde_Smtp implements Serializable
         $auth = array_flip(array_map('trim', explode(' ', $auth)));
 
         // XOAUTH2
-        if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+        if (isset($auth['XOAUTH2'])) {
             unset($auth['XOAUTH2']);
-            $auth = array('XOAUTH2' => true) + $auth;
+            if ($this->getParam('xoauth2_token')) {
+                $auth = array('XOAUTH2' => true) + $auth;
+            }
         }
 
         foreach (array_keys($auth) as $method) {

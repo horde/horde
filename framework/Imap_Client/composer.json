@@ -1,0 +1,43 @@
+{
+    "name": "horde/horde-imap-client",
+    "description": "Horde IMAP Client",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.15.6",
+    "time": "2013-10-11",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Stream": ">=1.0.0@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Secret": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Stream_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Translation": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "ext-hash": "*",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Compress_Fast": ">=1.0.0@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "ext-mbstring": "*"
+    }
+}

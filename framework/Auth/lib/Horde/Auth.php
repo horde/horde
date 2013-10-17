@@ -436,8 +436,9 @@ class Horde_Auth
 
         // Check for percentages similarity also.  This will catch very simple
         // Things like "password" -> "password2" or "xpasssword"...
+        // Also, don't allow simple changing of capitalization to pass
         foreach ($dict as $test) {
-            similar_text($password, $test, $percent);
+            similar_text(Horde_String::lower($password), Horde_String::lower($test), $percent);
             if ($percent > $max) {
                 throw new Horde_Auth_Exception(Horde_Auth_Translation::t("The password is too simple to guess."));
             }

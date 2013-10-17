@@ -2,6 +2,9 @@
 v5.1.5-git
 ----------
 
+[mms] Add additional syntax checking for the configuration files in the test
+      script.
+[mms] Only update topbar if the underlying tree data has changed.
 
 
 ------

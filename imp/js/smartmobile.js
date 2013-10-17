@@ -1638,7 +1638,7 @@ var IMP_JS = {
     iframeResize: function(id)
     {
         id = $(id);
-        id.height('100%').height(id.contents().height() + 25);
+        id.height(id.contents().height());
     },
 
     /**

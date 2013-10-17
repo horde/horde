@@ -79,7 +79,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Connection to the IMAP server.
      *
-     * @var Horde_Imap_Client_Base_Connection
+     * @var Horde\Socket\Client
      */
     protected $_connection = null;
 

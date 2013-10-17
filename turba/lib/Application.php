@@ -426,7 +426,6 @@ class Turba_Application extends Horde_Registry_Application
     /* Download data. */
 
     /**
-     * @throws Horde_Vfs_Exception
      * @throws Turba_Exception
      * @throws Horde_Exception_NotFound
      */
@@ -448,7 +447,12 @@ class Turba_Application extends Horde_Registry_Application
                 throw new Turba_Exception(_("You do not have permission to view this contact."));
             }
 
-            $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+            try {
+                $vfs = $object->vfsInit();
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Turba_Exception(_("Data cannot be downloaded as no VFS driver is configured."));
+            }
+
             try {
                 return array(
                     'data' => $vfs->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $vars->file),
@@ -461,7 +465,7 @@ class Turba_Application extends Horde_Registry_Application
 
         case 'export':
             $sources = array();
-            if ($vars->selected) {
+            if ($vars->objectkeys) {
                 foreach ($vars->objectkeys as $objectkey) {
                     list($source, $key) = explode(':', $objectkey, 2);
                     if (!isset($sources[$source])) {

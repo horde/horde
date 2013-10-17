@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-03</date>
+ <date>2013-10-09</date>
  <version>
   <release>5.1.5</release>
   <api>5.0.0</api>
@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mms] Add additional syntax checking for the configuration files in the test script.
+* [mms] Only update topbar if the underlying tree data has changed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1502,6 +1503,7 @@
       <file name="organizing.png" role="horde" />
       <file name="perms.png" role="horde" />
       <file name="phone.png" role="horde" />
+      <file name="php.png" role="horde" />
       <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="popdown.png" role="horde" />
@@ -1629,7 +1631,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.7.0</min>
+    <min>2.10.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2397,6 +2399,7 @@
    <install as="themes/default/graphics/organizing.png" name="themes/default/graphics/organizing.png" />
    <install as="themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="themes/default/graphics/phone.png" name="themes/default/graphics/phone.png" />
+   <install as="themes/default/graphics/php.png" name="themes/default/graphics/php.png" />
    <install as="themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
@@ -3763,10 +3766,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-03</date>
+   <date>2013-10-09</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mms] Add additional syntax checking for the configuration files in the test script.
+* [mms] Only update topbar if the underlying tree data has changed.
    </notes>
   </release>
  </changelog>

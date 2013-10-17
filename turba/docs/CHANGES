@@ -2,6 +2,10 @@
 v4.1.3-git
 ----------
 
+[jan] Fix exporting selected contacts (Bug #12759).
+[mms] Improved UI when viewing search results from Advanced Search.
+[mms] Remove features from UI when VFS is not available or disabled.
+[mjr] Fix filtering Facebook driver results (Bug #12739).
 [jan] Gracefully deal with columns removed from the backend.
 
 

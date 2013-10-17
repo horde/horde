@@ -107,7 +107,7 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
             throw new Horde_Imap_Client_Data_Format_Exception('String requires literal to output.');
         }
 
-        $this->_data->rewind();
+        rewind($this->_data->stream);
 
         $stream = new Horde_Stream_Temp();
         $stream->add($this->_data, true);

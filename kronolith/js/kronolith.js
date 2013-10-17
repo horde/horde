@@ -6228,6 +6228,24 @@ KronolithCore = {
     },
 
     /**
+     * Updates the start time in the event form after changing the end time.
+     */
+    updateStartTime: function(date) {
+        var start = this.getDate('start'), end = this.getDate('end');
+        if (!start) {
+            return;
+        }
+        if (!date) {
+            date = end;
+        }
+        if (start.isAfter(end)) {
+            $('kronolithEventStartDate').setValue(date.toString(Kronolith.conf.date_format));
+            $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
+        }
+        this.duration = Math.abs(date.getTime() - start.getTime()) / 60000;
+    },
+
+    /**
      * Updates the end time in the event form after changing the start time.
      */
     updateEndTime: function() {
@@ -6258,14 +6276,7 @@ KronolithCore = {
             this.updateEndTime();
             break;
         case 'kronolithEventEndDate':
-            var start = this.getDate('start'), end = this.getDate('end');
-            if (start) {
-                if (start.isAfter(end)) {
-                    $('kronolithEventStartDate').setValue(date.toString(Kronolith.conf.date_format));
-                    $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
-                }
-                this.duration = Math.abs(date.getTime() - start.getTime()) / 60000;
-            }
+            this.updateStartTime(date);
             break;
         }
     },
@@ -6330,14 +6341,7 @@ KronolithCore = {
             break;
         case 'kronolithEventEndDate':
         case 'kronolithEventEndTime':
-            var start = this.getDate('start'), end = this.getDate('end');
-            if (start) {
-                if (start.isAfter(end)) {
-                    $('kronolithEventStartDate').setValue(end.toString(Kronolith.conf.date_format));
-                    $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
-                }
-                this.duration = Math.abs(end.getTime() - start.getTime()) / 60000;
-            }
+            this.updateStartTime();
             break;
         }
     },
@@ -6575,6 +6579,7 @@ KronolithCore = {
             field.observe('click', function() { dropDown.show(); });
         }, this);
         $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
+        $('kronolithEventEndDate', 'kronolithEventEndTime').invoke('observe', 'change', function() { this.updateStartTime(); }.bind(this));
 
         if (Kronolith.conf.has_tasks) {
             $('kronolithTaskDueDate', 'kronolithTaskDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
@@ -6619,7 +6624,13 @@ KronolithCore = {
         }
 
         /* Start polling. */
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
+        new PeriodicalExecuter(function()
+            {
+                HordeCore.doAction('poll');
+                $(kronolithGotoToday).update(Date.today().toString(Kronolith.conf.date_format));
+            },
+            60
+        );
     }
 
 };

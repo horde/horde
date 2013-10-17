@@ -492,6 +492,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     'class' => $change['class'],
                     'id' => $change['folderuid']);
             }
+            $syncKey = empty($this->_syncKey)
+                ? $this->getLatestSynckeyForCollection($this->_collection['id'])
+                : $this->_syncKey;
 
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
@@ -525,7 +528,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
                 $params = array(
                     $change['id'],
-                    (empty($this->_syncKey) ? 0 : $this->_syncKey),
+                    $syncKey,
                     $this->_deviceInfo->id,
                     $this->_collection['id'],
                     $user,
@@ -541,7 +544,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $params = array(
                    $change['id'],
                    $change['mod'],
-                   empty($this->_syncKey) ? 0 : $this->_syncKey,
+                   $syncKey,
                    $this->_deviceInfo->id,
                    $change['serverid'],
                    $user,
@@ -940,10 +943,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
+                    $mailmap = $this->_getMailMapChanges($changes);
                     foreach ($changes as $change) {
                         switch ($change['type']) {
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                            if ($this->_isPIMChange($change['id'], $change['flags'], $change['type'])) {
+                            if (!empty($mailmap[$change['id']][$change['type']])) {
                                 $this->_logger->info(sprintf(
                                     '[%s] Ignoring PIM initiated flag change for %s',
                                     $this->_procid,
@@ -954,7 +958,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             break;
 
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                            if ($this->_isPIMChange($change['id'], true, $change['type'])) {
+                            if (!empty($mailmap[$change['id']][$change['type']])) {
                                $this->_logger->info(sprintf(
                                     '[%s] Ignoring PIM initiated deletion for %s',
                                     $this->_procid,
@@ -972,25 +976,26 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     break;
 
                 default:
+                    $pim_timestamps = $this->_getPIMChangeTS($changes);
                     foreach ($changes as $change) {
-                        $pim_ts = $this->_getPIMChangeTS($change['id'], $change['type']);
-                        if ($pim_ts && $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        if (empty($pim_timestamps[$change['id']])) {
+                            $this->_changes[] = $change;
+                            continue;
+                        }
+                        if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             // If we have a delete, don't bother stating the message,
-                            // If we have a delete entry in the map table, the
-                            // entry should already be deleted on the client, we
-                            // should never, ever need to send a REMOVE to the client
-                            // if we have a delete entry in the map table.
+                            // the entry should already be deleted on the client.
                             $stat['mod'] = 0;
                         } else {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
                         }
-                        if ($pim_ts && $pim_ts >= $stat['mod']) {
+                        if ($pim_timestamps[$change['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $pim_ts, $stat['mod']));
+                                $change['id'], $pim_timestamps[$change['id']], $stat['mod']));
                         } else {
                             $this->_changes[] = $change;
                         }
@@ -1316,6 +1321,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Return the most recent synckey for the specified collection.
+     *
+     * @param  string $collection_id  The activesync collection id.
+     *
+     * @return string|integer  The synckey or 0 if not found.
+     * @since 2.9.0
+     */
+    public function getLatestSynckeyForCollection($collection_id)
+    {
+        // For now, pull in the raw cache_data. Will change when each bit of
+        // data gets it's own field.
+        $data = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
+
+        return !empty($data['collections'][$collection_id]['lastsynckey'])
+            ? $data['collections'][$collection_id]['lastsynckey']
+            : 0;
+    }
+
+    /**
      * Save the provided sync_cache.
      *
      * @param array $cache   The cache to save.
@@ -1434,38 +1458,40 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get a timestamp from the map table for the last PIM-initiated change for
-     * the provided uid. Used to avoid mirroring back changes to the PIM that it
-     * sent to the server.
+     * Return an array of timestamps from the map table for the last
+     * PIM-initiated change for the provided uid. Used to avoid mirroring back
+     * changes to the PIM that it sent to the server.
      *
-     * @param string $uid  The uid of the entry to check.
+     * @param array $changes  The changes array, containing 'id' and 'type'.
      *
-     * @return integer|null The timestamp of the last PIM-initiated change for
-     *                      the specified uid, or null if none found.
+     * @return array  An array of UID -> timestamp of the last PIM-initiated
+     *                change for the specified uid, or null if none found.
      */
-    protected function _getPIMChangeTS($uid, $type)
+    protected function _getPIMChangeTS($changes)
     {
-        $sql = 'SELECT MAX(sync_modtime) FROM ' . $this->_syncMapTable
-            . ' WHERE message_uid = ? AND sync_devid = ? AND sync_user = ?';
-
-        if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
-            $sql .= ' AND sync_deleted = ?';
-        }
-
-        $sql .= ' AND sync_key IN (?, ?) GROUP BY message_uid';
+        $sql = 'SELECT message_uid, MAX(sync_modtime) FROM ' . $this->_syncMapTable
+            . ' WHERE sync_devid = ? AND sync_user = ? AND sync_key IN (?, ?) ';
 
         // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
-        $values = array($uid, $this->_deviceInfo->id, $this->_deviceInfo->user);
-        if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
-            $values[] = true;
-        }
+        $values = array($this->_deviceInfo->id, $this->_deviceInfo->user);
         foreach (array($uuid . $cnt, $uuid . ($cnt - 1)) as $v) {
             $values[] = $v;
         }
+
+        $conditions = array();
+        foreach ($changes as $change) {
+            $d = $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE;
+            $conditions[] = '(message_uid = ?' . ($d ? ' AND sync_deleted = ?) ' : ') ');
+            $values[] = $change['id'];
+            if ($d) {
+                $values[] = $d;
+            }
+        }
+        $sql .= 'AND (' . explode('OR ', $conditions) . ') GROUP BY message_uid';
         try {
-            return $this->_db->selectValue($sql, $values);
+            return $this->_db->selectAssoc($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1501,67 +1527,59 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Determines if a specific email change originated from the client. Used to
-     * avoid mirroring back client initiated changes.
+     * Return all available mailMap changes for the current folder.
      *
-     * @param string $id     The object id.
-     * @param array  $flags  An array of item flags.
-     * @param string $type   The type of change;
-     *                       A Horde_ActiveSync::CHANGE_TYPE_* constant.
+     * @param  array  $changes  The chagnes array
      *
-     * @return boolean  True if changes is due to an incoming client change.
+     * @return array  An array of hashes, each in the form of
+     *   {uid} => array(
+     *     Horde_ActiveSync::CHANGE_TYPE_FLAGS => true|false,
+     *     Horde_ActiveSync::CHANGE_TYPE_DELETE => true|false
+     *   )
      */
-    protected function _isPIMChange($id, $flags, $type)
+    protected function _getMailMapChanges(array $changes)
     {
-        $this->_logger->info(sprintf(
-            '_isPIMChange: %s, %s, %s',
-            $id, print_r($flags, true), $type));
-        if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
-            if ($this->_isPIMChangeQuery($id, $flags['read'], 'sync_read')) {
-                return true;
-            }
-            if ($this->_isPIMChangeQuery($id, $flags['flagged'], 'sync_flagged')) {
-                return true;
-            }
+        $sql = 'SELECT message_uid, sync_read, sync_flagged, sync_deleted FROM '
+            . $this->_syncMailMapTable
+            . ' WHERE sync_folderid = ? AND sync_devid = ?'
+            . ' AND sync_user = ? AND message_uid IN '
+            . '(' . implode(',', array_fill(0, count($changes), '?')) . ')';
 
-            return false;
-        } else {
-            return $this->_isPIMChangeQuery($id, true, 'sync_deleted');
+        $ids = array();
+        foreach ($changes as $change) {
+            $ids[] = $change['id'];
         }
-    }
 
-    /**
-     * Perform the change query.
-     *
-     * @param string $id     The object id
-     * @param array  $flag   The flag value.
-     * @param string $field  The field containing the change type.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _isPIMChangeQuery($id, $flag, $field)
-    {
-        $sql = 'SELECT ' . $field . ' FROM ' . $this->_syncMailMapTable
-            . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?'
-            . ' AND sync_user = ?';
+        $values = array_merge(
+            array($this->_collection['id'],
+                  $this->_deviceInfo->id,
+                  $this->_deviceInfo->user),
+            $ids);
 
         try {
-            $mflag = $this->_db->selectValue(
-                $sql,
-                array(
-                    $this->_collection['id'],
-                    $this->_deviceInfo->id, $id,
-                    $this->_deviceInfo->user));
+            $rows = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-
-        if (is_null($mflag) || $mflag === false) {
-            return false;
+        $results = array();
+        foreach ($rows as $row) {
+            foreach ($changes as $change) {
+                if ($change['id'] == $row['message_uid']) {
+                    if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                        $results[$row['message_uid']][$change['type']] =
+                            (!is_null($row['sync_read']) && $row['sync_read'] == $change['flags']['read']) ||
+                            (!is_null($row['sync_flagged'] && $row['sync_flagged'] == $change['flags']['flagged']));
+                        continue 2;
+                    } elseif ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        $results[$row['message_uid']][$change['type']] =
+                            !is_null($row['sync_deleted']) && $row['sync_deleted'] == $change['flags']['deleted'];
+                        continue 2;
+                    }
+                }
+            }
         }
 
-        return $mflag == $flag;
+        return $results;
     }
 
     /**
@@ -1681,7 +1699,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $this->_db->delete($state_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
             $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
-            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
+            $this->_db->delete($mailmap_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

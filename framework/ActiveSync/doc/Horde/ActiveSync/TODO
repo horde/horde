@@ -15,9 +15,6 @@ TODO
 
 - Email categories - possible to map to custom IMAP Flags?
 
-- Use streams for html and plain text bodies in Horde_ActiveSync_Imap_Message,
-  not just for attachment data.
-
 BC BREAKING (i.e., Horde 6).
 ============================
 

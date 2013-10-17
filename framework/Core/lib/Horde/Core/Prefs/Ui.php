@@ -535,7 +535,7 @@ class Horde_Core_Prefs_Ui
 
                 case 'link':
                     if (isset($this->prefs[$pref]['img'])) {
-                        $t->set('img', Horde::img($this->prefs[$pref]['img'], $this->prefs[$pref]['desc'], array('class' => 'prefsLinkImg')));
+                        $t->set('img', Horde_Themes_Image::tag($this->prefs[$pref]['img'], array('alt' => $this->prefs[$pref]['desc'], 'attr' => array('class' => 'prefsLinkImg'))));
                     }
                     $t->set('url', isset($this->prefs[$pref]['url']) ? Horde::url($this->prefs[$pref]['url']) : $this->prefs[$pref]['xurl']);
                     if (isset($this->prefs[$pref]['target'])) {
@@ -706,10 +706,10 @@ class Horde_Core_Prefs_Ui
 
                 $t->set('prev', $prefs_url->copy()->add('group', $previous));
                 $t->set('prevlabel', htmlspecialchars($this->prefGroups[$previous]['label']));
-                $t->set('previcon', Horde::img('nav/left.png'));
+                $t->set('previcon', Horde_Themes_Image::tag('nav/left.png'));
                 $t->set('next', $prefs_url->copy()->add('group', $next));
                 $t->set('nextlabel', htmlspecialchars($this->prefGroups[$next]['label']));
-                $t->set('nexticon', Horde::img('nav/right.png'));
+                $t->set('nexticon', Horde_Themes_Image::tag('nav/right.png'));
             }
 
             echo $t->fetch($h_templates . '/prefs/begin.html');

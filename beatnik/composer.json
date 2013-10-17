@@ -1,0 +1,26 @@
+{
+    "name": "horde/beatnik",
+    "description": "DNS record management for Horde",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ben Klang",
+            "email": "bklang@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2013-06-05",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/horde": ">=5.0.0,<=6.0.0alpha1"
+    }
+}

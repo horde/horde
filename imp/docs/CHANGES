@@ -4,6 +4,8 @@ v6.1.5-git
 
 [mms] SECURITY: Fix XSS in message and search screens resulting from a
       user-defined flag label (João Machado <geral@jpaulo.eu>).
+[mms] Fix populating search fields when editing an advanced search query.
+[mms] Trigger auto save draft in dynamic view if attachments have changed.
 [mms] Improved UI for dropping attachments on dynamic compose screen.
 [mms] Fix manually loading all addresses in a header.
 [mms] Fix regression where reloading dynamic view would not load the previously

@@ -26,12 +26,16 @@ class Horde_Stream implements Serializable
     /**
      * Stream resource.
      *
+     * @deprecated  Will be removed in 2.0.0
+     *
      * @var resource
      */
     public $stream;
 
     /**
-     * Parse character as UTF-8 instead of single byte.
+     * Parse character as UTF-8 data instead of single byte.
+     *
+     * @since 1.4.0
      *
      * @var boolean
      */
@@ -85,7 +89,8 @@ class Horde_Stream implements Serializable
      */
     public function __toString()
     {
-        return $this->getString(0);
+        $this->rewind();
+        return $this->substring();
     }
 
     /**
@@ -111,7 +116,7 @@ class Horde_Stream implements Serializable
         } elseif ($data instanceof Horde_Stream) {
             $dpos = $data->pos();
             while (!$data->eof()) {
-                $this->add($data->getString(null, 65536));
+                $this->add($data->substring(0, 65536));
             }
             $data->seek($dpos, false);
         } else {
@@ -145,7 +150,6 @@ class Horde_Stream implements Serializable
                 ++$len;
             }
         } else {
-
             if (!$this->end()) {
                 throw new Horde_Stream_Exception('ERROR');
             }
@@ -164,7 +168,7 @@ class Horde_Stream implements Serializable
      * Get a string up to a certain character (or EOF).
      *
      * @param string $end  The character to stop reading at. As of 1.4.0,
-     *                     $char can be a multi-character string.
+     *                     $char can be a multi-character UTF-8 string.
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the
@@ -175,7 +179,7 @@ class Horde_Stream implements Serializable
         $res = $this->search($end);
 
         if (is_null($res)) {
-            return $this->getString();
+            return $this->substring();
         }
 
         $len = strlen($end);
@@ -216,7 +220,7 @@ class Horde_Stream implements Serializable
      * Search for character(s) and return its position.
      *
      * @param string $char      The character to search for. As of 1.4.0,
-     *                          $char can be a multi-character string.
+     *                          $char can be a multi-character UTF-8 string.
      * @param boolean $reverse  Do a reverse search?
      * @param boolean $reset    Reset the pointer to the original position?
      *
@@ -269,41 +273,98 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Returns the stream (or a portion of it) as a string.
+     * Returns the stream (or a portion of it) as a string. Position values
+     * are the byte position in the stream.
      *
-     * @param integer $start  The starting position. If null, starts from the
-     *                        current position. If negative, starts this far
-     *                        back from the current position.
-     * @param integer $end    The ending position. If null, reads the entire
-     *                        stream. If negative, sets ending this far from
-     *                        the end of the stream.
+     * @param integer $start  The starting position. If positive, start from
+     *                        this position. If negative, starts this length
+     *                        back from the current position. If null, starts
+     *                        from the current position.
+     * @param integer $end    The ending position relative to the beginning of
+     *                        the stream (if positive). If negative, end this
+     *                        length back from the end of the stream. If null,
+     *                        reads to the end of the stream.
      *
      * @return string  A string.
      */
     public function getString($start = null, $end = null)
     {
-        if (!is_null($start) && ($start < 0)) {
-            $this->seek($start);
-            $start = $this->pos();
+        if (!is_null($start) && ($start >= 0)) {
+            $this->seek($start, false);
+            $start = 0;
         }
 
-        if (!is_null($end)) {
-            $curr = is_null($start)
-                ? $this->pos()
-                : $start;
+        if (is_null($end)) {
+            $len = null;
+        } else {
             $end = ($end >= 0)
-                ? $end - $curr + 1
-                : $this->length() - $curr + $end;
-            if ($end < 0) {
-                $end = 0;
+                ? $end - $this->pos() + 1
+                : $this->length() - $this->pos() + $end;
+            $len = max($end, 0);
+        }
+
+        return $this->substring($start, $len);
+    }
+
+    /**
+     * Return part of the stream as a string.
+     *
+     * @since 1.4.0
+     *
+     * @param integer $start   Start, as an offset from the current postion.
+     * @param integer $length  Length of string to return. If null, returns
+     *                         rest of the stream. If negative, this many
+     *                         characters will be omitted from the end of the
+     *                         stream.
+     * @param boolean $char    If true, $start/$length is the length in
+     *                         characters. If false, $start/$length is the
+     *                         length in bytes.
+     *
+     * @return string  The substring.
+     */
+    public function substring($start = 0, $length = null, $char = false)
+    {
+        if ($start !== 0) {
+            $this->seek($start, true, $char);
+        }
+
+        $out = '';
+        $to_end = is_null($length);
+
+        /* If length is greater than remaining stream, use more efficient
+         * algorithm below. Also, if doing a negative length, deal with that
+         * below also. */
+        if ($char &&
+            $this->utf8_char &&
+            !$to_end &&
+            ($length >= 0) &&
+            ($length < ($this->length() - $this->pos()))) {
+            while ($length-- && (($char = $this->getChar()) !== false)) {
+                $out .= $char;
+            }
+            return $out;
+        }
+
+        if (!$to_end && ($length < 0)) {
+            $pos = $this->pos();
+            $this->end();
+            $this->seek($length, true, $char);
+            $length = $this->pos() - $pos;
+            $this->seek($pos, false);
+            if ($length < 0) {
+                return '';
             }
         }
 
-        return stream_get_contents(
-            $this->stream,
-            is_null($end) ? -1 : $end,
-            is_null($start) ? -1 : $start
-        );
+        while (!feof($this->stream) && ($to_end || $length)) {
+            $read = fread($this->stream, $to_end ? 16384 : $length);
+            $out .= $read;
+            if (!$to_end) {
+                $length -= strlen($read);
+            }
+        }
+
+        return $out;
     }
 
     /**
@@ -404,13 +465,52 @@ class Horde_Stream implements Serializable
      *
      * @since 1.4.0
      *
-     * @param boolean $curr  If true, offset is from current position. If
-     *                       false, offset is from beginning of stream.
+     * @param integer $offset  The offset.
+     * @param boolean $curr    If true, offset is from current position. If
+     *                         false, offset is from beginning of stream.
+     * @param boolean $char    If true, $offset is the length in characters.
+     *                         If false, $offset is the length in bytes.
      *
      * @return boolean  True if successful.
      */
-    public function seek($offset = 0, $curr = true)
+    public function seek($offset = 0, $curr = true, $char = false)
     {
+        if (!$offset) {
+            return (bool)$curr ?: $this->rewind();
+        }
+
+        if ($offset < 0) {
+            if (!$curr) {
+                return true;
+            } elseif (abs($offset) > $this->pos()) {
+                return $this->rewind();
+            }
+        }
+
+        if ($char && $this->utf8_char) {
+            if ($offset > 0) {
+                if (!$curr) {
+                    $this->rewind();
+                }
+
+                do {
+                    $this->getChar();
+                } while (--$offset);
+            } else {
+                $pos = $this->pos();
+                $offset = abs($offset);
+
+                while ($pos-- && $offset) {
+                    fseek($this->stream, -1, SEEK_CUR);
+                    if ((ord($this->peek()) & 0xC0) != 0x80) {
+                        --$offset;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         return (fseek($this->stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0);
     }
 

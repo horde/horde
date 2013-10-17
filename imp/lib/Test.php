@@ -23,9 +23,6 @@
 class IMP_Test extends Horde_Test
 {
     /**
-     * The module list
-     *
-     * @var array
      */
     protected $_moduleList = array(
         'openssl' => array(
@@ -35,9 +32,6 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * PHP settings list.
-     *
-     * @var array
      */
     protected $_settingsList = array(
         'file_uploads'  =>  array(
@@ -47,25 +41,10 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * PEAR modules list.
-     *
-     * @var array
      */
     protected $_pearList = array();
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => 'The file <code>./config/conf.php</code> appears to be missing. You must generate this file as an administrator via Horde.  See horde/docs/INSTALL.',
-    );
-
-    /**
-     * Inter-Horde application dependencies.
-     *
-     * @var array
      */
     protected $_appList = array(
         'ingo' => array(
@@ -83,9 +62,19 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * Any application specific tests that need to be done.
-     *
-     * @return string  HTML output.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_fileList += array(
+            'config/backends.php' => null,
+            'config/mime_drivers.php' => null,
+            'config/prefs.php' => null
+        );
+    }
+
+    /**
      */
     public function appTests()
     {

@@ -13,10 +13,6 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-if ($conf['documents']['type'] == 'none') {
-    throw new Turba_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
-}
-
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
 $filename = Horde_Util::getFormData('file');
@@ -36,7 +32,7 @@ if (!$object->hasPermission(Horde_Perms::READ)) {
 }
 
 try {
-    $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+    $vfs = $object->vfsInit();
 } catch (Horde_Exception $e) {
     throw new Turba_Exception($e);
 }

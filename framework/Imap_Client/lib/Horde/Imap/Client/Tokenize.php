@@ -78,7 +78,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
     {
         switch ($name) {
         case 'eos':
-            return $this->_stream->eof();
+            return feof($this->_stream->stream);
         }
     }
 
@@ -93,9 +93,9 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function __toString()
     {
-        $pos = $this->_stream->pos();
+        $pos = ftell($this->_stream->stream);
         $out = $this->_current . ' ' . $this->_stream->getString();
-        $this->_stream->seek($pos, false);
+        fseek($this->_stream->stream, $pos);
         return $out;
     }
 
@@ -141,8 +141,8 @@ class Horde_Imap_Client_Tokenize implements Iterator
                 $this->next();
             }
         } else {
-            $this->_stream->end();
-            $this->_stream->getChar();
+            fseek($this->_stream->stream, 0, SEEK_END);
+            fgetc($this->_stream->stream);
             $this->_current = $this->_key = $this->_level = false;
         }
 
@@ -159,7 +159,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function getLiteralLength()
     {
-        $this->_stream->end(-1);
+        fseek($this->_stream->stream, -1, SEEK_END);
         if ($this->_stream->peek() == '}') {
             $literal_data = $this->_stream->getString($this->_stream->search('{', true) - 1);
             $literal_len = substr($literal_data, 2, -1);
@@ -211,7 +211,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function rewind()
     {
-        $this->_stream->rewind();
+        fseek($this->_stream->stream, 0);
         $this->_current = false;
         $this->_key = -1;
         $this->_level = 0;
@@ -232,13 +232,14 @@ class Horde_Imap_Client_Tokenize implements Iterator
     protected function _parseStream()
     {
         $in_quote = false;
+        $stream = $this->_stream->stream;
         $text = '';
 
-        while (($c = $this->_stream->getChar()) !== false) {
+        while (($c = fgetc($stream)) !== false) {
             switch ($c) {
             case '\\':
                 $text .= $in_quote
-                    ? $this->_stream->getChar()
+                    ? fgetc($stream)
                     : $c;
                 break;
 
@@ -263,7 +264,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                 case ')':
                     if (strlen($text)) {
-                        $this->_stream->seek(-1);
+                        fseek($stream, -1, SEEK_CUR);
                         break 3;
                     }
                     --$this->_level;
@@ -275,11 +276,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
                     break;
 
                 case '{':
-                    $length = $this->_stream->getToChar('}');
-                    return $this->_stream->getString(
-                        null,
-                        $this->_stream->pos() + $length - 1
-                    );
+                    return stream_get_contents($stream, $this->_stream->getToChar('}'));
 
                 case ' ':
                     if (strlen($text)) {

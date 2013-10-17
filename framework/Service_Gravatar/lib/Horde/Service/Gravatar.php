@@ -52,14 +52,14 @@ class Horde_Service_Gravatar
     /**
      * Constructor.
      *
-     * The default Gravatar base URL is Horde_Service_Gravatar::STANDARD. If you
-     * need URLs in an HTTPS context you should provide the base URL parameter
-     * as Horde_Service_Gravatar::SECURE. In case you wish to access another URL
-     * offering the Gravatar API you can specify the base URL of this service as
-     * $base.
+     * The default Gravatar base URL is Horde_Service_Gravatar::STANDARD. If
+     * you need URLs in an HTTPS context you should provide the base URL
+     * parameter as Horde_Service_Gravatar::SECURE. In case you wish to access
+     * another URL offering the Gravatar API you can specify the base URL of
+     * this service as $base.
      *
-     * @param string            $base   The base Gravatar URL.
-     * @param Horde_Http_Client $client The HTTP client to access the server.
+     * @param string            $base    The base Gravatar URL.
+     * @param Horde_Http_Client $client  The HTTP client to access the server.
      */
     public function __construct(
         $base = self::STANDARD,
@@ -76,11 +76,9 @@ class Horde_Service_Gravatar
     /**
      * Return the Gravatar ID for the specified mail address.
      *
-     * @param string $mail The mail address.
+     * @param string $mail  The mail address.
      *
-     * @return string The Gravatar ID.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return string  The Gravatar ID.
      */
     public function getId($mail)
     {
@@ -92,33 +90,54 @@ class Horde_Service_Gravatar
 
     /**
      * Return the Gravatar image URL for the specified mail address. The
-     * returned URL can be directly used with an <img/> tag e.g. <img
-     * src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
+     * returned URL can be directly used with an IMG tag e.g.:
+     * &lt;img src="http://www.gravatar.com/avatar/hash" /&gt;
      *
-     * @param string $mail   The mail address.
-     * @param integer $size  An optinoal size parameter. Valid values are
-     *                       between 1 and 512.
+     * @param string $mail  The mail address.
+     * @param mixed $opts   Additional options. If an integer, treated as the
+     *                      'size' option.  If an array, the following options
+     *                      are available:
+     * <pre>
+     *   - default: (string) Default behavior. Valid values are '404', 'mm',
+     *              'identicon', 'monsterid', 'wavatar', 'retro', 'blank', or
+     *              a URL-encoded URL to use as the default image.
+     *   - rating: (string) Rating. Valid values are 'g', 'pg', 'r', and 'x'.
+     *   - size: (integer) Image size. Valid values are between 1 and 512.
+     * </pre>
      *
-     * @return string The image URL.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return Horde_Url  The image URL.
      */
-    public function getAvatarUrl($mail, $size = null)
+    public function getAvatarUrl($mail, $opts = array())
     {
-        if (!empty($size) && ($size < 1 || $size > 512)) {
+        if (is_integer($opts)) {
+            $opts = array('size' => $opts);
+        }
+
+        if (!empty($opts['size']) &&
+            (($opts['size'] < 1) || ($opts['size'] > 512))) {
             throw InvalidArgumentException('The size parameter is out of bounds');
         }
-        return $this->_base . '/avatar/' . $this->getId($mail) . (!empty($size) ? '?s=' . $size : '');
+
+        $url = new Horde_Url($this->_base . '/avatar/' . $this->getId($mail));
+        if (!empty($opts['default'])) {
+            $url->add('d', $opts['default']);
+        }
+        if (!empty($opts['rating'])) {
+            $url->add('r', $opts['rating']);
+        }
+        if (!empty($opts['size'])) {
+            $url->add('s', $opts['size']);
+        }
+
+        return $url;
     }
 
     /**
      * Return the Gravatar profile URL.
      *
-     * @param string $mail The mail address.
+     * @param string $mail  The mail address.
      *
-     * @return string The profile URL.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return string  The profile URL.
      */
     public function getProfileUrl($mail)
     {
@@ -128,11 +147,9 @@ class Horde_Service_Gravatar
     /**
      * Fetch the Gravatar profile information.
      *
-     * @param string $mail The mail address.
+     * @param string $mail  The mail address.
      *
-     * @return string The profile information.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return string  The profile information.
      */
     public function fetchProfile($mail)
     {
@@ -143,11 +160,9 @@ class Horde_Service_Gravatar
     /**
      * Return the Gravatar profile information as an array.
      *
-     * @param string $mail The mail address.
+     * @param string $mail  The mail address.
      *
-     * @return array The profile information.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return array  The profile information.
      */
     public function getProfile($mail)
     {
@@ -157,16 +172,18 @@ class Horde_Service_Gravatar
     /**
      * Fetch the avatar image.
      *
-     * @param string $mail   The mail address.
-     * @param integer $size  An optional size parameter.
+     * @param string $mail  The mail address.
+     * @param mixed $opts   Additional options. See getAvatarUrl().
      *
-     * @return resource The image as stream resource.
-     *
-     * @throws InvalidArgumentException In case the mail address is no string.
+     * @return resource  The image as stream resource, or null if the server
+     *                   returned an error.
      */
-    public function fetchAvatar($mail, $size = null)
+    public function fetchAvatar($mail, $opts = array())
     {
-        return $this->_client->get($this->getAvatarUrl($mail, $size))->getStream();
+        $get = $this->_client->get($this->getAvatarUrl($mail, $opts));
+        return ($get->code == 404)
+            ? null
+            : $get->getStream();
     }
 
 }

@@ -216,25 +216,25 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             }
 
             /* Reset. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Reset"), '', '', 'showImage(\'' . $img . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/refresh.png', Horde_Core_Translation::t("Reset")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Reset"), '', '', 'showImage(\'' . $img . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/refresh.png', array('alt' => Horde_Core_Translation::t("Reset"))) . '</a>';
 
             /* Rotate 270. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate Left"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-270.png', Horde_Core_Translation::t("Rotate Left")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate Left"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/rotate-270.png', array('alt' => Horde_Core_Translation::t("Rotate Left"))) . '</a>';
 
             /* Rotate 180. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate 180"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-180.png', Horde_Core_Translation::t("Rotate 180")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate 180"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/rotate-180.png', array('alt' => Horde_Core_Translation::t("Rotate 180"))) . '</a>';
 
             /* Rotate 90. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate Right"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-90.png', Horde_Core_Translation::t("Rotate Right")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Rotate Right"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/rotate-90.png', array('alt' => Horde_Core_Translation::t("Rotate Right"))) . '</a>';
 
             /* Flip image. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Flip"), '', '', 'showImage(\'' . $img->copy()->add('a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/flip.png', Horde_Core_Translation::t("Flip")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Flip"), '', '', 'showImage(\'' . $img->copy()->add('a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/flip.png', array('alt' => Horde_Core_Translation::t("Flip"))) . '</a>';
 
             /* Mirror image. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Mirror"), '', '', 'showImage(\'' . $img->copy()->add('a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/mirror.png', Horde_Core_Translation::t("Mirror")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Mirror"), '', '', 'showImage(\'' . $img->copy()->add('a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/mirror.png', array('alt' => Horde_Core_Translation::t("Mirror"))) . '</a>';
 
             /* Apply grayscale. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Grayscale"), '', '', 'showImage(\'' . $img->copy()->add('a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/grayscale.png', Horde_Core_Translation::t("Grayscale")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Grayscale"), '', '', 'showImage(\'' . $img->copy()->add('a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('image/grayscale.png', array('alt' => Horde_Core_Translation::t("Grayscale"))) . '</a>';
 
             /* Resize width. */
             $html .= sprintf('%s<input type="text" size="4" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
@@ -253,7 +253,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                    $this->_genID('_h_' . $varname));
 
             /* Apply fixed ratio resize. */
-            $html .= Horde::link('#', Horde_Core_Translation::t("Fix ratio"), '', '', 'src=getResizeSrc(\'' . $img->copy()->add('a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', Horde_Core_Translation::t("Fix ratio")) . '</a>';
+            $html .= Horde::link('#', Horde_Core_Translation::t("Fix ratio"), '', '', 'src=getResizeSrc(\'' . $img->copy()->add('a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde_Themes_Image::tag('ratio.png', array('alt' => Horde_Core_Translation::t("Fix ratio"))) . '</a>';
 
             /* Keep also original if it has been requested. */
             if ($var->type->getProperty('show_keeporig')) {
@@ -313,7 +313,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                     'Horde_Html_Helper.iconlist' => $icon_list
                 ));
 
-                $html .= Horde::link('#', Horde_Core_Translation::t("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;') . Horde::img('emoticons/smile.png', Horde_Core_Translation::t("Emoticons"), 'id="' . $imgId . '"') . '</a>';
+                $html .= Horde::link('#', Horde_Core_Translation::t("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;') . Horde_Themes_Image::tag('emoticons/smile.png', array('alt' => Horde_Core_Translation::t("Emoticons"), 'attr' => array('id' => $imgId))) . '</a>';
             }
             $html .= '</td></tr><tr><td><div ' . $this->_genID('htmlhelper_' . $var->getVarName()) . ' class="control"></div></td></tr></table>' . "\n";
         }
@@ -528,7 +528,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Core_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', Horde_Core_Translation::t("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', Horde_Core_Translation::t("Calendar"), 'id="' . $imgId . '"') . "</a>\n";
+            $html .= Horde::link('#', Horde_Core_Translation::t("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde_Themes_Image::tag('calendar.png', array('alt' => Horde_Core_Translation::t("Calendar"), 'attr' => array('id' => $imgId))) . "</a>\n";
         }
 
         return $html;
@@ -576,7 +576,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $html .= ' '
                 . Horde::link('#', Horde_Core_Translation::t("Color Picker"), '', '',
                               'new ColorPicker({ color: \'' . htmlspecialchars($color) . '\', offsetParent: Event.element(event), update: [[\'' . $varname . '\', \'value\'], [\'' . $varname . '\', \'background\']] }); return false;')
-                . Horde::img('colorpicker.png', Horde_Core_Translation::t("Color Picker"), 'height="16"') . '</a>';
+                . Horde_Themes_Image::tag('colorpicker.png', array('alt' => Horde_Core_Translation::t("Color Picker"), 'attr' => array('height' => 16))) . '</a>';
         }
         return $html;
     }
@@ -601,8 +601,8 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             '[list]" onchange="' . $instance . '.deselectHeader();" ' .
             $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
-            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
-            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>';
+            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde_Themes_Image::tag('nav/up.png', array('alt' => Horde_Core_Translation::t("Move up"))) . '</a><br />' .
+            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde_Themes_Image::tag('nav/down.png', array('alt' => Horde_Core_Translation::t("Move down"))) . '</a></div>';
     }
 
     protected function _renderVarInput_assign($form, &$var, &$vars)
@@ -624,10 +624,10 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $var->type->getOptions(0, $form->getName(), $var->getVarName()) .
             '</select></td><td>' .
             '<a href="#" onclick="Horde_Form_Assign.move(\'' . $form->getName() . '\', \'' . $var->getVarName() . '\', 0); return false;">' .
-            Horde::img('rhand.png', Horde_Core_Translation::t("Add")) .
+            Horde_Themes_Image::tag('rhand.png', array('alt' => Horde_Core_Translation::t("Add"))) .
             '</a><br /><a href="#" onclick="Horde_Form_Assign.move(\'' .
             $form->getName() . '\', \'' . $var->getVarName() . '\', 1); return false;">' .
-            Horde::img('lhand.png', Horde_Core_Translation::t("Remove")) .
+            Horde_Themes_Image::tag('lhand.png', array('alt' => Horde_Core_Translation::t("Remove"))) .
             '</a></td><td>' .
             sprintf('<select name="%s__right" multiple="multiple" size="%d" style="width:%s"%s>',
                     $name, $size, $width,
@@ -942,7 +942,7 @@ function obrowserCallback(name, oid)
         }
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $html .= Horde::link($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', Horde_Core_Translation::t("Select an object"), '', '_blank', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', array('urlencode' => true)) . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', Horde_Core_Translation::t("Object")) . "</a>\n";
+            $html .= Horde::link($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', Horde_Core_Translation::t("Select an object"), '', '_blank', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', array('urlencode' => true)) . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde_Themes_Image::tag('tree/leaf.png', array('alt' => Horde_Core_Translation::t("Object"))) . "</a>\n";
         }
 
         return $html;
@@ -1153,7 +1153,7 @@ function obrowserCallback(name, oid)
             $img->add('f', $image['img']['file']);
         }
 
-        return Horde::img((string)$img, '', '', '');
+        return Horde_Themes_Image::tag((string)$img);
     }
 
     protected function _renderVarDisplay_phone($form, &$var, &$vars)
@@ -1166,7 +1166,7 @@ function obrowserCallback(name, oid)
         if ($number && $registry->hasMethod('telephony/dial')) {
             $url = $registry->call('telephony/dial', array($number));
             $label = sprintf(Horde_Core_Translation::t("Dial %s"), $number);
-            $html .= ' ' . Horde::link($url, $label) . Horde::img('phone.png', $label) . '</a>';
+            $html .= ' ' . Horde::link($url, $label) . Horde_Themes_Image::tag('phone.png', array('alt' => $label)) . '</a>';
         }
 
         return $html;
@@ -1181,7 +1181,7 @@ function obrowserCallback(name, oid)
         $number = $var->getValue($vars);
         if ($number && $registry->hasMethod('sms/compose')) {
             $url = $registry->link('sms/compose', array('to' => $number));
-            $html .= ' ' . Horde::link($url, Horde_Core_Translation::t("Send SMS")) . Horde::img('mobile.png', Horde_Core_Translation::t("Send SMS")) . '</a>';
+            $html .= ' ' . Horde::link($url, Horde_Core_Translation::t("Send SMS")) . Horde_Themes_Image::tag('mobile.png', array('alt' => Horde_Core_Translation::t("Send SMS"))) . '</a>';
         }
 
         return $html;
@@ -1300,15 +1300,15 @@ function obrowserCallback(name, oid)
 
         $html = $text ? nl2br(htmlspecialchars($address)) : '';
         if (!empty($mapurl)) {
-            $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc) . '</a>';
+            $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde_Themes_Image::tag($icon, array('alt' => $desc)) . '</a>';
         }
         if (!empty($mapurl2)) {
-            $html .= '&nbsp;' . Horde::link(Horde::externalUrl($mapurl2), $desc2, null, '_blank') . Horde::img($icon2, $desc2) . '</a>';
+            $html .= '&nbsp;' . Horde::link(Horde::externalUrl($mapurl2), $desc2, null, '_blank') . Horde_Themes_Image::tag($icon2, array('alt' => $desc2)) . '</a>';
         }
 
         /* Google generated map. */
         if ($address) {
-            $html .= '&nbsp;' . Horde::link(Horde::externalUrl('http://maps.google.com/maps?q=' . urlencode(preg_replace('/\r?\n/', ',', $address)) . '&hl=en'), Horde_Core_Translation::t("Google Maps"), null, '_blank') . Horde::img($google_icon, Horde_Core_Translation::t("Google Maps")) . '</a>';
+            $html .= '&nbsp;' . Horde::link(Horde::externalUrl('http://maps.google.com/maps?q=' . urlencode(preg_replace('/\r?\n/', ',', $address)) . '&hl=en'), Horde_Core_Translation::t("Google Maps"), null, '_blank') . Horde_Themes_Image::tag($google_icon, array('alt' => Horde_Core_Translation::t("Google Maps"))) . '</a>';
         }
 
         return $html;

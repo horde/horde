@@ -134,7 +134,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_provisioning = $as->provisioning;
 
         // Get the state object
-        $this->_state = &$as->state;
+        $this->_state = $as->state;
 
         // Device info
         $this->_device = $as->device;
@@ -201,10 +201,6 @@ abstract class Horde_ActiveSync_Request_Base
                 // devices report EAS 14.1 but don't accept the WBXML.
                 $this->_activeSync->provisioningRequired();
                 if ($this->_device->version > Horde_ActiveSync::VERSION_TWELVEONE) {
-                    // Read the input stream and discard.
-                    while (!feof($this->_decoder->getStream())) {
-                        fread($this->_decoder->getStream(), 8192);
-                    }
                     if (empty($sentKey)) {
                         $status = Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED;
                     } else {
