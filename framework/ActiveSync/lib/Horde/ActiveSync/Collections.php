@@ -749,8 +749,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $csk = $this->_cache->confirmed_synckeys;
         if ($csk) {
             $this->_logger->info(sprintf(
-                'Confirmed Synckeys contains %s',
-                print_r($csk, true))
+                '[%s] Confirmed Synckeys contains %s',
+                $this->_procid,
+                serialize($csk))
             );
             $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
             $this->save();

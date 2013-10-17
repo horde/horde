@@ -323,17 +323,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_logger->info(
             sprintf('[%s] Saving state: %s',
                 $this->_procid,
-                print_r(
-                    array(
-                        $params[0],
-                        $params[1],
-                        $params[2],
-                        $params[3],
-                        $params[4],
-                        $params[5],
-                        count($this->_changes),
-                        time()),
-                    true)
+                serialize(array(
+                    $params[0],
+                    $params[1],
+                    $params[2],
+                    $params[3],
+                    $params[4],
+                    $params[5],
+                    count($this->_changes),
+                    time()))
                 )
             );
         try {

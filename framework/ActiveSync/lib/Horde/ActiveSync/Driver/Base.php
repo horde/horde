@@ -77,6 +77,12 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_state;
 
+    /**
+     * Temporary serverid to uid map. Used when creating the hierarchy
+     * for the first time
+     *
+     * @var array
+     */
     protected $_tempMap = array();
 
     /**

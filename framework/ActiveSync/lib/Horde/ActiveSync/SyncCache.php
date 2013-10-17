@@ -83,6 +83,13 @@ class Horde_ActiveSync_SyncCache
     protected $_dirty = array();
 
     /**
+     * Process id for logging.
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Constructor
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver
@@ -102,6 +109,7 @@ class Horde_ActiveSync_SyncCache
         $this->_user = $user;
         $this->_logger = $logger;
         $this->loadCacheFromStorage();
+        $this->_procid = getmypid();
     }
 
     public function __get($property)
@@ -239,7 +247,9 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollections()
     {
-        $this->_logger->info('Clearing collections data from cache.');
+        $this->_logger->info(sprintf(
+            '[%s] Clearing collections data from cache.',
+            $this->_procid));
         $this->_data['collections'] = array();
         $this->_dirty['collections'] = true;
     }
@@ -363,7 +373,8 @@ class Horde_ActiveSync_SyncCache
             $this->_markCollectionsDirty($id);
         }
         $this->_logger->info(sprintf(
-            '[%s] SyncCache collections refreshed.', getmypid()));
+            '[%s] SyncCache collections refreshed.',
+            $this->_procid));
     }
 
     /**
@@ -423,8 +434,8 @@ class Horde_ActiveSync_SyncCache
     {
         if (!$purge) {
             $this->_logger->info(sprintf(
-                'Removing collection %s from SyncCache.',
-                $id)
+                '[%s] Removing collection %s from SyncCache.',
+                $this->_procid, $id)
             );
             unset($this->_data['collections'][$id]);
             $this->_dirty['collections'] = true;
@@ -452,7 +463,10 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollectionKeys()
     {
-        $this->_logger->info('Clearing all collection synckeys from the cache.');
+        $this->_logger->info(sprintf(
+            '[%s] Clearing all collection synckeys from the cache.',
+            $this->_procid)
+        );
         foreach ($this->_data['collections'] as $id => &$c) {
             unset($c['synckey']);
         }
@@ -565,8 +579,9 @@ class Horde_ActiveSync_SyncCache
             }
         } else {
             $this->_logger->info(sprintf(
-                'Collection without id found: %s',
-                print_r($collection, true))
+                '[%s] Collection without id found: %s',
+                $this->_procid,
+                serialize($collection))
             );
         }
     }
