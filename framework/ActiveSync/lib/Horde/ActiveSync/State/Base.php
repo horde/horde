@@ -128,6 +128,13 @@ abstract class Horde_ActiveSync_State_Base
     protected $_type;
 
     /**
+     * A map of backend folderids to UIDs
+     *
+     * @var array
+     */
+    protected $_folderUidMap;
+
+    /**
      * Const'r
      *
      * @param array $params  All configuration parameters.
@@ -304,6 +311,28 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Return the mapping of folder uids to backend folderids.
+     *
+     * @return array  An array of backend folderids -> uids.
+     * @since 2.9.0
+     */
+    public function getFolderUidToBackendIdMap()
+    {
+        if (!isset($this->_folderUidMap)) {
+            $this->_folderUidMap = array();
+            $cache = $this->getSyncCache(
+                $this->_deviceInfo->id,
+                $this->_deviceInfo->user,
+                array('folders'));
+            foreach ($cache['folders'] as $id => $folder) {
+                $this->_folderUidMap[$folder['serverid']] = $id;
+            }
+        }
+
+        return $this->_folderUidMap;
+    }
+
+    /**
      * Get a EAS Folder Uid for the given backend server id.
      *
      * @param string $serverid  The backend server id. E.g., 'INBOX'.
@@ -311,10 +340,14 @@ abstract class Horde_ActiveSync_State_Base
      * @return string|boolean  The EAS UID for the requested serverid, or false
      *                         if it is not found.
      * @since 2.4.0
+     * @deprecated  Use self::getFolderUidToBackendIdMap() instead.
      */
     public function getFolderUidForBackendId($serverid)
     {
-        $cache = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
+        $cache = $this->getSyncCache(
+            $this->_deviceInfo->id,
+            $this->_deviceInfo->user);
+
         $folders = $cache['folders'];
         foreach ($folders as $id => $folder) {
             if ($folder['serverid'] == $serverid) {
