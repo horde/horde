@@ -166,7 +166,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $results = $this->_db->selectValues($sql,
                 array($this->_deviceInfo->id, $this->_devInfo->user, $uid));
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
         $update = 'UPDATE ' . $this->_syncStateTable . ' SET sync_data = ? WHERE '
@@ -179,7 +183,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_db->update($update,
                     array($folder, $this->_deviceInfo->id, $this->_devInfo->user, $uid));
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
+                $this->_logger->err(sprintf(
+                    '[%s] %s',
+                    $this->_procid,
+                    $e->getMessage())
+                );
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
@@ -200,7 +208,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_mod, sync_pending FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -238,7 +250,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $columns = $this->_db->columns($this->_syncStateTable);
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
         $data = unserialize($columns['sync_data']->binaryToString($results['sync_data']));
@@ -858,14 +874,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $state_values[] = $options['id'];
 
                 $this->_logger->info(sprintf(
-                    '[%s] Removing device state for user %s and collection %s.',
+                    '[%s] Removing device %s state for user %s and collection %s.',
+                    $this->_procid,
                     $options['devId'],
                     $options['user'],
                     $options['id'])
                 );
             } else {
                 $this->_logger->info(sprintf(
-                    '[%s] Removing device state for user %s.',
+                    '[%s] Removing device %s state for user %s.',
+                    $this->_procid,
                     $options['devId'],
                     $options['user'])
                 );
@@ -881,7 +899,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $state_values = $values = array($options['devId']);
             $this->_logger->info(sprintf(
                 '[%s] Removing all device state for device %s.',
-                $options['devId'],
+                $this->_procid,
                 $options['devId'])
             );
             $this->deleteSyncCache($options['devId']);
@@ -1021,7 +1039,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $have = $this->_db->selectValue($sql, array($devid, $user));
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
         $cache = serialize($cache);
@@ -1037,7 +1059,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     array($cache, $devid, $user)
                 );
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
+                $this->_logger->err(sprintf(
+                    '[%s] %s',
+                    $this->_procid,
+                    $e->getMessage())
+                );
                 throw new Horde_ActiveSync_Exception($e);
             }
         } else {
@@ -1052,7 +1078,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     array($cache, $devid, $user)
                 );
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
+                $this->_logger->err(sprintf(
+                    '[%s] %s',
+                    $this->_procid,
+                    $e->getMessage())
+                );
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
@@ -1069,8 +1099,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function deleteSyncCache($devid, $user = null)
     {
         $this->_logger->info(sprintf(
-            'Horde_ActiveSync_State_Sql::deleteSyncCache(%s, %s)',
-            $devid, $user));
+            '[%s] Horde_ActiveSync_State_Sql::deleteSyncCache(%s, %s)',
+            $this->_procid,
+            $devid,
+            $user));
 
         $sql = 'DELETE FROM ' . $this->_syncCacheTable . ' WHERE ';
 
@@ -1245,7 +1277,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $results = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
         $remove = array();
@@ -1268,7 +1304,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             try {
                 $this->_db->delete($sql, $remove);
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
+                $this->_logger->err(sprintf(
+                    '[%s] %s',
+                    $this->_procid,
+                    $e->getMessage())
+                );
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
@@ -1287,7 +1327,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     array($this->_deviceInfo->id, $this->_deviceInfo->user)
                 );
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
+                $this->_logger->err(sprintf(
+                    '[%s] %s',
+                    $this->_procid,
+                    $e->getMessage())
+                );
                 throw new Horde_ActiveSync_Exception($e);
             }
             foreach ($maps as $key) {
@@ -1304,7 +1348,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 try {
                     $this->_db->delete($sql, $remove);
                 } catch (Horde_Db_Exception $e) {
-                    $this->_logger->err($e->getMessage());
+                    $this->_logger->err(sprintf(
+                        '[%s] %s',
+                        $this->_procid,
+                        $e->getMessage())
+                    );
                     throw new Horde_ActiveSync_Exception($e);
                 }
             }

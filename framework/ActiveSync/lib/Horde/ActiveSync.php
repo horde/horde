@@ -393,6 +393,13 @@ class Horde_ActiveSync
     protected $_globalError = false;
 
     /**
+     * Process id (used in logging).
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Supported EAS versions.
      *
      * @var array
@@ -454,6 +461,8 @@ class Horde_ActiveSync
         // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
+
+        $this->_procid = $this->_procid;
     }
 
     /**
@@ -530,7 +539,10 @@ class Horde_ActiveSync
             $user = $username;
         } else {
             // No provided username or Authorization header.
-            self::$_logger->debug('Client did not provide authentication data.');
+            self::$_logger->notice(sprintf(
+                '[%s] Client did not provide authentication data.',
+                $this->_procid)
+            );
             return false;
         }
         $user = $this->_driver->getUsernameFromEmail($user);
@@ -714,9 +726,9 @@ class Horde_ActiveSync
         // Set provisioning support now that we are authenticated.
         $this->setProvisioning($this->_driver->getProvisioning());
 
-        self::$_logger->debug(sprintf(
+        self::$_logger->info(sprintf(
             '[%s] %s request received for user %s',
-            getmypid(),
+            $this->_procid,
             strtoupper($cmd),
             $this->_driver->getUser())
         );
@@ -765,7 +777,7 @@ class Horde_ActiveSync
                         'The device %s was disallowed for user %s per policy settings.',
                         $this->_device->id,
                         $this->_device->user);
-                    $this->_logger->err($msg);
+                    self::$_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
                     } else {
@@ -796,7 +808,7 @@ class Horde_ActiveSync
                         'The device %s was disallowed for user %s per policy settings.',
                         $this->_device->id,
                         $this->_device->user);
-                    $this->_logger->err($msg);
+                    self::$_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
                     } else {
@@ -821,7 +833,10 @@ class Horde_ActiveSync
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
             !empty($get['AcceptMultiPart'])) {
             $this->_multipart = true;
-            self::$_logger->debug('MULTIPART REQUEST');
+            self::$_logger->info(sprintf(
+                '[%s] Requesting multipart data.',
+                $this->_procid)
+            );
         }
 
         // Load the request handler to handle the request
@@ -835,7 +850,10 @@ class Horde_ActiveSync
 
         // Should we announce a new version is available to the client?
         if (!empty($needMsRp)) {
-            self::$_logger->info('Announcing X-MS-RP to client.');
+            self::$_logger->info(sprintf(
+                '[%s] Announcing X-MS-RP to client.',
+                $this->_procid)
+            );
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
@@ -844,7 +862,11 @@ class Horde_ActiveSync
             $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
-            self::$_logger->debug('Maximum memory usage for ActiveSync request: '  . memory_get_peak_usage());
+            self::$_logger->info(sprintf(
+                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
+                $this->_procid,
+                memory_get_peak_usage())
+            );
 
             return $result;
         }
