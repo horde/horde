@@ -332,16 +332,17 @@ class Horde_Smtp implements Serializable
 
         if (!$this->_connection) {
             try {
+                $secure = $this->getParam('secure');
                 $this->_connection = new Horde_Smtp_Connection(
                     $this->getParam('host'),
                     $this->getParam('port'),
                     $this->getParam('timeout'),
-                    $this->getParam('secure'),
+                    $secure,
                     array(
                         'debug' => $this->_debug
                     )
                 );
-                if (!$this->_connection->secure) {
+                if ($secure && !$this->_connection->secure) {
                     $this->setParam('secure', false);
                 }
             } catch (Horde\Socket\Client\Exception $e) {
