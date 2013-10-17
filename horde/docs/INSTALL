@@ -277,7 +277,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       This extension can be enabled by adding the ``--enable-intl`` option
       when compiling PHP.
 
-   h. _curl ``--with-curl``
+   h. curl_ ``--with-curl``
 
       The curl extension, if installed, will be used instead of PHP's fopen()
       when retrieving data from external HTTP servers (remote calendars, web
@@ -416,7 +416,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pecl install memcache
 
-   d. _http
+   d. http_
 
       The http extension, if installed, will be used instead of PHP's fopen()
       when retrieving data from external HTTP servers (remote calendars, web
