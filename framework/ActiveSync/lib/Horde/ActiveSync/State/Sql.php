@@ -1492,7 +1492,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $values[] = $d;
             }
         }
-        $sql .= 'AND ' . $conditions . 'GROUP BY message_uid';
+        $sql .= 'AND (' . $conditions . ') GROUP BY message_uid';
         try {
             return $this->_db->selectAssoc($sql, $values);
         } catch (Horde_Db_Exception $e) {
