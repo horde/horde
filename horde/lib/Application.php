@@ -375,6 +375,10 @@ class Horde_Application extends Horde_Registry_Application
         if ($ob instanceof Horde_Vfs_Mongo) {
             $out[] = $ob;
         }
+        $ob = $injector->getInstance('Horde_ActiveSyncState');
+        if ($ob instanceof Horde_ActiveSync_State_Mongo) {
+            $out[] = $ob;
+        }
 
         return $out;
     }
