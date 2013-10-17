@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Try starting TLS without querying the rootDSE (Bug #12157).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -389,7 +389,7 @@
    <date>2013-01-29</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Try starting TLS without querying the rootDSE (Bug #12157).
    </notes>
   </release>
  </changelog>
