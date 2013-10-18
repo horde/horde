@@ -134,6 +134,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->js_conf += array_filter(array(
             // URLs
+            'URI_LISTINFO' => strval(IMP_Basic_Listinfo::url(array('full' => true))),
             'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
@@ -428,7 +429,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'save' => _("Save"),
             'viewsource' => _("View Source"),
             'allparts' => _("All Parts"),
-            'thread' => _("View Thread")
+            'thread' => _("View Thread"),
+            'listinfo' => _("List Info")
         );
 
         if (empty($conf['user']['allow_view_source'])) {

@@ -427,6 +427,13 @@ table.remotemanagement td.noneconfigured {
     float: right;
 }
 
+/* Mailing list info page */
+table.mailinglistinfo {
+    border: 1px solid #d0d0d0;
+    border-bottom: 0;
+    margin: 8px;
+}
+
 /* Inline display (Horde_Mime_Viewer) styles. */
 .mimeStatusMessageTable {
     margin-bottom: 3px;

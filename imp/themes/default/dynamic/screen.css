@@ -1021,6 +1021,10 @@ span.logoutIcon {
 {
     background-image: url("../graphics/filters.png");
 }
+#ctx_preview_listinfo span.iconImg,
+#msg_listinfo span.iconImg {
+    background-image: url("../graphics/flags/group.png");
+}
 
 #ctx_contacts img.contactimg, #ctx_contacts div.flagimg {
     display: block;
