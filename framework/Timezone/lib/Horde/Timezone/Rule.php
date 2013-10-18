@@ -198,15 +198,15 @@ class Horde_Timezone_Rule
                     $last->setTimezone('UTC');
                     $until = ';UNTIL=' . $last->format('Ymd\THIs') . 'Z';
                 }
-                for ($days = array(), $i = $day, $last = Horde_Date_Utils::daysInMonth($month, $rule[2]);
-                     $i <= $last;
+                for ($days = array(), $i = $day, $lastDay = min(Horde_Date_Utils::daysInMonth($month, $rule[2]), $i + 6);
+                     $day > 1 && $i <= $lastDay;
                      $i++) {
                     $days[] = $i;
                 }
                 $component->setAttribute(
                     'RRULE',
                     'FREQ=YEARLY;BYMONTH=' . $month
-                    . ';BYMONTHDAY=' . implode(',', $days)
+                    . ($days ? (';BYMONTHDAY=' . implode(',', $days)) : '')
                     . ';BYDAY=1' . Horde_String::upper(substr($weekday, 0, 2))
                     . $until);
             } elseif (strpos($rule[6], '<=')) {
