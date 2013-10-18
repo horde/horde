@@ -703,14 +703,16 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             ? json_decode($this->vars->addr_ac, true)
             : array();
 
-        foreach ($e->addresses as $key => $val) {
-            $notification->push(sprintf(_("Invalid e-mail address (%s)."), $key), 'horde.warning');
+        foreach ($e as $val) {
+            $addr = strval($val->address);
+            $notification->push($val->error, 'horde.warning');
+
             foreach ($addr_ac as $val2) {
-                if ($key == $val2['addr']) {
+                if ($addr == $val2['addr']) {
                     $this->_base->queue->compose_addr(
                         $val2['id'],
                         $val2['itemid'],
-                        'impACListItemBad'
+                        ($val->level == $e::BAD) ? 'impACListItemBad' : 'impACListItemWarn'
                     );
                 }
             }

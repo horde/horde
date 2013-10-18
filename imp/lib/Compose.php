@@ -1165,7 +1165,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
                                               $charset)
     {
-        $exception = null;
+        $exception = new IMP_Compose_Exception_Address();
         $out = array();
 
         foreach ($email as $val) {
@@ -1185,14 +1185,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 ));
                 $out[] = $tmp;
             } catch (Horde_Mail_Exception $e) {
-                if (is_null($exception)) {
-                    $exception = new IMP_Compose_Exception_Address();
-                }
-                $exception->addresses[$val->writeAddress()] = $e;
+                $exception->addAddress(
+                    $val,
+                    sprintf(_("Invalid e-mail address (%s)."), $val)
+                );
             }
         }
 
-        if ($exception) {
+        if (count($exception)) {
             throw $exception;
         }
 
