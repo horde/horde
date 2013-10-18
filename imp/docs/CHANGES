@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Better reporting of e-mail address errors when composing.
 [mms] Add list information display to dynamic view.
 [jan] Display signature in compose view.
 [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic

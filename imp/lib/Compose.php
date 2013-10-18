@@ -1166,6 +1166,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                                               $charset)
     {
         $exception = new IMP_Compose_Exception_Address();
+        $hook = true;
         $out = array();
 
         foreach ($email as $val) {
@@ -1183,12 +1184,44 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
-                $out[] = $tmp;
+
+                $error = null;
+
+                if ($hook) {
+                    try {
+                        $error = Horde::callHook('compose_addr', array($tmp), 'imp');
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $hook = false;
+                    }
+                }
             } catch (Horde_Mail_Exception $e) {
-                $exception->addAddress(
-                    $val,
-                    sprintf(_("Invalid e-mail address (%s)."), $val)
+                $error = array(
+                    'msg' => sprintf(_("Invalid e-mail address (%s)."), $val)
                 );
+            }
+
+            if (is_array($error)) {
+                switch (isset($error['level']) ? $error['level'] : $exception::BAD) {
+                case $exception::WARN:
+                case 'warn':
+                    if (!empty($this->_metadata['warn_addr']) &&
+                        in_array(strval($val), $this->_metadata['warn_addr'])) {
+                        $out[] = $tmp;
+                        continue 2;
+                    }
+                    $this->_metadata['warn_addr'][] = strval($val);
+                    $this->changed = 'changed';
+                    $level = $exception::WARN;
+                    break;
+
+                default:
+                    $level = $exception::BAD;
+                    break;
+                }
+
+                $exception->addAddress($val, $error['msg'], $level);
+            } else {
+                $out[] = $tmp;
             }
         }
 
