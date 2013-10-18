@@ -96,6 +96,9 @@ class Horde_Timezone_Rule
                 // FROM is not "minimum" and is after the searched period
                 break;
             }
+            if ($rule[2][0] != 'm' && $rule[2] < $start->year) {
+                $rule[2] = $start->year;
+            }
             if ($rule[8] == 0) {
                 $component = new Horde_Icalendar_Standard();
                 $component->setAttribute('TZOFFSETFROM', $offset);
