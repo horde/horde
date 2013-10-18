@@ -337,7 +337,8 @@ div.vpRowVert div.msgSubject span.flagUser {
 .imp-sidebar-container:hover {
     background: none;
 }
-.imp-sidebar-container a {
+.imp-sidebar-container a,
+.imp-sidebar-mbox-loading {
     color: #555 !important;
 }
 .imp-sidebar-container a:hover {

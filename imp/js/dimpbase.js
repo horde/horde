@@ -3337,7 +3337,11 @@ var DimpBase = {
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    base.down('A').update(DimpCore.text.loading);
+                    base.down('A').update(
+                        new Element('SPAN')
+                            .addClassName('imp-sidebar-mbox-loading')
+                            .update('[' + DimpCore.text.loading + ']')
+                    );
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),
