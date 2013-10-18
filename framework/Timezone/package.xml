@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix missing time of day in DTSTART and UNTIL properties.
 * [jan] Don&apos;t create transitions that overlap.
 * [jan] Use orginally requested time zone instead of alias in TZID.
  </notes>
@@ -197,6 +198,7 @@
    <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix missing time of day in DTSTART and UNTIL properties.
 * [jan] Don&apos;t create transitions that overlap.
 * [jan] Use orginally requested time zone instead of alias in TZID.
    </notes>

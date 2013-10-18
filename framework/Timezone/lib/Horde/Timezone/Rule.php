@@ -111,11 +111,14 @@ class Horde_Timezone_Rule
                 $component->setAttribute('TZOFFSETTO', $offset);
             }
             $month = Horde_Timezone::getMonth($rule[5]);
+            // Retrieve time of rule start.
             preg_match('/(\d+)(?::(\d+))?(?::(\d+))?(w|s|u)?/', $rule[7], $match);
+            if (!isset($match[2])) {
+                $match[2] = 0;
+            }
             if ($rule[2] == $rule[3] && preg_match('/^\d+$/', $rule[6])) {
-                if (!isset($match[2])) {
-                    $match[2] = 0;
-                }
+                // Rule lasts only for a single year and starts on a specific
+                // date.
                 $rdate = new Horde_Date(
                     array('year'  => $rule[2],
                           'month' => Horde_Timezone::getMonth($rule[5]),
@@ -125,11 +128,16 @@ class Horde_Timezone_Rule
                           'sec'   => 0));
                 $component->setAttribute('DTSTART', $rdate);
             } elseif (substr($rule[6], 0, 4) == 'last') {
+                // Rule starts on the last of a certain weekday of the month.
                 $weekday = $this->_weekdays[substr($rule[6], 4, 3)];
-                $last = new Horde_Date(
-                    $rule[2],
-                    $month,
-                    Horde_Date_Utils::daysInMonth($month, $rule[2]));
+                $last = new Horde_Date(array(
+                    'year'  => $rule[2],
+                    'month' => $month,
+                    'mday'  => Horde_Date_Utils::daysInMonth($month, $rule[2]),
+                    'hour'  => $match[1],
+                    'min'   => $match[2],
+                    'sec'   => 0
+                ));
                 while ($last->dayOfWeek() != $weekday) {
                     $last->mday--;
                 }
@@ -157,12 +165,18 @@ class Horde_Timezone_Rule
                     . Horde_String::upper(substr($rule[6], 4, 2))
                     . ';BYMONTH=' . $month . $until);
             } elseif (strpos($rule[6], '>=')) {
+                // Rule starts on a certain weekday after a certain day of
+                // month.
                 list($weekday, $day) = explode('>=', $rule[6]);
                 $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
-                $first = new Horde_Date(
-                    array('year'  => $rule[2],
-                          'month' => $month,
-                          'mday'  => $day));
+                $first = new Horde_Date(array(
+                    'year'  => $rule[2],
+                    'month' => $month,
+                    'mday'  => $day,
+                    'hour'  => $match[1],
+                    'min'   => $match[2],
+                    'sec'   => 0
+                ));
                 while ($first->dayOfWeek() != $weekdayInt) {
                     $first->mday++;
                 }
@@ -196,12 +210,18 @@ class Horde_Timezone_Rule
                     . ';BYDAY=1' . Horde_String::upper(substr($weekday, 0, 2))
                     . $until);
             } elseif (strpos($rule[6], '<=')) {
+                // Rule starts on a certain weekday before a certain day of
+                // month.
                 list($weekday, $day) = explode('>=', $rule[6]);
                 $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
-                $last = new Horde_Date(
-                    array('year'  => $rule[2],
-                          'month' => $month,
-                          'mday'  => $day));
+                $last = new Horde_Date(array(
+                    'year'  => $rule[2],
+                    'month' => $month,
+                    'mday'  => $day,
+                    'hour'  => $match[1],
+                    'min'   => $match[2],
+                    'sec'   => 0
+                ));
                 while ($last->dayOfWeek() != $weekdayInt) {
                     $last->mday--;
                 }
