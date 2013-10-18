@@ -79,7 +79,9 @@ try {
     $url = isset($vars->url)
         ? new Horde_Url($url, true)
         : $contact->url('Contact', true);
-    $url->unique()->redirect();
+    $url->add('section', $form->getOpenSection())
+        ->unique()
+        ->redirect();
 } catch (Turba_Exception $e) {}
 
 $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));

@@ -40,16 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-<<<<<<< HEAD
-* [jan] Remember currently open tab when switching between contact viewing and editing (Request #12609).
+* [jan] Remember currently open tab when switching or saving contact views (Request #12609).
 * [jan] Replace categories with tags (Request #9544).
-=======
-* [jan] Fix exporting selected contacts (Bug #12759).
-* [mms] Improved UI when viewing search results from Advanced Search.
-* [mms] Remove features from UI when VFS is not available or disabled.
-* [mjr] Fix filtering Facebook driver results (Bug #12739).
-* [jan] Gracefully deal with columns removed from the backend.
->>>>>>> master
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

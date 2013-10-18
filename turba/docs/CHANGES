@@ -2,8 +2,8 @@
 v4.2.0-git
 ----------
 
-[jan] Remember currently open tab when switching between contact viewing and
-      editing (Request #12609).
+[jan] Remember currently open tab when switching or saving contact views
+      (Request #12609).
 [jan] Replace categories with tags (Request #9544).
 
 
