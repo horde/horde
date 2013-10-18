@@ -16,8 +16,8 @@
 }
 
 /* Attachment tree styling. */
-div.partsTreeDiv span span:last-child {
-    vertical-align: bottom;
+div.partsTreeDiv {
+    min-height: 0;
 }
 
 /* Message body styling. */

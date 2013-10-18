@@ -456,13 +456,8 @@ div.dimpActionsMsg #windowclose {
 .msgHeaders table {
     margin-top: -2px;
 }
-.msgHeaders table thead td {
-    padding: 0 0 1px 0;
-}
-.msgHeaders table thead tr {
-    vertical-align: top;
-}
 .msgHeaders table thead td.label {
+    display: block;
     font-weight: bold;
     padding-right: 4px;
     text-align: right;
