@@ -105,7 +105,9 @@ class Horde_Timezone_Zone
                 $component = new Horde_Icalendar_Daylight();
             } else {
                 // Represented by a ruleset.
+                $startOffset = $this->_getOffset($i);
                 $this->_tz->getRule($this->_info[$i][1])->addRules($tz, $this->_name, $name, $startOffset, $startDate, $endDate);
+                $startDate = $endDate;
                 // Continue, because addRules() already adds the
                 // component to $tz.
                 continue;
@@ -115,7 +117,6 @@ class Horde_Timezone_Zone
             $startOffset = $this->_getOffset($i);
             $component->setAttribute('TZOFFSETTO', $startOffset);
             $component->setAttribute('TZNAME', $name);
-            $startDate = $endDate;
             $tz->addComponent($component);
         }
 

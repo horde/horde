@@ -3,7 +3,6 @@
  <name>Horde_Icalendar</name>
  <channel>pear.horde.org</channel>
  <extends>Horde_iCalendar</extends>
- <extends>iCalendar</extends>
  <summary>iCalendar API</summary>
  <description>An API for dealing with iCalendar data.</description>
  <lead>

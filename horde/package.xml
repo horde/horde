@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-09</date>
+ <date>2013-10-19</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -127,6 +127,7 @@
     <file name="horde-memcache-stats" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="horde-remove-user-data" role="script" />
     <file name="horde-run-task" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -134,12 +135,14 @@
     <file name="horde-set-perms" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="horde-sql-shell.php" role="script" />
     <file name="horde-themes" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-translation" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="horde-pref-remove.php" role="script" />
     <file name="horde-queue-run-tasks" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -1939,10 +1942,13 @@
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
+   <install as="horde-remove-user-data" name="bin/horde-remove-user-data" />
    <install as="horde-run-task" name="bin/horde-run-task" />
+   <install as="horde-pref-remove.php" name="bin/horde-pref-remove.php" />
    <install as="horde-queue-run-tasks" name="bin/horde-queue-run-tasks" />
    <install as="horde-sessions-gc" name="bin/horde-sessions-gc" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
+   <install as="horde-sql-shell.php" name="bin/horde-sql-shell.php" />
    <install as="horde-themes" name="bin/horde-themes" />
    <install as="horde-translation" name="bin/horde-translation" />
    <install as="config/.htaccess" name="config/.htaccess" />
@@ -3770,9 +3776,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-09</date>
+   <date>2013-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Add horde-remove-user-data command-line script.
 * [mms] Add additional syntax checking for the configuration files in the test script.
 * [mms] Only update topbar if the underlying tree data has changed.
    </notes>
