@@ -1235,7 +1235,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $match['$or'][] = array(
                 '$and' => array(
                     'message_uid' => $change['id'],
-                    'sync_deleted' => $change['type'] == Horde_ActiveSync_Exception::CHANGE_TYPE_DELETE
+                    'sync_deleted' => $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE
                 )
             );
         }
