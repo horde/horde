@@ -1,0 +1,53 @@
+#!@php_bin@
+<?php
+/**
+ * This script removes a preference from users' preferences. Helps when a
+ * preference is to be moved from locked = false, to locked = true and there
+ * have already been preferences set by the users.
+ *
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+$scope = $cli->prompt('Enter preference scope:');
+$name = $cli->prompt('Enter preference name:');
+$user = $cli->prompt('Enter preference user:');
+
+$prefs_ob = $injector->getInstance('Horde_Core_Factory_Prefs')->create($scope, array(
+    'user' => $user
+));
+
+$value = $prefs_ob->getValue($name);
+
+if (is_null($value)) {
+    $cli->message(sprintf('No preference "%s" found in scope "%s".', $name, $scope), 'cli.error');
+} else {
+    $cli->writeln();
+    $cli->writeln(sprintf('Name: %s', $name));
+    $cli->writeln(sprintf('Value: %s', $value));
+    $cli->writeln();
+    if ($cli->prompt($cli->red('Do you want to delete this preference?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+        $prefs_ob->remove($name);
+        $cli->message($cli->green('Preference deleted.'), 'cli.success');
+    }
+}
