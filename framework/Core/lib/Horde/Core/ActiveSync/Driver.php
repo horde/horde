@@ -686,7 +686,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $this->_logger->info(sprintf(
-                '[%s] MODSEQ: %d', $this->_pid, $folder->modseq()));
+                '[%s] %s IMAP MODSEQ: %d', $this->_pid, $folder->serverid(), $folder->modseq()));
             if ($ping) {
                 try {
                     $ping_res = $this->_imap->ping($folder);
