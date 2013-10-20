@@ -90,6 +90,10 @@ case Horde_Auth::REASON_LOGOUT:
         $logout_reason = null;
     }
     break;
+
+case Horde_Core_Auth_Application::REASON_SESSIONMAXTIME:
+    $is_auth = false;
+    break;
 }
 
 /* Change language. */
