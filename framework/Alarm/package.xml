@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix initializing Alarms when using PDO_Oci or PDO_PostgreSQL.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -848,7 +848,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix initializing Alarms when using PDO_Oci or PDO_PostgreSQL.
    </notes>
   </release>
  </changelog>
