@@ -10,8 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>14:19:48</time>
+ <date>2013-10-21</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -845,7 +844,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix initializing Alarms when using PDO_Oci or PDO_PostgreSQL.
