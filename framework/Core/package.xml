@@ -30,7 +30,7 @@
  </developer>
  <date>2013-10-21</date>
  <version>
-  <release>2.10.1</release>
+  <release>2.10.2</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
-* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
-* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3199,6 +3197,19 @@
 * [mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
 * [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
 * [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
