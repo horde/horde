@@ -85,6 +85,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             return;
         }
 
+        $this->_config['options'] = '--bytea_output=escape';
         parent::connect();
 
         $this->_lastQuery = $sql = "SET datestyle TO 'iso'";
