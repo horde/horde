@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
  </notes>
@@ -2048,6 +2049,7 @@
    <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
    </notes>
