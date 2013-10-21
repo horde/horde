@@ -12,8 +12,8 @@
  </lead>
  <date>2013-10-17</date>
  <version>
-  <release>2.15.6</release>
-  <api>2.15.0</api>
+  <release>2.16.0</release>
+  <api>2.16.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
  </notes>
  <contents>
@@ -2039,14 +2040,15 @@
   </release>
   <release>
    <version>
-    <release>2.15.6</release>
-    <api>2.15.0</api></version>
+    <release>2.16.0</release>
+    <api>2.16.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
    </notes>
   </release>
