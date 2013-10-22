@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-19</date>
+ <date>2013-10-22</date>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -268,7 +268,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-18</date>
+   <date>2013-10-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix handling EOLs split on a stream bucket boundary (Bug #12763).
