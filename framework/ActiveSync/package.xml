@@ -12,8 +12,8 @@
  </lead>
  <date>2013-10-22</date>
  <version>
-  <release>2.8.6</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Improvements to memory and database usage.
+* [mjr] Add MongoDB state driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1795,15 +1796,16 @@
   </release>
   <release>
    <version>
-    <release>2.8.6</release>
-    <api>2.8.0</api></version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Improvements to memory and database usage.
+* [mjr] Add MongoDB state driver.
    </notes>
   </release>
  </changelog>
