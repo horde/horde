@@ -24,6 +24,26 @@
 class Horde_ListHeaders extends Horde_Mail_Rfc822
 {
     /**
+     * Returns the list of valid mailing list headers.
+     *
+     * @return array  The list of valid mailing list headers.
+     */
+    public function headers()
+    {
+        return array(
+            /* RFC 2369 */
+            'list-help'         =>  Horde_ListHeaders_Translation::t("List-Help"),
+            'list-unsubscribe'  =>  Horde_ListHeaders_Translation::t("List-Unsubscribe"),
+            'list-subscribe'    =>  Horde_ListHeaders_Translation::t("List-Subscribe"),
+            'list-owner'        =>  Horde_ListHeaders_Translation::t("List-Owner"),
+            'list-post'         =>  Horde_ListHeaders_Translation::t("List-Post"),
+            'list-archive'      =>  Horde_ListHeaders_Translation::t("List-Archive"),
+            /* RFC 2919 */
+            'list-id'           =>  Horde_ListHeaders_Translation::t("List-Id")
+        );
+    }
+
+    /**
      * Parse a list header.
      *
      * @param string $id     Header ID.
