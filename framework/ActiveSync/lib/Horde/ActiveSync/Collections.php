@@ -268,7 +268,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 ? $cached_collections[$collection['id']]['lastsynckey']
                 : 0;
 
-            if ($collection['synckey'] == 0) {
+            if ($collection['synckey'] === 0) {
                 $this->_logger->err(sprintf('[%s] Attempting to add a collection
                     to the sync cache while requiring a synckey, but no
                     synckey could be found. Most likely a client error in
@@ -316,10 +316,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @return string The EAS uid.
      */
-
-    public function getFolderUidForBackendId($id)
+    public function getFolderUidForBackendId($folderid)
     {
-        return $this->_as->state->getFolderUidForBackendId($id);
+        $map = $this->_as->state->getFolderUidToBankendIdMap();
+        if (empty($map[$folderid])) {
+            return false;
+        }
+
+        return $map[$folderid];
     }
 
     /**
@@ -745,8 +749,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $csk = $this->_cache->confirmed_synckeys;
         if ($csk) {
             $this->_logger->info(sprintf(
-                'Confirmed Synckeys contains %s',
-                print_r($csk, true))
+                '[%s] Confirmed Synckeys contains %s',
+                $this->_procid,
+                serialize($csk))
             );
             $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
             $this->save();

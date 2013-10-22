@@ -32,9 +32,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      */
     public function handle(Horde_Controller_Request $request = null)
     {
-        $input_stream = $this->_decoder->getStream();
         $parser = xml_parser_create();
-        xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
+        xml_parse_into_struct(
+          $parser,
+          $this->_decoder->getStream()->getString(),
+          $values);
 
         // Get $_SERVER
         $server = $request->getServerVars();
@@ -75,17 +77,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             );
         }
         $results = $this->_driver->autoDiscover($params);
-
         if (empty($results['raw_xml'])) {
-            fwrite(
-                $this->_encoder->getStream(),
-                $this->_buildResponseString($results));
+            $this->_encoder->getStream()->add($this->_buildResponseString($results));
         } else {
             // The backend is taking control of the XML.
-            fwrite(
-                $this->_encoder->getStream(),
-                $results['raw_xml']
-            );
+            $this->_encoder->getStream()->add($results['raw_xml']);
         }
 
         return 'text/xml';

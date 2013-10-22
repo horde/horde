@@ -144,6 +144,11 @@ class Horde_Test
             'descrip' => 'memcached Support (memcache) (PECL extension)',
             'error' => 'The memcache PECL extension is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
         ),
+        'mongo' => array(
+            'descrip' => 'MongoDB support (PECL extension)',
+            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install this extension.',
+            'function' => '_checkMongo'
+        ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
             'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.'
@@ -509,6 +514,20 @@ class Horde_Test
         }
 
         return false;
+    }
+
+    /**
+     */
+    protected function _checkMongo()
+    {
+        if (!extension_loaded('mongo')) {
+            return false;
+        }
+        if (version_compare(phpversion('mongo'), '1.3.0') === -1) {
+            return 'The Mongo extension you have installed is too old.';
+        }
+
+        return true;
     }
 
     /**
