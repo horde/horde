@@ -844,7 +844,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         if (empty($results) || empty($results['ok'])) {
             throw new Horde_ActiveSync_Exception('Error running aggregation.');
         }
-        $results = current($results);
+        if (empty($results) || empty($results['ok'])) {
+            return 0;
+        }
+        $results = current($results['result']);
         return $results['max'];
     }
 
