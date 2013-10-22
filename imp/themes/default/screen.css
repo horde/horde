@@ -16,8 +16,8 @@
 }
 
 /* Attachment tree styling. */
-div.partsTreeDiv span span:last-child {
-    vertical-align: bottom;
+div.partsTreeDiv {
+    min-height: 0;
 }
 
 /* Message body styling. */
@@ -429,6 +429,13 @@ table.remotemanagement td.noneconfigured {
 }
 .threadBox span.threadlink {
     float: right;
+}
+
+/* Mailing list info page */
+table.mailinglistinfo {
+    border: 1px solid #d0d0d0;
+    border-bottom: 0;
+    margin: 8px;
 }
 
 /* Inline display (Horde_Mime_Viewer) styles. */

@@ -1460,6 +1460,7 @@ var DimpBase = {
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
             [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
+            [ $('ctx_preview_listinfo') ].invoke(this.viewport.getSelected().get('dataob').first().listmsg ? 'show' : 'hide');
             break;
 
         case 'ctx_template':
@@ -2657,13 +2658,14 @@ var DimpBase = {
     clickHandler: function(e)
     {
         var tmp,
-            elt = e.element();
+            elt = e.element(),
+            id = elt.readAttribute('id');
 
         if (DimpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
-        switch (elt.readAttribute('id')) {
+        switch (id) {
         case 'imp-normalmboxes':
         case 'imp-specialmboxes':
             this._handleMboxMouseClick(e.memo);
@@ -2772,7 +2774,7 @@ var DimpBase = {
 
         case 'msgloglist_toggle':
         case 'partlist_toggle':
-            tmp = (elt.readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
             $(tmp + '_col', tmp + '_exp').invoke('toggle');
             Effect.toggle(tmp, 'blind', {
                 duration: 0.2,
@@ -2809,8 +2811,9 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_preview_listinfo':
         case 'ctx_preview_thread':
-            HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
+            HordeCore.popupWindow((id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD, {
                 buid: this.pp.VP_id,
                 mailbox: this.pp.VP_view
             }, {
@@ -3334,7 +3337,11 @@ var DimpBase = {
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    base.down('A').update(DimpCore.text.loading);
+                    base.down('A').update(
+                        new Element('SPAN')
+                            .addClassName('imp-sidebar-mbox-loading')
+                            .update('[' + DimpCore.text.loading + ']')
+                    );
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),

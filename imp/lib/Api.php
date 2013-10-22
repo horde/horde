@@ -94,7 +94,8 @@ class IMP_Api extends Horde_Registry_Api
     {
         $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
             IMP_Ftree_IteratorFilter::create(
-                IMP_Ftree_IteratorFilter::NO_REMOTE
+                IMP_Ftree_IteratorFilter::NO_REMOTE |
+                IMP_Ftree_IteratorFilter::UNSUB_PREF
             )
         );
         $mboxes = array();

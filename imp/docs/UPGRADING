@@ -51,6 +51,14 @@ The following options have been removed::
    $conf['compose']['ac_threshold']
 
 
+Hooks (hooks.php)
+-----------------
+
+The following hooks have been added::
+
+   compose_addr
+
+
 Preferences (prefs.php)
 -----------------------
 

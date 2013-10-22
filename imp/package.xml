@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Better reporting of e-mail address errors when composing.
+* [mms] Add list information display to dynamic view.
 * [jan] Display signature in compose view.
 * [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic preview pane (Request #12750).
 * [mms] Add country flag graphic to contact image information in dynamic view.
@@ -1283,7 +1285,7 @@
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>

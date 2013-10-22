@@ -58,6 +58,14 @@
       </span>
      </div>
 <?php endif; ?>
+<?php if ($this->listinfo): ?>
+     <div>
+      <span id="msg_listinfo">
+       <span class="iconImg"></span>
+       <a href="#" onclick="<?php echo $this->listinfo ?>"><?php echo _("List Info") ?></a>
+      </span>
+     </div>
+<?php endif; ?>
     </div>
     <div id="msgHeadersContent">
      <div class="subject allowTextSelection"><?php echo $this->subject ?></div>

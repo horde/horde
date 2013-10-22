@@ -1165,7 +1165,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
                                               $charset)
     {
-        $exception = null;
+        $exception = new IMP_Compose_Exception_Address();
+        $hook = true;
         $out = array();
 
         foreach ($email as $val) {
@@ -1183,16 +1184,48 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
-                $out[] = $tmp;
-            } catch (Horde_Mail_Exception $e) {
-                if (is_null($exception)) {
-                    $exception = new IMP_Compose_Exception_Address();
+
+                $error = null;
+
+                if ($hook) {
+                    try {
+                        $error = Horde::callHook('compose_addr', array($tmp), 'imp');
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $hook = false;
+                    }
                 }
-                $exception->addresses[$val->writeAddress()] = $e;
+            } catch (Horde_Mail_Exception $e) {
+                $error = array(
+                    'msg' => sprintf(_("Invalid e-mail address (%s)."), $val)
+                );
+            }
+
+            if (is_array($error)) {
+                switch (isset($error['level']) ? $error['level'] : $exception::BAD) {
+                case $exception::WARN:
+                case 'warn':
+                    if (!empty($this->_metadata['warn_addr']) &&
+                        in_array(strval($val), $this->_metadata['warn_addr'])) {
+                        $out[] = $tmp;
+                        continue 2;
+                    }
+                    $this->_metadata['warn_addr'][] = strval($val);
+                    $this->changed = 'changed';
+                    $level = $exception::WARN;
+                    break;
+
+                default:
+                    $level = $exception::BAD;
+                    break;
+                }
+
+                $exception->addAddress($val, $error['msg'], $level);
+            } else {
+                $out[] = $tmp;
             }
         }
 
-        if ($exception) {
+        if (count($exception)) {
             throw $exception;
         }
 

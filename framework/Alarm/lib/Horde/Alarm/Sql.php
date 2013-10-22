@@ -388,12 +388,12 @@ class Horde_Alarm_Sql extends Horde_Alarm
         switch ($this->_db->adapterName()) {
         case 'PDO_Oci':
             $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
-            $db->select($query);
+            $this->_db->select($query);
             break;
 
         case 'PDO_PostgreSQL':
             $query = "SET datestyle TO 'iso'";
-            $db->select($query);
+            $this->_db->select($query);
             break;
         }
     }
