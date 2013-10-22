@@ -10,11 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>15:07:58</time>
+ <date>2013-10-17</date>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_ListHeaders#headers().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -40,10 +39,16 @@
       <file name="Id.php" role="php" />
       <file name="NoPost.php" role="php" />
       <file name="Object.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/ListHeaders -->
      <file name="ListHeaders.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <file name="Horde_ListHeaders.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="ListHeaders">
@@ -71,6 +76,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
   </required>
   <optional>
    <package>
@@ -90,6 +102,8 @@
    <install as="Horde/ListHeaders/Id.php" name="lib/Horde/ListHeaders/Id.php" />
    <install as="Horde/ListHeaders/NoPost.php" name="lib/Horde/ListHeaders/NoPost.php" />
    <install as="Horde/ListHeaders/Object.php" name="lib/Horde/ListHeaders/Object.php" />
+   <install as="Horde/ListHeaders/Translation.php" name="lib/Horde/ListHeaders/Translation.php" />
+   <install as="locale/Horde_ListHeaders.pot" name="locale/Horde_ListHeaders.pot" />
    <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
    <install as="Horde/ListHeaders/bootstrap.php" name="test/Horde/ListHeaders/bootstrap.php" />
    <install as="Horde/ListHeaders/ParseTest.php" name="test/Horde/ListHeaders/ParseTest.php" />
@@ -154,15 +168,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_ListHeaders#headers().
    </notes>
   </release>
  </changelog>

@@ -1,0 +1,42 @@
+#!@php_bin@
+<?php
+/**
+ * Shell access to the configured Horde_Db database.
+ * Runs the SQL statement provided on the command line.
+ *
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+$dbh = $injector->getInstance('Horde_Db_Adapter');
+
+// read sql file for statements to run
+$statements = new Horde_Db_StatementParser($_SERVER['argv'][1]);
+foreach ($statements as $stmt) {
+    $cli->writeln('Running:');
+    $cli->writeln('  ' . preg_replace('/\s+/', ' ', $stmt));
+
+    $dbh->execute($stmt);
+    $cli->writeln('   ...done.');
+}

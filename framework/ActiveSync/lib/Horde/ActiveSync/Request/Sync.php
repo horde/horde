@@ -458,6 +458,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $collection['mimesupport'] = 0;
             }
 
+            $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
                     || !empty($collection['missing']) || !empty($collection['importfailures'])) {
@@ -510,7 +511,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     // Output any SYNC_MODIFY failures
-                    $ensure_sent = array();
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
