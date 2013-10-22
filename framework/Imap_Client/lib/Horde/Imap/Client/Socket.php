@@ -4151,15 +4151,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         switch ($server->status) {
         case $server::BAD:
+        case $server::NO:
             /* A tagged BAD response indicates that the tagged command caused
              * the error. This information is unknown if untagged (RFC 3501
-             * [7.1.3]). */
-            throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("IMAP error reported by server."),
-                0,
-                $server,
-                $pipeline
-            );
+             * [7.1.3]) - ignore these untagged responses.
+             * An untagged NO response indicates a warning; ignore and assume
+             * that it also included response text code that is handled
+             * elsewhere. Throw exception if tagged; command handlers can
+             * catch this if able to workaround this issue (RFC 3501
+             * [7.1.2]). */
+            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                throw new Horde_Imap_Client_Exception_ServerResponse(
+                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
+                    0,
+                    $server,
+                    $pipeline
+                );
+            }
+            break;
 
         case $server::BYE:
             /* A BYE response received as part of a logout command should be
@@ -4174,21 +4183,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 throw $e;
             }
             break;
-
-        case $server::NO:
-            /* An untagged NO response indicates a warning; ignore and assume
-             * that it also included response text code that is handled
-             * elsewhere. Throw exception if tagged; command handlers can
-             * catch this if able to workaround this issue (RFC 3501
-             * [7.1.2]). */
-            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
-                throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
-                    0,
-                    $server,
-                    $pipeline
-                );
-            }
 
         case $server::PREAUTH:
             /* The user was pre-authenticated. (RFC 3501 [7.1.4]) */
