@@ -6,15 +6,53 @@
  * @package Horde_ActiveSync
  * @subpackage UnitTests
  */
-class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Base
+class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTest_Base
 {
     protected static $db;
-    protected static $migrator;
     protected static $reason;
 
     public function testGetDeviceInfo()
     {
         $this->_testGetDeviceInfo();
+    }
+
+    /**
+     * @depends testGetDeviceInfo
+     */
+    public function testListDevices()
+    {
+        $this->_testListDevices();
+    }
+
+    /**
+     * @depends testListDevices
+     */
+    public function testPolicyKeys()
+    {
+        $this->_testPolicyKeys();
+    }
+
+    /**
+     * @depends testListDevices
+     */
+    public function testDuplicatePIMAddition()
+    {
+        // @TODO. For now, cheat and add the data directly to the db.
+        try {
+            $mongo = new Horde_Mongo_Client();
+            $mongo->activesync_test->map->insert(array(
+                'sync_clientid' => 'abc',
+                'sync_user' => 'mike',
+                'message_uid' => 'def',
+                'sync_devid' => 'dev123'));
+            self::$state->loadDeviceInfo('dev123', 'mike');
+            $this->assertEquals('def', self::$state->isDuplicatePIMAddition('abc'));
+        } catch (MongoConnectionException $e) {}
+    }
+
+    public function loadStateTest()
+    {
+        $this->_loadStateTest();
     }
 
     /**
@@ -169,40 +207,34 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
         $this->_testPartialSyncWithOnlyChangedHbInterval();
     }
 
-
-    public static function setUpBeforeClass()
-    {
-        $dir = dirname(__FILE__) . '/../../../../../migration/Horde/ActiveSync';
-        if (!is_dir($dir)) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-            $dir = PEAR_Config::singleton()
-                ->get('data_dir', null, 'pear.horde.org')
-                . '/Horde_ActiveSync/migration';
-            error_reporting(E_ALL | E_STRICT);
-        }
-        self::$logger = new Horde_Test_Log();
-        self::$migrator = new Horde_Db_Migration_Migrator(
-            self::$db,
-            self::$logger->getLogger(),
-            array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_activesync_test_schema'));
-        self::$migrator->up();
-    }
-
     public static function tearDownAfterClass()
     {
-        if (self::$migrator) {
-            self::$migrator->down();
+        try {
+            $mongo = new Horde_Mongo_Client();
+            $mongo->activesync_test->drop();
+        } catch (MongoConnectionException $e) {
         }
-        self::$db = null;
         parent::tearDownAfterClass();
     }
 
     public function setUp()
     {
-        if (!self::$db) {
-            $this->markTestSkipped(self::$reason);
+        if (!class_exists('MongoDB')) {
+            $this->markTestSkipped('MongoDB extension not loaded.');
+            return;
         }
-        self::$state = new Horde_ActiveSync_State_Sql(array('db' => self::$db));
+        try {
+            $mongo = new Horde_Mongo_Client();
+        } catch (MongoConnectionException $e) {
+            $this->markTestSkipped('Mongo connection failed.');
+            return;
+        }
+        $mongo->dbname = 'activesync_test';
+        self::$state = new Horde_ActiveSync_State_Mongo(array('connection' => $mongo));
+        $backend = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
+        $backend->expects($this->any())->method('getUser')->will($this->returnValue('mike'));
+        self::$state->setBackend($backend);
+        self::$logger = new Horde_Test_Log();
     }
+
 }

@@ -177,7 +177,7 @@ class IMP_Compose_LinkedAttachment
      */
     public function sendNotification()
     {
-        global $conf, $injector;
+        global $conf, $injector, $registry;
 
         if (empty($conf['compose']['link_attachments_notify'])) {
             return;
@@ -193,6 +193,13 @@ class IMP_Compose_LinkedAttachment
             }
 
             $address_full = $identity->getDefaultFromAddress(true);
+
+            /* Load user prefs to correctly translate gettext strings. */
+            if (!$registry->getAuth()) {
+                $registry->setAuth($this->_user, array(), array(
+                    'app' => 'imp'
+                ));
+            }
 
             $h = new Horde_Mime_Headers();
             $h->addReceivedHeader(array(

@@ -106,8 +106,8 @@ EOT;
                 </Response>
               </Autodiscover>
 EOT;
-        rewind(self::$_server->encoder->getStream());
-        $this->assertEquals($expected, stream_get_contents(self::$_server->encoder->getStream()));
+        self::$_server->encoder->getStream()->rewind();
+        $this->assertEquals($expected, self::$_server->encoder->getStream()->getString());
 
     }
 
@@ -184,8 +184,8 @@ EOT;
                 </Response>
               </Autodiscover>
 EOT;
-        rewind(self::$_server->encoder->getStream());
-        $this->assertEquals($expected, stream_get_contents(self::$_server->encoder->getStream()));
+        self::$_server->encoder->getStream()->rewind();
+        $this->assertEquals($expected, self::$_server->encoder->getStream()->getString());
     }
 
 }
