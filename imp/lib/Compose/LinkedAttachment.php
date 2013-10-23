@@ -196,9 +196,9 @@ class IMP_Compose_LinkedAttachment
 
             /* Load user prefs to correctly translate gettext strings. */
             if (!$registry->getAuth()) {
-                $registry->setAuth($this->_user, array(), array(
-                    'app' => 'imp'
-                ));
+                $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+                    ->create('imp', array('user' => $this->_user));
+                $registry->setLanguageEnvironment($prefs->getValue('language'));
             }
 
             $h = new Horde_Mime_Headers();
