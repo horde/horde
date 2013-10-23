@@ -154,7 +154,7 @@ var ImpCompose = {
             return;
         }
 
-        $(document).fire('AutoComplete:submit');
+        $(document).fire('AutoComplete:update');
 
         if (this.editor_wait && ImpComposeBase.editor_on) {
             return this.uniqSubmit.bind(this, actionID, e).defer();

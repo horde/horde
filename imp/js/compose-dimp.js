@@ -220,7 +220,7 @@ var DimpCompose = {
                 return;
             }
 
-            $(document).fire('AutoComplete:submit');
+            $(document).fire('AutoComplete:update');
             break;
         }
 
@@ -679,13 +679,15 @@ var DimpCompose = {
     swapToAddressCallback: function(r)
     {
         if (r.addr) {
-            $('to').setValue(r.addr.to.join(', '));
+            $('to').setValue(r.addr.to.join(', '))
+                .fire('AutoComplete:reset');
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.addr[t].size() || $(t).visible()) {
-                    if (!$(t).visible()) {
+                if (r.addr[t].size() || $('send' + t).visible()) {
+                    if (!$('send' + t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.addr[t].join(', '));
+                    $(t).setValue(r.addr[t].join(', '))
+                        .fire('AutoComplete:reset');
                 }
             }, this);
         }
