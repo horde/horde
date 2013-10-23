@@ -123,6 +123,82 @@ class Ingo_Api extends Horde_Registry_Api
     }
 
     /**
+     * Export addresses from the blacklist.
+     *
+     * @return array: list of blacklisted emails
+     */
+    public function getBlacklist()
+    {
+        global $injector;
+
+        try {
+            return $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_BLACKLIST)->getBlacklist();
+        } catch (Ingo_Exception $e) {
+        }
+
+        return array();
+    }
+
+    /**
+     * Export addresses from the whitelist.
+     *
+     * @return array: list of whitelisted emails
+     */
+    public function getWhitelist()
+    {
+        global $injector;
+
+        try {
+            return $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
+        } catch (Ingo_Exception $e) {
+        }
+
+        return array();
+    }
+
+    /**
+     * Export email filters.
+     *
+     * @return array: list of filters
+     */ 
+    public function exportFilters()
+    {
+        global $injector;
+
+        $action = Ingo::RULE_FILTER;
+        $type = Ingo_Storage::ACTION_FILTERS;
+
+        $answer = array();
+        $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
+        $filters = $ingo_storage->retrieve($type);
+
+        foreach ($filters->getFilterList() as $filter) {
+            if ($action > 0 && $filter['action'] != $action) {
+                continue;
+            }
+            // do not need to preserve the filter id
+            unset($filter[id]);
+            $answer[] = $filter;
+        }
+
+        return $answer;
+    }
+
+    public function importFilters($rules)
+    {
+        global $injector;
+
+        /* Get the current rules. */
+        $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+
+        foreach ( $rules as $rule ) {
+            unset($rule[id]);
+            $filters->addRule($rule);
+        }
+    }
+
+    /**
      * Can this driver perform on-demand filtering?
      *
      * @return boolean  True if perform() is available, false if not.
