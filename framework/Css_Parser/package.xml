@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Merge from upstream - handle keywords/dimensions case-insensitively.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -188,7 +188,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Merge from upstream - handle keywords/dimensions case-insensitively.
    </notes>
   </release>
  </changelog>
