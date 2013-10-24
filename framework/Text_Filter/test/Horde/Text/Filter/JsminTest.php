@@ -64,4 +64,14 @@ if(is.ua.indexOf('gecko')>=0){is.ie=is.ns=false;is.gecko=true;}",
         );
     }
 
+    public function testBug12787()
+    {
+        $js = "function foo(a) { return/\//.test(a); }";
+
+        $this->assertEquals(
+            'function foo(a){return/\//.test(a);}',
+             Horde_Text_Filter::filter($js, 'JavascriptMinify')
+         );
+    }
+
 }

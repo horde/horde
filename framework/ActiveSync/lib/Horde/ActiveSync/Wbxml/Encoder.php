@@ -107,7 +107,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $this->multipart = $multipart;
         if ($multipart) {
             $this->_tempStream = $this->_stream;
-            $this->_stream = fopen('php://temp', 'r+');
+            $this->_stream = new Horde_Stream_Temp();
         }
         $this->outputWbxmlHeader();
     }
@@ -157,9 +157,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if ($stackelem['sent']) {
             $this->_endTag();
             if (count($this->_stack) == 0 && $this->multipart) {
-                rewind($this->_stream);
-                $stat = fstat($this->_stream);
-                $len = $stat['size'];
+                $this->_stream->rewind();
+                $len = $this->_stream->length();
 
                 $totalCount = count($this->_parts) + 1;
                 $header = pack('i', $totalCount);
@@ -181,23 +180,19 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 }
 
                 // Output
-                fwrite($this->_tempStream, $header);
-                rewind($this->_stream);
-                while (!feof($this->_stream)) {
-                    fwrite($this->_tempStream, fread($this->_stream, 8192));
-                }
+                $this->_tempStream->add($header);
+                $this->_stream->rewind();
+                $this->_tempStream->add($this->_stream);
                 foreach($this->_parts as $bp) {
                     if (is_resource($bp)) {
                         rewind($bp);
-                        while (!feof($bp)) {
-                            fwrite($this->_tempStream, fread($bp, 8192));
-                        }
+                        $this->_tempStream->add($bp);
                         fclose($bp);
                     } else {
-                        fwrite($this->_tempStream, $bp);
+                        $this->_tempStream->add($bp);
                     }
                 }
-                fclose($this->_stream);
+                $this->_stream->close();
                 $this->_stream = $this->_tempStream;
             }
         }
@@ -334,7 +329,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outByte($byte)
     {
-        fwrite($this->_stream, chr($byte));
+        $this->_stream->add(chr($byte));
     }
 
     /**
@@ -365,13 +360,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         if (is_resource($content)) {
             rewind($content);
-            while (!feof($content)) {
-                fwrite($this->_stream, fread($content, 8192));
-            }
-        } else {
-            fwrite($this->_stream, $content);
         }
-        fwrite($this->_stream, chr(0));
+        $this->_stream->add($content);
+        $this->_stream->add(chr(0));
     }
 
     /**

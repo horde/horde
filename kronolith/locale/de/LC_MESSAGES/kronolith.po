@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-10-14 14:26+0200\n"
-"PO-Revision-Date: 2013-08-20 18:07+0200\n"
+"PO-Revision-Date: 2013-10-24 11:45+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -2678,7 +2678,7 @@ msgstr "Abonnement"
 
 #: templates/smartmobile/summary.html.php:2
 msgid "Summary"
-msgstr "Zusammenfassung"
+msgstr "Übersicht"
 
 #: config/prefs.php:128 templates/dynamic/edit.inc:169
 #: templates/dynamic/task.inc:106 templates/month/head.inc:6

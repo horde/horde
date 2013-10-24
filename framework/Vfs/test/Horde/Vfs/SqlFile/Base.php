@@ -190,6 +190,7 @@ class Horde_Vfs_Test_SqlFile_Base extends Horde_Vfs_TestBase
         if (self::$migrator) {
             self::$migrator->down();
         }
+        //self::$db->disconnect();
         self::$db = null;
         parent::tearDownAfterClass();
     }
