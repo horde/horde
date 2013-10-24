@@ -95,6 +95,7 @@ class Horde_SessionHandler_Storage_Sql_Base extends Horde_SessionHandler_Storage
         if (self::$migrator) {
             self::$migrator->down();
         }
+        self::$db->disconnect();
         self::$db = null;
         parent::tearDownAfterClass();
     }

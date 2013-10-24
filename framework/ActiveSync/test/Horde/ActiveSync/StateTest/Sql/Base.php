@@ -194,6 +194,7 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
         if (self::$migrator) {
             self::$migrator->down();
         }
+        self::$db->disconnect();
         self::$db = null;
         parent::tearDownAfterClass();
     }

@@ -47,6 +47,7 @@ class Horde_Auth_Unit_Sql_Base extends Horde_Auth_TestCase
         if (self::$migrator) {
             self::$migrator->down();
         }
+        self::$db->disconnect();
         self::$db = null;
         parent::tearDownAfterClass();
     }

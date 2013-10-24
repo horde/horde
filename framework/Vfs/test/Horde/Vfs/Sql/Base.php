@@ -186,6 +186,7 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
         if (self::$migrator) {
             self::$migrator->down();
         }
+        self::$db->disconnect();
         self::$db = null;
         parent::tearDownAfterClass();
     }
