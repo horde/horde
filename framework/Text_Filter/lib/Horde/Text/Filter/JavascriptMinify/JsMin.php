@@ -63,6 +63,13 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
     protected $_input;
     protected $_inputIndex = 0;
     protected $_inputLength;
+    protected $_keywords = array(
+        'case',
+        'else',
+        'in',
+        'return',
+        'typeof'
+    );
     protected $_lookAhead = null;
     protected $_output = '';
     protected $_x = null;
@@ -120,7 +127,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _action($d)
     {
-        switch($d) {
+        switch ($d) {
         case self::ACTION_KEEP_A:
             $this->_output .= $this->_a;
             if (strspn($this->_y, "\n ") &&
@@ -153,10 +160,10 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             }
 
         case self::ACTION_DELETE_A_B:
+            $oldindex = $this->_inputIndex;
             $this->_b = $this->_next();
 
-            if (($this->_b === '/') &&
-                strspn($this->_a, "(,=:[!&|?+-~*/{\n")) {
+            if (($this->_b === '/') && $this->_isRegexLiteral($oldindex)) {
                 $this->_output .= $this->_a;
                 if (strspn($this->_a, '/*')) {
                     $this->_output .= ' ';
@@ -241,6 +248,21 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                 ($c_ord >= 97 && $c_ord <= 122) ||
                 ($c_ord >= 48 && $c_ord <= 57) ||
                 ($c_ord >= 65 && $c_ord <= 90));
+    }
+
+    protected function _isRegexLiteral($oldindex)
+    {
+        if (strspn($this->_a, "(,=:[!&|?+-~*/{\n ")) {
+            return true;
+        }
+
+        $curr = $oldindex;
+        while (--$curr >= 0 && $this->_isAlphaNum($this->_input[$curr])) {}
+
+        return in_array(
+            substr($this->_input, $curr + 1, $oldindex - $curr - 1),
+            $this->_keywords
+        );
     }
 
     protected function _next()

@@ -77,6 +77,12 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_state;
 
+    /**
+     * Temporary serverid to uid map. Used when creating the hierarchy
+     * for the first time
+     *
+     * @var array
+     */
     protected $_tempMap = array();
 
     /**
@@ -351,16 +357,20 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected function _getFolderUidForBackendId($imap)
     {
-        if ($id = $this->_state->getFolderUidForBackendId($imap)) {
-            return $id;
-        } elseif (empty($this->_tempMap[$imap])) {
-            $this->_tempMap[$imap] = sprintf('%04x%04x', mt_rand(0, 0xffff), mt_rand(0, 0xffff));
-            $this->_logger->info(sprintf(
-                '[%s] Creating new folder uuid for %s: %s',
-                getmypid(),
-                $imap,
-                $this->_tempMap[$imap]));
+        $map = $this->_state->getFolderUidToBackendIdMap();
+        if (!empty($map[$imap])) {
+            return $map[$imap];
+        } elseif (!empty($this->_tempMap[$imap])) {
+            return $this->_tempMap[$imap];
         }
+
+        // None found, generate a new UID.
+        $this->_tempMap[$imap] = sprintf('F%04x%04x', mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+        $this->_logger->info(sprintf(
+            '[%s] Creating new folder uuid for %s: %s',
+            getmypid(),
+            $imap,
+            $this->_tempMap[$imap]));
 
         return $this->_tempMap[$imap];
     }

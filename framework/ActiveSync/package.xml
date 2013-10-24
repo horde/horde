@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-15</date>
+ <date>2013-10-22</date>
  <version>
-  <release>2.8.5</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve performance related to conflict detection and change mirroring protection.
+* [mjr] Improvements to memory and database usage.
+* [mjr] Add MongoDB state driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -114,6 +115,7 @@
       </dir> <!-- /lib/Horde/ActiveSync/Request -->
       <dir name="State">
        <file name="Base.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/State -->
       <dir name="Wbxml">
@@ -219,6 +221,9 @@
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <dir name="StateTest">
+       <dir name="Mongo">
+        <file name="BaseTest.php" role="test" />
+       </dir> <!-- /test/Horde/ActiveSync/StateTest/Mongo -->
        <dir name="Sql">
         <dir name="Pdo">
          <file name="MysqlTest.php" role="test" />
@@ -288,7 +293,7 @@
    <package>
     <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
-    <min>1.3.0</min>
+    <min>1.4.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -328,6 +333,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.2</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
@@ -422,6 +434,7 @@
    <install as="Horde/ActiveSync/Request/SyncBase.php" name="lib/Horde/ActiveSync/Request/SyncBase.php" />
    <install as="Horde/ActiveSync/Request/ValidateCert.php" name="lib/Horde/ActiveSync/Request/ValidateCert.php" />
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
+   <install as="Horde/ActiveSync/State/Mongo.php" name="lib/Horde/ActiveSync/State/Mongo.php" />
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
@@ -483,6 +496,7 @@
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
    <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Mongo/BaseTest.php" name="test/Horde/ActiveSync/StateTest/Mongo/BaseTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Base.php" name="test/Horde/ActiveSync/StateTest/Sql/Base.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/MysqliTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqliTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqlTest.php" />
@@ -1774,10 +1788,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-15</date>
+   <date>2013-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improve performance related to conflict detection and change mirroring protection.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Improvements to memory and database usage.
+* [mjr] Add MongoDB state driver.
    </notes>
   </release>
  </changelog>

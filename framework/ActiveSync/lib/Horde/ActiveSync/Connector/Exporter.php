@@ -102,6 +102,13 @@ class Horde_ActiveSync_Connector_Exporter
     protected $_as;
 
     /**
+     * Process id for logging.
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync $as                    The ActiveSync server.
@@ -116,6 +123,7 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_as = $as;
         $this->_encoder = $encoder;
         $this->_logger = $as->logger;
+        $this->_procid = getmypid();
     }
 
     /**
@@ -163,7 +171,7 @@ class Horde_ActiveSync_Connector_Exporter
                     } else {
                         $this->_logger->err(sprintf(
                             '[%s] Error stating %s: ignoring.',
-                            getmypid(), $change['id']));
+                            $this->_procid, $change['id']));
                         $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
                     // Update the state.
@@ -207,12 +215,17 @@ class Horde_ActiveSync_Connector_Exporter
                             $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                             $this->messageChange($change['id'], $message);
                         } catch (Horde_Exception_NotFound $e) {
-                            $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                            $this->_logger->err(sprintf(
+                                '[%s] Message gone or error reading message from server: %s',
+                                $this->_procid, $e->getMessage()));
                             $this->_as->state->updateState($change['type'], $change);
                             $this->_step++;
                             return $e;
                         } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
+                            $this->_logger->err(sprintf(
+                                '[%s] Unknown backend error skipping message: %s',
+                                $this->_procid,
+                                $e->getMessage()));
                         }
                         break;
 
@@ -287,7 +300,7 @@ class Horde_ActiveSync_Connector_Exporter
             in_array($id, $this->_seenObjects)) {
             $this->_logger->err(sprintf(
                 '[%s] IGNORING message %s since it looks like it was already sent or does not belong to this collection.',
-                getmypid(),
+                $this->_procid,
                 $id));
             return;
         }

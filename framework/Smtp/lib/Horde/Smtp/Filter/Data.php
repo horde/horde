@@ -38,10 +38,15 @@ class Horde_Smtp_Filter_Data extends php_user_filter
         while ($bucket = stream_bucket_make_writeable($in)) {
             $consumed += $bucket->datalen;
 
+            // Handle split EOL in the next data bucket.
+            if ($bucket->data[$bucket->datalen - 1] === "\r") {
+                $bucket->data = substr($bucket->data, 0, -1);
+            }
+
             // If the first character is '.', need to check if it has to be
             // doubled.
-            if (($bucket->data[0] == '.') &&
-                (is_null($this->_last) || ($this->_last == "\n"))) {
+            if (($bucket->data[0] === '.') &&
+                (is_null($this->_last) || ($this->_last === "\n"))) {
                 $bucket->data = '.' . $bucket->data;
             }
 
@@ -52,7 +57,7 @@ class Horde_Smtp_Filter_Data extends php_user_filter
                 $bucket->data
             );
 
-            $this->_last = $bucket->data[strlen($bucket->data) - 1];
+            $this->_last = substr($bucket->data, -1);
 
             stream_bucket_append($out, $bucket);
         }

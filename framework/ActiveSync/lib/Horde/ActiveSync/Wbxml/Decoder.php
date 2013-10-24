@@ -79,8 +79,8 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $this->_readVersion();
         if ($this->version != self::WBXML_VERSION) {
             // Not Wbxml - save the byte we already read.
-            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
-            fwrite($this->_buffer, chr($this->version));
+            $this->_getTempStream();
+            $this->_buffer->add(chr($this->version));
             $this->_isWbxml = false;
             return;
         } else {
@@ -120,15 +120,10 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     public function getFullInputStream()
     {
         // Ensure the buffer was created
-        if (!isset($this->_buffer)) {
-            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
-        }
-        while (!feof($this->_stream)) {
-            fwrite($this->_buffer, fread($this->_stream, 8192));
-        }
-        rewind($this->_buffer);
-
-        return $this->_buffer;
+        $this->_getTempStream();
+        $this->_buffer->add($this->_stream);
+        $this->_buffer->rewind();
+        return $this->_buffer->stream;
     }
 
     /**
@@ -604,9 +599,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         while (1) {
             $l = (($len - strlen($d)) > 8192) ? 8192 : ($len - strlen($d));
             if ($l > 0) {
-                $data = fread($this->_stream, $l);
+                $data = $this->_stream->substring(0, $l);
                 // Stream ends prematurely on instable connections and big mails
-                if ($data === false || feof($this->_stream)) {
+                if ($data === false || $this->_stream->eof()) {
                     throw new Horde_ActiveSync_Exception(sprintf(
                         'Connection unavailable while trying to read %d bytes from stream. Aborting after %d bytes read.',
                         $len,
@@ -630,7 +625,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     private function _getByte()
     {
-        $ch = fread($this->_stream, 1);
+        $ch = $this->_stream->getChar();
         if (strlen($ch) > 0) {
             $ch = ord($ch);
             return $ch;
@@ -670,7 +665,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $stringtable = '';
         $length = $this->_getMBUInt();
         if ($length > 0) {
-            $stringtable = fread($this->_stream, $length);
+            $stringtable = $this->_stream->substring(0, $length);
         }
 
         return $stringtable;
@@ -711,6 +706,20 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
                 return $this->_dtd['codes'][$cp][$id];
             }
         }
+    }
+
+    /**
+     * Return the temporary buffer stream.
+     *
+     * @return stream
+     */
+    protected function _getTempStream()
+    {
+        if (!isset($this->_buffer)) {
+            $this->_buffer = new Horde_Stream_Temp();
+        }
+
+        return $this->_buffer;
     }
 
 }
