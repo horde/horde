@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-09</date>
+ <date>2013-10-24</date>
  <version>
   <release>2.1.5</release>
   <api>2.1.0</api>
@@ -977,7 +977,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-09</date>
+   <date>2013-10-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix issue from upstream jsmin.c that was breaking parsing of a keyword immediately followed by a regexp (Bug #12787).
