@@ -24,7 +24,7 @@
  </developer>
  <date>2013-10-24</date>
  <version>
-  <release>2.1.5</release>
+  <release>2.1.6</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix issue from upstream jsmin.c that was breaking parsing of a keyword immediately followed by a regexp (Bug #12787).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -981,6 +981,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix issue from upstream jsmin.c that was breaking parsing of a keyword immediately followed by a regexp (Bug #12787).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
