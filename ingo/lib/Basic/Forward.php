@@ -49,7 +49,8 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         /* Build form. */
         $form = new Ingo_Form_Forward($this->vars);
 
-        /* Perform requested actions. */
+        /* Perform requested actions. Ingo_Form_Forward does token checking
+         * for us. */
         if ($form->validate($this->vars)) {
             $forward->setForwardAddresses($this->vars->addresses);
             $forward->setForwardKeep($this->vars->keep_copy == 'on');
