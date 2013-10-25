@@ -78,11 +78,15 @@ var ImpComposeBase = {
                 }.bind(this));
             }
 
-            config = Object.clone(IMP.ckeditor_config);
-            config.removePlugins = 'toolbar,elementspath';
-            config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
-            config.height = $('signatureBorder').getLayout().get('height');
-            this.rte = CKEDITOR.replace('signature', config);
+            if (this.rte) {
+                this.rte.setData($F('signature'));
+            } else {
+                config = Object.clone(IMP.ckeditor_config);
+                config.removePlugins = 'toolbar,elementspath';
+                config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
+                config.height = ($('signatureBorder') ? $('signatureBorder') : $('signature')).getLayout().get('height');
+                this.rte = CKEDITOR.replace('signature', config);
+            }
         } else {
             if (this.rte) {
                 this.rte.destroy(true);
