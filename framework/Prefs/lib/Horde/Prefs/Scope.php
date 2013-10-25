@@ -292,7 +292,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function rewind()
     {
-        return rewind($this->_prefs);
+        return reset($this->_prefs);
     }
 
     /**
