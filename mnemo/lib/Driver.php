@@ -386,6 +386,8 @@ abstract class Mnemo_Driver
                 Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize']) {
                 $body->data = Horde_String::substr($memo['body'], $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize']);
                 $body->truncated = 1;
+            } else {
+                $body->data = $memo['body'];
             }
         } else {
             $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
@@ -397,10 +399,9 @@ abstract class Mnemo_Driver
                     $body->data = $memo['body'];
                 }
             }
-            $message->body = $body;
         }
         $body->estimateddatasize = Horde_String::length($memo['body']);
-
+        $message->body = $body;
         if (!empty($memo['category'])) {
             $message->categories = array($memo['category']);
         }
