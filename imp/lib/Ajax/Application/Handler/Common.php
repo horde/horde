@@ -522,6 +522,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $headers,
                 $identity,
                 array(
+                    'signature' => $this->vars->signature,
                     'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
                     'html' => $this->vars->html,
                     'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,

@@ -653,48 +653,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                                      of this message.
      * @param array $opts                   An array of options w/the
      *                                      following keys:
-     * <ul>
-     *  <li>
-     *   encrypt: (integer) A flag whether to encrypt or sign the message.
+     *  - encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
-     *   <ul>
-     *    <li>IMP_Crypt_Pgp::ENCRYPT</li>
-     *    <li>IMP_Crypt_Pgp::SIGNENC</li>
-     *    <li>IMP_Crypt_Smime::ENCRYPT</li>
-     *    <li>IMP_Crypt_Smime::SIGNENC</li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   html: (boolean) Whether this is an HTML message.
-     *         DEFAULT: false
-     *  </li>
-     *  <li>
-     *   pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
-     *                      message?
-     *  </li>
-     *  <li>
-     *   priority: (string) The message priority ('high', 'normal', 'low').
-     *  </li>
-     *  <li>
-     *   save_sent: (boolean) Save sent mail?
-     *  </li>
-     *  <li>
-     *   sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
-     *  </li>
-     *  <li>
-     *   save_attachments: (bool) Save attachments with the message?
-     *  </li>
-     *  <li>
-     *   readreceipt: (boolean) Add return receipt headers?
-     *  </li>
-     *  <li>
-     *   useragent: (string) The User-Agent string to use.
-     *  </li>
-     *  <li>
-     *   vcard_attach: (string) Attach the user's vCard (value is name to
-     *                 display as vcard filename).
-     *  </li>
-     * </ul>
+     *    - IMP_Crypt_Pgp::ENCRYPT</li>
+     *    - IMP_Crypt_Pgp::SIGNENC</li>
+     *    - IMP_Crypt_Smime::ENCRYPT</li>
+     *    - IMP_Crypt_Smime::SIGNENC</li>
+     *  - html: (boolean) Whether this is an HTML message.
+     *          DEFAULT: false
+     *  - pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
+     *                       message?
+     *  - priority: (string) The message priority ('high', 'normal', 'low').
+     *  - save_sent: (boolean) Save sent mail?
+     *  - sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
+     *  - save_attachments: (bool) Save attachments with the message?
+     *  - signature: (string) The message signature.
+     *  - readreceipt: (boolean) Add return receipt headers?
+     *  - useragent: (string) The User-Agent string to use.
+     *  - vcard_attach: (string) Attach the user's vCard (value is name to
+     *                  display as vcard filename).
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
@@ -750,7 +727,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'html' => !empty($opts['html']),
             'identity' => $identity,
             'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
-            'signature' => $identity,
+            'signature' => is_null($opts['signature']) ? $identity : $opts['signature'],
             'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
         );
 
@@ -1316,8 +1293,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
-     *   - signature: (IMP_Prefs_Identity) If set, add the signature to the
-     *                message?
+     *   - signature: (IMP_Prefs_Identity|string) If set, add the signature to
+     *                the message.
      *   - vcard_attach: (string) If set, attach user's vcard to message.
      *
      * @return Horde_Mime_Part  The MIME message to send.
@@ -1361,15 +1338,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add signature data. */
         if (!empty($options['signature'])) {
-            $sig = $options['signature']->getSignature('text');
-            $body .= $sig;
-
-            if (!empty($options['html'])) {
-                $html_sig = $options['signature']->getSignature('html');
-                if (!strlen($html_sig) && strlen($sig)) {
-                    $html_sig = $this->text2html($sig);
+            if (is_string($options['signature'])) {
+                if (empty($options['html'])) {
+                    $body .= $options['signature'];
+                } else {
+                    $html_sig = $options['signature'];
+                    $body .= "\n" . $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($html_sig, 'Html2text');
                 }
+            } else {
+                $sig = $options['signature']->getSignature('text');
+                $body .= $sig;
 
+                if (!empty($options['html'])) {
+                    $html_sig = $options['signature']->getSignature('html');
+                    if (!strlen($html_sig) && strlen($sig)) {
+                        $html_sig = $this->text2html($sig);
+                    }
+
+                }
+            }
+            if (!empty($options['html'])) {
                 $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
                 foreach ($sig_dom->getBody()->childNodes as $child) {
                     $body_html_body->appendChild($body_html->dom->importNode($child, true));

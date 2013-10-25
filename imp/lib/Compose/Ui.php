@@ -157,14 +157,7 @@ class IMP_Compose_Ui
                     $html_sig .= $sig_dom->dom->saveXml($child);
                 }
 
-                $entry['sig'] = $filter->filter(
-                    trim($sig),
-                    array('Text2html', 'Space2html'),
-                    array(
-                        array('parselevel' => Horde_Text_Filter_Text2html::NOHTML),
-                        array()
-                    )
-                );
+                $entry['sig'] = trim($sig);
                 $entry['hsig'] = $html_sig;
             }
 

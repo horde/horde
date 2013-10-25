@@ -208,7 +208,9 @@
     <span id="signatureToggle" class="iconImg<?php if ($this->sigExpanded) echo ' signatureExpanded' ?>"></span>
     <?php echo _("Signature")?>:
    </div>
-   <div id="signature"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?> title="<?php echo _("The signature is not editable.") ?>"></div>
+   <div id="signatureBorder">
+    <textarea id="signature" name="signature"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?>></textarea>
+   </div>
   </div>
 <?php endif; ?>
  </div>

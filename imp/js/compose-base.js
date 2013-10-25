@@ -8,7 +8,7 @@
 
 var ImpComposeBase = {
 
-    // Vars defaulting to null: editor_on, identities
+    // Vars defaulting to null: editor_on, identities, rte, rte_loade
 
     getSpellChecker: function()
     {
@@ -59,16 +59,37 @@ var ImpComposeBase = {
 
     setSignature: function(identity)
     {
-        var s = $('signature');
+        var config, s = $('signature');
 
-        if (s) {
-            if (ImpComposeBase.editor_on) {
-                s.removeClassName('fixed')
-                    .update(identity.hsig);
-            } else {
-                s.addClassName('fixed')
-                    .update(identity.sig);
+        if (!s) {
+            return;
+        }
+
+        if (this.editor_on) {
+            s.removeClassName('fixed')
+                .update(identity.hsig);
+
+            if (Object.isUndefined(this.rte_loaded)) {
+                CKEDITOR.on('instanceReady', function(evt) {
+                    this.rte_loaded = true;
+                }.bind(this));
+                CKEDITOR.on('instanceDestroyed', function(evt) {
+                    this.rte_loaded = false;
+                }.bind(this));
             }
+
+            config = Object.clone(IMP.ckeditor_config);
+            config.removePlugins = 'toolbar,elementspath';
+            config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
+            config.height = $('signatureBorder').getLayout().get('height');
+            this.rte = CKEDITOR.replace('signature', config);
+        } else {
+            if (this.rte) {
+                this.rte.destroy(true);
+                delete this.rte;
+            }
+            s.addClassName('fixed')
+                .update(identity.sig);
         }
     },
 

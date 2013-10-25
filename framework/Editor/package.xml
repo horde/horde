@@ -16,8 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-11</date>
- <time>19:10:42</time>
+ <date>2013-10-17</date>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -583,6 +582,7 @@
      <file name="config.js" role="horde" />
      <file name="contents.css" role="horde" />
      <file name="LICENSE.html" role="horde" />
+     <file name="nomargin.css" role="horde" />
     </dir> <!-- /js/ckeditor -->
    </dir> <!-- /js -->
    <dir name="lib">
@@ -640,6 +640,7 @@
    <install as="js/ckeditor/config.js" name="js/ckeditor/config.js" />
    <install as="js/ckeditor/contents.css" name="js/ckeditor/contents.css" />
    <install as="js/ckeditor/LICENSE.html" name="js/ckeditor/LICENSE.html" />
+   <install as="js/ckeditor/nomargin.css" name="js/ckeditor/nomargin.css" />
    <install as="js/ckeditor/images/spacer.gif" name="js/ckeditor/images/spacer.gif" />
    <install as="js/ckeditor/lang/af.js" name="js/ckeditor/lang/af.js" />
    <install as="js/ckeditor/lang/ar.js" name="js/ckeditor/lang/ar.js" />
@@ -1228,7 +1229,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
