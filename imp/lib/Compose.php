@@ -3051,7 +3051,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 'readreceipt' => $vars->request_read_receipt
             ));
 
-            $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
+            $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('sha1', $vars->user), $body, true);
         } catch (Exception $e) {}
     }
 
@@ -3066,7 +3066,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return;
         }
 
-        $filename = hash('md5', $GLOBALS['registry']->getAuth());
+        $filename = hash('sha1', $GLOBALS['registry']->getAuth());
 
         try {
             $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();

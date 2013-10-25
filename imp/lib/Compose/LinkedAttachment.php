@@ -135,7 +135,7 @@ class IMP_Compose_LinkedAttachment
         $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 
         /* Build reproducible ID value from old data. */
-        $id = hash('md5', $ts . '|' . $file);
+        $id = hash('sha1', $ts . '|' . $file);
 
         /* Create new attachment object. */
         $atc = $injector->getInstance('IMP_Factory_ComposeAtc')->create($this->_user, $id);

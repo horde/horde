@@ -70,7 +70,7 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
             return new $classname($user);
         }
 
-        $sig = hash('md5', serialize(array($user, $id)));
+        $sig = hash('sha1', serialize(array($user, $id)));
 
         if (!isset($this->_instances[$sig])) {
             $this->_instances[$sig] = new $classname($user, $id);

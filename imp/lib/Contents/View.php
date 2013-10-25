@@ -275,7 +275,7 @@ class IMP_Contents_View
                 $cache_list[] = $val;
                 $cache_list[] = filemtime($val);
             }
-            $cache_id = hash('md5', implode('', $cache_list));
+            $cache_id = hash('sha1', implode('', $cache_list));
 
             if (($style = $cache_ob->get($cache_id, 0)) === false) {
                 try {
