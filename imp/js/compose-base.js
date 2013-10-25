@@ -84,6 +84,10 @@ var ImpComposeBase = {
             config.height = $('signatureBorder').getLayout().get('height');
             this.rte = CKEDITOR.replace('signature', config);
         } else {
+            if (this.rte) {
+                this.rte.destroy(true);
+                delete this.rte;
+            }
             s.addClassName('fixed')
                 .update(identity.sig);
         }
