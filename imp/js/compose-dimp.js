@@ -11,10 +11,10 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   atc_context, auto_save_interval, compose_cursor, disabled,
-    //   drafts_mbox, editor_wait, fwdattach, is_popup, knl, last_identity,
-    //   md5_hdrs, md5_msg, md5_msgOrig, md5_sig, md5_sigOrig, onload_show,
-    //   old_action, old_identity, rte, rte_loaded, sc_submit, skip_spellcheck,
-    //   spellcheck, tasks, uploading
+    //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
+    //   hash_msgOrig, hash_sig, hash_sigOrig, is_popup, knl, last_identity,
+    //   onload_show, old_action, old_identity, rte, rte_loaded, sc_submit,
+    //   skip_spellcheck, spellcheck, tasks, uploading
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -80,7 +80,7 @@ var DimpCompose = {
 
     closeQReply: function()
     {
-        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = this.md5_sig = this.md5_sigOrig = '';
+        this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
 
         $('attach_list').hide().childElements().each(this.removeAttachRow.bind(this));
         this.getCacheElt().clear();
@@ -102,8 +102,8 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
-        if (!Object.isUndefined(this.md5_sigOrig) &&
-            this.md5_sigOrig != this.sigHash() &&
+        if (!Object.isUndefined(this.hash_sigOrig) &&
+            this.hash_sigOrig != this.sigHash() &&
             !window.confirm(DimpCore.text.change_identity)) {
             return false;
         }
@@ -388,7 +388,7 @@ var DimpCompose = {
         if (ImpComposeBase.editor_on) {
             this.RTELoading('show');
 
-            changed = (this.msgHash() != this.md5_msgOrig);
+            changed = (this.msgHash() != this.hash_msgOrig);
             text = this.rte.getData();
 
             DimpCore.doAction('html2Text', this.actionParams({
@@ -403,7 +403,7 @@ var DimpCompose = {
             delete this.rte;
 
             if ($('signature')) {
-                sigChanged = this.sigHash() != this.md5_sigOrig;
+                sigChanged = this.sigHash() != this.hash_sigOrig;
                 if (sigChanged) {
                     DimpCore.doAction('html2Text', this.actionParams({
                         changed: 1,
@@ -421,7 +421,7 @@ var DimpCompose = {
                 tmp = $F('composeMessage');
                 if (!tmp.blank()) {
                     DimpCore.doAction('text2Html', this.actionParams({
-                        changed: Number(this.msgHash() != this.md5_msgOrig),
+                        changed: Number(this.msgHash() != this.hash_msgOrig),
                         text: tmp
                     }), {
                         callback: this.setMessageText.bind(this, true)
@@ -446,7 +446,7 @@ var DimpCompose = {
 
             if ($('signature')) {
                 tmp = $F('signature');
-                sigChanged = (this.sigHash() != this.md5_sigOrig);
+                sigChanged = (this.sigHash() != this.hash_sigOrig);
                 if (sigChanged && !tmp.blank()) {
                     DimpCore.doAction('text2Html', this.actionParams({
                         changed: 1,
@@ -634,8 +634,8 @@ var DimpCompose = {
 
         // This value is used to determine if the text has changed when
         // swapping compose modes.
-        this.md5_msgOrig = this.msgHash();
-        this.md5_sigOrig = this.sigHash();
+        this.hash_msgOrig = this.msgHash();
+        this.hash_sigOrig = this.sigHash();
 
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
@@ -665,20 +665,20 @@ var DimpCompose = {
             this.seed
         );
 
-        if (this.md5_hdrs) {
+        if (this.hash_hdrs) {
             msg = this.msgHash();
             sig = this.sigHash();
-            if (this.md5_hdrs != hdrs || this.md5_msg != msg || this.md5_sig != sig) {
+            if (this.hash_hdrs != hdrs || this.hash_msg != msg || this.hash_sig != sig) {
                 this.uniqueSubmit('autoSaveDraft');
             }
         } else {
-            msg = this.md5_msgOrig;
-            sig = this.md5_sigOrig;
+            msg = this.hash_msgOrig;
+            sig = this.hash_sigOrig;
         }
 
-        this.md5_hdrs = hdrs;
-        this.md5_msg = msg;
-        this.md5_sig = sig;
+        this.hash_hdrs = hdrs;
+        this.hash_msg = msg;
+        this.hash_sig = sig;
     },
 
     msgHash: function()
@@ -700,7 +700,7 @@ var DimpCompose = {
             this.updateSigHash.bind(this).defer();
             return;
         }
-        this.md5_sigOrig = this.sigHash();
+        this.hash_sigOrig = this.sigHash();
     },
 
     fadeNotice: function(elt)
