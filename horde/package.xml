@@ -3779,6 +3779,7 @@
    <date>2013-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Don&apos;t show admin alarm form if alarms are disabled.
 * [mms] Add horde-remove-user-data command-line script.
 * [mms] Add additional syntax checking for the configuration files in the test script.
 * [mms] Only update topbar if the underlying tree data has changed.
