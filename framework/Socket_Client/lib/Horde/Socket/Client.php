@@ -61,7 +61,9 @@ class Client
      *   - 'ssl' (Auto-detect SSL version)
      *   - 'sslv2' (Force SSL version 3)
      *   - 'sslv3' (Force SSL version 2)
-     *   - 'tls' (TLS)
+     *   - 'tls' (TLS; started via protocol-level negotation over unencrypted
+     *     channel)
+     *   - 'tlsv1' (TLS version 1.x connection) (@since 1.1.0)
      *   - true (TLS if available/necessary)
      * </pre>
      * @param array $params     Additional options.
@@ -147,10 +149,7 @@ class Client
     /**
      * Connect to the remote server.
      *
-     * @param string $host      Hostname of remote server.
-     * @param integer $port     Port number of remote server.
-     * @param integer $timeout  Connection timeout (in seconds).
-     * @param mixed $secure     TODO
+     * @see __construct()
      *
      * @throws Horde\Socket\Client\Exception
      */
@@ -161,6 +160,11 @@ class Client
         case 'sslv2':
         case 'sslv3':
             $conn = $secure . '://';
+            $this->_secure = true;
+            break;
+
+        case 'tlsv1':
+            $conn = 'tls://';
             $this->_secure = true;
             break;
 

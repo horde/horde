@@ -1165,6 +1165,8 @@ var DimpBase = {
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
+            } else {
+                $('horde-search-input').focus();
             }
             break;
 

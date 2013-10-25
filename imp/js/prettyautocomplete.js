@@ -7,7 +7,7 @@
  *   - AutoComplete:focus
  *   - AutoComplete:handlers
  *   - AutoComplete:reset
- *   - AutoComplete:submit
+ *   - AutoComplete:update
  *
  *
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
@@ -115,7 +115,7 @@ var IMP_PrettyAutocompleter = Class.create({
             e.memo[this.elt.identify()] = this;
         }.bind(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
-        document.observe('AutoComplete:submit', this.processInput.bind(this));
+        document.observe('AutoComplete:update', this.processInput.bind(this));
     },
 
     focus: function()
@@ -131,10 +131,8 @@ var IMP_PrettyAutocompleter = Class.create({
 
     reset: function()
     {
-        if ($F(this.input)) {
-            this.currentEntries().invoke('remove');
-            this.updateInput('');
-        }
+        this.currentEntries().invoke('remove');
+        this.updateInput('');
         this.addNewItem(this.processValue($F(this.elt)));
     },
 
