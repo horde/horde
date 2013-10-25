@@ -235,6 +235,9 @@ var DimpCompose = {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
                 this.rte.updateElement();
+                if (!Object.isUndefined(ImpComposeBase.rte)) {
+                    ImpComposeBase.rte.updateElement();
+                }
             }
 
             DimpCore.doAction(

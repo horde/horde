@@ -150,6 +150,10 @@ div.partsTreeDiv {
     border: 0;
     background-color: #fff;
 }
+#signatureBorder .cke_skin_kama, #signatureBorder .cke_skin_kama .cke_wrapper {
+    border: 0;
+    padding: 0;
+}
 .spellcheck {
     white-space: pre;
     white-space: -moz-pre-wrap;
