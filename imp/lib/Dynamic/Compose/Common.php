@@ -247,6 +247,7 @@ class IMP_Dynamic_Compose_Common
 
         /* Gettext strings used in compose page. */
         $base->js_text += array(
+            'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'replyall' => _("%d recipients"),

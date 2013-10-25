@@ -11,9 +11,10 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   atc_context, auto_save_interval, compose_cursor, disabled,
-    //   drafts_mbox, editor_wait, fwdattach, is_popup, knl, md5_hdrs,
-    //   md5_msg, md5_msgOrig, onload_show, old_action, old_identity, rte,
-    //   rte_loaded, sc_submit, skip_spellcheck, spellcheck, tasks, uploading
+    //   drafts_mbox, editor_wait, fwdattach, is_popup, knl, last_identity,
+    //   md5_hdrs, md5_msg, md5_msgOrig, md5_sig, md5_sigOrig, onload_show,
+    //   old_action, old_identity, rte, rte_loaded, sc_submit, skip_spellcheck,
+    //   spellcheck, tasks, uploading
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -79,7 +80,7 @@ var DimpCompose = {
 
     closeQReply: function()
     {
-        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
+        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = this.md5_sig = this.md5_sigOrig = '';
 
         $('attach_list').hide().childElements().each(this.removeAttachRow.bind(this));
         this.getCacheElt().clear();
@@ -101,6 +102,12 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
+        if (!Object.isUndefined(this.md5_sigOrig) &&
+            this.md5_sigOrig != this.sigHash() &&
+            !window.confirm(DimpCore.text.change_identity)) {
+            return false;
+        }
+
         var identity = ImpComposeBase.identities[$F('identity')];
 
         this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
@@ -114,7 +121,10 @@ var DimpCompose = {
             this.toggleCC('bcc');
         }
         this.setSaveSentMail(identity.sm_save);
-        ImpComposeBase.setSignature(identity);
+        ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+        this.last_identity = $F('identity');
+
+        return true;
     },
 
     setSaveSentMail: function(set)
@@ -363,7 +373,7 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var changed, sc, text, tmp,
+        var changed, sigChanged, sc, text, tmp,
             identity = ImpComposeBase.identities[$F('identity')];
 
         if (!DimpCore.conf.rte_avail) {
@@ -391,6 +401,19 @@ var DimpCompose = {
 
             this.rte.destroy(true);
             delete this.rte;
+
+            if ($('signature')) {
+                sigChanged = this.sigHash() != this.md5_sigOrig;
+                if (sigChanged) {
+                    DimpCore.doAction('html2Text', this.actionParams({
+                        changed: 1,
+                        text: ImpComposeBase.rte.getData()
+                    }), {
+                        ajaxopts: { asynchronous: false },
+                        callback: function(r) { ImpComposeBase.setSignature(false, r.text) }
+                    });
+                }
+            }
         } else {
             this.RTELoading('show');
 
@@ -420,10 +443,27 @@ var DimpCompose = {
             }
 
             this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+
+            if ($('signature')) {
+                tmp = $F('signature');
+                sigChanged = (this.sigHash() != this.md5_sigOrig);
+                if (sigChanged && !tmp.blank()) {
+                    DimpCore.doAction('text2Html', this.actionParams({
+                        changed: 1,
+                        text: tmp
+                    }), {
+                        ajaxopts: { asynchronous: false },
+                        callback: function(r) { ImpComposeBase.setSignature(true, r.text) }
+                    });
+                }
+            }
         }
 
         ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
-        ImpComposeBase.setSignature(identity);
+        if (!sigChanged) {
+            ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+            this.updateSigHash();
+        }
 
         $('htmlcheckbox').setValue(ImpComposeBase.editor_on);
         $('html').setValue(Number(ImpComposeBase.editor_on));
@@ -595,6 +635,7 @@ var DimpCompose = {
         // This value is used to determine if the text has changed when
         // swapping compose modes.
         this.md5_msgOrig = this.msgHash();
+        this.md5_sigOrig = this.sigHash();
 
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
@@ -611,7 +652,7 @@ var DimpCompose = {
 
     autoSaveDraft: function()
     {
-        var hdrs, msg;
+        var hdrs, msg, sig;
 
         if (!$('compose').visible()) {
             return;
@@ -626,20 +667,40 @@ var DimpCompose = {
 
         if (this.md5_hdrs) {
             msg = this.msgHash();
-            if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
+            sig = this.sigHash();
+            if (this.md5_hdrs != hdrs || this.md5_msg != msg || this.md5_sig != sig) {
                 this.uniqueSubmit('autoSaveDraft');
             }
         } else {
             msg = this.md5_msgOrig;
+            sig = this.md5_sigOrig;
         }
 
         this.md5_hdrs = hdrs;
         this.md5_msg = msg;
+        this.md5_sig = sig;
     },
 
     msgHash: function()
     {
         return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), this.seed);
+    },
+
+    sigHash: function()
+    {
+        if (!$('signature')) {
+            return 0;
+        }
+        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+    },
+
+    updateSigHash: function()
+    {
+        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+            this.updateSigHash.bind(this).defer();
+            return;
+        }
+        this.md5_sigOrig = this.sigHash();
     },
 
     fadeNotice: function(elt)
@@ -1135,7 +1196,9 @@ var DimpCompose = {
     {
         switch (e.element().readAttribute('id')) {
         case 'identity':
-            this.changeIdentity();
+            if (!this.changeIdentity()) {
+                $('identity').setValue(this.last_identity);
+            }
             break;
 
         case 'upload':

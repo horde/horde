@@ -8,7 +8,7 @@
 
 var ImpComposeBase = {
 
-    // Vars defaulting to null: editor_on, identities, rte, rte_loade
+    // Vars defaulting to null: editor_on, identities, rte, rte_loaded
 
     getSpellChecker: function()
     {
@@ -57,7 +57,7 @@ var ImpComposeBase = {
         }
     },
 
-    setSignature: function(identity)
+    setSignature: function(rte, identity)
     {
         var config, s = $('signature');
 
@@ -65,8 +65,8 @@ var ImpComposeBase = {
             return;
         }
 
-        if (this.editor_on) {
-            s.update(identity.hsig);
+        if (rte) {
+            s.setValue(Object.isString(identity) ? identity : identity.hsig);
 
             if (Object.isUndefined(this.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
@@ -91,7 +91,7 @@ var ImpComposeBase = {
                 this.rte.destroy(true);
                 delete this.rte;
             }
-            s.update(identity.sig);
+            s.setValue(Object.isString(identity) ? identity : identity.sig);
         }
     },
 
