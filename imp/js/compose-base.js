@@ -66,8 +66,7 @@ var ImpComposeBase = {
         }
 
         if (this.editor_on) {
-            s.removeClassName('fixed')
-                .update(identity.hsig);
+            s.update(identity.hsig);
 
             if (Object.isUndefined(this.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
@@ -92,8 +91,7 @@ var ImpComposeBase = {
                 this.rte.destroy(true);
                 delete this.rte;
             }
-            s.addClassName('fixed')
-                .update(identity.sig);
+            s.update(identity.sig);
         }
     },
 

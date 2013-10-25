@@ -525,6 +525,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $header,
                         $identity,
                         array(
+                            'signature' => $this->vars->signature,
                             'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
                             'html' => $rtemode,
                             'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,

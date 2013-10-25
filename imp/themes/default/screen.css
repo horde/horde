@@ -139,16 +139,9 @@ div.partsTreeDiv {
     width: 500px;
 }
 #signatureBorder {
-    height: 4.4em;
     border: 1px solid #d0d0d0;
     background-color: #fff;
     padding: 0.2em 5px;
-}
-#signature {
-    height: 100%;
-    width: 100%;
-    border: 0;
-    background-color: #fff;
 }
 #signatureBorder .cke_skin_kama, #signatureBorder .cke_skin_kama .cke_wrapper {
     border: 0;

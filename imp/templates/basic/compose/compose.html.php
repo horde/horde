@@ -207,7 +207,9 @@
     <strong><?php echo _("Signature") ?></strong>
    </td>
    <td class="item">
-    <div id="signature" title="<?php echo _("The signature is not editable.") ?>"></div>
+    <div id="signatureBorder"<?php if (!$this->rtemode) echo ' class="signaturePlain"' ?>>
+     <textarea id="signature" name="signature" cols="80" rows="3" class="fixed"></textarea>
+    </div>
    </td>
   </tr>
 <?php endif; ?>

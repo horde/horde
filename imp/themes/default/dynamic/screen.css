@@ -691,11 +691,18 @@ div.dimpActionsMsg #windowclose {
     padding: 10px;
 }
 #signatureBorder {
+    height: 4.4em;
     margin-top: 4px;
 }
 #signatureParent .label {
     white-space: nowrap;
     font-weight: bold;
+}
+#signature {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    background-color: #fff;
 }
 #signatureToggle {
     cursor: pointer;

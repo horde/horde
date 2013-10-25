@@ -1340,7 +1340,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!empty($options['signature'])) {
             if (is_string($options['signature'])) {
                 if (empty($options['html'])) {
-                    $body .= $options['signature'];
+                    $body .= "\n" . $options['signature'];
                 } else {
                     $html_sig = $options['signature'];
                     $body .= "\n" . $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($html_sig, 'Html2text');

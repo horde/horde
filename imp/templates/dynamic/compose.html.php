@@ -209,7 +209,7 @@
     <?php echo _("Signature")?>:
    </div>
    <div id="signatureBorder">
-    <textarea id="signature" name="signature"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?>></textarea>
+    <textarea id="signature" name="signature" class="fixed"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?>></textarea>
    </div>
   </div>
 <?php endif; ?>
