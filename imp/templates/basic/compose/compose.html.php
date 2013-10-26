@@ -208,7 +208,7 @@
    </td>
    <td class="item">
     <div id="signatureBorder"<?php if (!$this->rtemode) echo ' class="signaturePlain"' ?>>
-     <textarea id="signature" name="signature" cols="80" rows="3" class="fixed"></textarea>
+     <textarea id="signature" name="signature" cols="80" rows="3" class="fixed"><?php echo $this->h($this->signatureContent) ?></textarea>
     </div>
    </td>
   </tr>

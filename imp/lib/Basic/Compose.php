@@ -655,10 +655,22 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
             $msg = "\n" . $msg;
         }
+        if (isset($this->vars->signature)) {
+            $signature = $this->vars->signature;
+            if ($browser->hasQuirk('double_linebreak_textarea')) {
+                $signature = preg_replace('/(\r?\n){3}/', '$1', $signature);
+            }
+            $signatureChanged = $signature != $identity->getSignature($oldrtemode ? 'html' : 'text');
+        } else {
+            $signatureChanged = false;
+        }
 
         /* Convert from Text -> HTML or vice versa if RTE mode changed. */
         if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
             $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text');
+            if ($signatureChanged) {
+                $signature = $imp_ui->convertComposeText($signature, $rtemode ? 'html' : 'text');
+            }
         }
 
         /* If this is the first page load for this compose item, add auto BCC
@@ -718,6 +730,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
             'ImpCompose.text' => array(
                 'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
+                'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
                 'discard' => _("Doing so will discard this message permanently."),
                 'file' => _("File"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
@@ -726,9 +739,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         );
 
         /* Set up the base view now. */
-        $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/basic/compose'
-        ));
+        $view = $injector->createInstance('Horde_View');
         $view->addHelper('FormTag');
         $view->addHelper('Horde_Core_View_Helper_Accesskey');
         $view->addHelper('Horde_Core_View_Helper_Help');
@@ -758,7 +769,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             $view->input_value = $header['to'];
 
-            $this->output = $view->render('redirect');
+            $this->output = $view->render('basic/compose/redirect');
         } else {
             /* Prepare the compose template. */
             $view->file_upload = $attach_upload;
@@ -958,6 +969,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
 
             $view->message = $msg;
+            if ($signatureChanged) {
+                $view->signatureContent = $signature;
+            }
 
             if ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime')) {
                 if ($prefs->isLocked('default_encrypt')) {
@@ -1029,7 +1043,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 }
             }
 
-            $this->output = $view->render('compose');
+            $this->output = $view->render('basic/compose/compose');
         }
 
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');

@@ -8,9 +8,9 @@
 var ImpCompose = {
 
     // Variables defined in PHP code:
-    //   cancel_url, cursor_pos, discard_url, editor_wait, last_msg,
-    //   max_attachments, popup, redirect, reloaded, sc_submit, sm_check,
-    //   skip_spellcheck, spellcheck, text
+    //   cancel_url, cursor_pos, discard_url, editor_wait, last_identity,
+    //   last_msg, last_sig, max_attachments, popup, redirect, reloaded,
+    //   sc_submit, sm_check, skip_spellcheck, spellcheck, text
 
     display_unload_warning: true,
     seed: 3,
@@ -42,7 +42,15 @@ var ImpCompose = {
             bcc = $('bcc'),
             save = $('ssm'),
             sm = $('sent_mail'),
-            re;
+            re, cur_sig;
+
+        cur_sig = this.sigHash();
+        if (this.last_sig &&
+            this.last_sig != cur_sig &&
+            !window.confirm(this.text.change_identity)) {
+            return false;
+        }
+        this.last_sig = cur_sig;
 
         if (this.sm_check) {
             sm.setValue(next.sm_name);
@@ -73,7 +81,10 @@ var ImpCompose = {
 
             bcc.setValue(bccval);
         }
-        ImpComposeBase.setSignature(next);
+        ImpComposeBase.setSignature(ImpComposeBase.editor_on, next);
+        this.last_identity = $F('identity');
+
+        return true;
     },
 
     uniqSubmit: function(actionID, e)
@@ -131,6 +142,7 @@ var ImpCompose = {
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on &&
+                ImpComposeBase.rte_loaded &&
                 CKEDITOR.instances.composeMessage) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
@@ -214,6 +226,23 @@ var ImpCompose = {
         }
     },
 
+    sigHash: function()
+    {
+        if (!$('signature')) {
+            return 0;
+        }
+        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+    },
+
+    updateSigHash: function()
+    {
+        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+            this.updateSigHash.bind(this).defer();
+            return;
+        }
+        this.last_sig = this.sigHash();
+    },
+
     clickHandler: function(e)
     {
         var name,
@@ -264,7 +293,9 @@ var ImpCompose = {
 
         switch (id) {
         case 'identity':
-            this.changeIdentity(elt);
+            if (!this.changeIdentity(elt)) {
+                $('identity').setValue(this.last_identity);
+            }
             break;
 
         case 'sent_mail':
@@ -295,7 +326,7 @@ var ImpCompose = {
         if (this.redirect) {
             ImpComposeBase.focus('to');
         } else {
-            ImpComposeBase.setSignature(ImpComposeBase.identities[$F('last_identity')]);
+            ImpComposeBase.setSignature(ImpComposeBase.editor_on, $F('signature') ? $F('signature') : ImpComposeBase.identities[$F('last_identity')]);
 
             handler = this.keyDownHandler.bindAsEventListener(this);
             /* Prevent Return from sending messages - it should bring us out
@@ -341,6 +372,8 @@ var ImpCompose = {
                 /* Immediately execute to get MD5 hash of empty message. */
                 new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
             }
+            this.last_identity = $F('identity');
+            this.updateSigHash();
         }
 
         this.resize.bind(this).delay(0.25);
