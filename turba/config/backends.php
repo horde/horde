@@ -201,7 +201,7 @@
  *             still be enforced. Also note that the backend driver must have
  *             support for using this. Supported: SQL, IMAP/Kolab, and IMSP.
  *
- * all_shares: (boolean) If true (and 'use_shares'is true) the corresponding
+ * all_shares: (boolean) If true (and 'use_shares' is true) the corresponding
  *             source will be assumed to handle all shares that are not
  *             explicitly assigned to another source. Supported: IMAP/Kolab.
  *
