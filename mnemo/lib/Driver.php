@@ -409,15 +409,9 @@ abstract class Mnemo_Driver
             }
         }
         $body->estimateddatasize = Horde_String::length($memo['body']);
-<<<<<<< HEAD
 
         if (!empty($memo['tags'])) {
             $message->categories = $memo['tags'];
-=======
-        $message->body = $body;
-        if (!empty($memo['category'])) {
-            $message->categories = array($memo['category']);
->>>>>>> master
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
