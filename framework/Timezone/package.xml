@@ -10,9 +10,9 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-18</date>
+ <date>2013-10-28</date>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix broken offsets during first zone rules.
-* [jan] Make BYMONTHDAY property as short as possible.
-* [jan] Fix missing time of day in DTSTART and UNTIL properties.
-* [jan] Don&apos;t create transitions that overlap.
-* [jan] Use orginally requested time zone instead of alias in TZID.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -200,7 +196,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-18</date>
+   <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix broken offsets during first zone rules.
@@ -208,6 +204,19 @@
 * [jan] Fix missing time of day in DTSTART and UNTIL properties.
 * [jan] Don&apos;t create transitions that overlap.
 * [jan] Use orginally requested time zone instead of alias in TZID.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

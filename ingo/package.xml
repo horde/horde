@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
+ <date>2013-10-27</date>
  <time>23:01:09</time>
  <version>
   <release>3.2.0</release>
@@ -1304,6 +1304,19 @@
    <notes>
 * [mms] Disable links if the underlying preferences are locked.
 * [jan] Fix setting excluded addresses and mailing list flag in Sieve vacation rule.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-27</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] SECURITY: Protect against CSRF attacks by using tokens on destructive actions (CVE-2013-6275; Bug #12796; Marcela Benetrix &lt;m.benetrix@e-secure.com.au&gt;).
    </notes>
   </release>
   <release>

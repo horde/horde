@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-17</date>
+ <date>2013-10-25</date>
  <version>
   <release>2.16.0</release>
   <api>2.16.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Use SHA-1 instead of MD5 for internal hashing.
 * [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.
@@ -124,6 +125,9 @@
        <dir name="Mailbox">
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Mailbox -->
+       <dir name="Password">
+        <file name="Xoauth2.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Password -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
@@ -250,6 +254,7 @@
        <file name="TokenizeTest.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
        <file name="Utf7ConvertTest.php" role="test" />
+       <file name="Xoauth2Test.php" role="test" />
       </dir> <!-- /test/Horde/Imap/Client -->
      </dir> <!-- /test/Horde/Imap -->
     </dir> <!-- /test/Horde -->
@@ -444,6 +449,7 @@
    <install as="Horde/Imap/Client/Interaction/Server/Tagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Tagged.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
    <install as="Horde/Imap/Client/Mailbox/List.php" name="lib/Horde/Imap/Client/Mailbox/List.php" />
+   <install as="Horde/Imap/Client/Password/Xoauth2.php" name="lib/Horde/Imap/Client/Password/Xoauth2.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
@@ -486,6 +492,7 @@
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
+   <install as="Horde/Imap/Client/Xoauth2Test.php" name="test/Horde/Imap/Client/Xoauth2Test.php" />
    <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
    <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
@@ -2046,9 +2053,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-17</date>
+   <date>2013-10-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Use SHA-1 instead of MD5 for internal hashing.
 * [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
 * [mms] Fix harmless PHP undefined error when using with an IMAP server that supports XOAUTH2.

@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-22</date>
+ <date>2013-10-25</date>
  <version>
-  <release>1.2.7</release>
-  <api>1.2.0</api>
+  <release>1.3.0</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added Horde_Smtp_Password_Xoauth2 class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,6 +39,9 @@
       <dir name="Filter">
        <file name="Data.php" role="php" />
       </dir> <!-- /lib/Horde/Smtp/Filter -->
+      <dir name="Password">
+       <file name="Xoauth2.php" role="php" />
+      </dir> <!-- /lib/Horde/Smtp/Password -->
       <file name="Connection.php" role="php" />
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -62,6 +65,7 @@
       <file name="FilterDataTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RemoteServerTest.php" role="test" />
+      <file name="Xoauth2Test.php" role="test" />
      </dir> <!-- /test/Horde/Smtp -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -139,6 +143,7 @@
    <install as="Horde/Smtp/Password.php" name="lib/Horde/Smtp/Password.php" />
    <install as="Horde/Smtp/Translation.php" name="lib/Horde/Smtp/Translation.php" />
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
+   <install as="Horde/Smtp/Password/Xoauth2.php" name="lib/Horde/Smtp/Password/Xoauth2.php" />
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
    <install as="Horde/Smtp/AllTests.php" name="test/Horde/Smtp/AllTests.php" />
    <install as="Horde/Smtp/bootstrap.php" name="test/Horde/Smtp/bootstrap.php" />
@@ -146,6 +151,7 @@
    <install as="Horde/Smtp/FilterDataTest.php" name="test/Horde/Smtp/FilterDataTest.php" />
    <install as="Horde/Smtp/phpunit.xml" name="test/Horde/Smtp/phpunit.xml" />
    <install as="Horde/Smtp/RemoteServerTest.php" name="test/Horde/Smtp/RemoteServerTest.php" />
+   <install as="Horde/Smtp/Xoauth2Test.php" name="test/Horde/Smtp/Xoauth2Test.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -276,15 +282,15 @@
   </release>
   <release>
    <version>
-    <release>1.2.7</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-22</date>
+   <date>2013-10-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added Horde_Smtp_Password_Xoauth2 class.
    </notes>
   </release>
  </changelog>

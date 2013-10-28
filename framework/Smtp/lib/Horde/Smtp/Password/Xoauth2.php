@@ -8,7 +8,7 @@
  * @category  Horde
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Imap_Client
+ * @package   Smtp
  */
 
 /**
@@ -21,11 +21,10 @@
  * @category  Horde
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Imap_Client
- * @since     2.16.0
+ * @package   Smtp
+ * @since     1.3.0
  */
-class Horde_Imap_Client_Password_Xoauth2
-implements Horde_Imap_Client_Base_Password
+class Horde_Smtp_Password_Xoauth2 implements Horde_Smtp_Password
 {
     /**
      * Access token.

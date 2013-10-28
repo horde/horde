@@ -2889,49 +2889,37 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Add attachment from uploaded (form) data.
      *
-     * @param Horde_Variables $vars  Variables object.
-     * @param string $field          The form field name.
+     * @param string $field  The form field name.
      *
      * @return IMP_Compose_Attachment  Attachment object.
      * @throws IMP_Compose_Exception
      */
-    public function addAttachmentFromUpload(Horde_Variables $vars, $field)
+    public function addAttachmentFromUpload($field)
     {
         global $browser;
 
-        if ($vars->get($field . '_dataurl')) {
-            $url_data = new Horde_Url_Data($vars->get($field));
+        try {
+            $browser->wasFileUploaded($field, _("attachment"));
+        } catch (Horde_Browser_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
 
-            $atc_file = Horde::getTempFile('impatt');
-            file_put_contents($atc_file, $url_data->data);
+        $finfo = $_FILES[$field];
 
-            $bytes = strlen($url_data->data);
-            $filename = $vars->get($field . '_filename');
-            $type = $url_data->type;
-        } else {
-            try {
-                $browser->wasFileUploaded($field, _("attachment"));
-            } catch (Horde_Browser_Exception $e) {
-                throw new IMP_Compose_Exception($e);
-            }
+        $atc_file = $finfo['tmp_name'];
 
-            $finfo = $_FILES[$field];
+        $bytes = $finfo['size'];
+        $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
 
-            $atc_file = $finfo['tmp_name'];
+        switch (empty($finfo['type']) ? $finfo['type'] : '') {
+        case 'application/unknown':
+        case '':
+            $type = 'application/octet-stream';
+            break;
 
-            $bytes = $finfo['size'];
-            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-
-            switch (empty($finfo['type']) ? $finfo['type'] : '') {
-            case 'application/unknown':
-            case '':
-                $type = 'application/octet-stream';
-                break;
-
-            default:
-                $type = $finfo['type'];
-                break;
-            }
+        default:
+            $type = $finfo['type'];
+            break;
         }
 
         return $this->_addAttachment(
