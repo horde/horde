@@ -55,7 +55,7 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'file_upload');
+                    $atc_ob = $imp_compose->addAttachmentFromUpload('file_upload');
                     $result->atc_id = $atc_ob->id;
                     $result->success = 1;
 
