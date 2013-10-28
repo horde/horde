@@ -31,6 +31,7 @@ v6.1.5-git
 
 [mms] SECURITY: Fix XSS in message and search screens resulting from a
       user-defined flag label (João Machado <geral@jpaulo.eu>).
+[mms] Support uploading multiple attachments at once in dynamic view.
 [mms] Send linked attachment download notification message in language of the
       sending user (Bug #12783).
 [mms] Fix populating search fields when editing an advanced search query.

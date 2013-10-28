@@ -2891,7 +2891,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param string $field  The form field name.
      *
-     * @return IMP_Compose_Attachment  Attachment object.
+     * @return array  A list of IMP_Compose_Attachment objects (if
+     *                successfully attached) or IMP_Compose_Exception objects
+     *                (if error when attaching).
      * @throws IMP_Compose_Exception
      */
     public function addAttachmentFromUpload($field)
@@ -2904,30 +2906,46 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             throw new IMP_Compose_Exception($e);
         }
 
-        $finfo = $_FILES[$field];
-
-        $atc_file = $finfo['tmp_name'];
-
-        $bytes = $finfo['size'];
-        $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-
-        switch (empty($finfo['type']) ? $finfo['type'] : '') {
-        case 'application/unknown':
-        case '':
-            $type = 'application/octet-stream';
-            break;
-
-        default:
-            $type = $finfo['type'];
-            break;
+        $finfo = array();
+        if (is_array($_FILES[$field]['size'])) {
+            for ($i = 0; $i < count($_FILES[$field]['size']); ++$i) {
+                $tmp = array();
+                foreach ($_FILES[$field] as $key => $val) {
+                    $tmp[$key] = $val[$i];
+                }
+                $finfo[] = $tmp;
+            }
+        } else {
+            $finfo[] = $_FILES[$field];
         }
 
-        return $this->_addAttachment(
-            $atc_file,
-            $bytes,
-            $filename,
-            $type
-        );
+        $out = array();
+
+        foreach ($finfo as $val) {
+            switch (empty($val['type']) ? $val['type'] : '') {
+            case 'application/unknown':
+            case '':
+                $type = 'application/octet-stream';
+                break;
+
+            default:
+                $type = $val['type'];
+                break;
+            }
+
+            try {
+                $out[] = $this->_addAttachment(
+                    $val['tmp_name'],
+                    $val['size'],
+                    Horde_Util::dispelMagicQuotes($val['name']),
+                    $type
+                );
+            } catch (IMP_Compose_Exception $e) {
+                $out[] = $e;
+            }
+        }
+
+        return $out;
     }
 
     /**

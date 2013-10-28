@@ -158,7 +158,7 @@
        <span id="upload_wait" style="display:none"></span>
        <span>
         <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
-        <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
+        <?php echo $this->fileFieldTag('file_upload[]', array('id' => 'upload', 'multiple' => 'multiple')) ?>
        </span>
 <?php else: ?>
      <td></td>

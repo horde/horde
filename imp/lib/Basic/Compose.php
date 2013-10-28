@@ -187,8 +187,11 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     strlen($_FILES['upload_' . $i]['name'])) {
                     try {
                         $atc_ob = $imp_compose->addAttachmentFromUpload('upload_' . $i);
+                        if ($atc_ob[0] instanceof IMP_Compose_Exception) {
+                            throw $atc_ob[0];
+                        }
                         if ($notify) {
-                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
+                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob[0]->getPart()->getName()), 'horde.success');
                         }
                     } catch (IMP_Compose_Exception $e) {
                         /* Any error will cancel the current action. */

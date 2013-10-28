@@ -918,7 +918,9 @@ var DimpCompose = {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
         u.up().hide();
-        $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
+        $('upload_wait').update(DimpCore.text.uploading + ' (' +
+            ((u.files && u.files.length > 1) ? DimpCore.text.multiple_atc.sub('%d', u.files.length) : $F(u).escapeHTML())
+            + ')').show();
     },
 
     uploadAttachmentAjax: function(data, params, callback)

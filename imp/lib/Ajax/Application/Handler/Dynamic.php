@@ -906,12 +906,16 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             if ($imp_compose->canUploadAttachment()) {
                 try {
                     $atc_ob = $imp_compose->addAttachmentFromUpload('upload');
-                    $atc_ob->related = true;
+                    if ($atc_ob[0] instanceof IMP_Compose_Exception) {
+                        throw $atc_ob[0];
+                    }
+
+                    $atc_ob[0]->related = true;
 
                     $data = array(
-                        IMP_Compose::RELATED_ATTR => 'src;' . $atc_ob->id
+                        IMP_Compose::RELATED_ATTR => 'src;' . $atc_ob[0]->id
                     );
-                    $url = strval($atc_ob->viewUrl());
+                    $url = strval($atc_ob[0]->viewUrl());
                 } catch (IMP_Compose_Exception $e) {
                     $data = $e->getMessage();
                 }
