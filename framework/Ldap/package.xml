@@ -19,7 +19,7 @@
  </lead>
  <date>2013-10-28</date>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* [jan] Fix modifying entries with modify().
-* [jan] Try starting TLS without querying the rootDSE (Bug #12157).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -391,6 +390,19 @@
    <notes>
 * [jan] Fix modifying entries with modify().
 * [jan] Try starting TLS without querying the rootDSE (Bug #12157).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
