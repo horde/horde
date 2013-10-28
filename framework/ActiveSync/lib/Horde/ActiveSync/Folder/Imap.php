@@ -35,7 +35,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const MESSAGES       = 'messages';
 
     /* Serialize version */
-    const VERSION        = 1;
+    const VERSION        = 2;
 
     /**
      * The folder's current message list.
@@ -359,7 +359,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function serialize()
     {
-        return serialize(array(
+        return json_encode(array(
             's' => $this->_status,
             'm' => $this->_messages,
             'f' => $this->_serverid,
@@ -377,7 +377,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function unserialize($data)
-    {   $data = @unserialize($data);
+    {   $data = json_decode($data, true, 512, JSON_BIGINT_AS_STRING);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
             throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }
@@ -385,8 +385,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_messages = $data['m'];
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
-        $this->_lastSinceDate = empty($data['lsd']) ? 0 : $data['lsd'];
-        $this->_softDelete = empty($data['sd']) ? 0 : $data['sd'];
+        $this->_lastSinceDate = $data['lsd'];
+        $this->_softDelete = $data['sd'];
     }
 
     /**

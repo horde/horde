@@ -38,7 +38,7 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    function Horde_Form($vars, $title = '', $name = null)
+    function __construct($vars, $title = '', $name = null)
     {
         if (empty($name)) {
             $name = Horde_String::lower(get_class($this));
@@ -47,11 +47,6 @@ class Horde_Form {
         $this->_vars = &$vars;
         $this->_title = $title;
         $this->_name = $name;
-    }
-
-    function __construct($vars, $title = '', $name = null)
-    {
-        $this->Horde_Form($vars, $title, $name);
     }
 
     function singleton($form, &$vars, $title = '', $name = null)

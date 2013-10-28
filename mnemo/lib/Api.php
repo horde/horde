@@ -366,8 +366,8 @@ class Mnemo_Api extends Horde_Registry_Api
             foreach ($uid as $u) {
                 $result = $this->delete($u);
             }
+            return;
         }
-
 
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
@@ -434,7 +434,15 @@ class Mnemo_Api extends Horde_Registry_Api
 
         case 'activesync':
             $category = is_array($content->categories) ? current($content->categories) : '';
-            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $category);
+
+            // We only support plaintext
+            if ($content->body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $body = Horde_Text_Filter::filter($content->body->data, 'Html2text');
+            } else {
+                $body = $content->body->data;
+            }
+
+            $storage->modify($memo['memo_id'], $content->subject, $body, $category);
             break;
 
         default:

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-10-14 14:26+0200\n"
-"PO-Revision-Date: 2013-10-16 14:18+0200\n"
+"PO-Revision-Date: 2013-10-25 16:34+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -5701,7 +5701,7 @@ msgstr "Termin anzeigen"
 
 #: lib/Mime/Viewer/Pgp.php:385
 msgid "View key details."
-msgstr "Schlüsseldetail anzeigen."
+msgstr "Schlüsseldetails anzeigen."
 
 #: lib/Basic/Mailbox.php:846
 #, php-format

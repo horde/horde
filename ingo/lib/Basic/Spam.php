@@ -53,7 +53,8 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
             'varrenderer_driver' => array('ingo', 'ingo')
         ));
 
-        /* Perform requested actions. */
+        /* Perform requested actions. Ingo_Form_Spam does token checking for
+         * us .*/
         if ($form->validate($this->vars)) {
             $success = false;
 

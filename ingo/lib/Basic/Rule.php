@@ -57,8 +57,15 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
+        /* Token checking. */
+        $actionID = $this->_checkToken(array(
+            'rule_save',
+            'rule_update',
+            'rule_delete'
+        ));
+
         /* Run through action handlers. */
-        switch ($this->vars->actionID) {
+        switch ($actionID) {
         case 'rule_save':
         case 'rule_update':
         case 'rule_delete':
@@ -95,7 +102,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
                     ? $this->vars->match[$key]
                     : '';
 
-                if (($this->vars->actionID == 'rule_save') &&
+                if (($actionID == 'rule_save') &&
                     empty($this->vars->value[$key]) &&
                     !in_array($condition['match'], array('exists', 'not exist'))) {
                     $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), is_null($f_label) ? $condition['field'] : $f_label), 'horde.error');
@@ -118,7 +125,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
 
             switch ($ingo_storage->getActionInfo($this->vars->action)->type) {
             case 'folder':
-                if ($this->vars->actionID == 'rule_save') {
+                if ($actionID == 'rule_save') {
                     try {
                         $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
                     } catch (Ingo_Exception $e) {
@@ -152,7 +159,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             }
 
             /* Save the rule. */
-            switch ($this->vars->actionID) {
+            switch ($actionID) {
             case 'rule_save':
                 if (!$valid) {
                     break;
@@ -246,7 +253,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $view->avail_types = $ingo_script->availableTypes();
         $view->edit = $this->vars->edit;
         $view->fields = $ingo_fields;
-        $view->formurl = self::url();
+        $view->formurl = $this->_addToken(self::url());
         $view->rule = $rule;
         $view->special = $ingo_script->specialTypes();
         $view->userheader = !empty($conf['rules']['userheader']);

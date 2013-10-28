@@ -61,6 +61,13 @@ class Horde_ActiveSync_Device
     protected $_state;
 
     /**
+     * Dirty flag
+     *
+     * @var array
+     */
+    protected $_dirty = array();
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver.
@@ -77,7 +84,12 @@ class Horde_ActiveSync_Device
      */
     public function &__get($property)
     {
-        return $this->_properties[$property];
+        if (isset($this->_properties[$property])) {
+            return $this->_properties[$property];
+        } else {
+            $return = null;
+            return $return;
+        }
     }
 
     /**
@@ -85,7 +97,10 @@ class Horde_ActiveSync_Device
      */
     public function __set($property, $value)
     {
-        $this->_properties[$property] = $value;
+        if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
+            $this->_dirty[$property] = true;
+            $this->_properties[$property] = $value;
+        }
     }
 
     /**
@@ -106,11 +121,13 @@ class Horde_ActiveSync_Device
     public function needsVersionUpdate($supported)
     {
         if (empty($this->properties['announcedVersion'])) {
-            $this->properties['announcedVersion'] = $supported;
+            $this->_properties['properties']['announcedVersion'] = $supported;
+            $this->_dirty['properties'] = true;
             return false;
         }
         if ($this->properties['announcedVersion'] != $supported) {
-            $this->properties['announcedVersion'] = $supported;
+            $this->_properties['properties']['announcedVersion'] = $supported;
+            $this->_dirty['properties'] = true;
             return true;
         }
 
@@ -216,7 +233,8 @@ class Horde_ActiveSync_Device
 
     public function save()
     {
-        $this->_state->setDeviceInfo($this);
+        $this->_state->setDeviceInfo($this, $this->_dirty);
+        $this->_dirty = array();
     }
 
 }
