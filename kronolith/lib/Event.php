@@ -1400,7 +1400,11 @@ abstract class Kronolith_Event
             strlen($description = $message->getBody())) {
             $this->description = $description;
         } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
-            $this->description = $message->airsyncbasebody->data;
+            if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
+            } else {
+                $this->description = $message->airsyncbasebody->data;
+            }
         }
         if (strlen($location = $message->getLocation())) {
             $this->location = $location;
