@@ -18,7 +18,7 @@
  </lead>
  <date>2013-10-28</date>
  <version>
-  <release>2.2.4</release>
+  <release>2.2.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix autoloading from a PHP-defined namespace.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -438,6 +438,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix autoloading from a PHP-defined namespace.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
