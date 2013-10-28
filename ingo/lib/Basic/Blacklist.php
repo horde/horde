@@ -41,8 +41,11 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
         $flagonly = ($ingo_script && in_array(Ingo_Storage::ACTION_FLAGONLY, $ingo_script->availableActions()));
 
+        /* Token checking. */
+        $actionID = $this->_checkToken(array('rule_update'));
+
         /* Perform requested actions. */
-        switch ($this->vars->actionID) {
+        switch ($actionID) {
         case 'rule_update':
             switch ($this->vars->action) {
             case 'delete':
@@ -113,7 +116,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $view->flagonly = $flagonly;
         $view->folder = $blacklist_folder;
         $view->folderlist = $folder_list;
-        $view->formurl = self::url();
+        $view->formurl = $this->_addToken(self::url());
 
         $page_output->addScriptFile('blacklist.js');
         $page_output->addInlineJsVars(array(
