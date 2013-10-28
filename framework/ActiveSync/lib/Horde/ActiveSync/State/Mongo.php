@@ -842,7 +842,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         if (empty($results) || empty($results['ok'])) {
-            throw new Horde_ActiveSync_Exception('Error running aggregation.');
+            throw new Horde_ActiveSync_Exception(empty($results['errmsg']) ? 'Error running aggregation.' : $results['errmsg']);
         }
         if (empty($results) || empty($results['ok'])) {
             return 0;
@@ -1237,8 +1237,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         foreach ($changes as $change) {
             $match['$or'][] = array(
                 '$and' => array(
-                    'message_uid' => $change['id'],
-                    'sync_deleted' => $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE
+                    array('message_uid' => $change['id']),
+                    array('sync_deleted' => $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE)
                 )
             );
         }
@@ -1257,7 +1257,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             throw new Horde_ActiveSync_Exception($e);
         }
         if (empty($rows) || empty($rows['ok'])) {
-            throw new Horde_ActiveSync_Exception('Error running aggregation.');
+            throw new Horde_ActiveSync_Exception(sprintf(
+                'Error running aggregation: %s',
+                empty($rows['errmsg']) ? '' : $rows['errmsg']));
         }
         $results = array();
         foreach ($rows as $row) {
