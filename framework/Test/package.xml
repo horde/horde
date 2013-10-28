@@ -16,8 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>13:54:29</time>
+ <date>2013-10-28</date>
  <version>
   <release>2.2.4</release>
   <api>2.0.0</api>
@@ -435,7 +434,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix autoloading from a PHP-defined namespace.
