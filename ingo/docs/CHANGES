@@ -2,6 +2,9 @@
 v3.1.3-git
 ----------
 
+[mms] SECURITY: Protect against CSRF attacks by using tokens on destructive
+      actions (CVE-2013-6275; Bug #12796; Marcela Benetrix
+      <m.benetrix@e-secure.com.au>).
 
 
 ------

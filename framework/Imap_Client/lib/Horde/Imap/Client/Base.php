@@ -702,7 +702,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         $additional = array_map('strval', $additional);
-        $sig = hash('md5', serialize($additional));
+        $sig = hash('sha1', serialize($additional));
 
         if (isset($this->_init['namespace'][$sig])) {
             return $this->_init['namespace'][$sig];
@@ -2705,7 +2705,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if (!empty($val['cache']) && !empty($val['peek'])) {
                             $cache_array[$k] = $v;
                             ksort($val);
-                            $header_cache[$key] = hash('md5', serialize($val));
+                            $header_cache[$key] = hash('sha1', serialize($val));
                         }
                     }
                     break;
@@ -3961,7 +3961,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         ksort($options);
-        $cache = hash('md5', $type . serialize($options));
+        $cache = hash('sha1', $type . serialize($options));
         $cacheid = $this->getCacheId($this->_selected);
         $ret = array();
 

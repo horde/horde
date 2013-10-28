@@ -11,8 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.3.0
+==================
+
+  - Horde_Smtp_Password_Xoauth2
+
+    Added class to abstract production of the necessary token for XOAUTH2 SASL
+    authentication.
+
+
 Upgrading to 1.2.0
-===================
+==================
 
   - Horde_Smtp
 
@@ -23,7 +32,7 @@ Upgrading to 1.2.0
 
 
 Upgrading to 1.1.0
-===================
+==================
 
   - Horde_Smtp
 

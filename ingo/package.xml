@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] SECURITY: Protect against CSRF attacks by using tokens on destructive actions (CVE-2013-6275; Bug #12796; Marcela Benetrix &lt;m.benetrix@e-secure.com.au&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1316,7 +1316,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mms] SECURITY: Protect against CSRF attacks by using tokens on destructive actions (CVE-2013-6275; Bug #12796; Marcela Benetrix &lt;m.benetrix@e-secure.com.au&gt;).
    </notes>
   </release>
  </changelog>

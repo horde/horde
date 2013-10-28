@@ -365,8 +365,8 @@ class Mnemo_Api extends Horde_Registry_Api
             foreach ($uid as $u) {
                 $result = $this->delete($u);
             }
+            return;
         }
-
 
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
