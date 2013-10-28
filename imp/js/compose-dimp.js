@@ -1021,16 +1021,16 @@ var DimpCompose = {
             break;
 
         case 'signatureToggle':
-            if ($('signature').visible()) {
+            if ($('signatureBorder').visible()) {
                 $('signatureToggle').removeClassName('signatureExpanded');
-                $('signature').hide();
+                $('signatureBorder').hide();
                 HordeCore.doAction('setPrefValue', {
                     pref: 'signature_expanded',
                     value: 0
                 });
             } else {
                 $('signatureToggle').addClassName('signatureExpanded');
-                $('signature').show();
+                $('signatureBorder').show();
                 HordeCore.doAction('setPrefValue', {
                     pref: 'signature_expanded',
                     value: 1
