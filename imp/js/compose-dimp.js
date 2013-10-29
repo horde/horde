@@ -230,7 +230,9 @@ var DimpCompose = {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
+            // Fall-through
 
+        case 'redirectMessage':
             $(document).fire('AutoComplete:update');
             break;
         }
