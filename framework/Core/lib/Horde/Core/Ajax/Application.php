@@ -72,7 +72,7 @@ abstract class Horde_Core_Ajax_Application
     public function __construct($app, Horde_Variables $vars, $action = null,
                                 $token = null)
     {
-        global $session;
+        global $registry, $session;
 
         $this->_app = $app;
         $this->_vars = $vars;
@@ -82,12 +82,15 @@ abstract class Horde_Core_Ajax_Application
 
         $ob = $this->_getHandler();
 
-        /* Check token. */
+        /* Check authentication/token. */
         if ($ob && !$ob->external($action)) {
+            if (!$registry->currentProcessAuth()) {
+                throw new Horde_Exception('Accessing AJAX action without being authenticated.');
+            }
             $session->checkToken($token);
         }
 
-        /* Check for session regnerateion request. */
+        /* Check for session regneration request. */
         if ($vars->regenerate_sid) {
             $session->regenerate();
             if (SID) {

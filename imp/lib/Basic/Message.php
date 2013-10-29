@@ -682,7 +682,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $imp_params = $mailbox->urlParams($buid);
         $a_view->save_as = Horde::widget(array(
-            'url' => $registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)),
+            'url' => IMP_Contents_View::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)),
             'title' => _("Sa_ve as"),
             'nocheck' => true
         ));

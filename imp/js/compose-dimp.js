@@ -14,7 +14,7 @@ var DimpCompose = {
     //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
     //   hash_msgOrig, hash_sig, hash_sigOrig, is_popup, knl, last_identity,
     //   onload_show, old_action, old_identity, rte, rte_loaded, sc_submit,
-    //   skip_spellcheck, spellcheck, tasks, uploading
+    //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -81,6 +81,7 @@ var DimpCompose = {
     closeQReply: function()
     {
         this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
+        this.upload_limit = false;
 
         $('attach_list').hide().childElements().each(this.removeAttachRow.bind(this));
         this.getCacheElt().clear();
@@ -855,6 +856,14 @@ var DimpCompose = {
 
         u.clear();
 
+        if (this.upload_limit) {
+            $('upload_limit').show();
+            u.up().hide();
+        } else {
+            $('upload_limit').hide();
+            u.up().show();
+        }
+
         if (!al.childElements().size()) {
             al.hide();
         }
@@ -1277,13 +1286,7 @@ var DimpCompose = {
 
         if (t['imp:compose']) {
             this.getCacheElt().setValue(t['imp:compose'].cacheid);
-            if (t['imp:compose'].atclimit) {
-                $('upload_limit').show();
-                $('upload').up().hide();
-            } else {
-                $('upload_limit').hide();
-                $('upload').up().show();
-            }
+            this.upload_limit = t['imp:compose'].atclimit;
         }
 
         if (t['imp:compose-atc']) {

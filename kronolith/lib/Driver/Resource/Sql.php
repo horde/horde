@@ -319,7 +319,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         if (!count($results)) {
-            throw new Kronolith_Exception('Resource not found');
+            throw new Horde_Exception_NotFound('Resource not found');
         }
 
         $class = 'Kronolith_Resource_' . $results['resource_type'];
@@ -348,7 +348,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         if (empty($result)) {
-            throw new Kronolith_Exception('Resource not found');
+            throw new Horde_Exception_NotFound('Resource not found');
         }
 
         return $result;

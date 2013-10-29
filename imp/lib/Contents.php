@@ -887,7 +887,7 @@ class IMP_Contents
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
         return (strpos($actionID, 'download_') === 0)
-            ? $GLOBALS['registry']->downloadUrl($mime_part->getName(true), $params)
+            ? IMP_Contents_View::downloadUrl($mime_part->getName(true), $params)
             : Horde::url('view.php', true)->add($params);
     }
 
@@ -912,7 +912,7 @@ class IMP_Contents
             $params['muid'] = strval($this->getIndicesOb());
         }
 
-        return $params;
+        return IMP_Contents_View::addToken($params);
     }
 
     /**

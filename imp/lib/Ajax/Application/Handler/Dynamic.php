@@ -707,6 +707,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                     $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
                     unset($imp_compose[$val]);
                     $result[] = $val;
+                    $this->_base->queue->compose($imp_compose);
                 }
             }
         }

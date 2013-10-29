@@ -510,10 +510,12 @@ class IMP_Application extends Horde_Registry_Application
         switch ($vars->actionID) {
         case 'download_all':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadAll();
 
         case 'download_attach':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadAttach($vars->id, $vars->zip);
 
         case 'download_mbox':
@@ -557,6 +559,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'download_render':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadRender($vars->id, $vars->mode, $vars->ctype);
 
         case 'save_message':
