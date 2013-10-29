@@ -1,6 +1,6 @@
-----------
-v5.1.5-git
-----------
+------
+v5.1.5
+------
 
 [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
       #12804).
