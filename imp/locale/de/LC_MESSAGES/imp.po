@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: 2013-10-25 16:34+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -297,7 +297,7 @@ msgstr ""
 "Eine Nachricht, die Sie verschickt haben, führte zu einer Empfangbestätigung "
 "vom Empfänger."
 
-#: lib/Compose.php:3019
+#: lib/Compose.php:3015
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -749,7 +749,7 @@ msgstr "Ihre Visitenkarte an die Nachricht anhängen?"
 msgid "Attach:"
 msgstr "Anhängen:"
 
-#: lib/Compose.php:2955
+#: lib/Compose.php:2951
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -757,7 +757,7 @@ msgstr ""
 "Die Datei \"%s\" hat die erlaubte Größe für Anhänge überschritten. Die Datei "
 "wurde NICHT angehängt."
 
-#: lib/Compose.php:2955
+#: lib/Compose.php:2951
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
 "Die Datei hat die erlaubte Größe für Anhänge überschritten und wurde NICHT "
@@ -1118,7 +1118,7 @@ msgstr "Klicken Sie HIER, um die Nachricht in einem neuen Fenster anzuzeigen."
 msgid "Click here to open all mailto: links using %s."
 msgstr "Klicken Sie hier, um alle mailto:-Links in %s zu öffnen."
 
-#: lib/Compose/LinkedAttachment.php:220
+#: lib/Compose/LinkedAttachment.php:227
 msgid "Click on the following link to permanently delete the attachment:"
 msgstr ""
 "Klicken Sie auf den folgenden Link, um den Anhang dauerhaft zu löschen:"
@@ -1307,7 +1307,7 @@ msgstr ""
 msgid "Could not attach %s to the message."
 msgstr "%s konnte nicht an die Nachricht angehängt werden."
 
-#: lib/Contents/View.php:160
+#: lib/Contents/View.php:163
 msgid "Could not auto-determine data type."
 msgstr "Der Datentyp wurde nicht automatisch erkannt."
 
@@ -2911,7 +2911,7 @@ msgstr "Nachrichtenverlauf"
 msgid "Message Size"
 msgstr "Nachrichten Größe"
 
-#: lib/Basic/Message.php:686 lib/Contents/View.php:178
+#: lib/Basic/Message.php:686 lib/Contents/View.php:181
 msgid "Message Source"
 msgstr "_Quelltext"
 
@@ -3064,7 +3064,7 @@ msgstr "Name"
 msgid "Name and/or email cannot be empty"
 msgstr "Der Name und/oder die E-Mail-Adresse dürfen nicht leer sein"
 
-#: lib/Compose/LinkedAttachment.php:217
+#: lib/Compose/LinkedAttachment.php:224
 #, php-format
 msgid "Name: %s"
 msgstr "Name: %s"
@@ -3317,7 +3317,7 @@ msgstr "Notizblöcke"
 msgid "Nothing"
 msgstr "Nichts"
 
-#: lib/Compose/LinkedAttachment.php:207
+#: lib/Compose/LinkedAttachment.php:214
 msgid "Notification: Linked attachment downloaded"
 msgstr "Hinweis: Verlinkter Anhang heruntergeladen"
 
@@ -3675,7 +3675,7 @@ msgstr "Seite zurück"
 msgid "Print"
 msgstr "Drucken"
 
-#: lib/Contents/View.php:245
+#: lib/Contents/View.php:248
 msgid "Printed By"
 msgstr "Gedruckt Von"
 
@@ -4437,7 +4437,7 @@ msgstr "Absender: %s"
 msgid "Sent"
 msgstr "Gesendet"
 
-#: lib/Compose/LinkedAttachment.php:219
+#: lib/Compose/LinkedAttachment.php:226
 #, php-format
 msgid "Sent Date: %s"
 msgstr "Sendedatum: %s"
@@ -5462,7 +5462,7 @@ msgstr "\"Papierkorb\"-Ordner:"
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Compose/LinkedAttachment.php:218
+#: lib/Compose/LinkedAttachment.php:225
 #, php-format
 msgid "Type: %s"
 msgstr "Typ: %s"
@@ -5481,7 +5481,7 @@ msgstr "Nachricht konnte nicht im Vorschaufenster angezeigt werden."
 msgid "Undelete"
 msgstr "Wiederherstellen"
 
-#: lib/Ajax/Application/ShowMessage.php:434 lib/Mailbox/Ui.php:81
+#: lib/Ajax/Application/ShowMessage.php:440 lib/Mailbox/Ui.php:81
 #: lib/Message/Ui.php:318
 msgid "Undisclosed Recipients"
 msgstr "Unbekannte Empfänger"
@@ -6146,7 +6146,7 @@ msgstr ""
 "Empfängeradresse verknüpft ist. Die Identität wird für diese Nachricht nicht "
 "mehr überprüft."
 
-#: lib/Compose/LinkedAttachment.php:216
+#: lib/Compose/LinkedAttachment.php:223
 msgid "Your linked attachment has been downloaded by at least one user."
 msgstr ""
 "Ihr verlinkter Anhang wurde von mindestens einer Person heruntergeladen."
@@ -6269,11 +6269,11 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] "und %d weiteren Ordner"
 msgstr[1] "und %d weiteren Ordnern"
 
-#: lib/Compose.php:2862
+#: lib/Compose.php:2851
 msgid "attachment"
 msgstr "Anhang"
 
-#: lib/Contents/View.php:49
+#: lib/Contents/View.php:52
 msgid "attachments.zip"
 msgstr "anhaenge.zip"
 
@@ -6351,7 +6351,7 @@ msgstr "Name"
 msgid "not"
 msgstr "nicht"
 
-#: lib/Contents/View.php:62
+#: lib/Contents/View.php:65
 #, php-format
 msgid "part %s"
 msgstr "Teil %s"

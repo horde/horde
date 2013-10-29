@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:25+0200\n"
-"PO-Revision-Date: 2013-08-27 14:54+0200\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"PO-Revision-Date: 2013-10-29 10:16+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -290,7 +290,7 @@ msgstr "Das Hinzufügen von Benutzern ist nicht möglich."
 msgid "Address"
 msgstr "Adresse"
 
-#: config/registry.php:131
+#: config/registry.php:132
 msgid "Address Book"
 msgstr "Adressbuch"
 
@@ -318,9 +318,13 @@ msgstr "Alarmtext"
 msgid "Alarm title"
 msgstr "Alarmtitel"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "Alarme"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Alarme wurden in der Konfiguration deaktiviert."
 
 #: lib/Block/Fortune.php:93
 msgid "All"
@@ -402,7 +406,7 @@ msgstr "Bestätigen"
 msgid "Arabic (Windows-1256)"
 msgstr "Arabisch (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Sind Sie sicher, dass Sie '%s' löschen möchten?"
@@ -513,7 +517,7 @@ msgstr "Blocktyp"
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:182
+#: config/registry.php:183
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -529,7 +533,7 @@ msgstr "Unten"
 msgid "Browser"
 msgstr "Browser"
 
-#: config/registry.php:117
+#: config/registry.php:118
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -684,7 +688,7 @@ msgstr "Schließen"
 msgid "Color Picker"
 msgstr "Farbauswahl"
 
-#: config/registry.php:246
+#: config/registry.php:247
 msgid "Comics"
 msgstr "Comics"
 
@@ -956,7 +960,7 @@ msgstr "Definitionen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:206
 #, php-format
 msgid "Delete \"%s\""
 msgstr "\"%s\" löschen"
@@ -984,7 +988,7 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Beschreiben Sie das Problem"
 
-#: config/registry.php:206
+#: config/registry.php:207
 msgid "Development"
 msgstr "Entwicklung"
 
@@ -1260,7 +1264,7 @@ msgstr "Gefühlte Temperatur"
 msgid "Fields to search"
 msgstr "Zu durchsuchende Felder"
 
-#: config/registry.php:312
+#: config/registry.php:313
 msgid "File Manager"
 msgstr "Dateimanager"
 
@@ -1268,7 +1272,7 @@ msgstr "Dateimanager"
 msgid "Filter"
 msgstr "Filter"
 
-#: config/registry.php:88
+#: config/registry.php:89
 msgid "Filters"
 msgstr "Filter"
 
@@ -1304,7 +1308,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: config/registry.php:341
+#: config/registry.php:342
 msgid "Forms"
 msgstr "Formulare"
 
@@ -1324,7 +1328,7 @@ msgstr "Glückskekse"
 msgid "Fortunes 2"
 msgstr "Glückskekse 2"
 
-#: config/registry.php:335
+#: config/registry.php:336
 msgid "Forums"
 msgstr "Foren"
 
@@ -1456,7 +1460,7 @@ msgstr "Ergebnisse ausblenden"
 msgid "Home Directory"
 msgstr "Heimverzeichnis"
 
-#: config/registry.php:75
+#: config/registry.php:76
 msgid "Horde"
 msgstr "Horde"
 
@@ -1529,7 +1533,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Einzelne Benutzer"
 
-#: config/registry.php:240
+#: config/registry.php:241
 msgid "Information"
 msgstr "Informationen"
 
@@ -1568,7 +1572,7 @@ msgstr "Ungültiger Hash."
 msgid "Invalid parent permission."
 msgstr "Ungültiges Überrecht."
 
-#: config/registry.php:293
+#: config/registry.php:294
 msgid "Inventory"
 msgstr "Inventar"
 
@@ -1576,7 +1580,7 @@ msgstr "Inventar"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japanisch (ISO-2022-JP)"
 
-#: login.php:164
+#: login.php:168
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1600,7 +1604,7 @@ msgstr "Stichwort"
 msgid "Kids"
 msgstr "Kinder"
 
-#: config/registry.php:301
+#: config/registry.php:302
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1608,7 +1612,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Koreanisch (EUC-KR)"
 
-#: login.php:354 templates/login/login.inc:52
+#: login.php:358 templates/login/login.inc:52
 msgid "Language"
 msgstr "Sprache"
 
@@ -1674,7 +1678,7 @@ msgstr "Linux-Glückskekse"
 msgid "List Tables"
 msgstr "Tabellen anzeigen"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Das Anzeigen der Alarme ist fehlgeschlagen: %s"
@@ -1729,7 +1733,7 @@ msgstr "Benutzer sperren"
 msgid "Locks"
 msgstr "Sperren"
 
-#: login.php:281 templates/login/login.inc:61
+#: login.php:285 templates/login/login.inc:61
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Anmelden"
@@ -1742,13 +1746,13 @@ msgstr "Abmelden"
 msgid "Logged in to Facebook"
 msgstr "Angemeldet bei Facebook"
 
-#: login.php:310
+#: login.php:314
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Die Anmeldung ist fehlgeschlagen, weil Sie Ihren Benutzernamen oder Ihr "
 "Passwort falsch eingegeben haben."
 
-#: login.php:306
+#: login.php:310
 msgid "Login failed."
 msgstr "Anmeldung fehlgeschlagen."
 
@@ -1781,11 +1785,11 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Magie"
 
-#: config/registry.php:80
+#: config/registry.php:81
 msgid "Mail"
 msgstr "Webmail"
 
-#: config/registry.php:346
+#: config/registry.php:347
 msgid "Mail Admin"
 msgstr "E-Mail Administration"
 
@@ -1881,6 +1885,10 @@ msgstr "Fehlende Konfiguration."
 msgid "Mobile (Minimal)"
 msgstr "Mobil (Minimal)"
 
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mobil (Ohne JavaScript)"
+
 #: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
 msgid "Mobile (Smartphone/Tablet)"
 msgstr "Mobil (Smartphone/Tablet)"
@@ -1906,7 +1914,7 @@ msgstr "Montag"
 msgid "Moon Phases"
 msgstr "Mondphasen"
 
-#: config/registry.php:306
+#: config/registry.php:307
 msgid "My Account"
 msgstr "Mein Konto"
 
@@ -1978,7 +1986,7 @@ msgstr "Neues Passwort"
 msgid "New passwords don't match."
 msgstr "Die neuen Passwörter stimmen nicht überein."
 
-#: config/registry.php:251 lib/Block/Fortune.php:59
+#: config/registry.php:252 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Nachrichten"
 
@@ -2084,7 +2092,7 @@ msgstr "Nördliche Hemisphere"
 msgid "Not Provisioned"
 msgstr "Nicht verknüpft"
 
-#: config/registry.php:166
+#: config/registry.php:167
 msgid "Notes"
 msgstr "Notizen"
 
@@ -2112,7 +2120,7 @@ msgstr "Objektersteller"
 msgid "Offense filter"
 msgstr "Filter für anstößige Inhalte"
 
-#: config/registry.php:263
+#: config/registry.php:264
 msgid "Office"
 msgstr "Büro"
 
@@ -2157,7 +2165,7 @@ msgstr "Andere Informationen"
 msgid "Other Options"
 msgstr "Weitere Einstellungen"
 
-#: config/registry.php:177
+#: config/registry.php:178
 msgid "Others"
 msgstr "Weitere"
 
@@ -2193,8 +2201,8 @@ msgstr "Die POSIX-Erweiterung fehlt"
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
-#: login.php:201 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:324
+#: login.php:205 admin/config/index.php:397 admin/user.php:39
+#: admin/user.php:53 config/registry.php:325
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Passwort"
@@ -2249,7 +2257,7 @@ msgstr "Persönliche Angaben"
 msgid "Pets"
 msgstr "Haustiere"
 
-#: config/registry.php:194
+#: config/registry.php:195
 msgid "Photos"
 msgstr "Fotos"
 
@@ -2257,11 +2265,11 @@ msgstr "Fotos"
 msgid "Platitudes"
 msgstr "Plattheiten"
 
-#: login.php:207
+#: login.php:211
 msgid "Please enter a password."
 msgstr "Bitte geben Sie ein Passwort ein."
 
-#: login.php:206
+#: login.php:210
 msgid "Please enter a username."
 msgstr "Bitte geben Sie einen Benutzernamen ein."
 
@@ -2791,7 +2799,7 @@ msgstr "Südeuropäisch (ISO-8859-3)"
 msgid "Southern Hemisphere"
 msgstr "Südliche Hemisphere"
 
-#: config/registry.php:103
+#: config/registry.php:104
 msgid "Spam"
 msgstr "Spam"
 
@@ -2926,7 +2934,7 @@ msgstr "Ausgelieferter Feed"
 msgid "Tag Cloud"
 msgstr "Tagwolke"
 
-#: config/registry.php:152
+#: config/registry.php:153
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -3132,11 +3140,11 @@ msgstr "Diese UStId-Nummer ist ungültig."
 msgid "This VAT identification number is valid."
 msgstr "Diese UStId-Nummer ist gültig."
 
-#: config/registry.php:223
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Tickets"
 
-#: config/registry.php:269
+#: config/registry.php:270
 msgid "Time Tracking"
 msgstr "Zeiterfassung"
 
@@ -3343,7 +3351,7 @@ msgstr "Benutzerkonto nicht gefunden"
 msgid "User to add:"
 msgstr "Hinzuzufügender Benutzer:"
 
-#: login.php:196 admin/config/index.php:396 admin/user.php:36
+#: login.php:200 admin/config/index.php:396 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3373,7 +3381,7 @@ msgstr "UStId-Nummer"
 msgid "Version Check"
 msgstr "Versionscheck"
 
-#: config/registry.php:212
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Versionskontrolle"
 
@@ -3401,7 +3409,7 @@ msgstr "Wetter"
 msgid "Weather data provided by"
 msgstr "Wetterdaten von"
 
-#: config/registry.php:329
+#: config/registry.php:330
 msgid "Web Site"
 msgstr "Website"
 
@@ -3460,7 +3468,7 @@ msgstr "Breite des %s-Menüs links:"
 msgid "Wifi"
 msgstr "WLAN"
 
-#: config/registry.php:200
+#: config/registry.php:201
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3500,7 +3508,7 @@ msgstr "Mit "
 msgid "Work"
 msgstr "Arbeit"
 
-#: config/registry.php:235
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "Querverweise"
 
@@ -3590,7 +3598,7 @@ msgstr ""
 "Sie haben den Benutzungsbedingungen nicht zugestimmt und dürfen sich "
 "deswegen nicht anmelden."
 
-#: login.php:302
+#: login.php:306
 msgid "You have been logged out."
 msgstr "Sie wurden abgemeldet."
 
@@ -3642,7 +3650,7 @@ msgstr "Ihre E-Mail-Adresse"
 msgid "Your Information"
 msgstr "Ihre Angaben"
 
-#: login.php:290
+#: login.php:294
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3672,7 +3680,7 @@ msgstr ""
 "Ihr Authentifizierungssystem erlaubt das Anzeigen der Benutzer nicht, oder "
 "diese Möglichkeit wurde ausgeschaltet."
 
-#: login.php:294
+#: login.php:298
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3692,7 +3700,7 @@ msgstr "Ihre aktuelle Zeitzone:"
 msgid "Your full name:"
 msgstr "Ihr vollständiger Name:"
 
-#: login.php:314
+#: login.php:318
 msgid "Your login has expired."
 msgstr "Ihr Zugang ist abgelaufen."
 
@@ -3733,15 +3741,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "Ihr Passwort ist abgelaufen"
 
-#: login.php:175
+#: login.php:179
 msgid "Your password has expired."
 msgstr "Ihr Passwort ist abgelaufen."
 
-#: login.php:286
+#: login.php:290
 msgid "Your session has expired. Please login again."
 msgstr "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
-#: login.php:298
+#: login.php:302
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
