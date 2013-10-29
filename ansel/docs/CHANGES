@@ -1,6 +1,6 @@
-----------
-v3.0.1-git
-----------
+------
+v3.0.1
+------
 
 [mjr] Support nginx style Sendfile headers (Request #12661).
 [mjr] Fix cancel button behavior on reporting page (Bug #12667).
