@@ -16,8 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>23:46:10</time>
+ <date>2013-10-29</date>
  <version>
   <release>4.1.2</release>
   <api>4.0.0</api>
@@ -1066,7 +1065,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.

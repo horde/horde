@@ -1,6 +1,6 @@
-----------
-v4.1.2-git
-----------
+------
+v4.1.2
+------
 
 [jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.
 [mjr] Fix removing a list of UIDs via the API (Bug #12790,
