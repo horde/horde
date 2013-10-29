@@ -30,8 +30,8 @@
  </developer>
  <date>2013-10-28</date>
  <version>
-  <release>2.10.3</release>
-  <api>2.10.0</api>
+  <release>2.11.0</release>
+  <api>2.11.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
  </notes>
  <contents>
@@ -3214,14 +3215,15 @@
   </release>
   <release>
    <version>
-    <release>2.10.3</release>
-    <api>2.10.0</api></version>
+    <release>2.11.0</release>
+    <api>2.11.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
    </notes>
   </release>
