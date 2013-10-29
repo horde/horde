@@ -124,7 +124,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         case 'download_mbox':
         case 'download_mbox_zip':
-            $registry->downloadUrl('mbox', array(
+            IMP_Contents_View::downloadUrl('mbox', array(
                 'actionID' => 'download_mbox',
                 'mbox_list' => $this->vars->mbox_list,
                 'type' => ($this->vars->actionID == 'download_mbox') ? 'mbox' : 'mboxzip'

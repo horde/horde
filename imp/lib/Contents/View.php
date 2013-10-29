@@ -22,6 +22,9 @@
  */
 class IMP_Contents_View
 {
+    const VIEW_TOKEN = 'imp.view';
+    const VIEW_TOKEN_PARAM = 'view_token';
+
     /**
      * @var IMP_Contents
      */
@@ -313,6 +316,61 @@ class IMP_Contents_View
             'name' => $part['name'],
             'type' => $part['type']
         );
+    }
+
+    /**
+     * Check for a download token.
+     *
+     * @param Horde_Variables $vars  Form variables.
+     *
+     * @throws Horde_Token_Exception  Exception on incorrect token.
+     */
+    public function checkToken(Horde_Variables $vars)
+    {
+        global $injector;
+
+        $injector->getInstance('Horde_Token')->validate(
+            $vars->get(self::VIEW_TOKEN_PARAM),
+            self::VIEW_TOKEN
+        );
+    }
+
+    /* Static methods. */
+
+    /**
+     * Returns a URL to be used for downloading data.
+     * IMP adds token data, since the data displayed is coming from a remote
+     * source.
+     *
+     * @see Horde_Registry#downloadUrl()
+     *
+     * @param string $filename  The filename of the download data.
+     * @param array $params     Additional URL parameters needed.
+     *
+     * @return Horde_Url  The download URL.
+     */
+    static public function downloadUrl($filename, array $params = array())
+    {
+        global $registry;
+
+        return $registry->downloadUrl($filename, self::addToken($params));
+    }
+
+    /**
+     * Adds the view token to a parameter list.
+     *
+     * @param array $params  URL parameters.
+     *
+     * @return array  Parameter list with token added.
+     */
+    static public function addToken(array $params = array())
+    {
+        global $injector;
+
+        $params[self::VIEW_TOKEN_PARAM] =
+            $injector->getInstance('Horde_Token')->get(self::VIEW_TOKEN);
+
+        return $params;
     }
 
 }
