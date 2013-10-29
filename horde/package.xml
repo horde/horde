@@ -30,7 +30,7 @@
  </lead>
  <date>2013-10-29</date>
  <version>
-  <release>5.1.5</release>
+  <release>5.1.6</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,12 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
-* [jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803).
-* [jan] Don&apos;t show admin alarm form if alarms are disabled.
-* [mms] Add horde-remove-user-data command-line script.
-* [mms] Add additional syntax checking for the configuration files in the test script.
-* [mms] Only update topbar if the underlying tree data has changed.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3785,6 +3780,19 @@
 * [mms] Add horde-remove-user-data command-line script.
 * [mms] Add additional syntax checking for the configuration files in the test script.
 * [mms] Only update topbar if the underlying tree data has changed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.6</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
