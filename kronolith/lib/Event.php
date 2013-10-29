@@ -935,7 +935,10 @@ abstract class Kronolith_Event
                     $vEventException = $exceptionEvent->toiCalendar($calendar);
 
                     // This should never happen, but protect against it anyway.
-                    if (count($vEventException) > 1) {
+                    if (count($vEventException) > 2 ||
+                        (count($vEventException) > 1 &&
+                         !($vEventException[0] instanceof Horde_Icalendar_Vtimezone) &&
+                         !($vEventException[1] instanceof Horde_Icalendar_Vtimezone))) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
