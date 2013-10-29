@@ -1,6 +1,6 @@
-----------
-v2.0.1-git
-----------
+------
+v2.0.1
+------
 
 [jan] Fix rendering of full text search results.
 [jan] Fix rendering pages in portal blocks.
