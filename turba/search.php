@@ -122,38 +122,48 @@ if ($driver) {
     /* Only try to perform a search if we actually have search criteria. */
     if ($do_search) {
         if ($vars->save_vbook) {
-            /* We create the vbook and redirect before we try to search
-             * since we are not displaying the search results on this page
-             * anyway. */
-            $vname = $vars->vbook_name;
-            if (empty($vname)) {
-                $notification->push(_("You must provide a name for virtual address books."), 'horde.error');
-                Horde::url('search.php', true)->redirect();
-            }
-
-            /* Create the vbook. */
-            $params = array(
-                'name' => $vname,
-                'params' => serialize(array(
-                    'type' => 'vbook',
-                    'source' => $source,
-                    'criteria' => $criteria
-                ))
-            );
-
             try {
-                $share = Turba::createShare(strval(new Horde_Support_Randomid()), $params);
-                $vid = $share->getName();
-            } catch (Horde_Share_Exception $e) {
-                $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $e->getMessage()), 'horde.error');
+                $injector->getInstance('Horde_Token')->validate(
+                    $vars->token,
+                    'turba.search'
+                );
+
+                /* We create the vbook and redirect before we try to search
+                 * since we are not displaying the search results on this page
+                 * anyway. */
+                $vname = $vars->vbook_name;
+                if (empty($vname)) {
+                    $notification->push(_("You must provide a name for virtual address books."), 'horde.error');
+                    Horde::url('search.php', true)->redirect();
+                }
+
+                /* Create the vbook. */
+                $params = array(
+                    'name' => $vname,
+                    'params' => serialize(array(
+                        'type' => 'vbook',
+                        'source' => $source,
+                        'criteria' => $criteria
+                    ))
+                );
+
+                try {
+                    $share = Turba::createShare(strval(new Horde_Support_Randomid()), $params);
+                    $vid = $share->getName();
+                } catch (Horde_Share_Exception $e) {
+                    $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $e->getMessage()), 'horde.error');
+                    Horde::url('search.php', true)->redirect();
+                }
+
+                $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
+
+                Horde::url('browse.php', true)
+                    ->add('source', $vid)
+                    ->redirect();
+            } catch (Horde_Token_Exception $e) {
+                $notification->push($e);
                 Horde::url('search.php', true)->redirect();
             }
-
-            $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
-
-            Horde::url('browse.php', true)
-                ->add('source', $vid)
-                ->redirect();
         }
 
         /* Perform a search. */
@@ -222,6 +232,7 @@ if ($search_mode != 'duplicate' && $session->get('turba', 'has_share')) {
     $vbookView->hasShare = true;
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
+    $vbookView->token = $injector->getInstance('Horde_Token')->get('turba.search');
     $page_output->addInlineScript('$(\'vbook_name\').observe(\'keyup\', function() { $(\'save-vbook\').checked = !!$F(\'vbook_name\'); });');
 }
 
