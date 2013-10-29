@@ -1,6 +1,6 @@
-----------
-v4.1.4-git
-----------
+------
+v4.1.4
+------
 
 [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
       #12804).
