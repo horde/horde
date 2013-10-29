@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
 [jan] Fix edge case that allowed to enter start time after end time (Bug
       #12752).
 [mjr] Expire fb cache when fb_cals preference changes (Bug #12714).

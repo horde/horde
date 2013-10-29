@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.
 * [mjr] Fix removing a list of UIDs via the API (Bug #12790, thomas.jarosch@intra2net.com)
 * [mjr] Fix exporting memos as v-note (horde@albasoft.com, Bug #12622).
  </notes>
@@ -1068,6 +1069,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.
 * [mjr] Fix removing a list of UIDs via the API (Bug #12790, thomas.jarosch@intra2net.com)
 * [mjr] Fix exporting memos as v-note (horde@albasoft.com, Bug #12622).
    </notes>
