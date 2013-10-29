@@ -30,13 +30,13 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
 The major changes compared to the Mnemo version H5 (4.1.1) are:
-    * Fixed XSS vulnerabilty.
+    * Fixed XSS vulnerability.
     * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilty.
+Fixed XSS vulnerability.
 Small bugfixes.
 FM;
 

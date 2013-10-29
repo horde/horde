@@ -31,14 +31,14 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
 The major changes compared to the Horde version 5.1.4 are:
-    * Fixed XSS and CSRF vulnerabilties.
+    * Fixed XSS and CSRF vulnerabilities.
     * Added command line script to delete user data.
     * Small improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS and CSRF vulnerabilties.
+Fixed XSS and CSRF vulnerabilities.
 Added command line script to delete user data.
 Small improvements.
 FM;

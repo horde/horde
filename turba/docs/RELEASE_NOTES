@@ -30,13 +30,13 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/turba/docs/INSTALL
 
 The major changes compared to the Turba version H5 (4.1.2) are:
-    * Fixed XSS vulnerabilty.
+    * Fixed XSS vulnerability.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilty.
+Fixed XSS vulnerability.
 Small bugfixes and improvements.
 FM;
 

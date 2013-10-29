@@ -29,12 +29,12 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ingo/docs/INSTALL
 
 The major changes compared to Ingo version H5 (3.1.2) are:
-    * Fixed XSS vulnerabilty.
+    * Fixed XSS vulnerability.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilty.
+Fixed XSS vulnerability.
 FM;
 
 $this->notes['name'] = 'Ingo';

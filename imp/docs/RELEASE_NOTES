@@ -30,14 +30,14 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
 The major changes compared to IMP version H5 (6.1.4) are:
-    * Fixed XSS vulnerabilty.
+    * Fixed XSS vulnerability.
     * Several improvements and fixes for attachment handling.
     * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilty.
+Fixed XSS vulnerability.
 Several improvements and fixes for attachment handling.
 Further bugfixes and improvements.
 FM;
