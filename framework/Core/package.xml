@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix deauthenticating when a system-level logout event occurs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3222,7 +3222,7 @@
    <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix deauthenticating when a system-level logout event occurs.
    </notes>
   </release>
  </changelog>
