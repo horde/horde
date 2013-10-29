@@ -388,7 +388,7 @@ class Horde_Image_Exif
             break;
 
         case 'LightSource':
-            switch ($data) {;
+            switch ($data) {
             case 1: return Horde_Image_Translation::t("Daylight");
             case 2: return Horde_Image_Translation::t("Fluorescent");
             case 3: return Horde_Image_Translation::t("Tungsten");
