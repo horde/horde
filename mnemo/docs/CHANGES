@@ -2,6 +2,7 @@
 v4.1.2-git
 ----------
 
+[jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.
 [mjr] Fix removing a list of UIDs via the API (Bug #12790,
       thomas.jarosch@intra2net.com)
 [mjr] Fix exporting memos as v-note (horde@albasoft.com, Bug #12622).

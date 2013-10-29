@@ -28,9 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-21</date>
+ <date>2013-10-28</date>
  <version>
-  <release>2.10.2</release>
+  <release>2.10.3</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix prototype.js issue in IE 9 regarding array iteration in a parent window.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3206,10 +3206,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-21</date>
+   <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix prototype.js issue in IE 9 regarding array iteration in a parent window.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.3</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

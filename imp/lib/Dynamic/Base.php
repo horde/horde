@@ -133,7 +133,7 @@ abstract class IMP_Dynamic_Base
             // URL variables
             'MAX_FILE_SIZE' => intval($session->get('imp', 'file_upload')),
             'URI_COMPOSE' => strval(IMP_Dynamic_Compose::url()->setRaw(true)),
-            'URI_VIEW' => strval(Horde::url('view.php')),
+            'URI_VIEW' => strval(Horde::url('view.php')->add(IMP_Contents_View::addToken())),
 
             // Other variables
             'disable_compose' => !IMP_Compose::canCompose()
@@ -196,6 +196,5 @@ abstract class IMP_Dynamic_Base
     /**
      */
     abstract protected function _init();
-
 
 }
