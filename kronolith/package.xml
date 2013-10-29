@@ -24,7 +24,7 @@
  </lead>
  <date>2013-10-29</date>
  <version>
-  <release>4.1.4</release>
+  <release>4.1.5</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -33,13 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
-* [jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
-* [jan] Fix edge case that allowed to enter start time after end time (Bug #12752).
-* [mjr] Expire fb cache when fb_cals preference changes (Bug #12714).
-* [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
-* [mjr] Fix importing new ActiveSync events created on the client with recurrence.
-* [mjr] Fix some issues with recurring event exceptions due to improper timezone handling (Bug #12630).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2232,6 +2226,19 @@
 * [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
 * [mjr] Fix importing new ActiveSync events created on the client with recurrence.
 * [mjr] Fix some issues with recurring event exceptions due to improper timezone handling (Bug #12630).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.5</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
