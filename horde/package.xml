@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1633,7 +1633,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.10.3</min>
+    <min>2.11.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3792,7 +3792,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
    </notes>
   </release>
  </changelog>

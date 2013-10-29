@@ -2,6 +2,8 @@
 v5.1.6-git
 ----------
 
+[mms] Fix regression where AJAX actions were not correctly checking permissions
+      and potential authentication expiration actions.
 
 
 ------
