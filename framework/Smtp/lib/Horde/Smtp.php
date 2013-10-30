@@ -346,7 +346,7 @@ class Horde_Smtp implements Serializable
                     Horde_Smtp_Translation::t("Error connecting to SMTP server."),
                     Horde_Smtp_Exception::SERVER_CONNECT
                 );
-                $e2->details($e->details);
+                $e2->details = $e->details;
                 throw $e2;
             }
 
