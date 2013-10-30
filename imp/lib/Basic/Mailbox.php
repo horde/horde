@@ -35,7 +35,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Call the mailbox redirection hook, if requested. */
         try {
-            $redirect = Horde::callHook('mbox_redirect', array($mailbox), 'imp');
+            $redirect = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'mbox_redirect',
+                'imp',
+                array($mailbox)
+            );
             if (!empty($redirect)) {
                 Horde::url($redirect, true)->redirect();
             }
@@ -999,7 +1003,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
     {
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
+            $msgs = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'mailboxarray',
+                'imp',
+                array($msgs)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $view->messages = $msgs;

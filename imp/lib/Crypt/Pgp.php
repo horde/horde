@@ -197,13 +197,15 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function getPublicKey($address, $options = array())
     {
+        global $injector, $registry;
+
         $keyid = empty($options['keyid'])
             ? ''
             : $options['keyid'];
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
+        if (empty($options['nocache']) && ($cache = $injector->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
                 Horde::log('PGPpublicKey: ' . serialize($result), 'DEBUG');
@@ -212,24 +214,28 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         try {
-            $key = Horde::callHook('pgp_key', array($address, $keyid), 'imp');
+            $key = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'pgp_key',
+                'imp',
+                array($address, $keyid)
+            );
             if ($key) {
                 return $key;
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $result = null;
         try {
-            $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
+            $result = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
         } catch (Horde_Exception $e) {}
 
         if (is_null($result)) {
             /* TODO: Retrieve by ID. */
 
             /* See if the address points to the user's public key. */
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;

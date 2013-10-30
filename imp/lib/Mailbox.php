@@ -185,9 +185,6 @@ class IMP_Mailbox implements Serializable
     const CACHE_UIDVALIDITY = 'v';
 
     /* Cache identifiers - temporary data. */
-    const CACHE_HASACLHOOK = 'ah';
-    const CACHE_HASICONHOOK = 'ih';
-    const CACHE_HASLABELHOOK = 'lh';
     const CACHE_ICONHOOK = 'ic';
     const CACHE_NSDEFAULT = 'nd';
     const CACHE_NSEMPTY = 'ne';
@@ -299,12 +296,6 @@ class IMP_Mailbox implements Serializable
         $this->_mbox = ($mbox == IMP_Ftree::BASE_ELT)
             ? ''
             : $mbox;
-
-        if (!isset(self::$_temp[self::CACHE_HASACLHOOK])) {
-            self::$_temp[self::CACHE_HASACLHOOK] = Horde::hookExists('mbox_acl', 'imp');
-            self::$_temp[self::CACHE_HASICONHOOK] = Horde::hookExists('mbox_icons', 'imp');
-            self::$_temp[self::CACHE_HASLABELHOOK] = Horde::hookExists('mbox_label', 'imp');
-        }
     }
 
     /**
@@ -390,9 +381,10 @@ class IMP_Mailbox implements Serializable
 
             if (!$this->nonimap) {
                 $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
+                $hooks = $injector->getInstance('Horde_Core_Hooks');
 
-                if (self::$_temp[self::CACHE_HASACLHOOK]) {
-                    Horde::callHook('mbox_acl', array($this, $acl), 'imp');
+                if ($hooks->hookExists('mbox_acl', 'imp')) {
+                    $hooks->callHook('mbox_acl', 'imp', array($this, $acl));
                 }
 
                 /* Store string representation of ACL for a more compact
@@ -506,8 +498,13 @@ class IMP_Mailbox implements Serializable
                     ? $ob->label
                     : $this->_getDisplay();
 
-                if (self::$_temp[self::CACHE_HASLABELHOOK]) {
-                    $label = Horde::callHook('mbox_label', array($this->_mbox, $label), 'imp');
+                $hooks = $injector->getInstance('Horde_Core_Hooks');
+                if ($hooks->hookExists('mbox_label' ,'imp')) {
+                    $label = $hooks->callHook(
+                        'mbox_label',
+                        'imp',
+                        array($this->_mbox, $label)
+                    );
                 }
 
                 $this->_cache[self::CACHE_LABEL] = (isset($this->_cache[self::CACHE_DISPLAY]) && ($this->_cache[self::CACHE_DISPLAY] == $label))
@@ -1749,6 +1746,8 @@ class IMP_Mailbox implements Serializable
      */
     protected function _getIcon()
     {
+        global $injector;
+
         $info = new stdClass;
         $info->iconopen = null;
         $info->user_icon = false;
@@ -1821,7 +1820,7 @@ class IMP_Mailbox implements Serializable
 
             /* Virtual folders. */
             if ($this->vfolder) {
-                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                $imp_search = $injector->getInstance('IMP_Search');
                 if ($imp_search->isVTrash($this->_mbox)) {
                     $info->alt = $imp_search[$this->_mbox]->label;
                     $info->class = 'trashImg';
@@ -1836,9 +1835,10 @@ class IMP_Mailbox implements Serializable
 
         /* Overwrite the icon information now. */
         if (empty($this->_cache[self::CACHE_ICONS]) &&
-            self::$_temp[self::CACHE_HASICONHOOK]) {
+            ($hooks = $injector->getInstance('Horde_Core_Hooks')) &&
+            $hooks->hookExists('mbox_icons', 'imp')) {
             if (!isset(self::$_temp[self::CACHE_ICONHOOK])) {
-                self::$_temp[self::CACHE_ICONHOOK] = Horde::callHook('mbox_icons', array(), 'imp');
+                self::$_temp[self::CACHE_ICONHOOK] = $hooks->callHook('mbox_icons', 'imp');
             }
 
             if (isset(self::$_temp[self::CACHE_ICONHOOK][$this->_mbox])) {

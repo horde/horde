@@ -923,7 +923,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Call post-sent hook. */
         try {
-            Horde::callHook('post_sent', array($save_msg['msg'], $headers), 'imp');
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'post_sent',
+                'imp',
+                array($save_msg['msg'], $headers)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 
@@ -1124,7 +1128,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Pass to hook to allow alteration of message details. */
         if (!is_null($message)) {
             try {
-                Horde::callHook('pre_sent', array($message, $headers, $this), 'imp');
+                $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'pre_sent',
+                    'imp',
+                    array($message, $headers, $this)
+                );
             } catch (Horde_Exception_HookNotSet $e) {}
         }
     }
@@ -1142,6 +1150,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
                                               $charset)
     {
+        global $injector;
+
         $exception = new IMP_Compose_Exception_Address();
         $hook = true;
         $out = array();
@@ -1166,7 +1176,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 if ($hook) {
                     try {
-                        $error = Horde::callHook('compose_addr', array($tmp), 'imp');
+                        $error = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                            'compose_addr',
+                            'imp',
+                            array($tmp)
+                        );
                     } catch (Horde_Exception_HookNotSet $e) {
                         $hook = false;
                     }
@@ -1318,6 +1332,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+
         /* We need to do the attachment check before any of the body text
          * has been altered. */
         if (!count($this) && !$this->getMetadata('attach_body_check')) {
@@ -1325,7 +1341,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->changed = 'changed';
 
             try {
-                $check = Horde::callHook('attach_body_check', array($body), 'imp');
+                $check = $$hooks->callHook(
+                    'attach_body_check',
+                    'imp',
+                    array($body)
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $check = array();
             }
@@ -1373,8 +1393,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
-                $trailer = Horde::callHook('trailer', array(false, $options['identity'], $to), 'imp');
-                $html_trailer = Horde::callHook('trailer', array(true, $options['identity'], $to), 'imp');
+                $trailer = $hooks->callHook(
+                    'trailer',
+                    'imp',
+                    array(false, $options['identity'], $to)
+                );
+                $html_trailer = $hooks->callHook(
+                    'trailer',
+                    'imp',
+                    array(true, $options['identity'], $to)
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $trailer = $html_trailer = null;
             }
@@ -2961,7 +2989,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _addAttachment($atc_file, $bytes, $filename, $type)
     {
-        global $conf;
+        global $conf, $injector;
 
         $atc = new Horde_Mime_Part();
         $atc->setBytes($bytes);
@@ -3022,7 +3050,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         try {
-            Horde::callHook('compose_attachment', array($atc_ob), 'imp');
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'compose_attachment',
+                'imp',
+                array($atc_ob)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $this->_atc[$atc_ob->id] = $atc_ob;
@@ -3144,7 +3176,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     static public function canCompose()
     {
         try {
-            return !Horde::callHook('disable_compose', array(), 'imp');
+            return !$GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('disable_compose', 'imp');
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }

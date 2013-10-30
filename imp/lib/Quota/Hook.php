@@ -32,7 +32,11 @@ class IMP_Quota_Hook extends IMP_Quota
     public function getQuota($mailbox = null)
     {
         try {
-            $quota = Horde::callHook('quota', array($this->_params), 'imp');
+            $quota = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'quota',
+                'imp',
+                array($this->_params)
+            );
         } catch (Horde_Exception_HookNotSet $e) {
             throw new IMP_Exception($e->getMessage());
         }

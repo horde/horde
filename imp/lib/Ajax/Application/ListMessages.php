@@ -469,7 +469,11 @@ class IMP_Ajax_Application_ListMessages
 
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
+            $msgs = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'mailboxarray',
+                'imp',
+                array($msgs)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;

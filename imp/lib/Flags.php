@@ -238,6 +238,8 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function parse(array $opts = array())
     {
+        global $injector;
+
         $opts = array_merge(array(
             'flags' => array(),
             'headers' => null,
@@ -246,7 +248,14 @@ class IMP_Flags implements ArrayAccess, Serializable
 
         if (!empty($opts['runhook']) && $this->_flaghook) {
             try {
-                $opts['flags'] = array_merge($opts['flags'], Horde::callHook('msglist_flags', array($opts['runhook']), 'imp'));
+                $opts['flags'] = array_merge(
+                    $opts['flags'],
+                    $injector->getInstance('Horde_Core_Hooks')->callHook(
+                        'msglist_flags',
+                        'imp',
+                        array($opts['runhook'])
+                    )
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $this->_flaghook = false;
             }

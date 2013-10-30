@@ -157,7 +157,14 @@ class IMP_Spam
 
         /* Run post-reporting hook. */
         try {
-            Horde::callHook('post_spam', array($this->_action == self::SPAM ? 'spam' : 'innocent', $indices), 'imp');
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'post_spam',
+                'imp',
+                array(
+                    ($this->_action == self::SPAM) ? 'spam' : 'innocent',
+                    $indices
+                )
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Delete/move message after report. */
