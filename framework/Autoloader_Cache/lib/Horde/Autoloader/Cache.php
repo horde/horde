@@ -104,7 +104,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
             $this->_tempdir = $tempdir;
-            $this->_cachekey = hash('md5', $this->_cachekey);
+            $this->_cachekey = hash('sha1', $this->_cachekey);
             if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
                 unlink($tempdir . '/' . $this->_cachekey);
             }
