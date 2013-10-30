@@ -645,7 +645,7 @@ class Horde_Hooks
 //    {
 //        // Example #1: Send a notification message to the web server
 //        // administrator's e-mail address.
-//        $ $aders = array(
+//        $headers = array(
 //            'To'      => $_SERVER['SERVER_ADMIN'],
 //            'From'    => $_SERVER['SERVER_ADMIN'],
 //            'Subject' => 'New ' . $GLOBALS['registry']->get('name', 'horde') . ' Signup'
