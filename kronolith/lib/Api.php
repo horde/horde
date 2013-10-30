@@ -441,6 +441,31 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Returns a list of available sources.
+     *
+     * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include syncable sources.
+     *
+     * @return array  An array of the available sources. Keys are source IDs,
+     *                values are source titles.
+     */
+    public function sources($writeable = false, $sync_only = false)
+    {
+        $out = array();
+
+        foreach (Kronolith::listInternalCalendars(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $id => $data) {
+            $out[$id] = $data->get('name');
+        }
+
+        if ($sync_only) {
+            $syncable = Kronolith::getSyncCalendars();
+            $out = array_intersect_key($out, array_flip($syncable));
+        }
+
+        return $out;
+    }
+
+    /**
      * Returns the ids of all the events that happen within a time period.
      * Only includes recurring events once per time period, and does not include
      * events that represent exceptions, making this method useful for syncing
