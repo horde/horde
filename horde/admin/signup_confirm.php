@@ -77,7 +77,7 @@ try {
 }
 if (isset($info['extra'])) {
     try {
-        Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
+        $injector->getInstance('Horde_Core_Hooks')->callHook('signup_addextra', 'horde', array($info['user_name'], $info['extra']));
     } catch (Horde_Exception $e) {
         throw new Horde_Exception(sprintf(_("Added \"%s\" to the system, but could not add additional signup information: %s."), $info['user_name'], $e->getMessage()));
     } catch (Horde_Exception_HookNotSet $e) {}

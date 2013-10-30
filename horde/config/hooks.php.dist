@@ -700,7 +700,7 @@ class Horde_Hooks
 //        );
 //
 //        try {
-//            $extraFields = Horde::callHook('signup_getextra');
+//            $extraFields = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('signup_getextra', 'horde');
 //        } catch (Horde_Exception $e) {}
 //
 //        $msg  = _("A new signup has been received and is awaiting your approval.") .
