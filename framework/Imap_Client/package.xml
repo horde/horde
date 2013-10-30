@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-25</date>
+ <date>2013-10-30</date>
  <version>
   <release>2.16.0</release>
   <api>2.16.0</api>
@@ -2054,7 +2054,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-25</date>
+   <date>2013-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added direct TLS v1.x connection option when connecting to remote server.
