@@ -1,6 +1,12 @@
 ----------
-v6.1.5-git
+v6.1.6-git
 ----------
+
+
+
+------
+v6.1.5
+------
 
 [mms] SECURITY: Fix XSS in message and search screens resulting from a
       user-defined flag label (João Machado <geral@jpaulo.eu>).

@@ -25,7 +25,7 @@
  <date>2013-09-24</date>
  <version>
   <release>4.2.0alpha1</release>
-  <api>4.1.0</api>
+  <api>4.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -2218,9 +2218,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-28</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
 * [jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
 * [jan] Fix edge case that allowed to enter start time after end time (Bug #12752).
 * [mjr] Expire fb cache when fb_cals preference changes (Bug #12714).

@@ -1,8 +1,18 @@
 ----------
-v5.1.5-git
+v5.1.6-git
 ----------
 
-[jan] SECURITY: Fix XSS vulnerabilities in top and left menu.
+[mms] Fix regression where AJAX actions were not correctly checking permissions
+      and potential authentication expiration actions.
+
+
+------
+v5.1.5
+------
+
+[jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
+      #12804).
+[jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803).
 [jan] Don't show admin alarm form if alarms are disabled.
 [mms] Add horde-remove-user-data command-line script.
 [mms] Add additional syntax checking for the configuration files in the test

@@ -22,9 +22,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-04</date>
+ <date>2013-10-29</date>
  <version>
-  <release>6.1.5</release>
+  <release>6.1.6</release>
   <api>6.1.0</api>
  </version>
  <stability>
@@ -33,27 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-<<<<<<< HEAD
-* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
-* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
-* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
-=======
-* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Send linked attachment download notification message in language of the sending user (Bug #12783).
-* [mms] Fix populating search fields when editing an advanced search query.
-* [mms] Trigger auto save draft in dynamic view if attachments have changed.
-* [mms] Improved UI for dropping attachments on dynamic compose screen.
-* [mms] Fix manually loading all addresses in a header.
-* [mms] Fix regression where reloading dynamic view would not load the previously selected message.
-* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
-* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
->>>>>>> master
-* [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
-* [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
-* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
-* [mms] Improved error handling when creating a new flag in dynamic view.
-* [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
-* [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3300,14 +3280,9 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-04</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-<<<<<<< HEAD
-* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
-* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
-* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
-=======
 * [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Send linked attachment download notification message in language of the sending user (Bug #12783).
 * [mms] Fix populating search fields when editing an advanced search query.
@@ -3317,13 +3292,25 @@
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.
 * [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
 * [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
->>>>>>> master
 * [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
 * [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
 * [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
 * [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.6</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

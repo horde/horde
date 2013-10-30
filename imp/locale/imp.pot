@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.1.5-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,7 +287,7 @@ msgid ""
 "recipient."
 msgstr ""
 
-#: lib/Compose.php:3019
+#: lib/Compose.php:3015
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -705,13 +705,13 @@ msgstr ""
 msgid "Attach:"
 msgstr ""
 
-#: lib/Compose.php:2955
+#: lib/Compose.php:2951
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
 msgstr ""
 
-#: lib/Compose.php:2955
+#: lib/Compose.php:2951
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
 
@@ -1048,7 +1048,7 @@ msgstr ""
 msgid "Click here to open all mailto: links using %s."
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:220
+#: lib/Compose/LinkedAttachment.php:227
 msgid "Click on the following link to permanently delete the attachment:"
 msgstr ""
 
@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "Could not attach %s to the message."
 msgstr ""
 
-#: lib/Contents/View.php:160
+#: lib/Contents/View.php:163
 msgid "Could not auto-determine data type."
 msgstr ""
 
@@ -2779,7 +2779,7 @@ msgstr ""
 msgid "Message Size"
 msgstr ""
 
-#: lib/Basic/Message.php:686 lib/Contents/View.php:178
+#: lib/Basic/Message.php:686 lib/Contents/View.php:181
 msgid "Message Source"
 msgstr ""
 
@@ -2925,7 +2925,7 @@ msgstr ""
 msgid "Name and/or email cannot be empty"
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:217
+#: lib/Compose/LinkedAttachment.php:224
 #, php-format
 msgid "Name: %s"
 msgstr ""
@@ -3176,7 +3176,7 @@ msgstr ""
 msgid "Nothing"
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:207
+#: lib/Compose/LinkedAttachment.php:214
 msgid "Notification: Linked attachment downloaded"
 msgstr ""
 
@@ -3512,7 +3512,7 @@ msgstr ""
 msgid "Print"
 msgstr ""
 
-#: lib/Contents/View.php:245
+#: lib/Contents/View.php:248
 msgid "Printed By"
 msgstr ""
 
@@ -4239,7 +4239,7 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:219
+#: lib/Compose/LinkedAttachment.php:226
 #, php-format
 msgid "Sent Date: %s"
 msgstr ""
@@ -5204,7 +5204,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:218
+#: lib/Compose/LinkedAttachment.php:225
 #, php-format
 msgid "Type: %s"
 msgstr ""
@@ -5223,7 +5223,7 @@ msgstr ""
 msgid "Undelete"
 msgstr ""
 
-#: lib/Ajax/Application/ShowMessage.php:434 lib/Mailbox/Ui.php:81
+#: lib/Ajax/Application/ShowMessage.php:440 lib/Mailbox/Ui.php:81
 #: lib/Message/Ui.php:318
 msgid "Undisclosed Recipients"
 msgstr ""
@@ -5841,7 +5841,7 @@ msgid ""
 "compose action."
 msgstr ""
 
-#: lib/Compose/LinkedAttachment.php:216
+#: lib/Compose/LinkedAttachment.php:223
 msgid "Your linked attachment has been downloaded by at least one user."
 msgstr ""
 
@@ -5961,11 +5961,11 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Compose.php:2862
+#: lib/Compose.php:2851
 msgid "attachment"
 msgstr ""
 
-#: lib/Contents/View.php:49
+#: lib/Contents/View.php:52
 msgid "attachments.zip"
 msgstr ""
 
@@ -6043,7 +6043,7 @@ msgstr ""
 msgid "not"
 msgstr ""
 
-#: lib/Contents/View.php:62
+#: lib/Contents/View.php:65
 #, php-format
 msgid "part %s"
 msgstr ""

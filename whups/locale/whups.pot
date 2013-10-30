@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H5 (3.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Attachment %s deleted."
 msgstr ""
 
-#: lib/Driver/Sql.php:1337 lib/Ticket.php:539
+#: lib/Driver/Sql.php:1338 lib/Ticket.php:539
 #, php-format
 msgid "Attachment %s not found."
 msgstr ""
@@ -1128,7 +1128,7 @@ msgstr ""
 msgid "No queries have been saved."
 msgstr ""
 
-#: lib/Block/Query.php:64 lib/Driver/Sql.php:597
+#: lib/Block/Query.php:64 lib/Driver/Sql.php:598
 msgid "No query to run"
 msgstr ""
 
@@ -1752,7 +1752,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1539
+#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1540
 msgid "That queue slug is already taken. Please select another."
 msgstr ""
 
@@ -2153,7 +2153,7 @@ msgstr ""
 msgid "Ticket %s - %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:1154
+#: lib/Driver/Sql.php:1155
 #, php-format
 msgid "Ticket %s was not found."
 msgstr ""
@@ -2364,7 +2364,7 @@ msgstr ""
 msgid "You are not allowed to view ticket %d."
 msgstr ""
 
-#: lib/Driver/Sql.php:1164
+#: lib/Driver/Sql.php:1165
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr ""

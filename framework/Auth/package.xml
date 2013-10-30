@@ -891,7 +891,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Password strength testing is now case-insensitive (delrio@mie.utoronto.ca; Request #12708).
+* [mms] Password strength testing is now case-insensitive (delrio@mie.utoronto.ca, Request #12708).
    </notes>
   </release>
   <release>

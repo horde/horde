@@ -22,10 +22,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>15:59:46</time>
+ <date>2013-10-29</date>
  <version>
-  <release>4.1.3</release>
+  <release>4.1.4</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] SECURITY: Fix XSS vulnerabilities when deleting task lists.
-* [jan] Fix updating alarm if completing a task recurrence.
-* [jan] Fix editing tasks via CalDAV (Bug #12745).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1419,12 +1416,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] SECURITY: Fix XSS vulnerabilities when deleting task lists.
 * [jan] Fix updating alarm if completing a task recurrence.
 * [jan] Fix editing tasks via CalDAV (Bug #12745).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.4</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

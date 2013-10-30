@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -658,7 +658,7 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Connector.php:680
+#: lib/Horde/Core/ActiveSync/Connector.php:682
 msgid "Out Of Office"
 msgstr ""
 

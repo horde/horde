@@ -72,7 +72,7 @@ abstract class Horde_Core_Ajax_Application
     public function __construct($app, Horde_Variables $vars, $action = null,
                                 $token = null)
     {
-        global $session;
+        global $registry, $session;
 
         $this->_app = $app;
         $this->_vars = $vars;
@@ -82,12 +82,15 @@ abstract class Horde_Core_Ajax_Application
 
         $ob = $this->_getHandler();
 
-        /* Check token. */
+        /* Check authentication/token. */
         if ($ob && !$ob->external($action)) {
+            if (!$registry->currentProcessAuth()) {
+                throw new Horde_Exception('Accessing AJAX action without being authenticated.');
+            }
             $session->checkToken($token);
         }
 
-        /* Check for session regnerateion request. */
+        /* Check for session regneration request. */
         if ($vars->regenerate_sid) {
             $session->regenerate();
             if (SID) {
@@ -153,9 +156,13 @@ abstract class Horde_Core_Ajax_Application
      */
     public function doAction()
     {
+        global $injector;
+
         if (!strlen($this->_action)) {
             return;
         }
+
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
 
         /* Look for action in helpers. */
         if ($ob = $this->_getHandler()) {
@@ -163,11 +170,19 @@ abstract class Horde_Core_Ajax_Application
         } else {
             /* Look for action in application hook. */
             try {
-                $this->data = Horde::callHook('ajaxaction_handle', array($this, $this->_action), $this->_app);
+                $this->data = $hooks->callHook(
+                    'ajaxaction_handle',
+                    $this->_app,
+                    array($this, $this->_action)
+                );
             } catch (Horde_Exception $e) {
-                /* DEPRECATED hook. */
+                /* DEPRECATED hook. @deprecated */
                 try {
-                    $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+                    $this->data = $hooks->callHook(
+                        'ajaxaction',
+                        $this->_app,
+                        array($this->_action, $this->_vars)
+                    );
                 } catch (Horde_Exception $e) {
                     throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
                 }
@@ -175,7 +190,11 @@ abstract class Horde_Core_Ajax_Application
         }
 
         try {
-            $this->data = Horde::callHook('ajaxaction_data', array($this->_action, $this->data), $this->_app);
+            $this->data = $hooks->callHook(
+                'ajaxaction_data',
+                $this->_app,
+                array($this->_action, $this->data)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 

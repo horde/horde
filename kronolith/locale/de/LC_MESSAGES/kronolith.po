@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: 2013-10-24 11:45+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -36,7 +36,7 @@ msgstr " ohne Ende"
 msgid "%d %s before the event starts"
 msgstr "%d %s vor dem Terminbeginn"
 
-#: lib/Event.php:2124
+#: lib/Event.php:2133
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
@@ -48,14 +48,14 @@ msgstr[1] "%d Tage"
 msgid "%d events"
 msgstr "%d Termine"
 
-#: lib/Event.php:2127
+#: lib/Event.php:2136
 #, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
-#: lib/Event.php:2130
+#: lib/Event.php:2139
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -67,7 +67,7 @@ msgstr[1] "%d Minuten"
 msgid "%d times"
 msgstr "%d mal"
 
-#: lib/Event.php:2121
+#: lib/Event.php:2130
 #, php-format
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -113,7 +113,7 @@ msgstr "%s nicht einrichten %s oder %s einrichten %s vor dem Termin %s"
 msgid "%s Private %s &mdash; hides details if calendar is public %s"
 msgstr "%s Privat %s &mdash; Versteckt Details in öffentlichen Kalendern %s"
 
-#: lib/Event.php:2138
+#: lib/Event.php:2147
 #, php-format
 msgid "%s at %s"
 msgstr "%s um %s"
@@ -340,28 +340,28 @@ msgstr "Übersicht"
 msgid "Alarm"
 msgstr "Alarm"
 
-#: lib/Event.php:3223
+#: lib/Event.php:3232
 #, php-format
 msgid "Alarm %d day before"
 msgid_plural "Alarm %d days before"
 msgstr[0] "Alarm %d Tag vorher"
 msgstr[1] "Alarm %d Tage vorher"
 
-#: lib/Event.php:3226
+#: lib/Event.php:3235
 #, php-format
 msgid "Alarm %d hour before"
 msgid_plural "Alarm %d hours before"
 msgstr[0] "Alarm %d Stunde vorher"
 msgstr[1] "Alarm %d Stunden vorher"
 
-#: lib/Event.php:3229
+#: lib/Event.php:3238
 #, php-format
 msgid "Alarm %d minute before"
 msgid_plural "Alarm %d minutes before"
 msgstr[0] "Alarm %d Minute vorher"
 msgstr[1] "Alarm %d Minuten vorher"
 
-#: lib/Event.php:3220
+#: lib/Event.php:3229
 #, php-format
 msgid "Alarm %d week before"
 msgid_plural "Alarm %d weeks before"
@@ -433,7 +433,7 @@ msgid "All Visible"
 msgstr "Alle sichtbaren"
 
 #: lib/Ajax.php:132 lib/Block/Month.php:177 lib/Block/Summary.php:179
-#: lib/Event.php:3341 lib/View/Day.php:94 lib/View/Day.php:97
+#: lib/Event.php:3350 lib/View/Day.php:94 lib/View/Day.php:97
 #: lib/View/Week.php:123 lib/View/Week.php:148 lib/View/Year.php:135
 #: templates/agenda/notification.html.php:24
 #: templates/agenda/notification.plain.php:6 templates/dynamic/day.inc:14
@@ -942,7 +942,7 @@ msgstr "Angemeldete Benutzer"
 msgid "Delegate"
 msgstr "Delegieren"
 
-#: lib/Event.php:2325 lib/Event.php:3286 lib/Form/DeleteCalendar.php:34
+#: lib/Event.php:2334 lib/Event.php:3295 lib/Form/DeleteCalendar.php:34
 #: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
 #: lib/Form/EditCalendar.php:172 lib/Form/EditCalendar.php:190
 #: lib/Form/EditResource.php:73 lib/Form/EditResource.php:133
@@ -965,7 +965,7 @@ msgstr "Delegieren"
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Event.php:3283 lib/Form/DeleteCalendar.php:28
+#: lib/Event.php:3292 lib/Form/DeleteCalendar.php:28
 #: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
 #: lib/View/DeleteEvent.php:43
 #, php-format
@@ -984,7 +984,7 @@ msgstr "Nur diesen Termin löschen"
 msgid "Delete This and Future Events"
 msgstr "Diesen und zukünftige Termine löschen"
 
-#: lib/Event.php:2324
+#: lib/Event.php:2333
 #, php-format
 msgid "Delete exception on %s"
 msgstr "Ausnahme am %s löschen"
@@ -1059,19 +1059,19 @@ msgstr "Fälligkeitsdatum"
 msgid "Duration"
 msgstr "_Dauer"
 
-#: lib/Event.php:3047
+#: lib/Event.php:3056
 msgid "Duration Day"
 msgstr "Dauer Tage"
 
-#: lib/Event.php:3058
+#: lib/Event.php:3067
 msgid "Duration Hour"
 msgstr "Dauer Stunden"
 
-#: lib/Event.php:3068
+#: lib/Event.php:3077
 msgid "Duration Minute"
 msgstr "Dauer Minuten"
 
-#: lib/Event.php:3271 templates/chunks/permissions.inc:105
+#: lib/Event.php:3280 templates/chunks/permissions.inc:105
 #: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
 #: templates/chunks/permissions.inc:213 templates/chunks/permissions.inc:260
 #: templates/perms/perms.inc:57 templates/perms/perms.inc:75
@@ -1084,7 +1084,7 @@ msgstr "Dauer Minuten"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Event.php:3268 lib/Form/EditCalendar.php:36
+#: lib/Event.php:3277 lib/Form/EditCalendar.php:36
 #: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
 #: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:44
 #: templates/attendees/attendees.inc:58
@@ -1155,19 +1155,19 @@ msgstr "En_de"
 msgid "End Date"
 msgstr "Enddatum"
 
-#: lib/Event.php:3020 templates/data/export.inc:161
+#: lib/Event.php:3029 templates/data/export.inc:161
 msgid "End Day"
 msgstr "Enddatum"
 
-#: lib/Event.php:3032 templates/data/export.inc:178
+#: lib/Event.php:3041 templates/data/export.inc:178
 msgid "End Hour"
 msgstr "Endstunde"
 
-#: lib/Event.php:3042 templates/data/export.inc:190
+#: lib/Event.php:3051 templates/data/export.inc:190
 msgid "End Minute"
 msgstr "Endminute"
 
-#: lib/Event.php:3012 templates/data/export.inc:148
+#: lib/Event.php:3021 templates/data/export.inc:148
 msgid "End Month"
 msgstr "Endmonat"
 
@@ -1180,7 +1180,7 @@ msgstr "endet am"
 msgid "End Time"
 msgstr "Endzeit"
 
-#: lib/Event.php:3002 templates/data/export.inc:134
+#: lib/Event.php:3011 templates/data/export.inc:134
 msgid "End Year"
 msgstr "Endjahr"
 
@@ -1274,15 +1274,15 @@ msgstr "Termine aus %s"
 msgid "Events matching \"%s\""
 msgstr "Zu \"%s\" passende Termine"
 
-#: lib/Event.php:1874
+#: lib/Event.php:1883
 msgid "Events must have a start date."
 msgstr "Termine müssen ein Startdatum haben."
 
-#: lib/Event.php:1841
+#: lib/Event.php:1850
 msgid "Events must have a title."
 msgstr "Termine müssen einen Titel haben."
 
-#: lib/Ajax.php:164 lib/Event.php:2297 lib/Event.php:3238
+#: lib/Ajax.php:164 lib/Event.php:2306 lib/Event.php:3247
 #: templates/smartmobile/javascript_defs.php:178
 msgid "Exception"
 msgstr "Ausnahme"
@@ -1347,12 +1347,12 @@ msgstr "Freitag"
 msgid "From"
 msgstr "Von"
 
-#: lib/Event.php:2014
+#: lib/Event.php:2023
 #, php-format
 msgid "From %s at %s to %s at %s"
 msgstr "Vom %s um %s bis zum %s um %s"
 
-#: lib/Event.php:2011
+#: lib/Event.php:2020
 #, php-format
 msgid "From %s to %s"
 msgstr "Vom %s bis zum %s"
@@ -1545,7 +1545,7 @@ msgstr "Lade Kalender..."
 msgid "Loading..."
 msgstr "Lade..."
 
-#: data.php:57 lib/Event.php:3323 templates/dynamic/edit.inc:76
+#: data.php:57 lib/Event.php:3332 templates/dynamic/edit.inc:76
 #: templates/search/event_headers.inc:4 templates/view/view.inc:6
 msgid "Location"
 msgstr "Ort"
@@ -1594,11 +1594,11 @@ msgstr "Maximale Anzahl an Terminen"
 msgid "Maximum number of events to display (0 = no limit)"
 msgstr "Maximale Anzahl der anzuzeigenden Termine (0 = keine Begrenzung)"
 
-#: lib/Event.php:3319
+#: lib/Event.php:3328
 msgid "Me"
 msgstr "Ich"
 
-#: lib/Event.php:3248
+#: lib/Event.php:3257
 msgid "Meeting"
 msgstr "Besprechung"
 
@@ -1801,11 +1801,11 @@ msgstr "Keine Einträge"
 msgid "No items to display"
 msgstr "Keine vorhanden"
 
-#: lib/Event.php:2295 templates/edit/edit.inc:291
+#: lib/Event.php:2304 templates/edit/edit.inc:291
 msgid "No recurrence"
 msgstr "Keine Wiederholung"
 
-#: lib/Event.php:2776
+#: lib/Event.php:2785
 msgid "No resources from this group were available"
 msgstr "Keine Ressourcen dieser Gruppe waren verfügbar."
 
@@ -1847,7 +1847,7 @@ msgstr "Objektersteller"
 msgid "On"
 msgstr "Am"
 
-#: lib/Event.php:2009
+#: lib/Event.php:2018
 #, php-format
 msgid "On %s"
 msgstr "Am %s"
@@ -1909,7 +1909,7 @@ msgstr "Besitzer"
 msgid "Owner:"
 msgstr "Besitzer:"
 
-#: lib/Event.php:3318
+#: lib/Event.php:3327
 #, php-format
 msgid "Owner: %s"
 msgstr "Besitzer: %s"
@@ -2015,7 +2015,7 @@ msgstr "Vergangene Termine"
 msgid "Priority"
 msgstr "Priorität"
 
-#: lib/Event.php:3243
+#: lib/Event.php:3252
 msgid "Private event"
 msgstr "Privater Termin"
 
@@ -2098,15 +2098,15 @@ msgstr "Wiederholungsmuster"
 msgid "Recurrence End Date"
 msgstr "Wiederholungsende"
 
-#: lib/Event.php:3109
+#: lib/Event.php:3118
 msgid "Recurrence End Day"
 msgstr "Wiederholungsendtag"
 
-#: lib/Event.php:3095
+#: lib/Event.php:3104
 msgid "Recurrence End Month"
 msgstr "Wiederholungsendmonat"
 
-#: lib/Event.php:3079
+#: lib/Event.php:3088
 msgid "Recurrence End Year"
 msgstr "Wiederholungsendjahr"
 
@@ -2595,19 +2595,19 @@ msgstr "_Beginn"
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: lib/Event.php:2979 templates/data/export.inc:68
+#: lib/Event.php:2988 templates/data/export.inc:68
 msgid "Start Day"
 msgstr "Starttag"
 
-#: lib/Event.php:2989 templates/data/export.inc:87
+#: lib/Event.php:2998 templates/data/export.inc:87
 msgid "Start Hour"
 msgstr "Startstunde"
 
-#: lib/Event.php:2998 templates/data/export.inc:102
+#: lib/Event.php:3007 templates/data/export.inc:102
 msgid "Start Minute"
 msgstr "Startminute"
 
-#: lib/Event.php:2971 templates/data/export.inc:54
+#: lib/Event.php:2980 templates/data/export.inc:54
 msgid "Start Month"
 msgstr "Startmonat"
 
@@ -2620,7 +2620,7 @@ msgstr "Beginn"
 msgid "Start Time"
 msgstr "Startzeit"
 
-#: lib/Event.php:2961 templates/data/export.inc:39
+#: lib/Event.php:2970 templates/data/export.inc:39
 msgid "Start Year"
 msgstr "Startjahr"
 
@@ -3614,7 +3614,7 @@ msgstr "Ihr Tagesprogramm für den %s"
 msgid "Your default calendar:"
 msgstr "Ihr Standard-Kalender:"
 
-#: lib/Event.php:2386 lib/Event/Horde.php:272 lib/Event/Ical.php:66
+#: lib/Event.php:2395 lib/Event/Horde.php:272 lib/Event/Ical.php:66
 msgid "[Unnamed event]"
 msgstr "[Unbenannter Termin]"
 
@@ -3673,7 +3673,7 @@ msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr ""
 "vor dem Terminbeginn. Ein Wert von \"0\" bedeutet kein standardmäßiger Alarm."
 
-#: lib/Event.php:2385
+#: lib/Event.php:2394
 msgid "busy"
 msgstr "Beschäftigt"
 

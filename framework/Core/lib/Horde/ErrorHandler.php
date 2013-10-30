@@ -41,9 +41,7 @@ class Horde_ErrorHandler
                     $cli->fatal($error);
                 }
 
-                $params = array(
-                    'reason' => $error->getCode()
-                );
+                $params = array();
 
                 if ($registry->getAuth()) {
                     $params['app'] = $error->application;
@@ -55,8 +53,17 @@ class Horde_ErrorHandler
                     break;
                 }
 
-                header('Location: ' . $registry->getLogoutUrl($params));
-                exit;
+                $logout_url = $registry->getLogoutUrl($params);
+
+                /* Clear authentication here. Otherwise, there might be
+                 * issues on the login page since we would otherwise need
+                 * to do session token checking (which might not be
+                 * available, so logout won't happen, etc...) */
+                if (isset($params['app'])) {
+                    $registry->clearAuth();
+                }
+
+                $logout_url->redirect();
             }
         }
 

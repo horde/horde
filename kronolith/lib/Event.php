@@ -970,7 +970,10 @@ abstract class Kronolith_Event
                     $vEventException = $exceptionEvent->toiCalendar($calendar);
 
                     // This should never happen, but protect against it anyway.
-                    if (count($vEventException) > 1) {
+                    if (count($vEventException) > 2 ||
+                        (count($vEventException) > 1 &&
+                         !($vEventException[0] instanceof Horde_Icalendar_Vtimezone) &&
+                         !($vEventException[1] instanceof Horde_Icalendar_Vtimezone))) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
@@ -1623,7 +1626,7 @@ abstract class Kronolith_Event
                     $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
                 } elseif (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
                     $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
-                    $this->description = Horde_Text_Filter::filter($note->data, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                    $this->description = Horde_Text_Filter::filter($this->description, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
                 } else {
                     $truncation = false;
                 }

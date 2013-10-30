@@ -1,6 +1,12 @@
 ----------
-v4.1.3-git
+v4.1.4-git
 ----------
+
+
+
+------
+v4.1.3
+------
 
 [jan] SECURITY: Fix XSS vulnerabilities when deleting address books.
 [jan] Fix exporting selected contacts (Bug #12759).
