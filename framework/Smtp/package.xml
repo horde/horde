@@ -12,7 +12,7 @@
  </lead>
  <date>2013-10-30</date>
  <version>
-  <release>1.3.0</release>
+  <release>1.3.1</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added direct TLS v1.x connection option when connecting to remote server.
-* [mms] Added Horde_Smtp_Password_Xoauth2 class.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -293,6 +292,19 @@
    <notes>
 * [mms] Added direct TLS v1.x connection option when connecting to remote server.
 * [mms] Added Horde_Smtp_Password_Xoauth2 class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
