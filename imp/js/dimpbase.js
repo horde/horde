@@ -3624,11 +3624,12 @@ var DimpBase = {
             params = $H(opts.params),
             vs = this._getSelection(opts);
 
-        need = vs.get('dataob').any(function(ob) {
-            return add
-                ? (!ob.flag || !ob.flag.include(flag))
-                : (ob.flag && ob.flag.include(flag));
-        });
+        need = !vs.getBuffer().getMetaData('readonly') &&
+            vs.get('dataob').any(function(ob) {
+                return add
+                    ? (!ob.flag || !ob.flag.include(flag))
+                    : (ob.flag && ob.flag.include(flag));
+            });
 
         if (need) {
             DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
