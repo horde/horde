@@ -803,10 +803,6 @@ class Horde_Hooks
 //                $session->set('horde', 'imsp_synched') = true;
 //
 //                // Now deal with adding or removing address books from prefs.
-//                // FIXME: Updating prefs seems to hang the server. Narrowed
-//                // down to the fact that $prefs->setValue() also attempts to
-//                // call a hook. (Commenting out the callHook call fixes). Can
-//                // anyone verify this on their install?
 //                $dirty = false;
 //                $abooks = $prefs->getValue('addressbooks');
 //                $abooks = empty($abooks)
