@@ -693,7 +693,7 @@ class Horde_Hooks
 //    {
 //        // Example #1: Send a notification message to the web server
 //        // administrator's e-mail address.
-//        $ $aders = array(
+//        $headers = array(
 //            'To'      => $_SERVER['SERVER_ADMIN'],
 //            'From'    => $_SERVER['SERVER_ADMIN'],
 //            'Subject' => 'New ' . $GLOBALS['registry']->get('name', 'horde') . ' Signup'
@@ -851,10 +851,6 @@ class Horde_Hooks
 //                $session->set('horde', 'imsp_synched') = true;
 //
 //                // Now deal with adding or removing address books from prefs.
-//                // FIXME: Updating prefs seems to hang the server. Narrowed
-//                // down to the fact that $prefs->setValue() also attempts to
-//                // call a hook. (Commenting out the callHook call fixes). Can
-//                // anyone verify this on their install?
 //                $dirty = false;
 //                $abooks = $prefs->getValue('addressbooks');
 //                $abooks = empty($abooks)
