@@ -16,10 +16,17 @@ $prefGroups['display'] = array(
 );
 
 $prefGroups['share'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("Notepad and Share Preferences"),
     'label' => _("Default Notepad"),
     'desc' => _("Choose your default Notepad."),
     'members' => array('default_notepad')
+);
+
+$prefGroups['sync'] = array(
+    'column' => _("Notepad and Share Preferences"),
+    'label' => _("Synchronization Preferences"),
+    'desc' => _("Choose the Notepads to use for synchronization with external devices."),
+    'members' => array('sync_notepads'),
 );
 
 $prefGroups['deletion'] = array(
@@ -79,6 +86,59 @@ $_prefs['default_notepad'] = array(
             ->create()
             ->setDefaultShare($GLOBALS['prefs']->getValue('default_notepad'));
     },
+);
+
+// Sync
+$_prefs['sync_notepads'] = array(
+    'value' => 'a:0:{}',
+    'type' => 'multienum',
+    'enum' => array(),
+    'desc' => _("Select the notepads that, in addition to the default, should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notpads'));
+        if (empty($sync)) {
+            $GLOBALS['prefs']->setValue('sync_notepads', serialize(array(Mnemo::getDefaultNotepad())));
+        }
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $key => $list) {
+            if ($list->getName() != Mnemo::getDefaultNotepad()) {
+                $enum[$key] = Mnemo::getLabel($list);
+            }
+        }
+        $ui->prefs['sync_lists']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
+        $haveDefault = false;
+        $default = Mnemo::getDefaultNotepad();
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_notepads', serialize($sync));
+        }
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $sm->removeState(array(
+                        'devId' => $device['device_id'],
+                        'id' => Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID,
+                        'user' => $GLOBALS['registry']->getAuth()
+                    ));
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.error');
+            }
+        }
+    }
 );
 
 // store the notepads to diplay

@@ -50,13 +50,13 @@ class Mnemo_Api extends Horde_Registry_Api
      * Returns an array of UIDs for all notes that the current user is authorized
      * to see.
      *
-     * @param string $notepad  The notepad to list notes from.
+     * @param array|string $notepads  The notepad(s) to list notes from.
      *
      * @return array  An array of UIDs for all notes the user can access.
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    public function listUids($notepad = null)
+    public function listUids($notepads = null)
     {
         global $conf;
 
@@ -65,16 +65,22 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         // Make sure we have a valid notepad.
-        if (empty($notepad)) {
-            $notepad = Mnemo::getDefaultNotepad();
-        }
-
-        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied();
+        if (empty($notepads)) {
+            $notepads = Mnemo::getSyncLists();
+        } else {
+            if (!is_array($notepads)) {
+                $notepads = array($notepads);
+            }
+            foreach ($notepads as $notepad) {
+                if (!Mnemo::hasPermission($notepad, Horde_Perms::READ)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
+            }
         }
 
         // Set notepad for listMemos.
-        $GLOBALS['display_notepads'] = array($notepad);
+        $GLOBALS['display_notepads'] = $notepads;
+
         $memos = Mnemo::listMemos();
         $uids = array();
         foreach ($memos as $memo) {
@@ -137,11 +143,12 @@ class Mnemo_Api extends Horde_Registry_Api
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
-            $notepad = Mnemo::getDefaultNotepad();
-        }
-
-        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-           throw new Horde_Exception_PermissionDenied();
+            $notepads = Mnemo::getSyncNotepads();
+            $results = array();
+            foreach ($notepads as $notepad) {
+                $results = array_merge($resutls, $this->listBy($action, $timestamp, $notepad, $end, $isModSeq));
+            }
+            return $results;
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
