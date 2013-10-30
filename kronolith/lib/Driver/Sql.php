@@ -754,11 +754,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         foreach ($uids as $uid) {
-            $event = $this->getByUID($uid, array($calendar));
             try {
+                $event = $this->getByUID($uid, array($calendar));
                 $this->deleteEvent($event->id);
-            } catch (Kronolith_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+            } catch (Horde_Exception_NotFound $e) {
+                /* If deleting events with exceptions, those exceptions are
+                 * returned by the listEvents() call, but they may have been
+                 * deleted already with the base event. */
             }
         }
 
