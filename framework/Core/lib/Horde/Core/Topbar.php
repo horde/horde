@@ -43,7 +43,7 @@ class Horde_Core_Topbar
     /**
      * Generates the topbar tree object.
      *
-     * @return Horde_Tree_Base  The topbar tree object.
+     * @return Horde_Tree_Renderer_Base  The topbar tree object.
      */
     public function getTree()
     {

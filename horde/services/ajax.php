@@ -30,9 +30,8 @@ if (empty($action)) {
 }
 
 try {
-    // Authentication checking will occur via token checking.
     Horde_Registry::appInit($app, array(
-        'authentication' => 'none'
+        'authentication' => 'fallback'
     ));
 } catch (Exception $e) {
     // Uncaught exception.  Sending backtrace info back via AJAX is just a

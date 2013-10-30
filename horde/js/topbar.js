@@ -58,7 +58,7 @@ var HordeTopbar = {
                 }
                 item.insert(this._renderBranch(nodes, nodes[root_node].children));
             }
-            elm.insert(nodes[root_node].label);
+            elm.insert(nodes[root_node].label.escapeHTML());
             $('horde-navigation')
                 .insert(new Element('DIV', { className: 'horde-navipoint' })
                         .insert(new Element('DIV', { className: 'horde-point-left' + active }))
@@ -86,7 +86,7 @@ var HordeTopbar = {
             } else {
                 elm = container;
             }
-            elm.insert(nodes[child].label);
+            elm.insert(nodes[child].label.escapeHTML());
             item = new Element('LI', attr).insert(container);
             if (nodes[child].children) {
                 item.insert(this._renderBranch(nodes, nodes[child].children));

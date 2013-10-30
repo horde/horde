@@ -29,7 +29,7 @@ class Mnemo_Form_DeleteNotepad extends Horde_Form
         parent::__construct($vars, sprintf(_("Delete %s"), $notepad->get('name')));
 
         $this->addHidden('', 'n', 'text', true);
-        $this->addVariable(sprintf(_("Really delete the notepad \"%s\"? This cannot be undone and all data on this notepad will be permanently removed."), $this->_notepad->get('name')), 'desc', 'description', false);
+        $this->addVariable(sprintf(_("Really delete the notepad \"%s\"? This cannot be undone and all data on this notepad will be permanently removed."), htmlspecialchars($this->_notepad->get('name'))), 'desc', 'description', false);
 
         $this->setButtons(array(
             array('class' => 'horde-delete', 'value' => _("Delete")),

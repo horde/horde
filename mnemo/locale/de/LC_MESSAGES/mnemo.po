@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:52+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: 2012-10-30 21:39+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -510,7 +510,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
-#: lib/Api.php:289 lib/Api.php:351 lib/Api.php:441
+#: lib/Api.php:289 lib/Api.php:351 lib/Api.php:449
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
