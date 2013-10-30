@@ -520,4 +520,43 @@ class Mnemo
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
     }
+
+    /**
+     * Returns the notepads that should be used for syncing.
+     *
+     * @param boolean $prune  Remove notepads ids from the sync list that no
+     *                        longer exist. The values are pruned *after* the
+     *                        results are passed back to the client to give
+     *                        sync clients a chance to remove their entries.
+     *
+     * @return array  An array of notepad ids.
+     */
+    static public function getSyncNotepads($prune = false)
+    {
+        $haveRemoved = false;
+        $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
+        if (!empty($cs)) {
+            if ($prune) {
+                $notepads =  self::listNotepads(true, Horde_Perms::EDIT);
+                $cscopy = array_flip($cs);
+                foreach ($cs as $c) {
+                    if (empty($notepads[$c])) {
+                        unset($cscopy[$c]);
+                        $haveRemoved = true;
+                    }
+                }
+                if ($haveRemoved) {
+                    $GLOBALS['prefs']->setValue('sync_notepads', serialize(array_flip($cscopy)));
+                }
+            }
+            return $cs;
+        }
+
+        if ($cs = self::getDefaultNotepad(Horde_Perms::EDIT)) {
+            return array($cs);
+        }
+
+        return array();
+    }
+
 }
