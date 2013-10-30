@@ -167,9 +167,10 @@ class Horde_View_Sidebar extends Horde_View
 
         $boxrow = isset($row['type']) &&
             ($row['type'] == 'checkbox' || $row['type'] == 'radiobox');
+        $label = htmlspecialchars($row['label']);
 
         if (isset($row['url'])) {
-            $ak = Horde::getAccessKey($row['label']);
+            $ak = Horde::getAccessKey($label);
             $url = empty($row['url']) ? new Horde_Url() : $row['url'];
             $attributes = $ak
                 ? array('accesskey' => $ak)
@@ -192,11 +193,11 @@ class Horde_View_Sidebar extends Horde_View
                 }
             }
             $row['link'] = $url->link($attributes)
-                . Horde::highlightAccessKey($row['label'], $ak)
+                . Horde::highlightAccessKey($label, $ak)
                 . '</a>';
         } else {
             $row['link'] = '<span class="horde-resource-none">'
-                . $row['label'] . '</span>';
+                . $label . '</span>';
         }
 
         if ($boxrow) {

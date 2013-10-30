@@ -1884,6 +1884,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function autoDiscover($params = array())
     {
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+
         // Attempt to get a username from the email address.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
@@ -1896,7 +1898,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $params['culture'] = 'en:en';
         $params['username'] = $this->getUsernameFromEmail($params['email']);
         try {
-            $xml = Horde::callHook('activesync_autodiscover_xml', array($params), 'horde');
+            $xml = $hooks->callHook('activesync_autodiscover_xml', 'horde', array($params));
             return array('raw_xml' => $xml);
         } catch (Horde_Exception_HookNotSet $e) {}
 
@@ -1921,7 +1923,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         try {
-            $params = Horde::callHook('activesync_autodisover_parameters', array($params), 'horde');
+            $params = $hooks->callHook('activesync_autodisover_parameters', 'horde', array($params));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $params;
@@ -1948,7 +1950,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         case 'hook':
             try {
-                return Horde::callHook('activesync_get_autodiscover_username', array($email));
+                return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                    ->callHook('activesync_get_autodiscover_username', 'horde', array($email));
             } catch (Horde_Exception_HookNotSet $e) {
                 return $email;
             }
@@ -2289,13 +2292,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function createDeviceCallback(Horde_ActiveSync_Device $device)
     {
-        global $registry;
+        global $injector, $registry;
 
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perms = $injector->getInstance('Horde_Perms');
+
         // Check max_device
         if ($perms->exists('horde:activesync:max_devices')) {
             $max_devices = $this->_getPolicyValue('max_devices', $perms->getPermissions('horde:activesync:max_devices', $registry->getAuth()));
-            $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+            $state = $injector->getInstance('Horde_ActiveSyncState');
             $devices = $state->listDevices($registry->getAuth(), false);
             if (count($devices) >= $max_devices) {
                 $this->_logger->info(sprintf(
@@ -2306,7 +2310,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
         try {
-            return Horde::callHook('activesync_create_device', array($device));
+            return $injector->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_create_device', 'horde', array($device));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return true;
@@ -2325,7 +2330,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function deviceCallback(Horde_ActiveSync_Device $device)
     {
         try {
-            return Horde::callHook('activesync_device_check', array($device));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_device_check', 'horde', array($device));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return true;

@@ -100,7 +100,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             isset($_FILES['upload_1']) &&
             strlen($_FILES['upload_1']['name'])) {
             try {
-                $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'upload_1');
+                $atc_ob = $imp_compose->addAttachmentFromUpload('upload_1');
                 if ($this->vars->a == _("Expand Names")) {
                     $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                 }

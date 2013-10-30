@@ -28,7 +28,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
         parent::__construct($vars, sprintf(_("Delete %s"), $addressbook->get('name')));
 
         $this->addHidden('', 'a', 'text', true);
-        $this->addVariable(sprintf(_("Really delete the address book \"%s\"? This cannot be undone and all contacts in this address book will be permanently removed."), $this->_addressbook->get('name')), 'desc', 'description', false);
+        $this->addVariable(sprintf(_("Really delete the address book \"%s\"? This cannot be undone and all contacts in this address book will be permanently removed."), htmlspecialchars($this->_addressbook->get('name'))), 'desc', 'description', false);
 
         $this->setButtons(array(
             array('class' => 'horde-delete', 'value' => _("Delete")),

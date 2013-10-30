@@ -30,13 +30,6 @@ class Horde
     static protected $_contentSent = false;
 
     /**
-     * Whether the hook has already been loaded.
-     *
-     * @var array
-     */
-    static protected $_hooksLoaded = array();
-
-    /**
      * The labels already used in this page.
      *
      * @var array
@@ -1114,78 +1107,6 @@ class Horde
     }
 
     /**
-     * Call a Horde hook, handling all of the necessary lookups and parsing
-     * of the hook code.
-     *
-     * WARNING: Throwing exceptions is expensive, so use callHook() with care
-     * and cache the results if you going to use the results more than once.
-     *
-     * @param string $hook  The function to call.
-     * @param array  $args  An array of any arguments to pass to the hook
-     *                      function.
-     * @param string $app   The hook application.
-     *
-     * @return mixed  The results of the hook.
-     * @throws Horde_Exception  Thrown on error from hook code.
-     * @throws Horde_Exception_HookNotSet  Thrown if hook is not active.
-     */
-    static public function callHook($hook, $args = array(), $app = 'horde')
-    {
-        if (!self::hookExists($hook, $app)) {
-            throw new Horde_Exception_HookNotSet();
-        }
-
-        $hook_class = $app . '_Hooks';
-        $hook_ob = new $hook_class;
-        try {
-            self::log(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
-            return call_user_func_array(array($hook_ob, $hook), $args);
-        } catch (Horde_Exception $e) {
-            self::log($e, 'ERR');
-            throw $e;
-        }
-    }
-
-    /**
-     * Returns whether a hook exists.
-     *
-     * Use this if you have to call a hook many times and expect the hook to
-     * not exist.
-     *
-     * @param string $hook  The function to call.
-     * @param string $app   The hook application.
-     *
-     * @return boolean  True if the hook exists.
-     */
-    static public function hookExists($hook, $app = 'horde')
-    {
-        $hook_class = $app . '_Hooks';
-
-        if (!isset(self::$_hooksLoaded[$app])) {
-            self::$_hooksLoaded[$app] = false;
-            if (!class_exists($hook_class, false)) {
-                try {
-                    self::loadConfiguration('hooks.php', null, $app);
-                    self::$_hooksLoaded[$app] = array();
-                } catch (Horde_Exception $e) {}
-            }
-        }
-
-        if (self::$_hooksLoaded[$app] === false) {
-            return false;
-        }
-
-        if (!isset(self::$_hooksLoaded[$app][$hook])) {
-            self::$_hooksLoaded[$app][$hook] =
-                class_exists($hook_class, false) &&
-                ($hook_ob = new $hook_class) &&
-                method_exists($hook_ob, $hook);
-        }
-
-        return self::$_hooksLoaded[$app][$hook];
-    }
-
-    /**
      * Utility function to send redirect headers to browser, handling any
      * browser quirks.
      *
@@ -1379,7 +1300,8 @@ class Horde
     static public function permissionDeniedError($app, $perm, $error = null)
     {
         try {
-            self::callHook('perms_denied', array($app, $perm));
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('perms_denied', 'horde', array($app, $perm));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!is_null($error)) {
@@ -1533,6 +1455,58 @@ class Horde
     static public function base64ImgData($in, $limit = null)
     {
         return Horde_Themes_Image::base64ImgData($in, $limit);
+    }
+
+    /**
+     * Whether the hook has already been loaded.
+     *
+     * @deprecated
+     *
+     * @var array
+     */
+    static protected $_hooksLoaded = array();
+
+    /**
+     * Call a Horde hook, handling all of the necessary lookups and parsing
+     * of the hook code.
+     *
+     * WARNING: Throwing exceptions is expensive, so use callHook() with care
+     * and cache the results if you going to use the results more than once.
+     *
+     * @deprecated  Use Horde_Core_Hooks object instead.
+     *
+     * @param string $hook  The function to call.
+     * @param array  $args  An array of any arguments to pass to the hook
+     *                      function.
+     * @param string $app   The hook application.
+     *
+     * @return mixed  The results of the hook.
+     * @throws Horde_Exception  Thrown on error from hook code.
+     * @throws Horde_Exception_HookNotSet  Thrown if hook is not active.
+     */
+    static public function callHook($hook, $args = array(), $app = 'horde')
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+            ->callHook($hook, $app, $args);
+    }
+
+    /**
+     * Returns whether a hook exists.
+     *
+     * Use this if you have to call a hook many times and expect the hook to
+     * not exist.
+     *
+     * @deprecated  Use Horde_Core_Hooks object instead.
+     *
+     * @param string $hook  The function to call.
+     * @param string $app   The hook application.
+     *
+     * @return boolean  True if the hook exists.
+     */
+    static public function hookExists($hook, $app = 'horde')
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+            ->hookExists($hook, $app);
     }
 
 }

@@ -16,9 +16,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-04</date>
+ <date>2013-10-29</date>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix rendering of full text search results.
-* [jan] Fix rendering pages in portal blocks.
-* [jan] Improve finding like pages if name contains digits.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -998,12 +996,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-04</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix rendering of full text search results.
 * [jan] Fix rendering pages in portal blocks.
 * [jan] Improve finding like pages if name contains digits.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

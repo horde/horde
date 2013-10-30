@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-19</date>
+ <date>2013-10-29</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -1638,7 +1638,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.10.0</min>
+    <min>2.11.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3776,9 +3776,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-19</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
+* [jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803).
 * [jan] Don&apos;t show admin alarm form if alarms are disabled.
 * [mms] Add horde-remove-user-data command-line script.
 * [mms] Add additional syntax checking for the configuration files in the test script.
@@ -3787,20 +3789,15 @@
   </release>
   <release>
    <version>
-    <release>5.2.0</release>
-    <api>5.2.0</api></version>
+    <release>5.1.6</release>
+    <api>5.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-05</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
-* [mms] Added &apos;filemtime&apos; configuration option for CSS caching.
-* [mjr] Add support for X509 authentication support.
-* [mjr] Improve logging options for ActiveSync logging configuration.
-* [mjr] Add support for managing ActiveSync devices through the API.
-* [mjr] Add prefs for selecting From address when sending email via ActiveSync.
+* [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
    </notes>
   </release>
  </changelog>
