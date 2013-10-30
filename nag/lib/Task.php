@@ -1390,7 +1390,11 @@ class Nag_Task
 
         /* Notes and Title */
         if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-            $this->desc = $message->airsyncbasebody->data;
+            if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $this->desc = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
+            } else {
+                $this->desc = $message->airsyncbasebody->data;
+            }
         } else {
             $this->desc = $message->body;
         }
