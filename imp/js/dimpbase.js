@@ -1698,7 +1698,7 @@ var DimpBase = {
                     params.params = { msgload: msgload };
                 }
 
-                this.flag('\\seen', true, params);
+                this.flag(DimpCore.conf.FLAG_SEEN, true, params);
 
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
