@@ -25,7 +25,6 @@
  */
 class Horde_Imap_Client_Xoauth2Test extends PHPUnit_Framework_TestCase
 {
-
     public function testTokenGeneration()
     {
         // Example from https://developers.google.com/gmail/xoauth2_protocol
