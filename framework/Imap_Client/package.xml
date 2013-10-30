@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added direct TLS v1.x connection option when connecting to remote server.
 * [mms] Use SHA-1 instead of MD5 for internal hashing.
 * [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
@@ -293,7 +294,7 @@
    <package>
     <name>Horde_Socket_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -2056,6 +2057,7 @@
    <date>2013-10-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added direct TLS v1.x connection option when connecting to remote server.
 * [mms] Use SHA-1 instead of MD5 for internal hashing.
 * [mms] Correctly handle untagged BAD IMAP responses.
 * [mms] Added Horde_Imap_Client_Password_Xoauth2 class.
