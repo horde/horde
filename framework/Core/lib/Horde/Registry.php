@@ -1565,13 +1565,14 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Run authenticated hooks, if necessary. */
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
         if ($GLOBALS['session']->get('horde', 'auth_app_init/' . $app)) {
             try {
                 $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'authenticated');
 
                 $error = self::HOOK_FATAL;
-                Horde::callHook('appauthenticated', array(), $app);
+                $hooks->callHook('appauthenticated', $app);
             } catch (Exception $e) {
                 $this->_pushAppError($e, $error);
             }
@@ -1587,7 +1588,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 $this->callAppMethod($app, 'init');
 
                 $error = self::HOOK_FATAL;
-                Horde::callHook('pushapp', array(), $app);
+                $hooks->callHook('pushapp', $app);
             } catch (Exception $e) {
                 $this->_pushAppError($e, $error);
             }
@@ -2295,7 +2296,8 @@ class Horde_Registry implements Horde_Shutdown_Task
     public function convertUsername($userId, $toHorde)
     {
         try {
-            return Horde::callHook('authusername', array($userId, $toHorde));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->
+                callHook('authusername', 'horde', array($userId, $toHorde));
         } catch (Horde_Exception_HookNotSet $e) {
             return $userId;
         }

@@ -1300,7 +1300,8 @@ class Horde
     static public function permissionDeniedError($app, $perm, $error = null)
     {
         try {
-            self::callHook('perms_denied', array($app, $perm));
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('perms_denied', 'horde', array($app, $perm));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!is_null($error)) {

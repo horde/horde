@@ -156,9 +156,13 @@ abstract class Horde_Core_Ajax_Application
      */
     public function doAction()
     {
+        global $injector;
+
         if (!strlen($this->_action)) {
             return;
         }
+
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
 
         /* Look for action in helpers. */
         if ($ob = $this->_getHandler()) {
@@ -166,11 +170,19 @@ abstract class Horde_Core_Ajax_Application
         } else {
             /* Look for action in application hook. */
             try {
-                $this->data = Horde::callHook('ajaxaction_handle', array($this, $this->_action), $this->_app);
+                $this->data = $hooks->callHook(
+                    'ajaxaction_handle',
+                    $this->_app,
+                    array($this, $this->_action)
+                );
             } catch (Horde_Exception $e) {
-                /* DEPRECATED hook. */
+                /* DEPRECATED hook. @deprecated */
                 try {
-                    $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+                    $this->data = $hooks->callHook(
+                        'ajaxaction',
+                        $this->_app,
+                        array($this->_action, $this->_vars)
+                    );
                 } catch (Horde_Exception $e) {
                     throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
                 }
@@ -178,7 +190,11 @@ abstract class Horde_Core_Ajax_Application
         }
 
         try {
-            $this->data = Horde::callHook('ajaxaction_data', array($this->_action, $this->data), $this->_app);
+            $this->data = $hooks->callHook(
+                'ajaxaction_data',
+                $this->_app,
+                array($this->_action, $this->data)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 
