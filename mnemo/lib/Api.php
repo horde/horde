@@ -446,4 +446,31 @@ class Mnemo_Api extends Horde_Registry_Api
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }
     }
+
+    /**
+     * Returns a list of available sources.
+     *
+     * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include synchable notepads.
+     *
+     * @return array  An array of the available sources. Keys are source IDs,
+     *                values are source titles.
+     */
+    public function sources($writeable = false, $sync_only = false)
+    {
+        $out = array();
+
+        foreach (Mnemo::listNotepads(falso, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
+            $out[$key] = $val->get('name');
+        }
+
+        if ($sync_only) {
+            $syncable = Mnemo::getSyncNotepads();
+            $out = array_intersect_key($out, array_flip($syncable));
+        }
+
+        return $out;
+    }
+
+
 }
