@@ -314,20 +314,82 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
+            $mp = $GLOBALS['prefs']->getValue('activesync_multiplexed');
             if (array_search('calendar', $supported) !== false) {
-                $folders[] = $this->getFolder(self::APPOINTMENTS_FOLDER_UID);
+                if ($mp) {
+                    $folders[] = $this->getFolder(self::APPOINTMENTS_FOLDER_UID);
+                } else {
+                    $temp = $this->_connector->getFolders(self::APPOINTMENTS_FOLDER_UID);
+                    if (is_array($temp)) {
+                        foreach ($temp as $id => $folder) {
+                            $folders[] = $this->getFolder(
+                                Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
+                                array(
+                                    'class' => Horde_ActiveSync::CLASS_CALENDAR,
+                                    'primary' => $folder['primary'],
+                                    'display' => $folder['display']
+                                )
+                            );
+                        }
+                    } else {
+                        // Multiplex not supported by the application's API
+                        $folders[] = $this->getFolder($temp);
+                    }
+                }
             }
 
             if (array_search('contacts', $supported) !== false) {
-                $folders[] = $this->getFolder(self::CONTACTS_FOLDER_UID);
+                if ($mp) {
+                    $folders[] = $this->getFolder(self::CONTACTS_FOLDER_UID);
+                } else {
+                    $temp = $this->_connector->getFolders(self::CONTACTS_FOLDER_UID);
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->getFolder(
+                            Horde_ActiveSync::CLASS_CONTACTS . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_CONTACTS,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                }
             }
 
             if (array_search('tasks', $supported) !== false) {
-                $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
+                if ($mp) {
+                    $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
+                } else {
+                    $temp = $this->_connector->getFolders(self::TASKS_FOLDER_UID);
+                    foreach ($temp as $id => $folder) {
+                       $folders[] = $this->getFolder(
+                            Horde_ActiveSync::CLASS_TASKS . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_TASKS,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                }
             }
 
             if (array_search('notes', $supported) !== false) {
-                $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
+                if ($mp) {
+                    $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
+                } else {
+                    $temp = $this->_connector->getFolders(self::NOTES_FOLDER_UID);
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_NOTES . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_NOTES,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                }
             }
 
             // Always return at least the "dummy" IMAP folders since some
@@ -352,43 +414,55 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Factory for Horde_ActiveSync_Message_Folder objects.
      *
-     * @param string $id   The folder's server id.
+     * For BC reasons, we need to still accept the *_FOLDER_UID constants
+     * and they should represent folders that are multiplexed.
+     *
+     * @param string $id        The folder's server id.
+     * @param array $params     Additional folder parameters:
+     *   - class:   The collection class, a Horde_ActiveSync::CLASS_* constant
+     *   - primary: This folder is the 'default' collection for this class.
+     *   - display: The display name for FOLDER_TYPE_USER folders.
+     *   @since 2.12.0
      *
      * @return Horde_ActiveSync_Message_Folder
      * @throws Horde_ActiveSync_Exception
      */
-    public function getFolder($id)
+    public function getFolder($id, array $params = array())
     {
+        // First check for legacy/multiplexed IDs.
         switch ($id) {
         case self::APPOINTMENTS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT,
                 $this->_displayMap[self::APPOINTMENTS_FOLDER_UID]);
-            break;
+
         case self::CONTACTS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                $id,
                0,
                Horde_ActiveSync::FOLDER_TYPE_CONTACT,
                $this->_displayMap[self::CONTACTS_FOLDER_UID]);
-            break;
+
         case self::TASKS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_TASK,
                 $this->_displayMap[self::TASKS_FOLDER_UID]);
-            break;
+
         case self::NOTES_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_NOTE,
                 $this->_displayMap[self::NOTES_FOLDER_UID]);
-                break;
-        default:
+        }
+
+        // If we are here, we are either requesting an email folder or a
+        // non-multiplexed non-email folder.
+        if (empty($params['class'])) {
             // Must be a mail folder
             $folders = $this->_getMailFolders();
             foreach ($folders as $folder) {
@@ -398,9 +472,41 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
             throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
+            return $folder;
         }
 
-        return $folder;
+        // Non-Multiplexed non-email collection.
+        $primary = !empty($params['primary']);
+        switch ($params['class']) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT : Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_CONTACT : Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_TASKS:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_TASK : Horde_ActiveSync::FOLDER_TYPE_USER_TASK,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_NOTES:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_NOTE : Horde_ActiveSync::FOLDER_TYPE_USER_NOTE,
+                $params['display']
+            );
+        }
     }
 
     /**
@@ -2399,6 +2505,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _buildNonMailFolder($id, $parent, $type, $name)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
+        $folder->_serverid = $id;
         $folder->serverid = $id;
         $folder->parentid = $parent;
         $folder->type = $type;

@@ -47,6 +47,13 @@ class Horde_Core_ActiveSync_Connector
     protected $_capabilities = array();
 
     /**
+     * Cache list of folders
+     *
+     * @var array
+     */
+    protected $_folderCache = array();
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters. Requires:
@@ -842,6 +849,69 @@ class Horde_Core_ActiveSync_Connector
         }
 
         return $results;
+    }
+
+    /**
+     * Return the list of folders to sync for the specified collection.
+     *
+     * @param string $collection  The collection
+     *                            A Horde_Core_ActiveSync_Driver:: constant
+     *
+     * @return array|string  A list of folder uids or $collection if supporting
+     *                       API is not found. If a list is returned, it is in
+     *                       the following format:
+     *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
+     * @since 2.12.0
+     */
+    public function getFolders($collection)
+    {
+        global $registry;
+
+        // @TODO: H6 remove the hasMethod checks.
+        if (empty($this->_folderCache[$collection])) {
+            switch ($collection) {
+            case Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID:
+                if ($registry->hasMethod('calendar/sources')) {
+                    $folders = $registry->calendar->sources(true, true);
+                    $default = $registry->calendar->getDefaultShare();
+                } else {
+                    $this->_folderCache[$collection] = $collection;
+                }
+            case Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID:
+
+                if ($registry->hasMethod('contacts/sources')) {
+                    $folders = $registry->contacts->sources(true, true);
+                    $default = $registry->contacts->getDefaultShare();
+                } else {
+                    $this->_folderCache[$collection] = $collection;
+                }
+            case Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID:
+                if ($registry->hasMethod('tasks/sources')) {
+                    $folders = $registry->tasks->sources(true, true);
+                    $default = $registry->tasks->getDefaultShare();
+                } else {
+                    $this->_folderCache[$collection] = $collection;
+                }
+            case Horde_Core_ActiveSync_Driver::NOTES_FOLDER_UID:
+                if ($registry->hasMethod('notes/sources')) {
+                    $folders = $registry->notes->sources(true, true);
+                    $default = $registry->notes->getDefaultShare();
+                } else {
+                    $this->_folderCache[$collection] = $collection;
+                }
+            }
+            if (!empty($folders) && is_array($folders)) {
+                $results = array();
+                foreach ($folders as $id => $folder) {
+                    $results[$id] = array('display' => $folder, 'primary' => ($id == $default));
+                }
+                $this->_folderCache[$collection] = $results;
+            } else {
+                $this->_folderCache[$collection] = array();
+            }
+        }
+
+        return $this->_folderCache[$collection];
     }
 
     /**
