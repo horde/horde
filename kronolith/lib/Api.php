@@ -589,15 +589,25 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param boolean $isModSeq          If true, $timestamp and $end are
      *                                   modification sequences and not
      *                                   timestamps. @since 4.1.1
+     * @param string|array $calendars    The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @throws Horde_Exception_PermissionDenied
      * @throws Kronolith_Exception
      */
-    public function getChanges($start, $end, $ignoreExceptions = true, $isModSeq = false)
+    public function getChanges(
+        $start, $end, $ignoreExceptions = true, $isModSeq = false, $calendars = null)
     {
         // Only get the calendar once
-        $cs = Kronolith::getSyncCalendars();
+        if (is_null($calendars)) {
+            $cs = Kronolith::getSyncCalendars();
+        } else {
+            if (!is_array($calendars)) {
+                $calendars = array($calendars);
+            }
+            $cs = $calendars;
+        }
+
         $changes = array(
             'add' => array(),
             'modify' => array(),
@@ -649,15 +659,16 @@ class Kronolith_Api extends Horde_Registry_Api
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start             The starting modseq.
+     * @param integer $end               The ending modseq.
+     * @param string|array $calendars    The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $calendars = null)
     {
-        return $this->getChanges($start, $end, true, true);
+        return $this->getChanges($start, $end, true, true, $calendars);
     }
 
     /**
