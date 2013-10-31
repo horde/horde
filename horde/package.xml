@@ -130,14 +130,18 @@
     <file name="horde-set-perms" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="horde-sql-shell" role="script" />
+    <file name="horde-sql-shell" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
     <file name="horde-themes" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-translation" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="horde-pref-remove" role="script" />
+    <file name="horde-pref-remove" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
     <file name="horde-queue-run-tasks" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
