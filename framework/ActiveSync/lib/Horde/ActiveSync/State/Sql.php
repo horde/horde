@@ -1194,7 +1194,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Return all available mailMap changes for the current folder.
      *
-     * @param  array  $changes  The chagnes array
+     * @param  array  $changes  The changes array
      *
      * @return array  An array of hashes, each in the form of
      *   {uid} => array(
