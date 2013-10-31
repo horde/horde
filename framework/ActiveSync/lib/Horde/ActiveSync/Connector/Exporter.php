@@ -166,7 +166,8 @@ class Horde_ActiveSync_Connector_Exporter
                             $change['id'],
                             $folder->parentid,
                             $folder->displayname,
-                            $folder->_serverid);
+                            $folder->_serverid,
+                            $folder->type);
                         $this->folderChange($folder);
                     } else {
                         $this->_logger->err(sprintf(

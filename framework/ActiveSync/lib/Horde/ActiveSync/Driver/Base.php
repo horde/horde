@@ -85,6 +85,14 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_tempMap = array();
 
+    protected $_typeMap = array(
+        'F' => Horde_ActiveSync::CLASS_EMAIL,
+        'C' => Horde_ActiveSync::CLASS_CONTACTS,
+        'A' => Horde_ActiveSync::CLASS_CALENDAR,
+        'T' => Horde_ActiveSync::CLASS_TASKS,
+        'N' => Horde_ActiveSync::CLASS_NOTES
+    );
+
     /**
      * Const'r
      *
@@ -350,29 +358,79 @@ abstract class Horde_ActiveSync_Driver_Base
      * serverid before, return the previously created uid, otherwise return
      * a new one.
      *
-     * @param string $imap  The imap server's folder name E.g., INBOX
+     * @param string $id    The server's folder name E.g., INBOX
+     * @param string $type  The folder type, a Horde_ActiveSync::FOLDER_TYPE_*
+     *                      constant.
      *
-     * @return string  A UUID to be used by activesync to represent the folder.
+     * @return string  A unique identifier for the specified backend folder id.
+     *                 The first character indicates the foldertype as such:
+     *                 'F' - Email
+     *                 'C' - Contact
+     *                 'A' - Appointment
+     *                 'T' - Task
+     *                 'N' - Note
      * @since 2.4.0
      */
-    protected function _getFolderUidForBackendId($imap)
+    protected function _getFolderUidForBackendId($id, $type)
     {
         $map = $this->_state->getFolderUidToBackendIdMap();
-        if (!empty($map[$imap])) {
-            return $map[$imap];
-        } elseif (!empty($this->_tempMap[$imap])) {
-            return $this->_tempMap[$imap];
+        if (!empty($map[$id])) {
+            return $map[$id];
+        } elseif (!empty($this->_tempMap[$id])) {
+            return $this->_tempMap[$id];
         }
 
+        // Convert TYPE to CLASS
+        $type = $this->_getClassFromType($type);
+        $rMap = array_flip($this->_typeMap);
+        $prefix = $rMap[$type];
+
         // None found, generate a new UID.
-        $this->_tempMap[$imap] = sprintf('F%04x%04x', mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+        $this->_tempMap[$id] = sprintf('%s%04x%04x', $prefix, mt_rand(0, 0xffff), mt_rand(0, 0xffff));
         $this->_logger->info(sprintf(
             '[%s] Creating new folder uuid for %s: %s',
             getmypid(),
-            $imap,
-            $this->_tempMap[$imap]));
+            $id,
+            $this->_tempMap[$id]));
 
-        return $this->_tempMap[$imap];
+        return $this->_tempMap[$id];
+    }
+
+    /**
+     * Convert a TYPE constant into it's associated CLASS constant.
+     *
+     * @param integer $type  The TYPE.
+     *
+     * @return string  The CLASS
+     */
+    protected function _getClassFromType($type)
+    {
+        switch ($type) {
+        case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT:
+            return Horde_ActiveSync::CLASS_CALENDAR;
+
+        case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT:
+            return Horde_ActiveSync::CLASS_CONTACTS;
+
+        case Horde_ActiveSync::FOLDER_TYPE_TASK:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_TASK:
+            return Horde_ActiveSync::CLASS_TASKS;
+
+        case Horde_ActiveSync::FOLDER_TYPE_NOTE:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_NOTE:
+            return Horde_ActiveSync::CLASS_NOTES;
+
+        case Horde_ActiveSync::FOLDER_TYPE_INBOX:
+        case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
+        case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
+        case Horde_ActiveSync::FOLDER_TYPE_SENTMAIL:
+        case Horde_ActiveSync::FOLDER_TYPE_OUTBOX:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            return Horde_ActiveSync::CLASS_EMAIL;
+
+        }
     }
 
     /**

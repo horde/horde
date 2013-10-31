@@ -494,7 +494,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                                 $value['id'],
                                 (empty($value['parent']) ? '0' : $value['parent']),
                                 $folder->displayname,
-                                $folder->_serverid);
+                                $folder->_serverid,
+                                $folder->type);
                             $this->_folder[] = $stat;
                             $this->_folder = array_values($this->_folder);
                         }
