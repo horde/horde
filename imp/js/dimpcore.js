@@ -240,6 +240,10 @@ var DimpCore = {
             });
             break;
 
+        case 'ctx_contacts_copy':
+            window.prompt(DimpCore.text.emailcopy, baseelt.retrieve('email').b);
+            break;
+
         case 'ctx_contacts_new':
             this.compose('new', {
                 to_json: Object.toJSON(baseelt.retrieve('email'))

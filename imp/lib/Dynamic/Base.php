@@ -151,7 +151,8 @@ abstract class IMP_Dynamic_Base
                 // Empty sub item needs to be a javascript object
                 '_sub1' => new stdClass,
                 'new' => _("New Message"),
-                'add' => _("Add to Address Book")
+                'add' => _("Add to Address Book"),
+                'copy' => _("Copy to Clipboard")
             ),
             'ctx_reply' => array(
                 'reply' => _("To Sender"),
@@ -188,6 +189,7 @@ abstract class IMP_Dynamic_Base
         /* Gettext strings used in core javascript files. */
         $this->js_text = array(
             'allparts_label' => _("Parts"),
+            'emailcopy' => _("Your browser security settings don't permit the editor to copy to the clipboard.") . "\n" . _("You need to manually use the keyboard instead (Crtl/Cmd + C)."),
             'loading' => _("Loading..."),
             'strip_warn' => _("Are you sure you wish to PERMANENTLY delete this attachment?"),
             'verify' => _("Verifying...")

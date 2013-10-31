@@ -1009,6 +1009,9 @@ span.logoutIcon {
 #ctx_contacts_add span.iconImg {
     background-image: url("../graphics/add_contact.png");
 }
+#ctx_contacts_copy span.iconImg {
+    background-image: url("../graphics/clipboard.png");
+}
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
