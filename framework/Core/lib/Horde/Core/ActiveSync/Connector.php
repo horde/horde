@@ -896,29 +896,34 @@ class Horde_Core_ActiveSync_Connector
                     $folders = $registry->calendar->sources(true, true);
                     $default = $registry->calendar->getDefaultShare();
                 } else {
-                    $this->_folderCache[$collection] = $collection;
+                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID;
                 }
-            case Horde_ActiveSync::CLASS_CONTACTS:
+                break;
 
+            case Horde_ActiveSync::CLASS_CONTACTS:
                 if ($registry->hasMethod('contacts/sources')) {
                     $folders = $registry->contacts->sources(true, true);
                     $default = $registry->contacts->getDefaultShare();
                 } else {
-                    $this->_folderCache[$collection] = $collection;
+                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID;
                 }
+                break;
+
             case Horde_ActiveSync::CLASS_TASKS:
                 if ($registry->hasMethod('tasks/sources')) {
                     $folders = $registry->tasks->sources(true, true);
                     $default = $registry->tasks->getDefaultShare();
                 } else {
-                    $this->_folderCache[$collection] = $collection;
+                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID;
                 }
+                break;
+
             case Horde_ActiveSync::CLASS_NOTES:
                 if ($registry->hasMethod('notes/sources')) {
                     $folders = $registry->notes->sources(true, true);
                     $default = $registry->notes->getDefaultShare();
                 } else {
-                    $this->_folderCache[$collection] = $collection;
+                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::NOTES_FOLDER_UID;
                 }
             }
 
