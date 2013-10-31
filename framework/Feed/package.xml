@@ -31,12 +31,16 @@
      <dir name="Feed">
       <dir name="examples">
        <file name="blogger.php" role="doc" />
-       <file name="blogroll.php" role="doc" />
+       <file name="blogroll.php" role="doc">
+        <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+       </file>
        <file name="delete.php" role="doc" />
        <file name="edit.php" role="doc" />
        <file name="post.php" role="doc" />
        <file name="read.php" role="doc" />
-       <file name="reader.php" role="doc" />
+       <file name="reader.php" role="doc">
+        <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+       </file>
       </dir> <!-- /doc/Horde/Feed/examples -->
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Feed -->

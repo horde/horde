@@ -37,7 +37,7 @@
     <dir name="Horde">
      <dir name="Rampage">
       <file name="rampage.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+       <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
       </file>
      </dir> <!-- /scripts/Horde/Rampage -->
     </dir> <!-- /scripts/Horde -->

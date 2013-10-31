@@ -1,4 +1,4 @@
-#!@php_bin@
+#!/usr/bin/env php
 <?php
 /**
  * The Autoloader allows us to omit "require/include" statements.

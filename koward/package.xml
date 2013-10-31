@@ -87,7 +87,7 @@
    <dir name="script">
     <dir name="Koward">
      <file name="koward.php" role="script">
-      <replace from="@php_bin@" to="php_bin" type="pear-config" />
+      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
      </file>
     </dir> <!-- /Koward -->
    </dir> <!-- /script -->

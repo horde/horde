@@ -1,4 +1,4 @@
-#!@php_bin@
+#!/usr/bin/env php
 <?php
 /**
  * @package Feed
