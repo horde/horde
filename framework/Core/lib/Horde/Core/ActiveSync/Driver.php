@@ -563,7 +563,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return Horde_ActiveSync::CLASS_EMAIL;
             }
         } else {
-            $parts = explode($id, ':', 2);
+            $parts = explode(':', $id, 2);
             if (count($parts) == 2) {
                 return $parts;
             }
