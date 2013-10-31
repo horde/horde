@@ -377,7 +377,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function unserialize($data)
-    {   $data = json_decode($data, true, 512, JSON_BIGINT_AS_STRING);
+    {   $data = json_decode($data, true);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
             throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }
