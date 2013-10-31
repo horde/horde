@@ -14,6 +14,12 @@ This lists the API changes between releases of the package.
 Upgrading to 2.16.0
 ===================
 
+  - Horde_Imap_Client_Base
+
+    - Constructor
+
+      Added 'tlsv1' option for the 'secure' configuration parameter.
+
   - Horde_Imap_Client_Password_Xoauth2
 
     Added class to abstract production of the necessary token for XOAUTH2 SASL
