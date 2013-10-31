@@ -994,7 +994,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         $message = false;
 
-        $folder_split = $this->_parseFolderId($folderId);
+        $folder_split = $this->_parseFolderId($folderid);
         if (is_array($folder_split)) {
             $folder_class = $folder_split[self::FOLDER_PART_CLASS];
         } else {
