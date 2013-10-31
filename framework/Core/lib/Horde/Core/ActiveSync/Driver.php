@@ -2779,7 +2779,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->_serverid = $sid;
-        $folder->serverid = $this->_getFolderUidForBackendId($sid);
         $folder->parentid = '0';
         $folder->displayname = $f['label'];
 
@@ -2791,7 +2790,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $parts = explode($f['d'], $sid);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
-                $folder->parentid = $this->_getFolderUidForBackendId(implode($f['d'], $parts));
+                $folder->parentid = $this->_getFolderUidForBackendId(implode($f['d'], $parts), Horde_ActiveSync::FOLDER_TYPE_USER_MAIL);
                 $folder->_parentid = implode($f['d'], $parts);
                 $folder->displayname = $displayname;
             }
@@ -2799,6 +2798,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         if (strcasecmp($sid, 'INBOX') === 0) {
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
             return $folder;
         }
 
@@ -2823,12 +2823,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     case self::SPECIAL_SENT:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
                     case self::SPECIAL_TRASH:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
@@ -2836,6 +2838,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     case self::SPECIAL_DRAFTS:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
@@ -2846,6 +2849,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Not a known folder, set it to user mail.
         $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+        $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
 
         return $folder;
     }
