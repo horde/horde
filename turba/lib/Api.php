@@ -546,19 +546,20 @@ class Turba_Api extends Horde_Registry_Api
      * Essentially a wrapper around listBy(), but returns an array containing
      * all adds, edits, and deletions.
      *
-     * @param integer $start     The starting timestamp
-     * @param integer $end       The ending timestamp.
-     * @param boolean $isModSeq  If true, $start and $end are modification
-     *                           sequences and not timestamps. @since 4.1.1
+     * @param integer $start         The starting timestamp
+     * @param integer $end           The ending timestamp.
+     * @param boolean $isModSeq      If true, $start and $end are modification
+     *                               sequences and not timestamps. @since 4.1.1
+     * @param string|array $sources  The sources to check. @since 4.2.0
      *
      * @return array  A hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false)
+    public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
-            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
-            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq)
+            'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, $sources, $end, $isModSeq)
         );
     }
 
@@ -566,15 +567,16 @@ class Turba_Api extends Horde_Registry_Api
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start         The starting modseq.
+     * @param integer $end           The ending modseq.
+     * @param string|array $sources  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $sources = null)
     {
-        return $this->getChanges($start, $end, true);
+        return $this->getChanges($start, $end, true, $sources);
     }
 
     /**
