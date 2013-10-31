@@ -291,7 +291,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
-            $folders[] = $this->statFolder($f->serverid, $f->parentid, $f->displayname, $f->_serverid);
+            $folders[] = $this->statFolder(
+                $f->serverid, $f->parentid, $f->displayname, $f->_serverid, $f->type);
         }
 
         return $folders;
@@ -595,21 +596,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                          display name of the folder, since that's the
      *                          only thing that can change.
      * @param string $serverid  The backend serverid for this folder.
+     * @param integer $type     The EAS folder type, a
+     *                          Horde_ActiveSync::FOLDER_TYPE_* contant.
+     *                          @since 2.12.0
+     *
      * @return a stat hash:
-     *   - id: The activesync folder identifier.
-     *   - mod: The modification value.
-     *   - parent: The folder's parent id.
+     *   - id:        The activesync folder identifier.
+     *   - mod:       The modification value.
+     *   - parent:    The folder's parent id.
      *   - serverid:  The backend server's folder name for this folder.
+     *   - type:      The EAS folder type. @since 2.12.0
      *
      * @todo Horde 6, move to the base class.
      */
-    public function statFolder($id, $parent = '0', $mod = null, $serverid = null)
+    public function statFolder($id, $parent = '0', $mod = null, $serverid = null, $type = null)
     {
         $folder = array();
         $folder['id'] = $id;
         $folder['mod'] = empty($mod) ? $id : $mod;
         $folder['parent'] = $parent;
         $folder['serverid'] = !empty($serverid) ? $serverid : $id;
+        $folder['type'] = !empty($type) ? $type : null;
 
         return $folder;
     }
