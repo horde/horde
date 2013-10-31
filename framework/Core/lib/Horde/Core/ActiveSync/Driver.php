@@ -27,8 +27,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_INBOX           = 'inbox';
 
     const FOLDER_PART_CLASS       = 0;
-    const FOLDER_PART_PRIMARY     = 1;
-    const FOLDER_PART_ID          = 2;
+    const FOLDER_PART_ID          = 1;
 
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
