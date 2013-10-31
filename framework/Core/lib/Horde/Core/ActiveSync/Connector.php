@@ -86,13 +86,15 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param integer $startstamp    The start of time period.
      * @param integer $endstamp      The end of time period
+     * @param string  $calendar      The calendar id. If null, uses multiplexed.
+     *                               @since 2.12.0
      *
      * @return array
      */
-    public function calendar_listUids($startstamp, $endstamp)
+    public function calendar_listUids($startstamp, $endstamp, $calendar)
     {
         try {
-            return $this->_registry->calendar->listUids(null, $startstamp, $endstamp);
+            return $this->_registry->calendar->listUids($calendar, $startstamp, $endstamp);
         } catch (Exception $e) {
             return array();
         }
@@ -110,11 +112,14 @@ class Horde_Core_ActiveSync_Connector
      *   - truncation: (integer)  Truncate event body to this length
      *                 DEFAULT: none (No truncation).
      *
+     * @param string $calendar       The calendar id. If null, uses multiplexed.
+     *                               @since 2.12.0
+     *
      * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
-    public function calendar_export($uid, array $options = array())
+    public function calendar_export($uid, array $options = array(), $calendar = null)
     {
-        return $this->_registry->calendar->export($uid, 'activesync', $options);
+        return $this->_registry->calendar->export($uid, 'activesync', $options, $calendar);
     }
 
     /**
@@ -222,11 +227,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Get a list of all contacts a user can see
      *
+     * @param string $source  The source to list. If null, use multiplex.
+     *                        @since 2.12.0
+     *
      * @return array An array of contact UIDs
      */
-    public function contacts_listUids()
+    public function contacts_listUids($source = null)
     {
-        return $this->_registry->contacts->listUids();
+        return $this->_registry->contacts->listUids($source);
     }
 
     /**
@@ -399,11 +407,13 @@ class Horde_Core_ActiveSync_Connector
     /**
      * List all tasks in the user's default tasklist.
      *
+     * @param string $tasklist  The tasklist to check. If null, use multiplexed.
+     *
      * @return array  An array of task uids.
      */
-    public function tasks_listUids()
+    public function tasks_listUids($tasklist = null)
     {
-        return $this->_registry->tasks->listUids();
+        return $this->_registry->tasks->listUids($tasklist);
     }
 
     /**
@@ -470,6 +480,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return array
      * @since 5.1
+     * @deprecated - @todo was never used, remove in H6.
      */
     public function notes_listNotepads()
     {
@@ -479,12 +490,15 @@ class Horde_Core_ActiveSync_Connector
     /**
      * List all notes in the user's default notepad.
      *
+     * @param string $notepad  The notepad id to list. If null, use multiplexed.
+     *                         @since 2.12.0
+     *
      * @return array  An array of note uids.
      * @since 5.1
      */
-    public function notes_listUids()
+    public function notes_listUids($notepad = null)
     {
-        return $this->_registry->notes->listUids();
+        return $this->_registry->notes->listUids($notepad);
     }
 
     /**
@@ -750,11 +764,13 @@ class Horde_Core_ActiveSync_Connector
      *                            calendar, contacts, tasks)
      * @param integer $from_ts    Starting timestamp or modification sequence.
      * @param integer $to_ts      Ending timestamp or modification sequence.
+     * @param string $server_id   The server id of the collection. If null, uses
+     *                            multiplexed.
      *
      * @return array  A hash of add, modify, and delete uids
      * @throws InvalidArgumentException
      */
-    public function getChanges($collection, $from_ts, $to_ts)
+    public function getChanges($collection, $from_ts, $to_ts, $server_id)
     {
         if (!in_array($collection, array('calendar', 'contacts', 'tasks', 'notes'))) {
             throw new InvalidArgumentException('collection must be one of calendar, contacts, tasks or notes');
@@ -795,34 +811,39 @@ class Horde_Core_ActiveSync_Connector
      * @param string $collection  The collection type.
      * @param long $from_ts       The start of the time period to search.
      * @param long $to_ts         The end of the time period to search.
+     * @param string $source      Limit to this source only. @since 2.12.0
      *
      * @return array  An array of message UIDs that occur within the $from_ts
      *                and $to_ts range that are to be SOFTDELETEd from the
      *                client.
      */
-    public function softDelete($collection, $from_ts, $to_ts)
+    public function softDelete($collection, $from_ts, $to_ts, $source = null)
     {
         $results = array();
         switch ($collection) {
         case 'calendar':
-            // @TODO: For Horde 6, add API calls to the calendar API to
-            // get the default share and sync shares.  We need to hack this
-            // logic here since the methods to return the default calendar
-            // and sync calendars are not available in Kronolith 4's API.
-            $calendars = unserialize(
-                $this->_registry->horde->getPreference(
-                    $this->_registry->hasInterface('calendar'),
-                    'sync_calendars'));
-            if (empty($calendars)) {
-                $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
-                $default_calendar = $this->_registry->horde->getPreference(
-                    $this->_registry->hasInterface('calendar'),
-                    'default_share');
-                if (empty($calendars[$default_calendar])) {
-                    return array();
-                } else {
-                    $calendars = array($default_calendar);
+            if (empty($source)) {
+                // @TODO: For Horde 6, add API calls to the calendar API to
+                // get the default share and sync shares.  We need to hack this
+                // logic here since the methods to return the default calendar
+                // and sync calendars are not available in Kronolith 4's API.
+                $calendars = unserialize(
+                    $this->_registry->horde->getPreference(
+                        $this->_registry->hasInterface('calendar'),
+                        'sync_calendars'));
+                if (empty($calendars)) {
+                    $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
+                    $default_calendar = $this->_registry->horde->getPreference(
+                        $this->_registry->hasInterface('calendar'),
+                        'default_share');
+                    if (empty($calendars[$default_calendar])) {
+                        return array();
+                    } else {
+                        $calendars = array($default_calendar);
+                    }
                 }
+            } else {
+                $calendars = array($source);
             }
 
             // Need to use listEvents instead of listUids since we must
@@ -854,8 +875,8 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the list of folders to sync for the specified collection.
      *
-     * @param string $collection  The collection
-     *                            A Horde_Core_ActiveSync_Driver:: constant
+     * @param string $collection  The collection class
+     *                            A Horde_ActiveSync::CLASS_* constant.
      *
      * @return array|string  A list of folder uids or $collection if supporting
      *                       API is not found. If a list is returned, it is in
@@ -870,14 +891,14 @@ class Horde_Core_ActiveSync_Connector
         // @TODO: H6 remove the hasMethod checks.
         if (empty($this->_folderCache[$collection])) {
             switch ($collection) {
-            case Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID:
+            case Horde_ActiveSync::CLASS_CALENDAR:
                 if ($registry->hasMethod('calendar/sources')) {
                     $folders = $registry->calendar->sources(true, true);
                     $default = $registry->calendar->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = $collection;
                 }
-            case Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID:
+            case Horde_ActiveSync::CLASS_CONTACTS:
 
                 if ($registry->hasMethod('contacts/sources')) {
                     $folders = $registry->contacts->sources(true, true);
@@ -885,14 +906,14 @@ class Horde_Core_ActiveSync_Connector
                 } else {
                     $this->_folderCache[$collection] = $collection;
                 }
-            case Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID:
+            case Horde_ActiveSync::CLASS_TASKS:
                 if ($registry->hasMethod('tasks/sources')) {
                     $folders = $registry->tasks->sources(true, true);
                     $default = $registry->tasks->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = $collection;
                 }
-            case Horde_Core_ActiveSync_Driver::NOTES_FOLDER_UID:
+            case Horde_ActiveSync::CLASS_NOTES:
                 if ($registry->hasMethod('notes/sources')) {
                     $folders = $registry->notes->sources(true, true);
                     $default = $registry->notes->getDefaultShare();
@@ -900,6 +921,7 @@ class Horde_Core_ActiveSync_Connector
                     $this->_folderCache[$collection] = $collection;
                 }
             }
+
             if (!empty($folders) && is_array($folders)) {
                 $results = array();
                 foreach ($folders as $id => $folder) {
