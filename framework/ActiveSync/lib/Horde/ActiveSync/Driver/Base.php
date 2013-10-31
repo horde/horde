@@ -360,7 +360,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param string $id    The server's folder name E.g., INBOX
      * @param string $type  The folder type, a Horde_ActiveSync::FOLDER_TYPE_*
-     *                      constant.
+     *                      constant. If empty, assumes FOLDER_TYPE_USER_MAIL
      *
      * @return string  A unique identifier for the specified backend folder id.
      *                 The first character indicates the foldertype as such:
@@ -371,7 +371,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *                 'N' - Note
      * @since 2.4.0
      */
-    protected function _getFolderUidForBackendId($id, $type)
+    protected function _getFolderUidForBackendId($id, $type = null)
     {
         $map = $this->_state->getFolderUidToBackendIdMap();
         if (!empty($map[$id])) {
@@ -405,6 +405,12 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected function _getClassFromType($type)
     {
+        // @todo This is for BC. Assume we are asking for an email collection
+        // if we didn't pass a type. Remove in H6.
+        if (empty($type)) {
+            return Horde_ActiveSync::CLASS_EMAIL;
+        }
+
         switch ($type) {
         case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
         case Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT:
