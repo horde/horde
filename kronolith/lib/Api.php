@@ -466,6 +466,16 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Retrieve the UID for the current user's default calendar.
+     *
+     * @return string  UID.
+     */
+    public function getDefaultShare()
+    {
+        return Kronolith::getDefaultCalendar(Horde_Perms::EDIT, true);
+    }
+
+    /**
      * Returns the ids of all the events that happen within a time period.
      * Only includes recurring events once per time period, and does not include
      * events that represent exceptions, making this method useful for syncing
