@@ -1380,7 +1380,15 @@ var DimpBase = {
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
             [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((!this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+
+            if (this.viewport.getMetaData('drafts') ||
+                this.viewport.getMetaData('templates')) {
+                $('ctx_message_innocent', 'ctx_message_spam').compact().invoke('hide')
+            } else {
+                [ $('ctx_message_innocent') ].compact().invoke(this.viewport.getMetaData('innocent_show') ? 'show' : 'hide');
+                [ $('ctx_message_spam') ].compact().invoke(this.viewport.getMetaData('spam_show') ? 'show' : 'hide');
+            }
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1690,7 +1698,7 @@ var DimpBase = {
                     params.params = { msgload: msgload };
                 }
 
-                this.flag('\\seen', true, params);
+                this.flag(DimpCore.conf.FLAG_SEEN, true, params);
 
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
@@ -3616,11 +3624,12 @@ var DimpBase = {
             params = $H(opts.params),
             vs = this._getSelection(opts);
 
-        need = vs.get('dataob').any(function(ob) {
-            return add
-                ? (!ob.flag || !ob.flag.include(flag))
-                : (ob.flag && ob.flag.include(flag));
-        });
+        need = !vs.getBuffer().getMetaData('readonly') &&
+            vs.get('dataob').any(function(ob) {
+                return add
+                    ? (!ob.flag || !ob.flag.include(flag))
+                    : (ob.flag && ob.flag.include(flag));
+            });
 
         if (need) {
             DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({

@@ -224,13 +224,14 @@ class Horde_Themes_Css
         }
 
         /* Add user-defined additional stylesheets. */
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
         try {
-            $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
+            $add_css = array_merge($add_css, $hooks->callHook('cssfiles', 'horde', array($theme)));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if ($curr_app != 'horde') {
             try {
-                $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
+                $add_css = array_merge($add_css, $hooks->callHook('cssfiles', $curr_app, array($theme)));
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 

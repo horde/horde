@@ -31,7 +31,7 @@ class Kronolith_Form_DeleteResource extends Horde_Form
         parent::__construct($vars, sprintf(_("Delete %s"), $resource->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
-        $this->addVariable(sprintf(_("Really delete the resource \"%s\"? This cannot be undone and all data on this resource will be permanently removed."), $this->_resource->get('name')), 'desc', 'description', false);
+        $this->addVariable(sprintf(_("Really delete the resource \"%s\"? This cannot be undone and all data on this resource will be permanently removed."), htmlspecialchars($this->_resource->get('name'))), 'desc', 'description', false);
 
         $this->setButtons(array(
             array('class' => 'horde-delete', 'value' => _("Delete")),

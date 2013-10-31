@@ -83,9 +83,14 @@ extends Components_Release_Task_Base
         }
         return new Horde_Release_Whups(
             array(
+                'client' => new Horde_Http_Client(
+                    array(
+                        'request.username' => $options['horde_user'],
+                        'request.password' => $options['horde_pass'],
+                        'request.timeout' => 10
+                    )
+                ),
                 'url' => 'https://dev.horde.org/horde/rpc.php',
-                'user' => $options['horde_user'],
-                'pass' => $options['horde_pass']
             )
         );
     }

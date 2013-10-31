@@ -42,6 +42,13 @@ class Horde_ActiveSync_Imap_Adapter
     protected $_defaultNamespace;
 
     /**
+     * Process id used for logging.
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Cont'r
      *
      * @param array $params  Parameters:
@@ -53,6 +60,7 @@ class Horde_ActiveSync_Imap_Adapter
         $this->_imap = $params['factory'];
         Horde_Mime_Part::$defaultCharset = 'UTF-8';
         Horde_Mime_Headers::$defaultCharset = 'UTF-8';
+        $this->_procid = getmypid();
     }
 
     /**
@@ -278,11 +286,16 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
-        $this->_logger->info('IMAP status: ' . print_r($status, true));
+        $this->_logger->info(sprintf(
+            '[%s] IMAP status: %s',
+            $this->_procid,
+            serialize($status))
+        );
         $flags = array();
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         if ($modseq && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
-            $this->_logger->info('CONDSTORE and CHANGES');
+            $this->_logger->info(sprintf(
+                '[%s] CONDSTORE and CHANGES', $this->_procid));
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
@@ -311,7 +324,7 @@ class Horde_ActiveSync_Imap_Adapter
                             // Ignore, it's out of the FILTERTYPE range.
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
-                                getmypid(),
+                                $this->_procid,
                                 $uid,
                                 $headers->getValue('Date')));
                             continue;
@@ -343,7 +356,7 @@ class Horde_ActiveSync_Imap_Adapter
             if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Polling for SOFTDELETE in %s before %d',
-                    getmypid(), $folder->serverid(), $options['sincedate']));
+                    $this->_procid, $folder->serverid(), $options['sincedate']));
 
                 $query = new Horde_Imap_Client_Search_Query();
                 $query->dateSearch(
@@ -355,16 +368,21 @@ class Horde_ActiveSync_Imap_Adapter
                     $query,
                     array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
                 if ($search_ret['count']) {
-                    $this->_logger->info(sprintf('Found %d messages to SOFTDELETE.', count($search_ret['match']->ids)));
+                    $this->_logger->info(sprintf(
+                        '[%s] Found %d messages to SOFTDELETE.',
+                        $this->_procid, count($search_ret['match']->ids)));
                     $folder->setSoftDeleted($search_ret['match']->ids);
                 } else {
-                     $this->_logger->info('Found NO messages to SOFTDELETE.');
+                     $this->_logger->info(sprintf(
+                        '[%s] Found NO messages to SOFTDELETE.',
+                        $this->_procid));
                 }
                 $folder->setSoftDeleteTimes($options['sincedate'], time());
             }
 
         } elseif ($folder->uidnext() == 0) {
-            $this->_logger->info('INITIAL SYNC');
+            $this->_logger->info(sprintf(
+                '[%s] INITIAL SYNC', $this->_procid));
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
@@ -394,7 +412,7 @@ class Horde_ActiveSync_Imap_Adapter
         } elseif ($modseq == 0) {
             $this->_logger->info(sprintf(
                 '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
-                getmypid(), $folder->minuid(), $status['messages']));
+                $this->_procid, $folder->minuid(), $status['messages']));
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
@@ -879,13 +897,11 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data and ensure we have something to send.
-        $message_body_data = $imap_message->getMessageBodyData($options);
+        $message_body_data = $this->_validateMessageBodyData($imap_message->getMessageBodyData($options));
+
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $eas_message->body = $this->_validateUtf8(
-                $message_body_data['plain']['body'],
-                $message_body_data['plain']['charset']
-            );
-            $eas_message->bodysize = Horde_String::length($eas_message->body);
+            $eas_message->body = $message_body_data['plain']['body']->stream;
+            $eas_message->bodysize = $message_body_data['plain']['body']->length(true);
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
@@ -902,7 +918,8 @@ class Horde_ActiveSync_Imap_Adapter
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
                   $imap_message->isSigned()))) {
 
-                $this->_logger->info('Sending MIME Message.');
+                $this->_logger->info(sprintf(
+                    '[%s] Sending MIME Message.', $this->_procid));
                 // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
                 // must convert the body parts to UTF-8. Unfortunately if the
                 // email is signed (or encrypted for that matter) we can't
@@ -914,24 +931,11 @@ class Horde_ActiveSync_Imap_Adapter
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
 
-                    // We will need the eol filter to work around PHP bug 65776.
-                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-
                     // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        $message_body_data['plain']['body'] = $this->_validateUtf8(
-                            $message_body_data['plain']['body'],
-                            $message_body_data['plain']['charset']
-                        );
-
-                        // PHP Bug 65776
-                        $stream = new Horde_Stream();
-                        $stream->add($message_body_data['plain']['body']);
-                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
-                        $plain_mime->setContents($stream->stream);
-                        fclose($stream->stream);
+                        $plain_mime->setContents($message_body_data['plain']['body']->stream, array('usestream' => true));
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -940,17 +944,7 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $message_body_data['html']['body'] = $this->_validateUtf8(
-                            $message_body_data['html']['body'],
-                            $message_body_data['html']['charset']
-                        );
-
-                        // PHP Bug 65776
-                        $stream = new Horde_Stream();
-                        $stream->add($message_body_data['html']['body']);
-                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
-                        $html_mime->setContents($stream->stream);
-                        fclose($stream->stream);
+                        $html_mime->setContents($message_body_data['html']['body']->stream, array('usestream' => true));
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
@@ -990,7 +984,8 @@ class Horde_ActiveSync_Imap_Adapter
                 // MIME Truncation
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
                 $this->_logger->info(sprintf(
-                    'Checking MIMETRUNCATION: %s, ServerData: %s',
+                    '[%s] Checking MIMETRUNCATION: %s, ServerData: %s',
+                    $this->_procid,
                     $options['truncation'],
                     $airsync_body->estimateddatasize));
                 if (!empty($options['truncation']) &&
@@ -1005,37 +1000,32 @@ class Horde_ActiveSync_Imap_Adapter
                       isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
 
                 // Sending non MIME encoded HTML message text.
-                $this->_logger->info('Sending HTML Message.');
+                $this->_logger->info(sprintf(
+                    '[%s] Sending HTML Message.',
+                    $this->_procid));
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
                         'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
-                        'truncated' => $message_body_data['plain']['truncated'],
-                        'charset' => $message_body_data['plain']['charset']
+                        'truncated' => $message_body_data['plain']['truncated']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
-                $airsync_body->data = $this->_validateUtf8(
-                    $message_body_data['html']['body'],
-                    $message_body_data['html']['charset']
-                );
+                $airsync_body->data = $message_body_data['html']['body']->stream;
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) {
 
                 // Non MIME encoded plaintext
-                $this->_logger->info('Sending PLAINTEXT Message.');
-                $message_body_data['plain']['body'] = $this->_validateUtf8(
-                    $message_body_data['plain']['body'],
-                    $message_body_data['plain']['charset']
-                );
+                $this->_logger->info(sprintf(
+                    '[%s] Sending PLAINTEXT Message.', $this->_procid));
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                $airsync_body->data = $message_body_data['plain']['body'];
+                $airsync_body->data = $message_body_data['plain']['body']->stream;
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
@@ -1044,14 +1034,9 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Preview?
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
-            $eas_message->airsyncbasebody->preview = Horde_String::substr(
-                $message_body_data['plain']['body'],
-                0,
-                $options['bodyprefs']['preview'],
-                $message_body_data['plain']['charset']);
-            $eas_message->airsyncbasebody->preview = $this->_validateUtf8(
-                $eas_message->airsyncbasebody->preview,
-                $message_body_data['plain']['charset']);
+            $message_body_data['plain']['body']->rewind();
+            $eas_message->airsyncbasebody->preview =
+                $message_body_data['plain']['body']->substring(0, $options['bodyprefs']['preview']);
         }
 
         // Check for special message types.
@@ -1451,7 +1436,8 @@ class Horde_ActiveSync_Imap_Adapter
             return $imap->fetch($mbox, $query, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
-                'Unable to fetch message: %s',
+                '[%s] Unable to fetch message: %s',
+                $this->_procid,
                 $e->getMessage()));
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1503,10 +1489,15 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _validateUtf8($data, $from_charset)
     {
-        $this->_logger->info('Validating UTF-8 data coming from ' . $from_charset);
+        $this->_logger->info(sprintf(
+            '[%s] Validating UTF-8 data coming from %s',
+            $this->_procid,
+            $from_charset));
         $text = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
         if (!Horde_String::validUtf8($text)) {
-            $this->_logger->info('Found invalid UTF-8 data, try different encodings.');
+            $this->_logger->info(sprintf(
+                '[%s] Found invalid UTF-8 data, try different encodings.',
+                $this->_procid));
             $test_charsets = array(
                 'windows-1252',
                 'UTF-8'
@@ -1515,7 +1506,10 @@ class Horde_ActiveSync_Imap_Adapter
                 if ($charset != $from_charset) {
                     $text = Horde_String::convertCharset($data, $charset, 'UTF-8');
                     if (Horde_String::validUtf8($text)) {
-                        $this->_logger->info('Found valid UTF-8 data when using ' . $charset);
+                        $this->_logger->info(sprintf(
+                            '[%s] Found valid UTF-8 data when using %s',
+                            $this->_procid,
+                            $charset));
                         return $text;
                     }
                 }
@@ -1525,7 +1519,9 @@ class Horde_ActiveSync_Imap_Adapter
             // that fails, force a conersion to UTF-8 as a last resort. Need
             // to break string into smaller chunks to avoid hitting
             // https://bugs.php.net/bug.php?id=37793
-            $this->_logger->info('Could not encode UTF-8 data. Removing non 7-bit characters.');
+            $this->_logger->info(sprintf(
+                '[%s] Could not encode UTF-8 data. Removing non 7-bit characters.',
+                $this->_procid));
             $chunk_size = 4000;
             $text = '';
             while ($data !== false && strlen($data)) {
@@ -1540,6 +1536,38 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $text;
+    }
+
+    /**
+     * Converts and validates the message body data structure.
+     *
+     * @param array $data  Message body data structure.
+     *
+     * @return array  The message body data structure, with the [html][body] and
+     *                [plain][body] data converted to UTF-8, EOL normalized and
+     *                placed in a stream.
+     */
+    protected function _validateMessageBodyData($data)
+    {
+        //We will need the eol filter to work around PHP bug 65776.
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
+        if (!empty($data['plain'])) {
+            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
+            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
+            $stream->add($this->_validateUtf8($data['plain']['body'], $data['plain']['charset']), true);
+            stream_filter_remove($filter_h);
+            $data['plain']['body'] = $stream;
+        }
+        if (!empty($data['html'])) {
+            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
+            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
+            $stream->add($this->_validateUtf8($data['html']['body'], $data['html']['charset']), true);
+            stream_filter_remove($filter_h);
+            $data['html']['body'] = $stream;
+        }
+
+        return $data;
     }
 
 }

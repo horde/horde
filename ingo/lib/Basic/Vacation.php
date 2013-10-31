@@ -55,7 +55,8 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
             $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_VACATION)->availableCategoryFeatures(Ingo_Storage::ACTION_VACATION)
         );
 
-        /* Perform requested actions. */
+        /* Perform requested actions. Ingo_Form_Vacation does token checking
+         * for us. */
         if ($form->validate($this->vars)) {
             $form->getInfo($this->vars, $info);
             $vacation->setVacationAddresses(isset($info['addresses']) ? $info['addresses'] : '');

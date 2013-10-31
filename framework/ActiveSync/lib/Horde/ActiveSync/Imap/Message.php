@@ -432,7 +432,11 @@ class Horde_ActiveSync_Imap_Message
         $map = $this->_message->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
-                $mime_parts[] = $this->getMimePart($id);
+                $part = $this->getMimePart($id);
+                if ($part->getType() == 'text/calendar') {
+                    $part->setDisposition('inline');
+                }
+                $mime_parts[] = $part;
             }
         }
 

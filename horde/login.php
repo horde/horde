@@ -81,21 +81,6 @@ if (!($logout_reason = $auth->getError())) {
     $logout_reason = $vars->logout_reason;
 }
 
-switch ($logout_reason) {
-case Horde_Core_Auth_Application::REASON_SESSIONIP:
-case Horde_Core_Auth_Application::REASON_BROWSER:
-case Horde_Auth::REASON_LOGOUT:
-    /* Don't show these logout reasons more than once. */
-    if (!$registry->getAuth()) {
-        $logout_reason = null;
-    }
-    break;
-
-case Horde_Core_Auth_Application::REASON_SESSIONMAXTIME:
-    $is_auth = false;
-    break;
-}
-
 /* Change language. */
 if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
     $registry->setLanguageEnvironment($vars->new_lang);

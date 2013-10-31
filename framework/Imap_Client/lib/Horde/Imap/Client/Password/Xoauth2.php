@@ -64,7 +64,7 @@ implements Horde_Imap_Client_Base_Password
         // ^A represents a Control+A (\001)
         return base64_encode(
             'user=' . $this->username . "\1" .
-            'auth=Bearer ' . $access_token . "\1\1"
+            'auth=Bearer ' . $this->access_token . "\1\1"
         );
     }
 

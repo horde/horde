@@ -13,7 +13,7 @@
 
  <div data-role="header">
   <a href="#minical-prev" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous") ?></a>
-  <h3 id="kronolithMinicalDate"><?php echo $this->today->format('F Y') ?></h3>
+  <h3 id="kronolithMinicalDate"></h3>
   <a href="#minical-next" data-icon="arrow-r" data-iconpos="notext"><?php echo _("Next") ?></a>
  </div>
 

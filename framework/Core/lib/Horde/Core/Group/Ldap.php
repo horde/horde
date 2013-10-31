@@ -26,8 +26,10 @@ class Horde_Core_Group_Ldap extends Horde_Group_Ldap
     public function create($name, $email = null)
     {
         try {
-            $entry = Horde::callHook('groupldap', array($name, $email));
-            return $this->_create($name, $entry);
+            return $this->_create(
+                $name,
+                $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('groupldap', 'horde', array($name, $email))
+            );
         } catch (Horde_Exception_HookNotSet $e) {
             return parent::create($name, $email);
         }

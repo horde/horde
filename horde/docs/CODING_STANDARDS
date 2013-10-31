@@ -869,3 +869,18 @@ fread() to get the stream data::
     while (!feof($stream)) {
         echo fread($stream, 8192);
     }
+
+
+Hashing Algorithm
+=================
+
+SHA-1
+-----
+SHA-1 is the recommended algorithm to use for non-cryptographic hashing
+actions::
+
+    $hash = hash('sha1', $string);
+
+MD5 should NOT be used, as it has known collision issues. (NOTE: SHA-1 hashes
+are 160-bit vs. MD5 hashes which are 128-bit; care needs to be taken if
+switching between methods regarding storage side of the hash string).

@@ -104,7 +104,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
             $this->_tempdir = $tempdir;
-            $this->_cachekey = hash('md5', $this->_cachekey);
+            $this->_cachekey = hash('sha1', $this->_cachekey);
             if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
                 unlink($tempdir . '/' . $this->_cachekey);
             }
@@ -119,7 +119,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             }
 
             if ($data !== false) {
-                $data = @json_decode($data, true);
+                $data = extension_loaded('msgpack')
+                    ? msgpack_unpack($data)
+                    : @json_decode($data, true);
                 if (is_array($data)) {
                     $this->_cache = $data;
                 }
@@ -140,7 +142,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             return;
         }
 
-        $data = json_encode($this->_cache);
+        $data = extension_loaded('msgpack')
+            ? msgpack_pack($this->_cache)
+            : json_encode($this->_cache);
         if (extension_loaded('horde_lz4')) {
             $data = horde_lz4_compress($data);
         } elseif (extension_loaded('lzf')) {
@@ -249,7 +253,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             break;
 
         case self::TEMPFILE:
-            $keylist = @json_decode(@file_get_contents($this->_tempdir . '/' . self::KEYLIST), true);
+            $tmp = @file_get_contents($this->_tempdir . '/' . self::KEYLIST);
+            $keylist = extension_loaded('msgpack')
+                ? msgpack_unpack($tmp)
+                : @json_decode($tmp, true);
             break;
         }
 
@@ -279,7 +286,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             break;
 
         case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . self::KEYLIST, json_encode($keylist));
+            file_put_contents($this->_tempdir . '/' . self::KEYLIST, extension_loaded('msgpack') ? msgpack_pack($keylist) : json_encode($keylist));
             break;
         }
     }

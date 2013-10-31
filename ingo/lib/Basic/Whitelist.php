@@ -39,8 +39,11 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
+        /* Token checking. */
+        $actionID = $this->_checkToken(array('rule_update'));
+
         /* Perform requested actions. */
-        switch ($this->vars->actionID) {
+        switch ($actionID) {
         case 'rule_update':
             try {
                 Ingo::updateListFilter($this->vars->whitelist, Ingo_Storage::ACTION_WHITELIST);
@@ -69,7 +72,7 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $view->addHelper('Text');
 
         $view->disabled = !empty($wl_rule['disable']);
-        $view->formurl = self::url();
+        $view->formurl = $this->_addToken(self::url());
         $view->whitelist = implode("\n", $whitelist->getWhitelist());
 
         $page_output->addScriptFile('whitelist.js');

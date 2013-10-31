@@ -28,7 +28,7 @@ class Kronolith_Form_DeleteCalendar extends Horde_Form
         parent::__construct($vars, sprintf(_("Delete %s"), $calendar->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
-        $this->addVariable(sprintf(_("Really delete the calendar \"%s\"? This cannot be undone and all data on this calendar will be permanently removed."), $this->_calendar->get('name')), 'desc', 'description', false);
+        $this->addVariable(sprintf(_("Really delete the calendar \"%s\"? This cannot be undone and all data on this calendar will be permanently removed."), htmlspecialchars($this->_calendar->get('name'))), 'desc', 'description', false);
 
         $this->setButtons(array(
             array('class' => 'horde-delete', 'value' => _("Delete")),

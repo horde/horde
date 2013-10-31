@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-19</date>
+ <date>2013-10-30</date>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -30,6 +30,7 @@
      <dir name="Socket">
       <dir name="Client">
        <file name="COPYING" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Socket/Client -->
      </dir> <!-- /doc/Horde/Socket -->
     </dir> <!-- /doc/Horde -->
@@ -71,6 +72,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Socket/Client/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Socket/Client/UPGRADING" />
    <install as="Horde/Socket/Client.php" name="lib/Horde/Socket/Client.php" />
    <install as="Horde/Socket/Client/Exception.php" name="lib/Horde/Socket/Client/Exception.php" />
    </filelist>
@@ -93,12 +95,25 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-18</date>
+   <date>2013-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add &apos;tlsv1&apos; as a secure parameter option in the Client constructor.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -143,6 +143,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      * Page compression will be started (if configured).
      *
      * Global variables defined:
+     * <pre>
      *   - $browser: Horde_Browser object
      *   - $cli: Horde_Cli object (if 'cli' is true)
      *   - $conf: Configuration array
@@ -153,13 +154,17 @@ class Horde_Registry implements Horde_Shutdown_Task
      *   - $prefs: Horde_Prefs object
      *   - $registry: Horde_Registry object
      *   - $session: Horde_Session object
+     * </pre>
      *
      * @param string $app  The application to initialize.
      * @param array $args  Optional arguments:
+     * <pre>
      *   - admin: (boolean) Require authenticated user to be an admin?
      *            DEFAULT: false
      *   - authentication: (string) The type of authentication to use:
      *     - none: Do not authenticate
+     *     - fallback: Attempt to authenticate; if failure, then don't auth
+     *                 (@since 2.11.0).
      *     - [DEFAULT]: Authenticate; on no auth redirect to login screen
      *   - cli: (boolean) Initialize a CLI interface. Setting this to true
      *          implicits setting 'authentication' to 'none' and 'admin' and
@@ -189,6 +194,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      *               DEFAULT: false
      *   - user_admin: (boolean) Set authentication to an admin user?
      *                 DEFAULT: false
+     * </pre>
      *
      * @return Horde_Registry_Application  The application object.
      * @throws Horde_Exception
@@ -225,6 +231,14 @@ class Horde_Registry implements Horde_Shutdown_Task
 
             $args['nocompress'] = true;
             $args['authentication'] = 'none';
+        }
+
+        // For 'fallback' authentication, try authentication first.
+        if ($args['authentication'] === 'fallback') {
+            $fallback_auth = true;
+            $args['authentication'] = '';
+        } else {
+            $fallback_auth = false;
         }
 
         // Registry.
@@ -267,6 +281,11 @@ class Horde_Registry implements Horde_Shutdown_Task
                 throw new Horde_Exception(Horde_Core_Translation::t("Not an admin"));
             }
         } catch (Horde_Exception_PushApp $e) {
+            if ($fallback_auth) {
+                $args['authentication'] = 'none';
+                return self::appInit($app, $args);
+            }
+
             $appob->appInitFailure($e);
 
             switch ($e->getCode()) {
@@ -937,7 +956,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 (($this->applications[$app]['status'] == 'admin') &&
                  !$this->isAdmin()) ||
                 (($this->applications[$app]['status'] == 'noadmin') &&
-                 $this->_args['authentication'] != 'none' &&
+                 $this->currentProcessAuth() &&
                  $this->isAdmin()));
     }
 
@@ -1109,7 +1128,7 @@ class Horde_Registry implements Horde_Shutdown_Task
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, array(
-            'check_perms' => !in_array($call, $api_ob->noPerms()) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
+            'check_perms' => !in_array($call, $api_ob->noPerms()) && empty($options['noperms']) && $this->currentProcessAuth()
         ));
 
         try {
@@ -1174,7 +1193,7 @@ class Horde_Registry implements Horde_Shutdown_Task
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, array(
-            'check_perms' => empty($options['noperms']) && $this->_args['authentication'] != 'none'
+            'check_perms' => empty($options['noperms']) && $this->currentProcessAuth()
         ));
 
         try {
@@ -1502,7 +1521,7 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         $checkPerms = ((!isset($options['check_perms']) ||
                        !empty($options['check_perms'])) &&
-                       ($this->_args['authentication'] != 'none'));
+                       $this->currentProcessAuth());
 
         /* If permissions checking is requested, return an error if the
          * current user does not have read perms to the application being
@@ -1546,13 +1565,14 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Run authenticated hooks, if necessary. */
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
         if ($GLOBALS['session']->get('horde', 'auth_app_init/' . $app)) {
             try {
                 $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'authenticated');
 
                 $error = self::HOOK_FATAL;
-                Horde::callHook('appauthenticated', array(), $app);
+                $hooks->callHook('appauthenticated', $app);
             } catch (Exception $e) {
                 $this->_pushAppError($e, $error);
             }
@@ -1568,7 +1588,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 $this->callAppMethod($app, 'init');
 
                 $error = self::HOOK_FATAL;
-                Horde::callHook('pushapp', array(), $app);
+                $hooks->callHook('pushapp', $app);
             } catch (Exception $e) {
                 $this->_pushAppError($e, $error);
             }
@@ -2175,6 +2195,18 @@ class Horde_Registry implements Horde_Shutdown_Task
     }
 
     /**
+     * Checks whether this process required authentication.
+     *
+     * @since 2.11.0
+     *
+     * @return boolean  True if the current process required authentication.
+     */
+    public function currentProcessAuth()
+    {
+        return ($this->_args['authentication'] !== 'none');
+    }
+
+    /**
      * Returns a URL to the login screen, adding the necessary logout
      * parameters.
      *
@@ -2264,7 +2296,8 @@ class Horde_Registry implements Horde_Shutdown_Task
     public function convertUsername($userId, $toHorde)
     {
         try {
-            return Horde::callHook('authusername', array($userId, $toHorde));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->
+                callHook('authusername', 'horde', array($userId, $toHorde));
         } catch (Horde_Exception_HookNotSet $e) {
             return $userId;
         }
