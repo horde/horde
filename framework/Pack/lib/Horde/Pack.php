@@ -142,7 +142,7 @@ class Horde_Pack
     {
         if ($data && is_string($data)) {
             $mask = unpack('C*', $data[0]);
-            $mask = $mask[0];
+            $mask = reset($mask);
             $data = substr($data, 1);
 
             if ($mask & self::COMPRESS_MASK) {
