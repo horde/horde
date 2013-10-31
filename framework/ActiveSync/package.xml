@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Changes to support multiple non-email collections of the same type.
 * [mjr] Improvements to memory and database usage.
 * [mjr] Add MongoDB state driver.
  </notes>
@@ -1804,6 +1805,7 @@
    <date>2013-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Changes to support multiple non-email collections of the same type.
 * [mjr] Improvements to memory and database usage.
 * [mjr] Add MongoDB state driver.
    </notes>
