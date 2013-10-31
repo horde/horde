@@ -36,9 +36,16 @@ abstract class Horde_Core_Auth_Signup_Base
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
             try {
-                Horde::callHook('signup_addextra', array($info['user_name'], $info['extra'], $info['password']));
-            } catch (Horde_Exception_HookNotSet $e) {
-            }
+                $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                    'signup_addextra',
+                    'horde',
+                    array(
+                        $info['user_name'],
+                        $info['extra'],
+                        $info['password']
+                    )
+                );
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
     }
 
@@ -71,9 +78,15 @@ abstract class Horde_Core_Auth_Signup_Base
         $this->_queueSignup($signup);
 
         try {
-            Horde::callHook('signup_queued', array($info['user_name'], $info));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'signup_queued',
+                'horde',
+                array(
+                    $info['user_name'],
+                    $info
+                )
+            );
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!empty($conf['signup']['email'])) {
             $link = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/signup_confirm.php', true, -1)->setRaw(true)->add(array(
@@ -105,9 +118,12 @@ abstract class Horde_Core_Auth_Signup_Base
     protected function _preSignup(&$info)
     {
         try {
-            $info = Horde::callHook('signup_preprocess', array($info));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+            $info = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'signup_preprocess',
+                'horde',
+                array($info)
+            );
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         // Check to see if the username already exists in the auth backend or
         // the signup queue.

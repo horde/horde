@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-28</date>
+ <date>2013-10-29</date>
  <version>
   <release>2.11.0</release>
   <api>2.11.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
  </notes>
@@ -599,6 +600,7 @@
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
+      <file name="Hooks.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Nosql.php" role="php" />
       <file name="Perms.php" role="php" />
@@ -1664,6 +1666,7 @@
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
+   <install as="Horde/Core/Hooks.php" name="lib/Horde/Core/Hooks.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Nosql.php" name="lib/Horde/Core/Nosql.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
@@ -3220,9 +3223,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-28</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
    </notes>

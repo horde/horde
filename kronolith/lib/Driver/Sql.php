@@ -746,7 +746,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $oldCalendar = $this->calendar;
         $this->open($calendar);
-        $events = $this->listEvents(null, null, array('cover_dates' => false));
+        $events = $this->listEvents(null, null, array('cover_dates' => false, 'hide_exceptions' => true));
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
@@ -755,11 +755,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         foreach ($uids as $uid) {
             $event = $this->getByUID($uid, array($calendar));
-            try {
-                $this->deleteEvent($event->id);
-            } catch (Kronolith_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-            }
+            $this->deleteEvent($event->id);
         }
 
         $this->open($oldCalendar);

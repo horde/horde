@@ -119,6 +119,10 @@ class IMP_Application extends Horde_Registry_Application
         if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
             $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
+
+        /* Set exception handler to handle uncaught
+         * Horde_Imap_Client_Exceptions. */
+        set_exception_handler(array($this, 'exceptionHandler'));
     }
 
     /**
@@ -568,6 +572,19 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return array();
+    }
+
+    /* Exception handler. */
+
+    /**
+     */
+    public function exceptionHandler(Exception $e)
+    {
+        if ($e instanceof Horde_Imap_Client_Exception) {
+            $e = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+        }
+
+        Horde_ErrorHandler::fatal($e);
     }
 
 }

@@ -106,13 +106,17 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   secure: (string) Use SSL or TLS to connect.
-     *           DEFAULT: true (use TLS, if available)
+     *           DEFAULT: true (use 'tls' option, if available)
      *   <ul>
      *    <li>false (No encryption)</li>
      *    <li>'ssl' (Auto-detect SSL version)</li>
      *    <li>'sslv2' (Force SSL version 3)</li>
      *    <li>'sslv3' (Force SSL version 2)</li>
-     *    <li>'tls' (TLS)</li>
+     *    <li>'tls' (TLS; started via protocol-level negotation over
+     *    unencrypted channel; RECOMMENDED way of initiating secure
+     *    connection)
+     *    <li>'tlsv1' (TLS direct version 1.x connection to server) [@since
+     *    1.3.0]</li>
      *    <li>true (Use TLS, if available) [@since 1.2.0]</li>
      *   </ul>
      *  </li>
@@ -346,7 +350,7 @@ class Horde_Smtp implements Serializable
                     Horde_Smtp_Translation::t("Error connecting to SMTP server."),
                     Horde_Smtp_Exception::SERVER_CONNECT
                 );
-                $e2->details($e->details);
+                $e2->details = $e->details;
                 throw $e2;
             }
 

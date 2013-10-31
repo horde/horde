@@ -1591,7 +1591,7 @@ abstract class Kronolith_Event
                     $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
                 } elseif (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
                     $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
-                    $this->description = Horde_Text_Filter::filter($note->data, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                    $this->description = Horde_Text_Filter::filter($this->description, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
                 } else {
                     $truncation = false;
                 }

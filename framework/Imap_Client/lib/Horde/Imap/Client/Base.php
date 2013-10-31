@@ -251,8 +251,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *      <li>'ssl' (Auto-detect SSL version)</li>
      *      <li>'sslv2' (Force SSL version 3)</li>
      *      <li>'sslv3' (Force SSL version 2)</li>
-     *      <li>'tls' (TLS)</li>
-     *      <li>true (TLS if available/necessary) [since 2.15.0]</li>
+     *      <li>'tls' (TLS; started via protocol-level negotation over
+     *      unencrypted channel; RECOMMENDED way of initiating secure
+     *      connection)
+     *      <li>'tlsv1' (TLS direct version 1.x connection to server) [@since
+     *      2.16.0]</li>
+     *      <li>true (TLS if available/necessary) [@since 2.15.0]</li>
      *     </ul>
      *             DEFAULT: false</li>
      *    </li>

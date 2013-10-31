@@ -235,6 +235,8 @@ class IMP_Ajax_Application_ListMessages
          * update them. */
         if ($mbox->readonly) {
             $result->setMetadata('readonly', 1);
+            $result->setMetadata('nodelete', 1);
+            $result->setMetadata('expunge', 1);
         } else {
             if (!$mbox->access_deletemsgs) {
                 $result->setMetadata('nodelete', 1);

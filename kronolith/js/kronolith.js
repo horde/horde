@@ -3587,6 +3587,7 @@ KronolithCore = {
         }
         if (r.saved) {
             if ($F('kronolithCalendarinternalImport')) {
+                HordeCore.notify(Kronolith.text.import, 'horde.message');
                 this.loading++;
                 $('kronolithLoading').show();
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),

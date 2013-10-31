@@ -284,7 +284,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("Error connecting to mail server."),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
-            $e2->details($e->details);
+            $e2->details = $e->details;
             throw $e2;
         }
 

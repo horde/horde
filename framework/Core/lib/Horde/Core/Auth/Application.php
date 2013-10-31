@@ -568,7 +568,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         try {
-            $result = Horde::callHook($type, array($userId, $credentials), $this->_app);
+            $result = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook($type, $this->_app, array($userId, $credentials));
         } catch (Horde_Exception_HookNotSet $e) {
             return $ret_array;
         } catch (Horde_Exception $e) {

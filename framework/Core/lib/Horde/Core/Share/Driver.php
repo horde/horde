@@ -36,16 +36,18 @@ class Horde_Core_Share_Driver
      */
     public function __construct(Horde_Share_Base $share)
     {
+        global $injector;
+
         $this->_share = $share;
-        $this->_share->setStorage($GLOBALS['injector']->getInstance($this->_storageMap[get_class($this->_share)]));
+        $this->_share->setStorage($injector->getInstance($this->_storageMap[get_class($this->_share)]));
         $this->_share->addCallback('add', array($this, 'shareAddCallback'));
         $this->_share->addCallback('modify', array($this, 'shareModifyCallback'));
         $this->_share->addCallback('remove', array($this, 'shareRemoveCallback'));
         $this->_share->addCallback('list', array($this, 'shareListCallback'));
 
-        if (Horde::hookExists('share_init')) {
-            Horde::callHook('share_init', array($this, $this->_share->getApp()));
-        }
+        try {
+            $injector->getInstance('Horde_Core_Hooks')->callHook('share_init', 'horde', array($this, $this->_share->getApp()));
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**
@@ -194,10 +196,11 @@ class Horde_Core_Share_Driver
      */
     public function shareListCallback($userid, $shares, $params = array())
     {
-        if (Horde::hookExists('share_list')) {
+        try {
             $params = new Horde_Support_Array($params);
-            return Horde::callHook('share_list', array($userid, $params['perm'], $params['attributes'], $shares));
-        }
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('share_list', 'horde', array($userid, $params['perm'], $params['attributes'], $shares));
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $shares;
     }
@@ -210,9 +213,9 @@ class Horde_Core_Share_Driver
     public function shareAddCallback(Horde_Share_Object $share)
     {
         try {
-            Horde::callHook('share_add', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('share_add', 'horde', array($share));
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**
@@ -223,17 +226,17 @@ class Horde_Core_Share_Driver
     public function shareRemoveCallback(Horde_Share_Object $share)
     {
         try {
-            Horde::callHook('share_remove', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('share_remove', 'horde', array($share));
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     public function shareModifyCallback(Horde_Share_Object $share)
     {
         try {
-            Horde::callHook('share_modify', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('share_modify', 'horde', array($share));
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
 }

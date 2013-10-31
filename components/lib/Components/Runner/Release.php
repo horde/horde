@@ -42,6 +42,13 @@ class Components_Runner_Release
     private $_output;
 
     /**
+     * The QC tasks handler.
+     *
+     * @param Component_Release_Qc
+     */
+    private $_qc;
+
+    /**
      * The release tasks handler.
      *
      * @param Component_Release_Tasks
@@ -55,24 +62,43 @@ class Components_Runner_Release
      *                                         job.
      * @param Component_Output        $output  The output handler.
      * @param Component_Release_Tasks $release The tasks handler.
+     * @param Component_Qc_Tasks      $qc      QC tasks handler.
      */
     public function __construct(
         Components_Config $config,
         Components_Output $output,
-        Components_Release_Tasks $release
+        Components_Release_Tasks $release,
+        Components_Qc_Tasks $qc
     ) {
         $this->_config = $config;
         $this->_output = $output;
         $this->_release = $release;
+        $this->_qc = $qc;
     }
 
     public function run()
     {
+        $component = $this->_config->getComponent();
         $options = $this->_config->getOptions();
 
         $sequence = array();
 
         $pre_commit = false;
+
+        /* Require package unit tests to pass locally before committing. */
+        $unit = $this->_qc->getTask('unit', $component);
+        if (!$unit->validate($options)) {
+            $this->_output->info(
+                'Running ' . $unit->getName() . ' on ' . $component->getName() .  "\n"
+            );
+
+            if ($unit->run($options)) {
+                $this->_output->warn('Aborting due to unit test errors.');
+                return;
+            }
+
+            $this->_output->ok('No problems found in unit test.');
+        }
 
         if ($this->_doTask('timestamp')) {
             $sequence[] = 'Timestamp';
@@ -144,7 +170,7 @@ class Components_Runner_Release
         if (!empty($sequence)) {
             $this->_release->run(
                 $sequence,
-                $this->_config->getComponent(),
+                $component,
                 $options
             );
         } else {
