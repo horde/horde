@@ -1342,7 +1342,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                         continue 2;
                     } elseif ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                         $results[$row['message_uid']][$change['type']] =
-                            !is_null($row['sync_deleted']) && $row['sync_deleted'] == $change['flags']['deleted'];
+                            !is_null($row['sync_deleted']) && $row['sync_deleted'] == true;
                         continue 2;
                     }
                 }
