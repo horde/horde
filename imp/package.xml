@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mms] Fix regression in showing non-available actions in dynamic mailbox view when ACL rules prevent them (Bug #12808).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3310,7 +3310,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mms] Fix regression in showing non-available actions in dynamic mailbox view when ACL rules prevent them (Bug #12808).
    </notes>
   </release>
  </changelog>

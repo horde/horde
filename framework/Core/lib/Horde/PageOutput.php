@@ -213,7 +213,7 @@ class Horde_PageOutput
             $all_scripts[] = strval($val->url);
         }
 
-        if ($this->ajax || $this->growler) {
+        if (($this->ajax || $this->growler) && $all_scripts) {
             $jsvars['HordeCore.jsfiles'] = $all_scripts;
         }
 
