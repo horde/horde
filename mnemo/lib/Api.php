@@ -100,30 +100,31 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param boolean $isModSeq          If true, $timestamp and $end are
      *                                   modification sequences and not
      *                                   timestamps. @since 4.1.1
+     * @param string|array $notepads     The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
-     * @since 3.0.5
      */
-    public function getChanges($start, $end, $isModSeq = false)
+    public function getChanges($start, $end, $isModSeq = false, $notepads = null)
     {
-        return array('add' => $this->listBy('add', $start, null, $end, $isModSeq),
-                     'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
-                     'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+        return array('add' => $this->listBy('add', $start, $notepads, $end, $isModSeq),
+                     'modify' => $this->listBy('modify', $start, $notepads, $end, $isModSeq),
+                     'delete' => $this->listBy('delete', $start, $notepads, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start          The starting modseq.
+     * @param integer $end            The ending modseq.
+     * @param string|array $notepads  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $notepads = null)
     {
-        return $this->getChanges($start, $end, true);
+        return $this->getChanges($start, $end, true, $notepads);
     }
 
     /**
