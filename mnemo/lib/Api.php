@@ -455,6 +455,7 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @return array  An array of the available sources. Keys are source IDs,
      *                values are source titles.
+     * @since 4.2.0
      */
     public function sources($writeable = false, $sync_only = false)
     {
@@ -472,5 +473,15 @@ class Mnemo_Api extends Horde_Registry_Api
         return $out;
     }
 
+    /**
+     * Retrieve the UID for the current user's default notepad.
+     *
+     * @return string  UID.
+     * @since 4.2.0
+     */
+    public function getDefaultShare()
+    {
+        return Mnemo::getDefaultNotepad(Horde_Perms::EDIT);
+    }
 
 }
