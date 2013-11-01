@@ -95,10 +95,10 @@
      <dir name="Kolab">
       <dir name="Filter">
        <file name="kolabfilter.php" role="script">
-        <replace from="@php_bin@" to="php_bin" type="pear-config" />
+        <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
        </file>
        <file name="kolabmailboxfilter.php" role="script">
-        <replace from="@php_bin@" to="php_bin" type="pear-config" />
+        <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
        </file>
       </dir> <!-- /script/Horde/Kolab/Filter -->
      </dir> <!-- /script/Horde/Kolab -->

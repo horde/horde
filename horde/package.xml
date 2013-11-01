@@ -130,14 +130,18 @@
     <file name="horde-set-perms" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="horde-sql-shell.php" role="script" />
+    <file name="horde-sql-shell" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
     <file name="horde-themes" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-translation" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="horde-pref-remove.php" role="script" />
+    <file name="horde-pref-remove" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
     <file name="horde-queue-run-tasks" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -1939,11 +1943,11 @@
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
    <install as="horde-remove-user-data" name="bin/horde-remove-user-data" />
    <install as="horde-run-task" name="bin/horde-run-task" />
-   <install as="horde-pref-remove.php" name="bin/horde-pref-remove.php" />
+   <install as="horde-pref-remove" name="bin/horde-pref-remove" />
    <install as="horde-queue-run-tasks" name="bin/horde-queue-run-tasks" />
    <install as="horde-sessions-gc" name="bin/horde-sessions-gc" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
-   <install as="horde-sql-shell.php" name="bin/horde-sql-shell.php" />
+   <install as="horde-sql-shell" name="bin/horde-sql-shell" />
    <install as="horde-themes" name="bin/horde-themes" />
    <install as="horde-translation" name="bin/horde-translation" />
    <install as="config/.htaccess" name="config/.htaccess" />
