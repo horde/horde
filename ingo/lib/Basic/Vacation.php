@@ -137,7 +137,10 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
 
         Horde::startBuffer();
         $form->renderActive(
-            new Horde_Form_Renderer(array('encode_title' => false)),
+            new Horde_Form_Renderer(array(
+                'encode_title' => false,
+                'varrenderer_driver' => array('ingo', 'ingo')
+            )),
             $this->vars,
             self::url(),
             'post'
