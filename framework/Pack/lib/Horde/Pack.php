@@ -80,7 +80,9 @@ class Horde_Pack
      *              to use is auto-determined.
      *   - phpob: (boolean) If true, the data contains PHP serializable
      *            objects (i.e. objects that have a PHP-specific serialized
-     *            representation).
+     *            representation). If false, the data does not contain any of
+     *            these objects. If not present, will auto-determine
+     *            existence of these objects.
      * </pre>
      *
      * @return string  The packed string.
@@ -88,6 +90,11 @@ class Horde_Pack
      */
     public function pack($data, array $opts = array())
     {
+        if (!isset($opts['phpob'])) {
+            $auto = new Horde_Pack_Autodetermine($data);
+            $opts['phpob'] = $auto->phpob;
+        }
+
         foreach (self::$_drivers as $key => $val) {
             if (!empty($opts['phpob']) && !$val->phpob) {
                 continue;
