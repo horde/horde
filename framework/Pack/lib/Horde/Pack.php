@@ -73,9 +73,9 @@ class Horde_Pack
      * @param array $opts     Additional options:
      * <pre>
      *   - compress: (mixed) If false, don't use compression. If true, uses
-     *               default compress length. If 0, always compress. All
-     *               other values: compress only if data is greater than this
-     *               string length.
+     *               default compress length (DEFAULT). If 0, always compress.
+     *               All other integer values: compress only if data is
+     *               greater than this string length.
      *   - drivers: (array) Only use these drivers to pack. By default, driver
      *              to use is auto-determined.
      *   - phpob: (boolean) If true, the data contains PHP serializable
@@ -90,6 +90,10 @@ class Horde_Pack
      */
     public function pack($data, array $opts = array())
     {
+        $opts = array_merge(array(
+            'compress' => true
+        ), $opts);
+
         if (!isset($opts['phpob'])) {
             $auto = new Horde_Pack_Autodetermine($data);
             $opts['phpob'] = $auto->phpob;
@@ -115,7 +119,7 @@ class Horde_Pack
              * Packed (and compressed data) follows this byte. */
             $packed = $val->pack($data);
 
-            if (isset($opts['compress']) && ($opts['compress'] !== false)) {
+            if ($opts['compress'] !== false) {
                 if ($opts['compress'] === 0) {
                     $compress = true;
                 } else {
