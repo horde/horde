@@ -1367,9 +1367,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             $id));
         ob_start();
+
+        $folder_split = $this->_parseFolderId($folderid);
+        if (is_array($folder_split)) {
+            $folder_class = $folder_split[self::FOLDER_PART_CLASS];
+            $folderid = $folder_split[self::FOLDER_PART_ID];
+        } else {
+            $folder_class = $folder_split;
+        }
+
         $stat = false;
-        switch ($folderid) {
-        case self::APPOINTMENTS_FOLDER_UID:
+        switch ($folder_class) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
                 try {
                     $id = $this->_connector->calendar_import($message);
@@ -1397,7 +1406,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::CONTACTS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             if (!$id) {
                 try {
                     $id = $this->_connector->contacts_import($message);
@@ -1422,7 +1431,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::TASKS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_TASKS:
             if (!$id) {
                 try {
                     $id = $this->_connector->tasks_import($message);
@@ -1447,7 +1456,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::NOTES_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_NOTES:
             if (!$id) {
                 try {
                     $id = $this->_connector->notes_import($message);
