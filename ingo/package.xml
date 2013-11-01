@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Validate e-mail addresses ion the forward and vacation pages (Request #7249).
+* [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
 * [mms] Add &apos;newEmailFilter&apos; API link.
  </notes>
  <contents>
