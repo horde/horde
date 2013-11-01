@@ -318,7 +318,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
-            $mp = $GLOBALS['prefs']->getValue('activesync_multiplexed');
+            $mp = $GLOBALS['prefs']->getValue('activesync_multiplex');
             if (array_search('calendar', $supported) !== false) {
                 if ($mp) {
                     $folders[] = $this->_getFolder(self::APPOINTMENTS_FOLDER_UID);
