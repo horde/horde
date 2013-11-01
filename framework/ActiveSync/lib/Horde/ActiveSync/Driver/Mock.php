@@ -233,7 +233,7 @@ class Horde_ActiveSync_Driver_Mock extends Horde_ActiveSync_Driver_Base
         }
     }
 
-    protected function _getFolderUidForBackendId($sid)
+    protected function _getFolderUidForBackendId($sid, $type = null)
     {
         switch ($sid) {
         case 'INBOX':
