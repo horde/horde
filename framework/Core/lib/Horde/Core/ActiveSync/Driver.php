@@ -362,7 +362,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
             if (array_search('tasks', $supported) !== false) {
                 if ($mp) {
-                    $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
+                    $folders[] = $this->_getFolder(self::TASKS_FOLDER_UID);
                 } else {
                     $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS);
                     if (is_array($temp)) {
