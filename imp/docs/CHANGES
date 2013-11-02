@@ -1,9 +1,8 @@
 ----------
-<<<<<<< HEAD
 v6.2.0-git
 ----------
-[mms] Add copy email option to the address context menu in dynamic view.
 
+[mms] Add copy email option to the address context menu in dynamic view.
 [mms] Better reporting of e-mail address errors when composing.
 [mms] Add list information display to dynamic view.
 [jan] Add signatures back to compose view.
@@ -28,10 +27,7 @@ v6.2.0-git
 
 
 ----------
-v6.1.5-git
-=======
 v6.1.6-git
->>>>>>> master
 ----------
 
 [mms] Fix regression in showing non-available actions in dynamic mailbox view
