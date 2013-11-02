@@ -177,10 +177,16 @@ class IMP_Ftree_Eltdiff implements Serializable
      */
     public function serialize()
     {
-        return json_encode(array(
-            $this->track,
-            $this->_changes
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->track,
+                $this->_changes
+            ),
+            array(
+                'compression' => false,
+                'phpob' => false
+            )
+        );
     }
 
     /**
@@ -190,7 +196,7 @@ class IMP_Ftree_Eltdiff implements Serializable
         list(
             $this->track,
             $this->_changes
-        ) = json_decode($data, true);
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

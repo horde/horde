@@ -317,22 +317,28 @@ class IMP_Imap_Config implements Serializable
      */
     public function serialize()
     {
-        global $session;
+        global $injector, $session;
 
         if (!empty($this->_passwords)) {
             $session->set('imp', self::PASSWORDS_KEY, $this->_passwords, $session::ENCRYPT);
         }
 
-        return json_encode(array_filter($this->_config));
+        return $injector->getInstance('Horde_Pack')->pack(
+            array_filter($this->_config),
+            array(
+                'compression' => false,
+                'phpob' => false
+            )
+        );
     }
 
     /**
      */
     public function unserialize($data)
     {
-        global $session;
+        global $injector, $session;
 
-        $this->_config = json_decode($data, true);
+        $this->_config = $injector->getInstance('Horde_Pack')->unpack($data);
 
         $this->_passwords = $session->get('imp', self::PASSWORDS_KEY, $session::TYPE_ARRAY);
     }

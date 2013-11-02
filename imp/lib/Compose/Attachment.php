@@ -213,28 +213,33 @@ class IMP_Compose_Attachment implements Serializable
             $this->storage;
         }
 
-        return serialize(array(
-            'c' => $this->_composeCache,
-            'i' => $this->id,
-            'l' => $this->_linked,
-            'p' => $this->_part,
-            'r' => $this->related,
-            'u' => $this->_uuid
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->_composeCache,
+                $this->id,
+                $this->_linked,
+                $this->_part,
+                $this->related,
+                $this->_uuid
+            ), array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-
-        $this->_composeCache = $data['c'];
-        $this->id = $data['i'];
-        $this->_linked = $data['l'];
-        $this->_part = $data['p'];
-        $this->related = !empty($data['r']);
-        $this->_uuid = $data['u'];
+        list(
+            $this->_composeCache,
+            $this->id,
+            $this->_linked,
+            $this->_part,
+            $this->related,
+            $this->_uuid
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

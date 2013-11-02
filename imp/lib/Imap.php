@@ -895,11 +895,17 @@ class IMP_Imap implements Serializable
      */
     public function serialize()
     {
-        return serialize(array(
-            $this->_ob,
-            $this->_id,
-            $this->_config
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->_ob,
+                $this->_id,
+                $this->_config
+            ),
+            array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
@@ -910,7 +916,7 @@ class IMP_Imap implements Serializable
             $this->_ob,
             $this->_id,
             $this->_config
-        ) = unserialize($data);
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

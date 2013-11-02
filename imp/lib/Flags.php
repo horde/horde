@@ -391,23 +391,25 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function serialize()
     {
-        return serialize(array(
-            $this->_flags,
-            $this->_userflags
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->_flags,
+                $this->_userflags
+            ), array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-        if (!is_array($data)) {
-            throw new Exception('Cache invalidation.');
-        }
-
-        $this->_flags = $data[0];
-        $this->_userflags = $data[1];
+        list(
+            $this->_flags,
+            $this->_userflags
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

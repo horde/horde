@@ -552,7 +552,13 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
      */
     public function serialize()
     {
-        return serialize($this->_search);
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            $this->_search,
+            array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
@@ -564,12 +570,7 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-        if (!is_array($data)) {
-            throw new Exception('Cache version change');
-        }
-
-        $this->_search = $data;
+        $this->_search = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

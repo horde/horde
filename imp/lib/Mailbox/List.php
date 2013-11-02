@@ -23,9 +23,6 @@
  */
 class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 {
-    /* Serialized version. */
-    const VERSION = 3;
-
     /**
      * Has the internal message list changed?
      *
@@ -938,7 +935,13 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function serialize()
     {
-        return serialize($this->_serialize());
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            $this->_serialize(),
+            array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
@@ -946,8 +949,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     protected function _serialize()
     {
         $data = array(
-            'm' => $this->_mailbox,
-            'v' => self::VERSION
+            'm' => $this->_mailbox
         );
 
         if ($this->_buidmax) {
@@ -977,14 +979,9 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data['v']) ||
-            ($data['v'] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-
-        $this->_unserialize($data);
+        $this->_unserialize(
+            $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data)
+        );
     }
 
     /**

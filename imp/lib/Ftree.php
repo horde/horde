@@ -873,28 +873,28 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function serialize()
     {
-        return serialize(array(
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(array(
             $this->_accounts,
             $this->_eltdiff,
-            json_encode(array(
-                $this->_elts,
-                $this->_parent
-            ))
+            $this->_elts,
+            $this->_parent
+        ), array(
+            'compress' => false,
+            'phpob' => true
         ));
     }
 
     /**
-     * @throws Exception
+     * @throws Horde_Pack_Exception
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-        if (!is_array($data)) {
-            throw new Exception('Cache version change');
-        }
-
-        list($this->_accounts, $this->_eltdiff, $json_data) = $data;
-        list($this->_elts, $this->_parent) = json_decode($json_data, true);
+        list(
+            $this->_accounts,
+            $this->_eltdiff,
+            $this->_elts,
+            $this->_parent
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
     /**

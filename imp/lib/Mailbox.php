@@ -1881,10 +1881,16 @@ class IMP_Mailbox implements Serializable
      */
     public function serialize()
     {
-        return json_encode(array(
-            $this->_mbox,
-            $this->_cache
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->_mbox,
+                $this->_cache
+            ),
+            array(
+                'compression' => false,
+                'phpob' => false
+            )
+        );
     }
 
     /**
@@ -1894,7 +1900,7 @@ class IMP_Mailbox implements Serializable
         list(
             $this->_mbox,
             $this->_cache
-        ) = json_decode($data, true);
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }
