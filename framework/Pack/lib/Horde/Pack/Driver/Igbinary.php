@@ -48,7 +48,12 @@ class Horde_Pack_Driver_Igbinary extends Horde_Pack_Driver
      */
     public function unpack($data)
     {
-        return igbinary_unserialize($data);
+        $out = igbinary_unserialize($data);
+        if (!is_null($out) || ($data == igbinary_serialize(null))) {
+            return $out;
+        }
+
+        throw new Horde_Pack_Exception('Error when unpacking serialized data.');
     }
 
 }

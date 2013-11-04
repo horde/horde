@@ -1,4 +1,4 @@
-#!@php_bin@
+#!/usr/bin/env php
 <?php
 /**
  *  A filter for outgoing mail on a Kolab Server. It rewrites headers

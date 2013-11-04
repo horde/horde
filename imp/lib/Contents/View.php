@@ -22,7 +22,6 @@
  */
 class IMP_Contents_View
 {
-    const VIEW_TOKEN = 'imp.view';
     const VIEW_TOKEN_PARAM = 'view_token';
 
     /**
@@ -341,16 +340,11 @@ class IMP_Contents_View
      *
      * @param Horde_Variables $vars  Form variables.
      *
-     * @throws Horde_Token_Exception  Exception on incorrect token.
+     * @throws Horde_Exception  Exception on incorrect token.
      */
     public function checkToken(Horde_Variables $vars)
     {
-        global $injector;
-
-        $injector->getInstance('Horde_Token')->validate(
-            $vars->get(self::VIEW_TOKEN_PARAM),
-            self::VIEW_TOKEN
-        );
+        $GLOBALS['session']->checkToken($vars->get(self::VIEW_TOKEN_PARAM));
     }
 
     /* Static methods. */
@@ -383,10 +377,9 @@ class IMP_Contents_View
      */
     static public function addToken(array $params = array())
     {
-        global $injector;
+        global $session;
 
-        $params[self::VIEW_TOKEN_PARAM] =
-            $injector->getInstance('Horde_Token')->get(self::VIEW_TOKEN);
+        $params[self::VIEW_TOKEN_PARAM] = $session->getToken();
 
         return $params;
     }
