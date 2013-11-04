@@ -301,12 +301,13 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $uid          The folder uid
      * @param string $displayname  The folder display name
      * @param string $parent       The parent folder id.
+     * @param integer $type        The EAS Folder type. @since 2.9.0
      *
-     * @return string|boolean  The new serverid if successful, otherwise false.
+     * @return string The new serverid if successful.
      *
      * @todo Horde 6 - This should take and return a Horde_ActiveSync_Message_Folder object.
      */
-    public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
+    public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT, $type = null)
     {
         // TODO: BC HACK. For now, we need to convert the uid -> folderid.
         $collections = $this->_as->getCollectionsObject();
@@ -322,7 +323,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         try {
-            $new_uid = $this->_as->driver->changeFolder($folderid, $displayname, $parent_sid, $uid);
+            $new_uid = $this->_as->driver->changeFolder($folderid, $displayname, $parent_sid, $uid, $type);
         } catch (Horde_Exception_PermissionDenied $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e->getMessage(), Horde_ActiveSync_Exception::UNSUPPORTED);
