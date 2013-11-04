@@ -90,6 +90,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected $_verbs = array();
 
     /**
+     * Class => Id map
+     *
+     * @var array
+     */
+    protected $_classMap = array(
+        Horde_ActiveSync::CLASS_TASKS => self::TASKS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_CALENDAR => self::APPOINTMENTS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_CONTACTS => self::CONTACTS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_NOTES => self::NOTES_FOLDER_UID
+    );
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters:
@@ -2567,13 +2579,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getSyncStamp($collection, $last = null)
     {
         // For FolderSync (empty $collection) or Email collections, we don't care.
-        if (empty($collection) ||
-            !in_array($collection, array(self::APPOINTMENTS_FOLDER_UID, self::NOTES_FOLDER_UID, self::CONTACTS_FOLDER_UID, self::TASKS_FOLDER_UID))) {
+        if (empty($collection)) {
             return time();
         }
 
-        if ($this->_connector->hasFeature('modseq', $collection)) {
-            $modseq = $this->_connector->getHighestModSeq($collection);
+        $parts = $this->_parseFolderId($collection);
+        if (is_array($parts)) {
+            $class = $parts[self::FOLDER_PART_CLASS];
+        } else {
+            $class = $parts;
+        }
+
+        if (!in_array($class, array(Horde_ActiveSync::CLASS_CALENDAR, Horde_ActiveSync::CLASS_NOTES, Horde_ActiveSync::CLASS_CONTACTS, Horde_ActiveSync::CLASS_TASKS))) {
+            return time();
+        }
+
+
+        if ($this->_connector->hasFeature('modseq', $this->_classMap[$class])) {
+            $modseq = $this->_connector->getHighestModSeq($this->_classMap[$class]);
             // Sanity check - if the last syncstamp is higher then the
             // current modification sequence, something is wrong. Could be
             // the history backend just happend to have deleted the most recent
