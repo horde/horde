@@ -43,8 +43,7 @@ class Horde_Session
     const TYPE_OBJECT = 2;
     const ENCRYPT = 4; /* @since 2.7.0 */
 
-    const NOT_SERIALIZED = 0;
-    const IS_SERIALIZED = 1;
+    const NOT_SERIALIZED = "\0";
 
     const NONCE_ID = 'session_nonce'; /* @since 2.11.0 */
     const TOKEN_ID = 'session_token';
@@ -328,8 +327,7 @@ class Horde_Session
      */
     public function exists($app, $name)
     {
-        return isset($this->_data[$app][self::NOT_SERIALIZED . $name]) ||
-               isset($this->_data[$app][self::IS_SERIALIZED . $name]);
+        return isset($this->_data[$app][$name]);
     }
 
     /**
@@ -347,20 +345,21 @@ class Horde_Session
     {
         global $injector;
 
-        if (isset($this->_data[$app][self::NOT_SERIALIZED . $name])) {
-            return $this->_data[$app][self::NOT_SERIALIZED . $name];
-        } elseif (isset($this->_data[$app][self::IS_SERIALIZED . $name])) {
-            $key = self::IS_SERIALIZED . $name;
-            $value = $this->_data[$app][$key];
+        if ($this->exists($app, $name)) {
+            $value = $this->_data[$app][$name];
 
-            if (isset($this->_data[self::ENCRYPTED][$app][$key])) {
+            if (!is_string($value)) {
+                return $value;
+            } elseif ($value[0] === self::NOT_SERIALIZED) {
+                return substr($value, 1);
+            }
+
+            if (isset($this->_data[self::ENCRYPTED][$app][$name])) {
                 $secret = $injector->getInstance('Horde_Secret');
                 $value = strval($secret->read($secret->getKey(), $value));
             }
 
-            return @unserialize(
-                $injector->getInstance('Horde_Compress_Fast')->decompress($value)
-            );
+            return $injector->getInstance('Horde_Pack')->unpack($value);
         }
 
         if ($subkeys = $this->_subkeys($app, $name)) {
@@ -405,6 +404,8 @@ class Horde_Session
             return;
         }
 
+        unset($this->_data[self::ENCRYPTED][$app][$name]);
+
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
@@ -414,27 +415,23 @@ class Horde_Session
         if (($mask & self::ENCRYPT) ||
             is_object($value) || ($mask & self::TYPE_OBJECT) ||
             is_array($value) || ($mask & self::TYPE_ARRAY)) {
-            $value = $injector->getInstance('Horde_Compress_Fast')->compress(serialize($value));
+            $value = $injector->getInstance('Horde_Pack')->pack($value, array(
+                'compress' => 0,
+                'phpob' => (is_object($value) || ($mask & self::TYPE_OBJECT))
+            ));
 
-            $to_save = self::IS_SERIALIZED . $name;
-            $to_unset = self::NOT_SERIALIZED . $name;
-        } else {
-            $to_save = self::NOT_SERIALIZED . $name;
-            $to_unset = self::IS_SERIALIZED . $name;
+            if ($mask & self::ENCRYPT) {
+                $secret = $injector->getInstance('Horde_Secret');
+                $value = $secret->write($secret->getKey(), $value);
+                $this->_data[self::ENCRYPTED][$app][$name] = true;
+            }
+        } elseif (is_string($value)) {
+            $value = self::NOT_SERIALIZED . $value;
         }
 
-        if ($mask & self::ENCRYPT) {
-            $secret = $injector->getInstance('Horde_Secret');
-            $value = $secret->write($secret->getKey(), $value);
-            $this->_data[self::ENCRYPTED][$app][$to_save] = true;
-        } else {
-            unset($this->_data[self::ENCRYPTED][$app][self::IS_SERIALIZED . $name]);
-        }
-
-        if (!isset($this->_data[$app][$to_save]) ||
-            ($this->_data[$app][$to_save] != $value)) {
-            $this->_data[$app][$to_save] = $value;
-            unset($this->_data[$app][$to_unset]);
+        if (!$this->exists($app, $name) ||
+            ($this->_data[$app][$name] !== $value)) {
+            $this->_data[$app][$name] = $value;
             $this->sessionHandler->changed = true;
         }
     }
@@ -456,8 +453,7 @@ class Horde_Session
             $this->sessionHandler->changed = true;
         } elseif ($this->exists($app, $name)) {
             unset(
-                $this->_data[$app][self::NOT_SERIALIZED . $name],
-                $this->_data[$app][self::IS_SERIALIZED . $name],
+                $this->_data[$app][$name],
                 $this->_data[self::PRUNE][$this->_getKey($app, $name)]
             );
             $this->sessionHandler->changed = true;
