@@ -66,8 +66,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $identity->setDefault($this->vars->identity);
         }
 
-        $horde_token = $injector->getInstance('Horde_Token');
-
         if ($this->vars->actionID) {
             switch ($this->vars->actionID) {
             case 'draft':
@@ -104,12 +102,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Check for duplicate submits. */
         if ($reload = $this->vars->compose_formToken) {
             try {
-                if (!$horde_token->verify($reload)) {
-                    $notification->push(_("You have already submitted this page."), 'horde.error');
-                    $this->vars->actionID = null;
-                }
-            } catch (Horde_Token_Exception $e) {
-                $notification->push($e->getMessage());
+                $session->checkNonce($reload);
+            } catch (Horde_Exception $e) {
+                $notification->push(_("You have already submitted this page."), 'horde.error');
                 $this->vars->actionID = null;
             }
         }
@@ -508,7 +503,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 if ($this->vars->actionID == 'auto_save_draft') {
                     $r = new stdClass;
                     $r->requestToken = $session->getToken();
-                    $r->formToken = Horde_Token::generateId('compose');
+                    $r->formToken = $session->getNonce();
 
                     $response = new Horde_Core_Ajax_Response_HordeCore($r);
                     $response->sendAndExit();
@@ -629,7 +624,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             if ($resume || count($imp_compose)) {
                 $cancel_url = self::url()->setRaw(true)->add(array(
                     'actionID' => 'cancel_compose',
-                    'compose_requestToken' => $horde_token->get('imp.compose'),
+                    'compose_requestToken' => $session->getToken(),
                     'composeCache' => $composeCacheID,
                     'popup' => 1
                 ));
@@ -641,7 +636,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         } elseif ($resume || count($imp_compose)) {
             $cancel_url = $this->_mailboxReturnUrl(self::url()->setRaw(true))->setRaw(true)->add(array(
                 'actionID' => 'cancel_compose',
-                'compose_requestToken' => $horde_token->get('imp.compose'),
+                'compose_requestToken' => $session->getToken(),
                 'composeCache' => $composeCacheID
             ));
             $discard_url = clone $cancel_url;
@@ -759,7 +754,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             /* Prepare the redirect template. */
             $view->cacheid = $composeCacheID;
             $view->title = $this->title;
-            $view->token = $horde_token->get('imp.compose');
+            $view->token = $session->getToken();
 
             if ($registry->hasMethod('contacts/search')) {
                 $view->abook = $blank_url->copy()->link(array(
@@ -780,7 +775,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $hidden = array(
                 'actionID' => '',
                 'attachmentAction' => '',
-                'compose_formToken' => Horde_Token::generateId('compose'),
+                'compose_formToken' => $session->getNonce(),
                 'compose_requestToken' => $session->getToken(),
                 'composeCache' => $composeCacheID,
                 'oldrtemode' => $rtemode,
