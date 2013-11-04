@@ -61,7 +61,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         $links = array(
             // @since 3.2.0
-            'newEmailFilter' => strval(Ingo_Basic_Rule::url()) . '&actionID=rule_update&field[0]=From&match[0]=is&value[0]=|email|',
+            'newEmailFilter' => strval(Ingo_Basic_Rule::url()) . '&field[0]=From&match[0]=is&value[0]=|email|',
             'showFilters' => strval(Ingo_Basic_Filters::url())
         );
 

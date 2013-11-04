@@ -1,5 +1,5 @@
 <form method="post" id="rule" name="rule" action="<?php echo $this->formurl ?>">
- <input type="hidden" name="actionID" id="actionID" value="rule_update" />
+ <input type="hidden" name="actionID" id="actionID" value="" />
  <input type="hidden" name="conditionnumber" value="-1" />
 <?php if (!is_null($this->edit)): ?>
  <input type="hidden" name="edit" value="<?php echo $this->edit ?>" />
