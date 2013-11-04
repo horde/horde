@@ -11,7 +11,7 @@ class Horde_Core_Factory_HttpClient extends Horde_Core_Factory_Base
      * @param array $opts  Configuration options.
      *
      * @return Horde_Http_Client  Client object.
-     * @throws Horde_Http_Client_Exception
+     * @throws Horde_Http_Exception
      */
     public function create(array $opts = array())
     {

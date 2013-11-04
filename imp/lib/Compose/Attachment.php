@@ -27,6 +27,13 @@
 class IMP_Compose_Attachment implements Serializable
 {
     /**
+     * Force this attachment to be linked?
+     *
+     * @var boolean
+     */
+    public $forceLinked = false;
+
+    /**
      * Attachment ID.
      *
      * @var integer
@@ -106,13 +113,32 @@ class IMP_Compose_Attachment implements Serializable
 
         switch ($name) {
         case 'linked':
-            return ($this->_linked === true);
+            return ($this->forceLinked || ($this->_linked === true));
 
         case 'link_url':
             return $this->storage->link_url;
 
         case 'storage':
-            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->_linked);
+            if (is_null($this->_uuid)) {
+                $this->_uuid = strval(new Horde_Support_Uuid());
+                $store = true;
+            } else {
+                $store = false;
+            }
+
+            $ob = $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->forceLinked || $this->_linked);
+
+            if ($store && !is_null($this->tmpfile)) {
+                $ob->forceLinked = true;
+                $ob->write($this->tmpfile, $this->getPart());
+                /* Need to save this information now, since it is possible
+                 * that storage backends change their linked status based on
+                 * the data written to the backend. */
+                $this->_linked = $ob->linked;
+                $this->tmpfile = null;
+            }
+
+            return $ob;
         }
     }
 
@@ -183,14 +209,8 @@ class IMP_Compose_Attachment implements Serializable
         $this->_isBuilt = false;
 
         if (!is_null($this->tmpfile)) {
-            $this->_uuid = strval(new Horde_Support_Uuid());
-            $atc = $this->storage;
-            $atc->write($this->tmpfile, $this->getPart());
-            /* Need to save this information now, since it is possible that
-             * storage backends change their linked status based on the data
-             * written to the backend. */
-            $this->_linked = $atc->linked;
-            $this->tmpfile = null;
+            /* This ensures data is stored in the backend. */
+            $this->storage;
         }
 
         return serialize(array(

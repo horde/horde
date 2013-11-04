@@ -29,7 +29,7 @@ var HordeSidebar = {
         while (Object.isElement(elt)) {
             switch (elt.className) {
             case 'horde-collapse':
-                elt.up().next().blindUp({ queue: 'end' });
+                elt.up().next().blindUp({ duration: 0.5, queue: 'end' });
                 elt.title = this.text.expand;
                 elt.removeClassName('horde-collapse');
                 elt.addClassName('horde-expand');
@@ -37,7 +37,7 @@ var HordeSidebar = {
                 return;
 
             case 'horde-expand':
-                elt.up().next().blindDown({ queue: 'end' });
+                elt.up().next().blindDown({ duration: 0.5, queue: 'end' });
                 elt.title = this.text.collapse;
                 elt.removeClassName('horde-expand');
                 elt.addClassName('horde-collapse');

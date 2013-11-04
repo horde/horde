@@ -474,9 +474,6 @@ var DimpBase = {
                         var ptr = this.flags[a];
                         if (ptr.u) {
                             if (!ptr.elt) {
-                                /* Until text-overflow is supported on all
-                                 * browsers, need to truncate label text
-                                 * ourselves. */
                                 ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l.escapeHTML() + '" style="background:' + ((ptr.b) ? ptr.b.escapeHTML() : '') + ';color:' + ptr.f.escapeHTML() + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
                             }
                             r.subjectdata += ptr.elt;
@@ -1054,6 +1051,14 @@ var DimpBase = {
             this.viewport.getSelected().get('dataob').each(this.msgWindow.bind(this));
             break;
 
+        case 'ctx_message_addfilter':
+            DimpCore.doAction('newFilter', {
+                mailbox: this.view
+            }, {
+                uids: this.viewport.getSelected()
+            });
+            break;
+
         case 'ctx_reply_reply':
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
@@ -1160,6 +1165,8 @@ var DimpBase = {
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
+            } else {
+                $('horde-search-input').focus();
             }
             break;
 
@@ -1395,7 +1402,15 @@ var DimpBase = {
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
             [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((!this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+
+            if (this.viewport.getMetaData('drafts') ||
+                this.viewport.getMetaData('templates')) {
+                $('ctx_message_innocent', 'ctx_message_spam').compact().invoke('hide')
+            } else {
+                [ $('ctx_message_innocent') ].compact().invoke(this.viewport.getMetaData('innocent_show') ? 'show' : 'hide');
+                [ $('ctx_message_spam') ].compact().invoke(this.viewport.getMetaData('spam_show') ? 'show' : 'hide');
+            }
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1408,9 +1423,10 @@ var DimpBase = {
                 } else {
                     $('ctx_message_resume').up('DIV').hide();
                 }
+                [ $('ctx_message_addfilter') ].compact().invoke('show');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
-                $('ctx_message_resume').up('DIV').hide();
+                [ $('ctx_message_resume').up('DIV'), $('ctx_message_addfilter') ].compact().invoke('hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;
@@ -1454,6 +1470,7 @@ var DimpBase = {
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
             [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
+            [ $('ctx_preview_listinfo') ].invoke(this.viewport.getSelected().get('dataob').first().listmsg ? 'show' : 'hide');
             break;
 
         case 'ctx_template':
@@ -1507,7 +1524,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folderopts':
-            $('ctx_folderopts_sub').hide();
+            [ $('ctx_folderopts_sub') ].compact().invoke('hide');
             break;
         }
     },
@@ -1705,7 +1722,7 @@ var DimpBase = {
                     params.params = { msgload: msgload };
                 }
 
-                this.flag('\\seen', true, params);
+                this.flag(DimpCore.conf.FLAG_SEEN, true, params);
 
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
@@ -2461,7 +2478,12 @@ var DimpBase = {
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             tmp = this.viewport.getMetaData('lastrow');
-            if (e.shiftKey && tmp) {
+            if (e.altKey) {
+                pp = $('previewPane');
+                pp.scrollTop = prev
+                    ? Math.max(pp.scrollTop - 10, 0)
+                    : Math.min(pp.scrollTop + 10, pp.getHeight());
+            } else if (e.shiftKey && tmp) {
                 row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
@@ -2646,13 +2668,14 @@ var DimpBase = {
     clickHandler: function(e)
     {
         var tmp,
-            elt = e.element();
+            elt = e.element(),
+            id = elt.readAttribute('id');
 
         if (DimpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
-        switch (elt.readAttribute('id')) {
+        switch (id) {
         case 'imp-normalmboxes':
         case 'imp-specialmboxes':
             this._handleMboxMouseClick(e.memo);
@@ -2761,7 +2784,7 @@ var DimpBase = {
 
         case 'msgloglist_toggle':
         case 'partlist_toggle':
-            tmp = (elt.readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
             $(tmp + '_col', tmp + '_exp').invoke('toggle');
             Effect.toggle(tmp, 'blind', {
                 duration: 0.2,
@@ -2798,8 +2821,9 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_preview_listinfo':
         case 'ctx_preview_thread':
-            HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
+            HordeCore.popupWindow((id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD, {
                 buid: this.pp.VP_id,
                 mailbox: this.pp.VP_view
             }, {
@@ -2909,6 +2933,81 @@ var DimpBase = {
     loadingEndHandler: function(e)
     {
         this.loadingImg(e.memo, false);
+    },
+
+    dialogClickHandler: function(e)
+    {
+        var elt = e.element();
+
+        switch (elt.identify()) {
+        case 'dimpbase_confirm':
+            this.viewaction(e);
+            HordeDialog.close();
+            break;
+
+        case 'flag_new':
+            DimpCore.doAction('createFlag', this.addViewportParams({
+                flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
+                flagname: $F(elt.down('INPUT[name="flagname"]'))
+            }), {
+                callback: function(r) {
+                    if (r.success) {
+                        HordeDialog.close();
+                    } else {
+                        this.displayFlagNew();
+                    }
+                }.bind(this),
+                uids: this.viewport.getSelected()
+            });
+            elt.update(DimpCore.text.newflag_wait);
+            break;
+
+        case 'mbox_import':
+            HordeCore.submit(elt, {
+                callback: function(r) {
+                    HordeDialog.close();
+                    if (r.action == 'importMailbox' &&
+                        r.mbox == this.view) {
+                        this.viewport.reload();
+                    }
+                }.bind(this)
+            });
+            elt.update(DimpCore.text.import_mbox_loading);
+            break;
+
+        case 'remote_login':
+            DimpCore.doAction('remoteLogin', {
+                // Base64 encode just to keep password data from being
+                // plaintext. A trivial obfuscation, but will prevent
+                // passwords from leaking in the event of some sort of data
+                // dump.
+                password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
+                password_base64: true,
+                remoteid: $F(elt.down('INPUT[name="remote_id"]')),
+                unsub: Number(this.showunsub)
+            }, {
+                callback: function(r) {
+                    if (r.success) {
+                        this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
+                            .removeClassName('imp-sidebar-remote')
+                            .addClassName('imp-sidebar-container');
+                        HordeDialog.close();
+                    } else {
+                        elt.enable().down('INPUT[name="remote_password"]').clear().focus();
+                    }
+                }.bind(this)
+            });
+            elt.disable();
+            break;
+        }
+    },
+
+    dialogCloseHandler: function()
+    {
+        if (this.colorpicker) {
+            this.colorpicker.hide();
+        }
+        delete this.colorpicker;
     },
 
     updateSliderCount: function()
@@ -3135,11 +3234,19 @@ var DimpBase = {
 
     flagCallback: function(r)
     {
-        r.each(function(entry) {
+        Object.values(r).each(function(entry) {
             $H(entry.buids).each(function(m) {
                 var s = this.viewport.createSelectionBuffer(m.key).search({
                     VP_id: { equal: m.value.parseViewportUidString() }
                 });
+
+                if (entry.replace) {
+                    s.get('dataob').each(function(d) {
+                        d.flag = [];
+                        this.viewport.updateRow(d);
+                    }, this);
+                    entry.add = entry.replace;
+                }
 
                 if (entry.add) {
                     entry.add.each(function(f) {
@@ -3240,7 +3347,11 @@ var DimpBase = {
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    base.down('A').update(DimpCore.text.loading);
+                    base.down('A').update(
+                        new Element('SPAN')
+                            .addClassName('imp-sidebar-mbox-loading')
+                            .update('[' + DimpCore.text.loading + ']')
+                    );
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),
@@ -3663,11 +3774,12 @@ var DimpBase = {
             params = $H(opts.params),
             vs = this._getSelection(opts);
 
-        need = vs.get('dataob').any(function(ob) {
-            return add
-                ? (!ob.flag || !ob.flag.include(flag))
-                : (ob.flag && ob.flag.include(flag));
-        });
+        need = !vs.getBuffer().getMetaData('readonly') &&
+            vs.get('dataob').any(function(ob) {
+                return add
+                    ? (!ob.flag || !ob.flag.include(flag))
+                    : (ob.flag && ob.flag.include(flag));
+            });
 
         if (need) {
             DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
@@ -4048,82 +4160,14 @@ document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventList
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
 /* HordeDialog listener. */
-document.observe('HordeDialog:onClick', function(e) {
-    var elt = e.element();
-
-    switch (elt.identify()) {
-    case 'dimpbase_confirm':
-        this.viewaction(e);
-        HordeDialog.close();
-        break;
-
-    case 'flag_new':
-        DimpCore.doAction('createFlag', this.addViewportParams({
-            flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
-            flagname: $F(elt.down('INPUT[name="flagname"]'))
-        }), {
-            callback: function(r) {
-                if (r.success) {
-                    HordeDialog.close();
-                } else {
-                    this.displayFlagNew();
-                }
-            }.bind(this),
-            uids: this.viewport.getSelected()
-        });
-        elt.update(DimpCore.text.newflag_wait);
-        break;
-
-    case 'mbox_import':
-        HordeCore.submit(elt, {
-            callback: function(r) {
-                HordeDialog.close();
-                if (r.action == 'importMailbox' &&
-                    r.mbox == this.view) {
-                    this.viewport.reload();
-                }
-            }.bind(this)
-        });
-        elt.update(DimpCore.text.import_mbox_loading);
-        break;
-
-    case 'remote_login':
-        DimpCore.doAction('remoteLogin', {
-            // Base64 encode just to keep password data from being plaintext.
-            // A trivial obfuscation, but will prevent passwords from leaking
-            // in the event of some sort of data dump.
-            password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
-            password_base64: true,
-            remoteid: $F(elt.down('INPUT[name="remote_id"]')),
-            unsub: Number(this.showunsub)
-        }, {
-            callback: function(r) {
-                if (r.success) {
-                    this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
-                        .removeClassName('imp-sidebar-remote')
-                        .addClassName('imp-sidebar-container');
-                    HordeDialog.close();
-                } else {
-                    elt.enable().down('INPUT[name="remote_password"]').clear().focus();
-                }
-            }.bind(this)
-        });
-        elt.disable();
-        break;
-    }
-}.bindAsEventListener(DimpBase));
-document.observe('HordeDialog:close', function(e) {
-    if (this.colorpicker) {
-        this.colorpicker.hide();
-    }
-    delete this.colorpicker;
-}.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:onClick', DimpBase.dialogClickHandler.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:close', DimpBase.dialogCloseHandler.bind(DimpBase));
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
 document.observe('HordeCore:runTasks', function(e) {
-    this.tasksHandler(e.memo);
-}.bindAsEventListener(DimpBase));
+    DimpBase.tasksHandler(e.memo);
+});
 
 /* Click handlers. */
 document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));

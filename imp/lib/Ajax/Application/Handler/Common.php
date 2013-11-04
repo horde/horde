@@ -128,12 +128,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     {
         if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($this->_base->indices)) {
+            $this->_base->queue->flagReplace($this->_base->indices);
             return false;
         }
 
         $change = $this->_base->changed(true);
 
         if (is_null($change)) {
+            $this->_base->queue->flagReplace($this->_base->indices);
             return false;
         }
 
@@ -156,6 +158,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         }
 
         $this->_base->checkUidvalidity();
+        $this->_base->queue->flagReplace($this->_base->indices);
 
         return false;
     }
@@ -212,20 +215,20 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function deleteMessages()
     {
-        if (!count($this->_base->indices)) {
-            return false;
+        if (count($this->_base->indices)) {
+            $change = $this->_base->changed(true);
+
+            if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($this->_base->indices)) {
+                $this->_base->deleteMsgs($this->_base->indices, $change);
+                return true;
+            }
+
+            if (!is_null($change)) {
+                $this->_base->checkUidvalidity();
+            }
         }
 
-        $change = $this->_base->changed(true);
-
-        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($this->_base->indices)) {
-            $this->_base->deleteMsgs($this->_base->indices, $change);
-            return true;
-        }
-
-        if (!is_null($change)) {
-            $this->_base->checkUidvalidity();
-        }
+        $this->_base->queue->flagReplace($this->_base->indices);
 
         return false;
     }
@@ -466,6 +469,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * See the list of variables needed for
      * IMP_Ajax_Application#composeSetup(). Additional variables used:
+     *   - addr_ac: (string) TODO
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
@@ -518,6 +522,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $headers,
                 $identity,
                 array(
+                    'signature' => $this->vars->signature,
                     'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
                     'html' => $this->vars->html,
                     'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
@@ -534,6 +539,10 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 )
             );
             $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
+        } catch (IMP_Compose_Exception_Address $e) {
+            $this->_handleBadComposeAddr($e);
+            $result->success = 0;
+            return $result;
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
@@ -678,6 +687,37 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         }
 
         return $result;
+    }
+
+    /* Internal methods. */
+
+    /**
+     * Handle bad addresses entered during a compose.
+     *
+     * @param IMP_Compose_Exception_Address $e  The address exception.
+     */
+    protected function _handleBadComposeAddr(IMP_Compose_Exception_Address $e)
+    {
+        global $notification;
+
+        $addr_ac = $this->vars->addr_ac
+            ? json_decode($this->vars->addr_ac, true)
+            : array();
+
+        foreach ($e as $val) {
+            $addr = strval($val->address);
+            $notification->push($val->error, 'horde.warning');
+
+            foreach ($addr_ac as $val2) {
+                if ($addr == $val2['addr']) {
+                    $this->_base->queue->compose_addr(
+                        $val2['id'],
+                        $val2['itemid'],
+                        ($val->level == $e::BAD) ? 'impACListItemBad' : 'impACListItemWarn'
+                    );
+                }
+            }
+        }
     }
 
 }

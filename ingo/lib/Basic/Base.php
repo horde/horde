@@ -22,6 +22,8 @@
  */
 abstract class Ingo_Basic_Base
 {
+    const INGO_TOKEN = 'ingo.token';
+
     /**
      * @var string
      */
@@ -64,6 +66,56 @@ abstract class Ingo_Basic_Base
             'listeners' => array('status', 'audio')
         ));
         return Horde::endBuffer();
+    }
+
+    /**
+     * Add the ingo action token to a URL.
+     *
+     * @param Horde_Url $url  URL.
+     *
+     * @return Horde_Url  URL with token added (for chainable calls).
+     */
+    protected function _addToken(Horde_Url $url)
+    {
+        global $injector;
+
+        $url->add(
+            'ingo_token',
+            $injector->getInstance('Horde_Token')->get(self::INGO_TOKEN)
+        );
+
+        return $url;
+    }
+
+    /**
+     * Check token.
+     *
+     * @param array $actions  The list of actions that require token checking.
+     *
+     * @return string  The verified action ID.
+     */
+    protected function _checkToken($actions)
+    {
+        global $injector, $notification;
+
+        $actionID = $this->vars->actionID;
+
+        /* Run through the action handlers */
+        if (!empty($actions) &&
+            strlen($actionID) &&
+            in_array($actionID, $actions)) {
+            try {
+                $injector->getInstance('Horde_Token')->validate(
+                    $this->vars->ingo_token,
+                    self::INGO_TOKEN
+                );
+            } catch (Horde_Token_Exception $e) {
+                $notification->push($e);
+                $actionID = null;
+            }
+        }
+
+        return $actionID;
     }
 
     /**

@@ -63,6 +63,13 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
     protected $_input;
     protected $_inputIndex = 0;
     protected $_inputLength;
+    protected $_keywords = array(
+        'case',
+        'else',
+        'in',
+        'return',
+        'typeof'
+    );
     protected $_lookAhead = null;
     protected $_output = '';
     protected $_x = null;
@@ -76,6 +83,13 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     public function minify()
     {
+        if ($this->_peek() == 0xef) {
+            $this->_get();
+            $this->_get();
+            $this->_get();
+        }
+
+        $this->_a = "\n";
         $this->_action(self::ACTION_DELETE_A_B);
 
         while (!is_null($this->_a)) {
@@ -99,11 +113,12 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             default:
                 if (!$this->_isAlphaNum($this->_a) &&
                     (($this->_b === ' ') ||
-                     (($this->_b === "\n" && !strspn($this->_a, '}])+-"\''))))) {
+                     (($this->_b === "\n" && !strspn($this->_a, '}])+-"\'`'))))) {
                     $cmd = self::ACTION_DELETE_A_B;
                 }
                 break;
             }
+
             $this->_action($cmd);
         }
 
@@ -112,7 +127,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _action($d)
     {
-        switch($d) {
+        switch ($d) {
         case self::ACTION_KEEP_A:
             $this->_output .= $this->_a;
             if (strspn($this->_y, "\n ") &&
@@ -133,21 +148,22 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                         break;
                     }
 
-                    if (ord($this->_a) <= self::ORD_LF) {
-                        throw new Exception('Unterminated string literal.');
-                    }
-
                     if ($this->_a === '\\') {
                         $this->_output .= $this->_a;
                         $this->_a = $this->_get();
+                    }
+
+                    if (is_null($this->_a)) {
+                        throw new Exception('Unterminated string literal.');
                     }
                 }
             }
 
         case self::ACTION_DELETE_A_B:
+            $oldindex = $this->_inputIndex;
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*/{\n')) {
+            if (($this->_b === '/') && $this->_isRegexLiteral($oldindex)) {
                 $this->_output .= $this->_a;
                 if (strspn($this->_a, '/*')) {
                     $this->_output .= ' ';
@@ -157,7 +173,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                 while (true) {
                     $this->_a = $this->_get();
 
-                    if ($this->_a === '[') {
+                    switch ($this->_a) {
+                    case '[':
                         /* Inside a regex [...] set, which MAY contain a
                          * '/' itself. */
                         while (true) {
@@ -169,19 +186,27 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                             } elseif ($this->_a === '\\') {
                                 $this->_output .= $this->_a;
                                 $this->_a = $this->_get();
-                            } elseif (ord($this->_a) <= self::ORD_LF) {
+                            } elseif (is_null($this->_a)) {
                                 throw new Exception('Unterminated regular expression set in regex literal.');
                             }
                         }
-                    } elseif ($this->_a === '/') {
-                        if (strspn($this->_a, '/*')) {
-                            throw new Exception('Unterminated regular expression set in regex literal.');
-                        }
                         break;
-                    } elseif ($this->_a === '\\') {
+
+                    case '/':
+                        switch ($this->_peek()) {
+                        case '/':
+                        case '*':
+                            throw new Exception('Unterminated set in regular Expression literal.');
+                        }
+                        break 2;
+
+                    case '\\':
                         $this->_output .= $this->_a;
                         $this->_a = $this->_get();
-                    } elseif (ord($this->_a) <= self::ORD_LF) {
+                        break;
+                    }
+
+                    if (is_null($this->_a)) {
                         throw new Exception('Unterminated regular expression literal.');
                     }
 
@@ -200,8 +225,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
         if (is_null($c) &&
             ($this->_inputIndex < $this->_inputLength)) {
-            $c = $this->_input[$this->_inputIndex];
-            $this->_inputIndex += 1;
+            $c = $this->_input[$this->_inputIndex++];
         }
 
         if (is_null($c) || ($c === "\n") || (ord($c) >= self::ORD_SPACE)) {
@@ -217,7 +241,28 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _isAlphaNum($c)
     {
-        return (ord($c) > 126 || preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c));
+        $c_ord = ord($c);
+
+        return (($c_ord > 126) ||
+                strspn($c, '_$\\') ||
+                ($c_ord >= 97 && $c_ord <= 122) ||
+                ($c_ord >= 48 && $c_ord <= 57) ||
+                ($c_ord >= 65 && $c_ord <= 90));
+    }
+
+    protected function _isRegexLiteral($oldindex)
+    {
+        if (strspn($this->_a, "(,=:[!&|?+-~*/{\n ")) {
+            return true;
+        }
+
+        $curr = $oldindex;
+        while (--$curr >= 0 && $this->_isAlphaNum($this->_input[$curr])) {}
+
+        return in_array(
+            substr($this->_input, $curr + 1, $oldindex - $curr - 1),
+            $this->_keywords
+        );
     }
 
     protected function _next()
@@ -227,36 +272,22 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         if ($c === '/') {
             switch ($this->_peek()) {
             case '/':
-                $comment = '';
-
                 while (true) {
                     $c = $this->_get();
-                    $comment .= $c;
                     if (ord($c) <= self::ORD_LF) {
-                        // IE conditional comment
-                        if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
-                            return '/' . $comment;
-                        }
                         break;
                     }
                 }
                 break;
 
             case '*':
-                $comment = '';
                 $this->_get();
 
                 while ($c != ' ') {
-                    switch ($get = $this->_get()) {
+                    switch ($this->_get()) {
                     case '*':
                         if ($this->_peek() === '/') {
                             $this->_get();
-
-                            // IE conditional comment
-                            if (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
-                                return '/*' . $comment . '*/';
-                            }
-
                             $c = ' ';
                         }
                         break;
@@ -264,8 +295,6 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                     case null:
                         throw new Exception('Unterminated comment.');
                     }
-
-                    $comment .= $get;
                 }
                 break;
             }

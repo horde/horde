@@ -129,7 +129,7 @@ class Horde_Timezone
         if (!isset($this->_zones[$alias])) {
             throw new Horde_Timezone_Exception(sprintf('Timezone %s not found', $zone));
         }
-        $this->_zones[$alias]->setTzid($alias);
+        $this->_zones[$alias]->setTzid($zone);
         return $this->_zones[$alias];
     }
 

@@ -22,10 +22,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>18:21:03</time>
+ <date>2013-10-29</date>
  <version>
-  <release>3.0.1</release>
+  <release>3.0.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Support nginx style Sendfile headers (Request #12661).
-* [mjr] Fix cancel button behavior on reporting page (Bug #12667).
-* [mjr] Prevent protected images from leaking into gallery thumbnails (Bug #12668).
-* [mjr] Fix adding custom watermark (Bug #12634).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -527,6 +523,7 @@
       <file name="point.png" role="horde" />
       <file name="prettythumb-error.png" role="horde" />
       <file name="problem.png" role="horde" />
+      <file name="report.png" role="horde" />
       <file name="resize.png" role="horde" />
       <file name="scaler_slider.gif" role="horde" />
       <file name="scaler_slider_track.gif" role="horde" />
@@ -1109,6 +1106,7 @@
    <install as="ansel/themes/default/graphics/point.png" name="themes/default/graphics/point.png" />
    <install as="ansel/themes/default/graphics/prettythumb-error.png" name="themes/default/graphics/prettythumb-error.png" />
    <install as="ansel/themes/default/graphics/problem.png" name="themes/default/graphics/problem.png" />
+   <install as="ansel/themes/default/graphics/report.png" name="themes/default/graphics/report.png" />
    <install as="ansel/themes/default/graphics/resize.png" name="themes/default/graphics/resize.png" />
    <install as="ansel/themes/default/graphics/scaler_slider.gif" name="themes/default/graphics/scaler_slider.gif" />
    <install as="ansel/themes/default/graphics/scaler_slider_track.gif" name="themes/default/graphics/scaler_slider_track.gif" />
@@ -1304,13 +1302,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Support nginx style Sendfile headers (Request #12661).
 * [mjr] Fix cancel button behavior on reporting page (Bug #12667).
 * [mjr] Prevent protected images from leaking into gallery thumbnails (Bug #12668).
 * [mjr] Fix adding custom watermark (Bug #12634).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

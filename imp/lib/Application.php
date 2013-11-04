@@ -119,6 +119,10 @@ class IMP_Application extends Horde_Registry_Application
         if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
             $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
+
+        /* Set exception handler to handle uncaught
+         * Horde_Imap_Client_Exceptions. */
+        set_exception_handler(array($this, 'exceptionHandler'));
     }
 
     /**
@@ -273,7 +277,7 @@ class IMP_Application extends Horde_Registry_Application
                     ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
 
                 $tree = $injector->getInstance('IMP_Ftree')->createTree($tree, array(
-                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER),
+                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                     'open' => false,
                     'poll_info' => true
                 ));
@@ -510,10 +514,12 @@ class IMP_Application extends Horde_Registry_Application
         switch ($vars->actionID) {
         case 'download_all':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadAll();
 
         case 'download_attach':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadAttach($vars->id, $vars->zip);
 
         case 'download_mbox':
@@ -557,6 +563,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'download_render':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+            $view_ob->checkToken($vars);
             return $view_ob->downloadRender($vars->id, $vars->mode, $vars->ctype);
 
         case 'save_message':
@@ -565,6 +572,19 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return array();
+    }
+
+    /* Exception handler. */
+
+    /**
+     */
+    public function exceptionHandler(Exception $e)
+    {
+        if ($e instanceof Horde_Imap_Client_Exception) {
+            $e = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+        }
+
+        Horde_ErrorHandler::fatal($e);
     }
 
 }

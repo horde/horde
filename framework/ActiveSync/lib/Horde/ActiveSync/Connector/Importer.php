@@ -79,6 +79,13 @@ class Horde_ActiveSync_Connector_Importer
     protected $_logger;
 
     /**
+     * Process id for logging.
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync $as  The server object.
@@ -86,6 +93,7 @@ class Horde_ActiveSync_Connector_Importer
     public function __construct(Horde_ActiveSync $as)
     {
         $this->_as = $as;
+        $this->_procid = getmypid();
     }
 
     /**
@@ -152,7 +160,7 @@ class Horde_ActiveSync_Connector_Importer
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 $this->_logger->notice(sprintf(
                     '[%s] Conflict when updating %s, will overwrite client version on next sync.',
-                    getmypid(), $id)
+                    $this->_procid, $id)
                 );
                 return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
@@ -161,7 +169,7 @@ class Horde_ActiveSync_Connector_Importer
                 // Already saw this addition, but PIM never received UID
                 $this->_logger->notice(sprintf(
                     '[%s] Duplicate addition for %s',
-                    getmypid(), $uid)
+                    $this->_procid, $uid)
                 );
                 return $uid;
             }
@@ -171,7 +179,7 @@ class Horde_ActiveSync_Connector_Importer
         if (!$stat = $this->_as->driver->changeMessage($this->_folderId, $id, $message, $device)) {
             $this->_logger->err(sprintf(
                 '[%s] Change message failed when updating %s',
-                getmypid(), $id)
+                $this->_procid, $id)
             );
             return false;
         }

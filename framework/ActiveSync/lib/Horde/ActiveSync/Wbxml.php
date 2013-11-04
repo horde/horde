@@ -839,7 +839,7 @@ class Horde_ActiveSync_Wbxml
     /**
      * Input or Output stream
      *
-     * @var stream resource
+     * @var Horde_Stream
      */
      protected $_stream;
 
@@ -863,7 +863,7 @@ class Horde_ActiveSync_Wbxml
      */
     public function __construct($stream)
     {
-        $this->_stream = $stream;
+        $this->_stream = new Horde_Stream_Existing(array('stream' => $stream));
         $this->_logger = new Horde_Support_Stub();
         $this->_procid = getmypid();
     }

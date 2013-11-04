@@ -28,7 +28,10 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
 
         parent::_addFields($this->_contact);
 
-        $this->addVariable(_("Add file"), 'vfs', 'file', false);
+        try {
+            $contact->vfsInit();
+            $this->addVariable(_("Add file"), 'vfs', 'file', false);
+        } catch (Turba_Exception $e) {}
 
         $object_values = $vars->get('object');
         $object_keys = array_keys($contact->attributes);

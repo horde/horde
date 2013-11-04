@@ -113,7 +113,7 @@ class Horde_Core_Notification_Event_Status extends Horde_Notification_Event_Stat
             return parent::__toString();
         }
 
-        return Horde::img($img, $label) .
+        return Horde_Themes_Image::tag($img, array('alt' => $label)) .
             (is_null($text) ? parent::__toString() : $text);
     }
 

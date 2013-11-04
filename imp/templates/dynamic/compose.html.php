@@ -108,27 +108,27 @@
      <td class="label">
       <span><?php echo _("To") ?>:</span>
      </td>
-     <td class="sendtextarea">
-      <?php echo $this->textAreaTag('to', null, array('size' => '75x1')) ?>
+     <td>
       <span id="to_loading_img" class="loadingImg" style="display:none"></span>
+      <?php echo $this->textAreaTag('to', null, array('size' => '75x1')) ?>
      </td>
     </tr>
     <tr id="sendcc" style="display:none">
      <td class="label">
       <span><?php echo _("Cc") ?>:</span>
      </td>
-     <td class="sendtextarea">
-      <?php echo $this->textAreaTag('cc', null, array('size' => '75x1')) ?>
+     <td>
       <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
+      <?php echo $this->textAreaTag('cc', null, array('size' => '75x1')) ?>
      </td>
     </tr>
     <tr id="sendbcc" style="display:none">
      <td class="label">
       <span><?php echo _("Bcc") ?>:</span>
      </td>
-     <td class="sendtextarea">
-      <?php echo $this->textAreaTag('bcc', null, array('size' => '75x1')) ?>
+     <td>
       <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
+      <?php echo $this->textAreaTag('bcc', null, array('size' => '75x1')) ?>
      </td>
     </tr>
     <tr>
@@ -158,7 +158,7 @@
        <span id="upload_wait" style="display:none"></span>
        <span>
         <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
-        <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
+        <?php echo $this->fileFieldTag('file_upload[]', array('id' => 'upload', 'multiple' => 'multiple')) ?>
        </span>
 <?php else: ?>
      <td></td>
@@ -201,5 +201,17 @@
   <div id="composeMessageParent">
    <textarea name="message" id="composeMessage" class="fixed"></textarea>
   </div>
+
+<?php if ($this->signature): ?>
+  <div id="signatureParent">
+   <div class="label">
+    <span id="signatureToggle" class="iconImg<?php if ($this->sigExpanded) echo ' signatureExpanded' ?>"></span>
+    <?php echo _("Signature")?>:
+   </div>
+   <div id="signatureBorder"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?>>
+    <textarea id="signature" name="signature" class="fixed"></textarea>
+   </div>
+  </div>
+<?php endif; ?>
  </div>
 </form>

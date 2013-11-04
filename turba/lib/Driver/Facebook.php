@@ -74,25 +74,34 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        $results = $this->_getAddressBook($fields);
+        $results = array();
 
-        foreach ($results as $key => $contact) {
-            $found = !isset($criteria['OR']);
+        foreach ($this->_getAddressBook($fields) as $key => $contact) {
+            // No search criteria, return full list.
+            if (!count($criteria)) {
+                $results[$key] = $contact;
+                continue;
+            }
             foreach ($criteria as $op => $vals) {
                 if ($op == 'AND') {
-                    foreach ($vals as $val) {
-                        if (isset($contact[$val['field']])) {
-                            switch ($val['op']) {
-                            case 'LIKE':
-                                if (stristr($contact[$val['field']], $val['test']) === false) {
-                                    continue 4;
+                    if (!count($vals)) {
+                        $found = false;
+                    } else {
+                        $found = true;
+                        foreach ($vals as $val) {
+                            if (isset($contact[$val['field']])) {
+                                switch ($val['op']) {
+                                case 'LIKE':
+                                    if (stristr($contact[$val['field']], $val['test']) === false) {
+                                        $found = false;
+                                        break 2;
+                                    }
                                 }
-                                $found = true;
-                                break;
                             }
                         }
                     }
                 } elseif ($op == 'OR') {
+                    $found = false;
                     foreach ($vals as $val) {
                         if (isset($contact[$val['field']])) {
                             switch ($val['op']) {
@@ -100,11 +109,13 @@ class Turba_Driver_Facebook extends Turba_Driver
                                 if (empty($val['test']) ||
                                     stristr($contact[$val['field']], $val['test']) !== false) {
                                     $found = true;
-                                    break 3;
+                                    break 2;
                                 }
                             }
                         }
                     }
+                } else {
+                    $found = false;
                 }
             }
             if ($found) {

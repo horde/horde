@@ -18,6 +18,15 @@ class Horde_Timezone_IcalendarTest extends Horde_Test_Case
         );
     }
 
+    public function testLosAngeles()
+    {
+        $tz = new Horde_Timezone_Mock('northamerica');
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/losangeles.ics',
+            $tz->getZone('America/Los_Angeles')->toVtimezone()->exportVcalendar()
+        );
+    }
+
     public function testEtc()
     {
         $tz = new Horde_Timezone_Mock('etcetera');

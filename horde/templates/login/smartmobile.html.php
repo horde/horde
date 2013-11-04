@@ -34,7 +34,7 @@
        <option value="dynamic"><?php echo _("Dynamic") ?></option>
        <option value="smartmobile"><?php echo _("Mobile (Smartphone/Tablet)") ?></option>
        <option value="mobile"><?php echo _("Mobile (Minimal)") ?></option>
-       <option value="mobile_nojs" selected="selected"></option>
+       <option value="mobile_nojs" selected="selected"><?php echo _("Mobile (No JavaScript)") ?></option>
       </select>
      </div>
 <?php elseif ($val['type'] == 'select'): ?>

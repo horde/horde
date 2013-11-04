@@ -39,7 +39,7 @@ class Kronolith_Storage_Kolab extends Kronolith_Storage
 
         try {
             $response = $http->get(sprintf('%s/%s.xfb', $server, $email));
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_NotFound();
         }
         if ($response->code != 200) {

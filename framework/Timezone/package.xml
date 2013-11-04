@@ -10,10 +10,9 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-06</date>
- <time>19:22:52</time>
+ <date>2013-10-28</date>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -51,6 +50,8 @@
        <file name="etcetera.ics" role="test" />
        <file name="europe" role="test" />
        <file name="europe.ics" role="test" />
+       <file name="losangeles.ics" role="test" />
+       <file name="northamerica" role="test" />
       </dir> <!-- /test/Horde/Timezone/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -116,6 +117,8 @@
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
    <install as="Horde/Timezone/fixtures/europe" name="test/Horde/Timezone/fixtures/europe" />
    <install as="Horde/Timezone/fixtures/europe.ics" name="test/Horde/Timezone/fixtures/europe.ics" />
+   <install as="Horde/Timezone/fixtures/losangeles.ics" name="test/Horde/Timezone/fixtures/losangeles.ics" />
+   <install as="Horde/Timezone/fixtures/northamerica" name="test/Horde/Timezone/fixtures/northamerica" />
   </filelist>
  </phprelease>
  <changelog>
@@ -193,7 +196,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2013-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix broken offsets during first zone rules.
+* [jan] Make BYMONTHDAY property as short as possible.
+* [jan] Fix missing time of day in DTSTART and UNTIL properties.
+* [jan] Don&apos;t create transitions that overlap.
+* [jan] Use orginally requested time zone instead of alias in TZID.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

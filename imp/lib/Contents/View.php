@@ -22,6 +22,8 @@
  */
 class IMP_Contents_View
 {
+    const VIEW_TOKEN_PARAM = 'view_token';
+
     /**
      * @var IMP_Contents
      */
@@ -266,24 +268,42 @@ class IMP_Contents_View
                 }
             }
 
-            $css = $page_output->css;
-            $style = '';
+            /* Cache CSS. */
+            $cache_list = array();
+            $cache_ob = $injector->getInstance('Horde_Cache');
 
-            try {
-                $css_parser = new Horde_Css_Parser($css->loadCssFiles($css->getStylesheets()));
+            $css_list = $page_output->css->getStylesheets();
+            foreach ($css_list as $val) {
+                $cache_list[] = $val;
+                $cache_list[] = filemtime($val);
+            }
+            $cache_id = hash('sha1', implode('', $cache_list));
 
-                foreach ($css_parser->doc->getContents() as $val) {
-                    if (($val instanceof Sabberworm\CSS\RuleSet\DeclarationBlock) &&
-                        array_intersect($selectors, array_map('strval', $val->getSelectors()))) {
-                        $style .= implode('', array_map('strval', $val->getRules()));
+            if (($style = $cache_ob->get($cache_id, 0)) === false) {
+                try {
+                    $css_parser = new Horde_Css_Parser(
+                        $page_output->css->loadCssFiles(
+                            $page_output->css->getStylesheets()
+                        )
+                    );
+
+                    $style = '';
+
+                    foreach ($css_parser->doc->getContents() as $val) {
+                        if (($val instanceof Sabberworm\CSS\RuleSet\DeclarationBlock) &&
+                            array_intersect($selectors, array_map('strval', $val->getSelectors()))) {
+                            $style .= implode('', array_map('strval', $val->getRules()));
+                        }
                     }
-                }
 
-                if (strlen($style)) {
-                    $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+                    $cache_ob->set($cache_id, $style, 86400);
+                } catch (Exception $e) {
+                    // Ignore CSS if it can't be parsed.
                 }
-            } catch (Exception $e) {
-                // Ignore CSS if it can't be parsed.
+            }
+
+            if (strlen($style)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
             }
         }
 
@@ -313,6 +333,55 @@ class IMP_Contents_View
             'name' => $part['name'],
             'type' => $part['type']
         );
+    }
+
+    /**
+     * Check for a download token.
+     *
+     * @param Horde_Variables $vars  Form variables.
+     *
+     * @throws Horde_Exception  Exception on incorrect token.
+     */
+    public function checkToken(Horde_Variables $vars)
+    {
+        $GLOBALS['session']->checkToken($vars->get(self::VIEW_TOKEN_PARAM));
+    }
+
+    /* Static methods. */
+
+    /**
+     * Returns a URL to be used for downloading data.
+     * IMP adds token data, since the data displayed is coming from a remote
+     * source.
+     *
+     * @see Horde_Registry#downloadUrl()
+     *
+     * @param string $filename  The filename of the download data.
+     * @param array $params     Additional URL parameters needed.
+     *
+     * @return Horde_Url  The download URL.
+     */
+    static public function downloadUrl($filename, array $params = array())
+    {
+        global $registry;
+
+        return $registry->downloadUrl($filename, self::addToken($params));
+    }
+
+    /**
+     * Adds the view token to a parameter list.
+     *
+     * @param array $params  URL parameters.
+     *
+     * @return array  Parameter list with token added.
+     */
+    static public function addToken(array $params = array())
+    {
+        global $session;
+
+        $params[self::VIEW_TOKEN_PARAM] = $session->getToken();
+
+        return $params;
     }
 
 }

@@ -293,7 +293,28 @@ abstract class Nag_Driver
         } else {
             $task = $this->get($taskId);
             $task->process();
-            $alarm = $task->toAlarm();
+            if (!$task->recurs()) {
+                $alarm = $task->toAlarm();
+            } else {
+                $alarm = null;
+                /* Get current occurrence (task due date) */
+                $current = $task->recurrence->nextActiveRecurrence(new Horde_Date($task->due));
+                if ($current) {
+                    /* Advance this occurence by a day to indicate that we
+                     * want the following occurence (Recurrence uses days
+                     * as minimal time duration between occurrences). */
+                    $current->mday++;
+                    /* Only mark this due date completed if there is another
+                     * occurence. */
+                    if ($next = $task->recurrence->nextActiveRecurrence($current)) {
+                        $alarm = $task->toAlarm();
+                        if ($alarm) {
+                            $alarm['start'] = new Horde_Date($next);
+                            $horde_alarm->set($alarm);
+                        }
+                    }
+                }
+            }
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
                 $horde_alarm->set($alarm);

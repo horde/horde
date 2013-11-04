@@ -194,7 +194,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($key) {
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
             break;
@@ -397,6 +398,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_debug->info('Successfully completed TLS negotiation.');
 
             $this->setParam('secure', 'tls');
+            $secure = 'tls';
 
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -412,6 +414,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        /* If we reached this point and don't have a secure connection, then
+         * a secure connections is not available. */
+        if (($secure === true) && !$this->isSecureConnection()) {
+            $this->setParam('secure', false);
+            $secure = false;
+        }
+
         if ($first_login) {
             // Add authentication methods.
             $auth_mech = array();
@@ -423,14 +432,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
                 $auth_mech[] = 'XOAUTH2';
-                unset($auth['XOAUTH2']);
             }
+            unset($auth['XOAUTH2']);
 
-            // 'PLAIN' authentication always exists if under TLS. Use it over
-            // all over authentication methods.
-            if ($this->isSecureConnection()) {
-                $auth_mech[] = 'PLAIN';
-                unset($auth['PLAIN']);
+            /* 'PLAIN' authentication always exists if under TLS (RFC
+             *  3501 [7.2.1]; RFC 2595). Use it over all other authentication
+             *  methods, although we need to do sanity checking since broken
+             *  IMAP servers may not support as required - fallback to
+             *  LOGIN instead. */
+            if ($secure) {
+                if (isset($auth['PLAIN'])) {
+                    $auth_mech[] = 'PLAIN';
+                    unset($auth['PLAIN']);
+                } else {
+                    $auth_mech[] = 'LOGIN';
+                }
             }
 
             // Prefer CRAM-MD5 over DIGEST-MD5, as the latter has been
@@ -444,7 +460,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // Fall back to 'LOGIN' if available.
             $auth_mech = array_merge($auth_mech, array_keys($auth));
-            if (!$this->queryCapability('LOGINDISABLED')) {
+            if (!$secure && !$this->queryCapability('LOGINDISABLED')) {
                 $auth_mech[] = 'LOGIN';
             }
 
@@ -541,7 +557,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket($this, $this->_debug);
+        try {
+            $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket(
+                $this->getParam('hostspec'),
+                $this->getParam('port'),
+                $this->getParam('timeout'),
+                $this->getParam('secure'),
+                array(
+                    'debug' => $this->_debug,
+                    'debugliteral' => $this->getParam('debug_literal')
+                )
+            );
+        } catch (Horde\Socket\Client\Exception $e) {
+            $e2 = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
+            $e2->details = $e->details;
+            throw $e2;
+        }
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the initial banner.
@@ -4125,15 +4159,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         switch ($server->status) {
         case $server::BAD:
+        case $server::NO:
             /* A tagged BAD response indicates that the tagged command caused
              * the error. This information is unknown if untagged (RFC 3501
-             * [7.1.3]). */
-            throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("IMAP error reported by server."),
-                0,
-                $server,
-                $pipeline
-            );
+             * [7.1.3]) - ignore these untagged responses.
+             * An untagged NO response indicates a warning; ignore and assume
+             * that it also included response text code that is handled
+             * elsewhere. Throw exception if tagged; command handlers can
+             * catch this if able to workaround this issue (RFC 3501
+             * [7.1.2]). */
+            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                throw new Horde_Imap_Client_Exception_ServerResponse(
+                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
+                    0,
+                    $server,
+                    $pipeline
+                );
+            }
+            break;
 
         case $server::BYE:
             /* A BYE response received as part of a logout command should be
@@ -4148,21 +4191,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 throw $e;
             }
             break;
-
-        case $server::NO:
-            /* An untagged NO response indicates a warning; ignore and assume
-             * that it also included response text code that is handled
-             * elsewhere. Throw exception if tagged; command handlers can
-             * catch this if able to workaround this issue (RFC 3501
-             * [7.1.2]). */
-            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
-                throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
-                    0,
-                    $server,
-                    $pipeline
-                );
-            }
 
         case $server::PREAUTH:
             /* The user was pre-authenticated. (RFC 3501 [7.1.4]) */

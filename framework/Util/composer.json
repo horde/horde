@@ -1,0 +1,46 @@
+{
+    "name": "horde/horde-util",
+    "description": "Horde Utility Libraries",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "developer"
+        }
+    ],
+    "version": "2.3.1",
+    "time": "2013-06-27",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-dom": "*"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Imap_Client": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "ext-ctype": "*",
+        "ext-filter": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-xml": "*"
+    }
+}

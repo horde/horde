@@ -144,6 +144,11 @@ class Horde_Test
             'descrip' => 'memcached Support (memcache) (PECL extension)',
             'error' => 'The memcache PECL extension is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
         ),
+        'mongo' => array(
+            'descrip' => 'MongoDB support (PECL extension)',
+            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install this extension.',
+            'function' => '_checkMongo'
+        ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
             'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.'
@@ -298,7 +303,7 @@ class Horde_Test
      * @var array
      */
     protected $_fileList = array(
-        'config/conf.php' => null,
+        'config/conf.php' => 'You need to login to Horde as an administrator and create the configuration file.'
     );
 
     /**
@@ -512,6 +517,20 @@ class Horde_Test
     }
 
     /**
+     */
+    protected function _checkMongo()
+    {
+        if (!extension_loaded('mongo')) {
+            return false;
+        }
+        if (version_compare(phpversion('mongo'), '1.3.0') === -1) {
+            return 'The Mongo extension you have installed is too old.';
+        }
+
+        return true;
+    }
+
+    /**
      * Checks the list of PHP settings.
      *
      * @params array $settings  The list of settings to check.
@@ -682,31 +701,92 @@ class Horde_Test
     public function requiredFileCheck()
     {
         $output = '';
+
+        $php = trim(system('which php'));
+        if (!$php || !file_exists($php)) {
+            $output = '<p style="color:orange">Cannot find PHP command-line binary on your system. Syntax checking of configuration files is disabled.</p>';
+            $php = null;
+        } else {
+            $output = '';
+        }
+
+        ksort($this->_fileList);
+
+        return $output . $this->_requiredFileCheck($this->_fileList, $php);
+    }
+
+    /**
+     * Check the list of required files
+     *
+     * @param array $filelist    List of files to check.
+     * @param string $php        PHP CLI location.
+     * @param boolean $is_local  Is filelist a "local" file?
+     *
+     * @return string  The HTML output.
+     */
+    protected function _requiredFileCheck($filelist, $php, $is_local = false)
+    {
         $filedir = $GLOBALS['registry']->get('fileroot');
+        $output = $tmp = '';
 
-        foreach ($this->_fileList as $key => $val) {
-            $entry = array();
-            $result = file_exists($filedir . '/' . $key);
+        foreach ($filelist as $key => $val) {
+            $entry = array($key);
+            $file = $filedir . '/' . $key;
+            $entry2 = null;
 
-            $entry[] = $key;
-            $entry[] = $this->_status($result);
-
-            if (!$result) {
-                if (empty($val)) {
-                    $text = 'The file <code>' . $key . '</code> appears to be missing.';
-                    if ($key == 'config/conf.php') {
-                        $text .= ' You need to login to Horde as an administrator and create the initial configuration file.';
+            if (file_exists($file)) {
+                if (is_readable($file)) {
+                    if (is_null($php)) {
+                        $entry[] = $this->_status(true);
+                        $check_local = true;
                     } else {
-                        $text .= ' You probably just forgot to copy <code>' . $key . '.dist</code> over. While you do that, take a look at the settings and make sure they are appropriate for your site.';
+                        exec(escapeshellcmd($php) . ' -l ' . escapeshellarg($file), $tmp, $error);
+                        if ($error === 255) {
+                            $entry[] = $this->_status(false);
+                            $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> has PHP syntax errors:' . "\n<pre>" . htmlspecialchars(trim(implode("\n", $tmp))) . '</pre>';
+                        } else {
+                            ob_start();
+                            include $file;
+                            $parse_contents = trim(ob_get_clean());
+
+                            if (strlen($parse_contents)) {
+                                $entry[] = $this->_status(false);
+                                $contents = file_get_contents($file);
+                                if (preg_match("/<?php\s+/", $contents)) {
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is outputting a non-empty string when parsed. Configuration files should not output anything. Output string:' . "\n<pre>" . htmlspecialchars($parse_contents) . '</pre>';
+                                } else {
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'<?php\' opening tag.';
+                                }
+                            } else {
+                                $entry[] = $this->_status(true);
+                                $check_local = true;
+                            }
+                        }
                     }
 
-                    $entry[] = $text;
+                    if ($check_local && !$is_local) {
+                        $local_file = preg_replace("/\.php$/", '.local.php', $key);
+                        if (file_exists($filedir . '/' . $local_file)) {
+                            $entry2 = $this->_requiredFileCheck(array(
+                                $local_file => null
+                            ), $php, true);
+                        }
+                    }
                 } else {
-                    $entry[] = $val;
+                    $entry[] = $this->_status(false);
+                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is not readable by the web user.';
                 }
+            } else {
+                $entry[] = $this->_status(false);
+                $entry[] = empty($val)
+                    ? 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing.'
+                    : $val;
             }
 
             $output .= $this->_outputLine($entry);
+            if (!is_null($entry2)) {
+                $output .= $entry2;
+            }
         }
 
         return $output;
@@ -874,7 +954,7 @@ class Horde_Test
             $im = new Imagick();
             $imagick = is_callable(array($im, 'getIteratorIndex'));
             $ret .= '</li></ul><h1>Imagick</h1><ul>' .
-                '<li>Imagick compiled against current ImageMagick version: ' . ($imagick ? 'Yes' : 'No');
+                '<li>Imagick compiled against current ImageMagick version: <strong style="color:' . ($imagick ? 'green">Yes' : 'red">No') . '</strong>';
         }
 
         return $ret . '</li></ul>';

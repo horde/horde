@@ -35,7 +35,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Call the mailbox redirection hook, if requested. */
         try {
-            $redirect = Horde::callHook('mbox_redirect', array($mailbox), 'imp');
+            $redirect = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'mbox_redirect',
+                'imp',
+                array($mailbox)
+            );
             if (!empty($redirect)) {
                 Horde::url($redirect, true)->redirect();
             }
@@ -243,7 +247,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'heading' => _("Messages to"),
                 'inc_notepads' => true,
                 'inc_tasklists' => true,
-                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP),
+                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                 'new_mbox' => true
             ));
         }
@@ -880,13 +884,10 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             }
 
             /* Get all the flag information. */
-            try {
-                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             $flag_parse = $imp_flags->parse(array(
                 'flags' => $ob['flags'],
                 'headers' => $ob['headers'],
+                'runhook' => $ob,
                 'personal' => $ob['envelope']->to
             ));
 
@@ -1002,7 +1003,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
     {
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
+            $msgs = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'mailboxarray',
+                'imp',
+                array($msgs)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $view->messages = $msgs;

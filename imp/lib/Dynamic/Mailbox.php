@@ -43,11 +43,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $page_output->addScriptFile('colorpicker.js', 'horde');
-            $this->view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
+            $this->view->picker_img = Horde_Themes_Image::tag('colorpicker.png', array('alt' => _("Color Picker")));
         }
 
         if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
-            $page_output->addScriptFile('base64.js');
+            $page_output->addScriptFile('external/base64.js');
         }
 
         $this->_addMailboxVars();
@@ -134,6 +134,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->js_conf += array_filter(array(
             // URLs
+            'URI_LISTINFO' => strval(IMP_Basic_Listinfo::url(array('full' => true))),
             'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
@@ -289,6 +290,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             );
         }
 
+        $subscribe = $prefs->getValue('subscribe');
+        if (!$subscribe) {
+            unset(
+                $context['ctx_folderopts']['sub'],
+                $context['ctx_folderopts']['unsub']
+            );
+        }
+
         /* Message context menu. */
         $context['ctx_message'] = array(
             '_sub1' => array(
@@ -309,6 +318,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'innocent' => _("Report as Innocent"),
             'blacklist' => _("Blacklist"),
             'whitelist' => _("Whitelist"),
+            'addfilter' => _("Create Filter"),
             'delete' => _("Delete"),
             'undelete' => _("Undelete"),
             '_sub3' => array(
@@ -322,6 +332,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
+        }
+        if (!$registry->hasInterface('mail/newEmailFilter')) {
+            unset($context['ctx_message']['addfilter']);
         }
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_message']['undelete']);
@@ -361,7 +374,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        if (!$prefs->getValue('subscribe')) {
+        if (!$subscribe) {
             unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
         }
 
@@ -416,7 +429,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'save' => _("Save"),
             'viewsource' => _("View Source"),
             'allparts' => _("All Parts"),
-            'thread' => _("View Thread")
+            'thread' => _("View Thread"),
+            'listinfo' => _("List Info")
         );
 
         if (empty($conf['user']['allow_view_source'])) {
@@ -502,14 +516,19 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("%s selected."),
             'slidertext' => _("Messages %d - %d"),
-            'subscribe_mbox' => _("Subscribe to %s?"),
-            'subscribe_mbox_subfolders' => _("Subscribe to all subfolders of %s?"),
-            'unsubscribe_mbox' => _("Unsubscribe to %s?"),
-            'unsubscribe_mbox_subfolders' => _("Unsubscribe to all subfolders of %s?"),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),
             'vp_empty_search' => _("No messages matched the search query.")
         );
+
+        if ($subscribe) {
+            $this->js_text += array(
+                'subscribe_mbox' => _("Subscribe to %s?"),
+                'subscribe_mbox_subfolders' => _("Subscribe to all subfolders of %s?"),
+                'unsubscribe_mbox' => _("Unsubscribe to %s?"),
+                'unsubscribe_mbox_subfolders' => _("Unsubscribe to all subfolders of %s?"),
+            );
+        }
     }
 
 }

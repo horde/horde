@@ -1,0 +1,37 @@
+{
+    "name": "horde/horde-push",
+    "description": "A package for broadcasting status updates and content to various social network services.",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Gunnar Wrobel",
+            "email": "wrobel@pardus.de",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2012-11-19",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Argv": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Cli": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Feed": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Http": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Mail": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Mime": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Service_Twitter": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Yaml": ">=2.0.0,<=3.0.0alpha1"
+    }
+}

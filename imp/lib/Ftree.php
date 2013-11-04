@@ -782,7 +782,15 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         if (empty($this->_temp['nohook'])) {
             try {
-                $this->setAttribute('invisible', $name, !Horde::callHook('display_folder', array($name), 'imp'));
+                $this->setAttribute(
+                    'invisible',
+                    $name,
+                    !$GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                        'display_folder',
+                        'imp',
+                        array($name)
+                    )
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $this->_temp['nohook'] = true;
             }
@@ -852,8 +860,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function count()
     {
-        $this->loadUnsubscribed();
-
         return iterator_count(
             IMP_Ftree_IteratorFilter::create(
                 IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB

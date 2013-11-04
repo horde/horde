@@ -49,11 +49,9 @@ implements Horde_Shutdown_Task
         $sig = implode('|', array($app, $theme));
 
         if (!isset($this->_instances[$sig])) {
-            if (!empty($GLOBALS['conf']['cachethemes'])) {
-                $cache = $this->_injector->getInstance('Horde_Cache');
-            } else {
-                $cache = null;
-            }
+            $cache = empty($GLOBALS['conf']['cachethemes'])
+                ? null
+                : $this->_injector->getInstance('Horde_Cache');
 
             if (!$cache || ($cache instanceof Horde_Cache_Null)) {
                 $instance = new Horde_Themes_Cache($app, $theme);

@@ -62,6 +62,11 @@ case 'edit':
     break;
 
 case 'editform':
+    $injector->getInstance('Horde_Token')->validate(
+        $vars->token,
+        'horde.shares'
+    );
+
     try {
         $share = $shares->getShareById($vars->cid);
     } catch (Horde_Share_Exception $e) {

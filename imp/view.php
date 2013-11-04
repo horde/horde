@@ -46,11 +46,13 @@ case 'compose_attach_preview':
 
 case 'print_attach':
     $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+    $view_ob->checkToken($vars);
     $res = $view_ob->printAttach($vars->id);
     break;
 
 case 'view_attach':
     $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
+    $view_ob->checkToken($vars);
     $res = $view_ob->viewAttach($vars->id, $vars->mode, $vars->autodetect, $vars->ctype);
     break;
 

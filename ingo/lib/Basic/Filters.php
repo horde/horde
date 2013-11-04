@@ -43,8 +43,18 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         /* Permissions. */
         $perms = $injector->getInstance('Horde_Core_Perms');
 
+        /* Token checking. */
+        $actionID = $this->_checkToken(array(
+            'rule_down',
+            'rule_up',
+            'rule_copy',
+            'rule_delete',
+            'rule_disable',
+            'rule_enable',
+        ));
+
         /* Perform requested actions. */
-        switch ($this->vars->actionID) {
+        switch ($actionID) {
         case 'rule_down':
         case 'rule_up':
         case 'rule_copy':
@@ -56,7 +66,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 self::url()->redirect();
             }
 
-            switch ($this->vars->actionID) {
+            switch ($actionID) {
             case 'rule_delete':
                 if (!$delete_allowed) {
                     $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
@@ -148,7 +158,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $filter_list = $filters->getFilterList();
 
         /* Common URLs. */
-        $filters_url = self::url();
+        $filters_url = $this->_addToken(self::url());
         $rule_url = Ingo_Basic_Rule::url();
 
         $view = new Horde_View(array(

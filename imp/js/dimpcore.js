@@ -41,7 +41,7 @@ var DimpCore = {
         params = params || {};
         params.type = type;
 
-        HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, params, {
+        HordeCore.popupWindow(this.conf.URI_COMPOSE, params, {
             name: 'compose' + new Date().getTime()
         });
     },
@@ -177,7 +177,9 @@ var DimpCore = {
     toggleCheck: function(elt, on)
     {
         if (on === null) {
-            elt.hide();
+            if (elt) {
+                elt.hide();
+            }
             return;
         }
 
@@ -226,15 +228,25 @@ var DimpCore = {
         var baseelt = e.element();
 
         switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_contacts_new':
-            this.compose('new', {
-                to_json: Object.toJSON(baseelt.retrieve('email'))
-            });
-            break;
-
         case 'ctx_contacts_add':
             this.doAction('addContact', {
                 addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_addfilter':
+            this.doAction('newFilter', {
+                addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_copy':
+            window.prompt(DimpCore.text.emailcopy, baseelt.retrieve('email').b);
+            break;
+
+        case 'ctx_contacts_new':
+            this.compose('new', {
+                to_json: Object.toJSON(baseelt.retrieve('email'))
             });
             break;
         }
@@ -242,22 +254,40 @@ var DimpCore = {
 
     contextOnShow: function(e)
     {
-        var tmp;
+        var tmp, tmp2;
 
         switch (e.memo) {
         case 'ctx_contacts':
-            tmp = $(e.memo).down('DIV.contactAddr');
-            if (tmp) {
-                tmp.next().remove();
-                tmp.remove();
-            }
+            tmp = $(e.memo).down('DIV');
+            tmp.hide().childElements().invoke('remove');
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if ((tmp = e.element().retrieve('email')) && !tmp.g && tmp.p) {
-                $(e.memo)
-                    .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp.b.escapeHTML()) });
+            if (tmp2 = e.element().retrieve('email')) {
+                this.doAction('getContactsImage', {
+                    addr: tmp2.b
+                }, {
+                    callback: function (r) {
+                        if (r.flag) {
+                            tmp.show().insert({
+                                top: new Element('DIV')
+                                    .addClassName('flagimg')
+                                    .insert(new Element('IMG', { title: r.flagname, src: r.flag }))
+                                    .insert(r.flagname.escapeHTML())
+                            });
+                        }
+                        if (r.avatar) {
+                            tmp.show().insert({
+                                top: new Element('IMG', { src: r.avatar }).addClassName('contactimg')
+                            });
+                        }
+                    }
+                });
+
+                if (!tmp2.g && tmp2.p) {
+                    tmp.show().insert({ top: new Element('DIV', { className: 'sep' }) })
+                        .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
+                }
             }
             break;
         }

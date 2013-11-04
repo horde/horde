@@ -219,7 +219,7 @@ var Horde_Calendar =
 
     init: function()
     {
-        var i, link, row,
+        var i, link, row, tmp,
             offset = this.click_week ? 1 : 0,
             thead = new Element('THEAD'),
             table = new Element('TABLE', { className: 'hordeCalendarPopup', cellSpacing: 0 }).insert(thead).insert(new Element('TBODY'));

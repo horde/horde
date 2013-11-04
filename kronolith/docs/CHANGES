@@ -1,7 +1,20 @@
 ----------
-v4.1.4-git
+v4.1.5-git
 ----------
 
+[jan] Fix deleting calendars with exceptions to recurring events.
+[jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
+
+
+------
+v4.1.4
+------
+
+[jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
+      #12804).
+[jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
+[jan] Fix edge case that allowed to enter start time after end time (Bug
+      #12752).
 [mjr] Expire fb cache when fb_cals preference changes (Bug #12714).
 [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
 [mjr] Fix importing new ActiveSync events created on the client with

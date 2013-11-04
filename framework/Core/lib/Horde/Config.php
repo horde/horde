@@ -110,7 +110,7 @@ class Horde_Config
      * @return array  Keys are app names, values are arrays with two keys:
      *                'version' and 'url'.
      * @throws Horde_Exception
-     * @throws Horde_Http_Client_Exception
+     * @throws Horde_Http_Exception, Horde_Exception
      */
     public function checkVersions()
     {
@@ -1401,6 +1401,10 @@ class Horde_Config
             'default' => $default,
             'is_default' => $isDefault,
             'switch' => array(
+                'None' => array(
+                    'desc' => 'None',
+                    'fields' => array()
+                ),
                 'File' => array(
                     'desc' => 'Files on the local system',
                     'fields' => array(

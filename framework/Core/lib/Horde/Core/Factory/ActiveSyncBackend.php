@@ -12,6 +12,12 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
         // Backend driver and dependencies
         $params = array('registry' => $registry);
         $adapter_params = array('factory' => new Horde_Core_ActiveSync_Imap_Factory());
+
+        // Force emailsync to off if we don't have a mail API.
+        if (!$registry->hasInterface('mail')) {
+            $conf['activesync']['emailsync'] = false;
+        }
+
         $driver_params = array(
             'connector' => new Horde_Core_ActiveSync_Connector($params),
             'imap' => !empty($conf['activesync']['emailsync'])

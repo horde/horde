@@ -142,7 +142,6 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // We discard the importer state for now.
             $this->_encoder->startTag(self::STATUS);
             $this->_encoder->content($status);
             $this->_encoder->endTag();

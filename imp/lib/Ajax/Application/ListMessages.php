@@ -23,13 +23,6 @@
 class IMP_Ajax_Application_ListMessages
 {
     /**
-     * Does the flags hook exist?
-     *
-     * @var boolean
-     */
-    protected $_flaghook = true;
-
-    /**
      * Returns a list of messages for use with ViewPort.
      *
      * @var array $args  TODO
@@ -242,6 +235,8 @@ class IMP_Ajax_Application_ListMessages
          * update them. */
         if ($mbox->readonly) {
             $result->setMetadata('readonly', 1);
+            $result->setMetadata('nodelete', 1);
+            $result->setMetadata('expunge', 1);
         } else {
             if (!$mbox->access_deletemsgs) {
                 $result->setMetadata('nodelete', 1);
@@ -415,6 +410,8 @@ class IMP_Ajax_Application_ListMessages
      */
     private function _getOverviewData($mbox, $msglist)
     {
+        global $injector, $prefs;
+
         $msgs = array();
 
         if (empty($msglist)) {
@@ -423,41 +420,28 @@ class IMP_Ajax_Application_ListMessages
 
         /* Get mailbox information. */
         $flags = $mbox->access_flags;
+        $imp_flags = $injector->getInstance('IMP_Flags');
         $imp_ui = new IMP_Mailbox_Ui($mbox);
         $list_ob = $mbox->list_ob;
         $overview = $list_ob->getMailboxArray($msglist, array(
             'headers' => true,
-            'type' => $GLOBALS['prefs']->getValue('atc_flag')
+            'type' => $prefs->getValue('atc_flag')
         ));
 
         /* Display message information. */
         reset($overview['overview']);
         while (list(,$ob) = each($overview['overview'])) {
-            /* Initialize the header fields. */
-            $msg = array(
-                'flag' => array()
-            );
-
             /* Get all the flag information. */
-            if ($flags) {
-                if ($this->_flaghook) {
-                    try {
-                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $this->_flaghook = false;
-                    }
-                }
-
-                $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
-                    'flags' => $ob['flags'],
-                    'headers' => $ob['headers'],
-                    'personal' => $ob['envelope']->to
-                ));
-
-                foreach ($flag_parse as $val) {
-                    $msg['flag'][] = $val->id;
-                }
-            }
+            $msg = array(
+                'flag' => $flags
+                    ? array_map('strval', $imp_flags->parse(array(
+                          'flags' => $ob['flags'],
+                          'headers' => $ob['headers'],
+                          'runhook' => $ob,
+                          'personal' => $ob['envelope']->to
+                      )))
+                    : array()
+            );
 
             /* Format size information. */
             $msg['size'] = IMP::sizeFormat($ob['size']);
@@ -485,7 +469,11 @@ class IMP_Ajax_Application_ListMessages
 
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
+            $msgs = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'mailboxarray',
+                'imp',
+                array($msgs)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;

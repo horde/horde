@@ -185,6 +185,15 @@ interface Components_Component
     public function timestampAndSync($options);
 
     /**
+     * Updates the composer.json file.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function updateComposer($options);
+
+    /**
      * Add the next version to the package.xml.
      *
      * @param string $version           The new version number.

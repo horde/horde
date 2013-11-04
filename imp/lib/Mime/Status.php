@@ -116,7 +116,7 @@ class IMP_Mime_Status
      */
     public function icon($img, $alt = null)
     {
-        $this->_icon = Horde::img($img, $alt);
+        $this->_icon = Horde_Themes_Image::tag($img, array('alt' => $alt));
     }
 
     /**

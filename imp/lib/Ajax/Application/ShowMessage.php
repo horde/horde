@@ -335,7 +335,13 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $partlist;
         }
 
-        $result['save_as'] = $registry->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mbox->urlParams($uid)));
+        $result['save_as'] = IMP_Contents_View::downloadUrl(
+            htmlspecialchars_decode($result['subject']),
+            array_merge(
+                array('actionID' => 'save_message'),
+                $mbox->urlParams($uid)
+            )
+        );
 
         if ($preview) {
             /* Need to grab cached inline scripts. */

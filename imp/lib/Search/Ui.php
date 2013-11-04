@@ -43,15 +43,16 @@ class IMP_Search_Ui
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
+        $ftree = $injector->getInstance('IMP_Ftree');
         $mask = $unsub
             ? IMP_Ftree_IteratorFilter::UNSUB
-            : 0;
+            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
         if ($registry->getView() != $registry::VIEW_DYNAMIC) {
             $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
         }
         $filter = IMP_Ftree_IteratorFilter::create($mask);
 
-        $ob->tree = $injector->getInstance('IMP_Ftree')->createTree('imp_search', array(
+        $ob->tree = $ftree->createTree('imp_search', array(
             'iterator' => $filter,
             'render_params' => array(
                 'abbrev' => 0,

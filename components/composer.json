@@ -1,0 +1,45 @@
+{
+    "name": "horde/components",
+    "description": "A package for dealing with Horde components",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Gunnar Wrobel",
+            "email": "p@rdus.de",
+            "role": "lead"
+        }
+    ],
+    "version": "0.99.1",
+    "time": "2013-02-13",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.1",
+        "pear-pear.horde.org/Horde_Autoloader": "*",
+        "pear-pear.horde.org/Horde_Argv": "*",
+        "pear-pear.horde.org/Horde_Cli": "*",
+        "pear-pear.horde.org/Horde_Cli_Modular": "*",
+        "pear-pear.horde.org/Horde_Http": "*",
+        "pear-pear.horde.org/Horde_Pear": "*",
+        "pear-pear.horde.org/Horde_Role": "*",
+        "pear-pear.horde.org/Horde_Text_Diff": "*",
+        "pear-pear.horde.org/Horde_Util": "*",
+        "pear-pear.horde.org/Horde_Injector": "*",
+        "pear-pear.horde.org/Horde_Release": "*"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Test": "*",
+        "pear-pear.php.net/PHP_CodeSniffer": "*",
+        "pear-pear.phpunit.de/PHPUnit": "*",
+        "pear-pear.phpunit.de/phpcpd": "*",
+        "pear-pear.phpunit.de/phpdcd": "*",
+        "pear-pear.phpunit.de/phploc": "*",
+        "pear-pear.phpmd.org/PHP_PMD": "*"
+    }
+}

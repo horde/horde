@@ -19,21 +19,21 @@
     <option value="pop3"><?php echo _("POP3") ?></option>
    </select>
   </td>
-  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
+  <td class="required"><?php echo Horde_Themes_Image::tag('required.png', array('alt' => '*')) ?></td>
  </tr>
  <tr>
   <td class="horde-form-label"><?php echo _("Server") ?>:</td>
   <td>
    <input name="remote_server" size="30" />
   </td>
-  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
+  <td class="required"><?php echo Horde_Themes_Image::tag('required.png', array('alt' => '*')) ?></td>
  </tr>
  <tr>
   <td class="horde-form-label"><?php echo _("Username") ?>:</td>
   <td>
    <input name="remote_user" size="30" />
   </td>
-  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
+  <td class="required"><?php echo Horde_Themes_Image::tag('required.png', array('alt' => '*')) ?></td>
  </tr>
  <tr>
   <td class="horde-form-label"><?php echo _("Port") ?>:</td>
@@ -88,7 +88,7 @@
    <td class="remoteSecure"><?php echo _("Yes") ?></td>
 <?php endif; ?>
    <td>
-    <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete.png') ?></a>
+    <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete-small.png') ?></a>
    </td>
   </tr>
 <?php endforeach; ?>

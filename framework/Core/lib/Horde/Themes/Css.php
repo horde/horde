@@ -108,6 +108,12 @@ class Horde_Themes_Css
             return $css_out;
         }
 
+        if (!empty($conf['cachecssparams']['filemtime'])) {
+            foreach ($css as &$val) {
+                $val['mtime'] = @filemtime($val['fs']);
+            }
+        }
+
         $out = '';
         $sig = hash('md5', serialize($css) . $this->_cacheid);
 
@@ -218,13 +224,14 @@ class Horde_Themes_Css
         }
 
         /* Add user-defined additional stylesheets. */
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
         try {
-            $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
+            $add_css = array_merge($add_css, $hooks->callHook('cssfiles', 'horde', array($theme)));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if ($curr_app != 'horde') {
             try {
-                $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
+                $add_css = array_merge($add_css, $hooks->callHook('cssfiles', $curr_app, array($theme)));
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -343,7 +350,7 @@ class Horde_Themes_Css
                 } else {
                     if ($dataurl) {
                         /* Limit data to 16 KB in stylesheets. */
-                        $url_ob->setString(Horde::base64ImgData($path . $url_str, 16384));
+                        $url_ob->setString(Horde_Themes_Image::base64ImgData($path . $url_str, 16384));
                     } else {
                         $url_ob->setString($path . $url_str);
                     }

@@ -1,0 +1,40 @@
+{
+    "name": "horde/horde-controller",
+    "description": "Horde Controller libraries",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Mike Naberezny",
+            "email": "mike@naberezny.com",
+            "role": "lead"
+        },
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.0.2",
+    "time": "2012-11-19",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Injector": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Log": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "ext-mbstring": "*",
+        "ext-zlib": "*"
+    }
+}

@@ -149,6 +149,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         if ($this->_params['html']) {
             $args[] = '-H';
+            $args[] = '--rem-html-check=alt';
         }
 
         return escapeshellcmd($this->_params['path']) . ' ' .

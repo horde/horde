@@ -105,7 +105,7 @@ class Horde_Core_Block_Layout
         if ($edit) {
             $icons .= Horde::link($this->getActionUrl('edit', $row, $col),
                                   Horde_Core_Translation::t("Edit"))
-                . Horde::img('edit.png', Horde_Core_Translation::t("Edit"))
+                . Horde_Themes_Image::tag('edit.png', array('alt' => Horde_Core_Translation::t("Edit")))
                 . '</a>';
         }
 
@@ -115,7 +115,7 @@ class Horde_Core_Block_Layout
                 '', '',
                 'return window.confirm(\''
                 . addslashes(Horde_Core_Translation::t("Really delete this block?")) . '\')')
-                . Horde::img('delete.png', Horde_Core_Translation::t("Remove"))
+                . Horde_Themes_Image::tag('delete.png', array('alt' => Horde_Core_Translation::t("Remove")))
                 . '</a>';
         }
 

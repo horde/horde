@@ -33,10 +33,7 @@ class IMP_Ftree_IteratorFilter_Ancestors extends IMP_Ftree_IteratorFilter
             $elts = array_merge($elt->child_list, $elts);
         }
 
-        $ob = new self(new IMP_Ftree_Iterator($elts));
-        $ob->setFilter($mask | self::NO_CHILDREN);
-
-        return $ob->getIterator();
+        return parent::create($mask | self::NO_CHILDREN, $elts);
     }
 
 }

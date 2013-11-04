@@ -36,25 +36,21 @@ abstract class IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     *   - format: (string) The formats of the quota messages in the user
-     *             interface. Must be a hash with the four possible elements
-     *             'long', 'short', 'nolimit_long', and 'nolimit_short'. The
-     *             strings will be passed through sprintf().
      *   - unit: (string) What storage unit the quota messages should be
      *           displayed in. Either 'GB', 'MB', or 'KB'.
      *   - username: (string) The username to query.
      */
     public function __construct(array $params = array())
     {
-        $this->_params = array_merge($this->_params, $params);
-
-        $this->_params['format'] = array(
-            'short' => isset($this->_params['format']['short'])
-                ? $this->_params['format']['short']
-                : _("%.0f%% of %.0f %s"),
-            'nolimit_short' => isset($this->_params['format']['nolimit_short'])
-                ? $this->_params['format']['nolimit_short']
-                : _("%.0f %s")
+        $this->_params = array_merge(
+            $this->_params,
+            array(
+                'format' => array(
+                    'nolimit_short' => _("%.0f %s"),
+                    'short' => _("%.0f%% of %.0f %s")
+                )
+            ),
+            $params
         );
     }
 

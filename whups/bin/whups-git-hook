@@ -128,7 +128,7 @@ function post_comment($ticket, $log_message) {
             $GLOBALS['rpc_method'],
             $http,
             array((int)$ticket, $log_message));
-    } catch (Horde_Http_Client_Exception $e) {
+    } catch (Horde_Http_Exception $e) {
         abort($e->getMessage());
     }
 

@@ -277,12 +277,12 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       This extension can be enabled by adding the ``--enable-intl`` option
       when compiling PHP.
 
-   h. _curl ``--with-curl``
+   h. _`curl` ``--with-curl``
 
-      The curl extension, if installed, will be used instead of PHP's fopen()
-      when retrieving data from external HTTP servers (remote calendars, web
-      APIs, etc.). This is much more reliable and flexible, so it is
-      recommended to either enable it or install the http_ extension.
+      The `curl extension`_, if installed, will be used instead of PHP's
+      fopen() when retrieving data from external HTTP servers (remote
+      calendars, web APIs, etc.). This is much more reliable and flexible, so
+      it is recommended to either enable it or install the http_ extension.
 
       This extension can be enabled by adding the ``--with-curl`` option when
       compiling PHP.
@@ -416,12 +416,12 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pecl install memcache
 
-   d. _http
+   d. _`http`
 
-      The http extension, if installed, will be used instead of PHP's fopen()
-      when retrieving data from external HTTP servers (remote calendars, web
-      APIs, etc.). This is much more reliable and flexible, so it recommended
-      to either install this or enable the curl_ extension.
+      The `http extension`_, if installed, will be used instead of PHP's
+      fopen() when retrieving data from external HTTP servers (remote
+      calendars, web APIs, etc.). This is much more reliable and flexible, so
+      it recommended to either install this or enable the curl_ extension.
 
       To install, enter the following at the command prompt::
 
@@ -806,11 +806,7 @@ anything similar to remove old files.
 
 Stale sessions are automatically pruned by PHP according to the
 `session.gc_probability`_, `session.gc_divisor`_, and
-`session.gc_maxlifetime`_ settings located in ``php.ini``. However, the
-default settings are very aggressive: the garbage collection routine runs on
-average 1% of the time a page is loaded. For most installations, a lower
-garbage collection rate is recommended (setting session.gc_divisor to 10,000
-or higher is much more reasonable).
+`session.gc_maxlifetime`_ settings located in ``php.ini``.
 
 
 Translations
@@ -854,8 +850,8 @@ The Horde Team
 .. _README: README
 .. _docs/SECURITY: SECURITY
 .. _docs/TRANSLATIONS: TRANSLATIONS
-.. _curl: http://php.net/curl
-.. _http: http://php.net/http
+.. _`curl extension`: http://php.net/curl
+.. _`http extension`: http://php.net/http
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`Firebug`: http://www.getfirebug.com/
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability

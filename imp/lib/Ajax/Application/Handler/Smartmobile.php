@@ -69,7 +69,8 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         /* Poll all mailboxes on initial display. */
         $this->_base->queue->poll($ftree->poll->getPollList());
 
-        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE;
+        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
+            IMP_Ftree_IteratorFilter::UNSUB_PREF;
         if (!$this->vars->all) {
             $mask |= IMP_Ftree_IteratorFilter::NO_UNPOLLED;
         }

@@ -1,0 +1,25 @@
+{
+    "name": "horde/horde-thrift",
+    "description": "Thrift",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "Apache 2.0",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.0.2",
+    "time": "2012-11-22",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

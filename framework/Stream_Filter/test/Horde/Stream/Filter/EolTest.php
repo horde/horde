@@ -57,6 +57,25 @@ class Horde_Stream_Filter_EolTest extends Horde_Test_Case
         rewind($this->fp);
 
         $this->assertEquals($test, stream_get_contents($this->fp));
+
+        $test = str_repeat(str_repeat("A", 14) . "\r\n", 2);
+
+        rewind($this->fp);
+        ftruncate($this->fp, 0);
+        fwrite($this->fp, $test);
+
+        stream_filter_prepend($this->fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => "\r\n"));
+        rewind($this->fp);
+
+        $this->assertEquals(
+            $test,
+            fread($this->fp, 14)
+                . fread($this->fp, 1)
+                . fread($this->fp, 1)
+                . fread($this->fp, 14)
+                . fread($this->fp, 2)
+                . fread($this->fp, 100)
+        );
     }
 
 }

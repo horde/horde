@@ -41,8 +41,7 @@ class IMP_Dynamic_Compose_Common
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');
-        $page_output->addScriptFile('murmurhash3.js');
-        $page_output->addScriptFile('textarearesize.js', 'horde');
+        $page_output->addScriptFile('external/murmurhash3.js');
 
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
@@ -146,6 +145,9 @@ class IMP_Dynamic_Compose_Common
             );
         }
         $view->select_list = $select_list;
+
+        $view->signature = $identity->hasSignature(true);
+        $view->sigExpanded = $prefs->getValue('signature_expanded');
     }
 
     /**
@@ -245,7 +247,9 @@ class IMP_Dynamic_Compose_Common
 
         /* Gettext strings used in compose page. */
         $base->js_text += array(
+            'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
+            'multiple_atc' => _("%d Attachments"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'replyall' => _("%d recipients"),
             'spell_noerror' => _("No spelling errors found."),

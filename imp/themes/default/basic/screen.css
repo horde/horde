@@ -237,6 +237,14 @@ div.msgActions, #fmanager div.folderActions {
     margin-bottom: -8px;
 }
 
+#signature {
+    padding: 2px;
+}
+#signatureBorder.signaturePlain {
+    border: 0;
+    padding: 0;
+}
+
 .seen {
     background: #fff;
 }

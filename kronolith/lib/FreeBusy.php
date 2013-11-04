@@ -180,7 +180,7 @@ class Kronolith_FreeBusy
                 ->create(array('request.verifyPeer' => false));
             try {
                 $response = $http->get($url);
-            } catch (Horde_Http_Client_Exception $e) {
+            } catch (Horde_Http_Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
             }
             if ($response->code == 200 && $data = $response->getBody()) {

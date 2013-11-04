@@ -22,7 +22,8 @@ class Horde_Core_Browser extends Horde_Browser
         parent::match($userAgent, $accept);
 
         try {
-            Horde::callHook('browser_modify', array($this), 'horde');
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('browser_modify', 'horde', array($this));
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 

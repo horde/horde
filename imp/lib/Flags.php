@@ -31,6 +31,13 @@ class IMP_Flags implements ArrayAccess, Serializable
     public $changed = false;
 
     /**
+     * Does the msglist_flags hook exist?
+     *
+     * @var boolean
+     */
+    protected $_flaghook = true;
+
+    /**
      * The list of internal flags.
      *
      * @var array
@@ -215,23 +222,44 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Parse a list of flag information.
      *
      * @param array $opts  Options:
+     * <pre>
      *   - flags: (array) IMAP flag info. A lowercase list of flags returned
      *            by the IMAP server.
      *   - headers: (Horde_Mime_Headers) Determines message information
      *              from a headers object.
+     *   - runhook: (array) Run the msglist_flags hook? If yes, input is
+     *              return from IMP_Mailbox_List#getMailboxArray().
      *   - personal: (mixed) Personal message info. Either a list of To
      *               addresses (Horde_Mail_Rfc822_List object) or the identity
      *               that matched the address list.
+     * </pre>
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
     public function parse(array $opts = array())
     {
+        global $injector;
+
         $opts = array_merge(array(
             'flags' => array(),
             'headers' => null,
             'personal' => null
         ), $opts);
+
+        if (!empty($opts['runhook']) && $this->_flaghook) {
+            try {
+                $opts['flags'] = array_merge(
+                    $opts['flags'],
+                    $injector->getInstance('Horde_Core_Hooks')->callHook(
+                        'msglist_flags',
+                        'imp',
+                        array($opts['runhook'])
+                    )
+                );
+            } catch (Horde_Exception_HookNotSet $e) {
+                $this->_flaghook = false;
+            }
+        }
 
         $ret = array();
 

@@ -288,6 +288,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Test_Case
             $migration->dropTable('test_manytomanya');
             $migration->dropTable('test_manytomanyb');
             $migration->dropTable('test_manythrough');
+            self::$db->disconnect();
             self::$db = null;
         }
     }

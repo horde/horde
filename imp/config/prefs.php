@@ -16,8 +16,8 @@ $prefGroups['identities'] = array(
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'sig_dashes', 'signature_html_select', 'save_sent_mail',
-        'sent_mail_folder', 'sentmailselect'
+        'sig_dashes', 'signature_html_select', 'signature_show_compose',
+        'save_sent_mail', 'sent_mail_folder', 'sentmailselect'
     ),
     'type' => 'identities'
 );
@@ -71,6 +71,13 @@ $_prefs['signature_html_select'] = array(
 // User's HTML signature
 $_prefs['signature_html'] = array(
     'value' => ''
+);
+
+// Show signature on compose screen?
+$_prefs['signature_show_compose'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Show the signature on the compose screen?")
 );
 
 $_prefs['save_sent_mail'] = array(
@@ -479,9 +486,9 @@ $prefGroups['compose'] = array(
     'members' => array(
         'mailto_handler', 'compose_spellcheck', 'set_priority',
         'compose_html', 'compose_html_font_family', 'compose_html_font_size',
-        'mail_domain', 'compose_cursor', 'encryptselect',
-        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
-        'compose_popup', 'compose_confirm'
+        'mail_domain', 'compose_cursor', 'signature_show_compose',
+        'encryptselect', 'delete_attachments_monthly_keep', 'request_mdn',
+        'reply_lang', 'compose_popup', 'compose_confirm'
     )
 );
 
@@ -629,6 +636,10 @@ $_prefs['ckeditor_buttons'] = array(
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
 );
 
+$_prefs['signature_expanded'] = array(
+    'value' => 0,
+    'type' => 'implicit',
+);
 
 
 // *** Compose Templates Preferences ***
@@ -1656,6 +1667,7 @@ $prefGroups['folderdisplay'] = array(
 
 $_prefs['subscribe'] = array(
     'value' => 1,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Use IMAP mailbox subscriptions?"),
     'on_change' => function() {

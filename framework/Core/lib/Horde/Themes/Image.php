@@ -19,6 +19,9 @@
  * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
+ *
+ * @property-read string $base64img  See Horde_Themes_Image::base64ImgData()
+ *                                   (since 2.10.0).
  */
 class Horde_Themes_Image extends Horde_Themes_Element
 {
@@ -28,6 +31,19 @@ class Horde_Themes_Image extends Horde_Themes_Element
      * @var string
      */
     protected $_dirname = 'graphics';
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'base64img':
+            return self::base64ImgData($this);
+
+        default:
+            return parent::__get($name);
+        }
+    }
 
     /**
      * Constructs a correctly-pathed tag to an image.

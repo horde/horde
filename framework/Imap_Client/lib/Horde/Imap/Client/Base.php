@@ -79,7 +79,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Connection to the IMAP server.
      *
-     * @var Horde_Imap_Client_Base_Connection
+     * @var Horde\Socket\Client
      */
     protected $_connection = null;
 
@@ -251,8 +251,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *      <li>'ssl' (Auto-detect SSL version)</li>
      *      <li>'sslv2' (Force SSL version 3)</li>
      *      <li>'sslv3' (Force SSL version 2)</li>
-     *      <li>'tls' (TLS)</li>
-     *      <li>true (TLS if available/necessary) [since 2.15.0]</li>
+     *      <li>'tls' (TLS; started via protocol-level negotation over
+     *      unencrypted channel; RECOMMENDED way of initiating secure
+     *      connection)
+     *      <li>'tlsv1' (TLS direct version 1.x connection to server) [@since
+     *      2.16.0]</li>
+     *      <li>true (TLS if available/necessary) [@since 2.15.0]</li>
      *     </ul>
      *             DEFAULT: false</li>
      *    </li>
@@ -702,7 +706,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         $additional = array_map('strval', $additional);
-        $sig = hash('md5', serialize($additional));
+        $sig = hash('sha1', serialize($additional));
 
         if (isset($this->_init['namespace'][$sig])) {
             return $this->_init['namespace'][$sig];
@@ -2705,7 +2709,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if (!empty($val['cache']) && !empty($val['peek'])) {
                             $cache_array[$k] = $v;
                             ksort($val);
-                            $header_cache[$key] = hash('md5', serialize($val));
+                            $header_cache[$key] = hash('sha1', serialize($val));
                         }
                     }
                     break;
@@ -3961,7 +3965,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         ksort($options);
-        $cache = hash('md5', $type . serialize($options));
+        $cache = hash('sha1', $type . serialize($options));
         $cacheid = $this->getCacheId($this->_selected);
         $ret = array();
 

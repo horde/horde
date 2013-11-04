@@ -83,7 +83,7 @@ class IMP_Editor
 
         $buttons = $prefs->getValue('ckeditor_buttons');
         if (!empty($buttons)) {
-            $config[] = 'toolbar: ' . $prefs->getValue('ckeditor_buttons');
+            $config[] = 'toolbar: ' . $buttons;
         }
 
         $page_output->addInlineScript(array(

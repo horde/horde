@@ -1,7 +1,281 @@
 ----------
-v5.1.3-git
+v5.1.4-git
 ----------
 
+
+
+------
+v5.1.3
+------
+
+Horde Changes
+-------------
+[jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
+      #12804).
+[jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803).
+[jan] Don't show admin alarm form if alarms are disabled.
+[mms] Add horde-remove-user-data command-line script.
+[mms] Add additional syntax checking for the configuration files in the test
+      script.
+[mms] Only update topbar if the underlying tree data has changed.
+
+Mail Changes
+------------
+[mms] SECURITY: Fix XSS in message and search screens resulting from a
+      user-defined flag label (João Machado <geral@jpaulo.eu>).
+[mms] Send linked attachment download notification message in language of the
+      sending user (Bug #12783).
+[mms] Fix populating search fields when editing an advanced search query.
+[mms] Trigger auto save draft in dynamic view if attachments have changed.
+[mms] Improved UI for dropping attachments on dynamic compose screen.
+[mms] Fix manually loading all addresses in a header.
+[mms] Fix regression where reloading dynamic view would not load the previously
+      selected message.
+[mms] Fixed regression in enforcing max_recipients and max_timelimit
+      permissions (Bug #12674).
+[mms] Correctly enforce file size attachment limits on the first attachment
+      (Bug #12663).
+[mms] Don't attempt to get quota information from non-IMAP mailboxes (Bug
+      #12608).
+[jan] Don't attach address book behavior if contacts API is unavailable.
+[mms] Fix regression where MIME headers were being displayed for PGP decrypted
+      messages (Bug #12648).
+[mms] Improved error handling when creating a new flag in dynamic view.
+[mms] Make addresses in smartmobile full message header display clickable to
+      open a compose window.
+[mms] Don't display empty containers in dynamic folder list (Request #11425).
+
+Filters Changes
+---------------
+[mms] SECURITY: Protect against CSRF attacks by using tokens on destructive
+      actions (Bug #12796; CVE-2013-6275; found by Marcela Benetrix
+      <m.benetrix@e-secure.com.au>).
+
+Address Book Changes
+--------------------
+[jan] SECURITY: Fix XSS vulnerabilities when deleting address books.
+[jan] Fix exporting selected contacts (Bug #12759).
+[mms] Improved UI when viewing search results from Advanced Search.
+[mms] Remove features from UI when VFS is not available or disabled.
+[mjr] Fix filtering Facebook driver results (Bug #12739).
+[jan] Gracefully deal with columns removed from the backend.
+
+Calendar Changes
+----------------
+[jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
+      #12804).
+[jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
+[jan] Fix edge case that allowed to enter start time after end time (Bug
+      #12752).
+[mjr] Expire fb cache when fb_cals preference changes (Bug #12714).
+[jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
+[mjr] Fix importing new ActiveSync events created on the client with
+      recurrence.
+[mjr] Fix some issues with recurring event exceptions due to improper timezone
+      handling (Bug #12630).
+
+Tasks Changes
+-------------
+[jan] SECURITY: Fix XSS vulnerabilities when deleting task lists.
+[jan] Fix updating alarm if completing a task recurrence.
+[jan] Fix editing tasks via CalDAV (Bug #12745).
+
+Notes Changes
+-------------
+[jan] SECURITY: Fix XSS vulnerabilities when deleting notepads.
+[mjr] Fix removing a list of UIDs via the API (Bug #12790,
+      thomas.jarosch@intra2net.com)
+[mjr] Fix exporting memos as v-note (horde@albasoft.com, Bug #12622).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Improve performance related to conflict detection and change mirroring
+      protection.
+[mjr] Return proper status codes when OOF is unavailable (Bug #12757).
+[mjr] Fix fatal crash when conflict is detected (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #12755)
+[mjr] Fix returning contact image in GAL search for those clients that support
+      it.
+[mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
+[mjr] Fix some authentication issues when certain clients issue broken
+      AutoDiscover requests.
+[mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
+[mjr] Remove dependency on unreleased Horde_Stream code.
+[mjr] Work around for PHP bug 65776, preventing segfaults with certain emails.
+[mjr] Remove loop counter code that was incorrectly growing sync_cache data
+      (Bug #12707).
+[mjr] Ignore incoming SMS delete command. Prevents breaking sync on clients
+      that send SMS data, even though we do not return it as an available
+      collection.
+[mjr] Prevent sending invalid UTF-8 data in the Subject header, which could
+      break sync in some clients.
+[mjr] Support for SOFTDELETE.
+[mjr] Fix possible infinite loop when a requested message is not found on the
+      serer during a SYNC request.
+
+Alarm
+[mjr] Fix initializing Alarms when using PDO_Oci or PDO_PostgreSQL.
+
+Auth
+[mms] Password strength testing is now case-insensitive
+      (delrio@mie.utoronto.ca, Request #12708).
+
+Cache
+[mms] Fix key expiration for APC, Eaccelerator, and Xcache (Bug #12735).
+[mms] Add Horde_Cache_Storage_Memoryoverlay driver.
+
+Core
+[mms] Fix prototype.js issue in IE 9 regarding array iteration in a parent
+      window.
+[mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
+[mjr] Fix calculating calendars to use for SOFTDELETE commands in certain
+      configurations (Bug #12765).
+[mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
+[mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
+[mms] Add base64img property to Horde_Themes_Image.
+[mjr] Do not assume that the filter API is available (Bug #12757).
+[mms] Add ability to load javascript via a HordeCore AJAX response (Request
+      #10971).
+[mms] Add ability to expire CSS cache based on file modification time.
+[mms] Allow disabling VFS via the configuration interface.
+[mjr] Send back dummy mail folders when the Mail API is not available (Bug
+      #12738).
+[mms] Upgrade prototype.js to most recent git version
+      (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
+[mms] Cache permission results within a PHP access.
+[mms] Don't initialize unnecessary prefs object when creating the topbar.
+[mjr] Support ActiveSync SOFTDELETE.
+[mms] Respect 'nobase64_img' configuration when generating image tags (João
+      Machado <geral@jpaulo.eu>).
+[mjr] Support for X509 certificate authentication in ActiveSync requests.
+[mjr] Fix calculating policy value for SD card encryption and device encryption
+      policies.
+
+Css_Parser
+[mms] Merge from upstream - handle keywords/dimensions case-insensitively.
+[mms] Performance optimizations in the parser.
+
+Date
+[jan] Correct dates with very large days-of-month more efficiently (Bug #12615).
+[jan] Don't limit the argument to Horde_Date_Utils::isLeapYear() to 4 digits.
+
+Form
+[mms] Remove duplicate constructor.
+
+History
+[mjr] Only query History when we have a range of modSeq values to query
+      (arjen+horde@de-korte.org, Bug #12660).
+
+Imap_Client
+[mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not
+      configured in the client (Bug #12756).
+[mms] Sort UID list before sending in QRESYNC parameter.
+[mms] Ensure that INBOX always appears in subscribed mailbox list when using a
+      server that supports LIST-EXTENDED.
+[mms] Fix regression where INBOX may not be recognized as subscribed, if the
+      server doesn't list it in the subscribed list.
+[mms] Handle case-insensitive INBOX return from the server.
+[mms] Use strict RFC-compliant workaround for servers that don't support the
+      UNSELECT IMAP extension.
+[mms] Ensure Horde_Imap_Client_Base#search() always returns the 'count' value
+      (Bug #12682).
+[jan] Fix incorrect usage of Horde_Db API in cache backend.
+[mms] Workaround servers that don't advertise UIDL until after authentication.
+[mms] Fix parsing continuation requests sent in SASL AUTH command (RFC 5034).
+[mms] By default, use TLS if available and necessary to login to server.
+[mms] Fix adding status information to listMailboxes() return when LIST-STATUS
+      is not available.
+
+Ldap
+[jan] Fix modifying entries with modify().
+[jan] Try starting TLS without querying the rootDSE (Bug #12157).
+
+ListHeaders
+[mms] Add Horde_ListHeaders#headers().
+
+Log
+[jan] Add a CLI formatter and handler.
+
+Mail
+[mms] Discard personal information when it is identical to e-mail address.
+
+Mime
+[mms] Fix regression that broke quoted-printable encoding.
+[mjr] Work around broken PHP behavior that could cause a segfault when encoding
+      certain strings as quoted-printable.
+
+Mongo
+[mjr] Prevent data loss due to forced selection of incorrect database.
+
+Prefs
+[mms] Fix iteration of Horde_Prefs_Scope object.
+
+Rpc
+[mjr] Correctly catch HTTP client exceptions.
+
+Service_Facebook
+[mjr] Correctly catch HTTP client exceptions.
+
+Smtp
+[mms] Fix handling EOLs split on a stream bucket boundary (Bug #12763).
+[mms] Fix escaping periods that begin a line of DATA input.
+[mms] Explicitly reject XOAUTH2 as a authentication mechanism if it is not
+      configured in the client.
+[jan] Fix reading translations in PEAR-installed package.
+[mms] Fix parsing SMTP error message on servers that support
+      ENHANCEDSTATUSCODES (Bug #12666).
+[mms] Fix aborting a pipelined DATA command if only a subset of recipients were
+      rejected (Bug #12659).
+[mms] Don't auto-detect TLS availability again once we have done initial
+      detection.
+
+Socket_Client
+[mms] Initial release.
+
+SpellChecker
+[mms] Fix spellchecking within the ALT HTML tag (Bug #12610).
+
+Stream
+[mms] Add Horde_Stream#substring().
+[mms] Fix getString() in certain use cases.
+[mms] Horde_Stream#getToChar() now supports multiple characters in search
+      string.
+[mms] Horde_Stream#search() now supports multiple characters in search string.
+[mms] Add ability to get UTF-8 character length of stream from
+      Horde_Stream#length().
+[mms] Add length argument to peek().
+[mms] Add Horde_Stream#close().
+[mms] Add support for parsing UTF-8 characters in stream via
+      Horde_Stream#getChar().
+[mms] Add Horde_Stream#eof().
+[mms] Add Horde_Stream#end().
+[mms] Add Horde_Stream#seek().
+[mms] Add Horde_Stream#rewind().
+[mms] Add Horde_Stream#pos().
+[mms] Add Horde_Stream#__destruct().
+
+Stream_Filter
+[mms] Fix EOL filter when multi-character EOL is split between incoming buckets
+      (Bug #2673).
+
+Test
+[mms] Fix autoloading from a PHP-defined namespace.
+
+Text_Filter
+[mms] Fix issue from upstream jsmin.c that was breaking parsing of a keyword
+      immediately followed by a regexp (Bug #12787).
+[mms] Merge upstream updates to JsMin filter.
+
+Timezone
+[jan] Fix broken offsets during first zone rules.
+[jan] Make BYMONTHDAY property as short as possible.
+[jan] Fix missing time of day in DTSTART and UNTIL properties.
+[jan] Don't create transitions that overlap.
+[jan] Use orginally requested time zone instead of alias in TZID.
+
+Vfs
+[jan] Bump minimum version of SSH2 extension to 0.12.
 
 
 ------

@@ -542,8 +542,6 @@ class Nag_Task
      */
     public function toggleComplete()
     {
-        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
-
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
@@ -558,14 +556,8 @@ class Nag_Task
                         substr($completion, 6, 2));
                 }
             }
-            $alarm = $this->toAlarm();
-            if ($alarm) {
-                $horde_alarm->set($alarm);
-            }
             return;
         }
-
-        $horde_alarm->delete($this->uid);
 
         if ($this->recurs()) {
             /* Get current occurrence (task due date) */
@@ -582,11 +574,6 @@ class Nag_Task
                  * occurence. */
                 if ($next = $this->recurrence->nextActiveRecurrence($current)) {
                     $this->completed = false;
-                    $alarm = $this->toAlarm();
-                    if ($alarm) {
-                        $alarm['start'] = new Horde_Date($next);
-                        $horde_alarm->set($alarm);
-                    }
                     return;
                 }
             }
@@ -1213,14 +1200,20 @@ class Nag_Task
             $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
             $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                if (Horde_String::length($this->desc) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
-                    $body->data = Horde_String::substr($this->desc, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
-                    $body->truncated = 1;
-                } else {
-                    $body->data = $this->desc;
-                }
-                $body->estimateddatasize = Horde_String::length($this->desc);
+                $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
+            } elseif (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
+                $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
+                $this->desc = Horde_Text_Filter::filter($this->desc, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+            } else {
+                $truncation = false;
             }
+            if ($truncation && Horde_String::length($this->desc) > $truncation) {
+                $body->data = Horde_String::substr($this->desc, 0, $truncation);
+                $body->truncated = 1;
+            } else {
+                $body->data = $this->desc;
+            }
+            $body->estimateddatasize = Horde_String::length($this->desc);
             $message->airsyncbasebody = $body;
         } else {
             $message->body = $this->desc;
@@ -1397,7 +1390,11 @@ class Nag_Task
 
         /* Notes and Title */
         if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-            $this->desc = $message->airsyncbasebody->data;
+            if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $this->desc = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
+            } else {
+                $this->desc = $message->airsyncbasebody->data;
+            }
         } else {
             $this->desc = $message->body;
         }

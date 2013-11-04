@@ -1,0 +1,41 @@
+{
+    "name": "horde/koward",
+    "description": "An administration frontend for the Kolab server",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Gunnar Wrobel",
+            "email": "p@rdus.de",
+            "role": "lead"
+        }
+    ],
+    "version": "0.99.1",
+    "time": "2012-07-19",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.8",
+        "pear-pear.horde.org/Horde_Autoloader": "*",
+        "pear-pear.horde.org/Horde_Auth": "*",
+        "pear-pear.horde.org/Horde_Browser": "*",
+        "pear-pear.horde.org/Horde_Controller": "*",
+        "pear-pear.horde.org/Horde_Form": "*",
+        "pear-pear.horde.org/Horde_Nls": "*",
+        "pear-pear.horde.org/Horde_Notification": "*",
+        "pear-pear.horde.org/Horde_Ui": "*",
+        "pear-pear.horde.org/Horde_Kolab_Server": "*",
+        "pear-pear.horde.org/Horde_Kolab_Session": "*",
+        "pear-pear.horde.org/Horde_Perms": "*",
+        "pear-pear.horde.org/Horde_Routes": "*",
+        "pear-pear.horde.org/Horde_View": "*"
+    },
+    "suggest": {
+        "pear-pear.phpunit.de/PHPUnit": "*"
+    }
+}

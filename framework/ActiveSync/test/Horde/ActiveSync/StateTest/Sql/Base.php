@@ -36,6 +36,14 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
     /**
      * @depends testCacheFolders
      */
+    public function testCacheDataRestrictFields()
+    {
+        $this->_testCacheDataRestrictFields();
+    }
+
+    /**
+     * @depends testCacheFolders
+     */
     public function testCacheFoldersPersistence()
     {
         $this->_testCacheFoldersPersistence();
@@ -186,7 +194,10 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
         if (self::$migrator) {
             self::$migrator->down();
         }
-        self::$db = null;
+        if (self::$db) {
+            self::$db->disconnect();
+            self::$db = null;
+        }
         parent::tearDownAfterClass();
     }
 

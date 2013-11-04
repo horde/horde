@@ -130,6 +130,13 @@ table#addressbook-list th.sortdown {
     margin: 8px;
 }
 
+/* Search page */
+#advancedtoggle {
+    background-color: #ffa;
+    margin: -12px;
+    padding: 12px;
+}
+
 /* Preferences pages */
 #turba-prefs-cols-list {
     float: left;

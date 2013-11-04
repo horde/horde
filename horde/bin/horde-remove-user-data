@@ -1,0 +1,54 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script will delete all user data for a given user.
+ *
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true,
+    'user_admin' => true
+));
+
+$cli->message('Horde directory: ' . realpath(HORDE_BASE), 'cli.message');
+
+do {
+    $user = $cli->prompt('Username:');
+} while (!strlen($user));
+
+$app = $cli->prompt('Application to remove data from (blank for all apps):');
+if (!strlen($app)) {
+    $app = null;
+}
+
+$cli->writeln();
+
+if (!$cli->prompt($cli->red('Are you sure you want to remove user data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+    exit(0);
+}
+
+try {
+    $registry->removeUserData($user, $app);
+    $cli->message('Data removed.', 'cli.success');
+} catch (Horde_Exception $e) {
+    $cli->fatal($e->getMessage());
+}

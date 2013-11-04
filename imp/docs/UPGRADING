@@ -29,6 +29,45 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 6.1.x To 6.2
+===============================
+
+Server Options (backends.php)
+-----------------------------
+
+The 'format' quota option has been removed.
+
+
+Configuration Options (conf.php)
+--------------------------------
+
+The following options have been added::
+
+   $conf['compose']['link_attach_size_hard']
+   $conf['contactsimage']['backends']
+
+The following options have been removed::
+
+   $conf['compose']['ac_threshold']
+
+
+Hooks (hooks.php)
+-----------------
+
+The following hooks have been added::
+
+   compose_addr
+
+
+Preferences (prefs.php)
+-----------------------
+
+The following preferences have been added::
+
+   signature_show_compose
+
+
+
 Upgrading IMP From 6.1.x To 6.1.4
 =================================
 

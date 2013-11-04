@@ -23,8 +23,8 @@
 class Horde_Mongo_Client extends MongoClient implements Serializable
 {
     /**
-     * Database name (Horde_Mongo_Client forces connections to this single
-     * database to ease configuration).
+     * Database name (Horde_Mongo_Client uses this single database by default
+     * to ease configuration).
      *
      * @var string
      */
@@ -54,15 +54,10 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
      */
     public function dropDB($db)
     {
-        return parent::dropDB($this->dbname);
-    }
-
-    /**
-     * @see MongoClient#__get
-     */
-    public function __get($dbname)
-    {
-        return parent::__get($this->dbname);
+        if (empty($db)) {
+            $db = $this->dbname;
+        }
+        return parent::dropDB($db);
     }
 
     /**
@@ -70,7 +65,10 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
      */
     public function selectCollection($db, $collection = null)
     {
-        return parent::selectCollection($this->dbname, $collection);
+        if (empty($db)) {
+            $db = $this->dbname;
+        }
+        return parent::selectCollection($db, $collection);
     }
 
     /**
@@ -78,6 +76,10 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
      */
     public function selectDB($name)
     {
+        if (!empty($name)) {
+            $this->dbname = $name;
+        }
+
         return parent::selectDB($this->dbname);
     }
 

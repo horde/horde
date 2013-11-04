@@ -24,7 +24,7 @@ class Horde_Core_Ui_VarRenderer_Kronolith extends Horde_Core_Ui_VarRenderer_Html
      */
     protected function _renderVarInput_KronolithTags($form, $var, $vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = htmlspecialchars($var->getVarName());
         $value = $var->getValue($vars);
 
         $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);

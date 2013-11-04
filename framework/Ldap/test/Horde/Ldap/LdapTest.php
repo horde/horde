@@ -217,6 +217,13 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $ldap->add($local_entry);
         $this->assertTrue($ldap->exists($local_entry->dn()));
 
+        // Test invalid actions.
+        try {
+            $ldap->modify($local_entry, array('foo' => 'bar'));
+            $this->fail('Expected exception when passing invalid actions to modify().');
+        } catch (Horde_Ldap_Exception $e) {
+        }
+
         // Prepare some changes.
         $changes = array(
             'add' => array(

@@ -75,6 +75,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $ajax_queue->poll($this->indices->mailbox);
 
+        list(,$buid) = $this->indices->buids->getSingle();
+
         foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
             if (!empty($msg_res[$val])) {
                 $js_vars['DimpMessage.' . $val] = $msg_res[$val];
@@ -82,8 +84,16 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
         if (!empty($msg_res['list_info']['exists'])) {
             $js_vars['DimpMessage.reply_list'] = true;
+            $this->view->listinfo = Horde::popupJs(
+                IMP_Basic_Listinfo::url(array(
+                    'buid' => $buid,
+                    'mailbox' => $this->indices->mailbox
+                )), array(
+                    'urlencode' => true
+                )
+            );
         }
-        list(,$js_vars['DimpMessage.buid']) = $this->indices->buids->getSingle();
+        $js_vars['DimpMessage.buid'] = $buid;
         $js_vars['DimpMessage.mbox'] = $this->indices->mailbox->form_to;
         $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 

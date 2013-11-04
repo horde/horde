@@ -56,7 +56,11 @@ class IMP
 
         if ($prefs->getValue('filtering') && strlen($text)) {
             try {
-                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', Horde::callHook('msg_filter', array(), 'imp'));
+                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter(
+                    $text,
+                    'words',
+                    $injector->getInstance('Horde_Core_Hooks')->callHook('msg_filter', 'imp')
+                );
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 

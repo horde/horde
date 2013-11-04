@@ -337,7 +337,8 @@ div.vpRowVert div.msgSubject span.flagUser {
 .imp-sidebar-container:hover {
     background: none;
 }
-.imp-sidebar-container a {
+.imp-sidebar-container a,
+.imp-sidebar-mbox-loading {
     color: #555 !important;
 }
 .imp-sidebar-container a:hover {
@@ -456,13 +457,8 @@ div.dimpActionsMsg #windowclose {
 .msgHeaders table {
     margin-top: -2px;
 }
-.msgHeaders table thead td {
-    padding: 0 0 1px 0;
-}
-.msgHeaders table thead tr {
-    vertical-align: top;
-}
 .msgHeaders table thead td.label {
+    display: block;
     font-weight: bold;
     padding-right: 4px;
     text-align: right;
@@ -626,10 +622,11 @@ div.dimpActionsMsg #windowclose {
     font-weight: bold;
 }
 .msgwrite span.loadingImg {
-    padding: 1px;
-    position: absolute;
-    right: 10px;
-    top: 4px;
+    float: right;
+    margin-top: auto;
+    padding: 2px;
+    position: relative;
+    right: 8px;
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
@@ -667,12 +664,6 @@ div.dimpActionsMsg #windowclose {
     color: #111 !important;
 }
 
-.msgwrite .sendtextarea {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-}
-
 #noticerow .notices li {
     display: inline-block;
     padding: 3px;
@@ -687,6 +678,43 @@ div.dimpActionsMsg #windowclose {
     margin: 0;
     padding: 0;
     width: 100%;
+}
+
+#signatureParent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #eceff0;
+    border-top: 1px solid #d0d0d0;
+    cursor: default;
+    padding: 10px;
+}
+#signatureBorder {
+    height: 4.4em;
+    margin-top: 4px;
+}
+#signatureParent .label {
+    white-space: nowrap;
+    font-weight: bold;
+}
+#signature {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    background-color: #fff;
+}
+#signatureToggle {
+    cursor: pointer;
+    float: left;
+    height: 14px;
+    width: 12px;
+}
+#signatureToggle {
+    background-image: url("../graphics/arrow_collapsed.png");
+}
+#signatureToggle.signatureExpanded {
+    background-image: url("../graphics/arrow_expanded.png");
 }
 
 #rteloading {
@@ -748,10 +776,6 @@ div.dimpActionsMsg #windowclose {
 
 span.attachmentImg {
     background-image: url("../graphics/attachment.png");
-}
-
-#ctx_atcfile_delete span.iconImg {
-    background-image: url("../graphics/delete.png");
 }
 
 /* Context Menus */
@@ -913,7 +937,10 @@ span.logoutIcon {
 #ctx_message_forward span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
-#ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
+#ctx_mbox_empty span.iconImg,
+#ctx_message_delete span.iconImg,
+#ctx_oa_purge_deleted span.iconImg,
+#ctx_atcfile_delete span.iconImg {
     background-image: url("../graphics/delete.png");
 }
 #ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
@@ -982,6 +1009,9 @@ span.logoutIcon {
 #ctx_contacts_add span.iconImg {
     background-image: url("../graphics/add_contact.png");
 }
+#ctx_contacts_copy span.iconImg {
+    background-image: url("../graphics/clipboard.png");
+}
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
@@ -991,8 +1021,25 @@ span.logoutIcon {
 #ctx_preview_thread span.iconImg {
     background-image: url("../graphics/thread.png");
 }
-#ctx_filteropts_applyfilters span.iconImg {
+#ctx_contacts_addfilter span.iconImg,
+#ctx_message_addfilter span.iconImg,
+#ctx_filteropts_applyfilters span.iconImg
+{
     background-image: url("../graphics/filters.png");
+}
+#ctx_preview_listinfo span.iconImg,
+#msg_listinfo span.iconImg {
+    background-image: url("../graphics/flags/group.png");
+}
+
+#ctx_contacts img.contactimg, #ctx_contacts div.flagimg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#ctx_contacts div.flagimg img {
+    padding-right: 3px;
 }
 
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {

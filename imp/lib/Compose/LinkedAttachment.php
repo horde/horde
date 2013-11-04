@@ -135,7 +135,7 @@ class IMP_Compose_LinkedAttachment
         $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 
         /* Build reproducible ID value from old data. */
-        $id = hash('md5', $ts . '|' . $file);
+        $id = hash('sha1', $ts . '|' . $file);
 
         /* Create new attachment object. */
         $atc = $injector->getInstance('IMP_Factory_ComposeAtc')->create($this->_user, $id);
@@ -177,7 +177,7 @@ class IMP_Compose_LinkedAttachment
      */
     public function sendNotification()
     {
-        global $conf, $injector;
+        global $conf, $injector, $registry;
 
         if (empty($conf['compose']['link_attachments_notify'])) {
             return;
@@ -193,6 +193,13 @@ class IMP_Compose_LinkedAttachment
             }
 
             $address_full = $identity->getDefaultFromAddress(true);
+
+            /* Load user prefs to correctly translate gettext strings. */
+            if (!$registry->getAuth()) {
+                $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+                    ->create('imp', array('user' => $this->_user));
+                $registry->setLanguageEnvironment($prefs->getValue('language'));
+            }
 
             $h = new Horde_Mime_Headers();
             $h->addReceivedHeader(array(

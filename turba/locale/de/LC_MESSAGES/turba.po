@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:53+0200\n"
-"PO-Revision-Date: 2013-06-04 11:56+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"PO-Revision-Date: 2013-10-14 14:34+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -22,14 +22,14 @@ msgstr ""
 msgid "\"%s\" already exists and was not imported."
 msgstr "\"%s\" existiert bereits und wurde nicht importiert."
 
-#: lib/Form/EditContact.php:82
+#: lib/Form/EditContact.php:85
 #, php-format
 msgid "\"%s\" updated, but saving the uploaded file failed: %s"
 msgstr ""
 "\"%s\" wurde aktualisiert, aber die hochgeladene Datei konnte nicht "
 "gespeichert werden: %s"
 
-#: lib/Form/EditContact.php:80 lib/Form/EditContact.php:85
+#: lib/Form/EditContact.php:83 lib/Form/EditContact.php:88
 #, php-format
 msgid "\"%s\" updated."
 msgstr "\"%s\" aktualisiert."
@@ -52,7 +52,7 @@ msgstr "\"Vorname Nachname\" (z.B. Max Mustermann)"
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"Nachname, Vorname\" (z.B. Mustermann, Max)"
 
-#: lib/Driver.php:729
+#: lib/Driver.php:731
 #, php-format
 msgid "%d. %s of %s"
 msgstr "%d. %s von %s"
@@ -81,7 +81,7 @@ msgstr "%s bis %s von %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Diesen Kontakt in den ersten einfügen"
 
-#: lib/Application.php:459 view.php:48
+#: lib/Application.php:463 view.php:44
 #, php-format
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
@@ -90,7 +90,7 @@ msgstr "Zugriff auf %s verweigert"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: lib/Form/EditContact.php:31
+#: lib/Form/EditContact.php:33
 msgid "Add file"
 msgstr "Datei hinzufügen"
 
@@ -109,7 +109,7 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:2922
+#: lib/Driver.php:2924
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
@@ -130,7 +130,7 @@ msgstr "Adressbücher"
 msgid "Address book does not exist"
 msgstr "Adressbuch existiert nicht"
 
-#: lib/Turba.php:646
+#: lib/Turba.php:651
 #, php-format
 msgid "Address book of %s"
 msgstr "Adressbuch von %s"
@@ -176,12 +176,12 @@ msgstr "Jahrestage"
 msgid "Anniversary"
 msgstr "Jahrestag"
 
-#: lib/Turba.php:681
+#: lib/Turba.php:686
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Sind Sie sicher, dass Sie %s löschen möchten?"
 
-#: lib/Turba.php:686
+#: lib/Turba.php:691
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Sind Sie sicher, dass Sie die ausgewählten Kontakte löschen möchten?"
 
@@ -442,6 +442,12 @@ msgstr "Neue Kontaktliste anlegen in:"
 msgid "Created"
 msgstr "Erstellt"
 
+#: lib/Application.php:453
+msgid "Data cannot be downloaded as no VFS driver is configured."
+msgstr ""
+"Daten konnten nicht heruntergeladen werden, weil kein VFS-Treiber "
+"konfiguriert wurde."
+
 #: contact.php:92
 msgid "De_lete"
 msgstr "_Löschen"
@@ -481,7 +487,7 @@ msgstr "Löschen fehlgeschlagen: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "Kontakt gelöscht: %s"
 
-#: lib/Driver.php:2935
+#: lib/Driver.php:2937
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -505,7 +511,7 @@ msgstr "Anzeige"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Object.php:427
+#: lib/Object.php:430
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -513,7 +519,7 @@ msgstr "Herunterladen"
 msgid "Download vCard"
 msgstr "vCard herunterladen"
 
-#: search.php:199 search.php:249
+#: search.php:199 search.php:254
 msgid "Duplicate Search"
 msgstr "Duplikatsuche"
 
@@ -548,7 +554,7 @@ msgstr "%s Bearbeiten"
 msgid "Edit Group \"%s\""
 msgstr "Gruppe \"%s\" bearbeiten"
 
-#: lib/Form/EditContact.php:104
+#: lib/Form/EditContact.php:107
 msgid "Edit/View Group Members"
 msgstr "Gruppenmitglieder bearbeiten/anzeigen"
 
@@ -647,7 +653,7 @@ msgstr "Hinzugefügtes Objekt nicht gefunden"
 msgid "Failed to search the address book"
 msgstr "Das Adressbuch konnte nicht durchsucht werden"
 
-#: lib/Application.php:497
+#: lib/Application.php:501
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
@@ -660,7 +666,7 @@ msgstr "Häufigste Empfänger"
 msgid "Fax"
 msgstr "Fax"
 
-#: lib/Form/Contact.php:37
+#: lib/Form/Contact.php:39
 msgid "Files"
 msgstr "Dateien"
 
@@ -1149,7 +1155,7 @@ msgstr "Pager"
 msgid "Permanently delete this contact?"
 msgstr "Diesen Kontakt unwiederbringlich löschen?"
 
-#: deletefile.php:32 lib/Api.php:676 lib/Api.php:1632 lib/Driver.php:930
+#: deletefile.php:32 lib/Api.php:676 lib/Api.php:1632 lib/Driver.php:932
 #: lib/Driver/Share.php:293 lib/Driver/Sql.php:649
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
@@ -1178,7 +1184,7 @@ msgstr "Foto-Dateityp"
 msgid "Pine Address Book"
 msgstr "Pine-Adressbuch"
 
-#: lib/Turba.php:684
+#: lib/Turba.php:689
 msgid "Please name the new contact list:"
 msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
 
@@ -1205,7 +1211,7 @@ msgstr "Telefon Funk"
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2909
+#: lib/Driver.php:2911
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1219,7 +1225,7 @@ msgstr ""
 "gemacht werden, und alle Kontakte in diesem Adressbuch werden endgültig "
 "gelöscht."
 
-#: lib/Driver.php:2960
+#: lib/Driver.php:2962
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1261,7 +1267,7 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:2948
+#: lib/Driver.php:2950
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
@@ -1271,6 +1277,10 @@ msgstr "Speichern von Kontakten nicht unterstützt."
 #: templates/search/duplicate.html.php:11
 msgid "Search"
 msgstr "Suche"
+
+#: templates/search/header.html.php:3
+msgid "Search Criteria Hidden - Click to Display"
+msgstr "Suchkriterien ausgeblendet - Klicken zum Anzeigen"
 
 #: templates/search/duplicate.html.php:2
 msgid "Search duplicates in:"
@@ -1289,7 +1299,7 @@ msgstr "Suche fehlgeschlagen: %s"
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2891
+#: lib/Driver.php:2893
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1467,12 +1477,6 @@ msgstr "Zielkontaktliste"
 msgid "The %s file didn't contain any contacts."
 msgstr "Die %s-Datei enthielt keine Kontakte."
 
-#: view.php:17
-msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr ""
-"Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
-"erlauben."
-
 #: lib/Factory/Driver.php:57
 #, php-format
 msgid "The address book \"%s\" does not exist."
@@ -1507,7 +1511,7 @@ msgstr "Das Adressbuch \"%s\" wurde nach \"%s\" umbenannt."
 msgid "The addressbook \"%s\" has been saved."
 msgstr "Das Adressbuch \"%s\" wurde gespeichert."
 
-#: contact.php:19 lib/Application.php:441 vcard.php:18 view.php:27
+#: contact.php:19 lib/Application.php:440 vcard.php:18 view.php:23
 msgid "The contact you requested does not exist."
 msgstr "Der ausgewählte Kontakt existiert nicht."
 
@@ -1596,7 +1600,7 @@ msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Application.php:761
+#: lib/Application.php:765
 msgid "There was an error importing the vCard data."
 msgstr "Beim Importieren der vCard-Daten ist ein Fehler aufgetreten."
 
@@ -1605,7 +1609,7 @@ msgstr "Beim Importieren der vCard-Daten ist ein Fehler aufgetreten."
 msgid "There was an error removing an address book for %s"
 msgstr "Beim Löschen eines Adressbuchs von %s ist ein Fehler aufgetreten"
 
-#: lib/Form/EditContact.php:73
+#: lib/Form/EditContact.php:76
 msgid ""
 "There was an error saving the contact. Contact your system administrator for "
 "further help."
@@ -1762,7 +1766,7 @@ msgstr "Sie dürfen dieses Adressbuch nicht löschen."
 msgid "You are not allowed to see this addressbook."
 msgstr "Sie dürfen dieses Adressbuch nicht anzeigen."
 
-#: lib/Driver/Facebook.php:165
+#: lib/Driver/Facebook.php:176
 msgid ""
 "You are not connected to Facebook. Create a Facebook connection in the "
 "Global Preferences."
@@ -1782,8 +1786,8 @@ msgstr "Sie können keine Kontakte aus Virtuellen Adressbüchern löschen"
 msgid "You didn't mark a contact as your own yet."
 msgstr "Sie haben noch keinen Kontakt als Ihre Visitenkarte markiert."
 
-#: edit.php:63 lib/Application.php:448 lib/View/DeleteContact.php:41
-#: lib/View/EditContact.php:42 view.php:35
+#: edit.php:63 lib/Application.php:447 lib/View/DeleteContact.php:41
+#: lib/View/EditContact.php:42 view.php:31
 msgid "You do not have permission to view this contact."
 msgstr "Sie haben nicht genügend Rechte, um diesen Kontakt zu sehen."
 
@@ -1807,15 +1811,15 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Sie müssen einen Namen für das Virtuelle Adressbuch angeben."
 
-#: lib/Turba.php:685
+#: lib/Turba.php:690
 msgid "You must select a target address book."
 msgstr "Sie müssen erst ein Zieladressbuch auswählen."
 
-#: lib/Turba.php:683
+#: lib/Turba.php:688
 msgid "You must select a target contact list."
 msgstr "Sie müssen erst eine Zielliste angeben."
 
-#: edit.php:29 lib/Turba.php:682
+#: edit.php:29 lib/Turba.php:687
 msgid "You must select at least one contact first."
 msgstr "Sie müssen erst mindestens einen Kontakt auswählen."
 
@@ -1885,19 +1889,19 @@ msgstr "durch mich"
 msgid "contact"
 msgstr "Kontakt"
 
-#: lib/Application.php:542 lib/Application.php:546 templates/data/export.inc:1
+#: lib/Application.php:546 lib/Application.php:550 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "adressen.csv"
 
-#: lib/Application.php:564
+#: lib/Application.php:568
 msgid "contacts.ldif"
 msgstr "adressen.ldif"
 
-#: lib/Application.php:550
+#: lib/Application.php:554
 msgid "contacts.tsv"
 msgstr "adressen.tsv"
 
-#: lib/Application.php:555
+#: lib/Application.php:559
 msgid "contacts.vcf"
 msgstr "adressen.vcf"
 

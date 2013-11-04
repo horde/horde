@@ -126,7 +126,7 @@ class IMP_Message_Ui
             ((intval($pref_val) == 1) ||
              $mdn->userConfirmationNeeded())) {
             try {
-                if (Horde::callHook('mdn_check', array($headers), 'imp')) {
+                if ($injector->getInstance('Horde_Core_Hooks')->callHook('mdn_check', 'imp', array($headers))) {
                     return true;
                 }
             } catch (Horde_Exception_HookNotSet $e) {

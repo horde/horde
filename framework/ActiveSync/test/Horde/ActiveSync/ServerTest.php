@@ -8,7 +8,7 @@
  */
 class Horde_ActiveSync_ServerTest extends Horde_Test_Case
 {
-    static $_server;
+    static protected $_server;
     public function setup()
     {
         $driver = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');

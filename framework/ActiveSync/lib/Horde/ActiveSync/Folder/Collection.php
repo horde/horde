@@ -24,8 +24,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
+class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base implements Serializable
 {
+    const VERSION = 1;
+
     /**
      * Flag for indicating we have an initial sync for this collection.
      *
@@ -53,6 +55,43 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
             'serverid: %s\nclass: %s\n',
             $this->serverid(),
             $this->collectionClass());
+    }
+
+    /**
+     * Serialize this object.
+     *
+     * @return string  The serialized data.
+     */
+    public function serialize()
+    {
+        return json_encode(array(
+            's' => $this->_status,
+            'f' => $this->_serverid,
+            'c' => $this->_class,
+            'lsd' => $this->_lastSinceDate,
+            'sd' => $this->_softDelete,
+            'i' => $this->haveInitialSync,
+            'v' => self::VERSION)
+        );
+    }
+
+    /**
+     * Reconstruct the object from serialized data.
+     *
+     * @param string $data  The serialized data.
+     * @throws Horde_ActiveSync_Exception_StaleState
+     */
+    public function unserialize($data)
+    {   $data = (array)@json_decode($data);
+        if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
+            throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
+        }
+        $this->_status = $data['s'];
+        $this->_serverid = $data['f'];
+        $this->_class = $data['c'];
+        $this->haveInitialSync = $data['i'];
+        $this->_lastSinceDate = empty($data['lsd']) ? 0 : $data['lsd'];
+        $this->_softDelete = empty($data['sd']) ? 0 : $data['sd'];
     }
 
 }

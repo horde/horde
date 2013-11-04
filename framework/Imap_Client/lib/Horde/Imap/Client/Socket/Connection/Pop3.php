@@ -25,8 +25,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Socket_Connection_Pop3
-extends Horde_Imap_Client_Socket_Connection
+class Horde_Imap_Client_Socket_Connection_Pop3 extends Horde\Socket\Client
 {
     /**
      * Writes data to the POP3 output stream.
@@ -44,7 +43,7 @@ extends Horde_Imap_Client_Socket_Connection
             );
         }
 
-        $this->_debug->client($data);
+        $this->_params['debug']->client($data);
     }
 
     /**
@@ -58,7 +57,7 @@ extends Horde_Imap_Client_Socket_Connection
     {
         if (feof($this->_stream)) {
             $this->close();
-            $this->_debug->info("ERROR: Server closed the connection.");
+            $this->_params['debug']->info("ERROR: Server closed the connection.");
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Server closed the connection unexpectedly."),
                 Horde_Imap_Client_Exception::DISCONNECT
@@ -66,14 +65,14 @@ extends Horde_Imap_Client_Socket_Connection
         }
 
         if (($read = fgets($this->_stream)) === false) {
-            $this->_debug->info("ERROR: read/timeout error.");
+            $this->_params['debug']->info("ERROR: read/timeout error.");
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR
             );
         }
 
-        $this->_debug->server(rtrim($read, "\r\n"));
+        $this->_params['debug']->server(rtrim($read, "\r\n"));
 
         return $read;
     }

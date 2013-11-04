@@ -300,10 +300,10 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 } else {
                     try {
                         $costobject = Hermes::getCostObjectByID($hour['costobject']);
+                        $hour['_costobject_name'] = $costobject['name'];
                     } catch (Horde_Exception $e) {
                         $hour['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
                     }
-                    $hour['_costobject_name'] = $costobject['name'];
                 }
             }
 

@@ -777,13 +777,13 @@ var KronolithMobile = {
         });
 
         // Bind click and swipe events
-        $('body').bind('swipeleft', KronolithMobile.handleSwipe);
-        $('body').bind('swiperight', KronolithMobile.handleSwipe);
-        $(document).bind('pageshow', KronolithMobile.loadPage);
-        $(document).bind('pagebeforechange', KronolithMobile.toPage);
-        $("#eventview").live("pageshow", function(event, ui) {
-            KronolithMobile.view = "event";
-        });
+        $('body').bind('swipeleft', KronolithMobile.handleSwipe)
+            .bind('swiperight', KronolithMobile.handleSwipe);
+        $(document).bind('pageshow', KronolithMobile.loadPage)
+            .bind('pagebeforechange', KronolithMobile.toPage)
+            .on("pageshow", "#eventview", function(event, ui) {
+                KronolithMobile.view = "event";
+            });
 
         $('#kronolith-minical').on('click', 'td', function(e) {
             KronolithMobile.selectMonthDay($(e.target).jqmData('date'));

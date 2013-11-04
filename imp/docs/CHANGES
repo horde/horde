@@ -1,7 +1,23 @@
 ----------
+<<<<<<< HEAD
 v6.2.0-git
 ----------
+[mms] Add copy email option to the address context menu in dynamic view.
 
+[mms] Better reporting of e-mail address errors when composing.
+[mms] Add list information display to dynamic view.
+[jan] Add signatures back to compose view.
+[mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic
+      preview pane (Request #12750).
+[mms] Add country flag graphic to contact image information in dynamic view.
+[mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
+[mms] Add ability to specify maximum total attachment size in composed message
+      before all attachments are converted to links.
+[mms] Cache generation of print-specific CSS.
+[mms] Add support for showing a contact image in the contacts popup box in
+      dynamic view.
+[mms] Add ability to create a new filter rule from context menus in the
+      dynamic view.
 [mms] More intelligent sizing of raw message parts opened in a popup window.
 [mms] Load sent-mail mailbox list on demand in dynamic view.
 [mms] Allow configurable access to remote accounts from within a session
@@ -13,10 +29,26 @@ v6.2.0-git
 
 ----------
 v6.1.5-git
+=======
+v6.1.6-git
+>>>>>>> master
 ----------
+
+[mms] Fix regression in showing non-available actions in dynamic mailbox view
+      when ACL rules prevent them (Bug #12808).
+
+
+------
+v6.1.5
+------
 
 [mms] SECURITY: Fix XSS in message and search screens resulting from a
       user-defined flag label (João Machado <geral@jpaulo.eu>).
+[mms] Support uploading multiple attachments at once in dynamic view.
+[mms] Send linked attachment download notification message in language of the
+      sending user (Bug #12783).
+[mms] Fix populating search fields when editing an advanced search query.
+[mms] Trigger auto save draft in dynamic view if attachments have changed.
 [mms] Improved UI for dropping attachments on dynamic compose screen.
 [mms] Fix manually loading all addresses in a header.
 [mms] Fix regression where reloading dynamic view would not load the previously

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
 "PO-Revision-Date: 2013-06-20 10:52+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -113,7 +113,7 @@ msgstr "Galerien von %s"
 msgid "%s: faces %s"
 msgstr "%s: %s Gesichter"
 
-#: lib/Image.php:1082
+#: lib/Image.php:1080
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -149,7 +149,7 @@ msgstr "Zugriff verweigert beim Hinzufügen von Fotos zu dieser Galerie."
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
-#: lib/Image.php:1230
+#: lib/Image.php:1228
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
@@ -169,7 +169,7 @@ msgstr "Zugriff verweigert beim Löschen der Galerien."
 msgid "Access denied deleting photos from this gallery."
 msgstr "Zugriff verweigert beim Löschen der Fotos aus dieser Galerie."
 
-#: lib/ActionHandler.php:947 lib/ActionHandler.php:972 lib/Api.php:518
+#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:518
 msgid "Access denied deleting this gallery."
 msgstr "Löschen dieser Galerie verweigert."
 
@@ -179,7 +179,7 @@ msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
 
 #: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:900 lib/Image.php:913
+#: lib/ActionHandler.php:901 lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 
@@ -187,7 +187,7 @@ msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 msgid "Access denied editing galleries."
 msgstr "Zugriff verweigert beim Bearbeiten der Galerien."
 
-#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:824
+#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:825
 #: lib/Faces/Base.php:434 lib/Faces/Base.php:522
 msgid "Access denied editing the photo."
 msgstr "Zugriff verweigert beim Bearbeiten des Fotos."
@@ -228,7 +228,7 @@ msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1192
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1190
 msgid "Access denied viewing this photo."
 msgstr "Zugriff auf dieses Foto verweigert."
 
@@ -286,7 +286,7 @@ msgstr "Neue Galerie hinzufügen"
 msgid "Administrators"
 msgstr "Administratoren"
 
-#: report.php:45
+#: report.php:52
 msgid "Advertisement content"
 msgstr "Werbungsinhalte"
 
@@ -389,8 +389,8 @@ msgstr "Unbekannter Dateityp \"%s\" kann nicht verarbeitet werden."
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:256
-#: report.php:43 templates/faces/custom.inc:19 templates/faces/define.inc:39
-#: templates/gallery/delete_confirmation.inc:13
+#: report.php:49 report.php:68 templates/faces/custom.inc:19
+#: templates/faces/define.inc:39 templates/gallery/delete_confirmation.inc:13
 #: templates/gallery/properties.html.php:135 templates/image/crop_image.inc:90
 #: templates/image/edit_image.inc:8 templates/image/resize_image.inc:7
 msgid "Cancel"
@@ -503,7 +503,7 @@ msgstr[1] "%d Fotos von %s nach %s kopiert"
 msgid "Copy"
 msgstr "Kopiere"
 
-#: report.php:48
+#: report.php:55
 msgid "Copyright infringement"
 msgstr "Copyrightverletzung"
 
@@ -553,7 +553,7 @@ msgstr "Untergalerie erstellen"
 msgid "Created"
 msgstr "Erstellt"
 
-#: lib/ActionHandler.php:838 templates/image/crop_image.inc:111
+#: lib/ActionHandler.php:839 templates/image/crop_image.inc:111
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:29
 msgid "Crop"
 msgstr "Beschneiden"
@@ -718,7 +718,7 @@ msgstr "Rechte bearbeiten"
 msgid "Edit Permissions for %s"
 msgstr "Rechte für '%s' bearbeiten"
 
-#: lib/ActionHandler.php:769
+#: lib/ActionHandler.php:770
 msgid "Edit Photo"
 msgstr "Foto bearbeiten"
 
@@ -882,7 +882,7 @@ msgstr "Galerie"
 msgid "Gallery %s not found."
 msgstr "Galerie %s nicht gefunden."
 
-#: lib/Widget/Actions.php:37
+#: lib/Widget/Actions.php:39
 msgid "Gallery Actions"
 msgstr "Galerie-Aktionen"
 
@@ -890,7 +890,7 @@ msgstr "Galerie-Aktionen"
 msgid "Gallery Ages"
 msgstr "Galeriealter"
 
-#: faces/claim.php:47 faces/report.php:50 report.php:65
+#: faces/claim.php:47 faces/report.php:50 report.php:76
 #: templates/gallery/properties.html.php:63
 msgid "Gallery Description"
 msgstr "Galerie-Beschreibung"
@@ -899,7 +899,7 @@ msgstr "Galerie-Beschreibung"
 msgid "Gallery Display Name"
 msgstr "Anzeigename der Galerie"
 
-#: report.php:66
+#: report.php:77
 msgid "Gallery Id"
 msgstr "Galerie-Id"
 
@@ -908,7 +908,7 @@ msgid "Gallery List"
 msgstr "Galerieliste"
 
 #: faces/claim.php:46 faces/report.php:49 lib/Block/MyGalleries.php:70
-#: report.php:64
+#: report.php:75
 msgid "Gallery Name"
 msgstr "Galeriename"
 
@@ -948,11 +948,11 @@ msgstr "Galeriesortierung zurückgesetzt."
 msgid "Gallery sorted."
 msgstr "Galerie umsortiert."
 
-#: report.php:75 report.php:78
+#: report.php:86 report.php:89
 msgid "Gallery was not reported."
 msgstr "Die Galerie wurde nicht gemeldet."
 
-#: report.php:73
+#: report.php:84
 msgid "Gallery was reported."
 msgstr "Die Galerie wurde gemeldet."
 
@@ -1300,7 +1300,7 @@ msgstr "Anzahl der Elemente pro Seite"
 msgid "Number of tiles per row"
 msgstr "Anzahl der Elemente pro Zeile"
 
-#: report.php:47
+#: report.php:54
 msgid "Offensive content"
 msgstr "Anstößiger Inhalt"
 
@@ -1486,7 +1486,7 @@ msgstr "Drücken Sie den \"Zurück\"-Knopf und versuchen Sie es noch einmal."
 msgid "Preview"
 msgstr "Vorschau"
 
-#: lib/ActionHandler.php:773 lib/ActionHandler.php:842
+#: lib/ActionHandler.php:774 lib/ActionHandler.php:843
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr "Vorschau der Änderungen für %s :: %s"
@@ -1661,7 +1661,7 @@ msgstr "Tag löschen"
 msgid "Replace photo with this file"
 msgstr "Foto durch diese Datei ersetzen"
 
-#: report.php:43 report.php:62 templates/faces/face.inc:11
+#: report.php:48 report.php:73 templates/faces/face.inc:11
 #: templates/faces/search.inc:15 templates/tile/face.inc:31
 #: templates/view/image.html.php:24 templates/widgets/actions.html.php:46
 msgid "Report"
@@ -1684,11 +1684,11 @@ msgstr "Der Bericht-Treiber existiert nicht."
 msgid "Report face"
 msgstr "Gesicht melden"
 
-#: report.php:57 report.php:68
+#: report.php:64 report.php:79
 msgid "Report reason"
 msgstr "Meldegrund"
 
-#: report.php:56 report.php:67
+#: report.php:63 report.php:78
 msgid "Report type"
 msgstr "Meldetyp"
 
@@ -1930,12 +1930,12 @@ msgstr "Diashow starten"
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/ActionHandler.php:953
+#: lib/ActionHandler.php:954
 #, php-format
 msgid "Successfully deleted %s."
 msgstr "%s wurde erfolgreich gelöscht."
 
-#: lib/ActionHandler.php:977
+#: lib/ActionHandler.php:978
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr "\"%s\" wurde erfolgreich geleert"
@@ -1966,7 +1966,7 @@ msgstr "Tag- und Metadaten-Einstellungen"
 msgid "Tell us who is in this photo"
 msgstr "Wer ist auf dem Foto zu sehen?"
 
-#: report.php:46
+#: report.php:53
 msgid "Terms and conditions infringement"
 msgstr "AGB-Verletzung"
 
@@ -1999,15 +1999,15 @@ msgstr "Die Galerie \"%s\" wurde erfolgreich erstellt."
 msgid "The gallery was saved."
 msgstr "Die Galerie wurde gespeichert."
 
-#: lib/ActionHandler.php:1006
+#: lib/ActionHandler.php:1007
 msgid "The gallery's default photo has successfully been reset."
 msgstr "Das Standardfoto dieser Galerie wurde erfolgreich zurückgesetzt."
 
-#: lib/ActionHandler.php:1026
+#: lib/ActionHandler.php:1027
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr "Die Vorschauen dieser Galerie wurde erfolgreich zurückgesetzt."
 
-#: lib/ActionHandler.php:1041
+#: lib/ActionHandler.php:1042
 msgid "The gallery's views have successfully been reset."
 msgstr "Die Ansichten dieser Galerie wurden erfolgreich zurückgesetzt."
 
@@ -2047,7 +2047,7 @@ msgstr "In %s befinden sich keine Fotos zum Herunterladen."
 msgid "There are no photos in this gallery."
 msgstr "In dieser Galerie befinden sich keine Fotos."
 
-#: lib/ActionHandler.php:957
+#: lib/ActionHandler.php:958
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-22</date>
+ <date>2013-10-16</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -33,8 +33,23 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add copy email option to the address context menu in dynamic view.
+* [mms] Support uploading multiple attachments at once in dynamic view.
+* [mms] Better reporting of e-mail address errors when composing.
+* [mms] Add list information display to dynamic view.
+* [jan] Add signatures back to compose view.
+* [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic preview pane (Request #12750).
+* [mms] Add country flag graphic to contact image information in dynamic view.
+* [mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
+* [mms] Add ability to specify maximum total attachment size in composed message before all attachments are converted to links.
+* [mms] Cache generation of print-specific CSS.
+* [mms] Add support for showing a contact image in the contacts popup box in dynamic view.
+* [mms] Add ability to create a new filter rule from context menus in the dynamic view.
 * [mms] More intelligent sizing of raw message parts opened in a popup window.
-
+* [mms] Load sent-mail mailbox list on demand in dynamic view.
+* [mms] Allow configurable access to remote accounts from within a session (Request #8077).
+* [jan] Display "Other Options" icon instead of "New Window" icon in collapsed preview headers.
+* [mms] More advanced auto-completion for smartmobile view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,6 +89,10 @@
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
     </dir> <!-- /js/ckeditor -->
+    <dir name="external">
+     <file name="base64.js" role="horde" />
+     <file name="murmurhash3.js" role="horde" />
+    </dir> <!-- /js/external -->
     <dir name="jquery.mobile">
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
@@ -81,7 +100,6 @@
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
-    <file name="base64.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -97,9 +115,9 @@
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
-    <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
+    <file name="prettyautocomplete.js" role="horde" />
     <file name="remoteprefs.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
@@ -129,6 +147,9 @@
       <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
+      <dir name="AutoCompleter">
+       <file name="Pretty.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Imple/AutoCompleter -->
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
@@ -168,6 +189,9 @@
       <file name="Linked.php" role="horde" />
       <file name="Storage.php" role="horde" />
      </dir> <!-- /lib/Compose/Attachment -->
+     <dir name="Exception">
+      <file name="Address.php" role="horde" />
+     </dir> <!-- /lib/Compose/Exception -->
      <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="Link.php" role="horde" />
@@ -176,6 +200,19 @@
      <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
+    <dir name="Contacts">
+     <dir name="Avatar">
+      <file name="Addressbook.php" role="horde" />
+      <file name="Backend.php" role="horde" />
+      <file name="Gravatar.php" role="horde" />
+      <file name="Unknown.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Avatar -->
+     <dir name="Flag">
+      <file name="Backend.php" role="horde" />
+      <file name="Host.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Flag -->
+     <file name="Image.php" role="horde" />
+    </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
@@ -1057,6 +1094,7 @@
       <file name="clearflag.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
@@ -1105,6 +1143,7 @@
       <file name="spellcheck.png" role="horde" />
       <file name="thread.png" role="horde" />
       <file name="undelete.png" role="horde" />
+      <file name="unknown_contact.jpg" role="horde" />
       <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
@@ -1178,7 +1217,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.9.0</min>
+    <min>2.11.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1248,7 +1287,7 @@
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1262,7 +1301,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1421,6 +1460,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Service_Gravatar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1458,7 +1504,6 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
-   <install as="imp/js/base64.js" name="js/base64.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1474,9 +1519,9 @@
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
-   <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
+   <install as="imp/js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
    <install as="imp/js/remoteprefs.js" name="js/remoteprefs.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
@@ -1487,6 +1532,8 @@
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
+   <install as="imp/js/external/base64.js" name="js/external/base64.js" />
+   <install as="imp/js/external/murmurhash3.js" name="js/external/murmurhash3.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
@@ -1536,6 +1583,7 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
@@ -1563,6 +1611,14 @@
    <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
    <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
    <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
+   <install as="imp/lib/Compose/Exception/Address.php" name="lib/Compose/Exception/Address.php" />
+   <install as="imp/lib/Contacts/Image.php" name="lib/Contacts/Image.php" />
+   <install as="imp/lib/Contacts/Avatar/Addressbook.php" name="lib/Contacts/Avatar/Addressbook.php" />
+   <install as="imp/lib/Contacts/Avatar/Backend.php" name="lib/Contacts/Avatar/Backend.php" />
+   <install as="imp/lib/Contacts/Avatar/Gravatar.php" name="lib/Contacts/Avatar/Gravatar.php" />
+   <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
+   <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
+   <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
@@ -2016,6 +2072,7 @@
    <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
+   <install as="imp/themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
@@ -2064,6 +2121,7 @@
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
    <install as="imp/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
+   <install as="imp/themes/default/graphics/unknown_contact.jpg" name="themes/default/graphics/unknown_contact.jpg" />
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
@@ -3347,10 +3405,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-04</date>
+   <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Send linked attachment download notification message in language of the sending user (Bug #12783).
+* [mms] Fix populating search fields when editing an advanced search query.
+* [mms] Trigger auto save draft in dynamic view if attachments have changed.
 * [mms] Improved UI for dropping attachments on dynamic compose screen.
 * [mms] Fix manually loading all addresses in a header.
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.
@@ -3362,6 +3423,19 @@
 * [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.6</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix regression in showing non-available actions in dynamic mailbox view when ACL rules prevent them (Bug #12808).
    </notes>
   </release>
  </changelog>

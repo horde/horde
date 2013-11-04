@@ -164,6 +164,7 @@ This should perform all required actions. Sometimes it might be necessary to avo
 The available tasks are:
 
  - timestamp   : Timestamp the package.xml and sync the change log.
+ - composer    : Update the composer.json file.
  - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
  - commit      : Commit any changes with an automated message.
  - package     : Prepare a *.tgz package.

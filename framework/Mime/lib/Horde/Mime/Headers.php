@@ -526,6 +526,8 @@ class Horde_Mime_Headers implements Serializable
     /**
      * Returns the list of valid mailing list headers.
      *
+     * @deprecated  Use Horde_ListHeaders#headers() instead.
+     *
      * @return array  The list of valid mailing list headers.
      */
     static public function listHeaders()

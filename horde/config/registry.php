@@ -35,6 +35,7 @@
  *             heading: Header label for application groups.
  *             hidden: Enable application, but hide.
  *             inactive: Disable application
+ *             link: Add a link to an external url
  *             notoolbar: TODO
  *             topbar: Show in topbar only.
  *         DEFAULT: 'active'

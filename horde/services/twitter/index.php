@@ -188,7 +188,7 @@ case 'getPage':
 
         /* These are all referencing the *original* tweet */
         $view->profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
-        $view->profileImg = $tweetObj->user->profile_image_url;
+        $view->profileImg = $GLOBALS['browser']->usingSSLConnection() ? $tweetObj->user->profile_image_url_https : $tweetObj->user->profile_image_url;
         $view->authorName = '@' . htmlspecialchars($tweetObj->user->screen_name);
         $view->authorFullname = htmlspecialchars($tweetObj->user->name);
         $view->createdAt = $tweetObj->created_at;

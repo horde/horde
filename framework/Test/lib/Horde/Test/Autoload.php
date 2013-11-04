@@ -74,7 +74,7 @@ class Horde_Test_Autoload
      */
     public static function resolve($class)
     {
-        $filename = str_replace(array('::', '_'), '/', $class);
+        $filename = str_replace(array('::', '_', '\\'), '/', $class);
 
         foreach (self::$_mappings as $prefix => $path) {
             if ((strpos($filename, "/") === false) && ($filename == $prefix)) {

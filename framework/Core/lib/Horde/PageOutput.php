@@ -181,11 +181,11 @@ class Horde_PageOutput
             return;
         }
 
+        $all_scripts = $jsvars = $tmp = array();
         $driver = empty($conf['cachejs'])
             ? 'none'
             : strtolower($conf['cachejsparams']['driver']);
         $last_cache = null;
-        $jsvars = $tmp = array();
 
         foreach ($this->hsl as $val) {
             if ($driver == 'none') {
@@ -209,6 +209,12 @@ class Horde_PageOutput
             if (!empty($val->jsvars)) {
                 $jsvars = array_merge($jsvars, $val->jsvars);
             }
+
+            $all_scripts[] = strval($val->url);
+        }
+
+        if (($this->ajax || $this->growler) && $all_scripts) {
+            $jsvars['HordeCore.jsfiles'] = $all_scripts;
         }
 
         $this->_outputCachedScripts($tmp);

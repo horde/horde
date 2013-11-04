@@ -653,51 +653,29 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                                      of this message.
      * @param array $opts                   An array of options w/the
      *                                      following keys:
-     * <ul>
-     *  <li>
-     *   encrypt: (integer) A flag whether to encrypt or sign the message.
+     *  - encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
-     *   <ul>
-     *    <li>IMP_Crypt_Pgp::ENCRYPT</li>
-     *    <li>IMP_Crypt_Pgp::SIGNENC</li>
-     *    <li>IMP_Crypt_Smime::ENCRYPT</li>
-     *    <li>IMP_Crypt_Smime::SIGNENC</li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   html: (boolean) Whether this is an HTML message.
-     *         DEFAULT: false
-     *  </li>
-     *  <li>
-     *   pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
-     *                      message?
-     *  </li>
-     *  <li>
-     *   priority: (string) The message priority ('high', 'normal', 'low').
-     *  </li>
-     *  <li>
-     *   save_sent: (boolean) Save sent mail?
-     *  </li>
-     *  <li>
-     *   sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
-     *  </li>
-     *  <li>
-     *   save_attachments: (bool) Save attachments with the message?
-     *  </li>
-     *  <li>
-     *   readreceipt: (boolean) Add return receipt headers?
-     *  </li>
-     *  <li>
-     *   useragent: (string) The User-Agent string to use.
-     *  </li>
-     *  <li>
-     *   vcard_attach: (string) Attach the user's vCard (value is name to
-     *                 display as vcard filename).
-     *  </li>
-     * </ul>
+     *    - IMP_Crypt_Pgp::ENCRYPT</li>
+     *    - IMP_Crypt_Pgp::SIGNENC</li>
+     *    - IMP_Crypt_Smime::ENCRYPT</li>
+     *    - IMP_Crypt_Smime::SIGNENC</li>
+     *  - html: (boolean) Whether this is an HTML message.
+     *          DEFAULT: false
+     *  - pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
+     *                       message?
+     *  - priority: (string) The message priority ('high', 'normal', 'low').
+     *  - save_sent: (boolean) Save sent mail?
+     *  - sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
+     *  - save_attachments: (bool) Save attachments with the message?
+     *  - signature: (string) The message signature.
+     *  - readreceipt: (boolean) Add return receipt headers?
+     *  - useragent: (string) The User-Agent string to use.
+     *  - vcard_attach: (string) Attach the user's vCard (value is name to
+     *                  display as vcard filename).
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
+     * @throws IMP_Compose_Exception_Address
      * @throws IMP_Exception
      */
     public function buildAndSendMessage(
@@ -749,7 +727,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'html' => !empty($opts['html']),
             'identity' => $identity,
             'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
-            'signature' => $identity,
+            'signature' => is_null($opts['signature']) ? $identity : $opts['signature'],
             'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
         );
 
@@ -834,6 +812,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 /* Store history information. */
                 $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
+            } catch (IMP_Compose_Exception_Address $e) {
+                throw $e;
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 if ($e->log()) {
@@ -943,7 +923,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Call post-sent hook. */
         try {
-            Horde::callHook('post_sent', array($save_msg['msg'], $headers), 'imp');
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'post_sent',
+                'imp',
+                array($save_msg['msg'], $headers)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 
@@ -1144,7 +1128,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Pass to hook to allow alteration of message details. */
         if (!is_null($message)) {
             try {
-                Horde::callHook('pre_sent', array($message, $headers, $this), 'imp');
+                $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'pre_sent',
+                    'imp',
+                    array($message, $headers, $this)
+                );
             } catch (Horde_Exception_HookNotSet $e) {}
         }
     }
@@ -1157,11 +1145,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return string  The encoded $email list.
      *
-     * @throws IMP_Compose_Exception
+     * @throws IMP_Compose_Exception_Address
      */
     protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
                                               $charset)
     {
+        global $injector;
+
+        $exception = new IMP_Compose_Exception_Address();
+        $hook = true;
         $out = array();
 
         foreach ($email as $val) {
@@ -1179,11 +1171,53 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
+
+                $error = null;
+
+                if ($hook) {
+                    try {
+                        $error = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                            'compose_addr',
+                            'imp',
+                            array($tmp)
+                        );
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $hook = false;
+                    }
+                }
             } catch (Horde_Mail_Exception $e) {
-                throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address (%s)."), $val->writeAddress()));
+                $error = array(
+                    'msg' => sprintf(_("Invalid e-mail address (%s)."), $val)
+                );
             }
 
-            $out[] = $tmp;
+            if (is_array($error)) {
+                switch (isset($error['level']) ? $error['level'] : $exception::BAD) {
+                case $exception::WARN:
+                case 'warn':
+                    if (!empty($this->_metadata['warn_addr']) &&
+                        in_array(strval($val), $this->_metadata['warn_addr'])) {
+                        $out[] = $tmp;
+                        continue 2;
+                    }
+                    $this->_metadata['warn_addr'][] = strval($val);
+                    $this->changed = 'changed';
+                    $level = $exception::WARN;
+                    break;
+
+                default:
+                    $level = $exception::BAD;
+                    break;
+                }
+
+                $exception->addAddress($val, $error['msg'], $level);
+            } else {
+                $out[] = $tmp;
+            }
+        }
+
+        if (count($exception)) {
+            throw $exception;
         }
 
         return implode(', ', $out);
@@ -1273,8 +1307,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
-     *   - signature: (IMP_Prefs_Identity) If set, add the signature to the
-     *                message?
+     *   - signature: (IMP_Prefs_Identity|string) If set, add the signature to
+     *                the message.
      *   - vcard_attach: (string) If set, attach user's vcard to message.
      *
      * @return Horde_Mime_Part  The MIME message to send.
@@ -1298,6 +1332,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+
         /* We need to do the attachment check before any of the body text
          * has been altered. */
         if (!count($this) && !$this->getMetadata('attach_body_check')) {
@@ -1305,7 +1341,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->changed = 'changed';
 
             try {
-                $check = Horde::callHook('attach_body_check', array($body), 'imp');
+                $check = $$hooks->callHook(
+                    'attach_body_check',
+                    'imp',
+                    array($body)
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $check = array();
             }
@@ -1318,15 +1358,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add signature data. */
         if (!empty($options['signature'])) {
-            $sig = $options['signature']->getSignature('text');
-            $body .= $sig;
-
-            if (!empty($options['html'])) {
-                $html_sig = $options['signature']->getSignature('html');
-                if (!strlen($html_sig) && strlen($sig)) {
-                    $html_sig = $this->text2html($sig);
+            if (is_string($options['signature'])) {
+                if (empty($options['html'])) {
+                    $body .= "\n" . $options['signature'];
+                } else {
+                    $html_sig = $options['signature'];
+                    $body .= "\n" . $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($html_sig, 'Html2text');
                 }
+            } else {
+                $sig = $options['signature']->getSignature('text');
+                $body .= $sig;
 
+                if (!empty($options['html'])) {
+                    $html_sig = $options['signature']->getSignature('html');
+                    if (!strlen($html_sig) && strlen($sig)) {
+                        $html_sig = $this->text2html($sig);
+                    }
+
+                }
+            }
+            if (!empty($options['html'])) {
                 $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
                 foreach ($sig_dom->getBody()->childNodes as $child) {
                     $body_html_body->appendChild($body_html->dom->importNode($child, true));
@@ -1342,8 +1393,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
-                $trailer = Horde::callHook('trailer', array(false, $options['identity'], $to), 'imp');
-                $html_trailer = Horde::callHook('trailer', array(true, $options['identity'], $to), 'imp');
+                $trailer = $hooks->callHook(
+                    'trailer',
+                    'imp',
+                    array(false, $options['identity'], $to)
+                );
+                $html_trailer = $hooks->callHook(
+                    'trailer',
+                    'imp',
+                    array(true, $options['identity'], $to)
+                );
             } catch (Horde_Exception_HookNotSet $e) {
                 $trailer = $html_trailer = null;
             }
@@ -2560,10 +2619,30 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _linkAttachments(&$body, $html)
     {
+        global $conf;
+
+        $link_all = false;
         $linked = array();
 
-        foreach ($this as $val) {
-            if (!$val->related && $val->linked) {
+        if (!empty($conf['compose']['link_attach_size_hard'])) {
+            $limit = intval($conf['compose']['link_attach_size_hard']);
+            foreach ($this as $val) {
+                if (($limit -= $val->getPart()->getBytes()) < 0) {
+                    $link_all = true;
+                    break;
+                }
+            }
+        }
+
+        foreach (iterator_to_array($this) as $key => $val) {
+            if ($link_all && !$val->linked) {
+                $val = new IMP_Compose_Attachment($this, $val->getPart(), $val->storage->getTempFile());
+                $val->forceLinked = true;
+                unset($this[$key]);
+                $this[$key] = $val;
+            }
+
+            if ($val->linked && !$val->related) {
                 $linked[] = $val;
             }
         }
@@ -2838,49 +2917,63 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Add attachment from uploaded (form) data.
      *
-     * @param Horde_Variables $vars  Variables object.
-     * @param string $field          The form field name.
+     * @param string $field  The form field name.
      *
-     * @return IMP_Compose_Attachment  Attachment object.
+     * @return array  A list of IMP_Compose_Attachment objects (if
+     *                successfully attached) or IMP_Compose_Exception objects
+     *                (if error when attaching).
      * @throws IMP_Compose_Exception
      */
-    public function addAttachmentFromUpload(Horde_Variables $vars, $field)
+    public function addAttachmentFromUpload($field)
     {
         global $browser;
 
-        if ($vars->get($field . '_dataurl')) {
-            $url_data = new Horde_Url_Data($vars->get($field));
-
-            $atc_file = Horde::getTempFile('impatt');
-            file_put_contents($atc_file, $url_data->data);
-
-            $bytes = strlen($url_data->data);
-            $filename = $vars->get($field . '_filename');
-            $type = $url_data->type;
-        } else {
-            try {
-                $browser->wasFileUploaded($field, _("attachment"));
-            } catch (Horde_Browser_Exception $e) {
-                throw new IMP_Compose_Exception($e);
-            }
-
-            $finfo = $_FILES[$field];
-
-            $atc_file = $finfo['tmp_name'];
-
-            $bytes = $finfo['size'];
-            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-            $type = empty($finfo['type'])
-                ? 'application/octet-stream'
-                : $finfo['type'];
+        try {
+            $browser->wasFileUploaded($field, _("attachment"));
+        } catch (Horde_Browser_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
 
-        return $this->_addAttachment(
-            $atc_file,
-            $bytes,
-            $filename,
-            $type
-        );
+        $finfo = array();
+        if (is_array($_FILES[$field]['size'])) {
+            for ($i = 0; $i < count($_FILES[$field]['size']); ++$i) {
+                $tmp = array();
+                foreach ($_FILES[$field] as $key => $val) {
+                    $tmp[$key] = $val[$i];
+                }
+                $finfo[] = $tmp;
+            }
+        } else {
+            $finfo[] = $_FILES[$field];
+        }
+
+        $out = array();
+
+        foreach ($finfo as $val) {
+            switch (empty($val['type']) ? $val['type'] : '') {
+            case 'application/unknown':
+            case '':
+                $type = 'application/octet-stream';
+                break;
+
+            default:
+                $type = $val['type'];
+                break;
+            }
+
+            try {
+                $out[] = $this->_addAttachment(
+                    $val['tmp_name'],
+                    $val['size'],
+                    Horde_Util::dispelMagicQuotes($val['name']),
+                    $type
+                );
+            } catch (IMP_Compose_Exception $e) {
+                $out[] = $e;
+            }
+        }
+
+        return $out;
     }
 
     /**
@@ -2896,7 +2989,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _addAttachment($atc_file, $bytes, $filename, $type)
     {
-        global $conf;
+        global $conf, $injector;
 
         $atc = new Horde_Mime_Part();
         $atc->setBytes($bytes);
@@ -2957,7 +3050,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         try {
-            Horde::callHook('compose_attachment', array($atc_ob), 'imp');
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'compose_attachment',
+                'imp',
+                array($atc_ob)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $this->_atc[$atc_ob->id] = $atc_ob;
@@ -2992,7 +3089,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 'readreceipt' => $vars->request_read_receipt
             ));
 
-            $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
+            $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('sha1', $vars->user), $body, true);
         } catch (Exception $e) {}
     }
 
@@ -3007,7 +3104,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return;
         }
 
-        $filename = hash('md5', $GLOBALS['registry']->getAuth());
+        $filename = hash('sha1', $GLOBALS['registry']->getAuth());
 
         try {
             $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
@@ -3079,7 +3176,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     static public function canCompose()
     {
         try {
-            return !Horde::callHook('disable_compose', array(), 'imp');
+            return !$GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('disable_compose', 'imp');
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }

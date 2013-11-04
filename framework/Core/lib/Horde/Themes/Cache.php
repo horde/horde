@@ -253,14 +253,19 @@ class Horde_Themes_Cache implements Serializable
      */
     public function getCacheId()
     {
+        global $conf, $registry;
+
         if (!isset($this->_cacheid)) {
-            $check = isset($GLOBALS['conf']['cachethemesparams']['check']) ? $GLOBALS['conf']['cachethemesparams']['check'] : null;
+            $check = isset($conf['cachethemesparams']['check'])
+                ? $conf['cachethemesparams']['check']
+                : null;
+
             switch ($check) {
             case 'appversion':
             default:
-                $id = array($GLOBALS['registry']->getVersion($this->_app));
+                $id = array($registry->getVersion($this->_app));
                 if ($this->_app != 'horde') {
-                    $id[] = $GLOBALS['registry']->getVersion('horde');
+                    $id[] = $registry->getVersion('horde');
                 }
                 $this->_cacheid = 'v:' . implode('|', $id);
                 break;

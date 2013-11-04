@@ -11,9 +11,10 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   atc_context, auto_save_interval, compose_cursor, disabled,
-    //   drafts_mbox, editor_wait, fwdattach, is_popup, knl, md5_hdrs,
-    //   md5_msg, md5_msgOrig, onload_show, old_action, old_identity, rte,
-    //   rte_loaded, sc_submit, skip_spellcheck, spellcheck, tasks, uploading
+    //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
+    //   hash_msgOrig, hash_sig, hash_sigOrig, is_popup, knl, last_identity,
+    //   onload_show, old_action, old_identity, rte, rte_loaded, sc_submit,
+    //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -79,7 +80,8 @@ var DimpCompose = {
 
     closeQReply: function()
     {
-        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
+        this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
+        this.upload_limit = false;
 
         $('attach_list').hide().childElements().each(this.removeAttachRow.bind(this));
         this.getCacheElt().clear();
@@ -101,6 +103,12 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
+        if (!Object.isUndefined(this.hash_sigOrig) &&
+            this.hash_sigOrig != this.sigHash() &&
+            !window.confirm(DimpCore.text.change_identity)) {
+            return false;
+        }
+
         var identity = ImpComposeBase.identities[$F('identity')];
 
         this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
@@ -114,6 +122,10 @@ var DimpCompose = {
             this.toggleCC('bcc');
         }
         this.setSaveSentMail(identity.sm_save);
+        ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+        this.last_identity = $F('identity');
+
+        return true;
     },
 
     setSaveSentMail: function(set)
@@ -218,6 +230,11 @@ var DimpCompose = {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
+            // Fall-through
+
+        case 'redirectMessage':
+            $(document).fire('AutoComplete:update');
+            break;
         }
 
         this.skip_spellcheck = false;
@@ -231,16 +248,21 @@ var DimpCompose = {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
                 this.rte.updateElement();
+                if (!Object.isUndefined(ImpComposeBase.rte)) {
+                    ImpComposeBase.rte.updateElement();
+                }
             }
 
-            // Use an AJAX submit here so that we can do javascript-y stuff
-            // before having to close the window on success.
-            DimpCore.doAction(action, c.serialize(true), {
-                ajaxopts: {
-                    onFailure: this.uniqueSubmitFailure.bind(this)
-                },
-                callback: this.uniqueSubmitCallback.bind(this)
-            });
+            DimpCore.doAction(
+                action,
+                ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
+                {
+                    ajaxopts: {
+                        onFailure: this.uniqueSubmitFailure.bind(this)
+                    },
+                    callback: this.uniqueSubmitCallback.bind(this)
+                }
+            );
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
@@ -298,7 +320,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'addAttachment':
-                this._addAttachmentEnd();
+                this.addAttachmentEnd();
                 break;
             }
         } else {
@@ -354,7 +376,8 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var changed, sc, text, tmp;
+        var changed, sigChanged, sc, text, tmp,
+            identity = ImpComposeBase.identities[$F('identity')];
 
         if (!DimpCore.conf.rte_avail) {
             return;
@@ -368,7 +391,7 @@ var DimpCompose = {
         if (ImpComposeBase.editor_on) {
             this.RTELoading('show');
 
-            changed = (this.msgHash() != this.md5_msgOrig);
+            changed = (this.msgHash() != this.hash_msgOrig);
             text = this.rte.getData();
 
             DimpCore.doAction('html2Text', this.actionParams({
@@ -381,6 +404,19 @@ var DimpCompose = {
 
             this.rte.destroy(true);
             delete this.rte;
+
+            if ($('signature')) {
+                sigChanged = this.sigHash() != this.hash_sigOrig;
+                if (sigChanged) {
+                    DimpCore.doAction('html2Text', this.actionParams({
+                        changed: 1,
+                        text: ImpComposeBase.rte.getData()
+                    }), {
+                        ajaxopts: { asynchronous: false },
+                        callback: function(r) { ImpComposeBase.setSignature(false, r.text) }
+                    });
+                }
+            }
         } else {
             this.RTELoading('show');
 
@@ -388,7 +424,7 @@ var DimpCompose = {
                 tmp = $F('composeMessage');
                 if (!tmp.blank()) {
                     DimpCore.doAction('text2Html', this.actionParams({
-                        changed: Number(this.msgHash() != this.md5_msgOrig),
+                        changed: Number(this.msgHash() != this.hash_msgOrig),
                         text: tmp
                     }), {
                         callback: this.setMessageText.bind(this, true)
@@ -410,9 +446,27 @@ var DimpCompose = {
             }
 
             this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+
+            if ($('signature')) {
+                tmp = $F('signature');
+                sigChanged = (this.sigHash() != this.hash_sigOrig);
+                if (sigChanged && !tmp.blank()) {
+                    DimpCore.doAction('text2Html', this.actionParams({
+                        changed: 1,
+                        text: tmp
+                    }), {
+                        ajaxopts: { asynchronous: false },
+                        callback: function(r) { ImpComposeBase.setSignature(true, r.text) }
+                    });
+                }
+            }
         }
 
         ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
+        if (!sigChanged) {
+            ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+            this.updateSigHash();
+        }
 
         $('htmlcheckbox').setValue(ImpComposeBase.editor_on);
         $('html').setValue(Number(ImpComposeBase.editor_on));
@@ -569,7 +623,7 @@ var DimpCompose = {
         this.setBodyText(ob);
         this.resizeMsgArea();
 
-        Field.focus(ob.opts.focus || 'to');
+        ImpComposeBase.focus(ob.opts.focus || 'to');
 
         this.fillFormHash();
     },
@@ -583,35 +637,73 @@ var DimpCompose = {
 
         // This value is used to determine if the text has changed when
         // swapping compose modes.
-        this.md5_msgOrig = this.msgHash();
+        this.hash_msgOrig = this.msgHash();
+        this.hash_sigOrig = this.sigHash();
 
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
             !this.auto_save_interval) {
-            this.auto_save_interval = new PeriodicalExecuter(function() {
-                if ($('compose').visible()) {
-                    var hdrs = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0'), this.seed), msg;
-                    if (this.md5_hdrs) {
-                        msg = this.msgHash();
-                        if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
-                            this.uniqueSubmit('autoSaveDraft');
-                        }
-                    } else {
-                        msg = this.md5_msgOrig;
-                    }
-                    this.md5_hdrs = hdrs;
-                    this.md5_msg = msg;
-                }
-            }.bind(this), DimpCore.conf.auto_save_interval_val * 60);
+            this.auto_save_interval = new PeriodicalExecuter(
+                this.autoSaveDraft.bind(this),
+                DimpCore.conf.auto_save_interval_val * 60
+            );
 
             /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
     },
 
+    autoSaveDraft: function()
+    {
+        var hdrs, msg, sig;
+
+        if (!$('compose').visible()) {
+            return;
+        }
+
+        hdrs = murmurhash3(
+            [$('to', 'cc', 'bcc', 'subject').compact().invoke('getValue'),
+             $('attach_list').select('SPAN.attachName').pluck('textContent')
+            ].flatten().join('\0'),
+            this.seed
+        );
+
+        if (this.hash_hdrs) {
+            msg = this.msgHash();
+            sig = this.sigHash();
+            if (this.hash_hdrs != hdrs || this.hash_msg != msg || this.hash_sig != sig) {
+                this.uniqueSubmit('autoSaveDraft');
+            }
+        } else {
+            msg = this.hash_msgOrig;
+            sig = this.hash_sigOrig;
+        }
+
+        this.hash_hdrs = hdrs;
+        this.hash_msg = msg;
+        this.hash_sig = sig;
+    },
+
     msgHash: function()
     {
         return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), this.seed);
+    },
+
+    sigHash: function()
+    {
+        if (!$('signature')) {
+            return 0;
+        }
+        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+    },
+
+    updateSigHash: function()
+    {
+        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+            this.updateSigHash.bind(this).defer();
+            return;
+        }
+        this.hash_sigOrig = this.sigHash();
     },
 
     fadeNotice: function(elt)
@@ -654,13 +746,15 @@ var DimpCompose = {
     swapToAddressCallback: function(r)
     {
         if (r.addr) {
-            $('to').setValue(r.addr.to.join(', '));
+            $('to').setValue(r.addr.to.join(', '))
+                .fire('AutoComplete:reset');
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.addr[t].size() || $(t).visible()) {
-                    if (!$(t).visible()) {
+                if (r.addr[t].size() || $('send' + t).visible()) {
+                    if (!$('send' + t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.addr[t].join(', '));
+                    $(t).setValue(r.addr[t].join(', '))
+                        .fire('AutoComplete:reset');
                 }
             }, this);
         }
@@ -669,9 +763,9 @@ var DimpCompose = {
 
     focusEditor: function()
     {
-        try {
+        if (this.rte.focus) {
             this.rte.focus();
-        } catch (e) {
+        } else {
             this.focusEditor.bind(this).defer();
         }
     },
@@ -764,6 +858,14 @@ var DimpCompose = {
 
         u.clear();
 
+        if (this.upload_limit) {
+            $('upload_limit').show();
+            u.up().hide();
+        } else {
+            $('upload_limit').hide();
+            u.up().show();
+        }
+
         if (!al.childElements().size()) {
             al.hide();
         }
@@ -771,7 +873,7 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    _addAttachmentEnd: function()
+    addAttachmentEnd: function()
     {
         this.uploading = false;
         $('upload_wait').hide();
@@ -793,6 +895,7 @@ var DimpCompose = {
 
         var mah,
             cmp = $('composeMessageParent'),
+            sp = $('signatureParent'),
             qreply = $('qreply');
 
         if (!cmp || (qreply && !qreply.visible())) {
@@ -805,6 +908,9 @@ var DimpCompose = {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
         } catch (ex) {
             return;
+        }
+        if (sp) {
+            mah -= sp.getHeight();
         }
 
         if (this.rte_loaded) {
@@ -823,7 +929,9 @@ var DimpCompose = {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
         u.up().hide();
-        $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
+        $('upload_wait').update(DimpCore.text.uploading + ' (' +
+            ((u.files && u.files.length > 1) ? DimpCore.text.multiple_atc.sub('%d', u.files.length) : $F(u).escapeHTML())
+            + ')').show();
     },
 
     uploadAttachmentAjax: function(data, params, callback)
@@ -856,8 +964,6 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
-        new TextareaResize(type);
-
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -867,7 +973,7 @@ var DimpCompose = {
 
         this.resizeMsgArea();
 
-        $(type).focus();
+        ImpComposeBase.focus(type);
     },
 
     sentMailListCallback: function(r)
@@ -924,6 +1030,25 @@ var DimpCompose = {
 
         case 'togglecc':
             this.toggleCC('cc');
+            this.resizeMsgArea();
+            break;
+
+        case 'signatureToggle':
+            if ($('signatureBorder').visible()) {
+                $('signatureToggle').removeClassName('signatureExpanded');
+                $('signatureBorder').hide();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 0
+                });
+            } else {
+                $('signatureToggle').addClassName('signatureExpanded');
+                $('signatureBorder').show();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 1
+                });
+            }
             this.resizeMsgArea();
             break;
 
@@ -1084,7 +1209,9 @@ var DimpCompose = {
     {
         switch (e.element().readAttribute('id')) {
         case 'identity':
-            this.changeIdentity();
+            if (!this.changeIdentity()) {
+                $('identity').setValue(this.last_identity);
+            }
             break;
 
         case 'upload':
@@ -1161,13 +1288,7 @@ var DimpCompose = {
 
         if (t['imp:compose']) {
             this.getCacheElt().setValue(t['imp:compose'].cacheid);
-            if (t['imp:compose'].atclimit) {
-                $('upload_limit').show();
-                $('upload').up().hide();
-            } else {
-                $('upload_limit').hide();
-                $('upload').up().show();
-            }
+            this.upload_limit = t['imp:compose'].atclimit;
         }
 
         if (t['imp:compose-atc']) {
@@ -1196,7 +1317,6 @@ var DimpCompose = {
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);
-            new TextareaResize('redirect_to');
             if (DimpCore.conf.URI_ABOOK) {
                 $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
             }
@@ -1275,8 +1395,6 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        new TextareaResize('to');
-
         /* Add addressbook link formatting. */
         if (DimpCore.conf.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
@@ -1307,7 +1425,6 @@ Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(Di
 
 /* Other UI event handlers. */
 document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
-document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* ContextSensitive functions. */
 document.observe('ContextSensitive:click', DimpCompose.contextOnClick.bindAsEventListener(DimpCompose));
@@ -1324,12 +1441,12 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {
-    this.tasksHandler(e.memo);
-}.bindAsEventListener(DimpCompose));
+    DimpCompose.tasksHandler(e.memo);
+});
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxFailure', function(e) {
-    if (this.uploading) {
-        this._addAttachmentEnd();
+    if (DimpCompose.uploading) {
+        DimpCompose.addAttachmentEnd();
     }
-}.bindAsEventListener(DimpCompose));
+});

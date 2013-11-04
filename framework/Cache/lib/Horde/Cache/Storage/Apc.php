@@ -95,7 +95,6 @@ class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
      */
     protected function _setExpire($key, $lifetime)
     {
-        $key = $this->_params['prefix'] . $key;
         if ($lifetime == 0) {
             // Don't expire.
             return;

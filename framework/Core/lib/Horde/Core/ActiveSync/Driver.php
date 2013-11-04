@@ -193,6 +193,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
+        if (empty($password)) {
+            $this->_logger->notice('Device failed to pass the user password.');
+            return false;
+        }
         if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
             !$this->_auth->authenticate($username, array('password' => $password))) {
 
@@ -326,14 +330,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
             }
 
-            if (array_search('mail', $supported) !== false) {
-                try {
-                    $folders = array_merge($folders, $this->_getMailFolders());
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
+            // Always return at least the "dummy" IMAP folders since some
+            // clients refuse to consider a FOLDERSYNC successful without
+            // at least an INBOX, even with email sync turned off.
+            try {
+                $folders = array_merge($folders, $this->_getMailFolders());
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                return array();
             }
 
             $this->_endBuffer();
@@ -1410,6 +1415,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if (!empty($h_array['Bcc'])) {
                 $recipients .= ',' . $h_array['Bcc'];
+                unset($h_array['Bcc']);
             }
             $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
@@ -1418,7 +1424,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-               // $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -1802,7 +1807,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
-                $vacation = $this->_connector->filters_getVacation();
+                if (!$vacation = $this->_connector->filters_getVacation()) {
+                    return array('oof' => array('status' => Horde_ActiveSync_Request_Settings::STATUS_UNAVAILABLE));
+                }
                 $res['oof'] = array(
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
                     'oofstate' => ($vacation['disabled']
@@ -1876,6 +1883,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function autoDiscover($params = array())
     {
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+
         // Attempt to get a username from the email address.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
@@ -1888,7 +1897,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $params['culture'] = 'en:en';
         $params['username'] = $this->getUsernameFromEmail($params['email']);
         try {
-            $xml = Horde::callHook('activesync_autodiscover_xml', array($params), 'horde');
+            $xml = $hooks->callHook('activesync_autodiscover_xml', 'horde', array($params));
             return array('raw_xml' => $xml);
         } catch (Horde_Exception_HookNotSet $e) {}
 
@@ -1913,7 +1922,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         try {
-            $params = Horde::callHook('activesync_autodisover_parameters', array($params), 'horde');
+            $params = $hooks->callHook('activesync_autodisover_parameters', 'horde', array($params));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $params;
@@ -1940,7 +1949,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         case 'hook':
             try {
-                return Horde::callHook('activesync_get_autodiscover_username', array($email));
+                return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                    ->callHook('activesync_get_autodiscover_username', 'horde', array($email));
             } catch (Horde_Exception_HookNotSet $e) {
                 return $email;
             }
@@ -2281,13 +2291,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function createDeviceCallback(Horde_ActiveSync_Device $device)
     {
-        global $registry;
+        global $injector, $registry;
 
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perms = $injector->getInstance('Horde_Perms');
+
         // Check max_device
         if ($perms->exists('horde:activesync:max_devices')) {
             $max_devices = $this->_getPolicyValue('max_devices', $perms->getPermissions('horde:activesync:max_devices', $registry->getAuth()));
-            $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+            $state = $injector->getInstance('Horde_ActiveSyncState');
             $devices = $state->listDevices($registry->getAuth(), false);
             if (count($devices) >= $max_devices) {
                 $this->_logger->info(sprintf(
@@ -2298,7 +2309,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
         try {
-            return Horde::callHook('activesync_create_device', array($device));
+            return $injector->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_create_device', 'horde', array($device));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return true;
@@ -2317,7 +2329,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function deviceCallback(Horde_ActiveSync_Device $device)
     {
         try {
-            return Horde::callHook('activesync_device_check', array($device));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_device_check', 'horde', array($device));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return true;
@@ -2652,7 +2665,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         $return = array(
             'rows' => array(),
-            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
+            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS,
+            'total' => 0
         );
         try {
             $results = $this->_connector->contacts_search(
@@ -2665,11 +2679,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Honor range, and don't bother if no results
+        $results = array_pop($results);
         $count = count($results);
         if (!$count) {
             $this->_endBuffer();
             return $return;
         }
+        $return['total'] = $count;
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::_searchGal() found %d matches.",
             $this->_pid,
@@ -2679,9 +2695,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             preg_match('/(.*)\-(.*)/', $query['range'], $matches);
             $return_count = $matches[2] - $matches[1];
             $rows = array_slice($results, $matches[1], $return_count + 1, true);
-            $rows = array_pop($rows);
-        } else {
-            $rows = array_pop($results);
         }
 
         $picture_count = 0;
@@ -2700,8 +2713,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
             if (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])) {
-                $picture = new Horde_ActiveSync_Message_GalPicture(
-                    array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                $picture = Horde_ActiveSync::messageFactory('GalPicture');
                 if (empty($row['photo'])) {
                     $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
@@ -2711,7 +2723,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                           strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
                     $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
                 } else {
-                    $picture->data = $row['photo'];
+                    $picture->data = base64_encode($row['photo']['load']['data']);
                     $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
                     ++$picture_count;
                 }

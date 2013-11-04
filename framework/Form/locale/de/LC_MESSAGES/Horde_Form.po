@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
 "PO-Revision-Date: 2012-10-12 19:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -412,12 +412,12 @@ msgstr "Verbindungs-Browser"
 msgid "Required Field"
 msgstr "Notwendiges Feld"
 
-#: lib/Horde/Form.php:623
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
 "Benötigter Sicherheitscode ist ungültig - möglicherweise bösartige Anfrage."
 
-#: lib/Horde/Form.php:359 lib/Horde/Form/Renderer.php:312
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr "Zurücksetzen"
 
@@ -505,7 +505,7 @@ msgstr "Zeichenliste"
 msgid "String list returning an array"
 msgstr "Zeichenliste die einen Array zurückliefert"
 
-#: lib/Horde/Form.php:352 lib/Horde/Form/Renderer.php:309
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -602,7 +602,7 @@ msgstr ""
 "Dieses Feld muss einen Farbwert im hexadezimalen RGB-Format enthalten, z. B. "
 "'#1234af'."
 
-#: lib/Horde/Form.php:620
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
 msgstr "Dieses Formular wurde bereits verarbeitet."
 

@@ -112,7 +112,7 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
             $accesskey = Horde::getAccessKey($tab['title']);
 
             if (!empty($tab['img'])) {
-                $img = Horde::img($tab['img']);
+                $img = Horde_Themes_Image::tag($tab['img']);
             } else {
                 $img = '';
             }

@@ -26,6 +26,7 @@ var HordeCore = {
     alarms: [],
     base: null,
     handlers: {},
+    jsfiles: [],
     loading: {},
     notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
@@ -204,7 +205,7 @@ var HordeCore = {
             return;
         }
 
-        var r = resp.responseJSON;
+        var r = resp.responseJSON, head;
 
         if (r.reload) {
             if (r.reload === true) {
@@ -226,6 +227,20 @@ var HordeCore = {
             });
         }
         this.server_error = 0;
+
+        if (r.jsfiles) {
+            head = $(document.head || document.getElementsByTagName('head')[0]);
+
+            r.jsfiles.each(function(j) {
+                if (this.jsfiles.indexOf(j) === -1) {
+                    head.insert(new Element('SCRIPT', {
+                        src: j,
+                        type: 'text/javascript'
+                    }));
+                    this.jsfiles.push(j);
+                }
+            }, this);
+        }
 
         if (r.tasks) {
             document.fire('HordeCore:runTasks', {

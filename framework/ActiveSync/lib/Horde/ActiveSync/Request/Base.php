@@ -134,7 +134,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_provisioning = $as->provisioning;
 
         // Get the state object
-        $this->_state = &$as->state;
+        $this->_state = $as->state;
 
         // Device info
         $this->_device = $as->device;

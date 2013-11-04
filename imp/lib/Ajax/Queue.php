@@ -33,6 +33,13 @@ class IMP_Ajax_Queue
     public $ftreemask = 0;
 
     /**
+     * The list of compose autocompleter address error data.
+     *
+     * @var array
+     */
+    protected $_addr = array();
+
+    /**
      * The list of attachments.
      *
      * @var array
@@ -98,6 +105,11 @@ class IMP_Ajax_Queue
     /**
      * Generates AJAX response task data from the queue.
      *
+     * For compose autocomplete address error data (key: 'compose-addr'), an
+     * array with keys as the autocomplete DOM element and the values as
+     * arrays. The value arrays have keys as the autocomplete address ID, and
+     * the * value is a space-separated list of classnames to add.
+     *
      * For compose attachment data (key: 'compose-atc'), an array of objects
      * with these properties:
      *   - icon: (string) Data url string containing icon information.
@@ -114,10 +126,11 @@ class IMP_Ajax_Queue
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
+     *   - buids: (string) Indices of the messages that have changed (IMAP
+     *            sequence string; mboxes are base64url encoded).
      *   - deselect: (boolean) If true, deselect the uids.
      *   - remove: (array) The list of flags that were removed.
-     *   - uids: (string) Indices of the messages that have changed (IMAP
-     *           sequence string; mboxes are base64url encoded).
+     *   - replace: (array) Replace the flag list with these flags.
      *
      * For flag configuration data (key: 'flag-config'), an array containing
      * flag data:
@@ -165,6 +178,12 @@ class IMP_Ajax_Queue
     {
         global $injector;
 
+        /* Add autocomplete address error information. */
+        if (!empty($this->_addr)) {
+            $ajax->addTask('compose-addr', $this->_addr);
+            $this->_addr = array();
+        }
+
         /* Add compose attachment information. */
         if (!empty($this->_atc)) {
             $ajax->addTask('compose-atc', $this->_atc);
@@ -185,7 +204,7 @@ class IMP_Ajax_Queue
 
         /* Add flag information. */
         if (!empty($this->_flag)) {
-            $ajax->addTask('flag', array_unique($this->_flag));
+            $ajax->addTask('flag', array_unique($this->_flag, SORT_REGULAR));
             $this->_flag = array();
         }
 
@@ -316,6 +335,18 @@ class IMP_Ajax_Queue
     }
 
     /**
+     * Add address autocomplete error info.
+     *
+     * @param string $domid   The autocomplete DOM ID.
+     * @param string $itemid  The autocomplete address ID.
+     * @param string $class   The classname to add to the address entry.
+     */
+    public function compose_addr($domid, $itemid, $class)
+    {
+        $this->_addr[$domid][$itemid] = $class;
+    }
+
+    /**
      * Add flag entry to response queue.
      *
      * @param array $flags          List of flags that have changed.
@@ -356,6 +387,44 @@ class IMP_Ajax_Queue
 
         $result->buids = $indices->toArray();
         $this->_flag[] = $result;
+    }
+
+    /**
+     * Sends replacement flag information for the indices provided.
+     *
+     * @param IMP_Indices $indices  Indices object.
+     */
+    public function flagReplace(IMP_Indices $indices)
+    {
+        global $injector, $prefs;
+
+        $imp_flags = $injector->getInstance('IMP_Flags');
+
+        foreach ($indices as $ob) {
+            $list_ob = $ob->mbox->list_ob;
+            $msgnum = array();
+
+            foreach ($ob->uids as $uid) {
+                $msgnum[] = $list_ob->getArrayIndex($uid) + 1;
+            }
+
+            $marray = $list_ob->getMailboxArray($msgnum, array(
+                'headers' => true,
+                'type' => $prefs->getValue('atc_flag')
+            ));
+
+            foreach ($marray['overview'] as $val) {
+                $result = new stdClass;
+                $result->buids = $ob->mbox->toBuids(new IMP_Indices($ob->mbox, $val['uid']))->toArray();
+                $result->replace = array_map('strval', $imp_flags->parse(array(
+                    'flags' => $val['flags'],
+                    'headers' => $val['headers'],
+                    'runhook' => $val,
+                    'personal' => $val['envelope']->to
+                )));
+                $this->_flag[] = $result;
+            }
+        }
     }
 
     /**
@@ -549,7 +618,7 @@ class IMP_Ajax_Queue
      */
     protected function _ftreeElt($id)
     {
-        global $injector, $registry;
+        global $injector;
 
         $ftree = $injector->getInstance('IMP_Ftree');
         if (!($elt = $ftree[$id]) || $elt->base_elt) {

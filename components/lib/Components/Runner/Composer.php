@@ -36,28 +36,32 @@ class Components_Runner_Composer
      *
      * @var Components_Helper_Composer
      */
-    private $_composer;
+    private $_output;
 
     /**
      * Constructor.
      *
-     * @param Components_Config $config             The configuration for the
-     *                                              current job.
-     * @param Components_Helper_Composer $composer  The composer helper.
+     * @param Components_Config $config  The configuration for the current
+     *                                   job.
+     * @param Components_Output $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Helper_Composer $composer
+        Components_Output $output
     ) {
         $this->_config = $config;
-        $this->_composer = $composer;
+        $this->_output = $output;
     }
 
     public function run()
     {
-        $this->_composer->generateComposeJson(
-            $this->_config->getComponent(),
-            $this->_config->getOptions()
+        $composer = new Components_Helper_Composer();
+        $options = $this->_config->getOptions();
+        $options['logger'] = $this->_output;
+
+        $composer->generateComposeJson(
+            $this->_config->getComponent()->getPackageXmlPath(),
+            $options
         );
     }
 }

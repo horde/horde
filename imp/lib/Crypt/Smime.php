@@ -42,7 +42,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $ret = array();
 
         if ($GLOBALS['registry']->hasMethod('contacts/getField') ||
-            Horde::hookExists('smime_key', 'imp')) {
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->hookExists('smime_key', 'imp')) {
             $ret += array(
                 self::ENCRYPT => _("S/MIME Encrypt Message")
             );
@@ -207,22 +207,28 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function getPublicKey($address)
     {
+        global $injector, $registry;
+
         try {
-            $key = Horde::callHook('smime_key', array($address), 'imp');
+            $key = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'smime_key',
+                'imp',
+                array($address)
+            );
             if ($key) {
                 return $key;
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
         try {
-            $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
+            $key = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
         } catch (Horde_Exception $e) {
             /* See if the address points to the user's public key. */
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $personal_pubkey = $this->getPersonalPublicKey();
-            if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
+            if (!empty($personal_pubkey) &&
+                $injector->getInstance('IMP_Identity')->hasAddress($address)) {
                 return $personal_pubkey;
             }
 

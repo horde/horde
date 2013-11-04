@@ -42,8 +42,14 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
             $scripts = array_merge($scripts, $script->generate());
         }
 
+        /* Token checking. */
+        $actionID = $this->_checkToken(array(
+            'action_activate',
+            'action_deactivate'
+        ));
+
         /* Activate/deactivate script if requested. */
-        switch ($this->vars->actionID) {
+        switch ($actionID) {
         case 'action_activate':
             if (!empty($scripts)) {
                 try {
@@ -93,8 +99,8 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
                 $script['width'] = strlen(count($script['lines']));
             }
         }
-        $view->scripturl = self::url();
-        $view->showactivate = ($this->vars->actionID != 'show_active');
+        $view->scripturl = $this->_addToken(self::url());
+        $view->showactivate = ($actionID != 'show_active');
         if ($view->scriptexists) {
             $view->scripts = $scripts;
         }

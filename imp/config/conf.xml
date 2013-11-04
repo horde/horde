@@ -42,6 +42,9 @@
      <configinteger name="link_attach_size_limit" desc="The maximum total size
      of linked attachments allowed per message (in bytes)? Set to 0 for no
      limit.">0</configinteger>
+     <configinteger name="link_attach_size_hard" desc="The maximum total size
+     of attachments to a message (in bytes) before ALL attachments are linked.
+     Set to 0 to not enforce a hard limit.">0</configinteger>
     </case>
     <case name="false" desc="No" />
    </configswitch>
@@ -64,13 +67,6 @@
    no limit.">200000</configinteger>
 
    <configheader>Address Autocompletion</configheader>
-   <configinteger name="ac_browser" desc="For autocompletion of addresses,
-   the maximum number of entries present in the user's addressbook before the
-   queries will be handled by the server. For addressbooks with less than this
-   value, the entire addressbook will be transmitted to the browser in the
-   compose page. The latter results in faster lookups, but requires additional
-   processing when generating the compose page. Set to 0 to
-   disable.">50</configinteger>
    <configinteger name="ac_threshold" desc="When autocompleting addresses on
    the compose screen, the minimum number of characters required before the
    the addressbook is searched.">3</configinteger>
@@ -139,6 +135,20 @@
      </configsection>
     </case>
    </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="contactsimage" desc="Contacts Images">
+  <configsection name="contactsimage">
+   <configmultienum name="backends" required="false" desc="The backends to
+   query for contacts images.">IMP_Contacts_Avatar_Addressbook
+    <values>
+     <value desc="Horde address book">IMP_Contacts_Avatar_Addressbook</value>
+     <value desc="Gravatar">IMP_Contacts_Avatar_Gravatar</value>
+     <value desc="Default (unknown user)">IMP_Contacts_Avatar_Unknown</value>
+     <value desc="Country Flag based on Hostname of sender">IMP_Contacts_Flag_Host</value>
+    </values>
+   </configmultienum>
   </configsection>
  </configtab>
 

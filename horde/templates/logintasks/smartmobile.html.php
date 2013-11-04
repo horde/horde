@@ -1,4 +1,4 @@
-<div data-role="page" data-theme="a">
+<div id="logintasks" data-role="page" data-theme="a">
  <div data-role="header" data-nobackbtn="true">
  <h1><?php echo $this->title ?></h1>
  </div>

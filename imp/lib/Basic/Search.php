@@ -459,17 +459,15 @@ class IMP_Basic_Search extends IMP_Basic_Base
             $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
             $ob = $injector->getInstance('IMP_Search_Ui')->getSearchMboxList();
             $mbox_list = $ob->mbox_list;
+            $view->subscribe = $prefs->getValue('subscribe');
             $view->tree = $ob->tree->getTree();
-
-            if ($prefs->getValue('subscribe')) {
-                $view->subscribe = true;
-                $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
-            }
         }
 
         /* Prepare the topbar. */
-        $injector->getInstance('Horde_View_Topbar')->subinfo =
-            $injector->getInstance('IMP_View_Subinfo')->render();
+        if (!$dynamic_view) {
+            $injector->getInstance('Horde_View_Topbar')->subinfo =
+                $injector->getInstance('IMP_View_Subinfo')->render();
+        }
 
         Horde_Core_Ui_JsCalendar::init();
         $page_output->addScriptFile('hordecore.js', 'horde');

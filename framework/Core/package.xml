@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-05</date>
+ <date>2013-10-29</date>
  <version>
-  <release>2.9.0</release>
-  <api>2.9.0</api>
+  <release>2.11.0</release>
+  <api>2.11.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,13 +39,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
-* [mms] Cache permission results within a PHP access.
-* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
-* [mjr] Support ActiveSync SOFTDELETE.
-* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mjr] Support for X509 certificate authentication in ActiveSync requests.
-* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+* [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
+* [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
+* [mms] Fix deauthenticating when a system-level logout event occurs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -604,6 +600,7 @@
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
+      <file name="Hooks.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Nosql.php" role="php" />
       <file name="Perms.php" role="php" />
@@ -1220,7 +1217,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.0</min>
+    <min>2.8.4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1669,6 +1666,7 @@
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
+   <install as="Horde/Core/Hooks.php" name="lib/Horde/Core/Hooks.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Nosql.php" name="lib/Horde/Core/Nosql.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
@@ -3159,9 +3157,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-05</date>
+   <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12738).
 * [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
 * [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
@@ -3169,6 +3168,67 @@
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add Horde_Core_Ui_FlagImage#getFlagImageObByHost.
+* [mms] Add base64img property to Horde_Themes_Image.
+* [mjr] Do not assume that the filter API is available (Bug #12757).
+* [mms] Add ability to load javascript via a HordeCore AJAX response (Request #10971).
+* [mms] Add ability to expire CSS cache based on file modification time.
+* [mms] Allow disabling VFS via the configuration interface.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Ensure Bcc is removed from headers when sent via ActiveSync (Bug #12771).
+* [mjr] Fix calculating calendars to use for SOFTDELETE commands in certain configurations (Bug #12765).
+* [mms] Upgrade jQuery Mobile to v1.3.2/jQuery Core to v1.9.1.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix prototype.js issue in IE 9 regarding array iteration in a parent window.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.0</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
+* [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
+* [mms] Fix deauthenticating when a system-level logout event occurs.
    </notes>
   </release>
  </changelog>

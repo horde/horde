@@ -271,26 +271,19 @@ class IMP_Basic_Message extends IMP_Basic_Base
         /* Build From address links. */
         $display_headers['from'] = $imp_ui->buildAddressLinks($envelope->from, $self_link);
 
-        /* Add country/flag image. Try X-Originating-IP first, then fall back
-         * to the sender's domain name. */
-        $from_img = '';
-        $origin_host = str_replace(array('[', ']'), '', $mime_headers->getValue('X-Originating-IP'));
-        if ($origin_host) {
-            if (!is_array($origin_host)) {
-                $origin_host = array($origin_host);
-            }
-            foreach ($origin_host as $host) {
-                $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($host) . ' ';
-            }
-            trim($from_img);
-        }
-
-        if (empty($from_img) && !empty($envelope->from)) {
-            $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($envelope->from[0]->host) . ' ';
-        }
-
-        if (!empty($from_img)) {
-            $display_headers['from'] .= '&nbsp;' . $from_img;
+        /* Add country/flag image. */
+        if (!empty($envelope->from)) {
+            $contacts_img = new IMP_Contacts_Image($envelope->from[0]);
+            try {
+                $res = $contacts_img->getImage($contacts_img::FLAG);
+                $display_headers['from'] .= '&nbsp;' . Horde_Themes_Image::tag(
+                    $res['url'],
+                    array(
+                        'alt' => $res['desc'],
+                        'fullsrc' => true
+                    )
+                );
+            } catch (IMP_Exception $e) {}
         }
 
         /* Look for Face information. */
@@ -339,20 +332,10 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Determine if all/list/user-requested headers needed. */
         $all_headers = $this->vars->show_all_headers;
-        $list_headers = $this->vars->show_list_headers;
         $user_hdrs = $imp_ui->getUserHeaders();
 
         /* Check for the presence of mailing list information. */
         $list_info = $imp_ui->getListInformation($mime_headers);
-
-        /* See if the mailing list information has been requested to be
-         * displayed. */
-        if ($list_info['exists'] && ($list_headers || $all_headers)) {
-            $all_list_headers = $this->_parseAllListHeaders($mime_headers);
-            $list_headers_lookup = $mime_headers->listHeaders();
-        } else {
-            $all_list_headers = array();
-        }
 
         /* Display all headers or, optionally, the user-specified headers for
          * the current identity. */
@@ -364,7 +347,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
                 /* Skip the header if we have already dealt with it. */
                 if (!isset($display_headers[$lc_head]) &&
-                    !isset($all_list_headers[$lc_head]) &&
                     (!in_array($lc_head, array('importance', 'x-priority')) ||
                     !isset($display_headers['priority']))) {
                     $full_headers[$lc_head] = $val;
@@ -385,7 +367,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
          * need other stuff in the query string, so we need to do an
          * add/remove of uid info. */
         $selfURL = $mailbox->url(Horde::selfUrlParams()->remove(array('actionID')), $buid)->add('message_token', $message_token);
-        $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
+        $headersURL = $selfURL->copy()->remove(array('show_all_headers'));
 
         /* Generate previous/next links. */
         $prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1];
@@ -526,7 +508,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'heading' => _("This message to"),
                 'inc_tasklists' => true,
                 'inc_notepads' => true,
-                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP),
+                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                 'new_mbox' => true
             ));
         }
@@ -700,7 +682,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $imp_params = $mailbox->urlParams($buid);
         $a_view->save_as = Horde::widget(array(
-            'url' => $registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)),
+            'url' => IMP_Contents_View::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)),
             'title' => _("Sa_ve as"),
             'nocheck' => true
         ));
@@ -737,7 +719,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             'title' => _("Headers"),
             'nocheck' => true
         ));
-        if ($all_headers || $list_headers) {
+        if ($all_headers) {
             $a_view->common_headers = Horde::widget(array(
                 'url' => $headersURL,
                 'title' => _("Show Common Headers"),
@@ -751,9 +733,14 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'nocheck' => true
             ));
         }
-        if ($list_info['exists'] && !$list_headers) {
+        if ($list_info['exists']) {
             $a_view->list_headers = Horde::widget(array(
-                'url' => $headersURL->copy()->add('show_list_headers', 1),
+                'onclick' => Horde::popupJs(IMP_Basic_Listinfo::url(array(
+                                 'buid' => $buid,
+                                 'mailbox' => $mailbox
+                             )), array(
+                                 'urlencode' => true
+                             )),
                 'title' => _("Show Mailing List Information"),
                 'nocheck' => true
             ));
@@ -782,12 +769,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
                     'val' => htmlspecialchars($val)
                 );
             }
-        }
-        foreach ($all_list_headers as $head => $val) {
-            $hdrs[] = array(
-                'name' => $list_headers_lookup[$head],
-                'val' => $val
-            );
         }
 
         /* Determine the fields that will appear in the MIME info entries. */
@@ -972,64 +953,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $ob = new IMP_Basic_Mailbox($this->vars);
         $this->output = $ob->output;
-    }
-
-    /**
-     * Parses all of the available mailing list headers.
-     *
-     * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
-     *
-     * @return array  Keys are the list header names, values are the
-     *                parsed list header values.
-     */
-    protected function _parseAllListHeaders($headers)
-    {
-        $ret = array();
-
-        foreach (array_keys($headers->listHeaders()) as $val) {
-            if ($data = $headers->getValue($val)) {
-                $ret[$val] = $this->_parseListHeaders($val, $data);
-            }
-        }
-
-        return $ret;
-    }
-
-    /**
-     * Parse the information in mailing list headers.
-     *
-     * @param string $id    The header ID.
-     * @param string $data  The header text to process.
-     *
-     * @return string  The header value.
-     */
-    protected function _parseListHeaders($id, $data)
-    {
-        $output = '';
-        $parser = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
-        $text_filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
-
-        foreach ($parser->parse($id, $data) as $val) {
-            /* RFC 2369 [2] states that we should only show the *FIRST* URL
-             * that appears in a header that we can adequately handle. */
-            if (stripos($val->url, 'mailto:') === 0) {
-                $url = substr($val->url, 7);
-                $clink = new IMP_Compose_Link($url);
-                $output = Horde::link($clink->link()) . $url . '</a>';
-                foreach ($val->comments as $val2) {
-                    $output .= '&nbsp;(' . $val2 . ')';
-                }
-                break;
-            } elseif ($url = $text_filter->filter($val, 'linkurls')) {
-                $output = $url;
-                foreach ($val->comments as $val2) {
-                    $output .= '&nbsp;(' . $val2 . ')';
-                }
-                break;
-            }
-        }
-
-        return $output;
     }
 
 }

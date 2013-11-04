@@ -206,6 +206,7 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_TestBase
             $migration->dropTable('test_shares');
             $migration->dropTable('test_shares_groups');
             $migration->dropTable('test_shares_users');
+            self::$db->disconnect();
             self::$db = null;
         }
     }

@@ -116,25 +116,30 @@ $view = new Horde_View(array(
 ));
 $view->addHelper('Text');
 
-try {
-    $alarms = $horde_alarm->globalAlarms();
-    $url = Horde::url('admin/alarms.php');
-    foreach ($alarms as &$alarm) {
-        $url->add('alarm', $alarm['id']);
-        $alarm['edit_link'] = $url->link()
-            . htmlspecialchars($alarm['title'])
-            . '</a>';
-        $alarm['delete_link'] = $url->copy()
-            ->add('delete', 1)
-            ->link(array('title' => sprintf(_("Delete \"%s\""), $alarm['title']),
-                         'onclick' => 'return confirm(\'' . addslashes(sprintf(_("Are you sure you want to delete '%s'?"), $alarm['title'])) . '\')'))
-            . Horde::img('delete.png')
-            . '</a>';
-    }
-    $view->alarms = $alarms;
-} catch (Horde_Alarm_Exception $e) {
+if ($horde_alarm instanceof Horde_Alarm_Null) {
     $view->alarms = array();
-    $view->error = sprintf(_("Listing alarms failed: %s"), $e->getMessage());
+    $view->error = _("Alarms have been disabled in the configuration");
+} else {
+    try {
+        $alarms = $horde_alarm->globalAlarms();
+        $url = Horde::url('admin/alarms.php');
+        foreach ($alarms as &$alarm) {
+            $url->add('alarm', $alarm['id']);
+            $alarm['edit_link'] = $url->link()
+                . htmlspecialchars($alarm['title'])
+                . '</a>';
+            $alarm['delete_link'] = $url->copy()
+                ->add('delete', 1)
+                ->link(array('title' => sprintf(_("Delete \"%s\""), $alarm['title']),
+                             'onclick' => 'return confirm(\'' . addslashes(sprintf(_("Are you sure you want to delete '%s'?"), $alarm['title'])) . '\')'))
+                . Horde::img('delete.png')
+                . '</a>';
+        }
+        $view->alarms = $alarms;
+    } catch (Horde_Alarm_Exception $e) {
+        $view->alarms = array();
+        $view->error = sprintf(_("Listing alarms failed: %s"), $e->getMessage());
+    }
 }
 
 $page_output->header(array(
@@ -142,5 +147,7 @@ $page_output->header(array(
 ));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $view->render('list');
-$form->renderActive();
+if (!($horde_alarm instanceof Horde_Alarm_Null)) {
+    $form->renderActive();
+}
 $page_output->footer();

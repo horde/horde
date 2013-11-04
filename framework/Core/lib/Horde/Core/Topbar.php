@@ -16,6 +16,13 @@
 class Horde_Core_Topbar
 {
     /**
+     * Has the tree been generated?
+     *
+     * @var Horde_Tree_Base
+     */
+    protected $_generated = false;
+
+    /**
      * A tree object for the main menu.
      *
      * @var Horde_Tree_Renderer_Base
@@ -36,10 +43,14 @@ class Horde_Core_Topbar
     /**
      * Generates the topbar tree object.
      *
-     * @return Horde_Tree_Base  The topbar tree object.
+     * @return Horde_Tree_Renderer_Base  The topbar tree object.
      */
     public function getTree()
     {
+        if ($this->_generated) {
+            return $this->_tree;
+        }
+
         global $registry;
 
         $isAdmin = $registry->isAdmin();
@@ -245,7 +256,19 @@ class Horde_Core_Topbar
             }
         }
 
+        $this->_generated = true;
+
         return $this->_tree;
+    }
+
+    /**
+     * Get the hash ID for the tree object.
+     *
+     * @return string  Hash ID.
+     */
+    public function getHash()
+    {
+        return hash('md5', serialize($this->getTree()));
     }
 
     /**

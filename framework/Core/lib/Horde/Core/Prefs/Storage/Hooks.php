@@ -27,7 +27,19 @@ class Horde_Core_Prefs_Storage_Hooks extends Horde_Prefs_Storage_Base
 
         foreach ($conf_ob->hooks[$scope_ob->scope] as $name) {
             try {
-                $scope_ob->set($name, Horde::callHook('prefs_init', array($name, $scope_ob->get($name), strlen($this->_params['user']) ? $this->_params['user'] : null, $scope_ob), $scope_ob->scope));
+                $scope_ob->set(
+                    $name,
+                    $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                        'prefs_init',
+                        $scope_ob->scope,
+                        array(
+                            $name,
+                            $scope_ob->get($name),
+                            strlen($this->_params['user']) ? $this->_params['user'] : null,
+                            $scope_ob
+                        )
+                    )
+                );
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -46,7 +58,8 @@ class Horde_Core_Prefs_Storage_Hooks extends Horde_Prefs_Storage_Base
     public function onChange($scope, $pref)
     {
         try {
-            Horde::callHook('prefs_change', array($pref), $scope);
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('prefs_change', $scope, array($pref));
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 

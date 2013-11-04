@@ -283,12 +283,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $ftree->init();
         }
 
-        if ($this->vars->unsub) {
-            $ftree->loadUnsubscribed();
-            $mask = IMP_Ftree_IteratorFilter::UNSUB;
-        } else {
-            $mask = 0;
-        }
+        $mask = $this->vars->unsub
+            ? IMP_Ftree_IteratorFilter::UNSUB
+            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
 
         $this->_base->queue->ftreemask |= $mask |
             IMP_Ftree_IteratorFilter::NO_SPECIALMBOXES;
@@ -710,6 +707,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                     $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
                     unset($imp_compose[$val]);
                     $result[] = $val;
+                    $this->_base->queue->compose($imp_compose);
                 }
             }
         }
@@ -908,13 +906,17 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'upload');
-                    $atc_ob->related = true;
+                    $atc_ob = $imp_compose->addAttachmentFromUpload('upload');
+                    if ($atc_ob[0] instanceof IMP_Compose_Exception) {
+                        throw $atc_ob[0];
+                    }
+
+                    $atc_ob[0]->related = true;
 
                     $data = array(
-                        IMP_Compose::RELATED_ATTR => 'src;' . $atc_ob->id
+                        IMP_Compose::RELATED_ATTR => 'src;' . $atc_ob[0]->id
                     );
-                    $url = strval($atc_ob->viewUrl());
+                    $url = strval($atc_ob[0]->viewUrl());
                 } catch (IMP_Compose_Exception $e) {
                     $data = $e->getMessage();
                 }
@@ -1089,6 +1091,93 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $ret->flist = $flist;
 
         return $ret;
+    }
+
+    /**
+     * AJAX action: Redirect to the filter edit page and pre-populate with
+     * an e-mail address.
+     *
+     * Requires EITHER 'addr' -or- mailbox/indices from form params.
+     *
+     * Variables used:
+     * <pre>
+     *   - addr: (string) The e-mail address to use.
+     * </pre>
+     *
+     * @return Horde_Core_Ajax_Response_HordeCore_Reload  Object with URL to
+     *                                                    redirect to.
+     */
+    public function newFilter()
+    {
+        global $injector, $notification, $registry;
+
+        if (isset($this->vars->addr)) {
+            $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        } else {
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+
+            $imp_imap = $this->_base->indices->mailbox->imp_imap;
+            list($mbox, $uid) = $this->_base->indices->getSingle();
+            $ret = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
+            ));
+
+            $addr_ob = $ret[$uid]->getEnvelope()->from;
+        }
+
+        // TODO: Currently supports only a single, non-group contact.
+        $ob = $addr_ob[0];
+        if (!$ob) {
+            return false;
+        } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
+            $notification->push(_("Editing group lists not currently supported."), 'horde.warning');
+            return false;
+        }
+
+        try {
+            return new Horde_Core_Ajax_Response_HordeCore_Reload(
+                $registry->link('mail/newEmailFilter', array(
+                    'email' => $ob->bare_address
+                ))
+            );
+        } catch (Horde_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * AJAX action: Return the contacts images for a given e-mail address.
+     *
+     * Variables used:
+     * <pre>
+     *   - addr: (string) The e-mail address.
+     * </pre>
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - avatar: (string) The URL of the avatar image.
+     *   - flag: (string) The URL of the sender's country flag image.
+     *   - flagname: (string) The name of the country of the sender.
+     * </pre>
+     */
+    public function getContactsImage()
+    {
+        $contacts_img = new IMP_Contacts_Image($this->vars->addr);
+        $out = new stdClass;
+
+        try {
+            $res = $contacts_img->getImage($contacts_img::AVATAR);
+            $out->avatar = strval($res['url']);
+        } catch (IMP_Exception $e) {}
+
+        try {
+            $res = $contacts_img->getImage($contacts_img::FLAG);
+            $out->flag = strval($res['url']);
+            $out->flagname = $res['desc'];
+        } catch (IMP_Exception $e) {}
+
+        return $out;
     }
 
 }

@@ -781,7 +781,11 @@ class IMP_Contents
             ($mask & self::SUMMARY_ICON_RAW)) {
             $part['icon'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type);
             if ($mask & self::SUMMARY_ICON) {
-                $part['icon'] = Horde::img($part['icon'], '', array('title' => $mime_type), '');
+                $part['icon'] = Horde_Themes_Image::tag($part['icon'], array(
+                    'attr' => array(
+                        'title' => $mime_type
+                    )
+                ));
             }
         } else {
             $part['icon'] = null;
@@ -883,7 +887,7 @@ class IMP_Contents
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
         return (strpos($actionID, 'download_') === 0)
-            ? $GLOBALS['registry']->downloadUrl($mime_part->getName(true), $params)
+            ? IMP_Contents_View::downloadUrl($mime_part->getName(true), $params)
             : Horde::url('view.php', true)->add($params);
     }
 
@@ -908,7 +912,7 @@ class IMP_Contents
             $params['muid'] = strval($this->getIndicesOb());
         }
 
-        return $params;
+        return IMP_Contents_View::addToken($params);
     }
 
     /**

@@ -32,16 +32,24 @@ class IMP_Ftree_Iterator implements RecursiveIterator
     /**
      * Constructor.
      *
-     * @param mixed $data  Either the parent element (IMP_Ftree_Element
-     *                     object), or a flat list of elements to use as
-     *                     the level, or null.
+     * @param mixed $data     Either the parent element (IMP_Ftree_Element
+     *                        object), or a flat list of elements to use as
+     *                        the level, or null.
+     * @param boolean $unsub  If true, ensures that unsubscribed mailboxes
+     *                        are loaded into tree.
      */
-    public function __construct($elt)
+    public function __construct($elt, $unsub = false)
     {
         global $injector;
 
+        $ftree = $injector->getInstance('IMP_Ftree');
+
+        if ($unsub) {
+            $ftree->loadUnsubscribed();
+        }
+
         if (is_null($elt)) {
-            $elt = $injector->getInstance('IMP_Ftree')->getChildren(IMP_Ftree::BASE_ELT);
+            $elt = $ftree->getChildren(IMP_Ftree::BASE_ELT);
         }
 
         $this->_elts = ($elt instanceof IMP_Ftree_Element)
