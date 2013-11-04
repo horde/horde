@@ -17,8 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>13:11:47</time>
+ <date>2013-11-04</date>
  <version>
   <release>2.1.2</release>
   <api>2.1.0</api>
@@ -932,7 +931,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Need to expire SQL cache for all sub-permissions when deleting a parent permission.
