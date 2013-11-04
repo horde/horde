@@ -29,7 +29,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs, $registry;
+        global $injector, $notification, $page_output, $prefs, $registry, $session;
 
         $mailbox = $this->indices->mailbox;
 
@@ -48,7 +48,6 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         $mailbox_url = Horde::url('basic.php')->add('page', 'mailbox');
         $mailbox_imp_url = $mailbox->url('mailbox')->add('newmail', 1);
 
-        $horde_token = $injector->getInstance('Horde_Token');
         $imp_flags = $injector->getInstance('IMP_Flags');
         $imp_imap = $mailbox->imp_imap;
         $imp_search = $injector->getInstance('IMP_Search');
@@ -57,8 +56,8 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         if (($actionID = $this->vars->actionID) &&
             ($actionID != 'message_missing')) {
             try {
-                $horde_token->validate($this->vars->mailbox_token, 'imp.mailbox');
-            } catch (Horde_Token_Exception $e) {
+                $session->checkToken($this->vars->token);
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $actionID = null;
             }
@@ -226,7 +225,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         }
 
         /* Token to use in requests. */
-        $mailbox_token = $horde_token->get('imp.mailbox');
+        $token = $session->getToken();
         $search_mbox = $mailbox->search;
 
         /* Deal with filter options. */
@@ -237,7 +236,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             ($prefs->getValue('filter_any_mailbox') && !$search_mbox))) {
             $filter_url = $mailbox_imp_url->copy()->add(array(
                 'actionID' => 'filter',
-                'mailbox_token' => $mailbox_token
+                'token' => $token
             ));
         }
 
@@ -446,7 +445,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         if ($mailbox->access_empty) {
             $hdr_view->empty = $mailbox_imp_url->copy()->add(array(
                 'actionID' => 'empty_mailbox',
-                'mailbox_token' => $mailbox_token
+                'token' => $token
             ));
         }
 
@@ -461,7 +460,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 $del_view->hide = Horde::widget(array(
                     'url' => $refresh_url->copy()->add(array(
                         'actionID' => 'hide_deleted',
-                        'mailbox_token' => $mailbox_token
+                        'token' => $token
                     )),
                     'class' => 'hideAction',
                     'title' => $deleted_prompt
@@ -470,7 +469,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     $del_view->purge = Horde::widget(array(
                         'url' => $refresh_url->copy()->add(array(
                             'actionID' => 'expunge_mailbox',
-                            'mailbox_token' => $mailbox_token
+                            'token' => $token
                         )),
                         'class' => 'purgeAction',
                         'title' => _("Pur_ge Deleted")
@@ -612,7 +611,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     $mboxactions[] = Horde::widget(array(
                         'url' => $mailbox_link->copy()->add(array(
                             'actionID' => 'hide_deleted',
-                            'mailbox_token' => $mailbox_token
+                            'token' => $token
                         )),
                         'class' => 'hideAction',
                         'title' => $deleted_prompt
@@ -621,7 +620,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 $mboxactions[] = Horde::widget(array(
                     'url' => $mailbox_link->copy()->add(array(
                         'actionID' => 'expunge_mailbox',
-                        'mailbox_token' => $mailbox_token
+                        'token' => $token
                     )),
                     'class' => 'purgeAction',
                     'title' => _("Pur_ge Deleted")
@@ -634,7 +633,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     'url' => $mailbox_imp_url->copy()->add(array(
                         'sortby' => Horde_Imap_Client::SORT_SEQUENCE,
                         'actionID' => 'change_sort',
-                        'mailbox_token' => $mailbox_token
+                        'token' => $token
                     )),
                     'title' => _("Clear Sort")
                 ));
@@ -775,7 +774,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             $headers[$standard]['altsort'] = Horde::widget(array(
                 'url' => $mailbox_imp_url->copy()->add(array(
                     'actionID' => 'change_sort',
-                    'mailbox_token' => $mailbox_token,
+                    'token' => $token,
                     'sortby' => $extra
                 )),
                 'title' => $headers[$extra]['text']
@@ -795,7 +794,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                         'sortby' => $key,
                         'sortdir' => intval(!$sortpref->sortdir),
                         'actionID' => 'change_sort',
-                        'mailbox_token' => $mailbox_token
+                        'token' => $token
                     ));
                     $ptr['change_sort_link'] = Horde::link($tmp, $val['stext'], null, null, null, $val['stext']) . $csl_icon . '</a>';
                     $ptr['change_sort_widget'] = Horde::widget(array('url' => $tmp, 'title' => $val['text']));
@@ -807,7 +806,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     : Horde::widget(array(
                         'url' => $mailbox_imp_url->copy()->add(array(
                             'actionID' => 'change_sort',
-                            'mailbox_token' => $mailbox_token,
+                            'token' => $token,
                             'sortby' => $key
                         )),
                         'title' => $val['text']
@@ -819,9 +818,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         /* Output the form start. */
         $f_view = clone $view;
         $f_view->mailbox = $mailbox->form_to;
-        $f_view->mailbox_token = $mailbox_token;
         $f_view->mailbox_url = $mailbox_url;
         $f_view->page = $pageOb['page'];
+        $f_view->token = $token;
         $this->output .= $f_view->render('form_start');
 
         /* Prepare the message headers template. */

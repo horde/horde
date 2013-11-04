@@ -93,8 +93,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             default:
                 try {
-                    $horde_token->validate($this->vars->compose_requestToken, 'imp.compose');
-                } catch (Horde_Token_Exception $e) {
+                    $session->checkToken($this->vars->compose_requestToken);
+                } catch (Horde_Exception $e) {
                     $notification->push($e);
                     $this->vars->actionID = null;
                 }
@@ -507,7 +507,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                 if ($this->vars->actionID == 'auto_save_draft') {
                     $r = new stdClass;
-                    $r->requestToken = $horde_token->get('imp.compose');
+                    $r->requestToken = $session->getToken();
                     $r->formToken = Horde_Token::generateId('compose');
 
                     $response = new Horde_Core_Ajax_Response_HordeCore($r);
@@ -781,7 +781,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 'actionID' => '',
                 'attachmentAction' => '',
                 'compose_formToken' => Horde_Token::generateId('compose'),
-                'compose_requestToken' => $horde_token->get('imp.compose'),
+                'compose_requestToken' => $session->getToken(),
                 'composeCache' => $composeCacheID,
                 'oldrtemode' => $rtemode,
                 'rtemode' => $rtemode,

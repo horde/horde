@@ -199,7 +199,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs, $registry, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -213,7 +213,7 @@ class IMP_Application extends Horde_Registry_Application
                 'icon' => 'imp-empty-trash',
                 'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your trash mailbox?")) . ')',
                 'text' => _("Empty _Trash"),
-                'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
             ));
         }
 
@@ -226,7 +226,7 @@ class IMP_Application extends Horde_Registry_Application
                 'icon' =>  'imp-empty-spam',
                 'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your spam mailbox?")) . ')',
                 'text' => _("Empty _Spam"),
-                'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
             ));
         }
 

@@ -71,10 +71,6 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             ? IMP_Mailbox::formFrom($this->vars->mbox_list)
             : array();
 
-        /* Token to use in requests */
-        $token = $injector->getInstance('Horde_Token');
-        $folders_token = $token->get('imp.folders');
-
         /* META refresh time (might be altered by actionID). */
         $refresh_time = $prefs->getValue('refresh_time');
 
@@ -85,13 +81,14 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $view->addHelper('FormTag');
         $view->addHelper('Tag');
 
-        $view->folders_token = $folders_token;
+        $token = $session->getToken();
+        $view->token = $token;
 
         /* Run through the action handlers. */
         if ($this->vars->actionID) {
             try {
-                $token->validate($this->vars->folders_token, 'imp.folders');
-            } catch (Horde_Token_Exception $e) {
+                $session->checkToken($this->vars->token);
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $this->vars->actionID = null;
             }
@@ -340,7 +337,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         $this->title = _("Folder Navigator");
 
-        $folders_url->add('folders_token', $folders_token);
+        $folders_url->add('token', $token);
 
         /* Prepare the topbar. */
         $injector->getInstance('Horde_View_Topbar')->subinfo =
@@ -382,7 +379,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             $actions->toggle_subscribe = Horde::widget(array(
                 'url' => $folders_url->copy()->add(array(
                     'actionID' => 'toggle_subscribed_view',
-                    'folders_token' => $folders_token
+                    'token' => $token
                 )),
                 'title' => $subToggleText,
                 'nocheck' => true
@@ -394,7 +391,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $actions->expand_all = Horde::widget(array(
             'url' => $folders_url->copy()->add(array(
                 'actionID' => 'expand_all_folders',
-                'folders_token' => $folders_token
+                'token' => $token
             )),
             'title' => _("Expand All"),
             'nocheck' => true
@@ -402,7 +399,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $actions->collapse_all = Horde::widget(array(
             'url' => $folders_url->copy()->add(array(
                 'actionID' => 'collapse_all_folders',
-                'folders_token' => $folders_token
+                'token' => $token
             )),
             'title' => _("Collapse All"),
             'nocheck' => true

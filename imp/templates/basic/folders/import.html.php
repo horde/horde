@@ -1,6 +1,6 @@
 <form name="fmanager" id="fmanager" method="post" enctype="multipart/form-data" action="<?php echo $this->folders_url ?>">
  <?php echo $this->hiddenFieldTag('actionID') ?>
- <?php echo $this->hiddenFieldTag('folders_token', $this->folders_token) ?>
+ <?php echo $this->hiddenFieldTag('token', $this->token) ?>
  <?php echo $this->hiddenFieldTag('import_mbox', $this->import_mbox) ?>
 
  <div class="header">

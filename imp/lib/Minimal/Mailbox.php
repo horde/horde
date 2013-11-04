@@ -18,14 +18,14 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
      * URL Parameters:
      *   - a: (string) Action ID.
      *   - checkbox: TODO
-     *   - mt: TODO
      *   - p: (integer) Page.
      *   - search: (sring) The search string
      *   - start: (integer) Start.
+     *   - t: (string) Token.
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs;
+        global $injector, $notification, $prefs, $session;
 
         $imp_imap = $this->indices->mailbox->imp_imap;
         $imp_search = $injector->getInstance('IMP_Search');
@@ -46,9 +46,9 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
             if ($this->vars->checkbox == 'd') {
                 try {
-                    $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
+                    $session->checkToken($this->vars->t);
                     $imp_message->delete($this->indices);
-                } catch (Horde_Token_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push($e);
                 }
             } else {
@@ -213,7 +213,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         $this->view->checkbox = $mailbox_url->copy()->add('p', $pageOb['page']);
         $this->view->delete = $this->indices->mailbox->access_deletemsgs;
-        $this->view->mt = $injector->getInstance('Horde_Token')->get('imp.message-mimp');
+        $this->view->t = $session->getToken();
 
         $this->_pages[] = 'mailbox';
         $this->_pages[] = 'menu';

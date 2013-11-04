@@ -27,7 +27,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs, $registry;
+        global $conf, $injector, $notification, $page_output, $prefs, $registry, $session;
 
         $mailbox = $this->indices->mailbox;
         $imp_imap = $mailbox->imp_imap;
@@ -45,7 +45,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
             return;
         }
 
-        $horde_token = $injector->getInstance('Horde_Token');
         $imp_flags = $injector->getInstance('IMP_Flags');
         $imp_identity = $injector->getInstance('IMP_Identity');
         $imp_message = $injector->getInstance('IMP_Message');
@@ -53,19 +52,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Run through action handlers. */
         if ($this->vars->actionID) {
-            switch ($this->vars->actionID) {
-            case 'strip_attachment':
-                $token_name = 'imp.impcontents';
-                break;
-
-            default:
-                $token_name = 'imp.message';
-                break;
-            }
-
             try {
-                $horde_token->validate($this->vars->message_token, $token_name);
-            } catch (Horde_Token_Exception $e) {
+                $session->getToken($this->vars->token);
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $this->vars->actionID = null;
             }
@@ -250,12 +239,12 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $buid = $imp_mailbox->getBuid($msg_index['m'], $msg_index['u']);
         $msgindex = $imp_mailbox->getIndex();
         $message_url = Horde::url('basic.php')->add('page', 'message');
-        $message_token = $horde_token->get('imp.message');
+        $token = $session->getToken();
         $self_link = self::url(array(
             'buid' => $buid,
             'mailbox' => $mailbox
         ))->add(array(
-            'message_token' => $message_token,
+            'token' => $token,
             'start' => $msgindex
         ));
 
@@ -366,7 +355,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
          * as it may have changed if we deleted/copied/moved messages. We may
          * need other stuff in the query string, so we need to do an
          * add/remove of uid info. */
-        $selfURL = $mailbox->url(Horde::selfUrlParams()->remove(array('actionID')), $buid)->add('message_token', $message_token);
+        $selfURL = $mailbox->url(Horde::selfUrlParams()->remove(array('actionID')), $buid)->add('token', $token);
         $headersURL = $selfURL->copy()->remove(array('show_all_headers'));
 
         /* Generate previous/next links. */
@@ -458,7 +447,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $t_view->message_url = $message_url;
         $t_view->mailbox = $mailbox->form_to;
         $t_view->start = $msgindex;
-        $t_view->message_token = $message_token;
+        $t_view->token = $token;
 
         /* Prepare the navbar navigate template. */
         $n_view = clone $view;
@@ -835,7 +824,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 $a_view->strip_all = Horde::widget(array(
                     'url' => Horde::selfUrlParams()->add(array(
                         'actionID' => 'strip_all',
-                        'message_token' => $message_token
+                        'token' => $token
                     )),
                     'class' => 'stripAllAtc',
                     'title' => _("Strip All Attachments"),

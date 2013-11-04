@@ -27,7 +27,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $registry;
+        global $injector, $notification, $page_output, $registry, $session;
 
         $imp_mailbox = $this->indices->mailbox->list_ob;
 
@@ -159,7 +159,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                 $delete_link = $this->indices->mailbox->url('mailbox')->add(array(
                     'actionID' => 'delete_messages',
                     'indices' => strval($imp_indices),
-                    'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),
+                    'token' => $session->getToken(),
                     'start' => $imp_mailbox->getArrayIndex(end($uid_list))
                 ));
                 $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));

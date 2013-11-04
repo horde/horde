@@ -1,5 +1,5 @@
 <form action="<?php echo $this->checkbox ?>" method="post">
- <input type="hidden" name="mt" value="<?php echo $this->mt ?>" />
+ <input type="hidden" name="t" value="<?php echo $this->t ?>" />
 
 <?php if ($this->msgs): ?>
  <table>

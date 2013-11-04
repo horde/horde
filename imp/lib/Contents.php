@@ -853,9 +853,9 @@ class IMP_Contents
             $part['strip'] = Horde::link(
                 Horde::selfUrlParams()->add(array(
                     'actionID' => 'strip_attachment',
-                    'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents'),
+                    'imapid' => $id,
                     'muid' => strval($this->getIndicesOb()),
-                    'imapid' => $id
+                    'token' => $GLOBALS['session']->getToken()
                 )),
                 _("Strip Attachment"),
                 'iconImg deleteImg stripAtc',
