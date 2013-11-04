@@ -254,6 +254,18 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             return (bool)$result;
         }
 
+        /* Need to expire cache for all sub-permissions. */
+        try {
+            $sub = $this->_db->selectValues(
+                'SELECT perm_name FROM ' . $this->_params['table'] . ' WHERE perm_name LIKE ?',
+                array($name . ':%')
+            );
+            foreach ($sub as $val) {
+                $this->_cache->expire('perm_sql_' . $this->_cacheVersion . $val);
+                $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $val);
+            }
+        } catch (Horde_Db_Exception $e) {}
+
         $query = 'DELETE FROM ' . $this->_params['table'] .
             ' WHERE perm_name LIKE ?';
 
