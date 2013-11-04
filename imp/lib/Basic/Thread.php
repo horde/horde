@@ -164,7 +164,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                 ));
                 $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
                 $page_output->addInlineScript(array(
-                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON) . ')) { e.stop(); } })'
+                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete all messages in this thread?")) . ')) { e.stop(); } })'
                 ), true);
                 break;
             }

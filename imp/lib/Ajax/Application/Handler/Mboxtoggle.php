@@ -35,7 +35,7 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
     {
         if (!empty($this->vars->mboxes)) {
             $GLOBALS['injector']->getInstance('IMP_Ftree')->expand(
-                IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON))
+                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
             );
         }
 
@@ -60,7 +60,7 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
             $ftree->collapseAll();
         } elseif (!empty($this->vars->mboxes)) {
             $ftree->collapse(
-                IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON))
+                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
             );
         }
 

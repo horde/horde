@@ -174,10 +174,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
         /* Generate the search query if 'criteria_form' is present in the form
          * data. */
         if ($this->vars->criteria_form) {
-            $c_data = Horde_Serialize::unserialize($this->vars->criteria_form, Horde_Serialize::JSON);
             $c_list = array();
 
-            foreach ($c_data as $val) {
+            foreach (json_decode($this->vars->criteria_form) as $val) {
                 switch ($val->t) {
                 case 'from':
                 case 'to':
@@ -300,7 +299,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 break;
 
             case 'vfolder':
-                $form = Horde_Serialize::unserialize($this->vars->mboxes_form, Horde_Serialize::JSON);
+                $form = json_decode($this->vars->mboxes_form);
                 $q_ob = $imp_search->createQuery($c_list, array(
                     'id' => IMP_Mailbox::formFrom($this->vars->edit_query_vfolder),
                     'label' => $this->vars->search_label,
@@ -319,7 +318,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 break;
 
             default:
-                $form = Horde_Serialize::unserialize($this->vars->mboxes_form, Horde_Serialize::JSON);
+                $form = json_decode($this->vars->mboxes_form);
                 $q_ob = $imp_search->createQuery($c_list, array(
                     'mboxes' => IMP_Mailbox::formFrom($form->mbox),
                     'subfolders' => IMP_Mailbox::formFrom($form->subfolder)

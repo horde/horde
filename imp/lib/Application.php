@@ -211,7 +211,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' => 'imp-empty-trash',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your trash mailbox?")) . ')',
                 'text' => _("Empty _Trash"),
                 'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
@@ -224,7 +224,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'imp-empty-spam',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your spam mailbox?")) . ')',
                 'text' => _("Empty _Spam"),
                 'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));

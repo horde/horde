@@ -236,7 +236,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function flagAll()
     {
-        $flags = Horde_Serialize::unserialize($this->vars->flags, Horde_Serialize::JSON);
+        $flags = json_decode($this->vars->flags);
         if (!$this->vars->mbox || empty($flags)) {
             return false;
         }
@@ -322,7 +322,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
 
             if (!$no_mbox) {
-                $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON));
+                $mboxes = IMP_Mailbox::formFrom(json_decode($this->vars->mboxes));
                 foreach ($mboxes as $val) {
                     if (!$val->inbox) {
                         $iterator->append(
@@ -343,7 +343,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $iterator->append($special);
         } else {
             $this->_base->queue->setMailboxOpt('expand', 1);
-            foreach (IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON)) as $val) {
+            foreach (IMP_Mailbox::formFrom(json_decode($this->vars->mboxes)) as $val) {
                 $iterator->append(IMP_Ftree_IteratorFilter::create(
                     $mask | IMP_Ftree_IteratorFilter::NO_UNEXPANDED,
                     $val->tree_elt
@@ -379,7 +379,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $this->_base->callAction('viewPort');
 
         $this->vars->initial = 1;
-        $this->vars->mboxes = Horde_Serialize::serialize(array($this->vars->mbox), Horde_Serialize::JSON);
+        $this->vars->mboxes = json_encode(array($this->vars->mbox));
         $this->listMailboxes();
 
         $this->_base->queue->flagConfig();
@@ -500,7 +500,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             return false;
         }
 
-        $flags = Horde_Serialize::unserialize($this->vars->flags, Horde_Serialize::JSON);
+        $flags = json_decode($this->vars->flags);
 
         /* Check for non-system flags. If we find any, and the server supports
          * CONDSTORE, we should make sure that these flags are only updated if
@@ -702,7 +702,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         if (isset($this->vars->atc_indices)) {
             $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose);
-            foreach (Horde_Serialize::unserialize($this->vars->atc_indices, Horde_Serialize::JSON) as $val) {
+            foreach (json_decode($this->vars->atc_indices) as $val) {
                 if (isset($imp_compose[$val])) {
                     $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
                     unset($imp_compose[$val]);
@@ -930,7 +930,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         return new Horde_Core_Ajax_Response_Raw(
             '<html>' .
                 Horde::wrapInlineScript(array(
-                    'window.parent.CKEDITOR.tools.callFunction(' . $this->vars->CKEditorFuncNum . ',' . Horde_Serialize::serialize($url, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($data, Horde_Serialize::JSON) . ')'
+                    'window.parent.CKEDITOR.tools.callFunction(' . $this->vars->CKEditorFuncNum . ',' . json_encode($url) . ',' . json_encode($data) . ')'
                 )) .
             '</html>',
             'text/html'
@@ -1032,7 +1032,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         $this->vars->add = true;
-        $this->vars->flags = Horde_Serialize::serialize(array($this->vars->flagname), Horde_Serialize::JSON);
+        $this->vars->flags = json_encode(array($this->vars->flagname));
         $this->flagMessages();
 
         $this->_base->queue->flagConfig();

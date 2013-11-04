@@ -56,7 +56,7 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
         $alist = new Horde_Mail_Rfc822_List(preg_split("/[\r\n]+/", $ui->vars->safe_addrs));
         $alist->unique();
 
-        if ($GLOBALS['prefs']->setValue('image_replacement_addrs', Horde_Serialize::serialize($alist->bare_addresses, Horde_Serialize::JSON))) {
+        if ($GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($alist->bare_addresses))) {
             $this->_addrlist = $alist;
             return true;
         }
@@ -70,7 +70,7 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
     public function safeAddrList()
     {
         if (!isset($this->_addrlist)) {
-            $alist = Horde_Serialize::unserialize($GLOBALS['prefs']->getValue('image_replacement_addrs'), Horde_Serialize::JSON);
+            $alist = json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs'));
             if (empty($alist)) {
                 $alist = array();
             }
@@ -92,7 +92,7 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
         $alist->add($address);
         $alist->unique();
 
-        return $GLOBALS['prefs']->setValue('image_replacement_addrs', Horde_Serialize::serialize($alist->bare_addresses, Horde_Serialize::JSON));
+        return $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($alist->bare_addresses));
     }
 
     /**

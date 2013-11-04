@@ -75,7 +75,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
         }
 
         return 'new IMP_PrettyAutocompleter(' .
-            Horde_Serialize::serialize($dom_id, Horde_Serialize::JSON) . ',' .
+            json_encode($dom_id) . ',' .
             '{' . implode(',', $this->_getOpts($ac)) . '})';
     }
 

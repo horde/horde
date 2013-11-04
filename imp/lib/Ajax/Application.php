@@ -99,7 +99,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Make sure the viewport entry is initialized. */
         $vp = isset($this->_vars->viewport)
-            ? Horde_Serialize::unserialize($this->_vars->viewport, Horde_Serialize::JSON)
+            ? json_decode($this->_vars->viewport)
             : new stdClass;
         $this->_vars->viewport = new Horde_Support_ObjectStub($vp);
 
@@ -112,7 +112,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check for global poll task. */
         if (isset($this->_vars->poll)) {
-            $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
+            $poll = json_decode($this->_vars->poll);
             $this->queue->poll(
                 empty($poll)
                     ? $injector->getInstance('IMP_Ftree')->poll->getPollList()
@@ -241,7 +241,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if ($vp->search) {
-            $search = Horde_Serialize::unserialize($vp->search, Horde_Serialize::JSON);
+            $search = json_decode($vp->search);
             $args += array(
                 'search_buid' => isset($search->buid) ? $search->buid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null

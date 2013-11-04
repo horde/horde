@@ -83,7 +83,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
             $data['js'] = array(
-                'IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')'
+                'IMP_JS.iframeInject("' . $uid . '", ' . json_encode($data['data']) . ')'
             );
 
             if ($view == $registry::VIEW_SMARTMOBILE) {

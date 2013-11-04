@@ -396,10 +396,10 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
 
         case $registry::VIEW_DYNAMIC:
             return IMP_Dynamic_Mailbox::url()->setAnchor(
-                'search:' . Horde_Serialize::serialize(array(
+                'search:' . json_encode(array(
                     'edit_query' => 1,
                     'mailbox' => $mbox->form_to
-                ), Horde_Serialize::JSON, 'UTF-8')
+                ))
             );
         }
     }
