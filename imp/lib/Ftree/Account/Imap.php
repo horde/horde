@@ -121,11 +121,14 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 
                 switch ($ns_info['type']) {
                 case Horde_Imap_Client::NS_OTHER:
+                    if ($prefs->getValue('tree_view')) {
+                        $parent = self::OTHER_KEY;
+                    }
+                    break;
+
                 case Horde_Imap_Client::NS_SHARED:
                     if ($prefs->getValue('tree_view')) {
-                        $parent = $ns_info['type']
-                            ? self::OTHER_KEY
-                            : self::SHARED_KEY;
+                        $parent = self::SHARED_KEY;
                     }
                     break;
                 }
