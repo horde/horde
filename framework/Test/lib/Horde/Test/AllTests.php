@@ -81,7 +81,9 @@ class Horde_Test_AllTests
     {
         $old_dir = getcwd();
         chdir($this->_dir);
+        $old_error = error_reporting();
         $result = PHPUnit_TextUI_TestRunner::run($this->suite());
+        error_reporting($old_error);
         chdir($old_dir);
         return $result;
     }

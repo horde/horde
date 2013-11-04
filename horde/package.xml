@@ -3778,8 +3778,8 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
-* [jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803).
+* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804, CVE-2013-6365).
+* [jan] SECURITY: Fix XSS vulnerabilities in top and left menu (Bug #12803, CVE-2013-6364).
 * [jan] Don&apos;t show admin alarm form if alarms are disabled.
 * [mms] Add horde-remove-user-data command-line script.
 * [mms] Add additional syntax checking for the configuration files in the test script.

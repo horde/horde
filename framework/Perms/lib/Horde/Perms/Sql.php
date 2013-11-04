@@ -203,7 +203,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
                 $this->_params['table'] . ' WHERE perm_name = ?';
             $result = $this->_db->selectOne($query, array($parent_name));
             if (empty($result)) {
-                throw new Horde_Perms_Exception(Horde_Perms_Translation::t("Trying to create sub permission of non-existant parent permission. Create parent permission(s) first."));
+                throw new Horde_Perms_Exception(Horde_Perms_Translation::t("Trying to create sub permission of non-existent parent permission. Create parent permission(s) first."));
             }
             $parents = $result['perm_parents'] . ':' . $result['perm_id'];
         }
@@ -253,6 +253,18 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         if (!$force) {
             return (bool)$result;
         }
+
+        /* Need to expire cache for all sub-permissions. */
+        try {
+            $sub = $this->_db->selectValues(
+                'SELECT perm_name FROM ' . $this->_params['table'] . ' WHERE perm_name LIKE ?',
+                array($name . ':%')
+            );
+            foreach ($sub as $val) {
+                $this->_cache->expire('perm_sql_' . $this->_cacheVersion . $val);
+                $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $val);
+            }
+        } catch (Horde_Db_Exception $e) {}
 
         $query = 'DELETE FROM ' . $this->_params['table'] .
             ' WHERE perm_name LIKE ?';
