@@ -3709,6 +3709,7 @@ KronolithCore = {
                 start.add(1).days();
             }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
+            end = start.clone();
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
                 end.add(Kronolith.conf.week_start == 0 ? -1 : -2).days();
