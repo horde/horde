@@ -1341,7 +1341,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->changed = 'changed';
 
             try {
-                $check = $$hooks->callHook(
+                $check = $hooks->callHook(
                     'attach_body_check',
                     'imp',
                     array($body)
