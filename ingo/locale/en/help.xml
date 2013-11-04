@@ -168,7 +168,7 @@
     <heading>Matches</heading>
     <para>Matches is similar to contains, with the exception that you may use *
     and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
+    match exactly one character. Example: "*user?@example.com" will match both
     "user1@example.com" and "otheruser2@example.com"</para>
     <heading>Doesn't match</heading>
     <para>Doesn't match is the same as matches except that it will evaluate to

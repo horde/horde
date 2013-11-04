@@ -29,4 +29,11 @@
  */
 class Horde_ActiveSync_Exception extends Horde_Exception_Wrapped
 {
+    /** Error codes **/
+
+    // Defauld, unspecified.
+    const UNSPECIFIED = 0;
+
+    // Unsupported action was attempted.
+    const UNSUPPORTED = 3;
 }
