@@ -144,7 +144,7 @@ class IMP_Imap implements Serializable
      */
     private function _getPerm($perm)
     {
-        return ($this->init ? $this->server_key . ':' : '') . $perm;
+        return 'backends:' . ($this->init ? $this->server_key . ':' : '') . $perm;
     }
 
     /**
