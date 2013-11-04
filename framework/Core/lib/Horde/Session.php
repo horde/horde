@@ -46,6 +46,7 @@ class Horde_Session
     const NOT_SERIALIZED = 0;
     const IS_SERIALIZED = 1;
 
+    const NONCE_ID = 'session_nonce'; /* @since 2.11.0 */
     const TOKEN_ID = 'session_token';
 
     /**
@@ -537,6 +538,46 @@ class Horde_Session
             throw new Horde_Exception('Invalid token!');
         }
     }
+
+    /* Session nonces. */
+
+    /**
+     * Returns a single-use, session nonce.
+     *
+     * @since 2.11.0
+     *
+     * @return string  Session nonce.
+     */
+    public function getNonce()
+    {
+        $id = strval(new Horde_Support_Randomid());
+
+        $nonces = $this->get('horde', self::NONCE_ID, self::TYPE_ARRAY);
+        $nonces[] = $id;
+        $this->set('horde', self::NONCE_ID, array_values($nonces));
+
+        return $id;
+    }
+
+    /**
+     * Checks the validity of the session nonce.
+     *
+     * @since 2.11.0
+     *
+     * @param string $nonce  Nonce to check.
+     *
+     * @throws Horde_Exception
+     */
+    public function checkNonce($nonce)
+    {
+        $nonces = $this->get('horde', self::NONCE_ID, self::TYPE_ARRAY);
+        if (($pos = array_search($nonce, $nonces)) === false) {
+            throw new Horde_Exception('Invalid token!');
+        }
+        unset($nonces[$pos]);
+        $this->set('horde', self::NONCE_ID, array_values($nonces));
+    }
+
 
     /* Session object storage. */
 
