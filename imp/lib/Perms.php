@@ -132,7 +132,7 @@ class IMP_Perms
      * @see Horde_Registry_Application#hasPermission()
      *
      * @param array $opts  Additional options:
-     *   - For 'compose_max_recipients' and 'compose_max_timelimit', 'value'
+     *   - For 'max_recipients' and 'max_timelimit', 'value'
      *     is the number of recipients in the current message.
      */
     public function hasPermission($permission, $allowed, $opts)
