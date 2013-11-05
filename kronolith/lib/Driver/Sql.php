@@ -492,7 +492,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $values = array((string)$uid);
 
         /* Optionally filter by calendar */
-        if (!is_null($calendars)) {
+        if (!empty($calendars)) {
             if (!count($calendars)) {
                 throw new Kronolith_Exception(_("No calendars to search"));
             }
