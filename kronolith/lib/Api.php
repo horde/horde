@@ -864,16 +864,18 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                              Still in wide use)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
-     * @param array $optinos      Any additional options to be passed to the
+     * @param array $options      Any additional options to be passed to the
      *                            exporter.
+     * @param array $calendars    Require event to be in these calendars.
+     *                            @since 4.2.0
      *
      * @return string  The requested data.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function export($uid, $contentType, array $options = array())
+    public function export($uid, $contentType, array $options = array(), array $calendars = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        $event = Kronolith::getDriver()->getByUID($uid, $calendars);
         if (!$event->hasPermission(Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
