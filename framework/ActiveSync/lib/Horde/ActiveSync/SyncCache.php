@@ -287,8 +287,12 @@ class Horde_ActiveSync_SyncCache
      */
     public function removePingableCollection($id)
     {
-         if (empty($this->_data['collections'][$id])) {
-            throw new InvalidArgumentException('Collection does not exist');
+        if (empty($this->_data['collections'][$id])) {
+            $this->_logger->warn(sprintf(
+                '[%s] Collection %s was asked to be removed from PINGABLE but does not exist.',
+                $this->_procid,
+                $id));
+            return;
         }
         $this->_data['collections'][$id]['pingable'] = false;
         $this->_markCollectionsDirty($id);

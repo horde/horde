@@ -146,7 +146,7 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $description Task list description.
      * @param string $color       Task list color.
      *
-     * @return integer  The new tasklist's id.
+     * @return string  The new tasklist's id.
      */
     public function addTasklist($name, $description = '', $color = '')
     {

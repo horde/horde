@@ -44,7 +44,15 @@ class Horde_Pack_Driver_Msgpack extends Horde_Pack_Driver
      */
     public function unpack($data)
     {
-        return msgpack_unpack($data);
+        ini_set('track_errors', 1);
+        $out = @msgpack_unpack($data);
+        ini_restore('track_errors');
+
+        if (!isset($php_errormsg)) {
+            return $out;
+        }
+
+        throw new Horde_Pack_Exception('Error when unpacking Msgpack data.');
     }
 
 }

@@ -884,3 +884,11 @@ actions::
 MD5 should NOT be used, as it has known collision issues. (NOTE: SHA-1 hashes
 are 160-bit vs. MD5 hashes which are 128-bit; care needs to be taken if
 switching between methods regarding storage side of the hash string).
+
+
+CSRF Token protection
+=====================
+
+Any "destructive" action must be protected by a token to prevent CSRF attacks.
+The session token can be retrieved via Horde_Session#getToken() and checked
+via Horde_Session@checkToken().

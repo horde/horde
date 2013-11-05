@@ -43,6 +43,16 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
         }
     }
 
+    public function testNull()
+    {
+        $this->_runTest(null);
+    }
+
+    public function testNullWithCompression()
+    {
+        $this->_runTest(null, true);
+    }
+
     public function testBoolean()
     {
         $this->_runTest(true);
@@ -118,11 +128,37 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
         }
     }
 
+    /**
+     * @expectedException Horde_Pack_Exception
+     */
+    public function testExpectedExceptionOnBadUnpack()
+    {
+        $packed = $this->_pack(true, false);
+        self::$pack->unpack($packed[0] . "A{{}");
+    }
+
     /* Internal methods. */
 
     protected function _runTest($data, $compress = false)
     {
-        $packed = self::$pack->pack(
+        $packed = $this->_pack($data, $compress);
+
+        $this->assertNotEquals(
+            $packed,
+            $data
+        );
+
+        $unpacked = $this->_unpack($packed);
+
+        $this->assertEquals(
+            $data,
+            $unpacked
+        );
+    }
+
+    protected function _pack($data, $compress)
+    {
+        return self::$pack->pack(
             $data,
             array(
                 'compress' => $compress ? 0 : false,
@@ -131,18 +167,11 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
                 )
             )
         );
+    }
 
-        $this->assertNotEquals(
-            $packed,
-            $data
-        );
-
-        $unpacked = self::$pack->unpack($packed);
-
-        $this->assertEquals(
-            $data,
-            $unpacked
-        );
+    protected function _unpack($data)
+    {
+        return self::$pack->unpack($data);
     }
 
 }
