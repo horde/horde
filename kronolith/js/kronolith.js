@@ -3623,7 +3623,7 @@ KronolithCore = {
         }
         if (r.saved) {
             if ($F('kronolithCalendarinternalImport')) {
-                HordeCore.notify(Kronolith.text.import, 'horde.message');
+                HordeCore.notify(Kronolith.text.import_warning, 'horde.message');
                 this.loading++;
                 $('kronolithLoading').show();
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
@@ -3745,6 +3745,7 @@ KronolithCore = {
                 start.add(1).days();
             }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
+            end = start.clone();
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
                 end.add(Kronolith.conf.week_start == 0 ? -1 : -2).days();

@@ -19,3 +19,11 @@ BC BREAKING (i.e., Horde 6).
 ============================
 
 - Move all non-specific constants to single class.
+
+- Clean up the various foldertype constant messes. I.e., probably store
+  the Horde_ActiveSync::FOLDER_TYPE_* and Horde_ActiveSync::CLASS_* values
+  in the saved state instead of having to switch between them in various
+  places. (Some client commands are sent using the CLASS, some using the
+  FOLDER_TYPE).
+
+

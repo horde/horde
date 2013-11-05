@@ -2221,7 +2221,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804).
+* [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug #12804, CVE-2013-6365).
 * [jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
 * [jan] Fix edge case that allowed to enter start time after end time (Bug #12752).
 * [mjr] Expire fb cache when fb_cals preference changes (Bug #12714).

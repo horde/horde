@@ -10,7 +10,7 @@ v4.1.4
 ------
 
 [jan] SECURITY: Protect against CSRF attacks on share permissions form (Bug
-      #12804).
+      #12804, CVE-2013-6365).
 [jan] SECURITY: Fix XSS vulnerabilities when deleting calendars and resources.
 [jan] Fix edge case that allowed to enter start time after end time (Bug
       #12752).

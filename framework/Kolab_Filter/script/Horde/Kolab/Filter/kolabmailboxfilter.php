@@ -1,4 +1,4 @@
-#!@php_bin@
+#!/usr/bin/env php
 <?php
 /**
  *  A filter for incoming mail on a Kolab Server. It checks the
