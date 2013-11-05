@@ -26,8 +26,10 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
+     * <pre>
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
      *             array; mailboxes are base64url encoded).
+     * </pre>
      *
      * @return boolean  True.
      */
@@ -46,9 +48,12 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
      * AJAX action: Collapse mailboxes.
      *
      * Variables used:
-     *   - all: (integer) 1 to show all mailboxes.
+     * <pre>
+     *   - all: (integer) 1 to collapse all mailboxes.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded) if 'all' is 0.
+     *             array; mailboxes are base64url encoded); required if 'all'
+     *             is 0.
+     * </pre>
      *
      * @return boolean  True.
      */
