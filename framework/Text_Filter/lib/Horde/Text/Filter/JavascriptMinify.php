@@ -48,6 +48,9 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
         }
 
         /* Use PHP-based minifier. */
+        if (!class_exists('Horde_Text_Filter_JavascriptMinify_JsMin')) {
+            return $text;
+        }
         $jsmin = new Horde_Text_Filter_JavascriptMinify_JsMin($text);
         try {
             return $jsmin->minify();
