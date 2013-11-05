@@ -62,7 +62,10 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
         $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
 
         if ($this->vars->all) {
+            $old_track = $ftree->eltdiff->track;
+            $ftree->eltdiff->track = false;
             $ftree->collapseAll();
+            $ftree->eltdiff->track = $old_track;
         } elseif (!empty($this->vars->mboxes)) {
             $ftree->collapse(
                 IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
