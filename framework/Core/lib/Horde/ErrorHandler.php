@@ -60,7 +60,7 @@ class Horde_ErrorHandler
                  * issues on the login page since we would otherwise need
                  * to do session token checking (which might not be
                  * available, so logout won't happen, etc...) */
-                if (array_key_exists($params, 'app')) {
+                if (array_key_exists('app', $params)) {
                     $registry->clearAuth();
                 }
 

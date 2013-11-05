@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-30</date>
+ <date>2013-11-01</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -42,6 +42,7 @@
        <file name="Msgpackserialize.php" role="php" />
        <file name="Serialize.php" role="php" />
       </dir> <!-- /lib/Horde/Pack/Driver -->
+      <file name="Autodetermine.php" role="php" />
       <file name="Driver.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Pack -->
@@ -60,6 +61,7 @@
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Pack/Driver -->
       <file name="AllTests.php" role="test" />
+      <file name="AutodetermineTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Pack -->
@@ -117,6 +119,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Pack/COPYING" />
    <install as="Horde/Pack.php" name="lib/Horde/Pack.php" />
+   <install as="Horde/Pack/Autodetermine.php" name="lib/Horde/Pack/Autodetermine.php" />
    <install as="Horde/Pack/Driver.php" name="lib/Horde/Pack/Driver.php" />
    <install as="Horde/Pack/Exception.php" name="lib/Horde/Pack/Exception.php" />
    <install as="Horde/Pack/Driver/Igbinary.php" name="lib/Horde/Pack/Driver/Igbinary.php" />
@@ -125,6 +128,7 @@
    <install as="Horde/Pack/Driver/Msgpackserialize.php" name="lib/Horde/Pack/Driver/Msgpackserialize.php" />
    <install as="Horde/Pack/Driver/Serialize.php" name="lib/Horde/Pack/Driver/Serialize.php" />
    <install as="Horde/Pack/AllTests.php" name="test/Horde/Pack/AllTests.php" />
+   <install as="Horde/Pack/AutodetermineTest.php" name="test/Horde/Pack/AutodetermineTest.php" />
    <install as="Horde/Pack/bootstrap.php" name="test/Horde/Pack/bootstrap.php" />
    <install as="Horde/Pack/phpunit.xml" name="test/Horde/Pack/phpunit.xml" />
    <install as="Horde/Pack/Driver/IgbinaryTest.php" name="test/Horde/Pack/Driver/IgbinaryTest.php" />

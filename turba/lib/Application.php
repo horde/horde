@@ -34,6 +34,9 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+use Sabre\CalDAV;
+use Sabre\CardDAV;
+
 class Turba_Application extends Horde_Registry_Application
 {
     /**
@@ -659,8 +662,8 @@ class Turba_Application extends Horde_Registry_Application
                 'uri' => $id,
                 'principaluri' => 'principals/' . $user,
                 '{DAV:}displayname' => $book['title'],
-                '{urn:ietf:params:xml:ns:carddav}supported-address-data'
-                    => new Sabre\CardDAV\Property\SupportedAddressData(
+                '{' . CardDAV\Plugin::NS_CARDDAV . '}supported-address-data'
+                    => new CardDAV\Property\SupportedAddressData(
                         array(
                             array(
                                 'contentType' => 'text/directory',

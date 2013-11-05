@@ -416,7 +416,7 @@ abstract class Horde_ActiveSync_State_Base
 
             // Get the current syncStamp from the backend.
             $this->_thisSyncStamp = $this->_backend->getSyncStamp(
-                empty($this->_collection['id']) ? null : $this->_collection['id'],
+                empty($this->_collection['serverid']) ? null : $this->_collection['serverid'],
                 $this->_lastSyncStamp);
             if ($this->_thisSyncStamp === false) {
                 throw new Horde_ActiveSync_Exception_StaleState(

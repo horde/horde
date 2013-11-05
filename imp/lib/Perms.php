@@ -49,7 +49,7 @@ class IMP_Perms
                 'global' => true,
                 'handle' => function($allowed, $opts) {
                     return isset($opts['value'])
-                        ? (intval($allowed) >= $opts['value'])
+                        ? (intval($allowed[0]) >= $opts['value'])
                         : $allowed;
                 },
                 'title' => _("Maximum Number of Recipients per Message"),
@@ -72,14 +72,14 @@ class IMP_Perms
                         $opts['value'] += $sentmail->numberOfRecipients($sentmail->limit_period, true);
                     } catch (IMP_Exception $e) {}
 
-                    return (intval($allowed) >= $opts['value']);
+                    return (intval($allowed[0]) >= $opts['value']);
                 },
                 'title' => _("Maximum Number of Recipients per Time Period"),
                 'type' => 'int'
             ),
             'max_create_mboxes' => array(
                 'handle' => function($allowed, $opts) {
-                    return (intval($allowed) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
+                    return (intval($allowed[0]) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
                 },
                 'imaponly' => true,
                 'title' => _("Maximum Number of Mailboxes"),
@@ -132,11 +132,15 @@ class IMP_Perms
      * @see Horde_Registry_Application#hasPermission()
      *
      * @param array $opts  Additional options:
-     *   - For 'compose_max_recipients' and 'compose_max_timelimit', 'value'
+     *   - For 'max_recipients' and 'max_timelimit', 'value'
      *     is the number of recipients in the current message.
      */
     public function hasPermission($permission, $allowed, $opts)
     {
+        if (($pos = strrpos($permission, ':')) !== false) {
+            $permission = substr($permission, $pos + 1);
+        }
+
         return isset($this->_perms[$permission]['handle'])
             ? (bool)call_user_func($this->_perms[$permission]['handle'], $allowed, $opts)
             : (bool)$allowed;

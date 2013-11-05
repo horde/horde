@@ -418,6 +418,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * a secure connections is not available. */
         if (($secure === true) && !$this->isSecureConnection()) {
             $this->setParam('secure', false);
+            $secure = false;
         }
 
         if ($first_login) {
@@ -434,11 +435,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['XOAUTH2']);
 
-            // 'PLAIN' authentication always exists if under TLS. Use it over
-            // all over authentication methods.
-            if ($this->isSecureConnection()) {
-                $auth_mech[] = 'PLAIN';
-                unset($auth['PLAIN']);
+            /* 'PLAIN' authentication always exists if under TLS (RFC
+             *  3501 [7.2.1]; RFC 2595). Use it over all other authentication
+             *  methods, although we need to do sanity checking since broken
+             *  IMAP servers may not support as required - fallback to
+             *  LOGIN instead. */
+            if ($secure) {
+                if (isset($auth['PLAIN'])) {
+                    $auth_mech[] = 'PLAIN';
+                    unset($auth['PLAIN']);
+                } else {
+                    $auth_mech[] = 'LOGIN';
+                }
             }
 
             // Prefer CRAM-MD5 over DIGEST-MD5, as the latter has been
@@ -452,7 +460,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // Fall back to 'LOGIN' if available.
             $auth_mech = array_merge($auth_mech, array_keys($auth));
-            if (!$this->queryCapability('LOGINDISABLED')) {
+            if (!$secure && !$this->queryCapability('LOGINDISABLED')) {
                 $auth_mech[] = 'LOGIN';
             }
 
