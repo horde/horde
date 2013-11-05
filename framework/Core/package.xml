@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add nonce generation/checking to Horde_Session.
 * [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
@@ -3228,6 +3229,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add nonce generation/checking to Horde_Session.
 * [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.

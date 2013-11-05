@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Restore error reporting level after running tests via Horde_Test_AllTests#run().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -450,7 +450,7 @@
    <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Restore error reporting level after running tests via Horde_Test_AllTests#run().
    </notes>
   </release>
  </changelog>

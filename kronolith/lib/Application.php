@@ -32,6 +32,8 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+use Sabre\CalDAV;
+
 class Kronolith_Application extends Horde_Registry_Application
 {
     /**
@@ -684,11 +686,11 @@ class Kronolith_Application extends Horde_Registry_Application
                 'uri' => $id,
                 'principaluri' => 'principals/' . $user,
                 '{DAV:}displayname' => Kronolith::getLabel($share),
-                '{urn:ietf:params:xml:ns:caldav}calendar-description' =>
+                '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $share->get('color'),
-                '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set' => new Sabre\CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
+                '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
             );
         }
         return $calendars;

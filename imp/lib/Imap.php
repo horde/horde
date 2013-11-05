@@ -103,10 +103,12 @@ class IMP_Imap implements Serializable
 
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
-            return intval($GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . str_replace('max_compose', 'max', $key), $GLOBALS['registry']->getAuth()));
+            $perm = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . str_replace('max_compose', 'max', $key), $GLOBALS['registry']->getAuth());
+            return intval($perm[0]);
 
         case 'max_create_mboxes':
-            return intval($GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth()));
+            $perm = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth());
+            return intval($perm[0]);
 
         case 'server_key':
             return $this->init
