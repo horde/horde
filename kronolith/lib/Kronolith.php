@@ -729,7 +729,7 @@ class Kronolith
      */
     static public function initialize()
     {
-        $GLOBALS['calendar_manager'] = $GLOBALS['injector']->getInstance('Kronolith_CalendarsManager');
+        $GLOBALS['calendar_manager'] = $GLOBALS['injector']->createInstance('Kronolith_CalendarsManager');
     }
 
     /**
