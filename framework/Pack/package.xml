@@ -12,7 +12,7 @@
  </lead>
  <date>2013-11-06</date>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -30,7 +30,7 @@
      <dir name="Pack">
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Pack -->
-     </dir> <!-- /doc/Horde -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -66,7 +66,7 @@
       <file name="PackTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Pack -->
-     </dir> <!-- /test/Horde -->
+    </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
@@ -139,8 +139,23 @@
    <install as="Horde/Pack/Driver/MsgpackTest.php" name="test/Horde/Pack/Driver/MsgpackTest.php" />
    <install as="Horde/Pack/Driver/SerializeTest.php" name="test/Horde/Pack/Driver/SerializeTest.php" />
    <install as="Horde/Pack/Driver/TestBase.php" name="test/Horde/Pack/Driver/TestBase.php" />
-   </filelist>
+  </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2013-11-06</date>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
  </changelog>
 </package>
