@@ -608,36 +608,76 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                             @since 2.5.0 (@todo Look at this for H6. It's
      *                             here now to save an extra DB lookup for data
      *                             we already have.)
+     * @param  integer $type       The EAS Folder type. @since 2.12.0
+     * @todo  For H6, this should take a Horde_ActiveSync_Folder_* object.
      *
      * @return string  The new folder uid.
      * @throws  Horde_ActiveSync_Exception, Horde_Exception_PermissionDenied
      */
-    public function changeFolder($id, $displayname, $parent, $uid = null)
+    public function changeFolder($id, $displayname, $parent, $uid = null, $type = null)
     {
-        // Filter out non-email collections. Empty $parent is always an email
-        // collection.
-        if (!empty($parent) && ($parent == self::TASKS_FOLDER_UID ||
-                $parent == self::CONTACTS_FOLDER_UID ||
-                $parent == self::NOTES_FOLDER_UID ||
-                $parent == self::APPOINTMENTS_FOLDER_UID)) {
-
-                throw new Horde_Exception_PermissionDenied('Creating sub collection not supported in the ' . $parent . ' collection.');
+        // For FOLDERUPDATE requests, the EAS Folder type is not passed by
+        // the client so we need to figure it out. Unfortunately, since
+        // we support additional collections in each type we don't know
+        // for sure if it's a mail folder or not, so we must check by passing
+        // true to _parseFolderId.
+        if (empty($type) && !empty($id)) {
+            $parts = $this->_parseFolderId($id, true);
+            if (is_array($parts)) {
+                $type = $parts[self::FOLDER_PART_CLASS];
+            } else {
+                $type = $parts;
+            }
         }
 
-        if (!$id) {
-            try {
-                $this->_imap->createMailbox($displayname, $parent);
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw $e;
+        switch ($type) {
+        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            if (!$id) {
+                try {
+                    $this->_imap->createMailbox($displayname, $parent);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
+                $uid = $this->_getFolderUidForBackendId($displayname);
+            } else {
+                try {
+                    $this->_imap->renameMailbox($id, $displayname, $parent);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
             }
-            $uid = $this->_getFolderUidForBackendId($displayname);
-        } else {
-            try {
-                $this->_imap->renameMailbox($id, $displayname, $parent);
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw $e;
+            break;
+
+        case Horde_ActiveSync::CLASS_TASKS:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_TASK:
+            if (!$id) {
+                try {
+                    $uid = $this->_getFolderUidForBackendId(
+                        $this->_connector->createFolder(Horde_ActiveSync::CLASS_TASKS, $displayname),
+                        Horde_ActiveSync::FOLDER_TYPE_USER_TASK);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
+            } else {
+                if (empty($parts)) {
+                    $parts = $this->_parseFolderId($id);
+                }
+                if (is_array($parts)) {
+                    $id = $parts[self::FOLDER_PART_ID];
+                } else {
+                    $id = $parts;
+                }
+
+                try {
+                    $this->_connector->changeFolder(Horde_ActiveSync::CLASS_TASKS, $id, $displayname);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
             }
         }
 
