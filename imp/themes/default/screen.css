@@ -421,6 +421,10 @@ table.remotemanagement td.noneconfigured {
 .threadSummary {
     margin: 5px 3px;
 }
+.threadSummary div {
+    height: 20px;
+    line-height: 20px;
+}
 .threadBox {
     margin: 3px;
 }
