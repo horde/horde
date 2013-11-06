@@ -119,6 +119,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function calendar_export($uid, array $options = array(), $calendar = null)
     {
+        $calendar = empty($calendar) ? null : array($calendar);
         return $this->_registry->calendar->export($uid, 'activesync', $options, $calendar);
     }
 
