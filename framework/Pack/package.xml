@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-01</date>
+ <date>2013-11-06</date>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -30,7 +30,7 @@
      <dir name="Pack">
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Pack -->
-     </dir> <!-- /doc/Horde -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -63,9 +63,10 @@
       <file name="AllTests.php" role="test" />
       <file name="AutodetermineTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="PackTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Pack -->
-     </dir> <!-- /test/Horde -->
+    </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
@@ -130,6 +131,7 @@
    <install as="Horde/Pack/AllTests.php" name="test/Horde/Pack/AllTests.php" />
    <install as="Horde/Pack/AutodetermineTest.php" name="test/Horde/Pack/AutodetermineTest.php" />
    <install as="Horde/Pack/bootstrap.php" name="test/Horde/Pack/bootstrap.php" />
+   <install as="Horde/Pack/PackTest.php" name="test/Horde/Pack/PackTest.php" />
    <install as="Horde/Pack/phpunit.xml" name="test/Horde/Pack/phpunit.xml" />
    <install as="Horde/Pack/Driver/IgbinaryTest.php" name="test/Horde/Pack/Driver/IgbinaryTest.php" />
    <install as="Horde/Pack/Driver/JsonTest.php" name="test/Horde/Pack/Driver/JsonTest.php" />
@@ -137,8 +139,36 @@
    <install as="Horde/Pack/Driver/MsgpackTest.php" name="test/Horde/Pack/Driver/MsgpackTest.php" />
    <install as="Horde/Pack/Driver/SerializeTest.php" name="test/Horde/Pack/Driver/SerializeTest.php" />
    <install as="Horde/Pack/Driver/TestBase.php" name="test/Horde/Pack/Driver/TestBase.php" />
-   </filelist>
+  </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2013-11-06</date>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
  </changelog>
 </package>

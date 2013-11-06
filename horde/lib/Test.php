@@ -700,15 +700,10 @@ class Horde_Test
      */
     public function requiredFileCheck()
     {
-        $output = '';
-
-        $php = trim(system('which php'));
-        if (!$php || !file_exists($php)) {
-            $output = '<p style="color:orange">Cannot find PHP command-line binary on your system. Syntax checking of configuration files is disabled.</p>';
-            $php = null;
-        } else {
-            $output = '';
-        }
+        $php = System::which('php', null);
+        $output = is_null($php)
+            ? '<p style="color:orange">Cannot find PHP command-line binary on your system. Syntax checking of configuration files is disabled.</p>'
+            : '';
 
         ksort($this->_fileList);
 

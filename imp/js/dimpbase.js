@@ -2401,7 +2401,6 @@ var DimpBase = {
             if (!d.opera && !d.wasDragged) {
                 $('folderopts_link').up().hide();
                 $('dropbase').up().show();
-                d.ghost.removeClassName('on');
             }
         }
     },

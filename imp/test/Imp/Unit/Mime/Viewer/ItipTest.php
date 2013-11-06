@@ -74,6 +74,9 @@ extends PHPUnit_Framework_TestCase
     public function _injectorGetInstance($interface)
     {
         switch ($interface) {
+        case 'Horde_Core_Hooks':
+            return new Horde_Core_Hooks();
+
         case 'IMP_Contents':
             if (!isset($this->_contents)) {
                 $contents= $this->getMock('IMP_Contents', array(), array(), '', false);

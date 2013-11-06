@@ -813,6 +813,9 @@ span.attachmentImg {
 .dragdrop, .mboxdrag, .msgdrag {
     padding: 2px;
 }
+.imp-sidebar-mbox.mboxdrag {
+    height: auto !important;
+}
 
 /* Search-related styles */
 .qsearchMatch {
