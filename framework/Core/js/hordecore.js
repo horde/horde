@@ -590,6 +590,14 @@ var HordeCore = {
         }
     },
 
+    onGrowlerDestroy: function(e)
+    {
+        var id = e.element().retrieve('alarm');
+        if (id) {
+            this.alarms = this.alarms.without(id);
+        }
+    },
+
     onDomLoad: function()
     {
         /* Determine base window. Need a try/catch block here since, if the
@@ -621,12 +629,7 @@ var HordeCore = {
 };
 
 document.observe('dom:loaded', HordeCore.onDomLoad.bind(HordeCore));
-document.observe('Growler:destroyed', function(e) {
-    var id = e.element().retrieve('alarm');
-    if (id) {
-        this.alarms = this.alarms.without(id);
-    }
-}.bindAsEventListener(HordeCore));
+document.observe('Growler:destroyed', HordeCore.onGrowlerDestroy.bindAsEventListener(HordeCore));
 document.observe('Growler:linkClick', function(e) {
     window.location.assign(e.memo.href);
 });
