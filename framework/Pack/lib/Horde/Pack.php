@@ -69,6 +69,13 @@ class Horde_Pack
     }
 
     /**
+     */
+    public function __sleep()
+    {
+        throw new LogicException('Object can not be serialized.');
+    }
+
+    /**
      * Pack a string.
      *
      * @param mixed $data     The data to pack.

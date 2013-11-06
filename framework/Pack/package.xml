@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-01</date>
+ <date>2013-11-06</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -63,6 +63,7 @@
       <file name="AllTests.php" role="test" />
       <file name="AutodetermineTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="PackTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Pack -->
      </dir> <!-- /test/Horde -->
@@ -130,6 +131,7 @@
    <install as="Horde/Pack/AllTests.php" name="test/Horde/Pack/AllTests.php" />
    <install as="Horde/Pack/AutodetermineTest.php" name="test/Horde/Pack/AutodetermineTest.php" />
    <install as="Horde/Pack/bootstrap.php" name="test/Horde/Pack/bootstrap.php" />
+   <install as="Horde/Pack/PackTest.php" name="test/Horde/Pack/PackTest.php" />
    <install as="Horde/Pack/phpunit.xml" name="test/Horde/Pack/phpunit.xml" />
    <install as="Horde/Pack/Driver/IgbinaryTest.php" name="test/Horde/Pack/Driver/IgbinaryTest.php" />
    <install as="Horde/Pack/Driver/JsonTest.php" name="test/Horde/Pack/Driver/JsonTest.php" />
