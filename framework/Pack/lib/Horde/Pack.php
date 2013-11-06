@@ -24,7 +24,7 @@
 class Horde_Pack
 {
     /* Default compress length (in bytes). */
-    const DEFAULT_COMPRESS = 256;
+    const DEFAULT_COMPRESS = 128;
 
     /* Mask for compressed data. */
     const COMPRESS_MASK = 64;
