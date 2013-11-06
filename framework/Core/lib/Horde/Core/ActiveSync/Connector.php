@@ -940,6 +940,63 @@ class Horde_Core_ActiveSync_Connector
         return $this->_folderCache[$collection];
     }
 
+
+    /**
+     * Create a new folder/source in the specified collection.
+     *
+     * @param string $class       The collection class.
+     *                            A Horde_ActiveSync::CLASS_* constant.
+     *
+     * @param string $foldername  The name of the new folder.
+     *
+     * @return string|integer  The new folder serverid.
+     * @throws Horde_Exception_PermisssionDenied
+     */
+    public function createFolder($class, $foldername)
+    {
+        global $registry, $prefs;
+
+        if ($prefs->getValue('activesync_multiplex')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        switch ($class) {
+        case Horde_ActiveSync::CLASS_TASKS:
+            return $registry->tasks->addTasklist($foldername);
+        }
+    }
+
+    /**
+     * Change an existing folder on the server.
+     *
+     * @param string $class  The collection class.
+     *                       A Horde_ActiveSync::CLASS_* constant.
+     * @param string $id     The existing serverid.
+     * @param string $name   The new folder name.
+     *
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_PermisssionDenied.
+     */
+    public function changeFolder($class, $id, $name)
+    {
+        global $prefs, $registry;
+
+        if ($prefs->getValue('activesync_multiplex')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        switch ($class) {
+        case Horde_ActiveSync::CLASS_TASKS:
+            $share = $registry->tasks->getTasklist($id);
+            $info = array(
+                'name' => $name,
+                'color' => $share->get('color'),
+                'desc' => $share->get('desc')
+            );
+            $registry->tasks->updateTasklist($id, $info);
+            break;
+        }
+
+
+    }
+
     /**
      * Clear the authentication and destroy the current session.
      */
