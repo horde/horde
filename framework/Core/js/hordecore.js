@@ -390,9 +390,7 @@ var HordeCore = {
                             });
                         }
                     }.bindAsEventListener(this))
-                    .observe('click', function(e) {
-                        e.stop();
-                    });
+                    .observe('click', Event.stop);
                     message.down('input[type=button]').observe('click', function(e) {
                         var ajax_params = $H({
                             alarm: alarm.id,
