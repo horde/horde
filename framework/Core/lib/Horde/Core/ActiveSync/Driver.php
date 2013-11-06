@@ -554,12 +554,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Parse a folderid.
      *
-     * @param string $id  The folder id.
+     * @param string $id           The folder id.
+     * @param boolean $checkEmail  Verify $id is not an Email collection.
      *
      * @return string|array  A parsed folder array or
      *                       Horde_ActiveSync::CLASS_* constant.
      */
-    protected function _parseFolderId($id)
+    protected function _parseFolderId($id, $checkEmail = false)
     {
         if (strpos($id, ':') === false) {
             switch ($id) {
@@ -577,7 +578,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         } else {
             $parts = explode(':', $id, 2);
             if (count($parts) == 2) {
-                return $parts;
+                switch ($parts[self::FOLDER_PART_CLASS]) {
+                case Horde_ActiveSync::CLASS_CALENDAR:
+                case Horde_ActiveSync::CLASS_TASKS:
+                case Horde_ActiveSync::CLASS_CONTACTS:
+                case Horde_ActiveSync::CLASS_NOTES:
+                    if ($checkEmail) {
+                        $folders = $this->_getMailFolders();
+                        foreach ($folders as $folder) {
+                            if ($folder->_serverid == $id) {
+                                return Horde_ActiveSync::CLASS_EMAIL;
+                            }
+                        }
+                    }
+                    return $parts;
+                }
             }
             return Horde_ActiveSync::CLASS_EMAIL;
         }
