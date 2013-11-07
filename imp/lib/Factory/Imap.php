@@ -61,6 +61,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
         }
 
         if (!isset($this->_instance[$id])) {
+            $ob = null;
             try {
                 $ob = $session->get('imp', 'imap_ob/' . $id);
             } catch (Exception $e) {
@@ -69,7 +70,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
                 throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
             }
 
-            if (!$ob) {
+            if (!is_object($ob)) {
                 $ob = (is_null($base))
                     ? new IMP_Imap($id)
                     : new IMP_Imap_Remote($id);
