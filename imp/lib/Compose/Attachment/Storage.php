@@ -76,7 +76,7 @@ abstract class IMP_Compose_Attachment_Storage
     /**
      * Read attachment data from storage.
      *
-     * @return resource  Stream containing data.
+     * @return Horde_Stream  Stream object containing data.
      * @throws IMP_Compose_Exception
      */
     abstract public function read();
@@ -102,16 +102,15 @@ abstract class IMP_Compose_Attachment_Storage
     public function getTempFile()
     {
         $stream = $this->read();
-        rewind($stream);
 
         $tmp = Horde::getTempFile('impatt');
         $fd = fopen($tmp, 'w+');
 
-        while (!feof($stream)) {
-            fwrite($fd, fread($stream, 8192));
+        while (!$stream->eof()) {
+            fwrite($fd, $stream->getString(null, 8192));
         }
-        fclose($stream);
         fclose($fd);
+        $stream->close();
 
         return $tmp;
     }

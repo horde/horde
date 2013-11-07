@@ -156,7 +156,7 @@ class IMP_Compose_Attachment implements Serializable
             $data = is_null($this->tmpfile)
                 ? $this->storage->read()
                 : fopen($this->tmpfile, 'r');
-            $this->_part->setContents($data, array('stream' => true));
+            $this->_part->setContents($data->stream, array('stream' => true));
             $this->_isBuilt = true;
         }
 
