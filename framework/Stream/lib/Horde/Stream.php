@@ -167,14 +167,17 @@ class Horde_Stream implements Serializable
     /**
      * Get a string up to a certain character (or EOF).
      *
-     * @param string $end  The character to stop reading at. As of 1.4.0,
-     *                     $char can be a multi-character UTF-8 string.
+     * @param string $end   The character to stop reading at. As of 1.4.0,
+     *                      $char can be a multi-character UTF-8 string.
+     * @param boolean $all  If true, strips all repetitions of $end from
+     *                      the end. If false, stops at the first instance
+     *                      of $end. (@since 1.5.0)
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the
      *                 return data).
      */
-    public function getToChar($end)
+    public function getToChar($end, $all = true)
     {
         $res = $this->search($end);
 
@@ -186,8 +189,10 @@ class Horde_Stream implements Serializable
         $out = substr($this->getString(null, $res + $len - 1), 0, $len * -1);
 
         /* Remove all further characters also. */
-        while ($this->peek($len) == $end) {
-            $this->seek($len);
+        if ($all) {
+            while ($this->peek($len) == $end) {
+                $this->seek($len);
+            }
         }
 
         return $out;
