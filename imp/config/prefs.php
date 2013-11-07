@@ -330,8 +330,8 @@ $prefGroups['pgp'] = array(
 // These preferences MUST appear on the same page.
 $_prefs['pgpmanagement'] = array(
     'value' => array(
-        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
-        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
+        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_verify',
+        'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
     ),
     'type' => 'container'
 );
@@ -354,14 +354,6 @@ $_prefs['pgp_attach_pubkey'] = array(
     'type' => 'checkbox',
     'desc' => _("Should your PGP public key to be attached to your messages by default?"),
     'help' => 'pgp-option-attach-pubkey',
-    'requires' => array('use_pgp')
-);
-
-$_prefs['pgp_scan_body'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Should the body of plaintext messages be scanned for PGP data?"),
-    'help' => 'pgp-option-scan-body',
     'requires' => array('use_pgp')
 );
 

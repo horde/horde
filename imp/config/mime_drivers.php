@@ -31,6 +31,11 @@ $mime_drivers = array(
 
         'limit_inline_size' => 1048576,
 
+        /* Scans the text for inline PGP data. If true, will strip this data
+         * out of the output (and, if PGP is active, will display the
+         * results of the PGP action). */
+        'pgp_inline' => true,
+
         /* If you want to scan ALL incoming text/plain messages for UUencoded
          * data, set the following to true. This is very performance intensive
          * and can take a long time for large messages. It is not recommended

@@ -157,13 +157,6 @@
         </para>
     </entry>
 
-    <entry id="pgp-option-scan-body">
-        <title>PGP: Preferences: Scan Text Bodies</title>
-        <para>
-            If selected, all plaintext messages will be scanned for PGP data. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data. This was the old format for sending PGP messages - most mail clients now use the modern format for sending these messages, which does not require any additional scanning.
-        </para>
-    </entry>
-
     <entry id="pgp-option-reply-pubkey">
         <title>PGP: Preferences: Validate PGP Public Keys When Replying</title>
         <para>

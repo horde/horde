@@ -214,7 +214,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     public function embeddedMimeParts()
     {
-        return (!empty($GLOBALS['conf']['gnupg']['path']) && $GLOBALS['prefs']->getValue('pgp_scan_body')) || $this->getConfigParam('uudecode');
+        return ($this->getConfigParam('pgp_inline') ||
+                $this->getConfigParam('uudecode'));
     }
 
     /**
@@ -226,23 +227,18 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _getEmbeddedMimeParts()
     {
-        $ret = null;
+        $ret = $this->getConfigParam('pgp_inline')
+            ? $this->_parsePGP()
+            : null;
 
-        if (!empty($GLOBALS['conf']['gnupg']['path']) &&
-            $GLOBALS['prefs']->getValue('pgp_scan_body')) {
-            $ret = $this->_parsePGP();
-        }
-
-        if (is_null($ret) && $this->getConfigParam('uudecode')) {
-            $ret = $this->_parseUUencode();
-        }
-
-        return $ret;
+        return (is_null($ret) && $this->getConfigParam('uudecode'))
+            ? $this->_parseUUencode()
+            : $ret;
     }
 
     /**
-     * Scan text for armored PGP blocks and, if they exist, convert the part
-     * to the embedded MIME representation.
+     * Scan text for inline, armored PGP blocks and, if they exist, convert
+     * the part to the embedded MIME representation.
      *
      * @return mixed  See self::_getEmbeddedMimeParts().
      */

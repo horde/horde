@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Move determination whether to scan plaintext messages for PGP data from
+      preferences to MIME viewer configuration.
 [mms] Add copy email option to the address context menu in dynamic view.
 [mms] Better reporting of e-mail address errors when composing.
 [mms] Add list information display to dynamic view.

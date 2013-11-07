@@ -59,12 +59,22 @@ The following hooks have been added::
    compose_addr
 
 
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+The 'pgp_inline' config parameter has been added to the plaintext driver.
+
+
 Preferences (prefs.php)
 -----------------------
 
 The following preferences have been added::
 
    signature_show_compose
+
+The following preferences have been removed::
+
+   pgp_scan_body
 
 
 
