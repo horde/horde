@@ -69,6 +69,14 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
                                 $img->setAttribute('src', strval($val->viewUrl()->setRaw(true)));
                                 $imp_compose->addRelatedAttachment($val, $img, 'src');
 
+                                try {
+                                    $img_ob = $injector->getInstance('Horde_Core_Factory_Image')->create();
+                                    $img_ob->loadString($val->storage->read()->getString(0));
+                                    $d = $img_ob->getDimensions();
+                                    $img->setAttribute('height', $d['height']);
+                                    $img->setAttribute('width', $d['width']);
+                                } catch (Exception $e) {}
+
                                 /* Complicated to grab single element from a
                                  * DOMDocument object, so build tag
                                  * ourselves. */
