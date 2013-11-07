@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Strip PGP armor text when replying to a message.
 * [mms] Move determination whether to scan plaintext messages for PGP data from preferences to MIME viewer configuration.
 * [mms] Add copy email option to the address context menu in dynamic view.
 * [mms] Support uploading multiple attachments at once in dynamic view.

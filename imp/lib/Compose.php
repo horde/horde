@@ -2837,6 +2837,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $msg = rtrim(substr($msg, 0, $pos));
             }
 
+            /* Remove PGP armored text. */
+            $pgp = $injector->getInstance('IMP_Crypt_Pgp')->armoredTextToPart($msg);
+            if (!is_null($pgp)) {
+                $msg = '';
+                $pgp->buildMimeIds();
+                foreach ($pgp->contentTypeMap() as $key => $val) {
+                    if (strpos($val, 'text/') === 0) {
+                        $msg .= $pgp[$key]->getContents();
+                    }
+                }
+            }
+
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
