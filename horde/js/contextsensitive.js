@@ -72,7 +72,6 @@ var ContextSensitive = Class.create({
         }
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
         document.observe('mouseover', this._mouseoverHandler.bindAsEventListener(this));
-        document.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousescroll', this.close.bind(this));
     },
 
     /**
