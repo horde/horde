@@ -405,7 +405,15 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $signed_id = next($partlist);
         $sig_id = Horde_Mime::mimeIdArithmetic($signed_id, 'next');
 
+        if (!$GLOBALS['prefs']->getValue('use_pgp') ||
+            empty($GLOBALS['conf']['gnupg']['path'])) {
+            return array(
+                $sig_id => null
+            );
+        }
+
         $status = new IMP_Mime_Status();
+        $status->addText(_("The data in this part has been digitally signed via PGP."));
         $status->icon('mime/encryption.png', 'PGP');
 
         $ret = array(
@@ -418,16 +426,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             ),
             $sig_id => null
         );
-
-        if (!$GLOBALS['prefs']->getValue('use_pgp') ||
-            empty($GLOBALS['conf']['gnupg']['path'])) {
-            /* If PGP not active, hide signature data and output status
-             * information. */
-            $status->addText(_("The data in this part has been digitally signed via PGP, but the signature cannot be verified."));
-            return $ret;
-        }
-
-        $status->addText(_("The data in this part has been digitally signed via PGP."));
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
             $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
