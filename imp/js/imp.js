@@ -124,7 +124,9 @@ var IMP_JS = {
     {
         if (id = $(id)) {
             id.setStyle({
-                height: ((Element.getHeight(id.contentWindow.document.lastChild) + 10) + 'px')
+                height: 'auto'
+            }).setStyle({
+                height: id.contentWindow.document.lastChild.scrollHeight + 'px'
             });
         }
     },
