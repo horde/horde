@@ -693,16 +693,16 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Parses a message into text and PGP components.
      *
-     * @param string $text  The text to parse.
+     * @param mixed $text  Either the text to parse or a Horde_Stream object
+     *                     (@since 2.3.0).
      *
      * @return array  An array with the parsed text, returned in blocks of
      *                text corresponding to their actual order. Keys:
      * <pre>
-     * 'type' -  (integer) The type of data contained in block.
-     *           Valid types are defined at the top of this class
-     *           (the ARMOR_* constants).
-     * 'data' - (array) The data for each section. Each line has been stripped
-     *          of EOL characters.
+     *   - data: (array) The data for each section. Each line has been
+     *           stripped of EOL characters.
+     *   - type: (integer) The type of data contained in block. Valid types
+     *           are the class ARMOR_* constants.
      * </pre>
      */
     public function parsePGPData($text)
@@ -712,9 +712,16 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             'type' => self::ARMOR_TEXT
         );
 
-        $buffer = explode("\n", $text);
-        while (list(,$val) = each($buffer)) {
-            $val = rtrim($val, "\r");
+        if ($text instanceof Horde_Stream) {
+            $stream = $text;
+            $stream->rewind();
+        } else {
+            $stream = new Horde_Stream_Temp();
+            $stream->add($text, true);
+        }
+
+        while (!$stream->eof()) {
+            $val = rtrim($stream->getToChar("\n", false), "\r");
             if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
                 if (isset($temp['data'])) {
                     $data[] = $temp;
