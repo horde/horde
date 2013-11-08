@@ -1523,11 +1523,16 @@ class Kronolith_Api extends Horde_Registry_Api
      *                   DEFAULT: none (empty description).
      *   - tags:         (array) An array of tags to apply to the new calendar.
      *
+     *   - synchronize:   (boolean) If true, add calendar to the list of
+     *                             calendars to syncronize.
+     *
      * @return string  The new calendar's UID.
      * @since 4.2.0
      */
     public function addCalendar($name, array $params = array())
     {
+        global $prefs;
+
         $info = array(
             'name' => $name,
             'color' => empty($params['color']) ? null : $params['color'],
@@ -1536,6 +1541,13 @@ class Kronolith_Api extends Horde_Registry_Api
         );
 
         $share = Kronolith::addShare($info);
+
+        if (!empty($params['synchronize'])) {
+            $sync = @unserialize($prefs->getValue('sync_calendars'));
+            $sync[] = $share->getName();
+            $prefs->setValue('sync_calendars', serialize($sync));
+        }
+
         return $share->getName();
     }
 
