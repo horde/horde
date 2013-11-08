@@ -32,7 +32,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification, $page_output, $registry;
+        global $injector, $notification, $page_output;
 
         $page_output->addScriptFile('acl.js');
 
@@ -101,23 +101,22 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
             $view->curr_acl = $cval;
         }
 
-        try {
-            $current_users = array_keys($curr_acl);
-            $new_user = array();
+        $current_users = array_keys($curr_acl);
+        $new_user = array();
 
-            foreach (array('anyone') + $registry->callAppMethod('imp', 'authUserList') as $user) {
+        try {
+            $auth_imap = $injector->getInstance('IMP_AuthImap');
+            foreach ((array('anyone') + $auth_imap->listUsers()) as $user) {
                 if (!in_array($user, $current_users)) {
                     $new_user[] = htmlspecialchars($user);
                 }
             }
 
             $view->new_user = $new_user;
-        } catch (Horde_Auth_Exception $e) {
-            $notification->push('Could not authenticate as admin user to obtain ACLs. Perhaps your admin configuration is incorrect in config/backends.local.php?', 'horde.warning');
+        } catch (IMP_Exception $e) {
+            /* Ignore - admin user is not available. */
         } catch (Horde_Exception $e) {
-            if (!($e->getPrevious() instanceof IMP_Exception)) {
-                $notification->push($e);
-            }
+            $notification->push('Could not authenticate as admin user to obtain ACLs. Perhaps your admin configuration is incorrect in config/backends.local.php?', 'horde.warning');
         }
 
         $rights = array();

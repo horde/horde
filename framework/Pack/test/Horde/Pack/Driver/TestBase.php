@@ -26,12 +26,14 @@
 abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
 {
     static protected $pack;
+    static protected $sampleob;
 
     protected $drivername;
 
     static public function setUpBeforeClass()
     {
         self::$pack = new Horde_Pack();
+        self::$sampleob = new Horde_Pack_Autodetermine(true);
     }
 
     protected function setUp()
@@ -56,11 +58,13 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
     public function testBoolean()
     {
         $this->_runTest(true);
+        $this->_runTest(false);
     }
 
     public function testBooleanWithCompression()
     {
         $this->_runTest(true, true);
+        $this->_runTest(false, true);
     }
 
     public function testString()
@@ -75,12 +79,14 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
 
     public function testSimpleArray()
     {
+        $this->_runTest(array());
         $this->_runTest(range(1, 1000));
     }
 
     public function testSimpleArrayWithCompression()
     {
-        $this->_runTest(range(1, 1000));
+        $this->_runTest(array(), true);
+        $this->_runTest(range(1, 1000), true);
     }
 
     public function testNestedArray()
@@ -108,6 +114,19 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
         $ob->foo2 = array(1, 2, 3);
         $ob->foo3 = 4;
         $ob->foo4 = true;
+        $ob->foo5 = null;
+        $this->_runTest($ob);
+    }
+
+    public function testObjectWithCompression()
+    {
+        $ob = new stdClass;
+        $ob->foo = 'bar';
+        $ob->foo2 = array(1, 2, 3);
+        $ob->foo3 = 4;
+        $ob->foo4 = true;
+        $ob->foo5 = null;
+        $this->_runTest($ob);
     }
 
     public function testPhpObject()
@@ -115,7 +134,7 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
         /* Not all backends support. */
         $driver = new $this->drivername();
         if ($driver->phpob) {
-            $this->_runTest(self::$pack);
+            $this->_runTest(self::$sampleob);
         }
     }
 
@@ -124,7 +143,7 @@ abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
         /* Not all backends support. */
         $driver = new $this->drivername();
         if ($driver->phpob) {
-            $this->_runTest(self::$pack, true);
+            $this->_runTest(self::$sampleob, true);
         }
     }
 
