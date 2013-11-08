@@ -1512,4 +1512,71 @@ class Kronolith_Api extends Horde_Registry_Api
         return $return;
     }
 
+    /**
+     * Create a new calendar.
+     *
+     * @param string $name  The calendar's display name.
+     * @param array $param  Any additional parameters. May include:
+     *   - color: (string) The color to associate with the calendar.
+     *            DEFAULT: none (color will be randomly assigned).
+     *   - description:  (string) The calendar description.
+     *                   DEFAULT: none (empty description).
+     *   - tags:         (array) An array of tags to apply to the new calendar.
+     *
+     * @return string  The new calendar's UID.
+     * @since 4.2.0
+     */
+    public function addCalendar($name, array $params = array())
+    {
+        $info = array(
+            'name' => $name,
+            'color' => empty($params['color']) ? null : $params['color'],
+            'description' => empty($params['description']) ? null : $params['description'],
+            'tags' => empty($params['tags']) ? null : $params['tags']
+        );
+
+        $share = Kronolith::addShare($info);
+        return $share->getName();
+    }
+
+    /**
+     * Return a calendar.
+     *
+     * @todo Note: This returns a Kronolith_Calendar_Object object instead of a hash
+     * to be consistent with other application APIs. For H6 we need to normalize
+     * the APIs to always return non-objects and/or implement some mechanism to
+     * mark API methods as non-RPC safe.
+     *
+     * @param string $driver  The type of calendar. Defaults to 'internal'.
+     * @param string $id  The calendar uid (share name).
+     *
+     * @return Kronolith_Calendar The calendar object.
+     * @since 4.2.0
+     */
+    public function getCalendar($driver = null, $id = null)
+    {
+       $driver = Kronolith::getDriver($driver, $id);
+       return Kronolith::getCalendar($driver);
+    }
+
+    /**
+     * Update calendar information.
+     *
+     * @param string $driver  The driver type. Defaults to 'internal'.
+     * @param string $id      The calendar id.
+     * @param array $info     An array of calendar information.
+     *                        @see self::addCalendar()
+     * @since 4.2.0
+     */
+    public function updateCalendar($driver, $id, array $info)
+    {
+        $calendar = $this->getCalendar($driver, $id);
+
+        // Prevent wiping tags if they were not passed.
+        if (!array_key_exists('tags', $info)) {
+            $info['tags'] = Kronolith::getTagger()->getTags($id, 'calendar');
+        }
+        Kronolith::updateShare($calendar, $info);
+    }
+
 }
