@@ -950,18 +950,33 @@ class Horde_Core_ActiveSync_Connector
      * @param string $foldername  The name of the new folder.
      *
      * @return string|integer  The new folder serverid.
-     * @throws Horde_Exception_PermisssionDenied
+     * @throws Horde_ActiveSync_Exception
+     * @since 2.12.0
      */
     public function createFolder($class, $foldername)
     {
         global $registry, $prefs;
 
         if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_Exception_PermissionDenied();
+            throw new Horde_ActiveSync_Exception(
+                'Creating new collections not supported with multiplexed collections',
+                Horde_ActiveSync::UNSUPPORTED
+            );
         }
+
         switch ($class) {
         case Horde_ActiveSync::CLASS_TASKS:
             return $registry->tasks->addTasklist($foldername);
+
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            // @todo Remove hasMethod checks in H6.
+            if (!$registry->hasMethod('calendar/addCalendar')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Creating calendars not supported by the calendar API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            return $registry->calendar->addCalendar($name);
         }
     }
 
@@ -973,15 +988,20 @@ class Horde_Core_ActiveSync_Connector
      * @param string $id     The existing serverid.
      * @param string $name   The new folder name.
      *
-     * @throws Horde_ActiveSync_Exception, Horde_Exception_PermisssionDenied.
+     * @throws Horde_ActiveSync_Exception
+     * @since 2.12.0
      */
     public function changeFolder($class, $id, $name)
     {
         global $prefs, $registry;
 
         if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_Exception_PermissionDenied();
+            throw new Horde_ActiveSync_Exception(
+                'Creating new collections not supported with multiplexed collections',
+                Horde_ActiveSync::UNSUPPORTED
+            );
         }
+
         switch ($class) {
         case Horde_ActiveSync::CLASS_TASKS:
             $share = $registry->tasks->getTasklist($id);
@@ -992,9 +1012,24 @@ class Horde_Core_ActiveSync_Connector
             );
             $registry->tasks->updateTasklist($id, $info);
             break;
+
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            // @todo Remove hasMethod check
+            if (!$registry->hasMethod('calendar/getCalendar')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Updating calendars not supported by the calendar API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $calendar = $registry->calendar->getCalendar(null, $id);
+            $info = array(
+                'name' => $name,
+                'color' => $calendar->background(),
+                'description' => $calendar->description()
+            );
+            $registry->calendar->updateCalendar(null, $id, $info);
+            break;
         }
-
-
     }
 
     /**

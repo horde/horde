@@ -612,7 +612,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @todo  For H6, this should take a Horde_ActiveSync_Folder_* object.
      *
      * @return string  The new folder uid.
-     * @throws  Horde_ActiveSync_Exception, Horde_Exception_PermissionDenied
+     * @throws  Horde_ActiveSync_Exception
      */
     public function changeFolder($id, $displayname, $parent, $uid = null, $type = null)
     {
@@ -644,40 +644,55 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } else {
                 try {
                     $this->_imap->renameMailbox($id, $displayname, $parent);
+                    if (empty($uid)) {
+                        $uid = $this->_getFolderUidForBackendId($id);
+                    }
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw $e;
                 }
             }
-            break;
+            return $uid;
 
         case Horde_ActiveSync::CLASS_TASKS:
         case Horde_ActiveSync::FOLDER_TYPE_USER_TASK:
-            if (!$id) {
-                try {
-                    $uid = $this->_getFolderUidForBackendId(
-                        $this->_connector->createFolder(Horde_ActiveSync::CLASS_TASKS, $displayname),
-                        Horde_ActiveSync::FOLDER_TYPE_USER_TASK);
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    throw $e;
-                }
-            } else {
-                if (empty($parts)) {
-                    $parts = $this->_parseFolderId($id);
-                }
-                if (is_array($parts)) {
-                    $id = $parts[self::FOLDER_PART_ID];
-                } else {
-                    $id = $parts;
-                }
+            $class = Horde_ActiveSync::CLASS_TASKS;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_TASK;
+            break;
 
-                try {
-                    $this->_connector->changeFolder(Horde_ActiveSync::CLASS_TASKS, $id, $displayname);
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    throw $e;
-                }
+        case Horde_ActiveSync::CLASS_CALENDAR:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT:
+            $class = Horde_ActiveSync::CLASS_CALENDAR;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT;
+            break;
+
+        default:
+            throw new Horde_ActiveSync_Exception('Unsupported EAS Collection Class.');
+        }
+
+        if (!$id) {
+            try {
+                $uid = $this->_getFolderUidForBackendId(
+                    $this->_connector->createFolder($class, $displayname),
+                    $type);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw $e;
+            }
+        } else {
+            if (empty($parts)) {
+                $parts = $this->_parseFolderId($id);
+            }
+            if (is_array($parts)) {
+                $id = $parts[self::FOLDER_PART_ID];
+            } else {
+                $id = $parts;
+            }
+            try {
+                $this->_connector->changeFolder($class, $id, $displayname);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw $e;
             }
         }
 
