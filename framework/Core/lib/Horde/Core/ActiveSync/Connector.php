@@ -976,7 +976,7 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $registry->calendar->addCalendar($name);
+            return $registry->calendar->addCalendar($foldername, array('synchronize' => true));
         }
     }
 
