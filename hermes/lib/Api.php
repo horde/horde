@@ -496,10 +496,6 @@ class Hermes_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
-        $slices = $GLOBALS['injector']
-            ->getInstance('Hermes_Driver')
-            ->getHours($params);
-
         $objects = array();
 
         foreach ($time_categories as $category) {

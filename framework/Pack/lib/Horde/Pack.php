@@ -24,7 +24,7 @@
 class Horde_Pack
 {
     /* Default compress length (in bytes). */
-    const DEFAULT_COMPRESS = 256;
+    const DEFAULT_COMPRESS = 128;
 
     /* Mask for compressed data. */
     const COMPRESS_MASK = 64;
@@ -63,7 +63,16 @@ class Horde_Pack
             }
 
             krsort(self::$_drivers, SORT_NUMERIC);
+
+            self::$_compress = new Horde_Compress_Fast();
         }
+    }
+
+    /**
+     */
+    public function __sleep()
+    {
+        throw new LogicException('Object can not be serialized.');
     }
 
     /**
@@ -130,7 +139,7 @@ class Horde_Pack
                 }
 
                 if ($compress) {
-                    $packed = $this->_compressOb()->compress($packed);
+                    $packed = self::$_compress->compress($packed);
                     $key |= self::COMPRESS_MASK;
                 }
             }
@@ -157,7 +166,7 @@ class Horde_Pack
             $data = substr($data, 1);
 
             if ($mask & self::COMPRESS_MASK) {
-                $data = $this->_compressOb()->decompress($data);
+                $data = self::$_compress->decompress($data);
                 $mask ^= self::COMPRESS_MASK;
             }
 
@@ -167,19 +176,6 @@ class Horde_Pack
         }
 
         throw new Horde_Pack_Exception('Could not unpack data.');
-    }
-
-    /* Internal methods. */
-
-    /**
-     */
-    protected function _compressOb()
-    {
-        if (!isset(self::$_compress)) {
-            self::$_compress = new Horde_Compress_Fast();
-        }
-
-        return self::$_compress;
     }
 
 }

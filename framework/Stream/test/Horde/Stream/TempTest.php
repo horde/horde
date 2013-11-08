@@ -146,7 +146,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertTrue($stream->eof());
     }
 
-    public function testFgetToChar()
+    public function testGetToChar()
     {
         $stream = new Horde_Stream_Temp();
         $stream->add('A B', true);
@@ -178,6 +178,45 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             '',
             $stream2->getToChar(' ')
+        );
+
+        $stream3 = new Horde_Stream_Temp();
+        $stream3->add("A\n\n\nB\n", true);
+
+        $this->assertEquals(
+            'A',
+            $stream3->getToChar("\n")
+        );
+        $this->assertEquals(
+            'B',
+            $stream3->getToChar("\n")
+        );
+        $this->assertEquals(
+            '',
+            $stream3->getToChar("\n")
+        );
+
+        $stream3->rewind();
+
+        $this->assertEquals(
+            'A',
+            $stream3->getToChar("\n", false)
+        );
+        $this->assertEquals(
+            '',
+            $stream3->getToChar("\n", false)
+        );
+        $this->assertEquals(
+            '',
+            $stream3->getToChar("\n", false)
+        );
+        $this->assertEquals(
+            'B',
+            $stream3->getToChar("\n", false)
+        );
+        $this->assertEquals(
+            '',
+            $stream3->getToChar("\n", false)
         );
     }
 

@@ -324,9 +324,6 @@ class Horde_ActiveSync_Connector_Importer
 
         try {
             $new_uid = $this->_as->driver->changeFolder($folderid, $displayname, $parent_sid, $uid, $type);
-        } catch (Horde_Exception_PermissionDenied $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e->getMessage(), Horde_ActiveSync_Exception::UNSUPPORTED);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
             throw $e;

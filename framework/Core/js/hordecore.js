@@ -390,9 +390,7 @@ var HordeCore = {
                             });
                         }
                     }.bindAsEventListener(this))
-                    .observe('click', function(e) {
-                        e.stop();
-                    });
+                    .observe('click', Event.stop);
                     message.down('input[type=button]').observe('click', function(e) {
                         var ajax_params = $H({
                             alarm: alarm.id,
@@ -544,14 +542,31 @@ var HordeCore = {
 
     initHandler: function(type)
     {
+        var h, t;
+
         if (!this.handlers[type]) {
             switch (type) {
             case 'click':
             case 'dblclick':
-                this.handlers[type] = this.clickHandler.bindAsEventListener(this);
-                document.observe(type, this.handlers[type]);
+                h = this.clickHandler;
+                t = [ type ];
                 break;
+
+            case 'mousewheelY':
+                h = this.mousewheelYHandler;
+                t = ('onwheel' in document || (document.documentMode >= 9))
+                    ? [ 'wheel' ]
+                    : [ 'mousewheel', 'DomMouseScroll' ];
+                break;
+
+            default:
+                return;
             }
+
+            this.handlers[type] = h.bindAsEventListener(this);
+            t.each(function(e) {
+                document.observe(e, this.handlers[type]);
+            }, this);
         }
     },
 
@@ -577,6 +592,33 @@ var HordeCore = {
         }
     },
 
+    // 'HordeCore:mousewheelY' is fired on a vertical mouse wheel scroll event
+    // for every element up to the document root. The memo attribute is
+    // an integer: either -1 or 1.
+    //
+    // @since 2.11.0
+    mousewheelYHandler: function(e)
+    {
+        var delta = 0;
+
+        if (e.wheelDelta) {
+            delta = e.wheelDelta;
+        }
+        if (e.detail) {
+            delta = e.detail * -1;
+        }
+        if (e.deltaY) {
+            delta = e.deltaY * -1;
+        }
+        if (!Object.isUndefined(e.wheelDeltaY)) {
+            delta = e.wheelDeltaY;
+        }
+
+        if (delta) {
+            e.element().fire('HordeCore:mousewheelY', (delta > 0) ? 1 : -1);
+        }
+    },
+
     tasksHandler: function(e)
     {
         var t = e.tasks || {};
@@ -587,6 +629,14 @@ var HordeCore = {
 
         if (t['horde:sid']) {
             this.sessionId(t['horde:sid']);
+        }
+    },
+
+    onGrowlerDestroy: function(e)
+    {
+        var id = e.element().retrieve('alarm');
+        if (id) {
+            this.alarms = this.alarms.without(id);
         }
     },
 
@@ -621,12 +671,7 @@ var HordeCore = {
 };
 
 document.observe('dom:loaded', HordeCore.onDomLoad.bind(HordeCore));
-document.observe('Growler:destroyed', function(e) {
-    var id = e.element().retrieve('alarm');
-    if (id) {
-        this.alarms = this.alarms.without(id);
-    }
-}.bindAsEventListener(HordeCore));
+document.observe('Growler:destroyed', HordeCore.onGrowlerDestroy.bindAsEventListener(HordeCore));
 document.observe('Growler:linkClick', function(e) {
     window.location.assign(e.memo.href);
 });
