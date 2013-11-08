@@ -298,7 +298,7 @@ $_prefs['sync_calendars'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled']) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->getValue('activesync_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
