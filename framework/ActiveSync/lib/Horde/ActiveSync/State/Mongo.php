@@ -1263,7 +1263,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 empty($rows['errmsg']) ? '' : $rows['errmsg']));
         }
         $results = array();
-        foreach ($rows as $row) {
+        foreach ($rows['result'] as $row) {
             $results[$row['_id']] = $row['max'];
         }
 
