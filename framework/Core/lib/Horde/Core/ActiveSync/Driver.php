@@ -1517,7 +1517,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_CONTACTS:
             if (!$id) {
                 try {
-                    $id = $this->_connector->contacts_import($message);
+                    $id = $this->_connector->contacts_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1542,7 +1542,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_TASKS:
             if (!$id) {
                 try {
-                    $id = $this->_connector->tasks_import($message);
+                    $id = $this->_connector->tasks_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1567,7 +1567,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_NOTES:
             if (!$id) {
                 try {
-                    $id = $this->_connector->notes_import($message);
+                    $id = $this->_connector->notes_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
