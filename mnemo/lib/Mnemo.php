@@ -413,12 +413,11 @@ class Mnemo
      */
     public static function hasPermission($permission)
     {
-        global $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if (!$perms->exists('mnemo:' . $permission)) {
             return true;
         }
-
         $allowed = $perms->getPermissions('mnemo:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
