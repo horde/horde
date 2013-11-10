@@ -427,7 +427,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     'message_uid' => $change['id'],
                     'sync_key' => $syncKey,
                     'sync_devid' => $this->_deviceInfo->id,
-                    'sync_folderid' => $this->_collection['id'],
+                    'sync_folderid' => $change['serverid'],
                     'sync_user' => $user
                 );
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
@@ -1328,7 +1328,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $ids[] = strval($change['id']);
         }
         $query = array(
-            'sync_folderid' => $this->_collection['id'],
+            'sync_folderid' => $this->_collection['serverid'],
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
             'message_uid' => array('$in' => $ids)
