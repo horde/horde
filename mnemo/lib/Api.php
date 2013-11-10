@@ -201,12 +201,19 @@ class Mnemo_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
+     * @param string $id  The notepad id to get the MODSEQ for. If null, the
+     *                    highest MODSEQ across all notepads is returned.
+     *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('mnemo');
+        $parent = 'mnemo';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
