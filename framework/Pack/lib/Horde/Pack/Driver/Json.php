@@ -49,7 +49,12 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
      */
     public function unpack($data)
     {
-        return json_decode(substr($data, 1), ($data[0] == 1));
+        $out = json_decode(substr($data, 1), ($data[0] == 1));
+        if (!is_null($out) || (json_last_error() === JSON_ERROR_NONE)) {
+            return $out;
+        }
+
+        throw new Horde_Pack_Exception('Error when unpacking JSON data.');
     }
 
 }

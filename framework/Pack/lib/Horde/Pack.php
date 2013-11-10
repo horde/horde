@@ -24,7 +24,7 @@
 class Horde_Pack
 {
     /* Default compress length (in bytes). */
-    const DEFAULT_COMPRESS = 256;
+    const DEFAULT_COMPRESS = 128;
 
     /* Mask for compressed data. */
     const COMPRESS_MASK = 64;
@@ -63,7 +63,16 @@ class Horde_Pack
             }
 
             krsort(self::$_drivers, SORT_NUMERIC);
+
+            self::$_compress = new Horde_Compress_Fast();
         }
+    }
+
+    /**
+     */
+    public function __sleep()
+    {
+        throw new LogicException('Object can not be serialized.');
     }
 
     /**
@@ -73,14 +82,16 @@ class Horde_Pack
      * @param array $opts     Additional options:
      * <pre>
      *   - compress: (mixed) If false, don't use compression. If true, uses
-     *               default compress length. If 0, always compress. All
-     *               other values: compress only if data is greater than this
-     *               string length.
+     *               default compress length (DEFAULT). If 0, always compress.
+     *               All other integer values: compress only if data is
+     *               greater than this string length.
      *   - drivers: (array) Only use these drivers to pack. By default, driver
      *              to use is auto-determined.
      *   - phpob: (boolean) If true, the data contains PHP serializable
      *            objects (i.e. objects that have a PHP-specific serialized
-     *            representation).
+     *            representation). If false, the data does not contain any of
+     *            these objects. If not present, will auto-determine
+     *            existence of these objects.
      * </pre>
      *
      * @return string  The packed string.
@@ -88,6 +99,15 @@ class Horde_Pack
      */
     public function pack($data, array $opts = array())
     {
+        $opts = array_merge(array(
+            'compress' => true
+        ), $opts);
+
+        if (!isset($opts['phpob'])) {
+            $auto = new Horde_Pack_Autodetermine($data);
+            $opts['phpob'] = $auto->phpob;
+        }
+
         foreach (self::$_drivers as $key => $val) {
             if (!empty($opts['phpob']) && !$val->phpob) {
                 continue;
@@ -108,7 +128,7 @@ class Horde_Pack
              * Packed (and compressed data) follows this byte. */
             $packed = $val->pack($data);
 
-            if (isset($opts['compress']) && ($opts['compress'] !== false)) {
+            if ($opts['compress'] !== false) {
                 if ($opts['compress'] === 0) {
                     $compress = true;
                 } else {
@@ -119,7 +139,7 @@ class Horde_Pack
                 }
 
                 if ($compress) {
-                    $packed = $this->_compressOb()->compress($packed);
+                    $packed = self::$_compress->compress($packed);
                     $key |= self::COMPRESS_MASK;
                 }
             }
@@ -146,7 +166,7 @@ class Horde_Pack
             $data = substr($data, 1);
 
             if ($mask & self::COMPRESS_MASK) {
-                $data = $this->_compressOb()->decompress($data);
+                $data = self::$_compress->decompress($data);
                 $mask ^= self::COMPRESS_MASK;
             }
 
@@ -156,19 +176,6 @@ class Horde_Pack
         }
 
         throw new Horde_Pack_Exception('Could not unpack data.');
-    }
-
-    /* Internal methods. */
-
-    /**
-     */
-    protected function _compressOb()
-    {
-        if (!isset(self::$_compress)) {
-            self::$_compress = new Horde_Compress_Fast();
-        }
-
-        return self::$_compress;
     }
 
 }

@@ -852,7 +852,8 @@ class Kronolith
         $GLOBALS['all_holidays'] = array();
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
             if (class_exists('Date_Holidays')) {
-                foreach (Date_Holidays::getInstalledDrivers() as $driver) {
+                $dh = new Date_Holidays();
+                foreach ($dh->getInstalledDrivers() as $driver) {
                     if ($driver['id'] == 'Composite') {
                         continue;
                     }

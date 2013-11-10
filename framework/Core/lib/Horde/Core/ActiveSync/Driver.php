@@ -440,9 +440,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                             we already have.)
      *
      * @return string  The new folder uid.
+     * @throws  Horde_ActiveSync_Exception, Horde_Exception_PermissionDenied
      */
     public function changeFolder($id, $displayname, $parent, $uid = null)
     {
+        // Filter out non-email collections. Empty $parent is always an email
+        // collection.
+        if (!empty($parent) && ($parent == self::TASKS_FOLDER_UID ||
+                $parent == self::CONTACTS_FOLDER_UID ||
+                $parent == self::NOTES_FOLDER_UID ||
+                $parent == self::APPOINTMENTS_FOLDER_UID)) {
+
+                throw new Horde_Exception_PermissionDenied('Creating sub collection not supported in the ' . $parent . ' collection.');
+        }
+
         if (!$id) {
             try {
                 $this->_imap->createMailbox($displayname, $parent);

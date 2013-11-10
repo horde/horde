@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-29</date>
+ <date>2013-11-06</date>
  <version>
   <release>2.11.0</release>
   <api>2.11.0</api>
@@ -39,6 +39,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix hiding preferences if they are contained within a prefs container.
+* [mms] Added standardized/normalized mousewheelY javascript event handling to HordeCore.
+* [mms] Add nonce generation/checking to Horde_Session.
 * [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
@@ -49,7 +52,6 @@
     <dir name="Horde">
      <dir name="Core">
       <file name="COPYING" role="doc" />
-      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Core -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -1441,7 +1443,6 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Core/COPYING" />
-   <install as="UPGRADING" name="doc/Horde/Core/UPGRADING" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
    <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
@@ -3223,9 +3224,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix hiding preferences if they are contained within a prefs container.
+* [mms] Added standardized/normalized mousewheelY javascript event handling to HordeCore.
+* [mms] Add nonce generation/checking to Horde_Session.
 * [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.

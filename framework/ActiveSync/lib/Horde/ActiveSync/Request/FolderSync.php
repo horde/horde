@@ -144,8 +144,9 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case SYNC_ADD:
                 case SYNC_MODIFY:
-                    $serverid = $importer->importFolderChange(
+                    $new_server = $importer->importFolderChange(
                         $folder->serverid, $folder->displayname);
+                    $serverid = $new_server->serverid;
                     if (!in_array($serverid, $seenfolders)) {
                         $seenfolders[] = $serverid;
                         $collections->updateFolderInHierarchy($folder);

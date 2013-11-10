@@ -301,14 +301,17 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $uid          The folder uid
      * @param string $displayname  The folder display name
      * @param string $parent       The parent folder id.
+     * @param integer $type        The EAS Folder type. @since 2.9.0
      *
-     * @return string|boolean  The new serverid if successful, otherwise false.
-     *
-     * @todo Horde 6 - This should take and return a Horde_ActiveSync_Message_Folder object.
+     * @return Horde_ActiveSync_Message_Folder The new serverid if successful.
      */
-    public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
+    public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT, $type = null)
     {
-        // TODO: BC HACK. For now, we need to convert the uid -> folderid.
+        $this->_logger->info(sprintf(
+            '[%s] Horde_ActiveSync_Connector_Importer::importFolderChange(%s, %s, %s, %s)',
+            $this->_procid, $uid, $displayname, $parent, $type));
+
+        // Convert the uids to serverids.
         $collections = $this->_as->getCollectionsObject();
         if (!empty($parent)) {
             $parent_sid = $collections->getBackendIdForFolderUid($parent);
@@ -318,17 +321,33 @@ class Horde_ActiveSync_Connector_Importer
         if (!empty($uid)) {
             $folderid = $collections->getBackendIdForFolderUid($uid);
         } else {
+            // New folder.
             $folderid = false;
         }
 
+        // Perform the creation in the backend.
         try {
-            $new_uid = $this->_as->driver->changeFolder($folderid, $displayname, $parent_sid, $uid);
+            $results = $this->_as->driver->changeFolder(
+                $folderid, $displayname, $parent_sid, $uid, $type);
         } catch (Horde_ActiveSync_Exception $e) {
-            return false;
+            $this->_logger->err($e->getMessage());
+            throw $e;
+        }
+
+        // @todo Horde 6 this should always return an object.
+        if ($results instanceof Horde_ActiveSync_Message_Folder) {
+            $folderid = $results->_serverid;
+            $uid = $results->serverid;
+        } else {
+            // Need to build a message folder object here for BC reasons.
+            $serverid = $results;
+            $results = $this->_as->messageFactory('Folder');
+            $results->serverid = $serverid;
+            $results->_serverid = $folderid;
         }
 
         $change = array();
-        $change['id'] = $new_uid;
+        $change['id'] = $uid;
         $change['folderid'] = $folderid;
         $change['mod'] = $displayname;
         $change['parent'] = $parent;
@@ -337,7 +356,7 @@ class Horde_ActiveSync_Connector_Importer
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM);
 
-        return $new_uid;
+        return $results;
     }
 
     /**

@@ -136,7 +136,7 @@ features in IMP:
 
    Nag allows a user to create new tasks from individual email messages.
 
-   You must use the 3.x branch of Nag with IMP 5.x.
+   You must use the 3.x branch of Nag with IMP 6.x.
 
 
 Installing IMP

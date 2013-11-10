@@ -136,7 +136,7 @@ class Kronolith_Ajax
             'fix_form_values' => _("Please enter correct values in the form first."),
             'geocode_error' => _("Unable to locate requested address"),
             'hidelog' => _("Hide Notifications"),
-            'import' => _("Importing calendar data. This may take a while..."),
+            'import_warning' => _("Importing calendar data. This may take a while..."),
             'more' => _("more..."),
             'no_calendar_title' => _("The calendar title must not be empty."),
             'no_tasklist_title' => _("The task list title must not be empty."),

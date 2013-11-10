@@ -173,28 +173,36 @@ class Horde_Core_Prefs_Ui
                     continue;
                 }
 
+                $todo = array();
+
                 if ($p['type'] == 'container') {
                     if (isset($p['value']) && is_array($p['value'])) {
-                        $cprefs = array_merge($cprefs, $p['value']);
+                        foreach ($p['value'] as $val) {
+                            $todo[$val] = $this->prefs[$val];
+                        }
                     }
                 } else {
-                    if (isset($p['requires'])) {
-                        foreach ($p['requires'] as $val) {
+                    $todo[$pref] = $p;
+                }
+
+                foreach ($todo as $k2 => $p2) {
+                    if (isset($p2['requires'])) {
+                        foreach ($p2['requires'] as $val) {
                             if (!$prefs->getValue($val)) {
                                 continue 2;
                             }
                         }
                     }
 
-                    if (isset($p['requires_nolock'])) {
-                        foreach ($p['requires_nolock'] as $val) {
+                    if (isset($p2['requires_nolock'])) {
+                        foreach ($p2['requires_nolock'] as $val) {
                             if ($prefs->isLocked($val)) {
                                 continue 2;
                             }
                         }
                     }
 
-                    $cprefs[] = $pref;
+                    $cprefs[] = $k2;
                 }
             }
         }

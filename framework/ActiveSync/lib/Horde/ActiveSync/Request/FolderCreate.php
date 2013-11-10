@@ -43,8 +43,18 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
     const STATUS_SUCCESS = 1;
     const STATUS_ERROR   = 6;
     const STATUS_KEYMISM = 9;
+
     /**
-     * Handle request
+     * Handle request.
+     *
+     * Notes: For FOLDERCREATE requests or non-email collections, the parent
+     * seems to be set to the root of that collection type and the EAS type is
+     * included. For new root email folders, the parent is set to ROOT.
+     * For FOLDERCHANGE requests, the type is NOT included so the backend must
+     * be able to determine the folder type given the folder's id only. Also,
+     * the parent element does not seem to be transmitted by the clients I
+     * have tested, so even though it is included when creating the new
+     * folder, it is NOT included when edting that same folder. *sigh*
      *
      * @return boolean
      */
@@ -84,10 +94,10 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
-        // ServerID
-        $serverid = false;
+        // Server_uid (the EAS uid for this collection).
+        $server_uid = false;
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID)) {
-            $serverid = $this->_decoder->getElementContent();
+            $server_uid = $this->_decoder->getElementContent();
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
@@ -134,12 +144,19 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             $importer = $this->_activeSync->getImporter();
             $importer->init($this->_state);
             if (!$delete) {
-                if (!$serverid = $importer->importFolderChange($serverid, $displayname, $parentid)) {
-                    $status = self::STATUS_ERROR;
+                try {
+                    $folder = $importer->importFolderChange($server_uid, $displayname, $parentid, $type);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    if ($e->getCode() == Horde_ActiveSync_Exception::UNSUPPORTED) {
+                        $status = Horde_ActiveSync_Status::UNEXPECTED_ITEM_CLASS;
+                    } else {
+                        $status = self::STATUS_ERROR;
+                    }
                 }
             } else {
                 try {
-                   $importer->importFolderDeletion($serverid);
+                   $importer->importFolderDeletion($server_uid);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $status = self::STATUS_ERROR;
                 }
@@ -148,16 +165,10 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
         $this->_encoder->startWBXML();
         if ($create) {
-            // @TODO: Horde 6 - pass a H_AS_Message_Folder object to the importFolderChange()
-            //        method so we can delegate the _serverid creation to the backend like
-            //        it should be.
-            $folder = $this->_activeSync->messageFactory('Folder');
-            $folder->serverid = $serverid;
-            $folder->displayname = $displayname;
-            $folder->type = $type;
-            $folder->_serverid = $displayname;
-            $collections->updateFolderInHierarchy($folder);
-            $collections->save();
+            if ($status == self::STATUS_SUCCESS) {
+                $collections->updateFolderInHierarchy($folder);
+                $collections->save();
+            }
 
             $this->_encoder->startTag(self::FOLDERCREATE);
 
@@ -165,22 +176,18 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
-            $this->_encoder->content($newsynckey);
-            $this->_encoder->endTag();
+            if ($status == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
+                $this->_encoder->content($newsynckey);
+                $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
-            $this->_encoder->content($serverid);
-            $this->_encoder->endTag();
+                $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
+                $this->_encoder->content($folder->serverid);
+                $this->_encoder->endTag();
+            }
 
             $this->_encoder->endTag();
         } elseif ($update) {
-            // @TODO: See note above about H6.
-            $folder = $this->_activeSync->messageFactory('Folder');
-            $folder->serverid = $serverid;
-            $folder->displayname = $displayname;
-            $folder->type = $type;
-            $folder->_serverid = $displayname;
             $collections->updateFolderInHierarchy($folder, true);
             $collections->save();
 
@@ -196,8 +203,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             $this->_encoder->endTag();
         } elseif ($delete) {
-            // @TODO: See note about H6
-            $collections->deleteFolderFromHierarchy($serverid);
+            $collections->deleteFolderFromHierarchy($server_uid);
             $this->_encoder->startTag(self::FOLDERDELETE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);

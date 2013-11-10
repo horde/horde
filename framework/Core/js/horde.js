@@ -67,8 +67,8 @@ Object.extend(String.prototype, {
     // prototype's evalScripts().
     evalScripts: function()
     {
-        // TODO: Prototypejs seems to be triggering an evalScripts on the
-        // window object. Remove when this is fixed upstream.
+        // Prototypejs seems to be triggering an evalScripts on the
+        // window object.
         if (!Object.isString(this)) {
             return;
         }
