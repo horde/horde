@@ -1374,17 +1374,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         //       this for anything other than email.
         $results = $ids;
 
+        $parts = $this->_parseFolderId($folderid);
+        if (is_array($parts)) {
+            $class = $parts[self::FOLDER_PART_CLASS];
+            $folder_id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $class = $parts;
+            $folder_id = null;
+        }
         ob_start();
-        switch ($folderid) {
-        case self::APPOINTMENTS_FOLDER_UID:
+        switch ($class) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
             try {
-                $this->_connector->calendar_delete($ids);
+                $this->_connector->calendar_delete($ids, $folder_id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
             }
             break;
 
-        case self::CONTACTS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             try {
                 $this->_connector->contacts_delete($ids);
             } catch (Horde_Exception $e) {
@@ -1392,7 +1400,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::TASKS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_TASKS:
             try {
                 $this->_connector->tasks_delete($ids);
             } catch (Horde_Exception $e) {
@@ -1400,7 +1408,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::NOTES_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_NOTES:
             try {
                 $this->_connector->notes_delete($ids);
             } catch (Horde_Exception $e) {
