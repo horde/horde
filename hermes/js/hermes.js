@@ -877,7 +877,7 @@ HermesCore = {
      },
 
     /**
-     * Draws the house by type chart.
+     * Draws the hours by type chart.
      *
      * @param array  The data.
      */
