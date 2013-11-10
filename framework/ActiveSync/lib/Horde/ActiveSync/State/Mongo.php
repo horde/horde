@@ -383,7 +383,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
         $user = null, $clientid = '')
     {
-        $this->_logger->info(sprintf('[%s] Updating state during %s', $this->_procid, $type));
+        $this->_logger->info(sprintf(
+            '[%s] Horde_ActiveSync_State_Mongo::updateState(%s, %s, %d, %s, %s)',
+            $this->_procid, $type, serialize($change), $origin, $user, $clientid));
 
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -1221,7 +1223,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _getPIMChangeTS(array $changes)
     {
-        // // Get the allowed synckeys to include.
+        // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
         $keys = array();
@@ -1283,6 +1285,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _havePIMChanges()
     {
+        $this->_logger->info(sprintf(
+            '[%s] Horde_ActiveSync_State_Mongo::_havePIMChanges() for %s',
+            $this->_procid, $this->_collection['serverid']));
+
         $c = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL ?
             $this->_db->HAS_mailmap :
             $this->_db->HAS_map;
