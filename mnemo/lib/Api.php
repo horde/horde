@@ -203,11 +203,12 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @param string $id  The notepad id to get the MODSEQ for. If null, the
      *                    highest MODSEQ across all notepads is returned.
+     *                    @since 4.2.0
      *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq($id)
+    public function getHighestModSeq($id = null)
     {
         $parent = 'mnemo';
         if (!empty($id)) {
