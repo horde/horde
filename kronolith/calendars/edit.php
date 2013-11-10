@@ -59,7 +59,7 @@ $vars->set('color', $calendar->get('color'));
 $vars->set('system', is_null($calendar->get('owner')));
 $vars->set('description', $calendar->get('desc'));
 $tagger = Kronolith::getTagger();
-$vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
+$vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), Kronolith_Tagger::TYPE_CALENDAR))));
 
 $page_output->header(array(
     'title' => $form->getTitle()

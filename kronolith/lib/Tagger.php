@@ -10,8 +10,11 @@
  */
 class Kronolith_Tagger extends Horde_Core_Tagger
 {
+    const TYPE_CALENDAR = 'calendar';
+    const TYPE_EVENT = 'event';
+
     protected $_app = 'kronolith';
-    protected $_types = array('event', 'calendar');
+    protected $_types = array(self::TYPE_EVENT, self::TYPE_CALENDAR);
 
     /**
      * Searches for resources that are tagged with all of the requested tags.
@@ -51,12 +54,12 @@ class Kronolith_Tagger extends Horde_Core_Tagger
                 // Items owned by specific user(s)
                 $args['userId'] = $filter['user'];
             }
-        } elseif (!empty($filter['calendar'])) {
+        } elseif (!empty($filter[self::TYPE_CALENDAR])) {
             // Only events located in specific calendar(s)
-            if (!is_array($filter['calendar'])) {
-                $filter['calendar'] = array($filter['calendar']);
+            if (!is_array($filter[self::TYPE_CALENDAR])) {
+                $filter[self::TYPE_CALENDAR] = array($filter[self::TYPE_CALENDAR]);
             }
-            $args['calendarId'] = $filter['calendar'];
+            $args['calendarId'] = $filter[self::TYPE_CALENDAR];
         }
 
         /* Add the tags to the search */
@@ -64,8 +67,8 @@ class Kronolith_Tagger extends Horde_Core_Tagger
 
         /* Restrict to events or calendars? */
         $cal_results = $event_results = array();
-        if (empty($filter['type']) || $filter['type'] == 'calendar') {
-            $args['typeId'] = $this->_type_ids['calendar'];
+        if (empty($filter['type']) || $filter['type'] == self::TYPE_CALENDAR) {
+            $args['typeId'] = $this->_type_ids[self::TYPE_CALENDAR];
             $cal_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 

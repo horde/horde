@@ -1584,7 +1584,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         // Prevent wiping tags if they were not passed.
         if (!array_key_exists('tags', $info)) {
-            $info['tags'] = Kronolith::getTagger()->getTags($id, 'calendar');
+            $info['tags'] = Kronolith::getTagger()->getTags($id, Kronolith_Tagger::TYPE_CALENDAR);
         }
         Kronolith::updateShare($calendar->share(), $info);
     }

@@ -493,7 +493,7 @@ abstract class Kronolith_Event
             break;
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, 'event'));
+                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, Kronolith_Tagger::TYPE_EVENT));
             }
             return $this->_tags;
         case 'geoLocation':
@@ -2562,7 +2562,7 @@ abstract class Kronolith_Event
                     $this->uid,
                     $this->_internaltags,
                     $this->_creator,
-                    'event'
+                    Kronolith_Tagger::TYPE_EVENT
                 );
             }
             $this->_tags = $this->_internaltags;

@@ -1252,7 +1252,7 @@ class Kronolith
             $calendar->set('owner', null);
         }
         $tagger = self::getTagger();
-        $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
+        $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), Kronolith_Tagger::TYPE_CALENDAR);
 
         try {
             $kronolith_shares->addShare($calendar);
@@ -1296,7 +1296,7 @@ class Kronolith
         }
 
         $tagger = self::getTagger();
-        $tagger->replaceTags($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
+        $tagger->replaceTags($calendar->getName(), $info['tags'], $calendar->get('owner'), Kronolith_Tagger::TYPE_CALENDAR);
     }
 
     /**
