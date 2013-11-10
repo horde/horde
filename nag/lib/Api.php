@@ -815,12 +815,18 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
+     * @param string $id  Limit the check to this tasklist. @since 4.2.0
+     *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('nag');
+        $parent = 'nag';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
