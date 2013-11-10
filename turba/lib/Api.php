@@ -2083,6 +2083,46 @@ class Turba_Api extends Horde_Registry_Api
         return array_keys($users);
     }
 
+    /**
+     * Create a new addressbook
+     *
+     * @param string $name   The display name for the addressbook.
+     * @param array  $params Any addtional parameters needed.
+     *
+     * @return string  The new addressbook's id (share name).
+     * @since 4.2.0
+     */
+    public function addAddressbook($name, array $params = array())
+    {
+        $share_name = strval(new Horde_Support_Randomid());
+        $share = Turba::createShare($share_name, array('name' => $name));
+
+        return $share->getName();
+    }
+
+    /**
+     * Update an existing addressbook's name or description.
+     *
+     * @param string $id    The addressbook id.
+     * @param array  $info  The info to change:
+     *   - name: The addressbook's display name.
+     *   - desc: The addressbook's description.
+     *
+     * @since 4.2.0
+     */
+    public function updateAddressbook($id, array $info)
+    {
+        $share = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($id);
+        if (!empty($info['name'])) {
+            $share->set('name', $info['name']);
+        }
+        if (!empty($info['desc'])) {
+            $share->set('desc', $info['desc']);
+        }
+
+        $share->save();
+    }
+
     /* Helper methods. */
 
     /**
