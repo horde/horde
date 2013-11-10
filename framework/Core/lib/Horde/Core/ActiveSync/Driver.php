@@ -1478,8 +1478,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folder_split = $this->_parseFolderId($folderid);
         if (is_array($folder_split)) {
             $folder_class = $folder_split[self::FOLDER_PART_CLASS];
+            $server_id = $folder_split[self::FOLDER_PART_ID];
         } else {
             $folder_class = $folder_split;
+            $server_id = null;
         }
 
         $stat = false;
@@ -1487,7 +1489,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
                 try {
-                    $id = $this->_connector->calendar_import($message);
+                    $id = $this->_connector->calendar_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();

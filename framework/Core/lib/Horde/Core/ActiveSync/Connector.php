@@ -127,12 +127,15 @@ class Horde_Core_ActiveSync_Connector
      * Import an event into the user's default calendar.
      *
      * @param Horde_ActiveSync_Message_Appointment $content  The event content
+     * @param string $calendar                               The calendar id.
+     *                                                       @since 2.12.0
      *
      * @return string  The event's UID.
      */
-    public function calendar_import(Horde_ActiveSync_Message_Appointment $content)
+    public function calendar_import(
+        Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        return $this->_registry->calendar->import($content, 'activesync');
+        return $this->_registry->calendar->import($content, 'activesync', $calendar);
     }
 
     /**
@@ -193,13 +196,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Replace the event with new data
      *
-     * @param string $uid                                    The UID of the
-     *                                                       event to replace.
-     * @param Horde_ActiveSync_Message_Appointment $content  The new event.
+     * @param string $uid  The UID of the event to replace.
+     * @param Horde_ActiveSync_Message_Appointment $content
+     *        The new event.
+     * @param string $calendar  The calendar id. @since 2.12.0
      */
-    public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content)
+    public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        $this->_registry->calendar->replace($uid, $content, 'activesync');
+        $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
     }
 
     /**
@@ -262,13 +266,15 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Import the provided contact data into Horde's contacts storage
      *
-     * @param Horde_ActiveSync_Message_Contact $content      The contact data
+     * @param Horde_ActiveSync_Message_Contact $content  The contact data
+     * @param string $addressbook                        The addessbook id.
+     *                                                   @since 2.12.0
      *
      * @return mixed  string|boolean  The new UID or false on failure.
      */
-    public function contacts_import(Horde_ActiveSync_Message_Contact $content)
+    public function contacts_import(Horde_ActiveSync_Message_Contact $content, $addressbook = null)
     {
-        return $this->_registry->contacts->import($content, 'activesync');
+        return $this->_registry->contacts->import($content, 'activesync', $addressbook);
     }
 
     /**
@@ -438,12 +444,13 @@ class Horde_Core_ActiveSync_Connector
      * Importa a single task into the backend.
      *
      * @param Horde_ActiveSync_Message_Task $message  The task message object
+     * @param string $tasklist  The tasklist id. @since 2.12.0
      *
      * @return string  The newly added task's uid.
      */
-    public function tasks_import(Horde_ActiveSync_Message_Task $message)
+    public function tasks_import(Horde_ActiveSync_Message_Task $message, $tasklist = null)
     {
-        return $this->_registry->tasks->import($message, 'activesync');
+        return $this->_registry->tasks->import($message, 'activesync', $tasklist);
     }
 
     /**
@@ -526,13 +533,15 @@ class Horde_Core_ActiveSync_Connector
      * Importa a single note into the backend.
      *
      * @param Horde_ActiveSync_Message_Note $message  The note message object
+     * @param string $notebook                        The notebook id.
+     *                                                @since 2.12.0
      *
      * @return string  The newly added notes's uid.
      * @since 5.1
      */
-    public function notes_import(Horde_ActiveSync_Message_Note $message)
+    public function notes_import(Horde_ActiveSync_Message_Note $message, $notebook = null)
     {
-        return $this->_registry->notes->import($message, 'activesync');
+        return $this->_registry->notes->import($message, 'activesync', $notebook);
     }
 
     /**
@@ -792,7 +801,7 @@ class Horde_Core_ActiveSync_Connector
                 getmypid(),
                 $collection));
             try {
-                return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts);
+                return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts, $server_id);
             } catch (Exception $e) {
                 return array('add' => array(),
                              'modify' => array(),
@@ -806,7 +815,7 @@ class Horde_Core_ActiveSync_Connector
             getmypid(),
             $collection));
         try {
-            return $this->_registry->{$collection}->getChanges($from_ts, $to_ts);
+            return $this->_registry->{$collection}->getChanges($from_ts, $to_ts, false, $server_id);
         } catch (Exception $e) {
             return array('add' => array(),
                          'modify' => array(),
