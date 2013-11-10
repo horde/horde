@@ -669,6 +669,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $type = Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT;
             break;
 
+        case Horde_ActiveSync::CLASS_CONTACTS:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT:
+            $class = Horde_ActiveSync::CLASS_CONTACTS;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT;
+            break;
+
         default:
             throw new Horde_ActiveSync_Exception('Unsupported EAS Collection Class.');
         }

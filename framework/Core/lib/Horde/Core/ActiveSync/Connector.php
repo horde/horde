@@ -977,6 +977,16 @@ class Horde_Core_ActiveSync_Connector
                 );
             }
             return $registry->calendar->addCalendar($foldername, array('synchronize' => true));
+
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            // @todo Remove hasMethod check in H6
+            if (!$registry->hasMethod('contacts/addAddressbook')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Creating addressbooks not supported by the contacts API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            return $registry->contacts->addAddressbook($foldername);
         }
     }
 
@@ -997,7 +1007,7 @@ class Horde_Core_ActiveSync_Connector
 
         if ($prefs->getValue('activesync_multiplex')) {
             throw new Horde_ActiveSync_Exception(
-                'Creating new collections not supported with multiplexed collections',
+                'Updating new collections not supported with multiplexed collections',
                 Horde_ActiveSync::UNSUPPORTED
             );
         }
@@ -1028,6 +1038,17 @@ class Horde_Core_ActiveSync_Connector
                 'description' => $calendar->description()
             );
             $registry->calendar->updateCalendar($id, $info);
+            break;
+
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            // @todo remove hasMethod check
+            if (!$registry->hasMethod('contacts/addAddressbook') {
+                throw new Horde_ActiveSync_Exception(
+                    'Updating new collections not supported by the contacts API.',
+                    Horde_ActiveSync::UNSUPPORTED
+                );
+            }
+            $registry->contacts->updateAddressbook($id, array('name' => $name));
             break;
         }
     }
