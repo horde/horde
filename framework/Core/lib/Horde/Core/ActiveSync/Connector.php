@@ -1021,13 +1021,13 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $calendar = $registry->calendar->getCalendar(null, $id);
+            $calendar = $registry->calendar->getCalendar($id);
             $info = array(
                 'name' => $name,
                 'color' => $calendar->background(),
                 'description' => $calendar->description()
             );
-            $registry->calendar->updateCalendar(null, $id, $info);
+            $registry->calendar->updateCalendar($id, $info);
             break;
         }
     }
