@@ -965,8 +965,6 @@ class Horde_Core_ActiveSync_Connector
         }
 
         switch ($class) {
-        case Horde_ActiveSync::CLASS_TASKS:
-            return $registry->tasks->addTasklist($foldername);
 
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod checks in H6.
@@ -987,6 +985,19 @@ class Horde_Core_ActiveSync_Connector
                 );
             }
             return $registry->contacts->addAddressbook($foldername);
+
+        case Horde_ActiveSync::CLASS_NOTES:
+            // @todo Remove hasMethod checks in H6.
+            if (!$registry->hasMethod('notes/addNotepad')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Creating notepads not supported by the notes API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            return $registry->notes->addNotepad($foldername);
+
+        case Horde_ActiveSync::CLASS_TASKS:
+            return $registry->tasks->addTasklist($foldername);
         }
     }
 
@@ -996,7 +1007,7 @@ class Horde_Core_ActiveSync_Connector
      * @param string $class  The collection class.
      *                       A Horde_ActiveSync::CLASS_* constant.
      * @param string $id     The existing serverid.
-     * @param string $name   The new folder name.
+     * @param string $name   The new folder display name.
      *
      * @throws Horde_ActiveSync_Exception
      * @since 2.12.0
@@ -1013,16 +1024,6 @@ class Horde_Core_ActiveSync_Connector
         }
 
         switch ($class) {
-        case Horde_ActiveSync::CLASS_TASKS:
-            $share = $registry->tasks->getTasklist($id);
-            $info = array(
-                'name' => $name,
-                'color' => $share->get('color'),
-                'desc' => $share->get('desc')
-            );
-            $registry->tasks->updateTasklist($id, $info);
-            break;
-
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod check
             if (!$registry->hasMethod('calendar/getCalendar')) {
@@ -1042,13 +1043,33 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             // @todo remove hasMethod check
-            if (!$registry->hasMethod('contacts/addAddressbook') {
+            if (!$registry->hasMethod('contacts/updateAddressbook') {
                 throw new Horde_ActiveSync_Exception(
-                    'Updating new collections not supported by the contacts API.',
+                    'Updating addressbooks not supported by the contacts API.',
                     Horde_ActiveSync::UNSUPPORTED
                 );
             }
             $registry->contacts->updateAddressbook($id, array('name' => $name));
+            break;
+
+        case Horde_ActiveSync::CLASS_NOTES:
+            // @todo remove hasMethod check
+            if (!$registry->hasMethod('notes/updateNotepad') {
+                throw new Horde_ActiveSync_Exception(
+                    'Updating notepads not supported by the notes API.',
+                    Horde_ActiveSync::UNSUPPORTED
+                );
+            }
+            $registry->notes->updateNotepad($id, array('name' => $name));
+
+        case Horde_ActiveSync::CLASS_TASKS:
+            $share = $registry->tasks->getTasklist($id);
+            $info = array(
+                'name' => $name,
+                'color' => $share->get('color'),
+                'desc' => $share->get('desc')
+            );
+            $registry->tasks->updateTasklist($id, $info);
             break;
         }
     }
