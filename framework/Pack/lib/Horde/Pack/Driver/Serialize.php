@@ -42,7 +42,7 @@ class Horde_Pack_Driver_Serialize extends Horde_Pack_Driver
     public function unpack($data)
     {
         $out = @unserialize($data);
-        if (($out !== false) || ($out == serialize(false))) {
+        if (($out !== false) || ($data == serialize(false))) {
             return $out;
         }
 

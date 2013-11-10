@@ -1263,7 +1263,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 empty($rows['errmsg']) ? '' : $rows['errmsg']));
         }
         $results = array();
-        foreach ($rows as $row) {
+        foreach ($rows['result'] as $row) {
             $results[$row['_id']] = $row['max'];
         }
 
@@ -1286,10 +1286,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $c = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL ?
             $this->_db->HAS_mailmap :
             $this->_db->HAS_map;
+
         $query = array(
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
-            'sync_folderid' => $this->_collection['id']
+            'sync_folderid' => $this->_collection['serverid']
         );
         try {
             return (bool)$c->find($query, array('_id'))->count();
