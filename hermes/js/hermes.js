@@ -801,7 +801,7 @@ HermesCore = {
         h -= over;
 
         var cell = $('hermesStatText').down('th');
-        cell.update(h);
+        cell.update(h + over);
         cell = cell.next().update(budget);
         cell.next().update(budget - (h + over));
 
