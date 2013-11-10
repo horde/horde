@@ -496,6 +496,10 @@ class Mnemo_Api extends Horde_Registry_Api
      */
     public function addNotpad($name, array $params = array())
     {
+        if ($GLOBALS['prefs']->isLocked('default_notepad')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
         $notepad = $GLOBALS['mnemo_shares']->newShare(
             $GLOBALS['registry']->getAuth(),
             strval(new Horde_Support_Uuid()),
