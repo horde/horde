@@ -2661,6 +2661,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSyncStamp($collection, $last = null)
     {
+        $this->_logger->info(sprintf(
+            '[%s] Horde_Core_ActiveSync_Driver::getSyncStamp(%s, %d);',
+            getmypid(), $collection, $last));
+
         // For FolderSync (empty $collection) or Email collections, we don't care.
         if (empty($collection)) {
             return time();
@@ -2669,8 +2673,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $parts = $this->_parseFolderId($collection);
         if (is_array($parts)) {
             $class = $parts[self::FOLDER_PART_CLASS];
+            $id = $parts[self::FOLDER_PART_ID];
         } else {
             $class = $parts;
+            $id = null;
         }
 
         if (!in_array($class, array(Horde_ActiveSync::CLASS_CALENDAR, Horde_ActiveSync::CLASS_NOTES, Horde_ActiveSync::CLASS_CONTACTS, Horde_ActiveSync::CLASS_TASKS))) {
@@ -2679,7 +2685,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
 
         if ($this->_connector->hasFeature('modseq', $this->_classMap[$class])) {
-            $modseq = $this->_connector->getHighestModSeq($this->_classMap[$class]);
+            $modseq = $this->_connector->getHighestModSeq($this->_classMap[$class], $id);
             // Sanity check - if the last syncstamp is higher then the
             // current modification sequence, something is wrong. Could be
             // the history backend just happend to have deleted the most recent
@@ -2766,21 +2772,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $folder_parts = $this->_parseFolderId($folderid);
                     if (count($folder_parts) == 2) {
                         $folder_class = $folder_parts[self::FOLDER_PART_CLASS];
+                        $serverid = $folder_parts[self::FOLDER_PART_ID];
                     } else {
                         $folder_class = false;
+                        $serverid = null;
                     }
                     switch ($folder_class) {
                     case Horde_ActiveSync::CLASS_CALENDAR:
-                        $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
+                        $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify', $serverid);
                         break;
                     case Horde_ActiveSync::CLASS_CONTACTS:
-                        $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify');
+                        $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify', $serverid);
                         break;
                     case Horde_ActiveSync::CLASS_TASKS:
-                        $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
+                        $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify', $serverid);
                         break;
                     case Horde_ActiveSync::CLASS_NOTES:
-                        $mod = $this->_connector->notes_getActionTimestamp($id, 'modify');
+                        $mod = $this->_connector->notes_getActionTimestamp($id, 'modify', $serverid);
                         break;
                     default:
                         try {

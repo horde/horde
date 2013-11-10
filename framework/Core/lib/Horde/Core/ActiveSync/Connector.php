@@ -215,14 +215,16 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the timestamp for the last time $action was performed.
      *
-     * @param string $uid     The UID of the event we are interested in.
-     * @param string $action  The action we are interested in (add, modify...)
+     * @param string $uid       The UID of the event we are interested in.
+     * @param string $action    The action we are interested in (add, modify...).
+     * @param string $calendar  The calendar id, if not using multiplexed data.
      *
      * @return integer
      */
-    public function calendar_getActionTimestamp($uid, $action)
+    public function calendar_getActionTimestamp($uid, $action, $calendar = null)
     {
-        return $this->_registry->calendar->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
+        return $this->_registry->calendar->getActionTimestamp(
+            $uid, $action, $calendar, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
@@ -296,14 +298,16 @@ class Horde_Core_ActiveSync_Connector
      * Get the timestamp of the most recent occurance of $action for the
      * specifed contact
      *
-     * @param string $uid     The UID of the contact to search
-     * @param string $action  The action to lookup
+     * @param string $uid     The UID of the contact to search.
+     * @param string $action  The action to lookup.
+     * @param string $addressbook  The addressbook id, if not using multiplex.
      *
      * @return integer
      */
-    public function contacts_getActionTimestamp($uid, $action)
+    public function contacts_getActionTimestamp($uid, $action, $addressbook = null)
     {
-        return $this->_registry->contacts->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'contacts'));
+        return $this->_registry->contacts->getActionTimestamp(
+            $uid, $action, $addressbook, $this->hasFeature('modseq', 'contacts'));
     }
 
     /**
@@ -466,14 +470,16 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the timestamp or modseq for the last time $action was performed.
      *
-     * @param string $uid     The UID of the task we are interested in.
-     * @param string $action  The action we are interested in (add, modify...)
+     * @param string $uid       The UID of the task we are interested in.
+     * @param string $action    The action we are interested in (add, modify...)
+     * @param string $tasklike  The tasklist, if not using multiplexed data.
      *
      * @return integer
      */
-    public function tasks_getActionTimestamp($uid, $action)
+    public function tasks_getActionTimestamp($uid, $action, $tasklist = null)
     {
-        return $this->_registry->tasks->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'tasks'));
+        return $this->_registry->tasks->getActionTimestamp(
+            $uid, $action, $tasklist, $this->hasFeature('modseq', 'tasks'));
     }
 
     /**
@@ -557,13 +563,15 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid     The UID of the task we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
+     * @param string $notpad  The notepad to use, if not using multiplex.
      *
      * @return integer
      * @since 5.1
      */
-    public function notes_getActionTimestamp($uid, $action)
+    public function notes_getActionTimestamp($uid, $action, $notepad = null)
     {
-        return $this->_registry->notes->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'notes'));
+        return $this->_registry->notes->getActionTimestamp(
+            $uid, $action, $notepad, $this->hasFeature('modseq', 'notes'));
     }
 
     /**
@@ -613,9 +621,9 @@ class Horde_Core_ActiveSync_Connector
      * @return integer  The modseq value.
      * @since 2.6.0
      */
-    public function getHighestModSeq($collection)
+    public function getHighestModSeq($collection, $id = null)
     {
-        return $this->_registry->{$this->_getInterfaceFromCollectionId($collection)}->getHighestModSeq();
+        return $this->_registry->{$this->_getInterfaceFromCollectionId($collection)}->getHighestModSeq($id);
     }
 
     /**
