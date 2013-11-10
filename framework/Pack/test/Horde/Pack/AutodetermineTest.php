@@ -43,7 +43,7 @@ class Horde_Pack_AutodetermineTest extends Horde_Test_Case
     public function testNegativeResults()
     {
         foreach ($this->types as $val) {
-            $this->_runTest(1, false);
+            $this->_runTest($val, false);
         }
 
         $this->_runTest($this->types, false);

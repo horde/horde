@@ -26,4 +26,7 @@ BC BREAKING (i.e., Horde 6).
   places. (Some client commands are sent using the CLASS, some using the
   FOLDER_TYPE).
 
+- Clean up and refactor the folder creation/editing/deleting methods in the
+  backend. They need to be normalized in accepting/returning the same objects
+  now that we support multiple folders per non-email collection.
 

@@ -1,0 +1,33 @@
+{
+    "name": "horde/horde-pack",
+    "description": "Horde Pack Utility",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0",
+    "time": "2013-11-06",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Compress_Fast": ">=1.0.0@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+    },
+    "suggest": {
+        "pear-pear.horde.org/Horde_Test": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pecl.php.net/igbinary": "*",
+        "pear-pecl.php.net/msgpack": "*",
+        "ext-json": "*"
+    }
+}

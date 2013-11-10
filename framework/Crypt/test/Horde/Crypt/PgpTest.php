@@ -212,7 +212,17 @@ Comment: A revocation certificate should follow
 
     public function testParsePGPData()
     {
-        $out = $this->_pgp->parsePGPData(file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt'));
+        $data = file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt');
+        $this->_testParsePGPData($data);
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add($data, true);
+        $this->_testParsePGPData($stream);
+    }
+
+    protected function _testParsePGPData($data)
+    {
+        $out = $this->_pgp->parsePGPData($data);
 
         $this->assertEquals(
             2,
