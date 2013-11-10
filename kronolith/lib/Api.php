@@ -1552,43 +1552,41 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
-     * Return a calendar.
+     * Return an internal calendar.
      *
      * @todo Note: This returns a Kronolith_Calendar_Object object instead of a hash
      * to be consistent with other application APIs. For H6 we need to normalize
      * the APIs to always return non-objects and/or implement some mechanism to
      * mark API methods as non-RPC safe.
      *
-     * @param string $driver  The type of calendar. Defaults to 'internal'.
      * @param string $id  The calendar uid (share name).
      *
      * @return Kronolith_Calendar The calendar object.
      * @since 4.2.0
      */
-    public function getCalendar($driver = null, $id = null)
+    public function getCalendar($id = null)
     {
-       $driver = Kronolith::getDriver($driver, $id);
+       $driver = Kronolith::getDriver(null, $id);
        return Kronolith::getCalendar($driver);
     }
 
     /**
-     * Update calendar information.
+     * Update an internal calendar's information.
      *
-     * @param string $driver  The driver type. Defaults to 'internal'.
      * @param string $id      The calendar id.
      * @param array $info     An array of calendar information.
      *                        @see self::addCalendar()
      * @since 4.2.0
      */
-    public function updateCalendar($driver, $id, array $info)
+    public function updateCalendar($id, array $info)
     {
-        $calendar = $this->getCalendar($driver, $id);
+        $calendar = $this->getCalendar(null, $id);
 
         // Prevent wiping tags if they were not passed.
         if (!array_key_exists('tags', $info)) {
             $info['tags'] = Kronolith::getTagger()->getTags($id, 'calendar');
         }
-        Kronolith::updateShare($calendar, $info);
+        Kronolith::updateShare($calendar->share(), $info);
     }
 
 }
