@@ -703,12 +703,20 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
-     * @return integer  The modseq.
+     * @param string $id  The calendar id to return the hightest MDOSEQ for. If
+     *                    null, the highest MODSEQ across all calendars is
+     *                    returned. @since 4.2.0
+     *
+     * @return integer  The MODSEQ value.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('kronolith');
+        $parent = 'kronolith';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
