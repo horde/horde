@@ -485,4 +485,46 @@ class Mnemo_Api extends Horde_Registry_Api
         return Mnemo::getDefaultNotepad(Horde_Perms::EDIT);
     }
 
+    /**
+     * Create a new notepad.
+     *
+     * @param string $name    The notepad display name.
+     * @param array  $params  Any additional parameters needed.
+     *
+     * @return string  The new notepad's id.
+     * @since 4.2.0
+     */
+    public function addNotpad($name, array $params = array())
+    {
+        $notepad = $GLOBALS['mnemo_shares']->newShare(
+            $GLOBALS['registry']->getAuth(),
+            strval(new Horde_Support_Uuid()),
+            $name);
+
+        return $notepad->getName();
+    }
+
+    /**
+     * Update a notepad's title and/or description.
+     *
+     * @param string $id   The notepad id
+     * @param array $info  The data to change:
+     *   - name:  The display name.
+     *   - desc:  The description.
+     *
+     * @since 4.2.0
+     */
+    public function updateNotepad($id, array $info)
+    {
+        $notepad = $GLOBALS['mnemo_shares']->getShare($id);
+        if (!empty($info['name'])) {
+            $notepad->set('name', $info['name']);
+        }
+        if (!empty($info['desc'])) {
+            $notepad->set('desc', $info['desc']);
+        }
+
+        $notepad->save();
+    }
+
 }
