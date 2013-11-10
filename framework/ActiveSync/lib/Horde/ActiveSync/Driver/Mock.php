@@ -80,7 +80,7 @@ class Horde_ActiveSync_Driver_Mock extends Horde_ActiveSync_Driver_Base
      *                             here now to save an extra DB lookup for data
      *                             we already have.)
      */
-    public function changeFolder($id, $displayname, $parent, $uid = null)
+    public function changeFolder($id, $displayname, $parent, $uid = null, $type = null)
     {
         return $uid;
     }
