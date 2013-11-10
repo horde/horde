@@ -472,12 +472,11 @@ abstract class Horde_ActiveSync_Driver_Base
      *                             @since 2.9.0 (@todo Look at this for H6. It's
      *                             here now to save an extra DB lookup for data
      *                             we already have.)
-     * @param  integer $type       The EAS Folder type. @since 2.9.0
      *
      * @return Horde_ActiveSync_Message_Folder
      * @throws  Horde_ActiveSync_Exception
      */
-    abstract public function changeFolder($id, $displayname, $parent, $uid = null, $type = null);
+    abstract public function changeFolder($id, $displayname, $parent, $uid = null);
 
     /**
      * Move message
