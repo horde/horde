@@ -93,7 +93,9 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $name    The new mailbox name.
      * @param string $parent  The parent mailbox, if any.
      *
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderExists
+     *  @return string  The new serverid for the mailbox. This is the UTF-8 name
+     *                  of the mailbox. @since 2.9.0
+     *  @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderExists
      */
     public function createMailbox($name, $parent = null)
     {
@@ -112,6 +114,8 @@ class Horde_ActiveSync_Imap_Adapter
             }
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        return $mbox->utf8;
     }
 
     /**
@@ -657,6 +661,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $new     The new mailbox name.
      * @param string $parent  The parent mailbox, if any.
      *
+     * @return string  The new serverid for the mailbox.
+     *                 @since 2.9.0
      * @throws Horde_ActiveSync_Exception
      */
     public function renameMailbox($old, $new, $parent = null)
@@ -671,14 +677,17 @@ class Horde_ActiveSync_Imap_Adapter
             $ns = $this->_defaultNamespace();
             $new = $parent . $ns['delimiter'] . $new;
         }
+        $new_mbox = new Horde_Imap_Client_Mailbox($new);
         try {
             $imap->renameMailbox(
                 new Horde_Imap_Client_Mailbox($old),
-                new Horde_Imap_Client_Mailbox($new)
+                $new_mbox
             );
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        return $new_mbox->utf8;
     }
 
     /**
