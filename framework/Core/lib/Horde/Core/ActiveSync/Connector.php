@@ -1043,7 +1043,7 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             // @todo remove hasMethod check
-            if (!$registry->hasMethod('contacts/updateAddressbook') {
+            if (!$registry->hasMethod('contacts/updateAddressbook')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating addressbooks not supported by the contacts API.',
                     Horde_ActiveSync::UNSUPPORTED
@@ -1054,7 +1054,7 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_NOTES:
             // @todo remove hasMethod check
-            if (!$registry->hasMethod('notes/updateNotepad') {
+            if (!$registry->hasMethod('notes/updateNotepad')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating notepads not supported by the notes API.',
                     Horde_ActiveSync::UNSUPPORTED
