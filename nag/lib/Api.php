@@ -767,7 +767,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param integer $start             The starting modseq.
      * @param integer $end               The ending modseq.
-     * @param string|array $calendars    The sources to check. @since 4.2.0
+     * @param string|array $tasklists    The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
