@@ -444,7 +444,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $change['id'],
                     $syncKey,
                     $this->_deviceInfo->id,
-                    $this->_collection['id'],
+                    $change['serverid'],
                     $user,
                     ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
                 );
@@ -1216,7 +1216,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         $values = array_merge(
-            array($this->_collection['id'],
+            array($this->_collection['serverid'],
                   $this->_deviceInfo->id,
                   $this->_deviceInfo->user),
             $ids);
