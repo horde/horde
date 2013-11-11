@@ -2109,6 +2109,23 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
+     * Delete the specified addressbook.
+     *
+     * @param string $id  The addressbook id.
+     * @since 4.2.0
+     */
+    public function deleteAddressbook($id)
+    {
+        $share = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($id);
+
+        $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->removeShare($share);
+    }
+
+    /**
      * Update an existing addressbook's name or description.
      *
      * @param string $id    The addressbook id.
