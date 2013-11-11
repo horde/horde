@@ -409,7 +409,7 @@ abstract class Mnemo_Driver
             }
         }
         $body->estimateddatasize = Horde_String::length($memo['body']);
-
+        $message->body = $body;
         if (!empty($memo['tags'])) {
             $message->categories = $memo['tags'];
         }
