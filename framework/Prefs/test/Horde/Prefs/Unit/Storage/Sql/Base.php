@@ -84,6 +84,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         self::$prefs = null;
         if (self::$migrator) {
             self::$migrator->down();
+            self::$migrator = null;
         }
         if (self::$db) {
             self::$db->disconnect();
