@@ -517,6 +517,23 @@ class Mnemo_Api extends Horde_Registry_Api
     }
 
     /**
+     * Delete notepad.
+     *
+     * @param string $id  The notepad id.
+     * @since 4.2.0
+     */
+    public function deleteNotepad($id)
+    {
+        // Delete the notepad.
+        $storage = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Driver')
+            ->create($id);
+        $storage->deleteAll();
+        $share = $GLOBALS['mnemo_shares']->getShare($id);
+        $GLOBALS['mnemo_shares']->removeShare($share);
+    }
+
+    /**
      * Update a notepad's title and/or description.
      *
      * @param string $id   The notepad id
