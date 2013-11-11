@@ -978,7 +978,7 @@ class Horde_Core_ActiveSync_Connector
         if ($prefs->getValue('activesync_multiplex')) {
             throw new Horde_ActiveSync_Exception(
                 'Creating new collections not supported with multiplexed collections',
-                Horde_ActiveSync::UNSUPPORTED
+                Horde_ActiveSync_Exception::UNSUPPORTED
             );
         }
 
@@ -1037,7 +1037,7 @@ class Horde_Core_ActiveSync_Connector
         if ($prefs->getValue('activesync_multiplex')) {
             throw new Horde_ActiveSync_Exception(
                 'Updating new collections not supported with multiplexed collections',
-                Horde_ActiveSync::UNSUPPORTED
+                Horde_ActiveSync_Exception::UNSUPPORTED
             );
         }
 
@@ -1064,7 +1064,7 @@ class Horde_Core_ActiveSync_Connector
             if (!$registry->hasMethod('contacts/updateAddressbook')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating addressbooks not supported by the contacts API.',
-                    Horde_ActiveSync::UNSUPPORTED
+                    Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
             $registry->contacts->updateAddressbook($id, array('name' => $name));
@@ -1075,7 +1075,7 @@ class Horde_Core_ActiveSync_Connector
             if (!$registry->hasMethod('notes/updateNotepad')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating notepads not supported by the notes API.',
-                    Horde_ActiveSync::UNSUPPORTED
+                    Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
             $registry->notes->updateNotepad($id, array('name' => $name));
