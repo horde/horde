@@ -271,7 +271,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function current()
     {
-        return $this->_fromInternal(current($this->_prefs));
+        return $this->_fromInternal($this->key());
     }
 
     /**
