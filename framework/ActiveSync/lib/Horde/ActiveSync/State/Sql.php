@@ -444,7 +444,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $change['id'],
                     $syncKey,
                     $this->_deviceInfo->id,
-                    $this->_collection['id'],
+                    $change['serverid'],
                     $user,
                     ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
                 );
@@ -1185,7 +1185,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         try {
             return (bool)$this->_db->selectValue(
-                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['id']));
+                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['serverid']));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1216,7 +1216,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         $values = array_merge(
-            array($this->_collection['id'],
+            array($this->_collection['serverid'],
                   $this->_deviceInfo->id,
                   $this->_deviceInfo->user),
             $ids);

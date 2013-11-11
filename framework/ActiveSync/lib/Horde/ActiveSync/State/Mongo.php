@@ -383,7 +383,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
         $user = null, $clientid = '')
     {
-        $this->_logger->info(sprintf('[%s] Updating state during %s', $this->_procid, $type));
+        $this->_logger->info(sprintf(
+            '[%s] Horde_ActiveSync_State_Mongo::updateState(%s, %s, %d, %s, %s)',
+            $this->_procid, $type, serialize($change), $origin, $user, $clientid));
 
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -425,7 +427,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     'message_uid' => $change['id'],
                     'sync_key' => $syncKey,
                     'sync_devid' => $this->_deviceInfo->id,
-                    'sync_folderid' => $this->_collection['id'],
+                    'sync_folderid' => $change['serverid'],
                     'sync_user' => $user
                 );
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
@@ -1221,7 +1223,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _getPIMChangeTS(array $changes)
     {
-        // // Get the allowed synckeys to include.
+        // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
         $keys = array();
@@ -1263,7 +1265,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 empty($rows['errmsg']) ? '' : $rows['errmsg']));
         }
         $results = array();
-        foreach ($rows as $row) {
+        foreach ($rows['result'] as $row) {
             $results[$row['_id']] = $row['max'];
         }
 
@@ -1283,13 +1285,18 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _havePIMChanges()
     {
+        $this->_logger->info(sprintf(
+            '[%s] Horde_ActiveSync_State_Mongo::_havePIMChanges() for %s',
+            $this->_procid, $this->_collection['serverid']));
+
         $c = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL ?
             $this->_db->HAS_mailmap :
             $this->_db->HAS_map;
+
         $query = array(
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
-            'sync_folderid' => $this->_collection['id']
+            'sync_folderid' => $this->_collection['serverid']
         );
         try {
             return (bool)$c->find($query, array('_id'))->count();
@@ -1321,7 +1328,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $ids[] = strval($change['id']);
         }
         $query = array(
-            'sync_folderid' => $this->_collection['id'],
+            'sync_folderid' => $this->_collection['serverid'],
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
             'message_uid' => array('$in' => $ids)
