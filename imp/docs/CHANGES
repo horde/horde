@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Browser stored preferences are now prefixed by user information.
 [mms] Strip PGP armor text when replying to a message.
 [mms] Move determination whether to scan plaintext messages for PGP data from
       preferences to MIME viewer configuration.

@@ -191,15 +191,23 @@ var DimpCore = {
 
     getPref: function(k)
     {
-        return $.jStorage.get(k, this.prefs[k] ? this.prefs[k] : this.prefs_special(k));
+        return $.jStorage.get(
+            this.pref_prefix + k,
+            $.jStorage.get(
+                /* Fallback to non-prefixed storage. */
+                k,
+                this.prefs[k] ? this.prefs[k] : this.prefs_special(k)
+            )
+        );
     },
 
     setPref: function(k, v)
     {
         if (v === null) {
+            $.jStorage.deleteKey(this.pref_prefix + k);
             $.jStorage.deleteKey(k);
         } else {
-            $.jStorage.set(k, v);
+            $.jStorage.set(this.pref_prefix + k, v);
         }
     },
 

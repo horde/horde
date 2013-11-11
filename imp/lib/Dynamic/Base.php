@@ -136,7 +136,8 @@ abstract class IMP_Dynamic_Base
             'URI_VIEW' => strval(Horde::url('view.php')->add(IMP_Contents_View::addToken())),
 
             // Other variables
-            'disable_compose' => !IMP_Compose::canCompose()
+            'disable_compose' => !IMP_Compose::canCompose(),
+            'pref_prefix' => base64_encode(pack('H*', hash('sha1', $registry->getAuth() . '|' . $_SERVER['SERVER_NAME'])))
         ));
 
         /* Context menu definitions.
