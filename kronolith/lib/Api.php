@@ -1048,12 +1048,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             text/x-vcalendar
      *                             (Ignored if content is Horde_Icalendar_Vevent)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
+     * @param string $calendar     Ensure the event is replaced in the specified
+     *                             calendar. @since 4.2.0
      *
      * @throws Kronolith_Exception
      */
-    public function replace($uid, $content, $contentType)
+    public function replace($uid, $content, $contentType, $calendar = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        $event = Kronolith::getDriver(null, $calendar)->getByUID($uid);
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
             ($event->private && $event->creator != $GLOBALS['registry']->getAuth())) {
