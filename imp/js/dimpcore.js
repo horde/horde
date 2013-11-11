@@ -17,6 +17,24 @@ var DimpCore = {
     context: {},
     text: {},
 
+    // Preferences variables
+    prefs: {
+        preview: 'horiz',
+        qsearch_field: 'all',
+        splitbar_horiz: 0,
+        splitbar_vert: 0,
+        toggle_hdrs: 0
+    },
+    prefs_special: function(n) {
+        switch (n) {
+        case 'preview_old':
+            return this.getPref('preview');
+
+        case 'splitbar_side':
+            return this.conf.sidebar_width;
+        }
+    },
+
     // Wrapper methods around HordeCore functions.
 
     // IMP specific 'opts': uids
@@ -167,6 +185,22 @@ var DimpCore = {
 
         tmp.childElements().invoke('remove');
         tmp.appendChild(df);
+    },
+
+    /* Browser-side preferences. */
+
+    getPref: function(k)
+    {
+        return $.jStorage.get(k, this.prefs[k] ? this.prefs[k] : this.prefs_special(k));
+    },
+
+    setPref: function(k, v)
+    {
+        if (v === null) {
+            $.jStorage.deleteKey(k);
+        } else {
+            $.jStorage.set(k, v);
+        }
     },
 
     // Abstract: define in any pages that need reloadMessage().

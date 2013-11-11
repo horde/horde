@@ -30,25 +30,6 @@ var DimpBase = {
     // should be a fairly safe caching value for any recent browser.
     ppcachesize: 20,
 
-    // List of internal preferences
-    prefs: {
-        preview: 'horiz',
-        qsearch_field: 'all',
-        splitbar_horiz: 0,
-        splitbar_vert: 0,
-        toggle_hdrs: 0
-    },
-
-    prefs_special: function(n) {
-        switch (n) {
-        case 'preview_old':
-            return this._getPref('preview');
-
-        case 'splitbar_side':
-            return DimpCore.conf.sidebar_width;
-        }
-    },
-
     // Message selection functions
 
     // id = (string) DOM ID
@@ -337,7 +318,7 @@ var DimpBase = {
         var tmp = $('horde-sidebar');
 
         tmp.setStyle({
-            width: this._getPref('splitbar_side') + 'px'
+            width: DimpCore.getPref('splitbar_side') + 'px'
         });
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
@@ -540,10 +521,10 @@ var DimpBase = {
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
-            page_size: this._getPref('splitbar_horiz'),
+            page_size: DimpCore.getPref('splitbar_horiz'),
             pane_data: 'previewPane',
-            pane_mode: this._getPref('preview'),
-            pane_width: this._getPref('splitbar_vert'),
+            pane_mode: DimpCore.getPref('preview'),
+            pane_width: DimpCore.getPref('splitbar_vert'),
             split_bar_class: {
                 horiz: 'horde-splitbar-horiz',
                 vert: 'horde-splitbar-vert'
@@ -561,7 +542,7 @@ var DimpBase = {
                 if (this.viewswitch &&
                     (this.isQSearch(view) || this.isFSearch(view))) {
                     params.update({
-                        qsearchfield: this._getPref('qsearch_field'),
+                        qsearchfield: DimpCore.getPref('qsearch_field'),
                         qsearchmbox: this.search.mbox
                     });
                     if (this.search.filter) {
@@ -661,7 +642,7 @@ var DimpBase = {
                 this.viewswitch = false;
 
                 if (this.selectedCount()) {
-                    if (this._getPref('preview')) {
+                    if (DimpCore.getPref('preview')) {
                         this.initPreviewPane();
                     }
                     this.toggleButtons();
@@ -719,7 +700,7 @@ var DimpBase = {
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
                 this.clearPreviewPane();
-            } else if ((count == 1) && this._getPref('preview')) {
+            } else if ((count == 1) && DimpCore.getPref('preview')) {
                 this.loadPreview(sel.get('dataob').first());
             }
 
@@ -752,7 +733,7 @@ var DimpBase = {
 
             this.toggleButtons();
 
-            if (this._getPref('preview')) {
+            if (DimpCore.getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
                     $('previewInfo').highlight({
@@ -798,11 +779,11 @@ var DimpBase = {
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
             case 'horiz':
-                this._setPref('splitbar_horiz', this.viewport.getPageSize());
+                DimpCore.setPref('splitbar_horiz', this.viewport.getPageSize());
                 break;
 
             case 'vert':
-                this._setPref('splitbar_vert', this.viewport.getVertWidth());
+                DimpCore.setPref('splitbar_vert', this.viewport.getVertWidth());
                 break;
             }
         }.bindAsEventListener(this));
@@ -1073,12 +1054,12 @@ var DimpBase = {
             break;
 
         case 'ctx_oa_preview_hide':
-            this._setPref('preview_old', this._getPref('preview', 'horiz'));
+            DimpCore.setPref('preview_old', DimpCore.getPref('preview', 'horiz'));
             this.togglePreviewPane('');
             break;
 
         case 'ctx_oa_preview_show':
-            this.togglePreviewPane(this._getPref('preview_old'));
+            this.togglePreviewPane(DimpCore.getPref('preview_old'));
             break;
 
         case 'ctx_oa_layout_horiz':
@@ -1160,7 +1141,7 @@ var DimpBase = {
         case 'ctx_qsearchopts_from':
         case 'ctx_qsearchopts_recip':
         case 'ctx_qsearchopts_subject':
-            this._setPref('qsearch_field', id.substring(16));
+            DimpCore.setPref('qsearch_field', id.substring(16));
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
@@ -1309,7 +1290,7 @@ var DimpBase = {
             break;
 
         case 'ctx_oa':
-            switch (this._getPref('preview')) {
+            switch (DimpCore.getPref('preview')) {
             case 'vert':
                 $('ctx_oa_preview_hide', 'ctx_oa_layout_horiz').invoke('show');
                 $('ctx_oa_preview_show', 'ctx_oa_layout_vert').invoke('hide');
@@ -1394,11 +1375,11 @@ var DimpBase = {
 
         case 'ctx_qsearchopts':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
-            $(ctx_id + '_' + this._getPref('qsearch_field')).addClassName('contextSelected');
+            $(ctx_id + '_' + DimpCore.getPref('qsearch_field')).addClassName('contextSelected');
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
+            [ $('ctx_message_source').up() ].invoke(DimpCore.getPref('preview') ? 'hide' : 'show');
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
             [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
@@ -1664,9 +1645,9 @@ var DimpBase = {
     // mode = (string) Either 'horiz', 'vert', or empty
     togglePreviewPane: function(mode)
     {
-        var old = this._getPref('preview');
+        var old = DimpCore.getPref('preview');
         if (mode != old) {
-            this._setPref('preview', mode);
+            DimpCore.setPref('preview', mode);
             this.viewport.showSplitPane(mode);
             if (!old) {
                 this.initPreviewPane();
@@ -1678,7 +1659,7 @@ var DimpBase = {
     {
         var curr, msgload, p, rows, pp_uid;
 
-        if (!this._getPref('preview')) {
+        if (!DimpCore.getPref('preview')) {
             return;
         }
 
@@ -1969,7 +1950,7 @@ var DimpBase = {
     _toggleHeaders: function(elt, update)
     {
         if (update) {
-            this._setPref('toggle_hdrs', Number(!this._getPref('toggle_hdrs')));
+            DimpCore.setPref('toggle_hdrs', Number(!DimpCore.getPref('toggle_hdrs')));
         }
         [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
@@ -2246,7 +2227,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')]));
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + DimpCore.getPref('qsearch_field')]));
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2412,7 +2393,7 @@ var DimpBase = {
             d = DragDrop.Drags.getDrag(id);
 
         if (id == 'horde-slideleft') {
-            this._setPref('splitbar_side', d.lastCoord[0]);
+            DimpCore.setPref('splitbar_side', d.lastCoord[0]);
             this.setSidebarWidth();
         } else if (elt.hasClassName('horde-subnavi')) {
             if (!d.opera) {
@@ -2640,7 +2621,7 @@ var DimpBase = {
             tmp;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
-            this._setPref('splitbar_side', null);
+            DimpCore.setPref('splitbar_side', null);
             this.setSidebarWidth();
             e.memo.stop();
             return;
@@ -3865,22 +3846,6 @@ var DimpBase = {
         return sf && c.descendantOf(sf);
     },
 
-    /* Internal preferences. */
-
-    _getPref: function(k)
-    {
-        return $.jStorage.get(k, this.prefs[k] ? this.prefs[k] : this.prefs_special(k));
-    },
-
-    _setPref: function(k, v)
-    {
-        if (v === null) {
-            $.jStorage.deleteKey(k);
-        } else {
-            $.jStorage.set(k, v);
-        }
-    },
-
     /* AJAX tasks handler. */
     tasksHandler: function(e)
     {
@@ -4052,7 +4017,7 @@ var DimpBase = {
         // See: http://www.thecssninja.com/javascript/gmail-dragout
         $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
 
-        if (this._getPref('toggle_hdrs')) {
+        if (DimpCore.getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
         }
 
