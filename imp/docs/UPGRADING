@@ -77,6 +77,16 @@ The following preferences have been removed::
    pgp_scan_body
 
 
+API Changes
+-----------
+
+These API calls have been changed::
+
+   - mailboxList
+
+     Added the 'subscribed' return value.
+
+
 
 Upgrading IMP From 6.1.x To 6.1.4
 =================================

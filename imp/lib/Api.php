@@ -89,6 +89,7 @@ class IMP_Api extends Horde_Registry_Api
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
+     *   - subscribed: (boolean) True if mailbox is subscribed (@since 6.2.0).
      */
     public function mailboxList()
     {
@@ -102,11 +103,16 @@ class IMP_Api extends Horde_Registry_Api
 
         foreach ($iterator as $val) {
             $mbox_ob = $val->mbox_ob;
+            $sub = $mbox_ob->sub;
+
             $mboxes[] = array(
+                // TODO: Remove for IMP 7.
+                'a' => $sub ? 8 : 0,
                 'd' => $mbox_ob->namespace_delimiter,
                 'label' => $mbox_ob->label,
                 'level' => $val->level,
-                'ob' => $mbox_ob->imap_mbox_ob
+                'ob' => $mbox_ob->imap_mbox_ob,
+                'subscribed' => $sub
             );
         }
 
