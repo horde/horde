@@ -1185,7 +1185,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         try {
             return (bool)$this->_db->selectValue(
-                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['id']));
+                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['serverid']));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
