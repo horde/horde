@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-28</date>
+ <date>2013-11-11</date>
  <version>
   <release>2.5.2</release>
   <api>2.5.0</api>
@@ -1078,7 +1078,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-28</date>
+   <date>2013-11-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correct fix for iteration of Horde_Prefs_Scope object.
