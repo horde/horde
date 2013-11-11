@@ -1093,6 +1093,62 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Delete a folder.
+     *
+     * @param string $class  The EAS collection class.
+     * @param string $id     The folder id
+     *
+     * @since 2.12.0
+     */
+    public function deleteFolder($class, $id)
+    {
+        global $registry, $prefs;
+
+        if ($prefs->getValue('activesync_multiplex')) {
+            throw new Horde_ActiveSync_Exception(
+                'Deleting collections not supported with multiplexed collections',
+                Horde_ActiveSync_Exception::UNSUPPORTED
+            );
+        }
+
+        switch ($class) {
+        case Horde_ActiveSync::CLASS_TASKS:
+            $registry->tasks->deleteTasklist($id);
+            break;
+
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            if (!$registry->hasMethod('contacts/deleteAddressbook')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Deleting addressbooks not supported by the contacts API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $registry->contacts->deleteAddressbook($id);
+            break;
+
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            if (!$registry->hasMethod('calendar/deleteCalendar')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Deleting calendars not supported by the calendar API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $registry->calendar->deleteCalendar($id);
+            break;
+        case Horde_ActiveSync::CLASS_NOTES  :
+            if (!$registry->hasMethod('notes/deleteNotepad')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Deleting notepads not supported by the notes API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $registry->notes->deleteNotpad($id);
+            break;
+        }
+
+    }
+
+    /**
      * Clear the authentication and destroy the current session.
      */
     public function clearAuth()

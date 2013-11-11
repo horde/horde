@@ -717,15 +717,40 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Delete a folder on the server.
      *
      * @param string $id  The server's folder id.
-     * @param string $parent  The folder's parent, if needed.
+     * @param string $parent  The folder's parent, if needed. @deprecated
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        try {
-            $this->_imap->deleteMailbox($id);
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw $e;
+        $this->_logger->info(sprintf(
+            '[%s] Horde_Core_ActiveSync_Driver::deleteFolder(%s)',
+            getmypid(), $id));
+
+        $parts = $this->_parseFolderId($id);
+        if (is_array($parts)) {
+            $folder_class = $parts[self::FOLDER_PART_CLASS];
+            $folder_id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $folder_class = $parts;
+            $folder_id = $id;
+        }
+
+        switch ($folder_class) {
+        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            try {
+                $this->_logger->info($folder_id);
+                $this->_imap->deleteMailbox($folder_id);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw $e;
+            }
+            break;
+
+        case Horde_ActiveSync::CLASS_TASKS:
+        case Horde_ActiveSync::CLASS_CALENDAR:
+        case Horde_ActiveSync::CLASS_CONTACTS:
+        case Horde_ActiveSync::CLASS_NOTES:
+            $this->_connector->deleteFolder($folder_class, $folder_id);
         }
     }
 
