@@ -105,7 +105,6 @@ class RecurrenceIterator implements \Iterator {
      */
     public $overriddenEvents = array();
 
-
     /**
      * Frequency is one of: secondly, minutely, hourly, daily, weekly, monthly,
      * yearly.
@@ -297,6 +296,13 @@ class RecurrenceIterator implements \Iterator {
     private $nextDate;
 
     /**
+     * This counts the number of overridden events we've handled so far
+     *
+     * @var int
+     */
+    private $handledOverridden = 0;
+
+    /**
      * Creates the iterator
      *
      * You should pass a VCALENDAR component, as well as the UID of the event
@@ -326,6 +332,9 @@ class RecurrenceIterator implements \Iterator {
                 }
             }
         }
+
+        ksort($this->overriddenEvents);
+
         if (!$this->baseEvent) {
             throw new \InvalidArgumentException('Could not find a base event with uid: ' . $uid);
         }
@@ -552,8 +561,18 @@ class RecurrenceIterator implements \Iterator {
         if (!is_null($this->count)) {
             return $this->counter < $this->count;
         }
-        if (!is_null($this->until)) {
-            return $this->currentDate <= $this->until;
+        if (!is_null($this->until) && $this->currentDate > $this->until) {
+
+            // Need to make sure there's no overridden events past the
+            // until date.
+            foreach($this->overriddenEvents as $overriddenEvent) {
+
+                if ($overriddenEvent->DTSTART->getDateTime() >= $this->currentDate) {
+
+                    return true;
+                }
+            }
+            return false;
         }
         return true;
 
@@ -608,92 +627,105 @@ class RecurrenceIterator implements \Iterator {
      */
     public function next() {
 
-        /*
-        if (!is_null($this->count) && $this->counter >= $this->count) {
-            $this->currentDate = null;
-        }*/
-
-
         $previousStamp = $this->currentDate->getTimeStamp();
 
-        while(true) {
+        // Finding the next overridden event in line, and storing that for
+        // later use.
+        $overriddenEvent = null;
+        $overriddenDate = null;
+        $this->currentOverriddenEvent = null;
 
-            $this->currentOverriddenEvent = null;
+        foreach($this->overriddenEvents as $index=>$event) {
+            if ($index > $previousStamp) {
+                $overriddenEvent = $event;
+                $overriddenDate = clone $event->DTSTART->getDateTime();
+                break;
+            }
+        }
 
-            // If we have a next date 'stored', we use that
-            if ($this->nextDate) {
+        // If we have a stored 'next date', we will use that.
+        if ($this->nextDate) {
+            if (!$overriddenDate || $this->nextDate < $overriddenDate) {
                 $this->currentDate = $this->nextDate;
                 $currentStamp = $this->currentDate->getTimeStamp();
                 $this->nextDate = null;
             } else {
-
-                // Otherwise, we calculate it
-                switch($this->frequency) {
-
-                    case 'hourly' :
-                        $this->nextHourly();
-                        break;
-
-                    case 'daily' :
-                        $this->nextDaily();
-                        break;
-
-                    case 'weekly' :
-                        $this->nextWeekly();
-                        break;
-
-                    case 'monthly' :
-                        $this->nextMonthly();
-                        break;
-
-                    case 'yearly' :
-                        $this->nextYearly();
-                        break;
-
-                }
-                $currentStamp = $this->currentDate->getTimeStamp();
-
-                // Checking exception dates
-                foreach($this->exceptionDates as $exceptionDate) {
-                    if ($this->currentDate == $exceptionDate) {
-                        $this->counter++;
-                        continue 2;
-                    }
-                }
-                foreach($this->overriddenDates as $overriddenDate) {
-                    if ($this->currentDate == $overriddenDate) {
-                        continue 2;
-                    }
-                }
-
+                $this->currentDate = clone $overriddenDate;
+                $this->currentOverriddenEvent = $overriddenEvent;
             }
+            $this->counter++;
+            return;
+        }
 
-            // Checking overridden events
-            foreach($this->overriddenEvents as $index=>$event) {
-                if ($index > $previousStamp && $index <= $currentStamp) {
+        while(true) {
 
-                    // We're moving the 'next date' aside, for later use.
-                    $this->nextDate = clone $this->currentDate;
+            // Otherwise, we find the next event in the normal RRULE
+            // sequence.
+            switch($this->frequency) {
 
-                    $this->currentDate = $event->DTSTART->getDateTime();
-                    $this->currentOverriddenEvent = $event;
-
+                case 'hourly' :
+                    $this->nextHourly();
                     break;
+
+                case 'daily' :
+                    $this->nextDaily();
+                    break;
+
+                case 'weekly' :
+                    $this->nextWeekly();
+                    break;
+
+                case 'monthly' :
+                    $this->nextMonthly();
+                    break;
+
+                case 'yearly' :
+                    $this->nextYearly();
+                    break;
+
+            }
+            $currentStamp = $this->currentDate->getTimeStamp();
+
+
+            // Checking exception dates
+            foreach($this->exceptionDates as $exceptionDate) {
+                if ($this->currentDate == $exceptionDate) {
+                    $this->counter++;
+                    continue 2;
                 }
             }
-
+            foreach($this->overriddenDates as $check) {
+                if ($this->currentDate == $check) {
+                    continue 2;
+                }
+            }
             break;
 
         }
 
-        /*
-        if (!is_null($this->until)) {
-            if($this->currentDate > $this->until) {
-                $this->currentDate = null;
-            }
-        }*/
 
+
+        // Is the date we have actually higher than the next overiddenEvent?
+        if ($overriddenDate && $this->currentDate > $overriddenDate) {
+            $this->nextDate = clone $this->currentDate;
+            $this->currentDate = clone $overriddenDate;
+            $this->currentOverriddenEvent = $overriddenEvent;
+            $this->handledOverridden++;
+        }
         $this->counter++;
+
+
+        /*
+         * If we have overridden events left in the queue, but our counter is
+         * running out, we should grab one of those.
+         */
+        if (!is_null($overriddenEvent) && !is_null($this->count) && count($this->overriddenEvents) - $this->handledOverridden >= ($this->count - $this->counter)) {
+
+            $this->currentOverriddenEvent = $overriddenEvent;
+            $this->currentDate = clone $overriddenDate;
+            $this->handledOverridden++;
+
+        }
 
     }
 
