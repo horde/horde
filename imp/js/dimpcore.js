@@ -255,12 +255,12 @@ var DimpCore = {
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
         } else if (elt.hasClassName('pgpVerifyMsg')) {
-            elt.replace(DimpCore.text.verify);
-            DimpCore.reloadMessage({ pgp_verify_msg: 1 });
+            elt.replace(this.text.verify);
+            this.reloadMessage({ pgp_verify_msg: 1 });
             e.memo.stop();
         } else if (elt.hasClassName('smimeVerifyMsg')) {
-            elt.replace(DimpCore.text.verify);
-            DimpCore.reloadMessage({ smime_verify_msg: 1 });
+            elt.replace(this.text.verify);
+            this.reloadMessage({ smime_verify_msg: 1 });
             e.memo.stop();
         }
     },
@@ -283,7 +283,7 @@ var DimpCore = {
             break;
 
         case 'ctx_contacts_copy':
-            window.prompt(DimpCore.text.emailcopy, baseelt.retrieve('email').b);
+            window.prompt(this.text.emailcopy, baseelt.retrieve('email').b);
             break;
 
         case 'ctx_contacts_new':
@@ -337,14 +337,14 @@ var DimpCore = {
 
     contextOnTrigger: function(e)
     {
-        if (!DimpCore.context[e.memo]) {
+        if (!this.context[e.memo]) {
             return;
         }
 
         var div = new Element('DIV', { className: 'context', id: e.memo }).hide();
 
-        if (!Object.isArray(DimpCore.context[e.memo])) {
-            $H(DimpCore.context[e.memo]).each(function(pair) {
+        if (!Object.isArray(this.context[e.memo])) {
+            $H(this.context[e.memo]).each(function(pair) {
                 div.insert(this._contextOnTrigger(pair, e.memo));
             }, this);
         }
