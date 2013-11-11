@@ -1562,6 +1562,19 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Delete the specified calendar.
+     *
+     * @param string $id  The calendar id.
+     */
+    public function deleteCalendar($id)
+    {
+        $calendar = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->getShare($calendar);
+        Kronolith::deleteShare($calendar);
+    }
+
+    /**
      * Return an internal calendar.
      *
      * @todo Note: This returns a Kronolith_Calendar_Object object instead of a hash
