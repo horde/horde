@@ -30,43 +30,17 @@
 class Horde_Crypt_Pgp extends Horde_Crypt
 {
     /**
-     * Armor Header Lines - From RFC 2440:
-     *
-     * An Armor Header Line consists of the appropriate header line text
-     * surrounded by five (5) dashes ('-', 0x2D) on either side of the header
-     * line text. The header line text is chosen based upon the type of data
-     * that is being encoded in Armor, and how it is being encoded.
-     *
-     *  All Armor Header Lines are prefixed with 'PGP'.
-     *
-     *  The Armor Tail Line is composed in the same manner as the Armor Header
-     *  Line, except the string "BEGIN" is replaced by the string "END."
+     * @deprecated  Use Horde_Crypt_Pgp_Parse instead.
      */
-
-    /* Used for signed, encrypted, or compressed files. */
     const ARMOR_MESSAGE = 1;
-
-    /* Used for signed files. */
     const ARMOR_SIGNED_MESSAGE = 2;
-
-    /* Used for armoring public keys. */
     const ARMOR_PUBLIC_KEY = 3;
-
-    /* Used for armoring private keys. */
     const ARMOR_PRIVATE_KEY = 4;
-
-    /* Used for detached signatures, PGP/MIME signatures, and natures
-     * following clearsigned messages. */
     const ARMOR_SIGNATURE = 5;
-
-    /* Regular text contained in an PGP message. */
     const ARMOR_TEXT = 6;
 
     /**
-     * Strings in armor header lines used to distinguish between the different
-     * types of PGP decryption/encryption.
-     *
-     * @var array
+     * @deprecated  Use Horde_Crypt_Pgp_Parse instead.
      */
     protected $_armor = array(
         'MESSAGE' => self::ARMOR_MESSAGE,
@@ -693,6 +667,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Parses a message into text and PGP components.
      *
+     * @deprecated  Use Horde_Crypt_Pgp_Parse instead.
+     *
      * @param mixed $text  Either the text to parse or a Horde_Stream object
      *                     (@since 2.3.0).
      *
@@ -707,45 +683,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function parsePGPData($text)
     {
-        $data = array();
-        $temp = array(
-            'type' => self::ARMOR_TEXT
-        );
-
-        if ($text instanceof Horde_Stream) {
-            $stream = $text;
-            $stream->rewind();
-        } else {
-            $stream = new Horde_Stream_Temp();
-            $stream->add($text, true);
-        }
-
-        while (!$stream->eof()) {
-            $val = rtrim($stream->getToChar("\n", false), "\r");
-            if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
-                if (isset($temp['data'])) {
-                    $data[] = $temp;
-                }
-                $temp = array();
-
-                if ($matches[1] == 'BEGIN') {
-                    $temp['type'] = $this->_armor[$matches[2]];
-                    $temp['data'][] = $val;
-                } elseif ($matches[1] == 'END') {
-                    $temp['type'] = self::ARMOR_TEXT;
-                    $data[count($data) - 1]['data'][] = $val;
-                }
-            } else {
-                $temp['data'][] = $val;
-            }
-        }
-
-        if (isset($temp['data']) &&
-            ((count($temp['data']) > 1) || !empty($temp['data'][0]))) {
-            $data[] = $temp;
-        }
-
-        return $data;
+        $parse = new Horde_Crypt_Pgp_Parse();
+        return $parse->parse();
     }
 
     /**
