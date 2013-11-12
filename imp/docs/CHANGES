@@ -2,6 +2,8 @@
 v6.1.6-git
 ----------
 
+[mms] Fix regression where auto-saved drafts were not being deleted when
+      cancelling compose message in dynamic view.
 [mms] Fix regression in parsing permission values (Bug #12812).
 [mms] Fix regression in showing non-available actions in dynamic mailbox view
       when ACL rules prevent them (Bug #12808).
