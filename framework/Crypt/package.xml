@@ -16,8 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>14:14:17</time>
+ <date>2013-11-12</date>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -937,7 +936,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Crypt_Pgp#parsePGPData() now accepts a Horde_Stream object as an argument.
