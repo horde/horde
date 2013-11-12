@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-06</date>
+ <date>2013-11-12</date>
  <version>
   <release>2.11.0</release>
   <api>2.11.0</api>
@@ -3224,7 +3224,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-06</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix hiding preferences if they are contained within a prefs container.
