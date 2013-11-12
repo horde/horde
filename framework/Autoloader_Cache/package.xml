@@ -18,7 +18,7 @@
  </developer>
  <date>2013-11-12</date>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Support msgpack for serializing the map lookup.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -294,6 +294,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Support msgpack for serializing the map lookup.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
