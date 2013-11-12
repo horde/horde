@@ -121,7 +121,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-signature':
-            $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
+            $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp_Parse')->parse($this->_mimepart->getContents());
             foreach (array_keys($parts) as $key) {
                 if ($parts[$key]['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE) {
                     $ret['data'] = implode("\r\n", $parts[$key]['data']);
