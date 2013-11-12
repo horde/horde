@@ -10,8 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-17</date>
- <time>12:45:47</time>
+ <date>2013-11-12</date>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -705,7 +704,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-17</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix synchronization with SOGo connector.
