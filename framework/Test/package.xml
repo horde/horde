@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-28</date>
+ <date>2013-11-12</date>
  <version>
   <release>2.2.5</release>
   <api>2.0.0</api>
@@ -447,7 +447,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-28</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Restore error reporting level after running tests via Horde_Test_AllTests#run().
