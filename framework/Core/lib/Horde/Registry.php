@@ -51,6 +51,18 @@ class Horde_Registry implements Horde_Shutdown_Task
     public $applications = array();
 
     /**
+     * Original authentication exception. Set if 'fallback' auth is used, and
+     * authentication fails.
+     *
+     * @since 2.11.0
+     * @todo Fix this up for H6 (framework needs to do better job of
+     *       supporting bootstrapping before authentication).
+     *
+     * @var Exception
+     */
+    public $authException;
+
+    /**
      * A flag that is set once the basic horde application has been
      * minimally configured.
      *
@@ -283,6 +295,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         } catch (Horde_Exception_PushApp $e) {
             if ($fallback_auth) {
                 $args['authentication'] = 'none';
+                $registry->authException = $e;
                 return self::appInit($app, $args);
             }
 
