@@ -4,12 +4,12 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package    Text_Filter
+ * @license    JSMin
+ * @package    Text_Filter_Jsmin
  * @subpackage UnitTests
  */
 
-class Horde_Text_Filter_JsminTest extends PHPUnit_Framework_TestCase
+class Horde_Text_Filter_Jsmin_JsminTest extends PHPUnit_Framework_TestCase
 {
     public function testJsmin()
     {
@@ -71,6 +71,13 @@ if(is.ua.indexOf('gecko')>=0){is.ie=is.ns=false;is.gecko=true;}",
         $this->assertEquals(
             'function foo(a){return/\//.test(a);}',
              Horde_Text_Filter::filter($js, 'JavascriptMinify')
+         );
+
+        $js2 = 'var a = 0, b = c / 100 | 0;';
+
+        $this->assertNotEquals(
+            $js2,
+             Horde_Text_Filter::filter($js2, 'JavascriptMinify')
          );
     }
 

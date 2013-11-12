@@ -1,54 +1,42 @@
 <?php
 /**
- * PHP implementation of Douglas Crockford's JSMin.
- *
- * License/copyright from original jsmin.php library:
- *
- * --
- * Copyright (c) 2002 Douglas Crockford  (www.crockford.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all
- * copies or substantial portions of the Software.
- *
- * The Software shall be used for Good, not Evil.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE
- * SOFTWARE.
- *
- * Author: Ryan Grove <ryan@wonko.com>
  * (c) 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c)
  * (c) 2008 Ryan Grove <ryan@wonko.com> (PHP port)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (JSMin).
+ *
+ * @category  Horde
+ * @copyright 2002 Douglas Crockford
+ * @copyright 2008 Ryan Grove
+ * @copyright 2009-2013 Horde LLC
+ * @license   JSMin
+ * @package   Text_Filter_Jsmin
+ */
+
+/**
+ * PHP implementation of Douglas Crockford's JSMin.
+ *
+ * See LICENSE for original JSMin license.
+ *
+ * Original PHP implementation:
  * Version: 1.1.1 (2008-03-02)
+ * (c) 2008 Ryan Grove <ryan@wonko.com> (PHP port)
  * URL: http://code.google.com/p/jsmin-php/
- * --
  *
  * Additional cleanups/code by the Horde Project.
  *
- * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Text_Filter
+ * @author    Douglas Crockford <douglas@crockford.com>
+ * @author    Ryan Grove <ryan@wonko.com>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002 Douglas Crockford
+ * @copyright 2008 Ryan Grove
+ * @copyright 2009-2013 Horde LLC
+ * @license   JSMin
+ * @package   Text_Filter_Jsmin
  */
-class Horde_Text_Filter_JavascriptMinify_JsMin
+class Horde_Text_Filter_Jsmin
 {
     /* Constants. */
     const ORD_LF = 10;
@@ -252,7 +240,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _isRegexLiteral($oldindex)
     {
-        if (strspn($this->_a, "(,=:[!&|?+-~*/{\n ")) {
+        /* We aren't dividing. */
+        if (strspn($this->_a, "(,=:[!&|?+-~*/{;")) {
             return true;
         }
 

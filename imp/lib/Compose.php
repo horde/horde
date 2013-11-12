@@ -141,6 +141,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return;
 
         case 'cancel':
+            if ($this->getMetadata('draft_auto')) {
+                $this->destroy('discard');
+                return;
+            }
+            // Fall-through
+
         default:
             // No-op
             break;
@@ -173,9 +179,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                        Horde_Mime_Part object that contains the text
      *                        to send.
      * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     *   - autosave: (boolean) Is this an auto-saved draft?
      *   - html: (boolean) Is this an HTML message?
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *   - readreceipt: (boolean) Add return receipt headers?
+     * </pre>
      *
      * @return string  Notification text on success (not HTML encoded).
      *
@@ -184,7 +193,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public function saveDraft($headers, $message, array $opts = array())
     {
         $body = $this->_saveDraftMsg($headers, $message, $opts);
-        return $this->_saveDraftServer($body);
+        $ret = $this->_saveDraftServer($body);
+        $this->_metadata['draft_auto'] = !empty($opts['autosave']);
+        return $ret;
     }
 
     /**
@@ -3125,7 +3136,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
                 $this->_saveDraftServer($data);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
-                $notification->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
+                $notification->push(
+                    _("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."),
+                    'horde.message',
+                    array('sticky')
+                );
             }
         } catch (Exception $e) {}
     }
