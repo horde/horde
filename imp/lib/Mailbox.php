@@ -64,6 +64,8 @@
  *   - iconopen: (Horde_Themes_Image) The openicon to use.
  *   - user_icon: (boolean) Use a user defined icon?
  * @property-read IMP_Imap $imp_imap  The IMP_Imap object for this mailbox.
+ * @property-read string $imap_mbox  The actual name of the underlying IMAP
+ *                                   mailbox.
  * @property-read Horde_Imap_Client_Mailbox $imap_mbox_ob  Convert this object
  *                                                         tp an
  *                                                         Imap_Client mailbox
@@ -263,9 +265,8 @@ class IMP_Mailbox implements Serializable
         }
 
         // Mailbox names are always UTF-8 within IMP.
-        return Horde_Imap_Client_Mailbox::get(strval(
-            $GLOBALS['injector']->getInstance('IMP_Remote')->getMailboxById($mbox) ?: $mbox
-        ));
+        $mbox_ob = new self($mbox);
+        return Horde_Imap_Client_Mailbox::get($mbox_ob->imap_mbox);
     }
 
     /**
@@ -465,6 +466,11 @@ class IMP_Mailbox implements Serializable
 
         case 'imp_imap':
             return $injector->getInstance('IMP_Factory_Imap')->create($this->_mbox);
+
+        case 'imap_mbox':
+            return strval(
+                $injector->getInstance('IMP_Remote')->getMailboxById($this->_mbox) ?: $this->_mbox
+            );
 
         case 'imap_mbox_ob':
             return self::getImapMboxOb($this->_mbox);

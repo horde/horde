@@ -659,7 +659,8 @@ class IMP_Ajax_Queue
         $parent = $elt->parent;
         if (!$parent->base_elt) {
             $ob->pa = $parent->mbox_ob->form_to;
-            if (($label == 'INBOX') && $parent->remote) {
+            if ($parent->remote &&
+                (strcasecmp($mbox_ob->imap_mbox, 'INBOX') === 0)) {
                 $ob->fs = 1;
             }
         }
