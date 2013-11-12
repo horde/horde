@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-24</date>
+ <date>2013-11-12</date>
  <version>
-  <release>2.1.6</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -50,9 +50,6 @@
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
-       <dir name="JavascriptMinify">
-        <file name="JsMin.php" role="php" />
-       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
        <file name="Base.php" role="php" />
        <file name="Bbcode.php" role="php" />
        <file name="Cleanascii.php" role="php" />
@@ -353,7 +350,6 @@
        <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
-       <file name="JsminTest.php" role="test" />
        <file name="LinkurlsTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Space2htmlTest.php" role="test" />
@@ -391,16 +387,23 @@
   </required>
   <optional>
    <package>
-    <name>Horde_Text_Flowed</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Test</name>
+    <name>Horde_Text_Filter_Jsmin</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Flowed</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -440,7 +443,6 @@
    <install as="Horde/Text/Filter/Translation.php" name="lib/Horde/Text/Filter/Translation.php" />
    <install as="Horde/Text/Filter/Words.php" name="lib/Horde/Text/Filter/Words.php" />
    <install as="Horde/Text/Filter/Xss.php" name="lib/Horde/Text/Filter/Xss.php" />
-   <install as="Horde/Text/Filter/JavascriptMinify/JsMin.php" name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" />
    <install as="locale/Horde_Text_Filter.pot" name="locale/Horde_Text_Filter.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ar/LC_MESSAGES/Horde_Text_Filter.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ar/LC_MESSAGES/Horde_Text_Filter.po" />
@@ -533,7 +535,6 @@
    <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
-   <install as="Horde/Text/Filter/JsminTest.php" name="test/Horde/Text/Filter/JsminTest.php" />
    <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
@@ -985,12 +986,12 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.1.6</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-23</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
