@@ -41,6 +41,19 @@ class Horde_Core_Ajax_Response_HordeCore_NoAuth extends Horde_Core_Ajax_Response
 
     /**
      */
+    public function send()
+    {
+        global $registry;
+
+        if (!empty($registry->authException)) {
+            $registry->getApiInstance($this->_app, 'application')->appInitFailure($registry->authException);
+        }
+
+        parent::send();
+    }
+
+    /**
+     */
     protected function _jsonData()
     {
         $msg = new stdClass;
