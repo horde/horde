@@ -3023,7 +3023,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
                 $this->_saveDraftServer($data);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
-                $notification->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
+                $notification->push(
+                    _("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."),
+                    'horde.message',
+                    array('sticky')
+                );
             }
         } catch (Exception $e) {}
     }
