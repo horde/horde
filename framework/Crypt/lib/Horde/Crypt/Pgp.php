@@ -684,7 +684,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function parsePGPData($text)
     {
         $parse = new Horde_Crypt_Pgp_Parse();
-        return $parse->parse();
+        return $parse->parse($text);
     }
 
     /**
