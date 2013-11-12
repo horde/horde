@@ -72,6 +72,13 @@ if(is.ua.indexOf('gecko')>=0){is.ie=is.ns=false;is.gecko=true;}",
             'function foo(a){return/\//.test(a);}',
              Horde_Text_Filter::filter($js, 'JavascriptMinify')
          );
+
+        $js2 = 'var a = 0, b = c / 100 | 0;';
+
+        $this->assertNotEquals(
+            $js2,
+             Horde_Text_Filter::filter($js2, 'JavascriptMinify')
+         );
     }
 
 }

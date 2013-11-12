@@ -240,7 +240,8 @@ class Horde_Text_Filter_Jsmin
 
     protected function _isRegexLiteral($oldindex)
     {
-        if (strspn($this->_a, "(,=:[!&|?+-~*/{\n ")) {
+        /* We aren't dividing. */
+        if (strspn($this->_a, "(,=:[!&|?+-~*/{;")) {
             return true;
         }
 
