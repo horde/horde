@@ -95,6 +95,7 @@ class IMP_Ajax_Application_Handler_Draft extends Horde_Core_Ajax_Application_Han
         }
 
         $opts = array(
+            'autosave' => ($action == 'autoSaveDraft'),
             'html' => $this->vars->html,
             'priority' => $this->vars->priority,
             'readreceipt' => $this->vars->request_read_receipt
