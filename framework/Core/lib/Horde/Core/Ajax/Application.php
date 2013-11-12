@@ -82,11 +82,13 @@ abstract class Horde_Core_Ajax_Application
 
         $ob = $this->_getHandler();
 
+        /* Non-authenticated actions MUST occur in a handler. */
+        if (!$ob && !$registry->currentProcessAuth()) {
+            throw new Horde_Exception('Accessing AJAX action without being authenticated.');
+        }
+
         /* Check authentication/token. */
         if ($ob && !$ob->external($action)) {
-            if (!$registry->currentProcessAuth()) {
-                throw new Horde_Exception('Accessing AJAX action without being authenticated.');
-            }
             $session->checkToken($token);
         }
 
