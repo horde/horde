@@ -37,20 +37,30 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     public function notify(Horde_Notification_Handler $handler,
                            Horde_Notification_Listener $listener)
     {
-        global $injector, $prefs, $registry, $session;
+        global $registry;
 
         $pushed = $registry->pushApp($this->_app, array(
             'check_perms' => true,
             'logintasks' => false
         ));
 
+        $this->_notify($handler, $listener);
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+    }
+
+    /**
+     */
+    protected function _notify($handler, $listener)
+    {
+        global $injector, $prefs, $session;
+
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status)) {
-            if ($pushed) {
-                $registry->popApp();
-            }
             return;
         }
 
@@ -70,9 +80,6 @@ extends Horde_Core_Notification_Handler_Decorator_Base
                 }
             }
         } catch (Exception $e) {
-            if ($pushed) {
-                $registry->popApp();
-            }
             return;
         }
 
@@ -80,10 +87,6 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if (empty($recent) ||
             !$session->get('imp', 'newmail_init')) {
             $session->set('imp', 'newmail_init', true);
-
-            if ($pushed) {
-                $registry->popApp();
-            }
             return;
         }
 
@@ -113,10 +116,6 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if ($audio = $prefs->getValue('newmail_audio')) {
             $handler->attach('audio');
             $handler->push(Horde_Themes::sound($audio), 'audio');
-        }
-
-        if ($pushed) {
-            $registry->popApp();
         }
     }
 
