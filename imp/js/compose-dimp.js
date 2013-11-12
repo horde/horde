@@ -668,15 +668,17 @@ var DimpCompose = {
             this.seed
         );
 
-        if (this.hash_hdrs) {
-            msg = this.msgHash();
-            sig = this.sigHash();
-            if (this.hash_hdrs != hdrs || this.hash_msg != msg || this.hash_sig != sig) {
-                this.uniqueSubmit('autoSaveDraft');
-            }
-        } else {
+        if (Object.isUndefined(this.hash_hdrs)) {
             msg = this.hash_msgOrig;
             sig = this.hash_sigOrig;
+        } else {
+            msg = this.msgHash();
+            sig = this.sigHash();
+            if (this.hash_hdrs != hdrs ||
+                this.hash_msg != msg ||
+                this.hash_sig != sig) {
+                this.uniqueSubmit('autoSaveDraft');
+            }
         }
 
         this.hash_hdrs = hdrs;
