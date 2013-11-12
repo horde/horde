@@ -18,8 +18,8 @@
  </lead>
  <date>2013-11-12</date>
  <version>
-  <release>2.3.1</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -41,6 +41,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Crypt">
+      <dir name="Pgp">
+       <file name="Parse.php" role="php" />
+      </dir> <!-- /lib/Horde/Crypt/Pgp -->
       <file name="Exception.php" role="php" />
       <file name="Pgp.php" role="php" />
       <file name="Smime.php" role="php" />
@@ -414,6 +417,7 @@
    <install as="Horde/Crypt/Pgp.php" name="lib/Horde/Crypt/Pgp.php" />
    <install as="Horde/Crypt/Smime.php" name="lib/Horde/Crypt/Smime.php" />
    <install as="Horde/Crypt/Translation.php" name="lib/Horde/Crypt/Translation.php" />
+   <install as="Horde/Crypt/Pgp/Parse.php" name="lib/Horde/Crypt/Pgp/Parse.php" />
    <install as="locale/Horde_Crypt.pot" name="locale/Horde_Crypt.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.mo" name="locale/ar/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.po" name="locale/ar/LC_MESSAGES/Horde_Crypt.po" />
@@ -944,15 +948,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.3.1</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
    </notes>
   </release>
  </changelog>
