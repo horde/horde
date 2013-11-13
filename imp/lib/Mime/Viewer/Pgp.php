@@ -33,9 +33,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 {
     /* Metadata constants. */
     const PGP_ARMOR = 'imp-pgp-armor';
-    const PGP_SIG = 'imp-pgp-signature';
     const PGP_SIGN_ENC = 'imp-pgp-signed-encrypted';
-    const PGP_CHARSET = 'imp-pgp-charset';
 
     /**
      * This driver's display capabilities.
@@ -400,13 +398,14 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      */
     protected function _outputPGPSigned()
     {
+        global $conf, $injector, $prefs, $registry;
+
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $signed_id = next($partlist);
         $sig_id = Horde_Mime::mimeIdArithmetic($signed_id, 'next');
 
-        if (!$GLOBALS['prefs']->getValue('use_pgp') ||
-            empty($GLOBALS['conf']['gnupg']['path'])) {
+        if (!$prefs->getValue('use_pgp') || empty($conf['gnupg']['path'])) {
             return array(
                 $sig_id => null
             );
@@ -427,17 +426,17 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $sig_id => null
         );
 
-        if ($GLOBALS['prefs']->getValue('pgp_verify') ||
-            $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
+        if ($prefs->getValue('pgp_verify') ||
+            $injector->getInstance('Horde_Variables')->pgp_verify_msg) {
             $imp_contents = $this->getConfigParam('imp_contents');
             $sig_part = $imp_contents->getMIMEPart($sig_id);
 
             $status2 = new IMP_Mime_Status();
 
             try {
-                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                if ($sig_part->getMetadata(self::PGP_SIG)) {
-                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_getSender()->bare_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
+                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+                if ($sig_raw = $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
+                    $sig_result = $imp_pgp->verifySignature($sig_raw, $this->_getSender()->bare_address, null, $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_CHARSET));
                 } else {
                     $stream = $imp_contents->isEmbedded($signed_id)
                         ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
@@ -466,7 +465,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             )));
             $ret[$base_id]['status'][] = $status2;
         } else {
-            switch ($GLOBALS['registry']->getView()) {
+            switch ($registry->getView()) {
             case Horde_Registry::VIEW_BASIC:
                 $status->addText(Horde::link(Horde::selfUrlParams()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
                 break;

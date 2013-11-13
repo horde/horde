@@ -2849,7 +2849,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             /* Remove PGP armored text. */
-            $pgp = $injector->getInstance('IMP_Crypt_Pgp')->armoredTextToPart($msg);
+            $pgp = $injector->getInstance('Horde_Crypt_Pgp_Parse')->parseToPart($msg);
             if (!is_null($pgp)) {
                 $msg = '';
                 $pgp->buildMimeIds();
