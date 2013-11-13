@@ -1483,4 +1483,12 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             : $result->output;
     }
 
+    /**
+     * @deprecated
+     */
+    public function generateRevocation($key, $email, $passphrase)
+    {
+        throw new Horde_Crypt_Exception('Not supported');
+    }
+
 }
