@@ -103,7 +103,6 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
 
         $label = strval($this->getMailboxById($id));
 
-        Horde::debug($label, null, false);
         return (strcasecmp($label, 'INBOX') === 0)
             ? _("Inbox")
             : $label;
