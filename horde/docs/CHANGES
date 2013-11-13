@@ -2,6 +2,8 @@
 v5.2.0-git
 ----------
 
+[mms] Display indiciation that Caps Lock key is on when entering password on
+      login page (Request #7178).
 [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
 [mms] Added 'filemtime' configuration option for CSS caching.
 [mjr] Add support for X509 authentication support.

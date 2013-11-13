@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Display indiciation that Caps Lock key is on when entering password on login page (Request #7178).
 * [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
 * [mms] Added &apos;filemtime&apos; configuration option for CSS caching.
 * [mjr] Add support for X509 authentication support.
