@@ -294,16 +294,16 @@ class IMP_Mailbox implements Serializable
             throw new IMP_Exception('Mailbox name must not be empty.');
         }
 
-        $this->_mbox = ($mbox == IMP_Ftree::BASE_ELT)
-            ? ''
-            : $mbox;
+        $this->_mbox = $mbox;
     }
 
     /**
      */
     public function __toString()
     {
-        return strval($this->_mbox);
+        return strval(
+            ($this->_mbox == IMP_Ftree::BASE_ELT) ? '' : $this->_mbox
+        );
     }
 
     /**
@@ -401,7 +401,7 @@ class IMP_Mailbox implements Serializable
             }
 
             return (($pos = strrpos($this->_mbox, $this->namespace_delimiter)) === false)
-                ? $this->_mbox
+                ? strval($this)
                 : substr($this->_mbox, $pos + 1);
 
         case 'cache':
@@ -465,7 +465,7 @@ class IMP_Mailbox implements Serializable
             return $this->_getIcon();
 
         case 'imp_imap':
-            return $injector->getInstance('IMP_Factory_Imap')->create($this->_mbox);
+            return $injector->getInstance('IMP_Factory_Imap')->create(strval($this));
 
         case 'imap_mbox':
             return strval(
@@ -583,7 +583,7 @@ class IMP_Mailbox implements Serializable
                 return $ret;
             }
 
-            $ns_info = $this->imp_imap->getNamespace($this->_mbox);
+            $ns_info = $this->imp_imap->getNamespace(strlen($this) ? $this->_mbox : null);
             if (is_null($ns_info)) {
                 $this->_cache[self::CACHE_NAMESPACE] = null;
             } else {
@@ -608,7 +608,7 @@ class IMP_Mailbox implements Serializable
             return ($elt = $this->tree_elt) ? $elt->parent->mbox_ob : null;
 
         case 'parent_imap':
-            return (is_null($p = $this->parent) || ($p == IMP_Ftree::BASE_ELT))
+            return (is_null($p = $this->parent) || !strlen($p))
                 ? null
                 : $p;
 
@@ -1411,21 +1411,21 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
-     * Determines the mailbox name to create given a parent and the new name.
+     * Return the mailbox name to create given a submailbox name.
      *
-     * @param string $new  The new mailbox name (UTF-8).
+     * @param string $new  The submailbox name (UTF-8).
      *
-     * @return IMP_Mailbox  The new mailbox.
+     * @return IMP_Mailbox  The mailbox to create.
      */
     public function createMailboxName($new)
     {
-        if (strlen($this->_mbox)) {
-            if ($this->remote_container) {
-                $new = $this->remote_account->mailbox($new);
-            } else {
-                $ns_info = $this->namespace_info;
-                $new = $this->_mbox . $ns_info['delimiter'] . $new;
-            }
+        if ($this->remote_container) {
+            $new = $this->remote_account->mailbox($new);
+        } else {
+            $ns_info = $this->namespace_info;
+            $new = strlen($this)
+                ? ($this->_mbox . $ns_info['delimiter'] . $new)
+                : $ns_info['name'] . $new;
         }
 
         return self::get($new);
