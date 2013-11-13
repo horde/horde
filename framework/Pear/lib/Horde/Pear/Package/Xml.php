@@ -78,8 +78,33 @@ class Horde_Pear_Package_Xml
             $this->_path = $xml;
             $xml = fopen($xml, 'r');
         }
+
+        $old_libxml_use_errors = libxml_use_internal_errors(true);
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
         $this->_xml->loadXML(stream_get_contents($xml));
+        foreach (libxml_get_errors() as $error) {
+            switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $error_str = 'Warning ';
+                break;
+
+            case LIBXML_ERR_ERROR:
+                $error_str = 'Error ';
+                break;
+
+            case LIBXML_ERR_FATAL:
+                $error_str = 'Fatal error ';
+                break;
+            }
+
+            $error_str .= $error->code . ': ';
+            $error_str .= trim($error->message) . ' on file ';
+            $error_str .= $this->_path . ', line ' . $error->line . ' column ' . $error->column;
+            fwrite(STDERR, "$error_str\n");
+        }
+        libxml_clear_errors();
+        libxml_use_internal_errors($old_libxml_use_errors);
+
         $rootNamespace = $this->_xml->lookupNamespaceUri($this->_xml->namespaceURI);
         $this->_xpath = new DOMXpath($this->_xml);
         if ($rootNamespace !== null) {
