@@ -667,12 +667,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function getKeys($data)
     {
+        global $injector;
+
         $out = array(
             'public' => array(),
             'private' => array()
         );
 
-        foreach ($this->parsePGPData($data) as $val) {
+        foreach ($injector->getInstance('Horde_Crypt_Pgp_Parse')->parse($data) as $val) {
             switch ($val['type']) {
             case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
             case Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY:
