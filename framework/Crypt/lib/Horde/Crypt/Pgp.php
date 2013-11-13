@@ -21,7 +21,6 @@
  * This class has been developed with, and is only guaranteed to work with,
  * Version 1.21 or above of GnuPG.
  *
- * @todo     Use Horde_Http_Client for keyserver communication.
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -50,15 +49,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         'SIGNATURE' => self::ARMOR_SIGNATURE
     );
 
-    /* The default public PGP keyserver to use. */
+    /**
+     * @deprecated  Use Horde_Crypt_Pgp_Keyserver instead.
+     */
     const KEYSERVER_PUBLIC = 'pool.sks-keyservers.net';
-
-    /* The number of times the keyserver refuses connection before an error is
-     * returned. */
     const KEYSERVER_REFUSE = 3;
-
-    /* The number of seconds that PHP will attempt to connect to the keyserver
-     * before it will stop processing the request. */
     const KEYSERVER_TIMEOUT = 10;
 
     /**
@@ -113,8 +108,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param array $params  The following parameters:
      * <pre>
      * 'program' - (string) [REQUIRED] The path to the GnuPG binary.
-     * 'proxy_host - (string) Proxy host.
-     * 'proxy_port - (integer) Proxy port.
+     * 'proxy_host - (string) Proxy host. (@deprecated)
+     * 'proxy_port - (integer) Proxy port. (@deprecated)
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -437,7 +432,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
                 $keyid = empty($key_info['keyid'])
                     ? null
-                    : $this->_getKeyIDString($key_info['keyid']);
+                    : $this->getKeyIDString($key_info['keyid']);
                 $fingerprint = isset($fingerprints[$keyid])
                     ? $fingerprints[$keyid]
                     : null;
@@ -469,8 +464,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
     /**
      * TODO
+     *
+     * @since 2.4.0
      */
-    protected function _getKeyIDString($keyid)
+    public function getKeyIDString($keyid)
     {
         /* Get the 8 character key ID string. */
         if (strpos($keyid, '0x') === 0) {
@@ -690,6 +687,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Returns a PGP public key from a public keyserver.
      *
+     * @deprecated  Use Horde_Crypt_Pgp_Keyserver instead.
+     *
      * @param string $keyid    The key ID of the PGP key.
      * @param string $server   The keyserver to use.
      * @param float $timeout   The keyserver timeout.
@@ -703,21 +702,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                                        $timeout = self::KEYSERVER_TIMEOUT,
                                        $address = null)
     {
+        $keyserver = $this->_getKeyserverOb($server);
         if (empty($keyid) && !empty($address)) {
-            $keyid = $this->getKeyID($address, $server, $timeout);
+            $keyid = $keyserver->getKeyID($address);
         }
-
-        /* Connect to the public keyserver. */
-        $uri = '/pks/lookup?op=get&search=' . $this->_getKeyIDString($keyid);
-        $output = $this->_connectKeyserver('GET', $server, $uri, '', $timeout);
-
-        /* Strip HTML Tags from output. */
-        if (($start = strstr($output, '-----BEGIN'))) {
-            $length = strpos($start, '-----END') + 34;
-            return substr($start, 0, $length);
-        }
-
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
+        return $keyserver->get($keyid);
     }
 
     /**
@@ -733,29 +722,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                                        $server = self::KEYSERVER_PUBLIC,
                                        $timeout = self::KEYSERVER_TIMEOUT)
     {
-        /* Get the key ID of the public key. */
-        $info = $this->pgpPacketInformation($pubkey);
-
-        /* See if the public key already exists on the keyserver. */
-        try {
-            $this->getPublicKeyserver($info['keyid'], $server, $timeout);
-        } catch (Horde_Crypt_Exception $e) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Key already exists on the public keyserver."));
-        }
-
-        /* Connect to the public keyserver. _connectKeyserver() */
-        $pubkey = 'keytext=' . urlencode(rtrim($pubkey));
-        $cmd = array(
-            'Host: ' . $server . ':11371',
-            'User-Agent: Horde Application Framework',
-            'Content-Type: application/x-www-form-urlencoded',
-            'Content-Length: ' . strlen($pubkey),
-            'Connection: close',
-            '',
-            $pubkey
-        );
-
-        return $this->_connectKeyserver('POST', $server, '/pks/add', implode("\r\n", $cmd), $timeout);
+        return $this->_getKeyserverOb($server)->put($pubkey);
     }
 
     /**
@@ -772,68 +739,29 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function getKeyID($address, $server = self::KEYSERVER_PUBLIC,
                              $timeout = self::KEYSERVER_TIMEOUT)
     {
-        $pubkey = null;
-
-        /* Connect to the public keyserver. */
-        $uri = '/pks/lookup?op=index&options=mr&search=' . urlencode($address);
-        $output = $this->_connectKeyserver('GET', $server, $uri, '', $timeout);
-
-        if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {
-            $pubkey = $output;
-        } elseif (strpos($output, 'pub:') !== false) {
-            $output = explode("\n", $output);
-            $keyids = $keyuids = array();
-            $curid = null;
-
-            foreach ($output as $line) {
-                if (substr($line, 0, 4) == 'pub:') {
-                    $line = explode(':', $line);
-                    /* Ignore invalid lines and expired keys. */
-                    if (count($line) != 7 ||
-                        (!empty($line[5]) && $line[5] <= time())) {
-                        continue;
-                    }
-                    $curid = $line[4];
-                    $keyids[$curid] = $line[1];
-                } elseif (!is_null($curid) && substr($line, 0, 4) == 'uid:') {
-                    preg_match("/<([^>]+)>/", $line, $matches);
-                    $keyuids[$curid][] = $matches[1];
-                }
-            }
-
-            /* Remove keys without a matching UID. */
-            foreach ($keyuids as $id => $uids) {
-                $match = false;
-                foreach ($uids as $uid) {
-                    if ($uid == $address) {
-                        $match = true;
-                        break;
-                    }
-                }
-                if (!$match) {
-                    unset($keyids[$id]);
-                }
-            }
-
-            /* Sort by timestamp to use the newest key. */
-            if (count($keyids)) {
-                ksort($keyids);
-                $pubkey = $this->getPublicKeyserver(array_pop($keyids), $server, $timeout);
-            }
-        }
-
-        if ($pubkey) {
-            $sig = $this->pgpPacketSignature($pubkey, $address);
-            if (!empty($sig['keyid']) &&
-                (empty($sig['public_key']['expires']) ||
-                 $sig['public_key']['expires'] > time())) {
-                return substr($this->_getKeyIDString($sig['keyid']), 2);
-            }
-        }
-
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
+        return $this->_getKeyserverOb($server)->getKeyId($address);
     }
 
+    /**
+     * @deprecated
+     * @internal
+     */
+    protected function _getKeyserverOb($server)
+    {
+        $params = array(
+            'keyserver' => $server,
+            'http' => new Horde_Http_Client()
+        );
+
+        if (!empty($this->_params['proxy_host'])) {
+            $params['http']->{'request.proxyServer'} = $this->_params['proxy_host'];
+            if (isset($this->_params['proxy_port'])) {
+                $params['http']->{'request.proxyPort'} = $this->_params['proxy_port'];
+            }
+        }
+
+        return new Horde_Crypt_Pgp_Keyserver($this, $params);
+    }
     /**
      * Get the fingerprints from a key block.
      *
@@ -873,69 +801,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         }
 
         return $fingerprints;
-    }
-
-    /**
-     * Connects to a public key server via HKP (Horrowitz Keyserver Protocol).
-     * http://tools.ietf.org/html/draft-shaw-openpgp-hkp-00
-     *
-     * @param string $method    POST, GET, etc.
-     * @param string $server    The keyserver to use.
-     * @param string $resource  The URI to access (relative to the server).
-     * @param string $command   The PGP command to run.
-     * @param float $timeout    The timeout value.
-     *
-     * @return string  The text from standard output on success.
-     * @throws Horde_Crypt_Exception
-     */
-    protected function _connectKeyserver($method, $server, $resource,
-                                         $command, $timeout)
-    {
-        $connRefuse = 0;
-        $output = '';
-
-        $port = '11371';
-        if (!empty($this->_params['proxy_host'])) {
-            $resource = 'http://' . $server . ':' . $port . $resource;
-
-            $server = $this->_params['proxy_host'];
-            $port = isset($this->_params['proxy_port'])
-                ? $this->_params['proxy_port']
-                : 80;
-        }
-
-        $command = $method . ' ' . $resource . ' HTTP/1.0' . ($command ? "\r\n" . $command : '');
-
-        /* Attempt to get the key from the keyserver. */
-        do {
-            $errno = $errstr = null;
-
-            /* The HKP server is located on port 11371. */
-            $fp = @fsockopen($server, $port, $errno, $errstr, $timeout);
-            if ($fp) {
-                fputs($fp, $command . "\n\n");
-                while (!feof($fp)) {
-                    $output .= fgets($fp, 1024);
-                }
-                fclose($fp);
-                return $output;
-            }
-        } while (++$connRefuse < self::KEYSERVER_REFUSE);
-
-        if ($errno == 0) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Connection refused to the public keyserver."));
-        } else {
-            $charset = 'UTF-8';
-            $lang_charset = setlocale(LC_ALL, 0);
-            if ((strpos($lang_charset, ';') === false) &&
-                (strpos($lang_charset, '/') === false)) {
-                $lang_charset = explode('.', $lang_charset);
-                if ((count($lang_charset) == 2) && !empty($lang_charset[1])) {
-                    $charset = $lang_charset[1];
-                }
-            }
-            throw new Horde_Crypt_Exception(sprintf(Horde_Crypt_Translation::t("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset, 'UTF-8'), $errno));
-        }
     }
 
     /**
