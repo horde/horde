@@ -30,15 +30,11 @@ class Horde_Form_Type
     }
 
     /**
-     * Initialize (kind of constructor) - Parameter list may vary on
-     * overloading.
-     *
-     * For PHP5, function signatures must be identical, so comment this out
-     * to prevent strict warnings.
+     * Initialize (kind of constructor) - Parameter list may vary on overloading
      */
-    //function init()
-    //{
-    //}
+    function init()
+    {
+    }
 
     function onSubmit()
     {
