@@ -1457,49 +1457,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     }
 
     /**
-     * Generates a revocation certificate.
-     *
-     * @param string $key         The private key.
-     * @param string $email       The email to use for the key.
-     * @param string $passphrase  The passphrase to use for the key.
-     *
-     * @return string  The revocation certificate.
-     * @throws Horde_Crypt_Exception
-     */
-    public function generateRevocation($key, $email, $passphrase)
-    {
-        $keyring1 = $this->_putInKeyring($key, 'public');
-        $keyring2 = $this->_putInKeyring($key, 'private');
-
-        /* Prepare the canned answers. */
-        $input = array(
-            'y', // Really generate a revocation certificate
-            '0', // Refuse to specify a reason
-            '',  // Empty comment
-            'y'  // Confirm empty comment
-        );
-        if (!empty($passphrase)) {
-            $input[] = $passphrase;
-        }
-
-        /* Run through gpg binary. */
-        $cmdline = array(
-            $keyring1,
-            $keyring2,
-            '--command-fd 0',
-            '--gen-revoke ' . $email,
-        );
-        $results = $this->_callGpg($cmdline, 'w', $input, true);
-
-        /* If the key is empty, something went wrong. */
-        if (empty($results->output)) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Revocation key not generated successfully."));
-        }
-
-        return $results->output;
-    }
-
-    /**
      * Generates a public key from a private key.
      *
      * @param string $data  Armor text of private key.
