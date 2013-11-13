@@ -57,7 +57,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
 
     public static function setUpBeforeClass()
     {
-        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
+        //$logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
         //self::$db->setLogger($logger);
         $dir = __DIR__ . '/../../../../../../migration/Horde/Prefs';
         if (!is_dir($dir)) {
@@ -84,6 +84,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         self::$prefs = null;
         if (self::$migrator) {
             self::$migrator->down();
+            self::$migrator = null;
         }
         if (self::$db) {
             self::$db->disconnect();

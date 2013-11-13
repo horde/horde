@@ -1,2 +1,2 @@
 <?php
-$conf['crypt']['keyserver'] = false;
+$conf['crypt']['gnupg'] = '/usr/bin/gpg';

@@ -28,9 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-06</date>
+ <date>2013-11-12</date>
  <version>
-  <release>2.11.0</release>
+  <release>2.11.1</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -39,12 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix hiding preferences if they are contained within a prefs container.
-* [mms] Added standardized/normalized mousewheelY javascript event handling to HordeCore.
-* [mms] Add nonce generation/checking to Horde_Session.
-* [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
-* [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
-* [mms] Fix deauthenticating when a system-level logout event occurs.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3226,7 +3221,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-06</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix hiding preferences if they are contained within a prefs container.
@@ -3235,6 +3230,19 @@
 * [mms] Application hook methods moved from Horde:: to Horde_Core_Hooks::.
 * [mms] Add &apos;fallback&apos; option for the Horde_Registry#appInit() &apos;authentication&apos; parameter.
 * [mms] Fix deauthenticating when a system-level logout event occurs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.1</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

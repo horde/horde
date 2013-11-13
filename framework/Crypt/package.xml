@@ -16,11 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>14:14:17</time>
+ <date>2013-11-13</date>
  <version>
-  <release>2.3.0</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +27,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Horde_Crypt_Pgp#parsePGPData() now accepts a Horde_Stream object as an argument.
+* [mms] Remove Horde_Crypt_Pgp#generateRevocation() (Bug #7375).
+* [mms] Fix submitting PGP keys to a public keyserver (Bug #10931).
+* [mms] PGP keyserver code now uses Horde_Http_Client to connect to the keyserver.
+* [mms] Move PGP keyserver code to a separate Horde_Crypt_Pgp_Keyserver class.
+* [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
+* [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +46,10 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Crypt">
+      <dir name="Pgp">
+       <file name="Keyserver.php" role="php" />
+       <file name="Parse.php" role="php" />
+      </dir> <!-- /lib/Horde/Crypt/Pgp -->
       <file name="Exception.php" role="php" />
       <file name="Pgp.php" role="php" />
       <file name="Smime.php" role="php" />
@@ -356,6 +364,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -378,6 +393,13 @@
    </package>
    <package>
     <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -415,6 +437,8 @@
    <install as="Horde/Crypt/Pgp.php" name="lib/Horde/Crypt/Pgp.php" />
    <install as="Horde/Crypt/Smime.php" name="lib/Horde/Crypt/Smime.php" />
    <install as="Horde/Crypt/Translation.php" name="lib/Horde/Crypt/Translation.php" />
+   <install as="Horde/Crypt/Pgp/Keyserver.php" name="lib/Horde/Crypt/Pgp/Keyserver.php" />
+   <install as="Horde/Crypt/Pgp/Parse.php" name="lib/Horde/Crypt/Pgp/Parse.php" />
    <install as="locale/Horde_Crypt.pot" name="locale/Horde_Crypt.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.mo" name="locale/ar/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.po" name="locale/ar/LC_MESSAGES/Horde_Crypt.po" />
@@ -937,10 +961,28 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Crypt_Pgp#parsePGPData() now accepts a Horde_Stream object as an argument.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Remove Horde_Crypt_Pgp#generateRevocation() (Bug #7375).
+* [mms] Fix submitting PGP keys to a public keyserver (Bug #10931).
+* [mms] PGP keyserver code now uses Horde_Http_Client to connect to the keyserver.
+* [mms] Move PGP keyserver code to a separate Horde_Crypt_Pgp_Keyserver class.
+* [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
+* [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
    </notes>
   </release>
  </changelog>
