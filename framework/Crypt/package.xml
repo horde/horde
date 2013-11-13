@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
 * [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
  </notes>
  <contents>
@@ -956,6 +957,7 @@ Initial release as a PEAR package
    <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
 * [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
    </notes>
   </release>
