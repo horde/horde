@@ -57,6 +57,12 @@ class Horde_Crypt_Pgp_Parse
     const ARMOR_TEXT = 6;
 
     /**
+     * Metadata names for signature data.
+     */
+    const SIG_CHARSET = 'pgp_sig_charset';
+    const SIG_RAW = 'pgp_sig_raw';
+
+    /**
      * Strings in armor header lines used to distinguish between the different
      * types of PGP decryption/encryption.
      *
@@ -125,6 +131,103 @@ class Horde_Crypt_Pgp_Parse
         }
 
         return $data;
+    }
+
+    /**
+     * Parses an armored message into a Horde_Mime_Part object.
+     *
+     * @param mixed $text  Either the text to parse or a Horde_Stream object.
+     *
+     * @return mixed  Either null if no PGP data was found, or a
+     *                Horde_Mime_Part object. For detached signature data:
+     *                the full contents of the armored text (data + sig) is
+     *                contained in the SIG_RAW metadata, and the charset is
+     *                contained in the SIG_CHARSET metadata, within the
+     *                application/pgp-signature part.
+     */
+    public function parseToPart($text, $charset = 'UTF-8')
+    {
+        $parts = $this->parse($text);
+
+        if (empty($parts) ||
+            ((count($parts) == 1) && ($parts[0]['type'] == self::ARMOR_TEXT))) {
+            return null;
+        }
+
+        $new_part = new Horde_Mime_Part();
+        $new_part->setType('multipart/mixed');
+
+        foreach ($parts as $val) {
+            switch ($val['type']) {
+            case self::ARMOR_TEXT:
+                $part = new Horde_Mime_Part();
+                $part->setType('text/plain');
+                $part->setCharset($charset);
+                $part->setContents(implode("\n", $val['data']));
+                $new_part->addPart($part);
+                break;
+
+            case self::ARMOR_PUBLIC_KEY:
+                $part = new Horde_Mime_Part();
+                $part->setType('application/pgp-keys');
+                $part->setContents(implode("\n", $val['data']));
+                $new_part->addPart($part);
+                break;
+
+            case self::ARMOR_MESSAGE:
+                $part = new Horde_Mime_Part();
+                $part->setType('multipart/encrypted');
+                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
+                $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
+
+                $part1 = new Horde_Mime_Part();
+                $part1->setType('application/pgp-encrypted');
+                $part1->setContents("Version: 1\n");
+
+                $part2 = new Horde_Mime_Part();
+                $part2->setType('application/octet-stream');
+                $part2->setContents(implode("\n", $val['data']));
+                $part2->setDisposition('inline');
+
+                $part->addPart($part1);
+                $part->addPart($part2);
+
+                $new_part->addPart($part);
+                break;
+
+            case self::ARMOR_SIGNED_MESSAGE:
+                if (($sig = current($parts)) &&
+                    ($sig['type'] == self::ARMOR_SIGNATURE)) {
+                    $part = new Horde_Mime_Part();
+                    $part->setType('multipart/signed');
+                    // TODO: add micalg parameter
+                    $part->setContentTypeParameter('protocol', 'application/pgp-signature');
+
+                    $part1 = new Horde_Mime_Part();
+                    $part1->setType('text/plain');
+                    $part1->setCharset($charset);
+
+                    $part1_data = implode("\n", $val['data']);
+                    $part1->setContents(substr($part1_data, strpos($part1_data, "\n\n") + 2));
+
+                    $part2 = new Horde_Mime_Part();
+
+                    $part2->setType('application/pgp-signature');
+                    $part2->setContents(implode("\n", $sig['data']));
+
+                    $part2->setMetadata(self::SIG_CHARSET, $charset);
+                    $part2->setMetadata(self::SIG_RAW, implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']));
+
+                    $part->addPart($part1);
+                    $part->addPart($part2);
+                    $new_part->addPart($part);
+
+                    next($parts);
+                }
+            }
+        }
+
+        return $new_part;
     }
 
 }
