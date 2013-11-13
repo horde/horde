@@ -29,9 +29,38 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
+Upgrading Horde from 5.1.x to 5.2
+=================================
 
-Upgrading Horde from 5.0.x to 5.1.x
-===================================
+Configuration Options (conf.php)
+--------------------------------
+
+New logging options for ActiveSync logging have been added. It is now possible
+to log all devices to a single log file or to device specific files.
+Additionally, it is also possible to select between including the raw wbxml
+stream in the output, or prune tag content greater than 50 bytes. The
+ActiveSync configuration section should be revisited.
+
+It is now possible to use X509 certificates either in addition to, or in place
+of traditional HTTP Basic authentication for ActiveSync. Refer to the
+ActiveSync configuration section for more details.
+
+The following options were added::
+
+    $conf['activesync']['logging']['level']
+    $conf['activesync']['auth']['type']
+    $conf['activesync']['auth']['params']
+    $conf['cachecssparams']['filemtime']
+
+
+The available options for the following options were changed::
+
+    $conf['activesync']['logging']['type']
+
+
+
+Upgrading Horde from 5.0.x to 5.1
+=================================
 
 Configuration Options (conf.php)
 --------------------------------

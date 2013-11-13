@@ -708,6 +708,23 @@
       </configswitch>
      </configsection>
     </case>
+    <case name="x509" desc="X509 Client Certificates">
+      <configsection name="params">
+        <configstring name="username_field" desc="The X509 field containing the username">
+        SSL_CLIENT_S_DN_CN</configstring>
+        <configswitch name="password_source" desc="Where should Horde attempt to
+        find user passwords?">
+          <case name="none" desc="Either no passwords are needed, or the
+          postauthenticate hook will provide them."/>
+          <case name="unified" desc="A single password will be used for all
+          users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+          BE PROPERLY SECURED!">
+            <configstring name="unified_password" desc="The password to use.">
+            </configstring>
+          </case>
+        </configswitch>
+      </configsection>
+    </case>
    </configswitch>
    <configsection name="params">
     <configboolean name="count_bad_logins" required="false" desc="Should Horde
@@ -1133,6 +1150,11 @@
        </configdescription>
       </case>
      </configswitch>
+     <configboolean name="filemtime" desc="Expire cache if the modification
+     time of a CSS file has changed? This setting is useful for development
+     installations. It should not be used in production environments, as it
+     requires a filestat of every CSS file loaded on a
+     page">false</configboolean>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">86400</configinteger>
     </configsection>
@@ -2055,12 +2077,29 @@
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
+     <configheader>Storage</configheader>
+     <configdescription>ActiveSync needs to store information about device
+     properties and state data such as syncronization keys and hierarchy data.
+     Choose the storage backend to use.</configdescription>
+     <configswitch name="storage">
+      <case name="Nosql" desc="NoSQL Database">
+        <configsection name="params">
+         <confignosql switchname="driverconfig" />
+        </configsection>
+      </case>
+      <case name="Sql" desc="SQL Database">
+        <configsection name="params">
+         <configsql switchname="driverconfig" />
+        </configsection>
+      </case>
+     </configswitch>
      <configheader>Capabilities</configheader>
       <configboolean name="emailsync" desc="Enable Email support?">true
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
-      a higher version also includes support for the lower versions as well.">14
+      a higher version also includes support for the lower versions as well. Set
+      to EAS 14.1 unless you have a good reason not to.">14.1
       <values>
        <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
        <value desc="Exchange 2007 (EAS 12.0)">12</value>
@@ -2069,6 +2108,58 @@
        <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
       </values>
      </configenum>
+     <configheader>Authentication</configheader>
+     <configdescription>ActiveSync can be configured to authenticate against
+     Horde using either HTTP Basic authentication, X509 client certificates, or
+     both. HTTP Basic will authenticate the credentials passed from the client
+     against the configured Horde authentication backend. If client certificates
+     are used you will need to properly configure your webserver for this as
+     well as provide some mechanism for using hordeauth with the IMAP server.
+     See http://wiki.horde.org/ActiveSync for more details on client certificate
+     authentication. If selecting both basic and client certificates, make sure
+     you are not already using client certificate authentication in Horde; if
+     client certificates are used for general Horde authentication then they
+     must be used here as well. If unsure, select Basic. </configdescription>
+     <configsection name="auth">
+       <configswitch name="type" desc="Select the authentication methods that
+       should be supported.">basic
+         <case name="basic" desc="HTTP Basic"/>
+         <case name="cert" desc="Cient Certificates">
+           <configsection name="params">
+             <configstring name="username_field" desc="The X509 field containing the username">
+             SSL_CLIENT_S_DN_CN</configstring>
+             <configswitch name="password_source" desc="Where should Horde attempt to
+             find user passwords?">
+               <case name="none" desc="Either no passwords are needed, or the
+               postauthenticate hook will provide them."/>
+               <case name="unified" desc="A single password will be used for all
+               users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+               BE PROPERLY SECURED!">
+                 <configstring name="password" desc="The password to use.">
+                 </configstring>
+               </case>
+             </configswitch>
+           </configsection>
+         </case>
+         <case name="basic_cert" desc="HTTP Basic with Client Certificates">
+           <configsection name="params">
+             <configstring name="username_field" desc="The X509 field containing the username">
+             SSL_CLIENT_S_DN_CN</configstring>
+             <configswitch name="password_source" desc="Where should Horde attempt to
+             find user passwords?">
+               <case name="none" desc="Either no passwords are needed, or the
+               postauthenticate hook will provide them."/>
+               <case name="unified" desc="A single password will be used for all
+               users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+               BE PROPERLY SECURED!">
+                 <configstring name="password" desc="The password to use.">
+                 </configstring>
+               </case>
+             </configswitch>
+           </configsection>
+         </case>
+       </configswitch>
+     </configsection>
      <configheader>Autodiscovery</configheader>
      <configenum name="autodiscovery" desc="Some devices attempt to use an
      Autodiscovery service to configure the device's account using only the
@@ -2115,15 +2206,29 @@
      </configswitch>
      <configheader>Logging</configheader>
      <configsection name="logging">
-      <configswitch name="type" desc="For debugging, it may be useful to send
-      activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the directory to place log files
-      in. Horde will create device specific log files in this directory.">
-        <case name="horde" desc="Horde" />
-        <case name="custom" desc="Custom">
-         <configstring name="path" desc="Path to custom log directory." />
-        </case>
-      </configswitch>
+       <configswitch name="type" desc="For debugging, it may be useful have a log
+       of the Wbxml stream along with some other activesync-related data. If you
+       want to do this, set this to either Per Device or Single File and enter
+       the appropriate path. If detailed debug logging is not needed, set this to
+       None.">None
+         <case name="false" desc="None" />
+         <case name="perdevice" desc="Per Device">
+           <configstring name="path" desc="Path to custom log directory." />
+           <configenum name="level" desc="Should Horde include all the raw data
+           in the Wbxml log stream? If set to Detailed, the entire raw content
+           is logged. If set to Protocol, all protocol level detail is included,
+           but any Wbxml tag content over 50 bytes is logged only as the size of
+           the data." required="false">protocol
+             <values>
+               <value desc="Protocol">2</value>
+               <value desc="Detailed">1</value>
+             </values>
+           </configenum>
+         </case>
+         <case name="onefile" desc="Single file">
+           <configstring name="path" desc="Log file name." />
+         </case>
+       </configswitch>
      </configsection>
      <configsection name="ping">
       <configheader>Ping Settings</configheader>

@@ -46,6 +46,18 @@ var HordeLogin = {
         e.stop();
     },
 
+    keypressPassword: function(e)
+    {
+        var kc = e.keyCode || e.charCode;
+
+        if (((kc >= 65 & kc <= 90) && !e.shiftKey) ||
+            ((kc >= 97 & kc <= 122) && e.shiftKey)) {
+            $('horde-login-pass-capslock').show();
+        } else {
+            $('horde-login-pass-capslock').hide();
+        }
+    },
+
     /* Removes any leading hash that might be on a location string. */
     _removeHash: function(h)
     {
@@ -84,3 +96,4 @@ var HordeLogin = {
 document.observe('dom:loaded', HordeLogin.onDomLoad.bind(HordeLogin));
 document.on('change', '#new_lang', HordeLogin.selectLang.bind(HordeLogin));
 document.on('click', '#login-button', HordeLogin.loginButton.bind(HordeLogin));
+document.on('keypress', '#horde_pass', HordeLogin.keypressPassword.bind(HordeLogin));

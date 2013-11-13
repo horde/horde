@@ -738,7 +738,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesync_replyposition', 'activesyncmanagement'),
+    'members' => array('activesync_replyposition', 'activesync_multiplex', 'activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }
@@ -749,6 +749,11 @@ $_prefs['activesyncmanagement'] = array(
     'handler' => 'Horde_Prefs_Special_Activesync'
 );
 
+$_prefs['activesync_multiplex'] = array(
+    'type' => 'checkbox',
+    'desc' => _("Should multiple collections be multiplexed?"),
+    'value' => 1);
+
 $_prefs['activesync_replyposition'] = array(
     'type' => 'enum',
     'desc' => _("Position of reply text when replying to email on your device. Note that some devices will always send the citation string at the end of the reply text."),
@@ -758,7 +763,10 @@ $_prefs['activesync_replyposition'] = array(
         return empty($GLOBALS['conf']['activesync']['emailsync']);
     }
 );
-
+// Handled by the special.
+$_prefs['activesync_identity'] = array(
+    'value' => null
+);
 
 
 // *** Internal Preferences ***

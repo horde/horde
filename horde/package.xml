@@ -30,8 +30,8 @@
  </lead>
  <date>2013-10-29</date>
  <version>
-  <release>5.1.6</release>
-  <api>5.0.0</api>
+  <release>5.2.0</release>
+  <api>5.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,13 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
+* [mms] Display indication that Caps Lock key is on when entering password on login page (Request #7178).
+* [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
+* [mms] Added &apos;filemtime&apos; configuration option for CSS caching.
+* [mjr] Add support for X509 authentication support.
+* [mjr] Improve logging options for ActiveSync logging configuration.
+* [mjr] Add support for managing ActiveSync devices through the API.
+* [mjr] Add prefs for selecting From address when sending email via ActiveSync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1824,7 +1830,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.6.2</min>
+    <min>2.7.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
