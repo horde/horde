@@ -187,8 +187,8 @@ $_prefs['default_download'] = array(
     'type' => 'enum',
     'enum' => array(
         'all' => _("Anyone"),
-        'edit' => _("Authenticated users"),
-        'authenticated' => _("Users with edit permissions")
+        'edit' => _("Users with edit permissions"),
+        'authenticated' =>  _("Authenticated users")
     ),
     'desc' => _("Who should be allowed to download original photos")
 );
