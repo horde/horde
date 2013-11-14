@@ -30,10 +30,10 @@ do {
         /* Permission checks on the target calendar . */
         switch ($targetType) {
         case 'internal':
-            $kronolith_calendar = $all_calendars[$calendar_id];
+            $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $calendar_id);
             break;
         case 'remote':
-            $kronolith_calendar = $all_remote_calendars[$calendar_id];
+            $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $calendar_id);
             break;
         case 'resource':
             $rid = Kronolith::getDriver('Resource')->getResourceIdByCalendar($calendar_id);
