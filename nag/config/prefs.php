@@ -301,7 +301,7 @@ $_prefs['sync_lists'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled']) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
