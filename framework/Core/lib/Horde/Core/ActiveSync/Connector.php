@@ -667,6 +667,7 @@ class Horde_Core_ActiveSync_Connector
      * @param string $pref The name of the preference setting.
      *
      * @return mixed  The preference value
+     * @deprecated (unused)
      */
     public function horde_getPref($app, $pref)
     {
