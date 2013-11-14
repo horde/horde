@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-16</date>
+ <date>2013-11-14</date>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add Horde_Mongo_Exception.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,6 +39,7 @@
        <file name="Index.php" role="php" />
       </dir> <!-- /lib/Horde/Mongo/Collection -->
       <file name="Client.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Mongo -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -64,6 +65,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Mongo/COPYING" />
    <install as="Horde/Mongo/Client.php" name="lib/Horde/Mongo/Client.php" />
+   <install as="Horde/Mongo/Exception.php" name="lib/Horde/Mongo/Exception.php" />
    <install as="Horde/Mongo/Collection/Index.php" name="lib/Horde/Mongo/Collection/Index.php" />
   </filelist>
  </phprelease>
@@ -138,15 +140,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-16</date>
+   <date>2013-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add Horde_Mongo_Exception.
    </notes>
   </release>
  </changelog>
