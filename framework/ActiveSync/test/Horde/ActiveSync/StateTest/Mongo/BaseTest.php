@@ -225,7 +225,7 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
         }
         try {
             $mongo = new Horde_Mongo_Client();
-        } catch (MongoConnectionException $e) {
+        } catch (Horde_Mongo_Exception $e) {
             $this->markTestSkipped('Mongo connection failed.');
             return;
         }
