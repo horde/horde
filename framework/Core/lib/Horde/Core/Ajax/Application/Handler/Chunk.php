@@ -28,8 +28,13 @@ class Horde_Core_Ajax_Application_Handler_Chunk extends Horde_Core_Ajax_Applicat
         $result = new stdClass;
         if (!empty($chunk)) {
             Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', $this->_base->app) . '/chunks/' . $chunk . '.php';
-            $result->chunk = Horde::endBuffer();
+            try {
+                include $GLOBALS['registry']->get('templates', $this->_base->app) . '/chunks/' . $chunk . '.php';
+                $result->chunk = Horde::endBuffer();
+            } catch (Exception $e) {
+                Horde::endBuffer();
+                throw $e;
+            }
         }
 
         return $result;
