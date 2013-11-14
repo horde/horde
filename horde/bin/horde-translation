@@ -458,15 +458,11 @@ class Horde_Translation_Script
              * an invalid charset being used in this file. */
             $tmp_file = $file . '.tmp.pot';
 
-            if (file_exists($this->dirs[$i] . '/lib/Application.php')) {
-                include_once $this->dirs[$i] . '/lib/Application.php';
-                $className = $this->apps[$i] . '_Application';
-                $appOb = new $className;
-                $version = $appOb->version;
-            } else {
-                include_once $this->dirs[$i] . '/lib/version.php';
-                $version = constant(strtoupper($this->apps[$i]) . '_VERSION');
-            }
+            include_once $this->dirs[$i] . '/lib/Application.php';
+            $className = $this->apps[$i] . '_Application';
+            $appOb = new $className;
+            $version = $appOb->version;
+
             $sh = $this->xgettext
                 . ' --language=PHP'
                 . ' --from-code=iso-8859-1'
