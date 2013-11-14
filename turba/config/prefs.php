@@ -19,7 +19,7 @@ $prefGroups['sync'] = array(
     'column' => _("Address Books"),
     'label' => _("Synchronization Preferences"),
     'desc' => _("Choose which address books to use for synchronization with external devices."),
-    'members' => array('sync_books'),
+    'members' => array('sync_books', 'activesync_no_multiplex'),
 );
 
 $prefGroups['columns'] = array(
@@ -64,7 +64,7 @@ $_prefs['sync_books'] = array(
         $ui->prefs['sync_books']['enum'] = $enum;
     },
     'on_change' => function() {
-        if ($GLOBALS['conf']['activesync']['enabled']) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
@@ -82,6 +82,14 @@ $_prefs['sync_books'] = array(
             }
         }
     }
+);
+
+// @todo We default to using multiplex since that is the current behavior
+// For Turba 5 we should default to separate.
+$_prefs['activesync_no_multiplex'] = array(
+    'type' => 'checkbox',
+    'desc' => _("Support separate collections?"),
+    'value' => 0
 );
 
 // Columns selection widget
