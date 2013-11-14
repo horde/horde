@@ -32,7 +32,7 @@ $prefGroups['sync'] = array(
     'column' => _("Calendars"),
     'label' => _("Synchronization Preferences"),
     'desc' => _("Choose the calendars to use for synchronization with external devices."),
-    'members' => array('sync_calendars'),
+    'members' => array('sync_calendars', 'activesync_no_multiplex'),
 );
 
 $prefGroups['event_options'] = array(
@@ -298,7 +298,7 @@ $_prefs['sync_calendars'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->getValue('activesync_multiplex')) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
@@ -317,6 +317,13 @@ $_prefs['sync_calendars'] = array(
         }
     }
 );
+
+// @todo We default to using multiplex since that is the current behavior
+// For Kronolith 5 we should default to separate.
+$_prefs['activesync_no_multiplex'] = array(
+    'type' => 'checkbox',
+    'desc' => _("Support separate collections?"),
+    'value' => 0);
 
 // Which drivers are we supposed to use to examine holidays?
 $_prefs['holiday_drivers'] = array(
