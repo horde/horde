@@ -39,17 +39,11 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
 
     /**
      * @see MongoClient#__construct
-     *
-     * @throws Horde_Mongo_Exception
      */
     public function __construct($server = null, array $options = array())
     {
         $this->_cArgs = array($server, $options);
-        try {
-            parent::__construct($server, $options);
-        } catch (MongoConnectionException $e) {
-            throw new Horde_Mongo_Exception($e->getMessage());
-        }
+        parent::__construct($server, $options);
     }
 
     /* Database name is hardcoded into Horde_Mongo_Client. */
