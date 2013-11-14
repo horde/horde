@@ -26,7 +26,7 @@ $prefGroups['sync'] = array(
     'column' => _("Notepad and Share Preferences"),
     'label' => _("Synchronization Preferences"),
     'desc' => _("Choose the Notepads to use for synchronization with external devices."),
-    'members' => array('sync_notepads'),
+    'members' => array('sync_notepads', 'activesync_no_multiplex'),
 );
 
 $prefGroups['deletion'] = array(
@@ -121,7 +121,7 @@ $_prefs['sync_notepads'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_notepads', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled']) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
@@ -139,6 +139,14 @@ $_prefs['sync_notepads'] = array(
             }
         }
     }
+);
+
+// @todo We default to using multiplex since that is the current behavior
+// For Mnemo 5 we should default to separate.
+$_prefs['activesync_no_multiplex'] = array(
+    'type' => 'checkbox',
+    'desc' => _("Support separate collections?"),
+    'value' => 0
 );
 
 // store the notepads to diplay
