@@ -154,7 +154,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * Const'r
      *
      * @param array  $params   Must contain:
-     *      - connection:  (Horde_Mongo_Client  The Horde_Db instance.
+     *      - connection:  (Horde_Mongo_Client  The Horde_Mongo instance.
      *
      * @return Horde_ActiveSync_State_Sql
      */
@@ -460,7 +460,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
                 try {
                     $this->_db->HAS_map->insert($document);
-                } catch (Horde_Db_Exception $e) {
+                } catch (Exception $e) {
                     throw new Horde_ActiveSync_Exception($e);
                 }
                 break;
