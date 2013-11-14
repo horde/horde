@@ -179,7 +179,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      *                 (@since 2.11.0).
      *     - [DEFAULT]: Authenticate; on no auth redirect to login screen
      *   - cli: (boolean) Initialize a CLI interface. Setting this to true
-     *          implicits setting 'authentication' to 'none' and 'admin' and
+     *          implicitly sets 'authentication' to 'none' and 'admin' and
      *          'nocompress' to true.
      *          DEFAULT: false
      *   - nocompress: (boolean) If set, the page will not be compressed.
