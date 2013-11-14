@@ -212,7 +212,8 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
         try {
             $mongo = new Horde_Mongo_Client();
             $mongo->activesync_test->drop();
-        } catch (MongoConnectionException $e) {
+        } catch (Horde_Mongo_Exception $e) {
+            return;
         }
         parent::tearDownAfterClass();
     }
