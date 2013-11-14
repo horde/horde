@@ -91,9 +91,15 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
         // We are editing/viewing resource calendars
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $cal) {
             $rd = Kronolith::getDriver('Resource');
-            $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
-            printf('<option value="%s">%s (%s)</option>',
-                    'resource_' . htmlspecialchars($cal), $rc->get('name'), _("resource")) . "\n";
+            try {
+                $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
+                printf('<option value="%s">%s (%s)</option>',
+                       'resource_' . htmlspecialchars($cal),
+                       htmlspecialchars($rc->get('name')),
+                       _("resource"))
+                    . "\n";
+            } catch (Horde_Exception_NotFound $e) {
+            }
         }
     }
 ?>

@@ -2542,8 +2542,11 @@ class Kronolith
         if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
             $r_driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $c) {
-                $resource = $r_driver->getResource($r_driver->getResourceIdByCalendar($c));
-                $calendars[] = new Kronolith_Calendar_Resource(array('resource' => $resource));
+                try {
+                    $resource = $r_driver->getResource($r_driver->getResourceIdByCalendar($c));
+                    $calendars[] = new Kronolith_Calendar_Resource(array('resource' => $resource));
+                } catch (Horde_Exception_NotFound $e) {
+                }
             }
         }
         return $calendars;
