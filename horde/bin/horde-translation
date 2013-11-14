@@ -416,6 +416,8 @@ class Horde_Translation_Script
      */
     public function xtract($options)
     {
+        global $registry;
+
         foreach ($options as $option) {
             switch ($option[0]) {
             case 'h':
@@ -458,10 +460,7 @@ class Horde_Translation_Script
              * an invalid charset being used in this file. */
             $tmp_file = $file . '.tmp.pot';
 
-            include_once $this->dirs[$i] . '/lib/Application.php';
-            $className = $this->apps[$i] . '_Application';
-            $appOb = new $className;
-            $version = $appOb->version;
+            $version = $registry->getVersion($this->apps[$i]);
 
             $sh = $this->xgettext
                 . ' --language=PHP'
@@ -1577,12 +1576,12 @@ if (file_exists($baseFile)) {
     require_once PEAR_Config::singleton()
         ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
 }
+Horde_Registry::appInit('horde', array(
+    'cli' => true,
+    'session_control' => 'none'
+));
 
-$c = new Horde_Cli();
-if (!$c->runningFromCLI()) {
-    $c->fatal('This script must be run from the command line.');
-}
-$c->init();
+$c = $cli;
 
 $c->writeln($c->bold('---------------------------'));
 $c->writeln($c->bold('Horde translation generator'));
@@ -1591,8 +1590,6 @@ $c->writeln($c->bold('---------------------------'));
 /* Instantiate main object. */
 $script = new Horde_Translation_Script();
 $script->cli = $c;
-$registry = new Horde_Support_Stub();
-$injector = new Horde_Support_Stub();
 
 /* Sanity checks */
 if (!extension_loaded('gettext')) {
