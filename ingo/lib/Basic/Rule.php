@@ -62,6 +62,10 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
+        if ($this->_assertMaxRules($perms, $filters)) {
+            Ingo_Basic_Filters::url()->redirect();
+        }
+
         /* Token checking. */
         $actionID = $this->_checkToken(array(
             'rule_save',
@@ -69,15 +73,26 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         ));
 
         /* Update the current rules before performing any action. */
-        $rule = array(
-            'action' => $this->vars->action,
-            'combine' => $this->vars->combine,
-            'conditions' => array(),
-            'flags' => 0,
-            'id' => $this->vars->id,
-            'name' => $this->vars->name,
-            'stop' => $this->vars->stop
-        );
+        if (isset($this->vars->edit)) {
+            $rule = $filters->getRule($this->vars->edit);
+        } elseif (isset($this->vars->action)) {
+            $rule = array(
+                'action' => $this->vars->action,
+                'combine' => $this->vars->combine,
+                'conditions' => array(),
+                'flags' => 0,
+                'id' => $this->vars->id,
+                'name' => $this->vars->name,
+                'stop' => $this->vars->stop
+            );
+        } else {
+            $rule = $filters->getDefaultRule();
+        }
+
+        if (!$rule) {
+            $notification->push(_("Filter not found."), 'horde.error');
+            Ingo_Basic_Filters::url()->redirect();
+        }
 
         if ($ingo_script->hasFeature('case_sensitive')) {
             $casesensitive = $this->vars->case;
@@ -194,22 +209,6 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
                 $rule['conditions'] = array_values($rule['conditions']);
             }
             break;
-        }
-
-        if (!isset($rule)) {
-            if (!isset($this->vars->edit)) {
-                if ($this->_assertMaxRules($perms, $filters)) {
-                    Ingo_Basic_Filters::url()->redirect();
-                }
-                $rule = $filters->getDefaultRule();
-            } else {
-                $rule = $filters->getRule($this->vars->edit);
-            }
-
-            if (!$rule) {
-                $notification->push(_("Filter not found."), 'horde.error');
-                Ingo_Basic_Filters::url()->redirect();
-            }
         }
 
         /* Add new, blank condition. */
