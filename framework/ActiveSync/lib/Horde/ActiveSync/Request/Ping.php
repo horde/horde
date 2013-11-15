@@ -142,6 +142,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_logger->info(sprintf(
                 '[%s] Empty PING request.',
                 $this->_procid));
+            $isEmpty = true;
             $collections->loadCollectionsFromCache();
             if ($collections->collectionCount() == 0 ||
                 !$collections->havePingableCollections()) {
@@ -153,6 +154,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 return true;
             }
         } else {
+            $isEmpty = false;
             if ($this->_decoder->getElementStartTag(self::HEARTBEATINTERVAL)) {
                 if (!$heartbeat = $this->_checkHeartbeat($this->_decoder->getElementContent())) {
                     $heartbeat = $this->_pingSettings['heartbeatdefault'];
@@ -207,7 +209,16 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
             $changes = $collections->pollForChanges($heartbeat, $interval, array('pingable' => true));
             if ($changes !== true && $changes !== false) {
+                // If we received a status indicating we need to issue a full
+                // PING, but we already did, treat it as a status_needsync.
+                if (!$isEmpty && $changes == Horde_ActiveSync_Collections::COLLECTION_ERR_PING_NEED_FULL) {
+                    $changes = Horde_ActiveSync_Collections::COLLECTION_ERR_SYNC_REQUIRED;
+                }
                 switch ($changes) {
+                case Horde_ActiveSync_Collections::COLLECTION_ERR_PING_NEED_FULL:
+                    $this->_statusCode = self::STATUS_MISSING;
+                    $this->_handleGlobalError();
+                    return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
                     $this->_logger->info(sprintf(
                         '[%s] Changes in cache detected during PING, exiting here.',
