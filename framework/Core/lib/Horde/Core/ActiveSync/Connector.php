@@ -47,13 +47,6 @@ class Horde_Core_ActiveSync_Connector
     protected $_capabilities = array();
 
     /**
-     * Cache list of folders
-     *
-     * @var array
-     */
-    protected $_folderCache = array();
-
-    /**
      * Const'r
      *
      * @param array $params  Configuration parameters. Requires:
@@ -86,15 +79,13 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param integer $startstamp    The start of time period.
      * @param integer $endstamp      The end of time period
-     * @param string  $calendar      The calendar id. If null, uses multiplexed.
-     *                               @since 2.12.0
      *
      * @return array
      */
-    public function calendar_listUids($startstamp, $endstamp, $calendar)
+    public function calendar_listUids($startstamp, $endstamp)
     {
         try {
-            return $this->_registry->calendar->listUids($calendar, $startstamp, $endstamp);
+            return $this->_registry->calendar->listUids(null, $startstamp, $endstamp);
         } catch (Exception $e) {
             return array();
         }
@@ -112,30 +103,23 @@ class Horde_Core_ActiveSync_Connector
      *   - truncation: (integer)  Truncate event body to this length
      *                 DEFAULT: none (No truncation).
      *
-     * @param string $calendar       The calendar id. If null, uses multiplexed.
-     *                               @since 2.12.0
-     *
      * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
-    public function calendar_export($uid, array $options = array(), $calendar = null)
+    public function calendar_export($uid, array $options = array())
     {
-        $calendar = empty($calendar) ? null : array($calendar);
-        return $this->_registry->calendar->export($uid, 'activesync', $options, $calendar);
+        return $this->_registry->calendar->export($uid, 'activesync', $options);
     }
 
     /**
      * Import an event into the user's default calendar.
      *
      * @param Horde_ActiveSync_Message_Appointment $content  The event content
-     * @param string $calendar                               The calendar id.
-     *                                                       @since 2.12.0
      *
      * @return string  The event's UID.
      */
-    public function calendar_import(
-        Horde_ActiveSync_Message_Appointment $content, $calendar = null)
+    public function calendar_import(Horde_ActiveSync_Message_Appointment $content)
     {
-        return $this->_registry->calendar->import($content, 'activesync', $calendar);
+        return $this->_registry->calendar->import($content, 'activesync');
     }
 
     /**
@@ -196,53 +180,46 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Replace the event with new data
      *
-     * @param string $uid  The UID of the event to replace.
-     * @param Horde_ActiveSync_Message_Appointment $content
-     *        The new event.
-     * @param string $calendar  The calendar id. @since 2.12.0
+     * @param string $uid                                    The UID of the
+     *                                                       event to replace.
+     * @param Horde_ActiveSync_Message_Appointment $content  The new event.
      */
-    public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content, $calendar = null)
+    public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content)
     {
-        $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
+        $this->_registry->calendar->replace($uid, $content, 'activesync');
     }
 
     /**
      * Delete an event from Horde's calendar storage
      *
      * @param string $uid  The UID of the event to delete
-     * @param string $calendar  The calendar id. @since 2.12.0
      */
-    public function calendar_delete($uid, $calendar = null)
+    public function calendar_delete($uid)
     {
-        $this->_registry->calendar->delete($uid, null, $calendar);
+        $this->_registry->calendar->delete($uid);
     }
 
     /**
      * Return the timestamp for the last time $action was performed.
      *
-     * @param string $uid       The UID of the event we are interested in.
-     * @param string $action    The action we are interested in (add, modify...).
-     * @param string $calendar  The calendar id, if not using multiplexed data.
+     * @param string $uid     The UID of the event we are interested in.
+     * @param string $action  The action we are interested in (add, modify...)
      *
      * @return integer
      */
-    public function calendar_getActionTimestamp($uid, $action, $calendar = null)
+    public function calendar_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->calendar->getActionTimestamp(
-            $uid, $action, $calendar, $this->hasFeature('modseq', 'calendar'));
+        return $this->_registry->calendar->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
      * Get a list of all contacts a user can see
      *
-     * @param string $source  The source to list. If null, use multiplex.
-     *                        @since 2.12.0
-     *
      * @return array An array of contact UIDs
      */
-    public function contacts_listUids($source = null)
+    public function contacts_listUids()
     {
-        return $this->_registry->contacts->listUids($source);
+        return $this->_registry->contacts->listUids();
     }
 
     /**
@@ -267,15 +244,13 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Import the provided contact data into Horde's contacts storage
      *
-     * @param Horde_ActiveSync_Message_Contact $content  The contact data
-     * @param string $addressbook                        The addessbook id.
-     *                                                   @since 2.12.0
+     * @param Horde_ActiveSync_Message_Contact $content      The contact data
      *
      * @return mixed  string|boolean  The new UID or false on failure.
      */
-    public function contacts_import(Horde_ActiveSync_Message_Contact $content, $addressbook = null)
+    public function contacts_import(Horde_ActiveSync_Message_Contact $content)
     {
-        return $this->_registry->contacts->import($content, 'activesync', $addressbook);
+        return $this->_registry->contacts->import($content, 'activesync');
     }
 
     /**
@@ -305,16 +280,14 @@ class Horde_Core_ActiveSync_Connector
      * Get the timestamp of the most recent occurance of $action for the
      * specifed contact
      *
-     * @param string $uid     The UID of the contact to search.
-     * @param string $action  The action to lookup.
-     * @param string $addressbook  The addressbook id, if not using multiplex.
+     * @param string $uid     The UID of the contact to search
+     * @param string $action  The action to lookup
      *
      * @return integer
      */
-    public function contacts_getActionTimestamp($uid, $action, $addressbook = null)
+    public function contacts_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->contacts->getActionTimestamp(
-            $uid, $action, $addressbook, $this->hasFeature('modseq', 'contacts'));
+        return $this->_registry->contacts->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'contacts'));
     }
 
     /**
@@ -419,13 +392,11 @@ class Horde_Core_ActiveSync_Connector
     /**
      * List all tasks in the user's default tasklist.
      *
-     * @param string $tasklist  The tasklist to check. If null, use multiplexed.
-     *
      * @return array  An array of task uids.
      */
-    public function tasks_listUids($tasklist = null)
+    public function tasks_listUids()
     {
-        return $this->_registry->tasks->listUids($tasklist);
+        return $this->_registry->tasks->listUids();
     }
 
     /**
@@ -445,13 +416,12 @@ class Horde_Core_ActiveSync_Connector
      * Importa a single task into the backend.
      *
      * @param Horde_ActiveSync_Message_Task $message  The task message object
-     * @param string $tasklist  The tasklist id. @since 2.12.0
      *
      * @return string  The newly added task's uid.
      */
-    public function tasks_import(Horde_ActiveSync_Message_Task $message, $tasklist = null)
+    public function tasks_import(Horde_ActiveSync_Message_Task $message)
     {
-        return $this->_registry->tasks->import($message, 'activesync', $tasklist);
+        return $this->_registry->tasks->import($message, 'activesync');
     }
 
     /**
@@ -478,16 +448,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return the timestamp or modseq for the last time $action was performed.
      *
-     * @param string $uid       The UID of the task we are interested in.
-     * @param string $action    The action we are interested in (add, modify...)
-     * @param string $tasklike  The tasklist, if not using multiplexed data.
+     * @param string $uid     The UID of the task we are interested in.
+     * @param string $action  The action we are interested in (add, modify...)
      *
      * @return integer
      */
-    public function tasks_getActionTimestamp($uid, $action, $tasklist = null)
+    public function tasks_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->tasks->getActionTimestamp(
-            $uid, $action, $tasklist, $this->hasFeature('modseq', 'tasks'));
+        return $this->_registry->tasks->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'tasks'));
     }
 
     /**
@@ -495,7 +463,6 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return array
      * @since 5.1
-     * @deprecated - @todo was never used, remove in H6.
      */
     public function notes_listNotepads()
     {
@@ -505,15 +472,12 @@ class Horde_Core_ActiveSync_Connector
     /**
      * List all notes in the user's default notepad.
      *
-     * @param string $notepad  The notepad id to list. If null, use multiplexed.
-     *                         @since 2.12.0
-     *
      * @return array  An array of note uids.
      * @since 5.1
      */
-    public function notes_listUids($notepad = null)
+    public function notes_listUids()
     {
-        return $this->_registry->notes->listUids($notepad);
+        return $this->_registry->notes->listUids();
     }
 
     /**
@@ -534,15 +498,13 @@ class Horde_Core_ActiveSync_Connector
      * Importa a single note into the backend.
      *
      * @param Horde_ActiveSync_Message_Note $message  The note message object
-     * @param string $notebook                        The notebook id.
-     *                                                @since 2.12.0
      *
      * @return string  The newly added notes's uid.
      * @since 5.1
      */
-    public function notes_import(Horde_ActiveSync_Message_Note $message, $notebook = null)
+    public function notes_import(Horde_ActiveSync_Message_Note $message)
     {
-        return $this->_registry->notes->import($message, 'activesync', $notebook);
+        return $this->_registry->notes->import($message, 'activesync');
     }
 
     /**
@@ -573,15 +535,13 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid     The UID of the task we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
-     * @param string $notpad  The notepad to use, if not using multiplex.
      *
      * @return integer
      * @since 5.1
      */
-    public function notes_getActionTimestamp($uid, $action, $notepad = null)
+    public function notes_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->notes->getActionTimestamp(
-            $uid, $action, $notepad, $this->hasFeature('modseq', 'notes'));
+        return $this->_registry->notes->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'notes'));
     }
 
     /**
@@ -631,9 +591,9 @@ class Horde_Core_ActiveSync_Connector
      * @return integer  The modseq value.
      * @since 2.6.0
      */
-    public function getHighestModSeq($collection, $id = null)
+    public function getHighestModSeq($collection)
     {
-        return $this->_registry->{$this->_getInterfaceFromCollectionId($collection)}->getHighestModSeq($id);
+        return $this->_registry->{$this->_getInterfaceFromCollectionId($collection)}->getHighestModSeq();
     }
 
     /**
@@ -783,13 +743,11 @@ class Horde_Core_ActiveSync_Connector
      *                            calendar, contacts, tasks)
      * @param integer $from_ts    Starting timestamp or modification sequence.
      * @param integer $to_ts      Ending timestamp or modification sequence.
-     * @param string $server_id   The server id of the collection. If null, uses
-     *                            multiplexed.
      *
      * @return array  A hash of add, modify, and delete uids
      * @throws InvalidArgumentException
      */
-    public function getChanges($collection, $from_ts, $to_ts, $server_id)
+    public function getChanges($collection, $from_ts, $to_ts)
     {
         if (!in_array($collection, array('calendar', 'contacts', 'tasks', 'notes'))) {
             throw new InvalidArgumentException('collection must be one of calendar, contacts, tasks or notes');
@@ -802,7 +760,7 @@ class Horde_Core_ActiveSync_Connector
                 getmypid(),
                 $collection));
             try {
-                return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts, $server_id);
+                return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts);
             } catch (Exception $e) {
                 return array('add' => array(),
                              'modify' => array(),
@@ -816,7 +774,7 @@ class Horde_Core_ActiveSync_Connector
             getmypid(),
             $collection));
         try {
-            return $this->_registry->{$collection}->getChanges($from_ts, $to_ts, false, $server_id);
+            return $this->_registry->{$collection}->getChanges($from_ts, $to_ts);
         } catch (Exception $e) {
             return array('add' => array(),
                          'modify' => array(),
@@ -830,39 +788,34 @@ class Horde_Core_ActiveSync_Connector
      * @param string $collection  The collection type.
      * @param long $from_ts       The start of the time period to search.
      * @param long $to_ts         The end of the time period to search.
-     * @param string $source      Limit to this source only. @since 2.12.0
      *
      * @return array  An array of message UIDs that occur within the $from_ts
      *                and $to_ts range that are to be SOFTDELETEd from the
      *                client.
      */
-    public function softDelete($collection, $from_ts, $to_ts, $source = null)
+    public function softDelete($collection, $from_ts, $to_ts)
     {
         $results = array();
         switch ($collection) {
         case 'calendar':
-            if (empty($source)) {
-                // @TODO: For Horde 6, add API calls to the calendar API to
-                // get the default share and sync shares.  We need to hack this
-                // logic here since the methods to return the default calendar
-                // and sync calendars are not available in Kronolith 4's API.
-                $calendars = unserialize(
-                    $this->_registry->horde->getPreference(
-                        $this->_registry->hasInterface('calendar'),
-                        'sync_calendars'));
-                if (empty($calendars)) {
-                    $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
-                    $default_calendar = $this->_registry->horde->getPreference(
-                        $this->_registry->hasInterface('calendar'),
-                        'default_share');
-                    if (empty($calendars[$default_calendar])) {
-                        return array();
-                    } else {
-                        $calendars = array($default_calendar);
-                    }
+            // @TODO: For Horde 6, add API calls to the calendar API to
+            // get the default share and sync shares.  We need to hack this
+            // logic here since the methods to return the default calendar
+            // and sync calendars are not available in Kronolith 4's API.
+            $calendars = unserialize(
+                $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'sync_calendars'));
+            if (empty($calendars)) {
+                $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
+                $default_calendar = $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'default_share');
+                if (empty($calendars[$default_calendar])) {
+                    return array();
+                } else {
+                    $calendars = array($default_calendar);
                 }
-            } else {
-                $calendars = array($source);
             }
 
             // Need to use listEvents instead of listUids since we must
@@ -889,263 +842,6 @@ class Horde_Core_ActiveSync_Connector
         }
 
         return $results;
-    }
-
-    /**
-     * Return the list of folders to sync for the specified collection.
-     *
-     * @param string $collection  The collection class
-     *                            A Horde_ActiveSync::CLASS_* constant.
-     *
-     * @return array|string  A list of folder uids or $collection if supporting
-     *                       API is not found. If a list is returned, it is in
-     *                       the following format:
-     *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
-     * @since 2.12.0
-     */
-    public function getFolders($collection)
-    {
-        global $registry;
-
-        // @TODO: H6 remove the hasMethod checks.
-        if (empty($this->_folderCache[$collection])) {
-            switch ($collection) {
-            case Horde_ActiveSync::CLASS_CALENDAR:
-                if ($registry->hasMethod('calendar/sources')) {
-                    $folders = $registry->calendar->sources(true, true);
-                    $default = $registry->calendar->getDefaultShare();
-                } else {
-                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID;
-                }
-                break;
-
-            case Horde_ActiveSync::CLASS_CONTACTS:
-                if ($registry->hasMethod('contacts/sources')) {
-                    $folders = $registry->contacts->sources(true, true);
-                    $default = $registry->contacts->getDefaultShare();
-                } else {
-                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID;
-                }
-                break;
-
-            case Horde_ActiveSync::CLASS_TASKS:
-                if ($registry->hasMethod('tasks/sources')) {
-                    $folders = $registry->tasks->sources(true, true);
-                    $default = $registry->tasks->getDefaultShare();
-                } else {
-                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID;
-                }
-                break;
-
-            case Horde_ActiveSync::CLASS_NOTES:
-                if ($registry->hasMethod('notes/sources')) {
-                    $folders = $registry->notes->sources(true, true);
-                    $default = $registry->notes->getDefaultShare();
-                } else {
-                    $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::NOTES_FOLDER_UID;
-                }
-            }
-
-            if (!empty($folders) && is_array($folders)) {
-                $results = array();
-                foreach ($folders as $id => $folder) {
-                    $results[$id] = array('display' => $folder, 'primary' => ($id == $default));
-                }
-                $this->_folderCache[$collection] = $results;
-            }
-        }
-
-        return $this->_folderCache[$collection];
-    }
-
-
-    /**
-     * Create a new folder/source in the specified collection.
-     *
-     * @param string $class       The collection class.
-     *                            A Horde_ActiveSync::CLASS_* constant.
-     *
-     * @param string $foldername  The name of the new folder.
-     *
-     * @return string|integer  The new folder serverid.
-     * @throws Horde_ActiveSync_Exception
-     * @since 2.12.0
-     */
-    public function createFolder($class, $foldername)
-    {
-        global $registry, $prefs;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Creating new collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
-
-        switch ($class) {
-
-        case Horde_ActiveSync::CLASS_CALENDAR:
-            // @todo Remove hasMethod checks in H6.
-            if (!$registry->hasMethod('calendar/addCalendar')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Creating calendars not supported by the calendar API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            return $registry->calendar->addCalendar($foldername, array('synchronize' => true));
-
-        case Horde_ActiveSync::CLASS_CONTACTS:
-            // @todo Remove hasMethod check in H6
-            if (!$registry->hasMethod('contacts/addAddressbook')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Creating addressbooks not supported by the contacts API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            return $registry->contacts->addAddressbook($foldername);
-
-        case Horde_ActiveSync::CLASS_NOTES:
-            // @todo Remove hasMethod checks in H6.
-            if (!$registry->hasMethod('notes/addNotepad')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Creating notepads not supported by the notes API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            return $registry->notes->addNotepad($foldername);
-
-        case Horde_ActiveSync::CLASS_TASKS:
-            return $registry->tasks->addTasklist($foldername);
-        }
-    }
-
-    /**
-     * Change an existing folder on the server.
-     *
-     * @param string $class  The collection class.
-     *                       A Horde_ActiveSync::CLASS_* constant.
-     * @param string $id     The existing serverid.
-     * @param string $name   The new folder display name.
-     *
-     * @throws Horde_ActiveSync_Exception
-     * @since 2.12.0
-     */
-    public function changeFolder($class, $id, $name)
-    {
-        global $prefs, $registry;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Updating new collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
-
-        switch ($class) {
-        case Horde_ActiveSync::CLASS_CALENDAR:
-            // @todo Remove hasMethod check
-            if (!$registry->hasMethod('calendar/getCalendar')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Updating calendars not supported by the calendar API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $calendar = $registry->calendar->getCalendar($id);
-            $info = array(
-                'name' => $name,
-                'color' => $calendar->background(),
-                'description' => $calendar->description()
-            );
-            $registry->calendar->updateCalendar($id, $info);
-            break;
-
-        case Horde_ActiveSync::CLASS_CONTACTS:
-            // @todo remove hasMethod check
-            if (!$registry->hasMethod('contacts/updateAddressbook')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Updating addressbooks not supported by the contacts API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $registry->contacts->updateAddressbook($id, array('name' => $name));
-            break;
-
-        case Horde_ActiveSync::CLASS_NOTES:
-            // @todo remove hasMethod check
-            if (!$registry->hasMethod('notes/updateNotepad')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Updating notepads not supported by the notes API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $registry->notes->updateNotepad($id, array('name' => $name));
-
-        case Horde_ActiveSync::CLASS_TASKS:
-            $share = $registry->tasks->getTasklist($id);
-            $info = array(
-                'name' => $name,
-                'color' => $share->get('color'),
-                'desc' => $share->get('desc')
-            );
-            $registry->tasks->updateTasklist($id, $info);
-            break;
-        }
-    }
-
-    /**
-     * Delete a folder.
-     *
-     * @param string $class  The EAS collection class.
-     * @param string $id     The folder id
-     *
-     * @since 2.12.0
-     */
-    public function deleteFolder($class, $id)
-    {
-        global $registry, $prefs;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Deleting collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
-
-        switch ($class) {
-        case Horde_ActiveSync::CLASS_TASKS:
-            $registry->tasks->deleteTasklist($id);
-            break;
-
-        case Horde_ActiveSync::CLASS_CONTACTS:
-            if (!$registry->hasMethod('contacts/deleteAddressbook')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Deleting addressbooks not supported by the contacts API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $registry->contacts->deleteAddressbook($id);
-            break;
-
-        case Horde_ActiveSync::CLASS_CALENDAR:
-            if (!$registry->hasMethod('calendar/deleteCalendar')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Deleting calendars not supported by the calendar API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $registry->calendar->deleteCalendar($id);
-            break;
-        case Horde_ActiveSync::CLASS_NOTES  :
-            if (!$registry->hasMethod('notes/deleteNotepad')) {
-                throw new Horde_ActiveSync_Exception(
-                    'Deleting notepads not supported by the notes API.',
-                    Horde_ActiveSync_Exception::UNSUPPORTED
-                );
-            }
-            $registry->notes->deleteNotpad($id);
-            break;
-        }
-
     }
 
     /**

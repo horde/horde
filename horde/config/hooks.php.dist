@@ -120,19 +120,6 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
- * x509_validate
- * -------------
- * This hook is called during initial authentication when using the X509 client
- * certificate authentication driver. It provides a chance for custom logic to
- * validate a certificate.
- *
- * Parameters in:
- *   $certificate (certificate handle): A handle to the certificate which can be
- *                                      passed to the openssl_x509 functions.
- *
- * The return value from this hook is as follows:
- *   [throw Horde_Auth_Exception] - Fatal error.
- *    boolean True if certificate passes our validation rules, otherwise false.
  *
  * Login Hooks
  * ===========
@@ -536,24 +523,6 @@ class Horde_Hooks
 //        ldap_close($ds);
 //
 //        return $ret;
-//
-//      // Example #2: Providing a client certificate <-> horde username store.
-//      // Normally, the following would be looked up in a persistent storage
-//      // backend. Note this example also stores a plaintext password to avoid
-//      // cluttering up the example. DO NOT DO THIS. If your x509 client
-//      // certificate setup requires that you still pass a password to the IMAP
-//      // server, the password MUST be stored encrypted. In this example, we
-//      // store a unique identifier for the certificate to add an additional level
-//      // of security. It wouldn't be too hard to create a admin UI for managing
-//      // client certificates and "registering" them to the user.
-//      $mapping = array('user@example.com' => array(
-//         'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
-//
-//      if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
-//         return false;
-//      }
-//
-//     return $mapping[$userId]['credentials'];
 //     }
 
 
@@ -603,23 +572,6 @@ class Horde_Hooks
 //            $userId = $information[0]['mail'][0];
 //        }
 //        return $userId;
-//
-//       // Example #4: Essentially the same as Example #1, but in the reverse
-//       // direction. This is used, e.g., when using x509 client certificates
-//       // that provide the username as an email address and you want Horde
-//       // logins to be usernames only.
-//       // ex. $HTTP_HOST = 'mail.mydomain.com', $userId = 'myname' returns:
-//       // 'myname@mydomain.com'
-//       $vdomain = preg_replace('|^mail\.|i', '', getenv('HTTP_HOST'));
-//       $vdomain = Horde_String::lower($vdomain);
-//
-//       if (!$toHorde) {
-//           return $userId . '@' . $vdomain;
-//       } else {
-//           return (substr($userId, -strlen($vdomain)) == $vdomain)
-//             ? substr($userId, 0, -strlen($vdomain) - 1)
-//             : $userId;
-//       }
 //    }
 
 
@@ -700,7 +652,7 @@ class Horde_Hooks
 //        );
 //
 //        try {
-//            $extraFields = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('signup_getextra', 'horde');
+//            $extraFields = Horde::callHook('signup_getextra');
 //        } catch (Horde_Exception $e) {}
 //
 //        $msg  = _("A new signup has been received and is awaiting your approval.") .
@@ -992,26 +944,5 @@ class Horde_Hooks
     // {
     //     return true;
     // }
-
-   /**
-    * Hook for providing custom X509 certificate validation routines. You can
-    * parse the $cert handle provided and/or use any of the available SSL
-    * enviroment variables provided in $_SERVER by your webserver to determine
-    * if the certificate should be honored.
-    *
-    * @param mixed $cert  The certificate string or handle.
-    *
-    * @return boolean
-    */
-   // public function x509_validate($cert)
-   // {
-   //    $parsed = openssl_x509_parse($cert);
-   //    if ($parsed['issuer']['CN'] != 'My CA CN') {
-   //       return false;
-   //    }
-
-   //    return true;
-   // }
-
 
 }

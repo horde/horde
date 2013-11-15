@@ -1,6 +1,6 @@
 <form name="edit" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>">
 <?php Horde_Util::pformInput() ?>
-<input type="hidden" name="token" value="<?php echo $session->getToken() ?>" />
+<input type="hidden" name="token" value="<?php echo $injector->getInstance('Horde_Token')->get('horde.shares') ?>" />
 <input type="hidden" name="actionID" value="editform" />
 <input type="hidden" name="cid" value="<?php echo htmlspecialchars($share->getId()) ?>" />
 <?php if (!empty($app)): ?>

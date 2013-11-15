@@ -24,7 +24,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.2.0-git';
+    public $version = '5.1.6-git';
 
     /**
      */
@@ -211,9 +211,9 @@ class Horde_Application extends Horde_Registry_Application
             'type' => 'enum',
             'params' => array(array(
                 false => '',
-                'true' => _("Enable"),
-                'allow' => _("Allow non-provisionable devices"),
-                'false' => _("Disable (not recommended)")
+                'false' => _("Never"),
+                'true' => _("Force"),
+                'allow' => _("Allow"),
             ))
         );
 
@@ -373,10 +373,6 @@ class Horde_Application extends Horde_Registry_Application
 
         $ob = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
         if ($ob instanceof Horde_Vfs_Mongo) {
-            $out[] = $ob;
-        }
-        $ob = $injector->getInstance('Horde_ActiveSyncState');
-        if ($ob instanceof Horde_ActiveSync_State_Mongo) {
             $out[] = $ob;
         }
 

@@ -30,7 +30,7 @@ $addForm->addHidden('', 'form', 'text', true, true);
 
 /* Use hooks get any extra fields for new accounts. */
 try {
-    $extra = $injector->getInstance('Horde_Core_Hooks')->callHook('signup_getextra', 'horde');
+    $extra = Horde::callHook('signup_getextra');
     if (!empty($extra)) {
         if (!isset($extra['user_name'])) {
             $addForm->addVariable(_("Username"), 'user_name', 'text', true);
@@ -88,7 +88,7 @@ case 'add':
 
             if (isset($info['extra'])) {
                 try {
-                    $injector->getInstance('Horde_Core_Hooks')->callHook('signup_addextra', 'horde', array($info['user_name'], $info['extra']));
+                    Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
                 } catch (Horde_Exception $e) {
                     $notification->push(sprintf(_("Added \"%s\" to the system, but could not add additional signup information: %s."), $info['user_name'], $e->getMessage()), 'horde.warning');
                 } catch (Horde_Exception_HookNotSet $e) {}

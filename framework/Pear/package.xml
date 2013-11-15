@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Report XML parsing errors (Request #12164; math.parent@gmail.com).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -509,7 +509,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Report XML parsing errors (Request #12164; math.parent@gmail.com).
+* 
    </notes>
   </release>
  </changelog>
