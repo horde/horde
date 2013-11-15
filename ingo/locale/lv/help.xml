@@ -97,7 +97,7 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     Oriģinālā vēstule tiks klusītēm izdzēsta, nosūtot tās autoram jaunu vēstuli ar Jūsu norādīto tekstu.
     </para>
   </entry>
-  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="changed">
+  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
     <title>Filtra likums: Kombinēt iestatījumus</title>
     <para>
     Ir iespējams norādīt vairākus nosacījumus viena likuma ietvaros, tos loģiski grupējot (un/vai). Nav iespējams radīt kompleksus filtrus, izmantojot vienlaicīgi abus loģiskos nosacījumus.
@@ -110,26 +110,14 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     <para>
     Ja izvēlēsieties VAI, filtrā norādītās darbības tiks izpildītas, ja tiks konstatēta atbilstība vismaz vienam filtra nosacījumam.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
-    <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
-    filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
     <title>Filtra likums: Atzīmēt vēstuli</title>
     <para>
     Ir iespējams kā vienu no filtra darbībām norādīt vēstules atzīmēšanu ar vienu vai vairākiem IMAP karodziņiem. Iespējamās vērtības ir Lasīts, Svarīgs, Atbildēts un Dzēsts.
     </para>
   </entry>
-  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="changed">
+  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="uptodate">
     <title>Filtra likums: Atbilstības</title>
     <para>
     Ikviens likuma nosacījums sastāv no 3 komponentiem: pirmais ir pārbaudāmais lauks, otrais - veicamās salīdzināšanas veids, trešais - informācija, atbilstība kurai ir jāpārbauda.
@@ -206,83 +194,7 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     <para>
     Šī pārbaude ļauj salīdzināt Jūsu norādīto skaitlisko lielumu ar vērtību vēstules galvenes laukā.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
-    <para>There are 3 components to each condition in a rule. The first is the
-    field to examine. The second is the type of comparison to perform. The
-    third is the value to which the field should be compared. There are a few
-    different types of comparisons that can be performed. The comparisons
-    available for any given field will depend on both the type of the field and
-    what the underlying filtering software can handle. Thus, all potential
-    matching options listed below may not appear for a given field.</para>
-    <heading>Contains</heading>
-    <para>Will be considered to be true if the specified string is found
-    anywhere on the line. Example: user@example would match
-    joe_user@example.com</para>
-    <heading>Doesn't Contain</heading>
-    <para>Will be considered to be true if the specified string is not found
-    anywhere on the line. Example: user@example would not match
-    joe_user@example.com</para>
-    <heading>Is</heading>
-    <para>Will be considered to be true if the specified string matches the
-    line exactly. Example: user@example.com is user@example.com</para>
-    <heading>Isn't</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the line exactly. Example: user@example is not user@example.com</para>
-    <heading>Begins with</heading>
-    <para>Will be considered to be true if the specified string matches the
-    beginning of the line. Example: user@example will match
-    user@example.com</para>
-    <heading>Doesn't begin with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the beginning of the line. Example: user@example.com will not match
-    user@example</para>
-    <heading>Ends with</heading>
-    <para>Will be considered to be true if the specified string matches the end
-    of the line. Example: example.com will match user@example.com</para>
-    <heading>Doesn't end with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the end of the line. Example: horde.org will not match
-    user@example.com</para>
-    <heading>Exists</heading>
-    <para>Will be considered to be true if the specified header exists in the
-    message, regardless of what its value is.</para>
-    <heading>Doesn't Exist</heading>
-    <para>Will be considered to be true if the specified header does not exist
-    in the message.</para>
-    <heading>Regex</heading>
-    <para>Regex allows you to use complex POSIX compatible regular expressions
-    to compare against message headers.</para>
-    <heading>Matches</heading>
-    <para>Matches is similar to contains, with the exception that you may use *
-    and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
-    "user1@example.com" and "otheruser2@example.com"</para>
-    <heading>Doesn't match</heading>
-    <para>Doesn't match is the same as matches except that it will evaluate to
-    false if the specified value matches the string in the message
-    header.</para>
-    <heading>Less than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Less than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Limitation with Sieve filtering</heading>
-    <warn>The Sieve specification doesn't support comparions with negative
-    numbers. If you enter a negative value in one of the relational tests,
-    your rule won't work correctly.</warn>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Filtra likums: Nosaukums</title>
     <para>
@@ -330,23 +242,12 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     Nesūtīt Brīvdienu paziņojumu šeit norādītajiem adresātiem. Katru adresi jānorāda jaunā rindā.
     </para>
   </entry>
-  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="changed">
+  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="uptodate">
     <title>Brīvdienas: Iemesls</title>
     <para>
     Šeit ievadītais teksts tiks nosūtīts Jūsu Brīvdienu paziņojumā.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="vacation-reason">
-    <title>Vacation: Vacation Reason</title>
-    <para>This is the text that will be sent in your vacation responses.</para>
-    <para>You can use placeholders to dynamically generate the response message
-    contents from your identity information or other sources:</para>
-    <para>%NAME%: The full name from your standard identity</para>
-    <para>%EMAIL%: The email address from your standard identity</para>
-    <para>%SIGNATURE%: The signature from your standard identity</para>
-    <para>%STARTDATE%: The start date of your vacation</para>
-    <para>%ENDDATE%: The end date of your vacation</para>
-  </entry>--></entry>
+  </entry>
   <entry id="vacation-subject" md5="ce16c7c6a08993821208cfbee0b188a0" state="uptodate">
     <title>Brīvdienas: Temats</title>
     <para>
@@ -360,16 +261,12 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     Baltais saraksts ir E-pasta adrešu saraksts, no kurām saņemtās vēstules Jūs noteikti vēlaties redzēt savā pastkastītē (INBOX). Katru adresi ir jāievada atsevišķā rindā.
     </para>
   </entry>
-  <entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="changed">
+  <entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="uptodate">
     <title> Baltais saraksts: Adreses</title>
     <para>
     (Darbs turpinās) Katra adrese ir jāievada atsevišķā rindā.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="whitelist-addresses">
-    <title>Whitelist: Addresses</title>
-    <para>Each address should be entered on a separate line.</para>
-  </entry>--></entry>
+  </entry>
   <entry id="spam-level" md5="6f00c30a45b0acaef4ae9dba56d58013" state="uptodate">
     <title>Mēstuļu filtrēšana: Mēstulisma līmenis</title>
     <para>Sistēma uzskatīs saņemto vēstuli par mēstuli, ja tai piešķirtais mēstulisma indekss būs vienāds vai lielāks par šeit norādīto skaitli.</para>

@@ -110,7 +110,7 @@
     <para>Die Nachricht wird gelöscht, und der Absender dieser Nachricht
     erhält eine Antwort mit dem Text, den Sie hier angeben.</para>
   </entry>
-  <entry id="rule-combine" md5="6f620f276913196331ce6cfe2ce64d73" state="uptodate">
+  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
     <title>Filterregel: Bedingungen kombinieren</title>
     <para>Sie können mehrere Bedingungen in einer Regel angeben und diese
     logisch mit "und" und "oder" verknüpfen. Komplexe Bedingungen mit
@@ -131,7 +131,7 @@
     einer oder mehreren IMAP-Markierungen versehen wird. Die möglichen
     Markierungen sind Gelesen, Markiert zur Wiedervorlage, Beantwortet und Gelöscht.</para>
   </entry>
-  <entry id="rule-matches" md5="17d89f2ab49a35536d23045f9e8d57c3" state="uptodate">
+  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="uptodate">
     <title>Filterregel: Bedingungen</title>
     <para>Jede Bedingung einer Filterregel besteht aus drei Komponenten. Die
     erste bestimmt das Feld der Nachricht, das überprüft werden soll.
@@ -180,7 +180,10 @@
     existiert.</para>
     <heading>Regulärer Ausdruck</heading>
     <para>Erlaubt die Verwendung komplexer, POSIX kompatibler, regulärer
-    Ausdrücke, um die Nachrichtenfelder zu überprüfen.</para>
+    Ausdrücke, um die Nachrichtenfelder zu überprüfen. Beispiel:
+    "Received from [*\.*\.*\.*] by (hosta|hostb).beispiel.de*" würde auf
+    "Received from [172.16.100.1] by hosta.beispiel.de on Tuesday"
+    zutreffen.</para>
     <heading>Entpricht (mit Platzhaltern)</heading>
     <para>"Entspricht" ist ähnlich zu "Enthält", erlaubt aber die
     Verwendung von * und ? als Platzhalter. Ein * entspricht einer beliebigen
@@ -258,7 +261,7 @@
     <para>An die angebenen Emailadressen werden keine Abwesenheitsnachrichten
     verschickt. Jede Adresse muss in einer eigenen Zeile stehen.</para>
   </entry>
-  <entry id="vacation-reason" md5="926968164f429e9f9ff5fa73242eae46" state="uptodate">
+  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="changed">
     <title>Abwesenheit: Grund</title>
     <para>Dieser Text wird in Ihren Abwesenheitsnachrichten verwendet.</para>
     <para>Sie können Platzhalter verwenden, um die Abwesenheitsnachricht
@@ -281,7 +284,7 @@
     Nachrichten Sie immer in Ihrem Postfach haben möchten. Jede Adresse
     muss in einer eigenen Zeile stehen.</para>
   </entry>
-  <entry id="whitelist-addresses" md5="9ad6cb56e8bc5762112fa95382424608" state="uptodate">
+  <entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="uptodate">
     <title>Positivliste: Adressen</title>
     <para>Jede Adresse muss in einer eigenen Zeile stehen.</para>
   </entry>

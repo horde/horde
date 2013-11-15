@@ -95,7 +95,7 @@
     El mensaje original se eliminará y se enviará un mensaje nuevo al remitente con el texto que indique.
     </para>
   </entry>
-  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="changed">
+  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
     <title>Regla de filtrado: Combinar opciones</title>
     <para>
     Puede definir varias condiciones en una misma regla. Puede agruparlas de forma lógica mediante "Y"/"O", No puede crear filtros complejos que contengan ambos tipos de condiciones.
@@ -108,26 +108,14 @@
     <para>
     Si seleccion O, las acciones indicadas se ejecutarán si se cumple al menso una de las condiciones.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
-    <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
-    filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
     <title>Regla de filtrado: Señalar mensaje</title>
     <para>
     Como una de las acciones de una regla, puede indicar que se señale un mensaje con uno o más de los marcadores IMAP. Los valores posibles son Continuación, Respondido y Eliminado.
     </para>
   </entry>
-  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="changed">
+  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="uptodate">
     <title>Regla de filtrado: Coincidencia</title>
     <para>
     En cada condición de una regla hay tres componentes. El primero en el campo que hay que examinar. El segundo es el tipo de comparación a realizar. El tercero es el valor con el que hay que comparar el campo.
@@ -219,83 +207,7 @@
     <para>
     La especificación Sieve no permite comparaciones de números negativos. Si introduce un número negativo en una de las pruebas relacionales la regla no funcionará correctamente.
     </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
-    <para>There are 3 components to each condition in a rule. The first is the
-    field to examine. The second is the type of comparison to perform. The
-    third is the value to which the field should be compared. There are a few
-    different types of comparisons that can be performed. The comparisons
-    available for any given field will depend on both the type of the field and
-    what the underlying filtering software can handle. Thus, all potential
-    matching options listed below may not appear for a given field.</para>
-    <heading>Contains</heading>
-    <para>Will be considered to be true if the specified string is found
-    anywhere on the line. Example: user@example would match
-    joe_user@example.com</para>
-    <heading>Doesn't Contain</heading>
-    <para>Will be considered to be true if the specified string is not found
-    anywhere on the line. Example: user@example would not match
-    joe_user@example.com</para>
-    <heading>Is</heading>
-    <para>Will be considered to be true if the specified string matches the
-    line exactly. Example: user@example.com is user@example.com</para>
-    <heading>Isn't</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the line exactly. Example: user@example is not user@example.com</para>
-    <heading>Begins with</heading>
-    <para>Will be considered to be true if the specified string matches the
-    beginning of the line. Example: user@example will match
-    user@example.com</para>
-    <heading>Doesn't begin with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the beginning of the line. Example: user@example.com will not match
-    user@example</para>
-    <heading>Ends with</heading>
-    <para>Will be considered to be true if the specified string matches the end
-    of the line. Example: example.com will match user@example.com</para>
-    <heading>Doesn't end with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the end of the line. Example: horde.org will not match
-    user@example.com</para>
-    <heading>Exists</heading>
-    <para>Will be considered to be true if the specified header exists in the
-    message, regardless of what its value is.</para>
-    <heading>Doesn't Exist</heading>
-    <para>Will be considered to be true if the specified header does not exist
-    in the message.</para>
-    <heading>Regex</heading>
-    <para>Regex allows you to use complex POSIX compatible regular expressions
-    to compare against message headers.</para>
-    <heading>Matches</heading>
-    <para>Matches is similar to contains, with the exception that you may use *
-    and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
-    "user1@example.com" and "otheruser2@example.com"</para>
-    <heading>Doesn't match</heading>
-    <para>Doesn't match is the same as matches except that it will evaluate to
-    false if the specified value matches the string in the message
-    header.</para>
-    <heading>Less than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Less than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Limitation with Sieve filtering</heading>
-    <warn>The Sieve specification doesn't support comparions with negative
-    numbers. If you enter a negative value in one of the relational tests,
-    your rule won't work correctly.</warn>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Regla de filtrado: Nombre</title>
     <para>

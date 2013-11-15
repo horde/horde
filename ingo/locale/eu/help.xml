@@ -60,31 +60,19 @@
     <heading>Ezetsi mezu hau arrazoiarekin</heading>
     <para>Jatorrizko mezua baztertu egingo da, eta mezu berri bat bidaliko diozu bidaltzaileari zuk zehaztutako testuarekin.</para>
   </entry>
-  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="changed">
+  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
     <title>Iragazteko araua: Konbinatu aukerak</title>
     <para>Arau batean baldintza asko defini ditzakezu. Logikoki batera taldeka ditzakezu "eta"/"edo" erabiliz. Ezin duzu bi baldintzak dauzkan iragazki konplexurik sortu.</para>
     <heading>Eta</heading>
     <para>ETA hautatzen baduzu, iristen den mezu batek zuk zehaztutako baldintza guztiak bete behar ditu, ekintzak exekutatzeko.</para>
     <heading>Or</heading>
     <para>EDO hautatzen baduzu, zehaztutako ekintzak exekutatuko dira, baldintzetako bat betetzen bada gutxienez.</para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
-    <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
-    filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
     <title>Iragazteko araua: Markatu mezua</title>
     <para>Mezu bat IMAP bandera bat baino gehiagorekin markatzea zehatz dezakezu, arau batean ekintza bat baino gehiago egiteko. Aukerak hauek dira: Ikusita, Segimendurako markatuta, Erantzunda eta Ezabatuta.</para>
   </entry>
-  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="changed">
+  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="uptodate">
     <title>Iragazteko araua: Bat dator</title>
     <para>Arau bateko baldintza bakoitzean 3 osagai daude. Lehena aztertu behar den eremua da. Bigarrena egin behar den konparazio mota da. Hirugarrenak eremua zein baliorekin konparatu behar den zehazten du. Konparazio mota batzuk egin daitezke. Edozein eremutako konparazio erabilgarriak eremu motaren eta azpiko iragazki-softwareak maneia dezakeenaren araberakoak izaten dira. Beraz, behean zerrendatuta dauden bat-etortze posible guztiak ez dira agertuko eremuan.</para>
     <heading>Hau dauka</heading>
@@ -130,83 +118,7 @@
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
     <heading>Sieve iragazketaren muga</heading>
     <warn>Sieve zehaztapenak ez ditu onartzen zenbaki negatiboak dituzten konparazioak. Balio negatibo bat sartzen baduzu proba erlazionaletako batean, arauak ez du behar bezala funtzionatuko.</warn>
-  <!-- English entry (2013-11-05):
-<entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
-    <para>There are 3 components to each condition in a rule. The first is the
-    field to examine. The second is the type of comparison to perform. The
-    third is the value to which the field should be compared. There are a few
-    different types of comparisons that can be performed. The comparisons
-    available for any given field will depend on both the type of the field and
-    what the underlying filtering software can handle. Thus, all potential
-    matching options listed below may not appear for a given field.</para>
-    <heading>Contains</heading>
-    <para>Will be considered to be true if the specified string is found
-    anywhere on the line. Example: user@example would match
-    joe_user@example.com</para>
-    <heading>Doesn't Contain</heading>
-    <para>Will be considered to be true if the specified string is not found
-    anywhere on the line. Example: user@example would not match
-    joe_user@example.com</para>
-    <heading>Is</heading>
-    <para>Will be considered to be true if the specified string matches the
-    line exactly. Example: user@example.com is user@example.com</para>
-    <heading>Isn't</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the line exactly. Example: user@example is not user@example.com</para>
-    <heading>Begins with</heading>
-    <para>Will be considered to be true if the specified string matches the
-    beginning of the line. Example: user@example will match
-    user@example.com</para>
-    <heading>Doesn't begin with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the beginning of the line. Example: user@example.com will not match
-    user@example</para>
-    <heading>Ends with</heading>
-    <para>Will be considered to be true if the specified string matches the end
-    of the line. Example: example.com will match user@example.com</para>
-    <heading>Doesn't end with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the end of the line. Example: horde.org will not match
-    user@example.com</para>
-    <heading>Exists</heading>
-    <para>Will be considered to be true if the specified header exists in the
-    message, regardless of what its value is.</para>
-    <heading>Doesn't Exist</heading>
-    <para>Will be considered to be true if the specified header does not exist
-    in the message.</para>
-    <heading>Regex</heading>
-    <para>Regex allows you to use complex POSIX compatible regular expressions
-    to compare against message headers.</para>
-    <heading>Matches</heading>
-    <para>Matches is similar to contains, with the exception that you may use *
-    and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
-    "user1@example.com" and "otheruser2@example.com"</para>
-    <heading>Doesn't match</heading>
-    <para>Doesn't match is the same as matches except that it will evaluate to
-    false if the specified value matches the string in the message
-    header.</para>
-    <heading>Less than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Less than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Limitation with Sieve filtering</heading>
-    <warn>The Sieve specification doesn't support comparions with negative
-    numbers. If you enter a negative value in one of the relational tests,
-    your rule won't work correctly.</warn>
-  </entry>--></entry>
+  </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Iragazteko araua: Izena</title>
     <para>Arau baten izen deskribatzailea da. Izen deskribatzailea erabil dezakezu iragazki-zerrendan arau bat identifikatzeko.</para>
