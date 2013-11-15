@@ -31,20 +31,29 @@
  * @property string user              The userid for the current device account.
  * @property array supported          The SUPPORTED data sent from this device.
  * @property string policykey         The current policykey, if provisioned.
- * @property array properties         The device properties, sent in DEVICEINFO.
+ * @property array properties         The device properties, sent in DEVICEINFO,
+ *                                    along with any custom properties set.
  * @property string announcedVersion  The most last EAS supported versions
  *                                    announced to the device.
  *
  */
 class Horde_ActiveSync_Device
 {
-    const MODEL        = 'Settings:Model';
-    const IMEI         = 'Settings:IMEI';
-    const NAME         = 'Settings:FriendlyName';
-    const OS           = 'Settings:OS';
-    const OS_LANGUAGE  = 'Settings:OSLanguage';
-    const PHONE_NUMBER = 'Settings:PhoneNumber';
-    const VERSION      = 'version';
+    const MODEL             = 'Settings:Model';
+    const IMEI              = 'Settings:IMEI';
+    const NAME              = 'Settings:FriendlyName';
+    const OS                = 'Settings:OS';
+    const OS_LANGUAGE       = 'Settings:OSLanguage';
+    const PHONE_NUMBER      = 'Settings:PhoneNumber';
+    const VERSION           = 'version';
+    const MULTIPLEX         = 'multiplex';
+
+    // Bitwise constants for flagging device must use multiplexed collections.
+    // @since 2.9.0
+    const MULTIPLEX_CONTACTS = 1;
+    const MULTIPLEX_CALENDAR = 2;
+    const MULTIPLEX_TASKS    = 4;
+    const MULTIPLEX_NOTES    = 8;
 
     /**
      * Device properties.
