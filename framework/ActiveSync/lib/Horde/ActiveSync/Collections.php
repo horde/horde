@@ -30,6 +30,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     const COLLECTION_ERR_SERVER              = -2;
     const COLLECTION_ERR_STALE               = -3;
     const COLLECTION_ERR_SYNC_REQUIRED       = -4;
+    const COLLECTION_ERR_PING_NEED_FULL      = -5;
 
     /**
      * The collection data
@@ -990,6 +991,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $this->_procid,
                         $id)
                     );
+                    if (!empty($options['pingable'])) {
+                        return self::COLLECTION_ERR_PING_NEED_FULL;
+                    }
                     $dataavailable = true;
                     $this->setGetChangesFlag($id);
                     continue;
@@ -1008,6 +1012,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Error loading state: ' . $e->getMessage());
+                    if (!empty($options['pingable'])) {
+                        return self::COLLECTION_ERR_PING_NEED_FULL;
+                    }
                     $this->setGetChangesFlag($id);
                     $dataavailable = true;
                     continue;
