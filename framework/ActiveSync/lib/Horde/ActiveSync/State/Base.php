@@ -373,7 +373,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @param array $options  An options array:
      *      - ping: (boolean)  Only detect if there is a change, do not build
-     *                          any messages.
+     *                         any messages.
      *               DEFAULT: false (Build full change array).
      *
      * @return array  An array of hashes describing each change:
