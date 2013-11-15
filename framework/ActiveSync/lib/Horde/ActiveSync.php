@@ -770,6 +770,8 @@ class Horde_ActiveSync
             $this->_device->needsVersionUpdate($this->getSupportedVersions());
 
             // @TODO: Remove is_callable check (and extra else clause) for H6.
+            //        Combine this with the modifyDevice callback? Allow $device
+            //        to be modified here?
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
                 $callback_ret = $this->_driver->createDeviceCallback($this->_device);
                 if ($callback_ret !== true) {
@@ -784,6 +786,10 @@ class Horde_ActiveSync
                         throw new Horde_ActiveSync_Exception($msg);
                     }
                 } else {
+                    // Give the driver a chance to modify device properties.
+                    if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
+                        $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
+                    }
                     $this->_device->save();
                 }
             } else {
@@ -792,11 +798,17 @@ class Horde_ActiveSync
         } else {
             $this->_device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
             $this->_device->version = $version;
+
             // Check this here so we only need to save the device object once.
             if ($this->_device->properties['version'] < $this->_maxVersion &&
                 $this->_device->needsVersionUpdate($this->getSupportedVersions())) {
 
                 $needMsRp = true;
+            }
+
+            // Give the driver a chance to modify device properties.
+            if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
+                $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
             }
 
             $this->_device->save();
@@ -857,6 +869,7 @@ class Horde_ActiveSync
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
+        $this->_driver->setDevice($this->_device);
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this);

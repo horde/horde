@@ -78,6 +78,14 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_state;
 
     /**
+     * The device object
+     *
+     * @var Horde_ActiveSync_Device
+     * @since  2.12.0
+     */
+    protected $_device;
+
+    /**
      * Temporary serverid to uid map. Used when creating the hierarchy
      * for the first time
      *
@@ -273,6 +281,16 @@ abstract class Horde_ActiveSync_Driver_Base
         }
 
         return $bodyprefs;
+    }
+
+    /**
+     * Set the currently connected device
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     */
+    public function setDevice(Horde_ActiveSync_Device $device)
+    {
+        $this->_device = $device;
     }
 
     /**
