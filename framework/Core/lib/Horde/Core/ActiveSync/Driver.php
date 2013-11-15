@@ -2665,6 +2665,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Allow modification of device properties before request processing
+     * continues.
+     *
+     * @param  Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return Horde_ActiveSync_Device  The possibly modified device object.
+     */
+    public function modifyDeviceCallback(Horde_ActiveSync_Device $device)
+    {
+        // try {
+        //     return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+        //         ->callHook('activesync_device_modify', 'horde', array($device));
+        // } catch (Horde_Exception_HookNotSet $e) {}
+
+        // Test by forcing calendars to be multiplexed.
+        $multiplex = Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
+        $device->properties[Horde_ActiveSync_Device::MULTIPLEX] = $multiplex;
+
+        return $device;
+    }
+
+    /**
      * Request freebusy information from the server
      *
      * @deprecated Will be removed in H6 - this is provided via
