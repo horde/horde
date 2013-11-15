@@ -320,6 +320,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
+
+        $properties = $this->_device->properties;
+        $multiplex = empty($properties[Horde_ActiveSync_Device::MULTIPLEX])
+            ? 0
+            : $properties[Horde_ActiveSync_Device::MULTIPLEX];
+
         if (empty($this->_folders)) {
             ob_start();
             try {
@@ -330,8 +336,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
+
             if (array_search('calendar', $supported) !== false) {
-                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
                         $folders[] = $this->_getFolder(
@@ -344,14 +351,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         );
                     }
                 } else {
-                    // Multiplex not supported by the application's API or
-                    // disabled via prefs.
                     $folders[] = $this->_getFolder($temp);
                 }
             }
 
             if (array_search('contacts', $supported) !== false) {
-                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
                         $folders[] = $this->_getFolder(
@@ -369,7 +374,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             if (array_search('tasks', $supported) !== false) {
-                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
                        $folders[] = $this->_getFolder(
@@ -387,7 +392,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             if (array_search('notes', $supported) !== false) {
-                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
                         $folders[] = $this->_getFolder(

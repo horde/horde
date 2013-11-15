@@ -897,6 +897,8 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $collection  The collection class
      *                            A Horde_ActiveSync::CLASS_* constant.
+     * @param integer $multiplex  A bitmask flagging the collections that must
+     *                            be multiplexed, regardless of horde's settings
      *
      * @return array|string  A list of folder uids or $collection if supporting
      *                       API is not found. If a list is returned, it is in
@@ -904,14 +906,15 @@ class Horde_Core_ActiveSync_Connector
      *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
      * @since 2.12.0
      */
-    public function getFolders($collection)
+    public function getFolders($collection, $multiplex)
     {
         // @TODO: H6 remove the hasMethod checks.
         if (empty($this->_folderCache[$collection])) {
             switch ($collection) {
             case Horde_ActiveSync::CLASS_CALENDAR:
                 if ($this->_registry->hasMethod('calendar/sources') &&
-                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_CALENDAR)) {
 
                     $folders = $this->_registry->calendar->sources(true, true);
                     $default = $this->_registry->calendar->getDefaultShare();
@@ -922,7 +925,8 @@ class Horde_Core_ActiveSync_Connector
 
             case Horde_ActiveSync::CLASS_CONTACTS:
                 if ($this->_registry->hasMethod('contacts/sources') &&
-                    $this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_CONTACTS)) {
 
                     $folders = $this->_registry->contacts->sources(true, true);
                     $default = $this->_registry->contacts->getDefaultShare();
@@ -933,7 +937,9 @@ class Horde_Core_ActiveSync_Connector
 
             case Horde_ActiveSync::CLASS_TASKS:
                 if ($this->_registry->hasMethod('tasks/sources') &&
-                    $this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_TASKS)) {
+
                     $folders = $this->_registry->tasks->sources(true, true);
                     $default = $this->_registry->tasks->getDefaultShare();
                 } else {
@@ -943,7 +949,9 @@ class Horde_Core_ActiveSync_Connector
 
             case Horde_ActiveSync::CLASS_NOTES:
                 if ($this->_registry->hasMethod('notes/sources') &&
-                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_NOTES)) {
+
                     $folders = $this->_registry->notes->sources(true, true);
                     $default = $this->_registry->notes->getDefaultShare();
                 } else {
