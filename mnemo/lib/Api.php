@@ -470,7 +470,7 @@ class Mnemo_Api extends Horde_Registry_Api
     {
         $out = array();
 
-        foreach (Mnemo::listNotepads(falso, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
+        foreach (Mnemo::listNotepads(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
             $out[$key] = $val->get('name');
         }
 
