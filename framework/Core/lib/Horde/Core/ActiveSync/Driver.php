@@ -1387,10 +1387,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             print_r($ids, true))
         );
-        // TODO: Need to have the various connector methods report back
-        //       successfully deleted ids. Currently the APIs do not report
-        //       this for anything other than email.
-        $results = $ids;
 
         $parts = $this->_parseFolderId($folderid);
         if (is_array($parts)) {
@@ -1401,12 +1397,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder_id = null;
         }
         ob_start();
+        $results = $ids;
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             try {
                 $this->_connector->calendar_delete($ids, $folder_id);
             } catch (Horde_Exception $e) {
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
                 $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->calendar_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1415,6 +1424,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->contacts_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->contacts_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1423,6 +1445,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->tasks_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1431,6 +1466,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->notes_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
         default:
