@@ -181,7 +181,8 @@ class Horde_ActiveSync_Connector_Importer
                 '[%s] Change message failed when updating %s',
                 $this->_procid, $id)
             );
-            return false;
+            // Assume any error means the message was not found.
+            return array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
         }
         $stat['serverid'] = $this->_folderId;
 
@@ -204,15 +205,17 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @param array $ids          Server message uids to delete
      * @param string $collection  The server collection type.
+     *
+     * @return array  An array containing ids of successfully deleted messages.
      */
     public function importMessageDeletion(array $ids, $collection)
     {
         // Don't support SMS, but can't tell client that.
         if ($collection == Horde_ActiveSync::CLASS_SMS) {
-            return;
+            return array();
         }
 
-        // Tell backend about the deletion
+        // Ask the backend to delete the message.
         $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);
         foreach ($ids as $id) {
@@ -228,6 +231,8 @@ class Horde_ActiveSync_Connector_Importer
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
                 $this->_as->driver->getUser());
         }
+
+        return $ids;
     }
 
     /**
