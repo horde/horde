@@ -2721,14 +2721,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function modifyDeviceCallback(Horde_ActiveSync_Device $device)
     {
-        // try {
-        //     return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
-        //         ->callHook('activesync_device_modify', 'horde', array($device));
-        // } catch (Horde_Exception_HookNotSet $e) {}
-
-        // Test by forcing calendars to be multiplexed.
-        $multiplex = Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
-        $device->properties[Horde_ActiveSync_Device::MULTIPLEX] = $multiplex;
+        try {
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_device_modify', 'horde', array($device));
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $device;
     }
