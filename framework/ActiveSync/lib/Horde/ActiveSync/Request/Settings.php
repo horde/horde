@@ -193,6 +193,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag(); // end self::SETTINGS_OOF
                         break;
                     case self::SETTINGS_DEVICEINFORMATION :
+                        $device_properties = $this->_device->properties;
                         while (($field = ($this->_decoder->getElementStartTag(self::SETTINGS_MODEL) ? self::SETTINGS_MODEL :
                                ($this->_decoder->getElementStartTag(self::SETTINGS_IMEI) ? self::SETTINGS_IMEI :
                                ($this->_decoder->getElementStartTag(self::SETTINGS_FRIENDLYNAME) ? self::SETTINGS_FRIENDLYNAME :
@@ -203,16 +204,16 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                                ($this->_decoder->getElementStartTag(self::SETTINGS_MOBILEOPERATOR) ? self::SETTINGS_MOBILEOPERATOR :
                                ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLEOUTBOUNDSMS) ? self::SETTINGS_ENABLEOUTBOUNDSMS :
                                -1)))))))))) != -1) {
-                            if (($deviceinfo[$field] = $this->_decoder->getElementContent()) !== false) {
+                            if (($device_properties[$field] = $this->_decoder->getElementContent()) !== false) {
                                 $this->_decoder->getElementEndTag(); // end $field
                             }
                         }
                         try {
-                            $deviceinfo['version'] = $this->_device->version;
-                            $this->_device->setDeviceProperties($deviceinfo);
+                            $device_properties['version'] = $this->_device->version;
+                            $this->_device->setDeviceProperties($device_properties);
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_logger->err($e->getMessage());
-                            unset($deviceinfo);
+                            unset($device_properties);
                         }
                         $this->_decoder->getElementEndTag(); // end self::SETTINGS_DEVICEINFORMATION
                         break;
@@ -261,7 +262,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_OOF
         }
-        if (isset($deviceinfo)) {
+        if (isset($device_properties)) {
             $this->_encoder->startTag(self::SETTINGS_DEVICEINFORMATION);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
             if (!isset($result['set']['deviceinformation'])) {
