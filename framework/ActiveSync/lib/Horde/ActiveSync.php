@@ -766,10 +766,9 @@ class Horde_ActiveSync
             $this->_device->rwstatus = self::RWSTATUS_NA;
             $this->_device->user = $this->_driver->getUser();
             $this->_device->id = $devId;
-            $this->_device->version = $version;
             $this->_device->needsVersionUpdate($this->getSupportedVersions());
 
-            // @TODO: Remove is_callable check (and extra else clause) for H6.
+            // @TODO: Remove is_callable check for H6.
             //        Combine this with the modifyDevice callback? Allow $device
             //        to be modified here?
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
@@ -790,17 +789,22 @@ class Horde_ActiveSync
                     if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
                         $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
                     }
-                    $this->_device->save();
                 }
-            } else {
-                $this->_device->save();
             }
         } else {
             $this->_device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
-            $this->_device->version = $version;
+
+            // If the device state was removed from storage, we may lose the
+            // device properties, so try to repopulate what we can. userAgent
+            // is ALWAYS available, so if it's missing, the state is gone.
+            if (empty($this->_device->userAgent)) {
+                $this->_device->userAgent = $this->_request->getHeader('User-Agent');
+                $this->_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+                $this->_device->user = $this->_driver->getUser();
+            }
 
             // Check this here so we only need to save the device object once.
-            if ($this->_device->properties['version'] < $this->_maxVersion &&
+            if ($this->_device->properties[Horde_ActiveSync_Device::VERSION] < $this->_maxVersion &&
                 $this->_device->needsVersionUpdate($this->getSupportedVersions())) {
 
                 $needMsRp = true;
@@ -810,22 +814,22 @@ class Horde_ActiveSync
             if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
                 $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
             }
+        }
 
-            $this->_device->save();
-
-            if (is_callable(array($this->_driver, 'deviceCallback'))) {
-                $callback_ret = $this->_driver->deviceCallback($this->_device);
-                if ($callback_ret !== true) {
-                    $msg = sprintf(
-                        'The device %s was disallowed for user %s per policy settings.',
-                        $this->_device->id,
-                        $this->_device->user);
-                    self::$_logger->err($msg);
-                    if ($version > self::VERSION_TWELVEONE) {
-                        $this->_globalError = $callback_ret;
-                    } else {
-                        throw new Horde_ActiveSync_Exception($msg);
-                    }
+        $this->_device->save();
+        $this->_device->version = $version;
+        if (is_callable(array($this->_driver, 'deviceCallback'))) {
+            $callback_ret = $this->_driver->deviceCallback($this->_device);
+            if ($callback_ret !== true) {
+                $msg = sprintf(
+                    'The device %s was disallowed for user %s per policy settings.',
+                    $this->_device->id,
+                    $this->_device->user);
+                self::$_logger->err($msg);
+                if ($version > self::VERSION_TWELVEONE) {
+                    $this->_globalError = $callback_ret;
+                } else {
+                    throw new Horde_ActiveSync_Exception($msg);
                 }
             }
         }

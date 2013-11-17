@@ -626,8 +626,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $query = array('_id' => $deviceId);
         $update = array(
             '$set' => array(
-                'device_properties' => $data,
-                'device_agent' => !empty($data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT]) ? $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT] : ''
+                'device_properties' => $data
             )
         );
         try {
