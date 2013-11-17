@@ -645,7 +645,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function setDeviceProperties(array $data, $deviceId)
     {
-        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_properties = ?,'
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_properties = ?'
             . ' WHERE device_id = ?';
         $properties = array(
             serialize($data),
