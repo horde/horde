@@ -147,7 +147,7 @@ class Mnemo_Api extends Horde_Registry_Api
             $notepads = Mnemo::getSyncNotepads();
             $results = array();
             foreach ($notepads as $notepad) {
-                $results = array_merge($resutls, $this->listBy($action, $timestamp, $notepad, $end, $isModSeq));
+                $results = array_merge($results, $this->listBy($action, $timestamp, $notepad, $end, $isModSeq));
             }
             return $results;
         }
