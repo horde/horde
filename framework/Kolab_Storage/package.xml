@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Only return requested type from Horde_Kolab_Storage_Data_Base#fetch() if different types are in the same folder.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1333,7 +1333,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Only return requested type from Horde_Kolab_Storage_Data_Base#fetch() if different types are in the same folder.
    </notes>
   </release>
  </changelog>
