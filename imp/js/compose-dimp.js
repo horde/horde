@@ -1174,9 +1174,11 @@ var DimpCompose = {
         case 'writemsg':
             if (!this.disabled && elt.hasClassName('horde-popdown')) {
                 tmp = elt.retrieve('popdown_id');
-                this.knl[tmp].knl.show();
-                this.knl[tmp].knl.ignoreClick(e.memo);
-                e.memo.stop();
+                if (tmp && this.knl[tmp]) {
+                    this.knl[tmp].knl.show();
+                    this.knl[tmp].knl.ignoreClick(e.memo);
+                    e.memo.stop();
+                }
             }
             break;
 
