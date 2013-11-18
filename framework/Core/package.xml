@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t try authentication to SMTP server if explicitly disabled (Bug #12830).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3240,7 +3240,7 @@
    <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t try authentication to SMTP server if explicitly disabled (Bug #12830).
    </notes>
   </release>
  </changelog>
