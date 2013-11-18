@@ -699,7 +699,6 @@ $cfgSources['kolab'] = array(
     ),
     'export' => true,
     'browse' => true,
-    'list_name_field' => 'lastname',
     'use_shares' => true,
     'all_shares' => true,
 );

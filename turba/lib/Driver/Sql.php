@@ -505,7 +505,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return string  The object id, possibly updated.
      * @throws Turba_Exception
      */
-    function _save(Turba_Object $object)
+    protected function _save(Turba_Object $object)
     {
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());

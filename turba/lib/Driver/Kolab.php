@@ -39,6 +39,13 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected $_data;
 
     /**
+     * The current addressbook, serving groups.
+     *
+     * @var Horde_Kolab_Storage_Data
+     */
+    protected $_listData;
+
+    /**
      * The current addressbook represented as share.
      *
      * @var Horde_Share_Object
@@ -94,6 +101,14 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function toDriverKeys(array $hash)
     {
+        if (isset($hash['__type']) && $hash['__type'] == 'Group') {
+            $name = $hash['name'];
+            unset($hash['name']);
+            $hash = parent::toDriverKeys($hash);
+            $hash['display-name'] = $name;
+            return $hash;
+        }
+
         $hash = parent::toDriverKeys($hash);
 
         if (isset($hash['name'])) {
@@ -194,32 +209,82 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Return the Kolab data handler for the current address book.
+     * Translates a hash from being keyed on driver-specific fields to being
+     * keyed on the generalized Turba attributes. The translation is based on
+     * the contents of $this->map.
+     *
+     * @param array $entry  A hash using driver-specific keys.
+     *
+     * @return array  Translated version of $entry.
+     */
+    public function toTurbaKeys(array $entry)
+    {
+        if (isset($entry['__type']) &&
+            $entry['__type'] == 'Group' &&
+            isset($entry['display-name'])) {
+            $entry['last-name'] = $entry['display-name'];
+        }
+
+        return parent::toTurbaKeys($entry);
+    }
+
+    /**
+     * Returns the Kolab data handler for contacts in the current address book.
      *
      * @return Horde_Kolab_Storage_Data The data handler.
      */
     protected function _getData()
     {
         if ($this->_data === null) {
-            if (!empty($this->_share)) {
-                $share = $this->_share;
-            } else {
-                if (empty($this->_name)) {
-                    throw new Turba_Exception(
-                        'The addressbook has been left undefined but is required!'
-                    );
-                }
-
-                $share = $GLOBALS['injector']
-                    ->getInstance('Turba_Shares')
-                    ->getShare($addressbook);
-            }
-
-            $this->_data = $this->_kolab->getData($share->get('folder'), 'contact');
-            $this->setContactOwner($share->get('owner'));
+            $this->_data = $this->_createData('contact');
         }
 
         return $this->_data;
+    }
+
+    /**
+     * Returns the Kolab data handler for distribution lists in the current
+     * address book.
+     *
+     * @return Horde_Kolab_Storage_Data The data handler.
+     */
+    protected function _getListData()
+    {
+        if ($this->_listData === null) {
+            $this->_listData = $this->_createData('distribution-list');
+        }
+
+        return $this->_listData;
+    }
+
+    /**
+     * Returns a new Kolab data handler for the current address book.
+     *
+     * @param string $type  An object type, either 'contact' or
+     *                      'distribution-list'.
+     *
+     * @return Horde_Kolab_Storage_Data  A data handler.
+     */
+    protected function _createData($type)
+    {
+        if (!empty($this->_share)) {
+            $share = $this->_share;
+        } else {
+            if (empty($this->_name)) {
+                throw new Turba_Exception(
+                    'The addressbook has been left undefined but is required!'
+                );
+            }
+
+            $share = $GLOBALS['injector']
+                ->getInstance('Turba_Shares')
+                ->getShare($this->_name);
+        }
+
+        $data = $this->_kolab->getData($share->get('folder'), $type);
+        $this->setContactOwner($share->get('owner'));
+
+        return $data;
     }
 
     /**
@@ -241,6 +306,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
             $contact = $contact->getData();
+            $contact['__type'] = 'Object';
             $contact['__key'] = Horde_Url::uriB64Encode($id);
 
             if (isset($contact['picture'])) {
@@ -305,13 +371,17 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         /* Now we retrieve distribution-lists */
-        $groups = array();
-        //@todo: group support
-        /* $result = $this->_store->setObjectType('distribution-list'); */
-        /* $groups = $this->_store->getObjects(); */
-        /* if (!$groups) { */
-        /*     $groups = array(); */
-        /* } */
+        $raw_groups = $this->_getListData()->getObjects();
+        if (!$raw_groups) {
+            $groups = array();
+        } else {
+            foreach ($raw_groups as $id => $group) {
+                $group = $group->getData();
+                $group['__type'] = 'Group';
+                $group['__key'] = Horde_Url::uriB64Encode($id);
+                $groups[Horde_Url::uriB64Encode($id)] = $group;
+            }
+        }
 
         /* Store the results in our cache */
         $this->_contacts_cache = array_merge($contacts, $groups);
@@ -350,12 +420,16 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $result = $this->_read(
-            'uid',
-            array_map(array('Horde_Url', 'uriB64Encode'), $ids),
-            null,
-            $fields
-        );
+        if ($ids) {
+            $result = $this->_read(
+                'uid',
+                array_map(array('Horde_Url', 'uriB64Encode'), $ids),
+                null,
+                $fields
+            );
+        } else {
+            $result = array();
+        }
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -556,7 +630,7 @@ class Turba_Driver_Kolab extends Turba_Driver
                     if (isset($object['member'])) {
                         foreach ($object['member'] as $member) {
                             if (isset($member['uid'])) {
-                                $member_ids[] = $member['uid'];
+                                $member_ids[] = Horde_Url::uriB64Encode($member['uid']);
                                 continue;
                             }
                             $display_name = $member['display-name'];
@@ -583,7 +657,7 @@ class Turba_Driver_Kolab extends Turba_Driver
                             $contacts = $this->_search($criteria, $fields);
 
                             // and drop everything else except the first search result
-                            $member_ids[] = $contacts[0]['uid'];
+                            $member_ids[] = $contacts[0]['__key'];
                         }
                         $object['__members'] = serialize($member_ids);
                         unset($object['member']);
@@ -591,6 +665,10 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $results[] = $object;
                 }
             }
+        }
+
+        if (!$results) {
+            throw new Horde_Exception_NotFound();
         }
 
         return $results;
@@ -632,15 +710,12 @@ class Turba_Driver_Kolab extends Turba_Driver
             throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $uid));
         }
 
-        $group = isset($this->_contacts_cache[$object_id]['__type']) &&
-            $this->_contacts_cache[$object_id]['__type'] == 'Group';
+        $data = isset($this->_contacts_cache[$object_id]['__type']) &&
+            $this->_contacts_cache[$object_id]['__type'] == 'Group'
+            ? $this->_getListData()
+            : $this->_getData();
 
-        if ($group) {
-            //@todo: group support
-            //$result = $this->_store->setObjectType('distribution-list');
-        }
-
-        $result = $this->_getData()->delete($this->_contacts_cache[$object_id]['uid']);
+        $result = $data->delete($this->_contacts_cache[$object_id]['uid']);
 
         /* Invalidate cache. */
         $this->_connected = false;
@@ -663,11 +738,7 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         /* Delete contacts */
         $this->_getData()->deleteAll();
-
-        /* Delete groups */
-        //@todo: group support
-        //$result = $this->_store->setObjectType('distribution-list');
-        //$result = $this->_store->deleteAll();
+        $this->_getListData()->deleteAll();
 
         return $uids;
     }
@@ -697,30 +768,27 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     protected function _store($attributes, $object_id = null)
     {
-        $group = false;
         if (isset($attributes['__type']) && $attributes['__type'] == 'Group') {
-            return;
-            //@todo: group support
-            /* $group = true; */
-            /* $result = $this->_store->setObjectType('distribution-list'); */
-            /* $this->_convertMembers($attributes); */
-        }
-
-        if (isset($attributes['photo']) && isset($attributes['phototype'])) {
-            $attributes['_attachments']['photo.attachment'] = array(
-                'type' => $attributes['phototype'],
-                'content' => $attributes['photo']
-            );
-            $attributes['picture'] = 'photo.attachment';
-            unset($attributes['photo'], $attributes['phototype']);
-        }
-
-        // EAS sets the date fields to '' instead of null -> fix it up
-        $fix_date_fields = array('birthday', 'anniversary');
-        foreach ($fix_date_fields as $fix_date) {
-            if (empty($attributes[$fix_date])) {
-                unset($attributes[$fix_date]);
+            $this->_convertMembers($attributes);
+            $data = $this->_getListData();
+        } else {
+            if (isset($attributes['photo']) && isset($attributes['phototype'])) {
+                $attributes['_attachments']['photo.attachment'] = array(
+                    'type' => $attributes['phototype'],
+                    'content' => $attributes['photo']
+                );
+                $attributes['picture'] = 'photo.attachment';
+                unset($attributes['photo'], $attributes['phototype']);
             }
+
+            // EAS sets the date fields to '' instead of null -> fix it up
+            $fix_date_fields = array('birthday', 'anniversary');
+            foreach ($fix_date_fields as $fix_date) {
+                if (empty($attributes[$fix_date])) {
+                    unset($attributes[$fix_date]);
+                }
+            }
+            $data = $this->_getData();
         }
 
         if (isset($attributes['__tags'])) {
@@ -733,13 +801,10 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         if ($object_id === null) {
-            $object_id = $this->_getData()->create($attributes);
+            $object_id = $data->create($attributes);
         } else {
-            $object_id = $this->_getData()->modify($attributes);
+            $data->modify($attributes);
         }
-        /* if ($group) {
-            $result = $this->_store->setObjectType('contact');
-        } */
 
         /* Invalidate cache. */
         $this->_connected = false;
@@ -755,11 +820,10 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (isset($attributes['__members'])) {
             $member_ids = unserialize($attributes['__members']);
             $attributes['member'] = array();
-            foreach ($member_ids as $uid) {
-                $member_id = Horde_Url::uriB64Encode($uid);
+            foreach ($member_ids as $member_id) {
                 if (isset($this->_contacts_cache[$member_id])) {
                     $member = $this->_contacts_cache[$member_id];
-                    $mail = array('uid' => $uid);
+                    $mail = array('uid' => Horde_Url::uriB64Decode($member_id));
                     if (!empty($member['full-name'])) {
                         $mail['display-name'] = $member['full-name'];
                     }

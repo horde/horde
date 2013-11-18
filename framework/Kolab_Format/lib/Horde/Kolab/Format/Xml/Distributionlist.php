@@ -43,10 +43,7 @@ class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
      * @var array
      */
     protected $_fields_specific = array(
-        'display-name' => array(
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_NOT_EMPTY
-        ),
+        'display-name' => 'Horde_Kolab_Format_Xml_Type_String_NotEmpty',
         'member' => 'Horde_Kolab_Format_Xml_Type_Multiple_SimplePerson',
     );
 
