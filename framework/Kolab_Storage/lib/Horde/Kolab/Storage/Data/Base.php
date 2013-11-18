@@ -356,9 +356,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $object = new Horde_Kolab_Storage_Object();
             $object->setDriver($this->_driver);
             $object->load($uid, $this->_folder, $writer, $structure['structure']);
-            if ($object->getType() == $this->_type) {
-                $objects[$uid] = $object;
-            }
+            $objects[$uid] = $object;
         }
         return $objects;
     }
