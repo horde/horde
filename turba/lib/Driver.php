@@ -520,7 +520,7 @@ class Turba_Driver implements Countable
         $new_entry = array();
         foreach ($this->map as $key => $val) {
             if (!is_array($val)) {
-                $new_entry[$key] = (isset($entry[$val]) && strlen($entry[$val]))
+                $new_entry[$key] = (isset($entry[$val]) && (!empty($entry[$val]) || (is_string($entry[$val]) && strlen($entry[$val]))))
                     ? trim($entry[$val])
                     : null;
             }
