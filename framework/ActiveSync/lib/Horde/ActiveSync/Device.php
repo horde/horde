@@ -100,7 +100,6 @@ class Horde_ActiveSync_Device
     public function &__get($property)
     {
         switch ($property) {
-        //case self::VERSION:
         case self::MULTIPLEX:
         case self::ANNOUNCED_VERSION:
             return $this->_properties['properties'][$property];
@@ -120,7 +119,6 @@ class Horde_ActiveSync_Device
     public function __set($property, $value)
     {
         switch ($property) {
-        //case self::VERSION:
         case self::MULTIPLEX:
         case self::ANNOUNCED_VERSION:
             $properties = $this->properties;

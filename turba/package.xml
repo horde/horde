@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Fix distribution list support in Kolab driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -796,6 +796,20 @@
    </package>
    <package>
     <name>Horde_Imsp</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Format</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.5</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -1720,7 +1734,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix distribution list support in Kolab driver.
    </notes>
   </release>
  </changelog>
