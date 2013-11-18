@@ -114,6 +114,7 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'text/xhtml':
         case 'application/xhtml':
         case 'application/x-vnd.kolab.contact':
+        case 'application/x-vnd.kolab.contact.distlist':
         case 'application/x-vnd.kolab.event':
         case 'application/x-vnd.kolab.h-ledger':
         case 'application/x-vnd.kolab.h-prefs':

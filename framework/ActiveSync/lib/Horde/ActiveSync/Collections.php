@@ -1012,9 +1012,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Error loading state: ' . $e->getMessage());
-                    if (!empty($options['pingable'])) {
-                        return self::COLLECTION_ERR_PING_NEED_FULL;
-                    }
+                    $this->_as->state->loadState(
+                        array(),
+                        null,
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $id);
                     $this->setGetChangesFlag($id);
                     $dataavailable = true;
                     continue;
