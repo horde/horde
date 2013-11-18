@@ -12,7 +12,7 @@
  </lead>
  <date>2013-11-18</date>
  <version>
-  <release>2.9.0</release>
+  <release>2.9.1</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix generating EAS folder uids for devices that can&apos;t tell the difference between a string and an integer.
-* [mjr] Changes to support multiple non-email collections of the same type.
-* [mjr] Improvements to memory and database usage.
-* [mjr] Add MongoDB state driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1808,6 +1805,19 @@
 * [mjr] Changes to support multiple non-email collections of the same type.
 * [mjr] Improvements to memory and database usage.
 * [mjr] Add MongoDB state driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
