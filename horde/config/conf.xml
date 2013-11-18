@@ -2082,14 +2082,14 @@
      properties and state data such as syncronization keys and hierarchy data.
      Choose the storage backend to use.</configdescription>
      <configswitch name="storage">
-      <case name="Nosql" desc="NoSQL Database">
-        <configsection name="params">
-         <confignosql switchname="driverconfig" />
-        </configsection>
-      </case>
       <case name="Sql" desc="SQL Database">
         <configsection name="params">
          <configsql switchname="driverconfig" />
+        </configsection>
+      </case>
+      <case name="Nosql" desc="NoSQL Database">
+        <configsection name="params">
+         <confignosql switchname="driverconfig" />
         </configsection>
       </case>
      </configswitch>
