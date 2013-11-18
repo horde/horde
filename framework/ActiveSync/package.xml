@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-22</date>
+ <date>2013-11-18</date>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -33,7 +33,6 @@
      <dir name="ActiveSync">
       <file name="COPYING" role="doc" />
       <file name="TODO" role="doc" />
-      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/ActiveSync -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -363,7 +362,6 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/ActiveSync/COPYING" />
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
-   <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
    <install as="Horde/ActiveSync/Collections.php" name="lib/Horde/ActiveSync/Collections.php" />
    <install as="Horde/ActiveSync/Device.php" name="lib/Horde/ActiveSync/Device.php" />
@@ -1803,7 +1801,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-22</date>
+   <date>2013-11-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix generating EAS folder uids for devices that can&apos;t tell the difference between a string and an integer.
