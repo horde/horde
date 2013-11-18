@@ -89,6 +89,20 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Translates a hash from being keyed on driver-specific fields to being
+     * keyed on the generalized Turba attributes. The translation is based on
+     * the contents of $this->map.
+     *
+     * @param array $entry  A hash using driver-specific keys.
+     *
+     * @return array  Translated version of $entry.
+     */
+    public function toTurbaKeys(array $entry)
+    {
+        return $this->_driver->toTurbaKeys($entry);
+    }
+
+    /**
      * Searches the current address book for duplicate entries.
      *
      * Duplicates are determined by comparing email and name or last name and

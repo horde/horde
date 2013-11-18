@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix generating EAS folder uids for devices that can&apos;t tell the difference between a string and an integer.
 * [mjr] Changes to support multiple non-email collections of the same type.
 * [mjr] Improvements to memory and database usage.
 * [mjr] Add MongoDB state driver.
@@ -1805,6 +1806,7 @@
    <date>2013-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix generating EAS folder uids for devices that can&apos;t tell the difference between a string and an integer.
 * [mjr] Changes to support multiple non-email collections of the same type.
 * [mjr] Improvements to memory and database usage.
 * [mjr] Add MongoDB state driver.
