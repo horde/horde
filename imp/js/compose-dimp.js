@@ -155,11 +155,18 @@ var DimpCompose = {
 
     setPopdownLabel: function(id, s, l, k)
     {
+        var input;
+
         if (!k) {
             k = this.knl[id];
             if (!k) {
                 return;
             }
+        }
+
+        input = $(k.opts.input);
+        if (!input) {
+            return;
         }
 
         if (!l) {
@@ -176,7 +183,7 @@ var DimpCompose = {
                 : l.l;
         }
 
-        $(k.opts.input).setValue(s);
+        input.setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
         if (k.knl) {
