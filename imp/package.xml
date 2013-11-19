@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2013-11-19</date>
  <version>
   <release>6.1.6</release>
   <api>6.1.0</api>
@@ -3309,7 +3309,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression where auto-saved drafts were not being deleted when cancelling compose message in dynamic view.
