@@ -433,31 +433,37 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
             $status2 = new IMP_Mime_Status();
 
-            try {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
-                if ($sig_raw = $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
-                    $sig_result = $imp_pgp->verifySignature($sig_raw, $this->_getSender()->bare_address, null, $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_CHARSET));
-                } else {
-                    $stream = $imp_contents->isEmbedded($signed_id)
-                        ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
-                        : $imp_contents->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
-
-                    rewind($stream);
-                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-                    stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
-                        'eol' => Horde_Mime_Part::RFC_EOL
-                    ));
-
-                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream), $this->_getSender()->bare_address, $sig_part->getContents());
-                }
-
-                $status2->action(IMP_Mime_Status::SUCCESS);
-                $sig_text = $sig_result->message;
-                $ret[$base_id]['wrap'] = 'mimePartWrapValid';
-            } catch (Horde_Exception $e) {
+            if (!$sig_part) {
                 $status2->action(IMP_Mime_Status::ERROR);
-                $sig_text = $e->getMessage();
+                $sig_text = _("This digitally signed messages is broken");
                 $ret[$base_id]['wrap'] = 'mimePartWrapInvalid';
+            } else {
+                try {
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+                    if ($sig_raw = $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
+                        $sig_result = $imp_pgp->verifySignature($sig_raw, $this->_getSender()->bare_address, null, $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_CHARSET));
+                    } else {
+                        $stream = $imp_contents->isEmbedded($signed_id)
+                            ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
+                            : $imp_contents->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
+
+                        rewind($stream);
+                        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+                        stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
+                            'eol' => Horde_Mime_Part::RFC_EOL
+                        ));
+
+                        $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream), $this->_getSender()->bare_address, $sig_part->getContents());
+                    }
+
+                    $status2->action(IMP_Mime_Status::SUCCESS);
+                    $sig_text = $sig_result->message;
+                    $ret[$base_id]['wrap'] = 'mimePartWrapValid';
+                } catch (Horde_Exception $e) {
+                    $status2->action(IMP_Mime_Status::ERROR);
+                    $sig_text = $e->getMessage();
+                    $ret[$base_id]['wrap'] = 'mimePartWrapInvalid';
+                }
             }
 
             $status2->addText($this->_textFilter($sig_text, 'text2html', array(

@@ -35,6 +35,11 @@
  *                                    along with any custom properties set.
  * @property string announcedVersion  The most last EAS supported versions
  *                                    announced to the device.
+ * @property string multiplex         Bitmask describing collections that this
+ *                                    device does not support user created
+ *                                    folders for, therefore all sources must
+ *                                    be multiplexed together. Masks are
+ *                                    the MULTIPLEX_* constants.
  *
  */
 class Horde_ActiveSync_Device
@@ -47,6 +52,7 @@ class Horde_ActiveSync_Device
     const PHONE_NUMBER      = 'Settings:PhoneNumber';
     const VERSION           = 'version';
     const MULTIPLEX         = 'multiplex';
+    const ANNOUNCED_VERSION = 'announcedVersion';
 
     // Bitwise constants for flagging device must use multiplexed collections.
     // @since 2.9.0
@@ -93,11 +99,17 @@ class Horde_ActiveSync_Device
      */
     public function &__get($property)
     {
-        if (isset($this->_properties[$property])) {
-            return $this->_properties[$property];
-        } else {
-            $return = null;
-            return $return;
+        switch ($property) {
+        case self::MULTIPLEX:
+        case self::ANNOUNCED_VERSION:
+            return $this->_properties['properties'][$property];
+        default:
+            if (isset($this->_properties[$property])) {
+                return $this->_properties[$property];
+            } else {
+                $return = null;
+                return $return;
+            }
         }
     }
 
@@ -106,9 +118,22 @@ class Horde_ActiveSync_Device
      */
     public function __set($property, $value)
     {
-        if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
-            $this->_dirty[$property] = true;
-            $this->_properties[$property] = $value;
+        switch ($property) {
+        case self::MULTIPLEX:
+        case self::ANNOUNCED_VERSION:
+            $properties = $this->properties;
+            if (empty($properties)) {
+                $properties = array();
+            }
+            $properties[$property] = $value;
+            $this->setDeviceProperties($properties);
+            break;
+
+        default:
+            if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
+                $this->_dirty[$property] = true;
+                $this->_properties[$property] = $value;
+            }
         }
     }
 
@@ -129,14 +154,16 @@ class Horde_ActiveSync_Device
      */
     public function needsVersionUpdate($supported)
     {
-        if (empty($this->properties['announcedVersion'])) {
-            $this->_properties['properties']['announcedVersion'] = $supported;
-            $this->_dirty['properties'] = true;
+        if (empty($this->properties[self::ANNOUNCED_VERSION])) {
+            $properties = $this->properties;
+            $properties[self::ANNOUNCED_VERSION] = $supported;
+            $this->setDeviceProperties($properties);
             return false;
         }
-        if ($this->properties['announcedVersion'] != $supported) {
-            $this->_properties['properties']['announcedVersion'] = $supported;
-            $this->_dirty['properties'] = true;
+        if ($this->properties[self::ANNOUNCED_VERSION] != $supported) {
+            $properties = $this->properties;
+            $properties[self::ANNOUNCED_VERSION] = $supported;
+            $this->setDeviceProperties($properties);
             return true;
         }
 
@@ -230,6 +257,9 @@ class Horde_ActiveSync_Device
         }
         if (!empty($this->properties[self::VERSION])) {
             $data[_("EAS Version")] = $this->properties[self::VERSION];
+        }
+        if (!empty($this->properties[self::MULTIPLEX])) {
+            $data[_("Forced Multiplexed Bitmask")] = $this->properties[self::MULTIPLEX];
         }
 
         return $data;

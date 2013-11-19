@@ -10,7 +10,7 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -34,12 +34,14 @@ Updated translations would also be great.
 The major changes compared to the Whups version H5 (3.0.0RC2) are:
     * Move attachments list to separate ticket tab.
     * Hide citings in comments by default.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Move attachments list to separate ticket tab.
 Hide citings in comments by default.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Whups';

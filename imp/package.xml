@@ -3422,12 +3422,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression where auto-saved drafts were not being deleted when cancelling compose message in dynamic view.
 * [mms] Fix regression in parsing permission values (Bug #12812).
 * [mms] Fix regression in showing non-available actions in dynamic mailbox view when ACL rules prevent them (Bug #12808).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.7</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
