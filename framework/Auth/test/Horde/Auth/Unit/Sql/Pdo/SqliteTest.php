@@ -20,7 +20,7 @@ class Horde_Auth_Unit_Sql_Pdo_SqliteTest extends Horde_Auth_Unit_Sql_Base
             self::$db = $factory_db->create();
             parent::setUpBeforeClass();
         } catch (Horde_Test_Exception $e) {
-            self::$_reason = 'Sqlite not available.';
+            self::$reason = 'Sqlite not available.';
         }
     }
 
