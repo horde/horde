@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-12</date>
+ <date>2013-11-19</date>
  <version>
   <release>2.11.1</release>
   <api>2.11.0</api>
@@ -3237,7 +3237,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-12</date>
+   <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t try authentication to SMTP server if explicitly disabled (Bug #12830).
