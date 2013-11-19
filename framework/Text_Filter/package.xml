@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-12</date>
+ <date>2013-11-19</date>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Move JSMin code to a separate package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -991,10 +991,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-12</date>
+   <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Move JSMin code to a separate package.
    </notes>
   </release>
  </changelog>
