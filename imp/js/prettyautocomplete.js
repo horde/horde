@@ -251,7 +251,6 @@ var IMP_PrettyAutocompleter = Class.create({
 
         this.input.setValue(input);
         this.resize();
-        this.focus();
     },
 
     updateHiddenInput: function()
