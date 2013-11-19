@@ -18,7 +18,7 @@
  </lead>
  <date>2013-11-19</date>
  <version>
-  <release>3.0.0RC3</release>
+  <release>3.0.0RC4</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -27,11 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* [jan] Fix empty notifications for assignees on ticket creation (Bug #12683).
-* [jan] Fix displaying of ticket tabs (Bug #12744).
-* [mjr] Fix sourceselect preference handling (Bug #12718).
-* [jan] Hide citings in comments by default.
-* [jan] Move attachments list to separate ticket tab.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1057,6 +1053,19 @@
 * [mjr] Fix sourceselect preference handling (Bug #12718).
 * [jan] Hide citings in comments by default.
 * [jan] Move attachments list to separate ticket tab.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-11-19</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
