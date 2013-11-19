@@ -18,7 +18,7 @@
  </lead>
  <date>2013-11-19</date>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -27,12 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Remove Horde_Crypt_Pgp#generateRevocation() (Bug #7375).
-* [mms] Fix submitting PGP keys to a public keyserver (Bug #10931).
-* [mms] PGP keyserver code now uses Horde_Http_Client to connect to the keyserver.
-* [mms] Move PGP keyserver code to a separate Horde_Crypt_Pgp_Keyserver class.
-* [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
-* [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -983,6 +978,19 @@ Initial release as a PEAR package
 * [mms] Move PGP keyserver code to a separate Horde_Crypt_Pgp_Keyserver class.
 * [mms] Add Horde_Crypt_Pgp_Parse#parseToPart().
 * [mms] Move Horde_Crypt_Pgp#parsePGPData() to separate class (Horde_Crypt_Pgp_Parse), since it can be used even if GnuPG binary is not available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
