@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add ability to flag a specific device as blocked.
+* [mjr] Add ability to filter the list of devices on more than username.
 * [mjr] Attempt to recover old serialized data before forcing a repairing of Email collections.
  </notes>
  <contents>
@@ -1817,6 +1819,8 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add ability to flag a specific device as blocked.
+* [mjr] Add ability to filter the list of devices on more than username.
 * [mjr] Attempt to recover old serialized data before forcing a repairing of Email collections.
    </notes>
   </release>
