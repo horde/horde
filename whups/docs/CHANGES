@@ -1,6 +1,6 @@
-----------
-v3.0.0-git
-----------
+---------
+v3.0.0RC3
+---------
 
 [jan] Fix empty notifications for assignees on ticket creation (Bug #12683).
 [jan] Fix displaying of ticket tabs (Bug #12744).
