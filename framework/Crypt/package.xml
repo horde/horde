@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-13</date>
+ <date>2013-11-19</date>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -974,7 +974,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-13</date>
+   <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Remove Horde_Crypt_Pgp#generateRevocation() (Bug #7375).
