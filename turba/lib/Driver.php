@@ -686,17 +686,15 @@ class Turba_Driver implements Countable
         $t_objects = array();
         while ($ob = $res->next()) {
             $t_object = $ob->getValue($category);
-            if (empty($t_object) ||
-                $t_object == '0000-00-00' ||
-                !preg_match('/(\d{4})-(\d{2})-(\d{2})/', $t_object, $match)) {
+            if (empty($t_object)) {
                 continue;
             }
 
-            $t_object = new Horde_Date(array(
-                'mday' => $match[3],
-                'month' => $match[2],
-                'year' => $match[1]
-            ));
+            try {
+                $t_object = new Horde_Date($t_object);
+            } catch (Horde_Date_Exception $e) {
+            }
+
             if ($t_object->compareDate($end) > 0) {
                 continue;
             }
