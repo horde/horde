@@ -49,7 +49,9 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
 
         if (strcasecmp($transport, 'smtp') === 0) {
             $transport = 'Smtphorde';
-        } elseif (empty($params['auth'])) {
+        }
+
+        if (empty($params['auth'])) {
             unset($params['username'], $params['password']);
         }
 
