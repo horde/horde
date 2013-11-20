@@ -834,6 +834,19 @@ class Horde_ActiveSync
             }
         }
 
+        // Lastly, check if the device has been set to blocked.
+        if ($this->_device->blocked) {
+            $msg = sprintf(
+                'The device %s was blocked.',
+                $this->_device->id);
+            self::$_logger->err($msg);
+            if ($version > self::VERSION_TWELVEONE) {
+                $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+            } else {
+                throw new Horde_ActiveSync_Exception($msg);
+            }
+        }
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();

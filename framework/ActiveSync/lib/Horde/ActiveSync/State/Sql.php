@@ -691,20 +691,31 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param string $user  The username to list devices for. If empty, will
      *                      return all devices.
+     * @param array $filter An array of optional filters where the keys are
+     *                      field names and the values are values to match.
      *
      * @return array  An array of device hashes
      * @throws Horde_ActiveSync_Exception
      */
-    public function listDevices($user = null)
+    public function listDevices($user = null, $filter = array())
     {
         $query = 'SELECT d.device_id AS device_id, device_type, device_agent,'
             . ' device_policykey, device_rwstatus, device_user, device_properties FROM '
             . $this->_syncDeviceTable . ' d  INNER JOIN ' . $this->_syncUsersTable
             . ' u ON d.device_id = u.device_id';
         $values = array();
+        $glue = false;
         if (!empty($user)) {
             $query .= ' WHERE u.device_user = ?';
             $values[] = $user;
+            $glue = true;
+        }
+        $explicit_fields = array('device_id', 'device_type', 'device_agent', 'device_user');
+        foreach ($filter as $key => $value) {
+            if (in_array($key, $explicit_fields)) {
+                $query .= ($glue ? ' AND ' : ' WHERE ') . 'd.' . $key . ' LIKE ?';
+                $values[] = $value . '%';
+            }
         }
 
         try {

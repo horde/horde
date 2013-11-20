@@ -305,6 +305,9 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
+            if ($contact->getType() != 'contact') {
+                continue;
+            }
             $contact = $contact->getData();
             $contact['__type'] = 'Object';
             $contact['__key'] = Horde_Url::uriB64Encode($id);
@@ -380,6 +383,9 @@ class Turba_Driver_Kolab extends Turba_Driver
             $groups = array();
         } else {
             foreach ($raw_groups as $id => $group) {
+                if ($group->getType() != 'distribution-list') {
+                    continue;
+                }
                 $group = $group->getData();
                 $group['__type'] = 'Group';
                 $group['__key'] = Horde_Url::uriB64Encode($id);
