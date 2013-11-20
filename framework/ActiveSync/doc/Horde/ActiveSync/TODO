@@ -30,3 +30,6 @@ BC BREAKING (i.e., Horde 6).
   backend. They need to be normalized in accepting/returning the same objects
   now that we support multiple folders per non-email collection.
 
+- Refactor Horde_ActiveSync_State_*::listDevices() to return a
+  Horde_ActiveSync_Device object instead of a hash keyed by backend field names
+  and to take the object property names as filters instead of backend field names.
