@@ -2,6 +2,8 @@
 v4.2.0-git
 ----------
 
+[mjr] Fix listTimeObjects API when format_in attribute parameter is changed
+      from default (Bug #11891).
 [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
 [jan] Remember currently open tab when switching or saving contact views
       (Request #12609).
