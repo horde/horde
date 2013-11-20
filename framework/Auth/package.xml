@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix parsing salted SHA256 entries (Adam James &lt;adam.james@transitiv.co.uk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -904,7 +904,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix parsing salted SHA256 entries (Adam James &lt;adam.james@transitiv.co.uk&gt;).
    </notes>
   </release>
  </changelog>
