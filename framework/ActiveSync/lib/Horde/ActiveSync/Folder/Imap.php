@@ -377,16 +377,21 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function unserialize($data)
-    {   $data = json_decode($data, true);
-        if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
-            throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
+    {   $d_data = json_decode($data, true);
+        if (!is_array($d_data) || empty($d_data['v']) || $d_data['v'] != self::VERSION) {
+            // Try using the old serialization strategy, since this would save
+            // an expensive resync of email collections.
+            $d_data = @unserialize($data);
+            if (!is_array($d_data) || empty($d_data['v']) || $d_data['v'] != 1) {
+                throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
+            }
         }
-        $this->_status = $data['s'];
-        $this->_messages = $data['m'];
-        $this->_serverid = $data['f'];
-        $this->_class = $data['c'];
-        $this->_lastSinceDate = $data['lsd'];
-        $this->_softDelete = $data['sd'];
+        $this->_status = $d_data['s'];
+        $this->_messages = $d_data['m'];
+        $this->_serverid = $d_data['f'];
+        $this->_class = $d_data['c'];
+        $this->_lastSinceDate = $d_data['lsd'];
+        $this->_softDelete = $d_data['sd'];
     }
 
     /**

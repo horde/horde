@@ -40,6 +40,7 @@
  *                                    folders for, therefore all sources must
  *                                    be multiplexed together. Masks are
  *                                    the MULTIPLEX_* constants.
+ * @property boolean blocked          True if device has been marked as blocked.
  *
  */
 class Horde_ActiveSync_Device
@@ -53,6 +54,8 @@ class Horde_ActiveSync_Device
     const VERSION           = 'version';
     const MULTIPLEX         = 'multiplex';
     const ANNOUNCED_VERSION = 'announcedVersion';
+    const BLOCKED           = 'blocked';
+
 
     // Bitwise constants for flagging device must use multiplexed collections.
     // @since 2.9.0
@@ -102,6 +105,7 @@ class Horde_ActiveSync_Device
         switch ($property) {
         case self::MULTIPLEX:
         case self::ANNOUNCED_VERSION:
+        case self::BLOCKED:
             return $this->_properties['properties'][$property];
         default:
             if (isset($this->_properties[$property])) {
@@ -121,6 +125,7 @@ class Horde_ActiveSync_Device
         switch ($property) {
         case self::MULTIPLEX:
         case self::ANNOUNCED_VERSION:
+        case self::BLOCKED:
             $properties = $this->properties;
             if (empty($properties)) {
                 $properties = array();
