@@ -173,7 +173,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
     }
 
-    protected function _parseRead($blobFields, $result)
+    protected function _parseRead($blobFields, $result, $dateFields)
     {
         $results = array();
         $columns = $this->_db->columns($this->_params['table']);
@@ -184,6 +184,11 @@ class Turba_Driver_Sql extends Turba_Driver
             foreach ($row as $field => $val) {
                 if (isset($blobFields[$field])) {
                     $entry[$field] = $columns[$field]->binaryToString($val);
+                } elseif (isset($dateFields[$field])) {
+                    $d = new Horde_Date($val);
+                    $entry[$field] = $this->_convertFromDriver(
+                        $d->strftime($GLOBALS['attributes'][$field]['params']['format_in'])
+                    );
                 } else {
                     $entry[$field] = $this->_convertFromDriver($val);
                 }
@@ -350,12 +355,14 @@ class Turba_Driver_Sql extends Turba_Driver
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(), array $dateFields = array())
     {
         $values = array();
 
@@ -386,7 +393,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
+            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $date_fields);
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -395,13 +402,15 @@ class Turba_Driver_Sql extends Turba_Driver
     /**
      * Adds the specified object to the SQL database.
      *
-     * TODO
+     * @param array $attributes   The attribute values of the contact.
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
+        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
         $query  = 'INSERT INTO ' . $this->_params['table']
             . ' (' . implode(', ', $fields) . ')'
             . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
@@ -413,7 +422,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
     }
 
-    protected function _prepareWrite($attributes, $blob_fields)
+    protected function _prepareWrite($attributes, $blob_fields, $date_fields)
     {
         $fields = $values = array();
 
@@ -422,6 +431,9 @@ class Turba_Driver_Sql extends Turba_Driver
 
             if (!empty($value) && isset($blob_fields[$field])) {
                 $values[] = new Horde_Db_Value_Binary($value);
+            } elseif (!empty($value) && isset($date_fields[$field])) {
+                $d = new Horde_Date($value);
+                $values[] = $d->strftime('%Y-%m-%d');
             } else {
                 $values[] = $this->_convertToDriver($value);
             }
@@ -510,11 +522,12 @@ class Turba_Driver_Sql extends Turba_Driver
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());
         $blob_fields = $this->toDriverKeys($this->getBlobs());
+        $date_fields = $this->toDriverKeys($this->getDateFields());
 
         $where = $object_key . ' = ?';
         unset($attributes[$object_key]);
 
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
+        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
 
         $values[] = $object_id;
 

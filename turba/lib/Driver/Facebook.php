@@ -134,12 +134,15 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         return $this->_getEntry($ids, $fields);
     }

@@ -256,11 +256,12 @@ class Turba_Driver_Imsp extends Turba_Driver
      * Adds the specified contact to the addressbook.
      *
      * @param array $attributes  The attribute values of the contact.
-     * @param array $blob_fields TODO
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
         /* We need to map out Turba_Object_Groups back to IMSP groups before
          * writing out to the server. We need to array_values() it in

@@ -224,6 +224,27 @@ class Turba_Driver implements Countable
     }
 
     /**
+     *  Returns the attributes that represent dates.
+     *
+     * @return array List of date attributes in the array keys.
+     * @since 4.2.0
+     */
+    public function getDateFields()
+    {
+        global $attributes;
+
+        $dates = array();
+        foreach (array_keys($this->fields) as $attribute) {
+            if (isset($attributes[$attribute]) &&
+                $attributes[$attribute]['type'] == 'monthdayyear') {
+                $dates[$attribute] = true;
+            }
+        }
+
+        return $dates;
+    }
+
+    /**
      * Translates the keys of the first hash from the generalized Turba
      * attributes to the driver-specific fields. The translation is based on
      * the contents of $this->map.
@@ -791,7 +812,8 @@ class Turba_Driver implements Countable
         $objects = $this->_read($this->map['__key'], $objectIds,
                                 $this->getContactOwner(),
                                 array_values($this->fields),
-                                $this->toDriverKeys($this->getBlobs()));
+                                $this->toDriverKeys($this->getBlobs()),
+                                $this->toDriverKeys($this->getDateFields()));
         if (!is_array($objects)) {
             throw new Horde_Exception_NotFound();
         }
@@ -868,7 +890,7 @@ class Turba_Driver implements Countable
 
         $attributes = $this->toDriverKeys($attributes);
 
-        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
+        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()), $this->toDriverKeys($this->getDateFields()));
 
         /* Add tags. */
         if (isset($attributes['__tags'])) {
@@ -2912,12 +2934,15 @@ class Turba_Driver implements Countable
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         throw new Turba_Exception(_("Reading contacts is not available."));
     }
@@ -2926,11 +2951,12 @@ class Turba_Driver implements Countable
      * Adds the specified contact to the addressbook.
      *
      * @param array $attributes  The attribute values of the contact.
-     * @param array $blob_fields TODO
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
         throw new Turba_Exception(_("Adding contacts is not available."));
     }

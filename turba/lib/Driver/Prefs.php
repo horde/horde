@@ -33,9 +33,19 @@ class Turba_Driver_Prefs extends Turba_Driver
     /**
      * Reads the given data from the preferences and returns the result's
      * fields.
+     *
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
+     *
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         $book = $this->_getAddressBook();
 
@@ -57,11 +67,12 @@ class Turba_Driver_Prefs extends Turba_Driver
      * Adds the specified contact to the addressbook.
      *
      * @param array $attributes  The attribute values of the contact.
-     * @param array $blob_fields TODO
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
         $book = $this->_getAddressBook();
         $book[$attributes['id']] = $attributes;
