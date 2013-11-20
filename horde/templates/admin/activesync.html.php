@@ -23,53 +23,7 @@
   </h2>
 
   <?php if ($this->devices): ?>
-  <table class="horde-table activesync-devices striped">
-   <tr class="header">
-    <th class="smallheader"><?php echo _("User")?></th>
-    <th class="smallheader"><?php echo _("Device") ?></th>
-    <th class="smallheader"><?php echo _("Last Sync Time") ?></th>
-    <th class="smallheader"><?php echo _("Status") ?></th>
-    <th class="smallheader"><?php echo _("Device Information") ?></th>
-    <th class="smallheader"><?php echo _("Actions")?></th>
-   </tr>
-  <?php foreach ($this->devices as $d): ?>
-    <?php if ($d->rwstatus == Horde_ActiveSync::RWSTATUS_PENDING): ?>
-      <?php $status = $this->contentTag('span', _("Wipe Pending"), array('class' => 'notice')) ?>
-    <?php elseif ($d->rwstatus == Horde_ActiveSync::RWSTATUS_WIPED): ?>
-      <?php $status = $this->contentTag('span', _("Device is Wiped. Remove device state to allow device to reconnect."), array('class' => 'notice')) ?>
-    <?php elseif ($d->blocked):?>
-      <?php $status = $this->contentTag('span', _("Deivce is Blocked."), array('class' => 'notice'))?>
-    <?php else: ?>
-      <?php $status = $d->policykey ? _("Provisioned") : _("Not Provisioned") ?>
-    <?php endif; ?>
-    <tr>
-      <td><?php echo $d->user?></td>
-      <td><?php echo $d->deviceType ?></td>
-      <td><?php echo $d->getLastSyncTimestamp() ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $d->getLastSyncTimestamp()) : _("None") ?></td>
-      <td><?php echo $status ?></td>
-      <td>
-        <?php foreach ($d->getFormattedDeviceProperties() as $key => $value): ?>
-          <?php echo '<b>' . $key . '</b>: ' . $value . '<br />' ?>
-        <?php endforeach; ?>
-      </td>
-      <td>
-        <?php if ($d->policykey): ?>
-          <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d->id ?>" />
-        <?php endif; ?>
-        <?php if ($d->rwstatus == Horde_ActiveSync::RWSTATUS_PENDING): ?>
-          <input type="button" value="<?php echo _("Cancel Wipe") ?>" id="cancel_<?php echo $d->id ?>" />
-        <?php endif; ?>
-        <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id ?>" /><br />
-        <br class="spacer" />
-        <?php if ($d->blocked): ?>
-          <input class="horde-button" type="button" value="<?php echo _("Unblock")?>" id="unblock_<?php echo $d->id?>" />
-        <?php else: ?>
-          <input class="horde-delete" type="button" value="<?php echo _("Block")?>" id="block_<?php echo $d->id?>" />
-        <?php endif; ?>
-      </td>
-   </tr>
-  <?php endforeach; ?>
-  </table>
+    <?php echo $this->render('device_table'); ?>
   <?php else: ?>
   <p><em><?php echo _("None") ?></em></p><br class="spacer" />
   <?php endif; ?>

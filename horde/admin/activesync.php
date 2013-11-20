@@ -73,8 +73,7 @@ default:
 }
 
 $view = new Horde_View(array(
-            'templatePath' => HORDE_TEMPLATES . '/admin'
-        ));
+    'templatePath' => array(HORDE_TEMPLATES . '/admin', HORDE_TEMPLATES . '/activesync')));
 $view->addHelper('Tag');
 
 $selfurl = Horde::selfUrl();
@@ -89,9 +88,8 @@ foreach ($devices as $key => $device) {
     );
     $devs[] = $dev;
 }
-
 $view->devices = $devs;
-
+$view->isAdmin = true;
 $page_output->header(array(
     'title' => _("ActiveSync Administration")
 ));

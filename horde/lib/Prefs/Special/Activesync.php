@@ -33,9 +33,10 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $devices = $state->listDevices($registry->getAuth());
 
         $view = new Horde_View(array(
-            'templatePath' => HORDE_TEMPLATES . '/prefs'
+            'templatePath' => array(HORDE_TEMPLATES . '/prefs', HORDE_TEMPLATES . '/activesync')
         ));
         $view->addHelper('Tag');
+        $view->isAdmin = false;
 
         $selfurl = $ui->selfUrl();
         $view->reset = $selfurl->copy()->add('reset', 1);
