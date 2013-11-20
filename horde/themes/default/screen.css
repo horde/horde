@@ -2281,6 +2281,11 @@ left.horde-point-right {
     width: 100%;
 }
 
+/* ActiveSync display */
+.activesync-devices {
+    width: 100%;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {
