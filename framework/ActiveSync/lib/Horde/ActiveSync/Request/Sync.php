@@ -360,6 +360,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 // iOS need this in order to catch missing state.
                 $this->_logger->err($e->getMessage());
                 $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+            } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                $this->_logger->notice($e->getMessage());
+                return false;
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;
@@ -856,6 +859,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_procid));
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($collection);
+            return false;
+        } catch (Horde_ActiveSync_Exception_StaleState $e) {
+            $this->_logger->notice($e->getMessage());
+            $this->_statusCode = self::STATUS_SERVERERROR;
+            $this->_handleGlobalSyncError();
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
