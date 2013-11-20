@@ -52,7 +52,9 @@ abstract class Passwd_Driver
     {
         if (preg_match('/^{([^}]+)}(.*)/', $encrypted, $match)) {
             $encryption = Horde_String::lower($match[1]);
-            $encrypted = $match[2];
+            if (!$this->_params['show_encryption']) {
+                $encrypted = $match[2];
+            }
         } else {
             $encryption = $this->_params['encryption'];
         }
