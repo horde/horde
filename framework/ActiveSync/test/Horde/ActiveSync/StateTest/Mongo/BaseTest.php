@@ -40,7 +40,7 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
         // @TODO. For now, cheat and add the data directly to the db.
         try {
             $mongo = new Horde_Mongo_Client();
-            $mongo->activesync_test->map->insert(array(
+            $mongo->activesync_test->HAS_map->insert(array(
                 'sync_clientid' => 'abc',
                 'sync_user' => 'mike',
                 'message_uid' => 'def',
