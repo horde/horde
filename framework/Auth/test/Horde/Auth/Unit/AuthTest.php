@@ -27,8 +27,8 @@ class Horde_Auth_Unit_AuthTest extends Horde_Auth_TestCase
     /**
      * @dataProvider getCredentials
      */
-    public function testGetCryptedPassword($encryption, $password, $salt)
+    public function testGetCryptedPassword($encryption, $password, $salt, $show_encryption = false)
     {
-        $this->assertEquals($password, Horde_Auth::getCryptedPassword('foobar', $password, $encryption, false));
+        $this->assertEquals($password, Horde_Auth::getCryptedPassword('foobar', $password, $encryption, $show_encryption));
     }
 }

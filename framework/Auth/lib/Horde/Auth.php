@@ -247,7 +247,7 @@ class Horde_Auth
         case 'sha256':
         case 'ssha256':
             return $seed
-                ? substr(base64_decode(preg_replace('|^{SSHA256}|i', '', $seed)), 20)
+                ? substr(base64_decode(preg_replace('|^{SSHA256}|i', '', $seed)), 32)
                 : substr(pack('H*', hash('sha256', substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
 
         case 'smd5':

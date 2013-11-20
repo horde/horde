@@ -803,7 +803,7 @@ class Horde_Smtp implements Serializable
 
         $e = new Horde_Smtp_Exception($details);
         $e->details = $details;
-        $e->setSmtpCode($code);
+        $e->setSmtpCode($replycode);
         $e->setEnhancedSmtpCode($enhanced);
 
         switch ($error) {
