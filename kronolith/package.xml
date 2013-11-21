@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add ability to export event to a timeslice (Request #1111307).
 * [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
 * [jan] Improve sort order of events in month view (Request #11155).
  </notes>
@@ -2241,6 +2242,7 @@
    <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add ability to export event to a timeslice (Request #1111307).
 * [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
 * [jan] Improve sort order of events in month view (Request #11155).
    </notes>
