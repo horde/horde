@@ -4320,9 +4320,14 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventSendCancellationYes':
-                $('kronolithEventSendUpdates').setValue(1);
+                $('kronolithRecurDeleteAll').enable();
+                $('kronolithRecurDeleteCurrent').enable();
+                $('kronolithRecurDeleteFuture').enable();
                 this.paramsCache.sendupdates = 1;
             case 'kronolithEventSendCancellationNo':
+                $('kronolithRecurDeleteAll').enable();
+                $('kronolithRecurDeleteCurrent').enable();
+                $('kronolithRecurDeleteFuture').enable();
                 $('kronolithCancellationDiv').hide();
             case 'kronolithRecurDeleteAll':
             case 'kronolithRecurDeleteCurrent':
