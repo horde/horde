@@ -2172,12 +2172,26 @@ class Kronolith
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 // Recurring event instance deletion, need to specify the
                 // RECURRENCE-ID but NOT the EXDATE.
-                $vevent = array_pop($vevent);
-                $vevent->setAttribute('RECURRENCE-ID', $instance);
-                if (!empty($range)) {
-                    $vevent->setParameter('RECURRENCE-ID', array('RANGE' => $range));
+                foreach($vevent as &$ve) {
+                    try {
+                        $uid = $ve->getAttribute('UID');
+                    } catch (Horde_Icalendar_Exception $e) {
+                        continue;
+                    }
+                    if ($event->uid == $uid) {
+                        $ve->setAttribute('RECURRENCE-ID', $instance);
+                        if (!empty($range)) {
+                            $ve->setParameter('RECURRENCE-ID', array('RANGE' => $range));
+                        }
+                        $ve->setAttribute('DTSTART', $instance, array(), false);
+                        $diff = $event->end->timestamp() - $event->start->timestamp();
+                        $end = clone $instance;
+                        $end->sec += $diff;
+                        $ve->setAttribute('DTEND', $end, array(), false);
+                        $ve->removeAttribute('EXDATE');
+                        break;
+                    }
                 }
-                $vevent->removeAttribute('EXDATE');
             }
             $iCal->addComponent($vevent);
 
