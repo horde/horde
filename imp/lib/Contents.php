@@ -543,7 +543,7 @@ class IMP_Contents
             ? null
             : $options['type'];
 
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this, 'type' => $type));
 
         switch ($mode) {
         case self::RENDER_INLINE:
@@ -779,7 +779,7 @@ class IMP_Contents
         /* Get part's icon. */
         if (($mask & self::SUMMARY_ICON) ||
             ($mask & self::SUMMARY_ICON_RAW)) {
-            $part['icon'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type);
+            $part['icon'] = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->getIcon($mime_type);
             if ($mask & self::SUMMARY_ICON) {
                 $part['icon'] = Horde_Themes_Image::tag($part['icon'], array(
                     'attr' => array(
@@ -1043,7 +1043,7 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this));
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
@@ -1078,7 +1078,7 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;

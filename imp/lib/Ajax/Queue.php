@@ -307,7 +307,7 @@ class IMP_Ajax_Queue
         $parts = ($ob instanceof IMP_Compose)
             ? iterator_to_array($ob)
             : array($ob);
-        $viewer = $injector->getInstance('Horde_Core_Factory_MimeViewer');
+        $viewer = $injector->getInstance('IMP_Factory_MimeViewer');
 
         foreach ($parts as $val) {
             $mime = $val->getPart();

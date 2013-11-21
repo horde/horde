@@ -1011,7 +1011,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->numberattach = true;
 
                     $atc = array();
-                    $v = $injector->getInstance('Horde_Core_Factory_MimeViewer');
+                    $v = $injector->getInstance('IMP_Factory_MimeViewer');
                     foreach ($imp_compose as $data) {
                         $mime = $data->getPart();
                         $type = $mime->getType();
