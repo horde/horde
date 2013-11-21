@@ -307,20 +307,26 @@ class IMP_Ajax_Queue
         $parts = ($ob instanceof IMP_Compose)
             ? iterator_to_array($ob)
             : array($ob);
+        $viewer = $injector->getInstance('Horde_Core_Factory_MimeViewer');
 
         foreach ($parts as $val) {
             $mime = $val->getPart();
             $mtype = $mime->getType();
 
-            $this->_atc[] = array(
-                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mtype)->fs))),
+            $tmp = array(
+                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($viewer->getIcon($mtype)->fs))),
                 'name' => $mime->getName(true),
                 'num' => $val->id,
                 'type' => $mtype,
-                'size' => IMP::sizeFormat($mime->getBytes()),
-                'url' => strval($val->viewUrl()->setRaw(true)),
-                'view' => intval(!in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)) && ($mtype != 'application/octet-stream'))
+                'size' => IMP::sizeFormat($mime->getBytes())
             );
+
+            if ($viewer->create($mime)->canRender('full')) {
+                $tmp['url'] = strval($val->viewUrl()->setRaw(true));
+                $tmp['view'] = intval(!in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)) && ($mtype != 'application/octet-stream'));
+            }
+
+            $this->_atc[] = $tmp;
         }
     }
 

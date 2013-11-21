@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix returning reply code in Exceptions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -304,7 +304,7 @@
    <date>2013-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix returning reply code in Exceptions.
    </notes>
   </release>
  </changelog>

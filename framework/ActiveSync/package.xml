@@ -10,9 +10,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2013-11-20</date>
  <version>
-  <release>2.9.1</release>
+  <release>2.9.2</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Add ability to flag a specific device as blocked.
-* [mjr] Add ability to filter the list of devices on more than username.
-* [mjr] Attempt to recover old serialized data before forcing a repairing of Email collections.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1816,12 +1814,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2013-11-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add ability to flag a specific device as blocked.
 * [mjr] Add ability to filter the list of devices on more than username.
 * [mjr] Attempt to recover old serialized data before forcing a repairing of Email collections.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.2</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

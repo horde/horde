@@ -25,7 +25,7 @@
  <date>2013-10-16</date>
  <version>
   <release>6.2.0</release>
-  <api>6.1.0</api>
+  <api>6.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -3440,7 +3440,7 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Don&apos;t provide links to view attachments in compose screen unless the attachment can be displayed (Bug #12841).
    </notes>
   </release>
  </changelog>
