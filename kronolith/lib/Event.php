@@ -2270,7 +2270,6 @@ abstract class Kronolith_Event
             $dur_day_match = 0;
             $dur_hour_match = 1;
             $dur_min_match = 0;
-            $whole_day_match = false;
         }
 
         $this->_duration = new stdClass;
