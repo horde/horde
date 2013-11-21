@@ -1799,7 +1799,7 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
-        if (!slice.cn) {
+        if (!slice.cn || slice.cn[Hermes.conf.client_name_field].length == 0) {
             cell = cell.next().update(' ');
         } else {
             cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
