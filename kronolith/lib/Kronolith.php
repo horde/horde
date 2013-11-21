@@ -2079,7 +2079,7 @@ class Kronolith
      *        If cancelling a single instance of a recurring event, the date of
      *        this instance.
      * @param  string $range  The range parameter if this is a recurring event.
-     *                        Possible values are self::RANGE_THISANDFUTRE 
+     *                        Possible values are self::RANGE_THISANDFUTURE
      */
     static public function sendITipNotifications(
         Kronolith_Event $event, Horde_Notification_Handler $notification,
