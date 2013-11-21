@@ -4665,7 +4665,14 @@ KronolithCore = {
                 }
                 e.stop();
                 break;
-
+            case 'kronolithEventToTimeslice':
+                var params = $H();
+                params.set('e', $('kronolithEventId').value);
+                params.set('cal', $('kronolithEventCalendar').value);
+                params.set('t', $('kronolithEventTimesliceType').value);
+                params.set('c', $('kronolithEventTimesliceClient').value);
+                HordeCore.doAction('toTimeslice', params);
+                break;
             case 'kronolithEventDialog':
             case 'kronolithTaskDialog':
                 Horde_Calendar.hideCal();
@@ -4689,6 +4696,7 @@ KronolithCore = {
                 return;
             case 'kronolithEditRecurAll':
                 this.toggleRecurrence(this.lastRecurType);
+                break;
             }
 
             // Caution, this only works if the element has definitely only a

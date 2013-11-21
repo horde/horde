@@ -2877,4 +2877,33 @@ class Kronolith
         return $a_list;
     }
 
+    /**
+     * Export an event to a timeslice.
+     *
+     *
+     */
+    static public function toTimeslice(Kronolith_Event $event, $type, $client)
+    {
+        global $registry;
+
+        if (!$registry->hasMethod('time/recordTime')) {
+            throw new Kronolith_Exception();
+        }
+
+        $data = array(
+            'date' => $event->start,
+            'type' => $type,
+            'client' => $client,
+            'hours' => ($event->end->timestamp() - $event->start->timestamp()) / 3600,
+            'description' => $event->title,
+            'note' => $event->description
+        );
+
+        try {
+            $registry->time->recordTime($data);
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e->getMessage());
+        }
+    }
+
 }

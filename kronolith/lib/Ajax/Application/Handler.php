@@ -1388,6 +1388,22 @@ EOT;
         return new Horde_Core_Ajax_Response_Raw($js, 'text/javascript');
     }
 
+    public function toTimeslice()
+    {
+        $driver = $this->_getDriver($this->vars->cal);
+        $event = $driver->getEvent($this->vars->e);
+
+        try {
+            Kronolith::toTimeslice($event, $this->vars->t, $this->vars->c);
+        } catch (Kronolith_Exception $e) {
+            $GLOBALS['notification']->push(sprintf(_("Error saving timeslice: %s"), $e->getMessage()), 'horde.error');
+            return false;
+        }
+        $GLOBALS['notification']->push(_("Successfully saved timeslice."), 'horde.success');
+
+        return true;
+    }
+
     /**
      * Returns the driver object for a calendar.
      *
