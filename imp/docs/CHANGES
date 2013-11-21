@@ -2,6 +2,8 @@
 v6.1.7-git
 ----------
 
+[mms] Don't provide links to view attachments in compose screen unless the
+      attachment can be displayed (Bug #12841).
 
 
 ------

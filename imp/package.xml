@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Don&apos;t provide links to view attachments in compose screen unless the attachment can be displayed (Bug #12841).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3325,7 +3325,7 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Don&apos;t provide links to view attachments in compose screen unless the attachment can be displayed (Bug #12841).
    </notes>
   </release>
  </changelog>
