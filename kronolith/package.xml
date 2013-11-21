@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
 * [jan] Fix calculation of work week start if on a weekend.
 * [jan] Fix deleting calendars with exceptions to recurring events.
 * [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
@@ -2240,6 +2241,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
 * [jan] Fix calculation of work week start if on a weekend.
 * [jan] Fix deleting calendars with exceptions to recurring events.
 * [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
