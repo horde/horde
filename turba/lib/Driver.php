@@ -714,6 +714,7 @@ class Turba_Driver implements Countable
             try {
                 $t_object = new Horde_Date($t_object);
             } catch (Horde_Date_Exception $e) {
+                continue;
             }
 
             if ($t_object->compareDate($end) > 0) {
