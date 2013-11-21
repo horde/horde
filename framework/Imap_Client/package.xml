@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix intermittent error when purging messages using a Horde_Cache caching backend (Bug #12827).
 * [mms] Workaround broken IMAP servers that don&apos;t support the required AUTH=PLAIN authentication method (Bug #12817).
  </notes>
  <contents>
@@ -2070,6 +2071,7 @@
    <date>2013-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix intermittent error when purging messages using a Horde_Cache caching backend (Bug #12827).
 * [mms] Workaround broken IMAP servers that don&apos;t support the required AUTH=PLAIN authentication method (Bug #12817).
    </notes>
   </release>
