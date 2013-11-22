@@ -56,65 +56,58 @@ var Horde_Facebook = Class.create({
         }
         $(this.opts.spinner).toggle();
         var params = {
-            actionID: 'updateStatus',
-            statusText: $F(this.opts.input)
+            statusText: $F(this.opts.input),
+            instance: this.opts.instance
         };
-        new Ajax.Request(this.opts.endpoint, {
-            method: 'post',
-            parameters: params,
-            onSuccess: function(response) {
-                $(this.opts.input).value = '';
-                $(this.opts.spinner).toggle();
-                $(this.opts.content).insert({ 'top': response.responseText });
-            }.bind(this),
-            onFailure: function() { $(this.opts.spinner).toggle(); }
-        });
+        HordeCore.doAction('facebookUpdateStatus',
+            params,
+            { callback: this._updateStatusCallback.bind(this) }
+        );
+    },
+
+    _updateStatusCallback: function(r)
+    {
+        $(this.opts.input).value = '';
+        $(this.opts.spinner).toggle();
+        $(this.opts.content).insert({ 'top': r });
     },
 
     addLike: function(post_id)
     {
         $(this.opts.spinner).toggle();
         var params = {
-          actionID: 'addLike',
-          post_id: post_id
+          post_id: post_id,
+          instance: this.opts.instance
         };
-        new Ajax.Updater(
-             {success:'fb' + post_id},
-             this.opts.endpoint,
-             {
-                 method: 'post',
-                 parameters: params,
-                 onComplete: function() { $(this.opts.spinner).toggle(); }.bind(this),
-                 onFailure: function() { $(this.opts.spinner).toggle(); }.bind(this)
-             }
-       );
+        HordeCore.doAction('facebookAddLike',
+            params,
+            { callback: this._addLikeCallback.curry(post_id).bind(this) }
+        );
+    },
 
-       return false;
+    _addLikeCallback: function(post_id, r)
+    {
+        $('fb' + post_id).update(r);
+        $(this.opts.spinner).toggle();
     },
 
     getOlderEntries: function() {
         var params = {
-            'actionID': 'getStream',
             'newest': this.oldest,
             'instance': this.opts.instance,
-            'count': this.opts.count,
             'filter': this.opts.filter
         };
-        new Ajax.Request(this.opts.endpoint, {
-            method: 'post',
-            parameters: params,
-            onSuccess: this._getOlderEntriesCallback.bind(this),
-            onFailure: function() {
-                $(this.opts.spinner).toggle();
-            }
-        });
+        HordeCore.doAction('facebookGetStream',
+            params,
+            { callback: this._getOlderEntriesCallback.bind(this) }
+        );
     },
 
     _getOlderEntriesCallback: function(response)
     {
-        var content = response.responseJSON.c,
+        var content = response.c,
             h = $(this.opts.content).scrollHeight;
-        this.oldest = response.responseJSON.o;
+        this.oldest = response.o;
         $(this.opts.content).insert(content);
         $(this.opts.content).scrollTop = h;
     },
@@ -122,32 +115,26 @@ var Horde_Facebook = Class.create({
     getNewEntries: function()
     {
         var params = {
-            'actionID': 'getStream',
             'notifications': this.opts.notifications,
             'oldest': this.oldest,
             'newest': this.newest,
             'instance': this.opts.instance,
-            'count': this.opts.count,
             'filter': this.opts.filter
-         };
-        new Ajax.Request(this.opts.endpoint, {
-            method: 'post',
-            parameters: params,
-            onSuccess: this._getNewEntriesCallback.bind(this),
-            onFailure: function() {
-                $(this.opts.spinner).toggle();
-            }
-        });
+        };
+        HordeCore.doAction('facebookGetStream',
+            params,
+            { callback: this._getNewEntriesCallback.bind(this) }
+        );
     },
 
     _getNewEntriesCallback: function(response)
     {
-        $(this.opts.content).insert({ 'top': response.responseJSON.c });
-        $(this.opts.notifications).update(response.responseJSON.nt);
+        $(this.opts.content).insert({ 'top': response.c });
+        $(this.opts.notifications).update(response.nt);
 
-        this.newest = response.responseJSON.n;
+        this.newest = response.n;
         if (!this.oldest) {
-            this.oldest = response.responseJSON.o;
+            this.oldest = response.o;
         }
     }
 

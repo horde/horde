@@ -25,6 +25,10 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($GLOBALS['conf']['twitter']['enabled'])) {
             $this->addHandler('Horde_Ajax_Application_TwitterHandler');
         }
+
+        if (!empty($GLOBALS['conf']['facebook']['enabled'])) {
+            $this->addHandler('Horde_Ajax_Application_FacebookHandler');
+        }
     }
 
 }
