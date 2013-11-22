@@ -36,9 +36,6 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
      */
     public function facebookGetStream()
     {
-        if ($data = $cache->get($key, 120)) {
-            return json_decode($data, true);
-        }
         $facebook = $this->_getFacebookObject();
         $url = $GLOBALS['registry']->getServiceLink('prefs', 'horde')
             ->add(array('group' => 'facebook'));
