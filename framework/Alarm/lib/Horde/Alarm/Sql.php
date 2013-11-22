@@ -69,7 +69,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_dismissed = 0 AND ((alarm_snooze IS NULL AND alarm_start <= ?) OR alarm_snooze <= ?) AND (alarm_end IS NULL OR alarm_end >= ?)%s ORDER BY alarm_start, alarm_end',
                          $this->_params['table'],
                          is_null($user) ? '' : ' AND (alarm_uid IS NULL OR alarm_uid = ? OR alarm_uid = ?)');
-        $dt = $time->setTimezone('UTC')->format('Y-m-d H:i:s');
+        $dt = $time->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT);
         $values = array($dt, $dt, $dt);
         if (!is_null($user)) {
             $values[] = '';
@@ -179,8 +179,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $values = array(
             $alarm['id'],
             isset($alarm['user']) ? $alarm['user'] : '',
-            (string)$alarm['start']->setTimezone('UTC'),
-            empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
+            $alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+            empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
             serialize($alarm['methods']),
             base64_encode(serialize($alarm['params'])),
             $this->_toDriver($alarm['title']),
@@ -209,8 +209,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table'],
                          $keepsnooze ? '' : ', alarm_snooze = NULL, alarm_dismissed = 0',
                          isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array((string)$alarm['start']->setTimezone('UTC'),
-                        empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
+        $values = array($alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+                        empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
                         serialize($alarm['methods']),
                         base64_encode(serialize($alarm['params'])),
                         $this->_toDriver($alarm['title']),
@@ -287,7 +287,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('UPDATE %s set alarm_snooze = ? WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array((string)$snooze->setTimezone('UTC'), $id, $user);
+        $values = array($snooze->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT), $id, $user);
 
         try {
             $this->_db->update($query, $values);
@@ -313,7 +313,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
 
         try {
-            return $this->_db->selectValue($query, array($id, $user, (string)$time->setTimezone('UTC')));
+            return $this->_db->selectValue($query, array($id, $user, $time->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT)));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception($e);
         }
@@ -374,7 +374,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
     {
         $query = sprintf('DELETE FROM %s WHERE alarm_end IS NOT NULL AND alarm_end < ?', $this->_params['table']);
         $end = new Horde_Date(time());
-        $this->_db->delete($query, array((string)$end->setTimezone('UTC')));
+        $this->_db->delete($query, array($end->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT)));
     }
 
     /**
