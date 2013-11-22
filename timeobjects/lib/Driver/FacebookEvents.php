@@ -45,7 +45,11 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
         } catch (Horde_Service_Facebook_Exception $e) {
             throw new TimeObjects_Exception($e->getMessage());
         }
-
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $key = 'timeobjects.facebook|' . (string)$start . '|' . (string)$time;
+        if ($data = $cache->get($key, 3600)) {
+            return json_decode($data, true);
+        }
         $tz = $GLOBALS['prefs']->getValue('timezone');
         if (empty($tz)) {
             $tz = date_default_timezone_get();
@@ -86,6 +90,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'params' => array()
             );
         }
+        $cache->set($key, json_encode($objects));
 
         return $objects;
     }
