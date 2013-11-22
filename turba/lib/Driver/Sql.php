@@ -393,7 +393,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $date_fields);
+            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $dateFields);
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception($e);
         }
