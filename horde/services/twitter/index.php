@@ -54,7 +54,7 @@ if (!empty($token['key']) && !empty($token['secret'])) {
 
 $page_output->topbar = $page_output->sidebar = false;
 
-/* No requested action, check to see if we have a valid token */
+/* Check to see if we have a valid token */
 if (!empty($auth_token)) {
     try {
         $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
