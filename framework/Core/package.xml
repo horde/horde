@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-19</date>
+ <date>2013-11-22</date>
  <version>
   <release>2.11.2</release>
   <api>2.11.0</api>
@@ -264,6 +264,7 @@
     <file name="growler.js" role="horde" />
     <file name="horde-jquery.js" role="horde" />
     <file name="horde.js" role="horde" />
+    <file name="hordeblocks.js" role="horde" />
     <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
@@ -1452,6 +1453,7 @@
    <install as="js/growler.js" name="js/growler.js" />
    <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
    <install as="js/horde.js" name="js/horde.js" />
+   <install as="js/hordeblocks.js" name="js/hordeblocks.js" />
    <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
@@ -3252,7 +3254,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2013-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
