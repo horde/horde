@@ -361,6 +361,9 @@ var DimpCompose = {
         noupdate = noupdate || false;
         if ((sc = ImpComposeBase.getSpellChecker())) {
            sc.resume();
+           if (this.editor_wait) {
+               return this.toggleHtmlEditor.bind(this, noupdate).defer();
+           }
         }
 
         if (ImpComposeBase.editor_on) {
