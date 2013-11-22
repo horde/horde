@@ -46,7 +46,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             throw new TimeObjects_Exception($e->getMessage());
         }
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $key = 'timeobjects.facebook|' . (string)$start . '|' . (string)$time;
+        $key = 'timeobjects.facebook|' . $GLOBALS['registry']->getAuth() . '|' . (string)$start . '|' . (string)$time;
         if ($data = $cache->get($key, 3600)) {
             return json_decode($data, true);
         }
