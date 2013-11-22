@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -21,39 +21,39 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Notificação de Disposição"
 
-#: lib/Horde/Mime/Mail.php:419
+#: lib/Horde/Mime/Mail.php:421
 msgid "HTML Version of Message"
 msgstr "Versão HTML da Mensagem"
 
-#: lib/Horde/Mime/Headers.php:540
+#: lib/Horde/Mime/Headers.php:542
 msgid "List-Archive"
 msgstr "List-Archive"
 
-#: lib/Horde/Mime/Headers.php:535
+#: lib/Horde/Mime/Headers.php:537
 msgid "List-Help"
 msgstr "List-Help"
 
-#: lib/Horde/Mime/Headers.php:542
+#: lib/Horde/Mime/Headers.php:544
 msgid "List-Id"
 msgstr "List-Id"
 
-#: lib/Horde/Mime/Headers.php:538
+#: lib/Horde/Mime/Headers.php:540
 msgid "List-Owner"
 msgstr "List-Owner"
 
-#: lib/Horde/Mime/Headers.php:539
+#: lib/Horde/Mime/Headers.php:541
 msgid "List-Post"
 msgstr "List-Post"
 
-#: lib/Horde/Mime/Headers.php:537
+#: lib/Horde/Mime/Headers.php:539
 msgid "List-Subscribe"
 msgstr "List-Subscribe"
 
-#: lib/Horde/Mime/Headers.php:536
+#: lib/Horde/Mime/Headers.php:538
 msgid "List-Unsubscribe"
 msgstr "List-Unsubscribe"
 
-#: lib/Horde/Mime/Mail.php:417
+#: lib/Horde/Mime/Mail.php:419
 msgid "Plaintext Version of Message"
 msgstr "Versão da Mensagem em Texto Puro"
 

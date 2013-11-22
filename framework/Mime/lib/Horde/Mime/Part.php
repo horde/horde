@@ -1961,11 +1961,17 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     static public function parseMessage($text, array $opts = array())
     {
+        /* Mini-hack to get a blank Horde_Mime part so we can call
+         * replaceEOL(). Convert to EOL, since that is the expected EOL for
+         * use internally within a Horde_Mime_Part object. */
+        $part = new Horde_Mime_Part();
+        $rawtext = $part->replaceEOL($text, self::EOL);
+
         /* Find the header. */
-        list($hdr_pos, $eol) = self::_findHeader($text);
+        $hdr_pos = self::_findHeader($rawtext, self::EOL);
 
         unset($opts['ctype']);
-        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), $opts);
+        $ob = self::_getStructure(substr($rawtext, 0, $hdr_pos), substr($rawtext, $hdr_pos + 2), $opts);
         $ob->buildMimeIds();
         return $ob;
     }
@@ -2079,8 +2085,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                         break;
                     }
                     $subpart = substr($body, $val['start'], $val['length']);
-                    list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), array(
+                    $hdr_pos = self::_findHeader($subpart, self::EOL);
+                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + 2), array(
                         'ctype' => ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain',
                         'forcemime' => true,
                         'level' => $opts['level'],
@@ -2119,8 +2125,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* We need to carry around the trailing "\n" because this is needed
          * to correctly find the boundary string. */
-        list($hdr_pos, $eol) = self::_findHeader($rawtext);
-        $curr_pos = $hdr_pos + $eol - 1;
+        $hdr_pos = self::_findHeader($rawtext, self::RFC_EOL);
+        $curr_pos = $hdr_pos + 3;
 
         if ($id == 0) {
             switch ($type) {
@@ -2173,21 +2179,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Find the location of the end of the header text.
      *
      * @param string $text  The text to search.
+     * @param string $eol   The EOL string.
      *
-     * @return array  1st element: Header position, 2nd element: Length of
-     *                trailing EOL.
+     * @return integer  Header position.
      */
-    static protected function _findHeader($text)
+    static protected function _findHeader($text, $eol)
     {
-        $hdr_pos = strpos($text, "\r\n\r\n");
-        if ($hdr_pos !== false) {
-            return array($hdr_pos, 4);
-        }
-
-        $hdr_pos = strpos($text, "\n\n");
+        $hdr_pos = strpos($text, $eol . $eol);
         return ($hdr_pos === false)
-            ? array(strlen($text), 0)
-            : array($hdr_pos, 2);
+            ? strlen($text)
+            : $hdr_pos;
     }
 
     /**

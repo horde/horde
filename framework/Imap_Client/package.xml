@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-30</date>
+ <date>2013-11-21</date>
  <version>
-  <release>2.16.1</release>
+  <release>2.16.2</release>
   <api>2.16.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Workaround broken IMAP servers that don&apos;t support the required AUTH=PLAIN authentication method (Bug #12817).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2067,10 +2067,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-30</date>
+   <date>2013-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix intermittent error when purging messages using a Horde_Cache caching backend (Bug #12827).
 * [mms] Workaround broken IMAP servers that don&apos;t support the required AUTH=PLAIN authentication method (Bug #12817).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.16.2</release>
+    <api>2.16.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

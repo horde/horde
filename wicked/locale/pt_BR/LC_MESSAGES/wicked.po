@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-11 16:43+0200\n"
-"PO-Revision-Date: 2011-10-30 20:35-0300\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"PO-Revision-Date: 2013-11-21 22:54-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -18,18 +18,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: templates/edit/create.html.php:12
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "\"%s\" does not exist, but maybe you were looking for one of the following "
 "pages?"
 msgstr ""
-"%s não existe, mas talvez você estivesse procurando por uma das seguintes "
-"páginas?"
+"\"%s\" não existe, mas talvez você estivesse procurando por uma das "
+"seguintes páginas?"
 
-#: lib/Page/StandardPage.php:471
+#: lib/Page/StandardPage.php:473
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -45,7 +45,7 @@ msgstr ""
 "%s não existe. Clique em \"Criar\" abaixo se você deseja criar esta página e "
 "editá-la."
 
-#: lib/Page/Search.php:103
+#: lib/Page/Search.php:106
 #, php-format
 msgid "%s does not exist. You can create it now."
 msgstr "%s não existe. Você pode criá-la agora."
@@ -56,7 +56,7 @@ msgstr "(Nenhum)"
 
 #: templates/display/AttachedFiles.html.php:129
 msgid "-- select --"
-msgstr ""
+msgstr "-- selecione --"
 
 #: lib/Page/AddPage.php:105
 #, php-format
@@ -106,7 +106,7 @@ msgstr "Arquivos Anexados: %s"
 msgid "Attachment Name"
 msgstr "Nome do Anexo"
 
-#: lib/Page/StandardPage.php:243 templates/display/standard.html.php:47
+#: lib/Page/StandardPage.php:249 templates/display/standard.html.php:49
 msgid "Attachments"
 msgstr "Anexos"
 
@@ -120,7 +120,7 @@ msgstr "Anexos com espaços não podem ser incorporados em uma página."
 msgid "Author"
 msgstr "Autor"
 
-#: lib/Page/StandardPage.php:271
+#: lib/Page/StandardPage.php:276
 msgid "Ba_ck to"
 msgstr "Retorna_r para"
 
@@ -188,7 +188,12 @@ msgstr ""
 msgid "Create"
 msgstr "Criar"
 
-#: lib/Page/NewPage.php:133
+#: lib/Page/Search.php:104
+#, php-format
+msgid "Create %s"
+msgstr "Criar %s"
+
+#: lib/Page/NewPage.php:148
 #, php-format
 msgid "Create Failed: %s"
 msgstr "Criação Falhou: %s"
@@ -201,7 +206,7 @@ msgstr "Criado"
 msgid "Creation Date"
 msgstr "Data de Criação"
 
-#: lib/Page/Search.php:142
+#: lib/Page/Search.php:145
 msgid "Current Version"
 msgstr "Versão Atual"
 
@@ -217,11 +222,11 @@ msgstr "Excluir"
 msgid "Delete Page"
 msgstr "Apagar Página"
 
-#: lib/Page/StandardPage.php:353
+#: lib/Page/StandardPage.php:355
 msgid "Delete Version"
 msgstr "Delete Version"
 
-#: lib/Page/StandardPage.php:388
+#: lib/Page/StandardPage.php:390
 #, php-format
 msgid "Delete Version %s"
 msgstr "Delete Version %s"
@@ -244,17 +249,17 @@ msgstr "Diferenciar Para"
 msgid "Diff for %s between %s and %s"
 msgstr "Diferenciar para %s entre %s e %s"
 
-#: lib/Page.php:593
+#: lib/Page.php:590
 #, php-format
 msgid "Display %s"
 msgstr "Exibir %s"
 
-#: lib/Page.php:599 lib/Page/StandardPage.php:384
+#: lib/Page.php:596 lib/Page/StandardPage.php:386
 #, php-format
 msgid "Display Version %s"
 msgstr "Exibir Versão %s"
 
-#: templates/display/standard.html.php:57
+#: templates/display/standard.html.php:60
 msgid "Download this page as:"
 msgstr "Baixar esta página como:"
 
@@ -271,11 +276,11 @@ msgstr "Editar %s"
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: lib/Page/StandardPage.php:357
+#: lib/Page/StandardPage.php:359
 msgid "Edit Version"
 msgstr "Editar Versão"
 
-#: lib/Page/StandardPage.php:397
+#: lib/Page/StandardPage.php:399
 #, php-format
 msgid "Edit Version %s"
 msgstr "Editar Versão %s"
@@ -290,37 +295,34 @@ msgstr "Erro ao retornar %s: %s"
 msgid "Error retrieving attachments: %s"
 msgstr "Erro ao retornar anexos: %s"
 
-#: lib/Page/Search.php:152
+#: lib/Page/Search.php:155
 msgid "Exact Match"
 msgstr "Correspondência Exata"
 
 #: templates/display/AttachedFiles.html.php:61
 #: templates/display/AttachedFiles.html.php:116
-#, fuzzy
 msgid "File to attach"
-msgstr "Selecione o arquivo para anexar:"
+msgstr "Arquivo para anexar"
 
 #: templates/display/AttachedFiles.html.php:125
-#, fuzzy
 msgid "File to update"
-msgstr "Selecione o arquivo para atualizar"
+msgstr "Arquivo para atualizar"
 
 #: lib/Page.php:267
 msgid "Guest"
 msgstr "Convidado"
 
-#: lib/Page/StandardPage.php:318
+#: lib/Page/StandardPage.php:320
 msgid "HTML"
 msgstr "HTML"
 
-#: lib/Page/StandardPage.php:248
+#: lib/Page/StandardPage.php:254
 msgid "Hi_story"
 msgstr "Hi_stórico"
 
 #: templates/history/header.html.php:7
-#, fuzzy
 msgid "History"
-msgstr "Hi_stórico"
+msgstr "Histórico"
 
 #: lib/Page/StandardHistoryPage.php:61
 msgid "History page not found"
@@ -332,16 +334,12 @@ msgid "History: %s"
 msgstr "Histórico: %s"
 
 #: templates/display/MergeOrRename.html.php:27
-#, fuzzy
 msgid "If a page with the new name already exists"
-msgstr "Se uma página com o novo nome já existir, então"
+msgstr "Se uma página com o novo nome já existir"
 
 #: templates/display/AttachedFiles.html.php:74
-#, fuzzy
 msgid "If blank, will use the file's current name"
-msgstr ""
-"Digite um nome para este arquivo (se vazio, será usado o nome atual do "
-"arquivo)"
+msgstr "Se vazio, usará o nome atual do arquivo"
 
 #: display.php:18 history.php:17
 msgid "Internal error viewing requested page"
@@ -356,20 +354,20 @@ msgstr "Erro interno ao exibir a página requisitada: %s"
 msgid "Invalid page requested."
 msgstr "Página requisitada inválida."
 
-#: lib/Page/Search.php:143
+#: lib/Page/Search.php:146
 msgid "Last Author"
 msgstr "Último Autor"
 
-#: lib/Page.php:359 lib/Page/EditPage.php:113
+#: lib/Page.php:360 lib/Page/EditPage.php:113
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Modificado em %s por %s"
 
-#: lib/Page/Search.php:144
+#: lib/Page/Search.php:147
 msgid "Last Update"
 msgstr "Última Atualização"
 
-#: lib/Page/StandardPage.php:322
+#: lib/Page/StandardPage.php:324
 msgid "Latex"
 msgstr "Latex"
 
@@ -377,7 +375,7 @@ msgstr "Latex"
 msgid "Least Popular"
 msgstr "Menos Popular"
 
-#: lib/Page.php:378 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page.php:377 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
 #: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr "Protegida"
@@ -408,7 +406,7 @@ msgstr "Mais Popular"
 
 #: templates/display/AttachedFiles.html.php:70
 msgid "Name for this file"
-msgstr ""
+msgstr "Nome para este arquivo"
 
 #: lib/Block/Page.php:54
 msgid "Name of wiki page to display"
@@ -418,7 +416,7 @@ msgstr "Nome da página wiki para exibir"
 msgid "Never"
 msgstr "Nunca"
 
-#: lib/Page/NewPage.php:108
+#: lib/Page/NewPage.php:116
 msgid "New Page"
 msgstr "Nova Página"
 
@@ -444,7 +442,7 @@ msgstr "Novo nome é o mesmo que o anterior."
 msgid "No changes made"
 msgstr "Nenhuma mudança feita"
 
-#: lib/Page/Search.php:141 templates/edit/create.html.php:17
+#: lib/Page/Search.php:144 templates/edit/create.html.php:17
 #: templates/pagelist/header.html.php:5
 msgid "Page"
 msgstr "Página"
@@ -454,7 +452,7 @@ msgstr "Página"
 msgid "Page \"%s\" already exists."
 msgstr "Página \"%s\" já existe."
 
-#: lib/Page/NewPage.php:131
+#: lib/Page/NewPage.php:146
 msgid "Page Created"
 msgstr "Página Criada"
 
@@ -466,11 +464,11 @@ msgstr "Página Gravada"
 msgid "Page Template:"
 msgstr "Modelo de Página:"
 
-#: lib/Page/Search.php:170
+#: lib/Page/Search.php:173
 msgid "Page Text Matches"
 msgstr "Correspondências de Textos de Página"
 
-#: lib/Page/Search.php:161
+#: lib/Page/Search.php:164
 msgid "Page Title Matches"
 msgstr "Correspondências de Títulos de Página"
 
@@ -500,11 +498,11 @@ msgstr "Página desprotegida"
 msgid "Pages"
 msgstr "Páginas"
 
-#: lib/Page/NewPage.php:125
+#: lib/Page/NewPage.php:140
 msgid "Pages cannot be empty."
 msgstr "Páginas não podem ser vazias."
 
-#: lib/Page/StandardPage.php:263
+#: lib/Page/StandardPage.php:269
 msgid "Permissio_ns"
 msgstr "Permissõ_es"
 
@@ -512,19 +510,19 @@ msgstr "Permissõ_es"
 msgid "Permission denied."
 msgstr "Permissão negada."
 
-#: lib/Page/StandardPage.php:314
+#: lib/Page/StandardPage.php:316
 msgid "Plain Text"
 msgstr "Texto Puro"
 
-#: templates/edit/new.html.php:17 templates/edit/standard.html.php:30
+#: templates/edit/new.html.php:25 templates/edit/standard.html.php:30
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: lib/Page/EditPage.php:199
+#: lib/Page/EditPage.php:199 lib/Page/NewPage.php:134
 msgid "Random string did not match."
 msgstr "Frase aleatória não correspondeu."
 
-#: lib/Page/RecentChanges.php:120
+#: lib/Page/RecentChanges.php:121
 msgid "Recent Changes"
 msgstr "Alterações Recentes"
 
@@ -538,11 +536,11 @@ msgstr "Referenciador \"%s\" não existe."
 msgid "Reload \"%s\""
 msgstr "Recarregar \"%s\""
 
-#: lib/Page/StandardPage.php:351
+#: lib/Page/StandardPage.php:353
 msgid "Reload History"
 msgstr "Recarregar Histórico"
 
-#: lib/Page.php:375 lib/Page.php:376
+#: lib/Page.php:374 lib/Page.php:375
 msgid "Reload Page"
 msgstr "Recarregar Página"
 
@@ -561,7 +559,7 @@ msgstr "\"%s\" renomeada para \"%s\". Nova página: %s\n"
 msgid "Renamed page from %s"
 msgstr "Página renomeada de %s"
 
-#: lib/Page/StandardPage.php:358
+#: lib/Page/StandardPage.php:360
 msgid "Restore Version"
 msgstr "Restaurar Versão"
 
@@ -573,7 +571,7 @@ msgstr "Reverter"
 msgid "Revert Page"
 msgstr "Reverter Página"
 
-#: lib/Page/StandardPage.php:403
+#: lib/Page/StandardPage.php:405
 #, php-format
 msgid "Revert to version %s"
 msgstr "Reverter para versão %s"
@@ -587,15 +585,15 @@ msgstr "Revertida para versão %s de \"%s\"."
 msgid "Robots are not allowed to create pages"
 msgstr "Robôs não podem criar páginas"
 
-#: lib/Page/StandardPage.php:238
+#: lib/Page/StandardPage.php:244
 msgid "S_imilar Pages"
 msgstr "Pàginas S_imilares"
 
-#: templates/edit/new.html.php:16 templates/edit/standard.html.php:29
+#: templates/edit/new.html.php:24 templates/edit/standard.html.php:29
 msgid "Save"
 msgstr "Gravar"
 
-#: lib/Page/Search.php:201
+#: lib/Page/Search.php:204
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -603,12 +601,12 @@ msgstr "Pesquisar"
 msgid "Search Results"
 msgstr "Resultados da Pesquisa"
 
-#: lib/Page.php:357 lib/Page/RecentChanges.php:68
+#: lib/Page.php:358 lib/Page/RecentChanges.php:69
 #, php-format
 msgid "Show changes for %s"
 msgstr "Exibir alterações para %s"
 
-#: lib/Page/RecentChanges.php:75
+#: lib/Page/RecentChanges.php:76
 #, php-format
 msgid "Show version %s"
 msgstr "Exibir versão %s"
@@ -618,8 +616,7 @@ msgstr "Exibir versão %s"
 msgid "Similar Pages: %s"
 msgstr "Páginas Similares: %s"
 
-#: templates/edit/standard.html.php:22
-#, fuzzy
+#: templates/edit/new.html.php:17 templates/edit/standard.html.php:22
 msgid "Spam Protection - Enter the following letters below:"
 msgstr "Proteção contra Spam - Digite as letras abaixo:"
 
@@ -641,11 +638,11 @@ msgstr "\"%s\" excluido com sucesso."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Versão %s de \"%s\" de \"%s\" apagada com sucesso."
 
-#: lib/Page.php:521
+#: lib/Page.php:520
 msgid "Table of Contents"
 msgstr "Índice"
 
-#: lib/Page/StandardPage.php:439
+#: lib/Page/StandardPage.php:441
 msgid "The page is already locked."
 msgstr "Esta página já está bloquada."
 
@@ -672,7 +669,7 @@ msgstr "Esta página está bloquada por %s por %d Minutos."
 msgid "This page is referenced from %d other page(s)."
 msgstr "Esta página é referenciada a partir de %d outra(s) página(s)."
 
-#: lib/Page/StandardPage.php:198
+#: lib/Page/StandardPage.php:204
 msgid "Un_lock"
 msgstr "_Desproteger"
 
@@ -685,10 +682,10 @@ msgstr "Impossível criar %s"
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
 
-#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
-#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:573
-#: lib/Page.php:612 lib/Page.php:617 lib/Page.php:622 lib/Page.php:627
-#: lib/Page.php:667
+#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
+#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:436 lib/Page.php:570
+#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
+#: lib/Page.php:664
 msgid "Unsupported"
 msgstr "Não suportado"
 
@@ -741,7 +738,7 @@ msgstr "Você não tem permissão para apagar anexos dessa página."
 msgid "You do not have permission to edit \"%s\""
 msgstr "Você não tem permissão para editar \"%s\""
 
-#: lib/Page/NewPage.php:121
+#: lib/Page/NewPage.php:129
 #, php-format
 msgid "You don't have permission to create \"%s\"."
 msgstr "Você não tem permissão para criar \"%s\"."
@@ -772,15 +769,15 @@ msgstr "Você deve fornecer um log de alteração."
 msgid "_All Pages"
 msgstr "Todas _As Páginas"
 
-#: lib/Page/StandardPage.php:233
+#: lib/Page/StandardPage.php:239
 msgid "_Backlinks"
 msgstr "_Referenciadores"
 
-#: lib/Page/StandardPage.php:218
+#: lib/Page/StandardPage.php:224
 msgid "_Delete"
 msgstr "E_xcluir"
 
-#: lib/Page/StandardPage.php:190
+#: lib/Page/StandardPage.php:196
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -788,11 +785,11 @@ msgstr "_Editar"
 msgid "_Home"
 msgstr "_Início"
 
-#: lib/Page/StandardPage.php:206
+#: lib/Page/StandardPage.php:212
 msgid "_Lock"
 msgstr "_Proteger"
 
-#: lib/Page/StandardPage.php:227
+#: lib/Page/StandardPage.php:233
 msgid "_Merge/Rename"
 msgstr "_Mesclar/Renomear"
 
@@ -804,7 +801,7 @@ msgstr "Alterações _Recentes"
 msgid "_Usage"
 msgstr "_Uso"
 
-#: lib/Page/StandardPage.php:465
+#: lib/Page/StandardPage.php:467
 msgid "a guest"
 msgstr "um convidado"
 
@@ -812,135 +809,6 @@ msgstr "um convidado"
 msgid "attachment"
 msgstr "anexo"
 
-#: lib/Page/StandardPage.php:326
+#: lib/Page/StandardPage.php:328
 msgid "reStructuredText"
 msgstr "textoReEstruturado"
-
-#~ msgid "Actions"
-#~ msgstr "Ações"
-
-#~ msgid "By default, your login data will be used"
-#~ msgstr "Por padrão, sua informação de login será usada"
-
-#~ msgid "Checksum"
-#~ msgstr "Checksum"
-
-#~ msgid "Custom"
-#~ msgstr "Personalizado"
-
-#~ msgid "Display"
-#~ msgstr "Exibir"
-
-#~ msgid "Download"
-#~ msgstr "Baixar"
-
-#~ msgid "Downloaded from remote server"
-#~ msgstr "Baixar do servidor remoto"
-
-#~ msgid "Driver"
-#~ msgstr "Driver"
-
-#~ msgid "Edit"
-#~ msgstr "Editar"
-
-#~ msgid "Edit local"
-#~ msgstr "Editar local"
-
-#~ msgid "Edit remote"
-#~ msgstr "Editar remoto"
-
-#~ msgid "Error retrieving templates: %s"
-#~ msgstr "Erro ao retornar modelos: %s"
-
-#~ msgid "Fetch page list"
-#~ msgstr "Obter lista de página"
-
-#~ msgid "Found same content in history"
-#~ msgstr "Encontrado o mesmo conteúdo no histórico"
-
-#~ msgid "Local"
-#~ msgstr "Local"
-
-#~ msgid "Location"
-#~ msgstr "Local"
-
-#~ msgid "New pages on local server"
-#~ msgstr "Novas páginas no servidor local"
-
-#~ msgid "New pages on remote server"
-#~ msgstr "Novas páginas no servidor remoto"
-
-#~ msgid "No pages found"
-#~ msgstr "Nenhuma página encontrada"
-
-#~ msgid "No pages to sync"
-#~ msgstr "Nenhuma página para sincronizar"
-
-#~ msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
-#~ msgstr "Página \"%s\" foi enviada com sucesso da wiki local para a remota."
-
-#~ msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
-#~ msgstr "Página \"%s\" foi baixada com sucesso da wiki remota para a local."
-
-#~ msgid "Pages to sync"
-#~ msgstr "Páginas para sincronizar"
-
-#~ msgid "Password"
-#~ msgstr "Senha"
-
-#~ msgid "Prefix"
-#~ msgstr "Prefixo"
-
-#~ msgid "Remote"
-#~ msgstr "Remoto"
-
-#~ msgid "Remove login info"
-#~ msgstr "Remover informação de login"
-
-#~ msgid "Reset"
-#~ msgstr "Limpar"
-
-#~ msgid "Save login info"
-#~ msgstr "Gravar informação de login"
-
-#~ msgid "Show changes"
-#~ msgstr "Mostrar alterações"
-
-#~ msgid "Stored"
-#~ msgstr "Armazenado"
-
-#~ msgid "Sync Diff"
-#~ msgstr "Sincronizar Diferenças"
-
-#~ msgid "Sync Pages"
-#~ msgstr "Sincronizar Páginas"
-
-#~ msgid "Sync data"
-#~ msgstr "Sincronizar dados"
-
-#~ msgid "Sync login info was removed."
-#~ msgstr "Informação de sincronia de login foi removida."
-
-#~ msgid "Sync login info was stored"
-#~ msgstr "Informação de sincronia de login foi armazenada"
-
-#~ msgid "Synchronization is disabled"
-#~ msgstr "Sincronização está desabilitada"
-
-#~ msgid "Upload"
-#~ msgstr "Enviar"
-
-#~ msgid "Uploaded from remote server"
-#~ msgstr "Enviado do servidor remoto"
-
-#~ msgid "Url"
-#~ msgstr "Url"
-
-#~ msgid "User"
-#~ msgstr "Usuário"
-
-#~ msgid "View local"
-#~ msgstr "Ver local"
-
-#~ msgid "View remote"
-#~ msgstr "Ver remoto"
