@@ -19,7 +19,7 @@
  </lead>
  <date>2013-11-22</date>
  <version>
-  <release>2.2.8</release>
+  <release>2.2.9</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix parsing MIME message that contains mixed EOLs (Bug #12842).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1240,6 +1240,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing MIME message that contains mixed EOLs (Bug #12842).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.9</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-11-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
