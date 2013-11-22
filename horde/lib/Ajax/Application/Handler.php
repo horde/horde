@@ -69,7 +69,10 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
-     * AJAX action: Auto-update portal block.
+     * AJAX action: Auto-update portal block. To be called automatically by
+     * the block, with no user selected options.
+     *
+     * @return string  The full HTML needed to render the block content.
      */
     public function blockAutoUpdate()
     {
@@ -87,11 +90,14 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             }
         }
 
-        return new Horde_Core_Ajax_Response_Raw($html, 'text/html');
+        return $html;
     }
 
     /**
-     * AJAX action: Refresh portal block.
+     * AJAX action: Refresh portal block. Manually refresh the block content,
+     * may $this->vars may contain user selected/provided values.
+     *
+     * @return string  The full HTML needed to render the block content.
      */
     public function blockRefresh()
     {
@@ -110,12 +116,15 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                 $html = $e->getMessage();
             }
         }
-
-        return new Horde_Core_Ajax_Response_Raw($html, 'text/html');
+        return $html;
     }
 
     /**
-     * AJAX action: Update portal block.
+     * AJAX action: Update portal block data. To be used when the block can
+     * refresh using only JSON data. I.e., this data would need to be parsed
+     * by the block code to be rendered.
+     *
+     * @return Horde_Core_Response
      */
     public function blockUpdate()
     {
