@@ -25,7 +25,7 @@ class Turba_Driver_Facebook extends Turba_Driver
      *
      * @var Horde_Service_Facebook
      */
-    private $_facebook;
+    protected $_facebook;
 
     /**
      * Constructor
