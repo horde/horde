@@ -247,6 +247,7 @@
     <dir name="Ajax">
      <dir name="Application">
       <file name="Handler.php" role="horde" />
+      <file name="TwitterHandler.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -2044,6 +2045,7 @@
    <install as="lib/Test.php" name="lib/Test.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
+   <install as="lib/Ajax/Application/TwitterHandler.php" name="lib/Ajax/Application/TwitterHandler.php" />
    <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
    <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
