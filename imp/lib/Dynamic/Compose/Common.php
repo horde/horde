@@ -38,6 +38,7 @@ class IMP_Dynamic_Compose_Common
     {
         global $injector, $page_output, $prefs;
 
+        $page_output->addScriptPackage('Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');

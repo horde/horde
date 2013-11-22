@@ -109,6 +109,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     public function getByUID($uid, $passphrase = null)
     {
         //@todo: search across notepads
+        // HACK: Use default notepad if no notepad is set.
+        //       ActiveSync does not work without this
+        //       as we don't search across all notepads yet.
+        if (empty($this->_notepad)) {
+            $this->_notepad = Mnemo::getDefaultNotepad();
+        }
+
         return $this->get(Horde_Url::uriB64Encode($uid), $passphrase);
     }
 

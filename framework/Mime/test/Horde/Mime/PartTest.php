@@ -352,6 +352,16 @@ C
         $this->assertEmpty($part->getPart(1));
     }
 
+    public function testBug12842()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/bug12842_a.txt') .
+            str_replace("\n", "\r\n", file_get_contents(__DIR__ . '/fixtures/bug12842_b.txt'));
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertTrue(isset($part['1']));
+        $this->assertTrue(isset($part['2']));
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

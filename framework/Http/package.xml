@@ -116,11 +116,16 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>pecl_http</name>
+    <channel>pecl.php.net</channel>
+    <min>1.7.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+    <providesextension>http</providesextension>
+   </package>
    <extension>
     <name>curl</name>
-   </extension>
-   <extension>
-    <name>http</name>
    </extension>
   </optional>
  </dependencies>

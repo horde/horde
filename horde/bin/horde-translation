@@ -416,8 +416,6 @@ class Horde_Translation_Script
      */
     public function xtract($options)
     {
-        global $registry;
-
         foreach ($options as $option) {
             switch ($option[0]) {
             case 'h':
@@ -460,15 +458,12 @@ class Horde_Translation_Script
              * an invalid charset being used in this file. */
             $tmp_file = $file . '.tmp.pot';
 
-            $version = $registry->getVersion($this->apps[$i]);
-
             $sh = $this->xgettext
                 . ' --language=PHP'
                 . ' --from-code=iso-8859-1'
                 . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n'
                 . ' --sort-output'
                 . ' --package-name=' . ($this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]))
-                . ' --package-version="' . $version . '"'
                 . ' --copyright-holder="Horde LLC (http://www.horde.org/)"'
                 . ' --msgid-bugs-address="dev@lists.horde.org"'
                 . ' --files-from=' . $file . '.list'
@@ -1568,20 +1563,16 @@ class Horde_Translation_Script
 define('DS', DIRECTORY_SEPARATOR);
 putenv('LANG=en');
 
-$baseFile = __DIR__ . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/core.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
     require_once 'PEAR/Config.php';
     require_once PEAR_Config::singleton()
-        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/core.php';
 }
-Horde_Registry::appInit('horde', array(
-    'cli' => true,
-    'session_control' => 'none'
-));
 
-$c = $cli;
+$c = Horde_Cli::init();
 
 $c->writeln($c->bold('---------------------------'));
 $c->writeln($c->bold('Horde translation generator'));

@@ -375,9 +375,8 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         /* Now we retrieve distribution-lists */
         $raw_groups = $this->_getListData()->getObjects();
-        if (!$raw_groups) {
-            $groups = array();
-        } else {
+        $groups = array();
+        if ($raw_groups) {
             foreach ($raw_groups as $id => $group) {
                 if ($group->getType() != 'distribution-list') {
                     continue;
