@@ -36,6 +36,8 @@ v6.2.0-git
 v6.1.7
 ------
 
+[mjr] Honor recurrence-id range values when deleting recurring events (Bug
+      #12746).
 [mms] Don't provide links to view attachments in compose screen unless the
       attachment can be displayed (Bug #12841).
 
