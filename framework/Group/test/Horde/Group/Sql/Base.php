@@ -154,8 +154,8 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_TestBase
         }
         if (self::$db) {
             self::$db->disconnect();
-            self::$db = null;
         }
+        self::$db = self::$migrator = null;
         parent::tearDownAfterClass();
     }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
 "PO-Revision-Date: 2013-03-16 10:26-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -95,7 +95,7 @@ msgstr "Criar"
 msgid "Create Notepad"
 msgstr "Criar Bloco de Anotações"
 
-#: lib/Application.php:115
+#: lib/Application.php:116
 msgid "Create a new Notepad"
 msgstr "Criar um novo Bloco de Anotações"
 
@@ -222,7 +222,7 @@ msgstr "Em: "
 msgid "Last Modified"
 msgstr "Última Modificação"
 
-#: lib/Application.php:62
+#: lib/Application.php:63
 msgid "Maximum Number of Notes"
 msgstr "Número Máximo de Anotações"
 
@@ -238,12 +238,12 @@ msgstr "Data de Modificação"
 msgid "More Options..."
 msgstr "Mais Opções..."
 
-#: lib/Api.php:378
+#: lib/Api.php:425
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Múltiplos componentes iCalendar encontrados; somente um vNote é suportado."
 
-#: lib/Application.php:108
+#: lib/Application.php:109
 msgid "My Notepads"
 msgstr "Meus Blocos de Anotações"
 
@@ -255,7 +255,7 @@ msgstr "Minhas Anotações"
 msgid "Name"
 msgstr "Nome"
 
-#: lib/Application.php:168 memo.php:103 memo.php:151
+#: lib/Application.php:169 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr "Nova Anotação"
 
@@ -263,7 +263,7 @@ msgstr "Nova Anotação"
 msgid "Next"
 msgstr "Próxima"
 
-#: lib/Api.php:209 lib/Api.php:371
+#: lib/Api.php:250 lib/Api.php:418
 msgid "No iCalendar data was found."
 msgstr "Nenhum dado iCalendar foi encontrado."
 
@@ -362,7 +362,7 @@ msgstr "Gravar"
 msgid "Save as PDF"
 msgstr "Gravar como PDF"
 
-#: lib/Application.php:192 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:193 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Pesquisar"
@@ -383,7 +383,7 @@ msgstr "Selecione o arquivo para importar:"
 msgid "Select the format of the source file:"
 msgstr "Selecione o formato do arquivo de origem:"
 
-#: lib/Application.php:121
+#: lib/Application.php:122
 msgid "Shared Notepads"
 msgstr "Blocos de Anotações Compartilhados"
 
@@ -456,11 +456,11 @@ msgstr "As senhas não correspondem."
 msgid "There was an error importing the data: %s"
 msgstr "Houve um erro ao importar os dados: %s"
 
-#: lib/Api.php:203 lib/Api.php:365
+#: lib/Api.php:244 lib/Api.php:412
 msgid "There was an error importing the iCalendar data."
 msgstr "Houve um erro ao importar os dados do iCalendar."
 
-#: lib/Application.php:239
+#: lib/Application.php:240
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -502,7 +502,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Esta anotação foi criptografada, por favor forneça a senha abaixo"
 
-#: lib/Api.php:276 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Api.php:323 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Esta anotação foi criptografada."
 
@@ -511,7 +511,7 @@ msgstr "Esta anotação foi criptografada."
 msgid "Unfiled"
 msgstr "Normal"
 
-#: lib/Api.php:242 lib/Api.php:304 lib/Api.php:394
+#: lib/Api.php:289 lib/Api.php:351 lib/Api.php:449
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de Conteúdo não suportado: %s"
@@ -577,15 +577,15 @@ msgstr "_Criptografar?"
 msgid "_For: "
 msgstr "_Para: "
 
-#: lib/Application.php:81
+#: lib/Application.php:82
 msgid "_Import/Export"
 msgstr "_Importar/Exportar"
 
-#: lib/Application.php:74
+#: lib/Application.php:75
 msgid "_List Notes"
 msgstr "_Listar Anotações"
 
-#: lib/Application.php:97
+#: lib/Application.php:98
 msgid "_New Note"
 msgstr "_Nova Anotação"
 
@@ -601,7 +601,7 @@ msgstr "_Senha:"
 msgid "_Repeat:"
 msgstr "_Repete:"
 
-#: lib/Application.php:77
+#: lib/Application.php:78
 msgid "_Search"
 msgstr "Pe_squisar"
 
@@ -618,12 +618,12 @@ msgstr "por %s"
 msgid "by me"
 msgstr "por mim"
 
-#: lib/Application.php:180
+#: lib/Application.php:181
 #, php-format
 msgid "in %s"
 msgstr "em %s"
 
-#: lib/Application.php:276 templates/data/export.inc:3
+#: lib/Application.php:277 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "anotacoes.csv"
 

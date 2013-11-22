@@ -272,6 +272,8 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
      */
     public function deleteMsgs($mailbox, $uids)
     {
+        $this->_loadSliceMap($mailbox);
+
         $slicemap = &$this->_slicemap[$mailbox];
         $deleted = array_intersect_key($slicemap['s'], array_flip($uids));
 

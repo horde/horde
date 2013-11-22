@@ -466,6 +466,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $GLOBALS['notification']->push(_("You do not have permission to delete this event."), 'horde.warning');
                 return $result;
             }
+            $range = null;
             if ($event->recurs() && $this->vars->r != 'all') {
                 switch ($this->vars->r) {
                 case 'future':
@@ -486,6 +487,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                         $event->recurrence->setRecurEnd($recurEnd);
                         $result = $this->_saveEvent($event, $event, $this->vars);
                     }
+                    $range = Kronolith::RANGE_THISANDFUTURE;
                     break;
                 case 'current':
                     // Deleting only the current instance.
@@ -504,7 +506,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
 
             if ($this->vars->sendupdates) {
                 Kronolith::sendITipNotifications(
-                    $event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL, $instance);
+                    $event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL, $instance, $range);
             }
             $result->deleted = true;
         } catch (Horde_Exception_NotFound $e) {
