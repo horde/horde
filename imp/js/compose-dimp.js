@@ -209,7 +209,7 @@ var DimpCompose = {
             this.skip_spellcheck = true;
         }
 
-        if (this.editor_wait && ImpComposeBase.editor_on) {
+        if (this.editor_wait) {
             return this.uniqueSubmit.bind(this, action).defer();
         }
 
@@ -391,11 +391,12 @@ var DimpCompose = {
         }
 
         noupdate = noupdate || false;
-        if ((sc = ImpComposeBase.getSpellChecker())) {
+        if ((sc = ImpComposeBase.getSpellChecker()) && sc.isActive()) {
            sc.resume();
-           if (this.editor_wait) {
-               return this.toggleHtmlEditor.bind(this, noupdate).defer();
-           }
+        }
+
+        if (this.editor_wait) {
+            return this.toggleHtmlEditor.bind(this, noupdate).defer();
         }
 
         if (ImpComposeBase.editor_on) {
@@ -504,8 +505,7 @@ var DimpCompose = {
     _onSpellCheckAfter: function()
     {
         if (ImpComposeBase.editor_on) {
-            this.editor_wait = true;
-            this.rte.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
+            this.setBodyText({ body: $F('composeMessage') });
             $('composeMessage').next().show();
             this.RTELoading('hide');
         }
@@ -737,7 +737,9 @@ var DimpCompose = {
     {
         if (ImpComposeBase.editor_on) {
             this.editor_wait = true;
-            this.rte.setData(ob.body, function() { this.editor_wait = false; }.bind(this));
+            this.rte.setData(ob.body, function() {
+                this.editor_wait = false;
+            }.bind(this));
         } else {
             $('composeMessage').setValue(ob.body);
             ImpComposeBase.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
