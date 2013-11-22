@@ -273,7 +273,7 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
         return $result;
     }
 
-    public function _twitterError($e)
+    protected function _twitterError($e)
     {
         global $notification, $page_output;
 
