@@ -379,6 +379,12 @@ class Horde_Smtp implements Serializable
             case 502:
                 // Old server - doesn't support EHLO
                 $this->_connection->write('HELO ' . $host);
+                try {
+                    $this->_getResponse(250);
+                } catch (Horde_Smtp_Exception $e2) {
+                    $this->logout();
+                    throw $e;
+                }
                 $this->_extensions = array();
                 break;
 

@@ -2270,7 +2270,6 @@ abstract class Kronolith_Event
             $dur_day_match = 0;
             $dur_hour_match = 1;
             $dur_min_match = 0;
-            $whole_day_match = false;
         }
 
         $this->_duration = new stdClass;
@@ -2516,8 +2515,11 @@ abstract class Kronolith_Event
     public function synchronizeTags($tags)
     {
         if (isset($this->_internaltags)) {
-            usort($tags, 'strcoll');
-            if (array_diff($this->_internaltags, $tags)) {
+            $lower_internaltags = array_map('Horde_String::lower', $this->_internaltags);
+            $lower_tags = array_map('Horde_String::lower', $tags);
+            usort($lower_tags, 'strcoll');
+
+            if (array_diff($lower_internaltags, $lower_tags)) {
                 Kronolith::getTagger()->replaceTags(
                     $this->uid,
                     $this->_internaltags,

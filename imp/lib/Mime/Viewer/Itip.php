@@ -338,7 +338,16 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'CANCEL':
             try {
                 $vevent->getAttribute('RECURRENCE-ID');
-                $desc = _("%s has cancelled an instance of the recurring \"%s\".");
+                $params = $vevent->getAttribute('RECURRENCE-ID', true);
+                foreach ($params as $param) {
+                    if (array_key_exists('RANGE', $param)) {
+                        $desc = _("%s has cancelled multiple instances of the recurring \"%s\".");
+                    }
+                    break;
+                }
+                if (empty($desc)) {
+                    $desc = _("%s has cancelled an instance of the recurring \"%s\".");
+                }
                 if ($registry->hasMethod('calendar/replace')) {
                     $options['delete'] = _("Update in my calendar");
                 }

@@ -46,6 +46,7 @@ KronolithCore = {
     uatts: null,
     ucb: null,
     resourceACCache: { choices: [], map: $H() },
+    paramsCache: null,
 
     /**
      * The location that was open before the current location.
@@ -4319,8 +4320,14 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventSendCancellationYes':
-                $('kronolithEventSendUpdates').setValue(1);
+                $('kronolithRecurDeleteAll').enable();
+                $('kronolithRecurDeleteCurrent').enable();
+                $('kronolithRecurDeleteFuture').enable();
+                this.paramsCache.sendupdates = 1;
             case 'kronolithEventSendCancellationNo':
+                $('kronolithRecurDeleteAll').enable();
+                $('kronolithRecurDeleteCurrent').enable();
+                $('kronolithRecurDeleteFuture').enable();
                 $('kronolithCancellationDiv').hide();
             case 'kronolithRecurDeleteAll':
             case 'kronolithRecurDeleteCurrent':
@@ -4331,39 +4338,40 @@ KronolithCore = {
                     break;
                 }
                 elt.disable();
+                var cal = $F('kronolithEventCalendar'),
+                    eventid = $F('kronolithEventId');
+                if (id != 'kronolithEventSendCancellationNo' &&
+                    id != 'kronolithEventSendCancellationYes') {
+                    this.paramsCache = {
+                        cal: cal,
+                        id: eventid,
+                        rstart: $F('kronolithEventRecurOStart'),
+                        cstart: this.cacheStart.toISOString(),
+                        cend: this.cacheEnd.toISOString()
+                    };
+                    switch (id) {
+                    case 'kronolithRecurDeleteAll':
+                        this.paramsCache.r = 'all';
+                        break;
+                    case 'kronolithRecurDeleteCurrent':
+                        this.paramsCache.r = 'current';
+                        break;
+                    case 'kronolithRecurDeleteFuture':
+                        this.paramsCache.r = 'future';
+                        break;
+                    }
+                }
 
                 if (id != 'kronolithEventSendCancellationNo'
                     && id != 'kronolithEventSendCancellationYes'
                     && $F('kronolithEventAttendees')) {
 
-                    $('kronolithEventSendUpdates').setValue(0);
                     $('kronolithDeleteDiv').hide();
                     $('kronolithCancellationDiv').show();
                     e.stop();
                     break;
                 }
 
-                var cal = $F('kronolithEventCalendar'),
-                    eventid = $F('kronolithEventId');
-                var params = {
-                    cal: cal,
-                    id: eventid,
-                    rstart: $F('kronolithEventRecurOStart'),
-                    cstart: this.cacheStart.toISOString(),
-                    cend: this.cacheEnd.toISOString(),
-                    sendupdates: $F('kronolithEventSendUpdates')
-                };
-                switch (id) {
-                case 'kronolithRecurDeleteAll':
-                    params.r = 'all';
-                    break;
-                case 'kronolithRecurDeleteCurrent':
-                    params.r = 'current';
-                    break;
-                case 'kronolithRecurDeleteFuture':
-                    params.r = 'future';
-                    break;
-                }
                 this.kronolithBody.select('div').findAll(function(el) {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
@@ -4371,11 +4379,11 @@ KronolithCore = {
                 var viewDates = this.viewDates(this.date, this.view),
                 start = viewDates[0].toString('yyyyMMdd'),
                 end = viewDates[1].toString('yyyyMMdd');
-                params.sig = start + end + (Math.random() + '').slice(2);
-                params.view_start = start;
-                params.view_end = end;
+                this.paramsCache.sig = start + end + (Math.random() + '').slice(2);
+                this.paramsCache.view_start = start;
+                this.paramsCache.view_end = end;
 
-                HordeCore.doAction('deleteEvent', params, {
+                HordeCore.doAction('deleteEvent', this.paramsCache, {
                     callback: function(elt,r) {
                         if (r.deleted) {
                             var days;
