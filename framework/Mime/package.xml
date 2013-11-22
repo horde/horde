@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-27</date>
+ <date>2013-11-22</date>
  <version>
   <release>2.2.8</release>
   <api>2.2.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix parsing MIME message that contains mixed EOLs (Bug #12842).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -325,6 +325,8 @@
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
        <file name="bug12536.txt" role="test" />
+       <file name="bug12842_a.txt" role="test" />
+       <file name="bug12842_b.txt" role="test" />
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
@@ -565,6 +567,8 @@
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
+   <install as="Horde/Mime/fixtures/bug12842_a.txt" name="test/Horde/Mime/fixtures/bug12842_a.txt" />
+   <install as="Horde/Mime/fixtures/bug12842_b.txt" name="test/Horde/Mime/fixtures/bug12842_b.txt" />
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
@@ -1232,10 +1236,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-27</date>
+   <date>2013-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix parsing MIME message that contains mixed EOLs (Bug #12842).
    </notes>
   </release>
  </changelog>
