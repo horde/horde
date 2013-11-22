@@ -173,7 +173,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
     }
 
-    protected function _parseRead($blobFields, $result, $dateFields)
+    protected function _parseRead($blobFields, $result, $dateFields = array())
     {
         $results = array();
         $columns = $this->_db->columns($this->_params['table']);
