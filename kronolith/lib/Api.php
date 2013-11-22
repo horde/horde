@@ -975,10 +975,14 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $recurrenceId  The reccurenceId for the event instance, if
      *                              this is a deletion of a recurring event
      *                              instance ($uid must not be an array).
+     * @param string $range         The range value if deleting a recurring
+     *                              event instance. Only supported values are
+     *                              null or Kronolith::RANGE_THISANDFUTURE.
+     *                              @since 4.1.5
      *
      * @throws Kronolith_Exception
      */
-    public function delete($uid, $recurrenceId = null)
+    public function delete($uid, $recurrenceId = null, $range = null)
     {
         // Handle an array of UIDs for convenience of deleting multiple events
         // at once.
@@ -991,8 +995,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $kronolith_driver = Kronolith::getDriver();
         $events = $kronolith_driver->getByUID($uid, null, true);
-
         $event = null;
+
         if ($GLOBALS['registry']->isAdmin()) {
             $event = $events[0];
         }
@@ -1025,10 +1029,21 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        if ($recurrenceId && $event->recurs()) {
+        if ($recurrenceId && $event->recurs() && empty($range)) {
             $deleteDate = new Horde_Date($recurrenceId);
             $event->recurrence->addException($deleteDate->format('Y'), $deleteDate->format('m'), $deleteDate->format('d'));
             $event->save();
+        } elseif ($range == Kronolith::RANGE_THISANDFUTURE) {
+            // Deleting the instance and remaining series.
+            $instance = new Horde_Date($recurrenceId);
+            $recurEnd = clone($instance);
+            $recurEnd->mday--;
+            if ($event->end->compareDate($recurEnd) > 0) {
+                 $kronolith_driver->deleteEvent($event->id);
+            } else {
+                 $event->recurrence->setRecurEnd($recurEnd);
+                 $result = $event->save();
+            }
         } elseif ($recurrenceId) {
             throw new Kronolith_Exception(_("Unable to delete event. An exception date was provided but the event does not seem to be recurring."));
         } else {

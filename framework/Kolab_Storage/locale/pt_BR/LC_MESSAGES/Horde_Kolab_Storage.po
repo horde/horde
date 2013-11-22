@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-08-27 14:52+0200\n"
 "PO-Revision-Date: 2013-03-16 11:06-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -111,6 +111,7 @@ msgstr ""
 "Falha ao obter parte de corpo %s da mensagem %s na pasta %s%s. Erro: %s"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:607
+#: lib/Horde/Kolab/Storage/Driver/Imap.php:423
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:522
 #, fuzzy, php-format
 msgid "Failed fetching message %s in folder %s."

@@ -45,6 +45,8 @@ class Kronolith
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
 
+    const RANGE_THISANDFUTURE = 'THISANDFUTURE';
+
     /** The event can be delegated. */
     const PERMS_DELEGATE = 1024;
 
@@ -1815,10 +1817,12 @@ class Kronolith
      * @param Horde_Date $instance
      *        If cancelling a single instance of a recurring event, the date of
      *        this instance.
+     * @param  string $range  The range parameter if this is a recurring event.
+     *                        Possible values are self::RANGE_THISANDFUTURE
      */
     static public function sendITipNotifications(
         Kronolith_Event $event, Horde_Notification_Handler $notification,
-        $action, Horde_Date $instance = null)
+        $action, Horde_Date $instance = null, $range = null)
     {
         global $injector, $registry;
 
@@ -1907,9 +1911,26 @@ class Kronolith
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 // Recurring event instance deletion, need to specify the
                 // RECURRENCE-ID but NOT the EXDATE.
-                $vevent = array_pop($vevent);
-                $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
-                $vevent->removeAttribute('EXDATE');
+                foreach($vevent as &$ve) {
+                    try {
+                        $uid = $ve->getAttribute('UID');
+                    } catch (Horde_Icalendar_Exception $e) {
+                        continue;
+                    }
+                    if ($event->uid == $uid) {
+                        $ve->setAttribute('RECURRENCE-ID', $instance);
+                        if (!empty($range)) {
+                            $ve->setParameter('RECURRENCE-ID', array('RANGE' => $range));
+                        }
+                        $ve->setAttribute('DTSTART', $instance, array(), false);
+                        $diff = $event->end->timestamp() - $event->start->timestamp();
+                        $end = clone $instance;
+                        $end->sec += $diff;
+                        $ve->setAttribute('DTEND', $end, array(), false);
+                        $ve->removeAttribute('EXDATE');
+                        break;
+                    }
+                }
             }
             $iCal->addComponent($vevent);
 
