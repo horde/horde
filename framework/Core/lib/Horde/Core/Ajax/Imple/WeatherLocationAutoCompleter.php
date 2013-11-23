@@ -36,16 +36,10 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                             v = $F("location' . $this->_params['instance'] . '");
                         }
                         $("' . $indicator . '").toggle();
-                        new Ajax.Updater(
-                            "weathercontent' . $this->_params['instance'] . '",
-                            "' . $url . '",
-                            {
-                                evalScripts: true,
-                                parameters: { location: v },
-                                onComplete: function() { $("' . $indicator . '").toggle(); }
-                            }
+                        HordeCore.doAction("blockRefresh",
+                            { blockid: "horde_block_weather", location: v },
+                            { callback: function(r) { $("weathercontent' . $this->_params['instance'] . '").update(r); $("' . $indicator . '").toggle(); } }
                         );
-
                         this.value = false;
                     }
                 }',
@@ -53,8 +47,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                     window.weatherupdate["' . $this->_params['instance'] . '"].update();
                     e.stop();
                 })'
-            ),
-            true
+            )
         );
 
         return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
