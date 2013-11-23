@@ -172,6 +172,38 @@ abstract class Horde_Core_Block
     abstract protected function _content();
 
     /**
+     * Returns the content for this block in response to a user requested
+     * update from within the block.
+     *
+     * This function handles the changing of current application as
+     * needed so code is executed in the scope of the application the
+     * block originated from.
+     *
+     * @param Horde_Variables $vars
+     *
+     * @return string  The block's content.
+     */
+    public function refreshContent($vars)
+    {
+        return $this->_call('_refreshContent', '', $vars);
+    }
+
+    /**
+     * Stub to be overridden by concrete block that supports user-initiated
+     * updating of content via ajax.
+     *
+     * @todo For Horde 6 this should be abstract.
+     *
+     * @param  Horde_Variables $vars
+     *
+     * @return string
+     */
+    protected function _refreshContent($vars)
+    {
+        return '';
+    }
+
+    /**
      * The data to send on an AJAX update request.
      *
      * @param Horde_Variables $vars  The form variables for the request.
