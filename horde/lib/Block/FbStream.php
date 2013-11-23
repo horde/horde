@@ -22,6 +22,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
      * @var string
      */
     protected $_fbp = array();
+
     /**
      */
     public function __construct($app, $params = array())
