@@ -1241,7 +1241,6 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $found = false;
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
-        $sender_lcase = Horde_String::lower($sender);
 
         foreach ($atnames as $index => $attendee) {
             if ($response->getAttribute('VERSION') < 2) {
@@ -1250,14 +1249,14 @@ class Kronolith_Api extends Horde_Registry_Api
                     continue;
                 }
 
-                $attendee = Horde_String::lower($addr_ob->bare_address);
+                $attendee = $addr_ob->bare_address;
                 $name = $addr_ob->personal;
             } else {
-                $attendee = str_replace('mailto:', '', Horde_String::lower($attendee));
+                $attendee = str_replace('mailto:', '', $attendee);
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
             }
             if ($event->hasAttendee($attendee)) {
-                if (is_null($sender) || $sender_lcase == $attendee) {
+                if (is_null($sender) || $sender == $attendee) {
                     $event->addAttendee($attendee, Kronolith::PART_IGNORE, Kronolith::responseFromICal($atparms[$index]['PARTSTAT']), $name);
                     $found = true;
                 } else {
