@@ -24,6 +24,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
     protected $_refreshParams;
 
+    public $autoUpdateMethod = 'refreshContent';
+
     /**
      */
     public function __construct($app, $params = array())
@@ -43,7 +45,13 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     public function refreshContent($vars = null)
     {
-        $this->_refreshParams = $vars;
+        if (empty($vars) || empty($vars->location)) {
+            $this->_refreshParams = Horde_Variables::getDefaultVariables();
+            $this->_refreshParams->set('location', $this->_params['location']);
+        } else {
+            $this->_refreshParams = $vars;
+        }
+
         return $this->_content();
     }
 
