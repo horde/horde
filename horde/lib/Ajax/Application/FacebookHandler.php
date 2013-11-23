@@ -21,8 +21,6 @@
  */
 class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application_Handler
 {
-
-
     /**
      * - count:
      * - filter:
