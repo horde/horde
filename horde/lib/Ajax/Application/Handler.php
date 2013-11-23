@@ -80,11 +80,15 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 
         if (isset($this->vars->app) && isset($this->vars->blockid)) {
             try {
-                $html = $GLOBALS['injector']
+                $block = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
-                    ->getBlock($this->vars->app, $this->vars->blockid)
-                    ->getContent(isset($this->vars->options) ? $this->vars->options : null);
+                    ->getBlock($this->vars->app, $this->vars->blockid);
+                if (!empty($block->autoUpdateMethod) && is_callable(array($block, $block->autoUpdateMethod))) {
+                    $html = call_user_func_array(array($block, $block->autoUpdateMethod), isset($this->vars->options) ? $this->vars->options : null);
+                } else {
+                    $html = $block->getContent(isset($this->vars->options) ? $this->vars->options : null);
+                }
             } catch (Exception $e) {
                 $html = $e->getMessage();
             }

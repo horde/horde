@@ -31,6 +31,17 @@ abstract class Horde_Core_Block
     public $updateable = false;
 
     /**
+     * The method to use to render the block when
+     * Horde_Ajax_Application_Handler#blockAutoUpdate
+     * is called instead of the default of Horde_Core_Block#getContent
+     * By default, we call _content()
+     *
+     * @var string
+     * @since 2.12.0
+     */
+    public $autoUpdateMethod;
+
+    /**
      * Application that this block originated from.
      *
      * @var string
