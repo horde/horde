@@ -23,7 +23,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @var Horde_Registry
      */
-    private $_registry;
+    protected $_registry;
 
     /**
      * The logger
