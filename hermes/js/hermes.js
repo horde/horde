@@ -18,7 +18,6 @@ HermesCore = {
     inAjaxCallback: false,
     server_error: 0,
     hermesBody: $('hermesBody'),
-    clientIdMap: {},
     slices: [],
     searchSlices: [],
     sortbyfield: 'sortDate',
@@ -1790,10 +1789,6 @@ HermesCore = {
     {
         var row, cell, d;
 
-        // Save the cn info for possible later use
-        if (!HermesCore.clientIdMap[slice.c]) {
-            HermesCore.clientIdMap[slice.c] = slice.cn;
-        }
         row = $('hermesTimeListTemplate').clone(true);
         row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
@@ -1827,10 +1822,6 @@ HermesCore = {
     {
         var row, cell, d;
 
-        // Save the cn info for possible later use
-        if (!HermesCore.clientIdMap[slice.c]) {
-            HermesCore.clientIdMap[slice.c] = slice.cn;
-        }
         row = $('hermesSearchListTemplate').clone(true);
         row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
