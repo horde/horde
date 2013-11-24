@@ -66,8 +66,11 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function updateDeliverable()
     {
+        // Only local Hermes deliverables are editable.
+        $deliverable_id = str_replace('hermes:', '', $this->vars->deliverable_id);
+
         $deliverable = array(
-            'id' => empty($this->vars->deliverable_id) ? 0 : $this->vars->deliverable_id,
+            'id' => empty($this->vars->deliverable_id) ? 0 : $deliverable_id,
             'name' => $this->vars->name,
             'active' => $this->vars->active == 'on',
             'estimate' => $this->vars->estimate,
@@ -88,10 +91,12 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
 
     public function deleteDeliverable()
     {
+        // Only local Hermes deliverables are editable.
+        $deliverable_id = str_replace('hermes:', '', $this->vars->deliverable_id);
         try {
             $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->deleteDeliverable($this->vars->deliverable_id);
+                ->deleteDeliverable($deliverable_id);
             $GLOBALS['notification']->push(_("Deliverable successfully deleted."), 'horde.success');
             return true;
         } catch (Hermes_Exception $e) {
