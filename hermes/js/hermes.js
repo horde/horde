@@ -1349,9 +1349,11 @@ HermesCore = {
     {
         if (!r.id) {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
+            this.inTimerForm = false;
+        } else {
+            r.e = 0;
+            this.insertTimer(r, $F('hermesTimerTitle'));
         }
-
-        this.insertTimer({ 'id': r.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
     /**
