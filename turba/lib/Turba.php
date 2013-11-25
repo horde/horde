@@ -177,7 +177,8 @@ class Turba
                     $source = array_splice($cols, 0, 1);
                     $columns[$source[0]] = array();
                     foreach ($cols as $col) {
-                        if (isset($GLOBALS['cfgSources'][$source[0]]['map'][$col])) {
+                        if ($col == '__tags' ||
+                            isset($GLOBALS['cfgSources'][$source[0]]['map'][$col])) {
                             $columns[$source[0]][] = $col;
                         }
                     }
