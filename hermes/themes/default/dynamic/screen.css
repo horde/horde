@@ -95,12 +95,19 @@ html, body {
 #hermesMenuTimers .active-timer {
   background-color: #7EAA42;
   font-weight: bold;
+  border-bottom: solid 1px #808080;
 }
 #hermesMenuTimers .inactive-timer {
   background-color: #dddddd;
   font-style: italic;
+  border-bottom: solid 1px #808080;
 }
-
+#horde-sidebar div.horde-resources div.inactive-timer, #horde-sidebar div.horde-resources div.inactive-timer div {
+    margin: 0 0;
+}
+#horde-sidebar div.horde-resources div.active-timer, #horde-sidebar div.horde-resources div.active-timer div {
+    margin: 0 0;
+}
 .hermesTimerFormDetail {
   margin-top: 5px;
   padding-top: 2px;
