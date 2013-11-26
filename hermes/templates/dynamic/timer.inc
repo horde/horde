@@ -22,6 +22,13 @@
     <?php echo Hermes::getJobTypeSelect('hermesTimerJobtype');?>
   </label>
 </div>
+<div class="hermesTimerExclusiveDetail">
+  <label for="hermesTimerExclusive">
+    <?php echo _("Make this timer exclusive?")?>
+    <input type="checkbox" name="exclusive" id="hermesTimerExclusive" checked="checked" />
+  </label>
+  <p><?php echo _("Exclusive timers cannot run while other exclusive timers are running, but may run while other non-exclusive timers are running.")?></p>
+</div>
 <p>
   <input id="hermesTimerSave" class="horde-default" type="submit" value="<?php echo _("Save")?>" />
   <input id="hermesTimerCancel" class="horde-cancel" type="button" value="<?php echo _("Cancel")?>" />

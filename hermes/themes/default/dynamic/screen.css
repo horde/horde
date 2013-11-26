@@ -115,8 +115,15 @@ html, body {
   margin-top: 5px;
   padding-top: 2px;
   border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
-
+.hermesTimerFormDetail select {
+  margin-bottom: 5px;
+}
+.hermesTimerExclusive, .hermesTimerExclusiveDetail p {
+  padding-left: 40px;
+  background: transparent url("../graphics/exclusive.png") no-repeat 10px 1px;
+}
 .hermesTimerDetails {
   margin-left: 5px;
   font-weight: normal;

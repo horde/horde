@@ -327,22 +327,11 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     public function pauseTimer()
     {
         try {
-            $timer = Hermes::getTimer($this->vars->t);
+            return Hermes::pauseTimer($this->vars->t);
         } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
-
-        // Avoid pausing the same timer twice.
-        if ($timer['paused'] || $timer['time'] == 0) {
-            return true;
-        }
-        $timer['paused'] = true;
-        $timer['elapsed'] += time() - $timer['time'];
-        $timer['time'] = 0;
-        Hermes::updateTimer($this->vars->t, $timer);
-
-        return true;
     }
 
     /**
@@ -381,7 +370,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      * Restart a paused timer. Expects the following data in $this->vars:
      *   - t:  The timer id.
      *
-     * @return boolean
+     * @return boolean|array  If the timer is exclusive, returns a new list
+     *                        of timer data, otherwise true on success/false
+     *                        on failure.
      */
     public function startTimer()
     {
@@ -394,6 +385,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $timer['paused'] = false;
         $timer['time'] = time();
         Hermes::updateTimer($this->vars->t, $timer);
+
+        if ($timer['exclusive']) {
+            return self::listTimers();
+        }
 
         return true;
     }

@@ -1404,7 +1404,7 @@ HermesCore = {
         var title = new Element('div', { 'class': 'timer-title' }).update(d + ' (' + r.elapsed + ' ' + Hermes.text['hours'] + ')'),
             controls = new Element('span', { 'class': 'timerControls' }),
             stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
-            timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id),
+            timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id).store('tx', r.exclusive),
             client_text = this.getClientNameFromId(r.client_id),
             wrapper, wrapperClass, details;
 
@@ -1418,7 +1418,9 @@ HermesCore = {
             controls.addClassName('timer-running');
             wrapperClass = 'active-timer';
         }
-
+        if (r.exclusive) {
+            wrapperClass += ' hermesTimerExclusive';
+        }
         wrapper = new Element('div', { 'class': wrapperClass }).insert(
             timer.insert(stop).insert(controls).insert(title).insert(new Element('span').update(details)));
         $('hermesMenuTimers').insert( { top: wrapper });
@@ -1540,8 +1542,14 @@ HermesCore = {
      *
      * @param elt  The timer's sideBar DOM element.
      */
-    playTimerCallback: function(elt)
+    playTimerCallback: function(elt, r)
     {
+        console.log(elt.up().retrieve('tx'));
+        if (elt.up().retrieve('tx')) {
+            $('hermesMenuTimers').update();
+            this.listTimersCallback(r);
+        }
+
         elt.removeClassName('timer-paused');
         elt.addClassName('timer-running');
         elt.up().up().addClassName('active-timer').removeClassName('inactive-timer');
