@@ -206,6 +206,7 @@
       <file name="delete.png" role="horde" />
       <file name="deliverable.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="exclusive.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="hermes.png" role="horde" />
       <file name="invoices.png" role="horde" />
@@ -468,6 +469,7 @@
    <install as="hermes/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="hermes/themes/default/graphics/deliverable.png" name="themes/default/graphics/deliverable.png" />
    <install as="hermes/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="hermes/themes/default/graphics/exclusive.png" name="themes/default/graphics/exclusive.png" />
    <install as="hermes/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="hermes/themes/default/graphics/hermes.png" name="themes/default/graphics/hermes.png" />
    <install as="hermes/themes/default/graphics/invoices.png" name="themes/default/graphics/invoices.png" />
