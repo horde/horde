@@ -1544,7 +1544,6 @@ HermesCore = {
      */
     playTimerCallback: function(elt, r)
     {
-        console.log(elt.up().retrieve('tx'));
         if (elt.up().retrieve('tx')) {
             $('hermesMenuTimers').update();
             this.listTimersCallback(r);
