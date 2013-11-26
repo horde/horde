@@ -11,14 +11,8 @@ v2.0-git
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [mjr] Allow pausing and restarting timers.
 [mjr] Add ajax view.
+[mjr] Refactor for Horde 4.
 [jan] Provide default configuration files instead of .dist versions.
-
-
-----------
-v1.0.2-cvs
-----------
-
-
 
 
 ------
