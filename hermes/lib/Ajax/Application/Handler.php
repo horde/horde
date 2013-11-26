@@ -27,7 +27,6 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         $id = Hermes::newTimer($this->vars->desc, $this->vars);
         $timer = Hermes::getTimer($id);
-        $timer['id'] = $id;
 
         return $timer;
     }
@@ -439,9 +438,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $timer['time'] = $now;
             Hermes::updateTimer($this->vars->t, $timer);
         }
-        $text = Hermes::getCostObjectByID($timer['deliverable_id']);
-        $results['_deliverable_text'] = $text['name'];
-        $results['id'] = $this->vars->t;
+
         return $results;
     }
 

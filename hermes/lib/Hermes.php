@@ -393,9 +393,10 @@ class Hermes
             $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
             $timer['elapsed'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
-            unset($timer['elapsed']);
-            $text = Hermes::getCostObjectByID($timer['deliverable_id']);
-            $timer['_deliverable_text'] = $text['name'];
+            try {
+                $text = Hermes::getCostObjectByID($timer['deliverable_id']);
+                $timer['deliverable_text'] = $text['name'];
+            } catch (Horde_Exception_NotFound $e) {}
             $return[] = $timer;
         }
 
@@ -450,13 +451,15 @@ class Hermes
         $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
-        } else {
-            $timers = array();
         }
-
         if (empty($timers[$id])) {
             throw new Horde_Exception_NotFound(_("The requested timer was not found."));
         }
+        $timers[$id]['id'] = $id;
+
+        try {
+            $timers[$id]['deliverable_text'] = Hermes::getCostObjectByID($timers[$id]['deliverable_id']);
+        } catch (Horde_Exception_NotFound $e) {}
 
         return $timers[$id];
     }
