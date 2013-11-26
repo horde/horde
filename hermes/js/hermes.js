@@ -1502,6 +1502,7 @@ HermesCore = {
         if (r) {
             $('hermesTimeFormHours').setValue(r.h);
             $('hermesTimeFormNotes').setValue(r.n);
+            $('hermesTimeFormStartDate').setValue(new Date().toString(Hermes.conf.date_format));
             if (r.client_id) {
                 $('hermesTimeFormClient').setValue(r.client_id).disable();
             }
