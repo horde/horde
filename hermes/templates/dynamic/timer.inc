@@ -35,7 +35,7 @@
   <p><?php echo _("You are logging the following timer:")?></p>
   <div id="hermesLogTimerDetails"></div>
   <p>
-    <input id="hermesLogTimerLogRestart" class="horde-button" type="submit" value="<?php echo _("Stop")?>" />
+    <input id="hermesLogTimerLogRestart" class="horde-button" type="submit" value="<?php echo _("Stop and reset")?>" />
     <input id="hermesLogTimerLogClose" class="horde-default" type="submit" value="<?php echo _("Stop and remove")?>" />
     <input id="hermesLogTimerCancel" class="horde-cancel" type="button" value="<?php echo _("Cancel")?>" />
   </p>
