@@ -11,7 +11,8 @@ v2.0-git
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [mjr] Allow pausing and restarting timers.
 [mjr] Add ajax view.
-[mjr] Refactor for Horde 4.
+[jan] Remove Sandals widget.
+[mjr] Refactor for Horde 5.
 [jan] Provide default configuration files instead of .dist versions.
 
 
