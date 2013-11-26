@@ -1512,7 +1512,7 @@ HermesCore = {
                 $('hermesTimeFormCostobject').insert(new Element('option', { selected: 'selected', value: r.deliverable_id }).update(r.deliverable_text)).disable();
             }
         }
-        elt.up().fade({
+        elt.up().up().fade({
             duration: this.effectDur,
         });
         if (restart) {
