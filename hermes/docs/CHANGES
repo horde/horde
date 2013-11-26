@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[mjr] Implement exclusive timers (Request #12543).
 [mjr] Add ability to optionally add client, cost object, or job type to timer
       on creation.
 [mjr] Add listTimeObjects support.

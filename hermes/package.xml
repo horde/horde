@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [mjr] Implement exclusive timers (Request #12543).
 * [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
@@ -498,6 +499,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [mjr] Implement exclusive timers (Request #12543).
 * [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
