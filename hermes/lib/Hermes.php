@@ -228,6 +228,17 @@ class Hermes
         return array($enumtype, $employees);
     }
 
+    /**
+     * Return a cost object hash.
+     *
+     * @param string $id  The cost object id.
+     *
+     * @return array  The cost object hash. Keys differ depending on the
+     *                API queried, but should always contain:
+     *                  - id:
+     *                  - name:
+     * @throws Horde_ExceptionNotFound
+     */
     public static function getCostObjectByID($id)
     {
         static $cost_objects;
@@ -458,7 +469,8 @@ class Hermes
         $timers[$id]['id'] = $id;
 
         try {
-            $timers[$id]['deliverable_text'] = Hermes::getCostObjectByID($timers[$id]['deliverable_id']);
+            $text = Hermes::getCostObjectByID($timers[$id]['deliverable_id']);
+            $timers[$id]['deliverable_text'] = $text['name'];
         } catch (Horde_Exception_NotFound $e) {}
 
         return $timers[$id];
