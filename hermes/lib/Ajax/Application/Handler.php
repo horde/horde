@@ -434,7 +434,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         Hermes::clearTimer($this->vars->t);
         if ($this->vars->restart == 'true') {
             $now = time();
-            $timer['elapsed'] = $results['e'] = 0;
+            $timer['elapsed'] = 0;
             $timer['paused'] = $results['paused'] = true;
             $timer['time'] = $now;
             Hermes::updateTimer($this->vars->t, $timer);

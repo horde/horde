@@ -391,7 +391,7 @@ class Hermes
                 continue;
             }
             $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
-            $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['elapsed'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
             unset($timer['elapsed']);
             $text = Hermes::getCostObjectByID($timer['deliverable_id']);

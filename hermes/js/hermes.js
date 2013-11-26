@@ -1388,7 +1388,7 @@ HermesCore = {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
             this.inTimerForm = false;
         } else {
-            r.e = 0;
+            r.elapsed = 0;
             this.insertTimer(r, $F('hermesTimerTitle'));
         }
     },
@@ -1401,7 +1401,7 @@ HermesCore = {
      */
     insertTimer: function(r, d)
     {
-        var title = new Element('div').update(d + ' (' + r.e + ' ' + Hermes.text['hours'] + ')'),
+        var title = new Element('div').update(d + ' (' + r.elapsed + ' ' + Hermes.text['hours'] + ')'),
             controls = new Element('span', { 'class': 'timerControls' }),
             stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
             timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id),
@@ -1410,7 +1410,7 @@ HermesCore = {
 
 
         details = new Element('span', { 'class': 'hermesTimerDetails' }).update(
-                (client_text ? client_text + '/' : '') + (r._deliverable_text ? r._deliverable_text : ''));
+                (client_text ? client_text + '/' : '') + (r.deliverable_text ? r.deliverable_text : ''));
         if (r.paused) {
             controls.addClassName('timer-paused');
             wrapperClass = 'inactive-timer';
@@ -1509,7 +1509,7 @@ HermesCore = {
                 $('hermesTimeFormJobtype').setValue(r.jobtype_id).disable();
             }
             if (r.deliverable_id) {
-                $('hermesTimeFormCostobject').insert(new Element('option', { selected: 'selected', value: r.deliverable_id }).update(r._deliverable_text)).disable();
+                $('hermesTimeFormCostobject').insert(new Element('option', { selected: 'selected', value: r.deliverable_id }).update(r.deliverable_text)).disable();
             }
         }
         elt.up().fade({
@@ -2087,7 +2087,7 @@ HermesCore = {
                 var t = r[i];
                 $('hermesMenuTimers').select('.horde-resource-none').each(function(elt) {
                     if (elt.retrieve('tid') == t['id']) {
-                        elt.down('div').update(t.name + ' (' + t.e + Hermes.text['hours'] + ')');
+                        elt.down('div').update(t.name + ' (' + t.elapsed + Hermes.text['hours'] + ')');
                     }
                 });
             }
