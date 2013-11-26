@@ -120,8 +120,10 @@ html, body {
 .hermesTimerFormDetail select {
   margin-bottom: 5px;
 }
+.hermesTimerExclusiveDetail p {
+  background: transparent url("../graphics/exclusive.png") no-repeat 10px 1px;
+}
 .hermesTimerExclusive, .hermesTimerExclusiveDetail p {
-  padding-left: 40px;
   background: transparent url("../graphics/exclusive.png") no-repeat 10px 1px;
 }
 .hermesTimerDetails {
