@@ -410,25 +410,24 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function stopTimer()
     {
-        global $prefs;
+        global $prefs, $notification;
 
         try {
             $timer = Hermes::getTimer($this->vars->t);
         } catch (Horde_Exception_NotFound $e) {
-            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            $notification->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
         $results = $timer;
         $tname = $timer['name'];
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
-
         $results['h'] = round((float)$elapsed / 3600, 2);
         if ($prefs->getValue('add_description')) {
             $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s %s to %s %s"), $tname, strftime($prefs->getValue('date_format_mini'), $this->vars->t), strftime($prefs->getValue('time_format'), $this->vars->t), strftime($prefs->getValue('date_format_mini'), time()), strftime($prefs->getValue('time_format'), time()));
         } else {
             $results['n'] = '';
         }
-        $GLOBALS['notification']->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
+        $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
 
         Hermes::clearTimer($this->vars->t);
         if ($this->vars->restart == 'true') {
