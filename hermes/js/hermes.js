@@ -1421,7 +1421,7 @@ HermesCore = {
 
         wrapper = new Element('div', { 'class': wrapperClass }).insert(
             timer.insert(stop).insert(controls).insert(title).insert(new Element('span').update(details)));
-        $('hermesMenuTimers').insert({ 'top': wrapper });
+        $('hermesMenuTimers').insert( { top: wrapper });
         $('hermesTimerDialog').fade({
             duration: this.effectDur,
             afterFinish: function() {
@@ -1459,7 +1459,7 @@ HermesCore = {
     {
         HordeCore.doAction('stopTimer',
              { t: elt.up().retrieve('tid'), restart: restart },
-             { 'callback': this.stopTimerCallback.curry(elt, restart).bind(this) }
+             { callback: this.stopTimerCallback.curry(elt, restart).bind(this) }
         );
     },
 
@@ -1471,8 +1471,8 @@ HermesCore = {
     pauseTimer: function(elt)
     {
         HordeCore.doAction('pauseTimer',
-            { 't': elt.up().retrieve('tid') },
-            { 'callback': this.pauseTimerCallback.curry(elt).bind(this) }
+            { t: elt.up().retrieve('tid') },
+            { callback: this.pauseTimerCallback.curry(elt).bind(this) }
         );
     },
 
@@ -1484,8 +1484,8 @@ HermesCore = {
     playTimer: function(elt)
     {
         HordeCore.doAction('startTimer',
-            { 't': elt.up().retrieve('tid') },
-            { 'callback': this.playTimerCallback.curry(elt).bind(this) }
+            { t: elt.up().retrieve('tid') },
+            { callback: this.playTimerCallback.curry(elt).bind(this) }
         );
     },
 
@@ -1568,8 +1568,8 @@ HermesCore = {
             slices.push(s.up());
         }.bind(this));
         HordeCore.doAction('submitSlices',
-            { 'items': sliceIds.join(':') },
-            { 'callback': this.submitSlicesCallback.curry(slices).bind(this) }
+            { items: sliceIds.join(':') },
+            { callback: this.submitSlicesCallback.curry(slices).bind(this) }
         );
     },
 
@@ -1639,8 +1639,8 @@ HermesCore = {
         $('hermesLoadingTime').show();
         this.slices = [];
         HordeCore.doAction('loadSlices',
-            { 'e': Hermes.conf.user, 's': false },
-            { 'callback': this.loadSlicesCallback.bind(this, id) }
+            { e: Hermes.conf.user, 's': false },
+            { callback: this.loadSlicesCallback.bind(this, id) }
         );
     },
 
@@ -2182,12 +2182,12 @@ HermesCore = {
         }.bindAsEventListener(this));
 
         // List active timers
-        HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
+        HordeCore.doAction('listTimers', [], { callback: this.listTimersCallback.bind(this) });
 
         // Populate the deliverables with the default list.
         HordeCore.doAction('listDeliverablesSelect',
             { },
-            { 'callback': function(r) {
+            { callback: function(r) {
                 this.updateCostObjects(r, 'time');
                 this.updateCostObjects(r, 'search');
                 this.updateCostObjects(r, 'timer'); }.bind(this)
@@ -2197,7 +2197,7 @@ HermesCore = {
         // Populate jobtype list
         HordeCore.doAction('listJobTypes',
             { },
-            { 'callback': this.loadJobListCallback.bind(this) }
+            { callback: this.loadJobListCallback.bind(this) }
         );
 
         // Setup the deliverables
@@ -2205,7 +2205,7 @@ HermesCore = {
             $('hermesDeliverablesClientSelect').observe('change', HermesCore.deliverablesClientChangeHandler.bindAsEventListener(HermesCore));
             HordeCore.doAction('listDeliverables',
                 { },
-                { 'callback': this.listDeliverablesAdminCallback.bind(this) }
+                { callback: this.listDeliverablesAdminCallback.bind(this) }
             );
         }
 
