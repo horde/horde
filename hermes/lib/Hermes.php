@@ -228,6 +228,18 @@ class Hermes
         return array($enumtype, $employees);
     }
 
+    /**
+     * Return a cost object hash.
+     *
+     * @param string $id  The cost object id.
+     *
+     * @return array  The cost object hash. Keys differ depending on the
+     *                API queried, but should always contain:
+     *                  - id:
+     *                  - name:
+     *
+     * @throws Horde_ExceptionNotFound
+     */
     public static function getCostObjectByID($id)
     {
         static $cost_objects;
@@ -391,9 +403,12 @@ class Hermes
                 continue;
             }
             $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
-            $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['elapsed'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
-            unset($timer['elapsed']);
+            try {
+                $text = Hermes::getCostObjectByID($timer['deliverable_id']);
+                $timer['deliverable_text'] = $text['name'];
+            } catch (Horde_Exception_NotFound $e) {}
             $return[] = $timer;
         }
 
@@ -403,26 +418,38 @@ class Hermes
     /**
      * Create a new timer and save it to storage. Timers contain the following
      * values:
-     *  - name: (string) The descriptive name of the timer.
-     *  - time: (integer) Contains the timestamp of the last time this timer
-     *          was started. Contains zero if paused.
-     *  - paused: (boolean)  Flag to indicate the timer is paused.
-     *  - elapsed: (integer) Total elapsed time since the timer was CREATED.
-     *             Updated when timer is paused.
+     *  - name:               (string) The descriptive name of the timer.
+     *  - client_id:          (string) The client id.
+     *  - deliverable_id:     (string) The delverable id.
+     *  - deliverable_text:   (string) Descriptive text for deliverable.
+     *  - jobtype_id:         (string) The jobtype id.
+     *  - time:               (integer) Contains the timestamp of the last time
+     *                         this timer was started. Contains zero if paused.
+     *  - paused:             (boolean)  Flag to indicate the timer is paused.
+     *  - elapsed:            (integer) Total elapsed time since the timer was
+     *                        created or reset. Updated when timer is paused.
+     *  - exclusive:          (boolean) Whether or not this timer should cause
+     *                        other timers to stop when it is started.
      *
      * @param string $description  The timer description.
+     * @param stdClass $details    Additional, optional details for the ti.
      *
      * @return integer  The timer id.
      */
-    public static function newTimer($description)
+    public static function newTimer($description, stdClass $details = null)
     {
         $now = time();
         $timer = array(
+            'id' => $now,
             'name' => $description,
+            'client_id' => empty($details->client_id) ? null : $details->client_id,
+            'deliverable_id' => empty($details->deliverable_id) ? null : $details->deliverable_id,
+            'jobtype_id' => empty($details->jobtype_id) ? null : $details->jobtype_id,
             'time' => $now,
             'paused' => false,
-            'elapsed' => 0);
-
+            'elapsed' => 0,
+            'exclusive' => (!empty($details['exclusive']) ? true : false)
+        );
         self::updateTimer($now, $timer);
 
         return $now;
@@ -441,13 +468,16 @@ class Hermes
         $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
-        } else {
-            $timers = array();
         }
-
         if (empty($timers[$id])) {
             throw new Horde_Exception_NotFound(_("The requested timer was not found."));
         }
+        $timers[$id]['id'] = $id;
+
+        try {
+            $text = Hermes::getCostObjectByID($timers[$id]['deliverable_id']);
+            $timers[$id]['deliverable_text'] = $text['name'];
+        } catch (Horde_Exception_NotFound $e) {}
 
         return $timers[$id];
     }
@@ -477,14 +507,44 @@ class Hermes
      */
     public static function updateTimer($id, $timer)
     {
-         global $prefs;
+        global $prefs;
 
-         $timers = @unserialize($prefs->getValue('running_timers'));
-         if (!is_array($timers)) {
+        $timers = @unserialize($prefs->getValue('running_timers'));
+        if (!is_array($timers)) {
             $timers = array();
-         }
-         $timers[$id] = $timer;
-         $prefs->setValue('running_timers', serialize($timers));
+        }
+        $timers[$id] = $timer;
+        $prefs->setValue('running_timers', serialize($timers));
+        if (!$timer['paused'] && $timer['exclusive']) {
+            foreach ($timers as $key => $t) {
+                if ($key != $id && $t['exclusive']) {
+                    self::pauseTimer($key);
+                }
+            }
+        }
+    }
+
+    /**
+     * Pause a timer.
+     *
+     * @param  integer $id  The timer id.
+     *
+     * @return boolean
+     */
+    public static function pauseTimer($id)
+    {
+        $timer = Hermes::getTimer($id);
+
+        // Avoid pausing the same timer twice.
+        if ($timer['paused'] || $timer['time'] == 0) {
+            return true;
+        }
+        $timer['paused'] = true;
+        $timer['elapsed'] += time() - $timer['time'];
+        $timer['time'] = 0;
+        Hermes::updateTimer($id, $timer);
+
+        return true;
     }
 
     /**
