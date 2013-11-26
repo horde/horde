@@ -1401,7 +1401,7 @@ HermesCore = {
      */
     insertTimer: function(r, d)
     {
-        var title = new Element('div').update(d + ' (' + r.elapsed + ' ' + Hermes.text['hours'] + ')'),
+        var title = new Element('div', { 'class': 'timer-title' }).update(d + ' (' + r.elapsed + ' ' + Hermes.text['hours'] + ')'),
             controls = new Element('span', { 'class': 'timerControls' }),
             stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
             timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id),

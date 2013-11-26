@@ -92,6 +92,9 @@ html, body {
 .timer-saveable {
     background-image: url("../graphics/stop.png");
 }
+.timer-title {
+  font-weight: bold;
+}
 #hermesMenuTimers .active-timer {
   background-color: #7EAA42;
   font-weight: bold;
