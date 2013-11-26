@@ -35,13 +35,13 @@ might still change before the release candidates are prepared.
 Major changes compared to the Hermes H3 (1.0.1) version are:
     * Redesigned UI.
     * Added Ajax view.
-    * Added support for pausing/restarting timers.
+    * Added improved support for timers.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-The UI has been redesigned. An Ajax view has been added. Timers now support
-being paused and restarted.
+The UI has been redesigned. An Ajax view has been added. Timers support has
+been improved.
 FM;
 
 $this->notes['name'] = 'Hermes';

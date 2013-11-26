@@ -9,8 +9,8 @@
 
 Hermes is a Horde time-tracking application. It ties into address books (to
 retrieve clients) and task lists, bug trackers etc. (to retrieve cost
-objects). It comes with a stop watch, search and reporting capabilities, a
-MacOSX Dashboard widget and an invoice interface.
+objects). It comes with a timers, search and reporting capabilities, and an
+invoice interface.
 
 This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
@@ -56,7 +56,7 @@ By default, users cannot edit submitted time.  Specific users or groups can be
 granted the ability to edit submitted (but not exported) time by granting the
 "EDIT" permission for "Hermes -> Time Review Screen" (see "Permissions" from
 the Administration menu for more info).  This will enable them to edit
-submitted time from anywhere they can see it, which right means from the
+submitted time from anywhere they can see it, which right now means from the
 Search screen.
 
 This permission also gives the user the ability to mark time as exported when
@@ -76,26 +76,6 @@ objects.
 
 .. _Whups: http://www.horde.org/apps/whups
 .. _Nag: http://www.horde.org/apps/nag
-
-
-Using the OS X Widget
-=====================
-
-If you are running Apple's OS X version 10.4 (Tiger) or later you can use the
-included widget, Sandals, to enter time directly from the Dashboard. Sandals
-can be found in the scripts/ directory. The easiest way to install it is to
-create a .zip of the directory and copy that to the OS X computer. After
-decompressing the .zip on the Mac, double-click the widget icon and it will be
-installed into your Dashboard.
-
-To use Sandals you must configure the Horde URL to rpc.php along with your
-username and password. Horde's rpc.php can be found in the base directory of
-your Horde install. Example: http://www.example.com/horde/rpc.php
-
-A note about security: If you are using OS X 10.5 (Leopard) your username and
-password will be securely stored in your Keychain. For 10.4 the credentials
-are stored in the normal Dashboard preferences unencrypted. If this is an
-issue for you, you should not use Sandals on OS X 10.4.
 
 
 Assistance
