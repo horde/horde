@@ -22,8 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:39:33</time>
+ <date>2013-11-26</date>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -34,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
@@ -172,6 +172,8 @@
      <file name="list.inc" role="horde" />
     </dir> <!-- /templates/deliverables -->
     <dir name="dynamic">
+     <file name="deliverabledetail.inc" role="horde" />
+     <file name="deliverables.inc" role="horde" />
      <file name="export.inc" role="horde" />
      <file name="index.inc" role="horde" />
      <file name="jobtypes.inc" role="horde" />
@@ -443,6 +445,8 @@
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
+   <install as="hermes/templates/dynamic/deliverabledetail.inc" name="templates/dynamic/deliverabledetail.inc" />
+   <install as="hermes/templates/dynamic/deliverables.inc" name="templates/dynamic/deliverables.inc" />
    <install as="hermes/templates/dynamic/export.inc" name="templates/dynamic/export.inc" />
    <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
    <install as="hermes/templates/dynamic/jobtypes.inc" name="templates/dynamic/jobtypes.inc" />
@@ -494,6 +498,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
