@@ -17,13 +17,19 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     /**
      * Add a new timer.  Expects the following in $this->vars:
      *   - desc:  The timer description.
+     *   - client_id:
+     *   - deliverable_id:
+     *   - jobtype_id:
      *
      * @return array  An array with an 'id' key.
      */
     public function addTimer()
     {
-        $id = Hermes::newTimer($this->vars->desc);
-        return array('id' => $id);
+        $id = Hermes::newTimer($this->vars->desc, $this->vars);
+        $timer = Hermes::getTimer($id);
+        $timer['id'] = $id;
+
+        return $timer;
     }
 
     /**
@@ -396,10 +402,12 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     /**
      * Stop a timer. Expects the following in $this->vars:
      *   - t:  The timer id.
+     *   - restart:
      *
      * @return array  An array describing the current timer state. Contains:
      *  - h: The total number of hours elapsed so far.
      *  - n: A note to apply to the description field of a time slice.
+     *  - t: The new timer title, if restarting.
      */
     public function stopTimer()
     {
@@ -411,7 +419,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
-        $results = array();
+        $results = $timer;
         $tname = $timer['name'];
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
 
@@ -422,8 +430,18 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $results['n'] = '';
         }
         $GLOBALS['notification']->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
-        Hermes::clearTimer($this->vars->t);
 
+        Hermes::clearTimer($this->vars->t);
+        if ($this->vars->restart == 'true') {
+            $now = time();
+            $timer['elapsed'] = $results['e'] = 0;
+            $timer['paused'] = $results['paused'] = true;
+            $timer['time'] = $now;
+            Hermes::updateTimer($this->vars->t, $timer);
+        }
+        $text = Hermes::getCostObjectByID($timer['deliverable_id']);
+        $results['_deliverable_text'] = $text['name'];
+        $results['id'] = $this->vars->t;
         return $results;
     }
 

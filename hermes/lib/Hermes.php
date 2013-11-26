@@ -394,6 +394,8 @@ class Hermes
             $timer['e'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
             unset($timer['elapsed']);
+            $text = Hermes::getCostObjectByID($timer['deliverable_id']);
+            $timer['_deliverable_text'] = $text['name'];
             $return[] = $timer;
         }
 
@@ -404,6 +406,9 @@ class Hermes
      * Create a new timer and save it to storage. Timers contain the following
      * values:
      *  - name: (string) The descriptive name of the timer.
+     *  - client_id:
+     *  - deliverable_id:
+     *  - jobtype_id:
      *  - time: (integer) Contains the timestamp of the last time this timer
      *          was started. Contains zero if paused.
      *  - paused: (boolean)  Flag to indicate the timer is paused.
@@ -411,14 +416,18 @@ class Hermes
      *             Updated when timer is paused.
      *
      * @param string $description  The timer description.
+     * @param stdClass $details    Additional, optional details for the ti.
      *
      * @return integer  The timer id.
      */
-    public static function newTimer($description)
+    public static function newTimer($description, stdClass $details = null)
     {
         $now = time();
         $timer = array(
             'name' => $description,
+            'client_id' => empty($details->client_id) ? null : $details->client_id,
+            'deliverable_id' => empty($details->deliverable_id) ? null : $details->deliverable_id,
+            'jobtype_id' => empty($details->jobtype_id) ? null : $details->jobtype_id,
             'time' => $now,
             'paused' => false,
             'elapsed' => 0);

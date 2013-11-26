@@ -101,6 +101,17 @@ html, body {
   font-style: italic;
 }
 
+.hermesTimerFormDetail {
+  margin-top: 5px;
+  padding-top: 2px;
+  border-top: 1px solid #ccc;
+}
+
+.hermesTimerDetails {
+  margin-left: 5px;
+  font-weight: normal;
+  font-style: italic;
+}
 /* Loading spinner */
 .hermesLoading {
     position: absolute;
