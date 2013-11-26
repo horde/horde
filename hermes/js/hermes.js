@@ -1372,7 +1372,7 @@ HermesCore = {
                 deliverable_id: $F('hermesTimerCostObject'),
                 jobtype_id: $F('hermesTimerJobtype')
             },
-            { 'callback': this.newTimerCallback.bind(this) }
+            { callback: this.newTimerCallback.bind(this) }
         );
     },
 
