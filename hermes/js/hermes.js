@@ -1450,7 +1450,7 @@ HermesCore = {
      */
     stopTimer: function(elt)
     {
-        $('hermesLogTimerDetails').update('@todo');
+        $('hermesLogTimerDetails').update(elt.up().down('div'));
         this.temp_timer = elt;
         RedBox.showHtml($('hermesLogTimer').show());
     },
