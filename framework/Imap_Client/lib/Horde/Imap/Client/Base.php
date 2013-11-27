@@ -2629,7 +2629,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Wrapper for fetch() to allow internal state to be rest on exception.
+     * Wrapper for fetch() to allow internal state to be reset on exception.
      *
      * @internal
      * @see fetch()
