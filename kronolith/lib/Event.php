@@ -1188,6 +1188,12 @@ abstract class Kronolith_Event
                 continue;
             }
             try {
+                if ($alarm->getAttribute('ACTION') == 'NONE') {
+                    continue;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+            try {
                 // @todo consider implementing different ACTION types.
                 // $action = $alarm->getAttribute('ACTION');
                 $trigger = $alarm->getAttribute('TRIGGER');
@@ -1220,6 +1226,7 @@ abstract class Kronolith_Event
             if (!$haveTrigger) {
                 $this->alarm = -intval($trigger / 60);
             }
+            break;
         }
 
         // Alarm snoozing/dismissal
