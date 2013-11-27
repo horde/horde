@@ -181,15 +181,11 @@ class IMP_Mailbox implements Serializable
     const CACHE_ICONS = 'i';
     // (string) Label string
     const CACHE_LABEL = 'l';
-    // (array) Namespace information
-    const CACHE_NAMESPACE = 'n';
     // (integer) UIDVALIDITY
     const CACHE_UIDVALIDITY = 'v';
 
     /* Cache identifiers - temporary data. */
     const CACHE_ICONHOOK = 'ic';
-    const CACHE_NSDEFAULT = 'nd';
-    const CACHE_NSEMPTY = 'ne';
     const CACHE_PREFTO = 'pt';
     const CACHE_SPECIALMBOXES = 's';
 
@@ -534,7 +530,7 @@ class IMP_Mailbox implements Serializable
 
         case 'namespace_append':
             $imp_imap = $this->imp_imap;
-            $def_ns = $imp_imap->defaultNamespace();
+            $def_ns = $imp_imap->getNamespace($imp_imap::NS_DEFAULT);
             if (is_null($def_ns)) {
                 return $this;
             }
@@ -564,41 +560,7 @@ class IMP_Mailbox implements Serializable
                 : $ns_info['delimiter'];
 
         case 'namespace_info':
-            $keys = array('delimiter', 'hidden', 'name', 'translation', 'type');
-
-            if (isset($this->_cache[self::CACHE_NAMESPACE])) {
-                $ns = $this->_cache[self::CACHE_NAMESPACE];
-
-                if (is_null($ns)) {
-                    return null;
-                }
-
-                $ret = array();
-                foreach ($keys as $key => $val) {
-                    $ret[$val] = isset($ns[$key])
-                        ? $ns[$key]
-                        : '';
-                }
-
-                return $ret;
-            }
-
-            $ns_info = $this->imp_imap->getNamespace(strlen($this) ? $this->_mbox : null);
-            if (is_null($ns_info)) {
-                $this->_cache[self::CACHE_NAMESPACE] = null;
-            } else {
-                /* Store data compressed in the cache array. */
-                $this->_cache[self::CACHE_NAMESPACE] = array();
-                foreach ($keys as $id => $key) {
-                    if ($ns_info[$key]) {
-                        $this->_cache[self::CACHE_NAMESPACE][$id] = $ns_info[$key];
-                    }
-                }
-            }
-
-            $this->_changed = self::CHANGED_YES;
-
-            return $ns_info;
+            return $this->imp_imap->getNamespace(strlen($this) ? $this->_mbox : IMP_Imap::NS_DEFAULT);
 
         case 'nonimap':
             return ($this->search ||
@@ -1536,12 +1498,7 @@ class IMP_Mailbox implements Serializable
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        if (!isset(self::$_temp[self::CACHE_NSDEFAULT])) {
-            self::$_temp[self::CACHE_NSDEFAULT] = $imp_imap->defaultNamespace();
-            self::$_temp[self::CACHE_NSEMPTY] = $imp_imap->getNamespace('');
-        }
-
-        $empty_ns = self::$_temp[self::CACHE_NSEMPTY];
+        $empty_ns = $imp_imap->getNamespace('');
 
         if (!is_null($empty_ns) &&
             (strpos($mbox, $empty_ns['delimiter']) === 0)) {
@@ -1549,7 +1506,8 @@ class IMP_Mailbox implements Serializable
             return substr($mbox, strlen($empty_ns['delimiter']));
         } elseif ($imp_imap->getNamespace($mbox, true) === null) {
             /* No namespace prefix => from personal namespace. */
-            return self::$_temp[self::CACHE_NSDEFAULT]['name'] . $mbox;
+            $def_ns = $imp_imap->getNamespace($imp_imap::NS_DEFAULT);
+            return $def_ns['name'] . $mbox;
         }
 
         return $mbox;
@@ -1564,17 +1522,19 @@ class IMP_Mailbox implements Serializable
      */
     static public function prefTo($mbox)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $def_ns = $imp_imap->defaultNamespace();
-        $empty_ns = $imp_imap->getNamespace('');
-
         if (($ns = self::get($mbox)->namespace_info) !== null) {
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $def_ns = $imp_imap->getNamespace($imp_imap::NS_DEFAULT);
+
             if ($ns['name'] == $def_ns['name']) {
                 /* From personal namespace => strip namespace. */
                 return substr($mbox, strlen($def_ns['name']));
-            } elseif ($ns['name'] == $empty_ns['name']) {
-                /* From empty namespace => prefix with delimiter. */
-                return $empty_ns['delimiter'] . $mbox;
+            } else {
+                $empty_ns = $imp_imap->getNamespace('');
+                if ($ns['name'] == $empty_ns['name']) {
+                    /* From empty namespace => prefix with delimiter. */
+                    return $empty_ns['delimiter'] . $mbox;
+                }
             }
         }
 

@@ -49,7 +49,7 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
         $unsub = false;
 
         if (is_integer($query)) {
-            $ns = $imp_imap->getNamespaceList();
+            $ns = $imp_imap->getNamespaces();
 
             if ($query & self::INIT) {
                 /* Add namespace elements. */

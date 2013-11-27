@@ -52,6 +52,9 @@ class IMP_Imap implements Serializable
     const ACCESS_DRAFTS = 11;
     const ACCESS_REMOTE = 12;
 
+    /* Default namespace. */
+    const NS_DEFAULT = "\0default";
+
     /**
      * Cached backend configuration.
      *
@@ -275,7 +278,6 @@ class IMP_Imap implements Serializable
             'lang' => $sconfig->lang,
             'timeout' => $sconfig->timeout,
             // 'imp:login' - Set in __call()
-            // 'imp:nsdefault' - Set in defaultNamespace()
         ), $config);
 
         try {
@@ -423,14 +425,20 @@ class IMP_Imap implements Serializable
      *
      * @return array  See Horde_Imap_Client_Base#getNamespaces().
      */
-    public function getNamespaceList()
+    public function getNamespaces()
     {
-        try {
-            $ns = $this->config->namespace;
-            return $this->getNamespaces(is_null($ns) ? array() : $ns);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return array();
+        if (!isset($this->_temp['ns'])) {
+            try {
+                $nsconfig = $this->config->namespace;
+                $this->_temp['ns'] = $this->__call('getNamespaces', array(
+                    is_null($nsconfig) ? array() : $nsconfig
+                ));
+            } catch (Horde_Imap_Client_Exception $e) {
+                return array();
+            }
         }
+
+        return $this->_temp['ns'];
     }
 
     /**
@@ -443,55 +451,34 @@ class IMP_Imap implements Serializable
      * @return mixed  The namespace info for the mailbox path or null if the
      *                path doesn't exist.
      */
-    public function getNamespace($mailbox = null, $personal = false)
+    public function getNamespace($mailbox, $personal = false)
     {
-        if (!$this->isImap($mailbox)) {
+        if (!$this->isImap() || !$this->_ob->getParam('imp:login')) {
             return null;
         }
 
-        $ns = $this->getNamespaceList();
+        $ns = $this->getNamespaces();
 
-        if (is_null($mailbox)) {
-            reset($ns);
-            $mailbox = key($ns);
+        if (isset($ns[$mailbox])) {
+            return $ns[$mailbox];
         }
 
         foreach ($ns as $key => $val) {
-            $mbox = $mailbox . $val['delimiter'];
-            if (strlen($key) && (strpos($mbox, $key) === 0)) {
-                return $val;
+            if ($mailbox === self::NS_DEFAULT) {
+                if ($val['type'] === Horde_Imap_Client::NS_PERSONAL) {
+                    return $val;
+                }
+            } else {
+                $mbox = $mailbox . $val['delimiter'];
+                if (strlen($key) && (strpos($mbox, $key) === 0)) {
+                    return $val;
+                }
             }
         }
 
         return (isset($ns['']) && (!$personal || ($val['type'] == Horde_Imap_Client::NS_PERSONAL)))
             ? $ns['']
             : null;
-    }
-
-    /**
-     * Get the default personal namespace.
-     *
-     * @return mixed  The default personal namespace info.
-     */
-    public function defaultNamespace()
-    {
-        if (!$this->init ||
-            !$this->isImap() ||
-            !$this->_ob->getParam('imp:login')) {
-            return null;
-        }
-
-        if (is_null($ns = $this->_ob->getParam('imp:nsdefault'))) {
-            foreach ($this->getNamespaceList() as $val) {
-                if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
-                    $this->_ob->setParam('imp:nsdefault', $val);
-                    $this->_changed = true;
-                    return $val;
-                }
-            }
-        }
-
-        return $ns;
     }
 
     /**
