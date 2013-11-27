@@ -213,7 +213,7 @@ class Hermes_Application extends Horde_Registry_Application
         $entry = Horde::url('entry.php');
         foreach ($timers as $i => $timer) {
             $menu->add($entry->add('timer', $timer['id']),
-                       $timer['name'] . sprintf(" (%s)", $timer['e']),
+                       $timer['name'] . sprintf(" (%s)", $timer['elapsed']),
                        'hermes-stop', null, '', null, '__noselection'
             );
         }
@@ -305,7 +305,7 @@ class Hermes_Application extends Horde_Registry_Application
                 $tree->addNode(array(
                     'id' => $parent . '__timer_' . $i,
                     'parent' => $parent,
-                    'label' => $timer['name'] . sprintf(" (%s)", $timer['e']),
+                    'label' => $timer['name'] . sprintf(" (%s)", $timer['elapsed']),
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('timer-stop.png'),

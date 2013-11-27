@@ -2,20 +2,18 @@
 v2.0-git
 --------
 
+[mjr] Implement exclusive timers (Request #12543).
+[mjr] Add ability to optionally add client, cost object, or job type to timer
+      on creation.
 [mjr] Add listTimeObjects support.
 [mjr] Redesigned UI.
 [jan] Fix listing per-client cost objects in search form.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [mjr] Allow pausing and restarting timers.
 [mjr] Add ajax view.
+[jan] Remove Sandals widget.
+[mjr] Refactor for Horde 5.
 [jan] Provide default configuration files instead of .dist versions.
-
-
-----------
-v1.0.2-cvs
-----------
-
-
 
 
 ------

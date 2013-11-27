@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t login to IMAP server if namespace information is already cached.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2084,7 +2084,7 @@
    <date>2013-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t login to IMAP server if namespace information is already cached.
    </notes>
   </release>
  </changelog>

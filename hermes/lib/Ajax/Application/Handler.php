@@ -17,13 +17,18 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     /**
      * Add a new timer.  Expects the following in $this->vars:
      *   - desc:  The timer description.
+     *   - client_id:
+     *   - deliverable_id:
+     *   - jobtype_id:
      *
      * @return array  An array with an 'id' key.
      */
     public function addTimer()
     {
-        $id = Hermes::newTimer($this->vars->desc);
-        return array('id' => $id);
+        $id = Hermes::newTimer($this->vars->desc, $this->vars);
+        $timer = Hermes::getTimer($id);
+
+        return $timer;
     }
 
     /**
@@ -66,8 +71,11 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function updateDeliverable()
     {
+        // Only local Hermes deliverables are editable.
+        $deliverable_id = str_replace('hermes:', '', $this->vars->deliverable_id);
+
         $deliverable = array(
-            'id' => empty($this->vars->deliverable_id) ? 0 : $this->vars->deliverable_id,
+            'id' => empty($this->vars->deliverable_id) ? 0 : $deliverable_id,
             'name' => $this->vars->name,
             'active' => $this->vars->active == 'on',
             'estimate' => $this->vars->estimate,
@@ -88,10 +96,12 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
 
     public function deleteDeliverable()
     {
+        // Only local Hermes deliverables are editable.
+        $deliverable_id = str_replace('hermes:', '', $this->vars->deliverable_id);
         try {
             $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->deleteDeliverable($this->vars->deliverable_id);
+                ->deleteDeliverable($deliverable_id);
             $GLOBALS['notification']->push(_("Deliverable successfully deleted."), 'horde.success');
             return true;
         } catch (Hermes_Exception $e) {
@@ -317,22 +327,11 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     public function pauseTimer()
     {
         try {
-            $timer = Hermes::getTimer($this->vars->t);
+            return Hermes::pauseTimer($this->vars->t);
         } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
-
-        // Avoid pausing the same timer twice.
-        if ($timer['paused'] || $timer['time'] == 0) {
-            return true;
-        }
-        $timer['paused'] = true;
-        $timer['elapsed'] += time() - $timer['time'];
-        $timer['time'] = 0;
-        Hermes::updateTimer($this->vars->t, $timer);
-
-        return true;
     }
 
     /**
@@ -371,7 +370,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      * Restart a paused timer. Expects the following data in $this->vars:
      *   - t:  The timer id.
      *
-     * @return boolean
+     * @return boolean|array  If the timer is exclusive, returns a new list
+     *                        of timer data, otherwise true on success/false
+     *                        on failure.
      */
     public function startTimer()
     {
@@ -385,39 +386,52 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $timer['time'] = time();
         Hermes::updateTimer($this->vars->t, $timer);
 
+        if ($timer['exclusive']) {
+            return self::listTimers();
+        }
+
         return true;
     }
 
     /**
      * Stop a timer. Expects the following in $this->vars:
      *   - t:  The timer id.
+     *   - restart:
      *
      * @return array  An array describing the current timer state. Contains:
      *  - h: The total number of hours elapsed so far.
      *  - n: A note to apply to the description field of a time slice.
+     *  - t: The new timer title, if restarting.
      */
     public function stopTimer()
     {
-        global $prefs;
+        global $prefs, $notification;
 
         try {
             $timer = Hermes::getTimer($this->vars->t);
         } catch (Horde_Exception_NotFound $e) {
-            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            $notification->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
-        $results = array();
+        $results = $timer;
         $tname = $timer['name'];
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
-
         $results['h'] = round((float)$elapsed / 3600, 2);
         if ($prefs->getValue('add_description')) {
             $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s %s to %s %s"), $tname, strftime($prefs->getValue('date_format_mini'), $this->vars->t), strftime($prefs->getValue('time_format'), $this->vars->t), strftime($prefs->getValue('date_format_mini'), time()), strftime($prefs->getValue('time_format'), time()));
         } else {
             $results['n'] = '';
         }
-        $GLOBALS['notification']->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
+        $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
+
         Hermes::clearTimer($this->vars->t);
+        if ($this->vars->restart == 'true') {
+            $now = time();
+            $timer['elapsed'] = 0;
+            $timer['paused'] = $results['paused'] = true;
+            $timer['time'] = $now;
+            Hermes::updateTimer($this->vars->t, $timer);
+        }
 
         return $results;
     }

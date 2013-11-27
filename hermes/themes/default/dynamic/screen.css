@@ -92,15 +92,45 @@ html, body {
 .timer-saveable {
     background-image: url("../graphics/stop.png");
 }
+.timer-title {
+  font-weight: bold;
+}
 #hermesMenuTimers .active-timer {
   background-color: #7EAA42;
   font-weight: bold;
+  border-bottom: solid 1px #808080;
 }
 #hermesMenuTimers .inactive-timer {
   background-color: #dddddd;
   font-style: italic;
+  border-bottom: solid 1px #808080;
 }
-
+#horde-sidebar div.horde-resources div.inactive-timer, #horde-sidebar div.horde-resources div.inactive-timer div {
+    margin: 0 0;
+}
+#horde-sidebar div.horde-resources div.active-timer, #horde-sidebar div.horde-resources div.active-timer div {
+    margin: 0 0;
+}
+.hermesTimerFormDetail {
+  margin-top: 5px;
+  padding-top: 2px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.hermesTimerFormDetail select {
+  margin-bottom: 5px;
+}
+.hermesTimerExclusiveDetail p {
+  background: transparent url("../graphics/exclusive.png") no-repeat 10px 1px;
+}
+.hermesTimerExclusive, .hermesTimerExclusiveDetail p {
+  background: transparent url("../graphics/exclusive.png") no-repeat 10px 1px;
+}
+.hermesTimerDetails {
+  margin-left: 5px;
+  font-weight: normal;
+  font-style: italic;
+}
 /* Loading spinner */
 .hermesLoading {
     position: absolute;

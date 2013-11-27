@@ -2517,6 +2517,7 @@ abstract class Kronolith_Event
         if (isset($this->_internaltags)) {
             $lower_internaltags = array_map('Horde_String::lower', $this->_internaltags);
             $lower_tags = array_map('Horde_String::lower', $tags);
+            usort($lower_tags, 'strcoll');
 
             if (array_diff($lower_internaltags, $lower_tags)) {
                 Kronolith::getTagger()->replaceTags(
