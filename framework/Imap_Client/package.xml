@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-21</date>
+ <date>2013-11-27</date>
  <version>
   <release>2.16.2</release>
   <api>2.16.0</api>
@@ -2081,7 +2081,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-21</date>
+   <date>2013-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Don&apos;t login to IMAP server if namespace information is already cached.
