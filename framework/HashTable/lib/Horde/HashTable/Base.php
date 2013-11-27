@@ -218,6 +218,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
             ? $out
             : reset($out);
     }
+
     /**
      * Set the value of a key.
      *
