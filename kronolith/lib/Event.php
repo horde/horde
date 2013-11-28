@@ -2080,7 +2080,17 @@ abstract class Kronolith_Event
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
-
+        if (isset($methods['desktop'])) {
+            if ($this->isAllDay()) {
+                if ($this->start->compareDate($this->end) == 0) {
+                    $methods['desktop']['subtitle'] = sprintf(_("On %s"), $this->start->strftime($prefs->getValue('date_format')));
+                } else {
+                    $methods['desktop']['subtitle'] = sprintf(_("From %s to %s"), $this->start->strftime($prefs->getValue('date_format')), $this->end->strftime($prefs->getValue('date_format')));
+                }
+            } else {
+                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
+            }
+        }
         $alarm = array(
             'id' => $this->uid,
             'user' => $user,
