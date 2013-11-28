@@ -286,6 +286,7 @@
     <file name="tables.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
+    <file name="webnotification.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Horde">
@@ -1476,6 +1477,7 @@
    <install as="js/tables.js" name="js/tables.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
+   <install as="js/webnotification.js" name="js/webnotification.js" />
    <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
    <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
    <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />

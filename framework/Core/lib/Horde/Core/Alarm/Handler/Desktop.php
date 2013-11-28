@@ -43,6 +43,7 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
+        $GLOBALS['page_output']->addScriptFile('webnotification.js', 'horde');
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC) {
             if (!isset($params['js_notify'])) {
                 throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
@@ -71,10 +72,8 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
                 'alarm' => $alarm
             ));
         } else {
-            $js = sprintf('if(window.webkitNotifications)(function(){function show(){switch(window.webkitNotifications.checkPermission()){case 0:var notify=window.webkitNotifications.createNotification("%s",%s,%s);notify.show();(function(){notify.cancel()}).delay(5);break;case 1:window.webkitNotifications.requestPermission(function(){});break}}show()})()',
-                          $this->_icon,
-                          Horde_Serialize::serialize($alarm['title'], Horde_Serialize::JSON),
-                          isset($alarm['text']) ? Horde_Serialize::serialize($alarm['text'], Horde_Serialize::JSON) : "''");
+            $js = sprintf('if(window.Notification){if (window.Notification.permission != "granted") {window.Notification.requestPermission(function(){if (window.Notification.permission == "granted") { new window.Notification("%s", {body: "%s", icon: "%s" }); } }) } else { new window.Notification("%s", {body: "%s", icon: "%s" }); } };',
+               $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon, $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon);
             call_user_func($this->_jsNotify, $js);
         }
     }

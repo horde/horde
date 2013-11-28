@@ -439,16 +439,14 @@ var HordeCore = {
 
     desktopNotify: function(msg)
     {
-        if (window.webkitNotifications) {
-            switch(window.webkitNotifications.checkPermission()) {
-            case 0:
-                var notify=window.webkitNotifications.createNotification(msg.icon, msg.title, msg.text);
-                notify.show();
-                break;
-            case 1:
-                window.webkitNotifications.requestPermission(function(){});
-                break
-            }
+        if (window.Notification && window.Notification.permission != 'granted') {
+            window.Notification.requestPermission(function(){
+                if (window.Notification.permission == 'granted') {
+                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
+                }
+            });
+        } else if (window.Notification) {
+            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
         }
     },
 
