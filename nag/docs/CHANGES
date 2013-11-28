@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[jan] Don't return future tasks from cost objects API.
 
 
 ------
