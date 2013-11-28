@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
 * [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
 * [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
 * [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
@@ -2243,6 +2244,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
 * [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
 * [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
 * [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
