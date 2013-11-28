@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix desktop style notifications in Ajax applications (Bug # 12835).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -350,7 +350,6 @@
       </dir> <!-- /lib/Horde/Core/Ajax -->
       <dir name="Alarm">
        <dir name="Handler">
-        <file name="AjaxDesktop.php" role="php" />
         <file name="Desktop.php" role="php" />
         <file name="Notify.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Alarm/Handler -->
@@ -1709,7 +1708,6 @@
    <install as="Horde/Core/Ajax/Response/HordeCore/NoAuth.php" name="lib/Horde/Core/Ajax/Response/HordeCore/NoAuth.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/Reload.php" name="lib/Horde/Core/Ajax/Response/HordeCore/Reload.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
-   <install as="Horde/Core/Alarm/Handler/AjaxDesktop.php" name="lib/Horde/Core/Alarm/Handler/AjaxDesktop.php" />
    <install as="Horde/Core/Alarm/Handler/Desktop.php" name="lib/Horde/Core/Alarm/Handler/Desktop.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
@@ -3261,7 +3259,7 @@
    <date>2013-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix desktop style notifications in Ajax applications (Bug # 12835).
    </notes>
   </release>
  </changelog>
