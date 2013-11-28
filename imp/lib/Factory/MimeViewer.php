@@ -92,7 +92,10 @@ class IMP_Factory_MimeViewer extends Horde_Core_Factory_MimeViewer
     public function createCallback(Horde_Mime_Viewer_Base $viewer,
                                    Horde_Mime_Part $mime, $type)
     {
-        return $this->create($mime, $viewer->getConfigParam('imp_contents'), $type);
+        return $this->create($mime, array(
+            'contents' => $viewer->getConfigParam('imp_contents'),
+            'type' => $type
+        ));
     }
 
     /**
