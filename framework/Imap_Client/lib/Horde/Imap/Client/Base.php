@@ -703,14 +703,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function getNamespaces(array $additional = array())
     {
-        $this->login();
-
         $additional = array_map('strval', $additional);
         $sig = hash('sha1', serialize($additional));
 
         if (isset($this->_init['namespace'][$sig])) {
             return $this->_init['namespace'][$sig];
         }
+
+        $this->login();
 
         $ns = $this->_getNamespaces();
 
@@ -2629,7 +2629,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Wrapper for fetch() to allow internal state to be rest on exception.
+     * Wrapper for fetch() to allow internal state to be reset on exception.
      *
      * @internal
      * @see fetch()

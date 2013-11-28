@@ -97,7 +97,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
     /**
      * Imports a backend specific event object.
      *
-     * @param array $event  Backend specific event object that this object
+     * @param mixed $event  Backend specific event object that this object
      *                      will represent.
      */
     public function fromDriver($event)
@@ -109,8 +109,12 @@ class Kronolith_Event_Horde extends Kronolith_Event
         if (isset($event['location'])) {
             $this->location = $event['location'];
         }
-        $this->start = new Horde_Date($event['start']);
-        $this->end = new Horde_Date($event['end']);
+        try {
+            $this->start = new Horde_Date($event['start']);
+            $this->end = new Horde_Date($event['end']);
+        } catch (Horde_Date_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
         if (isset($event['status'])) {
             switch ($event['status']) {
             case 'confirmed':
