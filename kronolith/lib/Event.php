@@ -1706,19 +1706,18 @@ abstract class Kronolith_Event
                         $e->setDTStamp($_SERVER['REQUEST_TIME']);
 
                         switch ($exception->status) {
-                        case Kronolith::STATUS_CANCELLED:
-                            $status = 'declined';
+                        case Kronolith::STATUS_TENTATIVE;
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
+                            break;
+                        case Kronolith::STATUS_NONE:
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
                             break;
                         case Kronolith::STATUS_CONFIRMED:
-                            $status = 'accepted';
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
                             break;
-                        case Kronolith::STATUS_TENTATIVE:
-                            $status = 'tentative';
-                        case Kronolith::STATUS_FREE:
-                        case Kronolith::STATUS_NONE:
-                            $status = 'none';
+                        default:
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
                         }
-                        $e->setResponseType($status);
 
                         // Tags/Categories
                         if (!$exception->isPrivate()) {
