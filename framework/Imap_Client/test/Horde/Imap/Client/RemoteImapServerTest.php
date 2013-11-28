@@ -407,6 +407,18 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
 
         // Deleting test mailbox.
         $this->imap->deleteMailbox($test_mbox);
+
+        // Do a test append to a non-existent mailbox - this MUST fail (RFC
+        // 3501 [6.3.11]).
+        try {
+            $this->imap->append($test_mbox, array(
+                array(
+                    'data' => file_get_contents(__DIR__ . '/fixtures/remote1.txt'),
+                    'flags' => array(Horde_Imap_Client::FLAG_FLAGGED)
+                )
+            ));
+            $this->fail('Expecting exception.');
+        } catch (Horde_Imap_Client_Exception $e) {}
     }
 
 }

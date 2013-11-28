@@ -3,7 +3,7 @@
  <name>hermes</name>
  <channel>pear.horde.org</channel>
  <summary>A web based time tracker</summary>
- <description>Hermes is the Horde time-tracking application. It ties into address books (to retrieve clients) and task lists, bug trackers etc. (to retrieve cost objects). It comes with a stop watch, search and reporting capabilities, a MacOSX Dashboard widget and an invoice interface.</description>
+ <description>Hermes is the Horde time-tracking application. It ties into address books (to retrieve clients) and task lists, bug trackers etc. (to retrieve cost objects). It comes with timers, search and reporting capabilities, and an invoice interface.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -40,6 +40,8 @@
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
 * [mjr] Add ajax view.
+* [jan] Remove Sandals widget.
+* [mjr] Refactor for Horde 5.
 * [jan] Provide default configuration files instead of .dist versions.
  </notes>
  <contents>
@@ -206,6 +208,7 @@
       <file name="delete.png" role="horde" />
       <file name="deliverable.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="exclusive.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="hermes.png" role="horde" />
       <file name="invoices.png" role="horde" />
@@ -468,6 +471,7 @@
    <install as="hermes/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="hermes/themes/default/graphics/deliverable.png" name="themes/default/graphics/deliverable.png" />
    <install as="hermes/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="hermes/themes/default/graphics/exclusive.png" name="themes/default/graphics/exclusive.png" />
    <install as="hermes/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="hermes/themes/default/graphics/hermes.png" name="themes/default/graphics/hermes.png" />
    <install as="hermes/themes/default/graphics/invoices.png" name="themes/default/graphics/invoices.png" />
@@ -506,22 +510,9 @@
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
 * [mjr] Add ajax view.
+* [jan] Remove Sandals widget.
+* [mjr] Refactor for Horde 4.
 * [jan] Provide default configuration files instead of .dist versions.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2011-07-13</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
-   <notes>
-* Initial release.
    </notes>
   </release>
  </changelog>
