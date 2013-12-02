@@ -66,16 +66,17 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
     public function notify(array $alarm)
     {
         global $notification;
+
         if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
             $alarm['params']['desktop']['icon'] = $this->_icon;
             $notification->push($alarm['title'], 'horde.alarm', array(
                 'alarm' => $alarm
             ));
-        } else {
+       } else {
             $js = sprintf('if(window.Notification){if (window.Notification.permission != "granted") {window.Notification.requestPermission(function(){if (window.Notification.permission == "granted") { new window.Notification("%s", {body: "%s", icon: "%s" }); } }) } else { new window.Notification("%s", {body: "%s", icon: "%s" }); } };',
                $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon, $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon);
             call_user_func($this->_jsNotify, $js);
-        }
+       }
     }
 
     /**
