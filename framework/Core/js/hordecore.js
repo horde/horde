@@ -441,14 +441,19 @@ var HordeCore = {
 
     desktopNotify: function(msg)
     {
+        var f;
         if (window.Notification && window.Notification.permission != 'granted') {
-            window.Notification.requestPermission(function(){
-                if (window.Notification.permission == 'granted') {
-                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
-                }
-            });
+            f = function() {
+                window.Notification.requestPermission(
+                    function() {
+                        if (window.Notification.permission == 'granted') {
+                            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
+                        }
+                    }
+                );
+            }.delay(1);
         } else if (window.Notification) {
-            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
+            var f = function () { new window.Notification(msg.title, { body: msg.text, icon: msg.icon }) }.delay(1);
         }
     },
 
