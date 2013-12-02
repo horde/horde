@@ -345,7 +345,9 @@ var HordeCore = {
                 this.alarms.push(alarm.id);
                 message = alarm.title.escapeHTML();
                 if (alarm.params && alarm.params.desktop) {
-                    if (alarm.params.desktop.subtitle) {
+                    if (alarm.params.desktop.subtitle === undefined) {
+                        subtitle = '';
+                    } else {
                         subtitle = alarm.params.desktop.subtitle;
                     }
                     this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon });
