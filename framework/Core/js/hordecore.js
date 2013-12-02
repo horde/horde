@@ -350,7 +350,7 @@ var HordeCore = {
                     } else {
                         subtitle = alarm.params.desktop.subtitle;
                     }
-                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon });
+                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, url: alarm.params.desktop.url });
                 }
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
@@ -454,6 +454,9 @@ var HordeCore = {
             }.delay(1);
         } else if (window.Notification) {
             var f = function () { new window.Notification(msg.title, { body: msg.text, icon: msg.icon }) }.delay(1);
+            if (msg.url) {
+                f.onclick = function(e) { window.open(msg.url); };
+            }
         }
     },
 
