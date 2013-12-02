@@ -719,6 +719,11 @@ class Horde_Form {
     function _getInfoFromVariables($variables, &$vars, &$info)
     {
         foreach ($variables as $var) {
+            if ($var->isDisabled()) {
+                // Disabled fields are not submitted by some browsers, so don't
+                // pretend they were.
+                continue;
+            }
             if ($var->isArrayVal()) {
                 $var->getInfo($vars, $values);
                 if (is_array($values)) {
