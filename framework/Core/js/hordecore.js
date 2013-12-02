@@ -350,7 +350,7 @@ var HordeCore = {
                     } else {
                         subtitle = alarm.params.desktop.subtitle;
                     }
-                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, url: alarm.params.desktop.url });
+                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, id: alarm.id });
                 }
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
@@ -453,10 +453,33 @@ var HordeCore = {
                 );
             }.delay(1);
         } else if (window.Notification) {
-            var f = function () { new window.Notification(msg.title, { body: msg.text, icon: msg.icon }) }.delay(1);
-            if (msg.url) {
-                f.onclick = function(e) { window.open(msg.url); };
-            }
+            f = function() {
+                var n = new window.Notification(msg.title, { body: msg.text, icon: msg.icon });
+                n.onclick = function(e) {
+                    var ajax_params = $H({
+                        alarm: msg.id,
+                        snooze: -1
+                    });
+                    this.addRequestParams(ajax_params);
+                    new Ajax.Request(this.conf.URI_SNOOZE, {
+                        parameters: ajax_params
+                    });
+                    // Stop onclose from firing.
+                    e.target.onclose = Prototype.emptyFunction();
+                    var n = new window.Notification(msg.title, { body: HordeCore.text['dismissed'], icon: msg.icon });
+                }.bind(this);
+                n.onclose = function(e) {
+                     var ajax_params = $H({
+                        alarm: msg.id,
+                        snooze: 5
+                    });
+                    this.addRequestParams(ajax_params);
+                    new Ajax.Request(this.conf.URI_SNOOZE, {
+                        parameters: ajax_params
+                    });
+                    var n = new window.Notification(msg.title, { body: HordeCore.text['snoozed'], icon: msg.icon });
+                }.bind(this);
+            }.bind(this).delay(1);
         }
     },
 
