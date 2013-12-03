@@ -2096,6 +2096,7 @@ abstract class Kronolith_Event
             } else {
                 $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
             }
+            $methods['desktop']['url'] = strval($this->getViewUrl(array(), true, false));
         }
         $alarm = array(
             'id' => $this->uid,
