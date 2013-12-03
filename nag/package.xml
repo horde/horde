@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t return future tasks from cost objects API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1441,7 +1441,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t return future tasks from cost objects API.
    </notes>
   </release>
  </changelog>
