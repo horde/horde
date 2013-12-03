@@ -350,7 +350,7 @@ var HordeCore = {
                     } else {
                         subtitle = alarm.params.desktop.subtitle;
                     }
-                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, id: alarm.id });
+                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, id: alarm.id, url: alarm.params.desktop.url });
                 }
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
@@ -462,9 +462,14 @@ var HordeCore = {
                     });
                     this.addRequestParams(ajax_params);
                     new Ajax.Request(this.conf.URI_SNOOZE, {
-                        parameters: ajax_params
+                        parameters: ajax_params,
+                        onSuccess: function(r) {
+                            var n = new window.Notification(msg.title, { body: HordeCore.text['snoozed'], icon: msg.icon });
+                            if (msg.url) {
+                                window.open(msg.url, '__blank');
+                            }
+                        }
                     });
-                    var n = new window.Notification(msg.title, { body: HordeCore.text['snoozed'], icon: msg.icon });
                 }.bind(this);
             }.bind(this).delay(1);
         }
