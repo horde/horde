@@ -758,7 +758,6 @@ class Horde_PageOutput
                     '360' => Horde_Core_Translation::t("6 hours"),
                     '1440' => Horde_Core_Translation::t("1 day")
                 ),
-                'snoozed' => Horde_Core_Translation::t("The alarm was snoozed."),
                 'dismissed' => Horde_Core_Translation::t("The alarm was dismissed.")
             );
 
