@@ -458,13 +458,13 @@ var HordeCore = {
                 n.onclick = function(e) {
                     var ajax_params = $H({
                         alarm: msg.id,
-                        snooze: 5
+                        snooze: -1
                     });
                     this.addRequestParams(ajax_params);
                     new Ajax.Request(this.conf.URI_SNOOZE, {
                         parameters: ajax_params,
                         onSuccess: function(r) {
-                            var n = new window.Notification(msg.title, { body: HordeCore.text['snoozed'], icon: msg.icon });
+                            var n = new window.Notification(msg.title, { body: HordeCore.text['dismised'], icon: msg.icon });
                             if (msg.url) {
                                 window.open(msg.url, '__blank');
                             }
