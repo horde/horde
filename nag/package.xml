@@ -1441,7 +1441,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Add API support for multiple tasklists via ActiveSync.
+* [mjr] Add API support for multiple tasklists via ActiveSync.r
    </notes>
   </release>
  </changelog>
