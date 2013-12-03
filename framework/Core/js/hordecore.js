@@ -458,19 +458,6 @@ var HordeCore = {
                 n.onclick = function(e) {
                     var ajax_params = $H({
                         alarm: msg.id,
-                        snooze: -1
-                    });
-                    this.addRequestParams(ajax_params);
-                    new Ajax.Request(this.conf.URI_SNOOZE, {
-                        parameters: ajax_params
-                    });
-                    // Stop onclose from firing.
-                    e.target.onclose = Prototype.emptyFunction();
-                    var n = new window.Notification(msg.title, { body: HordeCore.text['dismissed'], icon: msg.icon });
-                }.bind(this);
-                n.onclose = function(e) {
-                     var ajax_params = $H({
-                        alarm: msg.id,
                         snooze: 5
                     });
                     this.addRequestParams(ajax_params);
