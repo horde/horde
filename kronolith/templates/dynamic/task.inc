@@ -10,15 +10,6 @@
 
 <div>
   <label>
-    <?php echo _("Priority") ?>:
-    <select name="task[priority]" id="kronolithTaskPriority" tabindex="2">
-      <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
-      <option value="<?php echo $prio ?>"><?php echo $label ?></option>
-      <?php endforeach; ?>
-    </select>
-  </label>
-  <span class="kronolithSeparator">|</span>
-  <label>
     <?php echo _("Due date") ?>:
     <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" />
     <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker" class="kronolithDatePicker"') ?>
@@ -26,6 +17,17 @@
   <label>
     <?php echo _("at") ?>
     <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
+  </label>
+</div>
+
+<div>
+  <label>
+    <?php echo _("Priority") ?>:
+    <select name="task[priority]" id="kronolithTaskPriority" tabindex="2">
+      <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
+      <option value="<?php echo $prio ?>"><?php echo $label ?></option>
+      <?php endforeach; ?>
+    </select>
   </label>
   <span class="kronolithSeparator">|</span>
   <label>
