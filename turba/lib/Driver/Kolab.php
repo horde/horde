@@ -226,6 +226,10 @@ class Turba_Driver_Kolab extends Turba_Driver
             $entry['last-name'] = $entry['display-name'];
         }
 
+        if (!empty($entry['categories'])) {
+            $entry['categories'] = $entry['categories'][0];
+        }
+
         return parent::toTurbaKeys($entry);
     }
 
