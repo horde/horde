@@ -713,6 +713,7 @@ $cfgSources['kolab'] = array(
     'browse' => true,
     'use_shares' => true,
     'all_shares' => true,
+    'list_name_field' => 'lastname',
 );
 
 /**

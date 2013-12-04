@@ -107,15 +107,6 @@ class Turba_Driver_Kolab extends Turba_Driver
             $hash['name'] = array('full-name' => $hash['name']);
         }
 
-        if (isset($hash['emails'])) {
-            $list = new Horde_Mail_Rfc822_List($hash['emails']);
-            $hash['email'] = array();
-            foreach ($list as $address) {
-                $hash['email'][] = array('smtp-address' => $address->bare_address);
-            }
-            unset($hash['emails']);
-        }
-
         /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
         foreach (array('full-name',
                        'given-name',
@@ -128,6 +119,20 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $hash['name'][$sub] = $hash[$sub];
                 unset($hash[$sub]);
             }
+        }
+
+        if (isset($hash['__type']) && $hash['__type'] == 'Group' &&
+            isset($hash['name']['full-name'])) {
+            $hash['display-name'] = $hash['name']['full-name'];
+        }
+
+        if (isset($hash['emails'])) {
+            $list = new Horde_Mail_Rfc822_List($hash['emails']);
+            $hash['email'] = array();
+            foreach ($list as $address) {
+                $hash['email'][] = array('smtp-address' => $address->bare_address);
+            }
+            unset($hash['emails']);
         }
 
         foreach (array('phone-business1',
