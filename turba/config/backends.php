@@ -609,18 +609,28 @@ $cfgSources['kolab'] = array(
         '__type' => '__type',
         '__members' => '__members',
         /* Personal */
-        'name' => array('fields' => array('namePrefix', 'firstname',
-                                          'middlenames', 'lastname',
-                                          'nameSuffix'),
-                        'format' => '%s %s %s %s %s',
-                        'parse' => array(
-                            array('fields' => array('firstname', 'middlenames',
-                                                    'lastname'),
-                                  'format' => '%s %s %s'),
-                            array('fields' => array('lastname', 'firstname'),
-                                  'format' => '%s, %s'),
-                            array('fields' => array('firstname', 'lastname'),
-                                  'format' => '%s %s'))),
+        'name' => array(
+            'fields' => array(
+                'namePrefix', 'firstname', 'middlenames', 'lastname',
+                'nameSuffix'
+            ),
+            'format' => '%s %s %s %s %s',
+            'parse' => array(
+                array(
+                    'fields' => array('firstname', 'middlenames', 'lastname'),
+                    'format' => '%s %s %s'
+                ),
+                array(
+                    'fields' => array('lastname', 'firstname'),
+                    'format' => '%s, %s'
+                ),
+                array(
+                    'fields' => array('firstname', 'lastname'),
+                    'format' => '%s %s'
+                )
+            ),
+            'attribute' => 'full-name',
+        ),
         'firstname' => 'given-name',
         'lastname' => 'last-name',
         'middlenames' => 'middle-names',

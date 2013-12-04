@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[jan] Store full name in Kolab contacts.
 [jan] Fix distribution list support in Kolab driver.
 
 

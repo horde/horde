@@ -125,7 +125,8 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
-        foreach (array('given-name',
+        foreach (array('full-name',
+                       'given-name',
                        'middle-names',
                        'last-name',
                        'initials',

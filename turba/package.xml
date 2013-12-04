@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Store full name in Kolab contacts.
 * [jan] Fix distribution list support in Kolab driver.
  </notes>
  <contents>
@@ -1734,6 +1735,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Store full name in Kolab contacts.
 * [jan] Fix distribution list support in Kolab driver.
    </notes>
   </release>
