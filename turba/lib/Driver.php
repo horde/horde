@@ -245,6 +245,15 @@ class Turba_Driver implements Countable
             }
         }
 
+        if (!empty($hash['name']) &&
+            !empty($this->listNameField) &&
+            !empty($hash['__type']) &&
+            is_array($this->map['name']) &&
+            ($hash['__type'] == 'Group')) {
+            $hash[$this->listNameField] = $hash['name'];
+            unset($hash['name']);
+        }
+
         // Add composite fields to $hash if at least one field part exists
         // and the composite field will be saved to storage.
         // Otherwise composite fields won't be computed during an import.
@@ -262,15 +271,6 @@ class Turba_Driver implements Countable
                     break;
                 }
             }
-        }
-
-        if (!empty($hash['name']) &&
-            !empty($this->listNameField) &&
-            !empty($hash['__type']) &&
-            is_array($this->map['name']) &&
-            ($hash['__type'] == 'Group')) {
-            $hash[$this->listNameField] = $hash['name'];
-            unset($hash['name']);
         }
 
         $fields = array();
