@@ -127,6 +127,7 @@ class Nag_Form_Task extends Horde_Form
             $v = $this->addVariable(_("Priority"), 'priority', 'enum', false, false, false, array($priorities));
             $v->setDefault(3);
 
+            $this->addVariable(_("Recurrence"), 'recurrence', 'Nag:NagRecurrence', false);
             $this->addVariable(_("Estimated Time"), 'estimate', 'number', false);
             $this->addVariable(_("Completed?"), 'completed', 'boolean', false);
         }

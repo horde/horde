@@ -23,6 +23,11 @@ var NagCalendar =
             radio = 'due_type_specified';
             break;
 
+        case 'recur_endimg':
+            prefix = 'recur_end';
+            radio = 'recur_end_specified';
+            break;
+
         case 'startimg':
             prefix = 'start';
             radio = 'start_date_specified';
@@ -60,6 +65,7 @@ var NagCalendar =
         switch (id) {
         case 'dueimg':
         case 'startimg':
+        case 'recur_endimg':
             Horde_Calendar.open(elt, this.getFormDate(id.slice(0, -3)));
             e.stop();
             break;
@@ -103,6 +109,7 @@ var NagCalendar =
     {
         this.updateWday('due');
         this.updateWday('start');
+        this.updateWday('recur_end');
 
         $('nag_form_task_active').observe('click', this.clickHandler.bindAsEventListener(this));
         $('nag_form_task_active').observe('change', this.changeHandler.bindAsEventListener(this));

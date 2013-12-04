@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2013-12-04</date>
  <version>
   <release>4.2.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add recurrence controls to basic view (Request #11545).
 * [mjr] Add API support for multiple tasklists via ActiveSync.
  </notes>
  <contents>
@@ -112,6 +113,7 @@
       <file name="NagAlarm.php" role="horde" />
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
+      <file name="NagRecurrence.php" role="horde" />
       <file name="NagSearchDue.php" role="horde" />
       <file name="NagStart.php" role="horde" />
       <file name="NagTags.php" role="horde" />
@@ -807,6 +809,7 @@
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
+   <install as="nag/lib/Form/Type/NagRecurrence.php" name="lib/Form/Type/NagRecurrence.php" />
    <install as="nag/lib/Form/Type/NagSearchDue.php" name="lib/Form/Type/NagSearchDue.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
    <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
@@ -1438,10 +1441,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Add API support for multiple tasklists via ActiveSync.r
+* [jan] Add recurrence controls to basic view (Request #11545).
+* [mjr] Add API support for multiple tasklists via ActiveSync.
    </notes>
   </release>
  </changelog>

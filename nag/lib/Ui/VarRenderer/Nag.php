@@ -35,6 +35,8 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                     $value = array('value' => $value, 'unit' => 1);
                 }
                 $value['on'] = true;
+            } else {
+                $value = array('on' => false);
             }
         }
         $units = array(1 => _("Minute(s)"), 60 => _("Hour(s)"),
@@ -93,7 +95,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $on = $task_due > 0;
 
         /* Set up the radio buttons. */
-        $html .= sprintf(
+        $html = sprintf(
             '<input id="due_type_none" name="due_type" type="radio" class="radio" value="none"%s />
 %s
 <br />
@@ -115,7 +117,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                 'full_weekdays' => true
             ));
             $GLOBALS['page_output']->addScriptFile('calendar.js');
-            $html .= '<span id="due_wday"></span>' .
+            $html .= ' <span id="due_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="dueimg"');
         }
 
@@ -172,6 +174,204 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
     }
 
     /**
+     * Render the recurrence fields
+     */
+    public function _renderVarInput_NagRecurrence($form, $var, $vars)
+    {
+        if ($vars->recurrence instanceof Horde_Date_Recurrence) {
+            $recur = $var->getValue($vars);
+        } else {
+            $var->type->getInfo($vars, $var, $recur);
+        }
+
+        /* No recurrence. */
+        $html = sprintf(
+            '<input id="recurnone" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_NONE,
+            $recur ? '' : ' checked="checked"',
+            Horde::label('recurnone', _("No recurrence"))
+        );
+
+        /* Daily. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+        $html .= sprintf(
+            '<input id="recurdaily" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recurdaily_label" for="recurdaily">%s</label>
+<input type="text" id="recur_daily_interval" name="recur_daily_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_DAILY,
+            $on ? ' checked="checked"' : '',
+            _("Daily: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_daily_interval', _("day(s)"))
+        );
+
+
+        /* Weekly. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $html .= sprintf(
+            '<input id="recurweekly" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recurweekly_label" for="recurweekly">%s</label>
+<input type="text" id="recur_weekly_interval" name="recur_weekly_interval" size="2" value="%d" />
+%s
+<br />
+%s<input id="mo" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="tu" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="we" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="th" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="fr" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="sa" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+%s<input id="su" type="checkbox" class="checkbox" name="weekly[]" value="%d"%s />
+<br />',
+            Horde_Date_Recurrence::RECUR_WEEKLY,
+            $on ? ' checked="checked"' : '',
+            _("Weekly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_weekly_interval', _("week(s) on:")),
+            Horde::label('mo', _("Mo")),
+            Horde_Date::MASK_MONDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_MONDAY) ? ' checked="checked"' : '',
+            Horde::label('tu', _("Tu")),
+            Horde_Date::MASK_TUESDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_TUESDAY) ? ' checked="checked"' : '',
+            Horde::label('we', _("We")),
+            Horde_Date::MASK_WEDNESDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_WEDNESDAY) ? ' checked="checked"' : '',
+            Horde::label('th', _("Th")),
+            Horde_Date::MASK_THURSDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_THURSDAY) ? ' checked="checked"' : '',
+            Horde::label('fr', _("Fr")),
+            Horde_Date::MASK_FRIDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_FRIDAY) ? ' checked="checked"' : '',
+            Horde::label('sa', _("Sa")),
+            Horde_Date::MASK_SATURDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_SATURDAY) ? ' checked="checked"' : '',
+            Horde::label('su', _("Su")),
+            Horde_Date::MASK_SUNDAY,
+            $recur && $recur->recurOnDay(Horde_Date::MASK_SUNDAY) ? ' checked="checked"' : ''
+        );
+
+        /* Monthly on same date. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
+        $html .= sprintf(
+            '<input id="recurmonthday" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recurmonthday_label" for="recurmonthday">%s</label>
+<input type="text" id="recur_day_of_month_interval" name="recur_day_of_month_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_MONTHLY_DATE,
+            $on ? ' checked="checked"' : '',
+            _("Monthly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_day_of_month_interval', _("month(s)") . ' ' . _("on the same date"))
+        );
+
+        /* Monthly on same weekday. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+        $html .= sprintf(
+            '<input id="recurmonthweek" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recurmonthweek_label" for="recurmonthweek">%s</label>
+<input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY,
+            $on ? ' checked="checked"' : '',
+            _("Monthly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday"))
+        );
+
+        /* Yearly on same date. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
+        $html .= sprintf(
+            '<input id="recuryear" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recuryear_label" for="recuryear">%s</label>
+<input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_YEARLY_DATE,
+            $on ? ' checked="checked"' : '',
+            _("Yearly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_yearly_interval', _("year(s) on the same date"))
+        );
+
+        /* Yearly on same day of year. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY);
+        $html .= sprintf(
+            '<input id="recuryearday" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recuryearday_label" for="recuryearday">%s</label>
+<input type="text" id="recur_yearly_day_interval" name="recur_yearly_day_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_YEARLY_DAY,
+            $on ? ' checked="checked"' : '',
+            _("Yearly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_yearly_day_interval', _("year(s) on the same day of the year"))
+        );
+
+        /* Yearly on same week day. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY);
+        $html .= sprintf(
+            '<input id="recuryearweekday" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recuryearweekday_label" for="recuryearweekday">%s</label>
+<input type="text" id="recur_yearly_weekday_interval" name="recur_yearly_weekday_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY,
+            $on ? ' checked="checked"' : '',
+            _("Yearly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_yearly_weekday_interval', _("year(s) on the same weekday and month of the year"))
+        );
+
+        /* Recurrence end. */
+        $html .= sprintf(
+            '<br />
+%s
+<br />
+
+<input id="recurnoend" type="radio" class="checkbox" name="recur_end_type" value="none"%s />
+%s
+<br />
+
+<input type="radio" class="checkbox" id="recur_end_specified" name="recur_end_type" value="date"%s />
+<input type="text" name="recur_end" id="recur_end_date" size="10" value="%s">',
+            Horde::label('recur_end_type', _("Recur Until")),
+            $recur && ($recur->hasRecurEnd() || $recur->hasRecurCount()) ? '' : ' checked="checked"',
+            Horde::label('recurnoend', _("No end date")),
+            $recur && $recur->hasRecurEnd() ? ' checked="checked"' : '',
+            $recur && $recur->hasRecurEnd() ? $recur->getRecurEnd()->strftime('%x') : ''
+        );
+
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'full_weekdays' => true
+            ));
+            $GLOBALS['page_output']->addScriptFile('calendar.js');
+            $html .= ' <span id="recur_end_wday"></span>' .
+                Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"');
+        }
+
+        $on = $recur && $recur->getRecurCount();
+        $html .= sprintf(
+            '<br />
+<input type="radio" class="checkbox" name="recur_end_type" value="count"%s />
+<input type="text" id="recur_count" name="recur_count" size="2" onkeypress="document.eventform.recur_end_type[2].checked = true;" onchange="document.eventform.recur_end_type[2].checked = true;" value="%d" />
+%s',
+            $on ? ' checked="checked"' : '',
+            $on ? $recur->getRecurCount() : '',
+            Horde::label('recur_count', _("recurrences"))
+        );
+
+        return $html;
+    }
+
+    /**
      * Render the search due date fields
      */
     public function _renderVarInput_NagSearchDue($form, $var, $vars)
@@ -217,7 +417,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                 'full_weekdays' => true
             ));
             $GLOBALS['page_output']->addScriptFile('calendar.js');
-            $html .= '<span id="start_wday"></span>' .
+            $html .= ' <span id="start_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
         }
 
