@@ -19,81 +19,53 @@
  */
 class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 {
-    protected function _renderVarInput_NagMethod($form, $var, $vars)
+    protected function _renderVarInput_NagAlarm($form, $var, $vars)
     {
         $varname = htmlspecialchars($var->getVarName());
-        $varvalue = $var->getValue($vars);
-        $on = !empty($varvalue) &&
-            (!isset($varvalue['on']) || !empty($varvalue['on']));
-
-        $html = sprintf(
-            '<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s %s/><label for="%soff">&nbsp;%s</label><br />',
-            $varname,
-            $varname,
-            $on ? '' : ' checked="checked"',
-            $this->_getActionScripts($form, $var),
-            $varname,
-            _("Use default notification method")
-        )
-        . sprintf(
-            '<input type="radio" class="radio" name="%s[on]" value="1"%s %s/><label for="%soff">&nbsp;%s</label>',
-            $varname,
-            $on ? ' checked="checked"' : '',
-            $this->_getActionScripts($form, $var),
-            $varname,
-            _("Use custom notification method")
-        );
-
-        if ($on) {
-            Horde_Core_Prefs_Ui_Widgets::alarmInit();
-            $html .= '<br />';
-            $params = array('pref' => 'task_alarms', 'label' => '');
-            if ((!empty($varvalue) && !isset($varvalue['on'])) ||
-                $form->isSubmitted()) {
-                $params['value'] = $varvalue;
+        $value = $var->getValue($vars);
+        if (!is_array($value)) {
+            if ($value) {
+                if ($value % 10080 == 0) {
+                    $value = array('value' => $value / 10080, 'unit' => 10080);
+                } elseif ($value % 1440 == 0) {
+                    $value = array('value' => $value / 1440, 'unit' => 1440);
+                } elseif ($value % 60 == 0) {
+                    $value = array('value' => $value / 60, 'unit' => 60);
+                } else {
+                    $value = array('value' => $value, 'unit' => 1);
+                }
+                $value['on'] = true;
             }
-            $html .= Horde_Core_Prefs_Ui_Widgets::alarm($params);
+        }
+        $units = array(1 => _("Minute(s)"), 60 => _("Hour(s)"),
+                       1440 => _("Day(s)"), 10080 => _("Week(s)"));
+        $options = '';
+        foreach ($units as $unit => $label) {
+            $options .= '<option value="' . $unit;
+            if ($value && $value['on'] && $value['unit'] == $unit) {
+                $options .= '" selected="selected';
+            }
+            $options .= '">' . $label . '</option>';
         }
 
-        return $html;
-    }
-
-    protected function _renderVarInput_NagStart($form, $var, $vars)
-    {
-        $var->type->getInfo($vars, $var, $task_start);
-        $start_dt = ($task_start == 0)
-            // About a week from now
-            ? time() + 604800
-            : $task_start;
-        $on = $task_start > 0;
-
-        /* Set up the radio buttons. */
-        $html = sprintf(
-            '<input id="start_date_none" name="start_date" type="radio" class="radio" value="none"%s />
-%s
-<br />
-<input id="start_date_specified" name="start_date" type="radio" class="radio" value="specified"%s />
-<label for="start_date_specified" class="hidden">%s</label>
-<label for="start_date" class="hidden">%s</label>
-<input type="text" name="start[date]" id="start_date" size="10" value="%s">',
-            $on ? '' : ' checked="checked"',
-            Horde::label('start_date_none', _("No delay")),
-            $on ? ' checked="checked"' : '',
-            _("Start date specified."),
-            _("Date"),
-            htmlspecialchars(strftime('%x', $start_dt))
-        );
-
-        if ($GLOBALS['browser']->hasFeature('javascript')) {
-            Horde_Core_Ui_JsCalendar::init(array(
-                'full_weekdays' => true
-            ));
-            $GLOBALS['page_output']->addScriptFile('calendar.js');
-            $html .= '<span id="start_wday"></span>' .
-                Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
-        }
-
-        return $html;
+        return sprintf('<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s /><label for="%soff">&nbsp;%s</label><br />',
+                       $varname,
+                       $varname,
+                       $value['on'] ? '' : ' checked="checked"',
+                       $varname,
+                       _("None"))
+            . sprintf('<input id="%son" type="radio" class="radio" name="%s[on]" value="1"%s />',
+                      $varname,
+                      $varname,
+                      $value['on'] ? ' checked="checked"' : '')
+            . sprintf('<input type="text" size="2" name="%s[value]" id="%s_value" value="%s" />',
+                      $varname,
+                      $varname,
+                      $value['on'] ? htmlspecialchars($value['value']) : 15)
+            . sprintf(' <select name="%s[unit]" id="%s_unit">%s</select>',
+                      $varname,
+                      $varname,
+                      $options);
     }
 
     protected function _renderVarInput_NagDue($form, $var, $vars)
@@ -160,69 +132,42 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         return $html;
     }
 
-    protected function _renderVarInput_NagAlarm($form, $var, $vars)
+    protected function _renderVarInput_NagMethod($form, $var, $vars)
     {
         $varname = htmlspecialchars($var->getVarName());
-        $value = $var->getValue($vars);
-        if (!is_array($value)) {
-            if ($value) {
-                if ($value % 10080 == 0) {
-                    $value = array('value' => $value / 10080, 'unit' => 10080);
-                } elseif ($value % 1440 == 0) {
-                    $value = array('value' => $value / 1440, 'unit' => 1440);
-                } elseif ($value % 60 == 0) {
-                    $value = array('value' => $value / 60, 'unit' => 60);
-                } else {
-                    $value = array('value' => $value, 'unit' => 1);
-                }
-                $value['on'] = true;
-            }
-        }
-        $units = array(1 => _("Minute(s)"), 60 => _("Hour(s)"),
-                       1440 => _("Day(s)"), 10080 => _("Week(s)"));
-        $options = '';
-        foreach ($units as $unit => $label) {
-            $options .= '<option value="' . $unit;
-            if ($value && $value['on'] && $value['unit'] == $unit) {
-                $options .= '" selected="selected';
-            }
-            $options .= '">' . $label . '</option>';
-        }
+        $varvalue = $var->getValue($vars);
+        $on = !empty($varvalue) &&
+            (!isset($varvalue['on']) || !empty($varvalue['on']));
 
-        return sprintf('<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s /><label for="%soff">&nbsp;%s</label><br />',
-                       $varname,
-                       $varname,
-                       $value['on'] ? '' : ' checked="checked"',
-                       $varname,
-                       _("None"))
-            . sprintf('<input id="%son" type="radio" class="radio" name="%s[on]" value="1"%s />',
-                      $varname,
-                      $varname,
-                      $value['on'] ? ' checked="checked"' : '')
-            . sprintf('<input type="text" size="2" name="%s[value]" id="%s_value" value="%s" />',
-                      $varname,
-                      $varname,
-                      $value['on'] ? htmlspecialchars($value['value']) : 15)
-            . sprintf(' <select name="%s[unit]" id="%s_unit">%s</select>',
-                      $varname,
-                      $varname,
-                      $options);
-    }
-
-    /**
-     * Render tag field.
-     */
-    protected function _renderVarInput_NagTags($form, $var, $vars)
-    {
-        $varname = htmlspecialchars($var->getVarName());
-        $value = $var->getValue($vars);
-
-        $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);
-        $html .= sprintf('<span id="%s_loading_img" style="display:none;">%s</span>',
+        $html = sprintf(
+            '<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s %s/><label for="%soff">&nbsp;%s</label><br />',
             $varname,
-            Horde::img('loading.gif', _("Loading...")));
+            $varname,
+            $on ? '' : ' checked="checked"',
+            $this->_getActionScripts($form, $var),
+            $varname,
+            _("Use default notification method")
+        )
+        . sprintf(
+            '<input type="radio" class="radio" name="%s[on]" value="1"%s %s/><label for="%soff">&nbsp;%s</label>',
+            $varname,
+            $on ? ' checked="checked"' : '',
+            $this->_getActionScripts($form, $var),
+            $varname,
+            _("Use custom notification method")
+        );
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => $varname));
+        if ($on) {
+            Horde_Core_Prefs_Ui_Widgets::alarmInit();
+            $html .= '<br />';
+            $params = array('pref' => 'task_alarms', 'label' => '');
+            if ((!empty($varvalue) && !isset($varvalue['on'])) ||
+                $form->isSubmitted()) {
+                $params['value'] = $varvalue;
+            }
+            $html .= Horde_Core_Prefs_Ui_Widgets::alarm($params);
+        }
+
         return $html;
     }
 
@@ -241,4 +186,58 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         return $html;
     }
 
+    protected function _renderVarInput_NagStart($form, $var, $vars)
+    {
+        $var->type->getInfo($vars, $var, $task_start);
+        $start_dt = ($task_start == 0)
+            // About a week from now
+            ? time() + 604800
+            : $task_start;
+        $on = $task_start > 0;
+
+        /* Set up the radio buttons. */
+        $html = sprintf(
+            '<input id="start_date_none" name="start_date" type="radio" class="radio" value="none"%s />
+%s
+<br />
+<input id="start_date_specified" name="start_date" type="radio" class="radio" value="specified"%s />
+<label for="start_date_specified" class="hidden">%s</label>
+<label for="start_date" class="hidden">%s</label>
+<input type="text" name="start[date]" id="start_date" size="10" value="%s">',
+            $on ? '' : ' checked="checked"',
+            Horde::label('start_date_none', _("No delay")),
+            $on ? ' checked="checked"' : '',
+            _("Start date specified."),
+            _("Date"),
+            htmlspecialchars(strftime('%x', $start_dt))
+        );
+
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'full_weekdays' => true
+            ));
+            $GLOBALS['page_output']->addScriptFile('calendar.js');
+            $html .= '<span id="start_wday"></span>' .
+                Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
+        }
+
+        return $html;
+    }
+
+    /**
+     * Render tag field.
+     */
+    protected function _renderVarInput_NagTags($form, $var, $vars)
+    {
+        $varname = htmlspecialchars($var->getVarName());
+        $value = $var->getValue($vars);
+
+        $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);
+        $html .= sprintf('<span id="%s_loading_img" style="display:none;">%s</span>',
+            $varname,
+            Horde::img('loading.gif', _("Loading...")));
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => $varname));
+        return $html;
+    }
 }
