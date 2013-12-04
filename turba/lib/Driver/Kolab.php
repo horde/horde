@@ -101,14 +101,6 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function toDriverKeys(array $hash)
     {
-        if (isset($hash['__type']) && $hash['__type'] == 'Group') {
-            $name = $hash['name'];
-            unset($hash['name']);
-            $hash = parent::toDriverKeys($hash);
-            $hash['display-name'] = $name;
-            return $hash;
-        }
-
         $hash = parent::toDriverKeys($hash);
 
         if (isset($hash['name'])) {
