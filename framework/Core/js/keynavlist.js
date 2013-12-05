@@ -167,7 +167,9 @@ var KeyNavList = Class.create({
         if ((divL.get('border-box-height') + dt + off.top + 10) > v.height) {
             this.div.setStyle({
                 height: (v.height - dt - off.top - 10) + 'px',
-                width: (this.div.scrollWidth + 5) + 'px'
+            });
+            this.div.setStyle({
+                width: (2 * this.div.getWidth() - this.div.scrollWidth) + 'px'
             });
         }
 
