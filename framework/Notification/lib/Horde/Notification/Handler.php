@@ -224,7 +224,7 @@ class Horde_Notification_Handler
      *
      * @param mixed $event    Horde_Notification_Event object or message
      *                        string.
-     * @param integer $type   The type of message.
+     * @param string $type    The type of message.
      * @param array $flags    Array of optional flags that will be passed to
      *                        the registered listeners.
      * @param array $options  Additional options:

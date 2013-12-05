@@ -101,31 +101,15 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function toDriverKeys(array $hash)
     {
-        if (isset($hash['__type']) && $hash['__type'] == 'Group') {
-            $name = $hash['name'];
-            unset($hash['name']);
-            $hash = parent::toDriverKeys($hash);
-            $hash['display-name'] = $name;
-            return $hash;
-        }
-
         $hash = parent::toDriverKeys($hash);
 
         if (isset($hash['name'])) {
             $hash['name'] = array('full-name' => $hash['name']);
         }
 
-        if (isset($hash['emails'])) {
-            $list = new Horde_Mail_Rfc822_List($hash['emails']);
-            $hash['email'] = array();
-            foreach ($list as $address) {
-                $hash['email'][] = array('smtp-address' => $address->bare_address);
-            }
-            unset($hash['emails']);
-        }
-
         /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
-        foreach (array('given-name',
+        foreach (array('full-name',
+                       'given-name',
                        'middle-names',
                        'last-name',
                        'initials',
@@ -135,6 +119,20 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $hash['name'][$sub] = $hash[$sub];
                 unset($hash[$sub]);
             }
+        }
+
+        if (isset($hash['__type']) && $hash['__type'] == 'Group' &&
+            isset($hash['name']['full-name'])) {
+            $hash['display-name'] = $hash['name']['full-name'];
+        }
+
+        if (isset($hash['emails'])) {
+            $list = new Horde_Mail_Rfc822_List($hash['emails']);
+            $hash['email'] = array();
+            foreach ($list as $address) {
+                $hash['email'][] = array('smtp-address' => $address->bare_address);
+            }
+            unset($hash['emails']);
         }
 
         foreach (array('phone-business1',
@@ -223,6 +221,10 @@ class Turba_Driver_Kolab extends Turba_Driver
             $entry['__type'] == 'Group' &&
             isset($entry['display-name'])) {
             $entry['last-name'] = $entry['display-name'];
+        }
+
+        if (!empty($entry['categories'])) {
+            $entry['categories'] = $entry['categories'][0];
         }
 
         return parent::toTurbaKeys($entry);

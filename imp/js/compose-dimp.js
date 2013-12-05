@@ -587,7 +587,7 @@ var DimpCompose = {
             }
             if (ob.addr.bcc.size()) {
                 this.toggleCC('bcc');
-                $('bcc').setValue(ob.addr.cc.join(', '));
+                $('bcc').setValue(ob.addr.bcc.join(', '));
             }
         }
 

@@ -10,6 +10,15 @@
 class Whups_Api extends Horde_Registry_Api
 {
     /**
+     * Links.
+     *
+     * @var array
+     */
+    protected $_links = array(
+        'show' => '%application%/ticket/?id=|ticket|'
+    );
+
+    /**
      * Browse through Whups' object tree.
      *
      * @param string $path  The level of the tree to browse.
