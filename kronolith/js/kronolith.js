@@ -2151,10 +2151,10 @@ KronolithCore = {
         }
         event.start.set({
             hour: offset / this[storage].height | 0,
-            minute: Math.round(offset % this[storage].height / step * 10)
+            minute: Math.round(offset % this[storage].height / step) * 10
         });
         var hour = (offset + height + this[storage].spacing) / this[storage].height | 0,
-            minute = Math.round((offset + height + this[storage].spacing) % this[storage].height / step * 10),
+            minute = Math.round((offset + height + this[storage].spacing) % this[storage].height / step) * 10,
             second = 0;
         if (hour == 24) {
             hour = 23;
@@ -5203,7 +5203,7 @@ KronolithCore = {
         this.startLoading(event.value.calendar, sig);
         if (!Object.isUndefined(event.value.offsetTop)) {
             attributes = $H({ offDays: event.value.offsetDays,
-                              offMins: event.value.offsetTop / step * 10 });
+                              offMins: Math.round(event.value.offsetTop / step) * 10 });
             element = div;
         } else if (div.hasClassName('kronolithDraggerTop')) {
             attributes = $H({ start: event.value.start });
