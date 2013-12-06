@@ -18,7 +18,7 @@
  </lead>
  <date>2013-12-06</date>
  <version>
-  <release>2.2.6</release>
+  <release>2.2.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Correctly set up include paths on installed packages.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -464,6 +464,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Correctly set up include paths on installed packages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>
