@@ -1123,13 +1123,23 @@ class Horde_Date_Recurrence
                 break;
             }
 
+            // MUST take into account the time portion if it is present.
+            // See Bug: 12869 and Bug: 2813
             if (isset($rdata['UNTIL'])) {
-                list($year, $month, $mday) = sscanf($rdata['UNTIL'],
-                                                    '%04d%02d%02d');
-                $this->setRecurEnd(new Horde_Date(array('year' => $year,
-                                                        'month' => $month,
-                                                        'mday' => $mday),
-                                                  $this->start->timezone));
+                if (preg_match('/^(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)$/', $rdata['UNTIL'], $parts)) {
+                    $until = new Horde_Date($rdata['UNTIL'], 'UTC');
+                    $until->setTimezone($this->start->timezone);
+                } else {
+                    list($year, $month, $mday) = sscanf($rdata['UNTIL'],
+                                                        '%04d%02d%02d');
+                    $until = new Horde_Date(
+                        array('year' => $year,
+                              'month' => $month,
+                              'mday' => $mday),
+                        $this->start->timezone
+                    );
+                }
+                $this->setRecurEnd($until);
             }
             if (isset($rdata['COUNT'])) {
                 $this->setRecurCount($rdata['COUNT']);
