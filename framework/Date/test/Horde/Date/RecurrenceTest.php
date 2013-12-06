@@ -1045,4 +1045,34 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('America/New_York', $next->timezone);
     }
 
+    public function testBug12869RecurrenceEndFromIcalendar()
+    {
+        date_default_timezone_set('Europe/Amsterdam');
+        $iCal = new Horde_Icalendar();
+        $iCal->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/bug12869.ics'));
+        $components = $iCal->getComponents();
+        foreach ($components as $content) {
+            if ($content instanceof Horde_Icalendar_Vevent) {
+                $start = new Horde_Date($content->getAttribute('DTSTART'));
+                $end = new Horde_Date($content->getAttribute('DTEND'));
+                $rrule = $content->getAttribute('RRULE');
+                $recurrence = new Horde_Date_Recurrence($start, $end);
+                $recurrence->fromRRule20($rrule);
+                break;
+            }
+        }
+
+        $after = array('year' => 2013, 'month' => 12);
+
+        $after['mday'] = 11;
+        $this->assertEquals('2013-12-12 13:45:00', (string)$recurrence->nextRecurrence($after));
+
+        $after['mday'] = 18;
+        $this->assertEquals('2013-12-19 13:45:00', (string)$recurrence->nextRecurrence($after));
+
+        $after['mday'] = 20;
+        $this->assertEquals('', (string)$recurrence->nextRecurrence($after));
+        date_default_timezone_set('Europe/Berlin');
+    }
+
 }
