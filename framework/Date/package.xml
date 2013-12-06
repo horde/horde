@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -949,7 +949,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
    </notes>
   </release>
  </changelog>
