@@ -531,7 +531,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-03-08 09:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-03-08 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('D2 #4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_DAILY, $r->getRecurType());
@@ -551,7 +551,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-03-08 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-03-08 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=DAILY;INTERVAL=2;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_DAILY, $r->getRecurType());
@@ -575,7 +575,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertEquals(Horde_Date::MASK_THURSDAY, $r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-03-30 08:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-03-30 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('W1 SU MO TU WE TH FR SA 20070603T235959');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_WEEKLY, $r->getRecurType());
@@ -608,7 +608,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertEquals(Horde_Date::MASK_THURSDAY, $r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-03-30 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-03-30 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_WEEKLY, $r->getRecurType());
@@ -650,7 +650,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('MD1 1 #4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_MONTHLY_DATE, $r->getRecurType());
@@ -676,7 +676,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-05-02 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=MONTHLY;INTERVAL=1;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_MONTHLY_DATE, $r->getRecurType());
@@ -706,7 +706,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('MP1 1+ TH #4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY, $r->getRecurType());
@@ -726,7 +726,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2007-05-02 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2007-05-02 08:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=MONTHLY;INTERVAL=1;BYDAY=1TH;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY, $r->getRecurType());
@@ -750,7 +750,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('YM1 3 #4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_YEARLY_DATE, $r->getRecurType());
@@ -770,7 +770,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2009-03-02 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=YEARLY;INTERVAL=1;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_YEARLY_DATE, $r->getRecurType());
@@ -794,7 +794,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule10('YD1 60 #4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_YEARLY_DAY, $r->getRecurType());
@@ -814,7 +814,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2009-03-02 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=YEARLY;INTERVAL=1;BYYEARDAY=60;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_YEARLY_DAY, $r->getRecurType());
@@ -838,7 +838,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->getRecurInterval());
         $this->assertNull($r->getRecurOnDays());
         $this->assertNull($r->getRecurCount());
-        $this->assertEquals('2009-03-02 00:00:00', (string)$r->recurEnd);
+        $this->assertEquals('2009-03-02 09:00:00', (string)$r->recurEnd->setTimezone('UTC'));
 
         $r->fromRRule20('FREQ=YEARLY;INTERVAL=1;BYDAY=1TH;BYMONTH=3;COUNT=4');
         $this->assertEquals(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY, $r->getRecurType());
