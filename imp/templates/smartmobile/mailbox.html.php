@@ -8,8 +8,8 @@
  <div data-role="footer" class="ui-bar" data-position="fixed" data-tap-toggle="false">
   <a href="#mailbox-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
 <?php if ($this->canSearch): ?>
-  <a id="imp-mailbox-search" href="#search" data-icon="search"><?php echo _("Search") ?></a>
-  <a id="imp-mailbox-searchedit" href="#search" data-icon="search"><?php echo _("Edit Search") ?></a>
+  <a id="imp-mailbox-search" href="#search" data-rel="dialog" data-icon="search"><?php echo _("Search") ?></a>
+  <a id="imp-mailbox-searchedit" href="#search" data-rel="dialog" data-icon="search"><?php echo _("Edit Search") ?></a>
 <?php endif ?>
 <?php if ($this->canCompose): ?>
   <a href="#compose"><?php echo _("New Message") ?></a>
