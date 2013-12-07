@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-11-19</date>
+ <date>2013-12-07</date>
  <version>
   <release>2.11.2</release>
   <api>2.11.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
  </notes>
@@ -108,7 +109,6 @@
     <dir name="jquery.mobile">
      <dir name="images">
       <file name="ajax-loader.gif" role="horde" />
-      <file name="ajax-loader.png" role="horde" />
       <file name="icons-18-black.png" role="horde" />
       <file name="icons-18-white.png" role="horde" />
       <file name="icons-36-black.png" role="horde" />
@@ -1526,7 +1526,6 @@
    <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
    <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
    <install as="js/jquery.mobile/images/ajax-loader.gif" name="js/jquery.mobile/images/ajax-loader.gif" />
-   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
    <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
    <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
@@ -3251,9 +3250,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
    </notes>
