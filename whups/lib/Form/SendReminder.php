@@ -43,7 +43,7 @@ class Whups_Form_SendReminder extends Horde_Form
 
         $cats = $whups_driver->getCategories();
         unset($cats['resolved']);
-        $categories = &$this->addVariable(
+        $categories = $this->addVariable(
             _("For tickets which are"), 'category', 'multienum', false, false, null, array($cats, 3));
         $categories->setDefault(array('assigned'));
 

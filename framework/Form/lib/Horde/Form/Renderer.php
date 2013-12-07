@@ -198,7 +198,7 @@ class Horde_Form_Renderer {
 
     function listFormVars(&$form)
     {
-        $variables = &$form->getVariables(true, true);
+        $variables = $form->getVariables(true, true);
         $vars = array();
         if ($variables) {
             foreach ($variables as $var) {
@@ -229,7 +229,7 @@ class Horde_Form_Renderer {
         /* If help is present 3 columns are needed. */
         $this->_cols = $form->hasHelp() ? 3 : 2;
 
-        $variables = &$form->getVariables(false);
+        $variables = $form->getVariables(false);
 
         /* Check for a form token error. */
         if (($tokenError = $form->getError('_formToken')) !== null) {
