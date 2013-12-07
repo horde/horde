@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
  </notes>
  <contents>
@@ -3253,6 +3254,7 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
    </notes>
   </release>

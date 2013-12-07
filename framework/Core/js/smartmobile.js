@@ -302,6 +302,9 @@ var HordeMobile = {
             };
         } else {
             data.options.parsedUrl = {};
+            if (data.options.role === 'dialog') {
+                data.options.changeHash = false;
+            }
         }
     },
 
