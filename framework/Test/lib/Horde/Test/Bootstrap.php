@@ -41,9 +41,10 @@ class Horde_Test_Bootstrap
 
             // Set up autoload
             $base = $dir;
-            while ($base != '/' && basename($base) != 'test') {
+            while ($base != '/' && basename($base) != 'Horde') {
                 $base = dirname($base);
             }
+            $base = dirname($base);
             if ($base) {
                 set_include_path(
                     $base . PATH_SEPARATOR . $base . '/../lib' . PATH_SEPARATOR . get_include_path()

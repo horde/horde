@@ -138,7 +138,9 @@ class Kronolith
 
         $events = array();
         foreach ($calendars as $type => $list) {
-            $kronolith_driver = self::getDriver($type);
+            if (!empty($list)) {
+                $kronolith_driver = self::getDriver($type);
+            }
             foreach ($list as $cal) {
                 $kronolith_driver->open($cal);
                 $retevents = $kronolith_driver->search($query);

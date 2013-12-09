@@ -2,6 +2,8 @@
 v4.1.3-git
 ----------
 
+[mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug
+      #12855).
 
 
 ------

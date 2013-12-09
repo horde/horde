@@ -136,6 +136,9 @@ case 'save_memo':
     $memo_passphrase = Horde_Util::getFormData('memo_passphrase');
     $memo_passphrase2 = Horde_Util::getFormData('memo_passphrase2');
 
+    // Save the memolist in case saving fails Bug: 12855
+    $memolist_id = $notepad_target;
+
     try {
         $share = $mnemo_shares->getShare($notepad_target);
     } catch (Horde_Share_Exception $e) {
