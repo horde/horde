@@ -16,6 +16,7 @@ var DimpCompose = {
     //   onload_show, old_action, old_identity, rte, rte_loaded, sc_submit,
     //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
 
+    ajax_atc_id: 0,
     checkbox_context: $H({
         ctx_atc: $H({
             pgppubkey: 'pgp_attach_pubkey',
@@ -950,6 +951,8 @@ var DimpCompose = {
 
     uploadAttachmentAjax: function(data, params, callback)
     {
+        var out = $H();
+
         params = $H(params).update({
             composeCache: $F(this.getCacheElt()),
             json_return: 1
@@ -959,7 +962,10 @@ var DimpCompose = {
         $A($R(0, data.length - 1)).each(function(i) {
             var fd = new FormData();
 
-            params.merge({ file_upload: data[i] }).each(function(p) {
+            params.merge({
+                file_id: ++this.ajax_atc_id,
+                file_upload: data[i]
+            }).each(function(p) {
                 fd.append(p.key, p.value);
             });
 
@@ -970,7 +976,11 @@ var DimpCompose = {
                 },
                 callback: callback
             });
-        });
+
+            out.set(this.ajax_atc_id, data[i]);
+        }, this);
+
+        return out;
     },
 
     toggleCC: function(type)

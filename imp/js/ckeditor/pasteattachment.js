@@ -13,18 +13,40 @@ CKEDITOR.plugins.add('pasteattachment', {
     {
         function attachCallback(r)
         {
+            var iframe;
+
             if (r.success) {
-                editor.insertHtml(r.img);
+                iframe = editor.getThemeSpace('contents').$.down('IFRAME');
+                Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
+                    var img = new Element('span').insert(r.img).down();
+                    img.onload = function() {
+                        elt.parentNode.replaceChild(img, elt);
+                    };
+                });
             }
         };
 
         editor.on('contentDom', function(e1) {
             e1.editor.document.on('drop', function(e2) {
-                DimpCompose.uploadAttachmentAjax(
+                var f = DimpCompose.uploadAttachmentAjax(
                     e2.data.$.dataTransfer.files,
                     { img_tag: 1 },
                     attachCallback
                 );
+
+                f.each(function(file) {
+                    var fr = new FileReader();
+                    fr.onload = function(e3) {
+                        var elt = new CKEDITOR.dom.element('img');
+                        elt.setAttributes({
+                            dropatc_id: file.key,
+                            src: e3.target.result
+                        });
+                        e1.editor.insertElement(elt);
+                    };
+                    fr.readAsDataURL(file.value);
+                });
+
                 e2.data.preventDefault();
             });
         });

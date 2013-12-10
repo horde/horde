@@ -27,12 +27,14 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
      *
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
+     *   - file_id: (integer) Browser ID of file.
      *   - img_tag: (boolean) If true, return related image tag.
      *   - json_return: (boolean) If true, returns JSON. Otherwise, JSON-HTML.
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action.
+     *   - file_id: (integer) Browser ID of file.
      *   - img: (string) The image tag to replace the data with, if 'img_tag'
      *          is set.
      *   - success: (integer) 1 on success (at least one successful attached
@@ -44,6 +46,9 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
         $result = new stdClass;
         $result->action = 'addAttachment';
+        if (isset($this->vars->file_id)) {
+            $result->file_id = $this->vars->file_id;
+        }
         $result->success = 0;
 
         /* A max POST size failure will result in ALL HTTP parameters being
