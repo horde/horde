@@ -28,15 +28,15 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
      *   - file_id: (integer) Browser ID of file.
-     *   - img_tag: (boolean) If true, return related image tag.
+     *   - img_data: (boolean) If true, return image data.
      *   - json_return: (boolean) If true, returns JSON. Otherwise, JSON-HTML.
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action.
      *   - file_id: (integer) Browser ID of file.
-     *   - img: (string) The image tag to replace the data with, if 'img_tag'
-     *          is set.
+     *   - img: (object) Image data, if 'img_data' is set. Properties:
+     *          height, related, src, width
      *   - success: (integer) 1 on success (at least one successful attached
      *              file), 0 on failure.
      */
@@ -68,28 +68,25 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
                             /* This currently only occurs when
                              * pasting/dropping image into HTML editor. */
-                            if ($this->vars->img_tag) {
-                                $dom_doc = new DOMDocument();
-                                $img = $dom_doc->createElement('img');
-                                $img->setAttribute('src', strval($val->viewUrl()->setRaw(true)));
-                                $imp_compose->addRelatedAttachment($val, $img, 'src');
+                            if ($this->vars->img_data) {
+                                $result->img = new stdClass;
+                                $result->img->src = strval($val->viewUrl()->setRaw(true));
+
+                                $temp1 = new DOMDocument();
+                                $temp2 = $temp1->createElement('span');
+                                $imp_compose->addRelatedAttachment($val, $temp2, 'src');
+                                $result->img->related = array(
+                                    $imp_compose::RELATED_ATTR,
+                                    $temp2->getAttribute($imp_compose::RELATED_ATTR)
+                                );
 
                                 try {
                                     $img_ob = $injector->getInstance('Horde_Core_Factory_Image')->create();
                                     $img_ob->loadString($val->storage->read()->getString(0));
                                     $d = $img_ob->getDimensions();
-                                    $img->setAttribute('height', $d['height']);
-                                    $img->setAttribute('width', $d['width']);
+                                    $result->img->height = $d['height'];
+                                    $result->img->width = $d['width'];
                                 } catch (Exception $e) {}
-
-                                /* Complicated to grab single element from a
-                                 * DOMDocument object, so build tag
-                                 * ourselves. */
-                                $img_tag = '<img';
-                                foreach ($img->attributes as $node) {
-                                    $img_tag .= ' ' . $node->name . '="' . htmlspecialchars($node->value) . '"';
-                                }
-                                $result->img = $img_tag . '/>';
                             } else {
                                 $this->_base->queue->attachment($val);
                                 $notification->push(sprintf(_("Added \"%s\" as an attachment."), $val->getPart()->getName()), 'horde.success');
