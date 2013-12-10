@@ -59,6 +59,10 @@ CKEDITOR.plugins.add('pasteattachment', {
                     uploadAtc(e2.data.$.dataTransfer.files);
                     e2.data.preventDefault();
                 }
+
+                editor.getThemeSpace('contents').$.dispatchEvent(
+                    new Event('drop', { bubbles: true })
+                );
             });
         });
 
