@@ -102,6 +102,13 @@ class IMP_Contents
     protected $_message;
 
     /**
+     * Cached data for the MIME Viewer objects.
+     *
+     * @var object
+     */
+    protected $_viewcache;
+
+    /**
      * Constructor.
      *
      * @param mixed $in  An IMP_Indices_Mailbox or Horde_Mime_Part object.
@@ -1565,6 +1572,20 @@ class IMP_Contents
         }
 
         return $res;
+    }
+
+    /**
+     * Return the view cache object for this message.
+     *
+     * @return object  View object.
+     */
+    public function getViewCache()
+    {
+        if (!isset($this->_viewcache)) {
+            $this->_viewcache = new stdClass;
+        }
+
+        return $this->_viewcache;
     }
 
 }

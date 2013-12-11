@@ -70,13 +70,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected $_sender = null;
 
     /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_cache = array();
-
-    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -151,20 +144,17 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return $this->_outputPGPSigned();
 
         case 'multipart/encrypted':
-            if (!isset($headers)) {
-                $headers = $this->getConfigParam('imp_contents')->getHeader();
-            }
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
 
-            $mid = $headers->getValue('message-id');
-            if (isset(self::$_cache[$mid][$id])) {
+            if (isset($cache->pgp[$id])) {
                 return array_merge(array(
                     $id => array(
                         'data' => null,
-                        'status' => self::$_cache[$mid][$id]['status'],
+                        'status' => $cache->pgp[$id]['status'],
                         'type' => 'text/plain; charset=' . $this->getConfigParam('charset'),
-                        'wrap' => self::$_cache[$mid][$id]['wrap']
+                        'wrap' => $cache->pgp[$id]['wrap']
                     )
-                ), self::$_cache[$mid][$id]['other']);
+                ), $cache->pgp[$id]['other']);
             }
             // Fall-through
 
@@ -188,8 +178,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        $mid = $this->getConfigParam('imp_contents')->getHeader()->getValue('message-id');
-
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $version_id = next($partlist);
@@ -198,7 +186,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status = new IMP_Mime_Status();
         $status->icon('mime/encryption.png', 'PGP');
 
-        self::$_cache[$mid][$base_id] = array(
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $cache->pgp[$base_id] = array(
             'status' => array($status),
             'other' => array(
                 $version_id => null,
@@ -308,7 +297,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        self::$_cache[$mid][$base_id]['wrap'] = 'mimePartWrapValid';
+        $cache->pgp[$base_id]['wrap'] = 'mimePartWrapValid';
 
         /* Check for combined encryption/signature data. */
         if ($decrypted_data->result) {
@@ -319,7 +308,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $status2 = new IMP_Mime_Status($sig_text);
             $status2->action(IMP_Mime_Status::SUCCESS);
 
-            self::$_cache[$mid][$base_id]['status'][] = $status2;
+            $cache->pgp[$base_id]['status'][] = $status2;
         }
 
         /* Force armor data as text/plain data. */

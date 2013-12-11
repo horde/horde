@@ -64,13 +64,6 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
     protected $_impsmime = null;
 
     /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_cache = array();
-
-    /**
      * Init the S/MIME Horde_Crypt object.
      */
     protected function _initSmime()
@@ -112,17 +105,19 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         case 'application/pkcs7-mime':
         case 'application/x-pkcs7-mime':
-            if (isset(self::$_cache[$id])) {
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
+
+            if (isset($cache->smime[$id])) {
                 $ret = array(
                     $id => array(
                         'data' => null,
-                        'status' => self::$_cache[$id]['status'],
+                        'status' => $cache->smime[$id]['status'],
                         'type' => 'text/plain; charset=' . $this->getConfigParam('charset'),
-                        'wrap' => self::$_cache[$id]['wrap']
+                        'wrap' => $cache->smime[$id]['wrap']
                     )
                 );
-                if (isset(self::$_cache[$id]['sig'])) {
-                    $ret[self::$_cache[$id]['sig']] = null;
+                if (isset($cache->smime[$id]['sig'])) {
+                    $ret[$cache->smime[$id]['sig']] = null;
                 }
                 return $ret;
             }
@@ -173,7 +168,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         /* Initialize inline data. */
         $status = new IMP_Mime_Status(_("The data in this part has been encrypted via S/MIME."));
         $status->icon('mime/encryption.png', 'S/MIME');
-        self::$_cache[$base_id] = array(
+
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $cache->smime[$base_id] = array(
             'status' => $status,
             'wrap' => ''
         );
@@ -209,7 +206,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
+        $cache->smime[$base_id]['wrap'] = 'mimePartWrapValid';
 
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array(
             'forcemime' => true
@@ -265,7 +262,8 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $status = new IMP_Mime_Status(_("The data in this part has been digitally signed via S/MIME."));
         $status->icon('mime/encryption.png', 'S/MIME');
 
-        self::$_cache[$base_id] = array(
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $cache->smime[$base_id] = array(
             'sig' => $sig_id,
             'status' => $status,
             'wrap' => 'mimePartWrap'
@@ -294,7 +292,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 } else {
                     $status->action(IMP_Mime_Status::WARNING);
                 }
-                self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
+                $cache->smime[$base_id]['wrap'] = 'mimePartWrapValid';
 
                 $email = is_array($sig_result->email)
                     ? implode(', ', $sig_result->email)
@@ -337,7 +335,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 }
             } catch (Horde_Exception $e) {
                 $status->action(IMP_Mime_Status::ERROR);
-                self::$_cache[$base_id]['wrap'] = 'mimePartWrapInvalid';
+                $cache->smime[$base_id]['wrap'] = 'mimePartWrapInvalid';
                 $status->addText($e->getMessage());
             }
         } else {

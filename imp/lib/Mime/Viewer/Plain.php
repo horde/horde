@@ -24,13 +24,6 @@
 class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_cache = array();
-
-    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -67,9 +60,10 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         global $injector, $prefs, $registry;
 
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
         $mime_id = $this->_mimepart->getMimeId();
 
-        if (isset(self::$_cache[$mime_id])) {
+        if (isset($cache->plain[$mime_id])) {
             return array($mime_id => null);
         }
 
@@ -252,7 +246,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         );
 
         if (!is_null($part)) {
-            self::$_cache[$this->_mimepart->getMimeId()] = true;
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
+            $cache->plain[$this->_mimepart->getMimeId()] = true;
         }
 
         return $part;
