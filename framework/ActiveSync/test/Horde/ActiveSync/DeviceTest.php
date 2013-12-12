@@ -22,11 +22,35 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 
         $fixture = array(
             'deviceType' => 'iPhone',
-            'userAgent' => ' iOS/6.1.3 (10B329)'
+            'userAgent' => 'iOS/6.1.3 (10B329)'
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(6, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, strtolower($device->deviceType));
+
+        $fixture = array(
+          'userAgent' => 'Android/0.3',
+          'deviceType' => 'Android');
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(0, $device->getMajorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+
+        $fixture = array(
+          'userAgent' => 'TouchDown(MSRPC)/7.1.0005',
+          'deviceType' => 'Android');
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(7, $device->getMajorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, strtolower($device->clientType));
+
+        $fixture = array(
+          'userAgent' => 'MOTOROLA-Droid(4D6F7869SAM)/2.1707',
+          'deviceType' => 'Android');
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(0, $device->getMajorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_UNKNOWN, strtolower($device->clientType));
     }
 
     public function testPoomContactsDate()
@@ -46,7 +70,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 
         // Android
         date_default_timezone_set('Pacific/Honolulu');
-        $fixture = array('deviceType' => 'android');
+        $fixture = array('deviceType' => 'android', 'userAgent' => 'Android/4.3.1-EAS-1.3');
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $date = new Horde_Date('2003-09-24 08:00:00', 'UTC');
 

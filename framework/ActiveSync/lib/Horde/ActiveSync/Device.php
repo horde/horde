@@ -71,6 +71,8 @@ class Horde_ActiveSync_Device
     const TYPE_ANDROID         = 'android';
     const TYPE_BLACKBERRY      = 'blackberry';
     const TYPE_WP              = 'windowsphone';
+    const TYPE_TOUCHDOWN       = 'touchdown';
+    const TYPE_UNKNOWN         = 'unknown';
 
     /**
      * Device properties.
@@ -103,7 +105,8 @@ class Horde_ActiveSync_Device
     {
         $this->_state = $state;
         $this->_properties = $data;
-       // $this->_deviceType = $data['DeviceType'];
+
+
     }
 
     /**
@@ -116,6 +119,9 @@ class Horde_ActiveSync_Device
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
             return $this->_properties['properties'][$property];
+        case 'clientType':
+            $type = $this->_getClientType();
+            return $type;
         default:
             if (isset($this->_properties[$property])) {
                 return $this->_properties[$property];
@@ -302,20 +308,39 @@ class Horde_ActiveSync_Device
 
     public function getMajorVersion()
     {
-        switch (strtolower($this->deviceType)) {
+        switch (strtolower($this->clientType)) {
             case self::TYPE_BLACKBERRY:
                 if (preg_match('/(.+)\/(.+)/', $this->userAgent, $matches)) {
                     return $matches[2];
                 }
                 break;
             case self::TYPE_IPOD:
+            case self::TYPE_IPAD:
                 if (preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
                     return $matches[1];
                 }
                 break;
             case self::TYPE_IPHONE:
                 if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
-                    list(, $name, $majorVersion, $minorVersion) = $matches;
+                    return $matches[2];
+                }
+                break;
+            case self::TYPE_ANDROID:
+                // Most newer Android clients send self::OS, so check that first
+                if (!empty($this->properties[self::OS]) && preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
+                    return $matches[1];
+                }
+                // Some newer devices send userAgent like Android/4.3.3-EAS-1.3
+                if (preg_match('/Android\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[1];
+                }
+                // Older Android/0.3 type userAgent strings.
+                if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[2];
+                }
+                break;
+            case self::TYPE_TOUCHDOWN:
+                 if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
                     return $matches[2];
                 }
                 break;
@@ -351,10 +376,10 @@ class Horde_ActiveSync_Device
         // trusted at all. The best we can do here is transform the date to
         // midnight on date_default_timezone() converted to UTC.
         //
-        // Android 4.3 ALWAYS sends it as 08:00:00 UTC
+        // Native Android 4 ALWAYS sends it as 08:00:00 UTC
         //
         // BB 10+ expects it at 12:00:00 UTC
-        switch (strtolower($this->deviceType)) {
+        switch (strtolower($this->clientType)) {
         case self::TYPE_WP:
         case 'wp8': // Legacy. Remove in H6.
         case 'wp':  // Legacy. Remove in H6.
@@ -363,11 +388,18 @@ class Horde_ActiveSync_Device
             } else {
                 return new Horde_Date($date->format('Y-m-d'));
             }
+
         case self::TYPE_ANDROID:
-            if ($toEas) {
-                return new Horde_Date($date->format('Y-m-d 08:00:00'), 'UTC');
+            if ($this->getMajorVersion() >= 4) {
+                if ($toEas) {
+                    return new Horde_Date($date->format('Y-m-d 08:00:00'), 'UTC');
+                } else {
+                    return new Horde_Date($date->format('Y-m-d'));
+                }
             } else {
-                return new Horde_Date($date->format('Y-m-d'));
+                // POOMCONTACTS:BIRTHDAY not really supported in early Android
+                // versions. Return as is.
+                return $date;
             }
 
         case self::TYPE_IPAD:
@@ -391,8 +423,36 @@ class Horde_ActiveSync_Device
                 return new Horde_Date($date->format('Y-m-d'));
             }
 
+        case self::TYPE_TOUCHDOWN:
+        case self::TYPE_UNKNOWN:
         default:
             return $date;
+        }
+    }
+
+    /**
+     * Attempt to determine the *client* application as opposed to the device,
+     * which may or may not be the client.
+     *
+     * @return string  The client name, or self::TYPE_UNKNOWN if unable to
+     *                 determine.
+     */
+    protected function _getClientType()
+    {
+        // Differentiate between the deviceType and the client app.
+        switch (strtolower($this->deviceType)) {
+        case self::TYPE_ANDROID:
+            // We can detect native android and TouchDown so far.
+            // Moxier does not distinguish itself, so we can't sniff it.
+            if (strpos($this->userAgent, 'Android') !== false) {
+                return $this->deviceType;
+            } elseif (strpos($this->userAgent, 'TouchDown') !== false) {
+                return self::TYPE_TOUCHDOWN;
+            } else {
+                return self::TYPE_UNKNOWN;
+            }
+        default:
+            return $this->deviceType;
         }
     }
 
