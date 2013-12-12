@@ -155,7 +155,9 @@ class Horde_ActiveSync_Device
      * If the property is empty, we don't send it since we are sending the
      * EAS-Version header anyway and this is a new device.
      *
-     * @boolean  True if we need to send the MS-RP header, otherwise false.
+     * @param string $supported  The current EAS-Version header.
+     *
+     * @return boolean  True if we need to send the MS-RP header, otherwise false.
      */
     public function needsVersionUpdate($supported)
     {
@@ -202,7 +204,7 @@ class Horde_ActiveSync_Device
     /**
      * Check if we should enforce provisioning on this device.
      *
-     * @return @boolean
+     * @return boolean
      */
     public function enforceProvisioning()
     {
@@ -270,11 +272,19 @@ class Horde_ActiveSync_Device
         return $data;
     }
 
+    /**
+     * Return the last time the device issued a SYNC request.
+     *
+     * @return integer  The timestamp.
+     */
     public function getLastSyncTimestamp()
     {
         return $this->_state->getLastSyncTimestamp($this->id, $this->user);
     }
 
+    /**
+     * Save the dirty device info data.
+     */
     public function save()
     {
         $this->_state->setDeviceInfo($this, $this->_dirty);
