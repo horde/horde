@@ -362,7 +362,7 @@ class Horde_ActiveSync
      *
      * @var Horde_ActiveSync_Device
      */
-    protected $_device;
+    static protected $_device;
 
     /**
      * Wbxml encoder
@@ -427,7 +427,10 @@ class Horde_ActiveSync
             throw new InvalidArgumentException(sprintf('Class %s does not exist.', $class));
         }
 
-        return new $class(array('logger' => self::$_logger, 'protocolversion' => self::$_version));
+        return new $class(array(
+            'logger' => self::$_logger,
+            'protocolversion' => self::$_version,
+            'device' => self::$_device));
     }
 
     /**
@@ -490,8 +493,8 @@ class Horde_ActiveSync
     {
         return new Horde_ActiveSync_SyncCache(
             $this->_state,
-            $this->_device->id,
-            $this->_device->user,
+            self::$_device->id,
+            self::$_device->user,
             self::$_logger
         );
     }
@@ -612,11 +615,12 @@ class Horde_ActiveSync
         case 'provisioning':
         case 'multipart':
         case 'certPath':
-        case 'device':
             $property = '_' . $property;
             return $this->$property;
         case 'logger':
             return self::$_logger;
+        case 'device':
+            return self::$_device;
         default:
             throw new InvalidArgumentException(sprintf(
                 'The property %s does not exist',
@@ -756,28 +760,28 @@ class Horde_ActiveSync
         if (!$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
-                $this->_device = $this->_state->loadDeviceInfo($devId);
+                self::$_device = $this->_state->loadDeviceInfo($devId);
             } else {
-                $this->_device = new Horde_ActiveSync_Device($this->_state);
+                self::$_device = new Horde_ActiveSync_Device($this->_state);
             }
-            $this->_device->policykey = 0;
-            $this->_device->userAgent = $this->_request->getHeader('User-Agent');
-            $this->_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
-            $this->_device->rwstatus = self::RWSTATUS_NA;
-            $this->_device->user = $this->_driver->getUser();
-            $this->_device->id = $devId;
-            $this->_device->needsVersionUpdate($this->getSupportedVersions());
+            self::$_device->policykey = 0;
+            self::$_device->userAgent = $this->_request->getHeader('User-Agent');
+            self::$_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+            self::$_device->rwstatus = self::RWSTATUS_NA;
+            self::$_device->user = $this->_driver->getUser();
+            self::$_device->id = $devId;
+            self::$_device->needsVersionUpdate($this->getSupportedVersions());
 
             // @TODO: Remove is_callable check for H6.
             //        Combine this with the modifyDevice callback? Allow $device
             //        to be modified here?
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
-                $callback_ret = $this->_driver->createDeviceCallback($this->_device);
+                $callback_ret = $this->_driver->createDeviceCallback(self::$_device);
                 if ($callback_ret !== true) {
                     $msg = sprintf(
                         'The device %s was disallowed for user %s per policy settings.',
-                        $this->_device->id,
-                        $this->_device->user);
+                        self::$_device->id,
+                        self::$_device->user);
                     self::$_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
@@ -787,44 +791,44 @@ class Horde_ActiveSync
                 } else {
                     // Give the driver a chance to modify device properties.
                     if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
-                        $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
+                        self::$_device = $this->_driver->modifyDeviceCallback(self::$_device);
                     }
                 }
             }
         } else {
-            $this->_device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
+            self::$_device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
 
             // If the device state was removed from storage, we may lose the
             // device properties, so try to repopulate what we can. userAgent
             // is ALWAYS available, so if it's missing, the state is gone.
-            if (empty($this->_device->userAgent)) {
-                $this->_device->userAgent = $this->_request->getHeader('User-Agent');
-                $this->_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
-                $this->_device->user = $this->_driver->getUser();
+            if (empty(self::$_device->userAgent)) {
+                self::$_device->userAgent = $this->_request->getHeader('User-Agent');
+                self::$_device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+                self::$_device->user = $this->_driver->getUser();
             }
 
             // Check this here so we only need to save the device object once.
-            if ($this->_device->properties[Horde_ActiveSync_Device::VERSION] < $this->_maxVersion &&
-                $this->_device->needsVersionUpdate($this->getSupportedVersions())) {
+            if (self::$_device->properties[Horde_ActiveSync_Device::VERSION] < $this->_maxVersion &&
+                self::$_device->needsVersionUpdate($this->getSupportedVersions())) {
 
                 $needMsRp = true;
             }
 
             // Give the driver a chance to modify device properties.
             if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
-                $this->_device = $this->_driver->modifyDeviceCallback($this->_device);
+                self::$_device = $this->_driver->modifyDeviceCallback(self::$_device);
             }
         }
 
-        $this->_device->save();
-        $this->_device->version = $version;
+        self::$_device->save();
+        self::$_device->version = $version;
         if (is_callable(array($this->_driver, 'deviceCallback'))) {
-            $callback_ret = $this->_driver->deviceCallback($this->_device);
+            $callback_ret = $this->_driver->deviceCallback(self::$_device);
             if ($callback_ret !== true) {
                 $msg = sprintf(
                     'The device %s was disallowed for user %s per policy settings.',
-                    $this->_device->id,
-                    $this->_device->user);
+                    self::$_device->id,
+                    self::$_device->user);
                 self::$_logger->err($msg);
                 if ($version > self::VERSION_TWELVEONE) {
                     $this->_globalError = $callback_ret;
@@ -835,10 +839,10 @@ class Horde_ActiveSync
         }
 
         // Lastly, check if the device has been set to blocked.
-        if ($this->_device->blocked) {
+        if (self::$_device->blocked) {
             $msg = sprintf(
                 'The device %s was blocked.',
-                $this->_device->id);
+                self::$_device->id);
             self::$_logger->err($msg);
             if ($version > self::VERSION_TWELVEONE) {
                 $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
@@ -886,7 +890,7 @@ class Horde_ActiveSync
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
-        $this->_driver->setDevice($this->_device);
+        $this->_driver->setDevice(self::$_device);
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this);
@@ -1059,7 +1063,12 @@ class Horde_ActiveSync
                     $results['DeviceType'] = 'SmartPhone';
                     break;
                 case 'WP':
+                case 'WP8':
                     $results['DeviceType'] = 'WindowsPhone';
+                    break;
+                case 'android':
+                case 'android40':
+                    $results['DeviceType'] = 'android';
                 }
                 $this->_get = $results;
             }

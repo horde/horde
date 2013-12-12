@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-20</date>
+ <date>2013-12-12</date>
  <version>
   <release>2.9.2</release>
   <api>2.9.0</api>
@@ -239,6 +239,7 @@
       <file name="CacheTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
+      <file name="DeviceTest.php" role="test" />
       <file name="ImapFolderTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -475,6 +476,7 @@
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
+   <install as="Horde/ActiveSync/DeviceTest.php" name="test/Horde/ActiveSync/DeviceTest.php" />
    <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
@@ -1829,7 +1831,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-20</date>
+   <date>2013-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
