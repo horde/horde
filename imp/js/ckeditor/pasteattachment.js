@@ -60,9 +60,13 @@ CKEDITOR.plugins.add('pasteattachment', {
                     e2.data.preventDefault();
                 }
 
-                editor.getThemeSpace('contents').$.dispatchEvent(
-                    new Event('drop', { bubbles: true })
-                );
+                try {
+                    var evt = new Event('drop', { bubbles: true });
+                    editor.getThemeSpace('contents').$.dispatchEvent(evt);
+                } catch(e) {}
+            });
+            editor.document.on('dragover', function(e) {
+                e.data.preventDefault();
             });
         });
 
