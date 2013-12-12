@@ -367,7 +367,7 @@ class Horde_ActiveSync_Imap_Message
             }
 
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
-                !($truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone'])) {
+                !($truncated && !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone']))) {
                 $return['html'] = array(
                     'charset' => $html_charset,
                     'body' => $html,
