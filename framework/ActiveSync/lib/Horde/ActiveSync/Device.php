@@ -25,6 +25,7 @@
  *
  * @property string id                The device id.
  * @property string deviceType        The device type string.
+ * @property string clientType        The client name, if available.
  * @property integer rwstatus         The RemoteWipe status - a
  *                                    Horde_ActiveSync::RWSTATUS_* constant.
  * @property string userAgent         The device's user agent string.
@@ -355,7 +356,6 @@ class Horde_ActiveSync_Device
      * protocol - which doesn't define a standard time for birthdays to occur.
      *
      * @param Horde_Date $date  The date.
-     * @param string $timezone  The timezone identifier for the user's timezone.
      * @param boolean $toEas    Convert from local to device if true.
      *
      * @return Horde_Date  The date of the birthday/anniversary, in UTC, with
