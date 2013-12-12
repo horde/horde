@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix typo that was causing server side searching of mailboxes to fail (Bug #12882).
+* [mjr] Add workaround for inconsistent handling of POOMCONTACTS date fields that causes fields like birthdays to become offset.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1834,7 +1835,8 @@
    <date>2013-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix typo that was causing server side searching of mailboxes to fail (Bug #12882).
+* [mjr] Add workaround for inconsistent handling of POOMCONTACTS date fields that causes fields like birthdays to become offset.
    </notes>
   </release>
  </changelog>
