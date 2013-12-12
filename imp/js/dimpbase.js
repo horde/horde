@@ -41,20 +41,23 @@ var DimpBase = {
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.viewport.setMetaData({ lastrow: row });
+        this.viewport.setMetaData({
+            curr_row: row,
+            last_row: (selcount ? this.viewport.getSelected() : null)
+        });
 
         this.resetSelectAll();
 
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivotrow').get('rownum').first() ];
+                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivot_row').get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.viewport.setMetaData({ pivotrow:  row });
+            this.viewport.setMetaData({ pivot_row: row });
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -692,8 +695,9 @@ var DimpBase = {
                 count = sel.size();
             if (!count) {
                 this.viewport.setMetaData({
-                    lastrow: null,
-                    pivotrow: null
+                    curr_row: null,
+                    last_row: null,
+                    pivot_row: null
                 });
             }
 
@@ -724,8 +728,8 @@ var DimpBase = {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
                 this.viewport.setMetaData({
-                    lastrow: e.memo.vs,
-                    pivotrow: e.memo.vs
+                    curr_row: e.memo.vs,
+                    pivot_row: e.memo.vs
                 });
             }
 
@@ -1657,14 +1661,15 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, msgload, p, rows, pp_uid;
+        var curr, last, p, rows, pp_uid,
+            msgload = {};
 
         if (!DimpCore.getPref('preview')) {
             return;
         }
 
         // If single message is loaded, and this mailbox is polled, try to
-        // preload next unseen messages that exists in current buffer.
+        // preload next unseen message that exists in current buffer.
         if (data && !Object.isUndefined(this.getUnseenCount(data.VP_view))) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
@@ -1676,7 +1681,17 @@ var DimpBase = {
                     return (r > curr);
                 });
 
-                msgload = this.viewport.createSelection('rownum', [ p[1].last(), p[0].first() ]).get('uid').first();
+                last = this.viewport.getMetaData('last_row');
+                p[1].reverse();
+
+                /* Search for next cached message based on direction the
+                 * selection row moved. */
+                this.viewport.createSelection('rownum', (last && last.get('rownum').first() > curr) ? p[1].concat(p[0]) : p[0].concat(p[1])).get('uid').detect(function(u) {
+                    if (this.ppfifo.indexOf(this._getPPId(u, data.VP_view)) === -1) {
+                        msgload = { msgload: u };
+                        return true;
+                    }
+                }, this);
             }
         }
 
@@ -1693,27 +1708,19 @@ var DimpBase = {
             };
             pp_uid = this._getPPId(data.VP_id, data.VP_view);
 
-            if (this.ppfifo.indexOf(pp_uid) != -1) {
-                params = {
+            if (this.ppfifo.indexOf(pp_uid) !== -1) {
+                this.flag(DimpCore.conf.FLAG_SEEN, true, {
                     buid: data.VP_id,
-                    mailbox: data.VP_view
-                };
-
-                if (msgload) {
-                    params.params = { msgload: msgload };
-                }
-
-                this.flag(DimpCore.conf.FLAG_SEEN, true, params);
-
+                    mailbox: data.VP_view,
+                    params: msgload
+                });
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
 
             params = {};
         }
 
-        if (msgload) {
-            params.msgload = msgload;
-        }
+        params = Object.extend(params, msgload);
         params.preview = 1;
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
@@ -2457,7 +2464,7 @@ var DimpBase = {
         case Event.KEY_LEFT:
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
-            tmp = this.viewport.getMetaData('lastrow');
+            tmp = this.viewport.getMetaData('curr_row');
             if (e.altKey) {
                 pp = $('previewPane');
                 pp.scrollTop = prev
