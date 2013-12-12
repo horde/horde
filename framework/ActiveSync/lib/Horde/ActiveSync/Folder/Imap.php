@@ -106,7 +106,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 } else {
                     if (empty($this->_messages[$uid])) {
                         // Do not know about this message
-                        throw new Horde_ActiveSync_Exception('Unknown message.');
+                        continue;
                     }
                     if ((isset($flags[$uid]['read']) && $flags[$uid]['read'] != $this->_messages[$uid]['read']) ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged'])) {
