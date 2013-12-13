@@ -22,49 +22,6 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Sqlite_TableDefinition
+class Horde_Db_Adapter_Sqlite_TableDefinition extends Horde_Db_Adapter_TableDefinition
 {
-    public function testConstruct()
-    {
-    }
-
-    public function testName()
-    {
-    }
-
-    public function testGetOptions()
-    {
-    }
-
-    public function testPrimaryKey()
-    {
-    }
-
-    public function testColumn()
-    {
-    }
-
-    public function testToSql()
-    {
-    }
-
-    /*##########################################################################
-    # Array Access
-    ##########################################################################*/
-
-    public function testOffsetExists()
-    {
-    }
-
-    public function testOffsetGet()
-    {
-    }
-
-    public function testOffsetSet()
-    {
-    }
-
-    public function testOffsetUnset()
-    {
-    }
 }

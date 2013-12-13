@@ -22,53 +22,6 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Postgresql_TableDefinition
+class Horde_Db_Adapter_Postgresql_TableDefinition extends Horde_Db_Adapter_TableDefinition
 {
-    /*##########################################################################
-    # Public methods
-    ##########################################################################*/
-
-    public function testConstruct()
-    {
-    }
-
-    public function testName()
-    {
-    }
-
-    public function testGetOptions()
-    {
-    }
-
-    public function testPrimaryKey()
-    {
-    }
-
-    public function testColumn()
-    {
-    }
-
-    public function testToSql()
-    {
-    }
-
-    /*##########################################################################
-    # Array Access
-    ##########################################################################*/
-
-    public function testOffsetExists()
-    {
-    }
-
-    public function testOffsetGet()
-    {
-    }
-
-    public function testOffsetSet()
-    {
-    }
-
-    public function testOffsetUnset()
-    {
-    }
 }
