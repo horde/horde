@@ -34,6 +34,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     protected static $_reason = 'The MySQL adapter is not available';
 
+    protected $_conn;
+
     static protected function _getConnection($overrides = array())
     {
         throw new LogicException('_getConnection() must be implemented in a sub-class.');
