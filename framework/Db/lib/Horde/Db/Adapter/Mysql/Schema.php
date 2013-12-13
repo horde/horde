@@ -406,13 +406,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      *                               - name: (string) the index name to fall
      *                                 back to if no column names specified.
      */
-    public function indexName($tableName, $options=array())
+    public function indexName($tableName, $options = array())
     {
-        $indexName = parent::indexName($tableName, $options);
-        if (strlen($indexName) > 64) {
-            $indexName = substr($indexName, 0, 64);
-        }
-        return $indexName;
+        return substr(parent::indexName($tableName, $options), 0, 64);
     }
 
     /**
