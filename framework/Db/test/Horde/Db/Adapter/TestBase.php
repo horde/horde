@@ -443,8 +443,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     {
         $this->_createTestUsersTable();
 
-        $this->_conn->renameColumn('users', 'first_name', 'group');
-        $this->assertTrue(in_array('group', $this->_columnNames('users')));
+        $this->_conn->renameColumn('users', 'first_name', 'other_name');
+        $this->assertTrue(in_array('other_name', $this->_columnNames('users')));
     }
 
     public function testAddIndex()
