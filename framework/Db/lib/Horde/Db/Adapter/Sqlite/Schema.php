@@ -136,7 +136,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $pk = $this->makeIndex($tableName, 'PRIMARY', true, true, array());
         foreach ($rows as $row) {
-            if ($row['pk'] == 1) {
+            if ($row['pk']) {
                 $pk->columns[] = $row['name'];
             }
         }
