@@ -98,6 +98,13 @@ class Horde_ActiveSync_Message_Base
     protected $_version = Horde_ActiveSync::VERSION_TWOFIVE;
 
     /**
+     * The device object
+     *
+     * @var Horde_ActiveSync_Device
+     */
+    protected $_device;
+
+    /**
      * Const'r
      *
      * @param array $options  Configuration options for the message:
@@ -105,6 +112,7 @@ class Horde_ActiveSync_Message_Base
      *             DEFAULT: none (No logging).
      *   - protocolversion: (float)  The version of EAS to support.
      *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *   - device: (Horde_ActiveSync_Device)  The device object. @since
      *
      * @return Horde_ActiveSync_Message_Base
      */
@@ -117,6 +125,9 @@ class Horde_ActiveSync_Message_Base
         }
         if (!empty($options['protocolversion'])) {
             $this->_version = $options['protocolversion'];
+        }
+        if (!empty($options['device'])) {
+            $this->_device = $options['device'];
         }
     }
 
@@ -323,7 +334,7 @@ class Horde_ActiveSync_Message_Base
                         if (isset($map[self::KEY_TYPE])) {
                             // Complex type, decode recursively
                             if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
-                                $decoded = self::_parseDate($decoder->getElementContent());
+                                $decoded = $this->_parseDate($decoder->getElementContent());
                                 if (!$decoder->getElementEndTag()) {
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
@@ -439,7 +450,7 @@ class Horde_ActiveSync_Message_Base
                     $encoder->startTag($tag);
                     if (isset($map[self::KEY_TYPE]) && ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES)) {
                         if (!empty($this->$map[self::KEY_ATTRIBUTE])) { // don't output 1-1-1970
-                            $encoder->content(self::_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));
+                            $encoder->content($this->_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));
                         }
                     } elseif (isset($map[self::KEY_TYPE]) && $map[self::KEY_TYPE] == self::TYPE_HEX) {
                         $encoder->content(Horde_String::upper(bin2hex($this->$map[self::KEY_ATTRIBUTE])));
@@ -518,7 +529,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return string  The formatted date
      */
-    static protected function _formatDate(Horde_Date $dt, $type)
+    protected function _formatDate(Horde_Date $dt, $type)
     {
         if ($type == Horde_ActiveSync_Message_Base::TYPE_DATE) {
             return $dt->setTimezone('UTC')->format('Ymd\THis\Z');
@@ -534,7 +545,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return Horde_Date  The Horde_Date
      */
-    static protected function _parseDate($ts)
+    protected function _parseDate($ts)
     {
         if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})(T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z){0,1}$/", $ts, $matches)) {
             return new Horde_Date($ts);

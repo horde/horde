@@ -319,7 +319,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function getFolderUidForBackendId($folderid)
     {
-        $map = $this->_as->state->getFolderUidToBankendIdMap();
+        $map = $this->_as->state->getFolderUidToBackendIdMap();
         if (empty($map[$folderid])) {
             return false;
         }

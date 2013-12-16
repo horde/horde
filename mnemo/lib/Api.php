@@ -314,17 +314,7 @@ class Mnemo_Api extends Horde_Registry_Api
     public function export($uid, $contentType, array $options = array())
     {
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
-        try {
-            $memo = $storage->getByUID($uid);
-        } catch (Mnemo_Exception $e) {
-            if ($e->getCode() == Mnemo::ERR_NO_PASSPHRASE ||
-                $e->getCode() == Mnemo::ERR_DECRYPT) {
-
-                $memo['body'] = _("This note has been encrypted.");
-            } else {
-                throw $e;
-            }
-        }
+        $memo = $storage->getByUID($uid);
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::READ))) {
             throw new Horde_Exception_PermissionDenied();
         }

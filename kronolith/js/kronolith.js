@@ -3092,6 +3092,9 @@ KronolithCore = {
                 if (type == 'internal') {
                     $('kronolithCalendar' + type + 'UrlFeed').enable();
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
+                    if (info.edit) {
+                        $('kronolithCalendarinternalImport').enable();
+                    }
                 }
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {

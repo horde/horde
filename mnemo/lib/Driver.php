@@ -379,6 +379,13 @@ abstract class Mnemo_Driver
         $message->subject = $memo['desc'];
         $bp = $options['bodyprefs'];
         $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+
+        // When the note is encrypted, we won't have the passphrase so the
+        // body will be a Mnemo_Exception.
+        if ($memo['body'] instanceof Mnemo_Exception) {
+            $memo['body'] = $memo['body']->getMessage();
+        }
+
         if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
             $body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             $memo['body'] = Horde_Text_Filter::filter($memo['body'], 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));

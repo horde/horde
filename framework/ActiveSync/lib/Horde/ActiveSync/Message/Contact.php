@@ -394,4 +394,32 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         return false;
     }
 
+    /**
+     * Override parent class so we can normalize the Date object before
+     * returning it.
+     *
+     * @param  [type] $ts [description]
+     * @return [type]     [description]
+     */
+    protected function _parseDate($ts)
+    {
+        $date = parent::_parseDate($ts);
+        // @todo: Remove this in H6.
+        if (empty($this->_device)) {
+            return $date;
+        }
+
+        return $this->_device->normalizePoomContactsDates($date);
+    }
+
+    protected function _formatDate(Horde_Date $dt, $type)
+    {
+        if (empty($this->_device)) {
+            $date = $dt;
+        } else {
+            $date = $this->_device->normalizePoomContactsDates($dt, true);
+        }
+        return parent::_formatDate($date, $type);
+    }
+
 }
