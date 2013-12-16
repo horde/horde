@@ -54,8 +54,14 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         function fireEventInParent(type)
         {
-            var evt = document.createEvent('DragEvent');
-            evt.initEvent(type, true, true);
+            var evt;
+
+            try {
+                evt = new CustomEvent(type, { bubbles: true, cancelable: true });
+            } catch (ex) {
+                evt = document.createEvent('DragEvent');
+                evt.initEvent(type, true, true);
+            }
             editor.getThemeSpace('contents').$.dispatchEvent(evt);
         };
 
