@@ -52,6 +52,13 @@ CKEDITOR.plugins.add('pasteattachment', {
             });
         };
 
+        function fireEventInParent(type)
+        {
+            var evt = document.createEvent('DragEvent');
+            evt.initEvent(type, true, true);
+            editor.getThemeSpace('contents').$.dispatchEvent(evt);
+        };
+
         editor.on('contentDom', function(e1) {
             editor.document.on('drop', function(e2) {
                 /* Only support images for now. */
@@ -59,14 +66,11 @@ CKEDITOR.plugins.add('pasteattachment', {
                     uploadAtc(e2.data.$.dataTransfer.files);
                     e2.data.preventDefault();
                 }
-
-                try {
-                    var evt = new Event('drop', { bubbles: true });
-                    editor.getThemeSpace('contents').$.dispatchEvent(evt);
-                } catch(e) {}
+                fireEventInParent('drop');
             });
             editor.document.on('dragover', function(e) {
                 e.data.preventDefault();
+                fireEventInParent('dragover');
             });
         });
 
