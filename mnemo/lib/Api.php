@@ -66,7 +66,7 @@ class Mnemo_Api extends Horde_Registry_Api
 
         // Make sure we have a valid notepad.
         if (empty($notepads)) {
-            $notepads = Mnemo::getSyncLists();
+            $notepads = Mnemo::getSyncNotepads();
         } else {
             if (!is_array($notepads)) {
                 $notepads = array($notepads);
@@ -322,7 +322,7 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param array $options       Any additional options to be passed to the
      *                             exporter.
      *
-     * @return string  The requested data
+     * @return mixed  The requested data
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
