@@ -34,16 +34,16 @@ $charset = $cli->prompt('Please specify the current charset of the data',
 
 // Read existing notes.
 try {
-    $results = $db->selectAll('SELECT memo_owner, memo_id, memo_desc, memo_body, memo_category FROM mnemo_memos');
+    $results = $db->selectAll('SELECT memo_owner, memo_id, memo_desc, memo_body FROM mnemo_memos');
 } catch (Horde_Db_Exception $e) {
     $cli->fatal($e->getMessage());
 }
-$sth = 'UPDATE mnemo_memos SET memo_desc = ?, memo_body = ?, memo_category = ?'
+$sth = 'UPDATE mnemo_memos SET memo_desc = ?, memo_body = ?'
     . ' WHERE memo_owner = ? AND memo_id = ?';
 echo 'Converting notes';
 foreach ($results as $row) {
     $values = Horde_String::convertCharset(
-        array($row['memo_desc'], $row['memo_body'], $row['memo_category']),
+        array($row['memo_desc'], $row['memo_body']),
         $charset, 'UTF-8');
     $values[] = $row['memo_owner'];
     $values[] = $row['memo_id'];

@@ -46,9 +46,6 @@ $page_output->header(array(
 require MNEMO_TEMPLATES . '/list/header.inc';
 
 if (count($memos)) {
-    $cManager = new Horde_Prefs_CategoryManager();
-    $colors = $cManager->colors();
-    $fgcolors = $cManager->fgColors();
     $sortby = $prefs->getValue('sortby');
     $sortdir = $prefs->getValue('sortdir');
     $showNotepad = $prefs->getValue('show_notepad');

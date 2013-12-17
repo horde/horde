@@ -18,17 +18,18 @@
  </lead>
  <date>2013-10-29</date>
  <version>
-  <release>4.1.3</release>
+  <release>4.2.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
-* [mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug #12855).
+* [jan] Make notepad checkbox links switches instead of toggles.
+* [jan] Replace categories with tags.
+* [jan] Convert to Horde_View.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,10 +53,16 @@
     <file name="TODO" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="list.js" role="horde" />
+    <file name="memo.js" role="horde" />
+    <file name="view.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
       <file name="EditNote.php" role="horde" />
+      <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -75,6 +82,7 @@
      <file name="CreateNotepad.php" role="horde" />
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
+     <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Form -->
     <dir name="Notepads">
      <file name="Base.php" role="horde" />
@@ -86,6 +94,7 @@
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Mnemo.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="bg">
@@ -297,6 +306,7 @@
     <file name="3_mnemo_upgrade_sqlng.php" role="horde" />
     <file name="4_mnemo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -317,20 +327,17 @@
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file name="empty.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="memo_footers.inc" role="horde" />
-     <file name="memo_headers.inc" role="horde" />
-     <file name="memo_summaries.inc" role="horde" />
+     <file name="empty.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="memo_footers.html.php" role="horde" />
+     <file name="memo_headers.html.php" role="horde" />
+     <file name="_summary.html.php" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="memo">
-     <file name="memo.inc" role="horde" />
+     <file name="memo.html.php" role="horde" />
     </dir> <!-- /templates/memo -->
-    <dir name="search">
-     <file name="search.inc" role="horde" />
-    </dir> <!-- /templates/search -->
     <dir name="view">
-     <file name="memo.inc" role="horde" />
+     <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
    </dir> <!-- /templates -->
    <dir name="test">
@@ -365,6 +372,9 @@
      <dir name="graphics">
       <file name="add.png" role="horde" />
       <file name="az.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="mnemo.png" role="horde" />
@@ -395,6 +405,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
@@ -577,13 +594,18 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="mnemo/js/list.js" name="js/list.js" />
+   <install as="mnemo/js/memo.js" name="js/memo.js" />
+   <install as="mnemo/js/view.js" name="js/view.js" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
    <install as="mnemo/lib/Application.php" name="lib/Application.php" />
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
    <install as="mnemo/lib/Exception.php" name="lib/Exception.php" />
    <install as="mnemo/lib/Mnemo.php" name="lib/Mnemo.php" />
+   <install as="mnemo/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="mnemo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
+   <install as="mnemo/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="mnemo/lib/Block/Note.php" name="lib/Block/Note.php" />
    <install as="mnemo/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -593,6 +615,7 @@
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
+   <install as="mnemo/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
    <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
    <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
@@ -677,6 +700,7 @@
    <install as="mnemo/migration/3_mnemo_upgrade_sqlng.php" name="migration/3_mnemo_upgrade_sqlng.php" />
    <install as="mnemo/migration/4_mnemo_upgrade_sqlhierarchical.php" name="migration/4_mnemo_upgrade_sqlhierarchical.php" />
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
+   <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -686,14 +710,13 @@
    <install as="mnemo/notes/index.php" name="notes/index.php" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
-   <install as="mnemo/templates/list/empty.inc" name="templates/list/empty.inc" />
-   <install as="mnemo/templates/list/header.inc" name="templates/list/header.inc" />
-   <install as="mnemo/templates/list/memo_footers.inc" name="templates/list/memo_footers.inc" />
-   <install as="mnemo/templates/list/memo_headers.inc" name="templates/list/memo_headers.inc" />
-   <install as="mnemo/templates/list/memo_summaries.inc" name="templates/list/memo_summaries.inc" />
-   <install as="mnemo/templates/memo/memo.inc" name="templates/memo/memo.inc" />
-   <install as="mnemo/templates/search/search.inc" name="templates/search/search.inc" />
-   <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
+   <install as="mnemo/templates/list/empty.html.php" name="templates/list/empty.html.php" />
+   <install as="mnemo/templates/list/header.html.php" name="templates/list/header.html.php" />
+   <install as="mnemo/templates/list/memo_footers.html.php" name="templates/list/memo_footers.html.php" />
+   <install as="mnemo/templates/list/memo_headers.html.php" name="templates/list/memo_headers.html.php" />
+   <install as="mnemo/templates/list/_summary.html.php" name="templates/list/_summary.html.php" />
+   <install as="mnemo/templates/memo/memo.html.php" name="templates/memo/memo.html.php" />
+   <install as="mnemo/templates/view/view.html.php" name="templates/view/view.html.php" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
    <install as="Mnemo/bootstrap.php" name="test/Mnemo/bootstrap.php" />
@@ -709,6 +732,9 @@
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="mnemo/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="mnemo/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
+   <install as="mnemo/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="mnemo/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="mnemo/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="mnemo/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="mnemo/themes/default/graphics/mnemo.png" name="themes/default/graphics/mnemo.png" />
@@ -1074,16 +1100,17 @@
   </release>
   <release>
    <version>
-    <release>4.1.3</release>
+    <release>4.2.0alpha1</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-08-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
-* [mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug #12855).
+* [jan] Make notepad checkbox links switches instead of toggles.
+* [jan] Replace categories with tags.
+* [jan] Convert to Horde_View.
    </notes>
   </release>
  </changelog>

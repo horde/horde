@@ -6,7 +6,10 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @package Mnemo
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  */
+
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
@@ -83,11 +86,74 @@ if ($memo['body'] instanceof Mnemo_Exception) {
     }
 }
 
-/* Set the page title to the current note's name, if it exists. */
+$share = $mnemo_shares->getShare($memolist_id);
+$url = Horde::url('memo.php')
+    ->add(array('memo' => $memo_id, 'memolist' => $memolist_id));
+$body = $injector->getInstance('Horde_Core_Factory_TextFilter')
+    ->filter(
+        $memo['body'],
+        'text2html',
+        array('parselevel' => Horde_Text_Filter_Text2html::MICRO)
+    );
+
+$view = $injector->createInstance('Horde_View');
+$view->assign($memo);
+try {
+    $view->body = Horde::callHook(
+        'format_description',
+        array($body),
+        'mnemo',
+        $body
+    );
+} catch (Horde_Exception_HookNotSet $e) {
+    $view->body = $body;
+}
+$view->id = $memo_id;
+$view->listid = $memolist_id;
+$view->passphrase = $show_passphrase;
+$view->pdfurl = Horde::url('note/pdf.php')
+    ->add(array('note' => $memo_id, 'notepad' => $memolist_id));
+$view->tags = implode(', ', $memo['tags']);
+if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+    $view->delete = Horde::widget(array(
+        'url' => $url->add('actionID', 'delete_memos'),
+        'class' => 'mnemo-delete',
+        'id' => 'mnemo-delete',
+        'title' => _("_Delete")
+    ));
+}
+if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+    $view->edit = Horde::widget(array(
+        'url' => $url->add('actionID', 'modify_memo'),
+        'class' => 'mnemo-edit',
+        'title' => _("_Edit")
+    ));
+}
+if (isset($memo['created'])) {
+    $view->created = $memo['created']->strftime(
+        $prefs->getValue('date_format')
+    )
+    . ' ' . $memo['created']->format(
+        $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a'
+    );
+}
+if (isset($memo['modified'])) {
+    $view->modified = $memo['modified']->strftime(
+        $prefs->getValue('date_format')
+    )
+    . ' ' . $memo['modified']->format(
+        $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a'
+    );
+}
+
 $page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('view.js');
+$page_output->addInlineJsVars(
+    array('Mnemo_View.confirm' => _("Really delete this note?"))
+);
 $page_output->header(array(
     'title' => $memo ? $memo['desc'] : _("Note Details")
 ));
 $notification->notify();
-require MNEMO_TEMPLATES . '/view/memo.inc';
+echo $view->render('view/view');
 $page_output->footer();

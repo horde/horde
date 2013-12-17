@@ -5,8 +5,9 @@
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Mnemo
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  */
 
  /**
@@ -60,9 +61,6 @@ if (is_null($actionID)) {
     Horde::url('list.php', true)->redirect();
 }
 
-/* Load category manager. */
-$cManager = new Horde_Prefs_CategoryManager();
-
 /* Run through the action handlers. */
 switch ($actionID) {
 case 'add_memo':
@@ -97,8 +95,9 @@ case 'add_memo':
     }
     $memo_id = null;
     $memo_body = '';
-    $memo_category = '';
+    $memo_encrypted = $show_passphrase = false;
     $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
+    $memo_tags = '';
 
     $title = _("New Note");
     break;
@@ -121,8 +120,8 @@ case 'modify_memo':
 
     /* Set up the note attributes. */
     $memo_body = $memo['body'];
-    $memo_category = $memo['category'];
     $memo_encrypted = $memo['encrypted'];
+    $memo_tags = $memo['tags'];
     $title = sprintf(_("Edit: %s"), $memo['desc']);
     break;
 
@@ -130,7 +129,7 @@ case 'save_memo':
     /* Get the form values. */
     $memo_id = Horde_Util::getFormData('memo');
     $memo_body = Horde_Util::getFormData('memo_body');
-    $memo_category = Horde_Util::getFormData('memo_category');
+    $memo_tags = Horde_Util::getFormData('memo_tags');
     $memolist_original = Horde_Util::getFormData('memolist_original');
     $notepad_target = Horde_Util::getFormData('notepad_target');
     $memo_passphrase = Horde_Util::getFormData('memo_passphrase');
@@ -167,10 +166,6 @@ case 'save_memo':
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($memolist_original);
         break;
     } else {
-        if ($new_category = Horde_Util::getFormData('new_category')) {
-            $new_category = $cManager->add($new_category);
-            $memo_category = $new_category ? $new_category : '';
-        }
         if (!strlen($memo_passphrase)) {
             $memo_passphrase = Mnemo::getPassphrase($memo_id);
         }
@@ -208,7 +203,10 @@ case 'save_memo':
                 $memo_passphrase = Mnemo::getPassphrase($memo_id);
             }
             try {
-                $storage->modify($memo_id, $memo_desc, $memo_body, $memo_category, $memo_passphrase);
+                $storage->modify(
+                    $memo_id, $memo_desc, $memo_body,
+                    $memo_tags, $memo_passphrase
+                );
             } catch (Mnemo_Exception $e) {
                 $haveError = $e->getMessage();
             }
@@ -222,8 +220,9 @@ case 'save_memo':
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
             $memo_desc = $storage->getMemoDescription($memo_body);
             try {
-                $memo_id = $storage->add($memo_desc, $memo_body,
-                                         $memo_category, $memo_passphrase);
+                $memo_id = $storage->add(
+                    $memo_desc, $memo_body, $memo_tags, $memo_passphrase
+                );
             } catch (Mnemo_Exception $e) {
                 $haveError = $e->getMessage();
             }
@@ -271,10 +270,57 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
-$notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
+$view = $injector->createInstance('Horde_View');
+$view->formInput = Horde_Util::formInput();
+$view->id = $memo_id;
+$view->listid = $memolist_id;
+$view->modify = $actionID == 'modify_memo';
+$view->passphrase = $show_passphrase;
+$view->title = $title;
+$view->url = Horde::url('memo.php');
+
+if (!$view->modify || !$view->passphrase) {
+    $injector->getInstance('Horde_Core_Factory_Imple')
+        ->create('Mnemo_Ajax_Imple_TagAutoCompleter', array('id' => 'memo_tags'));
+    $view->body = $memo_body;
+    $view->count = sprintf(
+        _("%s characters"),
+        '<span id="mnemo-count">'
+            . Horde_String::length(str_replace(array("\r", "\n"), '', $memo_body))
+            . '</span>'
+    );
+    $view->encrypted = $memo_encrypted;
+    $view->encryption = $storage->encryptionSupported();
+    try {
+        $view->help = Horde::callHook('description_help', array(), 'mnemo', '');
+    } catch (Horde_Exception_HookNotSet $e) {
+    }
+    $view->loadingImg = Horde::img('loading.gif', _("Loading..."));
+    $view->notepads = array();
+    if (!$prefs->isLocked('default_notepad')) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $id => $notepad) {
+            $view->notepads[] = array(
+                'id' => $id,
+                'selected' => $id == $memolist_id,
+                'label' => Mnemo::getLabel($notepad)
+            );
+        }
+    }
+    $view->tags = implode(', ', $memo_tags);
+    if ($memo_id &&
+        $mnemo_shares->getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+        $view->delete = Horde::url('memo.php')->add(array(
+            'memo' => $memo_id,
+            'memolist' => $memolist_id,
+            'actionID', 'delete_memos'
+        ));
+    }
+}
+
+$page_output->addScriptFile('memo.js');
 $page_output->header(array(
     'title' => $title
 ));
 $notification->notify();
-require MNEMO_TEMPLATES . '/memo/memo.inc';
+echo $view->render('memo/memo');
 $page_output->footer();

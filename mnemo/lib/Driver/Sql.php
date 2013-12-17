@@ -138,27 +138,26 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     /**
      * Adds a note to the backend storage.
      *
-     * @param string $noteId    The ID of the new note.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The ID of the new note.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    protected function _add($noteId, $desc, $body, $category)
+    protected function _add($noteId, $desc, $body, $tags)
     {
         $uid = strval(new Horde_Support_Uuid());
 
         $query = 'INSERT INTO ' . $this->_table
-            . ' (memo_owner, memo_id, memo_desc, memo_body, memo_category, memo_uid)'
-            . ' VALUES (?, ?, ?, ?, ?, ?)';
+            . ' (memo_owner, memo_id, memo_desc, memo_body, memo_uid)'
+            . ' VALUES (?, ?, ?, ?, ?)';
         $values = array(
             $this->_notepad,
             $noteId,
             Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
             Horde_String::convertCharset($body, 'UTF-8', $this->_charset),
-            Horde_String::convertCharset($category, 'UTF-8', $this->_charset),
             Horde_String::convertCharset($uid, 'UTF-8', $this->_charset)
         );
 
@@ -174,29 +173,24 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     /**
      * Modifies an existing note.
      *
-     * @param string $noteId    The note to modify.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The note to modify.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @throws Mnemo_Exception
      */
-    protected function _modify($noteId, $desc, $body, $category)
+    protected function _modify($noteId, $desc, $body, $tags)
     {
         $query  = 'UPDATE ' . $this->_table
-            . ' SET memo_desc = ?, memo_body = ?';
+            . ' SET memo_desc = ?, memo_body = ?'
+            . ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array(
             Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
-            Horde_String::convertCharset($body, 'UTF-8', $this->_charset));
-
-        // Don't change the category if it isn't provided.
-        // @TODO: Category -> Tags
-        if (!is_null($category)) {
-            $query .= ', memo_category = ?';
-            $values[] = Horde_String::convertCharset($category, 'UTF-8', $this->_charset);
-        }
-        $query .= ' WHERE memo_owner = ? AND memo_id = ?';
-        array_push($values, $this->_notepad, $noteId);
+            Horde_String::convertCharset($body, 'UTF-8', $this->_charset),
+            $this->_notepad,
+            $noteId
+        );
 
         try {
             $this->_db->update($query, $values);
@@ -336,17 +330,18 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             }
         }
 
-        // Create a new task based on $row's values.
+        // Create a new note based on $row's values.
+        $uid = Horde_String::convertCharset(
+            $row['memo_uid'], $this->_charset, 'UTF-8'
+        );
         $memo = array(
             'memolist_id' => $row['memo_owner'],
             'memo_id' => $row['memo_id'],
-            'uid' => Horde_String::convertCharset(
-                $row['memo_uid'], $this->_charset, 'UTF-8'),
+            'uid' => $uid,
             'desc' => Horde_String::convertCharset(
                 $row['memo_desc'], $this->_charset, 'UTF-8'),
             'body' => $body,
-            'category' => Horde_String::convertCharset(
-                $row['memo_category'], $this->_charset, 'UTF-8'),
+            'tags' => $GLOBALS['injector']->getInstance('Mnemo_Tagger')->getTags($uid, 'note'),
             'encrypted' => $encrypted);
 
         try {

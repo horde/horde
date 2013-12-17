@@ -50,13 +50,13 @@ class Mnemo_Api extends Horde_Registry_Api
      * Returns an array of UIDs for all notes that the current user is authorized
      * to see.
      *
-     * @param string $notepad  The notepad to list notes from.
+     * @param array|string $notepads  The notepad(s) to list notes from.
      *
      * @return array  An array of UIDs for all notes the user can access.
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    public function listUids($notepad = null)
+    public function listUids($notepads = null)
     {
         global $conf;
 
@@ -65,16 +65,22 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         // Make sure we have a valid notepad.
-        if (empty($notepad)) {
-            $notepad = Mnemo::getDefaultNotepad();
-        }
-
-        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied();
+        if (empty($notepads)) {
+            $notepads = Mnemo::getSyncLists();
+        } else {
+            if (!is_array($notepads)) {
+                $notepads = array($notepads);
+            }
+            foreach ($notepads as $notepad) {
+                if (!Mnemo::hasPermission($notepad, Horde_Perms::READ)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
+            }
         }
 
         // Set notepad for listMemos.
-        $GLOBALS['display_notepads'] = array($notepad);
+        $GLOBALS['display_notepads'] = $notepads;
+
         $memos = Mnemo::listMemos();
         $uids = array();
         foreach ($memos as $memo) {
@@ -94,30 +100,31 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param boolean $isModSeq          If true, $timestamp and $end are
      *                                   modification sequences and not
      *                                   timestamps. @since 4.1.1
+     * @param string|array $notepads     The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
-     * @since 3.0.5
      */
-    public function getChanges($start, $end, $isModSeq = false)
+    public function getChanges($start, $end, $isModSeq = false, $notepads = null)
     {
-        return array('add' => $this->listBy('add', $start, null, $end, $isModSeq),
-                     'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
-                     'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+        return array('add' => $this->listBy('add', $start, $notepads, $end, $isModSeq),
+                     'modify' => $this->listBy('modify', $start, $notepads, $end, $isModSeq),
+                     'delete' => $this->listBy('delete', $start, $notepads, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start          The starting modseq.
+     * @param integer $end            The ending modseq.
+     * @param string|array $notepads  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $notepads = null)
     {
-        return $this->getChanges($start, $end, true);
+        return $this->getChanges($start, $end, true, $notepads);
     }
 
     /**
@@ -137,11 +144,12 @@ class Mnemo_Api extends Horde_Registry_Api
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
-            $notepad = Mnemo::getDefaultNotepad();
-        }
-
-        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-           throw new Horde_Exception_PermissionDenied();
+            $notepads = Mnemo::getSyncNotepads();
+            $results = array();
+            foreach ($notepads as $notepad) {
+                $results = array_merge($results, $this->listBy($action, $timestamp, $notepad, $end, $isModSeq));
+            }
+            return $results;
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -193,12 +201,20 @@ class Mnemo_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
+     * @param string $id  The notepad id to get the MODSEQ for. If null, the
+     *                    highest MODSEQ across all notepads is returned.
+     *                    @since 4.2.0
+     *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('mnemo');
+        $parent = 'mnemo';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
@@ -260,7 +276,7 @@ class Mnemo_Api extends Horde_Registry_Api
                             $note = $storage->fromiCalendar($content);
                             $noteId = $storage->add(
                                 $note['desc'], $note['body'],
-                                !empty($note['category']) ? $note['category'] : '');
+                                !empty($note['tags']) ? $note['tags'] : '');
                             $ids[] = $noteId;
                         }
                     }
@@ -271,18 +287,17 @@ class Mnemo_Api extends Horde_Registry_Api
             $note = $storage->fromiCalendar($content);
             $noteId = $storage->add(
                 $note['desc'], $note['body'],
-                !empty($note['category']) ? $note['category'] : '');
+                !empty($note['tags']) ? $note['tags'] : '');
             break;
 
         case 'activesync':
-            $category = is_array($content->categories) ? current($content->categories) : '';
             // We only support plaintext
             if ($content->body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
                 $body = Horde_Text_Filter::filter($content->body->data, 'Html2text');
             } else {
                 $body = $content->body->data;
             }
-            $noteId = $storage->add($content->subject, $body, $category);
+            $noteId = $storage->add($content->subject, $body, $content->categories);
             break;
 
         default:
@@ -419,25 +434,116 @@ class Mnemo_Api extends Horde_Registry_Api
             $storage->modify($memo['memo_id'],
                              $note['desc'],
                              $note['body'],
-                             !empty($note['category']) ? $note['category'] : '');
+                             !empty($note['tags']) ? $note['tags'] : '');
             break;
 
         case 'activesync':
-            $category = is_array($content->categories) ? current($content->categories) : '';
-
-            // We only support plaintext
-            if ($content->body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
-                $body = Horde_Text_Filter::filter($content->body->data, 'Html2text');
-            } else {
-                $body = $content->body->data;
-            }
-
-            $storage->modify($memo['memo_id'], $content->subject, $body, $category);
+            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $content->categories);
             break;
 
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }
+    }
+
+    /**
+     * Returns a list of available sources.
+     *
+     * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include synchable notepads.
+     *
+     * @return array  An array of the available sources. Keys are source IDs,
+     *                values are source titles.
+     * @since 4.2.0
+     */
+    public function sources($writeable = false, $sync_only = false)
+    {
+        $out = array();
+
+        foreach (Mnemo::listNotepads(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
+            $out[$key] = $val->get('name');
+        }
+
+        if ($sync_only) {
+            $syncable = Mnemo::getSyncNotepads();
+            $out = array_intersect_key($out, array_flip($syncable));
+        }
+
+        return $out;
+    }
+
+    /**
+     * Retrieve the UID for the current user's default notepad.
+     *
+     * @return string  UID.
+     * @since 4.2.0
+     */
+    public function getDefaultShare()
+    {
+        return Mnemo::getDefaultNotepad(Horde_Perms::EDIT);
+    }
+
+    /**
+     * Create a new notepad.
+     *
+     * @param string $name    The notepad display name.
+     * @param array  $params  Any additional parameters needed.
+     *
+     * @return string  The new notepad's id.
+     * @since 4.2.0
+     */
+    public function addNotpad($name, array $params = array())
+    {
+        if ($GLOBALS['prefs']->isLocked('default_notepad')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        $notepad = $GLOBALS['mnemo_shares']->newShare(
+            $GLOBALS['registry']->getAuth(),
+            strval(new Horde_Support_Uuid()),
+            $name);
+
+        return $notepad->getName();
+    }
+
+    /**
+     * Delete notepad.
+     *
+     * @param string $id  The notepad id.
+     * @since 4.2.0
+     */
+    public function deleteNotepad($id)
+    {
+        // Delete the notepad.
+        $storage = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Driver')
+            ->create($id);
+        $storage->deleteAll();
+        $share = $GLOBALS['mnemo_shares']->getShare($id);
+        $GLOBALS['mnemo_shares']->removeShare($share);
+    }
+
+    /**
+     * Update a notepad's title and/or description.
+     *
+     * @param string $id   The notepad id
+     * @param array $info  The data to change:
+     *   - name:  The display name.
+     *   - desc:  The description.
+     *
+     * @since 4.2.0
+     */
+    public function updateNotepad($id, array $info)
+    {
+        $notepad = $GLOBALS['mnemo_shares']->getShare($id);
+        if (!empty($info['name'])) {
+            $notepad->set('name', $info['name']);
+        }
+        if (!empty($info['desc'])) {
+            $notepad->set('desc', $info['desc']);
+        }
+
+        $notepad->save();
     }
 
 }

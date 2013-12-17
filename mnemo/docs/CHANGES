@@ -1,10 +1,10 @@
 ----------
-v4.1.3-git
+v4.2.0-git
 ----------
 
-[mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
-[mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug
-      #12855).
+[jan] Make notepad checkbox links switches instead of toggles.
+[jan] Replace categories with tags.
+[jan] Convert to Horde_View.
 
 
 ------

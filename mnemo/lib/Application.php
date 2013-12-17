@@ -43,7 +43,7 @@ class Mnemo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.3-git)';
+    public $version = 'H5 (4.2.0-git)';
 
     /**
      * Global variables defined:
@@ -51,6 +51,17 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
+        }
+
         Mnemo::initialize();
     }
 
@@ -124,9 +135,15 @@ class Mnemo_Application extends Horde_Registry_Application
             ),
         );
         foreach (Mnemo::listNotepads() as $name => $notepad) {
+            $url->add(array(
+                'display_notepad' => $name,
+                'actionID' => in_array($name, $GLOBALS['display_notepads'])
+                    ? 'remove_displaylist'
+                    : 'add_displaylist'
+            ));
             $row = array(
                 'selected' => in_array($name, $GLOBALS['display_notepads']),
-                'url' => $url->add('display_notepad', $name),
+                'url' => $url,
                 'label' => Mnemo::getLabel($notepad),
                 'color' => $notepad->get('color') ?: '#dddddd',
                 'edit' => $edit->add('n', $notepad->getName()),

@@ -21,11 +21,6 @@ class Mnemo
     const SORT_DESC = 0;
 
     /**
-     * Sort by memo category.
-     */
-    const SORT_CATEGORY = 1;
-
-    /**
      * Sort by notepad.
      */
     const SORT_NOTEPAD = 2;
@@ -60,8 +55,7 @@ class Mnemo
      * also sort the resulting list, if requested.
      *
      * @param constant $sortby   The field by which to sort. (self::SORT_DESC,
-     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD,
-     *                           self::SORT_MOD_DATE)
+     *                           self::SORT_NOTEPAD, self::SORT_MOD_DATE)
      * @param constant $sortdir  The direction by which to sort.
      *                           (self::SORT_ASC, self::SORT_DESC)
      *
@@ -78,7 +72,6 @@ class Mnemo
         /* Sort the memo list. */
         $sort_functions = array(
             self::SORT_DESC => 'ByDesc',
-            self::SORT_CATEGORY => 'ByCategory',
             self::SORT_NOTEPAD => 'ByNotepad',
             self::SORT_MOD_DATE => 'ByModDate'
         );
@@ -322,35 +315,6 @@ class Mnemo
     }
 
     /**
-     * Comparison function for sorting notes by category.
-     *
-     * @param array $a  Note one.
-     * @param array $b  Note two.
-     *
-     * @return integer  1 if note one is greater, -1 if note two is greater; 0
-     *                  if they are equal.
-     */
-    protected static function _sortByCategory($a, $b)
-    {
-        return strcoll($a['category'] ? $a['category'] : _("Unfiled"),
-                       $b['category'] ? $b['category'] : _("Unfiled"));
-    }
-
-    /**
-     * Comparison function for reverse sorting notes by category.
-     *
-     * @param array $a  Note one.
-     * @param array $b  Note two.
-     *
-     * @return integer  -1 if note one is greater, 1 if note two is greater; 0
-     *                  if they are equal.
-     */
-    protected static function _rsortByCategory($a, $b)
-    {
-        return self::_sortByCategory($b, $a);
-    }
-
-    /**
      * Comparison function for sorting notes by notepad name.
      *
      * @param array $a  Note one.
@@ -449,12 +413,11 @@ class Mnemo
      */
     public static function hasPermission($permission)
     {
-        global $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if (!$perms->exists('mnemo:' . $permission)) {
             return true;
         }
-
         $allowed = $perms->getPermissions('mnemo:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
@@ -513,15 +476,18 @@ class Mnemo
         // user doesn't have any selected notepads for view then fall
         // back to some available notepad.
         $GLOBALS['display_notepads'] = unserialize($GLOBALS['prefs']->getValue('display_notepads'));
-        if (($notepadId = Horde_Util::getFormData('display_notepad')) !== null) {
-            if (is_array($notepadId)) {
-                $GLOBALS['display_notepads'] = $notepadId;
-            } else {
+        if (($actionID = Horde_Util::getFormData('actionID')) !== null) {
+            $notepadId = Horde_Util::getFormData('display_notepad');
+            switch ($actionID) {
+            case 'add_displaylist':
+                if (!in_array($notepadId, $GLOBALS['display_notepads'])) {
+                    $GLOBALS['display_notepads'][] = $notepadId;
+                }
+                break;
+            case 'remove_displaylist':
                 if (in_array($notepadId, $GLOBALS['display_notepads'])) {
                     $key = array_search($notepadId, $GLOBALS['display_notepads']);
                     unset($GLOBALS['display_notepads'][$key]);
-                } else {
-                    $GLOBALS['display_notepads'][] = $notepadId;
                 }
             }
         }
@@ -555,17 +521,41 @@ class Mnemo
     }
 
     /**
+     * Returns the notepads that should be used for syncing.
+     *
+     * @param boolean $prune  Remove notepads ids from the sync list that no
+     *                        longer exist. The values are pruned *after* the
+     *                        results are passed back to the client to give
+     *                        sync clients a chance to remove their entries.
+     *
+     * @return array  An array of notepad ids.
      */
-    static public function getCssStyle($category)
+    static public function getSyncNotepads($prune = false)
     {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $colors = $cManager->colors();
-        if (!isset($colors[$category])) {
-            return '';
+        $haveRemoved = false;
+        $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
+        if (!empty($cs)) {
+            if ($prune) {
+                $notepads =  self::listNotepads(true, Horde_Perms::EDIT);
+                $cscopy = array_flip($cs);
+                foreach ($cs as $c) {
+                    if (empty($notepads[$c])) {
+                        unset($cscopy[$c]);
+                        $haveRemoved = true;
+                    }
+                }
+                if ($haveRemoved) {
+                    $GLOBALS['prefs']->setValue('sync_notepads', serialize(array_flip($cscopy)));
+                }
+            }
+            return $cs;
         }
-        $fgColors = $cManager->fgColors();
 
-        return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
-            'background:' . $colors[$category] . ';';
+        if ($cs = self::getDefaultNotepad(Horde_Perms::EDIT)) {
+            return array($cs);
+        }
+
+        return array();
     }
+
 }

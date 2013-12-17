@@ -112,13 +112,13 @@ abstract class Mnemo_Driver
      *
      * @param string $desc        The first line of the note.
      * @param string $body        The whole note body.
-     * @param string $category    The category of the note.
+     * @param string $tags        The tags of the note.
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
      * @return string  The ID of the new note.
      * @throws Mnemo_Exception
      */
-    public function add($desc, $body, $category = '', $passphrase = null)
+    public function add($desc, $body, $tags = '', $passphrase = null)
     {
         $noteId = $this->_generateId();
 
@@ -127,7 +127,11 @@ abstract class Mnemo_Driver
             Mnemo::storePassphrase($noteId, $passphrase);
         }
 
-        $uid = $this->_add($noteId, $desc, $body, $category);
+        $uid = $this->_add($noteId, $desc, $body, $tags);
+
+        // Add tags.
+        $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+            ->tag($uid, $tags, $this->_notepad, 'note');
 
         // Log the creation of this item in the history log.
         try {
@@ -143,15 +147,15 @@ abstract class Mnemo_Driver
     /**
      * Adds a note to the backend storage.
      *
-     * @param string $noteId    The ID of the new note.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The ID of the new note.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    abstract protected function _add($noteId, $desc, $body, $category);
+    abstract protected function _add($noteId, $desc, $body, $tags);
 
     /**
      * Modifies an existing note.
@@ -159,12 +163,12 @@ abstract class Mnemo_Driver
      * @param string $noteId      The note to modify.
      * @param string $desc        The first line of the note.
      * @param string $body        The whole note body.
-     * @param string $category    The category of the note.
+     * @param string $tags        The tags of the note.
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
      * @throws Mnemo_Exception
      */
-    public function modify($noteId, $desc, $body, $category = null,
+    public function modify($noteId, $desc, $body, $tags = '',
                            $passphrase = null)
     {
         if ($passphrase) {
@@ -172,7 +176,11 @@ abstract class Mnemo_Driver
             Mnemo::storePassphrase($noteId, $passphrase);
         }
 
-        $uid = $this->_modify($noteId, $desc, $body, $category);
+        $uid = $this->_modify($noteId, $desc, $body, $tags);
+
+        // Update tags.
+        $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+            ->replaceTags($uid, $tags, $this->_notepad, 'note');
 
         // Log the modification of this item in the history log.
         if ($uid) {
@@ -188,15 +196,15 @@ abstract class Mnemo_Driver
     /**
      * Modifies an existing note.
      *
-     * @param string $noteId    The note to modify.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The note to modify.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @return string  The note's UID.
      * @throws Mnemo_Exception
      */
-    abstract protected function _modify($noteId, $desc, $body, $category);
+    abstract protected function _modify($noteId, $desc, $body, $tags);
 
     /**
      * Moves a note to a new notepad.
@@ -409,8 +417,8 @@ abstract class Mnemo_Driver
         }
         $body->estimateddatasize = Horde_String::length($memo['body']);
         $message->body = $body;
-        if (!empty($memo['category'])) {
-            $message->categories = array($memo['category']);
+        if (!empty($memo['tags'])) {
+            $message->categories = $memo['tags'];
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -441,8 +449,8 @@ abstract class Mnemo_Driver
         $vnote->setAttribute('BODY', $memo['body']);
         $vnote->setAttribute('SUMMARY', $memo['desc']);
 
-        if (!empty($memo['category'])) {
-            $vnote->setAttribute('CATEGORIES', $memo['category']);
+        if (!empty($memo['tags'])) {
+            $vnote->setAttribute('CATEGORIES', implode(', ', $memo['tags']));
         }
 
         /* Get the note's history. */
@@ -497,10 +505,10 @@ abstract class Mnemo_Driver
 
         try {
             $cat = $vNote->getAttribute('CATEGORIES');
+            if (!is_array($cat)) {
+                $memo['tags'] = $cat;
+            }
         } catch (Horde_Icalendar_Exception $e) {
-        }
-        if (!is_array($cat)) {
-            $memo['category'] = $cat;
         }
 
         return $memo;
