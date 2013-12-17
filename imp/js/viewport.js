@@ -295,7 +295,7 @@ var ViewPort = Class.create({
         if (this.page_size === null) {
             ps = this.getPageSize(this.pane_mode ? 'default' : 'max');
             if (isNaN(ps)) {
-                return this.loadView.bind(this, view, opts).defer();
+                return this.loadView.bind(this, view, opts).delay(0.1);
             }
             this.page_size = ps;
         }
@@ -421,7 +421,7 @@ var ViewPort = Class.create({
     {
         if (vs.size()) {
             if (this.isbusy) {
-                this.remove.bind(this, vs).defer();
+                this.remove.bind(this, vs).delay(0.1);
             } else {
                 this.isbusy = true;
                 try {
@@ -466,7 +466,7 @@ var ViewPort = Class.create({
         if (nowait) {
             this._onResize(size);
         } else {
-            this.resizefunc = this._onResize.bind(this, size).defer();
+            this.resizefunc = this._onResize.bind(this, size).delay(0.1);
         }
     },
 
@@ -599,7 +599,7 @@ var ViewPort = Class.create({
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
-            this._fetchBuffer.bind(this, opts).defer();
+            this._fetchBuffer.bind(this, opts).delay(0.1);
         } else {
             this.isbusy = true;
             try {
@@ -814,7 +814,7 @@ var ViewPort = Class.create({
     _ajaxResponse: function(r)
     {
         if (this.isbusy) {
-            this._ajaxResponse.bind(this, r).defer();
+            this._ajaxResponse.bind(this, r).delay(0.1);
         } else {
             this.isbusy = true;
             try {

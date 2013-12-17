@@ -670,7 +670,7 @@ var ImpSearch = {
     onDomLoad: function()
     {
         if (!this.data) {
-            this.onDomLoad.bind(this).defer();
+            this.onDomLoad.bind(this).delay(0.1);
             return;
         }
 

@@ -303,7 +303,7 @@ var DimpMessage = {
 document.observe('dom:loaded', function() {
     if (Prototype.Browser.IE && !document.addEventListener) {
         // IE 8
-        DimpMessage.onDomLoad.bind(DimpMessage).defer();
+        DimpMessage.onDomLoad.bind(DimpMessage).delay(0.1);
     } else {
         DimpMessage.onDomLoad();
     }

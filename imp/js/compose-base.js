@@ -44,7 +44,7 @@ var ImpComposeBase = {
             Field.focus(input);
             input.setSelectionRange(pos, pos);
             if (pos) {
-                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
+                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).delay(0.1);
             }
         } else if (input.createTextRange) {
             /* This works in IE */

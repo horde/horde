@@ -290,7 +290,7 @@ var DimpBase = {
     {
         // Folder bar may not be fully loaded yet.
         if ($('foldersLoading').visible()) {
-            this.highlightSidebar.bind(this, id).defer();
+            this.highlightSidebar.bind(this, id).delay(0.1);
             return;
         }
 
@@ -2122,7 +2122,7 @@ var DimpBase = {
         /* Don't update polled status until the sidebar is visible. Otherwise,
          * preview callbacks may not correctly update unseen status. */
         if (!$('foldersSidebar').visible()) {
-            return this.pollCallback.bind(this, r).defer();
+            return this.pollCallback.bind(this, r).delay(0.1);
         }
 
         $H(r).each(function(u) {
@@ -4161,7 +4161,7 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 document.observe('dom:loaded', function() {
     if (Prototype.Browser.IE && !document.addEventListener) {
         // For IE 8
-        DimpBase.onDomLoad.bind(DimpBase).defer();
+        DimpBase.onDomLoad.bind(DimpBase).delay(0.1);
     } else {
         DimpBase.onDomLoad();
     }

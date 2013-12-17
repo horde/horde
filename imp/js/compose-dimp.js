@@ -211,7 +211,7 @@ var DimpCompose = {
         }
 
         if (this.editor_wait) {
-            return this.uniqueSubmit.bind(this, action).defer();
+            return this.uniqueSubmit.bind(this, action).delay(0.1);
         }
 
         switch (action) {
@@ -397,7 +397,7 @@ var DimpCompose = {
         }
 
         if (this.editor_wait) {
-            return this.toggleHtmlEditor.bind(this, noupdate).defer();
+            return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
 
         if (ImpComposeBase.editor_on) {
@@ -556,7 +556,7 @@ var DimpCompose = {
         } else if (!this.rte_loaded && !rte) {
             ta.setValue(r.text);
         } else {
-            this.setMessageText.bind(this, rte, r).defer();
+            this.setMessageText.bind(this, rte, r).delay(0.1);
             return;
         }
 
@@ -569,7 +569,7 @@ var DimpCompose = {
     fillForm: function(ob)
     {
         if (!document.loaded || $('dimpLoading').visible()) {
-            this.fillForm.bind(this, ob).defer();
+            this.fillForm.bind(this, ob).delay(0.1);
             return;
         }
 
@@ -642,7 +642,7 @@ var DimpCompose = {
     fillFormHash: function()
     {
         if (ImpComposeBase.editor_on && !this.rte_loaded) {
-            this.fillFormHash.bind(this).defer();
+            this.fillFormHash.bind(this).delay(0.1);
             return;
         }
 
@@ -713,7 +713,7 @@ var DimpCompose = {
     updateSigHash: function()
     {
         if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
-            this.updateSigHash.bind(this).defer();
+            this.updateSigHash.bind(this).delay(0.1);
             return;
         }
         this.hash_sigOrig = this.sigHash();
@@ -781,7 +781,7 @@ var DimpCompose = {
         if (this.rte.focus) {
             this.rte.focus();
         } else {
-            this.focusEditor.bind(this).defer();
+            this.focusEditor.bind(this).delay(0.1);
         }
     },
 
@@ -898,7 +898,7 @@ var DimpCompose = {
     resizeMsgArea: function(e)
     {
         if (!document.loaded || $('dimpLoading').visible()) {
-            this.resizeMsgArea.bind(this).defer();
+            this.resizeMsgArea.bind(this).delay(0.1);
             return;
         }
 

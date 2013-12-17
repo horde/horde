@@ -95,12 +95,7 @@ var IMP_JS = {
 
         id.observe('load', function(i) {
             i.stopObserving('load');
-            if (Prototype.Browser.IE && !document.addEventListener) {
-                // IE8
-                this.iframeResize.bind(this, i).delay(1);
-            } else {
-                this.iframeResize.bind(this, i).defer();
-            }
+            this.iframeResize.bind(this, i).delay(0.1);
         }.bind(this, id));
 
         d.open();

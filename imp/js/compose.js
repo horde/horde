@@ -169,7 +169,7 @@ var ImpCompose = {
         $(document).fire('AutoComplete:update');
 
         if (this.editor_wait && ImpComposeBase.editor_on) {
-            return this.uniqSubmit.bind(this, actionID, e).defer();
+            return this.uniqSubmit.bind(this, actionID, e).delay(0.1);
         }
 
         // Ticket #6727; this breaks on WebKit w/FCKeditor.
@@ -237,7 +237,7 @@ var ImpCompose = {
     updateSigHash: function()
     {
         if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
-            this.updateSigHash.bind(this).defer();
+            this.updateSigHash.bind(this).delay(0.1);
             return;
         }
         this.last_sig = this.sigHash();
@@ -413,7 +413,7 @@ var ImpCompose = {
         if (this.popup && !this.reloaded) {
             e = e.getHeight();
             if (!e) {
-                return this.resize.bind(this).defer();
+                return this.resize.bind(this).delay(0.1);
             }
             d = Math.min(e, screen.height - 50) - document.viewport.getHeight();
             if (d > 0) {
