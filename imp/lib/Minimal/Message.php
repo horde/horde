@@ -19,12 +19,12 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
      *   a: (string) Action ID.
      *   allto: (boolean) View all To addresses?
      *   buid: (string) Browser UID.
-     *   mt: (string) Message token.
      *   fullmsg: (boolean) View full message?
+     *   t: (string) Token.
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs;
+        global $injector, $notification, $page_output, $prefs, $session;
 
         $imp_mailbox = $this->indices->mailbox->list_ob;
         $imp_mailbox->setIndex($this->indices);
@@ -47,12 +47,12 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         case 'd':
             $old_index = $imp_mailbox->getIndex();
             try {
-                $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
+                $session->checkToken($this->vars->t);
                 $msg_delete = (bool)$injector->getInstance('IMP_Message')->delete(
                     $this->indices,
                     array('mailboxob' => $imp_mailbox)
                 );
-            } catch (Horde_Token_Exception $e) {
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
             }
             break;
@@ -92,7 +92,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Get envelope/flag/header information. */
         try {
-            $imp_imap = $injector->getInstance('IMP_Imap');
+            $imp_imap = $mailbox->imp_imap;
 
             /* Need to fetch flags before HEADERTEXT, because SEEN flag might
              * be set before we can grab it. */
@@ -230,7 +230,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         if ($this->indices->mailbox->access_deletemsgs) {
             $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
                 ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
-                : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
+                : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 't' => $session->getToken())));
         }
 
         /* Add compose actions (Reply, Reply List, Reply All, Forward,
@@ -275,11 +275,11 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         $menu[] = array(sprintf(_("To %s"), $this->indices->mailbox->label), $mailbox_link);
 
         if ($mailbox->spam_show) {
-            $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
+            $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 't' => $session->getToken())));
         }
 
         if ($mailbox->innocent_show) {
-            $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
+            $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 't' => $session->getToken())));
         }
 
         $this->view->menu = $this->getMenu('message', $menu);

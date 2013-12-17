@@ -40,6 +40,11 @@ class IMP_Perms
                 'title' => _("Allow folder navigation?"),
                 'type' => 'boolean'
             ),
+            'allow_remote' => array(
+                'imaponly' => true,
+                'title' => _("Allow remote account access?"),
+                'type' => 'boolean'
+            ),
             'create_mboxes' => array(
                 'imaponly' => true,
                 'title' => _("Allow mailbox creation?"),
@@ -79,7 +84,7 @@ class IMP_Perms
             ),
             'max_create_mboxes' => array(
                 'handle' => function($allowed, $opts) {
-                    return (intval($allowed[0]) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
+                    return (intval($allowed[0]) >= count($GLOBALS['injector']->getInstance('IMP_Ftree')));
                 },
                 'imaponly' => true,
                 'title' => _("Maximum Number of Mailboxes"),

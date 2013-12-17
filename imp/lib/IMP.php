@@ -44,54 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Generates a select form input from a mailbox list. The &lt;select&gt;
-     * and &lt;/select&gt; tags are NOT included in the output.
-     *
-     * @param array $options  Optional parameters:
-     *   - abbrev: (boolean) Abbreviate long mailbox names by replacing the
-     *             middle of the name with '...'?
-     *             DEFAULT: Yes
-     *   - basename: (boolean)  Use raw basename instead of abbreviated label?
-     *               DEFAULT: false
-     *   - filter: (array) An array of mailboxes to ignore.
-     *             DEFAULT: Display all
-     *   - heading: (string) The label for an empty-value option at the top of
-     *              the list.
-     *              DEFAULT: ''
-     *   - inc_notepads: (boolean) Include user's editable notepads in list?
-     *                   DEFAULT: No
-     *   - inc_tasklists: (boolean) Include user's editable tasklists in list?
-     *                    DEFAULT: No
-     *   - inc_vfolder: (boolean) Include user's virtual folders in list?
-     *                  DEFAULT: No
-     *   - new_mbox: (boolean) Display an option to create a new mailbox?
-     *               DEFAULT: No
-     *   - selected: (string) The mailbox to have selected by default.
-     *               DEFAULT: None
-     *   - optgroup: (boolean) Whether to use <optgroup> elements to group
-     *               mailbox types.
-     *               DEFAULT: false
-     *
-     * @return string  A string containing <option> elements for each mailbox
-     *                 in the list.
-     */
-    static public function flistSelect(array $options = array())
-    {
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter();
-        $tree = $imaptree->createTree(strval(new Horde_Support_Randomid()), array(
-            'basename' => !empty($options['basename']),
-            'render_type' => 'IMP_Tree_Flist'
-        ));
-        if (!empty($options['selected'])) {
-            $tree->addNodeParams(IMP_Mailbox::formTo($options['selected']), array('selected' => true));
-        }
-        $tree->setOption($options);
-
-        return $tree->getTree();
-    }
-
-    /**
      * Filters a string, if requested.
      *
      * @param string $text  The text to filter.
@@ -104,7 +56,11 @@ class IMP
 
         if ($prefs->getValue('filtering') && strlen($text)) {
             try {
-                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', Horde::callHook('msg_filter', array(), 'imp'));
+                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter(
+                    $text,
+                    'words',
+                    $injector->getInstance('Horde_Core_Hooks')->callHook('msg_filter', 'imp')
+                );
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -156,7 +112,7 @@ class IMP
      */
     static public function parseAddressList($in, array $opts = array())
     {
-        $md = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+        $md = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
 
         if ($in instanceof Horde_Mail_Rfc822_List) {
             $res = clone $in;

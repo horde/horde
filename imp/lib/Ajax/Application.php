@@ -67,6 +67,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
+            if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_REMOTE)) {
+                $this->addHandler('IMP_Ajax_Application_Handler_Remote');
+            }
             break;
 
         case $registry::VIEW_SMARTMOBILE:
@@ -82,6 +85,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->addHandler('IMP_Ajax_Application_Handler_ImageUnblock');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
 
         $this->queue = $injector->getInstance('IMP_Ajax_Queue');
 
@@ -95,7 +99,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Make sure the viewport entry is initialized. */
         $vp = isset($this->_vars->viewport)
-            ? Horde_Serialize::unserialize($this->_vars->viewport, Horde_Serialize::JSON)
+            ? json_decode($this->_vars->viewport)
             : new stdClass;
         $this->_vars->viewport = new Horde_Support_ObjectStub($vp);
 
@@ -108,10 +112,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check for global poll task. */
         if (isset($this->_vars->poll)) {
-            $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
+            $poll = json_decode($this->_vars->poll);
             $this->queue->poll(
                 empty($poll)
-                    ? $injector->getInstance('IMP_Imap_Tree')->getPollList()
+                    ? $injector->getInstance('IMP_Ftree')->poll->getPollList()
                     : IMP_Mailbox::formFrom($poll)
             );
         }
@@ -237,7 +241,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if ($vp->search) {
-            $search = Horde_Serialize::unserialize($vp->search, Horde_Serialize::JSON);
+            $search = json_decode($vp->search);
             $args += array(
                 'search_buid' => isset($search->buid) ? $search->buid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null
@@ -285,7 +289,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $this->indices->mailbox->imp_imap->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;

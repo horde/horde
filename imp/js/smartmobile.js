@@ -1104,8 +1104,12 @@ var ImpMobile = {
     addAddress: function(f, addr)
     {
         if (addr) {
-            var elt = $('#imp-compose-' + f + '-addr');
-            elt.append(
+            $('#imp-compose-' + f + '-addr').prepend(
+                $('<input></input>')
+                    .attr('name', f + '[]')
+                    .attr('type', 'hidden')
+                    .val(addr)
+            ).prepend(
                 $('<a></a>')
                     .attr('href', '#compose-delete-addr')
                     .attr('data-role', 'button')
@@ -1115,12 +1119,48 @@ var ImpMobile = {
                     .text(addr)
                     .button()
             );
-            elt.append(
-                $('<input></input>')
-                    .attr('name', f + '[]')
-                    .attr('type', 'hidden')
-                    .val(addr)
-            );
+        }
+    },
+
+    /**
+     */
+    processComposeAddress: function(e, prev)
+    {
+        var chr, pos = 0, tmp,
+            val = $(this).val();
+
+        if (val.length > prev.length) {
+            // Optimization when only one character was added
+            if (val.length - prev.length == 1) {
+                tmp = val.charAt(val.length - 1);
+                if (tmp != ',' && tmp != ';') {
+                    return;
+                }
+            }
+
+            chr = val.charAt(pos);
+            while (chr !== "") {
+                switch (chr) {
+                case ',':
+                case ';':
+                    if (!pos) {
+                        val = val.substr(1);
+                    } else if (val.charAt(pos - 1) != '\\') {
+                        ImpMobile.addAddress($(this).attr('id') == 'imp-compose-to' ? 'to' : 'cc', $.trim(val.substr(0, chr == ';' ? pos + 1 : pos)));
+                        val = val.substr(pos + 2);
+                        pos = 0;
+                    }
+                    break;
+
+                default:
+                    ++pos;
+                    break;
+                }
+
+                chr = val.charAt(pos);
+            }
+
+            $(this).val($.trim(val));
         }
     },
 
@@ -1499,16 +1539,19 @@ var ImpMobile = {
             });
 
             $.each([ 'to', 'cc' ], function(undefined, v) {
-                $('#imp-compose-' + v).autocomplete({
-                    callback: function(e) {
-                        ImpMobile.addAddress(v, $.trim($(e.currentTarget).text()));
-                        $('#imp-compose-' + v).val('');
-                    },
-                    link: '#',
-                    minLength: 3,
-                    source: 'smartmobileAutocomplete',
-                    target: $('#imp-compose-' + v + '-suggestions')
-                });
+                $('#imp-compose-' + v)
+                    .autocomplete({
+                        callback: function(e) {
+                            ImpMobile.addAddress(v, $.trim($(e.currentTarget).text()));
+                            $('#imp-compose-' + v).val('');
+                        },
+                        link: '#',
+                        minLength: 3,
+                        source: 'smartmobileAutocomplete',
+                        target: $('#imp-compose-' + v + '-suggestions')
+                    })
+                    // textchange plugin requires bind()
+                    .bind('textchange', ImpMobile.processComposeAddress);
             });
         }
 

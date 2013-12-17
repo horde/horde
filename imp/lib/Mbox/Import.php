@@ -147,7 +147,7 @@ class IMP_Mbox_Import
 
         $parsed = new IMP_Mbox_Parse(
             $fd,
-            $GLOBALS['injector']->getInstance('IMP_Imap')->config->import_limit
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->import_limit
         );
 
         $this->_import = array(
@@ -189,7 +189,7 @@ class IMP_Mbox_Import
         }
 
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->append($this->_mbox, $this->_import['data']);
+            $this->_mbox->imp_imap->append($this->_mbox, $this->_import['data']);
             $this->_import['msgs'] += count($this->_import['data']);
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Error when importing messages; %u messages successfully imported before error."), $this->_import['msgs']));

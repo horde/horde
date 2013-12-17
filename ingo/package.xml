@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2013-11-01</date>
  <version>
-  <release>3.1.4</release>
-  <api>3.0.0</api>
+  <release>3.2.0</release>
+  <api>3.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
+* [mms] Add &apos;newEmailFilter&apos; API link.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -102,6 +103,9 @@
      <file name="Transport.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
+     <dir name="Type">
+      <file name="Longemail.php" role="horde" />
+     </dir> <!-- /lib/Form/Type -->
      <file name="Base.php" role="horde" />
      <file name="Forward.php" role="horde" />
      <file name="Spam.php" role="horde" />
@@ -671,6 +675,7 @@
    <install as="ingo/lib/Form/Forward.php" name="lib/Form/Forward.php" />
    <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
    <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
+   <install as="ingo/lib/Form/Type/Longemail.php" name="lib/Form/Type/Longemail.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
    <install as="ingo/lib/Script/Customsql.php" name="lib/Script/Customsql.php" />
@@ -1316,19 +1321,6 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] SECURITY: Protect against CSRF attacks by using tokens on destructive actions (Bug #12796; CVE-2013-6275; found by Marcela Benetrix &lt;m.benetrix@e-secure.com.au&gt;).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>3.1.4</release>
-    <api>3.0.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-10-29</date>
-   <license uri="http://www.horde.org/licenses/apache">ASL</license>
-   <notes>
-* 
    </notes>
   </release>
  </changelog>

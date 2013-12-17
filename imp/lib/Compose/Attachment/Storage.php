@@ -76,7 +76,7 @@ abstract class IMP_Compose_Attachment_Storage
     /**
      * Read attachment data from storage.
      *
-     * @return resource  Stream containing data.
+     * @return Horde_Stream  Stream object containing data.
      * @throws IMP_Compose_Exception
      */
     abstract public function read();
@@ -91,6 +91,29 @@ abstract class IMP_Compose_Attachment_Storage
      * @throws IMP_Compose_Exception
      */
     abstract public function write($filename, Horde_Mime_Part $part);
+
+    /**
+     * Writes attachment data to a temporary file.
+     *
+     * @return string  Temporary file path.
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function getTempFile()
+    {
+        $stream = $this->read();
+
+        $tmp = Horde::getTempFile('impatt');
+        $fd = fopen($tmp, 'w+');
+
+        while (!$stream->eof()) {
+            fwrite($fd, $stream->getString(null, 8192));
+        }
+        fclose($fd);
+        $stream->close();
+
+        return $tmp;
+    }
 
     /**
      * Delete data from storage.

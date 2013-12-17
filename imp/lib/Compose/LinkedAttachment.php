@@ -80,17 +80,14 @@ class IMP_Compose_LinkedAttachment
         }
 
         $data = $this->_atc->read();
-        fseek($data, 0, SEEK_END);
-        $size = ftell($data);
-        rewind($data);
 
         $md = $this->_atc->getMetadata();
-        $browser->downloadHeaders($md->filename, $md->type, false, $size);
+        $browser->downloadHeaders($md->filename, $md->type, false, $data->length());
 
-        while (!feof($data)) {
-            echo fread($data, 8192);
+        while (!$data->eof()) {
+            echo $data->getString(null, 8192);
         }
-        fclose($data);
+        $data->close();
     }
 
     /**
@@ -135,7 +132,7 @@ class IMP_Compose_LinkedAttachment
         $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 
         /* Build reproducible ID value from old data. */
-        $id = hash('md5', $ts . '|' . $file);
+        $id = hash('sha1', $ts . '|' . $file);
 
         /* Create new attachment object. */
         $atc = $injector->getInstance('IMP_Factory_ComposeAtc')->create($this->_user, $id);

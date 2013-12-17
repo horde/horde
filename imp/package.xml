@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2013-10-16</date>
  <version>
-  <release>6.1.7</release>
-  <api>6.1.0</api>
+  <release>6.2.0</release>
+  <api>6.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,8 +33,28 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
-* [mms] Don&apos;t provide links to view attachments in compose screen unless the attachment can be displayed (Bug #12841).
+* [mms] Show placeholder image when dropping onto HTML editor while the image is uploaded to the server.
+* [mms] Add rate limiting to new mail notification alerts to prevent flooding of the remote mail server (Request #12705).
+* [mms] Browser stored preferences are now prefixed by user information.
+* [mms] Strip PGP armor text when replying to a message.
+* [mms] Move determination whether to scan plaintext messages for PGP data from preferences to MIME viewer configuration.
+* [mms] Add copy email option to the address context menu in dynamic view.
+* [mms] Support uploading multiple attachments at once in dynamic view.
+* [mms] Better reporting of e-mail address errors when composing.
+* [mms] Add list information display to dynamic view.
+* [jan] Add signatures display to compose view.
+* [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic preview pane (Request #12750).
+* [mms] Add country flag graphic to contact image information in dynamic view.
+* [mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
+* [mms] Add ability to specify maximum total attachment size in composed message before all attachments are converted to links.
+* [mms] Cache generation of print-specific CSS.
+* [mms] Add support for showing a contact image in the contacts popup box in dynamic view.
+* [mms] Add ability to create a new filter rule from context menus in the dynamic view.
+* [mms] More intelligent sizing of raw message parts opened in a popup window.
+* [mms] Load sent-mail mailbox list on demand in dynamic view.
+* [mms] Allow configurable access to remote accounts from within a session (Request #8077).
+* [jan] Display "Other Options" icon instead of "New Window" icon in collapsed preview headers.
+* [mms] More advanced auto-completion for smartmobile view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,9 +94,14 @@
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
     </dir> <!-- /js/ckeditor -->
+    <dir name="external">
+     <file name="base64.js" role="horde" />
+     <file name="murmurhash3.js" role="horde" />
+    </dir> <!-- /js/external -->
     <dir name="jquery.mobile">
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
+      <file name="textchange.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
@@ -95,9 +120,10 @@
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
-    <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
+    <file name="prettyautocomplete.js" role="horde" />
+    <file name="remoteprefs.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
     <file name="signaturehtml.js" role="horde" />
@@ -116,6 +142,7 @@
        <file name="ImageUnblock.php" role="horde" />
        <file name="Mboxtoggle.php" role="horde" />
        <file name="Passphrase.php" role="horde" />
+       <file name="Remote.php" role="horde" />
        <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
       </dir> <!-- /lib/Ajax/Application/Handler -->
@@ -125,6 +152,9 @@
       <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
+      <dir name="AutoCompleter">
+       <file name="Pretty.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Imple/AutoCompleter -->
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
@@ -164,6 +194,9 @@
       <file name="Linked.php" role="horde" />
       <file name="Storage.php" role="horde" />
      </dir> <!-- /lib/Compose/Attachment -->
+     <dir name="Exception">
+      <file name="Address.php" role="horde" />
+     </dir> <!-- /lib/Compose/Exception -->
      <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="Link.php" role="horde" />
@@ -172,6 +205,19 @@
      <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
+    <dir name="Contacts">
+     <dir name="Avatar">
+      <file name="Addressbook.php" role="horde" />
+      <file name="Backend.php" role="horde" />
+      <file name="Gravatar.php" role="horde" />
+      <file name="Unknown.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Avatar -->
+     <dir name="Flag">
+      <file name="Backend.php" role="horde" />
+      <file name="Host.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Flag -->
+     <file name="Image.php" role="horde" />
+    </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
@@ -198,9 +244,9 @@
      <file name="ComposeAtc.php" role="horde" />
      <file name="Contents.php" role="horde" />
      <file name="Flags.php" role="horde" />
+     <file name="Ftree.php" role="horde" />
      <file name="Identity.php" role="horde" />
      <file name="Imap.php" role="horde" />
-     <file name="Imaptree.php" role="horde" />
      <file name="Mail.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
@@ -244,13 +290,38 @@
      <file name="Imap.php" role="horde" />
      <file name="User.php" role="horde" />
     </dir> <!-- /lib/Flag -->
+    <dir name="Ftree">
+     <dir name="Account">
+      <file name="Imap.php" role="horde" />
+      <file name="Inboxonly.php" role="horde" />
+      <file name="Remote.php" role="horde" />
+      <file name="Vfolder.php" role="horde" />
+     </dir> <!-- /lib/Ftree/Account -->
+     <dir name="IteratorFilter">
+      <file name="Ancestors.php" role="horde" />
+      <file name="Mailboxes.php" role="horde" />
+      <file name="Nocontainers.php" role="horde" />
+      <file name="Prefetch.php" role="horde" />
+     </dir> <!-- /lib/Ftree/IteratorFilter -->
+     <dir name="Prefs">
+      <file name="Expanded.php" role="horde" />
+      <file name="Poll.php" role="horde" />
+     </dir> <!-- /lib/Ftree/Prefs -->
+     <file name="Account.php" role="horde" />
+     <file name="Element.php" role="horde" />
+     <file name="Eltdiff.php" role="horde" />
+     <file name="Iterator.php" role="horde" />
+     <file name="IteratorFilter.php" role="horde" />
+     <file name="Prefs.php" role="horde" />
+     <file name="Select.php" role="horde" />
+    </dir> <!-- /lib/Ftree -->
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
      <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="Password.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
-     <file name="Tree.php" role="horde" />
+     <file name="Remote.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
      <file name="Mailbox.php" role="horde" />
@@ -360,6 +431,7 @@
       <file name="NewmailSound.php" role="horde" />
       <file name="PgpPrivateKey.php" role="horde" />
       <file name="PgpPublicKey.php" role="horde" />
+      <file name="Remote.php" role="horde" />
       <file name="Searches.php" role="horde" />
       <file name="Sentmail.php" role="horde" />
       <file name="SmimePrivateKey.php" role="horde" />
@@ -378,6 +450,9 @@
      <file name="Null.php" role="horde" />
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Quota -->
+    <dir name="Remote">
+     <file name="Account.php" role="horde" />
+    </dir> <!-- /lib/Remote -->
     <dir name="Script">
      <dir name="Package">
       <file name="ComposeBase.php" role="horde" />
@@ -418,6 +493,7 @@
      </dir> <!-- /lib/Search/Vfolder -->
      <file name="Element.php" role="horde" />
      <file name="Filter.php" role="horde" />
+     <file name="IteratorFilter.php" role="horde" />
      <file name="Query.php" role="horde" />
      <file name="Ui.php" role="horde" />
      <file name="Vfolder.php" role="horde" />
@@ -452,6 +528,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
+    <file name="Ftree.php" role="horde" />
     <file name="Images.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
@@ -461,6 +538,7 @@
     <file name="Message.php" role="horde" />
     <file name="Perms.php" role="horde" />
     <file name="Quota.php" role="horde" />
+    <file name="Remote.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
@@ -856,6 +934,7 @@
      <file name="newmailaudio.html.php" role="horde" />
      <file name="pgpprivatekey.html.php" role="horde" />
      <file name="pgppublickey.html.php" role="horde" />
+     <file name="remote.html.php" role="horde" />
      <file name="searches.html.php" role="horde" />
      <file name="sentmail.html.php" role="horde" />
      <file name="signaturehtml.html.php" role="horde" />
@@ -905,6 +984,7 @@
      </dir> <!-- /test/Imp/fixtures -->
      <dir name="Stub">
       <file name="HtmlViewer.php" role="test" />
+      <file name="Imap.php" role="test" />
       <file name="ItipRequest.php" role="test" />
      </dir> <!-- /test/Imp/Stub -->
      <dir name="Unit">
@@ -1019,6 +1099,7 @@
       <file name="clearflag.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
@@ -1067,6 +1148,7 @@
       <file name="spellcheck.png" role="horde" />
       <file name="thread.png" role="horde" />
       <file name="undelete.png" role="horde" />
+      <file name="unknown_contact.jpg" role="horde" />
       <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
@@ -1140,14 +1222,14 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.7.0</min>
+    <min>2.11.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.4.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1210,7 +1292,7 @@
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1264,13 +1346,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Serialize</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_SpellChecker</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1280,7 +1355,7 @@
    <package>
     <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
   </package>
@@ -1307,13 +1382,6 @@
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -1383,6 +1451,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Service_Gravatar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1435,9 +1510,10 @@
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
-   <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
+   <install as="imp/js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
+   <install as="imp/js/remoteprefs.js" name="js/remoteprefs.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
@@ -1447,7 +1523,10 @@
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
+   <install as="imp/js/external/base64.js" name="js/external/base64.js" />
+   <install as="imp/js/external/murmurhash3.js" name="js/external/murmurhash3.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
+   <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1459,6 +1538,7 @@
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
+   <install as="imp/lib/Ftree.php" name="lib/Ftree.php" />
    <install as="imp/lib/Images.php" name="lib/Images.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
@@ -1468,6 +1548,7 @@
    <install as="imp/lib/Message.php" name="lib/Message.php" />
    <install as="imp/lib/Perms.php" name="lib/Perms.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
+   <install as="imp/lib/Remote.php" name="lib/Remote.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
    <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
@@ -1486,12 +1567,14 @@
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
    <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Remote.php" name="lib/Ajax/Application/Handler/Remote.php" />
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
@@ -1519,6 +1602,14 @@
    <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
    <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
    <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
+   <install as="imp/lib/Compose/Exception/Address.php" name="lib/Compose/Exception/Address.php" />
+   <install as="imp/lib/Contacts/Image.php" name="lib/Contacts/Image.php" />
+   <install as="imp/lib/Contacts/Avatar/Addressbook.php" name="lib/Contacts/Avatar/Addressbook.php" />
+   <install as="imp/lib/Contacts/Avatar/Backend.php" name="lib/Contacts/Avatar/Backend.php" />
+   <install as="imp/lib/Contacts/Avatar/Gravatar.php" name="lib/Contacts/Avatar/Gravatar.php" />
+   <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
+   <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
+   <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
@@ -1534,9 +1625,9 @@
    <install as="imp/lib/Factory/ComposeAtc.php" name="lib/Factory/ComposeAtc.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
    <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
+   <install as="imp/lib/Factory/Ftree.php" name="lib/Factory/Ftree.php" />
    <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
    <install as="imp/lib/Factory/Imap.php" name="lib/Factory/Imap.php" />
-   <install as="imp/lib/Factory/Imaptree.php" name="lib/Factory/Imaptree.php" />
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
    <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
@@ -1571,12 +1662,29 @@
    <install as="imp/lib/Flag/System/Match/Address.php" name="lib/Flag/System/Match/Address.php" />
    <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
    <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
+   <install as="imp/lib/Ftree/Account.php" name="lib/Ftree/Account.php" />
+   <install as="imp/lib/Ftree/Element.php" name="lib/Ftree/Element.php" />
+   <install as="imp/lib/Ftree/Eltdiff.php" name="lib/Ftree/Eltdiff.php" />
+   <install as="imp/lib/Ftree/Iterator.php" name="lib/Ftree/Iterator.php" />
+   <install as="imp/lib/Ftree/IteratorFilter.php" name="lib/Ftree/IteratorFilter.php" />
+   <install as="imp/lib/Ftree/Prefs.php" name="lib/Ftree/Prefs.php" />
+   <install as="imp/lib/Ftree/Select.php" name="lib/Ftree/Select.php" />
+   <install as="imp/lib/Ftree/Account/Imap.php" name="lib/Ftree/Account/Imap.php" />
+   <install as="imp/lib/Ftree/Account/Inboxonly.php" name="lib/Ftree/Account/Inboxonly.php" />
+   <install as="imp/lib/Ftree/Account/Remote.php" name="lib/Ftree/Account/Remote.php" />
+   <install as="imp/lib/Ftree/Account/Vfolder.php" name="lib/Ftree/Account/Vfolder.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Ancestors.php" name="lib/Ftree/IteratorFilter/Ancestors.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Nocontainers.php" name="lib/Ftree/IteratorFilter/Nocontainers.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Prefetch.php" name="lib/Ftree/IteratorFilter/Prefetch.php" />
+   <install as="imp/lib/Ftree/Prefs/Expanded.php" name="lib/Ftree/Prefs/Expanded.php" />
+   <install as="imp/lib/Ftree/Prefs/Poll.php" name="lib/Ftree/Prefs/Poll.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Config.php" name="lib/Imap/Config.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/Password.php" name="lib/Imap/Password.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
-   <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
+   <install as="imp/lib/Imap/Remote.php" name="lib/Imap/Remote.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
@@ -1651,6 +1759,7 @@
    <install as="imp/lib/Prefs/Special/NewmailSound.php" name="lib/Prefs/Special/NewmailSound.php" />
    <install as="imp/lib/Prefs/Special/PgpPrivateKey.php" name="lib/Prefs/Special/PgpPrivateKey.php" />
    <install as="imp/lib/Prefs/Special/PgpPublicKey.php" name="lib/Prefs/Special/PgpPublicKey.php" />
+   <install as="imp/lib/Prefs/Special/Remote.php" name="lib/Prefs/Special/Remote.php" />
    <install as="imp/lib/Prefs/Special/Searches.php" name="lib/Prefs/Special/Searches.php" />
    <install as="imp/lib/Prefs/Special/Sentmail.php" name="lib/Prefs/Special/Sentmail.php" />
    <install as="imp/lib/Prefs/Special/SmimePrivateKey.php" name="lib/Prefs/Special/SmimePrivateKey.php" />
@@ -1663,10 +1772,12 @@
    <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
+   <install as="imp/lib/Remote/Account.php" name="lib/Remote/Account.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
+   <install as="imp/lib/Search/IteratorFilter.php" name="lib/Search/IteratorFilter.php" />
    <install as="imp/lib/Search/Query.php" name="lib/Search/Query.php" />
    <install as="imp/lib/Search/Ui.php" name="lib/Search/Ui.php" />
    <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />
@@ -1888,6 +1999,7 @@
    <install as="imp/templates/prefs/newmailaudio.html.php" name="templates/prefs/newmailaudio.html.php" />
    <install as="imp/templates/prefs/pgpprivatekey.html.php" name="templates/prefs/pgpprivatekey.html.php" />
    <install as="imp/templates/prefs/pgppublickey.html.php" name="templates/prefs/pgppublickey.html.php" />
+   <install as="imp/templates/prefs/remote.html.php" name="templates/prefs/remote.html.php" />
    <install as="imp/templates/prefs/searches.html.php" name="templates/prefs/searches.html.php" />
    <install as="imp/templates/prefs/sentmail.html.php" name="templates/prefs/sentmail.html.php" />
    <install as="imp/templates/prefs/signaturehtml.html.php" name="templates/prefs/signaturehtml.html.php" />
@@ -1917,6 +2029,7 @@
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
    <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Stub/Imap.php" name="test/Imp/Stub/Imap.php" />
    <install as="Imp/Stub/ItipRequest.php" name="test/Imp/Stub/ItipRequest.php" />
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
@@ -1950,6 +2063,7 @@
    <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
+   <install as="imp/themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
@@ -1998,6 +2112,7 @@
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
    <install as="imp/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
+   <install as="imp/themes/default/graphics/unknown_contact.jpg" name="themes/default/graphics/unknown_contact.jpg" />
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />

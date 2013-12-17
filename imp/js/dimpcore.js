@@ -17,6 +17,24 @@ var DimpCore = {
     context: {},
     text: {},
 
+    // Preferences variables
+    prefs: {
+        preview: 'horiz',
+        qsearch_field: 'all',
+        splitbar_horiz: 0,
+        splitbar_vert: 0,
+        toggle_hdrs: 0
+    },
+    prefs_special: function(n) {
+        switch (n) {
+        case 'preview_old':
+            return this.getPref('preview');
+
+        case 'splitbar_side':
+            return this.conf.sidebar_width;
+        }
+    },
+
     // Wrapper methods around HordeCore functions.
 
     // IMP specific 'opts': uids
@@ -41,7 +59,7 @@ var DimpCore = {
         params = params || {};
         params.type = type;
 
-        HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, params, {
+        HordeCore.popupWindow(this.conf.URI_COMPOSE, params, {
             name: 'compose' + new Date().getTime()
         });
     },
@@ -169,6 +187,30 @@ var DimpCore = {
         tmp.appendChild(df);
     },
 
+    /* Browser-side preferences. */
+
+    getPref: function(k)
+    {
+        return $.jStorage.get(
+            this.pref_prefix + k,
+            $.jStorage.get(
+                /* Fallback to non-prefixed storage. */
+                k,
+                this.prefs[k] ? this.prefs[k] : this.prefs_special(k)
+            )
+        );
+    },
+
+    setPref: function(k, v)
+    {
+        if (v === null) {
+            $.jStorage.deleteKey(this.pref_prefix + k);
+            $.jStorage.deleteKey(k);
+        } else {
+            $.jStorage.set(this.pref_prefix + k, v);
+        }
+    },
+
     // Abstract: define in any pages that need reloadMessage().
     reloadMessage: function(params)
     {
@@ -213,12 +255,12 @@ var DimpCore = {
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
         } else if (elt.hasClassName('pgpVerifyMsg')) {
-            elt.replace(DimpCore.text.verify);
-            DimpCore.reloadMessage({ pgp_verify_msg: 1 });
+            elt.replace(this.text.verify);
+            this.reloadMessage({ pgp_verify_msg: 1 });
             e.memo.stop();
         } else if (elt.hasClassName('smimeVerifyMsg')) {
-            elt.replace(DimpCore.text.verify);
-            DimpCore.reloadMessage({ smime_verify_msg: 1 });
+            elt.replace(this.text.verify);
+            this.reloadMessage({ smime_verify_msg: 1 });
             e.memo.stop();
         }
     },
@@ -228,15 +270,25 @@ var DimpCore = {
         var baseelt = e.element();
 
         switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_contacts_new':
-            this.compose('new', {
-                to_json: Object.toJSON(baseelt.retrieve('email'))
-            });
-            break;
-
         case 'ctx_contacts_add':
             this.doAction('addContact', {
                 addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_addfilter':
+            this.doAction('newFilter', {
+                addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_copy':
+            window.prompt(this.text.emailcopy, baseelt.retrieve('email').b);
+            break;
+
+        case 'ctx_contacts_new':
+            this.compose('new', {
+                to_json: Object.toJSON(baseelt.retrieve('email'))
             });
             break;
         }
@@ -244,22 +296,40 @@ var DimpCore = {
 
     contextOnShow: function(e)
     {
-        var tmp;
+        var tmp, tmp2;
 
         switch (e.memo) {
         case 'ctx_contacts':
-            tmp = $(e.memo).down('DIV.contactAddr');
-            if (tmp) {
-                tmp.next().remove();
-                tmp.remove();
-            }
+            tmp = $(e.memo).down('DIV');
+            tmp.hide().childElements().invoke('remove');
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if ((tmp = e.element().retrieve('email')) && !tmp.g && tmp.p) {
-                $(e.memo)
-                    .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp.b.escapeHTML()) });
+            if (tmp2 = e.element().retrieve('email')) {
+                this.doAction('getContactsImage', {
+                    addr: tmp2.b
+                }, {
+                    callback: function (r) {
+                        if (r.flag) {
+                            tmp.show().insert({
+                                top: new Element('DIV')
+                                    .addClassName('flagimg')
+                                    .insert(new Element('IMG', { title: r.flagname, src: r.flag }))
+                                    .insert(r.flagname.escapeHTML())
+                            });
+                        }
+                        if (r.avatar) {
+                            tmp.show().insert({
+                                top: new Element('IMG', { src: r.avatar }).addClassName('contactimg')
+                            });
+                        }
+                    }
+                });
+
+                if (!tmp2.g && tmp2.p) {
+                    tmp.show().insert({ top: new Element('DIV', { className: 'sep' }) })
+                        .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
+                }
             }
             break;
         }
@@ -267,14 +337,14 @@ var DimpCore = {
 
     contextOnTrigger: function(e)
     {
-        if (!DimpCore.context[e.memo]) {
+        if (!this.context[e.memo]) {
             return;
         }
 
         var div = new Element('DIV', { className: 'context', id: e.memo }).hide();
 
-        if (!Object.isArray(DimpCore.context[e.memo])) {
-            $H(DimpCore.context[e.memo]).each(function(pair) {
+        if (!Object.isArray(this.context[e.memo])) {
+            $H(this.context[e.memo]).each(function(pair) {
                 div.insert(this._contextOnTrigger(pair, e.memo));
             }, this);
         }

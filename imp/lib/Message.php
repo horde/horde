@@ -50,7 +50,7 @@ class IMP_Message
     public function copy($targetMbox, $action, IMP_Indices $indices,
                          array $opts = array())
     {
-        global $conf, $injector, $notification;
+        global $conf, $notification;
 
         if (!count($indices)) {
             return false;
@@ -90,8 +90,6 @@ class IMP_Message
             break;
         }
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
-
         foreach ($indices as $ob) {
             try {
                 if ($targetMbox->readonly) {
@@ -105,6 +103,7 @@ class IMP_Message
                 $ob->mbox->uidvalid;
 
                 /* Attempt to copy/move messages to new mailbox. */
+                $imp_imap = $ob->mbox->imp_imap;
                 $imp_imap->copy($ob->mbox, $targetMbox, array(
                     'ids' => $imp_imap->getIdsOb($ob->uids),
                     'move' => $imap_move
@@ -161,7 +160,6 @@ class IMP_Message
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $maillog = $injector->getInstance('IMP_Maillog');
 
         $maillog_update = (empty($opts['keeplog']) && $maillog);
@@ -171,7 +169,7 @@ class IMP_Message
         $no_expunge = $use_trash_mbox = $use_vtrash = false;
         if ($use_trash &&
             empty($opts['nuke']) &&
-            $imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
+            $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH)) {
             $use_vtrash = $trash->vtrash;
             $use_trash_mbox = !$use_vtrash;
         }
@@ -208,10 +206,14 @@ class IMP_Message
                 $return_value += count($ob->uids);
             }
 
+            $imp_imap = $ob->mbox->imp_imap;
             $ids_ob = $imp_imap->getIdsOb($ob->uids);
 
             /* Trash is only valid for IMAP mailboxes. */
-            if ($use_trash_mbox && ($ob->mbox != $trash)) {
+            if ($use_trash_mbox &&
+                ($ob->mbox != $trash) &&
+                /* TODO(?): Don't use Trash mailbox for remote accounts. */
+                !$ob->mbox->remote_mbox) {
                 if ($ob->mbox->access_expunge) {
                     try {
                         if ($mark_seen) {
@@ -270,7 +272,8 @@ class IMP_Message
                 if (!$use_vtrash &&
                     (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                      !empty($opts['nuke']) ||
-                     ($use_trash && ($ob->mbox == $trash)))) {
+                     ($use_trash &&
+                      ($ob->mbox == $trash) || $ob->mbox->remote_mbox))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
@@ -510,7 +513,7 @@ class IMP_Message
         $url->uid = $uid;
         $url->uidvalidity = $uidvalidity;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $mbox->imp_imap;
 
         /* Always add the header to output. */
         $url->section = 'HEADER';
@@ -655,7 +658,6 @@ class IMP_Message
         ), $opts);
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $ret = true;
 
         foreach ($indices as $ob) {
@@ -671,6 +673,7 @@ class IMP_Message
                     : null;
 
                 /* Flag/unflag the messages now. */
+                $imp_imap = $ob->mbox->imp_imap;
                 $res = $imp_imap->store($ob->mbox, array_merge($action, array_filter(array(
                     'ids' => $imp_imap->getIdsOb($ob->uids),
                     'unchangedsince' => $unchangedsince
@@ -721,7 +724,6 @@ class IMP_Message
             ? array('add' => $flags)
             : array('remove' => $flags);
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         $ajax_queue->poll($mboxes);
 
@@ -730,7 +732,7 @@ class IMP_Message
                 /* Grab list of UIDs before flagging, to make sure we
                  * determine the exact subset that has been flagged. */
                 $mailbox_list = $val->list_ob->getIndicesOb();
-                $imp_imap->store($val, $action_array);
+                $val->imp_imap->store($val, $action_array);
                 $ajax_queue->flag(reset($action_array), $action, $mailbox_list);
             } catch (IMP_Imap_Exception $e) {
                 return false;
@@ -765,14 +767,13 @@ class IMP_Message
             return $msg_list ? new IMP_Indices() : null;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $process_list = $update_list = array();
 
         foreach ($mbox_list as $key => $val) {
             $key = IMP_Mailbox::get($key);
 
             if ($key->access_expunge) {
-                $ids = $imp_imap->getIdsOb(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
+                $ids = $key->imp_imap->getIdsOb(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
 
                 if ($key->search) {
                     foreach ($key->getSearchOb()->mboxes as $skey) {
@@ -797,7 +798,7 @@ class IMP_Message
             }
 
             try {
-                $update_list[strval($val[0])] = $imp_imap->expunge($val[0], array(
+                $update_list[strval($val[0])] = $val[0]->imp_imap->expunge($val[0], array(
                     'ids' => $val[1],
                     'list' => $msg_list
                 ));
@@ -821,9 +822,8 @@ class IMP_Message
      */
     public function emptyMailbox($mbox_list)
     {
-        global $injector, $notification, $prefs;
+        global $notification, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $trash = ($prefs->getValue('use_trash'))
             ? IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)
             : null;
@@ -843,6 +843,7 @@ class IMP_Message
             /* Make sure there is at least 1 message before attempting to
              * delete. */
             try {
+                $imp_imap = $mbox->imp_imap;
                 $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
                 if (empty($status['messages'])) {
                     $notification->push(sprintf(_("The mailbox %s is already empty."), $mbox->display), 'horde.message');
@@ -861,38 +862,6 @@ class IMP_Message
 
                 $notification->push(sprintf(_("Emptied all messages from %s."), $mbox->display), 'horde.success');
             } catch (IMP_Imap_Exception $e) {}
-        }
-    }
-
-    /**
-     * Obtains the size of a mailbox.
-     *
-     * @param IMP_Mailbox $mbox   The mailbox to obtain the size of.
-     * @param boolean $formatted  Whether to return a human readable value.
-     *
-     * @return mixed  Either the size of the mailbox (in bytes) or a formatted
-     *                string with this information.
-     */
-    public function sizeMailbox(IMP_Mailbox $mbox, $formatted = true)
-    {
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->size();
-
-        try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-            $res = $imp_imap->fetch($mbox, $query, array(
-                'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
-            ));
-
-            $size = 0;
-            foreach ($res as $v) {
-                $size += $v->getSize();
-            }
-            return ($formatted)
-                ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
-                : $size;
-        } catch (IMP_Imap_Exception $e) {
-            return 0;
         }
     }
 

@@ -30,25 +30,6 @@ var DimpBase = {
     // should be a fairly safe caching value for any recent browser.
     ppcachesize: 20,
 
-    // List of internal preferences
-    prefs: {
-        preview: 'horiz',
-        qsearch_field: 'all',
-        splitbar_horiz: 0,
-        splitbar_vert: 0,
-        toggle_hdrs: 0
-    },
-
-    prefs_special: function(n) {
-        switch (n) {
-        case 'preview_old':
-            return this._getPref('preview');
-
-        case 'splitbar_side':
-            return DimpCore.conf.sidebar_width;
-        }
-    },
-
     // Message selection functions
 
     // id = (string) DOM ID
@@ -60,20 +41,23 @@ var DimpBase = {
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.viewport.setMetaData({ lastrow: row });
+        this.viewport.setMetaData({
+            curr_row: row,
+            last_row: (selcount ? this.viewport.getSelected() : null)
+        });
 
         this.resetSelectAll();
 
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivotrow').get('rownum').first() ];
+                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivot_row').get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.viewport.setMetaData({ pivotrow:  row });
+            this.viewport.setMetaData({ pivot_row: row });
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -306,7 +290,7 @@ var DimpBase = {
     {
         // Folder bar may not be fully loaded yet.
         if ($('foldersLoading').visible()) {
-            this.highlightSidebar.bind(this, id).defer();
+            this.highlightSidebar.bind(this, id).delay(0.1);
             return;
         }
 
@@ -337,7 +321,7 @@ var DimpBase = {
         var tmp = $('horde-sidebar');
 
         tmp.setStyle({
-            width: this._getPref('splitbar_side') + 'px'
+            width: DimpCore.getPref('splitbar_side') + 'px'
         });
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
@@ -474,9 +458,6 @@ var DimpBase = {
                         var ptr = this.flags[a];
                         if (ptr.u) {
                             if (!ptr.elt) {
-                                /* Until text-overflow is supported on all
-                                 * browsers, need to truncate label text
-                                 * ourselves. */
                                 ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l.escapeHTML() + '" style="background:' + ((ptr.b) ? ptr.b.escapeHTML() : '') + ';color:' + ptr.f.escapeHTML() + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
                             }
                             r.subjectdata += ptr.elt;
@@ -543,10 +524,10 @@ var DimpBase = {
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
-            page_size: this._getPref('splitbar_horiz'),
+            page_size: DimpCore.getPref('splitbar_horiz'),
             pane_data: 'previewPane',
-            pane_mode: this._getPref('preview'),
-            pane_width: this._getPref('splitbar_vert'),
+            pane_mode: DimpCore.getPref('preview'),
+            pane_width: DimpCore.getPref('splitbar_vert'),
             split_bar_class: {
                 horiz: 'horde-splitbar-horiz',
                 vert: 'horde-splitbar-vert'
@@ -564,7 +545,7 @@ var DimpBase = {
                 if (this.viewswitch &&
                     (this.isQSearch(view) || this.isFSearch(view))) {
                     params.update({
-                        qsearchfield: this._getPref('qsearch_field'),
+                        qsearchfield: DimpCore.getPref('qsearch_field'),
                         qsearchmbox: this.search.mbox
                     });
                     if (this.search.filter) {
@@ -664,7 +645,7 @@ var DimpBase = {
                 this.viewswitch = false;
 
                 if (this.selectedCount()) {
-                    if (this._getPref('preview')) {
+                    if (DimpCore.getPref('preview')) {
                         this.initPreviewPane();
                     }
                     this.toggleButtons();
@@ -714,15 +695,16 @@ var DimpBase = {
                 count = sel.size();
             if (!count) {
                 this.viewport.setMetaData({
-                    lastrow: null,
-                    pivotrow: null
+                    curr_row: null,
+                    last_row: null,
+                    pivot_row: null
                 });
             }
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
                 this.clearPreviewPane();
-            } else if ((count == 1) && this._getPref('preview')) {
+            } else if ((count == 1) && DimpCore.getPref('preview')) {
                 this.loadPreview(sel.get('dataob').first());
             }
 
@@ -746,8 +728,8 @@ var DimpBase = {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
                 this.viewport.setMetaData({
-                    lastrow: e.memo.vs,
-                    pivotrow: e.memo.vs
+                    curr_row: e.memo.vs,
+                    pivot_row: e.memo.vs
                 });
             }
 
@@ -755,7 +737,7 @@ var DimpBase = {
 
             this.toggleButtons();
 
-            if (this._getPref('preview')) {
+            if (DimpCore.getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
                     $('previewInfo').highlight({
@@ -801,11 +783,11 @@ var DimpBase = {
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
             case 'horiz':
-                this._setPref('splitbar_horiz', this.viewport.getPageSize());
+                DimpCore.setPref('splitbar_horiz', this.viewport.getPageSize());
                 break;
 
             case 'vert':
-                this._setPref('splitbar_vert', this.viewport.getVertWidth());
+                DimpCore.setPref('splitbar_vert', this.viewport.getVertWidth());
                 break;
             }
         }.bindAsEventListener(this));
@@ -856,6 +838,7 @@ var DimpBase = {
         switch (id) {
         case 'ctx_container_create':
         case 'ctx_mbox_create':
+        case 'ctx_remoteauth_create':
             tmp = this.contextMbox(e);
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
@@ -926,9 +909,9 @@ var DimpBase = {
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
-                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
-                      ).insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
+                      ).insert(
+                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
                       ).insert(
                           new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()
                       ),
@@ -1053,6 +1036,14 @@ var DimpBase = {
             this.viewport.getSelected().get('dataob').each(this.msgWindow.bind(this));
             break;
 
+        case 'ctx_message_addfilter':
+            DimpCore.doAction('newFilter', {
+                mailbox: this.view
+            }, {
+                uids: this.viewport.getSelected()
+            });
+            break;
+
         case 'ctx_reply_reply':
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
@@ -1067,12 +1058,12 @@ var DimpBase = {
             break;
 
         case 'ctx_oa_preview_hide':
-            this._setPref('preview_old', this._getPref('preview', 'horiz'));
+            DimpCore.setPref('preview_old', DimpCore.getPref('preview', 'horiz'));
             this.togglePreviewPane('');
             break;
 
         case 'ctx_oa_preview_show':
-            this.togglePreviewPane(this._getPref('preview_old'));
+            this.togglePreviewPane(DimpCore.getPref('preview_old'));
             break;
 
         case 'ctx_oa_layout_horiz':
@@ -1154,11 +1145,13 @@ var DimpBase = {
         case 'ctx_qsearchopts_from':
         case 'ctx_qsearchopts_recip':
         case 'ctx_qsearchopts_subject':
-            this._setPref('qsearch_field', id.substring(16));
+            DimpCore.setPref('qsearch_field', id.substring(16));
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
+            } else {
+                $('horde-search-input').focus();
             }
             break;
 
@@ -1183,6 +1176,19 @@ var DimpBase = {
                     group: 'flags'
                 }
             ));
+            break;
+
+        case 'ctx_rcontainer_prefs':
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                { group: 'remote' }
+            ));
+            break;
+
+        case 'ctx_remoteauth_logout':
+            DimpCore.doAction('remoteLogout', {
+                remoteid: this.contextMbox(e).retrieve('mbox')
+            });
             break;
 
         default:
@@ -1273,6 +1279,7 @@ var DimpBase = {
 
         case 'ctx_container':
         case 'ctx_noactions':
+        case 'ctx_remoteauth':
         case 'ctx_vfolder':
             baseelt = this.contextMbox(e);
             $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
@@ -1287,7 +1294,7 @@ var DimpBase = {
             break;
 
         case 'ctx_oa':
-            switch (this._getPref('preview')) {
+            switch (DimpCore.getPref('preview')) {
             case 'vert':
                 $('ctx_oa_preview_hide', 'ctx_oa_layout_horiz').invoke('show');
                 $('ctx_oa_preview_show', 'ctx_oa_layout_vert').invoke('hide');
@@ -1372,11 +1379,11 @@ var DimpBase = {
 
         case 'ctx_qsearchopts':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
-            $(ctx_id + '_' + this._getPref('qsearch_field')).addClassName('contextSelected');
+            $(ctx_id + '_' + DimpCore.getPref('qsearch_field')).addClassName('contextSelected');
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
+            [ $('ctx_message_source').up() ].invoke(DimpCore.getPref('preview') ? 'hide' : 'show');
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
             [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
@@ -1401,9 +1408,10 @@ var DimpBase = {
                 } else {
                     $('ctx_message_resume').up('DIV').hide();
                 }
+                [ $('ctx_message_addfilter') ].compact().invoke('show');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
-                $('ctx_message_resume').up('DIV').hide();
+                [ $('ctx_message_resume').up('DIV'), $('ctx_message_addfilter') ].compact().invoke('hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;
@@ -1447,6 +1455,7 @@ var DimpBase = {
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
             [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
+            [ $('ctx_preview_listinfo') ].invoke(this.viewport.getSelected().get('dataob').first().listmsg ? 'show' : 'hide');
             break;
 
         case 'ctx_template':
@@ -1500,7 +1509,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folderopts':
-            $('ctx_folderopts_sub').hide();
+            [ $('ctx_folderopts_sub') ].compact().invoke('hide');
             break;
         }
     },
@@ -1640,9 +1649,9 @@ var DimpBase = {
     // mode = (string) Either 'horiz', 'vert', or empty
     togglePreviewPane: function(mode)
     {
-        var old = this._getPref('preview');
+        var old = DimpCore.getPref('preview');
         if (mode != old) {
-            this._setPref('preview', mode);
+            DimpCore.setPref('preview', mode);
             this.viewport.showSplitPane(mode);
             if (!old) {
                 this.initPreviewPane();
@@ -1652,14 +1661,15 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, msgload, p, rows, pp_uid;
+        var curr, last, p, rows, pp_uid,
+            msgload = {};
 
-        if (!this._getPref('preview')) {
+        if (!DimpCore.getPref('preview')) {
             return;
         }
 
         // If single message is loaded, and this mailbox is polled, try to
-        // preload next unseen messages that exists in current buffer.
+        // preload next unseen message that exists in current buffer.
         if (data && !Object.isUndefined(this.getUnseenCount(data.VP_view))) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
@@ -1671,7 +1681,17 @@ var DimpBase = {
                     return (r > curr);
                 });
 
-                msgload = this.viewport.createSelection('rownum', [ p[1].last(), p[0].first() ]).get('uid').first();
+                last = this.viewport.getMetaData('last_row');
+                p[1].reverse();
+
+                /* Search for next cached message based on direction the
+                 * selection row moved. */
+                this.viewport.createSelection('rownum', (last && last.get('rownum').first() > curr) ? p[1].concat(p[0]) : p[0].concat(p[1])).get('uid').detect(function(u) {
+                    if (this.ppfifo.indexOf(this._getPPId(u, data.VP_view)) === -1) {
+                        msgload = { msgload: u };
+                        return true;
+                    }
+                }, this);
             }
         }
 
@@ -1688,27 +1708,19 @@ var DimpBase = {
             };
             pp_uid = this._getPPId(data.VP_id, data.VP_view);
 
-            if (this.ppfifo.indexOf(pp_uid) != -1) {
-                params = {
+            if (this.ppfifo.indexOf(pp_uid) !== -1) {
+                this.flag(DimpCore.conf.FLAG_SEEN, true, {
                     buid: data.VP_id,
-                    mailbox: data.VP_view
-                };
-
-                if (msgload) {
-                    params.params = { msgload: msgload };
-                }
-
-                this.flag(DimpCore.conf.FLAG_SEEN, true, params);
-
+                    mailbox: data.VP_view,
+                    params: msgload
+                });
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
 
             params = {};
         }
 
-        if (msgload) {
-            params.msgload = msgload;
-        }
+        params = Object.extend(params, msgload);
         params.preview = 1;
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
@@ -1945,7 +1957,7 @@ var DimpBase = {
     _toggleHeaders: function(elt, update)
     {
         if (update) {
-            this._setPref('toggle_hdrs', Number(!this._getPref('toggle_hdrs')));
+            DimpCore.setPref('toggle_hdrs', Number(!DimpCore.getPref('toggle_hdrs')));
         }
         [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
@@ -2110,7 +2122,7 @@ var DimpBase = {
         /* Don't update polled status until the sidebar is visible. Otherwise,
          * preview callbacks may not correctly update unseen status. */
         if (!$('foldersSidebar').visible()) {
-            return this.pollCallback.bind(this, r).defer();
+            return this.pollCallback.bind(this, r).delay(0.1);
         }
 
         $H(r).each(function(u) {
@@ -2222,7 +2234,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')]));
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + DimpCore.getPref('qsearch_field')]));
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2388,7 +2400,7 @@ var DimpBase = {
             d = DragDrop.Drags.getDrag(id);
 
         if (id == 'horde-slideleft') {
-            this._setPref('splitbar_side', d.lastCoord[0]);
+            DimpCore.setPref('splitbar_side', d.lastCoord[0]);
             this.setSidebarWidth();
         } else if (elt.hasClassName('horde-subnavi')) {
             if (!d.opera) {
@@ -2452,8 +2464,13 @@ var DimpBase = {
         case Event.KEY_LEFT:
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
-            tmp = this.viewport.getMetaData('lastrow');
-            if (e.shiftKey && tmp) {
+            tmp = this.viewport.getMetaData('curr_row');
+            if (e.altKey) {
+                pp = $('previewPane');
+                pp.scrollTop = prev
+                    ? Math.max(pp.scrollTop - 10, 0)
+                    : Math.min(pp.scrollTop + 10, pp.getHeight());
+            } else if (e.shiftKey && tmp) {
                 row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
@@ -2611,7 +2628,7 @@ var DimpBase = {
             tmp;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
-            this._setPref('splitbar_side', null);
+            DimpCore.setPref('splitbar_side', null);
             this.setSidebarWidth();
             e.memo.stop();
             return;
@@ -2638,13 +2655,14 @@ var DimpBase = {
     clickHandler: function(e)
     {
         var tmp,
-            elt = e.element();
+            elt = e.element(),
+            id = elt.readAttribute('id');
 
         if (DimpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
-        switch (elt.readAttribute('id')) {
+        switch (id) {
         case 'imp-normalmboxes':
         case 'imp-specialmboxes':
             this._handleMboxMouseClick(e.memo);
@@ -2753,7 +2771,7 @@ var DimpBase = {
 
         case 'msgloglist_toggle':
         case 'partlist_toggle':
-            tmp = (elt.readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
             $(tmp + '_col', tmp + '_exp').invoke('toggle');
             Effect.toggle(tmp, 'blind', {
                 duration: 0.2,
@@ -2765,7 +2783,6 @@ var DimpBase = {
             });
             break;
 
-        case 'msg_newwin':
         case 'msg_newwin_options':
         case 'ppane_view_error':
             this.msgWindow(this.viewport.getSelection(this.pp.VP_view).search({
@@ -2791,8 +2808,9 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_preview_listinfo':
         case 'ctx_preview_thread':
-            HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
+            HordeCore.popupWindow((id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD, {
                 buid: this.pp.VP_id,
                 mailbox: this.pp.VP_view
             }, {
@@ -2878,7 +2896,19 @@ var DimpBase = {
                     ]
                 });
                 e.memo.stop();
+            } else if (elt.hasClassName('imp-sidebar-remote')) {
+                HordeDialog.display({
+                    form: new Element('DIV').insert(
+                              new Element('INPUT', { name: 'remote_password', type: 'password' })
+                          ).insert(
+                              new Element('INPUT', { name: 'remote_id', value: elt.retrieve('mbox') }).hide()
+                          ),
+                    form_id: 'remote_login',
+                    text: DimpCore.text.remote_password.sub('%s', this.fullMboxDisplay(elt))
+                });
+                e.memo.stop();
             }
+            break;
         }
     },
 
@@ -2890,6 +2920,81 @@ var DimpBase = {
     loadingEndHandler: function(e)
     {
         this.loadingImg(e.memo, false);
+    },
+
+    dialogClickHandler: function(e)
+    {
+        var elt = e.element();
+
+        switch (elt.identify()) {
+        case 'dimpbase_confirm':
+            this.viewaction(e);
+            HordeDialog.close();
+            break;
+
+        case 'flag_new':
+            DimpCore.doAction('createFlag', this.addViewportParams({
+                flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
+                flagname: $F(elt.down('INPUT[name="flagname"]'))
+            }), {
+                callback: function(r) {
+                    if (r.success) {
+                        HordeDialog.close();
+                    } else {
+                        this.displayFlagNew();
+                    }
+                }.bind(this),
+                uids: this.viewport.getSelected()
+            });
+            elt.update(DimpCore.text.newflag_wait);
+            break;
+
+        case 'mbox_import':
+            HordeCore.submit(elt, {
+                callback: function(r) {
+                    HordeDialog.close();
+                    if (r.action == 'importMailbox' &&
+                        r.mbox == this.view) {
+                        this.viewport.reload();
+                    }
+                }.bind(this)
+            });
+            elt.update(DimpCore.text.import_mbox_loading);
+            break;
+
+        case 'remote_login':
+            DimpCore.doAction('remoteLogin', {
+                // Base64 encode just to keep password data from being
+                // plaintext. A trivial obfuscation, but will prevent
+                // passwords from leaking in the event of some sort of data
+                // dump.
+                password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
+                password_base64: true,
+                remoteid: $F(elt.down('INPUT[name="remote_id"]')),
+                unsub: Number(this.showunsub)
+            }, {
+                callback: function(r) {
+                    if (r.success) {
+                        this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
+                            .removeClassName('imp-sidebar-remote')
+                            .addClassName('imp-sidebar-container');
+                        HordeDialog.close();
+                    } else {
+                        elt.enable().down('INPUT[name="remote_password"]').clear().focus();
+                    }
+                }.bind(this)
+            });
+            elt.disable();
+            break;
+        }
+    },
+
+    dialogCloseHandler: function()
+    {
+        if (this.colorpicker) {
+            this.colorpicker.hide();
+        }
+        delete this.colorpicker;
     },
 
     updateSliderCount: function()
@@ -3060,17 +3165,12 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        var base,
-            nm = $('imp-normalmboxes');
-
-        if (r.base) {
-            // Need to find the submailbox and look to parent to ensure we get
-            // the non-special container.
-            base = this.getSubMboxElt(r.base).previous();
-        }
+        var nm = $('imp-normalmboxes');
 
         if (r.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = r.base
+                ? this.getSubMboxElt(r.base).previous()
+                : true;
         }
 
         if (r['switch']) {
@@ -3089,9 +3189,7 @@ var DimpBase = {
 
         this.expandmbox = this.switchmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
-        } else if (r.all) {
+        if (r.all) {
             this._toggleSubFolder(nm, 'expall', true);
         }
 
@@ -3123,7 +3221,7 @@ var DimpBase = {
 
     flagCallback: function(r)
     {
-        r.each(function(entry) {
+        Object.values(r).each(function(entry) {
             $H(entry.buids).each(function(m) {
                 var s = this.viewport.createSelectionBuffer(m.key).search({
                     VP_id: { equal: m.value.parseViewportUidString() }
@@ -3147,6 +3245,10 @@ var DimpBase = {
                     entry.remove.each(function(f) {
                         this.updateFlag(s, f, false);
                     }, this);
+                }
+
+                if (entry.deselect) {
+                    this.viewport.deselect(s);
                 }
             }, this);
         }, this);
@@ -3176,6 +3278,9 @@ var DimpBase = {
         } else {
             switch (li.retrieve('ftype')) {
             case 'container':
+            case 'rcontainer':
+            case 'remote':
+            case 'remoteauth':
             case 'scontainer':
             case 'vcontainer':
                 e.stop();
@@ -3229,7 +3334,11 @@ var DimpBase = {
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    base.down('A').update(DimpCore.text.loading);
+                    base.down('A').update(
+                        new Element('SPAN')
+                            .addClassName('imp-sidebar-mbox-loading')
+                            .update('[' + DimpCore.text.loading + ']')
+                    );
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),
@@ -3321,6 +3430,21 @@ var DimpBase = {
                 ftype = 'vfolder';
             }
             title = label;
+        } else if (ob.r) {
+            switch (ob.r) {
+            case 1:
+                ftype = 'rcontainer';
+                break;
+
+            case 2:
+                cname = 'imp-sidebar-remote';
+                ftype = 'remote';
+                break;
+
+            case 3:
+                ftype = 'remoteauth';
+                break;
+            }
         } else if (ob.co) {
             if (ob.n) {
                 ftype = 'scontainer';
@@ -3349,6 +3473,9 @@ var DimpBase = {
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                         .insert(new Element('A').insert(label)));
+        if (ob.fs) {
+            li.store('fs', true);
+        }
 
         if (ob.s) {
             div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
@@ -3376,10 +3503,14 @@ var DimpBase = {
                 : $('imp-normalmboxes');
         }
 
-        /* Virtual folders and special mailboxes are sorted on the server. */
-        if (!ob.v && !ob.s) {
+        /* Insert into correct place in level. */
+        if (!ob.ns) {
             ll = label.toLowerCase();
             f_node = parent_e.childElements().find(function(node) {
+                if (node.retrieve('fs')) {
+                    return false;
+                }
+
                 var l = node.retrieve('l');
                 return (l && (ll < l.toLowerCase()));
             });
@@ -3445,8 +3576,13 @@ var DimpBase = {
             new Drag(li, this._mboxDragConfig);
             break;
 
+        case 'remote':
         case 'scontainer':
             ftype = 'noactions';
+            break;
+
+        case 'remoteauth':
+            ftype = 'remoteauth';
             break;
 
         case 'vfolder':
@@ -3538,7 +3674,9 @@ var DimpBase = {
         $('foldersSidebar').hide();
 
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
-            this.deleteMboxElt(elt, true);
+            try {
+                this.deleteMboxElt(elt, true);
+            } catch (e) {}
         }, this);
 
         this._listMboxes({ reload: 1, mboxes: this.view });
@@ -3715,22 +3853,6 @@ var DimpBase = {
         return sf && c.descendantOf(sf);
     },
 
-    /* Internal preferences. */
-
-    _getPref: function(k)
-    {
-        return $.jStorage.get(k, this.prefs[k] ? this.prefs[k] : this.prefs_special(k));
-    },
-
-    _setPref: function(k, v)
-    {
-        if (v === null) {
-            $.jStorage.deleteKey(k);
-        } else {
-            $.jStorage.set(k, v);
-        }
-    },
-
     /* AJAX tasks handler. */
     tasksHandler: function(e)
     {
@@ -3883,6 +4005,12 @@ var DimpBase = {
         DimpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
             trigger: true
         });
+        DimpCore.addContextMenu({
+            elt: $('preview_other'),
+            left: true,
+            offset: $('preview_other').down('SPAN'),
+            type: 'preview'
+        });
 
         if (DimpCore.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
@@ -3896,7 +4024,7 @@ var DimpBase = {
         // See: http://www.thecssninja.com/javascript/gmail-dragout
         $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
 
-        if (this._getPref('toggle_hdrs')) {
+        if (DimpCore.getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
         }
 
@@ -4003,58 +4131,14 @@ document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventList
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
 /* HordeDialog listener. */
-document.observe('HordeDialog:onClick', function(e) {
-    var elt = e.element();
-
-    switch (elt.identify()) {
-    case 'dimpbase_confirm':
-        this.viewaction(e);
-        HordeDialog.close();
-        break;
-
-    case 'flag_new':
-        DimpCore.doAction('createFlag', this.addViewportParams({
-            flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
-            flagname: $F(elt.down('INPUT[name="flagname"]'))
-        }), {
-            callback: function(r) {
-                if (r.success) {
-                    HordeDialog.close();
-                } else {
-                    this.displayFlagNew();
-                }
-            }.bind(this),
-            uids: this.viewport.getSelected()
-        });
-        elt.update(DimpCore.text.newflag_wait);
-        break;
-
-    case 'mbox_import':
-        HordeCore.submit(elt, {
-            callback: function(r) {
-                HordeDialog.close();
-                if (r.action == 'importMailbox' &&
-                    r.mbox == this.view) {
-                    this.viewport.reload();
-                }
-            }.bind(this)
-        });
-        elt.update(DimpCore.text.import_mbox_loading);
-        break;
-    }
-}.bindAsEventListener(DimpBase));
-document.observe('HordeDialog:close', function(e) {
-    if (this.colorpicker) {
-        this.colorpicker.hide();
-    }
-    delete this.colorpicker;
-}.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:onClick', DimpBase.dialogClickHandler.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:close', DimpBase.dialogCloseHandler.bind(DimpBase));
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
 document.observe('HordeCore:runTasks', function(e) {
-    this.tasksHandler(e.memo);
-}.bindAsEventListener(DimpBase));
+    DimpBase.tasksHandler(e.memo);
+});
 
 /* Click handlers. */
 document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
@@ -4077,7 +4161,7 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 document.observe('dom:loaded', function() {
     if (Prototype.Browser.IE && !document.addEventListener) {
         // For IE 8
-        DimpBase.onDomLoad.bind(DimpBase).defer();
+        DimpBase.onDomLoad.bind(DimpBase).delay(0.1);
     } else {
         DimpBase.onDomLoad();
     }

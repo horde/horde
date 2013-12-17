@@ -120,19 +120,6 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
- * x509_validate
- * -------------
- * This hook is called during initial authentication when using the X509 client
- * certificate authentication driver. It provides a chance for custom logic to
- * validate a certificate.
- *
- * Parameters in:
- *   $certificate (certificate handle): A handle to the certificate which can be
- *                                      passed to the openssl_x509 functions.
- *
- * The return value from this hook is as follows:
- *   [throw Horde_Auth_Exception] - Fatal error.
- *    boolean True if certificate passes our validation rules, otherwise false.
  *
  * Login Hooks
  * ===========
@@ -267,7 +254,7 @@
  *
  * activesync_device_check
  * -----------------------
- * This hook allows the enforcement of arbitrary device policies like E.g.,
+ * This hooks allows the enforcement of arbitrary device policies like E.g.,
  * not allowing certain user agents to connect, or only allowing certain user
  * agents for certain users etc...
  *
@@ -280,20 +267,6 @@
  *             and should be allowed to be paired with the server.
  *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
  *             disallowing the device.
- *
- * activesync_device_modify
- * ------------------------
- * This hook gives the chance to modify the device object before the request is
- * handled. This can be used, for instance, in forcing certain devices to always
- * use multiplexed collections for certain collection types, while other devices
- * are allowed to use non-multiplexed collections.
- *
- * Parameters in:
- *   $device (Horde_ActiveSync_Device):  The device object.
- *
- * The return value from this hook is as follows:
- *   [throw Horde_Exception] - Fatal error.
- *   [Horde_ActiveSync_Device]  The possibly modified device object.
  *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
@@ -550,24 +523,6 @@ class Horde_Hooks
 //        ldap_close($ds);
 //
 //        return $ret;
-//
-//      // Example #2: Providing a client certificate <-> horde username store.
-//      // Normally, the following would be looked up in a persistent storage
-//      // backend. Note this example also stores a plaintext password to avoid
-//      // cluttering up the example. DO NOT DO THIS. If your x509 client
-//      // certificate setup requires that you still pass a password to the IMAP
-//      // server, the password MUST be stored encrypted. In this example, we
-//      // store a unique identifier for the certificate to add an additional level
-//      // of security. It wouldn't be too hard to create a admin UI for managing
-//      // client certificates and "registering" them to the user.
-//      $mapping = array('user@example.com' => array(
-//         'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
-//
-//      if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
-//         return false;
-//      }
-//
-//     return $mapping[$userId]['credentials'];
 //     }
 
 
@@ -617,23 +572,6 @@ class Horde_Hooks
 //            $userId = $information[0]['mail'][0];
 //        }
 //        return $userId;
-//
-//       // Example #4: Essentially the same as Example #1, but in the reverse
-//       // direction. This is used, e.g., when using x509 client certificates
-//       // that provide the username as an email address and you want Horde
-//       // logins to be usernames only.
-//       // ex. $HTTP_HOST = 'mail.mydomain.com', $userId = 'myname' returns:
-//       // 'myname@mydomain.com'
-//       $vdomain = preg_replace('|^mail\.|i', '', getenv('HTTP_HOST'));
-//       $vdomain = Horde_String::lower($vdomain);
-//
-//       if (!$toHorde) {
-//           return $userId . '@' . $vdomain;
-//       } else {
-//           return (substr($userId, -strlen($vdomain)) == $vdomain)
-//             ? substr($userId, 0, -strlen($vdomain) - 1)
-//             : $userId;
-//       }
 //    }
 
 
@@ -714,7 +652,7 @@ class Horde_Hooks
 //        );
 //
 //        try {
-//            $extraFields = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('signup_getextra', 'horde');
+//            $extraFields = Horde::callHook('signup_getextra');
 //        } catch (Horde_Exception $e) {}
 //
 //        $msg  = _("A new signup has been received and is awaiting your approval.") .
@@ -1006,96 +944,5 @@ class Horde_Hooks
     // {
     //     return true;
     // }
-
-   /**
-    * Hook for providing custom X509 certificate validation routines. You can
-    * parse the $cert handle provided and/or use any of the available SSL
-    * enviroment variables provided in $_SERVER by your webserver to determine
-    * if the certificate should be honored.
-    *
-    * @param mixed $cert  The certificate string or handle.
-    *
-    * @return boolean
-    */
-   // public function x509_validate($cert)
-   // {
-   //    $parsed = openssl_x509_parse($cert);
-   //    if ($parsed['issuer']['CN'] != 'My CA CN') {
-   //       return false;
-   //    }
-
-   //    return true;
-   // }
-
-   /**
-    * Hook for modifying the device object prior to request processing. The
-    * device object is fully populated here, so you have access to all
-    * properties:
-    *   - id:         The device id.
-    *   - policykey:  The device's policy key, if provisioned.
-    *   - userAgent:  The device's user agent string.
-    *   - multiplex:  Bitmask for forced multiplex collections.
-    *                 @see Horde_ActiveSync_Device
-    *   - version:    The EAS version in use by the device.
-    *   - properties: A hash containing the following key/values (note that not
-    *                 all devices provide all values):
-    *       - Horde_ActiveSync_Device::MODEL:         => The model name.
-    *       - Horde_ActiveSync_Device::IMEI:          => The device's IMEI #.
-    *       - Horde_ActiveSync_Device::NAME:          => The device's common
-    *                                                    name.
-    *       - Horde_ActiveSync_Device::OS:            => The device's OS.
-    *       - Horde_ActiveSync_Device::OS_LANGUAGE    => The language.
-    *       - Horde_ActiveSync_Device::PHONE_NUMBER   => The phone number.
-    *
-    * @param Horde_ActiveSync_Device $device  The device object.
-    *
-    * @return Horde_ActiveSync_Device  The possibly modified device object.
-    */
-   public function activesync_device_modify(Horde_ActiveSync_Device $device)
-   {
-        // Example for forcing certain device to force multiplexed collections
-        // for collection types they don't support multiple collections for.
-        // Note that this doesn't apply to email folders, which are NEVER
-        // sent multiplexed.
-
-        // iOS seems to support multiple collections for everything except
-        // Notes.
-        if (strpos($device->userAgent, 'iOS') === 0 ) {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES;
-        }
-
-        // For this example, just flag android devices as requiring
-        // multiplexed data for all collections. Probably some version sniffing
-        // or manufacturer sniffing to be done here.
-        if (strpos($device->userAgent, 'Android') !== false) {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES |
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
-                Horde_ActiveSync_Device::MULTIPLEX_TASKS;
-        }
-
-        // Windows Phone. For the devices I've tested, it seems that
-        // only multiple tasklists are accepted. The rest must be
-        // multiplexed.
-        if (strpos($device->userAgent, 'MSFT-WP/8.0') !== false || $device->deviceType == 'WP8') {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
-        }
-
-        // PocketPC versions seem to not support any user defined
-        // collections at all, though I've only tested on a single HTC device.
-        if (strpos($device->userAgent, 'MSFT-PPC') !== false || $device->deviceType == 'PocketPC') {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES |
-                Horde_ActiveSync_Device::MULTIPLEX_TASKS;
-        }
-
-        return $device;
-   }
 
 }

@@ -31,7 +31,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         global $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Redirect back to the mailbox if folder use is not allowed. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $notification->push(_("The folder view is not enabled."), 'horde.error');
             Horde::url('mailbox', true)->redirect();
@@ -63,17 +63,13 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             )
         ));
 
-        /* Initialize the IMP_Imap_Tree object. */
-        $imaptree = $injector->getInstance('IMP_Imap_Tree');
+        /* Initialize the IMP_Ftree object. */
+        $ftree = $injector->getInstance('IMP_Ftree');
 
         /* $mbox_list entries are urlencoded. */
         $mbox_list = isset($this->vars->mbox_list)
             ? IMP_Mailbox::formFrom($this->vars->mbox_list)
             : array();
-
-        /* Token to use in requests */
-        $token = $injector->getInstance('Horde_Token');
-        $folders_token = $token->get('imp.folders');
 
         /* META refresh time (might be altered by actionID). */
         $refresh_time = $prefs->getValue('refresh_time');
@@ -85,13 +81,14 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $view->addHelper('FormTag');
         $view->addHelper('Tag');
 
-        $view->folders_token = $folders_token;
+        $token = $session->getToken();
+        $view->token = $token;
 
         /* Run through the action handlers. */
         if ($this->vars->actionID) {
             try {
-                $token->validate($this->vars->folders_token, 'imp.folders');
-            } catch (Horde_Token_Exception $e) {
+                $session->checkToken($this->vars->token);
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $this->vars->actionID = null;
             }
@@ -99,15 +96,15 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         switch ($this->vars->actionID) {
         case 'expand_all_folders':
-            $imaptree->expandAll();
+            $ftree->expandAll();
             break;
 
         case 'collapse_all_folders':
-            $imaptree->collapseAll();
+            $ftree->collapseAll();
             break;
 
         case 'rebuild_tree':
-            $imaptree->init();
+            $ftree->init();
             break;
 
         case 'expunge_mbox':
@@ -147,10 +144,10 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         case 'create_mbox':
             if (isset($this->vars->new_mailbox)) {
                 try {
-                    $new_mbox = $imaptree->createMailboxName(
-                        empty($mbox_list) ? null : $mbox_list[0],
-                        $this->vars->new_mailbox
-                    );
+                    $parent = empty($mbox_list)
+                        ? IMP_Mailbox::get(IMP_Ftree::BASE_ELT)
+                        : $mbox_list[0];
+                    $new_mbox = $parent->createMailboxName($this->vars->new_mailbox);
                     if ($new_mbox->exists) {
                         $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
                     } else {
@@ -205,19 +202,18 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             if ($subscribe) {
                 $showAll = !$showAll;
                 $session->set('imp', 'showunsub', $showAll);
-                $imaptree->showUnsubscribed($showAll);
             }
             break;
 
         case 'poll_mbox':
             if (!empty($mbox_list)) {
-                $imaptree->addPollList($mbox_list);
+                $ftree->poll->addPollList($mbox_list);
             }
             break;
 
         case 'nopoll_mbox':
             if (!empty($mbox_list)) {
-                $imaptree->removePollList($mbox_list);
+                $ftree->poll->removePollList($mbox_list);
             }
             break;
 
@@ -299,10 +295,8 @@ class IMP_Basic_Folders extends IMP_Basic_Base
                 $loop = array();
                 $sum = 0;
 
-                $imp_message = $injector->getInstance('IMP_Message');
-
                 foreach ($mbox_list as $val) {
-                    $size = $imp_message->sizeMailbox($val, false);
+                    $size = $this->_sizeMailbox($val, false);
                     $data = array(
                         'name' => $val->display,
                         'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
@@ -343,7 +337,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         $this->title = _("Folder Navigator");
 
-        $folders_url->add('folders_token', $folders_token);
+        $folders_url->add('token', $token);
 
         /* Prepare the topbar. */
         $injector->getInstance('Horde_View_Topbar')->subinfo =
@@ -385,7 +379,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             $actions->toggle_subscribe = Horde::widget(array(
                 'url' => $folders_url->copy()->add(array(
                     'actionID' => 'toggle_subscribed_view',
-                    'folders_token' => $folders_token
+                    'token' => $token
                 )),
                 'title' => $subToggleText,
                 'nocheck' => true
@@ -397,7 +391,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $actions->expand_all = Horde::widget(array(
             'url' => $folders_url->copy()->add(array(
                 'actionID' => 'expand_all_folders',
-                'folders_token' => $folders_token
+                'token' => $token
             )),
             'title' => _("Expand All"),
             'nocheck' => true
@@ -405,28 +399,34 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $actions->collapse_all = Horde::widget(array(
             'url' => $folders_url->copy()->add(array(
                 'actionID' => 'collapse_all_folders',
-                'folders_token' => $folders_token
+                'token' => $token
             )),
             'title' => _("Collapse All"),
             'nocheck' => true
         ));
 
         /* Build the folder tree. */
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-        $tree = $imaptree->createTree('imp_folders', array(
+        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
+                IMP_Ftree_IteratorFilter::NO_VFOLDER;
+        if ($showAll) {
+            $mask |= IMP_Ftree_IteratorFilter::UNSUB;
+        }
+        $tree = $ftree->createTree('imp_folders', array(
             'checkbox' => true,
             'editvfolder' => true,
+            'iterator' => IMP_Ftree_IteratorFilter::create($mask),
             'poll_info' => true
         ));
 
         $displayNames = $fullNames = array();
 
-        foreach ($imaptree as $key => $val) {
-            $tmp = $displayNames[] = $val->display;
+        foreach ($ftree as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $tmp = $displayNames[] = $mbox_ob->display;
 
-            $tmp2 = $val->display_notranslate;
+            $tmp2 = $mbox_ob->display_notranslate;
             if ($tmp != $tmp2) {
-                $fullNames[$key] = $tmp2;
+                $fullNames[strval($val)] = $tmp2;
             }
         }
 
@@ -459,6 +459,38 @@ class IMP_Basic_Folders extends IMP_Basic_Base
     static public function url(array $opts = array())
     {
         return Horde::url('basic.php')->add('page', 'folders');
+    }
+
+    /**
+     * Obtains the size of a mailbox.
+     *
+     * @param IMP_Mailbox $mbox   The mailbox to obtain the size of.
+     * @param boolean $formatted  Whether to return a human readable value.
+     *
+     * @return mixed  Either the size of the mailbox (in bytes) or a formatted
+     *                string with this information.
+     */
+    protected function _sizeMailbox(IMP_Mailbox $mbox, $formatted = true)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->size();
+
+        try {
+            $imp_imap = $mbox->imp_imap;
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
+            ));
+
+            $size = 0;
+            foreach ($res as $v) {
+                $size += $v->getSize();
+            }
+            return ($formatted)
+                ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
+                : $size;
+        } catch (IMP_Imap_Exception $e) {
+            return 0;
+        }
     }
 
 }

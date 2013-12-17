@@ -34,19 +34,26 @@ class IMP_Search_Ui
      */
     public function getSearchMboxList($unsub = false)
     {
-        global $injector;
+        global $injector, $registry;
 
         $ob = new stdClass;
-
-        $imap_tree = $injector->getInstance('IMP_Imap_Tree');
-        $imap_tree->setIteratorFilter($unsub ? IMP_Imap_Tree::FLIST_UNSUB : 0);
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/search'
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
-        $ob->tree = $imap_tree->createTree('imp_search', array(
+        $ftree = $injector->getInstance('IMP_Ftree');
+        $mask = $unsub
+            ? IMP_Ftree_IteratorFilter::UNSUB
+            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
+        if ($registry->getView() != $registry::VIEW_DYNAMIC) {
+            $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
+        }
+        $filter = IMP_Ftree_IteratorFilter::create($mask);
+
+        $ob->tree = $ftree->createTree('imp_search', array(
+            'iterator' => $filter,
             'render_params' => array(
                 'abbrev' => 0,
                 'container_select' => true,
@@ -57,8 +64,9 @@ class IMP_Search_Ui
         ));
 
         $mbox_list = array();
-        foreach ($imap_tree as $val) {
-            $mbox_list[$val->form_to] = $val->display;
+        foreach ($filter as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $mbox_list[$mbox_ob->form_to] = $mbox_ob->display;
         }
         $ob->mbox_list = $mbox_list;
 

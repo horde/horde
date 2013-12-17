@@ -39,11 +39,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptPackage('Dialog');
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $page_output->addScriptFile('colorpicker.js', 'horde');
-            $this->view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
+            $this->view->picker_img = Horde_Themes_Image::tag('colorpicker.png', array('alt' => _("Color Picker")));
+        }
+
+        if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
+            $page_output->addScriptFile('external/base64.js');
         }
 
         $this->_addMailboxVars();
@@ -125,11 +129,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         global $conf, $injector, $prefs, $registry;
 
         /* Does server support ACLs? */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
 
         $this->js_conf += array_filter(array(
             // URLs
+            'URI_LISTINFO' => strval(IMP_Basic_Listinfo::url(array('full' => true))),
             'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
@@ -236,6 +241,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '_sep1' => null,
                 'noaction' => _("No actions available")
             ),
+            'ctx_remoteauth' => array(
+                '_mbox' => '',
+                '_sep1' => null,
+                'create' => _("Create Mailbox"),
+                'logout' => _("Log Out")
+            ),
             'ctx_sortopts' => array(
                 'from' => _("From"),
                 'to' => _("To"),
@@ -307,6 +318,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'innocent' => _("Report as Innocent"),
             'blacklist' => _("Blacklist"),
             'whitelist' => _("Whitelist"),
+            'addfilter' => _("Create Filter"),
             'delete' => _("Delete"),
             'undelete' => _("Undelete"),
             '_sub3' => array(
@@ -320,6 +332,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
+        }
+        if (!$registry->hasInterface('mail/newEmailFilter')) {
+            unset($context['ctx_message']['addfilter']);
         }
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_message']['undelete']);
@@ -414,7 +429,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'save' => _("Save"),
             'viewsource' => _("View Source"),
             'allparts' => _("All Parts"),
-            'thread' => _("View Thread")
+            'thread' => _("View Thread"),
+            'listinfo' => _("List Info")
         );
 
         if (empty($conf['user']['allow_view_source'])) {
@@ -445,15 +461,23 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*advanced' => _("Advanced Search...")
             );
             /* Generate filter array. */
-            $imp_search = $injector->getInstance('IMP_Search');
-            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::FILTER
+            );
 
             $context['ctx_filter'] = array();
-            foreach (iterator_to_array($imp_search) as $key => $val) {
+            foreach ($iterator as $val) {
                 if ($val->enabled) {
-                    $context['ctx_filter']['*' . $key] = $val->label;
+                    $context['ctx_filter']['*' . $val->id] = $val->label;
                 }
             }
+        }
+
+        /* Remote accounts context menu. */
+        if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
+            $context['ctx_rcontainer'] = array(
+                '*prefs' => _("Manage Remote Accounts")
+            );
         }
 
         $this->js_context = array_merge($context, $this->js_context);
@@ -485,6 +509,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),
+            'remote_password' => _("Password for %s:"),
             'rename_prompt' => _("Rename %s to:"),
             'search' => _("Search"),
             'search_input' => _("Search (%s)"),

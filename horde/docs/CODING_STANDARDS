@@ -573,8 +573,8 @@ When throwing a Horde_Exception the error message provided should not be
 localized.
 
 Throwing exceptions is expensive, so use them carefully for logic flow. You
-should cache results of Horde_Core_Hooks#callHook() calls for example, if you
-plan on calling a hook hundreds of time an access.
+should cache results of Horde::callHook() calls for example, if you expect them
+to not exist.
 
 
 Exceptions in Framework Packages

@@ -25,6 +25,21 @@
 class IMP_Ajax_Queue
 {
     /**
+     * The folder tree mask to use when determining what folder entries to
+     * return.
+     *
+     * @var integer
+     */
+    public $ftreemask = 0;
+
+    /**
+     * The list of compose autocompleter address error data.
+     *
+     * @var array
+     */
+    protected $_addr = array();
+
+    /**
      * The list of attachments.
      *
      * @var array
@@ -89,6 +104,11 @@ class IMP_Ajax_Queue
 
     /**
      * Generates AJAX response task data from the queue.
+     *
+     * For compose autocomplete address error data (key: 'compose-addr'), an
+     * array with keys as the autocomplete DOM element and the values as
+     * arrays. The value arrays have keys as the autocomplete address ID, and
+     * the * value is a space-separated list of classnames to add.
      *
      * For compose attachment data (key: 'compose-atc'), an array of objects
      * with these properties:
@@ -156,7 +176,13 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
-        global $injector, $registry;
+        global $injector;
+
+        /* Add autocomplete address error information. */
+        if (!empty($this->_addr)) {
+            $ajax->addTask('compose-addr', $this->_addr);
+            $this->_addr = array();
+        }
 
         /* Add compose attachment information. */
         if (!empty($this->_atc)) {
@@ -178,7 +204,7 @@ class IMP_Ajax_Queue
 
         /* Add flag information. */
         if (!empty($this->_flag)) {
-            $ajax->addTask('flag', $this->_flag);
+            $ajax->addTask('flag', array_unique($this->_flag, SORT_REGULAR));
             $this->_flag = array();
         }
 
@@ -204,16 +230,7 @@ class IMP_Ajax_Queue
         }
 
         /* Add folder tree information. */
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter(
-            ($registry->getView() == $registry::VIEW_DYNAMIC)
-                ? $imptree::FLIST_NOSPECIALMBOXES
-                : 0
-        );
-        $out = $imptree->getAjaxResponse();
-        if (!empty($out)) {
-            $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
-        }
+        $this->_addFtreeInfo($ajax);
 
         /* Add mail log information. */
         if (!empty($this->_maillog)) {
@@ -248,7 +265,7 @@ class IMP_Ajax_Queue
         }
 
         if (count($poll_list)) {
-            $imap_ob = $injector->getInstance('IMP_Imap');
+            $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
             if ($imap_ob->init) {
                 foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                     $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
@@ -290,7 +307,7 @@ class IMP_Ajax_Queue
         $parts = ($ob instanceof IMP_Compose)
             ? iterator_to_array($ob)
             : array($ob);
-        $viewer = $injector->getInstance('Horde_Core_Factory_MimeViewer');
+        $viewer = $injector->getInstance('IMP_Factory_MimeViewer');
 
         foreach ($parts as $val) {
             $mime = $val->getPart();
@@ -324,6 +341,18 @@ class IMP_Ajax_Queue
     }
 
     /**
+     * Add address autocomplete error info.
+     *
+     * @param string $domid   The autocomplete DOM ID.
+     * @param string $itemid  The autocomplete address ID.
+     * @param string $class   The classname to add to the address entry.
+     */
+    public function compose_addr($domid, $itemid, $class)
+    {
+        $this->_addr[$domid][$itemid] = $class;
+    }
+
+    /**
      * Add flag entry to response queue.
      *
      * @param array $flags          List of flags that have changed.
@@ -345,9 +374,21 @@ class IMP_Ajax_Queue
         $result = new stdClass;
         if (!empty($changed['add'])) {
             $result->add = array_map('strval', $changed['add']);
+            foreach ($changed['add'] as $val) {
+                if ($val->deselect(true)) {
+                    $result->deselect = true;
+                    break;
+                }
+            }
         }
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
+            foreach ($changed['remove'] as $val) {
+                if ($val->deselect(false)) {
+                    $result->deselect = true;
+                    break;
+                }
+            }
         }
 
         $result->buids = $indices->toArray();
@@ -497,6 +538,186 @@ class IMP_Ajax_Queue
     public function quota($mailbox)
     {
         $this->_quota = $mailbox;
+    }
+
+    /**
+     * Add folder tree information.
+     *
+     * @param IMP_Ajax_Application $ajax  The AJAX object.
+     */
+    protected function _addFtreeInfo(IMP_Ajax_Application $ajax)
+    {
+        global $injector;
+
+        $eltdiff = $injector->getInstance('IMP_Ftree')->eltdiff;
+        $out = $poll = array();
+
+        if (!$eltdiff->track) {
+            return;
+        }
+
+        if (($add = $eltdiff->add) &&
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $add))))) {
+            $out['a'] = $elts;
+            $poll = $add;
+        }
+
+        if (($change = $eltdiff->change) &&
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $change))))) {
+            $out['c'] = $elts;
+            $poll = array_merge($poll, $change);
+        }
+
+        if ($delete = $eltdiff->delete) {
+            $out['d'] = IMP_Mailbox::formTo($delete);
+        }
+
+        if (!empty($out)) {
+            $eltdiff->clear();
+            $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
+            $this->poll($poll);
+        }
+    }
+
+    /**
+     * Create a folder tree element.
+     *
+     * @return mixed  The element object, or null if the element is not
+     *                active. Object contains the following properties:
+     * <pre>
+     *   - ch: (boolean) [children] Does the mailbox contain children?
+     *         DEFAULT: no
+     *   - cl: (string) [class] The CSS class.
+     *         DEFAULT: 'base'
+     *   - co: (boolean) [container] Is this mailbox a container element?
+     *         DEFAULT: no
+     *   - fs: (boolean) [boolean] Fixed element for sorting purposes.
+     *         DEFAULT: no
+     *   - i: (string) [icon] A user defined icon to use.
+     *        DEFAULT: none
+     *   - l: (string) [label] The mailbox display label.
+     *        DEFAULT: 'm' val
+     *   - m: (string) [mbox] The mailbox value (base64url encoded).
+     *   - n: (boolean) [non-imap] A non-IMAP element?
+     *        DEFAULT: no
+     *   - nc: (boolean) [no children] Does the element not allow children?
+     *         DEFAULT: no
+     *   - ns: (boolean) [no sort] Don't sort on browser.
+     *         DEFAULT: no
+     *   - pa: (string) [parent] The parent element.
+     *         DEFAULT: DimpCore.conf.base_mbox
+     *   - po: (boolean) [polled] Is the element polled?
+     *         DEFAULT: no
+     *   - r: (integer) [remote] Is this a "remote" element? 1 is the remote
+     *        container, 2 is a remote account, and 3 is a remote mailbox.
+     *        DEFAULT: 0
+     *   - s: (boolean) [special] Is this a "special" element?
+     *        DEFAULT: no
+     *   - t: (string) [title] Mailbox title.
+     *        DEFAULT: 'm' val
+     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
+     *         DEFAULT: no
+     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
+     *        vfolder, 2 = user vfolder
+     *        DEFAULT: 0
+     *  </pre>
+     */
+    protected function _ftreeElt($id)
+    {
+        global $injector;
+
+        $ftree = $injector->getInstance('IMP_Ftree');
+        if (!($elt = $ftree[$id]) || $elt->base_elt) {
+            return null;
+        }
+
+        $mbox_ob = $elt->mbox_ob;
+
+        $ob = new stdClass;
+        $ob->m = $mbox_ob->form_to;
+
+        if ($elt->children) {
+            if ($this->ftreemask) {
+                $filter = IMP_Ftree_IteratorFilter::create($this->ftreemask, $elt);
+
+                /* Only need to check for a single child. */
+                foreach ($filter as $val) {
+                    $ob->ch = 1;
+                    break;
+                }
+            } else {
+                $ob->ch = 1;
+            }
+        } elseif ($elt->nochildren) {
+            $ob->nc = 1;
+        }
+
+        $label = $mbox_ob->label;
+        if ($ob->m != $label) {
+            $ob->t = $label;
+        }
+
+        $tmp = htmlspecialchars($mbox_ob->abbrev_label);
+        if ($ob->m != $tmp) {
+            $ob->l = $tmp;
+        }
+
+        $parent = $elt->parent;
+        if (!$parent->base_elt) {
+            $ob->pa = $parent->mbox_ob->form_to;
+            if ($parent->remote &&
+                (strcasecmp($mbox_ob->imap_mbox, 'INBOX') === 0)) {
+                $ob->fs = 1;
+            }
+        }
+
+        if ($elt->vfolder) {
+            $ob->v = $mbox_ob->editvfolder ? 2 : 1;
+            $ob->ns = 1;
+        }
+
+        if ($elt->nonimap) {
+            $ob->n = 1;
+            if ($mbox_ob->remote_container) {
+                $ob->r = 1;
+            }
+        }
+
+        if ($elt->container) {
+            if (empty($ob->ch)) {
+                return null;
+            }
+            $ob->cl = 'exp';
+            $ob->co = 1;
+        } else {
+            if (!$elt->subscribed) {
+                $ob->un = 1;
+            }
+
+            if (isset($ob->n) && isset($ob->r)) {
+                $ob->r = ($mbox_ob->remote_account->imp_imap->init ? 3 : 2);
+            }
+
+            if ($elt->polled) {
+                $ob->po = 1;
+            }
+
+            if ($elt->inbox || $mbox_ob->special) {
+                $ob->ns = $ob->s = 1;
+            } elseif (empty($ob->v) && !empty($ob->ch)) {
+                $ob->cl = 'exp';
+            }
+        }
+
+        $icon = $mbox_ob->icon;
+        if ($icon->user_icon) {
+            $ob->cl = 'customimg';
+            $ob->i = strval($icon->icon);
+        } else {
+            $ob->cl = $icon->class;
+        }
+
+        return $ob;
     }
 
 }

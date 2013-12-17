@@ -173,7 +173,7 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             if (!strstr($val, '@')) {
-                $val .= '@' . $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+                $val .= '@' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
             }
 
             $ob = new Horde_Mail_Rfc822_Address($val);
@@ -455,6 +455,30 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
     }
 
     /**
+     * Does the user have any signatures (either text or HTML)?
+     *
+     * @param boolean $compose_page  If true, checks for signatures as used on
+     *                               the compose pages.
+     *
+     * @return boolean  True if the user has at least one signature.
+     */
+    public function hasSignature($compose_page = false)
+    {
+        global $prefs;
+
+        if (!$compose_page || $prefs->getValue('signature_show_compose')) {
+            foreach (array_keys($this->_identities) as $key) {
+                if (strlen(trim($this->getValue('signature_html', $key))) ||
+                    strlen(trim($this->getValue('signature', $key)))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns a property from one of the identities.
      *
      * @see getValue()
@@ -547,7 +571,7 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function saveSentmail($ident = null)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)
             ? $this->getValue('save_sent_mail', $ident)
             : false;
     }

@@ -8,9 +8,9 @@
 var ImpCompose = {
 
     // Variables defined in PHP code:
-    //   cancel_url, cursor_pos, discard_url, editor_wait, last_msg,
-    //   max_attachments, popup, redirect, reloaded, sc_submit, sm_check,
-    //   skip_spellcheck, spellcheck, text
+    //   cancel_url, cursor_pos, discard_url, editor_wait, last_identity,
+    //   last_msg, last_sig, max_attachments, popup, redirect, reloaded,
+    //   sc_submit, sm_check, skip_spellcheck, spellcheck, text
 
     display_unload_warning: true,
     seed: 3,
@@ -42,7 +42,15 @@ var ImpCompose = {
             bcc = $('bcc'),
             save = $('ssm'),
             sm = $('sent_mail'),
-            re;
+            re, cur_sig;
+
+        cur_sig = this.sigHash();
+        if (this.last_sig &&
+            this.last_sig != cur_sig &&
+            !window.confirm(this.text.change_identity)) {
+            return false;
+        }
+        this.last_sig = cur_sig;
 
         if (this.sm_check) {
             sm.setValue(next.sm_name);
@@ -73,6 +81,10 @@ var ImpCompose = {
 
             bcc.setValue(bccval);
         }
+        ImpComposeBase.setSignature(ImpComposeBase.editor_on, next);
+        this.last_identity = $F('identity');
+
+        return true;
     },
 
     uniqSubmit: function(actionID, e)
@@ -87,7 +99,7 @@ var ImpCompose = {
         case 'redirect':
             if ($F('to').empty()) {
                 alert(this.text.recipient);
-                $('to').focus();
+                ImpComposeBase.focus('to');
                 return;
             }
 
@@ -130,6 +142,7 @@ var ImpCompose = {
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on &&
+                ImpComposeBase.rte_loaded &&
                 CKEDITOR.instances.composeMessage) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
@@ -153,8 +166,10 @@ var ImpCompose = {
             return;
         }
 
+        $(document).fire('AutoComplete:update');
+
         if (this.editor_wait && ImpComposeBase.editor_on) {
-            return this.uniqSubmit.bind(this, actionID, e).defer();
+            return this.uniqSubmit.bind(this, actionID, e).delay(0.1);
         }
 
         // Ticket #6727; this breaks on WebKit w/FCKeditor.
@@ -211,6 +226,23 @@ var ImpCompose = {
         }
     },
 
+    sigHash: function()
+    {
+        if (!$('signature')) {
+            return 0;
+        }
+        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+    },
+
+    updateSigHash: function()
+    {
+        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+            this.updateSigHash.bind(this).delay(0.1);
+            return;
+        }
+        this.last_sig = this.sigHash();
+    },
+
     clickHandler: function(e)
     {
         var name,
@@ -261,7 +293,9 @@ var ImpCompose = {
 
         switch (id) {
         case 'identity':
-            this.changeIdentity(elt);
+            if (!this.changeIdentity(elt)) {
+                $('identity').setValue(this.last_identity);
+            }
             break;
 
         case 'sent_mail':
@@ -290,8 +324,10 @@ var ImpCompose = {
         HordeCore.initHandler('click');
 
         if (this.redirect) {
-            $('to').focus();
+            ImpComposeBase.focus('to');
         } else {
+            ImpComposeBase.setSignature(ImpComposeBase.editor_on, $F('signature') ? $F('signature') : ImpComposeBase.identities[$F('last_identity')]);
+
             handler = this.keyDownHandler.bindAsEventListener(this);
             /* Prevent Return from sending messages - it should bring us out
              * of autocomplete, not submit the whole form. */
@@ -308,7 +344,7 @@ var ImpCompose = {
                 $('subject').observe('keydown', function(e) {
                     if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
                         e.stop();
-                        $('composeMessage').focus();
+                        ImpComposeBase.focus('composeMessage');
                     }
                 });
             }
@@ -319,13 +355,9 @@ var ImpCompose = {
             }
 
             if ($('to') && !$F('to')) {
-                $('to').focus();
+                ImpComposeBase.focus('to');
             } else if (!$F('subject')) {
-                if (ImpComposeBase.editor_on) {
-                    $('subject').focus();
-                } else {
-                    $('composeMessage').focus();
-                }
+                ImpComposeBase.focus(ImpComposeBase.editor_on ? 'subject' : 'composeMessage');
             }
 
             document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
@@ -340,6 +372,8 @@ var ImpCompose = {
                 /* Immediately execute to get MD5 hash of empty message. */
                 new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
             }
+            this.last_identity = $F('identity');
+            this.updateSigHash();
         }
 
         this.resize.bind(this).delay(0.25);
@@ -379,7 +413,7 @@ var ImpCompose = {
         if (this.popup && !this.reloaded) {
             e = e.getHeight();
             if (!e) {
-                return this.resize.bind(this).defer();
+                return this.resize.bind(this).delay(0.1);
             }
             d = Math.min(e, screen.height - 50) - document.viewport.getHeight();
             if (d > 0) {

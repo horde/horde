@@ -40,6 +40,11 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             Ingo_Basic_Filters::url()->redirect();
         }
 
+        if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
+            $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
+            Ingo_Basic_Filters::url()->redirect();
+        }
+
         /* Load the Ingo_Script:: driver. */
         $ingo_script = $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_FILTER);
 
@@ -60,170 +65,140 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         /* Token checking. */
         $actionID = $this->_checkToken(array(
             'rule_save',
-            'rule_update',
             'rule_delete'
         ));
+
+        /* Update the current rules before performing any action. */
+        $rule = array(
+            'action' => $this->vars->action,
+            'combine' => $this->vars->combine,
+            'conditions' => array(),
+            'flags' => 0,
+            'id' => $this->vars->id,
+            'name' => $this->vars->name,
+            'stop' => $this->vars->stop
+        );
+
+        if ($ingo_script->hasFeature('case_sensitive')) {
+            $casesensitive = $this->vars->case;
+        }
+
+        foreach (array_filter($this->vars->field) as $key => $val) {
+            $condition = array();
+            $f_label = null;
+
+            if ($val == Ingo::USER_HEADER) {
+                $condition['field'] = empty($this->vars->userheader[$key])
+                    ? ''
+                    : $this->vars->userheader[$key];
+                $condition['type'] = Ingo_Storage::TYPE_HEADER;
+            } elseif (!isset($ingo_fields[$val])) {
+                $condition['field'] = $val;
+                $condition['type'] = Ingo_Storage::TYPE_HEADER;
+            } else {
+                $condition['field'] = $val;
+                $f_label = $ingo_fields[$val]['label'];
+                $condition['type'] = $ingo_fields[$val]['type'];
+            }
+
+            $condition['match'] = isset($this->vars->match[$key])
+                ? $this->vars->match[$key]
+                : '';
+
+            if (($actionID == 'rule_save') &&
+                empty($this->vars->value[$key]) &&
+                !in_array($condition['match'], array('exists', 'not exist'))) {
+                $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), is_null($f_label) ? $condition['field'] : $f_label), 'horde.error');
+                $actionID = null;
+            }
+
+            $condition['value'] = isset($this->vars->value[$key])
+                ? $this->vars->value[$key]
+                : '';
+
+            if (isset($casesensitive)) {
+                $condition['case'] = isset($casesensitive[$key])
+                    ? $casesensitive[$key]
+                    : '';
+            }
+            $rule['conditions'][] = $condition;
+        }
+
+        switch ($ingo_storage->getActionInfo($this->vars->action)->type) {
+        case 'folder':
+            if ($actionID == 'rule_save') {
+                try {
+                    $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
+                } catch (Ingo_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                    $actionID = null;
+                }
+            } else {
+                $rule['action-value'] = $this->vars->actionvalue;
+                if (!$this->vars->actionvalue &&
+                    isset($this->vars->actionvalue_new)) {
+                    $page_output->addInlineScript(array(
+                        'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($this->vars->actionvalue_new, Horde_Serialize::JSON) . ')'
+                    ), true);
+                }
+            }
+            break;
+
+        default:
+            $rule['action-value'] = $this->vars->actionvalue;
+            break;
+        }
+
+        $flags = empty($this->vars->flags)
+            ? array()
+            : $this->vars->flags;
+        foreach ($flags as $val) {
+            $rule['flags'] |= $val;
+        }
 
         /* Run through action handlers. */
         switch ($actionID) {
         case 'rule_save':
-        case 'rule_update':
+            if (empty($rule['conditions'])) {
+                $notification->push(_("You need to select at least one field to match."), 'horde.error');
+                break;
+            }
+
+            if (!isset($this->vars->edit)) {
+                if ($this->_assertMaxRules($perms, $filters)) {
+                    break;
+                }
+                $filters->addRule($rule);
+            } else {
+                $filters->updateRule($rule, $this->vars->edit);
+            }
+
+            $session->set('ingo', 'change', time());
+
+            $ingo_storage->store($filters);
+            $notification->push(_("Changes saved."), 'horde.success');
+
+            if ($prefs->getValue('auto_update')) {
+                try {
+                    Ingo::updateScript();
+                } catch (Ingo_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
+            }
+
+            Ingo_Basic_Filters::url()->redirect();
+
         case 'rule_delete':
-            $rule = array(
-                'id' => $this->vars->id,
-                'name' => $this->vars->name,
-                'combine' => $this->vars->combine,
-                'conditions' => array()
-            );
-
-            if ($ingo_script->hasFeature('case_sensitive')) {
-                $casesensitive = $this->vars->case;
-            }
-
-            $valid = true;
-            foreach (array_filter($this->vars->field) as $key => $val) {
-                $condition = array();
-                $f_label = null;
-
-                if ($val == Ingo::USER_HEADER) {
-                    $condition['field'] = empty($this->vars->userheader[$key])
-                        ? ''
-                        : $this->vars->userheader[$key];
-                    $condition['type'] = Ingo_Storage::TYPE_HEADER;
-                } elseif (!isset($ingo_fields[$val])) {
-                    $condition['field'] = $val;
-                    $condition['type'] = Ingo_Storage::TYPE_HEADER;
-                } else {
-                    $condition['field'] = $val;
-                    $f_label = $ingo_fields[$val]['label'];
-                    $condition['type'] = $ingo_fields[$val]['type'];
-                }
-                $condition['match'] = isset($this->vars->match[$key])
-                    ? $this->vars->match[$key]
-                    : '';
-
-                if (($actionID == 'rule_save') &&
-                    empty($this->vars->value[$key]) &&
-                    !in_array($condition['match'], array('exists', 'not exist'))) {
-                    $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), is_null($f_label) ? $condition['field'] : $f_label), 'horde.error');
-                    $valid = false;
-                }
-
-                $condition['value'] = isset($this->vars->value[$key])
-                    ? $this->vars->value[$key]
-                    : '';
-
-                if (isset($casesensitive)) {
-                    $condition['case'] = isset($casesensitive[$key])
-                        ? $casesensitive[$key]
-                        : '';
-                }
-                $rule['conditions'][] = $condition;
-            }
-
-            $rule['action'] = $this->vars->action;
-
-            switch ($ingo_storage->getActionInfo($this->vars->action)->type) {
-            case 'folder':
-                if ($actionID == 'rule_save') {
-                    try {
-                        $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
-                    } catch (Ingo_Exception $e) {
-                        $notification->push($e, 'horde.error');
-                        $valid = false;
-                    }
-                } else {
-                    $rule['action-value'] = $this->vars->actionvalue;
-                    if (!$this->vars->actionvalue &&
-                        isset($this->vars->actionvalue_new)) {
-                        $page_output->addInlineScript(array(
-                            'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($this->vars->actionvalue_new, Horde_Serialize::JSON) . ')'
-                        ), true);
-                    }
-                }
-                break;
-
-            default:
-                $rule['action-value'] = $this->vars->actionvalue;
-                break;
-            }
-
-            $rule['stop'] = $this->vars->stop;
-
-            $rule['flags'] = 0;
-            $flags = empty($this->vars->flags)
-                ? array()
-                : $this->vars->flags;
-            foreach ($flags as $val) {
-                $rule['flags'] |= $val;
-            }
-
-            /* Save the rule. */
-            switch ($actionID) {
-            case 'rule_save':
-                if (!$valid) {
-                    break;
-                }
-
-                if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
-                    $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-                    break;
-                }
-
-                if (empty($rule['conditions'])) {
-                    $notification->push(_("You need to select at least one field to match."), 'horde.error');
-                    break;
-                }
-
-                if (!isset($this->vars->edit)) {
-                    if (($perms->hasAppPermission('max_rules') !== true) &&
-                        ($perms->hasAppPermission('max_rules') <= count($filters->getFilterList()))) {
-                        Horde::permissionDeniedError(
-                            'ingo',
-                            'max_rules',
-                            sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
-                        );
-                        break;
-                    }
-                    $filters->addRule($rule);
-                } else {
-                    $filters->updateRule($rule, $this->vars->edit);
-                }
-
-                $session->set('ingo', 'change', time());
-
-                $ingo_storage->store($filters);
-                $notification->push(_("Changes saved."), 'horde.success');
-
-                if ($prefs->getValue('auto_update')) {
-                    try {
-                        Ingo::updateScript();
-                    } catch (Ingo_Exception $e) {
-                        $notification->push($e, 'horde.error');
-                    }
-                }
-
-                Ingo_Basic_Filters::url()->redirect();
-
-            case 'rule_delete':
-                if (isset($this->vars->conditionnumber)) {
-                    unset($rule['conditions'][intval($this->vars->conditionnumber)]);
-                    $rule['conditions'] = array_values($rule['conditions']);
-                }
-                break;
+            if (isset($this->vars->conditionnumber)) {
+                unset($rule['conditions'][intval($this->vars->conditionnumber)]);
+                $rule['conditions'] = array_values($rule['conditions']);
             }
             break;
         }
 
         if (!isset($rule)) {
             if (!isset($this->vars->edit)) {
-                if (($perms->hasAppPermission('max_rules') !== true) &&
-                    $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
-                    Horde::permissionDeniedError(
-                        'ingo',
-                        'max_rules',
-                        sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
-                    );
+                if ($this->_assertMaxRules($perms, $filters)) {
                     Ingo_Basic_Filters::url()->redirect();
                 }
                 $rule = $filters->getDefaultRule();
@@ -367,6 +342,23 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
 
         $this->header = $rule['name'];
         $this->output = $view->render('rule');
+    }
+
+    /**
+     */
+    protected function _assertMaxRules($perms, $filters)
+    {
+        if (($perms->hasAppPermission('max_rules') !== true) &&
+            ($perms->hasAppPermission('max_rules') <= count($filters->getFilterList()))) {
+            Horde::permissionDeniedError(
+                'ingo',
+                'max_rules',
+                sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
+            );
+            return true;
+        }
+
+        return false;
     }
 
     /**

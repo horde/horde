@@ -71,7 +71,7 @@ var ImpFlagPrefs = {
     {
         HordeCore.initHandler('click');
         $('prefs').observe('reset', function() {
-            this.resetHandler.defer();
+            this.resetHandler.delay(0.1);
         }.bind(this));
     }
 

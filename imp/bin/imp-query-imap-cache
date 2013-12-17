@@ -51,7 +51,7 @@ $parser->addOption('-u', '--user', array(
 ));
 list($values,) = $parser->parseArgs();
 
-$imp_imap = $injector->getInstance('IMP_Imap');
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
 /* Set first entry to 1, not 0. */
 $sconfig = $slookup = array('');
@@ -113,7 +113,7 @@ while (is_null($pass)) {
     }
 }
 
-$ob = $imp_imap->createImapObject($user, $pass, $server);
+$ob = $imp_imap->createBaseImapObject($user, $pass, $server);
 if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }

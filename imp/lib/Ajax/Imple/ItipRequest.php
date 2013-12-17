@@ -171,7 +171,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             $notification->push(
                                 _("The event was updated in your calendar.") . '&nbsp;' .
                                     Horde::link($url, _("View event"), null, '_blank') .
-                                    Horde::img('mime/icalendar.png', _("View event")) .
+                                    Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
                                     '</a>',
                                 'horde.success',
                                 array('content.raw')
@@ -195,7 +195,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             $notification->push(
                                 _("The event was added to your calendar.") . '&nbsp;' .
                                     Horde::link($url, _("View event"), null, '_blank') .
-                                    Horde::img('mime/icalendar.png', _("View event")) .
+                                    Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
                                     '</a>',
                                 'horde.success',
                                 array('content.raw')
@@ -237,7 +237,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             $notification->push(
                                 _("The task has been added to your tasklist.") . '&nbsp;' .
                                     Horde::link($url, _("View task"), null, '_blank') .
-                                    Horde::img('mime/icalendar.png', _("View task")) .
+                                    Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View task"))) .
                                     '</a>',
                                 'horde.success',
                                 array('content.raw')

@@ -156,7 +156,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
         }
 
         /* Check that searching is allowed. */
-        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_SEARCH)) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
             $default_mailbox->url('mailbox')->redirect();
         }
 
@@ -174,10 +174,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
         /* Generate the search query if 'criteria_form' is present in the form
          * data. */
         if ($this->vars->criteria_form) {
-            $c_data = Horde_Serialize::unserialize($this->vars->criteria_form, Horde_Serialize::JSON);
             $c_list = array();
 
-            foreach ($c_data as $val) {
+            foreach (json_decode($this->vars->criteria_form) as $val) {
                 switch ($val->t) {
                 case 'from':
                 case 'to':
@@ -300,7 +299,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 break;
 
             case 'vfolder':
-                $form = Horde_Serialize::unserialize($this->vars->mboxes_form, Horde_Serialize::JSON);
+                $form = json_decode($this->vars->mboxes_form);
                 $q_ob = $imp_search->createQuery($c_list, array(
                     'id' => IMP_Mailbox::formFrom($this->vars->edit_query_vfolder),
                     'label' => $this->vars->search_label,
@@ -319,7 +318,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 break;
 
             default:
-                $form = Horde_Serialize::unserialize($this->vars->mboxes_form, Horde_Serialize::JSON);
+                $form = json_decode($this->vars->mboxes_form);
                 $q_ob = $imp_search->createQuery($c_list, array(
                     'mboxes' => IMP_Mailbox::formFrom($form->mbox),
                     'subfolders' => IMP_Mailbox::formFrom($form->subfolder)
@@ -385,9 +384,12 @@ class IMP_Basic_Search extends IMP_Basic_Base
             }
         } else {
             /* Process list of recent searches. */
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::QUERY
+            );
             $rs = array();
-            $imp_search->setIteratorFilter(IMP_Search::LIST_QUERY);
-            foreach ($imp_search as $val) {
+
+            foreach ($iterator as $val) {
                 $rs[$val->formid] = array(
                     'c' => $val->criteria,
                     'f' => array(
@@ -456,12 +458,8 @@ class IMP_Basic_Search extends IMP_Basic_Base
             $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
             $ob = $injector->getInstance('IMP_Search_Ui')->getSearchMboxList();
             $mbox_list = $ob->mbox_list;
+            $view->subscribe = $prefs->getValue('subscribe');
             $view->tree = $ob->tree->getTree();
-
-            if ($prefs->getValue('subscribe')) {
-                $view->subscribe = true;
-                $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
-            }
         }
 
         /* Prepare the topbar. */

@@ -26,19 +26,19 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
+     * <pre>
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
      *             array; mailboxes are base64url encoded).
+     * </pre>
      *
      * @return boolean  True.
      */
     public function expandMailboxes()
     {
         if (!empty($this->vars->mboxes)) {
-            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->expand(IMP_Mailbox::formFrom($val));
-            }
+            $GLOBALS['injector']->getInstance('IMP_Ftree')->expand(
+                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
+            );
         }
 
         return true;
@@ -48,22 +48,28 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
      * AJAX action: Collapse mailboxes.
      *
      * Variables used:
-     *   - all: (integer) 1 to show all mailboxes.
+     * <pre>
+     *   - all: (integer) 1 to collapse all mailboxes.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded) if 'all' is 0.
+     *             array; mailboxes are base64url encoded); required if 'all'
+     *             is 0.
+     * </pre>
      *
      * @return boolean  True.
      */
     public function collapseMailboxes()
     {
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
 
         if ($this->vars->all) {
-            $imptree->collapseAll();
+            $old_track = $ftree->eltdiff->track;
+            $ftree->eltdiff->track = false;
+            $ftree->collapseAll();
+            $ftree->eltdiff->track = $old_track;
         } elseif (!empty($this->vars->mboxes)) {
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->collapse(IMP_Mailbox::formFrom($val));
-            }
+            $ftree->collapse(
+                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
+            );
         }
 
         return true;

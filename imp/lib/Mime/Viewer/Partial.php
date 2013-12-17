@@ -46,26 +46,20 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_statuscache = array();
-
-    /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
         $id = $this->_mimepart->getMimeId();
 
-        if (isset(self::$_statuscache[$id])) {
+        if (isset($cache->partial) && isset($cache->partial[$id])) {
             return array(
                 $id => array(
                     'data' => null,
-                    'status' => self::$_statuscache[$id],
+                    'status' => $cache->partial[$id],
                     'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
                 )
             );
@@ -102,7 +96,10 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
         if ($msg_count != $total) {
             $status = new IMP_Mime_Status(sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total));
             $status->action(IMP_Mime_Status::ERROR);
-            self::$_statuscache[$this->_mimepart->getMimeId()] = $status;
+
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
+            $cache->partial[$this->_mimepart->getMimeId()] = $status;
+
             return null;
         }
 

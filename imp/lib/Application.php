@@ -66,7 +66,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.1.7-git)';
+    public $version = 'H5 (6.2.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -101,8 +101,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',
             'IMP_Identity' => 'IMP_Factory_Identity',
-            'IMP_Imap' => 'IMP_Factory_Imap',
-            'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
+            'IMP_Ftree' => 'IMP_Factory_Ftree',
             'IMP_Mail' => 'IMP_Factory_Mail',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
             'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',
@@ -117,7 +116,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (empty($injector->getInstance('IMP_Imap')->config->admin)) {
+        if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
             $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
 
@@ -175,7 +174,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Grab the current server from the session to correctly populate
          * login form. */
-        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Imap')->server_key;
+        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->server_key;
     }
 
     /* Horde permissions. */
@@ -200,9 +199,9 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
@@ -212,9 +211,9 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' => 'imp-empty-trash',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your trash mailbox?")) . ')',
                 'text' => _("Empty _Trash"),
-                'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
             ));
         }
 
@@ -225,9 +224,9 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'imp-empty-spam',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your spam mailbox?")) . ')',
                 'text' => _("Empty _Spam"),
-                'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
             ));
         }
 
@@ -263,20 +262,22 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
+        global $injector;
+
         if (IMP_Compose::canCompose()) {
             $clink = new IMP_Compose_Link();
             $sidebar->addNewButton(_("_New Message"), $clink->link());
         }
 
         /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             try {
-                $tree = $GLOBALS['injector']
+                $tree = $injector
                     ->getInstance('Horde_Core_Factory_Tree')
                     ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
-                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-                $tree = $imaptree->createTree($tree, array(
+
+                $tree = $injector->getInstance('IMP_Ftree')->createTree($tree, array(
+                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER | IMP_Ftree_IteratorFilter::UNSUB_PREF),
                     'open' => false,
                     'poll_info' => true
                 ));
@@ -429,7 +430,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $onclick = null;
             switch ($registry->getView()) {
@@ -465,7 +466,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
     }
 
     /* NoSQL methods. */
@@ -478,7 +479,7 @@ class IMP_Application extends Horde_Registry_Application
 
         $out = array();
 
-        $ob = $injector->getInstance('IMP_Imap')->config->cache_params;
+        $ob = $injector->getInstance('IMP_Factory_Imap')->create()->config->cache_params;
         if ($ob['backend'] instanceof Horde_Imap_Client_Cache_Backend_Mongo) {
             $out[] = $ob['backend'];
         }

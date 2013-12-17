@@ -50,53 +50,22 @@ class IMP_Mbox_Generate
             return $body;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->envelope();
+        $query->imapDate();
+        $query->headerText(array(
+            'peek' => true
+        ));
+        $query->bodyText(array(
+            'peek' => true
+        ));
 
-        foreach ($mboxes as $val) {
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->size();
-
-            try {
-                $size = $imp_imap->fetch($val, $query, array(
-                    'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true),
-                    'nocache' => true
-                ));
-            } catch (IMP_Imap_Exception $e) {
-                continue;
-            }
-
-            $curr_size = 0;
-            $msgs = count($size);
-            $start = 1;
-            $slices = array();
-
-            /* Handle 5 MB chunks of data at a time. */
-            for ($i = 1; $i <= $msgs; ++$i) {
-                if (isset($size[$i])) {
-                    $curr_size += $size[$i]->getSize();
-                    if ($curr_size > 5242880) {
-                        $slices[] = $imp_imap->getIdsOb(range($start, $i), true);
-                        $curr_size = 0;
-                        $start = $i + 1;
-                    }
-                }
-            }
-
-            if ($start <= $msgs) {
-                $slices[] = $imp_imap->getIdsOb(range($start, $msgs), true);
-            }
-
-            unset($size);
-
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->envelope();
-            $query->imapDate();
-            $query->headerText(array(
-                'peek' => true
-            ));
-            $query->bodyText(array(
-                'peek' => true
-            ));
+        foreach (IMP_Mailbox::get($mboxes) as $val) {
+            $imp_imap = $val->imp_imap;
+            $slices = $imp_imap->getSlices(
+                $val,
+                $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
+            );
 
             foreach ($slices as $slice) {
                 try {

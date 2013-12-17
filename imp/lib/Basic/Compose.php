@@ -32,7 +32,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry, $session;
+        global $browser, $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Mailto link handler: redirect based on current view. */
         if ($this->vars->actionID == 'mailto_link') {
@@ -66,8 +66,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $identity->setDefault($this->vars->identity);
         }
 
-        $horde_token = $injector->getInstance('Horde_Token');
-
         if ($this->vars->actionID) {
             switch ($this->vars->actionID) {
             case 'draft':
@@ -93,8 +91,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             default:
                 try {
-                    $horde_token->validate($this->vars->compose_requestToken, 'imp.compose');
-                } catch (Horde_Token_Exception $e) {
+                    $session->checkToken($this->vars->compose_requestToken);
+                } catch (Horde_Exception $e) {
                     $notification->push($e);
                     $this->vars->actionID = null;
                 }
@@ -104,12 +102,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Check for duplicate submits. */
         if ($reload = $this->vars->compose_formToken) {
             try {
-                if (!$horde_token->verify($reload)) {
-                    $notification->push(_("You have already submitted this page."), 'horde.error');
-                    $this->vars->actionID = null;
-                }
-            } catch (Horde_Token_Exception $e) {
-                $notification->push($e->getMessage());
+                $session->checkNonce($reload);
+            } catch (Horde_Exception $e) {
+                $notification->push(_("You have already submitted this page."), 'horde.error');
                 $this->vars->actionID = null;
             }
         }
@@ -138,7 +133,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
         /* Init objects. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $imp_ui = new IMP_Compose_Ui();
 
         /* Determine the composition type - text or HTML.
@@ -187,8 +182,11 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     strlen($_FILES['upload_' . $i]['name'])) {
                     try {
                         $atc_ob = $imp_compose->addAttachmentFromUpload('upload_' . $i);
+                        if ($atc_ob[0] instanceof IMP_Compose_Exception) {
+                            throw $atc_ob[0];
+                        }
                         if ($notify) {
-                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
+                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob[0]->getPart()->getName()), 'horde.success');
                         }
                     } catch (IMP_Compose_Exception $e) {
                         /* Any error will cancel the current action. */
@@ -504,8 +502,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                 if ($this->vars->actionID == 'auto_save_draft') {
                     $r = new stdClass;
-                    $r->requestToken = $horde_token->get('imp.compose');
-                    $r->formToken = Horde_Token::generateId('compose');
+                    $r->requestToken = $session->getToken();
+                    $r->formToken = $session->getNonce();
 
                     $response = new Horde_Core_Ajax_Response_HordeCore($r);
                     $response->sendAndExit();
@@ -525,6 +523,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $header,
                         $identity,
                         array(
+                            'signature' => $this->vars->signature,
                             'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
                             'html' => $rtemode,
                             'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
@@ -625,7 +624,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             if ($resume || count($imp_compose)) {
                 $cancel_url = self::url()->setRaw(true)->add(array(
                     'actionID' => 'cancel_compose',
-                    'compose_requestToken' => $horde_token->get('imp.compose'),
+                    'compose_requestToken' => $session->getToken(),
                     'composeCache' => $composeCacheID,
                     'popup' => 1
                 ));
@@ -637,7 +636,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         } elseif ($resume || count($imp_compose)) {
             $cancel_url = $this->_mailboxReturnUrl(self::url()->setRaw(true))->setRaw(true)->add(array(
                 'actionID' => 'cancel_compose',
-                'compose_requestToken' => $horde_token->get('imp.compose'),
+                'compose_requestToken' => $session->getToken(),
                 'composeCache' => $composeCacheID
             ));
             $discard_url = clone $cancel_url;
@@ -654,10 +653,22 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
             $msg = "\n" . $msg;
         }
+        if (isset($this->vars->signature)) {
+            $signature = $this->vars->signature;
+            if ($browser->hasQuirk('double_linebreak_textarea')) {
+                $signature = preg_replace('/(\r?\n){3}/', '$1', $signature);
+            }
+            $signatureChanged = $signature != $identity->getSignature($oldrtemode ? 'html' : 'text');
+        } else {
+            $signatureChanged = false;
+        }
 
         /* Convert from Text -> HTML or vice versa if RTE mode changed. */
         if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
             $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text');
+            if ($signatureChanged) {
+                $signature = $imp_ui->convertComposeText($signature, $rtemode ? 'html' : 'text');
+            }
         }
 
         /* If this is the first page load for this compose item, add auto BCC
@@ -717,6 +728,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
             'ImpCompose.text' => array(
                 'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
+                'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
                 'discard' => _("Doing so will discard this message permanently."),
                 'file' => _("File"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
@@ -725,9 +737,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         );
 
         /* Set up the base view now. */
-        $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/basic/compose'
-        ));
+        $view = $injector->createInstance('Horde_View');
         $view->addHelper('FormTag');
         $view->addHelper('Horde_Core_View_Helper_Accesskey');
         $view->addHelper('Horde_Core_View_Helper_Help');
@@ -744,7 +754,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             /* Prepare the redirect template. */
             $view->cacheid = $composeCacheID;
             $view->title = $this->title;
-            $view->token = $horde_token->get('imp.compose');
+            $view->token = $session->getToken();
 
             if ($registry->hasMethod('contacts/search')) {
                 $view->abook = $blank_url->copy()->link(array(
@@ -757,7 +767,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             $view->input_value = $header['to'];
 
-            $this->output = $view->render('redirect');
+            $this->output = $view->render('basic/compose/redirect');
         } else {
             /* Prepare the compose template. */
             $view->file_upload = $attach_upload;
@@ -765,8 +775,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $hidden = array(
                 'actionID' => '',
                 'attachmentAction' => '',
-                'compose_formToken' => Horde_Token::generateId('compose'),
-                'compose_requestToken' => $horde_token->get('imp.compose'),
+                'compose_formToken' => $session->getNonce(),
+                'compose_requestToken' => $session->getToken(),
                 'composeCache' => $composeCacheID,
                 'oldrtemode' => $rtemode,
                 'rtemode' => $rtemode,
@@ -817,6 +827,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->identity_text = $select_list[0];
                 }
             }
+            $view->signature = $identity->hasSignature(true);
 
             $addr_array = array(
                 'to' => _("_To"),
@@ -864,7 +875,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         'class' => 'widget',
                         'id' => 'addressbook_popup'
                     )),
-                    'img' => Horde::img('addressbook_browse.png'),
+                    'img' => Horde_Themes_Image::tag('addressbook_browse.png'),
                     'label' => _("Address Book")
                 );
                 $js_vars['ImpCompose.contacts_url'] = strval(IMP_Basic_Contacts::url()->setRaw(true));
@@ -883,7 +894,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 $url = new Horde_Url('#attachments');
                 $compose_options[] = array(
                     'url' => $url->link(array('class' => 'widget')),
-                    'img' => Horde::img('attachment.png'),
+                    'img' => Horde_Themes_Image::tag('attachment.png'),
                     'label' => _("Attachments")
                 );
             }
@@ -902,10 +913,15 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
                 if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
+                    $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+                        IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF)
+                    );
+                    $iterator->setFilter(array('INBOX'));
+
                     $ssm_options = array(
                         'abbrev' => false,
                         'basename' => true,
-                        'filter' => array('INBOX'),
+                        'iterator' => $iterator,
                         'selected' => $sent_mail
                     );
 
@@ -915,7 +931,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $sent_mail->create();
                     }
 
-                    $view->ssm_mboxes = IMP::flistSelect($ssm_options);
+                    $view->ssm_mboxes = new IMP_Ftree_Select($ssm_options);
                 } else {
                     if ($sent_mail) {
                         $sent_mail = '&quot;' . $sent_mail->display_html . '&quot;';
@@ -951,6 +967,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
 
             $view->message = $msg;
+            if ($signatureChanged) {
+                $view->signatureContent = $signature;
+            }
 
             if ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime')) {
                 if ($prefs->isLocked('default_encrypt')) {
@@ -992,7 +1011,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->numberattach = true;
 
                     $atc = array();
-                    $v = $injector->getInstance('Horde_Core_Factory_MimeViewer');
+                    $v = $injector->getInstance('IMP_Factory_MimeViewer');
                     foreach ($imp_compose as $data) {
                         $mime = $data->getPart();
                         $type = $mime->getType();
@@ -1022,12 +1041,12 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 }
             }
 
-            $this->output = $view->render('compose');
+            $this->output = $view->render('basic/compose/compose');
         }
 
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose.js');
-        $page_output->addScriptFile('murmurhash3.js');
+        $page_output->addScriptFile('external/murmurhash3.js');
         $page_output->addInlineJsVars($js_vars);
         if (!$redirect) {
             $imp_ui->addIdentityJs();

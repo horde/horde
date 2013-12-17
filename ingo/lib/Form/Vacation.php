@@ -51,7 +51,7 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
             $v->setHelp('vacation-subject');
         }
         if ($this->hasFeature('reason')) {
-            $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', true, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
+            $v = $this->addVariable(_("Reason:"), 'reason', 'ingo:Longemail', true, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
             $v->setHelp('vacation-reason');
         }
 
@@ -61,11 +61,11 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
             $this->hasFeature('days')) {
             $this->setSection('advanced', _("Advanced Settings"));
             if ($this->hasFeature('addresses')) {
-                $v = $this->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
+                $v = $this->addVariable(_("My email addresses:"), 'addresses', 'ingo:Longemail', true, false, null, array(5, 40));
                 $v->setHelp('vacation-myemail');
             }
             if ($this->hasFeature('excludes')) {
-                $v = $this->addVariable(_("Addresses to not send responses to:"), 'excludes', 'longtext', false, false, null, array(10, 40));
+                $v = $this->addVariable(_("Addresses to not send responses to:"), 'excludes', 'ingo:Longemail', false, false, null, array(10, 40));
                 $v->setHelp('vacation-noresponse');
             }
             if ($this->hasFeature('ignorelist')) {

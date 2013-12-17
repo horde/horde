@@ -33,8 +33,12 @@ if (!class_exists($class)) {
 try {
     $ob = new $class($vars);
 } catch (Exception $e) {
-    $notification->push($e);
-    $ob = new IMP_Basic_Error($vars);
+    if ($registry->getView() == $registry::VIEW_BASIC) {
+        $notification->push($e);
+        $ob = new IMP_Basic_Error($vars);
+    } else {
+        throw $e;
+    }
 }
 
 $status = $ob->status();

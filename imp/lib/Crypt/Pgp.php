@@ -197,13 +197,15 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function getPublicKey($address, $options = array())
     {
+        global $injector, $registry;
+
         $keyid = empty($options['keyid'])
             ? ''
             : $options['keyid'];
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
+        if (empty($options['nocache']) && ($cache = $injector->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
                 Horde::log('PGPpublicKey: ' . serialize($result), 'DEBUG');
@@ -212,30 +214,47 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         try {
-            $key = Horde::callHook('pgp_key', array($address, $keyid), 'imp');
+            $key = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'pgp_key',
+                'imp',
+                array($address, $keyid)
+            );
             if ($key) {
                 return $key;
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $result = null;
         try {
-            $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
+            $result = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
         } catch (Horde_Exception $e) {}
 
         if (is_null($result)) {
             /* TODO: Retrieve by ID. */
 
             /* See if the address points to the user's public key. */
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;
             } elseif (empty($options['noserver'])) {
+                $result = null;
+
                 try {
-                    $result = $this->getFromPublicKeyserver($keyid, $address);
+                    foreach ($this->_keyserverList() as $val) {
+                        try {
+                            $result = $val->get(
+                                empty($keyid) ? $val->getKeyId($address) : $keyid
+                            );
+                            break;
+                        } catch (Exception $e) {}
+                    }
+
+                    if (is_null($result)) {
+                        throw $e;
+                    }
 
                     /* If there is a cache driver configured and a cache
                      * object exists, store the retrieved public key in the
@@ -292,65 +311,16 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     }
 
     /**
-     * Get a public key via a public PGP keyserver.
-     *
-     * @param string $keyid    The key ID of the requested key.
-     * @param string $address  The email address of the requested key.
-     *
-     * @return string  See Horde_Crypt_Pgp::getPublicKeyserver()
-     * @throws Horde_Crypt_Exception
-     */
-    public function getFromPublicKeyserver($keyid, $address = null)
-    {
-        return $this->_keyserverConnect($keyid, 'get', $address);
-    }
-
-    /**
      * Send a public key to a public PGP keyserver.
      *
      * @param string $pubkey  The PGP public key.
      *
-     * @return string  See Horde_Crypt_Pgp::putPublicKeyserver()
      * @throws Horde_Crypt_Exception
      */
     public function sendToPublicKeyserver($pubkey)
     {
-        return $this->_keyserverConnect($pubkey, 'put');
-    }
-
-    /**
-     * Connect to the keyservers
-     *
-     * @param string $data        The data to send to the keyserver.
-     * @param string $method      The method to use - either 'get' or 'put'.
-     * @param string $additional  Any additional data.
-     *
-     * @return string  See Horde_Crypt_Pgp::getPublicKeyserver() -or-
-     *                     Horde_Crypt_Pgp::putPublicKeyserver().
-     * @throws Horde_Crypt_Exception
-     */
-    protected function _keyserverConnect($data, $method, $additional = null)
-    {
-        global $conf;
-
-        if (empty($conf['gnupg']['keyserver'])) {
-            throw new Horde_Crypt_Exception(_("Public PGP keyserver support has been disabled."));
-        }
-
-        $timeout = empty($conf['gnupg']['timeout'])
-            ? Horde_Crypt_Pgp::KEYSERVER_TIMEOUT
-            : $conf['gnupg']['timeout'];
-
-        if ($method == 'put') {
-            return $this->putPublicKeyserver($data, $conf['gnupg']['keyserver'][0], $timeout);
-        }
-
-        foreach ($conf['gnupg']['keyserver'] as $server) {
-            try {
-                return $this->getPublicKeyserver($data, $server, $timeout, $additional);
-            } catch (Horde_Crypt_Exception $e) {}
-        }
-        throw new Horde_Crypt_Exception(_("Could not connect to public PGP keyserver"));
+        $servers = $this->_keyserverList();
+        $servers[0]->put($pubkey);
     }
 
     /**
@@ -661,12 +631,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function getKeys($data)
     {
+        global $injector;
+
         $out = array(
             'public' => array(),
             'private' => array()
         );
 
-        foreach ($this->parsePGPData($data) as $val) {
+        foreach ($injector->getInstance('Horde_Crypt_Pgp_Parse')->parse($data) as $val) {
             switch ($val['type']) {
             case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
             case Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY:
@@ -688,6 +660,36 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             empty($out['public']) &&
             $res = $this->getPublicKeyFromPrivateKey(reset($out['private']))) {
             $out['public'][] = $res;
+        }
+
+        return $out;
+    }
+
+    /**
+     * Return list of keyserver objects.
+     *
+     * @return array  List of Horde_Crypt_Pgp_Keyserver objects.
+     * @throws Horde_Crypt_Exception
+     */
+    protected function _keyserverList()
+    {
+        global $conf, $injector;
+
+        if (empty($conf['gnupg']['keyserver'])) {
+            throw new Horde_Crypt_Exception(_("Public PGP keyserver support has been disabled."));
+        }
+
+        $http = $injector->getInstance('Horde_Core_Factory_HttpClient')->create();
+        if (!empty($conf['gnupg']['timeout'])) {
+            $http->{'request.timeout'} = $conf['gnupg']['timeout'];
+        }
+
+        $out = array();
+        foreach ($conf['gnupg']['keyserver'] as $server) {
+            $out[] = new Horde_Crypt_Pgp_Keyserver($this, array(
+                'http' => $http,
+                'keyserver' => $server
+            ));
         }
 
         return $out;

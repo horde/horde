@@ -13,9 +13,9 @@
    <td class="label">
     <span><?php echo _("To:") ?></span>
    </td>
-   <td class="sendtextarea">
-    <?php echo $this->textAreaTag('redirect_to', null, array('size' => '75x1')) ?>
+   <td>
     <span id="redirect_to_loading_img" class="loadingImg" style="display:none"></span>
+    <?php echo $this->textAreaTag('redirect_to', null, array('size' => '75x1')) ?>
    </td>
   </tr>
  </table>

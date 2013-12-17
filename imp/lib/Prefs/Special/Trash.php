@@ -49,9 +49,14 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('Tag');
 
-        $view->flist = IMP::flistSelect(array(
+        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
+        );
+        $iterator->setFilter(array('INBOX'));
+
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
-            'filter' => array('INBOX'),
+            'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => $trash
         ));
@@ -86,7 +91,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
             return false;
         }
 
-        $injector->getInstance('IMP_Imap')->updateFetchIgnore();
+        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
 
         /* Switching to/from Virtual Trash requires us to expire all currently
          * cached mailbox lists (hide deleted status may have changed). */

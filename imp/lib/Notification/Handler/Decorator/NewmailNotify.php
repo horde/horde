@@ -23,6 +23,12 @@
 class IMP_Notification_Handler_Decorator_NewmailNotify
 extends Horde_Core_Notification_Handler_Decorator_Base
 {
+    /* Rate limit interval (in seconds). */
+    const RATELIMIT = 30;
+
+    /* Session variables used internally. */
+    const SESS_RATELIMIT = 'newmail_ratelimit';
+
     /**
      */
     protected $_app = 'imp';
@@ -37,29 +43,49 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     public function notify(Horde_Notification_Handler $handler,
                            Horde_Notification_Listener $listener)
     {
-        global $injector, $prefs, $registry, $session;
+        global $registry;
 
         $pushed = $registry->pushApp($this->_app, array(
             'check_perms' => true,
             'logintasks' => false
         ));
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $this->_notify($handler, $listener);
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+    }
+
+    /**
+     */
+    protected function _notify($handler, $listener)
+    {
+        global $injector, $prefs, $session;
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status)) {
-            if ($pushed) {
-                $registry->popApp();
-            }
+            return;
+        }
+
+        /* Rate limit. If rate limit is not yet set, this is the initial
+         * login so skip. */
+        $curr = time();
+        $ratelimit = $session->get('imp', self::SESS_RATELIMIT);
+        if ($ratelimit && (($ratelimit + self::RATELIMIT) > $curr)) {
+            return;
+        }
+        $session->set('imp', self::SESS_RATELIMIT, $curr);
+        if (!$ratelimit) {
             return;
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $recent = array();
 
         try {
-            $ns = $imp_imap->getNamespace();
-            foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_RECENT_TOTAL, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
+            foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Ftree')->poll->getPollList(), Horde_Imap_Client::STATUS_RECENT_TOTAL, array('sort' => true)) as $key => $val) {
                 if (!empty($val['recent_total'])) {
                     /* Open the mailbox R/W so we ensure the 'recent' flag is
                      * cleared. */
@@ -70,21 +96,9 @@ extends Horde_Core_Notification_Handler_Decorator_Base
                     $ajax_queue->poll($mbox);
                 }
             }
-        } catch (Exception $e) {
-            if ($pushed) {
-                $registry->popApp();
-            }
-            return;
-        }
+        } catch (Exception $e) {}
 
-        /* Don't show newmail notification on initial login. */
-        if (empty($recent) ||
-            !$session->get('imp', 'newmail_init')) {
-            $session->set('imp', 'newmail_init', true);
-
-            if ($pushed) {
-                $registry->popApp();
-            }
+        if (empty($recent)) {
             return;
         }
 
@@ -114,10 +128,6 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if ($audio = $prefs->getValue('newmail_audio')) {
             $handler->attach('audio');
             $handler->push(Horde_Themes::sound($audio), 'audio');
-        }
-
-        if ($pushed) {
-            $registry->popApp();
         }
     }
 

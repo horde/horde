@@ -56,7 +56,9 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         $view->addHelper('Tag');
 
         $view->locked = $prefs->isLocked('msgflags');
-        $view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
+        $view->picker_img = Horde_Themes_Image::tag('colorpicker.png', array(
+            'alt' => _("Color Picker")
+        ));
 
         $out = array();
         $flaglist = $injector->getInstance('IMP_Flags')->getList();

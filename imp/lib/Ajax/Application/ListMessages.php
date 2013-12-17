@@ -122,7 +122,7 @@ class IMP_Ajax_Application_ListMessages
 
         /* Optimization: saves at least a STATUS and an EXAMINE call since
          * we will eventually open mailbox READ-WRITE. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $mbox->imp_imap;
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
 
         /* Create the base object. */
@@ -469,7 +469,11 @@ class IMP_Ajax_Application_ListMessages
 
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
+            $msgs = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'mailboxarray',
+                'imp',
+                array($msgs)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;

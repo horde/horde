@@ -1,7 +1,10 @@
 ----------
-v3.1.4-git
+v3.2.0-git
 ----------
 
+[mms] Validate e-mail addresses on the forward and vacation pages (Request
+      #7249).
+[mms] Add 'newEmailFilter' API link.
 
 
 ------

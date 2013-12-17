@@ -33,9 +33,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 {
     /* Metadata constants. */
     const PGP_ARMOR = 'imp-pgp-armor';
-    const PGP_SIG = 'imp-pgp-signature';
     const PGP_SIGN_ENC = 'imp-pgp-signed-encrypted';
-    const PGP_CHARSET = 'imp-pgp-charset';
 
     /**
      * This driver's display capabilities.
@@ -70,13 +68,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      * @var Horde_Mail_Rfc822_Address
      */
     protected $_sender = null;
-
-    /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_cache = array();
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -121,7 +112,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-signature':
-            $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
+            $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp_Parse')->parse($this->_mimepart->getContents());
             foreach (array_keys($parts) as $key) {
                 if ($parts[$key]['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE) {
                     $ret['data'] = implode("\r\n", $parts[$key]['data']);
@@ -153,20 +144,17 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return $this->_outputPGPSigned();
 
         case 'multipart/encrypted':
-            if (!isset($headers)) {
-                $headers = $this->getConfigParam('imp_contents')->getHeader();
-            }
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
 
-            $mid = $headers->getValue('message-id');
-            if (isset(self::$_cache[$mid][$id])) {
+            if (isset($cache->pgp[$id])) {
                 return array_merge(array(
                     $id => array(
                         'data' => null,
-                        'status' => self::$_cache[$mid][$id]['status'],
+                        'status' => $cache->pgp[$id]['status'],
                         'type' => 'text/plain; charset=' . $this->getConfigParam('charset'),
-                        'wrap' => self::$_cache[$mid][$id]['wrap']
+                        'wrap' => $cache->pgp[$id]['wrap']
                     )
-                ), self::$_cache[$mid][$id]['other']);
+                ), $cache->pgp[$id]['other']);
             }
             // Fall-through
 
@@ -190,8 +178,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        $mid = $this->getConfigParam('imp_contents')->getHeader()->getValue('message-id');
-
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $version_id = next($partlist);
@@ -200,7 +186,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status = new IMP_Mime_Status();
         $status->icon('mime/encryption.png', 'PGP');
 
-        self::$_cache[$mid][$base_id] = array(
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $cache->pgp[$base_id] = array(
             'status' => array($status),
             'other' => array(
                 $version_id => null,
@@ -310,7 +297,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        self::$_cache[$mid][$base_id]['wrap'] = 'mimePartWrapValid';
+        $cache->pgp[$base_id]['wrap'] = 'mimePartWrapValid';
 
         /* Check for combined encryption/signature data. */
         if ($decrypted_data->result) {
@@ -321,7 +308,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $status2 = new IMP_Mime_Status($sig_text);
             $status2->action(IMP_Mime_Status::SUCCESS);
 
-            self::$_cache[$mid][$base_id]['status'][] = $status2;
+            $cache->pgp[$base_id]['status'][] = $status2;
         }
 
         /* Force armor data as text/plain data. */
@@ -400,12 +387,21 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      */
     protected function _outputPGPSigned()
     {
+        global $conf, $injector, $prefs, $registry;
+
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $signed_id = next($partlist);
         $sig_id = Horde_Mime::mimeIdArithmetic($signed_id, 'next');
 
+        if (!$prefs->getValue('use_pgp') || empty($conf['gnupg']['path'])) {
+            return array(
+                $sig_id => null
+            );
+        }
+
         $status = new IMP_Mime_Status();
+        $status->addText(_("The data in this part has been digitally signed via PGP."));
         $status->icon('mime/encryption.png', 'PGP');
 
         $ret = array(
@@ -419,18 +415,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $sig_id => null
         );
 
-        if (!$GLOBALS['prefs']->getValue('use_pgp') ||
-            empty($GLOBALS['conf']['gnupg']['path'])) {
-            /* If PGP not active, hide signature data and output status
-             * information. */
-            $status->addText(_("The data in this part has been digitally signed via PGP, but the signature cannot be verified."));
-            return $ret;
-        }
-
-        $status->addText(_("The data in this part has been digitally signed via PGP."));
-
-        if ($GLOBALS['prefs']->getValue('pgp_verify') ||
-            $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
+        if ($prefs->getValue('pgp_verify') ||
+            $injector->getInstance('Horde_Variables')->pgp_verify_msg) {
             $imp_contents = $this->getConfigParam('imp_contents');
             $sig_part = $imp_contents->getMIMEPart($sig_id);
 
@@ -442,9 +428,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 $ret[$base_id]['wrap'] = 'mimePartWrapInvalid';
             } else {
                 try {
-                    $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                    if ($sig_part->getMetadata(self::PGP_SIG)) {
-                        $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_getSender()->bare_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+                    if ($sig_raw = $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
+                        $sig_result = $imp_pgp->verifySignature($sig_raw, $this->_getSender()->bare_address, null, $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_CHARSET));
                     } else {
                         $stream = $imp_contents->isEmbedded($signed_id)
                             ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
@@ -474,7 +460,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             )));
             $ret[$base_id]['status'][] = $status2;
         } else {
-            switch ($GLOBALS['registry']->getView()) {
+            switch ($registry->getView()) {
             case Horde_Registry::VIEW_BASIC:
                 $status->addText(Horde::link(Horde::selfUrlParams()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
                 break;

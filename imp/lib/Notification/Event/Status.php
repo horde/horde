@@ -43,7 +43,10 @@ class IMP_Notification_Event_Status extends Horde_Core_Notification_Event_Status
             return parent::__toString();
         }
 
-        return Horde::img(Horde_Themes::img($img, 'imp'), $label) . parent::__toString();
+        return Horde_Themes_Image::tag(
+            Horde_Themes::img($img, 'imp'),
+            array('alt' => $label)
+        ) . parent::__toString();
     }
 
 }

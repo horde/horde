@@ -27,16 +27,18 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
      *
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
-     *   - img_tag: (boolean) If true, return related image tag.
+     *   - file_id: (integer) Browser ID of file.
+     *   - img_data: (boolean) If true, return image data.
      *   - json_return: (boolean) If true, returns JSON. Otherwise, JSON-HTML.
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action.
-     *   - atc_id: (integer) The attachment ID.
-     *   - img: (string) The image tag to replace the data with, if 'img_tag'
-     *          is set.
-     *   - success: (integer) 1 on success, 0 on failure.
+     *   - file_id: (integer) Browser ID of file.
+     *   - img: (object) Image data, if 'img_data' is set. Properties:
+     *          height, related, src, width
+     *   - success: (integer) 1 on success (at least one successful attached
+     *              file), 0 on failure.
      */
     public function addAttachment()
     {
@@ -44,6 +46,9 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
         $result = new stdClass;
         $result->action = 'addAttachment';
+        if (isset($this->vars->file_id)) {
+            $result->file_id = $this->vars->file_id;
+        }
         $result->success = 0;
 
         /* A max POST size failure will result in ALL HTTP parameters being
@@ -55,28 +60,38 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $atc_ob = $imp_compose->addAttachmentFromUpload('file_upload');
-                    $result->atc_id = $atc_ob->id;
-                    $result->success = 1;
+                    foreach ($imp_compose->addAttachmentFromUpload('file_upload') as $val) {
+                        if ($val instanceof IMP_Compose_Exception) {
+                            $notification->push($e, 'horde.error');
+                        } else {
+                            $result->success = 1;
 
-                    /* This currently only occurs when pasting/dropping image
-                     * into HTML editor. */
-                    if ($this->vars->img_tag) {
-                        $dom_doc = new DOMDocument();
-                        $img = $dom_doc->createElement('img');
-                        $img->setAttribute('src', strval($atc_ob->viewUrl()->setRaw(true)));
-                        $imp_compose->addRelatedAttachment($atc_ob, $img, 'src');
+                            /* This currently only occurs when
+                             * pasting/dropping image into HTML editor. */
+                            if ($this->vars->img_data) {
+                                $result->img = new stdClass;
+                                $result->img->src = strval($val->viewUrl()->setRaw(true));
 
-                        /* Complicated to grab single element from a
-                         * DOMDocument object, so build tag ourselves. */
-                        $img_tag = '<img';
-                        foreach ($img->attributes as $node) {
-                            $img_tag .= ' ' . $node->name . '="' . htmlspecialchars($node->value) . '"';
+                                $temp1 = new DOMDocument();
+                                $temp2 = $temp1->createElement('span');
+                                $imp_compose->addRelatedAttachment($val, $temp2, 'src');
+                                $result->img->related = array(
+                                    $imp_compose::RELATED_ATTR,
+                                    $temp2->getAttribute($imp_compose::RELATED_ATTR)
+                                );
+
+                                try {
+                                    $img_ob = $injector->getInstance('Horde_Core_Factory_Image')->create();
+                                    $img_ob->loadString($val->storage->read()->getString(0));
+                                    $d = $img_ob->getDimensions();
+                                    $result->img->height = $d['height'];
+                                    $result->img->width = $d['width'];
+                                } catch (Exception $e) {}
+                            } else {
+                                $this->_base->queue->attachment($val);
+                                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $val->getPart()->getName()), 'horde.success');
+                            }
                         }
-                        $result->img = $img_tag . '/>';
-                    } else {
-                        $this->_base->queue->attachment($atc_ob);
-                        $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                     }
 
                     $this->_base->queue->compose($imp_compose);

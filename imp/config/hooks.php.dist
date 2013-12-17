@@ -162,6 +162,28 @@ class IMP_Hooks
 
 
     /**
+     * Check compose e-mail recipient before sending.
+     *
+     * @param Horde_Mail_Rfc822_Object $addr  The address object.
+     *
+     * @return mixed  If an error, an array with the following possible keys:
+     *   - msg: (string) The error text.
+     *   - level: (string; OPTIONAL) Either 'bad' (DEFAULT) or 'warn'.
+     */
+//     public function compose_addr(Horde_Mail_Rfc822_Object $addr)
+//     {
+//         // Example: Only allow sending to local addresses.
+//         if (($addr instanceof Horde_Mail_Rfc822_Address) &&
+//             ($addr->host != 'example.com')) {
+//             return array(
+//                 'msg' => 'Can only send to addresses at example.com.',
+//                 'level' => 'bad'
+//             );
+//         }
+//     }
+
+
+    /**
      * Checks the raw text of the outoging compose message for words that
      * might indicate an attachment is present, and issues a warning if no
      * attachments are indeed present.
@@ -642,7 +664,7 @@ class IMP_Hooks
 //        // Requires the 'command' parameter to be defined in backends.php,
 //        // which defines the quota reporting function to run on the SSH
 //        // host.
-//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 //        $host = $imap_ob->getParam('hostspec');
 //        $user = $params['host'];
 //        $pass = $imap_ob->getParam('password');

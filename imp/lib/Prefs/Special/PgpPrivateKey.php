@@ -73,7 +73,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $view->viewprivate = Horde::link($pgp_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key');
                 $view->infoprivate = Horde::link($pgp_url->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key');
                 $page_output->addInlineScript(array(
-                    '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
+                    '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")) . ')) { e.stop(); } })'
                 ), true);
             } else {
                 $page_output->addScriptFile('pgp.js');
@@ -88,7 +88,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
 
                 if (!empty($conf['pgp']['keylength'])) {
                     $page_output->addInlineScript(array(
-                        '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
+                        '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Key generation may take a long time to complete.  Continue with key generation?")) . ')) { e.stop(); } })'
                     ), true);
                 }
 

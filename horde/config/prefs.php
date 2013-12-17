@@ -758,10 +758,7 @@ $_prefs['activesync_replyposition'] = array(
         return empty($GLOBALS['conf']['activesync']['emailsync']);
     }
 );
-// Handled by the special.
-$_prefs['activesync_identity'] = array(
-    'value' => null
-);
+
 
 
 // *** Internal Preferences ***

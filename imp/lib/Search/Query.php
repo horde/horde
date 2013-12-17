@@ -212,9 +212,14 @@ class IMP_Search_Query implements Serializable
                 $mbox = $subfolder = array();
 
                 if ($this->all) {
-                    $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                    $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
-                    $mbox = iterator_to_array($imaptree);
+                    $mbox = array();
+                    $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+                        IMP_Ftree_IteratorFilter::create()
+                    );
+
+                    foreach ($iterator as $val) {
+                        $mbox[] = $val->mbox_ob;
+                    }
                 } else {
                     foreach ($this->_mboxes as $val) {
                         if (strpos($val, self::SUBFOLDER) === 0) {

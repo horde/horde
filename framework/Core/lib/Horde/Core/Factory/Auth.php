@@ -96,8 +96,6 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $driver = 'Horde_Core_Auth_Shibboleth';
         } elseif (strcasecmp($driver, 'imsp') === 0) {
             $driver = 'Horde_Core_Auth_Imsp';
-        } elseif (strcasecmp($driver, 'x509') === 0) {
-            $driver = 'Horde_Core_Auth_X509';
         } else {
             $driver = implode('_', array_map('Horde_String::ucwords', explode('_', Horde_String::lower(basename($driver)))));
         }
@@ -166,13 +164,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 ->getInstance('Horde_Core_Factory_Ldap')
                 ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
-        case 'horde_core_auth_x509':
-            if (!empty($params['password_source']) && $params['password_source'] == 'unified') {
-                $params['password'] = $params['unified_password'];
-                unset($params['password_source'], $params['unified_password']);
-            }
-            // @TODO: Add filters
-            break;
+
         case 'customsql':
         case 'sql':
             $params['db'] = $this->_injector

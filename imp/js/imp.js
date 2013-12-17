@@ -95,12 +95,7 @@ var IMP_JS = {
 
         id.observe('load', function(i) {
             i.stopObserving('load');
-            if (Prototype.Browser.IE && !document.addEventListener) {
-                // IE8
-                this.iframeResize.bind(this, i).delay(1);
-            } else {
-                this.iframeResize.bind(this, i).defer();
-            }
+            this.iframeResize.bind(this, i).delay(0.1);
         }.bind(this, id));
 
         d.open();
@@ -122,23 +117,12 @@ var IMP_JS = {
 
     iframeResize: function(id)
     {
-        if (!(id = $(id))) {
-            return;
-        }
-
-        var lc = id.contentWindow.document.lastChild,
-            body = id.contentWindow.document.body;
-
-        lc = (lc.scrollHeight > body.scrollHeight) ? lc : body;
-
-        // Try expanding IFRAME if we detect a scroll.
-        if (lc.clientHeight != lc.scrollHeight ||
-            id.clientHeight != lc.clientHeight) {
-            id.setStyle({ height: lc.scrollHeight + 'px' });
-            if (lc.clientHeight != lc.scrollHeight) {
-                // Finally, brute force if it still isn't working.
-                id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
-            }
+        if (id = $(id)) {
+            id.setStyle({
+                height: 'auto'
+            }).setStyle({
+                height: id.contentWindow.document.lastChild.scrollHeight + 'px'
+            });
         }
     },
 
@@ -151,6 +135,26 @@ var IMP_JS = {
         }
         win.print();
         win.close();
+    },
+
+    resizeViewPopup: function(win)
+    {
+        var b = win.document.body,
+            h = 0,
+            w = 0;
+
+        w = b.scrollWidth - b.clientWidth;
+        if (w) {
+            w = Math.min(w, screen.availWidth - win.outerWidth - 100);
+        }
+        h = b.scrollHeight - b.clientHeight;
+        if (h) {
+            h = Math.min(h, screen.availHeight - win.outerHeight - 100);
+        }
+
+        if (w || h) {
+            win.resizeBy(w, h);
+        }
     }
 
 };

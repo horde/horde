@@ -49,7 +49,7 @@ class IMP_Prefs_Special_SpecialMboxes
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
             $prefs->isLocked($pref)) {
@@ -108,7 +108,7 @@ class IMP_Prefs_Special_SpecialMboxes
         global $injector;
 
         if (is_null($this->_cache)) {
-            $this->_cache = $injector->getInstance('IMP_Imap')->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+            $this->_cache = $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
                 'attributes' => true,
                 'special_use' => true,
                 'sort' => true

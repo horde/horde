@@ -31,7 +31,7 @@ class IMP_Dynamic_AddressList
      */
     public function parseAddressList($json)
     {
-        $data = Horde_Serialize::unserialize($json, Horde_Serialize::JSON);
+        $data = json_decode($json);
         $out = new Horde_Mail_Rfc822_List();
 
         if (isset($data->g)) {

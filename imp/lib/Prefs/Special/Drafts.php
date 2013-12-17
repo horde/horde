@@ -44,9 +44,14 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
         ));
         $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $view->flist = IMP::flistSelect(array(
+        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
+        );
+        $iterator->setFilter(array('INBOX'));
+
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
-            'filter' => array('INBOX'),
+            'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)
         ));

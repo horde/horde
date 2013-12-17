@@ -54,9 +54,15 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
         $view->addHelper('Horde_Core_View_Helper_Label');
 
         $view->default = IMP_Mailbox::formTo(self::PREF_DEFAULT);
-        $view->flist = IMP::flistSelect(array(
+
+        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
+        );
+        $iterator->setFilter(array('INBOX'));
+
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
-            'filter' => array('INBOX'),
+            'iterator' => $iterator,
             'new_mbox' => true
         ));
         $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_SENT);
@@ -70,7 +76,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
             $prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {

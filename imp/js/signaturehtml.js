@@ -16,7 +16,7 @@ var ImpHtmlSignaturePrefs = {
             if (this.ready) {
                 CKEDITOR.instances.signature_html.setData(this.sigs[e.memo.i]);
             } else {
-                this.changeIdentity.bind(this, e).defer();
+                this.changeIdentity.bind(this, e).delay(0.1);
             }
             break;
         }

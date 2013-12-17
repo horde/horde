@@ -58,12 +58,15 @@ class IMP_Compose_Attachment_Storage_Vfs extends IMP_Compose_Attachment_Storage
     {
         try {
             if (method_exists($this->_vfs, 'readStream')) {
-                return $this->_vfs->readStream($this->_vfspath, $this->_id);
+                $stream = new Horde_Stream_Existing(array(
+                    'stream' => $this->_vfs->readStream($this->_vfspath, $this->_id)
+                ));
+                $stream->rewind();
+            } else {
+                $stream = new Horde_Stream_Temp();
+                $stream->add($this->_vfs->read($this->_vfspath, $this->_id), true);
             }
-
-            $stream = new Horde_Stream_Temp();
-            $stream->add($this->_vfs->read($this->_vfspath, $this->_id));
-            return $stream->stream;
+            return $stream;
         } catch (Horde_Vfs_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }

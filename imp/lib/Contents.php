@@ -102,6 +102,13 @@ class IMP_Contents
     protected $_message;
 
     /**
+     * Cached data for the MIME Viewer objects.
+     *
+     * @var object
+     */
+    protected $_viewcache;
+
+    /**
      * Constructor.
      *
      * @param mixed $in  An IMP_Indices_Mailbox or Horde_Mime_Part object.
@@ -366,15 +373,17 @@ class IMP_Contents
      */
     public function getHeaderAndMarkAsSeen($type = self::HEADER_OB)
     {
-        if ($this->getMailbox()->readonly) {
+        $mbox = $this->getMailbox();
+
+        if ($mbox->readonly) {
             $seen = false;
         } else {
             $seen = true;
 
             if (isset($this->_header)) {
                 try {
-                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-                    $imp_imap->store($this->getMailbox(), array(
+                    $imp_imap = $mbox->imp_imap;
+                    $imp_imap->store($mbox, array(
                         'add' => array(
                             Horde_Imap_Client::FLAG_SEEN
                         ),
@@ -541,7 +550,7 @@ class IMP_Contents
             ? null
             : $options['type'];
 
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this, 'type' => $type));
 
         switch ($mode) {
         case self::RENDER_INLINE:
@@ -777,9 +786,13 @@ class IMP_Contents
         /* Get part's icon. */
         if (($mask & self::SUMMARY_ICON) ||
             ($mask & self::SUMMARY_ICON_RAW)) {
-            $part['icon'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type);
+            $part['icon'] = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->getIcon($mime_type);
             if ($mask & self::SUMMARY_ICON) {
-                $part['icon'] = Horde::img($part['icon'], '', array('title' => $mime_type), '');
+                $part['icon'] = Horde_Themes_Image::tag($part['icon'], array(
+                    'attr' => array(
+                        'title' => $mime_type
+                    )
+                ));
             }
         } else {
             $part['icon'] = null;
@@ -815,7 +828,7 @@ class IMP_Contents
         if ($is_atc &&
             $download_zip &&
             ($part['bytes'] > 204800)) {
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this, 'type' => $mime_type));
             if (!$viewer->getMetadata('compressed')) {
                 $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'jstext' => sprintf(_("Download %s in .zip Format"), $description), 'params' => array('zip' => 1)));
             }
@@ -847,9 +860,9 @@ class IMP_Contents
             $part['strip'] = Horde::link(
                 Horde::selfUrlParams()->add(array(
                     'actionID' => 'strip_attachment',
-                    'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents'),
+                    'imapid' => $id,
                     'muid' => strval($this->getIndicesOb()),
-                    'imapid' => $id
+                    'token' => $GLOBALS['session']->getToken()
                 )),
                 _("Strip Attachment"),
                 'iconImg deleteImg stripAtc',
@@ -965,7 +978,7 @@ class IMP_Contents
 
         $url = Horde::popupJs(Horde::url('view.php'), array(
             'menu' => true,
-            'onload' => empty($options['onload']) ? '' : $options['onload'],
+            'onload' => empty($options['onload']) ? 'IMP_JS.resizeViewPopup' : $options['onload'],
             'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()),
             'urlencode' => true
         ));
@@ -1037,7 +1050,7 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this));
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
@@ -1072,7 +1085,7 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;
@@ -1545,8 +1558,9 @@ class IMP_Contents
         }
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-            $res = $imp_imap->fetch($this->getMailbox(), $query, array(
+            $mbox = $this->getMailbox();
+            $imp_imap = $mbox->imp_imap;
+            $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($this->getUid())
             ))->first();
         } catch (Horde_Imap_Client_Exception $e) {
@@ -1558,6 +1572,20 @@ class IMP_Contents
         }
 
         return $res;
+    }
+
+    /**
+     * Return the view cache object for this message.
+     *
+     * @return object  View object.
+     */
+    public function getViewCache()
+    {
+        if (!isset($this->_viewcache)) {
+            $this->_viewcache = new stdClass;
+        }
+
+        return $this->_viewcache;
     }
 
 }

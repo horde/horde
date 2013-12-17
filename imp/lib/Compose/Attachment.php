@@ -27,6 +27,13 @@
 class IMP_Compose_Attachment implements Serializable
 {
     /**
+     * Force this attachment to be linked?
+     *
+     * @var boolean
+     */
+    public $forceLinked = false;
+
+    /**
      * Attachment ID.
      *
      * @var integer
@@ -106,13 +113,32 @@ class IMP_Compose_Attachment implements Serializable
 
         switch ($name) {
         case 'linked':
-            return ($this->_linked === true);
+            return ($this->forceLinked || ($this->_linked === true));
 
         case 'link_url':
             return $this->storage->link_url;
 
         case 'storage':
-            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->_linked);
+            if (is_null($this->_uuid)) {
+                $this->_uuid = strval(new Horde_Support_Uuid());
+                $store = true;
+            } else {
+                $store = false;
+            }
+
+            $ob = $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->forceLinked || $this->_linked);
+
+            if ($store && !is_null($this->tmpfile)) {
+                $ob->forceLinked = true;
+                $ob->write($this->tmpfile, $this->getPart());
+                /* Need to save this information now, since it is possible
+                 * that storage backends change their linked status based on
+                 * the data written to the backend. */
+                $this->_linked = $ob->linked;
+                $this->tmpfile = null;
+            }
+
+            return $ob;
         }
     }
 
@@ -130,7 +156,7 @@ class IMP_Compose_Attachment implements Serializable
             $data = is_null($this->tmpfile)
                 ? $this->storage->read()
                 : fopen($this->tmpfile, 'r');
-            $this->_part->setContents($data, array('stream' => true));
+            $this->_part->setContents($data->stream, array('stream' => true));
             $this->_isBuilt = true;
         }
 
@@ -183,38 +209,37 @@ class IMP_Compose_Attachment implements Serializable
         $this->_isBuilt = false;
 
         if (!is_null($this->tmpfile)) {
-            $this->_uuid = strval(new Horde_Support_Uuid());
-            $atc = $this->storage;
-            $atc->write($this->tmpfile, $this->getPart());
-            /* Need to save this information now, since it is possible that
-             * storage backends change their linked status based on the data
-             * written to the backend. */
-            $this->_linked = $atc->linked;
-            $this->tmpfile = null;
+            /* This ensures data is stored in the backend. */
+            $this->storage;
         }
 
-        return serialize(array(
-            'c' => $this->_composeCache,
-            'i' => $this->id,
-            'l' => $this->_linked,
-            'p' => $this->_part,
-            'r' => $this->related,
-            'u' => $this->_uuid
-        ));
+        return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
+            array(
+                $this->_composeCache,
+                $this->id,
+                $this->_linked,
+                $this->_part,
+                $this->related,
+                $this->_uuid
+            ), array(
+                'compression' => false,
+                'phpob' => true
+            )
+        );
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-
-        $this->_composeCache = $data['c'];
-        $this->id = $data['i'];
-        $this->_linked = $data['l'];
-        $this->_part = $data['p'];
-        $this->related = !empty($data['r']);
-        $this->_uuid = $data['u'];
+        list(
+            $this->_composeCache,
+            $this->id,
+            $this->_linked,
+            $this->_part,
+            $this->related,
+            $this->_uuid
+        ) = $GLOBALS['injector']->getInstance('Horde_Pack')->unpack($data);
     }
 
 }

@@ -85,26 +85,34 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @return array  The list of IMAP mailboxes. A list of arrays with the
      *                following keys:
-     *   - a: (integer) The mailbox attributes.
      *   - d: (string) The namespace delimiter.
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
+     *   - subscribed: (boolean) True if mailbox is subscribed (@since 6.2.0).
      */
     public function mailboxList()
     {
+        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+            IMP_Ftree_IteratorFilter::create(
+                IMP_Ftree_IteratorFilter::NO_REMOTE |
+                IMP_Ftree_IteratorFilter::UNSUB_PREF
+            )
+        );
         $mboxes = array();
-        $imap_tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
-        $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
-        foreach ($imap_tree as $val) {
-            $e = $imap_tree->getElement($val->value);
+        foreach ($iterator as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $sub = $mbox_ob->sub;
+
             $mboxes[] = array(
-                'a' => $e['a'],
-                'd' => $val->namespace_delimiter,
-                'label' => $val->label,
+                // TODO: Remove for IMP 7.
+                'a' => $sub ? 8 : 0,
+                'd' => $mbox_ob->namespace_delimiter,
+                'label' => $mbox_ob->label,
                 'level' => $val->level,
-                'ob' => $val->imap_mbox_ob
+                'ob' => $mbox_ob->imap_mbox_ob,
+                'subscribed' => $sub
             );
         }
 
@@ -237,7 +245,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         return array(
             'hostspec' => $imap_ob->getParam('hostspec'),
@@ -301,7 +309,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function imapOb()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->client_ob;
     }
 
     /**

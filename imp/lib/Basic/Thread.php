@@ -27,9 +27,8 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $registry;
+        global $injector, $notification, $page_output, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_mailbox = $this->indices->mailbox->list_ob;
 
         switch ($mode = $this->vars->get('mode', 'thread')) {
@@ -75,6 +74,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $injector->getInstance('IMP_Images')->alwaysShow = true;
 
         foreach ($imp_indices as $ob) {
+            $imp_imap = $ob->mbox->imp_imap;
             $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($ob->uids)
             ));
@@ -159,12 +159,12 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                 $delete_link = $this->indices->mailbox->url('mailbox')->add(array(
                     'actionID' => 'delete_messages',
                     'indices' => strval($imp_indices),
-                    'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),
+                    'token' => $session->getToken(),
                     'start' => $imp_mailbox->getArrayIndex(end($uid_list))
                 ));
                 $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
                 $page_output->addInlineScript(array(
-                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON) . ')) { e.stop(); } })'
+                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete all messages in this thread?")) . ')) { e.stop(); } })'
                 ), true);
                 break;
             }

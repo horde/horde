@@ -45,9 +45,15 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
         $view->addHelper('Horde_Core_View_Helper_Label');
 
         $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
-        $view->flist = IMP::flistSelect(array(
+
+        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
+        );
+        $iterator->setFilter(array('INBOX'));
+
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
-            'filter' => array('INBOX'),
+            'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)
         ));
@@ -66,7 +72,7 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
             return false;
         }
 
-        $injector->getInstance('IMP_Imap')->updateFetchIgnore();
+        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
         return true;
     }
 

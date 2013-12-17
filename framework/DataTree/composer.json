@@ -1,0 +1,25 @@
+{
+    "name": "horde/horde-datatree",
+    "description": "DataTree API",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.0.2",
+    "time": "2012-11-22",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

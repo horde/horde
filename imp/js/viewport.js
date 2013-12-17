@@ -295,7 +295,7 @@ var ViewPort = Class.create({
         if (this.page_size === null) {
             ps = this.getPageSize(this.pane_mode ? 'default' : 'max');
             if (isNaN(ps)) {
-                return this.loadView.bind(this, view, opts).defer();
+                return this.loadView.bind(this, view, opts).delay(0.1);
             }
             this.page_size = ps;
         }
@@ -421,7 +421,7 @@ var ViewPort = Class.create({
     {
         if (vs.size()) {
             if (this.isbusy) {
-                this.remove.bind(this, vs).defer();
+                this.remove.bind(this, vs).delay(0.1);
             } else {
                 this.isbusy = true;
                 try {
@@ -466,7 +466,7 @@ var ViewPort = Class.create({
         if (nowait) {
             this._onResize(size);
         } else {
-            this.resizefunc = this._onResize.bind(this, size).defer();
+            this.resizefunc = this._onResize.bind(this, size).delay(0.1);
         }
     },
 
@@ -599,7 +599,7 @@ var ViewPort = Class.create({
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
-            this._fetchBuffer.bind(this, opts).defer();
+            this._fetchBuffer.bind(this, opts).delay(0.1);
         } else {
             this.isbusy = true;
             try {
@@ -814,7 +814,7 @@ var ViewPort = Class.create({
     _ajaxResponse: function(r)
     {
         if (this.isbusy) {
-            this._ajaxResponse.bind(this, r).defer();
+            this._ajaxResponse.bind(this, r).delay(0.1);
         } else {
             this.isbusy = true;
             try {
@@ -1354,7 +1354,8 @@ ViewPort_Scroller = Class.create({
             return;
         }
 
-        var c = this.vp.opts.content;
+        var c = this.vp.opts.content,
+            mw = this.mousewheelHandler.bindAsEventListener(this);
 
         // Create the outer div.
         this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ cssFloat: 'left', overflow: 'hidden' }).hide();
@@ -1384,17 +1385,30 @@ ViewPort_Scroller = Class.create({
        });
 
         // Mouse wheel handler.
-        c.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
-            var move_num = Math.min(this.vp.getPageSize(), 3);
-            this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
-            /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
-             * Need to stop or else multiple scroll events may be fired. We
-             * lose the ability to have the mousescroll bubble up, but that is
-             * more desirable than having the wrong scrolling behavior. */
-            if (Prototype.Browser.Gecko && !e.stop) {
-                Event.stop(e);
-            }
-        }.bindAsEventListener(this));
+        if ('onwheel' in document || (document.documentMode >= 9)) {
+            c.observe('wheel', mw);
+        } else {
+            c.observe('mousewheel', mw).observe('DomMouseScroll', mw);
+        }
+    },
+
+    mousewheelHandler: function(e)
+    {
+        var delta = e.wheelDelta || 0;
+
+        if (e.detail) {
+            delta = e.detail * -1;
+        }
+        if (e.deltaY) {
+            delta = e.deltaY * -1;
+        }
+        if (!Object.isUndefined(e.wheelDeltaY)) {
+            delta = e.wheelDeltaY;
+        }
+
+        if (delta) {
+            this.moveScroll(this.currentOffset() + (Math.min(this.vp.getPageSize(), 3) * (delta > 0 ? -1 : 1)));
+        }
     },
 
     setSize: function(viewsize, totalsize)

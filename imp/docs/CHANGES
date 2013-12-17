@@ -1,6 +1,42 @@
 ----------
-v6.1.7-git
+v6.2.0-git
 ----------
+
+[mms] Show placeholder image when dropping onto HTML editor while the image is
+      uploaded to the server.
+[mms] Add rate limiting to new mail notification alerts to prevent flooding of
+      the remote mail server (Request #12705).
+[mms] Browser stored preferences are now prefixed by user information.
+[mms] Strip PGP armor text when replying to a message.
+[mms] Move determination whether to scan plaintext messages for PGP data from
+      preferences to MIME viewer configuration.
+[mms] Add copy email option to the address context menu in dynamic view.
+[mms] Better reporting of e-mail address errors when composing.
+[mms] Add list information display to dynamic view.
+[jan] Add signatures display to compose view.
+[mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic
+      preview pane (Request #12750).
+[mms] Add country flag graphic to contact image information in dynamic view.
+[mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
+[mms] Add ability to specify maximum total attachment size in composed message
+      before all attachments are converted to links.
+[mms] Cache generation of print-specific CSS.
+[mms] Add support for showing a contact image in the contacts popup box in
+      dynamic view.
+[mms] Add ability to create a new filter rule from context menus in the
+      dynamic view.
+[mms] More intelligent sizing of raw message parts opened in a popup window.
+[mms] Load sent-mail mailbox list on demand in dynamic view.
+[mms] Allow configurable access to remote accounts from within a session
+      (Request #8077).
+[jan] Display "Other Options" icon instead of "New Window" icon in collapsed
+      preview headers.
+[mms] More advanced auto-completion for smartmobile view.
+
+
+------
+v6.1.7
+------
 
 [mjr] Honor recurrence-id range values when deleting recurring events (Bug
       #12746).
@@ -25,6 +61,7 @@ v6.1.5
 
 [mms] SECURITY: Fix XSS in message and search screens resulting from a
       user-defined flag label (João Machado <geral@jpaulo.eu>).
+[mms] Support uploading multiple attachments at once in dynamic view.
 [mms] Send linked attachment download notification message in language of the
       sending user (Bug #12783).
 [mms] Fix populating search fields when editing an advanced search query.

@@ -40,9 +40,6 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         $imp_search = $injector->getInstance('IMP_Search');
         $fout = $vout = array();
 
-        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
-        $vfolder_locked = $prefs->isLocked('vfolder');
-
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));
@@ -50,7 +47,13 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         $view->addHelper('Tag');
         $view->addHelper('Text');
 
-        foreach ($imp_search as $key => $val) {
+        $vfolder_locked = $prefs->isLocked('vfolder');
+        $iterator = IMP_Search_IteratorFilter::create(
+            IMP_Search_IteratorFilter::DISABLED |
+            IMP_Search_IteratorFilter::VFOLDER
+        );
+
+        foreach ($iterator as $val) {
             if (!$val->prefDisplay) {
                 continue;
             }
@@ -65,17 +68,20 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
                 'edit' => ($editable ? $imp_search->editUrl($val) : null),
                 'enabled' => $val->enabled,
                 'enabled_locked' => $vfolder_locked,
-                'key' => $key,
+                'key' => $val->id,
                 'label' => $val->label,
                 'm_url' => $m_url
             );
         }
         $view->vfolders = $vout;
 
-        $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER | IMP_Search::LIST_DISABLED);
         $filter_locked = $prefs->isLocked('filter');
+        $iterator = IMP_Search_IteratorFilter::create(
+            IMP_Search_IteratorFilter::DISABLED |
+            IMP_Search_IteratorFilter::FILTER
+        );
 
-        foreach ($imp_search as $key => $val) {
+        foreach ($iterator as $val) {
             if (!$val->prefDisplay) {
                 continue;
             }
@@ -87,7 +93,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
                 'edit' => ($editable ? $imp_search->editUrl($val) : null),
                 'enabled' => $val->enabled,
                 'enabled_locked' => $filter_locked,
-                'key' => $key,
+                'key' => $val->id,
                 'label' => $val->label
             );
         }
@@ -129,29 +135,35 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
         default:
             /* Update enabled status for Virtual Folders. */
-            $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::DISABLED |
+                IMP_Search_IteratorFilter::VFOLDER
+            );
             $vfolders = array();
 
-            foreach ($imp_search as $key => $val) {
-                $form_key = 'enable_' . $key;
+            foreach ($iterator as $val) {
+                $form_key = 'enable_' . $val->id;
 
                 /* Only change enabled status for virtual folders displayed
                  * on the preferences screen. */
                 if ($val->prefDisplay) {
                     $val->enabled = !empty($ui->vars->$form_key);
-                    $vfolders[$key] = $val;
+                    $vfolders[$val->id] = $val;
                 }
             }
             $imp_search->setVFolders($vfolders);
 
             /* Update enabled status for Filters. */
-            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER | IMP_Search::LIST_DISABLED);
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::DISABLED |
+                IMP_Search_IteratorFilter::FILTER
+            );
             $filters = array();
 
-            foreach ($imp_search as $key => $val) {
-                $form_key = 'enable_' . $key;
+            foreach ($iterator as $val) {
+                $form_key = 'enable_' . $val->id;
                 $val->enabled = !empty($ui->vars->$form_key);
-                $filters[$key] = $val;
+                $filters[$val->id] = $val;
             }
             $imp_search->setFilters($filters);
             break;

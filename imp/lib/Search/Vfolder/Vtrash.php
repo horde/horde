@@ -53,9 +53,11 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
     {
         switch ($name) {
         case 'mboxes':
-            $imp_tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imp_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
-            return array_keys(iterator_to_array($imp_tree));
+            $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+                IMP_Ftree_IteratorFilter::create()
+            );
+
+            return array_map('strval', iterator_to_array($iterator, false));
         }
 
         return parent::__get($name);

@@ -13,19 +13,70 @@ CKEDITOR.plugins.add('pasteattachment', {
     {
         function attachCallback(r)
         {
+            var iframe;
+
             if (r.success) {
-                editor.insertHtml(r.img);
+                iframe = editor.getThemeSpace('contents').$.down('IFRAME');
+                Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
+                    var img = new Element('IMG');
+                    img.onload = function() {
+                        elt.parentNode.replaceChild(img, elt);
+                    };
+                    img.writeAttribute('src', r.img.src);
+                    img.writeAttribute(r.img.related[0], r.img.related[1]);
+                    if (r.img.height) {
+                        img.writeAttribute('height', r.img.height);
+                        img.writeAttribute('width', r.img.width);
+                    }
+                });
             }
         };
 
+        function uploadAtc(files)
+        {
+            DimpCompose.uploadAttachmentAjax(
+                files,
+                { img_data: 1 },
+                attachCallback
+            ).each(function(file) {
+                var fr = new FileReader();
+                fr.onload = function(e) {
+                    var elt = new CKEDITOR.dom.element('img');
+                    elt.setAttributes({
+                        dropatc_id: file.key,
+                        src: e.target.result
+                    });
+                    editor.insertElement(elt);
+                };
+                fr.readAsDataURL(file.value);
+            });
+        };
+
+        function fireEventInParent(type)
+        {
+            var evt;
+
+            try {
+                evt = new CustomEvent(type, { bubbles: true, cancelable: true });
+            } catch (ex) {
+                evt = document.createEvent('DragEvent');
+                evt.initEvent(type, true, true);
+            }
+            editor.getThemeSpace('contents').$.dispatchEvent(evt);
+        };
+
         editor.on('contentDom', function(e1) {
-            e1.editor.document.on('drop', function(e2) {
-                DimpCompose.uploadAttachmentAjax(
-                    e2.data.$.dataTransfer.files,
-                    { img_tag: 1 },
-                    attachCallback
-                );
-                e2.data.preventDefault();
+            editor.document.on('drop', function(e2) {
+                /* Only support images for now. */
+                if (e2.data.$.dataTransfer.files[0].type.startsWith('image/')) {
+                    uploadAtc(e2.data.$.dataTransfer.files);
+                    e2.data.preventDefault();
+                }
+                fireEventInParent('drop');
+            });
+            editor.document.on('dragover', function(e) {
+                e.data.preventDefault();
+                fireEventInParent('dragover');
             });
         });
 
@@ -35,6 +86,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     a = [],
                     span = new Element('SPAN').insert(ev.data.html).down();
 
+                /* Only support images for now. */
                 if (span && span.match('IMG')) {
                     data = span.readAttribute('src').split(',', 2);
                     data[1] = atob(data[1]);
@@ -44,11 +96,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                         a[i] = data[1].charCodeAt(i);
                     }
 
-                    DimpCompose.uploadAttachmentAjax(
-                        [ new Blob([ new Uint8Array(a) ], { type: data[0].split(':')[1].split(';')[0] }) ],
-                        { img_tag: 1 },
-                        attachCallback
-                    );
+                    uploadAtc([ new Blob([ new Uint8Array(a) ], { type: data[0].split(':')[1].split(';')[0] }) ]);
 
                     ev.data.html = '';
                 } else {

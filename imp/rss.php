@@ -37,7 +37,7 @@ $request = Horde_Util::getPathInfo();
 if (!empty($request)) {
     $request_parts = explode('/-/', $request);
     if (!empty($request_parts[0])) {
-        $ns_info = $injector->getInstance('IMP_Imap')->getNamespace();
+        $ns_info = $mailbox->imp_imap->getNamespace(IMP_Imap::NS_DEFAULT);
         $mailbox = IMP_Mailbox::get(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')))->namespace_append;
 
         /* Make sure mailbox exists or else exit immediately. */

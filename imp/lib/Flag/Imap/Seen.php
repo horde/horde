@@ -42,4 +42,11 @@ class IMP_Flag_Imap_Seen extends IMP_Flag_Imap
         return _("Seen");
     }
 
+    /**
+     */
+    public function deselect($set)
+    {
+        return !$set;
+    }
+
 }

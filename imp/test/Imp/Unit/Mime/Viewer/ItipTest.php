@@ -33,6 +33,7 @@ extends PHPUnit_Framework_TestCase
     private $_contentsFactory;
     private $_identity;
     private $_identityId = 'default';
+    private $_imapFactory;
     private $_mail;
     private $_mailbox;
     private $_notifyStack = array();
@@ -96,6 +97,16 @@ extends PHPUnit_Framework_TestCase
             }
             return $this->_contentsFactory;
 
+        case 'IMP_Factory_Imap':
+            if (!isset($this->_imapFactory)) {
+                $imap = $this->getMock('IMP_Factory_Imap', array(), array(), '', false);
+                $imap->expects($this->any())
+                    ->method('create')
+                    ->will($this->returnValue(new IMP_Stub_Imap()));
+                $this->_imapFactory = $imap;
+            }
+            return $this->_imapFactory;
+
         case 'IMP_Factory_Mailbox':
             if (!isset($this->_mailbox)) {
                 $mbox = $this->getMock('IMP_Factory_Mailbox', array(), array(), '', false);
@@ -136,9 +147,6 @@ extends PHPUnit_Framework_TestCase
                 $this->_mail = new Horde_Mail_Transport_Mock();
             }
             return $this->_mail;
-
-        case 'IMP_Imap':
-            return new IMP_Imap();
         }
     }
 

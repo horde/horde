@@ -32,7 +32,7 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
     {
         global $injector, $registry;
 
-        $admin = $injector->getInstance('IMP_Imap')->config->admin;
+        $admin = $injector->getInstance('IMP_Factory_Imap')->create()->config->admin;
         if (!$admin) {
             throw new IMP_Exception('Admin access not enabled.');
         }

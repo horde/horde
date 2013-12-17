@@ -121,7 +121,11 @@ class IMP_Prefs_Sort implements ArrayAccess, IteratorAggregate
         $ob = $this->_offsetGet($offset);
 
         try {
-            Horde::callHook('mbox_sort', array($ob), 'imp');
+            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                'mbox_sort',
+                'imp',
+                array($ob)
+            );
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $ob;

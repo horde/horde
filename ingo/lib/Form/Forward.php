@@ -27,7 +27,7 @@ class Ingo_Form_Forward extends Ingo_Form_Base
 
         $v = $this->addVariable(_("Keep a copy of messages in this account?"), 'keep_copy', 'boolean', false);
         $v->setHelp('forward-keepcopy');
-        $v = $this->addVariable(_("Address(es) to forward to:"), 'addresses', 'longtext', false, false, null, array(5, 40));
+        $v = $this->addVariable(_("Address(es) to forward to:"), 'addresses', 'ingo:Longemail', false, false, null, array(5, 40));
         $v->setHelp('forward-addresses');
         $this->setButtons(_("Save"));
     }

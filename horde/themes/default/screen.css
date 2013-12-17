@@ -1805,12 +1805,6 @@ left.horde-point-right {
 #horde-login {
     background-image: url("graphics/login.png");
 }
-#horde-login-pass-capslock {
-    color: red;
-    font-size: 90%;
-    font-weight: bold;
-    padding-bottom: 15px;
-}
 
 .horde-icon-settings {
     background-image: url("graphics/settings.png");

@@ -30,24 +30,19 @@
 <div><?php echo Horde::label($key, $val['label']) ?></div>
 <div>
 <?php if ($val['type'] == 'text'): ?>
- <input type="text" autocapitalize="off" autocorrect="off" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" style="direction:ltr" />
+       <input type="text" autocapitalize="off" autocorrect="off" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" style="direction:ltr" />
 <?php elseif ($val['type'] == 'password'): ?>
- <input type="password" id="<?php echo $key ?>" name="<?php echo $key ?>" value="" style="direction:ltr" />
-<?php if ($key == 'horde_pass'): ?>
-</div>
-<div id="horde-login-pass-capslock" style="display:none">
- <?php echo _("Warning: Your Caps Lock key is on!") ?>
-<?php endif; ?>
+       <input type="password" id="<?php echo $key ?>" name="<?php echo $key ?>" value="" style="direction:ltr" />
 <?php elseif ($val['type'] == 'select'): ?>
- <select id="<?php echo $key ?>" name="<?php echo $key ?>">
+       <select id="<?php echo $key ?>" name="<?php echo $key ?>">
 <?php foreach ($val['value'] as $k2 => $v2): ?>
 <?php if (is_null($v2)): ?>
-  <option value="" disabled="disabled">- - - - - - - - - -</option>
+        <option value="" disabled="disabled">- - - - - - - - - -</option>
 <?php else: ?>
-  <option value="<?php echo $k2 ?>"<?php echo !empty($v2['selected']) ?' selected="selected"' : '' ?><?php echo !empty($v2['hidden']) ? ' style="display:none"' : '' ?>><?php echo htmlspecialchars($v2['name']) ?></option>
+        <option value="<?php echo $k2 ?>"<?php echo !empty($v2['selected']) ?' selected="selected"' : '' ?><?php echo !empty($v2['hidden']) ? ' style="display:none"' : '' ?>><?php echo htmlspecialchars($v2['name']) ?></option>
 <?php endif; ?>
 <?php endforeach ?>
- </select>
+       </select>
 <?php endif; ?>
 </div>
 <?php endif; ?>

@@ -24,13 +24,6 @@
 class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
-     * Cached data.
-     *
-     * @var array
-     */
-    static protected $_cache = array();
-
-    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -67,9 +60,10 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         global $injector, $prefs, $registry;
 
+        $cache = $this->getConfigParam('imp_contents')->getViewCache();
         $mime_id = $this->_mimepart->getMimeId();
 
-        if (isset(self::$_cache[$mime_id])) {
+        if (isset($cache->plain[$mime_id])) {
             return array($mime_id => null);
         }
 
@@ -214,7 +208,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     public function embeddedMimeParts()
     {
-        return (!empty($GLOBALS['conf']['gnupg']['path']) && $GLOBALS['prefs']->getValue('pgp_scan_body')) || $this->getConfigParam('uudecode');
+        return ($this->getConfigParam('pgp_inline') ||
+                $this->getConfigParam('uudecode'));
     }
 
     /**
@@ -226,117 +221,36 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _getEmbeddedMimeParts()
     {
-        $ret = null;
+        $ret = $this->getConfigParam('pgp_inline')
+            ? $this->_parsePGP()
+            : null;
 
-        if (!empty($GLOBALS['conf']['gnupg']['path']) &&
-            $GLOBALS['prefs']->getValue('pgp_scan_body')) {
-            $ret = $this->_parsePGP();
-        }
-
-        if (is_null($ret) && $this->getConfigParam('uudecode')) {
-            $ret = $this->_parseUUencode();
-        }
-
-        return $ret;
+        return (is_null($ret) && $this->getConfigParam('uudecode'))
+            ? $this->_parseUUencode()
+            : $ret;
     }
 
     /**
-     * Scan text for armored PGP blocks and, if they exist, convert the part
-     * to the embedded MIME representation.
+     * Scan text for inline, armored PGP blocks and, if they exist, convert
+     * the part to the embedded MIME representation.
      *
      * @return mixed  See self::_getEmbeddedMimeParts().
      */
     protected function _parsePGP()
     {
-        /* Avoid infinite loop. */
-        $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
-        if (empty($parts) ||
-            ((count($parts) == 1) &&
-             ($parts[0]['type'] == Horde_Crypt_Pgp::ARMOR_TEXT))) {
-            return null;
+        $part = $GLOBALS['injector']->getInstance('Horde_Crypt_Pgp_Parse')->parseToPart(
+            new Horde_Stream_Existing(array(
+                'stream' => $this->_mimepart->getContents(array('stream' => true))
+            )),
+            $this->_mimepart->getCharset()
+        );
+
+        if (!is_null($part)) {
+            $cache = $this->getConfigParam('imp_contents')->getViewCache();
+            $cache->plain[$this->_mimepart->getMimeId()] = true;
         }
 
-        $new_part = new Horde_Mime_Part();
-        $new_part->setType('multipart/mixed');
-        $charset = $this->_mimepart->getCharset();
-        $mime_id = $this->_mimepart->getMimeId();
-
-        while (list(,$val) = each($parts)) {
-            switch ($val['type']) {
-            case Horde_Crypt_Pgp::ARMOR_TEXT:
-                $part = new Horde_Mime_Part();
-                $part->setType('text/plain');
-                $part->setCharset($charset);
-                $part->setContents(implode("\n", $val['data']));
-                $new_part->addPart($part);
-                break;
-
-            case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
-                $part = new Horde_Mime_Part();
-                $part->setType('application/pgp-keys');
-                $part->setContents(implode("\n", $val['data']));
-                $new_part->addPart($part);
-                break;
-
-            case Horde_Crypt_Pgp::ARMOR_MESSAGE:
-                $part = new Horde_Mime_Part();
-                $part->setType('multipart/encrypted');
-                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
-                $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-
-                $part1 = new Horde_Mime_Part();
-                $part1->setType('application/pgp-encrypted');
-                $part1->setContents("Version: 1\n");
-
-                $part2 = new Horde_Mime_Part();
-                $part2->setType('application/octet-stream');
-                $part2->setContents(implode("\n", $val['data']));
-                $part2->setDisposition('inline');
-
-                $part->addPart($part1);
-                $part->addPart($part2);
-
-                $new_part->addPart($part);
-                break;
-
-            case Horde_Crypt_Pgp::ARMOR_SIGNED_MESSAGE:
-                if (($sig = current($parts)) &&
-                    ($sig['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE)) {
-                    $part = new Horde_Mime_Part();
-                    $part->setType('multipart/signed');
-                    // TODO: add micalg parameter
-                    $part->setContentTypeParameter('protocol', 'application/pgp-signature');
-
-                    $part1 = new Horde_Mime_Part();
-                    $part1->setType('text/plain');
-                    $part1->setCharset($charset);
-
-                    $part1_data = implode("\n", $val['data']);
-                    $part1->setContents(substr($part1_data, strpos($part1_data, "\n\n") + 2));
-
-                    $part2 = new Horde_Mime_Part();
-                    $part2->setType('application/pgp-signature');
-                    $part2->setContents(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']));
-                    // A true pgp-signature part would only contain the
-                    // detached signature. However, we need to carry around
-                    // the entire armored text to verify correctly. Use a
-                    // IMP-specific content-type parameter to clue the PGP
-                    // driver into this fact.
-                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_SIG, true);
-                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_CHARSET, $charset);
-
-                    $part->addPart($part1);
-                    $part->addPart($part2);
-                    $new_part->addPart($part);
-
-                    next($parts);
-                }
-            }
-        }
-
-        self::$_cache[$mime_id] = true;
-
-        return $new_part;
+        return $part;
     }
 
     /**
