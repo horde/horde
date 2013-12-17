@@ -1063,6 +1063,11 @@ class Nag_Task
 
             $methods['mail']['mimepart'] = Nag::buildMimeMessage($view, 'mail', $image);
         }
+
+        if (isset($methods['desktop'])) {
+            $methods['desktop']['url'] = Horde::url('view.php', true)->add('tasklist', $this->tasklist)->add('task', $this->id)->toString(true, true);
+        }
+
         return array(
             'id' => $this->uid,
             'user' => $user,
