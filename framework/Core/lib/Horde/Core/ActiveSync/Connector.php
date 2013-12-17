@@ -23,7 +23,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @var Horde_Registry
      */
-    private $_registry;
+    protected $_registry;
 
     /**
      * The logger
@@ -667,6 +667,7 @@ class Horde_Core_ActiveSync_Connector
      * @param string $pref The name of the preference setting.
      *
      * @return mixed  The preference value
+     * @deprecated (unused)
      */
     public function horde_getPref($app, $pref)
     {
@@ -896,6 +897,8 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $collection  The collection class
      *                            A Horde_ActiveSync::CLASS_* constant.
+     * @param integer $multiplex  A bitmask flagging the collections that must
+     *                            be multiplexed, regardless of horde's settings
      *
      * @return array|string  A list of folder uids or $collection if supporting
      *                       API is not found. If a list is returned, it is in
@@ -903,44 +906,54 @@ class Horde_Core_ActiveSync_Connector
      *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
      * @since 2.12.0
      */
-    public function getFolders($collection)
+    public function getFolders($collection, $multiplex)
     {
-        global $registry;
-
         // @TODO: H6 remove the hasMethod checks.
         if (empty($this->_folderCache[$collection])) {
             switch ($collection) {
             case Horde_ActiveSync::CLASS_CALENDAR:
-                if ($registry->hasMethod('calendar/sources')) {
-                    $folders = $registry->calendar->sources(true, true);
-                    $default = $registry->calendar->getDefaultShare();
+                if ($this->_registry->hasMethod('calendar/sources') &&
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_CALENDAR)) {
+
+                    $folders = $this->_registry->calendar->sources(true, true);
+                    $default = $this->_registry->calendar->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID;
                 }
                 break;
 
             case Horde_ActiveSync::CLASS_CONTACTS:
-                if ($registry->hasMethod('contacts/sources')) {
-                    $folders = $registry->contacts->sources(true, true);
-                    $default = $registry->contacts->getDefaultShare();
+                if ($this->_registry->hasMethod('contacts/sources') &&
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_CONTACTS)) {
+
+                    $folders = $this->_registry->contacts->sources(true, true);
+                    $default = $this->_registry->contacts->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID;
                 }
                 break;
 
             case Horde_ActiveSync::CLASS_TASKS:
-                if ($registry->hasMethod('tasks/sources')) {
-                    $folders = $registry->tasks->sources(true, true);
-                    $default = $registry->tasks->getDefaultShare();
+                if ($this->_registry->hasMethod('tasks/sources') &&
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_TASKS)) {
+
+                    $folders = $this->_registry->tasks->sources(true, true);
+                    $default = $this->_registry->tasks->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID;
                 }
                 break;
 
             case Horde_ActiveSync::CLASS_NOTES:
-                if ($registry->hasMethod('notes/sources')) {
-                    $folders = $registry->notes->sources(true, true);
-                    $default = $registry->notes->getDefaultShare();
+                if ($this->_registry->hasMethod('notes/sources') &&
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex') &&
+                    !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_NOTES)) {
+
+                    $folders = $this->_registry->notes->sources(true, true);
+                    $default = $this->_registry->notes->getDefaultShare();
                 } else {
                     $this->_folderCache[$collection] = Horde_Core_ActiveSync_Driver::NOTES_FOLDER_UID;
                 }
@@ -973,49 +986,50 @@ class Horde_Core_ActiveSync_Connector
      */
     public function createFolder($class, $foldername)
     {
-        global $registry, $prefs;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Creating new collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
+        global $prefs;
 
         switch ($class) {
-
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod checks in H6.
-            if (!$registry->hasMethod('calendar/addCalendar')) {
+            if (!$this->_registry->hasMethod('calendar/addCalendar') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Creating calendars not supported by the calendar API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $registry->calendar->addCalendar($foldername, array('synchronize' => true));
+            return $this->_registry->calendar->addCalendar($foldername, array('synchronize' => true));
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             // @todo Remove hasMethod check in H6
-            if (!$registry->hasMethod('contacts/addAddressbook')) {
+            if (!$this->_registry->hasMethod('contacts/addAddressbook') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Creating addressbooks not supported by the contacts API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $registry->contacts->addAddressbook($foldername);
+            return $this->_registry->contacts->addAddressbook($foldername);
 
         case Horde_ActiveSync::CLASS_NOTES:
             // @todo Remove hasMethod checks in H6.
-            if (!$registry->hasMethod('notes/addNotepad')) {
+            if (!$this->_registry->hasMethod('notes/addNotepad') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('notes'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Creating notepads not supported by the notes API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $registry->notes->addNotepad($foldername);
+            return $this->_registry->notes->addNotepad($foldername);
 
         case Horde_ActiveSync::CLASS_TASKS:
-            return $registry->tasks->addTasklist($foldername);
+            if (!$this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Creating notepads not supported by the notes API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            return $this->_registry->tasks->addTasklist($foldername);
         }
     }
 
@@ -1032,62 +1046,64 @@ class Horde_Core_ActiveSync_Connector
      */
     public function changeFolder($class, $id, $name)
     {
-        global $prefs, $registry;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Updating new collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
+        global $prefs;
 
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod check
-            if (!$registry->hasMethod('calendar/getCalendar')) {
+            if (!$this->_registry->hasMethod('calendar/getCalendar') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating calendars not supported by the calendar API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $calendar = $registry->calendar->getCalendar($id);
+            $calendar = $this->_registry->calendar->getCalendar($id);
             $info = array(
                 'name' => $name,
                 'color' => $calendar->background(),
                 'description' => $calendar->description()
             );
-            $registry->calendar->updateCalendar($id, $info);
+            $this->_registry->calendar->updateCalendar($id, $info);
             break;
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             // @todo remove hasMethod check
-            if (!$registry->hasMethod('contacts/updateAddressbook')) {
+            if (!$this->_registry->hasMethod('contacts/updateAddressbook') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating addressbooks not supported by the contacts API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $registry->contacts->updateAddressbook($id, array('name' => $name));
+            $this->_registry->contacts->updateAddressbook($id, array('name' => $name));
             break;
 
         case Horde_ActiveSync::CLASS_NOTES:
             // @todo remove hasMethod check
-            if (!$registry->hasMethod('notes/updateNotepad')) {
+            if (!$this->_registry->hasMethod('notes/updateNotepad') ||
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('notes'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Updating notepads not supported by the notes API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $registry->notes->updateNotepad($id, array('name' => $name));
+            $this->_registry->notes->updateNotepad($id, array('name' => $name));
 
         case Horde_ActiveSync::CLASS_TASKS:
-            $share = $registry->tasks->getTasklist($id);
+            if (!$this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Updating notepads not supported by the notes API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $share = $this->_registry->tasks->getTasklist($id);
             $info = array(
                 'name' => $name,
                 'color' => $share->get('color'),
                 'desc' => $share->get('desc')
             );
-            $registry->tasks->updateTasklist($id, $info);
+            $this->_registry->tasks->updateTasklist($id, $info);
             break;
         }
     }
@@ -1102,47 +1118,50 @@ class Horde_Core_ActiveSync_Connector
      */
     public function deleteFolder($class, $id)
     {
-        global $registry, $prefs;
-
-        if ($prefs->getValue('activesync_multiplex')) {
-            throw new Horde_ActiveSync_Exception(
-                'Deleting collections not supported with multiplexed collections',
-                Horde_ActiveSync_Exception::UNSUPPORTED
-            );
-        }
+        global $prefs;
 
         switch ($class) {
         case Horde_ActiveSync::CLASS_TASKS:
-            $registry->tasks->deleteTasklist($id);
-            break;
-
-        case Horde_ActiveSync::CLASS_CONTACTS:
-            if (!$registry->hasMethod('contacts/deleteAddressbook')) {
+            if (!$this->_registry->horde->getPrefs($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting addressbooks not supported by the contacts API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $registry->contacts->deleteAddressbook($id);
+            $this->_registry->tasks->deleteTasklist($id);
+            break;
+
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            if (!$this->_registry->hasMethod('contacts/deleteAddressbook') ||
+                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
+                throw new Horde_ActiveSync_Exception(
+                    'Deleting addressbooks not supported by the contacts API.',
+                    Horde_ActiveSync_Exception::UNSUPPORTED
+                );
+            }
+            $this->_registry->contacts->deleteAddressbook($id);
             break;
 
         case Horde_ActiveSync::CLASS_CALENDAR:
-            if (!$registry->hasMethod('calendar/deleteCalendar')) {
+            if (!$this->_registry->hasMethod('calendar/deleteCalendar') ||
+                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting calendars not supported by the calendar API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $registry->calendar->deleteCalendar($id);
+            $this->_registry->calendar->deleteCalendar($id);
             break;
+
         case Horde_ActiveSync::CLASS_NOTES  :
-            if (!$registry->hasMethod('notes/deleteNotepad')) {
+            if (!$this->_registry->hasMethod('notes/deleteNotepad') ||
+                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('notes'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting notepads not supported by the notes API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $registry->notes->deleteNotpad($id);
+            $this->_registry->notes->deleteNotpad($id);
             break;
         }
 

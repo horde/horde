@@ -189,9 +189,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $username));
 
         // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
-        if (!empty($conf['activesync']['auth']['type']) &&
-             $conf['activesync']['auth']['type'] != 'basic') {
-
+        if ($conf['activesync']['auth']['type'] != 'basic') {
             if (!$this->_auth->transparent()) {
                 $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed ActiveSync client certificate for user %s.', $username));
                 return false;
@@ -208,13 +206,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
-        if (empty($password)) {
-            $this->_logger->notice('Device failed to pass the user password.');
-            return false;
-        }
-        if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
+        if ($conf['activesync']['auth']['type'] != 'cert' &&
             !$this->_auth->authenticate($username, array('password' => $password))) {
-
             $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
@@ -320,6 +313,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
+
+        $properties = $this->_device->properties;
+        $multiplex = empty($properties[Horde_ActiveSync_Device::MULTIPLEX])
+            ? 0
+            : $properties[Horde_ActiveSync_Device::MULTIPLEX];
+
         if (empty($this->_folders)) {
             ob_start();
             try {
@@ -330,35 +329,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
-            $mp = $GLOBALS['prefs']->getValue('activesync_multiplex');
+
             if (array_search('calendar', $supported) !== false) {
-                if ($mp) {
-                    $folders[] = $this->_getFolder(self::APPOINTMENTS_FOLDER_UID);
-                } else {
-                    $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR);
-                    if (is_array($temp)) {
-                        foreach ($temp as $id => $folder) {
-                            $folders[] = $this->_getFolder(
-                                Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
-                                array(
-                                    'class' => Horde_ActiveSync::CLASS_CALENDAR,
-                                    'primary' => $folder['primary'],
-                                    'display' => $folder['display']
-                                )
-                            );
-                        }
-                    } else {
-                        // Multiplex not supported by the application's API
-                        $folders[] = $this->_getFolder($temp);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_CALENDAR,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
                     }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
                 }
             }
 
             if (array_search('contacts', $supported) !== false) {
-                if ($mp) {
-                    $folders[] = $this->_getFolder(self::CONTACTS_FOLDER_UID);
-                } else {
-                    $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS, $multiplex);
+                if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
                         $folders[] = $this->_getFolder(
                             Horde_ActiveSync::CLASS_CONTACTS . ':' . $id,
@@ -369,50 +361,44 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             )
                         );
                     }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
                 }
             }
 
             if (array_search('tasks', $supported) !== false) {
-                if ($mp) {
-                    $folders[] = $this->_getFolder(self::TASKS_FOLDER_UID);
-                } else {
-                    $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS);
-                    if (is_array($temp)) {
-                        foreach ($temp as $id => $folder) {
-                           $folders[] = $this->_getFolder(
-                                Horde_ActiveSync::CLASS_TASKS . ':' . $id,
-                                array(
-                                    'class' => Horde_ActiveSync::CLASS_TASKS,
-                                    'primary' => $folder['primary'],
-                                    'display' => $folder['display']
-                                )
-                            );
-                        }
-                    } else {
-                        $folders[] = $this->_getFolder($temp);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                       $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_TASKS . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_TASKS,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
                     }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
                 }
             }
 
             if (array_search('notes', $supported) !== false) {
-                if ($mp) {
-                    $folders[] = $this->_getFolder(self::NOTES_FOLDER_UID);
-                } else {
-                    $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES);
-                    if (is_array($temp)) {
-                        foreach ($temp as $id => $folder) {
-                            $folders[] = $this->_getFolder(
-                                Horde_ActiveSync::CLASS_NOTES . ':' . $id,
-                                array(
-                                    'class' => Horde_ActiveSync::CLASS_NOTES,
-                                    'primary' => $folder['primary'],
-                                    'display' => $folder['display']
-                                )
-                            );
-                        }
-                    } else {
-                        $folders[] = $this->_getFolder($temp);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_NOTES . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_NOTES,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
                     }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
                 }
             }
 
@@ -1394,10 +1380,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             print_r($ids, true))
         );
-        // TODO: Need to have the various connector methods report back
-        //       successfully deleted ids. Currently the APIs do not report
-        //       this for anything other than email.
-        $results = $ids;
 
         $parts = $this->_parseFolderId($folderid);
         if (is_array($parts)) {
@@ -1408,12 +1390,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder_id = null;
         }
         ob_start();
+        $results = $ids;
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             try {
                 $this->_connector->calendar_delete($ids, $folder_id);
             } catch (Horde_Exception $e) {
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
                 $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->calendar_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1422,6 +1417,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->contacts_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->contacts_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1430,6 +1438,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->tasks_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
@@ -1438,6 +1459,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->notes_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
         default:
@@ -2669,6 +2702,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return true;
+    }
+
+    /**
+     * Allow modification of device properties before request processing
+     * continues.
+     *
+     * @param  Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return Horde_ActiveSync_Device  The possibly modified device object.
+     */
+    public function modifyDeviceCallback(Horde_ActiveSync_Device $device)
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_device_modify', 'horde', array($device));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return $device;
     }
 
     /**
