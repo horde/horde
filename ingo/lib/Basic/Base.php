@@ -22,7 +22,7 @@
  */
 abstract class Ingo_Basic_Base
 {
-    const INGO_TOKEN = 'ingo.token';
+    const INGO_TOKEN = 'ingo_token';
 
     /**
      * @var string
@@ -77,14 +77,9 @@ abstract class Ingo_Basic_Base
      */
     protected function _addToken(Horde_Url $url)
     {
-        global $injector;
+        global $session;
 
-        $url->add(
-            'ingo_token',
-            $injector->getInstance('Horde_Token')->get(self::INGO_TOKEN)
-        );
-
-        return $url;
+        return $url->add(self::INGO_TOKEN, $session->getToken());
     }
 
     /**
@@ -96,7 +91,7 @@ abstract class Ingo_Basic_Base
      */
     protected function _checkToken($actions)
     {
-        global $injector, $notification;
+        global $notification, $session;
 
         $actionID = $this->vars->actionID;
 
@@ -105,11 +100,8 @@ abstract class Ingo_Basic_Base
             strlen($actionID) &&
             in_array($actionID, $actions)) {
             try {
-                $injector->getInstance('Horde_Token')->validate(
-                    $this->vars->ingo_token,
-                    self::INGO_TOKEN
-                );
-            } catch (Horde_Token_Exception $e) {
+                $session->checkToken($this->vars->get(self::INGO_TOKEN));
+            } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $actionID = null;
             }
