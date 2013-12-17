@@ -26,30 +26,36 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $on = !empty($varvalue) &&
             (!isset($varvalue['on']) || !empty($varvalue['on']));
 
-        printf('<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s %s/><label for="%soff">&nbsp;%s</label><br />',
-               $varname,
-               $varname,
-               $on ? '' : ' checked="checked"',
-               $this->_getActionScripts($form, $var),
-               $varname,
-               _("Use default notification method"));
-        printf('<input type="radio" class="radio" name="%s[on]" value="1"%s %s/><label for="%soff">&nbsp;%s</label>',
-               $varname,
-               $on ? ' checked="checked"' : '',
-               $this->_getActionScripts($form, $var),
-               $varname,
-               _("Use custom notification method"));
+        $html = sprintf(
+            '<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s %s/><label for="%soff">&nbsp;%s</label><br />',
+            $varname,
+            $varname,
+            $on ? '' : ' checked="checked"',
+            $this->_getActionScripts($form, $var),
+            $varname,
+            _("Use default notification method")
+        )
+        . sprintf(
+            '<input type="radio" class="radio" name="%s[on]" value="1"%s %s/><label for="%soff">&nbsp;%s</label>',
+            $varname,
+            $on ? ' checked="checked"' : '',
+            $this->_getActionScripts($form, $var),
+            $varname,
+            _("Use custom notification method")
+        );
 
         if ($on) {
-            echo '<br />';
             Horde_Core_Prefs_Ui_Widgets::alarmInit();
+            $html .= '<br />';
             $params = array('pref' => 'task_alarms', 'label' => '');
             if ((!empty($varvalue) && !isset($varvalue['on'])) ||
                 $form->isSubmitted()) {
                 $params['value'] = $varvalue;
             }
-            echo Horde_Core_Prefs_Ui_Widgets::alarm($params);
+            $html .= Horde_Core_Prefs_Ui_Widgets::alarm($params);
         }
+
+        return $html;
     }
 
     protected function _renderVarInput_NagStart($form, $var, $vars)
@@ -59,30 +65,35 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             // About a week from now
             ? time() + 604800
             : $task_start;
-
-        $start_date = strftime('%x', $start_dt);
+        $on = $task_start > 0;
 
         /* Set up the radio buttons. */
-        $no_start_checked = ($task_start == 0) ? 'checked="checked" ' : '';
-        $specified_start_checked = ($task_start > 0) ? 'checked="checked" ' : '';
-?>
-<input id="start_date_none" name="start_date" type="radio" class="radio" value="none" <?php echo $no_start_checked ?> />
-<?php echo Horde::label('start_date_none', _("No delay")) ?>
+        $html = sprintf(
+            '<input id="start_date_none" name="start_date" type="radio" class="radio" value="none"%s />
+%s
 <br />
+<input id="start_date_specified" name="start_date" type="radio" class="radio" value="specified"%s />
+<label for="start_date_specified" class="hidden">%s</label>
+<label for="start_date" class="hidden">%s</label>
+<input type="text" name="start[date]" id="start_date" size="10" value="%s">',
+            $on ? '' : ' checked="checked"',
+            Horde::label('start_date_none', _("No delay")),
+            $on ? ' checked="checked"' : '',
+            _("Start date specified."),
+            _("Date"),
+            htmlspecialchars(strftime('%x', $start_dt))
+        );
 
-<input id="start_date_specified" name="start_date" type="radio" class="radio" value="specified" <?php echo $specified_start_checked ?> />
-<label for="start_date_specified" class="hidden"><?php echo _("Start date specified.") ?></label>
-<label for="start_date" class="hidden"><?php echo _("Date") ?></label>
-<input type="text" name="start[date]" id="start_date" size="10" value="<?php echo htmlspecialchars($start_date) ?>">
-<?php
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
             $GLOBALS['page_output']->addScriptFile('calendar.js');
-            echo '<span id="start_wday"></span>' .
+            $html .= '<span id="start_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
         }
+
+        return $html;
     }
 
     protected function _renderVarInput_NagDue($form, $var, $vars)
@@ -107,39 +118,46 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $due_dt = $task_due;
         }
 
-        $due_date = strftime('%x', $due_dt);
-        $time_format = $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i a';
-        $due_time = date($time_format, $due_dt);
+        $on = $task_due > 0;
 
         /* Set up the radio buttons. */
-        $none_checked = ($task_due == 0) ? 'checked="checked" ' : '';
-        $specified_checked = ($task_due > 0) ? 'checked="checked" ' : '';
-?>
-<input id="due_type_none" name="due_type" type="radio" class="radio" value="none" <?php echo $none_checked ?> />
-<?php echo Horde::label('due_type_none', _("No due date.")) ?>
+        $html .= sprintf(
+            '<input id="due_type_none" name="due_type" type="radio" class="radio" value="none"%s />
+%s
 <br />
 
-<input id="due_type_specified" name="due_type" type="radio" class="radio" value="specified" <?php echo $specified_checked ?> />
-<label for="due_type_specified" class="hidden"><?php echo _("Due date specified.") ?></label>
-<label for="due_date" class="hidden"><?php echo _("Date") ?></label>
-<input type="text" name="due[date]" id="due_date" size="10" value="<?php echo htmlspecialchars($due_date) ?>">
+<input id="due_type_specified" name="due_type" type="radio" class="radio" value="specified"%s />
+<label for="due_type_specified" class="hidden">%s</label>
+<label for="due_date" class="hidden">%s</label>
+<input type="text" name="due[date]" id="due_date" size="10" value="%s">',
+            $on ? '' : ' checked="checked"',
+            Horde::label('due_type_none', _("No due date.")),
+            $on ? ' checked="checked"' : '',
+            _("Due date specified."),
+            _("Date"),
+            htmlspecialchars(strftime('%x', $due_dt))
+        );
 
-<?php
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
             $GLOBALS['page_output']->addScriptFile('calendar.js');
-            echo '<span id="due_wday"></span>' .
+            $html .= '<span id="due_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="dueimg"');
         }
-?>
 
-<?php echo _("at") ?>
-<label for="due_time" class="hidden"><?php echo _("Time") ?></label>
-<input type="text" name="due[time]" id="due_time" size="8" value="<?php echo htmlspecialchars($due_time) ?>">
+        $time_format = $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i a';
+        $due_time = date($time_format, $due_dt);
+        $html .= _("at")
+            . sprintf(
+                '<label for="due_time" class="hidden">%s</label>
+<input type="text" name="due[time]" id="due_time" size="8" value="%s">',
+                _("Time"),
+                htmlspecialchars($due_time)
+            );
 
-<?php
+        return $html;
     }
 
     protected function _renderVarInput_NagAlarm($form, $var, $vars)

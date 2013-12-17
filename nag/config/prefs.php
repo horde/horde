@@ -40,7 +40,7 @@ $prefGroups['sync'] = array(
     'column' => _("Task List and Share Preferences"),
     'label' => _("Synchronization Preferences"),
     'desc' => _("Choose the task lists to use for synchronization with external devices."),
-    'members' => array('sync_lists'),
+    'members' => array('sync_lists', 'activesync_no_multiplex'),
 );
 
 $prefGroups['notification'] = array(
@@ -301,7 +301,7 @@ $_prefs['sync_lists'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled']) {
+        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
@@ -319,4 +319,12 @@ $_prefs['sync_lists'] = array(
             }
         }
     }
+);
+
+// @todo We default to using multiplex since that is the current behavior
+// For Nag 5 we should default to separate.
+$_prefs['activesync_no_multiplex'] = array(
+    'type' => 'checkbox',
+    'desc' => _("Support separate collections?"),
+    'value' => 0
 );

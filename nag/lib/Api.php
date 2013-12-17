@@ -749,30 +749,32 @@ class Nag_Api extends Horde_Registry_Api
      * @param boolean $isModSeq          If true, $timestamp and $end are
      *                                   modification sequences and not
      *                                   timestamps. @since 4.1.1
+     * @param string|array $tasklists    The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false)
+    public function getChanges($start, $end, $isModSeq = false, $tasklists = null)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
-            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
-            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+            'add' => $this->listBy('add', $start, $tasklists, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, $tasklists, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, $tasklists, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start             The starting modseq.
+     * @param integer $end               The ending modseq.
+     * @param string|array $tasklists    The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $tasklists = null)
     {
-        return $this->getChanges($start, $end, true, true);
+        return $this->getChanges($start, $end, true, $tasklists);
     }
 
     /**
@@ -813,12 +815,18 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
+     * @param string $id  Limit the check to this tasklist. @since 4.2.0
+     *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('nag');
+        $parent = 'nag';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
@@ -1404,6 +1412,43 @@ class Nag_Api extends Horde_Registry_Api
             $info['desc'] = $timeobject['description'];
         }
         $storage->modify($timeobject['id'], $info);
+    }
+
+    /**
+     * Returns a list of available sources.
+     *
+     * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include synchable address books.
+     *
+     * @return array  An array of the available sources. Keys are source IDs,
+     *                values are source titles.
+     * @since 4.2.0
+     */
+    public function sources($writeable = false, $sync_only = false)
+    {
+        $out = array();
+
+        foreach (Nag::listTaskLists(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ, false) as $key => $val) {
+            $out[$key] = $val->get('name');
+        }
+
+        if ($sync_only) {
+            $syncable = Nag::getSyncLists();
+            $out = array_intersect_key($out, array_flip($syncable));
+        }
+
+        return $out;
+    }
+
+    /**
+     * Retrieve the UID for the current user's default tasklist.
+     *
+     * @return string  UID.
+     * @since 4.2.0
+     */
+    public function getDefaultShare()
+    {
+        return Nag::getDefaultTasklist(Horde_Perms::EDIT);
     }
 
 }

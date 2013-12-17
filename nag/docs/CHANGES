@@ -1,8 +1,8 @@
 ----------
-v4.1.4-git
+v4.2.0-git
 ----------
 
-[jan] Don't return future tasks from cost objects API.
+[mjr] Add API support for multiple tasklists via ActiveSync.
 
 
 ------
