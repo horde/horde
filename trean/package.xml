@@ -22,19 +22,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>23:58:14</time>
+ <date>2013-07-08</date>
+ <time>11:46:56</time>
  <version>
-  <release>1.0.4</release>
-  <api>1.0.0</api>
+  <release>1.1.0alpha1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Add support for importing bookmarks from Mozilla&apos;s JSON format.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -231,6 +231,7 @@
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="browse.php" role="horde" />
+   <file name="data.php" role="horde" />
    <file name="edit.php" role="horde" />
    <file name="favicon.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -410,6 +411,7 @@
   <filelist>
    <install as="trean/add.php" name="add.php" />
    <install as="trean/browse.php" name="browse.php" />
+   <install as="trean/data.php" name="data.php" />
    <install as="trean/edit.php" name="edit.php" />
    <install as="trean/favicon.php" name="favicon.php" />
    <install as="trean/index.php" name="index.php" />
@@ -624,7 +626,21 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0alpha1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mjr] Add support for importing bookmarks from Mozilla&apos;s JSON format.
    </notes>
   </release>
  </changelog>
