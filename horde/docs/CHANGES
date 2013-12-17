@@ -2,6 +2,11 @@
 v5.2.0-git
 ----------
 
+[mjr] Add improved ActiveSync device administration page.
+[mms] Display indication that Caps Lock key is on when entering password on
+      login page (Request #7178).
+[mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
+[mms] Added 'filemtime' configuration option for CSS caching.
 [mjr] Add support for X509 authentication support.
 [mjr] Improve logging options for ActiveSync logging configuration.
 [mjr] Add support for managing ActiveSync devices through the API.

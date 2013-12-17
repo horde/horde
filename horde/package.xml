@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2013-11-22</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -39,6 +39,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Add improved ActiveSync device administration page.
+* [mms] Display indication that Caps Lock key is on when entering password on login page (Request #7178).
+* [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
+* [mms] Added &apos;filemtime&apos; configuration option for CSS caching.
 * [mjr] Add support for X509 authentication support.
 * [mjr] Improve logging options for ActiveSync logging configuration.
 * [mjr] Add support for managing ActiveSync devices through the API.
@@ -242,7 +246,9 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
+      <file name="FacebookHandler.php" role="horde" />
       <file name="Handler.php" role="horde" />
+      <file name="TwitterHandler.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -668,6 +674,9 @@
     <file name="README" role="horde" />
    </dir> <!-- /static -->
    <dir name="templates">
+    <dir name="activesync">
+     <file name="device_table.html.php" role="horde" />
+    </dir> <!-- /templates/activesync -->
     <dir name="admin">
      <dir name="alarms">
       <file name="list.html.php" role="horde" />
@@ -696,6 +705,7 @@
       <file name="removequeued.inc" role="horde" />
       <file name="update.inc" role="horde" />
      </dir> <!-- /templates/admin/user -->
+     <file name="activesync.html.php" role="horde" />
      <file name="cmdshell.html.php" role="horde" />
      <file name="menu.inc" role="horde" />
      <file name="phpshell.html.php" role="horde" />
@@ -2035,7 +2045,9 @@
    <install as="lib/core.php" name="lib/core.php" />
    <install as="lib/Test.php" name="lib/Test.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="lib/Ajax/Application/FacebookHandler.php" name="lib/Ajax/Application/FacebookHandler.php" />
    <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
+   <install as="lib/Ajax/Application/TwitterHandler.php" name="lib/Ajax/Application/TwitterHandler.php" />
    <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
    <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
@@ -2230,6 +2242,8 @@
    <install as="services/twitter/index.php" name="services/twitter/index.php" />
    <install as="static/README" name="static/README" />
    <install as="templates/.htaccess" name="templates/.htaccess" />
+   <install as="templates/activesync/device_table.html.php" name="templates/activesync/device_table.html.php" />
+   <install as="templates/admin/activesync.html.php" name="templates/admin/activesync.html.php" />
    <install as="templates/admin/cmdshell.html.php" name="templates/admin/cmdshell.html.php" />
    <install as="templates/admin/menu.inc" name="templates/admin/menu.inc" />
    <install as="templates/admin/phpshell.html.php" name="templates/admin/phpshell.html.php" />
@@ -3800,22 +3814,6 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>5.2.0</release>
-    <api>5.2.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-08-05</date>
-   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
-   <notes>
-* [mjr] Add support for X509 authentication support.
-* [mjr] Improve logging options for ActiveSync logging configuration.
-* [mjr] Add support for managing ActiveSync devices through the API.
-* [mjr] Add prefs for selecting From address when sending email via ActiveSync.
    </notes>
   </release>
  </changelog>

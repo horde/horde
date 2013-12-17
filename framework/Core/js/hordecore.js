@@ -313,7 +313,7 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
-            var alarm, audio, growl, message, select;
+            var alarm, audio, growl, message, subtitle, select;
 
             if (!Object.isString(m.message)) {
                 return;
@@ -343,8 +343,13 @@ var HordeCore = {
                 }
 
                 this.alarms.push(alarm.id);
-
                 message = alarm.title.escapeHTML();
+                if (alarm.params && alarm.params.desktop) {
+                    if (alarm.params.desktop.subtitle) {
+                        subtitle = alarm.params.desktop.subtitle;
+                    }
+                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon });
+                }
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
                         message = new Element('A', { href: alarm.params.notify.url }).insert(message);
@@ -352,56 +357,54 @@ var HordeCore = {
                     if (alarm.params.notify.sound) {
                         Sound.play(alarm.params.notify.sound);
                     }
-                }
-                message = new Element('DIV').insert(message);
-                if (alarm.params &&
-                    alarm.params.notify &&
-                    alarm.params.notify.subtitle) {
-                    message.insert(new Element('BR')).insert(alarm.params.notify.subtitle);
-                }
-                if (alarm.user) {
-                    select = '<select>';
-                    $H(this.text.snooze_select).each(function(snooze) {
-                        select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
+                    message = new Element('DIV').insert(message);
+                    if (alarm.params.notify.subtitle) {
+                        message.insert(new Element('BR')).insert(alarm.params.notify.subtitle);
+                    }
+                    if (alarm.user) {
+                        select = '<select>';
+                        $H(this.text.snooze_select).each(function(snooze) {
+                            select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
+                        });
+                        select += '</select>';
+                        message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
+                    }
+                    growl = this.Growler.growl(message, {
+                        className: 'horde-alarm',
+                        life: 8,
+                        log: false,
+                        opacity: 0.9,
+                        sticky: true
                     });
-                    select += '</select>';
-                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
-                }
-                growl = this.Growler.growl(message, {
-                    className: 'horde-alarm',
-                    life: 8,
-                    log: false,
-                    opacity: 0.9,
-                    sticky: true
-                });
-                growl.store('alarm', alarm.id);
+                    growl.store('alarm', alarm.id);
 
-                if (alarm.user) {
-                    message.down('select').observe('change', function(e) {
-                        if (e.element().getValue()) {
-                            this.Growler.ungrowl(growl);
+                    if (alarm.user) {
+                        message.down('select').observe('change', function(e) {
+                            if (e.element().getValue()) {
+                                this.Growler.ungrowl(growl);
+                                var ajax_params = $H({
+                                    alarm: alarm.id,
+                                    snooze: e.element().getValue()
+                                });
+                                this.addRequestParams(ajax_params);
+                                new Ajax.Request(this.conf.URI_SNOOZE, {
+                                    parameters: ajax_params
+                                });
+                            }
+                        }.bindAsEventListener(this))
+                        .observe('click', Event.stop);
+                        message.down('input[type=button]').observe('click', function(e) {
                             var ajax_params = $H({
                                 alarm: alarm.id,
-                                snooze: e.element().getValue()
+                                snooze: -1
                             });
+                            this.Growler.ungrowl(growl);
                             this.addRequestParams(ajax_params);
                             new Ajax.Request(this.conf.URI_SNOOZE, {
                                 parameters: ajax_params
                             });
-                        }
-                    }.bindAsEventListener(this))
-                    .observe('click', Event.stop);
-                    message.down('input[type=button]').observe('click', function(e) {
-                        var ajax_params = $H({
-                            alarm: alarm.id,
-                            snooze: -1
-                        });
-                        this.Growler.ungrowl(growl);
-                        this.addRequestParams(ajax_params);
-                        new Ajax.Request(this.conf.URI_SNOOZE, {
-                            parameters: ajax_params
-                        });
-                    }.bindAsEventListener(this));
+                        }.bindAsEventListener(this));
+                    }
                 }
                 break;
 
@@ -432,6 +435,19 @@ var HordeCore = {
             message: msg,
             type: type
         } ]);
+    },
+
+    desktopNotify: function(msg)
+    {
+        if (window.Notification && window.Notification.permission != 'granted') {
+            window.Notification.requestPermission(function(){
+                if (window.Notification.permission == 'granted') {
+                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon }).show();
+                }
+            });
+        } else if (window.Notification) {
+            new window.Notification(msg.title, {body: msg.text, icon: msg.icon }).show();
+        }
     },
 
     // url: (string) TODO

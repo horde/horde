@@ -22,6 +22,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
      * @var string
      */
     protected $_fbp = array();
+
     /**
      */
     public function __construct($app, $params = array())
@@ -127,7 +128,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
                'count': '{$this->_params['count']}'
             });
 EOT;
-        $page_output->addInlineScript($script, true);
+        $page_output->addInlineScript($script);
 
         // Start building the block UI.
         $html .= '<div style="padding: 8px 8px 0 8px">';

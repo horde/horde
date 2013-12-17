@@ -20,11 +20,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const TASKS_FOLDER_UID        = '@Tasks@';
     const NOTES_FOLDER_UID        = '@Notes@';
 
-    const SPECIAL_SENT   = 'sent';
-    const SPECIAL_SPAM   = 'spam';
-    const SPECIAL_TRASH  = 'trash';
-    const SPECIAL_DRAFTS = 'drafts';
-    const SPECIAL_INBOX  = 'inbox';
+    const SPECIAL_SENT            = 'sent';
+    const SPECIAL_SPAM            = 'spam';
+    const SPECIAL_TRASH           = 'trash';
+    const SPECIAL_DRAFTS          = 'drafts';
+    const SPECIAL_INBOX           = 'inbox';
+
+    const FOLDER_PART_CLASS       = 0;
+    const FOLDER_PART_ID          = 1;
 
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -85,6 +88,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @var array
      */
     protected $_verbs = array();
+
+    /**
+     * Class => Id map
+     *
+     * @var array
+     */
+    protected $_classMap = array(
+        Horde_ActiveSync::CLASS_TASKS => self::TASKS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_CALENDAR => self::APPOINTMENTS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_CONTACTS => self::CONTACTS_FOLDER_UID,
+        Horde_ActiveSync::CLASS_NOTES => self::NOTES_FOLDER_UID
+    );
 
     /**
      * Const'r
@@ -284,7 +299,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
-            $folders[] = $this->statFolder($f->serverid, $f->parentid, $f->displayname, $f->_serverid);
+            $folders[] = $this->statFolder(
+                $f->serverid, $f->parentid, $f->displayname, $f->_serverid, $f->type);
         }
 
         return $folders;
@@ -297,6 +313,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
+
+        $properties = $this->_device->properties;
+        $multiplex = empty($properties[Horde_ActiveSync_Device::MULTIPLEX])
+            ? 0
+            : $properties[Horde_ActiveSync_Device::MULTIPLEX];
+
         if (empty($this->_folders)) {
             ob_start();
             try {
@@ -307,20 +329,77 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
+
             if (array_search('calendar', $supported) !== false) {
-                $folders[] = $this->getFolder(self::APPOINTMENTS_FOLDER_UID);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_CALENDAR,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
+                }
             }
 
             if (array_search('contacts', $supported) !== false) {
-                $folders[] = $this->getFolder(self::CONTACTS_FOLDER_UID);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_CONTACTS . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_CONTACTS,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
+                }
             }
 
             if (array_search('tasks', $supported) !== false) {
-                $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                       $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_TASKS . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_TASKS,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
+                }
             }
 
             if (array_search('notes', $supported) !== false) {
-                $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
+                $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES, $multiplex);
+                if (is_array($temp)) {
+                    foreach ($temp as $id => $folder) {
+                        $folders[] = $this->_getFolder(
+                            Horde_ActiveSync::CLASS_NOTES . ':' . $id,
+                            array(
+                                'class' => Horde_ActiveSync::CLASS_NOTES,
+                                'primary' => $folder['primary'],
+                                'display' => $folder['display']
+                            )
+                        );
+                    }
+                } else {
+                    $folders[] = $this->_getFolder($temp);
+                }
             }
 
             // Always return at least the "dummy" IMAP folders since some
@@ -343,45 +422,57 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Factory for Horde_ActiveSync_Message_Folder objects.
+     * Factory for creating new Horde_ActiveSync_Message_Folder objects from
+     * within this class.
      *
-     * @param string $id   The folder's server id.
+     * For BC reasons, we need to still accept the *_FOLDER_UID constants
+     * and they should represent folders that are multiplexed.
+     *
+     * @param string $id        The folder's server id.
+     * @param array $params     Additional folder parameters:
+     *   - class:   The collection class, a Horde_ActiveSync::CLASS_* constant
+     *   - primary: This folder is the 'default' collection for this class.
+     *   - display: The display name for FOLDER_TYPE_USER folders.
      *
      * @return Horde_ActiveSync_Message_Folder
      * @throws Horde_ActiveSync_Exception
      */
-    public function getFolder($id)
+    protected function _getFolder($id, array $params = array())
     {
+        // First check for legacy/multiplexed IDs.
         switch ($id) {
         case self::APPOINTMENTS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT,
                 $this->_displayMap[self::APPOINTMENTS_FOLDER_UID]);
-            break;
+
         case self::CONTACTS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                $id,
                0,
                Horde_ActiveSync::FOLDER_TYPE_CONTACT,
                $this->_displayMap[self::CONTACTS_FOLDER_UID]);
-            break;
+
         case self::TASKS_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_TASK,
                 $this->_displayMap[self::TASKS_FOLDER_UID]);
-            break;
+
         case self::NOTES_FOLDER_UID:
-            $folder = $this->_buildNonMailFolder(
+            return $this->_buildNonMailFolder(
                 $id,
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_NOTE,
                 $this->_displayMap[self::NOTES_FOLDER_UID]);
-                break;
-        default:
+        }
+
+        // Either an email folder or a non-mulitiplexed non-email folder.
+        // Check for a valid class.
+        if (empty($params['class'])) {
             // Must be a mail folder
             $folders = $this->_getMailFolders();
             foreach ($folders as $folder) {
@@ -391,33 +482,105 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
             throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
+            return $folder;
         }
 
-        return $folder;
+        // Non-Multiplexed non-email collection?
+        $primary = !empty($params['primary']);
+        switch ($params['class']) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT : Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_CONTACTS:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_CONTACT : Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_TASKS:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_TASK : Horde_ActiveSync::FOLDER_TYPE_USER_TASK,
+                $params['display']
+            );
+        case Horde_ActiveSync::CLASS_NOTES:
+            return $this->_buildNonMailFolder(
+                $id,
+                0,
+                $primary ? Horde_ActiveSync::FOLDER_TYPE_NOTE : Horde_ActiveSync::FOLDER_TYPE_USER_NOTE,
+                $params['display']
+            );
+        }
     }
 
     /**
-     * Return the foldertype given a folder id. ONLY for use when the exact
-     * type of email collection is not needed. I.e., only the fact that it is
-     * some type of email collection vs another collection type.
+     * Return a Horde_ActiveSync_Message_Folder object.
      *
-     * @param string $id  The folder id.
+     * @param string $id        The folder's server id.
      *
-     * @return string  The folder type
+     * @return Horde_ActiveSync_Message_Folder
+     * @throws Horde_ActiveSync_Exception
      */
-    protected function _getFolderType($id)
+    public function getFolder($id)
     {
-        switch ($id) {
-        case self::APPOINTMENTS_FOLDER_UID:
-            return Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT;
-        case self::CONTACTS_FOLDER_UID:
-            return Horde_ActiveSync::FOLDER_TYPE_CONTACT;
-        case self::TASKS_FOLDER_UID:
-            return Horde_ActiveSync::FOLDER_TYPE_TASK;
-        case self::NOTES_FOLDER_UID:
-            return Horde_ActiveSync::FOLDER_TYPE_NOTE;
-        default:
-            return Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+        $folders = $this->getFolders();
+        foreach ($folders as $folder) {
+            if ($folder->_serverid == $id) {
+                return $folder;
+            }
+        }
+    }
+
+    /**
+     * Parse a folderid.
+     *
+     * @param string $id           The folder id.
+     * @param boolean $checkEmail  Verify $id is not an Email collection.
+     *
+     * @return string|array  A parsed folder array or
+     *                       Horde_ActiveSync::CLASS_* constant.
+     */
+    protected function _parseFolderId($id, $checkEmail = false)
+    {
+        if (strpos($id, ':') === false) {
+            switch ($id) {
+            case self::APPOINTMENTS_FOLDER_UID:
+                return Horde_ActiveSync::CLASS_CALENDAR;
+            case self::CONTACTS_FOLDER_UID:
+                return Horde_ActiveSync::CLASS_CONTACTS;
+            case self::TASKS_FOLDER_UID:
+                return Horde_ActiveSync::CLASS_TASKS;
+            case self::NOTES_FOLDER_UID:
+                return Horde_ActiveSync::CLASS_NOTES;
+            default:
+                return Horde_ActiveSync::CLASS_EMAIL;
+            }
+        } else {
+            $parts = explode(':', $id, 2);
+            if (count($parts) == 2) {
+                switch ($parts[self::FOLDER_PART_CLASS]) {
+                case Horde_ActiveSync::CLASS_CALENDAR:
+                case Horde_ActiveSync::CLASS_TASKS:
+                case Horde_ActiveSync::CLASS_CONTACTS:
+                case Horde_ActiveSync::CLASS_NOTES:
+                    if ($checkEmail) {
+                        $folders = $this->_getMailFolders();
+                        foreach ($folders as $folder) {
+                            if ($folder->_serverid == $id) {
+                                return Horde_ActiveSync::CLASS_EMAIL;
+                            }
+                        }
+                    }
+                    return $parts;
+                }
+            }
+            return Horde_ActiveSync::CLASS_EMAIL;
         }
     }
 
@@ -431,55 +594,149 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                             @since 2.5.0 (@todo Look at this for H6. It's
      *                             here now to save an extra DB lookup for data
      *                             we already have.)
+     * @param  integer $type       The EAS Folder type. @since 2.12.0
      *
-     * @return string  The new folder uid.
-     * @throws  Horde_ActiveSync_Exception, Horde_Exception_PermissionDenied
+     * @return Horde_ActiveSync_Message_Folder
+     * @throws  Horde_ActiveSync_Exception
      */
-    public function changeFolder($id, $displayname, $parent, $uid = null)
+    public function changeFolder($id, $displayname, $parent, $uid = null, $type = null)
     {
-        // Filter out non-email collections. Empty $parent is always an email
-        // collection.
-        if (!empty($parent) && ($parent == self::TASKS_FOLDER_UID ||
-                $parent == self::CONTACTS_FOLDER_UID ||
-                $parent == self::NOTES_FOLDER_UID ||
-                $parent == self::APPOINTMENTS_FOLDER_UID)) {
+        $this->_logger->info(sprintf(
+            '[%s] Horde_Core_ActiveSync_Driver::changeFolder(%s, %s, %s, %s, %s)',
+            getmypid(), $id, $displayname, $parent, $uid, $type));
 
-                throw new Horde_Exception_PermissionDenied('Creating sub collection not supported in the ' . $parent . ' collection.');
+        // For FOLDERUPDATE requests, the EAS Folder type is not passed by
+        // the client so we need to figure it out. Unfortunately, since
+        // we support additional collections in each type we don't know
+        // for sure if it's a mail folder or not, so we must check by passing
+        // true to _parseFolderId.
+        if (empty($type) && !empty($id)) {
+            $parts = $this->_parseFolderId($id, true);
+            if (is_array($parts)) {
+                $type = $parts[self::FOLDER_PART_CLASS];
+            } else {
+                $type = $parts;
+            }
+        }
+
+        switch ($type) {
+        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            if (!$id) {
+                try {
+                    $serverid = $this->_imap->createMailbox($displayname, $parent);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
+                $uid = $this->_getFolderUidForBackendId($displayname);
+            } else {
+                try {
+                    $serverid = $this->_imap->renameMailbox($id, $displayname, $parent);
+                    if (empty($uid)) {
+                        $uid = $this->_getFolderUidForBackendId($id);
+                    }
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw $e;
+                }
+            }
+            return $this->getFolder($serverid);
+
+        case Horde_ActiveSync::CLASS_TASKS:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_TASK:
+            $class = Horde_ActiveSync::CLASS_TASKS;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_TASK;
+            break;
+
+        case Horde_ActiveSync::CLASS_CALENDAR:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT:
+            $class = Horde_ActiveSync::CLASS_CALENDAR;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_APPOINTMENT;
+            break;
+
+        case Horde_ActiveSync::CLASS_CONTACTS:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT:
+            $class = Horde_ActiveSync::CLASS_CONTACTS;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_CONTACT;
+            break;
+        case Horde_ActiveSync::CLASS_NOTES:
+        case Horde_ActiveSync::FOLDER_TYPE_USER_NOTE:
+            $class = Horde_ActiveSync::CLASS_NOTES;
+            $type = Horde_ActiveSync::FOLDER_TYPE_USER_NOTE;
+            break;
+
+        default:
+            throw new Horde_ActiveSync_Exception('Unsupported EAS Collection Class.');
         }
 
         if (!$id) {
             try {
-                $this->_imap->createMailbox($displayname, $parent);
+                $id = $this->_connector->createFolder($class, $displayname);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
             }
-            $uid = $this->_getFolderUidForBackendId($displayname);
         } else {
+            if (empty($parts)) {
+                $parts = $this->_parseFolderId($id);
+            }
+            if (is_array($parts)) {
+                $id = $parts[self::FOLDER_PART_ID];
+            } else {
+                $id = $parts;
+            }
             try {
-                $this->_imap->renameMailbox($id, $displayname, $parent);
+                $this->_connector->changeFolder($class, $id, $displayname);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
             }
         }
 
-        return $uid;
+        return $this->_buildNonMailFolder(
+            $class . ':' . $id, Horde_ActiveSync::FOLDER_ROOT, $type, $displayname
+        );
     }
 
     /**
      * Delete a folder on the server.
      *
      * @param string $id  The server's folder id.
-     * @param string $parent  The folder's parent, if needed.
+     * @param string $parent  The folder's parent, if needed. @deprecated
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        try {
-            $this->_imap->deleteMailbox($id);
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw $e;
+        $this->_logger->info(sprintf(
+            '[%s] Horde_Core_ActiveSync_Driver::deleteFolder(%s)',
+            getmypid(), $id));
+
+        $parts = $this->_parseFolderId($id);
+        if (is_array($parts)) {
+            $folder_class = $parts[self::FOLDER_PART_CLASS];
+            $folder_id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $folder_class = $parts;
+            $folder_id = $id;
+        }
+
+        switch ($folder_class) {
+        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            try {
+                $this->_logger->info($folder_id);
+                $this->_imap->deleteMailbox($folder_id);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw $e;
+            }
+            break;
+
+        case Horde_ActiveSync::CLASS_TASKS:
+        case Horde_ActiveSync::CLASS_CALENDAR:
+        case Horde_ActiveSync::CLASS_CONTACTS:
+        case Horde_ActiveSync::CLASS_NOTES:
+            $this->_connector->deleteFolder($folder_class, $folder_id);
         }
     }
 
@@ -493,21 +750,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                          display name of the folder, since that's the
      *                          only thing that can change.
      * @param string $serverid  The backend serverid for this folder.
+     * @param integer $type     The EAS folder type, a
+     *                          Horde_ActiveSync::FOLDER_TYPE_* contant.
+     *                          @since 2.12.0
+     *
      * @return a stat hash:
-     *   - id: The activesync folder identifier.
-     *   - mod: The modification value.
-     *   - parent: The folder's parent id.
+     *   - id:        The activesync folder identifier.
+     *   - mod:       The modification value.
+     *   - parent:    The folder's parent id.
      *   - serverid:  The backend server's folder name for this folder.
+     *   - type:      The EAS folder type. @since 2.12.0
      *
      * @todo Horde 6, move to the base class.
      */
-    public function statFolder($id, $parent = '0', $mod = null, $serverid = null)
+    public function statFolder($id, $parent = '0', $mod = null, $serverid = null, $type = null)
     {
         $folder = array();
         $folder['id'] = $id;
         $folder['mod'] = empty($mod) ? $id : $mod;
         $folder['parent'] = $parent;
         $folder['serverid'] = !empty($serverid) ? $serverid : $id;
+        $folder['type'] = !empty($type) ? $type : null;
 
         return $folder;
     }
@@ -557,12 +820,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         switch ($folder->collectionClass()) {
         case Horde_ActiveSync::CLASS_CALENDAR:
+            if ($folder->serverid() == self::APPOINTMENTS_FOLDER_UID) {
+                $server_id = null;
+            } else {
+                $parts = $this->_parseFolderId($folder->serverid());
+                $server_id = $parts[self::FOLDER_PART_ID];
+            }
             if ($from_ts == 0 && !$ignoreFirstSync) {
                 // Can't use History if it's a first sync
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
                 try {
-                    $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
+                    $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp, $server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -572,11 +841,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
                 $folder->setSoftDeleteTimes($cutoffdate, time());
-                // @TODO, do we need to save the folder here?
-
             } else {
                 try {
-                    $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts, $server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -597,17 +864,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         getmypid()));
                     // Gets the list of ids contained between the last softdelete
                     // run and the current cutoffdate.
-                    $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate);
+                    $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate, $server_id);
                     $folder->setSoftDeleteTimes($cutoffdate, time());
                 }
             }
             break;
 
         case Horde_ActiveSync::CLASS_CONTACTS:
+            // Multiplexed or multiple?
+            if ($folder->serverid() == self::CONTACTS_FOLDER_UID) {
+                $server_id = null;
+            } else {
+                $parts = $this->_parseFolderId($folder->serverid());
+                $server_id = $parts[self::FOLDER_PART_ID];
+            }
+
             // Can't use History for first sync
             if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
-                    $changes['add'] = $this->_connector->contacts_listUids();
+                    $changes['add'] = $this->_connector->contacts_listUids($server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -618,7 +893,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
-                    $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts, $server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -631,10 +906,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::CLASS_TASKS:
+            // Multiplexed or multiple?
+            if ($folder->serverid() == self::TASKS_FOLDER_UID) {
+                $server_id = null;
+            } else {
+                $parts = $this->_parseFolderId($folder->serverid());
+                $server_id = $parts[self::FOLDER_PART_ID];
+            }
+
             // Can't use History for first sync
             if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
-                    $changes['add'] = $this->_connector->tasks_listUids();
+                    $changes['add'] = $this->_connector->tasks_listUids($server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -645,7 +928,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
-                    $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts, $server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -658,10 +941,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::CLASS_NOTES:
+            // Multiplexed or multiple?
+            if ($folder->serverid() == self::NOTES_FOLDER_UID) {
+                $server_id = null;
+            } else {
+                $parts = $this->_parseFolderId($folder->serverid());
+                $server_id = $parts[self::FOLDER_PART_ID];
+            }
+
             // Can't use History for first sync
             if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
-                    $changes['add'] = $this->_connector->notes_listUids();
+                    $changes['add'] = $this->_connector->notes_listUids($server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -672,7 +963,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
-                    $changes = $this->_connector->getChanges('notes', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('notes', $from_ts, $to_ts, $server_id);
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -690,7 +981,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $this->_logger->info(sprintf(
-                '[%s] MODSEQ: %d', $this->_pid, $folder->modseq()));
+                '[%s] %s IMAP MODSEQ: %d', $this->_pid, $folder->serverid(), $folder->modseq()));
             if ($ping) {
                 try {
                     $ping_res = $this->_imap->ping($folder);
@@ -820,15 +1111,26 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $id));
         ob_start();
         $message = false;
-        $foldertype = $this->_getFolderType($folderid);
-        switch ($foldertype) {
-        case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
+
+        $folder_split = $this->_parseFolderId($folderid);
+        if (is_array($folder_split)) {
+            $folder_class = $folder_split[self::FOLDER_PART_CLASS];
+        } else {
+            $folder_class = $folder_split;
+        }
+
+        switch ($folder_class) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
+            // Explicitly set the calendar to search if we are not using
+            // multiplexed collections since multiple calendars may have
+            // the same event UID.
+            $folder_id = is_array($folder_split) ? $folder_split[self::FOLDER_PART_ID] : null;
             try {
                 $message = $this->_connector->calendar_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
                     'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
-                    'mimesupport' => $collection['mimesupport']));
+                    'mimesupport' => $collection['mimesupport']), $folder_id);
 
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
@@ -841,7 +1143,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             try {
                 $message = $this->_connector->contacts_export($id, array(
                     'protocolversion' => $this->_version,
@@ -855,7 +1157,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_TASK:
+        case Horde_ActiveSync::CLASS_TASKS:
             try {
                 $message = $this->_connector->tasks_export($id, array(
                     'protocolversion' => $this->_version,
@@ -869,7 +1171,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_NOTE:
+        case Horde_ActiveSync::CLASS_NOTES:
             try {
                 $message = $this->_connector->notes_export($id, array(
                     'protocolversion' => $this->_version,
@@ -883,11 +1185,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_INBOX:
-        case Horde_ActiveSync::FOLDER_TYPE_SENTMAIL:
-        case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
-        case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
-        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+        case Horde_ActiveSync::CLASS_EMAIL:
             // Get the message from the IMAP server.
             try {
                 $messages = $this->_imap->getMessages(
@@ -1082,42 +1380,97 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             print_r($ids, true))
         );
-        // TODO: Need to have the various connector methods report back
-        //       successfully deleted ids. Currently the APIs do not report
-        //       this for anything other than email.
-        $results = $ids;
 
+        $parts = $this->_parseFolderId($folderid);
+        if (is_array($parts)) {
+            $class = $parts[self::FOLDER_PART_CLASS];
+            $folder_id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $class = $parts;
+            $folder_id = null;
+        }
         ob_start();
-        switch ($folderid) {
-        case self::APPOINTMENTS_FOLDER_UID:
+        $results = $ids;
+        switch ($class) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
             try {
-                $this->_connector->calendar_delete($ids);
+                $this->_connector->calendar_delete($ids, $folder_id);
             } catch (Horde_Exception $e) {
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
                 $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->calendar_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
-        case self::CONTACTS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             try {
                 $this->_connector->contacts_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->contacts_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
-        case self::TASKS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_TASKS:
             try {
                 $this->_connector->tasks_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $this->_logger->err($e->getMessage());
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
 
-        case self::NOTES_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_NOTES:
             try {
                 $this->_connector->notes_delete($ids);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
+                // Since we don't get back successfully deleted ids and we can
+                // can pass an array of ids to delete, we need to see what ids
+                // were deleted if there was an error.
+                // @todo For Horde 6, the API should return successfully
+                // deleted ids.
+                $success = array();
+                foreach ($ids as $uid) {
+                    if ($mod_time = $this->_connector->tasks_getActionTimestamp($uid, 'delete', $folder_id)) {
+                        $success[] = $uid;
+                    }
+                }
+                $results = $success;
             }
             break;
         default:
@@ -1187,12 +1540,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             $id));
         ob_start();
+
+        $folder_split = $this->_parseFolderId($folderid);
+        if (is_array($folder_split)) {
+            $folder_class = $folder_split[self::FOLDER_PART_CLASS];
+            $server_id = $folder_split[self::FOLDER_PART_ID];
+        } else {
+            $folder_class = $folder_split;
+            $server_id = null;
+        }
+
         $stat = false;
-        switch ($folderid) {
-        case self::APPOINTMENTS_FOLDER_UID:
+        switch ($folder_class) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
                 try {
-                    $id = $this->_connector->calendar_import($message);
+                    $id = $this->_connector->calendar_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1217,10 +1580,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::CONTACTS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             if (!$id) {
                 try {
-                    $id = $this->_connector->contacts_import($message);
+                    $id = $this->_connector->contacts_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1242,10 +1605,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::TASKS_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_TASKS:
             if (!$id) {
                 try {
-                    $id = $this->_connector->tasks_import($message);
+                    $id = $this->_connector->tasks_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1267,10 +1630,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case self::NOTES_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_NOTES:
             if (!$id) {
                 try {
-                    $id = $this->_connector->notes_import($message);
+                    $id = $this->_connector->notes_import($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -2342,6 +2705,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Allow modification of device properties before request processing
+     * continues.
+     *
+     * @param  Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return Horde_ActiveSync_Device  The possibly modified device object.
+     */
+    public function modifyDeviceCallback(Horde_ActiveSync_Device $device)
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('activesync_device_modify', 'horde', array($device));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return $device;
+    }
+
+    /**
      * Request freebusy information from the server
      *
      * @deprecated Will be removed in H6 - this is provided via
@@ -2366,14 +2747,31 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSyncStamp($collection, $last = null)
     {
+        $this->_logger->info(sprintf(
+            '[%s] Horde_Core_ActiveSync_Driver::getSyncStamp(%s, %d);',
+            getmypid(), $collection, $last));
+
         // For FolderSync (empty $collection) or Email collections, we don't care.
-        if (empty($collection) ||
-            !in_array($collection, array(self::APPOINTMENTS_FOLDER_UID, self::NOTES_FOLDER_UID, self::CONTACTS_FOLDER_UID, self::TASKS_FOLDER_UID))) {
+        if (empty($collection)) {
             return time();
         }
 
-        if ($this->_connector->hasFeature('modseq', $collection)) {
-            $modseq = $this->_connector->getHighestModSeq($collection);
+        $parts = $this->_parseFolderId($collection);
+        if (is_array($parts)) {
+            $class = $parts[self::FOLDER_PART_CLASS];
+            $id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $class = $parts;
+            $id = null;
+        }
+
+        if (!in_array($class, array(Horde_ActiveSync::CLASS_CALENDAR, Horde_ActiveSync::CLASS_NOTES, Horde_ActiveSync::CLASS_CONTACTS, Horde_ActiveSync::CLASS_TASKS))) {
+            return time();
+        }
+
+
+        if ($this->_connector->hasFeature('modseq', $this->_classMap[$class])) {
+            $modseq = $this->_connector->getHighestModSeq($this->_classMap[$class], $id);
             // Sanity check - if the last syncstamp is higher then the
             // current modification sequence, something is wrong. Could be
             // the history backend just happend to have deleted the most recent
@@ -2403,7 +2801,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _buildNonMailFolder($id, $parent, $type, $name)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
-        $folder->serverid = $id;
+        $folder->_serverid = $id;
+        $folder->serverid =  $this->_getFolderUidForBackendId($id, $type);
         $folder->parentid = $parent;
         $folder->type = $type;
         $folder->displayname = $name;
@@ -2437,6 +2836,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 // @TODO Horde 6 - combine into single getActionTimestamp method
                 // and pass the folderid.
+                // First, see if we are using a multiplexed id.
                 switch ($folderid) {
                 case self::APPOINTMENTS_FOLDER_UID:
                     $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
@@ -2454,13 +2854,37 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $mod = $this->_connector->notes_getActionTimestamp($id, 'modify');
                     break;
                 default:
-                    try {
-                        return $this->statMailMessage($folderid, $id);
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_endBuffer();
-                        return false;
+                    // Not using non-email multiplexed collection.
+                    $folder_parts = $this->_parseFolderId($folderid);
+                    if (count($folder_parts) == 2) {
+                        $folder_class = $folder_parts[self::FOLDER_PART_CLASS];
+                        $serverid = $folder_parts[self::FOLDER_PART_ID];
+                    } else {
+                        $folder_class = false;
+                        $serverid = null;
                     }
+                    switch ($folder_class) {
+                    case Horde_ActiveSync::CLASS_CALENDAR:
+                        $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify', $serverid);
+                        break;
+                    case Horde_ActiveSync::CLASS_CONTACTS:
+                        $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify', $serverid);
+                        break;
+                    case Horde_ActiveSync::CLASS_TASKS:
+                        $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify', $serverid);
+                        break;
+                    case Horde_ActiveSync::CLASS_NOTES:
+                        $mod = $this->_connector->notes_getActionTimestamp($id, 'modify', $serverid);
+                        break;
+                    default:
+                        try {
+                            return $this->statMailMessage($folderid, $id);
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_endBuffer();
+                            return false;
+                        }
 
+                    }
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -2575,7 +2999,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->_serverid = $sid;
-        $folder->serverid = $this->_getFolderUidForBackendId($sid);
         $folder->parentid = '0';
         $folder->displayname = $f['label'];
 
@@ -2587,7 +3010,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $parts = explode($f['d'], $sid);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
-                $folder->parentid = $this->_getFolderUidForBackendId(implode($f['d'], $parts));
+                $folder->parentid = $this->_getFolderUidForBackendId(implode($f['d'], $parts), Horde_ActiveSync::FOLDER_TYPE_USER_MAIL);
                 $folder->_parentid = implode($f['d'], $parts);
                 $folder->displayname = $displayname;
             }
@@ -2595,6 +3018,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         if (strcasecmp($sid, 'INBOX') === 0) {
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
             return $folder;
         }
 
@@ -2619,12 +3043,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     case self::SPECIAL_SENT:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
                     case self::SPECIAL_TRASH:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
@@ -2632,6 +3058,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     case self::SPECIAL_DRAFTS:
                         if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+                            $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
                             return $folder;
                         }
                         break;
@@ -2642,6 +3069,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Not a known folder, set it to user mail.
         $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+        $folder->serverid = $this->_getFolderUidForBackendId($sid, $folder->type);
 
         return $folder;
     }

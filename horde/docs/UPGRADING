@@ -29,8 +29,8 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
-Upgrading Horde from 5.0.x to 5.2.0
-===================================
+Upgrading Horde from 5.1.x to 5.2
+=================================
 
 Configuration Options (conf.php)
 --------------------------------
@@ -50,15 +50,17 @@ The following options were added::
     $conf['activesync']['logging']['level']
     $conf['activesync']['auth']['type']
     $conf['activesync']['auth']['params']
+    $conf['cachecssparams']['filemtime']
 
 
-The available options for the following options were changed:
+The available options for the following options were changed::
 
     $conf['activesync']['logging']['type']
 
 
-Upgrading Horde from 5.0.x to 5.1.x
-===================================
+
+Upgrading Horde from 5.0.x to 5.1
+=================================
 
 Configuration Options (conf.php)
 --------------------------------

@@ -97,7 +97,7 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
         $page_output->hsl->clear();
 
         if (!empty($this->jsfiles)) {
-            $ob->jsfiles = array_unique($this->jsfiles);
+            $ob->jsfiles = array_values(array_unique($this->jsfiles));
         }
 
         if (!empty($this->tasks)) {

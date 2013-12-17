@@ -54,7 +54,12 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      *
      * @param boolean $force  If true, will force a refresh of the folder list.
      *
-     * @return array  An array of folder information.
+     * @return array  An array of folder information. Each entry is keyed by
+     *                the mailbox UTF-8 name and contains:
+     *                - level: How many parents a folder has, 0 is the root.
+     *                - label: The display label for the mailbox.
+     *                - d:     The delimiter.
+     *
      * @throws Horde_ActiveSync_Exception
      */
     public function getMailboxes($force = false)

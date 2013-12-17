@@ -16,14 +16,14 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
     /**
      * @var Horde_Service_Twitter
      */
-    private $_twitter;
+    protected $_twitter;
 
     /**
      * Twitter profile information returned from verify_credentials
      *
      * @var Object
      */
-    private $_profile;
+    protected $_profile;
 
     /**
      */
@@ -155,7 +155,7 @@ EOT;
 
     /**
      */
-    private function _getTwitterObject()
+    protected function _getTwitterObject()
     {
         $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
         if (empty($token['key']) && empty($token['secret'])) {

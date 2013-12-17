@@ -738,7 +738,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesync_replyposition', 'activesync_usesignature', 'activesyncmanagement'),
+    'members' => array('activesync_replyposition', 'activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }

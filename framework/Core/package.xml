@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
+* [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).
 * [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
@@ -265,6 +267,7 @@
     <file name="growler.js" role="horde" />
     <file name="horde-jquery.js" role="horde" />
     <file name="horde.js" role="horde" />
+    <file name="hordeblocks.js" role="horde" />
     <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
@@ -286,6 +289,7 @@
     <file name="tables.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
+    <file name="webnotification.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Horde">
@@ -350,6 +354,7 @@
       </dir> <!-- /lib/Horde/Core/Ajax -->
       <dir name="Alarm">
        <dir name="Handler">
+        <file name="Desktop.php" role="php" />
         <file name="Notify.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Alarm/Handler -->
       </dir> <!-- /lib/Horde/Core/Alarm -->
@@ -1216,7 +1221,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.4</min>
+    <min>2.9.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1453,6 +1458,7 @@
    <install as="js/growler.js" name="js/growler.js" />
    <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
    <install as="js/horde.js" name="js/horde.js" />
+   <install as="js/hordeblocks.js" name="js/hordeblocks.js" />
    <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
@@ -1474,6 +1480,7 @@
    <install as="js/tables.js" name="js/tables.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
+   <install as="js/webnotification.js" name="js/webnotification.js" />
    <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
    <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
    <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
@@ -1705,6 +1712,7 @@
    <install as="Horde/Core/Ajax/Response/HordeCore/NoAuth.php" name="lib/Horde/Core/Ajax/Response/HordeCore/NoAuth.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/Reload.php" name="lib/Horde/Core/Ajax/Response/HordeCore/Reload.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
+   <install as="Horde/Core/Alarm/Handler/Desktop.php" name="lib/Horde/Core/Alarm/Handler/Desktop.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
@@ -3255,6 +3263,8 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
+* [mjr] Fix desktop style notifications in Ajax applications (Bug # 12835).
 * [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).

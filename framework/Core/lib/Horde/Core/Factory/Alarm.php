@@ -84,9 +84,9 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         $handler_params = array(
             'js_notify' => array($this->_injector->getInstance('Horde_PageOutput'), 'addInlineScript'),
-            'icon' => (string)Horde_Themes::img('alerts/alarm.png')
+            'icon' => (string)Horde_Themes::img('alerts/alarm.png')->fulluri
         );
-        $this->_alarm->addHandler('desktop', new Horde_Alarm_Handler_Desktop($handler_params));
+        $this->_alarm->addHandler('desktop', new Horde_Core_Alarm_Handler_Desktop($handler_params));
 
         $handler_params = array(
             'identity' => $this->_injector->getInstance('Horde_Core_Factory_Identity'),

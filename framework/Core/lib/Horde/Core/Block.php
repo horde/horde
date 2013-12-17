@@ -31,6 +31,17 @@ abstract class Horde_Core_Block
     public $updateable = false;
 
     /**
+     * The method to use to render the block when
+     * Horde_Ajax_Application_Handler#blockAutoUpdate
+     * is called instead of the default of Horde_Core_Block#getContent
+     * By default, we call _content()
+     *
+     * @var string
+     * @since 2.12.0
+     */
+    public $autoUpdateMethod;
+
+    /**
      * Application that this block originated from.
      *
      * @var string
@@ -170,6 +181,38 @@ abstract class Horde_Core_Block
      * @return string  The block's content.
      */
     abstract protected function _content();
+
+    /**
+     * Returns the content for this block in response to a user requested
+     * update from within the block.
+     *
+     * This function handles the changing of current application as
+     * needed so code is executed in the scope of the application the
+     * block originated from.
+     *
+     * @param Horde_Variables $vars
+     *
+     * @return string  The block's content.
+     */
+    public function refreshContent($vars)
+    {
+        return $this->_call('_refreshContent', '', $vars);
+    }
+
+    /**
+     * Stub to be overridden by concrete block that supports user-initiated
+     * updating of content via ajax.
+     *
+     * @todo For Horde 6 this should be abstract.
+     *
+     * @param  Horde_Variables $vars
+     *
+     * @return string
+     */
+    protected function _refreshContent($vars)
+    {
+        return '';
+    }
 
     /**
      * The data to send on an AJAX update request.

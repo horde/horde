@@ -50,14 +50,19 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
      */
     public function toHtml()
     {
+        global $page_output;
+
         $tplDir = $GLOBALS['registry']->get('templates', 'horde');
         $interval = $GLOBALS['prefs']->getValue('summary_refresh_time');
+
+        $page_output->ajax = $page_output->growler = true;
+        $page_output->addScriptFile('hordeblocks.js', 'horde');
 
         $html = '<table id="portal" class="nopadding" cellspacing="8" width="100%">';
 
         $bc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create();
         $covered = array();
-
+        $js = array();
         foreach ($this->_layout as $row_num => $row) {
             $width = floor(100 / count($row));
             $html .= '<tr>';
@@ -100,21 +105,11 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                     : $interval;
 
                                 if (!empty($refresh_time)) {
-                                    $updateurl = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
-                                    $updateurl->pathInfo = 'blockAutoUpdate';
-                                    $updateurl->add('app', $block->getApp())
-                                              ->add('blockid', get_class($block));
-
-                                    $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
-                                        'setTimeout(function() {' .
-                                          'new Ajax.PeriodicalUpdater(' .
-                                            '"' . $block_id . '",' .
-                                            '"' . strval($updateurl) . '",' .
-                                            '{ method: "get", evalScripts: true, frequency: ' . intval($refresh_time) . ' }' .
-                                          ');' .
-                                        '}, ' . intval($refresh_time * 1000) . ')',
-                                        true
-                                    );
+                                    $js[] = 'HordeBlocks.addUpdateableBlock(' .
+                                        '"' . $block->getApp() . '", "' .
+                                        get_class($block) . '", "' .
+                                        $block_id . '", ' .
+                                        intval($refresh_time * 1000) . ')';
                                 }
                             }
                         } else {
@@ -134,6 +129,8 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
             $html .= '</tr>';
         }
         $html .= '</table>';
+
+        $page_output->addInlineScript($js, true);
 
         return $html;
     }
