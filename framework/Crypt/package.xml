@@ -972,6 +972,7 @@ Initial release as a PEAR package
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Remove Horde_Crypt_Pgp#generateRevocation() (Bug #7375).
 * [mms] Fix submitting PGP keys to a public keyserver (Bug #10931).
 * [mms] PGP keyserver code now uses Horde_Http_Client to connect to the keyserver.
 * [mms] Move PGP keyserver code to a separate Horde_Crypt_Pgp_Keyserver class.
