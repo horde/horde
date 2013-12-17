@@ -442,11 +442,11 @@ var HordeCore = {
         if (window.Notification && window.Notification.permission != 'granted') {
             window.Notification.requestPermission(function(){
                 if (window.Notification.permission == 'granted') {
-                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon }).show();
+                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
                 }
             });
         } else if (window.Notification) {
-            new window.Notification(msg.title, {body: msg.text, icon: msg.icon }).show();
+            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
         }
     },
 
