@@ -46,8 +46,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function backgroundColor()
     {
-        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            return $GLOBALS['all_calendars'][$this->calendar]->background();
+        if ($GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar) !== false) {
+            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->background();
         }
         return '#dddddd';
     }
@@ -492,7 +492,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $values = array((string)$uid);
 
         /* Optionally filter by calendar */
-        if (!is_null($calendars)) {
+        if (!empty($calendars)) {
             if (!count($calendars)) {
                 throw new Kronolith_Exception(_("No calendars to search"));
             }

@@ -101,7 +101,7 @@ class Kronolith_View_Month
         if ($prefs->getValue('show_shared_side_by_side')) {
             $allCalendars = Kronolith::listInternalCalendars();
             $this->_currentCalendars = array();
-            foreach ($GLOBALS['display_calendars'] as $id) {
+            foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS) as $id) {
                 $this->_currentCalendars[$id] = $allCalendars[$id];
             }
         } else {

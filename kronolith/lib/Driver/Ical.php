@@ -69,9 +69,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function backgroundColor()
     {
-        return empty($GLOBALS['all_remote_calendars'][$this->calendar])
-            ? '#dddddd'
-            : $GLOBALS['all_remote_calendars'][$this->calendar]->background();
+        return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $this->calendar)
+            ? $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $this->calendar)->background()
+            : '#dddddd';
     }
 
     public function listAlarms($date, $fullevent = false)
@@ -305,10 +305,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         for ($i = 0; $i < $count; $i++) {
             $component = $components[$i];
             if ($component->getType() == 'vEvent') {
-                $event = new Kronolith_Event_Ical($this);
-                $event->status = Kronolith::STATUS_FREE;
+                $event = new Kronolith_Event_Ical($this, $component);
                 $event->permission = $this->getPermission();
-                $event->fromDriver($component);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = $id ? $id : 'ical' . $i;
 
@@ -340,7 +338,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                     if ($event->recurrence->hasRecurEnd() &&
                         $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
                         continue;
-                    } else if ($endDate) {
+                    } elseif ($endDate) {
                         $next = $event->recurrence->nextRecurrence($startDate);
                         if ($next == false || $next->compareDateTime($endDate) > 0) {
                             continue;
@@ -411,10 +409,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $components = $ical->getComponents();
         if (isset($components[$eventId]) &&
             $components[$eventId]->getType() == 'vEvent') {
-            $event = new Kronolith_Event_Ical($this);
-            $event->status = Kronolith::STATUS_FREE;
+            $event = new Kronolith_Event_Ical($this, $components[$eventId]);
             $event->permission = $this->getPermission();
-            $event->fromDriver($components[$eventId]);
             $event->id = 'ical' . $eventId;
             return $event;
         }

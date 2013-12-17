@@ -52,7 +52,7 @@ class Kronolith_Calendar_Holiday extends Kronolith_Calendar
      */
     public function display()
     {
-        return in_array($this->_driver['id'], $GLOBALS['display_holidays']);
+        return in_array($this->_driver['id'], $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_HOLIDAYS));
     }
 
     /**
@@ -63,7 +63,7 @@ class Kronolith_Calendar_Holiday extends Kronolith_Calendar
     public function toHash()
     {
         $hash = parent::toHash();
-        $hash['show'] = in_array($this->_driver['id'], $GLOBALS['display_holidays']);
+        $hash['show'] = $this->display();
         return $hash;
     }
 }

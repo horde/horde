@@ -478,7 +478,7 @@ class Kronolith_Driver
 
         /* Remove any tags */
         $tagger = Kronolith::getTagger();
-        $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
+        $tagger->replaceTags($event->uid, array(), $event->creator, Kronolith_Tagger::TYPE_EVENT);
 
         /* Remove any geolocation data. */
         try {
@@ -567,7 +567,7 @@ class Kronolith_Driver
      */
     protected function _updateTags(Kronolith_Event $event)
     {
-        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, Kronolith_Tagger::TYPE_EVENT);
 
         // Resources don't currently have owners, so can't tag as owner.
         if ($event->calendarType == 'resource') {
@@ -580,7 +580,7 @@ class Kronolith_Driver
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
-        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), Kronolith_Tagger::TYPE_EVENT);
     }
 
     /**
@@ -591,7 +591,7 @@ class Kronolith_Driver
     protected function _addTags(Kronolith_Event $event)
     {
         $tagger = Kronolith::getTagger();
-        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
+        $tagger->tag($event->uid, $event->tags, $event->creator, Kronolith_Tagger::TYPE_EVENT);
 
         // Resources don't currently have owners, so can't tag as owner.
         if ($event->calendarType == 'resource') {

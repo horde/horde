@@ -84,7 +84,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         return empty($GLOBALS['conf']['share']['hidden']) ||
             $this->_type != 'share' ||
-            in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
+            in_array($this->_api . '/' . $this->_id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS));
     }
 
     /**
@@ -106,7 +106,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         $hash = parent::toHash();
         $hash['api']  = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($this->api()));
-        $hash['show'] = in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
+        $hash['show'] = in_array($this->_api . '/' . $this->_id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS));
         return $hash;
     }
 }

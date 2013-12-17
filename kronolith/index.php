@@ -131,6 +131,13 @@ if ($conf['maps']['driver']) {
     Horde::initMap();
 }
 
+if ($registry->hasMethod('time/listJobTypes')) {
+    $time_jobs = $registry->time->listJobTypes(array('enabled' => true));
+    $time_clients = $registry->time->listClients();
+} else {
+    $time_jobs = $time_clients = false;
+}
+
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 

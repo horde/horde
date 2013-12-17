@@ -267,6 +267,22 @@
   <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
   <label><?php echo _("Export ICS file") ?>:</label>
   <a id="kronolithEventExport"><?php echo _("Event ICS file") ?></a>
+  <?php if ($time_jobs): ?>
+    <div class="kronolithDialogInfo"><?php echo _("This event can be saved as a timeslice in your timesheet.")?></div>
+    <label><?php echo _("Job type")?>:</label>
+    <select id="kronolithEventTimesliceType">
+    <?php foreach ($time_jobs as $jid => $jname): ?>
+      <option value="<?php echo $jid ?>"><?php echo htmlspecialchars($jname['name']) ?></option>
+    <?php endforeach;?>
+    </select>
+    <label><?php echo _("Client")?>:</label>
+    <select id="kronolithEventTimesliceClient">
+    <?php foreach ($time_clients as $cid => $cname): ?>
+      <option value="<?php echo $cid ?>"><?php echo htmlspecialchars($cname) ?></option>
+    <?php endforeach;?>
+    </select>
+    <a id="kronolithEventToTimeslice"><?php echo _("Save time")?></a>
+  <?php endif;?>
 </div>
 
 <div class="kronolithFormActions">

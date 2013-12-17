@@ -32,13 +32,14 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     public function listCalendars()
     {
         Kronolith::initialize();
+        $all_external_calendars = $GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS);
         $result = new stdClass;
         $auth_name = $GLOBALS['registry']->getAuth();
 
         // Calendars. Do some twisting to sort own calendar before shared
         // calendars.
         foreach (array(true, false) as $my) {
-            foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+            foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS) as $id => $calendar) {
                 $owner = ($auth_name && ($calendar->owner() == $auth_name));
                 if (($my && $owner) || (!$my && !$owner)) {
                     $result->calendars['internal'][$id] = $calendar->toHash();
@@ -48,12 +49,12 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             // Tasklists
             if (Kronolith::hasApiPermission('tasks')) {
                 foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW, false) as $id => $tasklist) {
-                    if (isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
+                    if (isset($all_external_calendars['tasks/' . $id])) {
                         $owner = ($auth_name &&
                                   ($tasklist->get('owner') == $auth_name));
                         if (($my && $owner) || (!$my && !$owner)) {
                             $result->calendars['tasklists']['tasks/' . $id] =
-                                $GLOBALS['all_external_calendars']['tasks/' . $id]->toHash();
+                                $all_external_calendars['tasks/' . $id]->toHash();
                         }
                     }
                 }
@@ -78,19 +79,19 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         }
 
         // Timeobjects
-        foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+        foreach ($all_external_calendars as $id => $calendar) {
             if ($calendar->api() != 'tasks' && $calendar->display()) {
                 $result->calendars['external'][$id] = $calendar->toHash();
             }
         }
 
         // Remote calendars
-        foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
+        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $url => $calendar) {
             $result->calendars['remote'][$url] = $calendar->toHash();
         }
 
         // Holidays
-        foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
             $result->calendars['holiday'][$id] = $calendar->toHash();
         }
 
@@ -966,9 +967,13 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                         $all_external = $GLOBALS['session']->get('kronolith', 'all_external_calendars');
                         $all_external[] = array('a' => 'tasks', 'n' => $tasklistId, 'd' => $tasklist->get('name'));
                         $GLOBALS['session']->set('kronolith', 'all_external_calendars', $all_external);
-                        $GLOBALS['display_external_calendars'][] = 'tasks/' . $tasklistId;
-                        $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
-                        $GLOBALS['all_external_calendars']['tasks/' . $tasklistId] = $wrapper;
+                        $display_external = $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS);
+                        $display_external[] = 'tasks/' . $tasklistId;
+                        $GLOBALS['calendar_manager']->set(Kronolith::DISPLAY_EXTERNAL_CALENDARS, $display_external);
+                        $GLOBALS['prefs']->setValue('display_external_cals', serialize($display_external));
+                        $all_external = $GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS);
+                        $all_external['tasks/' . $tasklistId] = $wrapper;
+                        $GLOBALS['calendar_manager']->set(Kronolith::ALL_EXTERNAL_CALENDARS, $all_external);
 
                         $result->saved = true;
                         $result->id = 'tasks/' . $tasklistId;
@@ -1195,10 +1200,11 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     public function getCalendar()
     {
         $result = new stdClass;
-        if (!isset($GLOBALS['all_calendars'][$this->vars->cal]) && !$GLOBALS['conf']['share']['hidden']) {
+        $all_calendars = $GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS);
+        if (!isset($all_calendars[$this->vars->cal]) && !$GLOBALS['conf']['share']['hidden']) {
                 $GLOBALS['notification']->push(_("You are not allowed to view this calendar."), 'horde.error');
                 return $result;
-        } elseif (!isset($GLOBALS['all_calendars'][$this->vars->cal])) {
+        } elseif (!isset($all_calendars[$this->vars->cal])) {
             // Subscribing to a "hidden" share, check perms.
             $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
             $share = $kronolith_shares->getShare($this->vars->cal);
@@ -1208,7 +1214,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             }
             $calendar = new Kronolith_Calendar_Internal(array('share' => $share));
         } else {
-            $calendar = $GLOBALS['all_calendars'][$this->vars->cal];
+            $calendar = $all_calendars[$this->vars->cal];
         }
 
         $result->calendar = $calendar->toHash();
@@ -1382,6 +1388,22 @@ kronolith[$container] = $results;
 EOT;
 
         return new Horde_Core_Ajax_Response_Raw($js, 'text/javascript');
+    }
+
+    public function toTimeslice()
+    {
+        $driver = $this->_getDriver($this->vars->cal);
+        $event = $driver->getEvent($this->vars->e);
+
+        try {
+            Kronolith::toTimeslice($event, $this->vars->t, $this->vars->c);
+        } catch (Kronolith_Exception $e) {
+            $GLOBALS['notification']->push(sprintf(_("Error saving timeslice: %s"), $e->getMessage()), 'horde.error');
+            return false;
+        }
+        $GLOBALS['notification']->push(_("Successfully saved timeslice."), 'horde.success');
+
+        return true;
     }
 
     /**

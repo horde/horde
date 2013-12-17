@@ -47,7 +47,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.5-git)';
+    public $version = 'H5 (4.2.0-git)';
 
     /**
      * Global variables defined:
@@ -224,7 +224,7 @@ class Kronolith_Application extends Horde_Registry_Application
         );
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
             $row = array(
-                'selected' => in_array($id, $GLOBALS['display_calendars']),
+                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', $id),
                 'label' => Kronolith::getLabel($calendar),
                 'color' => Kronolith::backgroundColor($calendar),
@@ -241,7 +241,7 @@ class Kronolith_Application extends Horde_Registry_Application
         if ($GLOBALS['registry']->isAdmin()) {
             foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['display_calendars']),
+                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
                     'url' => $url->copy()->add('toggle_calendar', $id),
                     'label' => $calendar->get('name'),
                     'color' => Kronolith::backgroundColor($calendar),
@@ -290,7 +290,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             'resource' => $resource
                         ));
                         $row = array(
-                            'selected' => in_array($resource->get('calendar'), $GLOBALS['display_resource_calendars']),
+                            'selected' => in_array($resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
                             'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
                             'label' => $calendar->name(),
                             'color' => $calendar->background(),
@@ -303,7 +303,7 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         }
 
-        foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if (!$calendar->display()) {
                 continue;
             }
@@ -324,7 +324,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
             }
             $row = array(
-                'selected' => in_array($id, $GLOBALS['display_external_calendars']),
+                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'external_' . $id),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -345,9 +345,9 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         $edit = Horde::url('calendars/remote_edit.php');
-        foreach ($GLOBALS['all_remote_calendars'] as $id => $calendar) {
+        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $calendar) {
             $row = array(
-                'selected' => in_array($calendar->url(), $GLOBALS['display_remote_calendars']),
+                'selected' => in_array($calendar->url(), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'remote_' . $calendar->url()),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -365,9 +365,9 @@ class Kronolith_Application extends Horde_Registry_Application
                     'collapsed' => true,
                 ),
             );
-            foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+            foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['display_holidays']),
+                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_HOLIDAYS)),
                     'url' => $url->copy()->add('toggle_calendar', 'holiday_' . $id),
                     'label' => $calendar->name(),
                     'color' => $calendar->background(),
@@ -487,7 +487,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $time = new Horde_Date($time);
         $calendars = is_null($user)
             ? array_keys($kronolith_shares->listAllShares())
-            : $GLOBALS['display_calendars'];
+            : $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS);
         $alarms = Kronolith::listAlarms($time, $calendars, true);
         foreach ($alarms as $calendar => $cal_alarms) {
             if (!$cal_alarms) {

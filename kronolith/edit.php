@@ -53,10 +53,10 @@ do {
             $kronolith_driver = Kronolith::getDriver($type, $calendar);
             switch ($type) {
             case 'internal':
-                $kronolith_calendar = $all_calendars[$calendar];
+                $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $calendar);
                 break;
             case 'remote':
-                $kronolith_calendar = $all_remote_calendars[$calendar];
+                $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $calendar);
                 break;
             }
 
@@ -101,10 +101,10 @@ do {
             $kronolith_driver = Kronolith::getDriver($sourceType, $source);
             switch ($sourceType) {
             case 'internal':
-                $kronolith_calendar = $all_calendars[$source];
+                $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $source);
                 break;
             case 'remote':
-                $kronolith_calendar = $all_remote_calendars[$source];
+                $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $source);
                 break;
             }
             $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
@@ -163,10 +163,10 @@ do {
         /* Permission checks on the target calendar . */
         switch ($targetType) {
         case 'internal':
-            $kronolith_calendar = $all_calendars[$target];
+            $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $target);
             break;
         case 'remote':
-            $kronolith_calendar = $all_remote_calendars[$target];
+            $kronolith_calendar = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $target);
             break;
         default:
             break 2;

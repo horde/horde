@@ -12,6 +12,13 @@
 class Kronolith_Event_Ical extends Kronolith_Event
 {
     /**
+     * The status of this event.
+     *
+     * @var integer
+     */
+    public $status = Kronolith::STATUS_FREE;
+
+    /**
      * The type of the calender this event exists on.
      *
      * @var string

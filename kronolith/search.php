@@ -77,17 +77,17 @@ if ($search_mode == 'basic') {
             $calendars[_("Shared Calendars:")]['|' . $id] = Kronolith::getLabel($cal);
         }
     }
-    foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
+    foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $cal) {
         $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
         if (!$cal->display()) {
             continue;
         }
         $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_remote_calendars'] as $id => $cal) {
+    foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $id => $cal) {
         $calendars[_("Remote Calendars:")]['Ical|' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_holidays'] as $id => $holiday) {
+    foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $holiday) {
         $calendars[_("Holidays:")]['Holidays|' . $id] = $holiday->name();
     }
 }

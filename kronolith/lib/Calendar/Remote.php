@@ -137,7 +137,7 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
      */
     public function display()
     {
-        return in_array($this->_url, $GLOBALS['display_remote_calendars']);
+        return in_array($this->_url, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS));
     }
 
     /**
@@ -172,7 +172,7 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
     {
         return array_merge(
             parent::toHash(),
-            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars']),
+            array('show' => in_array($this->_url, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
                   'edit' => $this->hasPermission(Horde_Perms::EDIT)),
             $this->credentials()
         );

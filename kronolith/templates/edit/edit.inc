@@ -1,7 +1,7 @@
 <?php
 $showCalSelect =
     !$GLOBALS['prefs']->isLocked('default_share') &&
-    (count($calendars) > 1 || !empty($GLOBALS['display_resource_calendars'])) &&
+    (count($calendars) > 1 || count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) &&
     (!$event->initialized || $event->hasPermission(Horde_Perms::DELETE));
 $show_img = Horde::img('plus.png', _("Show"));
 $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
@@ -87,9 +87,9 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
                    htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
         }
     }
-    if (!empty($GLOBALS['display_resource_calendars'])) {
+    if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
         // We are editing/viewing resource calendars
-        foreach ($GLOBALS['display_resource_calendars'] as $cal) {
+        foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $cal) {
             $rd = Kronolith::getDriver('Resource');
             try {
                 $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));

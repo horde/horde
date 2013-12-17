@@ -101,9 +101,11 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 $all_events = Kronolith::listEvents(
                     $startDate,
                     $endDate,
-                    $GLOBALS['display_calendars'], array(
+                    $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS),
+                    array(
                         'has_alarm' => !empty($this->_params['alarms']),
-                        'cover_dates' => false)
+                        'cover_dates' => false
+                    )
                 );
             }
         } catch (Exception $e) {

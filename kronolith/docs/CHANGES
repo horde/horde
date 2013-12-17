@@ -1,20 +1,10 @@
 ----------
-v4.1.5-git
+v4.2.0-git
 ----------
 
-[mjr] Fix fatal error when searching if Holiday driver is disabled (Bug
-      #12870).
-[jan] Ignore iCalendar alarms without action, and use first, not last alarm
-      (Bug #12865).
-[mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug
-      #12770).
-[mjr] Honor recurrence-id range values when deleting recurring events (Bug
-      #12746).
-[mjr] Fix deleting and sending iTip notifications for recurring events (Bug:
-      12746).
-[jan] Fix calculation of work week start if on a weekend.
-[jan] Fix deleting calendars with exceptions to recurring events.
-[jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
+[mjr] Add ability to export event to a timeslice (Request #1111307).
+[mjr] Add API support for supporting multiple calendar sync via ActiveSync.
+[jan] Improve sort order of events in month view (Request #11155).
 
 
 ------

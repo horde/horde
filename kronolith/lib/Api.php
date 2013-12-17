@@ -441,14 +441,51 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Returns a list of available sources.
+     *
+     * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include syncable sources.
+     *
+     * @return array  An array of the available sources. Keys are source IDs,
+     *                values are source titles.
+     * @since 4.2.0
+     */
+    public function sources($writeable = false, $sync_only = false)
+    {
+        $out = array();
+
+        foreach (Kronolith::listInternalCalendars(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $id => $data) {
+            $out[$id] = $data->get('name');
+        }
+
+        if ($sync_only) {
+            $syncable = Kronolith::getSyncCalendars();
+            $out = array_intersect_key($out, array_flip($syncable));
+        }
+
+        return $out;
+    }
+
+    /**
+     * Retrieve the UID for the current user's default calendar.
+     *
+     * @return string  UID.
+     * @since 4.2.0
+     */
+    public function getDefaultShare()
+    {
+        return Kronolith::getDefaultCalendar(Horde_Perms::EDIT, true);
+    }
+
+    /**
      * Returns the ids of all the events that happen within a time period.
      * Only includes recurring events once per time period, and does not include
      * events that represent exceptions, making this method useful for syncing
      * purposes. For more control, use the listEvents method.
      *
-     * @param string $calendars    The calendar to check for events.
-     * @param object $startstamp   The start of the time range.
-     * @param object $endstamp     The end of the time range.
+     * @param string|array $calendars    The calendar to check for events.
+     * @param object $startstamp         The start of the time range.
+     * @param object $endstamp           The end of the time range.
      *
      * @return array  The event ids happening in this time period.
      * @throws Kronolith_Exception
@@ -552,15 +589,25 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param boolean $isModSeq          If true, $timestamp and $end are
      *                                   modification sequences and not
      *                                   timestamps. @since 4.1.1
+     * @param string|array $calendars    The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @throws Horde_Exception_PermissionDenied
      * @throws Kronolith_Exception
      */
-    public function getChanges($start, $end, $ignoreExceptions = true, $isModSeq = false)
+    public function getChanges(
+        $start, $end, $ignoreExceptions = true, $isModSeq = false, $calendars = null)
     {
         // Only get the calendar once
-        $cs = Kronolith::getSyncCalendars();
+        if (is_null($calendars)) {
+            $cs = Kronolith::getSyncCalendars();
+        } else {
+            if (!is_array($calendars)) {
+                $calendars = array($calendars);
+            }
+            $cs = $calendars;
+        }
+
         $changes = array(
             'add' => array(),
             'modify' => array(),
@@ -612,15 +659,16 @@ class Kronolith_Api extends Horde_Registry_Api
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start             The starting modseq.
+     * @param integer $end               The ending modseq.
+     * @param string|array $calendars    The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $calendars = null)
     {
-        return $this->getChanges($start, $end, true, true);
+        return $this->getChanges($start, $end, true, true, $calendars);
     }
 
     /**
@@ -655,12 +703,20 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
-     * @return integer  The modseq.
+     * @param string $id  The calendar id to return the hightest MDOSEQ for. If
+     *                    null, the highest MODSEQ across all calendars is
+     *                    returned. @since 4.2.0
+     *
+     * @return integer  The MODSEQ value.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('kronolith');
+        $parent = 'kronolith';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
@@ -816,16 +872,18 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                              Still in wide use)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
-     * @param array $optinos      Any additional options to be passed to the
+     * @param array $options      Any additional options to be passed to the
      *                            exporter.
+     * @param array $calendars    Require event to be in these calendars.
+     *                            @since 4.2.0
      *
      * @return string  The requested data.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function export($uid, $contentType, array $options = array())
+    public function export($uid, $contentType, array $options = array(), array $calendars = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        $event = Kronolith::getDriver()->getByUID($uid, $calendars);
         if (!$event->hasPermission(Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -1005,12 +1063,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             text/x-vcalendar
      *                             (Ignored if content is Horde_Icalendar_Vevent)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
+     * @param string $calendar     Ensure the event is replaced in the specified
+     *                             calendar. @since 4.2.0
      *
      * @throws Kronolith_Exception
      */
-    public function replace($uid, $content, $contentType)
+    public function replace($uid, $content, $contentType, $calendar = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        $event = Kronolith::getDriver(null, $calendar)->getByUID($uid);
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
             ($event->private && $event->creator != $GLOBALS['registry']->getAuth())) {
@@ -1181,7 +1241,6 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $found = false;
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
-        $sender_lcase = Horde_String::lower($sender);
 
         foreach ($atnames as $index => $attendee) {
             if ($response->getAttribute('VERSION') < 2) {
@@ -1190,14 +1249,14 @@ class Kronolith_Api extends Horde_Registry_Api
                     continue;
                 }
 
-                $attendee = Horde_String::lower($addr_ob->bare_address);
+                $attendee = $addr_ob->bare_address;
                 $name = $addr_ob->personal;
             } else {
-                $attendee = str_replace('mailto:', '', Horde_String::lower($attendee));
+                $attendee = str_replace('mailto:', '', $attendee);
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
             }
             if ($event->hasAttendee($attendee)) {
-                if (is_null($sender) || $sender_lcase == $attendee) {
+                if (is_null($sender) || $sender == $attendee) {
                     $event->addAttendee($attendee, Kronolith::PART_IGNORE, Kronolith::responseFromICal($atparms[$index]['PARTSTAT']), $name);
                     $found = true;
                 } else {
@@ -1475,6 +1534,96 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         return $return;
+    }
+
+    /**
+     * Create a new calendar.
+     *
+     * @param string $name  The calendar's display name.
+     * @param array $param  Any additional parameters. May include:
+     *   - color: (string) The color to associate with the calendar.
+     *            DEFAULT: none (color will be randomly assigned).
+     *   - description:  (string) The calendar description.
+     *                   DEFAULT: none (empty description).
+     *   - tags:         (array) An array of tags to apply to the new calendar.
+     *
+     *   - synchronize:   (boolean) If true, add calendar to the list of
+     *                             calendars to syncronize.
+     *
+     * @return string  The new calendar's UID.
+     * @since 4.2.0
+     */
+    public function addCalendar($name, array $params = array())
+    {
+        global $prefs;
+
+        $info = array(
+            'name' => $name,
+            'color' => empty($params['color']) ? null : $params['color'],
+            'description' => empty($params['description']) ? null : $params['description'],
+            'tags' => empty($params['tags']) ? null : $params['tags']
+        );
+
+        $share = Kronolith::addShare($info);
+
+        if (!empty($params['synchronize'])) {
+            $sync = @unserialize($prefs->getValue('sync_calendars'));
+            $sync[] = $share->getName();
+            $prefs->setValue('sync_calendars', serialize($sync));
+        }
+
+        return $share->getName();
+    }
+
+    /**
+     * Delete the specified calendar.
+     *
+     * @param string $id  The calendar id.
+     */
+    public function deleteCalendar($id)
+    {
+        $calendar = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->getShare($calendar);
+        Kronolith::deleteShare($calendar);
+    }
+
+    /**
+     * Return an internal calendar.
+     *
+     * @todo Note: This returns a Kronolith_Calendar_Object object instead of a hash
+     * to be consistent with other application APIs. For H6 we need to normalize
+     * the APIs to always return non-objects and/or implement some mechanism to
+     * mark API methods as non-RPC safe.
+     *
+     * @param string $id  The calendar uid (share name).
+     *
+     * @return Kronolith_Calendar The calendar object.
+     * @since 4.2.0
+     */
+    public function getCalendar($id = null)
+    {
+       $driver = Kronolith::getDriver(null, $id);
+       return Kronolith::getCalendar($driver);
+    }
+
+    /**
+     * Update an internal calendar's information.
+     *
+     * @param string $id      The calendar id.
+     * @param array $info     An array of calendar information.
+     *                        @see self::addCalendar()
+     * @since 4.2.0
+     */
+    public function updateCalendar($id, array $info)
+    {
+        $calendar = $this->getCalendar(null, $id);
+
+        // Prevent wiping tags if they were not passed.
+        if (!array_key_exists('tags', $info)) {
+            $info['tags'] = Kronolith::getTagger()->getTags($id, Kronolith_Tagger::TYPE_CALENDAR);
+        }
+        Kronolith::updateShare($calendar->share(), $info);
     }
 
 }

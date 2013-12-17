@@ -22,25 +22,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2013-09-24</date>
  <version>
-  <release>4.1.5</release>
-  <api>4.1.0</api>
+  <release>4.2.0alpha1</release>
+  <api>4.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
-* [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
-* [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
-* [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
-* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
-* [jan] Fix calculation of work week start if on a weekend.
-* [jan] Fix deleting calendars with exceptions to recurring events.
-* [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
+* [mjr] Add ability to export event to a timeslice (Request #1111307).
+* [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
+* [jan] Improve sort order of events in month view (Request #11155).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -243,6 +238,7 @@
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
+    <file name="CalendarsManager.php" role="horde" />
     <file name="Day.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Event.php" role="horde" />
@@ -1119,6 +1115,7 @@
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
+   <install as="kronolith/lib/CalendarsManager.php" name="lib/CalendarsManager.php" />
    <install as="kronolith/lib/Day.php" name="lib/Day.php" />
    <install as="kronolith/lib/Driver.php" name="lib/Driver.php" />
    <install as="kronolith/lib/Event.php" name="lib/Event.php" />
@@ -2237,22 +2234,17 @@
   </release>
   <release>
    <version>
-    <release>4.1.5</release>
+    <release>4.2.0alpha1</release>
     <api>4.1.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
-* [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
-* [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
-* [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
-* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
-* [jan] Fix calculation of work week start if on a weekend.
-* [jan] Fix deleting calendars with exceptions to recurring events.
-* [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
+* [mjr] Add ability to export event to a timeslice (Request #1111307).
+* [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
+* [jan] Improve sort order of events in month view (Request #11155).
    </notes>
   </release>
  </changelog>

@@ -51,7 +51,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
         $hash['owner'] = $owner;
         $hash['fg']    = Kronolith::foregroundColor($this->_share);
         $hash['bg']    = Kronolith::backgroundColor($this->_share);
-        $hash['show']  = in_array('tasks/' . $this->_share->getName(), $GLOBALS['display_external_calendars']);
+        $hash['show']  = in_array('tasks/' . $this->_share->getName(), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS));
         $hash['edit']  = $this->_share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         try {
             $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)

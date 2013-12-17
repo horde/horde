@@ -186,6 +186,26 @@ abstract class Kronolith_Event
     public $end;
 
     /**
+     * The original start time of the event.
+     *
+     * This may differ from $start on multi-day events where $start is the
+     * start time on the current day. For recurring events this is the start
+     * time of the current recurrence.
+     *
+     * @var Horde_Date
+     */
+    protected $_originalStart;
+
+    /**
+     * The original end time of the event.
+     *
+     * @see $_originalStart for details.
+     *
+     * @var Horde_Date
+     */
+    protected $_originalEnd;
+
+    /**
      * The duration of this event in minutes
      *
      * @var integer
@@ -417,11 +437,13 @@ abstract class Kronolith_Event
             }
             // Fall through.
         case 'creator':
-        case 'overlap':
-        case 'indent':
-        case 'span':
-        case 'rowspan':
         case 'geoLocation':
+        case 'indent':
+        case 'originalStart':
+        case 'originalEnd':
+        case 'overlap':
+        case 'rowspan':
+        case 'span':
         case 'tags':
             $this->{'_' . $name} = $value;
             return;
@@ -445,20 +467,33 @@ abstract class Kronolith_Event
     public function __get($name)
     {
         switch ($name) {
+        case 'id':
+        case 'indent':
+        case 'overlap':
+        case 'rowspan':
+        case 'span':
+            return $this->{'_' . $name};
         case 'creator':
             if (empty($this->_creator)) {
                 $this->_creator = $GLOBALS['registry']->getAuth();
             }
-            // Fall through.
-        case 'id':
-        case 'overlap':
-        case 'indent':
-        case 'span':
-        case 'rowspan':
-            return $this->{'_' . $name};
+            return $this->_creator;
+            break;
+        case 'originalStart':
+            if (empty($this->_originalStart)) {
+                $this->_originalStart = $this->start;
+            }
+            return $this->_originalStart;
+            break;
+        case 'originalEnd':
+            if (empty($this->_originalEnd)) {
+                $this->_originalEnd = $this->start;
+            }
+            return $this->_originalEnd;
+            break;
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, 'event'));
+                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, Kronolith_Tagger::TYPE_EVENT));
             }
             return $this->_tags;
         case 'geoLocation':
@@ -497,8 +532,8 @@ abstract class Kronolith_Event
      */
     public function getShare()
     {
-        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            return $GLOBALS['all_calendars'][$this->calendar]->share();
+        if ($GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar) !== false) {
+            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->share();
         }
         throw new Kronolith_Exception('Share not found');
     }
@@ -2051,7 +2086,17 @@ abstract class Kronolith_Event
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
-
+        if (isset($methods['desktop'])) {
+            if ($this->isAllDay()) {
+                if ($this->start->compareDate($this->end) == 0) {
+                    $methods['desktop']['subtitle'] = sprintf(_("On %s"), $this->start->strftime($prefs->getValue('date_format')));
+                } else {
+                    $methods['desktop']['subtitle'] = sprintf(_("From %s to %s"), $this->start->strftime($prefs->getValue('date_format')), $this->end->strftime($prefs->getValue('date_format')));
+                }
+            } else {
+                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
+            }
+        }
         $alarm = array(
             'id' => $this->uid,
             'user' => $user,
@@ -2129,6 +2174,11 @@ abstract class Kronolith_Event
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
         $json->mt = !empty($this->attendees);
+        $json->sort = sprintf(
+            '%010s%06s',
+            $this->originalStart->timestamp(),
+            240000 - $this->end->format('His')
+        );
 
         if ($this->icon) {
             $json->ic = $this->icon;
@@ -2426,7 +2476,7 @@ abstract class Kronolith_Event
      */
     public function hasAttendee($email)
     {
-        return isset($this->attendees[Horde_String::lower($email)]);
+        return isset($this->attendees[$email]);
     }
 
     /**
@@ -2442,7 +2492,6 @@ abstract class Kronolith_Event
      */
     public function addAttendee($email, $attendance, $response, $name = null)
     {
-        $email = Horde_String::lower($email);
         if ($attendance == Kronolith::PART_IGNORE) {
             if (isset($this->attendees[$email])) {
                 $attendance = $this->attendees[$email]['attendance'];
@@ -2530,7 +2579,7 @@ abstract class Kronolith_Event
                     $this->uid,
                     $this->_internaltags,
                     $this->_creator,
-                    'event'
+                    Kronolith_Tagger::TYPE_EVENT
                 );
             }
             $this->_tags = $this->_internaltags;
