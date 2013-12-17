@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-12</date>
+ <date>2013-12-17</date>
  <version>
   <release>2.9.2</release>
   <api>2.9.0</api>
@@ -1832,7 +1832,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-12</date>
+   <date>2013-12-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix typo that was causing server side searching of mailboxes to fail (Bug #12882).
