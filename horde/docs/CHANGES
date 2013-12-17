@@ -1,9 +1,11 @@
 ----------
-v5.1.6-git
+v5.2.0-git
 ----------
 
-[mms] Fix regression where AJAX actions were not correctly checking permissions
-      and potential authentication expiration actions.
+[mjr] Add support for X509 authentication support.
+[mjr] Improve logging options for ActiveSync logging configuration.
+[mjr] Add support for managing ActiveSync devices through the API.
+[mjr] Add prefs for selecting From address when sending email via ActiveSync.
 
 
 ------
@@ -24,7 +26,6 @@ v5.1.5
 ------
 v5.1.4
 ------
-
 [mjr] Fix detecting ActiveSync policies for EAS version 12.0.
 [jan] Fix fatal error on ActiveSync preferences page (Bug #12631).
 

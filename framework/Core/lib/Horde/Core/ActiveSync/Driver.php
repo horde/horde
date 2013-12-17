@@ -174,9 +174,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $username));
 
         // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
-        if (!empty($conf['activesync']['auth']['type']) &&
-             $conf['activesync']['auth']['type'] != 'basic') {
-
+        if ($conf['activesync']['auth']['type'] != 'basic') {
             if (!$this->_auth->transparent()) {
                 $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed ActiveSync client certificate for user %s.', $username));
                 return false;
@@ -193,13 +191,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
-        if (empty($password)) {
-            $this->_logger->notice('Device failed to pass the user password.');
-            return false;
-        }
-        if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
+        if ($conf['activesync']['auth']['type'] != 'cert' &&
             !$this->_auth->authenticate($username, array('password' => $password))) {
-
             $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
@@ -1404,8 +1397,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $headers = $raw_message->getHeaders();
 
-        // Add From, but only if needed.
-        if (!$headers->getValue('From')) {
+        // Always add From: since we allow selecting the identity.
+        if (!$headers->getValue('From') || !is_null($GLOBALS['prefs']->getValue('activesync_identity'))) {
+            $headers->removeHeader('From');
             $headers->addHeader('From', $this->_getIdentityFromAddress());
         }
 
@@ -2910,8 +2904,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($this->_user);
 
-        $name = $ident->getValue('fullname');
-        $from_addr = $ident->getValue('from_addr');
+        $name = $ident->getValue('fullname', $GLOBALS['prefs']->getValue('activesync_identity'));
+        $from_addr = $ident->getValue('from_addr', $GLOBALS['prefs']->getValue('activesync_identity'));
 
         return $name . ' <' . $from_addr . '>';
     }

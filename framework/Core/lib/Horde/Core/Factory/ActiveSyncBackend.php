@@ -43,9 +43,7 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
             'base_driver' => $injector->getInstance('Horde_Core_Factory_Auth')->create(),
         );
 
-        if (!empty($conf['activesync']['auth']['type']) &&
-            $conf['activesync']['auth']['type'] != 'basic') {
-
+        if ($conf['activesync']['auth']['type'] != 'basic') {
             $x_params = $conf['activesync']['auth']['params'];
             $x_params['default_user'] = $GLOBALS['registry']->getAuth();
             $x_params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');

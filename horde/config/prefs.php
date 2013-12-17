@@ -738,7 +738,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesync_replyposition', 'activesyncmanagement'),
+    'members' => array('activesync_replyposition', 'activesync_usesignature', 'activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }
@@ -758,7 +758,10 @@ $_prefs['activesync_replyposition'] = array(
         return empty($GLOBALS['conf']['activesync']['emailsync']);
     }
 );
-
+// Handled by the special.
+$_prefs['activesync_identity'] = array(
+    'value' => null
+);
 
 
 // *** Internal Preferences ***
