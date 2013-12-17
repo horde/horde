@@ -345,10 +345,12 @@ var HordeCore = {
                 this.alarms.push(alarm.id);
                 message = alarm.title.escapeHTML();
                 if (alarm.params && alarm.params.desktop) {
-                    if (alarm.params.desktop.subtitle) {
+                    if (alarm.params.desktop.subtitle === undefined) {
+                        subtitle = '';
+                    } else {
                         subtitle = alarm.params.desktop.subtitle;
                     }
-                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon });
+                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, id: alarm.id, url: alarm.params.desktop.url });
                 }
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
@@ -439,14 +441,37 @@ var HordeCore = {
 
     desktopNotify: function(msg)
     {
+        var f;
         if (window.Notification && window.Notification.permission != 'granted') {
-            window.Notification.requestPermission(function(){
-                if (window.Notification.permission == 'granted') {
-                    new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
-                }
-            });
+            f = function() {
+                window.Notification.requestPermission(
+                    function() {
+                        if (window.Notification.permission == 'granted') {
+                            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
+                        }
+                    }
+                );
+            }.delay(1);
         } else if (window.Notification) {
-            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
+            f = function() {
+                var n = new window.Notification(msg.title, { body: msg.text, icon: msg.icon });
+                n.onclick = function(e) {
+                    var ajax_params = $H({
+                        alarm: msg.id,
+                        snooze: -1
+                    });
+                    this.addRequestParams(ajax_params);
+                    new Ajax.Request(this.conf.URI_SNOOZE, {
+                        parameters: ajax_params,
+                        onSuccess: function(r) {
+                            var n = new window.Notification(msg.title, { body: HordeCore.text['dismised'], icon: msg.icon });
+                            if (msg.url) {
+                                window.open(msg.url, '__blank');
+                            }
+                        }
+                    });
+                }.bind(this);
+            }.bind(this).delay(1);
         }
     },
 
