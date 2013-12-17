@@ -231,7 +231,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
                 default:
                     $editurl = $rule_url->copy()->add(array(
-                        'actionID' => 'rule_edit',
                         'edit' => $rule_number
                     ));
                     $delurl = $url->copy()->add('actionID', 'rule_delete');
