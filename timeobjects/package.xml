@@ -19,7 +19,7 @@
  <date>2013-06-19</date>
  <time>11:37:25</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.1.0</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Cache Facebook queries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -494,7 +494,7 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
+    <release>2.1.0</release>
     <api>2.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -502,7 +502,7 @@
    <date>2013-06-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Cache Facebook queries.
    </notes>
   </release>
  </changelog>
