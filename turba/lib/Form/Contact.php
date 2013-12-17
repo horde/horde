@@ -25,6 +25,16 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
         foreach (array_keys($contact->driver->getCriteria()) as $info_key) {
             $object[$info_key] = $contact->getValue($info_key);
         }
+
+        /* Get tags. */
+        if ($uid = $contact->getValue('__uid')) {
+            $object['__tags'] = implode(
+                ', ',
+                $injector->getInstance('Turba_Tagger')
+                    ->getTags($uid, 'contact')
+            );
+        }
+
         $vars->set('object', $object);
 
         $this->_addFields($contact, $tabs);
@@ -45,5 +55,4 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
             /* Ignore: VFS is not active. */
         }
     }
-
 }

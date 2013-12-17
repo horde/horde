@@ -28,19 +28,22 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-29</date>
+ <date>2013-08-15</date>
+ <time>18:30:50</time>
  <version>
-  <release>4.1.4</release>
+  <release>4.2.0alpha1</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Store full name in Kolab contacts.
-* [jan] Fix distribution list support in Kolab driver.
+* [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
+* [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
+* [jan] Remember currently open tab when switching or saving contact views (Request #12609).
+* [jan] Replace categories with tags (Request #9544).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -116,6 +119,9 @@
        <file name="Smartmobile.php" role="horde" />
       </dir> <!-- /lib/Ajax/Application/Handler -->
      </dir> <!-- /lib/Ajax/Application -->
+     <dir name="Imple">
+      <file name="TagAutoCompleter.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
@@ -145,6 +151,9 @@
      <file name="Shares.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
+     <dir name="Type">
+      <file name="TurbaTags.php" role="horde" />
+     </dir> <!-- /lib/Form/Type -->
      <file name="AddContact.php" role="horde" />
      <file name="Contact.php" role="horde" />
      <file name="ContactBase.php" role="horde" />
@@ -167,6 +176,11 @@
       <file name="Columnselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
+    <dir name="Ui">
+     <dir name="VarRenderer">
+      <file name="Turba.php" role="horde" />
+     </dir> <!-- /lib/Ui/VarRenderer -->
+    </dir> <!-- /lib/Ui -->
     <dir name="View">
      <dir name="List">
       <file name="AlphaFilter.php" role="horde" />
@@ -187,6 +201,7 @@
     <file name="List.php" role="horde" />
     <file name="Object.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Turba.php" role="horde" />
    </dir> <!-- /lib -->
@@ -448,6 +463,7 @@
     <file name="7_turba_upgrade_activesyncschema.php" role="horde" />
     <file name="8_turba_fix_blob_length.php" role="horde" />
     <file name="9_turba_upgrade_schema.php" role="horde" />
+    <file name="10_turba_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -616,6 +632,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
@@ -887,11 +910,13 @@
    <install as="turba/lib/List.php" name="lib/List.php" />
    <install as="turba/lib/Object.php" name="lib/Object.php" />
    <install as="turba/lib/Smartmobile.php" name="lib/Smartmobile.php" />
+   <install as="turba/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
    <install as="turba/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="turba/lib/Ajax/Application/Handler/Minisearch.php" name="lib/Ajax/Application/Handler/Minisearch.php" />
    <install as="turba/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
+   <install as="turba/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
@@ -916,9 +941,11 @@
    <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
    <install as="turba/lib/Form/EditContact.php" name="lib/Form/EditContact.php" />
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
+   <install as="turba/lib/Form/Type/TurbaTags.php" name="lib/Form/Type/TurbaTags.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
    <install as="turba/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
+   <install as="turba/lib/Ui/VarRenderer/Turba.php" name="lib/Ui/VarRenderer/Turba.php" />
    <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
    <install as="turba/lib/View/DeleteContact.php" name="lib/View/DeleteContact.php" />
@@ -1028,6 +1055,7 @@
    <install as="turba/migration/7_turba_upgrade_activesyncschema.php" name="migration/7_turba_upgrade_activesyncschema.php" />
    <install as="turba/migration/8_turba_fix_blob_length.php" name="migration/8_turba_fix_blob_length.php" />
    <install as="turba/migration/9_turba_upgrade_schema.php" name="migration/9_turba_upgrade_schema.php" />
+   <install as="turba/migration/10_turba_upgrade_categoriestotags.php" name="migration/10_turba_upgrade_categoriestotags.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1727,16 +1755,18 @@
   </release>
   <release>
    <version>
-    <release>4.1.4</release>
+    <release>4.2.0alpha1</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* [jan] Store full name in Kolab contacts.
-* [jan] Fix distribution list support in Kolab driver.
+* [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
+* [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
+* [jan] Remember currently open tab when switching or saving contact views (Request #12609).
+* [jan] Replace categories with tags (Request #9544).
    </notes>
   </release>
  </changelog>

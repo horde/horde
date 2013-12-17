@@ -248,10 +248,6 @@ if (!$error && $vars->import_format) {
 
 /* We have a final result set. */
 if (is_array($next_step)) {
-    /* Create a category manager. */
-    $cManager = new Horde_Prefs_CategoryManager();
-    $categories = $cManager->get();
-
     /* Create a Turba storage instance. */
     $dest = $storage->get('target');
     try {
@@ -321,12 +317,6 @@ if (is_array($next_step)) {
                     $notification->push(sprintf(_("There was an error importing the data: %s"), $e->getMessage()), 'horde.error');
                     $error = true;
                     break;
-                }
-
-                if (!empty($row['category']) &&
-                    !in_array($row['category'], $categories)) {
-                    $cManager->add($row['category']);
-                    $categories[] = $row['category'];
                 }
             }
         }

@@ -79,14 +79,16 @@ try {
     $url = isset($vars->url)
         ? new Horde_Url($url, true)
         : $contact->url('Contact', true);
-    $url->unique()->redirect();
+    $url->add('section', $form->getOpenSection())
+        ->unique()
+        ->redirect();
 } catch (Turba_Exception $e) {}
 
 $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $form->setTitle($title);
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
+$form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
 $formHtml = Horde::endBuffer();
 
 $page_output->header(array(

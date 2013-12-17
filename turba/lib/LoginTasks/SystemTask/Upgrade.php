@@ -22,13 +22,33 @@ class Turba_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
     /**
      */
     protected $_versions = array(
-        '3.0'
+        '4.2'
     );
 
     /**
      */
     protected function _upgrade($version)
     {
-        // No longer necessary.
+        switch ($version) {
+        case '4.2':
+            $this->_upgradeColumnsPref();
+            break;
+        }
+    }
+
+    /**
+     * Changes category columns to tag columns in the browse view.
+     */
+    protected function _upgradeColumnsPref()
+    {
+        $newColumns = array();
+        foreach (Turba::getColumns() as $source => $columns) {
+            if (($pos = array_search('category', $columns)) !== false) {
+                array_splice($columns, $pos, 1, '__tags');
+            }
+            array_unshift($columns, $source);
+            $newColumns[] = implode("\t", $columns);
+        }
+        $GLOBALS['prefs']->setValue('columns', implode("\n", $newColumns));
     }
 }

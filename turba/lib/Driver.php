@@ -224,6 +224,27 @@ class Turba_Driver implements Countable
     }
 
     /**
+     *  Returns the attributes that represent dates.
+     *
+     * @return array List of date attributes in the array keys.
+     * @since 4.2.0
+     */
+    public function getDateFields()
+    {
+        global $attributes;
+
+        $dates = array();
+        foreach (array_keys($this->fields) as $attribute) {
+            if (isset($attributes[$attribute]) &&
+                $attributes[$attribute]['type'] == 'monthdayyear') {
+                $dates[$attribute] = true;
+            }
+        }
+
+        return $dates;
+    }
+
+    /**
      * Translates the keys of the first hash from the generalized Turba
      * attributes to the driver-specific fields. The translation is based on
      * the contents of $this->map.
@@ -234,17 +255,6 @@ class Turba_Driver implements Countable
      */
     public function toDriverKeys(array $hash)
     {
-        /* Handle category. */
-        if (!empty($hash['category'])) {
-            if (is_array($hash['category']) && !empty($hash['category']['new'])) {
-                $cManager = new Horde_Prefs_CategoryManager();
-                $cManager->add($hash['category']['value']);
-                $hash['category'] = $hash['category']['value'];
-            } elseif (is_array($hash['category'])) {
-                $hash['category'] = $hash['category']['value'];
-            }
-        }
-
         if (!empty($hash['name']) &&
             !empty($this->listNameField) &&
             !empty($hash['__type']) &&
@@ -697,17 +707,16 @@ class Turba_Driver implements Countable
         $t_objects = array();
         while ($ob = $res->next()) {
             $t_object = $ob->getValue($category);
-            if (empty($t_object) ||
-                $t_object == '0000-00-00' ||
-                !preg_match('/(\d{4})-(\d{2})-(\d{2})/', $t_object, $match)) {
+            if (empty($t_object)) {
                 continue;
             }
 
-            $t_object = new Horde_Date(array(
-                'mday' => $match[3],
-                'month' => $match[2],
-                'year' => $match[1]
-            ));
+            try {
+                $t_object = new Horde_Date($t_object);
+            } catch (Horde_Date_Exception $e) {
+                continue;
+            }
+
             if ($t_object->compareDate($end) > 0) {
                 continue;
             }
@@ -744,7 +753,6 @@ class Turba_Driver implements Countable
                                  $t_object_end->year,
                                  $t_object_end->month,
                                  $t_object_end->mday),
-                'category' => $ob->getValue('category'),
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->_name, 'key' => $key),
@@ -788,7 +796,7 @@ class Turba_Driver implements Countable
      */
     protected function _getTimeObjectTurbaListFallback(Horde_Date $start, Horde_Date $end, $field)
     {
-        return $this->search(array(), null, 'AND', array('name', $field, 'category'));
+        return $this->search(array(), null, 'AND', array('name', $field));
     }
 
     /**
@@ -805,7 +813,8 @@ class Turba_Driver implements Countable
         $objects = $this->_read($this->map['__key'], $objectIds,
                                 $this->getContactOwner(),
                                 array_values($this->fields),
-                                $this->toDriverKeys($this->getBlobs()));
+                                $this->toDriverKeys($this->getBlobs()),
+                                $this->toDriverKeys($this->getDateFields()));
         if (!is_array($objects)) {
             throw new Horde_Exception_NotFound();
         }
@@ -882,7 +891,18 @@ class Turba_Driver implements Countable
 
         $attributes = $this->toDriverKeys($attributes);
 
-        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
+        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()), $this->toDriverKeys($this->getDateFields()));
+
+        /* Add tags. */
+        if (isset($attributes['__tags'])) {
+            $GLOBALS['injector']->getInstance('Turba_Tagger')
+                ->tag(
+                    $uid,
+                    $attributes['__tags'],
+                    $this->getContactOwner(),
+                    'contact'
+                );
+        }
 
         /* Log the creation of this item in the history log. */
         try {
@@ -1022,8 +1042,19 @@ class Turba_Driver implements Countable
     {
         $object_id = $this->_save($object);
 
-        /* Log the modification of this item in the history log. */
-        if ($object->getValue('__uid')) {
+        if ($uid = $object->getValue('__uid')) {
+            /* Update tags. */
+            if (!is_null($tags = $object->getValue('__tags'))) {
+                $GLOBALS['injector']->getInstance('Turba_Tagger')
+                    ->replaceTags(
+                        $uid,
+                        $tags,
+                        $this->getContactOwner(),
+                        'contact'
+                    );
+            }
+
+            /* Log the modification of this item in the history log. */
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
                                                 array('action' => 'modify'),
@@ -1604,11 +1635,13 @@ class Turba_Driver implements Countable
                 break;
 
             case 'businessCategory':
-            case 'category':
-                if ($fields && !isset($fields['CATEGORIES'])) {
+            case '__tags':
+                // No CATEGORIES in vCard 2.1
+                if ($version == '2.1' ||
+                    ($fields && !isset($fields['CATEGORIES']))) {
                     break;
                 }
-                $vcard->setAttribute('CATEGORIES', $val);
+                $vcard->setAttribute('CATEGORIES', null, array(), true, $val);
                 break;
 
             case 'anniversary':
@@ -2285,10 +2318,13 @@ class Turba_Driver implements Countable
                 }
 
                 if (!isset($hash['emails'])) {
-                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
-                    $hash['emails'] = $e ? $e : '';
-                } else {
-                    $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] = '';
+                }
+                if ($e = Horde_Icalendar_Vcard::getBareEmail($item['value'])) {
+                    if (strlen($hash['emails'])) {
+                        $hash['emails'] .= ',';
+                    }
+                    $hash['emails'] .= $e;
                 }
                 break;
 
@@ -2313,7 +2349,8 @@ class Turba_Driver implements Countable
                 break;
 
             case 'CATEGORIES':
-                $hash['businessCategory'] = $hash['category'] = str_replace('\; ', ';', $item['value']);
+                $hash['businessCategory'] = $item['value'];
+                $hash['__tags'] = $item['values'];
                 break;
 
             case 'URL':
@@ -2540,9 +2577,8 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case 'category':
-                // Categories FROM horde are a simple string value, categories going BACK to horde are an array with 'value' and 'new' keys
-                $message->categories = explode(';', $value);
+            case '__tags':
+                $message->categories = $value;
                 break;
 
             case 'children':
@@ -2665,9 +2701,7 @@ class Turba_Driver implements Countable
 
         /* Categories */
         if (is_array($message->categories) && count($message->categories)) {
-            $hash['category'] = implode(';', $message->categories);
-        } elseif (!$message->isGhosted('categories')) {
-            $hash['category'] = '';
+            $hash['__tags'] = $message->categories;
         }
 
         /* Children */
@@ -2901,12 +2935,15 @@ class Turba_Driver implements Countable
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         throw new Turba_Exception(_("Reading contacts is not available."));
     }
@@ -2915,11 +2952,12 @@ class Turba_Driver implements Countable
      * Adds the specified contact to the addressbook.
      *
      * @param array $attributes  The attribute values of the contact.
-     * @param array $blob_fields TODO
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
         throw new Turba_Exception(_("Adding contacts is not available."));
     }

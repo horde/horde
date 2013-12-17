@@ -1,9 +1,13 @@
 ----------
-v4.1.4-git
+v4.2.0-git
 ----------
 
-[jan] Store full name in Kolab contacts.
-[jan] Fix distribution list support in Kolab driver.
+[mjr] Fix listTimeObjects API when format_in attribute parameter is changed
+      from default (Bug #11891).
+[mjr] Add API support for supporting multiple addressbooks via ActiveSync.
+[jan] Remember currently open tab when switching or saving contact views
+      (Request #12609).
+[jan] Replace categories with tags (Request #9544).
 
 
 ------

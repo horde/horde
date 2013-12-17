@@ -480,7 +480,7 @@ class Turba_View_Browse
                     }
 
                     try {
-                        $results = $driver->search($type_filter, $sortorder, 'AND', $columns ? $columns : array('name'));
+                        $results = $driver->search($type_filter, $sortorder, 'AND', array_merge(array('__uid'), $columns ? $columns : array('name')));
                         $view = new Turba_View_List($results, null, $columns);
                         $view->setType('directory');
                     } catch (Turba_Exception $e) {

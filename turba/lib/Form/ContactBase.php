@@ -14,7 +14,7 @@ abstract class Turba_Form_ContactBase extends Horde_Form
     protected function _addFields(Turba_Object $contact, $useTabs = true)
     {
         // @TODO: inject this
-        global $attributes;
+        global $attributes, $injector;
 
         // Run through once to see what form actions, if any, we need
         // to set up.
@@ -83,6 +83,16 @@ abstract class Turba_Form_ContactBase extends Horde_Form
                 }
             }
         }
+
+        /* Add tags. */
+        if (isset($map['__uid'])) {
+            $this->addVariable(
+                _("Tags"),
+                'object[__tags]',
+                'Turba:TurbaTags',
+                false
+            );
+        }
     }
 
     /**
@@ -95,5 +105,18 @@ abstract class Turba_Form_ContactBase extends Horde_Form
     protected function _getId($id)
     {
         return preg_replace('/[^A-Za-z0-9-_:.]+/', '_', $id);
+    }
+
+    /**
+     * Returns a custom renderer.
+     *
+     * @param array $params  A hash of renderer-specific parameters.
+     *
+     * @return object Horde_Form_Renderer  The form renderer.
+     */
+    public function getRenderer($params = array())
+    {
+        $params['varrenderer_driver'] = array('turba', 'turba');
+        return new Horde_Form_Renderer($params);
     }
 }

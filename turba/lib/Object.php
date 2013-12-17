@@ -24,18 +24,18 @@ class Turba_Object
     public $attributes;
 
     /**
-     * Reference to this object's VFS instance.
-     *
-     * @var VFS
-     */
-    protected $_vfs;
-
-    /**
      * Keeps the normalized values of sort columns.
      *
      * @var array
      */
     public $sortValue = array();
+
+    /**
+     * Reference to this object's VFS instance.
+     *
+     * @var VFS
+     */
+    protected $_vfs;
 
     /**
      * Constructs a new Turba_Object object.
@@ -95,8 +95,7 @@ class Turba_Object
             try {
                 return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
             } catch (Turba_Exception $e) {}
-        }
-        if (isset($this->driver->map[$attribute]) &&
+        } elseif (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute])) {
             $args = array();
             foreach ($this->driver->map[$attribute]['fields'] as $field) {
@@ -104,9 +103,15 @@ class Turba_Object
             }
             return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
         } elseif (!isset($this->attributes[$attribute])) {
-            return null;
+            if (isset($GLOBALS['attributes'][$attribute]) &&
+                ($GLOBALS['attributes'][$attribute]['type'] == 'Turba:TurbaTags') &&
+                ($uid = $this->getValue('__uid'))) {
+                $this->synchronizeTags($GLOBALS['injector']->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
+            } else {
+                return null;
+            }
         } elseif (isset($GLOBALS['attributes'][$attribute]) &&
-                  ($GLOBALS['attributes'][$attribute]['type'] == 'image')) {
+            ($GLOBALS['attributes'][$attribute]['type'] == 'image')) {
             return empty($this->attributes[$attribute])
                 ? null
                 : array(
@@ -140,7 +145,6 @@ class Turba_Object
         }
 
         $this->attributes[$attribute] = $value;
-        return;
     }
 
     /**
@@ -163,6 +167,30 @@ class Turba_Object
             return false;
         } else {
             return !is_null($this->getValue($attribute));
+        }
+    }
+
+    /**
+     * Syncronizes tags from the tagging backend with the contacts storage
+     * backend, if necessary.
+     *
+     * @param array $tags  Tags from the tagging backend.
+     */
+    public function synchronizeTags(array $tags)
+    {
+        if (!is_null($internaltags = $this->getValue('__internaltags'))) {
+            usort($tags, 'strcoll');
+            if (array_diff($internaltags, $tags)) {
+                $GLOBALS['injector']->getInstance('Turba_Tagger')->replaceTags(
+                    $this->getValue('__uid'),
+                    $internaltags,
+                    $this->driver->getContactOwner(),
+                    'task'
+                );
+            }
+            $this->setValue('__tags', implode(', ', $internaltags));
+        } else {
+            $this->setValue('__tags', implode(', ', $tags));
         }
     }
 

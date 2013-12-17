@@ -546,19 +546,20 @@ class Turba_Api extends Horde_Registry_Api
      * Essentially a wrapper around listBy(), but returns an array containing
      * all adds, edits, and deletions.
      *
-     * @param integer $start     The starting timestamp
-     * @param integer $end       The ending timestamp.
-     * @param boolean $isModSeq  If true, $start and $end are modification
-     *                           sequences and not timestamps. @since 4.1.1
+     * @param integer $start         The starting timestamp
+     * @param integer $end           The ending timestamp.
+     * @param boolean $isModSeq      If true, $start and $end are modification
+     *                               sequences and not timestamps. @since 4.1.1
+     * @param string|array $sources  The sources to check. @since 4.2.0
      *
      * @return array  A hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false)
+    public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
-            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
-            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq)
+            'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, $sources, $end, $isModSeq)
         );
     }
 
@@ -566,15 +567,16 @@ class Turba_Api extends Horde_Registry_Api
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start  The starting modseq.
-     * @param integer $end    The ending modseq.
+     * @param integer $start         The starting modseq.
+     * @param integer $end           The ending modseq.
+     * @param string|array $sources  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end)
+    public function getChangesByModSeq($start, $end, $sources = null)
     {
-        return $this->getChanges($start, $end, true);
+        return $this->getChanges($start, $end, true, $sources);
     }
 
     /**
@@ -619,12 +621,20 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * Return the largest modification sequence from the history backend.
      *
+     * @param string $id  Addressbook id to return highest MODSEQ for. If
+     *                    null, the highest MODSEQ across all addressbooks is
+     *                    returned. @since 4.2.0
+     *
      * @return integer  The modseq.
      * @since 4.1.1
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($id = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('turba');
+        $parent = 'turba';
+        if (!empty($id)) {
+            $parent .= ':' . $id;
+        }
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq($parent);
     }
 
     /**
@@ -676,10 +686,6 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Permission denied"));
         }
 
-        // Create a category manager.
-        $cManager = new Horde_Prefs_CategoryManager();
-        $categories = $cManager->get();
-
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
             case 'activesync':
@@ -719,13 +725,7 @@ class Turba_Api extends Horde_Registry_Api
                                 continue;
                             }
 
-                            $result = $driver->add($content);
-                            if (!empty($content['category']) &&
-                                !in_array($content['category'], $categories)) {
-                                $cManager->add($content['category']);
-                                $categories[] = $content['category'];
-                            }
-                            $ids[] = $result;
+                            $ids[] = $driver->add($content);
                         }
                     }
 
@@ -758,11 +758,6 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
         $result = $driver->add($content);
-
-        if (!empty($content['category']) &&
-            !in_array($content['category'], $categories)) {
-            $cManager->add($content['category']);
-        }
 
         return $driver->getObject($result)->getValue('__uid');
     }
@@ -2094,6 +2089,63 @@ class Turba_Api extends Horde_Registry_Api
 
         ksort($users);
         return array_keys($users);
+    }
+
+    /**
+     * Create a new addressbook
+     *
+     * @param string $name   The display name for the addressbook.
+     * @param array  $params Any addtional parameters needed.
+     *
+     * @return string  The new addressbook's id (share name).
+     * @since 4.2.0
+     */
+    public function addAddressbook($name, array $params = array())
+    {
+        $share_name = strval(new Horde_Support_Randomid());
+        $share = Turba::createShare($share_name, array('name' => $name));
+
+        return $share->getName();
+    }
+
+    /**
+     * Delete the specified addressbook.
+     *
+     * @param string $id  The addressbook id.
+     * @since 4.2.0
+     */
+    public function deleteAddressbook($id)
+    {
+        $share = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($id);
+
+        $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->removeShare($share);
+    }
+
+    /**
+     * Update an existing addressbook's name or description.
+     *
+     * @param string $id    The addressbook id.
+     * @param array  $info  The info to change:
+     *   - name: The addressbook's display name.
+     *   - desc: The addressbook's description.
+     *
+     * @since 4.2.0
+     */
+    public function updateAddressbook($id, array $info)
+    {
+        $share = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($id);
+        if (!empty($info['name'])) {
+            $share->set('name', $info['name']);
+        }
+        if (!empty($info['desc'])) {
+            $share->set('desc', $info['desc']);
+        }
+
+        $share->save();
     }
 
     /* Helper methods. */

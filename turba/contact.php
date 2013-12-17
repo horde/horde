@@ -80,20 +80,20 @@ $tabs->addTab(_("_View"), $url,
               array('tabname' => 'Contact',
                     'id' => 'tabContact',
                     'class' => 'horde-icon',
-                    'onclick' => 'return ShowTab(\'Contact\');'));
+                    'onclick' => 'return TurbaTabs.showTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {
     $tabs->addTab(_("_Edit"), $url,
                   array('tabname' => 'EditContact',
                         'id' => 'tabEditContact',
                         'class' => 'horde-icon',
-                        'onclick' => 'return ShowTab(\'EditContact\');'));
+                        'onclick' => 'return TurbaTabs.showTab(\'EditContact\');'));
 }
 if ($contact->hasPermission(Horde_Perms::DELETE)) {
     $tabs->addTab(_("De_lete"), $url,
                   array('tabname' => 'DeleteContact',
                         'id' => 'tabDeleteContact',
                         'class' => 'horde-icon',
-                        'onclick' => 'return ShowTab(\'DeleteContact\');'));
+                        'onclick' => 'return TurbaTabs.showTab(\'DeleteContact\');'));
 }
 
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));

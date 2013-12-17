@@ -56,6 +56,7 @@ class Turba_Unit_ExportTest extends Turba_TestCase
             'longitude' => '13.377778',
             'photo' => file_get_contents(__DIR__ . '/../fixtures/az.png'),
             'phototype' => 'image/png',
+            '__tags' => array('Foo', 'Foo,Bar', 'Foo;Bar', 'Bar'),
         );
         $this->driver = new Turba_Driver();
         $this->object = new Turba_Object($this->driver, $this->contact);
@@ -99,6 +100,7 @@ END:VCARD
     public function testExportVcard30()
     {
         $vcard = $this->driver->tovCard($this->object, '3.0');
+        // Shouldn't only COMMAs escaped per RFC (CATEGORIES)?
         $this->assertEquals(
 'BEGIN:VCARD
 VERSION:3.0
@@ -122,6 +124,7 @@ GEO:52.516276;13.377778
 PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
  DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABlJREFUeAFjAIMGBiZGAQhmYY
  FgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
+CATEGORIES:Foo,Foo\,Bar,Foo\;Bar,Bar
 N:Schneiderö;Jan;K.;Mr.;
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
@@ -143,6 +146,7 @@ END:VCARD
         unset($contact['name']);
         $object = new Turba_Object($driver, $contact);
         $vcard = $this->driver->tovCard($object, '3.0');
+        // Shouldn't only COMMAs escaped per RFC (CATEGORIES)?
         $this->assertEquals(
 'BEGIN:VCARD
 VERSION:3.0
@@ -165,6 +169,7 @@ GEO:52.516276;13.377778
 PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
  DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABlJREFUeAFjAIMGBiZGAQhmYY
  FgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
+CATEGORIES:Foo,Foo\,Bar,Foo\;Bar,Bar
 N:Schneiderö;Jan;K.;Mr.;
 FN:Mr. Jan K. Schneiderö
 ORG:Horde Project;äöü

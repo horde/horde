@@ -362,11 +362,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
 
             if (isset($contact['categories'])) {
-                if (empty($contact['categories'])) {
-                    $contact['categories'] = '';
-                } else {
-                    $contact['categories'] = $contact['categories'][0];
-                }
+                $contact['__internaltags'] = $contact['categories'];
             }
 
             if (!empty($contact['birthday'])) {
@@ -604,12 +600,15 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         $this->connect();
 
@@ -689,11 +688,12 @@ class Turba_Driver_Kolab extends Turba_Driver
      * Adds the specified contact to the addressbook.
      *
      * @param array $attributes  The attribute values of the contact.
-     * @param array $blob_fields TODO
+     * @param array $blob_fields  Fields that represent binary data.
+     * @param array $date_fields  Fields that represent dates. @since 4.2.0
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
     {
         $this->connect();
         $this->_store($attributes);
@@ -800,6 +800,15 @@ class Turba_Driver_Kolab extends Turba_Driver
                 }
             }
             $data = $this->_getData();
+        }
+
+        if (isset($attributes['__tags'])) {
+            if (!is_array($attributes['__tags'])) {
+                $attributes['categories'] = $GLOBALS['injector']->getInstance('Nag_Tagger')->split($attributes['__tags']);
+            } else {
+                $attributes['categories'] = $attributes['__tags'];
+            }
+            usort($attributes['categories'], 'strcoll');
         }
 
         if ($object_id === null) {

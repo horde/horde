@@ -18,6 +18,8 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
      */
     public function __construct($vars, Turba_Object $contact)
     {
+        global $injector;
+
         parent::__construct($vars, '', 'Turba_View_EditContact');
         $this->_contact = $contact;
 
@@ -40,6 +42,17 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
                 $object_values[$info_key] = $contact->getValue($info_key);
             }
         }
+
+        /* Get tags. */
+        if (($uid = $contact->getValue('__uid')) &&
+            !isset($object_values['__tags'])) {
+            $object_values['__tags'] = implode(
+                ', ',
+                $injector->getInstance('Turba_Tagger')
+                    ->getTags($uid, 'contact')
+            );
+        }
+
         $vars->set('object', $object_values);
         $vars->set('source', $contact->getSource());
     }

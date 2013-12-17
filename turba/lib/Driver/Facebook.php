@@ -25,7 +25,14 @@ class Turba_Driver_Facebook extends Turba_Driver
      *
      * @var Horde_Service_Facebook
      */
-    private $_facebook;
+    protected $_facebook;
+
+    /**
+     * Cache
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
 
     /**
      * Constructor
@@ -38,6 +45,7 @@ class Turba_Driver_Facebook extends Turba_Driver
         parent::__construct($name, $params);
         $this->_facebook = $params['storage'];
         unset($params['storage']);
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**
@@ -75,6 +83,12 @@ class Turba_Driver_Facebook extends Turba_Driver
     protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $results = array();
+
+        $key = 'turba_fb_search|' . $GLOBALS['registry']->getAuth() . '|' . md5(implode('.', $criteria) . '_' . implode('.' , $fields) . '_' . implode('.', $blobFields));
+        if ($values = $this->_cache->get($key, 3600)) {
+            $values = json_decode($values, true);
+            return $count_only ? count($values) : $values;
+        }
 
         foreach ($this->_getAddressBook($fields) as $key => $contact) {
             // No search criteria, return full list.
@@ -122,6 +136,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 $results[$key] = $contact;
             }
         }
+        $this->_cache->set($key, json_encode($results));
 
         return $count_only ? count($results) : $results;
     }
@@ -134,12 +149,15 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
+     * @param array $dateFields  Array of fields containing date data.
+     *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blobFields = array())
+                             array $blobFields = array(),
+                             array $dateFields = array())
     {
         return $this->_getEntry($ids, $fields);
     }
@@ -149,10 +167,16 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getEntry(array $keys, array $fields)
     {
+        $key = 'turba_fb_getEntry|' . $GLOBALS['registry']->getAuth() . '|' . md5(implode('.', $keys) . '|' . implode('.', $fields));
+        if ($values = $this->_cache->get($key, 3600)) {
+            $values = json_decode($values, true);
+            return $values;
+        }
         $cleanfields = implode(', ', $this->_prepareFields($fields));
         $fql = 'SELECT ' . $cleanfields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
         try {
             $results = array($this->_fqlToTurba($fields, current($this->_facebook->fql->run($fql))));
+            $this->_cache->set($key, json_encode($results));
             return $results;
         } catch (Horde_Service_Facebook_Exception $e) {
             Horde::logMessage($e, 'ERR');
@@ -165,6 +189,10 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getAddressBook(array $fields = array())
     {
+        $key = 'turba_fb_getAddressBook|' . $GLOBALS['registry']->getAuth() . '|' . md5(implode('.', $fields));
+        if ($values = $this->_cache->get($key, 3600)) {
+            return json_decode($values, true);
+        }
         $cleanfields = implode(', ', $this->_prepareFields($fields));
         try {
             $fql = 'SELECT ' . $cleanfields . ' FROM user WHERE uid IN ('
@@ -183,6 +211,7 @@ class Turba_Driver_Facebook extends Turba_Driver
         foreach ($results as &$result) {
             $addressbook[$result['uid']] = $this->_fqlToTurba($fields, $result);
         }
+        $this->_cache->set($key, json_encode($addressbook));
 
         return $addressbook;
     }

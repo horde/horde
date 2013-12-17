@@ -124,7 +124,7 @@ class Turba_View_List implements Countable
         $this->columns = $columns;
         $this->list = $list;
         $this->setControls($controls);
-        $this->renderer = Horde_Core_Ui_VarRenderer::factory('Html');
+        $this->renderer = Horde_Core_Ui_VarRenderer::factory(array('turba', 'turba'));
         $this->vars = new Horde_Variables();
     }
 
