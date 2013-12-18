@@ -201,7 +201,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      */
     public function end()
     {
-        return $this->_base->endTable($this);
+        $this->_base->endTable($this);
     }
 
     /**

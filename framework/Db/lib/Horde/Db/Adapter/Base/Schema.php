@@ -566,7 +566,7 @@ abstract class Horde_Db_Adapter_Base_Schema
                         $tableDefinition->toSql(),
                         $opts);
 
-        return $this->execute($sql);
+        $this->execute($sql);
     }
 
     /**
