@@ -116,51 +116,51 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     protected function _extractValueFromDefault($default)
     {
         switch (true) {
+        case preg_match('/\A-?\d+(\.\d*)?\z/', $default):
             // Numeric types
-            case preg_match('/\A-?\d+(\.\d*)?\z/', $default):
-                return $default;
+            return $default;
+        case preg_match('/\A\'(.*)\'::(?:character varying|bpchar|text)\z/m', $default, $matches):
             // Character types
-            case preg_match('/\A\'(.*)\'::(?:character varying|bpchar|text)\z/m', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\AE\'(.*)\'::(?:character varying|bpchar|text)\z/m', $default, $matches):
             // Character types (8.1 formatting)
-            case preg_match('/\AE\'(.*)\'::(?:character varying|bpchar|text)\z/m', $default, $matches):
-                /*@TODO fix preg callback*/
-                return preg_replace('/\\(\d\d\d)/', '$1.oct.chr', $matches[1]);
+            /*@TODO fix preg callback*/
+            return preg_replace('/\\(\d\d\d)/', '$1.oct.chr', $matches[1]);
+        case preg_match('/\A\'(.*)\'::bytea\z/m', $default, $matches):
             // Binary data types
-            case preg_match('/\A\'(.*)\'::bytea\z/m', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A\'(.+)\'::(?:time(?:stamp)? with(?:out)? time zone|date)\z/', $default, $matches):
             // Date/time types
-            case preg_match('/\A\'(.+)\'::(?:time(?:stamp)? with(?:out)? time zone|date)\z/', $default, $matches):
-                return $matches[1];
-            case preg_match('/\A\'(.*)\'::interval\z/', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A\'(.*)\'::interval\z/', $default, $matches):
+            return $matches[1];
+        case $default == 'true':
             // Boolean type
-            case $default == 'true':
-                return true;
-            case $default == 'false':
-                return false;
+            return true;
+        case $default == 'false':
+            return false;
+        case preg_match('/\A\'(.*)\'::(?:point|line|lseg|box|"?path"?|polygon|circle)\z/', $default, $matches):
             // Geometric types
-            case preg_match('/\A\'(.*)\'::(?:point|line|lseg|box|"?path"?|polygon|circle)\z/', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A\'(.*)\'::(?:cidr|inet|macaddr)\z/', $default, $matches):
             // Network address types
-            case preg_match('/\A\'(.*)\'::(?:cidr|inet|macaddr)\z/', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\AB\'(.*)\'::"?bit(?: varying)?"?\z/', $default, $matches):
             // Bit string types
-            case preg_match('/\AB\'(.*)\'::"?bit(?: varying)?"?\z/', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A\'(.*)\'::xml\z/m', $default, $matches):
             // XML type
-            case preg_match('/\A\'(.*)\'::xml\z/m', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A\'(.*)\'::"?\D+"?\[\]\z/', $default, $matches):
             // Arrays
-            case preg_match('/\A\'(.*)\'::"?\D+"?\[\]\z/', $default, $matches):
-                return $matches[1];
+            return $matches[1];
+        case preg_match('/\A-?\d+\z/', $default, $matches):
             // Object identifier types
-            case preg_match('/\A-?\d+\z/', $default, $matches):
-                return $matches[1];
-            default:
-                // Anything else is blank, some user type, or some function
-                // and we can't know the value of that, so return nil.
-                return null;
+            return $matches[1];
+        default:
+            // Anything else is blank, some user type, or some function
+            // and we can't know the value of that, so return nil.
+            return null;
         }
     }
 
