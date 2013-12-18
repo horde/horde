@@ -12,6 +12,7 @@ var DragHandler = {
     // dropelt,
     // droptarget,
     // hoverclass,
+    // leave
 
     to: -1,
 
@@ -20,14 +21,25 @@ var DragHandler = {
         if (this.dropelt.hasClassName(this.hoverclass)) {
             this.dropelt.fire('DragHandler:drop', e);
         }
+        this.leave = true;
         this.hide();
         e.stop();
     },
 
     hide: function()
     {
-        this.dropelt.hide();
-        this.droptarget.show();
+        if (this.leave) {
+            this.dropelt.hide();
+            this.droptarget.show();
+            this.leave = false;
+        }
+    },
+
+    handleLeave: function(e)
+    {
+        clearTimeout(this.to);
+        this.to = this.hide.bind(this).delay(0.25);
+        this.leave = true;
     },
 
     handleOver: function(e)
@@ -37,8 +49,7 @@ var DragHandler = {
             this.droptarget.hide();
         }
 
-        clearTimeout(this.to);
-        this.to = this.hide.bind(this).delay(0.25);
+        this.leave = false;
 
         if (e.target == this.dropelt) {
             this.dropelt.addClassName(this.hoverclass);
@@ -51,5 +62,6 @@ var DragHandler = {
 
 };
 
+document.observe('dragleave', DragHandler.handleLeave.bindAsEventListener(DragHandler));
 document.observe('dragover', DragHandler.handleOver.bindAsEventListener(DragHandler));
 document.observe('drop', DragHandler.handleDrop.bindAsEventListener(DragHandler));
