@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
 * [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
 * [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
@@ -2245,6 +2246,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
 * [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
 * [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
