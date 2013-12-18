@@ -418,6 +418,27 @@ abstract class Horde_Db_Adapter_Base_Schema
     abstract public function columns($tableName, $name = null);
 
     /**
+     * Returns a table column.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     *
+     * @throws Horde_Db_Exception if column not found.
+     * @return Horde_Db_Adapter_Base_Column  A column object.
+     */
+    public function column($tableName, $columnName)
+    {
+        foreach ($this->columns($tableName) as $column) {
+            if ($column->getName() == $columnName) {
+                return $column;
+            }
+        }
+        throw new Horde_Db_Exception("$tableName does not have a column '$columnName'");
+    }
+
+    /**
      * Creates a new table.
      *
      * The $options hash can include the following keys:

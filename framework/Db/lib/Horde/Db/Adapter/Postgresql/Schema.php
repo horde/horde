@@ -529,16 +529,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             try {
                 // Booleans can't always be cast to other data types; do extra
                 // work to handle them.
-                $oldType = null;
-                foreach ($this->columns($tableName) as $column) {
-                    if ($column->getName() == $columnName) {
-                        $oldType = $column->getType();
-                        break;
-                    }
-                }
-                if ($oldType === null) {
-                    throw new Horde_Db_Exception("$tableName does not have a column '$columnName'");
-                }
+                $oldType = $this->column($tableName, $columnName)->getType();
 
                 $this->beginDbTransaction();
 
