@@ -54,47 +54,6 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
-
-        $table = $this->_conn->createTable('unit_tests');
-          $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
-          $table->column('string_value',    'string',   array('limit' => 255, 'default' => ''));
-          $table->column('text_value',      'text',     array('null' => false, 'default' => ''));
-          $table->column('float_value',     'float',    array('precision' => 2, 'scale' => 1, 'default' => 0.0));
-          $table->column('decimal_value',   'decimal',  array('precision' => 2, 'scale' => 1, 'default' => 0.0));
-          $table->column('datetime_value',  'datetime', array());
-          $table->column('date_value',      'date',     array());
-          $table->column('time_value',      'time',     array());
-          $table->column('blob_value',      'binary',   array('null' => false, 'default' => ''));
-          $table->column('boolean_value',   'boolean',  array('default' => false));
-          $table->column('email_value',     'string',   array('limit' => 255, 'default' => ''));
-        $table->end();
-        $this->_conn->addIndex('unit_tests', 'string_value', array('name' => 'string_value'));
-        $this->_conn->addIndex('unit_tests', 'integer_value', array('name' => 'integer_value', 'unique' => true));
-        $this->_conn->addIndex('unit_tests', array('integer_value', 'string_value'), array('name' => 'integer_string'));
-
-        // read sql file for statements
-        $statements = array();
-        $current_stmt = '';
-        $fp = fopen(__DIR__ . '/../fixtures/unit_tests.sql', 'r');
-        while ($line = fgets($fp, 8192)) {
-            $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
-            if (!$line) {
-                continue;
-            }
-
-            $current_stmt .= $line;
-
-            if (substr($line, -1) == ';') {
-                // leave off the ending ;
-                $statements[] = substr($current_stmt, 0, -1);
-                $current_stmt = '';
-            }
-        }
-
-        // run statements
-        foreach ($statements as $stmt) {
-            $this->_conn->insert($stmt);
-        }
     }
 
     protected function tearDown()
@@ -151,6 +110,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelect()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->select($sql);
         $this->assertInstanceOf('Traversable', $result);
@@ -163,6 +124,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectWithBoundParameters()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE id=?";
         $result = $this->_conn->select($sql, array(1));
         $this->assertInstanceOf('Traversable', $result);
@@ -175,6 +138,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectWithBoundParametersQuotesString()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE string_value=?";
         $result = $this->_conn->select($sql, array('name a'));
         $this->assertInstanceOf('Traversable', $result);
@@ -187,6 +152,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectAll()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->selectAll($sql);
         $this->assertInternalType('array', $result);
@@ -196,6 +163,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectOne()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->selectOne($sql);
         $this->assertArrayHasKey('id', $result);
@@ -204,6 +173,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectValue()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->selectValue($sql);
         $this->assertEquals(1, $result);
@@ -211,6 +182,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testSelectValues()
     {
+        $this->_createTable();
+
         $sql = "SELECT * FROM unit_tests";
         $result = $this->_conn->selectValues($sql);
         $this->assertEquals(array(1, 2, 3, 4, 5, 6), $result);
@@ -218,6 +191,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testInsert()
     {
+        $this->_createTable();
+
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
         $result = $this->_conn->insert($sql, null, null, null, 7);
 
@@ -226,6 +201,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testUpdate()
     {
+        $this->_createTable();
+
         $sql = "UPDATE unit_tests SET integer_value=999 WHERE id IN (1)";
         $result = $this->_conn->update($sql);
 
@@ -234,6 +211,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testDelete()
     {
+        $this->_createTable();
+
         $sql = "DELETE FROM unit_tests WHERE id IN (1,2)";
         $result = $this->_conn->delete($sql);
 
@@ -253,6 +232,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testTransactionCommit()
     {
+        $this->_createTable();
+
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
         $this->_conn->insert($sql, null, null, 'id', 7);
@@ -265,6 +246,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testTransactionRollback()
     {
+        $this->_createTable();
+
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
         $this->_conn->insert($sql, null, null, 'id', 7);
@@ -331,6 +314,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testTables()
     {
+        $this->_createTable();
+
         $tables = $this->_conn->tables();
         $this->assertTrue(count($tables) > 0);
         $this->assertContains('unit_tests', $tables);
@@ -338,6 +323,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testPrimaryKey()
     {
+        $this->_createTable();
+
         $pk = $this->_conn->primaryKey('unit_tests');
         $this->assertEquals('id', (string)$pk);
         $this->assertEquals(1, count($pk->columns));
@@ -365,6 +352,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testIndexes()
     {
+        $this->_createTable();
+
         $indexes = $this->_conn->indexes('unit_tests');
         $this->assertEquals(3, count($indexes));
 
@@ -395,6 +384,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     public function testColumns()
     {
+        $this->_createTable();
+
         $columns = $this->_conn->columns('unit_tests');
         $this->assertEquals(12, count($columns));
 
@@ -760,9 +751,50 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     # Protected
     ##########################################################################*/
 
-    /**
-     * Create table to perform tests on
-     */
+    protected function _createTable()
+    {
+        $table = $this->_conn->createTable('unit_tests');
+          $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
+          $table->column('string_value',    'string',   array('limit' => 255, 'default' => ''));
+          $table->column('text_value',      'text',     array('null' => false, 'default' => ''));
+          $table->column('float_value',     'float',    array('precision' => 2, 'default' => 0.0));
+          $table->column('decimal_value',   'decimal',  array('precision' => 2, 'scale' => 1, 'default' => 0.0));
+          $table->column('datetime_value',  'datetime', array());
+          $table->column('date_value',      'date',     array());
+          $table->column('time_value',      'time',     array());
+          $table->column('blob_value',      'binary',   array('null' => false, 'default' => ''));
+          $table->column('boolean_value',   'boolean',  array('default' => false));
+          $table->column('email_value',     'string',   array('limit' => 255, 'default' => ''));
+        $table->end();
+        $this->_conn->addIndex('unit_tests', 'string_value', array('name' => 'string_value'));
+        $this->_conn->addIndex('unit_tests', 'integer_value', array('name' => 'integer_value', 'unique' => true));
+        $this->_conn->addIndex('unit_tests', array('integer_value', 'string_value'), array('name' => 'integer_string'));
+
+        // read sql file for statements
+        $statements = array();
+        $current_stmt = '';
+        $fp = fopen(__DIR__ . '/../fixtures/unit_tests.sql', 'r');
+        while ($line = fgets($fp, 8192)) {
+            $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
+            if (!$line) {
+                continue;
+            }
+
+            $current_stmt .= $line;
+
+            if (substr($line, -1) == ';') {
+                // leave off the ending ;
+                $statements[] = substr($current_stmt, 0, -1);
+                $current_stmt = '';
+            }
+        }
+
+        // run statements
+        foreach ($statements as $stmt) {
+            $this->_conn->insert($stmt);
+        }
+    }
+
     protected function _createTestTable($name, $options = array())
     {
         $table = $this->_conn->createTable($name, $options);
