@@ -53,51 +53,61 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @param   string  $fieldType
-     * @return  string
      */
-    protected function _simplifiedType($fieldType)
+    protected function _setSimplifiedType()
     {
         switch (true) {
+        case preg_match('/^(?:real|double precision)$/', $this->_sqlType):
             // Numeric and monetary types
-            case preg_match('/^(?:real|double precision)$/', $fieldType):
-                return 'float';
+            $this->_type = 'float';
+            return;
+        case preg_match('/^money$/', $this->_sqlType):
             // Monetary types
-            case preg_match('/^money$/', $fieldType):
-                return 'decimal';
+            $this->_type = 'decimal';
+            return;
+        case preg_match('/^(?:character varying|bpchar)(?:\(\d+\))?$/', $this->_sqlType):
             // Character types
-            case preg_match('/^(?:character varying|bpchar)(?:\(\d+\))?$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^bytea$/', $this->_sqlType):
             // Binary data types
-            case preg_match('/^bytea$/', $fieldType):
-                return 'binary';
+            $this->_type = 'binary';
+            return;
+        case preg_match('/^timestamp with(?:out)? time zone$/', $this->_sqlType):
             // Date/time types
-            case preg_match('/^timestamp with(?:out)? time zone$/', $fieldType):
-                return 'datetime';
-            case preg_match('/^interval$/', $fieldType):
-                return 'string';
+            $this->_type = 'datetime';
+            return;
+        case preg_match('/^interval$/', $this->_sqlType):
+            $this->_type = 'string';
+            return;
+        case preg_match('/^(?:point|line|lseg|box|"?path"?|polygon|circle)$/', $this->_sqlType):
             // Geometric types
-            case preg_match('/^(?:point|line|lseg|box|"?path"?|polygon|circle)$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^(?:cidr|inet|macaddr)$/', $this->_sqlType):
             // Network address types
-            case preg_match('/^(?:cidr|inet|macaddr)$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^bit(?: varying)?(?:\(\d+\))?$/', $this->_sqlType):
             // Bit strings
-            case preg_match('/^bit(?: varying)?(?:\(\d+\))?$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^xml$/', $this->_sqlType):
             // XML type
-            case preg_match('/^xml$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^\D+\[\]$/', $this->_sqlType):
             // Arrays
-            case preg_match('/^\D+\[\]$/', $fieldType):
-                return 'string';
+            $this->_type = 'string';
+            return;
+        case preg_match('/^oid$/', $this->_sqlType):
             // Object identifier types
-            case preg_match('/^oid$/', $fieldType):
-                return 'integer';
+            $this->_type = 'integer';
+            return;
         }
 
         // Pass through all types that are not specific to PostgreSQL.
-        return parent::_simplifiedType($fieldType);
+        parent::_setSimplifiedType();
     }
 
     /**

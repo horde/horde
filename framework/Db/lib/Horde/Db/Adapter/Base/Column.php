@@ -64,7 +64,7 @@ class Horde_Db_Adapter_Base_Column
         $this->_scale     = $this->_extractScale($sqlType);
         $this->_unsigned  = $this->_extractUnsigned($sqlType);
 
-        $this->_type      = $this->_simplifiedType($sqlType);
+        $this->_setSimplifiedType();
         $this->_isText    = $this->_type == 'text'  || $this->_type == 'string';
         $this->_isNumber  = $this->_type == 'float' || $this->_type == 'integer' || $this->_type == 'decimal';
 
@@ -339,34 +339,43 @@ class Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @param   string  $fieldType
-     * @return  string
      */
-    protected function _simplifiedType($fieldType)
+    protected function _setSimplifiedType()
     {
         switch (true) {
-        case preg_match('/int/i', $fieldType):
-            return 'integer';
-        case preg_match('/float|double/i', $fieldType):
-            return 'float';
-        case preg_match('/decimal|numeric|number/i', $fieldType):
-            return $this->_scale == 0 ? 'integer' : 'decimal';
-        case preg_match('/datetime/i', $fieldType):
-            return 'datetime';
-        case preg_match('/timestamp/i', $fieldType):
-            return 'timestamp';
-        case preg_match('/time/i', $fieldType):
-            return 'time';
-        case preg_match('/date/i', $fieldType):
-            return 'date';
-        case preg_match('/clob|text/i', $fieldType):
-            return 'text';
-        case preg_match('/blob|binary/i', $fieldType):
-            return 'binary';
-        case preg_match('/char|string/i', $fieldType):
-            return 'string';
-        case preg_match('/boolean/i', $fieldType):
-            return 'boolean';
+        case preg_match('/int/i', $this->_sqlType):
+            $this->_type = 'integer';
+            return;
+        case preg_match('/float|double/i', $this->_sqlType):
+            $this->_type = 'float';
+            return;
+        case preg_match('/decimal|numeric|number/i', $this->_sqlType):
+            $this->_type = $this->_scale == 0 ? 'integer' : 'decimal';
+            return;
+        case preg_match('/datetime/i', $this->_sqlType):
+            $this->_type = 'datetime';
+            return;
+        case preg_match('/timestamp/i', $this->_sqlType):
+            $this->_type = 'timestamp';
+            return;
+        case preg_match('/time/i', $this->_sqlType):
+            $this->_type = 'time';
+            return;
+        case preg_match('/date/i', $this->_sqlType):
+            $this->_type = 'date';
+            return;
+        case preg_match('/clob|text/i', $this->_sqlType):
+            $this->_type = 'text';
+            return;
+        case preg_match('/blob|binary/i', $this->_sqlType):
+            $this->_type = 'binary';
+            return;
+        case preg_match('/char|string/i', $this->_sqlType):
+            $this->_type = 'string';
+            return;
+        case preg_match('/boolean/i', $this->_sqlType):
+            $this->_type = 'boolean';
+            return;
         }
     }
 }

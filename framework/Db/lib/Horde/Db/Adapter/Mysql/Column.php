@@ -51,17 +51,17 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @param   string  $fieldType
-     * @return  string
      */
-    protected function _simplifiedType($fieldType)
+    protected function _setSimplifiedType()
     {
-        if (strpos(Horde_String::lower($fieldType), 'tinyint(1)') !== false) {
-            return 'boolean';
-        } elseif (preg_match('/enum/i', $fieldType)) {
-            return 'string';
+        if (strpos(Horde_String::lower($this->_sqlType), 'tinyint(1)') !== false) {
+            $this->_type = 'boolean';
+            return;
+        } elseif (preg_match('/enum/i', $this->_sqlType)) {
+            $this->_type = 'string';
+            return;
         }
-        return parent::_simplifiedType($fieldType);
+        parent::_setSimplifiedType();
     }
 
     /**
