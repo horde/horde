@@ -319,6 +319,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * is called before each insert to set the record's primary key.
      * This is false for all adapters but Firebird.
      *
+     * @deprecated
      * @return boolean
      */
     public function prefetchPrimaryKey($tableName = null)
