@@ -18,15 +18,10 @@ CKEDITOR.plugins.add('pasteattachment', {
             if (r.success) {
                 iframe = editor.getThemeSpace('contents').$.down('IFRAME');
                 Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
-                    var img = new Element('IMG');
-                    img.onload = function() {
-                        elt.parentNode.replaceChild(img, elt);
-                    };
-                    img.writeAttribute('src', r.img.src);
-                    img.writeAttribute(r.img.related[0], r.img.related[1]);
+                    elt.setAttribute(r.img.related[0], r.img.related[1]);
                     if (r.img.height) {
-                        img.writeAttribute('height', r.img.height);
-                        img.writeAttribute('width', r.img.width);
+                        elt.setAttribute('height', r.img.height);
+                        elt.setAttribute('width', r.img.width);
                     }
                 });
             }

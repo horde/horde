@@ -458,6 +458,15 @@ var DimpCompose = {
             }
 
             this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+            this.rte.on('getData', function(evt) {
+                var elt = new Element('SPAN').insert(evt.data.dataValue),
+                    elts = elt.select('IMG[dropatc_id]');
+                if (elts.size()) {
+                    elts.invoke('writeAttribute', 'dropatc_id', null);
+                    elts.invoke('writeAttribute', 'src', null);
+                    evt.data.dataValue = evt.editor.dataProcessor.toDataFormat(elt.innerHTML);
+                }
+            }.bind(this));
 
             if ($('signature')) {
                 tmp = $F('signature');
