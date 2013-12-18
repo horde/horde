@@ -464,7 +464,7 @@ var DimpCompose = {
                 if (elts.size()) {
                     elts.invoke('writeAttribute', 'dropatc_id', null);
                     elts.invoke('writeAttribute', 'src', null);
-                    evt.data.dataValue = evt.editor.dataProcessor.toDataFormat(elt.innerHTML);
+                    evt.data.dataValue = elt.innerHTML;
                 }
             }.bind(this));
 
