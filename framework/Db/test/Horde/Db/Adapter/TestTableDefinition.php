@@ -22,7 +22,7 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_TableDefinition
+class Horde_Db_Adapter_TestTableDefinition
 {
     public function testConstruct()
     {

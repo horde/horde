@@ -33,7 +33,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_TestBase
             $conn->disconnect();
         }
         self::$_columnTest = new Horde_Db_Adapter_Postgresql_ColumnDefinition();
-        self::$_tableTest = new Horde_Db_Adapter_Postgresql_TableDefinition();
+        self::$_tableTest = new Horde_Db_Adapter_Postgresql_TestTableDefinition();
     }
 
     protected static function _getConnection($overrides = array())

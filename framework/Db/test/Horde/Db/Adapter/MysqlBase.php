@@ -42,7 +42,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
             $conn->disconnect();
         }
         self::$_columnTest = new Horde_Db_Adapter_Mysql_ColumnDefinition();
-        self::$_tableTest = new Horde_Db_Adapter_Mysql_TableDefinition();
+        self::$_tableTest = new Horde_Db_Adapter_Mysql_TestTableDefinition();
     }
 
 

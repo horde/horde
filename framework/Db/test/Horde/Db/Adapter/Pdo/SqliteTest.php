@@ -33,7 +33,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
             $conn->disconnect();
         }
         self::$_columnTest = new Horde_Db_Adapter_Sqlite_ColumnDefinition();
-        self::$_tableTest = new Horde_Db_Adapter_Sqlite_TableDefinition();
+        self::$_tableTest = new Horde_Db_Adapter_Sqlite_TestTableDefinition();
     }
 
     protected static function _getConnection($overrides = array())

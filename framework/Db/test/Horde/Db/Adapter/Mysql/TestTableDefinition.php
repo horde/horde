@@ -22,6 +22,6 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Postgresql_TableDefinition extends Horde_Db_Adapter_TableDefinition
+class Horde_Db_Adapter_Mysql_TestTableDefinition extends Horde_Db_Adapter_TestTableDefinition
 {
 }

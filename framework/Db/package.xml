@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-12</date>
+ <date>2013-12-18</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -125,7 +125,7 @@
        <dir name="Mysql">
         <file name="ColumnDefinition.php" role="test" />
         <file name="ColumnTest.php" role="test" />
-        <file name="TableDefinition.php" role="test" />
+        <file name="TestTableDefinition.php" role="test" />
        </dir> <!-- /test/Horde/Db/Adapter/Mysql -->
        <dir name="Pdo">
         <file name="MysqlTest.php" role="test" />
@@ -135,18 +135,20 @@
        <dir name="Postgresql">
         <file name="ColumnDefinition.php" role="test" />
         <file name="ColumnTest.php" role="test" />
-        <file name="TableDefinition.php" role="test" />
+        <file name="TestTableDefinition.php" role="test" />
        </dir> <!-- /test/Horde/Db/Adapter/Postgresql -->
        <dir name="Sqlite">
         <file name="ColumnDefinition.php" role="test" />
         <file name="ColumnTest.php" role="test" />
-        <file name="TableDefinition.php" role="test" />
+        <file name="TestTableDefinition.php" role="test" />
        </dir> <!-- /test/Horde/Db/Adapter/Sqlite -->
+       <file name="ColumnBase.php" role="test" />
        <file name="conf.php.dist" role="test" />
        <file name="MysqlBase.php" role="test" />
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
        <file name="TestBase.php" role="test" />
+       <file name="TestTableDefinition.php" role="test" />
       </dir> <!-- /test/Horde/Db/Adapter -->
       <dir name="fixtures">
        <dir name="charsets">
@@ -314,23 +316,25 @@
    <install as="Horde/Db/bootstrap.php" name="test/Horde/Db/bootstrap.php" />
    <install as="Horde/Db/phpunit.xml" name="test/Horde/Db/phpunit.xml" />
    <install as="Horde/Db/StatementParserTest.php" name="test/Horde/Db/StatementParserTest.php" />
+   <install as="Horde/Db/Adapter/ColumnBase.php" name="test/Horde/Db/Adapter/ColumnBase.php" />
    <install as="Horde/Db/Adapter/conf.php.dist" name="test/Horde/Db/Adapter/conf.php.dist" />
    <install as="Horde/Db/Adapter/MysqlBase.php" name="test/Horde/Db/Adapter/MysqlBase.php" />
    <install as="Horde/Db/Adapter/MysqliTest.php" name="test/Horde/Db/Adapter/MysqliTest.php" />
    <install as="Horde/Db/Adapter/MysqlTest.php" name="test/Horde/Db/Adapter/MysqlTest.php" />
    <install as="Horde/Db/Adapter/TestBase.php" name="test/Horde/Db/Adapter/TestBase.php" />
+   <install as="Horde/Db/Adapter/TestTableDefinition.php" name="test/Horde/Db/Adapter/TestTableDefinition.php" />
    <install as="Horde/Db/Adapter/Mysql/ColumnDefinition.php" name="test/Horde/Db/Adapter/Mysql/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Mysql/ColumnTest.php" name="test/Horde/Db/Adapter/Mysql/ColumnTest.php" />
-   <install as="Horde/Db/Adapter/Mysql/TableDefinition.php" name="test/Horde/Db/Adapter/Mysql/TableDefinition.php" />
+   <install as="Horde/Db/Adapter/Mysql/TestTableDefinition.php" name="test/Horde/Db/Adapter/Mysql/TestTableDefinition.php" />
    <install as="Horde/Db/Adapter/Pdo/MysqlTest.php" name="test/Horde/Db/Adapter/Pdo/MysqlTest.php" />
    <install as="Horde/Db/Adapter/Pdo/PgsqlTest.php" name="test/Horde/Db/Adapter/Pdo/PgsqlTest.php" />
    <install as="Horde/Db/Adapter/Pdo/SqliteTest.php" name="test/Horde/Db/Adapter/Pdo/SqliteTest.php" />
    <install as="Horde/Db/Adapter/Postgresql/ColumnDefinition.php" name="test/Horde/Db/Adapter/Postgresql/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Postgresql/ColumnTest.php" name="test/Horde/Db/Adapter/Postgresql/ColumnTest.php" />
-   <install as="Horde/Db/Adapter/Postgresql/TableDefinition.php" name="test/Horde/Db/Adapter/Postgresql/TableDefinition.php" />
+   <install as="Horde/Db/Adapter/Postgresql/TestTableDefinition.php" name="test/Horde/Db/Adapter/Postgresql/TestTableDefinition.php" />
    <install as="Horde/Db/Adapter/Sqlite/ColumnDefinition.php" name="test/Horde/Db/Adapter/Sqlite/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Sqlite/ColumnTest.php" name="test/Horde/Db/Adapter/Sqlite/ColumnTest.php" />
-   <install as="Horde/Db/Adapter/Sqlite/TableDefinition.php" name="test/Horde/Db/Adapter/Sqlite/TableDefinition.php" />
+   <install as="Horde/Db/Adapter/Sqlite/TestTableDefinition.php" name="test/Horde/Db/Adapter/Sqlite/TestTableDefinition.php" />
    <install as="Horde/Db/fixtures/drop_create_table.sql" name="test/Horde/Db/fixtures/drop_create_table.sql" />
    <install as="Horde/Db/fixtures/unit_tests.sql" name="test/Horde/Db/fixtures/unit_tests.sql" />
    <install as="Horde/Db/fixtures/charsets/cp1257.txt" name="test/Horde/Db/fixtures/charsets/cp1257.txt" />
@@ -721,7 +725,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-17</date>
+   <date>2013-12-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Horde_Db_Adapter_Base_Schema#column() method.
