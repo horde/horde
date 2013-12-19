@@ -58,11 +58,13 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     protected function tearDown()
     {
-        // clean up
-        $this->_dropTestTables();
+        if ($this->_conn) {
+            // clean up
+            $this->_dropTestTables();
 
-        // close connection
-        $this->_conn->disconnect();
+            // close connection
+            $this->_conn->disconnect();
+        }
     }
 
 
