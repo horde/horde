@@ -124,7 +124,6 @@ extends Horde_Kolab_Storage_Driver_Base
     public function hasAclSupport()
     {
         try {
-            $this->getBackend()->login();
             return $this->getBackend()->queryCapability('ACL');
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
@@ -272,7 +271,6 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAnnotation($folder, $annotation, $value)
     {
         try {
-            $this->getBackend()->login();
             return $this->getBackend()->setMetadata(
                 $folder, array($annotation => $value)
             );
@@ -294,7 +292,6 @@ extends Horde_Kolab_Storage_Driver_Base
             return parent::getNamespace();
         }
         try {
-            $this->getBackend()->login();
             if ($this->getBackend()->queryCapability('NAMESPACE') === true) {
                 $c = array();
                 $configuration = $this->getParam('namespaces', array());
