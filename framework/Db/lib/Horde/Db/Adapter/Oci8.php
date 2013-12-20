@@ -92,7 +92,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             $this->_config['username'],
             isset($this->_config['password']) ? $this->_config['password'] : '',
             $connection,
-            $this->_config['charset']
+            $this->_oracleCharsetName($this->_config['charset'])
         );
         if (!$oci) {
             if ($error = oci_error()) {
@@ -388,6 +388,75 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
     /*#########################################################################
     # Protected
     #########################################################################*/
+
+    /**
+     * Returns the Oracle name of a character set.
+     *
+     * @param string $charset  A charset name.
+     *
+     * @return string  Oracle-normalized charset.
+     */
+    public function _oracleCharsetName($charset)
+    {
+        return str_replace(
+            array(
+                'iso-8859-1',
+                'iso-8859-2',
+                'iso-8859-4',
+                'iso-8859-5',
+                'iso-8859-6',
+                'iso-8859-7',
+                'iso-8859-8',
+                'iso-8859-9',
+                'iso-8859-1',
+                'iso-8859-10',
+                'iso-8859-13',
+                'iso-8859-15',
+                'shift_jis',
+                'shift-jis',
+                'windows-949',
+                'windows-950',
+                'windows-1250',
+                'windows-1251',
+                'windows-1252',
+                'windows-1253',
+                'windows-1254',
+                'windows-1255',
+                'windows-1256',
+                'windows-1257',
+                'windows-1258',
+                'utf-8',
+            ),
+            array(
+                'WE8ISO8859P1',
+                'EE8ISO8859P2',
+                'NEE8ISO8859P4',
+                'CL8ISO8859P5',
+                'AR8ISO8859P6',
+                'EL8ISO8859P7',
+                'IW8ISO8859P8',
+                'WE8ISO8859P9',
+                'NE8ISO8859P10',
+                'BLT8ISO8859P13',
+                'WE8ISO8859P15',
+                'JA16SJIS',
+                'JA16SJIS',
+                'KO16MSWIN949',
+                'ZHT16MSWIN950',
+                'EE8MSWIN1250',
+                'CL8MSWIN1251',
+                'WE8MSWIN1252',
+                'EL8MSWIN1253',
+                'TR8MSWIN1254',
+                'IW8MSWIN1255',
+                'AR8MSWIN1256',
+                'BLT8MSWIN1257',
+                'VN8MSWIN1258',
+                'AL32UTF8',
+            ),
+            Horde_String::lower($charset)
+        );
+    }
 
     /**
      * Creates a formatted error message from a oci_error() result hash.
