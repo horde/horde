@@ -367,10 +367,15 @@ class Horde_ActiveSync_Imap_Adapter
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_BEFORE);
                 $query->ids(new Horde_Imap_Client_Ids($folder->messages()));
-                $search_ret = $imap->search(
-                    $mbox,
-                    $query,
-                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+                try {
+                    $search_ret = $imap->search(
+                        $mbox,
+                        $query,
+                        array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
                 if ($search_ret['count']) {
                     $this->_logger->info(sprintf(
                         '[%s] Found %d messages to SOFTDELETE.',
@@ -424,16 +429,26 @@ class Horde_ActiveSync_Imap_Adapter
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
-            $search_ret = $imap->search(
-                $mbox,
-                $query,
-                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+            try {
+                $search_ret = $imap->search(
+                    $mbox,
+                    $query,
+                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+            } catch (Horde_Imap_Client_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_ActiveSync_Exception($e);
+            }
 
             if (count($search_ret['match']->ids)) {
                 // Update flags.
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
+                try {
+                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
