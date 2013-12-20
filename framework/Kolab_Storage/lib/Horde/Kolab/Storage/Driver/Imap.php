@@ -253,7 +253,6 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getAnnotation($folder, $annotation)
     {
         try {
-            $this->getBackend()->login();
             $result = $this->getBackend()->getMetadata($folder, $annotation);
         } catch (Exception $e) {
             return '';
