@@ -128,7 +128,7 @@ class Horde_Imap_Client_Socket_Connection_Socket extends Horde\Socket\Client
                 while (($in = fgets($this->_stream)) !== false) {
                     $got_data = true;
 
-                    if (substr($in, -1) == "\n") {
+                    if (substr($in, -1) === "\n") {
                         $in = rtrim($in);
                         $this->_params['debug']->server($buffer . $in);
                         $token->add($in);

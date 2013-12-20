@@ -110,7 +110,7 @@ class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, Iterato
      */
     public function first()
     {
-        return (count($this->_data) == 1)
+        return (count($this->_data) === 1)
             ? reset($this->_data)
             : null;
     }

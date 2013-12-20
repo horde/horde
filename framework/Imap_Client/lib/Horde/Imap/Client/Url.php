@@ -228,7 +228,7 @@ class Horde_Imap_Client_Url implements Serializable
         if (isset($data['user'])) {
             if (($pos = stripos($data['user'], ';AUTH=')) !== false) {
                 $auth = substr($data['user'], $pos + 6);
-                if ($auth != '*') {
+                if ($auth !== '*') {
                     $this->auth = $auth;
                 }
                 $data['user'] = substr($data['user'], 0, $pos);

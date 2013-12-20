@@ -100,9 +100,9 @@ class Horde_Imap_Client_Utf7imap
 
         for ($i = 0, $u7len = strlen($str); $u7len > 0; ++$i, --$u7len) {
             $u7 = $str[$i];
-            if ($u7 == '&') {
+            if ($u7 === '&') {
                 $u7 = $str[++$i];
-                if (--$u7len && ($u7 == '-')) {
+                if (--$u7len && ($u7 === '-')) {
                     $p .= '&';
                     continue;
                 }
@@ -112,7 +112,7 @@ class Horde_Imap_Client_Utf7imap
                 for (; $u7len > 0; ++$i, --$u7len) {
                     $u7 = $str[$i];
 
-                    if ((ord($u7) & 0x80) || ($b = $ptr[ord($u7)]) == -1) {
+                    if ((ord($u7) & 0x80) || ($b = $ptr[ord($u7)]) === -1) {
                         break;
                     }
 
@@ -145,10 +145,10 @@ class Horde_Imap_Client_Utf7imap
                  * Base64 not properly terminated -OR-
                  * Adjacent Base64 sections. */
                 if (($ch || ($k < 6)) ||
-                    (!$u7len || $u7 != '-') ||
+                    (!$u7len || $u7 !== '-') ||
                     (($u7len > 2) &&
-                     ($str[$i + 1] == '&') &&
-                     ($str[$i + 2] != '-'))) {
+                     ($str[$i + 1] === '&') &&
+                     ($str[$i + 2] !== '-'))) {
                     throw new Horde_Imap_Client_Exception(Horde_Imap_Client_Translation::t("Error converting UTF7-IMAP string."), Horde_Imap_Client_Exception::UTF7IMAP_CONVERSION);
                 }
             } elseif ((ord($u7) < 0x20) || (ord($u7) >= 0x7f)) {
@@ -240,7 +240,7 @@ class Horde_Imap_Client_Utf7imap
 
             for ($j = 0; $j < $n; ++$j) {
                 $o = ord($str[$i + $j]);
-                if (($o & 0xc0) != 0x80) {
+                if (($o & 0xc0) !== 0x80) {
                     throw new Horde_Imap_Client_Exception(Horde_Imap_Client_Translation::t("Error converting UTF7-IMAP string."), Horde_Imap_Client_Exception::UTF7IMAP_CONVERSION);
                 }
                 $ch = ($ch << 6) | ($o & 0x3f);
@@ -283,7 +283,7 @@ class Horde_Imap_Client_Utf7imap
                 }
 
                 $p .= chr($ch);
-                if (chr($ch) == '&') {
+                if (chr($ch) === '&') {
                     $p .= '-';
                 }
             }

@@ -1816,7 +1816,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        if (!$opts['sort'] || (count($ret) == 1)) {
+        if (!$opts['sort'] || (count($ret) === 1)) {
             return $ret_array
                 ? $ret
                 : reset($ret);
@@ -2318,7 +2318,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * ALL messages, we can send status information instead. Can't
          * optimize with unseen queries because we may cause an infinite loop
          * between here and the status() call. */
-        if ((count($options['results']) == 1) &&
+        if ((count($options['results']) === 1) &&
             (reset($options['results']) == Horde_Imap_Client::SEARCH_RESULTS_COUNT)) {
             switch ($options['_query']['query']) {
             case 'ALL':
@@ -3279,7 +3279,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($options['rights'])) {
             if (!isset($options['action']) ||
-                ($options['action'] != 'add' && $options['action'] != 'remove')) {
+                (($options['action'] != 'add') &&
+                 $options['action'] != 'remove')) {
                 $this->_deleteACL(
                     Horde_Imap_Client_Mailbox::get($mailbox),
                     Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier)
@@ -3600,7 +3601,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox.
      * @param Horde_Imap_Client_Ids $ids          The Ids object.
-     * @param boolean $convert                    Convert to UIDs?
+     * @param integer $convert                    Convert to UIDs?
      *   - 0: No
      *   - 1: Only if $ids is not already a UIDs object
      *   - 2: Always
@@ -3631,7 +3632,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
              * outweighed by the complexities needed to make the search and
              * then merge back into the original results. */
             $lookup = $map->lookup($ids);
-            if (count($lookup) == count($ids)) {
+            if (count($lookup) === count($ids)) {
                 return $this->getIdsOb(array_values($lookup));
             }
         }
@@ -3693,7 +3694,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 ));
                 $s_charset[$charset] = true;
             } catch (Horde_Imap_Client_Exception $e) {
-                $s_charset[$charset] = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
+                $s_charset[$charset] = ($e->getCode() !== Horde_Imap_Client_Exception::BADCHARSET);
             }
 
             $this->_setInit('s_charset', $s_charset);

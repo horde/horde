@@ -1261,9 +1261,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $orig_read = $this->_connection->read();
             $read = rtrim($orig_read, "\r\n");
 
-            if ($read == '.') {
+            if ($read === '.') {
                 break;
-            } elseif (substr($read, 0, 2) == '..') {
+            } elseif (substr($read, 0, 2) === '..') {
                 $read = substr($read, 1);
             }
 
@@ -1311,7 +1311,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $ret = new stdClass;
 
         $text = trim($text);
-        if ($text[0] == '[') {
+        if ($text[0] === '[') {
             $pos = strpos($text, ' ', 2);
             $end_pos = strpos($text, ']', 2);
             if ($pos > $end_pos) {

@@ -250,7 +250,7 @@ class Horde_Imap_Client_Socket_ClientSort
                 // At this point, keys of $sorted are sequence/UID and values
                 // are the sort strings
                 if (!empty($sorted)) {
-                    if (count($sorted) == count($res)) {
+                    if (count($sorted) === count($res)) {
                         $res = array_keys($sorted);
                     } else {
                         array_splice($res, $slice_start, count($slice), array_keys($sorted));

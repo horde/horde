@@ -35,7 +35,7 @@ class Horde_Imap_Client_Data_Format_Atom extends Horde_Imap_Client_Data_Format
      */
     public function verify()
     {
-        if (strlen($this->_data) != strlen($this->stripNonAtomCharacters())) {
+        if (strlen($this->_data) !== strlen($this->stripNonAtomCharacters())) {
             throw new Horde_Imap_Client_Data_Format_Exception('Illegal character in IMAP atom.');
         }
     }

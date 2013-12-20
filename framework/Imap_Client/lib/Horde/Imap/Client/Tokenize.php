@@ -131,7 +131,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
                     break;
                 }
 
-                if (!is_bool($curr) && ($level == $this->_level)) {
+                if (!is_bool($curr) && ($level === $this->_level)) {
                     $out[] = $curr;
                 }
             } while (($curr !== false) || $this->_level || !$this->eos);
@@ -160,13 +160,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
     public function getLiteralLength()
     {
         fseek($this->_stream->stream, -1, SEEK_END);
-        if ($this->_stream->peek() == '}') {
+        if ($this->_stream->peek() === '}') {
             $literal_data = $this->_stream->getString($this->_stream->search('{', true) - 1);
             $literal_len = substr($literal_data, 2, -1);
 
             if (is_numeric($literal_len)) {
                 return array(
-                    'binary' => ($literal_data[0] == '~'),
+                    'binary' => ($literal_data[0] === '~'),
                     'length' => intval($literal_len)
                 );
             }

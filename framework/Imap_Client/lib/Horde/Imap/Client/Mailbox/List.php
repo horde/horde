@@ -115,7 +115,7 @@ class Horde_Imap_Client_Mailbox_List implements Countable, IteratorAggregate
             if ($a_parts[$i] != $b_parts[$i]) {
                 /* If only one of the folders is under INBOX, return it as
                  * "smaller". */
-                if ($this->_sortinbox && ($i == 0)) {
+                if ($this->_sortinbox && ($i === 0)) {
                     $a_base = (strcasecmp($a_parts[0], 'INBOX') === 0);
                     $b_base = (strcasecmp($b_parts[0], 'INBOX') === 0);
                     if ($a_base && !$b_base) {
@@ -126,7 +126,7 @@ class Horde_Imap_Client_Mailbox_List implements Countable, IteratorAggregate
                 }
 
                 $cmp = strnatcasecmp($a_parts[$i], $b_parts[$i]);
-                return ($cmp == 0)
+                return ($cmp === 0)
                     ? strcmp($a_parts[$i], $b_parts[$i])
                     : $cmp;
             } elseif ($a_parts[$i] !== $b_parts[$i]) {

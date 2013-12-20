@@ -36,7 +36,7 @@ class Horde_Imap_Client_DateTime extends DateTime
         } catch (Exception $e) {}
 
         /* Bug #5717 - Check for UT vs. UTC. */
-        if (substr(rtrim($time), -3) == ' UT') {
+        if (substr(rtrim($time), -3) === ' UT') {
             try {
                 parent::__construct($time . 'C', $tz);
                 return;
@@ -73,7 +73,7 @@ class Horde_Imap_Client_DateTime extends DateTime
      */
     public function error()
     {
-        return ($this->format('U') == -1);
+        return ($this->format('U') === -1);
     }
 
 }
