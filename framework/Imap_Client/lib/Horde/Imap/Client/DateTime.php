@@ -73,7 +73,7 @@ class Horde_Imap_Client_DateTime extends DateTime
      */
     public function error()
     {
-        return ($this->format('U') === -1);
+        return (intval($this->format('U')) === -1);
     }
 
 }
