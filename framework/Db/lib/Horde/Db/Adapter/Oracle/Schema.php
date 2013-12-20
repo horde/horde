@@ -535,7 +535,20 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexName($tableName, $options = array())
     {
-        return substr(parent::indexName($tableName, $options), 0, 30);
+        $index = parent::indexName($tableName, $options);
+        if (strlen($index) > 30) {
+            $index = implode(
+                '_',
+                array_map(
+                    function($t)
+                    {
+                        return substr($t, 0, 3);
+                    },
+                    explode('_', $index)
+                )
+            );
+        }
+        return substr($index, 0, 30);
     }
 
     /**
