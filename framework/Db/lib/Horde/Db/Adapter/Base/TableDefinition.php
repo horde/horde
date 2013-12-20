@@ -69,8 +69,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     public function primaryKey($name)
     {
         if (is_scalar($name) && $name !== false) {
-            $natives = $this->_native();
-            $this->column($name, $natives['autoincrementKey']);
+            $this->column($name, 'autoincrementKey');
         }
 
         $this->_primaryKey = $name;
@@ -97,12 +96,15 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *                        autoincrementKey, string, text, integer, float,
      *                        datetime, timestamp, time, date, binary, boolean.
      * @param array $options  Column options:
-     *                        - limit: (integer) Maximum column length (string,
-     *                          text, binary or integer columns only)
+     *                        - autoincrement: (boolean) Whether the column is
+     *                          an autoincrement column. Restrictions are
+     *                          RDMS specific.
      *                        - default: (mixed) The column's default value.
      *                          You cannot explicitly set the default value to
      *                          NULL. Simply leave off this option if you want
      *                          a NULL default value.
+     *                        - limit: (integer) Maximum column length (string,
+     *                          text, binary or integer columns only)
      *                        - null: (boolean) Whether NULL values are allowed
      *                          in the column.
      *                        - precision: (integer) The number precision
@@ -111,9 +113,6 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *                          columns only).
      *                        - unsigned: (boolean) Whether the column is an
      *                          unsigned number (integer columns only).
-     *                        - autoincrement: (boolean) Whether the column is
-     *                          an autoincrement column. Restrictions are
-     *                          RDMS specific.
      *
      * @return Horde_Db_Adapter_Base_TableDefinition  This object.
      */
