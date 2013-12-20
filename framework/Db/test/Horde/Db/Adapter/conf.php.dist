@@ -16,3 +16,6 @@ $conf['db']['adapter']['pdo']['mysql']['test']['dbname'] = 'test';
 $conf['db']['adapter']['pdo']['pgsql']['test']['username'] = '';
 $conf['db']['adapter']['pdo']['pgsql']['test']['password'] = '';
 $conf['db']['adapter']['pdo']['pgsql']['test']['dbname'] = 'test';
+$conf['db']['adapter']['oci8']['test']['host'] = 'localhost';
+$conf['db']['adapter']['oci8']['test']['username'] = 'test';
+$conf['db']['adapter']['oci8']['test']['password'] = '';

@@ -188,6 +188,7 @@ abstract class Horde_Db_Adapter_ColumnBase extends Horde_Test_Case
         $this->assertEquals(null, $col->getLimit());
     }
 
+
     /*##########################################################################
     # Extract Precision/Scale
     ##########################################################################*/

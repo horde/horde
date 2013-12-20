@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-18</date>
+ <date>2013-12-20</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Add Oracle driver (Request #11974).
 * [jan] Add Horde_Db_Adapter_Base_Schema#column() method.
 * [jan] Always re-throw PDOExceptions as Horde_Db_Exceptions.
 * [jan] Fix issues with active Turkish locale.
@@ -81,6 +82,12 @@
        <dir name="Mysqli">
         <file name="Result.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysqli -->
+       <dir name="Oracle">
+        <file name="Column.php" role="php" />
+        <file name="Result.php" role="php" />
+        <file name="Schema.php" role="php" />
+        <file name="TableDefinition.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Oracle -->
        <dir name="Pdo">
         <file name="Base.php" role="php" />
         <file name="Mysql.php" role="php" />
@@ -99,6 +106,7 @@
        <file name="Base.php" role="php" />
        <file name="Mysql.php" role="php" />
        <file name="Mysqli.php" role="php" />
+       <file name="Oci8.php" role="php" />
        <file name="SplitRead.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
       <dir name="Migration">
@@ -127,6 +135,11 @@
         <file name="ColumnTest.php" role="test" />
         <file name="TestTableDefinition.php" role="test" />
        </dir> <!-- /test/Horde/Db/Adapter/Mysql -->
+       <dir name="Oracle">
+        <file name="ColumnDefinition.php" role="test" />
+        <file name="ColumnTest.php" role="test" />
+        <file name="TestTableDefinition.php" role="test" />
+       </dir> <!-- /test/Horde/Db/Adapter/Oracle -->
        <dir name="Pdo">
         <file name="MysqlTest.php" role="test" />
         <file name="PgsqlTest.php" role="test" />
@@ -147,6 +160,7 @@
        <file name="MysqlBase.php" role="test" />
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
+       <file name="Oci8Test.php" role="test" />
        <file name="TestBase.php" role="test" />
        <file name="TestTableDefinition.php" role="test" />
       </dir> <!-- /test/Horde/Db/Adapter -->
@@ -287,6 +301,7 @@
    <install as="Horde/Db/Adapter/Base.php" name="lib/Horde/Db/Adapter/Base.php" />
    <install as="Horde/Db/Adapter/Mysql.php" name="lib/Horde/Db/Adapter/Mysql.php" />
    <install as="Horde/Db/Adapter/Mysqli.php" name="lib/Horde/Db/Adapter/Mysqli.php" />
+   <install as="Horde/Db/Adapter/Oci8.php" name="lib/Horde/Db/Adapter/Oci8.php" />
    <install as="Horde/Db/Adapter/SplitRead.php" name="lib/Horde/Db/Adapter/SplitRead.php" />
    <install as="Horde/Db/Adapter/Base/Column.php" name="lib/Horde/Db/Adapter/Base/Column.php" />
    <install as="Horde/Db/Adapter/Base/ColumnDefinition.php" name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" />
@@ -299,6 +314,10 @@
    <install as="Horde/Db/Adapter/Mysql/Result.php" name="lib/Horde/Db/Adapter/Mysql/Result.php" />
    <install as="Horde/Db/Adapter/Mysql/Schema.php" name="lib/Horde/Db/Adapter/Mysql/Schema.php" />
    <install as="Horde/Db/Adapter/Mysqli/Result.php" name="lib/Horde/Db/Adapter/Mysqli/Result.php" />
+   <install as="Horde/Db/Adapter/Oracle/Column.php" name="lib/Horde/Db/Adapter/Oracle/Column.php" />
+   <install as="Horde/Db/Adapter/Oracle/Result.php" name="lib/Horde/Db/Adapter/Oracle/Result.php" />
+   <install as="Horde/Db/Adapter/Oracle/Schema.php" name="lib/Horde/Db/Adapter/Oracle/Schema.php" />
+   <install as="Horde/Db/Adapter/Oracle/TableDefinition.php" name="lib/Horde/Db/Adapter/Oracle/TableDefinition.php" />
    <install as="Horde/Db/Adapter/Pdo/Base.php" name="lib/Horde/Db/Adapter/Pdo/Base.php" />
    <install as="Horde/Db/Adapter/Pdo/Mysql.php" name="lib/Horde/Db/Adapter/Pdo/Mysql.php" />
    <install as="Horde/Db/Adapter/Pdo/Pgsql.php" name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" />
@@ -321,11 +340,15 @@
    <install as="Horde/Db/Adapter/MysqlBase.php" name="test/Horde/Db/Adapter/MysqlBase.php" />
    <install as="Horde/Db/Adapter/MysqliTest.php" name="test/Horde/Db/Adapter/MysqliTest.php" />
    <install as="Horde/Db/Adapter/MysqlTest.php" name="test/Horde/Db/Adapter/MysqlTest.php" />
+   <install as="Horde/Db/Adapter/Oci8Test.php" name="test/Horde/Db/Adapter/Oci8Test.php" />
    <install as="Horde/Db/Adapter/TestBase.php" name="test/Horde/Db/Adapter/TestBase.php" />
    <install as="Horde/Db/Adapter/TestTableDefinition.php" name="test/Horde/Db/Adapter/TestTableDefinition.php" />
    <install as="Horde/Db/Adapter/Mysql/ColumnDefinition.php" name="test/Horde/Db/Adapter/Mysql/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Mysql/ColumnTest.php" name="test/Horde/Db/Adapter/Mysql/ColumnTest.php" />
    <install as="Horde/Db/Adapter/Mysql/TestTableDefinition.php" name="test/Horde/Db/Adapter/Mysql/TestTableDefinition.php" />
+   <install as="Horde/Db/Adapter/Oracle/ColumnDefinition.php" name="test/Horde/Db/Adapter/Oracle/ColumnDefinition.php" />
+   <install as="Horde/Db/Adapter/Oracle/ColumnTest.php" name="test/Horde/Db/Adapter/Oracle/ColumnTest.php" />
+   <install as="Horde/Db/Adapter/Oracle/TestTableDefinition.php" name="test/Horde/Db/Adapter/Oracle/TestTableDefinition.php" />
    <install as="Horde/Db/Adapter/Pdo/MysqlTest.php" name="test/Horde/Db/Adapter/Pdo/MysqlTest.php" />
    <install as="Horde/Db/Adapter/Pdo/PgsqlTest.php" name="test/Horde/Db/Adapter/Pdo/PgsqlTest.php" />
    <install as="Horde/Db/Adapter/Pdo/SqliteTest.php" name="test/Horde/Db/Adapter/Pdo/SqliteTest.php" />
@@ -725,9 +748,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-18</date>
+   <date>2013-12-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Add Oracle driver (Request #11974).
 * [jan] Add Horde_Db_Adapter_Base_Schema#column() method.
 * [jan] Always re-throw PDOExceptions as Horde_Db_Exceptions.
 * [jan] Fix issues with active Turkish locale.
