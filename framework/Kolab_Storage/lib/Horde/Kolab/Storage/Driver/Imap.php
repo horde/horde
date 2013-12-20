@@ -225,18 +225,18 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function listAnnotation($annotation)
     {
+        $data = array();
+
         try {
-            $result = $this->getBackend()->getMetadata('*', $annotation);
+            foreach ($this->listFolders() as $val) {
+                if (strlen($res = $this->getAnnotation($val, $annotation))) {
+                    $data[$folder] = $res;
+                }
+            }
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Kolab_Storage_Exception($e);
-        }
-        $data = array();
-        foreach ($result as $folder => $annotations) {
-            if (isset($annotations[$annotation])) {
-                $data[$folder] = $annotations[$annotation];
-            }
         }
 
         return $data;
