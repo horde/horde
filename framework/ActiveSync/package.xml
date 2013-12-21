@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Add support for parsing TNEF data when possible (Bug #12882).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1848,7 +1848,7 @@
    <date>2013-12-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Add support for parsing TNEF data when possible (Bug #12882).
    </notes>
   </release>
  </changelog>
