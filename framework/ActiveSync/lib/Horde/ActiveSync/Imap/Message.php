@@ -391,30 +391,12 @@ class Horde_ActiveSync_Imap_Message
     {
         $ret = array();
         $map = $this->_message->contentTypeMap();
-        $headers = $this->getHeaders();
-        $charset = $this->_message->getHeaderCharset();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
-                $mime_part = $this->getMimePart($id, array('nocontents' => true));
-                if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $atc = Horde_ActiveSync::messageFactory('AirSyncBaseAttachment');
-                    $atc->contentid = $mime_part->getContentId();
-                    $atc->isinline = $mime_part->getDisposition() == 'inline';
-                } else {
-                    $atc = Horde_ActiveSync::messageFactory('Attachment');
-                    $atc->attoid = $mime_part->getContentId();
+                if ($type != 'application/ms-tnef' || (!$mime_part = $this->_decodeTnefData($id))) {
+                    $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 }
-                $atc->attsize = $mime_part->getBytes();
-                $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
-                $atc->displayname = Horde_String::convertCharset(
-                    $this->getPartName($mime_part, true),
-                    $charset,
-                    'UTF-8',
-                    true);
-                $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
-                    ? Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_EMBEDDED
-                    : Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
-                $ret[] = $atc;
+                $ret[] = $this->_buildEasAttachmentFromMime($id, $mime_part, $version);
             }
         }
 
@@ -422,7 +404,85 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return an array of mime parts for each message attachment.
+     * Build an appropriate attachment object from the given mime part.
+     *
+     * @param integer $id                  The mime id for the part
+     * @param Horde_Mime_Part  $mime_part  The mime part.
+     * @param float $version               The EAS version.
+     *
+     * @return Horde_ActiveSync_Message_AirSyncBaseAttachment |
+     *         Horde_ActiveSync_Message_Attachment
+     */
+    protected function _buildEasAttachmentFromMime($id, Horde_Mime_Part $mime_part, $version)
+    {
+        if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
+            $atc = Horde_ActiveSync::messageFactory('AirSyncBaseAttachment');
+            $atc->contentid = $mime_part->getContentId();
+            $atc->isinline = $mime_part->getDisposition() == 'inline';
+        } else {
+            $atc = Horde_ActiveSync::messageFactory('Attachment');
+            $atc->attoid = $mime_part->getContentId();
+        }
+        $atc->attsize = $mime_part->getBytes();
+        $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
+        $atc->displayname = Horde_String::convertCharset(
+            $this->getPartName($mime_part, true),
+            $this->_message->getHeaderCharset(),
+            'UTF-8',
+            true);
+        $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
+            ? Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_EMBEDDED
+            : Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
+
+        return $atc;
+    }
+
+    /**
+     * Convert a TNEF attachment into a multipart/mixed part.
+     *
+     * @param  integer|Horde_Mime_part $data  Either a mime part id or a
+     *                                        Horde_Mime_Part object containing
+     *                                        the TNEF attachment.
+     *
+     * @return Horde_Mime_Part  The multipart/mixed MIME part containing any
+     *                          attachment data we can decode.
+     */
+    protected function _decodeTnefData($data)
+    {
+        $wrapper = new Horde_Mime_Part();
+        $wrapper->setType('multipart/mixed');
+
+        if (!($data instanceof Horde_Mime_Part)) {
+            $mime_part = $this->getMimePart($data);
+        } else {
+            $mime_part = $data;
+        }
+        $tnef_parser = Horde_Compress::factory('Tnef');
+        $tnef_data = $tnef_parser->decompress($mime_part->getContents());
+        if (!count($tnef_data)) {
+            return false;
+        }
+
+        reset($tnef_data);
+        while (list(,$data) = each($tnef_data)) {
+            $tmp_part = new Horde_Mime_Part();
+            $tmp_part->setName($data['name']);
+            $tmp_part->setDescription($data['name']);
+            $tmp_part->setContents($data['stream']);
+
+            $type = $data['type'] . '/' . $data['subtype'];
+            if (in_array($type, array('application/octet-stream', 'application/base64'))) {
+                $type = Horde_Mime_Magic::filenameToMIME($data['name']);
+            }
+            $tmp_part->setType($type);
+            $wrapper->addPart($tmp_part);
+        }
+
+        return $wrapper;
+    }
+
+    /**
+     * Return an array of mime parts for each messages attachment.
      *
      * @return array An array of Horde_Mime_Part objects.
      */
@@ -432,9 +492,12 @@ class Horde_ActiveSync_Imap_Message
         $map = $this->_message->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
-                $part = $this->getMimePart($id);
-                if ($part->getType() == 'text/calendar') {
-                    $part->setDisposition('inline');
+                $mpart = $this->getMimePart($id);
+                if ($mpart->getType() == 'text/calendar') {
+                    $mpart->setDisposition('inline');
+                }
+                if ($mpart->getType() == 'application/ms-tnef' && (!$part = $this->_decodeTnefData($mpart))) {
+                    $part = $mpart;
                 }
                 $mime_parts[] = $part;
             }
@@ -740,7 +803,6 @@ class Horde_ActiveSync_Imap_Message
                 return true;
             }
             return false;
-        case 'application/ms-tnef':
         case 'application/pkcs7-signature':
             return false;
         }
