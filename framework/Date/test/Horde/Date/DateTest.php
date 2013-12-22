@@ -142,6 +142,15 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(28, $d->day);
     }
 
+    public function testSettingDatePropertiesFromEmptyDateObject()
+    {
+        $d = new Horde_Date();
+        $d->year = 2013;
+        $d->month = 12;
+        $d->mday = 20;
+        $this->assertEquals(12, $d->month);
+    }
+
     public function testTimestamp()
     {
         $oldTimezone = date_default_timezone_get();

@@ -1114,7 +1114,9 @@ class Horde_Date
             $this->_correctMonth();
             /* When correcting the month, always correct the day too. Months
              * have different numbers of days. */
-            $mask |= self::MASK_DAY;
+            if (!empty($this->_mday)) {
+                $mask |= self::MASK_DAY;
+            }
         }
 
         if ($mask & self::MASK_DAY) {
