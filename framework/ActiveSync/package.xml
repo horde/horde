@@ -12,8 +12,8 @@
  </lead>
  <date>2013-12-17</date>
  <version>
-  <release>2.9.3</release>
-  <api>2.9.0</api>
+  <release>2.10.0</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue that causes sync to break when SMS messages are deleted on the client (Bug #12887).
 * [mjr] Add support for parsing TNEF data when possible (Bug #12882).
  </notes>
  <contents>
@@ -1847,14 +1848,15 @@
   </release>
   <release>
    <version>
-    <release>2.9.3</release>
-    <api>2.9.0</api></version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-12-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue that causes sync to break when SMS messages are deleted on the client (Bug #12887).
 * [mjr] Add support for parsing TNEF data when possible (Bug #12882).
    </notes>
   </release>
