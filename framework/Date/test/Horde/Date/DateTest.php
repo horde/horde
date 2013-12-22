@@ -149,6 +149,22 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $d->month = 12;
         $d->mday = 20;
         $this->assertEquals(12, $d->month);
+        $this->assertEquals(20, $d->mday);
+
+        $d = new Horde_Date();
+        $d->year = 2013;
+        $d->mday = 1;
+        $d->month = 12;
+        $this->assertEquals(12, $d->month);
+        $this->assertEquals(1, $d->mday);
+
+        $d = new Horde_Date();
+        $d->mday = 1;
+        $d->month = 12;
+        $d->year = 2013;
+        $this->assertEquals(12, $d->month);
+        $this->assertEquals(1, $d->mday);
+        $this->assertEquals(2013, $d->year);
     }
 
     public function testTimestamp()
