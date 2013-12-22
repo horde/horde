@@ -259,16 +259,24 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Perform a message move initiated on the PIM
      *
-     * @param array $uids  The source message ids.
-     * @param string $dst  The destination folder uid.
+     * @param array $uids     The source message ids.
+     * @param string $dst     The destination folder uid.
+     * @param string $class   The collection class (only needed for SMS).
+     *                        @since 2.10.0
      *
      * @return array  An array containing the following keys:
      *   - results: An array with old uids as keys and new uids as values.
      *   - missing: An array containing source uids that were not found on the
      *              IMAP server.
      */
-    public function importMessageMove(array $uids, $dst)
+    public function importMessageMove(array $uids, $dst, $class = null)
     {
+        // Don't support SMS, but can't tell client that. Send back a phoney
+        // UID for any imported SMS objects.
+        if ($class == Horde_ActiveSync::CLASS_SMS) {
+            return $uids;
+        }
+
         $collections = $this->_as->getCollectionsObject();
         $dst = $collections->getBackendIdForFolderUid($dst);
         $results = $this->_as->driver->moveMessage($this->_folderId, $uids, $dst);
