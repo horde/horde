@@ -347,8 +347,7 @@ class Horde_Session
 
         if ($this->exists($app, $name)) {
             $value = $this->_data[$app][$name];
-
-            if (!is_string($value)) {
+            if (!is_string($value) || strlen($value) === 0) {
                 return $value;
             } elseif ($value[0] === self::NOT_SERIALIZED) {
                 return substr($value, 1);
