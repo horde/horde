@@ -20,6 +20,6 @@ if (file_exists($baseFile)) {
     require_once PEAR_Config::singleton()
         ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
 }
-Horde_Registry::appInit('horde', array('cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true, 'user_admin' => true));
 
 $injector->getInstance('Horde_Alarm')->notify(null, true, false, array('notify', 'desktop'));
