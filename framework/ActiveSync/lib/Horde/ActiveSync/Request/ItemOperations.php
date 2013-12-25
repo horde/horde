@@ -106,17 +106,19 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID) ? Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE :
-                              ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_USERNAME) ? self::ITEMOPERATIONS_USERNAME :
-                              ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_PASSWORD) ? self::ITEMOPERATIONS_PASSWORD :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID) ? Horde_ActiveSync_Request_Search::SEARCH_LONGID :
-                              -1)))))))))) != -1) {
+                              -1)))))))) != -1) {
 
                     if ($reqtag == self::ITEMOPERATIONS_OPTIONS) {
                         while (($thisoption = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT) ? Horde_ActiveSync::SYNC_MIMESUPPORT :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE :
+                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_SCHEMA) ? self::ITEMOPERATIONS_SCHEMA :
+                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_RANGE) ? self::ITEMOPERATIONS_RANGE :
+                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_USERNAME) ? self::ITEMOPERATIONS_USERNAME :
+                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_PASSWORD) ? self::ITEMOPERATIONS_PASSWORD :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT) ? Horde_ActiveSync::RM_SUPPORT :
-                               -1))))) != -1) {
+                               -1))))))))) != -1) {
 
                             switch ($thisoption) {
                             case Horde_ActiveSync::SYNC_MIMESUPPORT:
@@ -132,14 +134,22 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                             case Horde_ActiveSync::RM_SUPPORT:
                                 $this->_rightsManagement($thisio);
                                 break;
+                            case self::ITEMOPERATIONS_PASSWORD:
+                                $thisio['password'] = $this->_decoder->getElementContent();
+                                break;
+                            case self::ITEMOPERATIONS_USERNAME:
+                                $thisio['username'] = $this->_decoder->getElementContent();
+                                break;
+
+                            case self::ITEMOPERATIONS_RANGE:
+                                $thisio['range'] = $this->_decoder->getElementContent();
+                                break;
+                            // @TODO if needed.
+                            // case self::ITEMOPERATIONS_SCHEMA:
                             }
                         }
                     } elseif ($reqtag == self::ITEMOPERATIONS_STORE) {
                         $thisio['store'] = $this->_decoder->getElementContent();
-                    } elseif ($reqtag == self::ITEMOPERATIONS_USERNAME) {
-                        $thisio['username'] = $this->_decoder->getElementContent();
-                    } elseif ($reqtag == self::ITEMOPERATIONS_PASSWORD) {
-                        $thisio['password'] = $this->_decoder->getElementContent();
                     } elseif ($reqtag == Horde_ActiveSync_Request_Search::SEARCH_LONGID) {
                         $thisio['searchlongid'] = $this->_decoder->getElementContent();
                     } elseif ($reqtag == Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE) {
