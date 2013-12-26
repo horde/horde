@@ -183,7 +183,7 @@ class Horde_ActiveSync_Message_Base
     {
         if (!array_key_exists($property, $this->_properties)) {
             $this->_logger->err('Unknown property: ' . $property);
-            throw new InvalidArgumentException('Unknown property: ' . $property);
+            throw new InvalidArgumentException(get_class($this) . ' Unknown property: ' . $property);
         }
         $this->_properties[$property] = $value;
         $this->_exists[$property] = true;
