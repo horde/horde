@@ -1740,18 +1740,20 @@ abstract class Kronolith_Event
                         $e->setReminder($exception->alarm);
                         $e->setDTStamp($_SERVER['REQUEST_TIME']);
 
-                        switch ($exception->status) {
-                        case Kronolith::STATUS_TENTATIVE;
-                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
-                            break;
-                        case Kronolith::STATUS_NONE:
-                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
-                            break;
-                        case Kronolith::STATUS_CONFIRMED:
-                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
-                            break;
-                        default:
-                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
+                        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+                            switch ($exception->status) {
+                            case Kronolith::STATUS_TENTATIVE;
+                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
+                                break;
+                            case Kronolith::STATUS_NONE:
+                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
+                                break;
+                            case Kronolith::STATUS_CONFIRMED:
+                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
+                                break;
+                            default:
+                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
+                            }
                         }
 
                         // Tags/Categories
