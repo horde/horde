@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue that could cause calendar sync to break when creating an exception on EAS versions &lt; 14.0
 * [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
 * [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
@@ -2246,6 +2247,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue that could cause calendar sync to break when creating an exception on EAS versions &lt; 14.0
 * [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
 * [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
