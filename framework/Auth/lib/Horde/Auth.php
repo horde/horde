@@ -129,6 +129,9 @@ class Horde_Auth
         case 'crypt-blowfish':
             return ($show_encrypt ? '{crypt}' : '') . crypt($plaintext, $salt);
 
+        case 'joomla-md5':
+            $result = $salt ? md5($plaintext.$salt) : md5($plaintext);
+            return md5($plaintext.$salt) . ':' . $salt;
         case 'md5-base64':
             $encrypted = base64_encode(pack('H*', hash('md5', $plaintext)));
             return $show_encrypt ? '{MD5}' . $encrypted : $encrypted;
@@ -238,7 +241,9 @@ class Horde_Auth
             return $seed
                 ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed, '$'))
                 : '$6$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
-
+        case 'joomla-md5':
+             $split = preg_split('/:/', $seed );
+             return $split ? $split[1] : '';
         case 'ssha':
             return $seed
                 ? substr(base64_decode(preg_replace('|^{SSHA}|i', '', $seed)), 20)
