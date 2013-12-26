@@ -233,8 +233,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     'appointmentreplytime' => false,
                     'responsetype' => false,
                 );
-           }
-           if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            }
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
                 $this->_mapping += array(
                     self::POOMCAL_ONLINECONFLINK => array(self::KEY_ATTRIBUTE => 'onlinemeetingconflink'),
                     self::POOMCAL_ONLINEEXTLINK  => array(self::KEY_ATTRIBUTE => 'onlinemeetingexternallink')
@@ -243,7 +243,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     'onlinemeetingconflink' => false,
                     'onlinemeetingexternallink' => false
                 );
-           }
+            }
         }
     }
 
