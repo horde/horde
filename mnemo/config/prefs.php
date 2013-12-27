@@ -96,7 +96,7 @@ $_prefs['sync_notepads'] = array(
     'desc' => _("Select the notepads that, in addition to the default, should be used for synchronization with external devices:"),
     'on_init' => function($ui) {
         $enum = array();
-        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notpads'));
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
         if (empty($sync)) {
             $GLOBALS['prefs']->setValue('sync_notepads', serialize(array(Mnemo::getDefaultNotepad())));
         }
