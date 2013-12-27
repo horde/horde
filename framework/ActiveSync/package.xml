@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Some fixes for EAS 14.0/14.1 ITEMOPERATIONS request parsing. Fixes issues on some clients with broken email sync on Android 4.3 and 4.4.
 * [mjr] Fix issue that causes sync to break when SMS messages are deleted on the client (Bug #12887).
 * [mjr] Add support for parsing TNEF data when possible (Bug #12882).
  </notes>
@@ -1856,6 +1857,7 @@
    <date>2013-12-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Some fixes for EAS 14.0/14.1 ITEMOPERATIONS request parsing. Fixes issues on some clients with broken email sync on Android 4.3 and 4.4.
 * [mjr] Fix issue that causes sync to break when SMS messages are deleted on the client (Bug #12887).
 * [mjr] Add support for parsing TNEF data when possible (Bug #12882).
    </notes>
