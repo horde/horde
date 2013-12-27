@@ -208,7 +208,15 @@ class IMP_Ajax_Application_ShowMessage
             foreach ($user_hdrs as $user_hdr) {
                 $user_val = $mime_headers->getValue($user_hdr);
                 if (!empty($user_val)) {
-                    $headers[] = array('name' => $user_hdr, 'value' => htmlspecialchars($user_val));
+                    if (!is_array($user_val)) {
+                        $user_val = array($user_val);
+                    }
+                    foreach ($user_val as $val) {
+                        $headers[] = array(
+                            'name' => $user_hdr,
+                            'value' => htmlspecialchars($val)
+                        );
+                    }
                 }
             }
             $result['headers'] = array_values($headers);
