@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-17</date>
+ <date>2013-12-27</date>
  <version>
   <release>2.10.0</release>
   <api>2.10.0</api>
@@ -1854,7 +1854,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-17</date>
+   <date>2013-12-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Some fixes for EAS 14.0/14.1 ITEMOPERATIONS request parsing. Fixes issues on some clients with broken email sync on Android 4.3 and 4.4.
