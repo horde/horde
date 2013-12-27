@@ -496,7 +496,8 @@ class Horde_ActiveSync_Imap_Message
                 if ($mpart->getType() == 'text/calendar') {
                     $mpart->setDisposition('inline');
                 }
-                if ($mpart->getType() == 'application/ms-tnef' && (!$part = $this->_decodeTnefData($mpart))) {
+                if ($mpart->getType() != 'application/ms-tnef' ||
+                    ($mpart->getType() == 'application/ms-tnef' && !$part = $this->_decodeTnefData($mpart))) {
                     $part = $mpart;
                 }
                 $mime_parts[] = $part;
