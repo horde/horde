@@ -105,7 +105,7 @@ $_prefs['sync_notepads'] = array(
                 $enum[$key] = Mnemo::getLabel($list);
             }
         }
-        $ui->prefs['sync_lists']['enum'] = $enum;
+        $ui->prefs['sync_notepads']['enum'] = $enum;
     },
     'on_change' => function() {
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
