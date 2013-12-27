@@ -144,8 +144,16 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                             case self::ITEMOPERATIONS_RANGE:
                                 $thisio['range'] = $this->_decoder->getElementContent();
                                 break;
-                            // @TODO if needed.
-                            // case self::ITEMOPERATIONS_SCHEMA:
+
+                            case self::ITEMOPERATIONS_SCHEMA:
+                                while (1) {
+                                    $el = $this->_decoder->getElement();
+                                    $e = $this->_decoder->peek();
+                                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == EN_TYPE_ENDTAG) {
+                                        $this->_decoder->getElementEndTag();
+                                        break;
+                                    }
+                                }
                             }
                         }
                     } elseif ($reqtag == self::ITEMOPERATIONS_STORE) {
