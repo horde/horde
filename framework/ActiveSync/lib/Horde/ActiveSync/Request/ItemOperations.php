@@ -149,7 +149,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                                 while (1) {
                                     $el = $this->_decoder->getElement();
                                     $e = $this->_decoder->peek();
-                                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == EN_TYPE_ENDTAG) {
+                                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                                         $this->_decoder->getElementEndTag();
                                         break;
                                     }
