@@ -113,7 +113,7 @@ $_prefs['sync_notepads'] = array(
         if (empty($sync)) {
             $GLOBALS['prefs']->setValue('sync_notepads', serialize(array(Mnemo::getDefaultNotepad())));
         }
-        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT, false) as $key => $list) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $key => $list) {
             if ($list->getName() != Mnemo::getDefaultNotepad(Horde_Perms::EDIT)) {
                 $enum[$key] = Mnemo::getLabel($list);
             }
