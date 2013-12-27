@@ -16,6 +16,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
     try {
         $task = $storage->getByUID($uid);
     } catch (Nag_Exception $e) {
+        $notification->push(_("Task not found"), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
     $task_id = $task->id;
@@ -30,13 +31,12 @@ if ($uid = Horde_Util::getFormData('uid')) {
     }
 
     /* Get the current task. */
-    $task = Nag::getTask($tasklist_id, $task_id);
-}
-
-/* If the requested task doesn't exist, display an error message. */
-if (!isset($task) || !isset($task->id)) {
-    $notification->push(_("Task not found."), 'horde.error');
-    Horde::url('list.php', true)->redirect();
+    try {
+        $task = Nag::getTask($tasklist_id, $task_id);
+    } catch (Horde_Exception_NotFound $e) {
+        $notification->push(_("Task not found"), 'horde.error');
+        Horde::url('list.php', true)->redirect();
+    }
 }
 
 /* Load child tasks */
