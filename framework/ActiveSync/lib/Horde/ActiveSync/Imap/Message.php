@@ -422,7 +422,41 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return an array of mime parts for each message attachment.
+     * Build an appropriate attachment object from the given mime part.
+     *
+     * @param integer $id                  The mime id for the part
+     * @param Horde_Mime_Part  $mime_part  The mime part.
+     * @param float $version               The EAS version.
+     *
+     * @return Horde_ActiveSync_Message_AirSyncBaseAttachment |
+     *         Horde_ActiveSync_Message_Attachment
+     */
+    protected function _buildEasAttachmentFromMime($id, Horde_Mime_Part $mime_part, $version)
+    {
+        if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
+            $atc = Horde_ActiveSync::messageFactory('AirSyncBaseAttachment');
+            $atc->contentid = $mime_part->getContentId();
+            $atc->isinline = $mime_part->getDisposition() == 'inline';
+        } else {
+            $atc = Horde_ActiveSync::messageFactory('Attachment');
+            $atc->attoid = $mime_part->getContentId();
+        }
+        $atc->attsize = intval($mime_part->getBytes(true));
+        $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
+        $atc->displayname = Horde_String::convertCharset(
+            $this->getPartName($mime_part, true),
+            $this->_message->getHeaderCharset(),
+            'UTF-8',
+            true);
+        $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
+            ? Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_EMBEDDED
+            : Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
+
+        return $atc;
+    }
+
+    /**
+     * Return an array of mime parts for each messages attachment.
      *
      * @return array An array of Horde_Mime_Part objects.
      */
