@@ -302,7 +302,6 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
             rewind($data);
             fseek($data, 0, SEEK_END);
             return ftell($data);
-            rewind($data);
         } else {
             return strlen(bin2hex($data)) / 2;
         }
