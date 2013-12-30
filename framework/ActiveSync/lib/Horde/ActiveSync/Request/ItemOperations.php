@@ -204,7 +204,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         }
                         if (!$this->_encoder->multipart) {
                             $msg->total = $this->_getDataSize($msg->data);
-                            $msg->range = '0-' . $msg->total;
+                            $msg->range = '0-' . ($msg->total - 1);
                         }
                         $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
