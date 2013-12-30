@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Add permission to limit the maximum body size of a composed message.
 [mms] Show placeholder image when dropping onto HTML editor while the image is
       uploaded to the server.
 [mms] Add rate limiting to new mail notification alerts to prevent flooding of

@@ -25,6 +25,8 @@
  * @property-read Horde_Imap_Client_Base $client_ob  The IMAP client object.
  * @property-read IMP_Imap_Config $config  Base backend config settings.
  * @property-read boolean $init  Has the IMAP object been initialized?
+ * @property-read integer $max_compose_bodysize  The maximum size (in bytes)
+ *                                               of the compose message body.
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
  *                                                 compose message.
@@ -46,6 +48,7 @@ class IMP_Imap implements Serializable
     const ACCESS_TRASH = 5;
     const ACCESS_CREATEMBOX = 6;
     const ACCESS_CREATEMBOX_MAX = 7;
+    const ACCESS_COMPOSE_BODYSIZE = 13;
     const ACCESS_COMPOSE_RECIPIENTS = 8;
     const ACCESS_COMPOSE_TIMELIMIT = 9;
     const ACCESS_ACL = 10;
@@ -128,6 +131,7 @@ class IMP_Imap implements Serializable
         case 'init':
             return isset($this->_ob);
 
+        case 'max_compose_bodysize':
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
             $perm = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . str_replace('max_compose', 'max', $key), $GLOBALS['registry']->getAuth());
@@ -397,27 +401,46 @@ class IMP_Imap implements Serializable
     /**
      * Checks compose access rights for a server.
      *
-     * @param integer $right        Access right.
-     * @param integer $email_count  The number of e-mail recipients.
+     * @param integer $right  Access right.
+     * @param integer $data   Data required to check the rights:
+     * <pre>
+     *   - ACCESS_COMPOSE_BODYSIZE
+     *     The size of the body data.
+     *
+     *   - ACCESS_COMPOSE_RECIPIENTS
+     *   - ACCESS_COMPOSE_TIMELIMIT
+     *     The number of e-mail recipients.
+     * </pre>
      *
      * @return boolean  Is the access allowed?
      */
-    public function accessCompose($right, $email_count)
+    public function accessCompose($right, $data)
     {
         switch ($right) {
+        case self::ACCESS_COMPOSE_BODYSIZE:
+            $perm_name = 'max_bodysize';
+            break;
+
         case self::ACCESS_COMPOSE_RECIPIENTS:
+            $perm_name = 'max_recipients';
+            break;
+
         case self::ACCESS_COMPOSE_TIMELIMIT:
-            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission(
-                ($right == self::ACCESS_COMPOSE_RECIPIENTS) ? 'max_recipients' : 'max_timelimit',
-                array(
-                    'opts' => array(
-                        'value' => $email_count
-                    )
-                )
-            );
+            $perm_name = 'max_timelimit';
+            break;
+
+        default:
+            return false;
         }
 
-        return false;
+        return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission(
+            $perm_name,
+            array(
+                'opts' => array(
+                    'value' => $data
+                )
+            )
+        );
     }
 
     /**

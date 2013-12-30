@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add permission to limit the maximum body size of a composed message.
 * [mms] Show placeholder image when dropping onto HTML editor while the image is uploaded to the server.
 * [mms] Add rate limiting to new mail notification alerts to prevent flooding of the remote mail server (Request #12705).
 * [mms] Browser stored preferences are now prefixed by user information.

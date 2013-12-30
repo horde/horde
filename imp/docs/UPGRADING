@@ -65,6 +65,12 @@ MIME Viewer Options (mime_drivers.php)
 The 'pgp_inline' config parameter has been added to the plaintext driver.
 
 
+Permissions
+-----------
+
+The 'max_bodysize' permission has been added.
+
+
 Preferences (prefs.php)
 -----------------------
 

@@ -50,6 +50,16 @@ class IMP_Perms
                 'title' => _("Allow mailbox creation?"),
                 'type' => 'boolean'
             ),
+            'max_bodysize' => array(
+                'global' => true,
+                'handle' => function($allowed, $opts) {
+                    return isset($opts['value'])
+                        ? (intval($allowed[0]) >= $opts['value'])
+                        : $allowed;
+                },
+                'title' => _("Maximum size (bytes) of compose body"),
+                'type' => 'int'
+            ),
             'max_recipients' => array(
                 'global' => true,
                 'handle' => function($allowed, $opts) {

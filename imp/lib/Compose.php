@@ -721,8 +721,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
+        /* Check body size of message. */
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_BODYSIZE, strlen($body))) {
+            Horde::permissionDeniedError('imp', 'max_bodysize');
+            throw new IMP_Compose_Exception(sprintf(
+                _("Your message body has exceeded the limit by body size by %d characters."),
+                (strlen($body) - $imp_imap->max_compose_bodysize)
+            ));
+        }
 
         $from = new Horde_Mail_Rfc822_Address($header['from']);
         if (is_null($from->host)) {
@@ -732,6 +739,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Prepare the array of messages to send out.  May be more
          * than one if we are encrypting for multiple recipients or
          * are storing an encrypted message locally. */
+        $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
         $send_msgs = array();
         $msg_options = array(
             'encrypt' => $encrypt,
