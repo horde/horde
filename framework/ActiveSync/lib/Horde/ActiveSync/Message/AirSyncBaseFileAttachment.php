@@ -47,10 +47,10 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
      * @var array
      */
     protected $_mapping = array(
-        Horde_ActiveSync::AIRSYNCBASE_CONTENTTYPE => array(self::KEY_ATTRIBUTE => 'contenttype'),
-        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA => array(self::KEY_ATTRIBUTE => 'data'),
+        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_RANGE => array(self::KEY_ATTRIBUTE => 'range'),
         Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_TOTAL => array(self::KEY_ATTRIBUTE => 'total'),
-        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_RANGE => array(self::KEY_ATTRIBUTE => 'range')
+        Horde_ActiveSync::AIRSYNCBASE_CONTENTTYPE => array(self::KEY_ATTRIBUTE => 'contenttype'),
+        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA => array(self::KEY_ATTRIBUTE => 'data')
     );
 
     /**
@@ -59,10 +59,10 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
      * @var array
      */
     protected $_properties = array(
+        'range' => false,
+        'total' => false,
         'contenttype' => false,
         'data' => false,
-        'total' => false,
-        'range' => false
     );
 
     /**
