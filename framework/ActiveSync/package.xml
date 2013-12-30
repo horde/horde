@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue where attachments are not downloaded in certain situations on EAS version 14+.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1870,7 +1870,7 @@
    <date>2013-12-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue where attachments are not downloaded in certain situations on EAS version 14+.
    </notes>
   </release>
  </changelog>
