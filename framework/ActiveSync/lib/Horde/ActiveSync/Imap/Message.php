@@ -423,7 +423,7 @@ class Horde_ActiveSync_Imap_Message
             $atc = Horde_ActiveSync::messageFactory('Attachment');
             $atc->attoid = $mime_part->getContentId();
         }
-        $atc->attsize = $mime_part->getBytes();
+        $atc->attsize = intval($mime_part->getBytes(true));
         $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
         $atc->displayname = Horde_String::convertCharset(
             $this->getPartName($mime_part, true),
