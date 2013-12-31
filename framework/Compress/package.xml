@@ -22,8 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>19:22:02</time>
+ <date>2013-12-31</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -34,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -327,10 +326,16 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Compress">
+      <dir name="fixtures">
+       <file name="TnefAttachments.txt" role="test" />
+       <file name="TnefAttachmentsMultiple.txt" role="test" />
+       <file name="TnefMeetingRequest.txt" role="test" />
+      </dir> <!-- /test/Horde/Compress/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RarTest.php" role="test" />
+      <file name="TnefTest.php" role="test" />
       <file name="ZipTest.php" role="test" />
      </dir> <!-- /test/Horde/Compress -->
     </dir> <!-- /test/Horde -->
@@ -368,6 +373,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
@@ -491,8 +503,12 @@
    <install as="Horde/Compress/bootstrap.php" name="test/Horde/Compress/bootstrap.php" />
    <install as="Horde/Compress/phpunit.xml" name="test/Horde/Compress/phpunit.xml" />
    <install as="Horde/Compress/RarTest.php" name="test/Horde/Compress/RarTest.php" />
+   <install as="Horde/Compress/TnefTest.php" name="test/Horde/Compress/TnefTest.php" />
    <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
-  </filelist>
+   <install as="Horde/Compress/fixtures/TnefAttachments.txt" name="test/Horde/Compress/fixtures/TnefAttachments.txt" />
+   <install as="Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" name="test/Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" />
+   <install as="Horde/Compress/fixtures/TnefMeetingRequest.txt" name="test/Horde/Compress/fixtures/TnefMeetingRequest.txt" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -822,10 +838,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-12-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
