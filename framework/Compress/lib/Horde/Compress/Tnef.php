@@ -550,7 +550,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             array_unshift($out, array(
                 'type'    => 'text',
                 'subtype' => 'calendar',
-                'name'    => 'Meeting',
+                'name'    => $this->_conversation_topic,
                 'stream'  => $iCal->exportvCalendar()));
         }
     }
