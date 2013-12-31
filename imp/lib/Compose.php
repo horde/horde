@@ -2529,19 +2529,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Clean outgoing HTML (convert external image links into internal links;
-     * remove unexpected data URLs).
+     * Clean outgoing HTML (remove unexpected data URLs).
      *
      * @param Horde_Domhtml $html  The HTML data.
      */
     protected function _cleanHtmlOutput(Horde_Domhtml $html)
     {
-        global $conf, $injector;
-
-        $client = empty($conf['compose']['convert_to_related'])
-            ? null
-            : $injector->getInstance('Horde_Core_Factory_HttpClient')->create();
-
         $xpath = new DOMXPath($html->dom);
         foreach ($xpath->query('//*[@src]') as $node) {
             $src = $node->getAttribute('src');
@@ -2550,26 +2543,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * output. */
             if (Horde_Url_Data::isData($src)) {
                 $node->removeAttribute('src');
-            } elseif (!is_null($client) &&
-                      (strcasecmp($node->tagName, 'img') === 0) &&
-                      !$node->hasAttribute(self::RELATED_ATTR)) {
-                /* Attempt to download the image, and add as an attachment. */
-                try {
-                    $response = $client->get($src);
-                    if ($response->code == 200) {
-                        /* We need to determine the image type. Try getting
-                         * that info from the returned HTTP content-type
-                         * header.  TODO: Use Horde_Mime_Magic if this fails
-                         * (?) */
-                        $part = new Horde_Mime_Part();
-                        $part->setType($response->getHeader('content-type'));
-                        $part->setContents($response->getBody());
-                        $part->setDisposition('attachment');
-
-                        $atc = $this->addAttachmentFromPart($part);
-                        $this->addRelatedAttachment($atc, $node, 'src');
-                    }
-                } catch (Horde_Http_Exception $e) {}
             }
         }
     }

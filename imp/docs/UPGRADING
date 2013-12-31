@@ -49,6 +49,7 @@ The following options have been added::
 The following options have been removed::
 
    $conf['compose']['ac_threshold']
+   $conf['compose']['convert_to_related']
 
 
 Hooks (hooks.php)

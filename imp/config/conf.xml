@@ -54,12 +54,6 @@
    'upload_max_filesize' parameter; see imp/docs/INSTALL]">0</configinteger>
    <configinteger name="attach_count_limit" desc="The maximum total number of
    attachments allowed per message? Set to 0 for no limit.">0</configinteger>
-   <configboolean name="convert_to_related" desc="When composing a message in
-   HTML mode, download the data for images contained in the message and
-   directly attach this data to the message? This is highly recommended as the
-   image data can not otherwise be guaranteed to be available when the
-   recipient views the message. This should be disabled for servers that are
-   firewalled or have limited network connectivity.">true</configboolean>
 
    <configheader>Message Replies</configheader>
    <configinteger name="reply_limit" desc="The maximum total size of text (in
