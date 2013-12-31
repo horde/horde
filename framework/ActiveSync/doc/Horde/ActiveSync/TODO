@@ -15,6 +15,17 @@ TODO
 
 - Email categories - possible to map to custom IMAP Flags?
 
+- Look at support for "Document" support. Essentially allowing to download a
+  file from a VFS API if we know the exact "path".
+
+- S/MIME issues with SENDMAIL (at least from NOTE 3).
+
+- Support EMPTY_FOLDER commands in ITEMOPERATIONS requests. Need a client that
+  sends this request to implement properly.
+
+- SCHEMA support in ITEMOPERATIONS requests. Don't have client that supports
+  currently.
+
 BC BREAKING (i.e., Horde 6).
 ============================
 
