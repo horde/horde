@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [mjr] Add initial support for decoding TNEF meeting requests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -841,7 +841,7 @@ Initial release as a PEAR package
    <date>2013-12-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mjr] Add initial support for decoding TNEF meeting requests.
    </notes>
   </release>
  </changelog>
