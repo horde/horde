@@ -363,7 +363,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_lastModifier = $value;
                 break;
             case self::MAPI_ENTRY_UID:
-                $attachment_data[0]['uid'] = self::getUidFromGoid(bin2hex($value));
+                $attachment_data[0]['uid'] = $this->_getUidFromGoid(bin2hex($value));
                 break;
             case self::MAPI_APPOINTMENT_RECUR:
                 // Need to decode this to fully support recurring meeting
@@ -630,7 +630,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
      *
      * @return string  The UID
      */
-    static public function getUidFromGoid($goid)
+    protected function _getUidFromGoid($goid)
     {
         $goid = base64_decode($goid);
 
