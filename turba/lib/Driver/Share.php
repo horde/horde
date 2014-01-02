@@ -120,6 +120,23 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Obtains a Turba_List to get TimeObjects out of.
+     *
+     * @param Horde_Date $start  The starting date.
+     * @param Horde_Date $end    The ending date.
+     * @param string $field      The address book field containing the
+     *                           timeObject information (birthday,
+     *                           anniversary).
+     *
+     * @return Turba_List  A list of objects.
+     * @throws Turba_Exception
+     */
+    public function getTimeObjectTurbaList(Horde_Date $start, Horde_Date $end, $field)
+    {
+        return $this->_driver->getTimeObjectTurbaList($start, $end, $field);
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * address book.
      *
