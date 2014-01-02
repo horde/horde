@@ -492,8 +492,8 @@ class Horde_Session
             isset($this->_data[$app]) &&
             ($name[strlen($name) - 1] == '/')) {
             foreach (array_keys($this->_data[$app]) as $k) {
-                if (strpos($k, $name) === 1) {
-                    $ret[substr($k, strlen($name) + 1)] = substr($k, 1);
+                if (strpos($k, $name) === 0) {
+                    $ret[substr($k, strlen($name))] = $k;
                 }
             }
         }

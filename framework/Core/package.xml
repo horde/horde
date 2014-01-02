@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix retrieving value lists from Horde_Session.
 * [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
 * [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).
 * [mms] Fix jquerymobile icons (Bug #12876).
@@ -3263,8 +3264,9 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix retrieving value lists from Horde_Session.
 * [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
-* [mjr] Fix desktop style notifications in Ajax applications (Bug # 12835).
+* [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).
 * [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
