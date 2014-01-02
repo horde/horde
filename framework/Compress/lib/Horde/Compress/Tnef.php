@@ -602,7 +602,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
         $bci = '0';
         $len = strlen($str);
-        for ($i=0; $i<$len; ++$i) {
+        for ($i = 0; $i < $len; ++$i) {
             $bci = bcmul($bci, '16');
             $ch = $str[$i];
             if (isset($hex[$ch]))
@@ -617,10 +617,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         // Unix epoch as a Windows file date-time value
         $magicnum = '116444735995904000';
         $t = bcsub($bci, $magicnum);    // Cast to Unix epoch
-        $t = bcdiv($t, '10000000', 0);  // Convert from ticks to seconds
-
-        return $t;
+        return bcdiv($t, '10000000', 0);  // Convert from ticks to seconds
     }
+
     /**
      * Obtain the UID from a MAPI GOID.
      *
