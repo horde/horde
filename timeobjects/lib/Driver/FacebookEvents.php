@@ -83,7 +83,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                 'location' => $event['location'],
                 'description' => $event['description'],
-                'url' => new Horde_Url('http://www.facebook.com/event.php?eid=' . $event['eid']),
+                'url' => 'http://www.facebook.com/event.php?eid=' . $event['eid'],
                 'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status']),
                 'private' => $event['privacy'] == 'SECRET',
                 'icon' => $event['pic_square'],
