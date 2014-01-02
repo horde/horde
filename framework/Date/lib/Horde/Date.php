@@ -137,7 +137,7 @@ class Horde_Date
      * This list better moves somewhere else
      * @var array
      */
-    protected $_timezoneAliases = array(
+    protected static $_timezoneAliases = array(
         'Dateline Standard Time' => 'Etc/GMT+12',
         'UTC-11' => 'Etc/GMT+11',
         'Hawaiian Standard Time' => 'Pacific/Honolulu',
@@ -640,8 +640,8 @@ class Horde_Date
     {
         $date = $this->toDateTime();
         /* Workaround for standard cases of bug #11688 */
-        if (array_key_exists($timezone, $this->_timezoneAliases)) {
-            $timezone = $this->_timezoneAliases[$timezone];
+        if (array_key_exists($timezone, self::$_timezoneAliases)) {
+            $timezone = self::$_timezoneAliases[$timezone];
         }
         $date->setTimezone(new DateTimeZone($timezone));
         $this->_timezone = $timezone;
@@ -1241,12 +1241,11 @@ class Horde_Date
     {
         if (empty($timezone)) {
             $timezone = date_default_timezone_get();
-        } elseif (array_key_exists($timezone, $this->timezoneAliases)) {
+        } elseif (array_key_exists($timezone, self::$_timezoneAliases)) {
             /* Workaround for standard cases of bug #11688 */
-            $timezone = $this->timezoneAliases[$timezone];
+            $timezone = self::$_timezoneAliases[$timezone];
         }
 
         $this->_timezone = $timezone;
     }
-
 }
