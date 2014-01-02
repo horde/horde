@@ -692,6 +692,11 @@ class Turba_Driver_Sql extends Turba_Driver
             'op' => '<>',
             'test' => ''
         );
+        $criteria['AND'][] = array(
+            'field' => $t_object,
+            'op' => '<>',
+            'test' => '0000-00-00'
+        );
 
         if ($start->year == $end->year) {
             $start = sprintf('%02d-%02d', $start->month, $start->mday);
