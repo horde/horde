@@ -184,10 +184,10 @@ class Turba_Driver_Sql extends Turba_Driver
             foreach ($row as $field => $val) {
                 if (isset($blobFields[$field])) {
                     $entry[$field] = $columns[$field]->binaryToString($val);
-                } elseif (isset($dateFields[$field])) {
+                } elseif (isset($dateFields[$field]) && !empty($val)) {
                     $d = new Horde_Date($val);
                     $entry[$field] = $this->_convertFromDriver(
-                        $d->strftime($GLOBALS['attributes'][$field]['params']['format_in'])
+                        $d->strftime($GLOBALS['attributes'][array_search($field, $this->map)]['params']['format_in'])
                     );
                 } else {
                     $entry[$field] = $this->_convertFromDriver($val);
