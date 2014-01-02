@@ -157,7 +157,7 @@ class Hermes_Api extends Horde_Registry_Api
                         $time_data[$key]['_client_name'] = $row['client'];
                     }
                     if (!is_null($subtotal_column)) {
-                      $column[$key] = $time_data[$key][$subtotal_column];
+                        $column[$key] = $time_data[$key][$subtotal_column] . $time_data[$key]['date'];
                     }
                 }
                 if (!is_null($subtotal_column)) {
