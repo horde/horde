@@ -2081,7 +2081,7 @@
      <configdescription>ActiveSync needs to store information about device
      properties and state data such as syncronization keys and hierarchy data.
      Choose the storage backend to use.</configdescription>
-     <configswitch name="storage">
+     <configswitch name="storage">Sql
       <case name="Nosql" desc="NoSQL Database">
         <configsection name="params">
          <confignosql switchname="driverconfig" />
