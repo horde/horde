@@ -94,7 +94,11 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
 
         $results = array();
         foreach ($eventsList as $eventsListItem) {
-            $event = new Kronolith_Event_Horde($this, $eventsListItem);
+            try {
+                $event = new Kronolith_Event_Horde($this, $eventsListItem);
+            } catch (Kronolith_Exception $e) {
+                Horde::log($e, 'NOTICE');
+            }
 
             // Ignore events out of the period.
             $recurs = $event->recurs();
