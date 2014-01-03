@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.17.0
+===================
+
+  - Horde_Imap_Client_Ids
+
+    - remove()
+
+      This method has been added.
+
+
 Upgrading to 2.16.0
 ===================
 

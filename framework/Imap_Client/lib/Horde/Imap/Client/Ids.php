@@ -151,8 +151,6 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     public function add($ids)
     {
         if (!is_null($ids)) {
-            $add = array();
-
             if (is_string($ids) &&
                 in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
@@ -160,19 +158,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 return;
             }
 
-            if ($ids instanceof Horde_Imap_Client_Ids) {
-                $add = $ids->ids;
-            } elseif (is_array($ids)) {
-                $add = $ids;
-            } elseif (is_string($ids) || is_integer($ids)) {
-                if (is_numeric($ids)) {
-                    $add = array($ids);
-                } else {
-                    $add = $this->_fromSequenceString($ids);
-                }
-            }
-
-            if (!empty($add)) {
+            if ($add = $this->_resolveIds($ids)) {
                 $this->_ids = is_array($this->_ids)
                     ? array_merge($this->_ids, $add)
                     : $add;
@@ -183,6 +169,22 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 }
                 $this->_sorted = false;
             }
+        }
+    }
+
+    /**
+     * Removed IDs from the current object.
+     *
+     * @since 2.17.0
+     *
+     * @param mixed $ids  Either Horde_Imap_Client_Ids object, array, or
+     *                    sequence string.
+     */
+    public function remove($ids)
+    {
+        if (!$this->isEmpty() &&
+            ($remove = $this->_resolveIds($ids))) {
+            $this->_ids = array_diff($this->_ids, array_unique($remove));
         }
     }
 
@@ -238,6 +240,29 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         } while (!feof($id->stream));
 
         return $out;
+    }
+
+    /**
+     * Resolve the $ids input to add() and remove().
+     *
+     * @param mixed $ids  Either Horde_Imap_Client_Ids object, array, or
+     *                    sequence string.
+     *
+     * @return array  An array of IDs.
+     */
+    protected function _resolveIds($ids)
+    {
+        if ($ids instanceof Horde_Imap_Client_Ids) {
+            return $ids->ids;
+        } elseif (is_array($ids)) {
+            return $ids;
+        } elseif (is_string($ids) || is_integer($ids)) {
+            return is_numeric($ids)
+                ? array($ids)
+                : $this->_fromSequenceString($ids);
+        }
+
+        return array();
     }
 
     /**

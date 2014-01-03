@@ -258,4 +258,41 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRemove()
+    {
+        $ids = new Horde_Imap_Client_Ids('1:100');
+        $this->assertEquals(
+            100,
+            count($ids)
+        );
+
+        // Remove from array
+        $ids->remove(range(1, 10));
+        $this->assertEquals(
+            90,
+            count($ids)
+        );
+
+        // Removing same IDs shouldn't change anything.
+        $ids->remove(range(1, 10));
+        $this->assertEquals(
+            90,
+            count($ids)
+        );
+
+        // Remove via sequence string
+        $ids->remove('11:20');
+        $this->assertEquals(
+            80,
+            count($ids)
+        );
+
+        // Remove via object
+        $ids->remove(new Horde_Imap_Client_Ids('21:30'));
+        $this->assertEquals(
+            70,
+            count($ids)
+        );
+    }
+
 }
