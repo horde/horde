@@ -221,6 +221,10 @@ class IMP_Imap_Config implements Serializable
                     $ob = new Horde_Imap_Client_Cache_Backend_Db(array(
                         'db' => $injector->getInstance('Horde_Db_Adapter')
                     ));
+                } elseif (strcasecmp($c, 'hashtable') === 0) {
+                    $ob = new Horde_Imap_Client_Cache_Backend_Hashtable(array(
+                        'hashtable' => $injector->getInstance('Horde_HashTable')
+                    ));
                 } else {
                     /* TODO: For IMP 6.x BC, treat everything else as the
                      * 'cache' option. */
