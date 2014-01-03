@@ -82,8 +82,6 @@ class Folks_Api extends Horde_Registry_Api
             $link = '<a href="' . Folks::getUrlFor('user', $id) . '">' . $id . '</a>';
             return $GLOBALS['folks_driver']->logActivity(sprintf(_("Commented user %s."), $link), 'folks:comments');
 
-            return true;
-
         default:
             return $id;
         }

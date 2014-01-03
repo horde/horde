@@ -40,8 +40,6 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
             $pid,
             $options,
             array('request' => 'POST'));
-
-        return $results;
     }
 
     /**

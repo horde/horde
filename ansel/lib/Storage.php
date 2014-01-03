@@ -635,8 +635,6 @@ class Ansel_Storage
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
-
-        return $results;
     }
 
     /**

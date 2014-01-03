@@ -228,13 +228,6 @@ class Kronolith_FreeBusy
             }
             throw new Kronolith_Exception(sprintf(_("No free/busy url found for %s."), $email));
         }
-
-        /* Or else return an empty VFB object. */
-        $vCal = new Horde_Icalendar();
-        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
-        $vFb->setAttribute('ORGANIZER', $email);
-
-        return $json ? self::toJson($vFb) : $vFb;
     }
 
     /**

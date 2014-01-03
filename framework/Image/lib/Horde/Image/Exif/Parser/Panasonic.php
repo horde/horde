@@ -90,9 +90,6 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 case 4112:
                     $data = Horde_Image_Translation::t("1-area-focusing (High speed)");
                     break;
-                case 16:
-                    $data = Horde_Image_Translation::t("1-area-focusing");
-                    break;
                 case 1:
                     $data = Horde_Image_Translation::t("Spot-focusing");
                     break;

@@ -482,7 +482,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
             throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
-            return $folder;
         }
 
         // Non-Multiplexed non-email collection?

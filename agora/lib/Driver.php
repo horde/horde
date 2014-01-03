@@ -505,8 +505,6 @@ class Agora_Driver {
         /* Set up the form subject with the parent subject. */
         if (Horde_String::lower(Horde_String::substr($message['message_subject'], 0, 3)) != 're:') {
             $message['message_subject'] = 'Re: ' . $message['message_subject'];
-        } else {
-            $message['message_subject'] = $message['message_subject'];
         }
 
         /* Prepare the message quite body . */

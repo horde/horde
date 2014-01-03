@@ -82,6 +82,5 @@ class Horde_ElasticSearch_Index
     public function map($type, $data)
     {
         return $this->_client->map($this->_index, $type, $data);
-        return $this->call($type . '/_mapping', array('method' => 'PUT', 'content' => $data));
     }
 }

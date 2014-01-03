@@ -208,7 +208,6 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Test_Case
     public function testListOffsetSetThrowException()
     {
         $list = self::$LazyBaseObjectMapper->find();
-        $list[0] = $list[0];
         $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "Throw exception when trying to set a new element to the list");
     }
 

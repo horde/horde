@@ -176,7 +176,6 @@ class Klutz_Driver_Sql extends Klutz_Driver
 
         if (isset($result) && !is_a($result, 'PEAR_Error')) {
             return $result->numRows();
-            $result->free();
         } else {
             return $result;
         }

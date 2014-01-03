@@ -46,7 +46,6 @@ implements Horde_Pear_Package_Contents_Role
             return 'script';
         case 'docs':
         case 'COPYING':
-        case 'COPYING':
         case 'README':
             return 'doc';
         case 'test':

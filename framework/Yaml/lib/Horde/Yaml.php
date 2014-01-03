@@ -69,7 +69,6 @@ class Horde_Yaml
 
         if (is_callable(self::$loadfunc)) {
             return call_user_func(self::$loadfunc, $yaml);
-            return is_array($array) ? $array : array();
         }
 
         if (strpos($yaml, "\r") !== false) {
