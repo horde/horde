@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Predis client should only use clustering if necessary.
 * [jan] Fix retrieving value lists from Horde_Session.
 * [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
 * [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).
@@ -3264,6 +3265,7 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Predis client should only use clustering if necessary.
 * [jan] Fix retrieving value lists from Horde_Session.
 * [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
 * [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).

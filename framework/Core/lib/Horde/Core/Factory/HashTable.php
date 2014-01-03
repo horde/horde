@@ -70,6 +70,11 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
                 }
             }
 
+            /* No need to use complex clustering if not needed. */
+            if (count($redis_params) === 1) {
+                $redis_params = reset($redis_params);
+            }
+
             return new Horde_HashTable_Predis(array(
                 'predis' => new Predis\Client($redis_params)
             ));
