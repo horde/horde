@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-27</date>
+ <date>2014-01-03</date>
  <version>
   <release>2.17.0</release>
   <api>2.17.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add a Horde_Hashtable specific cache driver.
 * [mms] Add remove() method to Horde_Imap_Client_Ids.
  </notes>
  <contents>
@@ -52,6 +53,7 @@
         <dir name="Backend">
          <file name="Cache.php" role="php" />
          <file name="Db.php" role="php" />
+         <file name="Hashtable.php" role="php" />
          <file name="Mongo.php" role="php" />
          <file name="Null.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Cache/Backend -->
@@ -359,7 +361,21 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_HashTable</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Pack</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>
@@ -401,6 +417,7 @@
    <install as="Horde/Imap/Client/Cache/Backend.php" name="lib/Horde/Imap/Client/Cache/Backend.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Cache.php" name="lib/Horde/Imap/Client/Cache/Backend/Cache.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Db.php" name="lib/Horde/Imap/Client/Cache/Backend/Db.php" />
+   <install as="Horde/Imap/Client/Cache/Backend/Hashtable.php" name="lib/Horde/Imap/Client/Cache/Backend/Hashtable.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Mongo.php" name="lib/Horde/Imap/Client/Cache/Backend/Mongo.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Null.php" name="lib/Horde/Imap/Client/Cache/Backend/Null.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
@@ -2094,9 +2111,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-26</date>
+   <date>2014-01-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add a Horde_Hashtable specific cache driver.
 * [mms] Add remove() method to Horde_Imap_Client_Ids.
    </notes>
   </release>

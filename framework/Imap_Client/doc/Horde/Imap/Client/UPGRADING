@@ -14,6 +14,10 @@ This lists the API changes between releases of the package.
 Upgrading to 2.17.0
 ===================
 
+  - Horde_Imap_Client_Cache_Hashtable
+
+    Added a Hashtable specific caching driver.
+
   - Horde_Imap_Client_Ids
 
     - remove()
