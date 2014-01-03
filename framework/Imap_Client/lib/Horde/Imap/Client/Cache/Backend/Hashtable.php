@@ -22,13 +22,14 @@
  * @package   Imap_Client
  * @since     2.17.0
  */
-class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
+class Horde_Imap_Client_Cache_Backend_Hashtable
+extends Horde_Imap_Client_Cache_Backend
 {
-    /**/
+    /** Separator for CID between mailbox and UID. */
     const CID_SEPARATOR = '|';
 
     /**
-     * The working data for the current pageload.  All changes take place to
+     * The working data for the current pageload. All changes take place to
      * this data.
      *
      * @var array
@@ -158,12 +159,15 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
         $this->_loadUids($mailbox, array_keys($data), $uidvalid);
 
         $d = &$this->_data[$mailbox];
+        $to_add = array();
 
         foreach ($data as $k => $v) {
             if (isset($d[$k]) && is_string($d[$k])) {
                 try {
                     $d[$k] = $this->_pack->unpack($d[$k]);
-                } catch (Horde_Pack_Exception $e) {}
+                } catch (Horde_Pack_Exception $e) {
+                    continue;
+                }
             }
 
             $d[$k] = (isset($d[$k]) && is_array($d[$k]))
@@ -171,9 +175,13 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
                 : $v;
             $this->_update[$mailbox]['u'][$k] = true;
             unset($this->_update[$mailbox]['d'][$k]);
+            $to_add[] = $k;
         }
 
-        $this->_mbox[$mailbox]['u']->add(array_keys($data));
+        if (!empty($to_add)) {
+            $this->_mbox[$mailbox]['u']->add($to_add);
+            $this->_update[$mailbox]['m'] = true;
+        }
     }
 
     /**
@@ -183,7 +191,7 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
         $this->_loadMailbox($mailbox, $uidvalid);
 
         return empty($entries)
-            ? $this->_mbox[$mailbox]
+            ? $this->_mbox[$mailbox]['d']
             : array_intersect_key($this->_mbox[$mailbox]['d'], array_flip($entries));
     }
 
@@ -215,6 +223,7 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
         }
 
         $this->_mbox[$mailbox]['u']->remove($uids);
+        $this->_update[$mailbox]['m'] = true;
     }
 
     /**
@@ -226,8 +235,8 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
         $this->_loadMailbox($mailbox);
 
         $this->_hash->delete(array_merge(
-            $this->_getCid($mailbox),
-            $this->_getMsgCids($mailbox, $this->_mbox[$mailbox]['u'])
+            array($this->_getCid($mailbox)),
+            array_values($this->_getMsgCids($mailbox, $this->_mbox[$mailbox]['u']))
         ));
 
         unset(
@@ -256,8 +265,8 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
     {
         foreach ($this->_update as $mbox => $val) {
             if (!empty($val['u'])) {
-                $ptr = &$this->_mbox[$mbox];
-                foreach ($this->_getMsgCids($mbox, $val['u']) as $k2 => $v2) {
+                $ptr = &$this->_data[$mbox];
+                foreach ($this->_getMsgCids($mbox, array_keys($val['u'])) as $k2 => $v2) {
                     try {
                         $this->_hash->set($v2, $this->_pack->pack($ptr[$k2]));
                     } catch (Horde_Pack_Exception $e) {
@@ -339,12 +348,17 @@ class Horde_Imap_Client_Cache_Hashtable extends Horde_Imap_Client_Cache_Backend
 
         $ptr = &$this->_data[$mailbox];
 
-        $load = array_flip($this->_getMsgCids(
-            $mailbox,
-            array_unique(array_diff($this->_mbox[$mailbox]['u']->ids, $uids))
-        ));
+        $load = array_flip(
+            array_diff_key(
+                $this->_getMsgCids(
+                    $mailbox,
+                    array_unique(array_intersect($this->_mbox[$mailbox]['u']->ids, $uids))
+                ),
+                $this->_data[$mailbox]
+            )
+        );
 
-        foreach (array_filter($this->_hash->get(array_keys($cid))) as $key => $val) {
+        foreach (array_filter($this->_hash->get(array_keys($load))) as $key => $val) {
             $ptr[$load[$key]] = $val;
         }
     }
