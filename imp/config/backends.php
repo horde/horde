@@ -89,17 +89,21 @@
  *   The following values are recognized:
  *     - false: Caching is disabled (DEFAULT)
  *     - true: Caching is enabled using the Horde cache (configured in
- *           horde/config/conf.xml). (This option is DEPRECATED; use one of
- *           the below options instead.)
+ *             horde/config/conf.php). (This option is DEPRECATED; use one of
+ *             the below options instead.)
  *     - 'cache': Caching is enabled using the Horde cache (configured in
- *           horde/config/conf.xml). It is recommended to use either 'nosql'
- *           or 'sql' instead, as these backends have much better performance.
+ *                horde/config/conf.php). It is recommended to use either
+ *                'hashtable', 'nosql', or 'sql' instead, as these backends
+ *                have better performance.
+ *     - 'hashtable': Caching is enabled using the Horde HashTable driver
+ *                    (configured in horde/config/conf.php).
  *     - 'nosql': Caching is enabled using the Horde NoSQL database
- *                (configured in horde/config/conf.xml).
+ *                (configured in horde/config/conf.php).
  *     - 'sql': Caching is enabled using the Horde SQL database (configured in
- *              horde/config/conf.xml).
- *     - Horde_Imap_Client_Cache_Backend object: Directly configure the
- *           caching backend to use. For advanced users only.
+ *              horde/config/conf.php).
+ *     - A Horde_Imap_Client_Cache_Backend object: Directly configure the
+ *                                                 caching backend to use. For
+ *                                                 advanced users only.
  *
  * quota: (array) Use this if you want to display a user's quota status. Set
  *   to an empty value to disable quota status (DEFAULT).
