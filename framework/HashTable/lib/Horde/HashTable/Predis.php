@@ -106,7 +106,17 @@ implements Horde_HashTable_Lock
         $keys = array_values($keys);
         $out = array();
 
-        foreach ($this->_predis->mget($keys) as $key => $val) {
+        try {
+            $data = $this->_predis->mget($keys);
+        } catch (Exception $e) {
+            /* MGET doesn't work on clusters. */
+            $data = array();
+            foreach ($keys as $key) {
+                $data[$key] = $this->_predis->get($key);
+            }
+        }
+
+        foreach ($data as $key => $val) {
             $out[$keys[$key]] = is_null($val)
                 ? false
                 : $val;
