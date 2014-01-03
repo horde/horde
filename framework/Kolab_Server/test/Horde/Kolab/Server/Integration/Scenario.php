@@ -186,13 +186,6 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
                 $this->assertEquals(array(array()), $world['list']);
             }
             break;
-        case 'the list is an empty array':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
-                $this->assertEquals('', $world['list']->getMessage());
-            } else {
-                $this->assertEquals(array(), $world['list']);
-            }
-            break;
         case 'the provided list and the result list match with regard to these attributes':
             if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());

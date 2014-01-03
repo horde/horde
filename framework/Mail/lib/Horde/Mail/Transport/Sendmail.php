@@ -176,10 +176,6 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
             $msg = 'permission denied';
             break;
 
-        case 77: // EX_NOPERM
-            $msg = 'permission denied';
-            break;
-
         case 78: // EX_CONFIG
             $msg = 'configuration error';
             break;

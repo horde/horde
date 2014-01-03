@@ -169,7 +169,7 @@ class Klutz
                 break;
 
             case 's':
-            case 'su':
+            case 'sa':
                 $a = 'sat';
                 break;
 

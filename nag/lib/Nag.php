@@ -1277,7 +1277,7 @@ class Nag
         case 'show':
             if ($mode == 'read') {
                 $display_tasklists = unserialize($prefs->getValue('display_tasklists'));
-                return in_array($tasklist, $display_tasklists) ? $vals : false;;
+                return in_array($tasklist, $display_tasklists) ? $vals : false;
             }
         }
 

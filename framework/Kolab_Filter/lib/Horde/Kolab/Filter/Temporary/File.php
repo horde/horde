@@ -46,7 +46,7 @@ implements Horde_Kolab_Filter_Temporary
     /**
      * Configuration.
      *
-     * @param Horde_Kolab_Filter_Configuration 
+     * @param Horde_Kolab_Filter_Configuration
      */
     private $_config;
 
@@ -61,7 +61,7 @@ implements Horde_Kolab_Filter_Temporary
         $this->_config = $config;
     }
 
-    
+
     /**
      * Creates a buffer for temporary storage of the message.
      *
@@ -109,7 +109,7 @@ implements Horde_Kolab_Filter_Temporary
      */
     public function getReadHandle()
     {
-        return @fopen($this->_tmpfile, 'r');;
+        return @fopen($this->_tmpfile, 'r');
     }
 
     /**

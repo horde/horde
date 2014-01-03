@@ -565,7 +565,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         try {
             $rows = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Share_Exception($e->getMessage());;
+            throw new Horde_Share_Exception($e->getMessage());
         }
 
         $sharelist = array();
