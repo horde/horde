@@ -106,7 +106,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_REMINDER_DELTA               = 0x8501; // Minutes between start of mtg and overdue.
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
-    const MAPI_ENTRY_UID                    = 0x0003; //0x0E0A; // GUID??
+    const MAPI_ENTRY_UID                    = 0x0023; // GOID??
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_MEETING_TYPE                 = 0x0026;
 
