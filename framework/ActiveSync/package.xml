@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1890,7 +1890,7 @@
    <date>2013-12-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
    </notes>
   </release>
  </changelog>
