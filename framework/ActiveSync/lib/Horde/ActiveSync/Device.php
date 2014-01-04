@@ -97,6 +97,13 @@ class Horde_ActiveSync_Device
     protected $_dirty = array();
 
     /**
+     * Flag to indicate self::multiplex was set externally.
+     *
+     * @var boolean
+     */
+    protected $_multiplexSet = false;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver.
@@ -115,8 +122,9 @@ class Horde_ActiveSync_Device
     {
         switch ($property) {
         case self::MULTIPLEX:
-            $this->_sniffMultiplex();
-            // Fall through
+            if (!$this->_multiplexSet && empty($this->_properties['properties'][self::MULTIPLEX])) {
+                $this->_sniffMultiplex();
+            }
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
             return $this->_properties['properties'][$property];
@@ -140,6 +148,8 @@ class Horde_ActiveSync_Device
     {
         switch ($property) {
         case self::MULTIPLEX:
+            $this->_multiplexSet = true;
+            // fallthrough
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
             $properties = $this->properties;
@@ -464,7 +474,7 @@ class Horde_ActiveSync_Device
     {
         if (strpos($this->userAgent, 'iOS') === 0 ) {
             // iOS seems to support multiple collections for everything except Notes.
-            $this->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
+            $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
         } else if ($this->_getClientType() == self::TYPE_ANDROID) {
             // All android before 4.4 KitKat requires multiplex. KitKat supports
             // non-multiplexed calendars only.
@@ -472,12 +482,12 @@ class Horde_ActiveSync_Device
                 preg_match('/(\d+\.\d+\.\d+)/', $this->properties[self::OS], $matches) &&
                 version_compare($matches[0], '4.4.0') < 1) {
 
-                $this->multiplex =
+                $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                     Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                     Horde_ActiveSync_Device::MULTIPLEX_TASKS;
             } else {
-                $this->multiplex =
+                $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                     Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
@@ -487,13 +497,13 @@ class Horde_ActiveSync_Device
             // Windows Phone. For the devices I've tested, it seems that
             // only multiple tasklists are accepted. The rest must be
             // multiplexed.
-            $this->multiplex =
+            $this->_properties['properties'][self::MULTIPLEX] =
                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
         } else if (strpos($this->userAgent, 'MSFT-PPC') !== false || $this->deviceType == 'PocketPC') {
             // PocketPC versions seem to not support any user defined
             // collections at all, though I've only tested on a single HTC device.
-            $this->multiplex =
+            $this->_properties['properties'][self::MULTIPLEX] =
                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                 Horde_ActiveSync_Device::MULTIPLEX_NOTES |
