@@ -346,10 +346,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $attachment_data[0]['url'] = $value;
                 break;
             case self::MAPI_APPOINTMENT_START_WHOLE:
-                $attachment_data[0]['start_utc'] = new Horde_Date($this->_filetime2Unixtime($value), 'UTC');
+            file_put_contents('/tmp/filetime', $value);
+                $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($value), 'UTC');
                 break;
             case self::MAPI_APPOINTMENT_END_WHOLE:
-                $attachment_data[0]['end_utc'] = new Horde_Date($this->_filetime2Unixtime($value), 'UTC');
+                $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($value), 'UTC');
                 break;
             case self::MAPI_APPOINTMENT_DURATION:
                 $attachment_data[0]['duration'] = $value;
@@ -364,7 +365,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_lastModifier = $value;
                 break;
             case self::MAPI_ENTRY_UID:
-                $attachment_data[0]['uid'] = $this->_getUidFromGoid(bin2hex($value));
+                $attachment_data[0]['uid'] = Horde_Mapi_Utils::getUidFromGoid(bin2hex($value));
                 break;
             case self::MAPI_APPOINTMENT_RECUR:
                 // Need to decode this to fully support recurring meeting
@@ -374,7 +375,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 if (empty($attachment_data[0]['recurrence'])) {
                     $attachment_data[0]['recurrence'] = array();
                 }
-                $attachment_data[0]['recurrence']['recur'] = $value;
+                $attachment_data[0]['recurrence']['recur'] = $this->_parseRecurrence($value);
                 break;
             case self::MAPI_RECURRING:
                 if (empty($attachment_data[0]['recurrence'])) {
@@ -553,104 +554,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 'subtype' => 'calendar',
                 'name'    => $this->_conversation_topic,
                 'stream'  => $iCal->exportvCalendar()));
-        }
-    }
-
-    /**
-     * Converts a Windows FILETIME value to a unix timestamp.
-     *
-     * Adapted from:
-     * http://stackoverflow.com/questions/610603/help-me-translate-long-value-expressed-in-hex-back-in-to-a-date-time
-     *
-     * @param string $ft  Binary representation of FILETIME from a pTypDate
-     *                    MAPI property.
-     *
-     * @return integer  The unix timestamp.
-     */
-    protected function _filetime2Unixtime($ft)
-    {
-        $ft = bin2hex($ft);
-        $dtval = substr($ft, 0, 16);     // clip overlength string
-        $dtval = str_pad($dtval, 16, '0');  // pad underlength string
-        $quad = $this->_flipEndian($dtval);
-        $win64_datetime = $this->_hex2Bcint($quad);
-        return $this->_win642Unix($win64_datetime);
-    }
-
-    // swap little-endian to big-endian
-    protected function _flipEndian($str)
-    {
-        // make sure #digits is even
-        if ( strlen($str) & 1 )
-            $str = '0' . $str;
-
-        $t = '';
-        for ($i = strlen($str)-2; $i >= 0; $i-=2)
-            $t .= substr($str, $i, 2);
-
-        return $t;
-    }
-
-    // convert hex string to BC-int
-    protected function _hex2Bcint($str)
-    {
-        $hex = array(
-            '0'=>'0',   '1'=>'1',   '2'=>'2',   '3'=>'3',   '4'=>'4',
-            '5'=>'5',   '6'=>'6',   '7'=>'7',   '8'=>'8',   '9'=>'9',
-            'a'=>'10',  'b'=>'11',  'c'=>'12',  'd'=>'13',  'e'=>'14',  'f'=>'15',
-            'A'=>'10',  'B'=>'11',  'C'=>'12',  'D'=>'13',  'E'=>'14',  'F'=>'15'
-        );
-
-        $bci = '0';
-        $len = strlen($str);
-        for ($i = 0; $i < $len; ++$i) {
-            $bci = bcmul($bci, '16');
-            $ch = $str[$i];
-            if (isset($hex[$ch]))
-                $bci = bcadd($bci, $hex[$ch]);
-        }
-
-        return $bci;
-    }
-
-    protected function _win642Unix($bci)
-    {
-        // Unix epoch as a Windows file date-time value
-        $magicnum = '116444735995904000';
-        $t = bcsub($bci, $magicnum);    // Cast to Unix epoch
-        return bcdiv($t, '10000000', 0);  // Convert from ticks to seconds
-    }
-
-    /**
-     * Obtain the UID from a MAPI GOID.
-     *
-     * See http://msdn.microsoft.com/en-us/library/hh338153%28v=exchg.80%29.aspx
-     *
-     * @param string $goid  Base64 encoded Global Object Identifier.
-     *
-     * @return string  The UID
-     */
-    protected function _getUidFromGoid($goid)
-    {
-        $goid = base64_decode($goid);
-
-        // First, see if it's an Outlook UID or not.
-        if (substr($goid, 40, 8) == 'vCal-Uid') {
-            // For vCal UID values:
-            // Bytes 37 - 40 contain length of data and padding
-            // Bytes 41 - 48 are == vCal-Uid
-            // Bytes 53 until next to the last byte (/0) contain the UID.
-            return trim(substr($goid, 52, strlen($goid) - 1));
-        } else {
-            // If it's not a vCal UID, then it is Outlook style UID:
-            // The entire decoded goid is converted to hex representation with
-            // bytes 17 - 20 converted to zero
-            $hex = array();
-            foreach (str_split($goid) as $chr) {
-                $hex[] = sprintf('%02X', ord($chr));
-            }
-            array_splice($hex, 16, 4, array('00', '00', '00', '00'));
-            return implode('', $hex);
         }
     }
 
