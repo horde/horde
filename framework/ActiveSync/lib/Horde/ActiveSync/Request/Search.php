@@ -277,7 +277,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
 
         if (is_array($search_result['rows']) && !empty($search_result['rows'])) {
             $count = 0;
-            $this->_logger->debug(print_r($search_result['rows'], true));
             foreach ($search_result['rows'] as $u) {
                 $count++;
                 switch (strtolower($search_name)) {
