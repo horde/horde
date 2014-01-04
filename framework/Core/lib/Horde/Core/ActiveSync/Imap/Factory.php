@@ -67,7 +67,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         if (empty($this->_mailboxlist) || $force) {
             try {
                 foreach ($GLOBALS['registry']->mail->mailboxList() as $mbox) {
-                    if ($mbox['a'] & self::MASK_SUBSCRIBED) {
+                    if ($mbox['a'] & self::MASK_SUBSCRIBED && strpos($mbox['ob']->utf8, "impsearch\000") === false) {
                         $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
                     }
                 }
