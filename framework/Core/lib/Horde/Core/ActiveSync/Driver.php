@@ -118,6 +118,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
+     *   - cache: (Horde_Cache)  A cache object to store certain types of
+     *                           data, such as mailbox search results.
+     *                           @since 2.11.3
      */
     public function __construct(array $params = array())
     {
@@ -142,6 +145,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (!empty($this->_params['imap'])) {
             $this->_imap = $this->_params['imap'];
             unset($this->_params['imap']);
+        }
+        if (!empty($this->_params['cache'])) {
+            $this->_cache = $this->_params['cache'];
         }
 
         // Build the displaymap
@@ -313,7 +319,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
-
         $properties = $this->_device->properties;
         $multiplex = empty($properties[Horde_ActiveSync_Device::MULTIPLEX])
             ? 0
