@@ -1691,17 +1691,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $type   The search type; ['gal'|'mailbox']
      * @param array $query   The search query. An array containing:
-     *  - query: array The search query. Contains at least:
-     *                 'query' and 'range'. The rest depends on the type of
-     *                 search being performed.
-     *           DEFAULT: none, REQUIRED
-     *  - range: (string)   A range limiter.
-     *           DEFAULT: none (No range used).
+     *  - query:          (array) The search query. Contains at least:
+     *                    'query' and 'range'. The rest depends on the type of
+     *                    search being performed.
+     *                    DEFAULT: none, REQUIRED
+     *  - range:          (string)   A range limiter.
+     *                     DEFAULT: none (No range used).
+     *  - rebuildresults: (boolean)  If true, invalidate any cached search.
+     *                    DEFAULT: Use cached search results if available.
+     *  - deeptraversal:  (boolean) If true, traverse sub folders.
+     *                    @todo NOT IMPLEMENTED YET.
      *
      * @return array  An array containing:
-     *  - rows:   An array of search results
+     *  - rows:   An array of search results, limited by $query['range'].
      *  - status: The search store status code.
-     *  - total:  The total number of matches (for mailbox searches).
+     *  - total:  The total number of matches (not limited by $query['range']
      */
     public function getSearchResults($type, array $query)
     {
@@ -1709,7 +1713,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case 'gal':
             return $this->_searchGal($query);
         case 'mailbox':
-            $results = $this->_searchMailbox($query);
+            if (!empty($this->_cache)) {
+                $clear_cache = !empty($query['rebuildresults']);
+                unset($query['rebuildresults']);
+                $cache_key = $GLOBALS['registry']->getAuth() . ':HCASD:' . md5(serialize($query['rebuildresults']));
+                if ($clear_cache) {
+                    $this->_cache->expire($cache_key);
+                }
+            }
+            if (!empty($this->_cache) && $this->_cache->exists($cache_key, 0)) {
+                $results = json_decode($this->_cache->get($cache_key, 0), true);
+            } else {
+                $results = $this->_searchMailbox($query);
+                if (!empty($this->_cache)) {
+                    $this->_cache->set($cache_key, json_encode($results));
+                }
+            }
+
             $count = count($results);
             if (!empty($query['range'])) {
                 $range = explode('-', $query['range']);
