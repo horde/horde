@@ -144,7 +144,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
             $searchbodypreference = array();
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
-                    $search_query['search_range'] = $this->_decoder->getElementContent();
+                    $search_query['range'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         $search_status = self::SEARCH_STATUS_ERROR;
                         $store_status = self::STORE_STATUS_PROTERR;
@@ -276,7 +276,10 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         $this->_encoder->endTag();
 
         if (is_array($search_result['rows']) && !empty($search_result['rows'])) {
+            $count = 0;
+            $this->_logger->debug(print_r($search_result['rows'], true));
             foreach ($search_result['rows'] as $u) {
+                $count++;
                 switch (strtolower($search_name)) {
                 case 'documentlibrary':
                     // not supported
@@ -358,14 +361,14 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            if (!empty($search_query['search_range'])) {
-                $range = explode('-', $search_query['search_range']);
+            if (!empty($search_query['range'])) {
+                $range = explode('-', $search_query['range']);
                 // If total results are less than max range,
                 // we have all results and must modify the returned range.
-                if ($search_result['total'] < ($range[1] + 1)) {
-                    $search_range = $range[0] . '-' . ($search_result['total'] - 1);
+                if ($count < ($range[1] - $range[0] + 1)) {
+                    $search_range = $range[0] . '-' . ($count - 1);
                 } else {
-                    $search_range = $search_query['search_range'];
+                    $search_range = $search_query['range'];
                 }
             }
             $this->_encoder->startTag(self::SEARCH_RANGE);

@@ -666,7 +666,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function queryMailbox($query)
     {
-        return $this->_doQuery($query['query'], $query['range']);
+        return $this->_doQuery($query['query']);
     }
 
     /**
@@ -1245,7 +1245,7 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _doQuery(array $query, $range = null)
+    protected function _doQuery(array $query)
     {
         $imap_query = new Horde_Imap_Client_Search_Query();
         $mboxes = array();
@@ -1291,7 +1291,11 @@ class Horde_ActiveSync_Imap_Adapter
         }
         foreach ($mboxes as $mbox) {
             try {
-                $search_res = $this->_getImapOb()->search($mbox, $imap_query);
+                $search_res = $this->_getImapOb()->search(
+                    $mbox,
+                    $imap_query,
+                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_SAVE, Horde_Imap_Client::SEARCH_RESULTS_COUNT))
+                );
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
