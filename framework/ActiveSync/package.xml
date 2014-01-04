@@ -10,9 +10,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-12</date>
+ <date>2013-12-31</date>
  <version>
-  <release>2.10.1</release>
+  <release>2.10.2</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1870,7 +1870,20 @@
    <date>2013-12-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue where attachments are not downloaded in certain situations on EAS version 14+.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-12-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
    </notes>
   </release>
  </changelog>
