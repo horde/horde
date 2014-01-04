@@ -106,8 +106,6 @@ class Horde_ActiveSync_Device
     {
         $this->_state = $state;
         $this->_properties = $data;
-
-
     }
 
     /**
