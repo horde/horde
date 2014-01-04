@@ -264,8 +264,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             }
             $date = new Horde_Date(time(), $date);
         }
-        $offsets = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
-        $tz = Horde_ActiveSync_Timezone::getSyncTZFromOffsets($offsets);
+        $offsets = Horde_Mapi_Utils_Timezone::getOffsetsFromDate($date);
+        $tz = Horde_Mapi_Utils_Timezone::getSyncTZFromOffsets($offsets);
         $this->_properties['timezone'] = $tz;
     }
 
@@ -276,7 +276,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
      public function getTimezone()
      {
-         $parser = new Horde_ActiveSync_Timezone();
+         $parser = new Horde_Mapi_Utils_Timezone();
          return $parser->getTimezone($this->timezone, date_default_timezone_get());
      }
 
