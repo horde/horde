@@ -91,6 +91,45 @@ class Horde_Mapi_Utils
         }
     }
 
+    /**
+     * Create a MAPI GOID from a UID
+     * See http://msdn.microsoft.com/en-us/library/ee157690%28v=exchg.80%29
+     *
+     * @param string $uid  The UID value to encode.
+     *
+     * @return string  A Base64 encoded GOID
+     */
+    static public function createGoid($uid, $options = array())
+    {
+        // Bytes 1 - 16 MUST be equal to the GOID identifier:
+        $arrayid = '040000008200E00074C5B7101A82E008';
+
+        // Bytes 17 - 20 - Exception replace time (YH YL M D)
+        $exception = '00000000';
+
+        // Bytes 21 - 28 The 8 byte creation time (can be all zeros if not available).
+        $creationtime = '0000000000000000';
+
+        // Bytes 29 - 36 Reserved 8 bytes must be all zeros.
+        $reserved = '0000000000000000';
+
+        // Bytes 37 - 40 - A long value describing the size of the UID data.
+        $size = strlen($uid);
+
+        // Bytes 41 - 52 - MUST BE vCal-Uid 0x01 0x00 0x00 0x00
+        $vCard = '7643616C2D55696401000000';
+
+        // The UID Data:
+        $hexuid = '';
+        foreach (str_split($uid) as $chr) {
+            $hexuid .= sprintf('%02X', ord($chr));
+        }
+
+        // Pack it
+        $goid = pack('H*H*H*H*VH*H*x', $arrayid, $exception, $creationtime, $reserved, $size, $vCard, $hexuid);
+
+        return base64_encode($goid);
+    }
 
     /**
      * Converts a Windows FILETIME value to a unix timestamp.
