@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-02</date>
+ <date>2014-01-04</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -28,6 +28,10 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mapi">
+      <dir name="Utils">
+       <file name="Exception.php" role="php" />
+       <file name="Timezone.php" role="php" />
+      </dir> <!-- /lib/Horde/Mapi/Utils -->
       <file name="Utils.php" role="php" />
      </dir> <!-- /lib/Horde/Mapi -->
     </dir> <!-- /lib/Horde -->
@@ -36,10 +40,14 @@
     <dir name="Horde">
      <dir name="Mapi">
       <dir name="Utils">
+       <dir name="fixtures">
+        <file name="filetime" role="test" />
+       </dir> <!-- /test/Horde/Mapi/Utils/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="bootstrap.php" role="test" />
        <file name="MapiTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
+       <file name="TimezoneTest.php" role="test" />
       </dir> <!-- /test/Horde/Mapi/Utils -->
      </dir> <!-- /test/Horde/Mapi -->
     </dir> <!-- /test/Horde -->
@@ -73,10 +81,14 @@
  <phprelease>
   <filelist>
    <install as="Horde/Mapi/Utils.php" name="lib/Horde/Mapi/Utils.php" />
+   <install as="Horde/Mapi/Utils/Exception.php" name="lib/Horde/Mapi/Utils/Exception.php" />
+   <install as="Horde/Mapi/Utils/Timezone.php" name="lib/Horde/Mapi/Utils/Timezone.php" />
    <install as="Horde/Mapi/Utils/AllTests.php" name="test/Horde/Mapi/Utils/AllTests.php" />
    <install as="Horde/Mapi/Utils/bootstrap.php" name="test/Horde/Mapi/Utils/bootstrap.php" />
    <install as="Horde/Mapi/Utils/MapiTest.php" name="test/Horde/Mapi/Utils/MapiTest.php" />
    <install as="Horde/Mapi/Utils/phpunit.xml" name="test/Horde/Mapi/Utils/phpunit.xml" />
+   <install as="Horde/Mapi/Utils/TimezoneTest.php" name="test/Horde/Mapi/Utils/TimezoneTest.php" />
+   <install as="Horde/Mapi/Utils/fixtures/filetime" name="test/Horde/Mapi/Utils/fixtures/filetime" />
   </filelist>
  </phprelease>
  <changelog>
@@ -89,7 +101,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2014-01-02</date>
+   <date>2014-01-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPLv2</license>
    <notes>
 * Initial release.
