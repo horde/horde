@@ -120,6 +120,21 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const IPM_MEETING_RESPONSE_TENT     = 'IPM.Microsoft Schedule.MtgRespA';
     const IPM_MEETING_REQUEST_CANCELLED = 'IPM.Microsoft Schedule.MtgCncl';
 
+    const RECUR_DAILY = 0x200A;
+    const RECUR_WEEKLY = 0x200B;
+    const RECUR_MONTHLY = 0x200C;
+    const RECUR_YEARLY = 0x200D;
+
+    const PATTERN_DAY  = 0x0000;
+    const PATTERN_WEEK = 0x0001;
+    const PATTERN_MONTH = 0x0002;
+    const PATTERN_MONTH_END = 0x0004;
+    const PATTERN_MONTH_NTH = 0x0003;
+
+    const RECUR_END_DATE = 0x00002021;
+    const RECUR_END_N = 0x00002022;
+
+
     /**
      */
     public $canDecompress = true;
@@ -547,6 +562,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             if (!empty($this->_iTip[0]['url'])) {
                 $vEvent->setAttribute('URL', $this->_iTip[0]['url']);
             }
+            if (!empty($this->_iTip[0]['recurrence']['recur'])) {
+                $rrule = $this->_iTip[0]['recurrence']['recur']->toRRule20($iCal);
+                $vEvent->setAttribute('RRULE', $rrule);
+            }
             $iCal->addComponent($vEvent);
 
             array_unshift($out, array(
@@ -555,6 +574,94 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 'name'    => $this->_conversation_topic,
                 'stream'  => $iCal->exportvCalendar()));
         }
+    }
+
+    protected function _parseRecurrence($value)
+    {
+        // both are 0x3004 (version strings);
+        $this->_geti($value, 16);
+        $this->_geti($value, 16);
+
+        $freq = $this->_geti($value, 16);
+        $pattern = $this->_geti($value, 16);
+        $calendarType = $this->_geti($value, 16);
+        $firstDt = $this->_geti($value, 32);
+        $period = $this->_geti($value, 32);
+        // Only used for tasks, otherwise value must be zero.
+        $flag = $this->_geti($value, 32);
+
+        // TypeSpecific field
+        switch ($pattern) {
+        case self::PATTERN_DAY:
+            // Nothing here to see, move along.
+            break;
+        case self::PATTERN_WEEK:
+            // Bits: 0/unused, 1/Saturday, 2/Friday, 3/Thursday, 4/Wednesday,
+            // 5/Tuesday, 6/Monday, 7/Sunday.
+            $day = $this->_geti($value, 8);
+            $this->_geti($value, 24);
+            break;
+        case self::PATTERN_MONTH:
+        case self::PATTERN_MONTH_END:
+            // Day of month on which the recurrence falls.
+            $day = $this->_geti($value, 32);
+            break;
+        case self::PATTERN_MONTH_NTH:
+            // Bits: 0/unused, 1/Saturday, 2/Friday, 3/Thursday, 4/Wednesday,
+            // 5/Tuesday, 6/Monday, 7/Sunday.
+            // For Nth Weekday of month
+            $day = $this->_geti($value, 8);
+            $this->_geti($value, 24);
+            $n = $this->_geti($value, 32);
+            break;
+        }
+        $end = $this->_geti($value, 32);
+        $count = $this->_geti($value, 32);
+        $fdow = $this->_geti($value, 32);
+        $deletedCount = $this->_geti($value, 32);
+        for ($i = 0; $i < $deletedCount; $i++) {
+            $deleted[] = $this->_geti($value, 32);
+        }
+        $modifiedCount = $this->_geti($value, 32);
+        for ($i = 0; $i < $modifiedCount; $i++) {
+            $modified[] = $this->_geti($value, 32);
+        }
+
+        // What Timezone are these in?
+        $startDate = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($this->_geti($value, 32)));
+        $endDate = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($this->_geti($value, 32)));
+
+        $rrule = new Horde_Date_Recurrence($startDate);
+        switch ($pattern) {
+        case self::PATTERN_DAY:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+            break;
+        case self::PATTERN_WEEK:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+            break;
+        case self::PATTERN_MONTH:
+        case self::PATTERN_MONTH_END:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
+            break;
+        case self::PATTERN_MONTH_NTH:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            break;
+        default:
+            if ($freq == self::RECUR_YEARLY) {
+                $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY);
+            }
+        }
+
+        switch ($end) {
+        case self::RECUR_END_N:
+            $rrule->setRecurCount($count);
+            break;
+        case self::RECUR_END_DATE:
+            $rrule->setRecurEnd($endDate);
+            break;
+        }
+
+        return $rrule;
     }
 
 }
