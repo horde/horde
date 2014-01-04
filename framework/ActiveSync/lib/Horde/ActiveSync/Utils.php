@@ -139,6 +139,7 @@ class Horde_ActiveSync_Utils
      * @param string $goid  Base64 encoded Global Object Identifier.
      *
      * @return string  The UID
+     * @deprecated  Will be removed in H6. Use Horde_Mapi_Utils::getUidFromGoid
      */
     static public function getUidFromGoid($goid)
     {
@@ -171,6 +172,7 @@ class Horde_ActiveSync_Utils
      * @param string $uid  The UID value to encode.
      *
      * @return string  A Base64 encoded GOID
+     * @deprecated  Will be removed in H6. Use Horde_Mapi_Utils::createGoid
      */
     static public function createGoid($uid, $options = array())
     {
