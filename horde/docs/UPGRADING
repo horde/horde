@@ -45,11 +45,16 @@ It is now possible to use X509 certificates either in addition to, or in place
 of traditional HTTP Basic authentication for ActiveSync. Refer to the
 ActiveSync configuration section for more details.
 
+A new NoSQL driver is now available for storing ActiveSync device state. Refer
+to the ActiveSync configuration section for more details.
+
 The following options were added::
 
     $conf['activesync']['logging']['level']
     $conf['activesync']['auth']['type']
     $conf['activesync']['auth']['params']
+    $conf['activesync']['storage']
+    $conf['activesync']['params']['driverconfig']
     $conf['cachecssparams']['filemtime']
 
 
@@ -58,6 +63,17 @@ The available options for the following options were changed::
     $conf['activesync']['logging']['type']
 
 
+Hooks (hooks.php)
+-----------------
+
+New ActiveSync related hooks have been added:
+
+    activesync_create_device
+    activesync_device_check
+    activesync_device_modify
+
+Read the comments at the top of the hooks.php file for descriptions of each
+hook.
 
 Upgrading Horde from 5.0.x to 5.1
 =================================
