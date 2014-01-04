@@ -25,7 +25,8 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
                 : null,
             'ping' => $conf['activesync']['ping'],
             'state' => $injector->getInstance('Horde_ActiveSyncState'),
-            'auth' => $this->_getAuth());
+            'auth' => $this->_getAuth(),
+            'cache' => $injector->getInstance('Horde_Cache'));
 
         return new Horde_Core_ActiveSync_Driver($driver_params);
     }
