@@ -30,6 +30,7 @@
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @deprecated To be removed for Horde 6. Use Horde_Mapi_Utils_Timezone::.
  */
 class Horde_ActiveSync_Timezone
 {
