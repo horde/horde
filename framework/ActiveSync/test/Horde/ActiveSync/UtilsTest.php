@@ -1,6 +1,6 @@
 <?php
 /*
- * Unit tests for Horde_ActiveSync_Timezone utilities
+ * Unit tests for Horde_ActiveSync_Utils::
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
