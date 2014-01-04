@@ -1341,6 +1341,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @return array  An array containing:
      *  - rows:   An array of search results
      *  - status: The search store status code.
+     *  - total:  The total number of matches (for mailbox searches).
      */
     public function getSearchResults($type, array $query)
     {
@@ -1348,8 +1349,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case 'gal':
             return $this->_searchGal($query);
         case 'mailbox':
+            $results = $this->_searchMailbox($query);
+            $count = count($results);
+            if (!empty($query['range'])) {
+                $range = explode('-', $query['range']);
+                $results = array_slice($results, $range[0], $range[1] - $range[0] + 1);
+            }
             return array(
-                'rows' => $this->_searchMailbox($query),
+                'rows' => $results,
+                'total' => $count,
                 'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS);
         }
     }
