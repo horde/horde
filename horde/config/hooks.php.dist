@@ -1051,51 +1051,25 @@ class Horde_Hooks
     *
     * @return Horde_ActiveSync_Device  The possibly modified device object.
     */
-   public function activesync_device_modify(Horde_ActiveSync_Device $device)
-   {
-        // Example for forcing certain device to force multiplexed collections
-        // for collection types they don't support multiple collections for.
-        // Note that this doesn't apply to email folders, which are NEVER
-        // sent multiplexed.
+   // public function activesync_device_modify(Horde_ActiveSync_Device $device)
+   // {
+   //      // Example for forcing certain device to force multiplexed collections
+   //      // for collection types they don't support multiple collections for.
+   //      // Note that this doesn't apply to email folders, which are NEVER
+   //      // sent multiplexed.
+   //      // NOTE: The Horde_ActiveSync library already determines this based
+   //      //       on some userAgent and version sniffing. You should only
+   //      //       perform this here if it doesn't work for you, or you have
+   //      //       discovered a device that doesn't fit the logic.
 
-        // iOS seems to support multiple collections for everything except
-        // Notes.
-        if (strpos($device->userAgent, 'iOS') === 0 ) {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES;
-        }
+   //      // iOS seems to support multiple collections for everything except
+   //      // Notes.
+   //      if (strpos($device->userAgent, 'iOS') === 0 ) {
+   //          $device->multiplex =
+   //              Horde_ActiveSync_Device::MULTIPLEX_NOTES;
+   //      }
 
-        // For this example, just flag android devices as requiring
-        // multiplexed data for all collections. Probably some version sniffing
-        // or manufacturer sniffing to be done here.
-        if (strpos($device->userAgent, 'Android') !== false) {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES |
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
-                Horde_ActiveSync_Device::MULTIPLEX_TASKS;
-        }
-
-        // Windows Phone. For the devices I've tested, it seems that
-        // only multiple tasklists are accepted. The rest must be
-        // multiplexed.
-        if (strpos($device->userAgent, 'MSFT-WP/8.0') !== false || $device->deviceType == 'WP8') {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
-        }
-
-        // PocketPC versions seem to not support any user defined
-        // collections at all, though I've only tested on a single HTC device.
-        if (strpos($device->userAgent, 'MSFT-PPC') !== false || $device->deviceType == 'PocketPC') {
-            $device->multiplex =
-                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-                Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
-                Horde_ActiveSync_Device::MULTIPLEX_NOTES |
-                Horde_ActiveSync_Device::MULTIPLEX_TASKS;
-        }
-
-        return $device;
-   }
+   //      return $device;
+   // }
 
 }
