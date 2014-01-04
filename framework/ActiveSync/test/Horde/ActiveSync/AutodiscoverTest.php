@@ -1,6 +1,6 @@
 <?php
 /*
- * Unit tests for Horde_ActiveSync_Timezone utilities
+ * Unit tests for Autodiscover functionality.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
