@@ -417,6 +417,85 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Browse VFS backend.
+     *
+     * @param string $path  The path to browse/fetch. This should be in UNC
+     *                      format with the "server" portion specifying
+     *                      backend name. e.g., \\file\mike\file.txt or
+     *                      \\sql\mike\file.txt
+     *
+     * @return array  An array of data arrays with the following structure:
+     *   linkid:         (string)  The UNC path for this resource.
+     *   name:           (string)  The display name of the resource.
+     *   content-length: (integer)  The byte size of the resource (if a file).
+     *   modified:       (Horde_Date)  The modification time of the resource, if
+     *                   available.
+     *   create:         (Horde_Date)  The creation time of the resource, if
+     *                   available.
+     *   is_folder:      (boolean)  True if the resource is a folder.
+     *   data:           (Horde_Stream)  The data, if resource is a file.
+     *   content-type:   (string)  The MIME type of the file resource, if
+     *                    available.
+     *   @since 2.12.0
+     */
+    public function files_browse($path)
+    {
+        if (!$app = $this->_registry->hasInterface('files')) {
+            return false;
+        }
+
+        // Save for later.
+        $original_path = $path;
+
+        // Normalize
+        $path = str_replace('\\', '/', $path);
+
+        // Get the "server" name.
+        $regex = '=^//([a-zA-Z0-9-]+)/(.*)=';
+        if (preg_match($regex, $path, $results) === false) {
+            return false;
+        }
+        $backend = $app . '/' . $results[1];
+        $path = $backend . '//' . $results[2];
+
+        try {
+            $results = $this->_registry->files->browse($path);
+        } catch (Horde_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        $files = array();
+
+        // An explicit file requested?
+        if (!empty($results['data'])) {
+            $data = new Horde_Stream();
+            $data->add($results['data']);
+            $files[] = array(
+                'linkid' => $original_path,
+                'name' => $results['name'],
+                'content-length' => $results['contentlength'],
+                'modified' => new Horde_Date($results['mtime']),
+                'created' => new Horde_Date($results['mtime']), // No creation date?
+                'is_folder' => false,
+                'data' => $data);
+        } else {
+            foreach ($results as $id => $result) {
+                $file = array('name' => $result['name']);
+                $file['is_folder'] = $result['browseable'];
+                $file['modified'] = new Horde_Date($result['modified']);
+                $file['created'] = clone $file['modified'];
+                $file['linkid'] = str_replace($backend, '', $id);
+                if (!empty($result['contentlength'])) {
+                    $file['content-length'] = $result['contentlength'];
+                }
+                $files[] = $file;
+            }
+        }
+
+        return $files;
+    }
+
+    /**
      * List all tasks in the user's default tasklist.
      *
      * @param string $tasklist  The tasklist to check. If null, use multiplexed.

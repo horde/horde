@@ -120,7 +120,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *           DEFAULT: none (No email support will be provided).
      *   - cache: (Horde_Cache)  A cache object to store certain types of
      *                           data, such as mailbox search results.
-     *                           @since 2.11.3
+     *                           @since 2.12.0
      */
     public function __construct(array $params = array())
     {
@@ -1354,7 +1354,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function itemOperationsGetDocumentLibraryLink($linkid, $cred)
     {
-        throw new Horde_ActiveSync_Exception('Not Supported');
+        $file = $this->_connector->files_browse($linkid);
+        return array_pop($file);
     }
 
     /**
@@ -1739,6 +1740,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'rows' => $results,
                 'total' => $count,
                 'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS);
+
+        case 'documentlibrary':
+            foreach ($query['query'][0] as $q) {
+                if (!empty($q['DocumentLibrary:LinkId'])) {
+                    $results = $this->_connector->files_browse($q['DocumentLibrary:LinkId']);
+                }
+            }
+            return array('rows' => $results, 'total' => count($results), 'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS);
         }
     }
 
