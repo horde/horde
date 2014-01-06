@@ -250,8 +250,31 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                     }
                     $this->_encoder->endTag();
                     break;
-                case 'documentlibrary' :
-                    // Not supported
+                case 'documentlibrary':
+                    $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
+                    try {
+                        $u = $this->_driver->itemOperationsGetDocumentLibraryLink($value['documentlibrarylinkid'], array());
+                        $doc = Horde_ActiveSync::messageFactory('Document');
+                        $doc->range = '0-' . ($u['content-length'] - 1);
+                        $doc->total = $u['content-length'];
+                        $doc->data = $u['data']->stream;
+                        $doc->version = $u['modified'];
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_status = self::STATUS_NOT_SUPPORTED;
+                    }
+                    $this->_outputStatus();
+
+                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID);
+                    $this->_encoder->content($u['linkid']);
+                    $this->_encoder->endTag();
+
+                    $this->_encoder->startTag(self::ITEMOPERATIONS_PROPERTIES);
+                    $doc->encodeStream($this->_encoder);
+                    $this->_encoder->endTag();
+
+                    $this->_encoder->endTag();
+                    break;
+
                 default :
                     $this->_logger->warn(sprintf(
                         '[%s] %s not supported by HANDLEITEMOPERATIONS.',

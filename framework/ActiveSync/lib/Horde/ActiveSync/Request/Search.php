@@ -127,8 +127,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         $search_query = array();
         switch (strtolower($search_name)) {
         case 'documentlibrary':
-            $this->_logger->err('DOCUMENTLIBRARY NOT SUPPORTED.');
-            return false;
+            $search_query['query'] = $this->_parseQuery();
+            break;
         case 'mailbox':
             $search_query['query'] = $this->_parseQuery();
             break;
@@ -241,9 +241,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
 
         $search_query['range'] = empty($search_query['range']) ? '0-99' : $search_query['range'];
         switch(strtolower($search_name)) {
-        case 'documentlibrary':
-            // not supported
-            break;
         case 'mailbox':
             $search_query['rebuildresults'] = !empty($search_query['rebuildresults']);
             $search_query['deeptraversal'] =  !empty($search_query['deeptraversal']);
@@ -281,8 +278,27 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                 $count++;
                 switch (strtolower($search_name)) {
                 case 'documentlibrary':
-                    // not supported
+                    $this->_encoder->startTag(self::SEARCH_RESULT);
+
+                    $doc = Horde_ActiveSync::messageFactory('DocumentLibrary');
+                    $doc->linkid = $u['linkid'];
+                    $doc->displayname = $u['name'];
+                    $doc->isfolder = $u['is_folder'] ? '1' : '0';
+                    $doc->creationdate = $u['created'];
+                    $doc->lastmodifieddate = $u['modified'];
+                    $doc->ishidden = '0';
+                    $doc->contentlength = $u['content-length'];
+                    if (!empty($u['content-type'])) {
+                        $doc->contenttype = $u['content-type'];
+                    }
+
+                    $this->_encoder->startTag(self::SEARCH_PROPERTIES);
+                    $doc->encodeStream($this->_encoder);
+                    $this->_encoder->endTag();
+
+                    $this->_encoder->endTag();
                     continue;
+
                 case 'gal':
                     $this->_encoder->startTag(self::SEARCH_RESULT);
                     $this->_encoder->startTag(self::SEARCH_PROPERTIES);

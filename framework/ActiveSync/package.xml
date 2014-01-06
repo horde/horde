@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-31</date>
+ <date>2014-01-05</date>
  <version>
   <release>2.10.2</release>
   <api>2.10.0</api>
@@ -74,6 +74,8 @@
        <file name="Attendee.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Contact.php" role="php" />
+       <file name="Document.php" role="php" />
+       <file name="DocumentLibrary.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
@@ -246,7 +248,6 @@
       <file name="PolicyTest.php" role="test" />
       <file name="Rfc822Test.php" role="test" />
       <file name="ServerTest.php" role="test" />
-      <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
     </dir> <!-- /test/Horde -->
@@ -411,6 +412,8 @@
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
    <install as="Horde/ActiveSync/Message/Contact.php" name="lib/Horde/ActiveSync/Message/Contact.php" />
+   <install as="Horde/ActiveSync/Message/Document.php" name="lib/Horde/ActiveSync/Message/Document.php" />
+   <install as="Horde/ActiveSync/Message/DocumentLibrary.php" name="lib/Horde/ActiveSync/Message/DocumentLibrary.php" />
    <install as="Horde/ActiveSync/Message/Exception.php" name="lib/Horde/ActiveSync/Message/Exception.php" />
    <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
@@ -497,7 +500,6 @@
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
    <install as="Horde/ActiveSync/ServerTest.php" name="test/Horde/ActiveSync/ServerTest.php" />
-   <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
@@ -1887,7 +1889,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-31</date>
+   <date>2014-01-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
