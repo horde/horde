@@ -12,8 +12,8 @@
  </lead>
  <date>2014-01-05</date>
  <version>
-  <release>2.10.2</release>
-  <api>2.10.0</api>
+  <release>2.11.0</release>
+  <api>2.11.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add support for DocumentLibrary.
 * [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
  </notes>
  <contents>
@@ -1884,14 +1885,15 @@
   </release>
   <release>
    <version>
-    <release>2.10.2</release>
-    <api>2.10.0</api></version>
+    <release>2.11.0</release>
+    <api>2.11.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-01-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add support for DocumentLibrary.
 * [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
    </notes>
   </release>
