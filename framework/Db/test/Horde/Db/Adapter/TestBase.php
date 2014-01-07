@@ -586,7 +586,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     {
         $name = $this->_conn->indexName('sports', array('column' =>
                                                 array('name', 'is_college')));
-        $this->assertStringStartsWith($name, 'index_sports_on_name_and_is_college');
+        $this->assertEquals('index_sports_on_name_and_is_college', $name);
     }
 
     public function testIndexNameByName()

@@ -224,6 +224,13 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
         $this->assertEquals('number', $afterChange->getSqlType());
     }
 
+    public function testIndexNameByMultiColumn()
+    {
+        $name = $this->_conn->indexName('sports', array('column' =>
+                                                array('name', 'is_college')));
+        $this->assertEquals('ind_spo_on_nam_and_is_col', $name);
+    }
+
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('autoincrementKey');
@@ -298,29 +305,29 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
 
     public function testAddColumnOptions()
     {
-        $result = $this->_conn->addColumnOptions("test", array());
-        $this->assertEquals("test", $result);
+        $result = $this->_conn->addColumnOptions('test', array());
+        $this->assertEquals('test', $result);
     }
 
     public function testAddColumnOptionsDefault()
     {
         $options = array('default' => '0');
-        $result = $this->_conn->addColumnOptions("test", $options);
-        $this->assertEquals("test DEFAULT '0'", $result);
+        $result = $this->_conn->addColumnOptions('test', $options);
+        $this->assertEquals('test DEFAULT \'0\'', $result);
     }
 
     public function testAddColumnOptionsNull()
     {
         $options = array('null' => true);
-        $result = $this->_conn->addColumnOptions("test", $options);
-        $this->assertEquals("test", $result);
+        $result = $this->_conn->addColumnOptions('test', $options);
+        $this->assertEquals('test NULL', $result);
     }
 
     public function testAddColumnOptionsNotNull()
     {
         $options = array('null' => false);
-        $result = $this->_conn->addColumnOptions("test", $options);
-        $this->assertEquals("test NOT NULL", $result);
+        $result = $this->_conn->addColumnOptions('test', $options);
+        $this->assertEquals('test NOT NULL', $result);
     }
 
     public function testModifyDate()
@@ -364,23 +371,23 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
 
         $this->assertEquals(
             "LOWER(name) LIKE LOWER('%search%')",
-            $this->_conn->buildClause('name', 'LIKE', "search"));
+            $this->_conn->buildClause('name', 'LIKE', 'search'));
         $this->assertEquals(
-            array("LOWER(name) LIKE LOWER(?)", array('%search%')),
-            $this->_conn->buildClause('name', 'LIKE', "search", true));
+            array('LOWER(name) LIKE LOWER(?)', array('%search%')),
+            $this->_conn->buildClause('name', 'LIKE', 'search', true));
         $this->assertEquals(
             "LOWER(name) LIKE LOWER('%search\&replace\?%')",
-            $this->_conn->buildClause('name', 'LIKE', "search&replace?"));
+            $this->_conn->buildClause('name', 'LIKE', 'search&replace?'));
         $this->assertEquals(
-            array("LOWER(name) LIKE LOWER(?)", array('%search&replace?%')),
-            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true));
+            array('LOWER(name) LIKE LOWER(?)', array('%search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', 'search&replace?', true));
         $this->assertEquals(
             "(LOWER(name) LIKE LOWER('search\&replace\?%') OR LOWER(name) LIKE LOWER('% search\&replace\?%'))",
-            $this->_conn->buildClause('name', 'LIKE', "search&replace?", false, array('begin' => true)));
+            $this->_conn->buildClause('name', 'LIKE', 'search&replace?', false, array('begin' => true)));
         $this->assertEquals(
-            array("(LOWER(name) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?))",
+            array('(LOWER(name) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?))',
                   array('search&replace?%', '% search&replace?%')),
-            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true, array('begin' => true)));
+            $this->_conn->buildClause('name', 'LIKE', 'search&replace?', true, array('begin' => true)));
 
         $this->assertEquals(
             'value = 2',

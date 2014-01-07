@@ -410,8 +410,6 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function changeColumn($tableName, $columnName, $type, $options = array())
     {
-        $this->_clearTableCache($tableName);
-
         $options = array_merge(
             array(
                 'limit'     => null,
@@ -421,6 +419,23 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             ),
             $options
         );
+
+        if ($type == 'autoincrementKey') {
+            try {
+                $this->removePrimaryKey($tableName);
+            } catch (Horde_Db_Exception $e) {
+            }
+        }
+
+        if (isset($options['null']) &&
+            $this->column($tableName, $columnName)->isNull() == $options['null']) {
+            unset($options['null']);
+        } elseif (!isset($options['null']) &&
+            !$this->column($tableName, $columnName)->isNull()) {
+            $options['null'] = true;
+        }
+
+        $this->_clearTableCache($tableName);
 
         if ($type == 'binary') {
             $this->beginDbTransaction();
@@ -437,17 +452,49 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             return;
         }
 
-        $sql = sprintf('ALTER TABLE %s MODIFY (%s %s)',
-                       $this->quoteTableName($tableName),
-                       $this->quoteColumnName($columnName),
-                       $this->typeToSql($type,
-                                        $options['limit'],
-                                        $options['precision'],
-                                        $options['scale'],
-                                        $options['unsigned']));
+        $sql = $this->quoteColumnName($columnName)
+            . ' '
+            . $this->typeToSql(
+                $type,
+                $options['limit'],
+                $options['precision'],
+                $options['scale'],
+                $options['unsigned']
+            );
         $sql = $this->addColumnOptions($sql, $options);
 
-        return $this->execute($sql);
+        $sql = sprintf(
+            'ALTER TABLE %s MODIFY (%s)',
+            $this->quoteTableName($tableName),
+            $sql
+        );
+
+        $this->execute($sql);
+
+        if ($type == 'autoincrementKey') {
+            $this->createAutoincrementTrigger($tableName, $columnName);
+        }
+    }
+
+    public function createAutoincrementTrigger($tableName, $columnName)
+    {
+        $id = $tableName . '_' . $columnName;
+        if (!$this->selectValue('SELECT 1 FROM USER_TABLES WHERE TABLE_NAME = \'HORDE_DB_AUTOINCREMENT\'')) {
+            $this->execute('CREATE TABLE horde_db_autoincrement (id INTEGER)');
+            $this->execute('INSERT INTO horde_db_autoincrement (id) VALUES (0)');
+        }
+        $this->execute(sprintf(
+            'CREATE SEQUENCE %s_seq',
+            $id
+        ));
+        $this->execute(sprintf(
+            'CREATE OR REPLACE TRIGGER %s_trig BEFORE INSERT ON %s FOR EACH ROW DECLARE increment INTEGER; BEGIN SELECT %s_seq.NEXTVAL INTO :NEW.%s FROM dual; SELECT %s_seq.CURRVAL INTO increment FROM dual; UPDATE horde_db_autoincrement SET id = increment; END;',
+            $id,
+            $tableName,
+            $id,
+            $columnName,
+            $id
+        ));
     }
 
     /**
@@ -610,11 +657,15 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $sql .= ' DEFAULT ' . $this->quote($default, $column);
         }
 
-        if (isset($options['null']) && $options['null'] === false &&
+        if (isset($options['null']) &&
             (!isset($options['column']) ||
              ($options['column']->getType() != 'text' &&
               $options['column']->getType() != 'binary'))) {
-            $sql .= ' NOT NULL';
+            if ($options['null']) {
+                $sql .= ' NULL';
+            } else {
+                $sql .= ' NOT NULL';
+            }
         }
 
         return $sql;

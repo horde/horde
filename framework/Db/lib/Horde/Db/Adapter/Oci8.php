@@ -320,12 +320,9 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                            $idValue = null, $sequenceName = null)
     {
         $this->execute($sql, $arg1, $arg2);
-
         return $idValue
             ? $idValue
-            : ($sequenceName
-               ? $this->selectOne('SELECT ' . $this->quoteColumnName($sequenceName) . '.currval FROM dual')
-               : null);
+            : $this->selectValue('SELECT id FROM horde_db_autoincrement');
     }
 
     /**

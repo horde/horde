@@ -95,7 +95,7 @@ class Horde_Db_Adapter_Oracle_ColumnDefinition extends Horde_Test_Case
             $this->conn, 'col_name', 'string'
         );
         $col->setNull(true);
-        $this->assertEquals('col_name varchar2(255)', $col->toSql());
+        $this->assertEquals('col_name varchar2(255) NULL', $col->toSql());
     }
 
     public function testToSqlDefault()

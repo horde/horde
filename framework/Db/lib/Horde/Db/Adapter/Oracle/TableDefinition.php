@@ -65,18 +65,7 @@ class Horde_Db_Adapter_Oracle_TableDefinition extends Horde_Db_Adapter_Base_Tabl
     {
         parent::end();
         if ($this->_createTrigger) {
-            $id = $this->_name . '_' . $this->_createTrigger;
-            $this->_base->execute(sprintf(
-                'CREATE SEQUENCE %s_seq',
-                $id
-            ));
-            $this->_base->execute(sprintf(
-                'CREATE OR REPLACE TRIGGER %s_trig BEFORE INSERT ON %s FOR EACH ROW BEGIN SELECT %s_seq.NEXTVAL INTO :NEW.%s FROM dual; END;',
-                $id,
-                $this->_name,
-                $id,
-                $this->_createTrigger
-            ));
+            $this->_base->createAutoincrementTrigger($this->_name, $this->_createTrigger);
         }
     }
 }
