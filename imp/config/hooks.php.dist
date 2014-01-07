@@ -180,6 +180,15 @@ class IMP_Hooks
 //                 'level' => 'bad'
 //             );
 //         }
+//
+//
+//         // Example #2: Require valid domain (i.e. disallow bare usernames).
+//         if (!strlen($addr->host)) {
+//             return array(
+//                 'msg' => sprintf('"%s" is missing the domain name.', $addr->mailbox),
+//                 'level' => 'bad'
+//             );
+//         }
 //     }
 
 
