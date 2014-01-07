@@ -362,10 +362,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 break;
             case self::MAPI_APPOINTMENT_START_WHOLE:
             file_put_contents('/tmp/filetime', $value);
-                $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($value), 'UTC');
+                $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 break;
             case self::MAPI_APPOINTMENT_END_WHOLE:
-                $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($value), 'UTC');
+                $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 break;
             case self::MAPI_APPOINTMENT_DURATION:
                 $attachment_data[0]['duration'] = $value;
@@ -380,7 +380,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_lastModifier = $value;
                 break;
             case self::MAPI_ENTRY_UID:
-                $attachment_data[0]['uid'] = Horde_Mapi_Utils::getUidFromGoid(bin2hex($value));
+                $attachment_data[0]['uid'] = Horde_Mapi::getUidFromGoid(bin2hex($value));
                 break;
             case self::MAPI_APPOINTMENT_RECUR:
                 // Need to decode this to fully support recurring meeting
@@ -628,8 +628,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         }
 
         // What Timezone are these in?
-        $startDate = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($this->_geti($value, 32)));
-        $endDate = new Horde_Date(Horde_Mapi_Utils::filetimeToUnixtime($this->_geti($value, 32)));
+        $startDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
+        $endDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
 
         $rrule = new Horde_Date_Recurrence($startDate);
         switch ($pattern) {

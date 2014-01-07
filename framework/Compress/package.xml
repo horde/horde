@@ -381,7 +381,7 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Mapi_Utils</name>
+    <name>Horde_Mapi</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>

@@ -23,7 +23,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */
-class Horde_Mapi_Utils_Timezone
+class Horde_Mapi_Timezone
 {
     /**
      * Date to use as start date when iterating through offsets looking for a
@@ -83,10 +83,10 @@ class Horde_Mapi_Utils_Timezone
         $tz['timezone'] = $tz['bias'];
         $tz['timezonedst'] = $tz['dstbias'];
 
-        if (!Horde_Mapi_Utils::isLittleEndian()) {
-            $tz['bias'] = Horde_Mapi_Utils::chbo($tz['bias']);
-            $tz['stdbias'] = Horde_Mapi_Utils::chbo($tz['stdbias']);
-            $tz['dstbias'] = Horde_Mapi_Utils::chbo($tz['dstbias']);
+        if (!Horde_Mapi::isLittleEndian()) {
+            $tz['bias'] = Horde_Mapi::chbo($tz['bias']);
+            $tz['stdbias'] = Horde_Mapi::chbo($tz['stdbias']);
+            $tz['dstbias'] = Horde_Mapi::chbo($tz['dstbias']);
         }
 
         return $tz;
@@ -102,10 +102,10 @@ class Horde_Mapi_Utils_Timezone
      */
     static public function getSyncTZFromOffsets(array $offsets)
     {
-        if (!Horde_Mapi_Utils::isLittleEndian()) {
-            $offsets['bias'] = Horde_Mapi_Utils::chbo($offsets['bias']);
-            $offsets['stdbias'] = Horde_Mapi_Utils::chbo($offsets['stdbias']);
-            $offsets['dstbias'] = Horde_Mapi_Utils::chbo($offsets['dstbias']);
+        if (!Horde_Mapi::isLittleEndian()) {
+            $offsets['bias'] = Horde_Mapi::chbo($offsets['bias']);
+            $offsets['stdbias'] = Horde_Mapi::chbo($offsets['stdbias']);
+            $offsets['dstbias'] = Horde_Mapi::chbo($offsets['dstbias']);
         }
 
         $packed = pack('la64vvvvvvvvla64vvvvvvvvl',
@@ -291,7 +291,7 @@ class Horde_Mapi_Utils_Timezone
         }
 
         if (empty($timezones)) {
-           throw new Horde_Mapi_Utils_Exception('No timezone found for the given offsets');
+           throw new Horde_Mapi_Exception('No timezone found for the given offsets');
         }
 
         return $timezones;

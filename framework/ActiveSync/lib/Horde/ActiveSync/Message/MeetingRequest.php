@@ -134,7 +134,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             }
         }
 
-        $tz = new Horde_Mapi_Utils_Timezone();
+        $tz = new Horde_Mapi_Timezone();
         $this->timezone = $tz->getSyncTZFromOffsets(
         $tz->getOffsetsFromDate(new Horde_Date()));
         $this->alldayevent = (int)$this->_isAllDay();
@@ -171,7 +171,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $this->globalobjid = Horde_Mapi_Utils::createGoid($vevent->getAttribute('UID'));
+            $this->globalobjid = Horde_Mapi::createGoid($vevent->getAttribute('UID'));
             $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'));
             $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'));
         } catch (Horde_Exception $e) {

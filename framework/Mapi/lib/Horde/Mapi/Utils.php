@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Mapi_Utils::
+ * Horde_Mapi::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -28,7 +28,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */
-class Horde_Mapi_Utils
+class Horde_Mapi
 {
     /**
      * Determine if the current machine is little endian.

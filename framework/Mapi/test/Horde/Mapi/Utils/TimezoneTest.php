@@ -1,12 +1,12 @@
 <?php
 /*
- * Unit tests for Horde_Mapi_Utils_Timezone utilities
+ * Unit tests for Horde_Mapi_Timezone utilities
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package Mapi_Utils
  */
-class Horde_Mapi_Utils_TimezoneTest extends Horde_Test_Case
+class Horde_Mapi_TimezoneTest extends Horde_Test_Case
 {
 
     protected $_offsets = array(
@@ -124,7 +124,7 @@ class Horde_Mapi_Utils_TimezoneTest extends Horde_Test_Case
     public function testOffsetsFromSyncTZ()
     {
         foreach ($this->_packed as $tz => $blob) {
-            $offsets = Horde_Mapi_Utils_Timezone::getOffsetsFromSyncTZ($blob);
+            $offsets = Horde_Mapi_Timezone::getOffsetsFromSyncTZ($blob);
             foreach ($this->_offsets[$tz] as $key => $value) {
                 $this->assertEquals($value, $offsets[$key]);
             }
@@ -140,7 +140,7 @@ class Horde_Mapi_Utils_TimezoneTest extends Horde_Test_Case
         // timezone that we are interested in.
         foreach ($this->_offsets as $tz => $expected) {
             $date = new Horde_Date('2011-07-01', $tz);
-            $offsets = Horde_Mapi_Utils_Timezone::getOffsetsFromDate($date);
+            $offsets = Horde_Mapi_Timezone::getOffsetsFromDate($date);
             foreach ($offsets as $key => $value) {
                 $this->assertEquals($expected[$key], $value);
             }
@@ -153,7 +153,7 @@ class Horde_Mapi_Utils_TimezoneTest extends Horde_Test_Case
     public function testGetSyncTZFromOffsets()
     {
         foreach ($this->_offsets as $tz => $offsets) {
-            $blob = Horde_Mapi_Utils_Timezone::getSyncTZFromOffsets($offsets);
+            $blob = Horde_Mapi_Timezone::getSyncTZFromOffsets($offsets);
             $this->assertEquals($this->_packed[$tz], $blob);
         }
     }
@@ -164,7 +164,7 @@ class Horde_Mapi_Utils_TimezoneTest extends Horde_Test_Case
      */
     public function testGuessTimezoneFromOffsets()
     {
-        $timezones = new Horde_Mapi_Utils_Timezone();
+        $timezones = new Horde_Mapi_Timezone();
 
         // Test general functionality, with expected timezone.
         foreach ($this->_packed as $tz => $blob) {
