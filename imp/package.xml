@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow HTML data to be pasted within HTML compose editor paste dialog.
+* [mms] Filter outgoing HTML compose messages for XSS vulnerabilities.
 * [mms] Add permission to limit the maximum body size of a composed message.
 * [mms] Show placeholder image when dropping onto HTML editor while the image is uploaded to the server.
 * [mms] Add rate limiting to new mail notification alerts to prevent flooding of the remote mail server (Request #12705).

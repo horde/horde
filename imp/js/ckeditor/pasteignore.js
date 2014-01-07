@@ -14,11 +14,5 @@ CKEDITOR.plugins.add('pasteignore', {
                 e2.data.preventDefault(true);
             });
         });
-
-        editor.on('paste', function(ev) {
-            if (ev.data.html) {
-                ev.data.html = ev.data.html.stripTags();
-            }
-        });
     }
 });

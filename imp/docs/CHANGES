@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Allow HTML data to be pasted within HTML compose editor paste dialog.
+[mms] Filter outgoing HTML compose messages for XSS vulnerabilities.
 [mms] Add permission to limit the maximum body size of a composed message.
 [mms] Show placeholder image when dropping onto HTML editor while the image is
       uploaded to the server.

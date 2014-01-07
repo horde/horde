@@ -94,8 +94,6 @@ CKEDITOR.plugins.add('pasteattachment', {
                     uploadAtc([ new Blob([ new Uint8Array(a) ], { type: data[0].split(':')[1].split(';')[0] }) ]);
 
                     ev.data.html = '';
-                } else {
-                    ev.data.html = ev.data.html.stripTags();
                 }
             }
         });

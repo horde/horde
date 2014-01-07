@@ -1345,10 +1345,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (empty($options['html'])) {
             $body_html = null;
         } else {
-            $body_html = new Horde_Domhtml($body, 'UTF-8');
+            $tfilter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+
+            $body_html = $tfilter->filter(
+                $body,
+                'Xss',
+                array(
+                    'charset' => $this->charset,
+                    'return_dom' => true,
+                    'strip_style_attributes' => false
+                )
+            );
             $body_html_body = $body_html->getBody();
 
-            $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
+            $body = $tfilter->filter(
+                $body_html->returnHtml(),
+                'Html2text',
+                array(
+                    'wrap' => false
+                )
+            );
         }
 
         $hooks = $injector->getInstance('Horde_Core_Hooks');
@@ -1382,7 +1398,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $body .= "\n" . $options['signature'];
                 } else {
                     $html_sig = $options['signature'];
-                    $body .= "\n" . $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($html_sig, 'Html2text');
+                    $body .= "\n" . $tfilter->filter($html_sig, 'Html2text');
                 }
             } else {
                 $sig = $options['signature']->getSignature('text');
@@ -1497,12 +1513,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * this is the case. */
             $textpart->addPart($this->_convertToRelated($body_html, $htmlBody));
 
-            $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html->returnHtml(array(
-                'charset' => $this->charset,
-                'metacharset' => true
-            )), 'cleanhtml', array(
-                'charset' => $this->charset
-            )));
+            $htmlBody->setContents(
+                $tfilter->filter(
+                    $body_html->returnHtml(array(
+                        'charset' => $this->charset,
+                        'metacharset' => true
+                    )),
+                    'Cleanhtml',
+                    array(
+                        'charset' => $this->charset
+                    )
+                )
+            );
         } else {
             $textpart = $textBody;
         }
@@ -2770,17 +2792,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         if ($mode == 'html') {
-            $filters = array(
-                'Cleanhtml' => array(
-                    'body_only' => true
-                ),
-                'Xss' => array(
+            $dom = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter(
+                $msg,
+                'Xss',
+                array(
+                    'charset' => $this->charset,
                     'return_dom' => true,
                     'strip_style_attributes' => false
                 )
             );
-
-            $dom = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array_keys($filters), array_values($filters));
 
             /* If we are replying to a related part, and this part refers
              * to local message parts, we need to move those parts into this

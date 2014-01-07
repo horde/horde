@@ -623,7 +623,7 @@ $_prefs['compose_confirm'] = array(
 // See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
 // details on configuration
 $_prefs['ckeditor_buttons'] = array(
-    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste','PasteFromWord'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
+    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
     // Use the following line for a very basic set of buttons:
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
 );
