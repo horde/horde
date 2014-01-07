@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.
 * [mjr] Cache ActiveSync mailbox search results for improved performance during paging.
 * [mms] Predis client should only use clustering if necessary.
@@ -3267,6 +3268,7 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.
 * [mjr] Cache ActiveSync mailbox search results for improved performance during paging.
 * [mms] Predis client should only use clustering if necessary.

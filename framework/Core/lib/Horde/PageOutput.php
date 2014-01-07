@@ -289,6 +289,13 @@ class Horde_PageOutput
                     );
                     break;
 
+                case 'uglifyjs':
+                    $jsmin_params = array(
+                        'uglifyjs' => $conf['cachejsparams']['uglifyjspath'],
+                        'uglifyjscmdline' => $conf['cachejsparams']['uglifyjscmdline']
+                    );
+                    break;
+
                 case 'yui':
                     $jsmin_params = array(
                         'java' => $conf['cachejsparams']['javapath'],
