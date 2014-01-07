@@ -17,8 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>16:12:48</time>
+ <date>2014-01-07</date>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -57,6 +56,7 @@
      <dir name="Group">
       <file name="1_horde_group_base_tables.php" role="data" />
       <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
+      <file name="3_horde_group_upgrade_null_parents.php" role="data" />
      </dir> <!-- /migration/Horde/Group -->
     </dir> <!-- /migration/Horde -->
     </dir> <!-- /migration -->
@@ -72,6 +72,7 @@
        <file name="Base.php" role="test" />
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
+       <file name="Oci8Test.php" role="test" />
       </dir> <!-- /test/Horde/Group/Sql -->
       <dir name="Stub">
        <file name="Api.php" role="test" />
@@ -146,6 +147,7 @@
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
    <install as="migration/1_horde_group_base_tables.php" name="migration/Horde/Group/1_horde_group_base_tables.php" />
    <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde/Group/2_horde_group_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_group_upgrade_null_parents.php" name="migration/Horde/Group/3_horde_group_upgrade_null_parents.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/bootstrap.php" name="test/Horde/Group/bootstrap.php" />
    <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
@@ -156,6 +158,7 @@
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />
    <install as="Horde/Group/Sql/MysqliTest.php" name="test/Horde/Group/Sql/MysqliTest.php" />
    <install as="Horde/Group/Sql/MysqlTest.php" name="test/Horde/Group/Sql/MysqlTest.php" />
+   <install as="Horde/Group/Sql/Oci8Test.php" name="test/Horde/Group/Sql/Oci8Test.php" />
    <install as="Horde/Group/Sql/Pdo/MysqlTest.php" name="test/Horde/Group/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/PgsqlTest.php" name="test/Horde/Group/Sql/Pdo/PgsqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/SqliteTest.php" name="test/Horde/Group/Sql/Pdo/SqliteTest.php" />
@@ -440,7 +443,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2014-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
