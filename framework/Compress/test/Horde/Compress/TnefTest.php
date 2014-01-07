@@ -17,7 +17,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
    public function testMeetingInvitation()
    {
         $tnef = Horde_Compress::factory('Tnef');
-        $data = base64_decode(file_get_contents('fixtures/TnefMeetingRequest.txt'));
+        $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefMeetingRequest.txt'));
         $tnef_data = $tnef->decompress($data);
         $this->assertEquals($tnef_data[0]['type'], 'text');
         $this->assertEquals($tnef_data[0]['subtype'], 'calendar');
@@ -26,7 +26,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
 
    public function testAttachments()
    {
-        $data = base64_decode(file_get_contents('fixtures/TnefAttachments.txt'));
+        $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachments.txt'));
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($data);
         $this->assertEquals($tnef_data[0]['type'], 'application');
@@ -37,7 +37,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
 
    public function testMultipleAttachments()
    {
-        $data = base64_decode(file_get_contents('fixtures/TnefAttachmentsMultiple.txt'));
+        $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachmentsMultiple.txt'));
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($data);
         $this->assertEquals($tnef_data[0]['type'], 'application');

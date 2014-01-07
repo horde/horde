@@ -21,7 +21,10 @@ class Horde_Mapi_Utils_MapiTest extends PHPUnit_Framework_TestCase
 
     public function testFiletimeToUnixTime()
     {
-        $data = file_get_contents('fixtures/filetime');
+        if (!extension_loaded('bcmath')) {
+            $this->markTestSkipped("bcmath extension isn't loaded");
+        }
+        $data = file_get_contents(__DIR__ . '/fixtures/filetime');
         $this->assertEquals(Horde_Mapi_Utils::filetimeToUnixtime($data), 1387818000);
     }
 
