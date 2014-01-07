@@ -1187,7 +1187,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             try {
                 /* We have written address, but it still may not be valid.
                  * So double-check. */
-                IMP::parseAddressList($tmp, array(
+                $alist = IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
 
@@ -1198,7 +1198,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         $error = $injector->getInstance('Horde_Core_Hooks')->callHook(
                             'compose_addr',
                             'imp',
-                            array($tmp)
+                            array($alist[0])
                         );
                     } catch (Horde_Exception_HookNotSet $e) {
                         $hook = false;

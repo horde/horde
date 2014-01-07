@@ -164,17 +164,17 @@ class IMP_Hooks
     /**
      * Check compose e-mail recipient before sending.
      *
-     * @param Horde_Mail_Rfc822_Object $addr  The address object.
+     * @param Horde_Mail_Rfc822_Address $addr  The address object.
      *
      * @return mixed  If an error, an array with the following possible keys:
      *   - msg: (string) The error text.
      *   - level: (string; OPTIONAL) Either 'bad' (DEFAULT) or 'warn'.
      */
-//     public function compose_addr(Horde_Mail_Rfc822_Object $addr)
+//     public function compose_addr(Horde_Mail_Rfc822_Address $addr)
 //     {
-//         // Example: Only allow sending to local addresses.
-//         if (($addr instanceof Horde_Mail_Rfc822_Address) &&
-//             ($addr->host != 'example.com')) {
+//         // Example #1: Only allow sending to local addresses (the
+//         //             "example.com" domain.
+//         if ($addr->host != 'example.com') {
 //             return array(
 //                 'msg' => 'Can only send to addresses at example.com.',
 //                 'level' => 'bad'
