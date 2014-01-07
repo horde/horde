@@ -17,7 +17,7 @@ class Horde_Group_TestBase extends Horde_Test_Case
     protected function _create()
     {
         self::$groupids[] = self::$group->create('My Group', 'me@example.com');
-        $this->assertNotNull(self::$groupids);
+        $this->assertNotNull(self::$groupids[0]);
         self::$groupids[] = self::$group->create('My Other Group');
         self::$groupids[] = self::$group->create('Not My Group');
     }
