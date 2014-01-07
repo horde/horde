@@ -115,7 +115,10 @@ var ImpComposeBase = {
     focus: function(elt)
     {
         elt = $(elt);
-        elt.focus();
+        try {
+            // IE 8 requires try/catch to silence a warning.
+            elt.focus();
+        } catch (e) {}
         $(document).fire('AutoComplete:focus', elt);
     },
 

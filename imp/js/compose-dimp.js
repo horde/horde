@@ -590,14 +590,17 @@ var DimpCompose = {
         ob.opts = ob.opts || {};
 
         if (ob.addr) {
-            $('to').setValue(ob.addr.to.join(', '));
+            $('to').setValue(ob.addr.to.join(', '))
+                .fire('AutoComplete:reset');
             if (ob.addr.cc.size()) {
                 this.toggleCC('cc');
-                $('cc').setValue(ob.addr.cc.join(', '));
+                $('cc').setValue(ob.addr.cc.join(', '))
+                    .fire('AutoComplete:reset');
             }
             if (ob.addr.bcc.size()) {
                 this.toggleCC('bcc');
-                $('bcc').setValue(ob.addr.bcc.join(', '));
+                $('bcc').setValue(ob.addr.bcc.join(', '))
+                    .fire('AutoComplete:reset');
             }
         }
 
