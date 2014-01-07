@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mms] Support UglifyJS for compressing javascript.
 [mjr] Add improved ActiveSync device administration page.
 [mms] Display indication that Caps Lock key is on when entering password on
       login page (Request #7178).

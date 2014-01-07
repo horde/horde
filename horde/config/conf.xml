@@ -1202,20 +1202,27 @@
      <configswitch name="compress" desc="How should we compress the cached
      files?">php
       <case name="none" desc="No compression" />
-      <case name="php" desc="Built-in compressor (Medium compression, good
-      speed)" />
-      <case name="yui" desc="YUI Compressor (Best compression, slowest
-      speed)">
-       <configstring name="javapath" desc="The path to the Java
-       application launcher.">/opt/java/jre/bin/java</configstring>
-       <configstring name="yuipath" desc="The path to the YUI compressor
-       .jar file"></configstring>
-      </case>
       <case name="closure" desc="Google Closure Compiler (Best compression,
       slowest speed)">
        <configstring name="javapath" desc="The path to the Java
        application launcher.">/opt/java/jre/bin/java</configstring>
        <configstring name="closurepath" desc="The path to the Closure compiler
+       .jar file"></configstring>
+      </case>
+      <case name="php" desc="Built-in compressor (Medium compression, good
+      speed)" />
+      <case name="uglifyjs" desc="UglifyJS (NodeJS compressor; good
+      compression, good speed)">
+       <configstring name="uglifyjspath" desc="The path to the uglifyjs
+       binary"></configstring>
+       <configstring name="uglifyjscmdline" desc="The command line options
+       to use">-c</configstring>
+      </case>
+      <case name="yui" desc="YUI Compressor (Best compression, slowest
+      speed)">
+       <configstring name="javapath" desc="The path to the Java
+       application launcher.">/opt/java/jre/bin/java</configstring>
+       <configstring name="yuipath" desc="The path to the YUI compressor
        .jar file"></configstring>
       </case>
      </configswitch>
