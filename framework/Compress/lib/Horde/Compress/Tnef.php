@@ -361,7 +361,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $attachment_data[0]['url'] = $value;
                 break;
             case self::MAPI_APPOINTMENT_START_WHOLE:
-            file_put_contents('/tmp/filetime', $value);
                 try {
                     $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 } catch (Horde_Mapi_Exception $e) {
