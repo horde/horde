@@ -390,10 +390,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $attachment_data[0]['uid'] = Horde_Mapi::getUidFromGoid(bin2hex($value));
                 break;
             case self::MAPI_APPOINTMENT_RECUR:
-                // Need to decode this to fully support recurring meeting
-                // requests since it's the only way to get the full recurrence
-                // definition, including exceptions.
-                // @TODO.
                 if (empty($attachment_data[0]['recurrence'])) {
                     $attachment_data[0]['recurrence'] = array();
                 }
