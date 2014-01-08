@@ -362,10 +362,18 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 break;
             case self::MAPI_APPOINTMENT_START_WHOLE:
             file_put_contents('/tmp/filetime', $value);
-                $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                try {
+                    $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 break;
             case self::MAPI_APPOINTMENT_END_WHOLE:
-                $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                try {
+                    $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 break;
             case self::MAPI_APPOINTMENT_DURATION:
                 $attachment_data[0]['duration'] = $value;
@@ -628,8 +636,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         }
 
         // What Timezone are these in?
-        $startDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
-        $endDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
+        try {
+            $startDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
+            $endDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
+        } catch (Horde_Mapi_Exception $e) {
+            throw new Horde_Compress_Exception($e);
+        }
 
         $rrule = new Horde_Date_Recurrence($startDate);
         switch ($pattern) {

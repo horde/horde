@@ -18,7 +18,15 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     {
         $tnef = Horde_Compress::factory('Tnef');
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefMeetingRequest.txt'));
-        $tnef_data = $tnef->decompress($data);
+        try {
+            $tnef_data = $tnef->decompress($data);
+        } catch (Horde_Compress_Exception $e) {
+            if (($prev = $e->getPrevious()) &&
+                ($prev instanceof Horde_Mapi_Exception)) {
+                $this->markTestSkipped();
+            }
+            throw $e;
+        }
         $this->assertEquals($tnef_data[0]['type'], 'text');
         $this->assertEquals($tnef_data[0]['subtype'], 'calendar');
         $this->assertEquals($tnef_data[0]['name'], 'Meeting');

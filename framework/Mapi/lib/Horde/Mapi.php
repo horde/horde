@@ -141,6 +141,7 @@ class Horde_Mapi
      *                    MAPI property.
      *
      * @return integer  The unix timestamp.
+     * @throws Horde_Mapi_Exception
      */
     static public function filetimeToUnixtime($ft)
     {
@@ -169,6 +170,10 @@ class Horde_Mapi
     // convert hex string to BC-int
     static protected function _hexToBcint($str)
     {
+        if (!extension_loaded('bcmath')) {
+            throw new Horde_Mapi_Exception('bcmath extension not loaded.');
+        }
+
         $hex = array(
             '0'=>'0',   '1'=>'1',   '2'=>'2',   '3'=>'3',   '4'=>'4',
             '5'=>'5',   '6'=>'6',   '7'=>'7',   '8'=>'8',   '9'=>'9',
@@ -190,6 +195,10 @@ class Horde_Mapi
 
     static protected function _win64ToUnix($bci)
     {
+        if (!extension_loaded('bcmath')) {
+            throw new Horde_Mapi_Exception('bcmath extension not loaded.');
+        }
+
         // Unix epoch as a Windows file date-time value
         $magicnum = '116444735995904000';
         $t = bcsub($bci, $magicnum);    // Cast to Unix epoch
