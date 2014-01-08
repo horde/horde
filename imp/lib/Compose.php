@@ -227,15 +227,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $base->isBasePart(true);
 
         $recip_list = $this->recipientList($headers);
-        foreach ($recip_list['list'] as $val) {
-            try {
-                IMP::parseAddressList($val->writeAddress(true), array(
-                    'validate' => true
-                ));
-            } catch (Horde_Mail_Exception $e) {
-                throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
-            }
-        }
         $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
