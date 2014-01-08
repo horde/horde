@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[mjr] Fix updating free/busy display when updating event times (Bug #12676).
 [mjr] Add ability to export event to a timeslice (Request #1111307).
 [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
 [jan] Improve sort order of events in month view (Request #11155).
