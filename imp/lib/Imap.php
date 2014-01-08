@@ -200,13 +200,11 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Is sorting available for a mailbox?
-     *
-     * @param IMP_Mailbox $mbox  The mailbox to query.
+     * Is mailbox sorting available?
      *
      * @return boolean  True if sorting is available.
      */
-    public function canSort(IMP_Mailbox $mbox)
+    public function canSort()
     {
         return ($this->config->sort_force ||
                 $this->_ob->queryCapability('SORT'));
