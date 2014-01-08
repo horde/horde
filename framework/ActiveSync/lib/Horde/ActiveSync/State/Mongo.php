@@ -699,7 +699,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         foreach ($cursor as $item) {
             if (!empty($item['users'])) {
                 foreach ($item['users'] as $user) {
-                    $device = array_merge($item, $user);
+                    $device = $item;
+                    $device = array_merge ($device, $user);
                     unset($device['users']);
                     $results[] = $device;
                 }
