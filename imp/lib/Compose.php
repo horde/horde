@@ -209,6 +209,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - html: (boolean) Is this an HTML message?
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *   - readreceipt: (boolean) Add return receipt headers?
+     *   - verify_email: (boolean) Verify e-mail messages? Default: no.
      *
      * @return string  The body text.
      *
@@ -227,13 +228,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $base->isBasePart(true);
 
         $recip_list = $this->recipientList($headers);
-        foreach ($recip_list['list'] as $val) {
-            try {
-                IMP::parseAddressList($val->writeAddress(true), array(
-                    'validate' => true
-                ));
-            } catch (Horde_Mail_Exception $e) {
-                throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
+        if (!empty($opts['verify_email'])) {
+            foreach ($recip_list['list'] as $val) {
+                try {
+                    IMP::parseAddressList($val->writeAddress(true), array(
+                        'validate' => true
+                    ));
+                } catch (Horde_Mail_Exception $e) {
+                    throw new IMP_Compose_Exception(sprintf(_("Saving the message failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
+                }
             }
         }
         $headers = array_merge($headers, $recip_list['header']);
@@ -632,7 +635,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         try {
             $mbox->imp_imap->append($mbox, array(array(
                 'data' => $this->_saveDraftMsg($headers, $message, $opts),
-                'flags' => $append_flags
+                'flags' => $append_flags,
+                'verify_email' => true
             )));
 
             if ($old_uid) {
