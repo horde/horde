@@ -148,9 +148,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        $this->_imptmp = array(
-            'target' => strval(new Horde_Support_Randomid())
-        );
+        $this->_imptmp = array();
         if ($inline && !$convert_text) {
             $this->_imptmp += array(
                 'blockimg' => null,
@@ -161,8 +159,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'img' => false,
                 'imgblock' => false,
                 'inline' => $inline,
-                'style' => array(),
-                'target' => strval(new Horde_Support_Randomid())
+                'style' => array()
             );
 
             if ($inline) {
@@ -334,9 +331,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* See Bug #8695: internal anchors are broken in
                      * Mozilla. */
                     $node->removeAttribute('href');
-                } elseif (!$node->hasAttribute('target') ||
-                          Horde_String::lower($node->getAttribute('target')) == '_self') {
-                    $node->setAttribute('target', $this->_imptmp['target']);
+                } else {
+                    $node->setAttribute('target', strval(new Horde_Support_Randomid()));
                 }
             }
             break;

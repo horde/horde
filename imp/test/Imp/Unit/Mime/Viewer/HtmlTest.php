@@ -42,13 +42,13 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
         $links = array(
             'foo' => '<p>foo</p>',
             'example@example.com' => '<p>example@example.com</p>',
-            'foo <a href="#bar">Anchor</a>' => '<p>foo <a href="#bar" target="_blank">Anchor</a></p>',
-            'foo <a href="http://www.example.com/">example</a>' => '<p>foo <a href="http://www.example.com/" target="_blank">example</a></p>',
-            'foo <a target="foo" href="http://www.example.com/">example</a>' => '<p>foo <a target="foo" href="http://www.example.com/">example</a></p>',
-            'foo <a href="http://www.example.com/" target="foo">example</a>' => '<p>foo <a href="http://www.example.com/" target="foo">example</a></p>',
+            'foo <a href="#bar">Anchor</a>' => '<p>foo <a href="#bar" target="%s">Anchor</a></p>',
+            'foo <a href="http://www.example.com/">example</a>' => '<p>foo <a href="http://www.example.com/" target="%s">example</a></p>',
+            'foo <a target="foo" href="http://www.example.com/">example</a>' => '<p>foo <a target="%s" href="http://www.example.com/">example</a></p>',
+            'foo <a href="http://www.example.com/" target="foo">example</a>' => '<p>foo <a href="http://www.example.com/" target="%s">example</a></p>',
             'foo <a mailto="example@example.com">Example Email</a>' => '<p>foo <a mailto="example@example.com">Example Email</a></p>',
-            '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>' => '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="_blank"/></map>',
-            '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="foo"></map>' => '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="foo"/></map>'
+            '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>' => '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="%s"/></map>',
+            '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="foo"></map>' => '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="%s"/></map>'
         );
 
         $v = new IMP_Stub_Mime_Viewer_Html(new Horde_Mime_Part(), array(
@@ -57,7 +57,7 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
         ));
 
         foreach ($links as $key => $val) {
-            $this->assertEquals(
+            $this->assertStringMatchesFormat(
                 $val,
                 $v->runTest($key)
             );
