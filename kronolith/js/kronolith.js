@@ -47,6 +47,7 @@ KronolithCore = {
     ucb: null,
     resourceACCache: { choices: [], map: $H() },
     paramsCache: null,
+    attendees: [],
 
     /**
      * The location that was open before the current location.
@@ -5288,7 +5289,7 @@ KronolithCore = {
             }
             RedBox.onDisplay = this.redBoxOnDisplay;
         }.bind(this);
-
+        this.attendees = [];
         this.updateCalendarDropDown('kronolithEventTarget');
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
@@ -5361,15 +5362,6 @@ KronolithCore = {
             this.toggleRecurrence(true, 'None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
-            // Need to clear any existing handler for new events, as they are
-            // bound to the attendees of the last edited event. @TODO: figure
-            // out how to attach a similar event for new events.
-            if (this.attendeeStartDateHandler) {
-                $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
-            }
-            if (this.resourceStartDateHandler) {
-                $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
-            }
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
@@ -5625,21 +5617,12 @@ KronolithCore = {
         }
 
         /* Attendees */
-        if (this.attendeeStartDateHandler) {
-            $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
-        }
         if (!Object.isUndefined(ev.at)) {
             HordeImple.AutoCompleter.kronolithEventAttendees.reset(ev.at.pluck('l'));
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
             }
-            this.attendeeStartDateHandler = function() {
-                ev.at.each(function(attendee) {
-                    this.insertFreeBusy(attendee.l);
-                }, this);
-            }.bind(this);
-            $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
         }
 
         /* Resources */
@@ -5712,6 +5695,13 @@ KronolithCore = {
         }
     },
 
+    attendeeStartDateHandler: function(start) {
+        this.attendees.each(function(attendee) {
+            this.insertFreeBusy(attendee, start);
+        }, this);
+
+    },
+
     /**
      * Adds an attendee row to the free/busy table.
      *
@@ -5739,6 +5729,7 @@ KronolithCore = {
         }
 
         if (attendee.e) {
+            this.attendees.push(attendee.e);
             this.fbLoading++;
             HordeCore.doAction('getFreeBusy', {
                 email: attendee.e
@@ -5876,12 +5867,12 @@ KronolithCore = {
     /**
      * Updates rows with free/busy information in the attendees table.
      *
-     * @todo Update when changing dates;
-     *
      * @param string attendee  An attendee display name as the free/busy
      *                         identifier.
+     * @param date   start     An optinal start date for f/b info. If omitted,
+     *                         $('kronolithEventStartDate') is used.
      */
-    insertFreeBusy: function(attendee)
+    insertFreeBusy: function(attendee, start)
     {
         if (!$('kronolithEventDialog').visible() ||
             !this.freeBusy.get(attendee)) {
@@ -5904,8 +5895,12 @@ KronolithCore = {
             div.purge();
             div.remove();
         }
-        var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
-            end = start.clone().add(1).days(),
+        if (start) {
+            start = Date.parseExact(start, Kronolith.conf.date_format);
+        } else {
+            start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format)
+        }
+        var end = start.clone().add(1).days(),
             width = td.getWidth(),
             fbs = this.parseDate(fb.s),
             fbe = this.parseDate(fb.e);
@@ -6315,12 +6310,14 @@ KronolithCore = {
     {
         switch (field) {
         case 'kronolithEventStartDate':
+            this.attendeeStartDateHandler();
         case 'kronolithEventStartTime':
             this.updateEndTime();
             break;
         case 'kronolithEventEndDate':
         case 'kronolithEventEndTime':
             this.updateStartTime();
+            this.attendeeStartDateHandler();
             break;
         }
     },
@@ -6582,6 +6579,8 @@ KronolithCore = {
         timeFields.each(function(field) {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollTimeField.bindAsEventListener(this, field));
         }, this);
+
+        $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler.bind(this));
 
         this.updateMinical(this.date);
     },
