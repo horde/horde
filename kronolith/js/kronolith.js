@@ -4339,7 +4339,15 @@ KronolithCore = {
                 }
                 e.stop();
                 break;
-
+            case 'kronolithEventConflictYes':
+                this.doSaveEvent();
+                e.stop();
+                break;
+            case 'kronolithEventConflictNo':
+                $('kronolithConflictDiv').hide();
+                $('kronolithEventDiv').show()
+                e.stop()
+                break;
             case 'kronolithEventSaveAsNew':
                 if (!elt.disabled) {
                     this.saveEvent(true);
@@ -5444,11 +5452,57 @@ KronolithCore = {
      */
     saveEvent: function(asnew)
     {
+        this.validateEvent(asnew);
+    },
+
+    /**
+     * Perform any preliminary checks necessary. doSaveEvent will be called from
+     * the callback if checks are successful.
+     *
+     */
+    validateEvent: function(asnew)
+    {
         if (this.wrongFormat.size()) {
             HordeCore.notify(Kronolith.text.fix_form_values, 'horde.warning');
             return;
         }
 
+        // Check that there are no conflicts.
+        HordeCore.doAction(
+            'checkResources',
+            {
+                s: this.getDate('start').toISOString(),
+                e: this.getDate('end').toISOString(),
+                i: $F('kronolithEventId'),
+                c: $F('kronolithEventCalendar'),
+                r: $F('kronolithEventResourceIds')
+            },
+            {
+                callback: this.validateEventCallback.curry(asnew).bind(this)
+            }
+        );
+    },
+
+    validateEventCallback: function(asnew, r)
+    {
+        var conflict = false;
+
+        $H(r).each(function(a) {
+            // 3 == Kronolith::RESPONSE_DECLINED
+            if (a.value == 3) {
+                $('kronolithEventDiv').hide();
+                $('kronolithConflictDiv').show();
+                conflict = true;
+                return;
+            }
+        });
+        if (!conflict) {
+            this.doSaveEvent(asnew);
+        }
+    },
+
+    doSaveEvent: function(asnew)
+    {
         var cal = $F('kronolithEventCalendar'),
             target = $F('kronolithEventTarget'),
             eventid = $F('kronolithEventId'),
@@ -5486,6 +5540,7 @@ KronolithCore = {
                     $('kronolithEventDelete').enable();
                 }
                 $('kronolithUpdateDiv').hide();
+                $('kronolithConflictDiv').hide();
                 $('kronolithEventDiv').show();
             }.bind(this)
         });

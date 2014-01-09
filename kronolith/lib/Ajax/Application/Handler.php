@@ -1407,6 +1407,43 @@ EOT;
     }
 
     /**
+     * Check reply status of any resources and report back. Used as a check
+     * before saving an event to give the user feedback.
+     *
+     * The following arguments are expected:
+     *   - r:  An array of resource identifiers.
+     *   - s:  The event start time to check.
+     *   - e:  The event end time to check.
+     *   - u:  The event uid, if not a new event.
+     *   - c:  The event's calendar.
+     */
+    public function checkResources()
+    {
+        if ($this->vars->i) {
+            $event = $this->_getDriver($this->vars->c)->getEvent($this->vars->i);
+        } else {
+            $event = Kronolith::getDriver()->getEvent();
+        }
+        // Overrite start/end times since we may be checking before we edit
+        // an existing event with new times.
+        $event->start = new Horde_Date($this->vars->s);
+        $event->end = new Horde_Date($this->vars->e);
+        $event->start->setTimezone(date_default_timezone_get());
+        $event->end->setTimezone(date_default_timezone_get());
+        $results = array();
+        $r = $this->vars->r;
+        if (!is_array($r)) {
+            $r = array($r);
+        }
+        foreach ($r as $id) {
+            $resource = Kronolith::getDriver('Resource')->getResource($id);
+            $results[$id] = $resource->getResponse($event);
+        }
+
+        return $results;
+    }
+
+    /**
      * Returns the driver object for a calendar.
      *
      * @param string $cal  A calendar string in the format "type|name".

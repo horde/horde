@@ -324,5 +324,12 @@
   <input id="kronolithEventSendCancellationNo" type="button" value="<?php echo _("No") ?>" />
 </div>
 </div>
+<div id="kronolithConflictDiv" style="display:none">
+<p><?php echo _("Some resources have scheduling conflicts, save anyway?") ?></p>
+<div class="kronolithFormActions">
+  <input id="kronolithEventConflictYes" type="button" value="<?php echo _("Yes") ?>" class="horde-default" />
+  <input id="kronolithEventConflictNo" type="button" value="<?php echo _("No") ?>" />
+</div>
+</div>
 </form>
 </div>
