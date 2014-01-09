@@ -34,16 +34,11 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
         /* Check for conflicts, ignoring the conflict if it's for the
          * same event that is passed. */
-        if (!is_array($event)) {
-            $uid = $event->uid;
-        } else {
-            $uid = 0;
-        }
         foreach ($busy as $events) {
             foreach ($events as $e) {
                 if (!($e->status == Kronolith::STATUS_CANCELLED ||
                       $e->status == Kronolith::STATUS_FREE) &&
-                     $e->uid !== $uid) {
+                     $e->uid !== $event->uid) {
 
                      // Comparing to zero allows the events to start at the same
                      // the previous event ends.
