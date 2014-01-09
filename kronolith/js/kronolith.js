@@ -6026,7 +6026,7 @@ KronolithCore = {
         this.fbStartDateHandler(fbdate.addDays(-1).toString(Kronolith.conf.date_format));
     },
 
-    /**    
+    /**
      * @start Date object
      */
     updateFBDate: function(start)
