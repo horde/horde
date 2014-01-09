@@ -5984,7 +5984,7 @@ KronolithCore = {
 
     fbStartDateOnChange: function()
     {
-        this.fbStartDateHandler($F('kronolithEventStartDate'))
+        this.fbStartDateHandler($F('kronolithEventStartDate'));
     },
 
     fbStartDateHandler: function(start)
