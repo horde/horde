@@ -5905,7 +5905,8 @@ KronolithCore = {
             fbs = this.parseDate(fb.s),
             fbe = this.parseDate(fb.e);
 
-        if (end.isBefore(fbs) || start.isAfter(fbe)) {
+
+        if (start.isBefore(fbs) || end.isBefore(fbs) || start.isAfter(fbe)) {
             return;
         }
 
