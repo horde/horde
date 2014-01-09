@@ -23,17 +23,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function isFree(Kronolith_Event $event)
     {
-        if (is_array($event)) {
-            $start = $event['start'];
-            $end = $event['end'];
-        } else {
-            $start = $event->start;
-            $end = $event->end;
-        }
-
         /* Fetch Events */
         $busy = Kronolith::getDriver('Resource', $this->get('calendar'))
-            ->listEvents($start, $end, array('show_recurrence' => true));
+            ->listEvents($event->start, $event->end, array('show_recurrence' => true));
 
         /* No events at all during time period for requested event */
         if (!count($busy)) {
@@ -55,8 +47,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
                      // Comparing to zero allows the events to start at the same
                      // the previous event ends.
-                     if (!($e->start->compareDateTime($end) >= 0) &&
-                         !($e->end->compareDateTime($start) <= 0)) {
+                     if (!($e->start->compareDateTime($event->end) >= 0) &&
+                         !($e->end->compareDateTime($event->start) <= 0)) {
 
                         return false;
                      }
