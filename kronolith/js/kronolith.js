@@ -1249,6 +1249,14 @@ KronolithCore = {
                 field.focus();
             } catch (e) {}
         }
+        switch (tab.identify()) {
+        case 'kronolithEventTabAttendees':
+            this.attendeeStartDateHandler($('kronolithFBDate').innerHTML);
+            break;
+        case 'kronolithEventTabResources':
+            this.resourceStartDateHandler($('kronolithFBDate').innerHTML);
+            break;
+        }
     },
 
     /**
@@ -5982,8 +5990,14 @@ KronolithCore = {
     fbStartDateHandler: function(start)
     {
         this.updateFBDate(Date.parse(start, Kronolith.conf.date_format));
-        this.attendeeStartDateHandler(start);
-        this.resourceStartDateHandler(start);
+        // Need to check visisbility - multiple changes will break the display
+        // due to the use of .defer() in insertFreeBusy().
+        if ($('kronolithEventTabAttendees').visible()) {
+            this.attendeeStartDateHandler(start);
+        }
+        if ($('kronolithEventTabResources').visible()) {
+            this.resourceStartDateHandler(start);
+        }
     },
 
     attendeeStartDateHandler: function(start)
