@@ -255,6 +255,18 @@ ul.horde-tags li:hover {
 .kronolithFBBusy {
     position: absolute;
 }
+#kronolithFBDatePrev, #kronolithResourceFBDatePrev {
+    background: transparent url("../graphics/left.png") no-repeat center center;
+    cursor: pointer;
+    text-indent: -10000px;
+    padding: 8px;
+}
+#kronolithFBDateNext, #kronolithResourceFBDateNext {
+    background: transparent url("../graphics/right.png") no-repeat center center;
+    cursor: pointer;
+    padding: 8px;
+    text-indent: -10000px
+}
 
 /* Map */
 #kronolithEventMap {

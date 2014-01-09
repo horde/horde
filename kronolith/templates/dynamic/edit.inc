@@ -210,6 +210,7 @@
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
   <div id="kronolithFBLoading" style="display:none"></div>
+  <div style="text-align: center;"><a id="kronolithFBDatePrev" title="Previous day"></a><span id="kronolithFBDate"></span><a id="kronolithFBDateNext" title="Next day"></a></div>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>
@@ -234,6 +235,7 @@
   <span id="kronolithEventResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" /><br />
   <div id="kronolithResourceFBLoading" style="display:none"></div>
+  <div style="text-align: center;"><a id="kronolithResourceFBDatePrev" title="Previous day"></a><span id="kronolithResourceFBDate"></span><a id="kronolithResourceFBDateNext" title="Next day"></a></div>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>

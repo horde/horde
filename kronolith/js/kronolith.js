@@ -48,6 +48,7 @@ KronolithCore = {
     resourceACCache: { choices: [], map: $H() },
     paramsCache: null,
     attendees: [],
+    resources: [],
 
     /**
      * The location that was open before the current location.
@@ -5332,6 +5333,7 @@ KronolithCore = {
             RedBox.onDisplay = this.redBoxOnDisplay;
         }.bind(this);
         this.attendees = [];
+        this.resources = [];
         this.updateCalendarDropDown('kronolithEventTarget');
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
@@ -5395,6 +5397,7 @@ KronolithCore = {
             $('kronolithEventDelete').hide();
             $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventStartTime').setValue(d.toString(Kronolith.conf.time_format));
+            this.updateFBDate(d);
             d.add(1).hour();
             this.duration = 60;
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
@@ -5598,6 +5601,7 @@ KronolithCore = {
 
         $('kronolithEventStartTime').setValue(ev.st);
         this.knl.kronolithEventStartTime.setSelected(ev.st);
+        this.updateFBDate(Date.parse(ev.sd, Kronolith.conf.date_format));
         $('kronolithEventEndTime').setValue(ev.et);
         this.knl.kronolithEventEndTime.setSelected(ev.et);
         this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
@@ -5668,9 +5672,6 @@ KronolithCore = {
         }
 
         /* Resources */
-        if (this.resourceStartDateHandler) {
-            $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
-        }
         if (!Object.isUndefined(ev.rs)) {
             var rs = $H(ev.rs);
             HordeImple.AutoCompleter.kronolithEventResources.reset(rs.values().pluck('name'));
@@ -5678,14 +5679,6 @@ KronolithCore = {
             if (this.fbLoading) {
                 $('kronolithResourceFBLoading').show();
             }
-
-            // @TODO: Need to repoll the backend for new fb data.
-            this.resourceStartDateHandler = function() {
-                rs.each(function(r) {
-                    this.insertFreeBusy(r.value.name);
-                }, this);
-            }.bind(this);
-            $('kronolithEventStartDate').observe('change', this.resourceStartDateHandler);
         }
 
         /* Tags */
@@ -5737,13 +5730,6 @@ KronolithCore = {
         }
     },
 
-    attendeeStartDateHandler: function(start) {
-        this.attendees.each(function(attendee) {
-            this.insertFreeBusy(attendee, start);
-        }, this);
-
-    },
-
     /**
      * Adds an attendee row to the free/busy table.
      *
@@ -5783,7 +5769,7 @@ KronolithCore = {
                     }
                     if (!Object.isUndefined(r.fb)) {
                         this.freeBusy.get(attendee.l)[1] = r.fb;
-                        this.insertFreeBusy(attendee.l);
+                        this.insertFreeBusy(attendee.l, $('kronolithFBDate').innerHTML);
                     }
                 }.bind(this)
             });
@@ -5878,6 +5864,7 @@ KronolithCore = {
         if (Object.isUndefined(r.fb)) {
             return;
         }
+        this.resources.push(resource);
         this.freeBusy.get(resource)[1] = r.fb;
         this.insertFreeBusy(resource);
     },
@@ -5914,7 +5901,7 @@ KronolithCore = {
      * @param date   start     An optinal start date for f/b info. If omitted,
      *                         $('kronolithEventStartDate') is used.
      */
-    insertFreeBusy: function(attendee, start)
+    insertFreeBusy: function(attendee, startDate)
     {
         if (!$('kronolithEventDialog').visible() ||
             !this.freeBusy.get(attendee)) {
@@ -5923,13 +5910,13 @@ KronolithCore = {
         var fb = this.freeBusy.get(attendee)[1],
             tr = this.freeBusy.get(attendee)[0],
             td = tr.select('td')[1],
-            div = td.down('div');
+            div = td.down('div'), start;
         if (!fb) {
             return;
         }
 
         if (!td.getWidth()) {
-            this.insertFreeBusy.bind(this, attendee).defer();
+            this.insertFreeBusy.bind(this, attendee, startDate).defer();
             return;
         }
 
@@ -5937,10 +5924,16 @@ KronolithCore = {
             div.purge();
             div.remove();
         }
-        if (start) {
-            start = Date.parseExact(start, Kronolith.conf.date_format);
+        if (startDate) {
+            startDate = startDate.split(' ');
+            if (startDate.length > 1) {
+                startDate = startDate[1];
+            } else {
+                startDate = startDate[0];
+            }
+            start = Date.parseExact(startDate, Kronolith.conf.date_format);
         } else {
-            start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format)
+            start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format);
         }
         var end = start.clone().add(1).days(),
             width = td.getWidth(),
@@ -5979,6 +5972,53 @@ KronolithCore = {
             div.insert(new Element('div', { className: 'kronolithFBBusy' }).setStyle({ zIndex: 1, top: 0, left: (left * width) + 'px', width: (((to.getHours() + to.getMinutes() / 60) - left) * width) + 'px' }));
         });
 
+    },
+
+    fbStartDateOnChange: function()
+    {
+        this.fbStartDateHandler($F('kronolithEventStartDate'))
+    },
+
+    fbStartDateHandler: function(start)
+    {
+        this.updateFBDate(Date.parse(start, Kronolith.conf.date_format));
+        this.attendeeStartDateHandler(start);
+        this.resourceStartDateHandler(start);
+    },
+
+    attendeeStartDateHandler: function(start)
+    {
+        this.attendees.each(function(attendee) {
+            this.insertFreeBusy(attendee, start);
+        }, this);
+    },
+
+    resourceStartDateHandler: function(start)
+    {
+        this.resources.each(function(resource) {
+            this.insertFreeBusy(resource, start);
+        }, this);
+    },
+
+    nextFreebusy: function()
+    {
+        var fbdate = Date.parse($('kronolithFBDate').innerHTML);
+        this.fbStartDateHandler(fbdate.addDays(1).toString(Kronolith.conf.date_format));
+    },
+
+    prevFreebusy: function()
+    {
+        var fbdate = Date.parse($('kronolithFBDate').innerHTML);
+        this.fbStartDateHandler(fbdate.addDays(-1).toString(Kronolith.conf.date_format));
+    },
+
+    /**    
+     * @start Date object
+     */
+    updateFBDate: function(start)
+    {
+        $('kronolithFBDate').update(start.toString('dddd') + ' ' + start.toString(Kronolith.conf.date_format));
+        $('kronolithResourceFBDate').update(start.toString('dddd') + ' ' + start.toString(Kronolith.conf.date_format));
     },
 
     /**
@@ -6352,14 +6392,14 @@ KronolithCore = {
     {
         switch (field) {
         case 'kronolithEventStartDate':
-            this.attendeeStartDateHandler();
+            this.fbStartDateHandler($F(field));
         case 'kronolithEventStartTime':
             this.updateEndTime();
             break;
         case 'kronolithEventEndDate':
         case 'kronolithEventEndTime':
             this.updateStartTime();
-            this.attendeeStartDateHandler();
+            this.fbStartDateHandler($F('kronolithEventStartDate'));
             break;
         }
     },
@@ -6622,7 +6662,11 @@ KronolithCore = {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollTimeField.bindAsEventListener(this, field));
         }, this);
 
-        $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler.bind(this));
+        $('kronolithEventStartDate').observe('change', this.fbStartDateOnChange.bind(this));
+        $('kronolithFBDatePrev').observe('click', this.prevFreebusy.bind(this));
+        $('kronolithFBDateNext').observe('click', this.nextFreebusy.bind(this));
+        $('kronolithResourceFBDatePrev').observe('click', this.prevFreebusy.bind(this));
+        $('kronolithResourceFBDateNext').observe('click', this.nextFreebusy.bind(this));
 
         this.updateMinical(this.date);
     },
