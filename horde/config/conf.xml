@@ -858,13 +858,8 @@
  <configtab name="prefs" desc="Preferences">
   <configsection name="prefs">
    <configheader>Preferences Settings</configheader>
-   <configinteger name="maxsize" required="false" desc="The size of the
-   preferences field in your backend in bytes. Horde will reject any write to
-   the preferences backend if its length exceeds this value. Leave empty to
-   skip this checking. E.g. MySQL stores the preference data in a LONGTEXT
-   field. This field can hold 4294967295 bytes so most likely checking is not
-   needed. However other DB installations may only have a storage size of 64
-   KB (65535 bytes). These installations would want to turn checking on."/>
+   <configinteger name="maxsize" desc="The maximum size of a preferences entry
+   (in bytes).">65535</configinteger>
    <configswitch name="driver" desc="What preferences driver should we
    use?">Sql
      <case name="Nosql" desc="NoSQL Database">

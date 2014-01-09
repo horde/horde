@@ -57,10 +57,13 @@ The following options were added::
     $conf['activesync']['params']['driverconfig']
     $conf['cachecssparams']['filemtime']
 
-
 The available options for the following options were changed::
 
     $conf['activesync']['logging']['type']
+
+The default value for the following options were changed::
+
+    $conf['prefs']['maxsize']
 
 
 Hooks (hooks.php)
@@ -74,6 +77,7 @@ New ActiveSync related hooks have been added:
 
 Read the comments at the top of the hooks.php file for descriptions of each
 hook.
+
 
 Upgrading Horde from 5.0.x to 5.1
 =================================
