@@ -5820,7 +5820,7 @@ KronolithCore = {
         }
 
         if (attendee.e) {
-            this.attendees.push(attendee.e);
+            this.attendees.push(attendee);
             this.fbLoading++;
             HordeCore.doAction('getFreeBusy', {
                 email: attendee.e
@@ -5855,6 +5855,38 @@ KronolithCore = {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
+    },
+
+    resetFBRows: function()
+    {
+        this.attendees.each(function(attendee) {
+            var row = this.freeBusy.get(attendee.l)[0];
+            row.update();
+
+            attendee.r = attendee.r || 1;
+            switch (attendee.r) {
+                case 1: response = 'None'; break;
+                case 2: response = 'Accepted'; break;
+                case 3: response = 'Declined'; break;
+                case 4: response = 'Tentative'; break;
+            }
+            row.insert(new Element('td')
+                      .writeAttribute('title', attendee.l)
+                      .addClassName('kronolithAttendee' + response)
+                      .insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
+            for (i = 0; i < 24; i++) {
+                row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+            }
+        }.bind(this));
+        this.resources.each(function(resource) {
+            var row = this.freeBusy.get(resource)[0],
+                tdone = row.down('td');
+            row.update();
+            row.update(tdone);
+            for (i = 0; i < 24; i++) {
+                row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+            }
+        }.bind(this));
     },
 
     addResource: function(resource, id)
@@ -6045,6 +6077,7 @@ KronolithCore = {
     fbStartDateHandler: function(start)
     {
         this.updateFBDate(Date.parse(start, Kronolith.conf.date_format));
+        this.resetFBRows();
         // Need to check visisbility - multiple changes will break the display
         // due to the use of .defer() in insertFreeBusy().
         if ($('kronolithEventTabAttendees').visible()) {
@@ -6058,7 +6091,7 @@ KronolithCore = {
     attendeeStartDateHandler: function(start)
     {
         this.attendees.each(function(attendee) {
-            this.insertFreeBusy(attendee, start);
+            this.insertFreeBusy(attendee.e, start);
         }, this);
     },
 
