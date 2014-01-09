@@ -5818,7 +5818,7 @@ KronolithCore = {
         } else {
             // Populating from an edit event action
             v = id;
-            response = resource;
+            response = resource.response;
             resource = resource.name;
         }
 
