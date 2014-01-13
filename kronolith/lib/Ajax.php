@@ -86,6 +86,7 @@ class Kronolith_Ajax
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => intval($has_tasks),
+            'has_resources' => intval(!empty($conf['resource']['driver'])),
             'login_view' => ($prefs->getValue('defaultview') == 'workweek') ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),
@@ -118,9 +119,9 @@ class Kronolith_Ajax
                 'edit' => Horde_Perms::EDIT,
                 'delete' => Horde_Perms::DELETE,
                 'delegate' => Kronolith::PERMS_DELEGATE
-             ),
-             'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null
-         ));
+            ),
+            'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null
+        ));
 
         /* Make sure this value is not optimized out by array_filter(). */
         $js_vars['conf']['week_start'] = intval($prefs->getValue('week_start_monday'));

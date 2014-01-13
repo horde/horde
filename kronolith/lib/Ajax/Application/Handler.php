@@ -1419,6 +1419,10 @@ EOT;
      */
     public function checkResources()
     {
+        if (empty($GLOBALS['conf']['resource']['driver'])) {
+            return array();
+        }
+
         if ($this->vars->i) {
             $event = $this->_getDriver($this->vars->c)->getEvent($this->vars->i);
         } else {

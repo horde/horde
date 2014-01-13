@@ -5468,19 +5468,23 @@ KronolithCore = {
         }
 
         // Check that there are no conflicts.
-        HordeCore.doAction(
-            'checkResources',
-            {
-                s: this.getDate('start').toISOString(),
-                e: this.getDate('end').toISOString(),
-                i: $F('kronolithEventId'),
-                c: $F('kronolithEventCalendar'),
-                r: $F('kronolithEventResourceIds')
-            },
-            {
-                callback: this.validateEventCallback.curry(asnew).bind(this)
-            }
-        );
+        if (Kronolith.conf.has_resources && $F('kronolithEventResourceIds')) {
+            HordeCore.doAction(
+                'checkResources',
+                {
+                    s: this.getDate('start').toISOString(),
+                    e: this.getDate('end').toISOString(),
+                    i: $F('kronolithEventId'),
+                    c: $F('kronolithEventCalendar'),
+                    r: $F('kronolithEventResourceIds')
+                },
+                {
+                    callback: this.validateEventCallback.curry(asnew).bind(this)
+                }
+            );
+        } else {
+            this.validateEventCallback(asnew, {});
+        }
     },
 
     validateEventCallback: function(asnew, r)
