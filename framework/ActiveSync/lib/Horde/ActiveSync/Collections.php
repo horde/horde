@@ -303,11 +303,16 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @param $id  The uid.
      *
      * @return string  The backend server id.
+     * @throws Horde_ActiveSync_Exception
      */
     public function getBackendIdForFolderUid($folderid)
     {
         $folder = $this->_cache->getFolder($folderid);
-        return $folder['serverid'];
+        if ($folder) {
+            return $folder['serverid'];
+        } else {
+            throw new Horde_ActiveSync_Exception('Folder not found in cache.');
+        }
     }
 
     /**

@@ -803,7 +803,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            $this->_collections->addCollection($collection);
+            try {
+                $this->_collections->addCollection($collection);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_statusCode = self::STATUS_SERVERERROR;
+                $this->_handleError($collection);
+                return false;
+            }
+
             if (!empty($collection['importedchanges'])) {
                 $this->_collections->importedChanges = true;
             }
