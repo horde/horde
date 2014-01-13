@@ -220,8 +220,8 @@ class Kronolith
         }
 
         // Resource calendars
-        if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) &&
-            !empty($GLOBALS['conf']['resource']['driver']))) {
+        if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)) &&
+            !empty($GLOBALS['conf']['resource']['driver'])) {
 
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $calendar) {
