@@ -72,7 +72,6 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             if (!isset($GLOBALS['conf']['calendar']['driver']) ||
                 $GLOBALS['conf']['resource']['driver'] != 'sql') {
                 throw new Kronolith_Exception(_("Resources are disabled"));
-                return new Horde_Support_Stub();
             }
             $params = array_merge(Horde::getDriverConfig('resource', 'sql'), $params);
             if ($params['driverconfig'] != 'Horde') {
