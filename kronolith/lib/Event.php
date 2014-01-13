@@ -582,6 +582,21 @@ abstract class Kronolith_Event
                 /* Add the resource to the event */
                 $this->addResource($resource, $response);
             }
+        } else {
+            // If event is cancelled, and actually exists, we need to mark it
+            // as cancelled in resource calendar.
+            foreach (array_keys($this->getResources()) as $id) {
+                $resource = Kronolith::getDriver('Resource')->getResource($id);
+                $rcal = $resource->get('calendar');
+                if ($rcal == $this->calendar) {
+                    continue;
+                }
+                try {
+                    Kronolith::getDriver('Resource')->open($rcal);
+                    $resource->addEvent($this);
+                } catch (Exception $e) {
+                }
+            }
         }
 
         /* Save */

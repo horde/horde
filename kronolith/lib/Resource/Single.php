@@ -158,7 +158,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->uid = $from->uid;
         $to->title = $from->title;
         $to->location = $from->location;
-        $to->status = Kronolith::STATUS_CONFIRMED;
+        $to->status = $from->status == Kronolith::STATUS_CANCELLED ? $from->status : Kronolith::STATUS_CONFIRMED;
         $to->description = $from->description;
         $to->url = $from->url;
         $to->tags = $from->tags;
