@@ -628,7 +628,7 @@ abstract class Kronolith_Event
          * until after it's saved. If we add the event to the resources
          * calendar before it is saved, they will have different GUIDs, and
          * hence no longer refer to the same event. */
-         foreach ($add_events as $resource) {
+        foreach ($add_events as $resource) {
             $resource->addEvent($this);
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
                 $locks->clearLock($lock[$resource->getId()]);
