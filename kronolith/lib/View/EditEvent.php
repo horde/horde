@@ -124,6 +124,7 @@ class Kronolith_View_EditEvent
         ));
 
         global $page_output;
+        $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('edit.js');
         $page_output->addScriptFile('popup.js', 'horde');
 
