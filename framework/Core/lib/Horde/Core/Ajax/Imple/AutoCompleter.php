@@ -28,7 +28,6 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
         global $page_output;
 
         if (!self::$_initAc) {
-            $page_output->addScriptFile('hordecore.js', 'horde');
             $page_output->addScriptFile('autocomplete.js', 'horde');
             $page_output->addScriptFile('liquidmetal.js', 'horde');
             $page_output->addScriptPackage('Keynavlist');
