@@ -575,44 +575,48 @@ abstract class Kronolith_Event
         $add_events = array();
         $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         $lock = array();
-        foreach (array_keys($this->getResources()) as $id) {
-            /* Get the resource and protect against infinite recursion in case
-             * someone is silly enough to add a resource to it's own event.*/
+        // Don't waste time with resource acceptance if the status is cancelled,
+        // the event will be removed from the resource calendar anyway.
+        if ($this->status != Kronolith::STATUS_CANCELLED) {
+            foreach (array_keys($this->getResources()) as $id) {
+                /* Get the resource and protect against infinite recursion in case
+                 * someone is silly enough to add a resource to it's own event.*/
 
-            $resource = Kronolith::getDriver('Resource')->getResource($id);
-            $rcal = $resource->get('calendar');
-            if ($rcal == $this->calendar) {
-                continue;
-            }
-            Kronolith::getDriver('Resource')->open($rcal);
+                $resource = Kronolith::getDriver('Resource')->getResource($id);
+                $rcal = $resource->get('calendar');
+                if ($rcal == $this->calendar) {
+                    continue;
+                }
+                Kronolith::getDriver('Resource')->open($rcal);
 
-            /* Lock the resource and get the response */
-            if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
-                $principle = 'calendar/' . $rcal;
-                $lock[$resource->getId()] = $locks->setLock($GLOBALS['registry']->getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
-                $haveLock = true;
-            } else {
-                $haveLock = false;
-            }
-            if ($haveLock && !$lock[$resource->getId()]) {
-                // Already locked
-                // For now, just fail. Not sure how else to capture the locked
-                // resources and notify the user.
-                throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
-            } else {
-                $response = $resource->getResponse($this);
-            }
+                /* Lock the resource and get the response */
+                if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
+                    $principle = 'calendar/' . $rcal;
+                    $lock[$resource->getId()] = $locks->setLock($GLOBALS['registry']->getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+                    $haveLock = true;
+                } else {
+                    $haveLock = false;
+                }
+                if ($haveLock && !$lock[$resource->getId()]) {
+                    // Already locked
+                    // For now, just fail. Not sure how else to capture the locked
+                    // resources and notify the user.
+                    throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
+                } else {
+                    $response = $resource->getResponse($this);
+                }
 
-            /* Remember accepted resources so we can add the event to their
-             * calendars. Otherwise, clear the lock. */
-            if ($response == Kronolith::RESPONSE_ACCEPTED) {
-                $add_events[] = $resource;
-            } elseif ($haveLock) {
-                $locks->clearLock($lock[$resource->getId()]);
-            }
+                /* Remember accepted resources so we can add the event to their
+                 * calendars. Otherwise, clear the lock. */
+                if ($response == Kronolith::RESPONSE_ACCEPTED) {
+                    $add_events[] = $resource;
+                } elseif ($haveLock) {
+                    $locks->clearLock($lock[$resource->getId()]);
+                }
 
-            /* Add the resource to the event */
-            $this->addResource($resource, $response);
+                /* Add the resource to the event */
+                $this->addResource($resource, $response);
+            }
         }
 
         /* Save */
