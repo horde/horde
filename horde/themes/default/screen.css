@@ -95,7 +95,7 @@ br.spacer {
 .header input, .header select {
     font-size: 80%;
 }
-.header .smallheader input, .header .smallheader select {
+.header .smallheader input, .header .smallheader select, .header .smallheader .button {
     font-size: 89%;
 }
 .header .button, .header .smallheader .button {
