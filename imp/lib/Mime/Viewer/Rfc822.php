@@ -24,9 +24,18 @@
 class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
 {
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
+     * This driver's display capabilities.
      *
-     * @return array  See parent::render().
+     * @var array
+     */
+    protected $_capability = array(
+        'full' => true,
+        'info' => true,
+        'inline' => false,
+        'raw' => true
+    );
+
+    /**
      */
     protected function _render()
     {
@@ -41,9 +50,6 @@ class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
     }
 
     /**
-     * Return the rendered information about the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -52,6 +58,14 @@ class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
             $ret[$this->_mimepart->getMimeId()]['wrap'] = 'mimePartWrap';
         }
         return $ret;
+    }
+
+    /**
+     */
+    protected function _renderRaw()
+    {
+        /* Needed for same reason as explained in _render(). */
+        return $this->_render();
     }
 
     /**
