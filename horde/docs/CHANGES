@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mms] By default, enforce maximum storage size on preferences values.
 [mms] Support UglifyJS for compressing javascript.
 [mjr] Add improved ActiveSync device administration page.
 [mms] Display indication that Caps Lock key is on when entering password on

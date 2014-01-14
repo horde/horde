@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] By default, enforce maximum storage size on preferences values.
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add improved ActiveSync device administration page.
 * [mms] Display indication that Caps Lock key is on when entering password on login page (Request #7178).

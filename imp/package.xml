@@ -33,7 +33,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] By default, enforce maximum size on prefences values.
 * [mms] Allow HTML data to be pasted within HTML compose editor paste dialog.
 * [mms] Filter outgoing HTML compose messages for XSS vulnerabilities.
 * [mms] Add permission to limit the maximum body size of a composed message.
