@@ -46,7 +46,7 @@ class IMP_Mime_Viewer_Audio extends Horde_Mime_Viewer_Audio
         $headers = Horde_Mime_Headers::parseHeaders($this->getConfigParam('imp_contents')->getBodyPart($mime_id, array(
             'length' => 0,
             'mimeheaders' => true
-        )));
+        ))->data);
 
         if (($duration = $headers->getValue('content-duration')) === null) {
             return array();

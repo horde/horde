@@ -77,7 +77,7 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
         $headers = Horde_Mime_Headers::parseHeaders($this->getConfigParam('imp_contents')->getBodyPart($mime_id, array(
             'length' => 0,
             'mimeheaders' => true
-        )));
+        ))->data);
 
         if (($duration = $headers->getValue('content-duration')) !== null) {
             $status[] = sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60);

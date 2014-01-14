@@ -52,14 +52,6 @@ class IMP_Contents
     const HEADER_STREAM = 3;
 
     /**
-     * Flag to indicate whether the last call to getBodypart() returned
-     * decoded data.
-     *
-     * @var string
-     */
-    public $lastBodyPartDecode = null;
-
-    /**
      * Close session when fetching data from IMAP server?
      *
      * @var boolean
@@ -203,8 +195,7 @@ class IMP_Contents
      * @param integer $id     The ID of the MIME part.
      * @param array $options  Additional options:
      *   - decode: (boolean) Attempt to decode the bodypart on the remote
-     *             server. If successful, sets self::$lastBodyPartDecode to
-     *             the content-type of the decoded data.
+     *             server.
      *             DEFAULT: No
      *   - length: (integer) If set, only download this many bytes of the
      *             bodypart from the server.
@@ -214,15 +205,22 @@ class IMP_Contents
      *   - stream: (boolean) If true, return a stream.
      *             DEFAULT: No
      *
-     * @return mixed  The text of the part or a stream resource if 'stream'
-     *                is true.
+     * @return object  Object with the following properties:
+     * <pre>
+     *   - data: (mixed) The text of the part or a stream resource if 'stream'
+     *           option is true.
+     *   - decode: (string) If 'decode' option is true, and bodypart decoded
+     *             on server, the content-type of the decoded data.
+     * </pre>
      */
     public function getBodyPart($id, $options = array())
     {
-        $this->lastBodyPartDecode = null;
+        $ret = new stdClass;
+        $ret->data = '';
+        $ret->decode = null;
 
         if (empty($id)) {
-            return '';
+            return $ret;
         }
 
         if (!$this->_indices || $this->isEmbedded($id)) {
@@ -231,21 +229,23 @@ class IMP_Contents
                 $ob = $this->getMIMEPart($id, array('nocontents' => true));
 
                 if (empty($options['stream'])) {
-                    return is_null($ob)
-                        ? ''
-                        : $ob->getContents();
+                    if (!is_null($ob)) {
+                        $ret->data = $ob->getContents();
+                    }
+                } else {
+                    $ret->data = is_null($ob)
+                        ? fopen('php://temp', 'r+')
+                        : $ob->getContents(array('stream' => true));
                 }
 
-                return is_null($ob)
-                    ? fopen('php://temp', 'r+')
-                    : $ob->getContents(array('stream' => true));
+                return $ret;
             }
 
             $base_id = $id;
             while (!in_array($base_id, $this->_embedded, true)) {
                 $base_id = Horde_Mime::mimeIdArithmetic($base_id, 'up');
                 if (is_null($base_id)) {
-                    return '';
+                    return $ret;
                 }
             }
 
@@ -263,15 +263,16 @@ class IMP_Contents
             }
 
             if (empty($options['stream'])) {
-                return $body;
+                $ret->data = $body;
+                return $ret;
             }
 
-            $fp = fopen('php://temp', 'r+');
+            $ret->data = fopen('php://temp', 'r+');
             if (strlen($body)) {
-                fwrite($fp, $body);
-                fseek($fp, 0);
+                fwrite($ret->data, $body);
+                fseek($ret->data, 0);
             }
-            return $fp;
+            return $ret;
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
@@ -298,20 +299,25 @@ class IMP_Contents
         if ($res = $this->_fetchData($query)) {
             try {
                 if (empty($options['mimeheaders'])) {
-                    $this->lastBodyPartDecode = $res->getBodyPartDecode($id);
-                    return $res->getBodyPart($id, !empty($options['stream']));
+                    $ret->decode = $res->getBodyPartDecode($id);
+                    $ret->data = $res->getBodyPart($id, !empty($options['stream']));
+                    return $ret;
                 } elseif (empty($options['stream'])) {
-                    return $res->getMimeHeader($id) . $res->getBodyPart($id);
+                    $ret->data = $res->getMimeHeader($id) . $res->getBodyPart($id);
+                    return $ret;
                 }
 
                 $swrapper = new Horde_Support_CombineStream(array($res->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM), $res->getBodyPart($id, true)));
-                return $swrapper->fopen();
+                $ret->data = $swrapper->fopen();
+                return $ret;
             } catch (Horde_Exception $e) {}
         }
 
-        return empty($options['stream'])
-            ? ''
-            : fopen('php://temp', 'r+');
+        if (!empty($options['stream'])) {
+            $ret->data = fopen('php://temp', 'r+');
+        }
+
+        return $ret;
     }
 
     /**
@@ -495,8 +501,8 @@ class IMP_Contents
                 'length' => empty($options['length']) ? null : $options['length'],
                 'stream' => true
             ));
-            $part->setContents($body, array(
-                'encoding' => $this->lastBodyPartDecode,
+            $part->setContents($body->data, array(
+                'encoding' => $body->decode,
                 'usestream' => true
             ));
         }

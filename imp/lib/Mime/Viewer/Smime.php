@@ -411,7 +411,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
     protected function _getPartStream($id)
     {
         return $id
-            ? $this->getConfigParam('imp_contents')->getBodyPart($id, array('mimeheaders' => true, 'stream' => true))
+            ? $this->getConfigParam('imp_contents')->getBodyPart($id, array('mimeheaders' => true, 'stream' => true))->data
             : $this->getConfigParam('imp_contents')->fullMessageText();
     }
 

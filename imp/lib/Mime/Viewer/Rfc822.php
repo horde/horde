@@ -44,7 +44,7 @@ class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
          * $_mimepart may contain altered data (e.g. data that has been
          * content transfer decoded). */
         return $this->_renderReturn(
-            $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId()),
+            $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId())->data,
             'text/plain; charset=' . $this->getConfigParam('charset')
         );
     }

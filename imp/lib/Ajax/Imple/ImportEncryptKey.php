@@ -78,7 +78,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
 
             case 'smime':
                 $stream = $vars->mime_id
-                    ? $contents->getBodyPart($vars->mime_id, array('mimeheaders' => true, 'stream' => true))
+                    ? $contents->getBodyPart($vars->mime_id, array('mimeheaders' => true, 'stream' => true))->data
                     : $contents->fullMessageText();
                 $raw_text = $mime_part->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
