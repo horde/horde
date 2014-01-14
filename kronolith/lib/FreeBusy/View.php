@@ -129,7 +129,7 @@ abstract class Kronolith_FreeBusy_View
                 $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
                 $template = $GLOBALS['injector']->createInstance('Horde_Template');
                 $template->set('blocks', $blocks);
-                $template->set('name', $member->getName());
+                $template->set('name', htmlspecialchars($member->getName()));
                 $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
             }
 
@@ -150,7 +150,7 @@ abstract class Kronolith_FreeBusy_View
                 $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
                 $template = $GLOBALS['injector']->createInstance('Horde_Template');
                 $template->set('blocks', $blocks);
-                $template->set('name', $member->getName());
+                $template->set('name', htmlspecialchars($member->getName()));
                 $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
             }
 
@@ -172,7 +172,7 @@ abstract class Kronolith_FreeBusy_View
                 $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
                 $template = $GLOBALS['injector']->createInstance('Horde_Template');
                 $template->set('blocks', $blocks);
-                $template->set('name', $member->getName());
+                $template->set('name', htmlspecialchars($member->getName()));
                 $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
             }
             foreach ($this->_optionalResourceMembers as $member) {
@@ -180,7 +180,7 @@ abstract class Kronolith_FreeBusy_View
                 $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
                 $template = $GLOBALS['injector']->createInstance('Horde_Template');
                 $template->set('blocks', $blocks);
-                $template->set('name', $member->getName());
+                $template->set('name', htmlspecialchars($member->getName()));
                 $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
             }
             $template = $GLOBALS['injector']->createInstance('Horde_Template');
