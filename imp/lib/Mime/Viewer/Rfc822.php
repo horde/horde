@@ -24,6 +24,23 @@
 class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
 {
     /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _render()
+    {
+        /* Need to display raw text from server, since this is essentially
+         * a View Source action for the part and the current value of
+         * $_mimepart may contain altered data (e.g. data that has been
+         * content transfer decoded). */
+        return $this->_renderReturn(
+            $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId()),
+            'text/plain; charset=' . $this->getConfigParam('charset')
+        );
+    }
+
+    /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
