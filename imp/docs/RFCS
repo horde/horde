@@ -125,12 +125,12 @@ MIME
            Languages, and Continuations
 :RFC 2387: The MIME Multipart/Related Content-type
 :RFC 2392: Content-ID and Message-ID Uniform Resource Locators
-:RFC 2633: S/MIME Version 3 Message Specification
 :RFC 3156: MIME Security with OpenPGP
 :RFC 3282: Content Language Headers
 :RFC 3464: An Extensible Message Format for Delivery Status Notifications
 :RFC 3803: Content Duration MIME Header Definition
 :RFC 3834: Recommendations for Automatic Responses to Electronic Mail
+:RFC 5751: S/MIME Version 3.2 Message Specification
 
 
 Non-RFC Features

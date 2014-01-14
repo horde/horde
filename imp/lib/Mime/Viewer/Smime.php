@@ -12,7 +12,7 @@
  */
 
 /**
- * Renderer for viewing/decrypting of S/MIME messages (RFC 2633).
+ * Renderer for viewing/decrypting of S/MIME v3.2 messages (RFC 5751).
  *
  * This class handles the following MIME types:
  *   application/pkcs7-mime
