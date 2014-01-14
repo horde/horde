@@ -866,13 +866,36 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return the S/MIME status of this message (RFC2633)
      *
+     * @param Horde_Mime_Part $message  A mime part to check. If omitted, use
+     *                                  $this->_message.
+     *
      * @return boolean True if message is S/MIME signed or encrypted,
      *                 false otherwise.
      */
-    public function isSigned()
+    public function isSigned($message = null)
     {
-        return $this->_message->getSubType() == 'signed' ||
-               $this->_message->getType() == 'application/pkcs7-mime';
+        if (empty($message)) {
+            $message = $this->_message;
+        }
+        Horde::debug($message);
+        if ($message->getType() == 'application/pkcs7-mime') {
+            return true;
+        }
+
+        if ($message->getPrimaryType() == 'multipart') {
+            if ($message->getSubType() == 'signed') {
+                return true;
+            }
+
+            // Signed/encrypted part might be lower in the mime structure
+            foreach ($message->getParts() as $part) {
+                if ($this->isSigned($part)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
