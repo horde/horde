@@ -456,8 +456,11 @@ class RecurrenceIterator implements \Iterator {
 
                 foreach(explode(',', (string)$exDate) as $exceptionDate) {
 
-                    $this->exceptionDates[] =
-                        DateTimeParser::parse($exceptionDate, $this->startDate->getTimeZone());
+                    try {
+                        $this->exceptionDates[] =
+                            DateTimeParser::parse($exceptionDate, $this->startDate->getTimeZone());
+                    } catch (Exception $e) {
+                    }
 
                 }
 
