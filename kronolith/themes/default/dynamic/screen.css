@@ -716,14 +716,21 @@ div.kronolithEditable:hover .kronolithDragger,
         border: thin solid #000;
     }
 
+    .kronolith-view {
+        border-collapse: collapse;
+    }
     .kronolith-view-head {
         margin-right: 0;
+        border: 0;
     }
 
     .kronolithViewBody {
         overflow: hidden;
         top: 10px;
         position: relative;
+    }
+    .kronolithViewMonth {
+        border: 0;
     }
     #kronolithViewDay .kronolithViewBody .kronolith-event,
     #kronolithViewWeek .kronolithViewBody .kronolith-event {
