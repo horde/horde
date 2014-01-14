@@ -60,30 +60,34 @@ if (isset($result)) {
     $rows = array();
     $view->results = true;
 
-    if (is_object($result) && $result->columnCount()) {
-        while ($row = $result->fetch(Horde_Db::FETCH_ASSOC)) {
-            if (is_null($keys)) {
-                $keys = array();
-                foreach ($row as $key => $val) {
-                    $keys[] = Horde_String::convertCharset($key, $conf['sql']['charset'], 'UTF-8');
+    try {
+        if (is_object($result) && $result->columnCount()) {
+            while ($row = $result->fetch(Horde_Db::FETCH_ASSOC)) {
+                if (is_null($keys)) {
+                    $keys = array();
+                    foreach ($row as $key => $val) {
+                        $keys[] = Horde_String::convertCharset($key, $conf['sql']['charset'], 'UTF-8');
+                    }
                 }
-            }
 
-            $tmp = array();
-            foreach ($row as $val) {
-                $tmp[] = Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8');
+                $tmp = array();
+                foreach ($row as $val) {
+                    $tmp[] = Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8');
+                }
+                $rows[] = $tmp;
             }
-            $rows[] = $tmp;
-        }
-    } elseif (is_array($result)) {
-        foreach ($result as $val) {
-            if (is_null($keys)) {
-                $keys[] = isset($description) ? $description : '';
+        } elseif (is_array($result)) {
+            foreach ($result as $val) {
+                if (is_null($keys)) {
+                    $keys[] = isset($description) ? $description : '';
+                }
+                $rows[] = array(
+                    Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8')
+                );
             }
-            $rows[] = array(
-                Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8')
-            );
         }
+    } catch (Horde_Db_Exception $e) {
+        $notification->push($e);
     }
 
     if (is_null($keys)) {
