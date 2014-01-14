@@ -42,6 +42,7 @@ v6.2.0-git
 v6.1.7
 ------
 
+[mms] Cleaner handling of broken S/MIME signed messages.
 [mms] Fix displaying user-defined message headers when multiple-headers exist
       in a single message.
 [mjr] Honor recurrence-id range values when deleting recurring events (Bug

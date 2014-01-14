@@ -256,7 +256,8 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
     {
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
-        $sig_id = Horde_Mime::mimeIdArithmetic(next($partlist), 'next');
+        $data_id = next($partlist);
+        $sig_id = Horde_Mime::mimeIdArithmetic($data_id, 'next');
 
         /* Initialize inline data. */
         $status = new IMP_Mime_Status(_("The data in this part has been digitally signed via S/MIME."));
@@ -271,6 +272,16 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         if (!$GLOBALS['prefs']->getValue('use_smime')) {
             $status->addText(_("S/MIME support is not enabled so the digital signature is unable to be verified."));
+            return null;
+        }
+
+        /* Sanity checking to make sure MIME structure is correct. */
+        if (!in_array($sig_id, $partlist)) {
+            $status->action(IMP_Mime_Status::ERROR);
+            $cache->smime[$base_id]['wrap'] = 'mimePartWrapInvalid';
+            $status->addText(_("Invalid S/MIME data."));
+            /* This will suppress displaying the invalid part. */
+            $cache->smime[$base_id]['sig'] = $data_id;
             return null;
         }
 
