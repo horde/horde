@@ -120,6 +120,13 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _getHash(array $alarm)
     {
+
+        try {
+            $columns = $this->_db->columns($this->_params['table']);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
+        }
+        $alarm['alarm_params'] = $columns['alarm_params']->binaryToString($alarm['alarm_params']);
         $params = base64_decode($alarm['alarm_params']);
         if (!strlen($params) && strlen($alarm['alarm_params'])) {
             $params = $alarm['alarm_params'];

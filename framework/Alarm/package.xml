@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix compatibility with Oracle.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -860,7 +860,7 @@
    <date>2013-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix compatibility with Oracle.
    </notes>
   </release>
  </changelog>
