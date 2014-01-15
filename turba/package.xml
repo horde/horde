@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Export free/busy URL to vCard (Request #12915).
 * [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
 * [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
 * [jan] Remember currently open tab when switching or saving contact views (Request #12609).
@@ -1763,6 +1764,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Export free/busy URL to vCard (Request #12915).
 * [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
 * [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
 * [jan] Remember currently open tab when switching or saving contact views (Request #12609).

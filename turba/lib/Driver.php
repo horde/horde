@@ -1697,6 +1697,14 @@ class Turba_Driver implements Countable
                 }
                 break;
 
+            case 'freebusyUrl':
+                if ($version == '2.1' ||
+                    ($fields && !isset($fields['FBURL']))) {
+                    break;
+                }
+                $vcard->setAttribute('FBURL', $val);
+                break;
+
             case 'birthday':
                 if ($fields && !isset($fields['BDAY'])) {
                     break;
