@@ -113,7 +113,9 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'autoincrementKey' => 'number NOT NULL PRIMARY KEY',
+            'autoincrementKey' => array('name' => 'number NOT NULL PRIMARY KEY',
+                                        'limit' => null,
+                                        'null' => null),
             'string'           => array('name' => 'varchar2',
                                         'limit' => 255),
             'text'             => array('name' => 'clob',
@@ -420,19 +422,42 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $options
         );
 
+        $column = $this->column($tableName, $columnName);
+        $isNull = $column->isNull();
+
         if ($type == 'autoincrementKey') {
             try {
                 $this->removePrimaryKey($tableName);
             } catch (Horde_Db_Exception $e) {
             }
-        }
-
-        if (isset($options['null']) &&
-            $this->column($tableName, $columnName)->isNull() == $options['null']) {
-            unset($options['null']);
-        } elseif (!isset($options['null']) &&
-            !$this->column($tableName, $columnName)->isNull()) {
-            $options['null'] = true;
+            if (!$isNull) {
+                /* Manually set to NULL, because MODIFY fails if it contains a
+                 * NOT NULL constraint and the column already is NOT NULL. */
+                $sql = $this->quoteColumnName($columnName)
+                    . ' '
+                    . $this->typeToSql(
+                        $column->getType(),
+                        $column->getLimit(),
+                        $column->precision(),
+                        $column->scale(),
+                        $column->isUnsigned()
+                    );
+                $sql = $this->addColumnOptions($sql, array('null' => true));
+                $sql = sprintf(
+                    'ALTER TABLE %s MODIFY (%s)',
+                    $this->quoteTableName($tableName),
+                    $sql
+                );
+                $this->execute($sql);
+            }
+        } else {
+            /* Jump through some more hoops because MODIFY fails if it contains
+             * a NOT NULL constraint and the column already is NOT NULL. */
+            if (isset($options['null']) && $isNull == $options['null']) {
+                unset($options['null']);
+            } elseif (!isset($options['null']) && !$isNull) {
+                $options['null'] = true;
+            }
         }
 
         $this->_clearTableCache($tableName);
