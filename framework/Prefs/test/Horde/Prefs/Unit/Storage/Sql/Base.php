@@ -73,8 +73,10 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
             array('migrationsPath' => $dir,
                   'schemaTableName' => 'horde_prefs_test_schema'));
         self::$migrator->up();
-        self::$db->insert('INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',
-                          array('joe', 'horde', 'theme', 'silver'));
+        self::$db->insert(
+            'INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',
+            array('joe', 'horde', 'theme', new Horde_Db_Value_Binary('silver'))
+        );
 
         self::$prefs = new Horde_Prefs_Storage_Sql('joe', array('db' => self::$db));
     }
