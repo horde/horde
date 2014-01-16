@@ -427,6 +427,10 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $column = $this->column($tableName, $columnName);
         $isNull = $column->isNull();
 
+        if ($type == 'binary' && $column->getType() == 'binary') {
+            return;
+        }
+
         if ($type == 'autoincrementKey') {
             try {
                 $this->removePrimaryKey($tableName);
@@ -464,11 +468,26 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
 
         $this->_clearTableCache($tableName);
 
-        if ($type == 'binary') {
+        if ($type == 'binary' && $column->getType() != 'binary') {
             $this->beginDbTransaction();
             $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
             $this->update(sprintf(
-                'UPDATE %s SET %s = utl_raw.cast_to_raw(%s)',
+                'UPDATE %s SET %s = UTL_RAW.CAST_TO_RAW(%s)',
+                $this->quoteTableName($tableName),
+                $this->quoteColumnName($columnName . '_tmp'),
+                $this->quoteColumnName($columnName)
+            ));
+            $this->removeColumn($tableName, $columnName);
+            $this->renameColumn($tableName, $columnName . '_tmp', $columnName);
+            $this->commitDbTransaction();
+            return;
+        }
+
+        if ($type != 'binary' && $column->getType() == 'binary') {
+            $this->beginDbTransaction();
+            $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
+            $this->update(sprintf(
+                'UPDATE %s SET %s = UTL_RAW.CAST_TO_VARCHAR2(%s)',
                 $this->quoteTableName($tableName),
                 $this->quoteColumnName($columnName . '_tmp'),
                 $this->quoteColumnName($columnName)
