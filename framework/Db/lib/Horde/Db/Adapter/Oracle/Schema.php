@@ -331,14 +331,14 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             try {
                 $this->execute(sprintf(
                     'DROP SEQUENCE %s',
-                    $this->quoteColumnName($prefix . '_seq')
+                    $this->quoteColumnName($this->_truncateTo30($prefix . '_seq'))
                 ));
             } catch (Horde_Db_Exception $e) {
             }
             try {
                 $this->execute(sprintf(
                     'DROP TRIGGER %s',
-                    $this->quoteColumnName($prefix . '_trig')
+                    $this->quoteColumnName($this->_truncateTo30($prefix . '_trig'))
                 ));
             } catch (Horde_Db_Exception $e) {
             }
@@ -510,17 +510,18 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $this->execute('CREATE TABLE horde_db_autoincrement (id INTEGER)');
             $this->execute('INSERT INTO horde_db_autoincrement (id) VALUES (0)');
         }
+        $sequence = $this->_truncateTo30($id . '_seq');
         $this->execute(sprintf(
-            'CREATE SEQUENCE %s_seq',
-            $id
+            'CREATE SEQUENCE %s',
+            $sequence
         ));
         $this->execute(sprintf(
-            'CREATE OR REPLACE TRIGGER %s_trig BEFORE INSERT ON %s FOR EACH ROW DECLARE increment INTEGER; BEGIN SELECT %s_seq.NEXTVAL INTO :NEW.%s FROM dual; SELECT %s_seq.CURRVAL INTO increment FROM dual; UPDATE horde_db_autoincrement SET id = increment; END;',
-            $id,
+            'CREATE OR REPLACE TRIGGER %s BEFORE INSERT ON %s FOR EACH ROW DECLARE increment INTEGER; BEGIN SELECT %s.NEXTVAL INTO :NEW.%s FROM dual; SELECT %s.CURRVAL INTO increment FROM dual; UPDATE horde_db_autoincrement SET id = increment; END;',
+            $this->_truncateTo30($id . '_trig'),
             $tableName,
-            $id,
+            $sequence,
             $columnName,
-            $id
+            $sequence
         ));
     }
 
@@ -610,19 +611,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     public function indexName($tableName, $options = array())
     {
         $index = parent::indexName($tableName, $options);
-        if (strlen($index) > 30) {
-            $index = implode(
-                '_',
-                array_map(
-                    function($t)
-                    {
-                        return substr($t, 0, 3);
-                    },
-                    explode('_', $index)
-                )
-            );
-        }
-        return substr($index, 0, 30);
+        return $this->_truncateTo30($index);
     }
 
     /**
@@ -712,5 +701,32 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     {
         parent::_clearTableCache($tableName);
         $this->_cache->set('tables/primarykeys/' . $tableName, '');
+    }
+
+    /**
+     * Truncates an indentifier to 30 chars.
+     *
+     * To avoid collisions, the identifier is split up by underscores and the
+     * parts truncated to 3 characters first.
+     *
+     * @param string $name  An identifier.
+     *
+     * @return string  The truncated identifier.
+     */
+    protected function _truncateTo30($name)
+    {
+        if (strlen($name) > 30) {
+            $name = implode(
+                '_',
+                array_map(
+                    function($t)
+                    {
+                        return substr($t, 0, 3);
+                    },
+                    explode('_', $name)
+                )
+            );
+        }
+        return substr($name, 0, 30);
     }
 }
