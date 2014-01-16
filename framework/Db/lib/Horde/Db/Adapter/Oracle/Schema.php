@@ -126,6 +126,8 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                                         'limit' => null),
             'integer'          => array('name' => 'number',
                                         'limit' => null),
+            'bigint'           => array('name' => 'number',
+                                        'limit' => null),
             'float'            => array('name' => 'float',
                                         'limit' => null),
             'decimal'          => array('name' => 'number',
