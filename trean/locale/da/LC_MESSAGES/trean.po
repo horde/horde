@@ -1,0 +1,317 @@
+# Danish translations for Trean H5 package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Trean package.
+# Automatically generated, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean H5 (1.0.3-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"PO-Revision-Date: 2014-01-11 15:48+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+msgid "1 Line"
+msgstr "1. linje"
+
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+msgid "10 rows"
+msgstr "10 Rækker"
+
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+msgid "15 rows"
+msgstr "15 Rækker"
+
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+msgid "2 Line"
+msgstr "2. linje"
+
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+msgid "25 rows"
+msgstr "25 Rækker"
+
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+msgid "3 Line"
+msgstr "3. linje"
+
+#: templates/add.html.php:52
+msgid "Add"
+msgstr "Tilføj"
+
+#: templates/bookmarklet.html.php:1
+msgid "Add to Bookmarks"
+msgstr "Tilføj Bogmærke"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "Tilføjet"
+
+#: config/prefs.php:36
+msgid "Ascending (A to Z or oldest to newest)"
+msgstr "Stigende (A til Z eller ældst til nyeste)"
+
+#: add.php:47
+msgid "Bookmark Added"
+msgstr "Bogmærker tilføjet"
+
+#: edit.php:19
+#, php-format
+msgid "Bookmark not found: %s."
+msgstr "Bogmærke ikke fundet: %s."
+
+#: config/prefs.php:26
+msgid "Bookmarked on"
+msgstr "Bogmærket d."
+
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
+#: lib/View/BookmarkList.php:120
+msgid "Bookmarks"
+msgstr "Bogmærker"
+
+#: lib/Trean.php:71
+msgid "Bookmarks Feed"
+msgstr "Bogmærke Feed"
+
+#: browse.php:31
+msgid "Browse"
+msgstr "Browse"
+
+#: templates/add.html.php:53 templates/edit.html.php:63
+msgid "Cancel"
+msgstr "Annuller"
+
+#: templates/list.html.php:14
+msgid "Clicks"
+msgstr "Klik"
+
+#: lib/Api.php:130
+msgid "Close"
+msgstr "Luk"
+
+#: app/controllers/DeleteBookmark.php:13
+msgid "Deleted bookmark: "
+msgstr "Slettet bogmærke:"
+
+#: config/prefs.php:37
+msgid "Descending (9 to 1 or newest to oldest)"
+msgstr "Faldende (9 til 1 eller Ny til gammel)"
+
+#: templates/add.html.php:25 templates/edit.html.php:34
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Visnings Indstillinger"
+
+#: lib/Block/Bookmarks.php:37
+msgid "Display Rows"
+msgstr "Vis rækker"
+
+#: templates/add.html.php:64
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr "Træk \"Tilføj bogmærke\" linket herunder til din \"links\" Bar."
+
+#: templates/add.html.php:62
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Træk \"Tilføj bogmærke\" linket herunder til din \"Personlige Værktøjsbar\" "
+"eller til et sted i din Browsers bogmærke menu."
+
+#: templates/list.html.php:55
+msgid "Edit"
+msgstr "Rediger"
+
+#: edit.php:42
+msgid "Edit Bookmark"
+msgstr "Rediger Bogmærke"
+
+#: templates/add.html.php:61
+msgid "Firefox/Mozilla"
+msgstr "Firefox / Mozilla"
+
+#: templates/add.html.php:63
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/add.html.php:38 templates/edit.html.php:47
+msgid "Loading..."
+msgstr "Henter..."
+
+#: lib/Application.php:74
+msgid "Maximum Number of Bookmarks"
+msgstr "Maksimalt antal Bogmærker"
+
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
+msgid "Most Clicked"
+msgstr "Flest klik"
+
+#: lib/Block/Mostclicked.php:19
+msgid "Most-clicked Bookmarks"
+msgstr "Oftest valgte Bogmærker"
+
+#: add.php:78 templates/add.html.php:9
+msgid "New Bookmark"
+msgstr "Nyt Bogmærke"
+
+#: search.php:43
+msgid "No bookmarks found"
+msgstr "Ingen Bogmærker fundet"
+
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+msgid "No bookmarks to display"
+msgstr "Ingen Bogmærker at vise."
+
+#: browse.php:18
+msgid "No bookmarks yet."
+msgstr "Ingen Bogmærker endnu."
+
+#: search.php:50
+msgid "No search"
+msgstr "Ingen Søg"
+
+#: templates/add.html.php:67
+msgid "Note:"
+msgstr "Note:"
+
+#: lib/Block/Mostclicked.php:28
+msgid "Number of bookmarks to show"
+msgstr "Antal Bogmærker at vise"
+
+#: templates/add.html.php:68
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"I nyere versioner af Internet Explorer, kan du være nødt til at tilføje %s://"
+"%s til din \"Trusted zone\" før at dette virker."
+
+#: config/prefs.php:46
+msgid "Open links in a new window?"
+msgstr "Åbn Links i et nyt vindue?"
+
+#: config/prefs.php:12
+msgid "Other Preferences"
+msgstr "Andre Indstillinger"
+
+#: templates/add.html.php:43 templates/edit.html.php:52
+msgid "Previously used tags"
+msgstr "Senest brugte mærkater"
+
+#: lib/View/BookmarkList.php:214
+msgid "Remove from search"
+msgstr "Fjern fra søgning"
+
+#: templates/edit.html.php:62
+msgid "Save"
+msgstr "Gem"
+
+#: search.php:36
+msgid "Search"
+msgstr "Søg"
+
+#: search.php:47
+#, php-format
+msgid "Search results (%s)"
+msgstr "Resultat for søgning (%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Se Før andvendte mærkater"
+
+#: config/prefs.php:14
+msgid "Set how to display bookmark listings and how to open links."
+msgstr "Indstil Visning af bogmærke listen og hvordan links skal åbnes."
+
+#: config/prefs.php:28
+msgid "Sort bookmarks by:"
+msgstr "Sortér Bogmærker efter:"
+
+#: lib/Block/Bookmarks.php:28
+msgid "Sort by"
+msgstr "Sortér efter"
+
+#: config/prefs.php:38
+msgid "Sort direction:"
+msgstr "Sorteringsretning:"
+
+#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+msgid "Tags"
+msgstr "Mærkater"
+
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+msgid "Template"
+msgstr "Skabelon"
+
+#: app/controllers/DeleteBookmark.php:16
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Der opstod en fejl under sletningen af bogmærke: %s"
+
+#: add.php:41
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Der opstod en fejl under tilføjelsen af bogmærke: %s"
+
+#: app/controllers/SaveBookmark.php:26
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Der opstod en fejl under lagring af Bogmærke: %s"
+
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
+msgid "Title"
+msgstr "Titel"
+
+#: templates/add.html.php:60
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "For hurtigt og nemt at tilføje bogmærker fra din web Browser:"
+
+#: templates/add.html.php:15 templates/edit.html.php:24
+msgid "URL"
+msgstr "URL"
+
+#: templates/add.html.php:65
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Mens du browser, kan du hurtigt bogmærke den side du er på, ved at klikke på "
+"dit nye \"Tilføj Bogmærke\" genvej."
+
+#: add.php:25
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Du har ikke tilladelse til at oprette mere en %d Bogmærker."
+
+#: lib/Application.php:84
+msgid "_Browse"
+msgstr "_Browse"
+
+#: lib/Application.php:94
+msgid "_New Bookmark"
+msgstr "_Nyt Bogmærke"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "click"
+msgstr "klik"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "clicks"
+msgstr "Klik"
+
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "tagged %s"
+msgstr "Mærket %s"
