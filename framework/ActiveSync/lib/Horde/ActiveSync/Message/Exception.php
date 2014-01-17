@@ -65,7 +65,7 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         Horde_ActiveSync_Message_Appointment::POOMCAL_STARTTIME          => array(self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_SUBJECT            => array(self::KEY_ATTRIBUTE => 'subject'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_ORGANIZERNAME      => array(self::KEY_ATTRIBUTE => 'organizername'),
-        Horde_ActiveSync_Messase_Appointment::POOMCAL_ORGANIZEREMAIL     => array (self::KEY_ATTRIBUTE => 'organizeremail'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ORGANIZEREMAIL     => array (self::KEY_ATTRIBUTE => 'organizeremail'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_LOCATION           => array(self::KEY_ATTRIBUTE => 'location'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_ENDTIME            => array(self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_SENSITIVITY        => array(self::KEY_ATTRIBUTE => 'sensitivity'),
