@@ -400,9 +400,12 @@ class Horde_Mail_Rfc822
             }
         }
 
-        if (is_null($ob->host) &&
-            !is_null($this->_params['default_domain'])) {
-            $ob->host = $this->_params['default_domain'];
+        if (is_null($ob->host)) {
+            if (!is_null($this->_params['default_domain'])) {
+                $ob->host = $this->_params['default_domain'];
+            } elseif (!empty($this->_params['validate'])) {
+                throw new Horde_Mail_Exception('Address is missing domain.');
+            }
         }
 
         return $ob;
