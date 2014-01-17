@@ -554,4 +554,27 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBareMailboxWithoutDefaultDomainWhenValidating()
+    {
+        $address = 'foo';
+
+        try {
+            $this->rfc822->parseAddressList($address, array(
+                'default_domain' => null,
+                'validate' => true
+            ));
+            $this->fail('An expected exception was not raised.');
+        } catch (Horde_Mail_Exception $e) {}
+
+        $address2 = 'foo@';
+
+        try {
+            $this->rfc822->parseAddressList($address2, array(
+                'default_domain' => null,
+                'validate' => true
+            ));
+            $this->fail('An expected exception was not raised.');
+        } catch (Horde_Mail_Exception $e) {}
+    }
+
 }
