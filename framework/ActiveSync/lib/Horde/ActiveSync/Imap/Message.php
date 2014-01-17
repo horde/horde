@@ -877,7 +877,6 @@ class Horde_ActiveSync_Imap_Message
         if (empty($message)) {
             $message = $this->_message;
         }
-        Horde::debug($message);
         if ($message->getType() == 'application/pkcs7-mime') {
             return true;
         }
