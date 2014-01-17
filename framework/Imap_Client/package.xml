@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-03</date>
+ <date>2014-01-17</date>
  <version>
   <release>2.17.0</release>
   <api>2.17.0</api>
@@ -2112,7 +2112,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-03</date>
+   <date>2014-01-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] When determining a sequence -&gt; UID mapping, do sanity checking to make ensure data is valid (Bug #12911).
