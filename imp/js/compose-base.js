@@ -110,6 +110,7 @@ var ImpComposeBase = {
         }
 
         elt.setValue(v + e.memo.value + ', ');
+        document.fire('AutoComplete:reset');
     },
 
     focus: function(elt)
