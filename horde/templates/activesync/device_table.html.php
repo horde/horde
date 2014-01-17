@@ -13,7 +13,7 @@
     <?php elseif ($d->rwstatus == Horde_ActiveSync::RWSTATUS_WIPED): ?>
       <?php $status = $this->contentTag('span', _("Device is Wiped. Remove device state to allow device to reconnect."), array('class' => 'notice')) ?>
     <?php elseif ($d->blocked):?>
-      <?php $status = $this->contentTag('span', _("Deivce is Blocked."), array('class' => 'notice'))?>
+      <?php $status = $this->contentTag('span', _("Device is Blocked."), array('class' => 'notice'))?>
     <?php else: ?>
       <?php $status = $d->policykey ? _("Provisioned") : _("Not Provisioned") ?>
     <?php endif; ?>
