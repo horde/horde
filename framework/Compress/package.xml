@@ -22,6 +22,12 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
+ <developer>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </developer>
  <date>2013-12-31</date>
  <version>
   <release>2.0.5</release>
