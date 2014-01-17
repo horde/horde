@@ -15,11 +15,6 @@ TODO
 
 - Email categories - possible to map to custom IMAP Flags?
 
-- Look at support for "Document" support. Essentially allowing to download a
-  file from a VFS API if we know the exact "path".
-
-- S/MIME issues with SENDMAIL (at least from NOTE 3).
-
 - Support EMPTY_FOLDER commands in ITEMOPERATIONS requests. Need a client that
   sends this request to implement properly.
 
@@ -44,3 +39,5 @@ BC BREAKING (i.e., Horde 6).
 - Refactor Horde_ActiveSync_State_*::listDevices() to return a
   Horde_ActiveSync_Device object instead of a hash keyed by backend field names
   and to take the object property names as filters instead of backend field names.
+
+- Clean up logger creation/setting/log_level setting.
