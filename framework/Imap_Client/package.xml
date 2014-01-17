@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] When determining a sequence -&gt; UID mapping, do sanity checking to make ensure data is valid (Bug #12911).
 * [mms] Add a Horde_Hashtable specific cache driver.
 * [mms] Add remove() method to Horde_Imap_Client_Ids.
  </notes>
@@ -2114,6 +2115,7 @@
    <date>2014-01-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] When determining a sequence -&gt; UID mapping, do sanity checking to make ensure data is valid (Bug #12911).
 * [mms] Add a Horde_Hashtable specific cache driver.
 * [mms] Add remove() method to Horde_Imap_Client_Ids.
    </notes>

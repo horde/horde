@@ -3657,7 +3657,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 return $res['match'];
             }
 
-            $map->update(array_combine(array_slice($ids->ids, 0, count($res['match'])), $res['match']->ids));
+            /* Sanity checking (Bug #12911). */
+            $list1 = array_slice($ids->ids, 0, count($res['match']));
+            $list2 = $res['match']->ids;
+            if (!empty($list1) &&
+                !empty($list2) &&
+                (count($list1) === count($list2))) {
+                $map->update(array_combine($list1, $list2));
+            }
         }
 
         return $res['match'];
