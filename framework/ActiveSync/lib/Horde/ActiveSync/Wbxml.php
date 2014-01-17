@@ -861,11 +861,12 @@ class Horde_ActiveSync_Wbxml
      *
      * @param stream $stream  The [input|output] stream.
      */
-    public function __construct($stream)
+    public function __construct($stream, $log_level = self::LOG_PROTOCOL)
     {
         $this->_stream = new Horde_Stream_Existing(array('stream' => $stream));
         $this->_logger = new Horde_Support_Stub();
         $this->_procid = getmypid();
+        $this->_logLevel = $log_level;
     }
 
     public function getStream()
@@ -878,10 +879,9 @@ class Horde_ActiveSync_Wbxml
      *
      * @param Horde_Log_Logger $logger  The logger.
      */
-    public function setLogger(Horde_Log_Logger $logger, $level = self::LOG_PROTOCOL)
+    public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
-        $this->_logLevel = $level;
     }
 
 }
