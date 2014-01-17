@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-05</date>
+ <date>2014-01-17</date>
  <version>
   <release>2.11.0</release>
   <api>2.11.0</api>
@@ -1895,7 +1895,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-05</date>
+   <date>2014-01-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with synchronizing recurring event series exceptions due to missing properties in the exception object.
