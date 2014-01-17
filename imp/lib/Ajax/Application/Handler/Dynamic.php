@@ -157,6 +157,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $parent = isset($this->vars->new_parent)
             ? IMP_Mailbox::formFrom($this->vars->new_parent)
             : IMP_Mailbox::get($old_name->parent_imap);
+        $parent = $parent ? $parent : IMP_Mailbox::get(IMP_Ftree::BASE_ELT);
+
         $new_name = $parent->createMailboxName($this->vars->new_name);
 
         if (($old_name != $new_name) && $old_name->rename($new_name)) {
