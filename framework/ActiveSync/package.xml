@@ -12,7 +12,7 @@
  </lead>
  <date>2014-01-17</date>
  <version>
-  <release>2.11.0</release>
+  <release>2.11.1</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -21,13 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue with synchronizing recurring event series exceptions due to missing properties in the exception object.
-* [mjr] Fixes to S/MIME support for issues that prevent the decrypting of S/MIME encrypted email on certain clients.
-* [mjr] Improve error handling when state is lost and device continues to request the same state despite being sent the proper status code.
-* [mjr] Fix returning device information from Mongo driver when multiple user accounts exist on the same device.
-* [mjr] Improve detection of devices that cannot support non-multiplexed collections.
-* [mjr] Add support for DocumentLibrary.
-* [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1905,6 +1899,19 @@
 * [mjr] Improve detection of devices that cannot support non-multiplexed collections.
 * [mjr] Add support for DocumentLibrary.
 * [mjr] Fix mailbox searching when number of results exceeds the requested RANGE value.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.1</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-01-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
