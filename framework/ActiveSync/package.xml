@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue with synchronizing recurring event series exceptions due to missing properties in the exception object.
 * [mjr] Fixes to S/MIME support for issues that prevent the decrypting of S/MIME encrypted email on certain clients.
 * [mjr] Improve error handling when state is lost and device continues to request the same state despite being sent the proper status code.
 * [mjr] Fix returning device information from Mongo driver when multiple user accounts exist on the same device.
@@ -1897,6 +1898,7 @@
    <date>2014-01-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue with synchronizing recurring event series exceptions due to missing properties in the exception object.
 * [mjr] Fixes to S/MIME support for issues that prevent the decrypting of S/MIME encrypted email on certain clients.
 * [mjr] Improve error handling when state is lost and device continues to request the same state despite being sent the proper status code.
 * [mjr] Fix returning device information from Mongo driver when multiple user accounts exist on the same device.
