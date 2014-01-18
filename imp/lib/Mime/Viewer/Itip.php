@@ -409,17 +409,19 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 }
 
                 // Add exceptions
-                $exdates = $vevent->getAttributeValues('EXDATE');
-                if (is_array($exdates)) {
-                    foreach ($exdates as $exdate) {
-                        if (is_array($exdate)) {
-                            $recurrence->addException(
-                                (int)$exdate['year'],
-                                (int)$exdate['month'],
-                                (int)$exdate['mday']);
+                try {
+                    $exdates = $vevent->getAttributeValues('EXDATE');
+                    if (is_array($exdates)) {
+                        foreach ($exdates as $exdate) {
+                            if (is_array($exdate)) {
+                                $recurrence->addException(
+                                    (int)$exdate['year'],
+                                    (int)$exdate['month'],
+                                    (int)$exdate['mday']);
+                            }
                         }
                     }
-                }
+                } catch (Horde_ICalendar_Exception $e) {}
 
                 $view->recurrence = $recurrence->toString($prefs->getValue('date_format'));
             }
