@@ -606,7 +606,6 @@ HermesCore = {
         $('hermesLoadingTime').hide();
         elts.each(function(elt) {
             this.removeSliceFromUI(elt);
-            this.updateTimeSummary();
             if (this.view == 'search') {
                 this.removeSliceFromCache(elt.retrieve('sid'), 'search');
                 this.updateSearchTotal();
