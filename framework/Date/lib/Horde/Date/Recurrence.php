@@ -1644,9 +1644,35 @@ class Horde_Date_Recurrence
            $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same weekday and month of the year");
         }
 
-        $string .= "\n" . _("Ends after") . ': ' . ($this->hasRecurEnd() ? $this->recurEnd->strftime($date_format) . ($this->recurEnd->hour == 23 && $this->recurEnd->min == 59 ? '' : ' ' . $this->recurEnd->format($date_format)) : ($this->getRecurCount() ? sprintf(_("%d times"), $this->getRecurCount()) : _("No end date")));
+        $string .= "\n" . _("Ends after") . ': ' . ($this->hasRecurEnd() ? $this->recurEnd->strftime($date_format) . ($this->recurEnd->hour == 23 && $this->recurEnd->min == 59 ? '' : ' ' . $this->recurEnd->format($date_format)) : ($this->getRecurCount() ? sprintf(_("%d times"), $this->getRecurCount()) : _("No end date")));;
+        if ($this->getExceptions()) {
+            $string .= "\n" . _("Exceptions on") . ': ';
+            foreach ($this->getExceptions() as $exception_date) {
+                $string .= $this->_formatExceptionDate($exception_date, $date_format) . ' ';
+            }
+        }
 
         return $string;
+    }
+
+    /**
+     * Returns a correcty formatted exception date for recurring events.
+     *
+     * @param string $date    Exception in the format Ymd.
+     * @param string $format  The format to display in.
+     *
+     * @return string  The formatted date and delete link.
+     * @since 2.1.0
+     */
+    protected function _formatExceptionDate($date, $format)
+    {
+        if (!preg_match('/(\d{4})(\d{2})(\d{2})/', $date, $match)) {
+            return '';
+        }
+        $horde_date = new Horde_Date(array('year' => $match[1],
+                                           'month' => $match[2],
+                                           'mday' => $match[3]));
+        return $horde_date->strftime($format);
     }
 
 }
