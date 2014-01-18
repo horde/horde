@@ -621,7 +621,14 @@ HermesCore = {
      */
     removeSliceFromUI: function(elt)
     {
-        elt.fade({ duration: this.effectDur, queue: 'end' });
+        elt.fade({
+            duration: this.effectDur,
+            queue: 'end',
+            afterFinish: function() {
+                elt.down().removeClassName('hermesSelectedSlice');
+                this.checkSelected();
+            }.bind(this)
+        });
         this.removeSliceFromCache(elt.retrieve('sid'));
         this.updateTimeSummary();
     },
