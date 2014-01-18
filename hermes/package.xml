@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [mjr] Add ability to delete multiple slices at one time.
+* [mjr] Add confirmation dialog for deleting time slices (Request #10361).
 * [mjr] Implement exclusive timers (Request #12543).
 * [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
@@ -503,6 +505,8 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [mjr] Add ability to delete multiple slices at one time.
+* [mjr] Add confirmation dialog for deleting time slices (Request #10361).
 * [mjr] Implement exclusive timers (Request #12543).
 * [mjr] Add ability to optionally add client, cost object, or job type to timer on creation.
 * [mjr] Add listTimeObjects support.
@@ -511,7 +515,7 @@
 * [mjr] Allow pausing and restarting timers.
 * [mjr] Add ajax view.
 * [jan] Remove Sandals widget.
-* [mjr] Refactor for Horde 4.
+* [mjr] Refactor for Horde 5.
 * [jan] Provide default configuration files instead of .dist versions.
    </notes>
   </release>
