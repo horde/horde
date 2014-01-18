@@ -48,6 +48,14 @@
   <td><?php echo $this->h($this->loc) ?></td>
  </tr>
 <?php endif; ?>
+
+<?php if (strlen($this->recurrence)): ?>
+  <tr>
+   <td><strong><?php echo _("Recurrence") ?>:</strong></td>
+   <td><?php echo nl2br($this->h($this->recurrence)) ?></td>
+  </tr>
+<?php endif; ?>
+
 </table>
 
 <?php if (isset($this->attendees)): ?>
