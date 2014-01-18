@@ -267,6 +267,21 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesTimeListDelete':
+                if (this.view == 'time') {
+                    $('hermesLoadingTime').show();
+                    elt = $('hermesTimeListInternal');
+                } else if (this.view == 'search') {
+                    $('hermesLoadingSearch').show();
+                    elt = $('hermesSearchListInternal');
+                }
+                elt.select('.hermesSelectedSlice').each(function(s) {
+                    this.pendingDeletes.push(s.up());
+                }.bind(this));
+                RedBox.showHtml($('hermesDeleteDiv').show());
+                e.stop();
+                return;
+
             case 'hermesSearchListHeader':
                 var el = e.element().identify();
                 if (el == 'sSortDate' ||
@@ -483,9 +498,11 @@ HermesCore = {
                 throw $break;
             }.bind(this));
             if (haveSelected) {
-                $('hermesTimeListSubmit').enable()
+                $('hermesTimeListSubmit').enable();
+                $('hermesTimeListDelete').enable();
             } else {
                 $('hermesTimeListSubmit').disable();
+                $('hermesTimeListDelete').disable();
             }
         } else if (this.view == 'search') {
             $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {

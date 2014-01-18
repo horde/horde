@@ -104,6 +104,7 @@
     </div>
     <div id="hermesTimeListControls" class="horde-form-buttons">
       <input id="hermesTimeListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit Time")?>" />
+      <input id="hermesTimeListDelete" disabled="disabled" class="horde-delete" type="button" value="<?php echo _("Delete Time")?>" />
     </div>
   </div>
   <!-- End of Time Slice Grid -->
