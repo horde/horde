@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add ability to return human readable description of recurrence rules.
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
 * [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
  </notes>
@@ -950,6 +951,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add ability to return human readable description of recurrence rules.
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
 * [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
    </notes>
