@@ -333,12 +333,10 @@ class Horde_Core_ActiveSync_Connector
             return array();
         }
 
-        $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email', 'office'));
         if (!empty($options['pictures'])) {
             $fields[$gal][] = 'photo';
         }
         $opts = array(
-            'fields' => $fields,
             'matchBegin' => true,
             'forceSource' => true,
             'sources' => array($gal)
