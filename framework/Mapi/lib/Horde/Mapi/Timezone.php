@@ -2,7 +2,7 @@
 /**
  * Horde_Mapi_Util_Timezone::
  *
- * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
@@ -18,7 +18,7 @@
  * Code dealing with searching for a timezone identifier from an AS timezone
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
- * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils

@@ -2,11 +2,7 @@
 /**
  * Horde_Mapi::
  *
- * @license   http://www.horde.org/licenses/gpl GPLv2
- *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
- *            Version 2, the distribution of the Horde_ActiveSync module in or
- *            to the United States of America is excluded from the scope of this
- *            license.
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
@@ -19,11 +15,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @license   http://www.horde.org/licenses/gpl GPLv2
- *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
- *            Version 2, the distribution of the Horde_ActiveSync module in or
- *            to the United States of America is excluded from the scope of this
- *            license.
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils

@@ -4,7 +4,7 @@
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
- * @license    http://www.horde.org/licenses/gpl GPLv2
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mapi_Utils
  * @subpackage UnitTests
  */
@@ -12,7 +12,7 @@
 /**
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
- * @license    http://www.horde.org/licenses/gpl GPLv2
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mapi_Utils
  * @subpackage UnitTests
  */
