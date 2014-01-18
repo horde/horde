@@ -30,7 +30,7 @@
  </developer>
  <date>2014-01-18</date>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix tests when Horde_Mapi is not available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -868,6 +868,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix tests when Horde_Mapi is not available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-01-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
