@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-01-17</date>
+ <date>2014-01-18</date>
  <version>
   <release>2.0.6</release>
   <api>1.0.0</api>
@@ -864,7 +864,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-17</date>
+   <date>2014-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix tests when Horde_Mapi is not available.
