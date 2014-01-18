@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [mjr] Clarify license is LGPL and fix package.xml/composer.json files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -137,7 +137,7 @@
    <date>2014-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mjr] Clarify license is LGPL and fix package.xml/composer.json files.
    </notes>
   </release>
  </changelog>
