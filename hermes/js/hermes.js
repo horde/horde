@@ -31,6 +31,7 @@ HermesCore = {
     fromSearch: false,
     wrongFormat: $H(),
     inTimerForm: false,
+    pendingDeletes: [],
 
     onException: function(parentfunc, r, e)
     {
@@ -359,6 +360,12 @@ HermesCore = {
                 this.doStopTimer(this.temp_timer, true);
                 this.temp_timer = null;
                 return;
+
+            case 'hermesDeleteYes':
+                this.deleteSlice(this.pendingDeletes);
+            case 'hermesDeleteNo':
+                this.pendingDeletes = [];
+                this.closeRedBox();
             }
 
             switch (elt.className) {
@@ -384,7 +391,8 @@ HermesCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceDelete')) {
-                this.deleteSlice(elt.up().up());
+                this.pendingDeletes.push(elt.up().up());
+                RedBox.showHtml($('hermesDeleteDiv').show());
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceEdit')) {
@@ -557,15 +565,18 @@ HermesCore = {
     /**
      * Permanently delete a time slice
      *
-     * @param slice  The DOM element of the slice in the slice list to remove.
+     * @param slices  The DOM elements of the slices in the slice list to remove.
      */
-    deleteSlice: function(slice)
+    deleteSlice: function(slices)
     {
-        var sid = slice.retrieve('sid');
+        var sid = [];
+        slices.each(function(s) {
+            sid.push(s.retrieve('sid'));
+        });
         $('hermesLoadingTime').show();
         HordeCore.doAction('deleteSlice',
             { 'id': sid },
-            { 'callback': this.deletesliceCallback.curry(slice).bind(this) }
+            { 'callback': this.deletesliceCallback.curry(slices).bind(this) }
         );
     },
 
@@ -573,15 +584,18 @@ HermesCore = {
      * Callback for the deleteSlice action. Hides the spinner, removes the
      * slice's DOM element from the UI and updates time summary.
      */
-    deletesliceCallback: function(elt)
+    deletesliceCallback: function(elts)
     {
         $('hermesLoadingTime').hide();
-        this.removeSliceFromUI(elt);
-        this.updateTimeSummary();
-        if (this.view == 'search') {
-            this.removeSliceFromCache(elt.retrieve('sid'), 'search');
-            this.updateSearchTotal();
-        }
+        elts.each(function(elt) {
+            this.removeSliceFromUI(elt);
+            this.updateTimeSummary();
+            if (this.view == 'search') {
+                this.removeSliceFromCache(elt.retrieve('sid'), 'search');
+                this.updateSearchTotal();
+            }
+        }.bind(this));
+        this.pendingDeletes = [];
     },
 
     /**

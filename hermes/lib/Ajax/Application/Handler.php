@@ -128,17 +128,21 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
 
     /**
      * Remove a slice. Expects the following in $this->vars:
-     *   - id:  The slice id
+     *   - id:  The slice ids
      *
      * @return boolean
      */
     public function deleteSlice()
     {
-        $sid = array('id' => $this->vars->id, 'delete' => true);
+        $slices = array();
+        $ids = !is_array($this->vars->id) ? array($this->vars->id) : $this->vars->id;
+        foreach ($ids as $id) {
+            $slices[] = array('id' => $id, 'delete' => true);
+        }
         try {
             $result = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->updateTime(array($sid));
+                ->updateTime($slices);
             $GLOBALS['notification']->push(
                 _("Your time entry was successfully deleted."), 'horde.success');
 

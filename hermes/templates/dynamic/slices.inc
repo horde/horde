@@ -110,3 +110,11 @@
 
 </div>
 <!-- End of Time View Container -->
+
+<div id="hermesDeleteDiv" class="hermesDialog" style="display:none">
+<p><?php echo _("Delete the time slice?") ?></p>
+<div class="hermesFormActions">
+  <input id="hermesDeleteYes" type="button" value="<?php echo _("Yes") ?>" class="horde-default" />
+  <input id="hermesDeleteNo" type="button" value="<?php echo _("No") ?>" />
+</div>
+</div>
