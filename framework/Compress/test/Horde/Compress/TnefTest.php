@@ -14,6 +14,13 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
 {
     public $testdata;
 
+    protected function setUp()
+    {
+        if (!class_exists('Horde_Mapi')) {
+            $this->markTestSkipped('Horde_Mapi is not available');
+        }
+    }
+
     public function testMeetingInvitation()
     {
         $tnef = Horde_Compress::factory('Tnef');
