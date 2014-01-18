@@ -19,9 +19,9 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/gpl">GPLv2</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -109,7 +109,7 @@
     <api>stable</api>
    </stability>
    <date>2014-01-17</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.
    </notes>
@@ -122,9 +122,9 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-01-18</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -135,9 +135,9 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-01-18</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

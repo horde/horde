@@ -3,7 +3,7 @@
     "description": "MAPI utility library.",
     "type": "library",
     "homepage": "http://pear.horde.org",
-    "license": "GPLv2",
+    "license": "LGPL-2.1",
     "authors": [
         {
             "name": "Michael J Rubinsky",
@@ -11,7 +11,7 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "time": "2014-01-18",
     "repositories": [
         {
