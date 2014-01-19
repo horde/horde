@@ -538,6 +538,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $iCal->setAttribute('METHOD', $this->_iTip[0]['method']);
 
             $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
+
+            // @todo For now, just bail out if we don't have end_utc. Need to
+            // implement more of the time related properties??
+            if (empty($this->_iTip[0]['end_utc'])) {
+                return;
+            }
             $end = clone $this->_iTip[0]['end_utc'];
             $end->sec++;
             if ($this->_iTip[0]['allday']) {
