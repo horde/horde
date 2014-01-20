@@ -260,6 +260,13 @@ class IMP_Imap_Config implements Serializable
                 : array();
             break;
 
+        case 'maildomain':
+            /* Sanity checking - this should be null, not empty string. */
+            if (!strlen($out)) {
+                $out = null;
+            }
+            break;
+
         case 'smtp':
             if (empty($out['horde_auth'])) {
                 if (!isset($out['username'])) {
