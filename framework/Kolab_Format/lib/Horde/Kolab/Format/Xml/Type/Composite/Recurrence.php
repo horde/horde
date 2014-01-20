@@ -114,6 +114,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite
                     'Recurrence: daynumber tag missing!'
                 );
             }
+            /* skip this check since our patched Horde_Date_Recurrence can handle negative numbers
             $daynumber = $recurrence['daynumber'];
             if ($daynumber < 0) {
                 throw new Horde_Kolab_Format_Exception_ParseError(
@@ -123,6 +124,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite
                     )
                 );
             }
+            */
 
             if ($recurrence['type'] == 'daynumber') {
                 if ($recurrence['cycle'] == 'yearly' && $daynumber > 366) {
