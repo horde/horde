@@ -104,7 +104,7 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
 
         return $this->_compressJs(
             $text,
-            escapeshellcmd($uglifyjs) . ' - ' . $args
+            escapeshellcmd($uglifyjs) . ' ' . $args
         );
     }
 
