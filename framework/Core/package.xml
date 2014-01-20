@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.
@@ -3269,6 +3270,7 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.

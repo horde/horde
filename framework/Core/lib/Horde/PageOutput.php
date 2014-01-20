@@ -274,59 +274,57 @@ class Horde_PageOutput
             return;
         }
 
-        $out = '';
+        $js_text = '';
         foreach ($scripts as $val) {
-            $js_text = file_get_contents($val->full_path);
+            $js_text .= file_get_contents($val->full_path);
+        }
 
-            if ($conf['cachejsparams']['compress'] == 'none') {
-                $out .= $js_text . "\n";
-            } else {
-                switch ($conf['cachejsparams']['compress']) {
-                case 'closure':
-                    $jsmin_params = array(
-                        'closure' => $conf['cachejsparams']['closurepath'],
-                        'java' => $conf['cachejsparams']['javapath']
-                    );
-                    break;
+        switch ($conf['cachejsparams']['compress']) {
+        case 'closure':
+            $jsmin_params = array(
+                'closure' => $conf['cachejsparams']['closurepath'],
+                'java' => $conf['cachejsparams']['javapath']
+            );
+            break;
 
-                case 'uglifyjs':
-                    $jsmin_params = array(
-                        'uglifyjs' => $conf['cachejsparams']['uglifyjspath'],
-                        'uglifyjscmdline' => $conf['cachejsparams']['uglifyjscmdline']
-                    );
-                    break;
+        case 'none':
+            $jsmin_params = null;
+            break;
 
-                case 'yui':
-                    $jsmin_params = array(
-                        'java' => $conf['cachejsparams']['javapath'],
-                        'yui' => $conf['cachejsparams']['yuipath']
-                    );
-                    break;
+        case 'uglifyjs':
+            $jsmin_params = array(
+                'uglifyjs' => $conf['cachejsparams']['uglifyjspath'],
+                'uglifyjscmdline' => $conf['cachejsparams']['uglifyjscmdline']
+            );
+            break;
 
-                default:
-                    $jsmin_params = array();
-                    break;
-                }
+        case 'yui':
+            $jsmin_params = array(
+                'java' => $conf['cachejsparams']['javapath'],
+                'yui' => $conf['cachejsparams']['yuipath']
+            );
+            break;
 
-                /* Separate JS files with a newline since some compressors may
-                 * strip trailing terminators. */
-                try {
-                    $out .= $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
-                } catch (Horde_Exception $e) {
-                    $out .= $js_text . "\n";
-                }
-            }
+        default:
+            $jsmin_params = array();
+            break;
+        }
+
+        if (!is_null($jsmin_params)) {
+            try {
+                $js_text = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params);
+            } catch (Horde_Exception $e) {}
         }
 
         switch ($driver) {
         case 'filesystem':
-            if (!file_put_contents($js_path, $out)) {
+            if (!file_put_contents($js_path, $js_text)) {
                 throw new Horde_Exception('Could not write cached JS file to disk.');
             }
             break;
 
         case 'horde_cache':
-            $cache->set($sig, $out);
+            $cache->set($sig, $js_text);
             break;
         }
     }
