@@ -174,7 +174,7 @@ class IMP_Imap_Config implements Serializable
      */
     public function __get($name)
     {
-        global $injector, $prefs;
+        global $injector;
 
         if (in_array($name, $this->_aoptions)) {
             /* Array options. */
@@ -258,12 +258,6 @@ class IMP_Imap_Config implements Serializable
             $out = isset($p['innocent'])
                 ? $p['innocent']
                 : array();
-            break;
-
-        case 'maildomain':
-            if ($md = $prefs->getValue('mail_domain')) {
-                $out = $md;
-            }
             break;
 
         case 'smtp':

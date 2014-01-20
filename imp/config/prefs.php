@@ -478,9 +478,9 @@ $prefGroups['compose'] = array(
     'members' => array(
         'mailto_handler', 'compose_spellcheck', 'set_priority',
         'compose_html', 'compose_html_font_family', 'compose_html_font_size',
-        'mail_domain', 'compose_cursor', 'signature_show_compose',
-        'encryptselect', 'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang', 'compose_popup', 'compose_confirm'
+        'compose_cursor', 'signature_show_compose', 'encryptselect',
+        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
+        'compose_popup', 'compose_confirm'
     )
 );
 
@@ -531,19 +531,6 @@ $_prefs['compose_html_font_size'] = array(
     'type' => 'number',
     'desc' => _("The default font size to use in the HTML editor (in pixels)."),
     'requires' => array('compose_html')
-);
-
-$_prefs['mail_domain'] = array(
-    'value' => '',
-    'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should be appended to unqualified addresses (email addresses without \"@\")?"),
-    'on_change' => function() {
-        $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
-        $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
-        if (!empty($maildomain)) {
-            $GLOBALS['session']->set('imp', 'maildomain', $maildomain);
-        }
-    }
 );
 
 $_prefs['compose_cursor'] = array(

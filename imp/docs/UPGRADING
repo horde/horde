@@ -81,6 +81,7 @@ The following preferences have been added::
 
 The following preferences have been removed::
 
+   mail_domain
    pgp_scan_body
 
 

@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Remove the mail_domain preference.
 [mjr] Add display of reccurence data to iTip viewer (Request #12919).
 [mms] Allow HTML data to be pasted within HTML compose editor paste dialog.
 [mms] Filter outgoing HTML compose messages for XSS vulnerabilities.
