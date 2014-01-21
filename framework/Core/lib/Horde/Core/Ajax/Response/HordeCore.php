@@ -24,7 +24,7 @@
 class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 {
     /**
-     * Javscript files to be loaded by the browser.
+     * Javascript files to be loaded by the browser.
      *
      * @since 2.10.0
      *
