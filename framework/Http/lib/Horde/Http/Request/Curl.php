@@ -59,6 +59,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verifyPeer);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->verifyPeer);
 
         // User-Agent
         curl_setopt($curl, CURLOPT_USERAGENT, $this->userAgent);
