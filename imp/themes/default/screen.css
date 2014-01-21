@@ -43,6 +43,10 @@ div.partsTreeDiv {
     padding-left: 5px;
 }
 
+#recent_searches_div {
+    padding: 10px;
+}
+
 #no_search_criteria, #no_search_mboxes {
     font-weight: bold;
     padding: 3px;

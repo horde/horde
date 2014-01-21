@@ -14,14 +14,10 @@
   </strong>
  </h1>
 
- <div id="recent_searches_div" class="smallheader leftAlign" style="display:none">
-  <?php echo _("Recent Searches") ?>
- </div>
-
- <div class="item" style="display:none">
+ <div class="item" id="recent_searches_div" style="display:none">
   <label for="recent_searches" class="hidden"><?php echo _("Recent Searches") ?>:</label>
   <select id="recent_searches">
-   <option value=""><?php echo _("Recent Searches") ?>:</option>
+   <?php echo $this->optionTag('', _("Load a Recent Search") . ':') ?>
   </select>
  </div>
 

@@ -18,7 +18,7 @@ var ImpSearch = {
         var fragment = document.createDocumentFragment(),
             node = new Element('OPTION');
 
-        $('recent_searches_div').show().next().show();
+        $('recent_searches_div').show();
 
         this.saved_searches = $H(searches);
         this.saved_searches.each(function(s) {
