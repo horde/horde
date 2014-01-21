@@ -706,6 +706,39 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         return $sql;
     }
 
+    /**
+     * Returns an expression using the specified operator.
+     *
+     * @param string $lhs    The column or expression to test.
+     * @param string $op     The operator.
+     * @param string $rhs    The comparison value.
+     * @param boolean $bind  If true, the method returns the query and a list
+     *                       of values suitable for binding as an array.
+     * @param array $params  Any additional parameters for the operator.
+     *
+     * @return string|array  The SQL test fragment, or an array containing the
+     *                       query and a list of values if $bind is true.
+     */
+    public function buildClause($lhs, $op, $rhs, $bind = false,
+                                $params = array())
+    {
+        $lhs = $this->_escapePrepare($lhs);
+        switch ($op) {
+        case '|':
+            if ($bind) {
+                return array($lhs . ' + ? - BITAND(' . $lhs . ', ?)',
+                             array((int)$rhs, (int)$rhs));
+            }
+            return $lhs . ' + ' . (int)$rhs . ' - BITAND(' . $lhs . ', ' . (int)$rhs . ')';
+        case '&':
+            if ($bind) {
+                return array('BITAND(' . $lhs . ', ?)',
+                             array((int)$rhs));
+            }
+            return 'BITAND(' . $lhs . ', ' . (int)$rhs . ')';
+        }
+        return parent::buildClause($lhs, $op, $rhs, $bind, $params);
+    }
 
     /*##########################################################################
     # Protected
