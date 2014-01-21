@@ -30,6 +30,8 @@
  * @property-read IMP_FTree_Prefs_Expanded $expanded  The expanded folders
  *                                                    list.
  * @property-read IMP_Ftree_Prefs_Poll $poll  The poll list.
+ * @property-read boolean $unsubscribed_loaded  True if unsubscribed mailboxes
+ *                                              have been loaded.
  */
 class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
@@ -128,6 +130,9 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 $this->_temp['poll'] = new IMP_Ftree_Prefs_Poll($this);
             }
             return $this->_temp['poll'];
+
+        case 'unusubscribed_loaded':
+            return $this[self::BASE_ELT]->subscribed;
         }
     }
 
@@ -433,7 +438,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         /* If we are switching from unsubscribed to subscribed, no need
          * to do anything (we just ignore unsubscribed stuff). */
-        if ($this[self::BASE_ELT]->subscribed) {
+        if ($this->unsubscribed_loaded) {
             return;
         }
 
