@@ -552,7 +552,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             return null;
         }
 
-        return ($this->_elts[$s_elt] & $attr);
+        return (bool)($this->_elts[$s_elt] & $attr);
     }
 
     /**
