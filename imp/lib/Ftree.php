@@ -762,7 +762,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     protected function _insertElt($elt)
     {
         $name = $this->_normalize($elt['v']);
-        if (isset($this->_elts[$name])) {
+        if ($this->getAttribute('container', $name) === false) {
             return;
         }
 
