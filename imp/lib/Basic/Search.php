@@ -168,11 +168,6 @@ class IMP_Basic_Search extends IMP_Basic_Base
         $dynamic_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
         $js_vars = array();
 
-        $flist = $imp_flags->getList(array(
-            'imap' => true,
-            'mailbox' => $default_mailbox
-        ));
-
         /* Generate the search query if 'criteria_form' is present in the form
          * data. */
         if ($this->vars->criteria_form) {
@@ -444,7 +439,12 @@ class IMP_Basic_Search extends IMP_Basic_Base
         $view->filterlist = $f_list;
 
         /* Create the flag list. */
+        $flist = $imp_flags->getList(array(
+            'imap' => true,
+            'mailbox' => $default_mailbox
+        ));
         $flag_set = array();
+
         foreach ($flist as $val) {
             $flag_set[] = array(
                 'l' => $val->label,
