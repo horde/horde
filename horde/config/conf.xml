@@ -1203,6 +1203,8 @@
        application launcher.">/opt/java/jre/bin/java</configstring>
        <configstring name="closurepath" desc="The path to the Closure compiler
        .jar file"></configstring>
+       <configstring name="cmdline" required="false" desc="Any additional
+       command line arguments to use."></configstring>
       </case>
       <case name="php" desc="Built-in compressor (Medium compression, good
       speed)" />
@@ -1219,6 +1221,8 @@
        application launcher.">/opt/java/jre/bin/java</configstring>
        <configstring name="yuipath" desc="The path to the YUI compressor
        .jar file"></configstring>
+       <configstring name="cmdline" required="false" desc="Any additional
+       command line arguments to use."></configstring>
       </case>
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in

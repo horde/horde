@@ -253,6 +253,7 @@ class Horde_PageOutput
             $js_filename = '/static/' . $sig . '.js';
             $js_path = $registry->get('fileroot', 'horde') . $js_filename;
             $js_url = $registry->get('webroot', 'horde') . $js_filename;
+            $sourcemap_url = $js_url . '.map';
             $exists = file_exists($js_path);
             break;
 
@@ -265,6 +266,7 @@ class Horde_PageOutput
             // Do lifetime checking here, not on cache display page.
             $exists = $cache->exists($sig, $cache_lifetime);
             $js_url = Horde::getCacheUrl('js', array('cid' => $sig));
+            $sourcemap_url = Horde::getCacheUrl('js', array('cid' => $sig . '.map'));
             break;
         }
 
@@ -274,57 +276,81 @@ class Horde_PageOutput
             return;
         }
 
-        $js_text = '';
-        foreach ($scripts as $val) {
-            $js_text .= file_get_contents($val->full_path);
-        }
+        $jsmin_params = array(
+            'logger' => $injector->getInstance('Horde_Log_Logger')
+        );
 
         switch ($conf['cachejsparams']['compress']) {
         case 'closure':
-            $jsmin_params = array(
+            $jsmin = 'Horde_JavascriptMinify_Closure';
+            $jsmin_params = array_merge($jsmin_params, array(
                 'closure' => $conf['cachejsparams']['closurepath'],
-                'java' => $conf['cachejsparams']['javapath']
-            );
+                'java' => $conf['cachejsparams']['javapath'],
+                'sourcemap' => $sourcemap_url
+            ));
             break;
 
         case 'none':
-            $jsmin_params = null;
+            $jsmin = 'Horde_JavascriptMinify_Null';
+            break;
+
+        case 'php':
+            /* Due to licensing issues, Jsmin might not be available. */
+            $jsmin = class_exists('Horde_JavascriptMinify_Jsmin')
+                ? 'Horde_JavascriptMinify_Jsmin'
+                : 'Horde_JavascriptMinify_Null';
             break;
 
         case 'uglifyjs':
-            $jsmin_params = array(
-                'uglifyjs' => $conf['cachejsparams']['uglifyjspath'],
-                'uglifyjscmdline' => $conf['cachejsparams']['uglifyjscmdline']
-            );
+            $jsmin = 'Horde_JavascriptMinify_Uglifyjs';
+            $jsmin_params = array_merge($jsmin_params, array(
+                'cmdline' => $conf['cachejsparams']['uglifyjscmdline'],
+                'sourcemap' => $sourcemap_url,
+                'uglifyjs' => $conf['cachejsparams']['uglifyjspath']
+            ));
             break;
 
         case 'yui':
-            $jsmin_params = array(
+            $jsmin = 'Horde_JavascriptMinify_Yui';
+            $jsmin_params = array_merge($jsmin_params, array(
                 'java' => $conf['cachejsparams']['javapath'],
                 'yui' => $conf['cachejsparams']['yuipath']
-            );
+            ));
             break;
 
         default:
-            $jsmin_params = array();
+            /* Treat as a custom driver. */
+            if (class_exists($conf['cachejsparams']['compress'])) {
+                $jsmin = $conf['cachejsparams']['compress'];
+                $jsmin_params = array_merge($jsmin_params, $conf['cachejsparams']);
+            } else {
+                $jsmin = 'Horde_JavascriptMinify_Null';
+            }
             break;
         }
 
-        if (!is_null($jsmin_params)) {
-            try {
-                $js_text = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params);
-            } catch (Horde_Exception $e) {}
+        $js_files = array();
+        foreach ($scripts as $val) {
+            $js_files[strval($val->url_full)] = $val->full_path;
         }
+
+        $jsmin_ob = new $jsmin($js_files, $jsmin_params);
+        $js_text = $jsmin_ob->minify();
 
         switch ($driver) {
         case 'filesystem':
             if (!file_put_contents($js_path, $js_text)) {
                 throw new Horde_Exception('Could not write cached JS file to disk.');
+            } elseif (isset($jsmin_params['sourcemap'])) {
+                file_put_contents($js_path . '.map', $jsmin_ob->sourcemap());
             }
             break;
 
         case 'horde_cache':
             $cache->set($sig, $js_text);
+            if (isset($jsmin_params['sourcemap'])) {
+                $cache->set($sig . '.map', $jsmin_ob->sourcemap());
+            }
             break;
         }
     }

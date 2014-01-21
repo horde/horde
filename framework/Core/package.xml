@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
@@ -1063,6 +1064,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_JavascriptMinify</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1308,6 +1316,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_JavascriptMinify_Jsmin</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Server</name>
@@ -3270,6 +3285,7 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
