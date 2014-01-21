@@ -841,21 +841,21 @@ class Horde_Share_Sql extends Horde_Share_Base
         $query = $where = '';
 
         if (empty($userid)) {
-            $where = '(' . $this->_db->buildClause('s.perm_guest', '&', $perm) . ')';
+            $where = '(' . $this->_db->buildClause('s.perm_guest', '&', $perm) . ' > 0)';
         } else {
             // (owner == $userid)
             $where .= 's.share_owner = ' . $this->_db->quote($userid);
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . $this->_db->buildClause('s.perm_creator', '&', $perm) . ')';
+            $where .= ' OR (' . $this->_db->buildClause('s.perm_creator', '&', $perm) . ' > 0)';
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . $this->_db->buildClause('s.perm_default', '&', $perm) . ')';
+            $where .= ' OR (' . $this->_db->buildClause('s.perm_default', '&', $perm) . ' > 0)';
 
             // (name == perm_users and key == $userid and val & $perm)
             $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
             $where .= ' OR ( u.user_uid = ' .  $this->_db->quote($userid)
-            . ' AND (' . $this->_db->buildClause('u.perm', '&', $perm) . '))';
+            . ' AND (' . $this->_db->buildClause('u.perm', '&', $perm) . ' > 0))';
 
             // If the user has any group memberships, check for those also.
             try {
@@ -869,7 +869,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                     }
                     $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
                     $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids)
-                        . ') AND (' . $this->_db->buildClause('g.perm', '&', $perm) . '))';
+                        . ') AND (' . $this->_db->buildClause('g.perm', '&', $perm) . ' > 0))';
                 }
             } catch (Horde_Group_Exception $e) {
                 $this->_logger->err($e);
