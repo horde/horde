@@ -940,7 +940,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         case '&':
             /* Only PgSQL 7.3+ understands SQL99 'SIMILAR TO'; use ~ for
              * greater backwards compatibility. */
-            $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
+            $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) ELSE 0 END';
             if ($bind) {
                 return array(sprintf($query, $lhs, $lhs, $op, '?'),
                              array((int)$rhs));
