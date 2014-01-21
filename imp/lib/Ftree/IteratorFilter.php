@@ -58,14 +58,24 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      */
     static public function create($mask = 0, $elt = null)
     {
-        global $prefs;
-
-        $unsub = (($mask & self::UNSUB) ||
-                  (($mask & self::UNSUB_PREF) && !$prefs->getValue('subscribe')));
-
-        $ob = new self(new IMP_Ftree_Iterator($elt, $unsub));
+        $ob = new self(new IMP_Ftree_Iterator($elt, self::showUnsub($mask)));
         $ob->setFilter($mask);
         return $ob->getIterator();
+    }
+
+    /**
+     * Show unsubscribed mailboxes based on the mask?
+     *
+     * @param integer $mask  Mask to apply to the filter.
+     *
+     * @return boolean  True if showing unsubscribed mailboxes.
+     */
+    static public function showUnsub($mask = 0)
+    {
+        global $prefs;
+
+        return (($mask & self::UNSUB) ||
+                (($mask & self::UNSUB_PREF) && !$prefs->getValue('subscribe')));
     }
 
     /**
@@ -88,10 +98,10 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      */
     public function setFilter($mask = 0)
     {
-        if ($mask & self::UNSUB_PREF) {
+        if (self::showUnsub($mask)) {
             $mask |= self::UNSUB;
-            $mask &= ~self::UNSUB_PREF;
         }
+        $mask &= ~self::UNSUB_PREF;
 
         $this->_mask = $mask;
         reset($this);
