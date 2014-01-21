@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_JavascriptMinify</name>
+ <channel>pear.horde.org</channel>
+ <summary>Javscript Minification</summary>
+ <description>Abstracted interface to various javascript minification backends.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2014-01-21</date>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* [mms] Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="JavascriptMinify">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/JavascriptMinify -->
+     </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="JavascriptMinify">
+      <dir name="Util">
+       <file name="Cmdline.php" role="php" />
+      </dir> <!-- /lib/Horde/JavascriptMinify/Util -->
+      <file name="Closure.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Null.php" role="php" />
+      <file name="Uglifyjs.php" role="php" />
+      <file name="Yui.php" role="php" />
+     </dir> <!-- /lib/Horde/JavascriptMinify -->
+     <file name="JavascriptMinify.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/JavascriptMinify/COPYING" />
+   <install as="Horde/JavascriptMinify.php" name="lib/Horde/JavascriptMinify.php" />
+   <install as="Horde/JavascriptMinify/Closure.php" name="lib/Horde/JavascriptMinify/Closure.php" />
+   <install as="Horde/JavascriptMinify/Exception.php" name="lib/Horde/JavascriptMinify/Exception.php" />
+   <install as="Horde/JavascriptMinify/Null.php" name="lib/Horde/JavascriptMinify/Null.php" />
+   <install as="Horde/JavascriptMinify/Uglifyjs.php" name="lib/Horde/JavascriptMinify/Uglifyjs.php" />
+   <install as="Horde/JavascriptMinify/Yui.php" name="lib/Horde/JavascriptMinify/Yui.php" />
+   <install as="Horde/JavascriptMinify/Util/Cmdline.php" name="lib/Horde/JavascriptMinify/Util/Cmdline.php" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2014-01-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
