@@ -687,7 +687,6 @@ class IMP_Ajax_Queue
             if (empty($ob->ch)) {
                 return null;
             }
-            $ob->cl = 'exp';
             $ob->co = 1;
         } else {
             if (!$elt->subscribed) {
@@ -704,8 +703,6 @@ class IMP_Ajax_Queue
 
             if ($elt->inbox || $mbox_ob->special) {
                 $ob->ns = $ob->s = 1;
-            } elseif (empty($ob->v) && !empty($ob->ch)) {
-                $ob->cl = 'exp';
             }
         }
 
