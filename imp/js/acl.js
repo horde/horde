@@ -11,6 +11,9 @@ document.observe('dom:loaded', function() {
         $('change_acl_mbox').click();
     });
 
+    /* Disable selection of container elements. */
+    $('aclmbox').select('OPTION[value=""]').invoke('writeAttribute', 'disabled', true);
+
     $$('TABLE.prefsAclTable')[0].on('change', 'SELECT.aclTemplate', function(e, elt) {
         var acl = $F(elt);
 
