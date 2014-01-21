@@ -1296,21 +1296,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public function recipientList($hdr)
     {
         $addrlist = new Horde_Mail_Rfc822_List();
+        $has_input = false;
         $header = array();
 
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (isset($hdr[$key])) {
-                if (count($obs = IMP::parseAddressList($hdr[$key]))) {
-                    $addrlist->add($obs);
-                } else {
-                    $obs = null;
+                if (strlen(trim($hdr[$key]))) {
+                    $addrlist->add(IMP::parseAddressList($hdr[$key]));
+                    $has_input = true;
                 }
                 $header[$key] = $obs;
             }
         }
 
         return array(
-            'has_input' => isset($obs),
+            'has_input' => $has_input,
             'header' => $header,
             'list' => $addrlist
         );
