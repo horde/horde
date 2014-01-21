@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael J Rubinsky <mrubinsk@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    History
  * @subpackage UnitTests

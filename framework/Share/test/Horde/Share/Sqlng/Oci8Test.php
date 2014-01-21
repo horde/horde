@@ -5,15 +5,15 @@
 require_once __DIR__ . '/Base.php';
 
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
- * @package    Prefs
+ * @package    Share
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_Sql_Oci8Test extends Horde_Prefs_Test_Sql_Base
+class Horde_Share_Sqlng_Oci8Test extends Horde_Share_Test_Sqlng_Base
 {
     public static function setUpBeforeClass()
     {
@@ -21,10 +21,10 @@ class Horde_Prefs_Unit_Storage_Sql_Oci8Test extends Horde_Prefs_Test_Sql_Base
             self::$reason = 'No oci8 extension';
             return;
         }
-        $config = self::getConfig('PREFS_SQL_OCI8_TEST_CONFIG',
-                                  __DIR__ . '/../../..');
-        if ($config && !empty($config['prefs']['sql']['oci8'])) {
-            self::$db = new Horde_Db_Adapter_Oci8($config['prefs']['sql']['oci8']);
+        $config = self::getConfig('SHARE_SQL_OCI8_TEST_CONFIG',
+                                  __DIR__ . '/..');
+        if ($config && !empty($config['share']['sql']['oci8'])) {
+            self::$db = new Horde_Db_Adapter_Oci8($config['share']['sql']['oci8']);
             parent::setUpBeforeClass();
         } else {
             self::$reason = 'No oci8 configuration';
