@@ -376,7 +376,12 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         if (isset($options['limit'])) {
             $offset = isset($options['offset']) ? $options['offset'] : 0;
             $limit = $options['limit'] + $offset;
-            $sql = "SELECT * FROM ($sql) WHERE ROWNUM <= $limit AND ROWNUM > $offset";
+            if ($limit) {
+                $sql = "SELECT a.*, ROWNUM rnum FROM ($sql) a WHERE ROWNUM <= $limit";
+                if ($offset) {
+                    $sql = "SELECT * FROM ($sql) WHERE rnum > $offset";
+                }
+            }
         }
         return $sql;
     }
