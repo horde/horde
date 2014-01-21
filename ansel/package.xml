@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
  <contents>
@@ -1321,6 +1322,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
    </notes>
   </release>

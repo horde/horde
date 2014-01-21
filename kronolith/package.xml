@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Make shares table compatible with Oracle.
 * [mjr] Imporove display of Free/Busy information and add pagination (Requests #12899, #12676).
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
 * [mjr] Add ability to export event to a timeslice (Request #1111307).
@@ -2244,6 +2245,7 @@
    <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Make shares table compatible with Oracle.
 * [mjr] Imporove display of Free/Busy information and add pagination (Requests #12899, #12676).
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
 * [mjr] Add ability to export event to a timeslice (Request #1111307).

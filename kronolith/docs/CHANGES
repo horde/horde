@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[jan] Make shares table compatible with Oracle.
 [mjr] Imporove display of Free/Busy information and add pagination (Requests
       #12899, #12676).
 [mjr] Fix updating free/busy display when updating event times (Bug #12676).

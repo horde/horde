@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Make shares table compatible with Oracle.
 * [jan] Add "show" API link.
  </notes>
  <contents>
@@ -1065,6 +1066,7 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Make shares table compatible with Oracle.
 * [jan] Add "show" API link.
    </notes>
   </release>
