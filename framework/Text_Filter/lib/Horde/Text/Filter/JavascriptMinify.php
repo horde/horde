@@ -23,8 +23,6 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
     protected $_params = array(
         'closure' => null,
         'java' => null,
-        'uglifyjs' => null,
-        'uglifyjscmdline' => '',
         'yui' => null
     );
 
@@ -49,11 +47,6 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
             }
         }
 
-        /* Are we using UglifyJS? @since 2.3.0 */
-        if (!empty($this->_params['uglifyjs'])) {
-            return $this->_runUglifyjs($text, $this->_params['uglifyjs'], $this->_params['uglifyjscmdline']);
-        }
-
         /* Use PHP-based minifier. */
         if (class_exists('Horde_Text_Filter_Jsmin')) {
             $jsmin = new Horde_Text_Filter_Jsmin($text);
@@ -74,57 +67,20 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
      *
      * @return string  The modified text.
      */
-    protected function _runCompressor($text, $jar, $args = '')
+    protected function _runCompressor($jar, $args = '')
     {
         if (!is_executable($this->_params['java']) ||
             !file_exists($jar)) {
             return $text;
         }
 
-        return $this->_compressJs(
-            $text,
-            escapeshellcmd($this->_params['java']) . ' -jar ' . escapeshellarg($jar) . $args
-        );
-    }
-
-    /**
-     * Passes javascript through the UglifyJS compressor.
-     *
-     * @param string $text      The javascript text.
-     * @param string $uglifyjs  The binary location.
-     * @param string $args      Additional command line arguments.
-     *
-     * @return string  The modified text.
-     */
-    protected function _runUglifyjs($text, $uglifyjs, $args = '')
-    {
-        if (!file_exists($uglifyjs)) {
-            return $text;
-        }
-
-        return $this->_compressJs(
-            $text,
-            escapeshellcmd($uglifyjs) . ' - ' . $args
-        );
-    }
-
-    /**
-     * Runs the compression command and returns the output.
-     *
-     * @param string $text  The javascript text.
-     * @param string $cmd   Command.
-     *
-     * @return string  The compressed javascript.
-     */
-    protected function _compressJs($text, $cmd)
-    {
         $descspec = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
             2 => array('pipe', 'w')
         );
 
-        $process = proc_open($cmd, $descspec, $pipes);
+        $process = proc_open(escapeshellcmd($this->_params['java']) . ' -jar ' . escapeshellarg($jar) . $args, $descspec, $pipes);
 
         fwrite($pipes[0], $text);
         fclose($pipes[0]);
