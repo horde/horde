@@ -21,7 +21,7 @@
  </stability>
  <license>JSMin</license>
  <notes>
-* 
+* [mms] Javascript minification has been deprecated and moved to the Horde_JavascriptMinify package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -114,7 +114,7 @@
    <date>2013-11-19</date>
    <license uri="">JSMin</license>
    <notes>
-* 
+* [mms] Javascript minification has been deprecated and moved to the Horde_JavascriptMinify package.
    </notes>
   </release>
  </changelog>

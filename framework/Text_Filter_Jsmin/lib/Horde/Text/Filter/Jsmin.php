@@ -26,15 +26,16 @@
  *
  * Additional cleanups/code by the Horde Project.
  *
- * @author    Douglas Crockford <douglas@crockford.com>
- * @author    Ryan Grove <ryan@wonko.com>
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2002 Douglas Crockford
- * @copyright 2008 Ryan Grove
- * @copyright 2009-2013 Horde LLC
- * @license   JSMin
- * @package   Text_Filter_Jsmin
+ * @author     Douglas Crockford <douglas@crockford.com>
+ * @author     Ryan Grove <ryan@wonko.com>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2002 Douglas Crockford
+ * @copyright  2008 Ryan Grove
+ * @copyright  2009-2013 Horde LLC
+ * @deprecated Use Horde_JavascriptMinify package instead.
+ * @license    JSMin
+ * @package    Text_Filter_Jsmin
  */
 class Horde_Text_Filter_Jsmin
 {
