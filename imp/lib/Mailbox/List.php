@@ -399,7 +399,12 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $res = IMP_Mailbox::get($mbox)->imp_imap->search($mbox, $val, array(
+                $mbox_ob = IMP_Mailbox::get($mbox);
+                if ($mbox_ob->container) {
+                    continue;
+                }
+
+                $res = $mbox_ob->imp_imap->search($mbox, $val, array(
                     'sort' => array($sortpref->sortby)
                 ));
                 if ($sortpref->sortdir) {
