@@ -135,16 +135,11 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
                 if ($this->_mask & self::NO_REMOTE) {
                     return false;
                 }
+            } elseif (!$this->getInnerIterator()->hasChildren() ||
+                      !($prefetch = iterator_to_array($this->getChildren()->getIterator(), false))) {
+                return false;
             } else {
-                if (!$this->getInnerIterator()->hasChildren()) {
-                    return false;
-                }
-
-                if ($prefetch = iterator_to_array($this->getChildren()->getIterator(), false)) {
-                    $this->_cache[$this->key()] = $prefetch;
-                } else {
-                    return false;
-                }
+                $this->_cache[$this->key()] = $prefetch;
             }
             return true;
         }
