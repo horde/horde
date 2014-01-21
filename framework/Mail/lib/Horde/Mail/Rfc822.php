@@ -394,9 +394,15 @@ class Horde_Mail_Rfc822
         $ob->mailbox = $this->_parseLocalPart();
 
         if ($this->_curr() == '@') {
-            $this->_rfc822ParseDomain($host);
-            if (strlen($host)) {
-                $ob->host = $host;
+            try {
+                $this->_rfc822ParseDomain($host);
+                if (strlen($host)) {
+                    $ob->host = $host;
+                }
+            } catch (Horde_Mail_Exception $e) {
+                if (!empty($this->_params['validate'])) {
+                    throw $e;
+                }
             }
         }
 

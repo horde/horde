@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] More thorough job trying to parse addresses that contain an @ but no domain information.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -536,7 +536,7 @@
    <date>2014-01-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] More thorough job trying to parse addresses that contain an @ but no domain information.
    </notes>
   </release>
  </changelog>
