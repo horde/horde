@@ -131,7 +131,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             }
             return $this->_temp['poll'];
 
-        case 'unusubscribed_loaded':
+        case 'unsubscribed_loaded':
             return $this[self::BASE_ELT]->subscribed;
         }
     }
