@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Handle transient socket connection issues.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -116,7 +116,7 @@
    <date>2013-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Handle transient socket connection issues.
    </notes>
   </release>
  </changelog>

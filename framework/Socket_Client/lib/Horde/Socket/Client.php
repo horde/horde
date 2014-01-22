@@ -153,7 +153,7 @@ class Client
      *
      * @throws Horde\Socket\Client\Exception
      */
-    protected function _connect($host, $port, $timeout, $secure)
+    protected function _connect($host, $port, $timeout, $secure, $retries = 0)
     {
         switch (strval($secure)) {
         case 'ssl':
@@ -182,6 +182,16 @@ class Client
         );
 
         if ($this->_stream === false) {
+            /* From stream_socket_client() page: a function return of false,
+             * with an error code of 0, indicates a "problem initializing the
+             * socket". These kind of issues are seen on the same server
+             * (and even the same user account) as sucessful connections, so
+             * these are likely transient issues. Retry up to 3 times in these
+             * instances. */
+            if (!$error_number && ($retries < 3)) {
+                return $this->_connect($host, $port, $timeout, $secure, ++$retries);
+            }
+
             $e = new Client\Exception(
                 'Error connecting to server.'
             );
