@@ -333,17 +333,20 @@ class Horde_Core_ActiveSync_Connector
             return array();
         }
 
+        $fields = array($gal => array('name', 'alias', 'email', 'firstname', 'lastname',
+            'company', 'homePhone', 'workPhone', 'cellPhone', 'title',
+            'office'));
         if (!empty($options['pictures'])) {
             $fields[$gal][] = 'photo';
         }
         $opts = array(
             'matchBegin' => true,
             'forceSource' => true,
-            'sources' => array($gal)
+            'sources' => array($gal),
+            'returnFields' => $fields
         );
 
         return $this->_registry->contacts->search($query, $opts);
-
     }
 
     /**
