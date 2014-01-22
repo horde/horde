@@ -64,16 +64,29 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
     // MAPI START and END should always be also set in ID_DATE_START and
     // ID_DATE_END so no need to translate them?
+    const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
+    const MAPI_MEETING_INITIAL              = 0x00000001;
+    const MAPI_MEETING_FULL_UPDATE          = 0x00010000;
+    const MAPI_MEETING_INFO                 = 0x00020000;
+
+
     const MAPI_START_DATE                   = 0x0060;
     const MAPI_END_DATE                     = 0x0061;
     const MAPI_COMPRESSED                   = 0x1009;
+    const MAPI_IN_REPLY_TO_ID               = 0x1042;
 
     const MAPI_MESSAGE_CLASS                = 0x001A;
+    const MAPI_TAG_SUBJECT_PREFIX           = 0x003D;
     const MAPI_CONVERSATION_TOPIC           = 0x0070;
 
+    const MAPI_CREATION_TIME                = 0x3007;
+    const MAPI_MODIFICATION_TIME            = 0x3008;
     const MAPI_ATTACH_DATA                  = 0x3701;
     const MAPI_ATTACH_LONG_FILENAME         = 0x3707;
     const MAPI_ATTACH_MIME_TAG              = 0x370E;
+    const MAPI_ORIGINAL_CREATORID           = 0x3FF9;
+    const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
+    const MAPI_CODEPAGE                     = 0x3FFD;
 
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
 
@@ -106,8 +119,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_REMINDER_DELTA               = 0x8501; // Minutes between start of mtg and overdue.
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
-    const MAPI_ENTRY_UID                    = 0x0023; // GOID??
-    const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
+    const MAPI_ENTRY_UID                    = 0x00000003; // GOID??
     const MAPI_MEETING_TYPE                 = 0x0026;
 
     const MAPI_NAMED_TYPE_ID                = 0x0000;
@@ -231,11 +243,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
      * TODO
      *
      * @param string &$data      The data string.
-     * @param string $attribute  The attribute to decode
      *
      * @return @todo
      */
-    protected function _decodeAttribute(&$data, $attribute)
+    protected function _decodeAttribute(&$data)
     {
         $fetched = $this->_getx($data, $this->_geti($data, 32));
         // checksum
@@ -403,6 +414,15 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             case self::MAPI_RECURRENCE_TYPE:
                 $attachment_data[0]['recurrence']['type'] = $value;
                 break;
+            case self::MAPI_MEETING_REQUEST_TYPE:
+                $attachment_data[0]['type'] = $value;
+                break;
+            case self::MAPI_CREATION_TIME:
+                $attachment_data[0]['created'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                break;
+            case self::MAPI_MODIFICATION_TIME:
+                $attachment_data[0]['modified'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                break;
             }
         }
     }
@@ -418,7 +438,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         switch ($attribute) {
         case self::AMCLASS:
             // Start of a message.
-            $message_class = trim($this->_decodeAttribute($data, $attribute));
+            $message_class = trim($this->_decodeAttribute($data));
 
             // For now, we only care about the parts that can be represented
             // as attachments.
@@ -432,38 +452,25 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             }
             break;
 
-        // @TODO not sure if/when we would need these vs the other date props.
-        // case self::ID_DATE_START:
-        // case self::ID_DATE_END:
-        //     $date_data = $this->_decodeAttribute($data, $attribute);
-        //     $date = new Horde_Date();
-        //     $date->year = $this->_geti($date_data, 16);
-        //     $date->month = $this->_geti($date_data, 16);
-        //     $date->mday = $this->_geti($date_data, 16);
-        //     $date->hour = $this->_geti($date_data, 16);
-        //     $date->min = $this->_geti($date_data, 16);
-        //     $date->sec = $this->_geti($date_data, 16);
-        //     break;
-
         case self::AIDOWNER:
-            $aid = $this->_decodeAttribute($data, $attribute);
+            $aid = $this->_decodeAttribute($data);
             $this->_iTip[0]['aid'] = $this->_geti($aid, 32);
             break;
 
         case self::ID_REQUEST_RESP:
-            $response = $this->_decodeAttribute($data, $attribute);
+            $response = $this->_decodeAttribute($data);
             // This is a boolean value in the low-order bits and null byte in
             // the high order bits.
             $this->_iTip[0]['RequestResponse'] = $this->_geti($response, 16);
             break;
 
         case self::AMAPIPROPS:
-            $properties = $this->_decodeAttribute($data, $attribute);
+            $properties = $this->_decodeAttribute($data);
             $this->_extractMapiAttributes($properties, $this->_iTip);
             break;
 
         default:
-            $this->_decodeAttribute($data, $attribute);
+            $this->_decodeAttribute($data);
         }
     }
 
@@ -522,7 +529,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             break;
 
         default:
-            $this->_decodeAttribute($data, $attribute);
+            $this->_decodeAttribute($data);
         }
     }
 
@@ -532,15 +539,28 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
      */
     protected function _checkiTip(&$out)
     {
-        if (!empty($this->_iTip[0])) {
+        // Meeting requests will have 'type' set to a non-empty value.
+        if (!empty($this->_iTip[0]) && !empty($this->_iTip[0]['type'])) {
             $iCal = new Horde_Icalendar();
-            // @todo, UPDATE?
-            $iCal->setAttribute('METHOD', $this->_iTip[0]['method']);
 
+            // METHOD
+            if ($this->_iTip[0]['method'] == 'CANCEL') {
+                $method = 'CANCEL';
+            } else {
+                switch ($this->_iTip[0]['type']) {
+                case self::MAPI_MEETING_INITIAL:
+                case self::MAPI_MEETING_FULL_UPDATE:
+                    $method = 'REQUEST';
+                    break;
+                case self::MAPI_MEETING_INFO:
+                    $method = 'PUBLISH';
+                    break;
+                }
+            }
+            $iCal->setAttribute('METHOD', $method);
+
+            // VEVENT
             $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
-
-            // @todo For now, just bail out if we don't have end_utc. Need to
-            // implement more of the time related properties??
             if (empty($this->_iTip[0]['end_utc'])) {
                 return;
             }
@@ -555,9 +575,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             }
             $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
             $vEvent->setAttribute('UID', $this->_iTip[0]['uid']);
-            //$vEvent->setAttribute('CREATED', $created);
-            //$vEvent->setAttribute('LAST-MODIFIED', $modified);
-
+            if (!empty($this->_iTip[0]['created'])) {
+                $vEvent->setAttribute('CREATED', $this->_iTip[0]['created']);
+            }
+            if (!empty($this->_iTip[0]['modified'])) {
+                $vEvent->setAttribute('LAST-MODIFIED', $this->_iTip[0]['modified']);
+            }
             $vEvent->setAttribute('SUMMARY', $this->_conversation_topic);
 
             if (empty($this->_iTip[0]['organizer']) && !empty($this->_lastModifier)) {
