@@ -13,6 +13,7 @@
  * Class for Oracle-specific managing of database schemes and handling of SQL
  * dialects and quoting.
  *
+ * @since      Horde_Db 2.1.0
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
