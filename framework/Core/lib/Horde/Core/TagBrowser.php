@@ -216,7 +216,7 @@ abstract class Horde_Core_TagBrowser
         if (!empty($result_data) && empty($result_data[0])) {
             // Multiple types.
             $counts = array();
-            foreach ($result_data as $type => $data) {
+            foreach ($result_data as $data) {
                 $counts = array_merge($counts, $this->_tagger->getTagCountsByObjects($data));
             }
         } else {
