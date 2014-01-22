@@ -540,13 +540,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     protected function _checkiTip(&$out)
     {
         // Meeting requests will have 'type' set to a non-empty value.
-        if (!empty($this->_iTip[0]) && !empty($this->_iTip[0]['type'])) {
+        if (!empty($this->_iTip[0]) && !empty($this->_iTip[0]['method'])) {
             $iCal = new Horde_Icalendar();
 
+
             // METHOD
-            if ($this->_iTip[0]['method'] == 'CANCEL') {
-                $method = 'CANCEL';
-            } else {
+            if (!empty($this->_iTip[0]['type'])) {
                 switch ($this->_iTip[0]['type']) {
                 case self::MAPI_MEETING_INITIAL:
                 case self::MAPI_MEETING_FULL_UPDATE:
@@ -556,6 +555,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $method = 'PUBLISH';
                     break;
                 }
+            } else {
+                $method = $this->_iTip[0]['method'];
             }
             $iCal->setAttribute('METHOD', $method);
 
