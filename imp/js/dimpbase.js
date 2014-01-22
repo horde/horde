@@ -712,11 +712,11 @@ var DimpBase = {
             this.setMsgHash();
         }.bindAsEventListener(this));
 
-        container.observe('ViewPort:fetch', function(e) {
+        container.observe('ViewPort:fetch', function() {
             if (!this.isSearch()) {
                 this.showSearchbar(false);
             }
-        }.bindAsEventListener(this));
+        }.bind(this));
 
         container.observe('ViewPort:remove', function(e) {
             e.memo.get('dataob').each(function(d) {
@@ -3031,7 +3031,7 @@ var DimpBase = {
             break;
 
         case 'empty':
-            this.viewaction = function(e) {
+            this.viewaction = function() {
                 DimpCore.doAction('emptyMailbox', {
                     mbox: elt.retrieve('mbox')
                 });

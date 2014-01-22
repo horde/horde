@@ -319,7 +319,7 @@ var ImpMobile = {
 
     /**
      */
-    beforeShow: function(e, data)
+    beforeShow: function(undefined, data)
     {
         switch (HordeMobile.currentPage()) {
         case 'compose':
@@ -345,7 +345,7 @@ var ImpMobile = {
 
     /**
      */
-    pageShow: function(e, opts)
+    pageShow: function()
     {
         switch (HordeMobile.currentPage()) {
         case 'mailbox':
@@ -1293,7 +1293,7 @@ var ImpMobile = {
                                 ob = tmp;
                             }
                             if (v.remove) {
-                                ob = $.grep(ob, function(n, i) {
+                                ob = $.grep(ob, function(n) {
                                     return $.inArray(n, v.remove) < 0;
                                 });
                             }
@@ -1556,7 +1556,7 @@ var ImpMobile = {
         }
 
         if (IMP.conf.allow_folders) {
-            $('#imp-copymove-list').change(function(e) {
+            $('#imp-copymove-list').change(function() {
                 $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
             });
         }
@@ -1595,7 +1595,7 @@ var ImpMobileMbox = {
     {
         var ids = [];
 
-        $.each(this.data, function(key, value) {
+        $.each(this.data, function(key) {
             ids.push(key);
         });
 
@@ -1623,7 +1623,7 @@ var ImpMobileMbox = {
             return { sort: value, buid: key };
         }).sort(function(a, b) {
             return (a.sort < b.sort) ? -1 : 1;
-        }), function(value, key) {
+        }), function(value) {
             return {
                 buid: value.buid,
                 data: mbox_data[value.buid]

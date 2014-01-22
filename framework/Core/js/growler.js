@@ -81,7 +81,7 @@
         info: 'This is the notification backlog'
     };
 
-    function removeNotice(n, so)
+    function removeNotice(n)
     {
         n.fade({
             afterFinish: function() {

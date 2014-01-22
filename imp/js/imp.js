@@ -30,7 +30,7 @@ var IMP_JS = {
         } else {
             a = new Element('A')
                 .insert(IMP_JS.unblock_image_text)
-                .observe('click', function(e) {
+                .observe('click', function() {
                     HordeCore.doAction('imageUnblockAdd', {
                         muid: elt.readAttribute('muid')
                     });

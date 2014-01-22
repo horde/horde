@@ -20,7 +20,7 @@
     methods = {
 
         // opts: (object) Options [NONE currently]
-        init: function(opts)
+        init: function()
         {
             return this.each(function() {
                 $(document).on('vclick.growler', '#' + $(this).attr('id') + ' DIV', function(e) {

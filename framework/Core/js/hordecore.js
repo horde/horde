@@ -99,7 +99,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onSuccess = function(t, o) {
+        ajaxopts.onSuccess = function(t) {
             this.doActionComplete(form, t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
@@ -313,7 +313,7 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
-            var alarm, audio, growl, message, subtitle, select;
+            var alarm, growl, message, subtitle, select;
 
             if (!Object.isString(m.message)) {
                 return;
@@ -395,7 +395,7 @@ var HordeCore = {
                             }
                         }.bindAsEventListener(this))
                         .observe('click', Event.stop);
-                        message.down('input[type=button]').observe('click', function(e) {
+                        message.down('input[type=button]').observe('click', function() {
                             var ajax_params = $H({
                                 alarm: alarm.id,
                                 snooze: -1
@@ -405,7 +405,7 @@ var HordeCore = {
                             new Ajax.Request(this.conf.URI_SNOOZE, {
                                 parameters: ajax_params
                             });
-                        }.bindAsEventListener(this));
+                        }.bind(this));
                     }
                 }
                 break;
@@ -455,7 +455,7 @@ var HordeCore = {
         } else if (window.Notification) {
             f = function() {
                 var n = new window.Notification(msg.title, { body: msg.text, icon: msg.icon });
-                n.onclick = function(e) {
+                n.onclick = function() {
                     var ajax_params = $H({
                         alarm: msg.id,
                         snooze: -1
@@ -463,8 +463,11 @@ var HordeCore = {
                     this.addRequestParams(ajax_params);
                     new Ajax.Request(this.conf.URI_SNOOZE, {
                         parameters: ajax_params,
-                        onSuccess: function(r) {
-                            var n = new window.Notification(msg.title, { body: HordeCore.text['dismised'], icon: msg.icon });
+                        onSuccess: function() {
+                            new window.Notification(msg.title, {
+                                body: HordeCore.text['dismised'],
+                                icon: msg.icon
+                            });
                             if (msg.url) {
                                 window.open(msg.url, '__blank');
                             }

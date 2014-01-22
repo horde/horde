@@ -77,7 +77,7 @@ var HordeMobile = {
         opts = $.extend({
             data: params,
             error: $.noop,
-            success: function(d, t, x) {
+            success: function(d) {
                 HordeMobile.doActionComplete(action, d, callback);
             },
             type: 'post',
@@ -320,7 +320,7 @@ var HordeMobile = {
     {
         // Global ajax options.
         $.ajaxSetup({
-            dataFilter: function(data, type) {
+            dataFilter: function(data) {
                 // Remove json security token
                 filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
                 return data.replace(filter, "$1");

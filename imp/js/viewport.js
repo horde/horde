@@ -1141,7 +1141,7 @@ var ViewPort = Class.create({
                 constraint: 'vertical',
                 ghosting: true,
                 nodrop: true,
-                snap: function(x, y, elt) {
+                snap: function(x, y) {
                     var sp = this.split_pane,
                         l = parseInt((y - sp.pos) / sp.lh, 10);
                     if (l < 1) {
@@ -1621,7 +1621,7 @@ ViewPort_Buffer = Class.create({
 
     UIDsToRows: function(uids)
     {
-        return rows.collect(this.rowlist.index.bind(this.rowlist)).compact();
+        return uids.collect(this.rowlist.index.bind(this.rowlist)).compact();
     },
 
     // vs = (ViewPort_Selection) TODO

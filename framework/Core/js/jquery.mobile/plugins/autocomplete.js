@@ -98,8 +98,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
         keyupHandler = function()
         {
-            var id = el.attr("id"),
-                text = el.val();
+            var text = el.val();
 
             timeout = null;
 
