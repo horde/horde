@@ -356,17 +356,17 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
     public function testBuildClause()
     {
         $this->assertEquals(
-            'bitmap & 2',
+            'BITAND(bitmap, 2)',
             $this->_conn->buildClause('bitmap', '&', 2));
         $this->assertEquals(
-            array('bitmap & ?', array(2)),
+            array('BITAND(bitmap, ?)', array(2)),
             $this->_conn->buildClause('bitmap', '&', 2, true));
 
         $this->assertEquals(
-            'bitmap | 2',
+            'bitmap + 2 - BITAND(bitmap, 2)',
             $this->_conn->buildClause('bitmap', '|', 2));
         $this->assertEquals(
-            array('bitmap | ?', array(2)),
+            array('bitmap + ? - BITAND(bitmap, ?)', array(2, 2)),
             $this->_conn->buildClause('bitmap', '|', 2, true));
 
         $this->assertEquals(
