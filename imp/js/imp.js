@@ -128,11 +128,6 @@ var IMP_JS = {
 
     printWindow: function(win)
     {
-        /* Prototypejs not available in this window. */
-        var fs = win.document.getElementById('frameset');
-        if (fs) {
-            fs.rows = (win.document.getElementById('headers').contentWindow.document.getElementById('headerblock').offsetHeight + 5) + 'px,*';
-        }
         win.print();
         win.close();
     },
