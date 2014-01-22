@@ -391,6 +391,10 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected function _getFolderUidForBackendId($id, $type = null)
     {
+        // Always use 'RI' for Recipient cache.
+        if ($type == Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE) {
+            return 'RI';
+        }
         $map = $this->_state->getFolderUidToBackendIdMap();
         if (!empty($map[$id])) {
             return $map[$id];

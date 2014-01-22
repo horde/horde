@@ -306,6 +306,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function getBackendIdForFolderUid($folderid)
     {
+        // Always use RI for recipient cache.
+        if ($folderid == 'RI') {
+            return $folderid;
+        }
         $folder = $this->_cache->getFolder($folderid);
         if ($folder) {
             return $folder['serverid'];
@@ -323,6 +327,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function getFolderUidForBackendId($folderid)
     {
+        // Always use 'RI' for Recipient cache.
+        if ($type == Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE) {
+            return 'RI';
+        }
         $map = $this->_as->state->getFolderUidToBackendIdMap();
         if (empty($map[$folderid])) {
             return false;
@@ -438,6 +446,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function getCollectionClass($id)
     {
+        if ($id == 'RI') {
+            return Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE;
+        }
         if (isset($this->_cache->folders[$id]['class'])) {
             $class = $this->_cache->folders[$id]['class'];
             $this->_logger->info(sprintf(

@@ -406,6 +406,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $folders[] = $this->_getFolder($temp);
                 }
             }
+            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                $folders[] = $this->_getFolder('RI');
+            }
 
             // Always return at least the "dummy" IMAP folders since some
             // clients refuse to consider a FOLDERSYNC successful without
@@ -473,6 +476,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_NOTE,
                 $this->_displayMap[self::NOTES_FOLDER_UID]);
+        case 'RI':
+            return $this->_buildNonMailFolder(
+                'RI',
+                0,
+                Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE,
+                'RI'
+            );
         }
 
         // Either an email folder or a non-mulitiplexed non-email folder.
@@ -552,6 +562,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     protected function _parseFolderId($id, $checkEmail = false)
     {
+        if ($id == 'RI') {
+            return Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE;
+        }
         if (strpos($id, ':') === false) {
             switch ($id) {
             case self::APPOINTMENTS_FOLDER_UID:

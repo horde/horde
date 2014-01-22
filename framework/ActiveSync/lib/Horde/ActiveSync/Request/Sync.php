@@ -1139,7 +1139,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // @TODO Don't forget to add MAXITEMS when implementing RECIPIENTINFORMATION_CACHE.
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MAXITEMS)) {
+                $options['maxitems'] = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+            }
 
             // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
