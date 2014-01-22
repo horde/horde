@@ -365,17 +365,17 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_TestBase
     public function testBuildClause()
     {
         $this->assertEquals(
-            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & 2) <> 0 ELSE FALSE END",
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & 2) ELSE 0 END",
             $this->_conn->buildClause('bitmap', '&', 2));
         $this->assertEquals(
-            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & ?) <> 0 ELSE FALSE END", array(2)),
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & ?) ELSE 0 END", array(2)),
             $this->_conn->buildClause('bitmap', '&', 2, true));
 
         $this->assertEquals(
-            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | 2) <> 0 ELSE FALSE END",
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | 2) ELSE 0 END",
             $this->_conn->buildClause('bitmap', '|', 2));
         $this->assertEquals(
-            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | ?) <> 0 ELSE FALSE END", array(2)),
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | ?) ELSE 0 END", array(2)),
             $this->_conn->buildClause('bitmap', '|', 2, true));
 
         $this->assertEquals(
