@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix parsing TNEF data that does not contain a meeting request (Bug #12931).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -880,7 +880,7 @@ Initial release as a PEAR package
    <date>2014-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix parsing TNEF data that does not contain a meeting request (Bug #12931).
    </notes>
   </release>
  </changelog>
