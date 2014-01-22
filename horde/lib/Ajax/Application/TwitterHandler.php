@@ -31,9 +31,9 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
      */
     public function twitterUpdate()
     {
-        global $injector;
+        global $conf;
 
-        if (empty($GLOBALS['conf']['twitter']['enabled'])) {
+        if (empty($conf['twitter']['enabled'])) {
             return _("Twitter not enabled.");
         }
 
@@ -56,7 +56,6 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
         $twitter = $this->_getTwitterObject();
         try {
             $tweet = json_decode($twitter->statuses->retweet($this->vars->tweetId));
-            $view = $this->_buildTweet($tweet);
             $html = $this->_buildTweet($tweet)->render('twitter_tweet');
             return $html;
         } catch (Horde_Service_Twitter_Exception $e) {
@@ -225,8 +224,6 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
      */
     protected function _doTwitterGetPage()
     {
-        global $injector;
-
         $twitter = $this->_getTwitterObject();
         try {
             $params = array('include_entities' => 1);
@@ -235,7 +232,6 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
             } elseif ($since = $this->vars->since_id) {
                 $params['since_id'] = $since;
             }
-            $instance = $this->vars->i;
             if ($this->vars->mentions) {
                 $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
             } else {
@@ -275,7 +271,7 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
 
     protected function _twitterError($e)
     {
-        global $notification, $page_output;
+        global $notification;
 
         Horde::log($e, 'INFO');
         $body = ($e instanceof Exception) ? $e->getMessage() : $e;

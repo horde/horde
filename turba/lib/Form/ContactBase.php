@@ -14,7 +14,7 @@ abstract class Turba_Form_ContactBase extends Horde_Form
     protected function _addFields(Turba_Object $contact, $useTabs = true)
     {
         // @TODO: inject this
-        global $attributes, $injector;
+        global $attributes;
 
         // Run through once to see what form actions, if any, we need
         // to set up.

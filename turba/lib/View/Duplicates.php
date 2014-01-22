@@ -102,7 +102,7 @@ class Turba_View_Duplicates
                 }
                 echo $view->render('contact_header');
                 $contactView = new Turba_Form_Contact($vars, $contact, false);
-                $contactView->renderInactive($form->getRenderer(), $vars);
+                $contactView->renderInactive($contactView->getRenderer(), $vars);
                 echo $view->render('contact_footer');
                 $view->first = false;
             }

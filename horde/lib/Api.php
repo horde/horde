@@ -693,7 +693,7 @@ class Horde_Api extends Horde_Registry_Api
         } catch (Horde_ActiveSync_Exception $e) {
             throw new Horde_Exception($e);
         }
-        foreach ($devices as $key => &$device) {
+        foreach ($devices as &$device) {
             $device['device_properties'] = unserialize($device['device_properties']);
             $device['last_synctime'] = $state->getLastSyncTimestamp($device['device_id']);
         }

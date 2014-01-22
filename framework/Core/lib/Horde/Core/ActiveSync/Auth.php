@@ -40,7 +40,7 @@ class Horde_Core_ActiveSync_Auth extends Horde_Auth_Base
     public function __construct(array $params = array())
     {
         if (!isset($params['base_driver'])) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            throw new InvalidArgumentException('Missing base_driver parameter.');
         }
 
         parent::__construct($params);

@@ -24,7 +24,7 @@ class Horde_Prefs_Special_Syncml implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $registry;
+        global $page_output, $prefs, $registry;
 
         $page_output->addScriptFile('syncmlprefs.js', 'horde');
         $devices = Horde_SyncMl_Backend::factory('Horde')->getUserAnchors($registry->getAuth());

@@ -204,7 +204,7 @@ class Turba_View_Browse
                     $objAttributes = array();
 
                     // Get the values through the Turba_Object class.
-                    foreach ($targetDriver->getCriteria() as $info_key => $info_val) {
+                    foreach (array_keys($targetDriver->getCriteria()) as $info_key) {
                         if (!is_array($targetDriver->map[$info_key]) ||
                             isset($targetDriver->map[$info_key]['attribute'])) {
                             $objectValue = $object->getValue($info_key);

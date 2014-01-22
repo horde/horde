@@ -31,7 +31,7 @@ class Horde_View_Topbar extends Horde_View
      */
     public function __construct($config = array())
     {
-        global $injector, $prefs, $registry, $session;
+        global $injector, $prefs, $registry;
 
         if (empty($config['templatePath'])) {
             $config['templatePath'] = $registry->get('templates', 'horde') . '/topbar';

@@ -55,6 +55,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
                 ),
                 isset($sources[$source]) ? $sources[$source] : array()
             );
+            $numDisplayed = 0;
             echo '<br />' . $listView->getPage($numDisplayed);
         }
     }

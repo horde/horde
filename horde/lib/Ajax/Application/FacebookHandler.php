@@ -63,7 +63,7 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
                 . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-                $html .= sprintf(_("You can also check your Facebook settings in your %s."), $return_url->link() . _("preferences") . '</a>');
+                $html .= sprintf(_("You can also check your Facebook settings in your %s."), $url->link() . _("preferences") . '</a>');
 
                 return $html;
             }
@@ -71,7 +71,6 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
 
         // Parse the posts.
         $posts = $stream->data;
-        $profiles = array();
         $newest = new Horde_Date($posts[0]->created_time);
         $oldest = new Horde_Date($posts[count($posts) -1]->created_time);
         $newest = $newest->timestamp();
@@ -253,7 +252,7 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
 
     protected function _error($e)
     {
-        global $notification, $page_output;
+        global $notification;
 
         Horde::log($e, 'INFO');
         $body = ($e instanceof Exception) ? $e->getMessage() : $e;

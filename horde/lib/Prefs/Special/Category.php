@@ -24,7 +24,7 @@ class Horde_Prefs_Special_Category implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs;
+        global $page_output, $prefs;
 
         $page_output->addScriptFile('categoryprefs.js', 'horde');
         $page_output->addScriptFile('colorpicker.js', 'horde');

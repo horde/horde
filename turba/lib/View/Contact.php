@@ -30,7 +30,7 @@ class Turba_View_Contact
 
     public function html($active = true)
     {
-        global $browser, $conf, $injector, $registry;
+        global $browser, $conf, $registry;
 
         if (!$this->contact ||
             !$this->contact->hasPermission(Horde_Perms::READ)) {

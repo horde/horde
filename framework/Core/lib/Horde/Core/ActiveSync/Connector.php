@@ -1063,8 +1063,6 @@ class Horde_Core_ActiveSync_Connector
      */
     public function createFolder($class, $foldername)
     {
-        global $prefs;
-
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod checks in H6.
@@ -1123,8 +1121,6 @@ class Horde_Core_ActiveSync_Connector
      */
     public function changeFolder($class, $id, $name)
     {
-        global $prefs;
-
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             // @todo Remove hasMethod check
@@ -1195,8 +1191,6 @@ class Horde_Core_ActiveSync_Connector
      */
     public function deleteFolder($class, $id)
     {
-        global $prefs;
-
         switch ($class) {
         case Horde_ActiveSync::CLASS_TASKS:
             if (!$this->_registry->horde->getPrefs($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {

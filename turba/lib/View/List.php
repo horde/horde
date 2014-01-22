@@ -257,7 +257,7 @@ class Turba_View_List implements Countable
     /**
      * Renders the list contents into an HTML view.
      *
-     * @param integer $numDisplayed  Ouptut parameter - the number of rows
+     * @param integer $numDisplayed  Output parameter - the number of rows
      *                               rendered.
      * @param integer $min           Minimum number of rows to display.
      * @param integer $max           Maximum number of rows to display.

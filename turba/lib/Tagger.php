@@ -48,7 +48,6 @@ class Turba_Tagger extends Horde_Core_Tagger
             ->getInstance('Content_Tagger')
             ->ensureTags($tags);
 
-        $results = array();
         $args['typeId'] = $this->_type_ids['contact'];
 
         return array_values($GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args));

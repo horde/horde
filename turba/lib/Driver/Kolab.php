@@ -718,7 +718,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         if (!isset($this->_contacts_cache[$object_id])) {
-            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $uid));
+            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $object_id));
         }
 
         $data = isset($this->_contacts_cache[$object_id]['__type']) &&

@@ -91,7 +91,6 @@ EOT;
         $name   = $var->getVarName();
         $values = $var->getValues();
         $checkedValues = $var->getValue($vars);
-        $actions = $this->_getActionScripts($form, $var);
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
         $html = '<table style="width: 100%" class="sortable striped" id="tableset_' . $name . '"><thead><tr>' .
