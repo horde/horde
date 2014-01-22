@@ -80,19 +80,29 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         /* Add those handlers that need configuration and can't be auto-loaded
          * through Horde_Alarms::handlers(). */
-        $this->_alarm->addHandler('notify', new Horde_Core_Alarm_Handler_Notify());
-
-        $handler_params = array(
-            'js_notify' => array($this->_injector->getInstance('Horde_PageOutput'), 'addInlineScript'),
-            'icon' => (string)Horde_Themes::img('alerts/alarm.png')->fulluri
+        $this->_alarm->addHandler(
+            'notify',
+            new Horde_Core_Alarm_Handler_Notify()
         );
-        $this->_alarm->addHandler('desktop', new Horde_Core_Alarm_Handler_Desktop($handler_params));
 
-        $handler_params = array(
-            'identity' => $this->_injector->getInstance('Horde_Core_Factory_Identity'),
-            'mail' => $this->_injector->getInstance('Horde_Mail'),
+        $this->_alarm->addHandler(
+            'desktop',
+            new Horde_Core_Alarm_Handler_Desktop(array(
+                'icon' => strval(Horde_Themes::img('alerts/alarm.png')->fulluri),
+                'js_notify' => array(
+                    $this->_injector->getInstance('Horde_PageOutput'),
+                    'addInlineScript'
+                )
+            ))
         );
-        $this->_alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));
+
+        $this->_alarm->addHandler(
+            'mail',
+            new Horde_Alarm_Handler_Mail(array(
+                'identity' => $this->_injector->getInstance('Horde_Core_Factory_Identity'),
+                'mail' => $this->_injector->getInstance('Horde_Mail'),
+            ))
+        );
 
         return $this->_alarm;
     }
