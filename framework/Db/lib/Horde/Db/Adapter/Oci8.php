@@ -10,6 +10,7 @@
  */
 
 /**
+ * @since      Horde_Db 2.1.0
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
@@ -265,7 +266,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @return resource
      * @throws Horde_Db_Exception
      */
-    public function execute($sql, $arg1 = null, $arg2 = null)
+    public function execute($sql, $arg1 = null, $arg2 = null, $lobs = array())
     {
         if (is_array($arg1)) {
             $sql = $this->_replaceParameters($sql, $arg1);
@@ -279,8 +280,21 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
 
         $this->_lastQuery = $sql;
         $stmt = @oci_parse($this->_connection, $sql);
+
+        $descriptors = array();
+        foreach ($lobs as $name => $lob) {
+            $descriptors[$name] = oci_new_descriptor($this->_connection, OCI_DTYPE_LOB);
+            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, OCI_B_BLOB);
+        }
+
+        $flags = $lobs
+            ? OCI_DEFAULT
+            : ($this->_transactionStarted
+               ? OCI_NO_AUTO_COMMIT
+               : OCI_COMMIT_ON_SUCCESS
+            );
         if (!$stmt ||
-            !@oci_execute($stmt, $this->_transactionStarted ? OCI_NO_AUTO_COMMIT : OCI_COMMIT_ON_SUCCESS)) {
+            !@oci_execute($stmt, $flags)) {
             $error = oci_error($stmt ?: $this->_connection);
             if ($stmt) {
                 oci_free_statement($stmt);
@@ -291,6 +305,13 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 $this->_errorMessage($error),
                 $error['code']
             );
+        }
+
+        foreach ($lobs as $name => $lob) {
+            $descriptors[$name]->save($lob->value);
+        }
+        if ($lobs) {
+            oci_commit($this->_connection);
         }
 
         $this->_logInfo($sql, $name, $t->pop());
@@ -320,6 +341,51 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                            $idValue = null, $sequenceName = null)
     {
         $this->execute($sql, $arg1, $arg2);
+        return $idValue
+            ? $idValue
+            : $this->selectValue('SELECT id FROM horde_db_autoincrement');
+    }
+
+    /**
+     * Inserts a row including BLOBs into a table.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $table     The table name.
+     * @param array $fields     A hash of column names and values. BLOB columns
+     *                          must be provided as Horde_Db_Value_Binary
+     *                          objects.
+     * @param string $pk        The primary key column.
+     * @param integer $idValue  The primary key value. This parameter is
+     *                          required if the primary key is inserted
+     *                          manually.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insertBlob($table, $fields, $pk = null, $idValue = null)
+    {
+        $blobs = $locators = array();
+        foreach ($fields as $column => &$field) {
+            if ($field instanceof Horde_Db_Value_Binary) {
+                $blobs[$this->quoteColumnName($column)] = $field;
+                $locators[] = ':' . $this->quoteColumnName($column);
+                $field = 'EMPTY_BLOB()';
+            } else {
+                $field = $this->quote($field);
+            }
+        }
+
+        $sql = 'INSERT INTO ' . $this->quoteTableName($table) . ' ('
+            . implode(
+                ', ',
+                array_map(array($this, 'quoteColumnName'), array_keys($fields))
+            )
+            . ') VALUES (' . implode(', ', $fields)
+            . ') RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
+            . implode(', ', $locators);
+        $this->execute($sql, null, null, $blobs);
+
         return $idValue
             ? $idValue
             : $this->selectValue('SELECT id FROM horde_db_autoincrement');

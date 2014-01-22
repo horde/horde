@@ -515,6 +515,34 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
+     * Inserts a row including BLOBs into a table.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $table     The table name.
+     * @param array $fields     A hash of column names and values. BLOB columns
+     *                          must be provided as Horde_Db_Value_Binary
+     *                          objects.
+     * @param string $pk        The primary key column.
+     * @param integer $idValue  The primary key value. This parameter is
+     *                          required if the primary key is inserted
+     *                          manually.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insertBlob($table, $fields, $pk = null, $idValue = null)
+    {
+        $query = sprintf(
+            'INSERT INTO %s (%s) VALUES (%s)',
+            $table,
+            implode(', ', array_map(array($this, 'quoteColumnName'), array_keys($fields))),
+            implode(', ', array_fill(0, count($fields), '?'))
+        );
+        return $this->insert($query, $fields, $pk, $idValue);
+    }
+
+    /**
      * Executes the update statement and returns the number of rows affected.
      *
      * @param string $sql   SQL statement.
