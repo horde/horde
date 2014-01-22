@@ -30,7 +30,7 @@
  </developer>
  <date>2014-01-22</date>
  <version>
-  <release>2.0.7</release>
+  <release>2.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix parsing TNEF data that does not contain a meeting request (Bug #12931).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -881,6 +881,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix parsing TNEF data that does not contain a meeting request (Bug #12931).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-01-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
