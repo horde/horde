@@ -10,6 +10,7 @@
  */
 
 /**
+ * @since      Horde_Db 2.1.0
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
@@ -68,7 +69,7 @@ class Horde_Db_Adapter_Oracle_Column extends Horde_Db_Adapter_Base_Column
     public function binaryToString($value)
     {
         if (is_a($value, 'OCI-Lob')) {
-            return $value->read($value->size());
+            return $value->load();
         }
         return parent::binaryToString($value);
     }
