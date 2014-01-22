@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-28</date>
+ <date>2014-01-22</date>
  <version>
   <release>2.1.3</release>
   <api>2.0.0</api>
@@ -38,7 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support Oracle with SQL driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -345,6 +345,7 @@ Reading, writing and listing of files are all supported.</description>
       <file name="1_horde_vfs_base_tables.php" role="data" />
       <file name="2_horde_vfs_upgrade_autoincrement.php" role="data" />
       <file name="3_horde_vfs_fix_blob_length.php" role="data" />
+      <file name="4_horde_vfs_upgrade_null_columns.php" role="data" />
      </dir> <!-- /migration/Horde/Vfs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -364,6 +365,7 @@ Reading, writing and listing of files are all supported.</description>
        <file name="Base.php" role="test" />
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
+       <file name="Oci8Test.php" role="test" />
       </dir> <!-- /test/Horde/Vfs/Sql -->
       <dir name="SqlFile">
        <dir name="Pdo">
@@ -592,6 +594,7 @@ Reading, writing and listing of files are all supported.</description>
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="migration/3_horde_vfs_fix_blob_length.php" name="migration/Horde/Vfs/3_horde_vfs_fix_blob_length.php" />
+   <install as="migration/4_horde_vfs_upgrade_null_columns.php" name="migration/Horde/Vfs/4_horde_vfs_upgrade_null_columns.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
    <install as="Horde/Vfs/bootstrap.php" name="test/Horde/Vfs/bootstrap.php" />
    <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
@@ -608,6 +611,7 @@ Reading, writing and listing of files are all supported.</description>
    <install as="Horde/Vfs/Sql/Base.php" name="test/Horde/Vfs/Sql/Base.php" />
    <install as="Horde/Vfs/Sql/MysqliTest.php" name="test/Horde/Vfs/Sql/MysqliTest.php" />
    <install as="Horde/Vfs/Sql/MysqlTest.php" name="test/Horde/Vfs/Sql/MysqlTest.php" />
+   <install as="Horde/Vfs/Sql/Oci8Test.php" name="test/Horde/Vfs/Sql/Oci8Test.php" />
    <install as="Horde/Vfs/Sql/Pdo/MysqlTest.php" name="test/Horde/Vfs/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/Vfs/Sql/Pdo/PgsqlTest.php" name="test/Horde/Vfs/Sql/Pdo/PgsqlTest.php" />
    <install as="Horde/Vfs/Sql/Pdo/SqliteTest.php" name="test/Horde/Vfs/Sql/Pdo/SqliteTest.php" />
@@ -1188,10 +1192,10 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-28</date>
+   <date>2014-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support Oracle with SQL driver.
    </notes>
   </release>
  </changelog>
