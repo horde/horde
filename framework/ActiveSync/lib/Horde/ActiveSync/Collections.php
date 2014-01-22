@@ -328,8 +328,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getFolderUidForBackendId($folderid)
     {
         // Always use 'RI' for Recipient cache.
-        if ($type == Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE) {
-            return 'RI';
+        if ($folderid == 'RI') {
+            return $folderid;
         }
         $map = $this->_as->state->getFolderUidToBackendIdMap();
         if (empty($map[$folderid])) {
