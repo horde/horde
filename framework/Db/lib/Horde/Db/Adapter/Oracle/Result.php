@@ -10,6 +10,7 @@
  */
 
 /**
+ * @since      Horde_Db 2.1.0
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
@@ -37,13 +38,11 @@ class Horde_Db_Adapter_Oracle_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _fetchArray()
     {
-        return array_change_key_case(
-            oci_fetch_array(
-                $this->_result,
-                $this->_map[$this->_fetchMode]
-            ),
-            CASE_LOWER
-        );
+        $array = oci_fetch_array($this->_result, $this->_map[$this->_fetchMode]);
+        if ($array) {
+            $array = array_change_key_case($array, CASE_LOWER);
+        }
+        return $array;
     }
 
     /**
