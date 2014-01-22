@@ -407,7 +407,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
-                $folders[] = $this->_getFolder('RI');
+                $folders[] = $this->_getFolder('RI', array('class' => 'RI'));
             }
 
             // Always return at least the "dummy" IMAP folders since some
