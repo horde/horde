@@ -40,6 +40,8 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      *                         instance.
      *                       Optional parameter:
      *                       - icon: URL of an icon to display.
+     *                       @todo Change this to be dynamically generated
+     *                             when needed.
      */
     public function __construct(array $params = null)
     {
@@ -67,14 +69,16 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
     {
         global $notification;
 
+        $icon = strval($this->_icon);
+
         if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
-            $alarm['params']['desktop']['icon'] = $this->_icon;
+            $alarm['params']['desktop']['icon'] = $icon;
             $notification->push($alarm['title'], 'horde.alarm', array(
                 'alarm' => $alarm
             ));
        } else {
             $js = sprintf('if(window.Notification){if (window.Notification.permission != "granted") {window.Notification.requestPermission(function(){if (window.Notification.permission == "granted") { new window.Notification("%s", {body: "%s", icon: "%s" }); } }) } else { new window.Notification("%s", {body: "%s", icon: "%s" }); } };',
-               $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon, $alarm['title'], $alarm['params']['desktop']['subtitle'], $this->_icon);
+               $alarm['title'], $alarm['params']['desktop']['subtitle'], $icon, $alarm['title'], $alarm['params']['desktop']['subtitle'], $icon);
             call_user_func($this->_jsNotify, $js);
        }
     }

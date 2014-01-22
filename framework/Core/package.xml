@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-12-07</date>
+ <date>2014-01-22</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
@@ -363,6 +364,9 @@
       </dir> <!-- /lib/Horde/Core/Ajax -->
       <dir name="Alarm">
        <dir name="Handler">
+        <dir name="Desktop">
+         <file name="Icon.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Alarm/Handler/Desktop -->
         <file name="Desktop.php" role="php" />
         <file name="Notify.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Alarm/Handler -->
@@ -1737,6 +1741,7 @@
    <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
    <install as="Horde/Core/Alarm/Handler/Desktop.php" name="lib/Horde/Core/Alarm/Handler/Desktop.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
+   <install as="Horde/Core/Alarm/Handler/Desktop/Icon.php" name="lib/Horde/Core/Alarm/Handler/Desktop/Icon.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
    <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
@@ -3283,9 +3288,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-07</date>
+   <date>2014-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
