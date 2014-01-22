@@ -219,7 +219,7 @@ extends Horde_Imap_Client_Cache_Backend
                 $this->_data[$mailbox][$val],
                 $this->_update[$mailbox]['u'][$val]
             );
-            $this->_update[$mailbox]['d'][$k] = true;
+            $this->_update[$mailbox]['d'][$val] = true;
         }
 
         $this->_mbox[$mailbox]['u']->remove($uids);
