@@ -1244,7 +1244,7 @@ var DimpBase = {
                         mbox: baseelt.retrieve('mbox')
                      }, {
                         ajaxopts: {
-                            asynchronous: false,
+                            asynchronous: false
                         },
                         callback: function(r) {
                             baseelt.store('fixed', r.fixed);
