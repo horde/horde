@@ -390,6 +390,7 @@ class Horde_Browser
 
             switch ($this->_majorVersion) {
             default:
+            case 11:
             case 10:
             case 9:
             case 8:
