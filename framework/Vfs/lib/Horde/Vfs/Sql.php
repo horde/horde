@@ -729,22 +729,11 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
      */
     protected function _insertBlob($table, $field, $data, $attributes)
     {
-        $fields = $values = array();
-        foreach ($attributes as $key => $value) {
-            $fields[] = $key;
-            $values[] = $value;
-        }
-        $values[] = new Horde_Db_Value_Binary($data);
-
-        $query = sprintf('INSERT INTO %s (%s, %s) VALUES (%s)',
-                         $table,
-                         implode(', ', $fields),
-                         $field,
-                         '?' . str_repeat(', ?', count($fields)));
+        $attributes[$field] = new Horde_Db_Value_Binary($data);
 
         /* Execute the query. */
         try {
-            $this->_db->insert($query, $values);
+            $this->_db->insertBlob($table, $attributes);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
