@@ -12,7 +12,7 @@
  </lead>
  <date>2014-01-22</date>
  <version>
-  <release>2.17.1</release>
+  <release>2.17.2</release>
   <api>2.17.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix updating message list in the hashtable cache driver when deleting.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2129,6 +2129,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix updating message list in the hashtable cache driver when deleting.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.17.2</release>
+    <api>2.17.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-01-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
