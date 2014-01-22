@@ -41,3 +41,6 @@ BC BREAKING (i.e., Horde 6).
   and to take the object property names as filters instead of backend field names.
 
 - Clean up logger creation/setting/log_level setting.
+
+- Consolidate folderUid <-> backend id mapping methods into a single place.
+  Currently they live in both the collection handler and the backend driver.
