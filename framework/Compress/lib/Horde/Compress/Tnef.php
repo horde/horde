@@ -174,8 +174,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     break;
                 }
             }
+            $this->_checkiTip($out);
         }
-        $this->_checkiTip($out);
 
         return array_reverse($out);
     }
