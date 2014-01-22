@@ -184,6 +184,10 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
     public static function tearDownAfterClass()
     {
         if (self::$migrator) {
+            if (self::$db) {
+                self::$db->delete('DELETE FROM horde_vfs');
+                self::$db->delete('DELETE FROM horde_muvfs');
+            }
             self::$migrator->down();
         }
         if (self::$db) {
