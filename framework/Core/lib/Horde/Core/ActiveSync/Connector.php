@@ -324,6 +324,9 @@ class Horde_Core_ActiveSync_Connector
      * @param array $options  Additional options:
      *   - pictures: (boolean) Include photos in results.
      *             DEFAULT: false (Do not include photos).
+     *   - recipient_cache_search: (boolean) If true, this is a RI cache search,
+     *       should only search the 'email' field and only return a small subset
+     *       of fields.
      *
      * @return array  The search results.
      */
@@ -333,9 +336,13 @@ class Horde_Core_ActiveSync_Connector
             return array();
         }
 
-        $fields = array($gal => array('name', 'alias', 'email', 'firstname', 'lastname',
-            'company', 'homePhone', 'workPhone', 'cellPhone', 'title',
-            'office'));
+        if (!empty($options['recipient_cache_search'])) {
+            $return_fields = array($gal => array('name', 'alias', 'email'));
+        } else {
+            $return_fields = array($gal => array('name', 'alias', 'email', 'firstname', 'lastname',
+                'company', 'homePhone', 'workPhone', 'cellPhone', 'title',
+                'office'));
+        }
         if (!empty($options['pictures'])) {
             $fields[$gal][] = 'photo';
         }
@@ -343,7 +350,8 @@ class Horde_Core_ActiveSync_Connector
             'matchBegin' => true,
             'forceSource' => true,
             'sources' => array($gal),
-            'returnFields' => $fields
+            'returnFields' => $return_fields,
+            'fields' => !empty($options['recipient_cache_search']) ? array('email') : array()
         );
 
         return $this->_registry->contacts->search($query, $opts);
