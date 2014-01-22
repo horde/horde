@@ -276,6 +276,34 @@ class Horde_PageOutput
             return;
         }
 
+        /* Check for existing process creating file. Maximum 15 seconds
+         * wait time. */
+        for ($i = 0; $i < 15; ++$i) {
+            switch ($driver) {
+            case 'filesystem':
+                if (file_exists($js_path . '.lock')) {
+                    sleep(1);
+                } elseif ($i) {
+                    return;
+                } else {
+                    touch($js_path . '.lock');
+                    break 2;
+                }
+                break;
+
+            case 'horde_cache':
+                if ($cache->exists($sig . '.lock')) {
+                    sleep(1);
+                } elseif ($i) {
+                    return;
+                } else {
+                    $cache->set($sig . '.lock', 1);
+                    break 2;
+                }
+                break;
+            }
+        }
+
         $jsmin_params = array(
             'logger' => $injector->getInstance('Horde_Log_Logger')
         );
@@ -340,10 +368,11 @@ class Horde_PageOutput
         switch ($driver) {
         case 'filesystem':
             if (!file_put_contents($js_path, $js_text)) {
-                throw new Horde_Exception('Could not write cached JS file to disk.');
+                Horde::log('Could not write cached JS file to disk.', Horde_Log::EMERG);
             } elseif (isset($jsmin_params['sourcemap'])) {
                 file_put_contents($js_path . '.map', $jsmin_ob->sourcemap());
             }
+            unlink($js_path . '.lock');
             break;
 
         case 'horde_cache':
@@ -351,6 +380,7 @@ class Horde_PageOutput
             if (isset($jsmin_params['sourcemap'])) {
                 $cache->set($sig . '.map', $jsmin_ob->sourcemap());
             }
+            $cache->expire($sig . '.lock');
             break;
         }
     }

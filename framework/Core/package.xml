@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
@@ -3285,6 +3286,7 @@
    <date>2013-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
 * [mms] Combine all javscript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
