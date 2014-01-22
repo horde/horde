@@ -47,7 +47,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
         $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
             IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
         );
-        $iterator->setFilter(array('INBOX'));
+        $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,

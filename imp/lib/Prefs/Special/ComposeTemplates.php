@@ -51,7 +51,7 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
         $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
             IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
         );
-        $iterator->setFilter(array('INBOX'));
+        $iterator->mboxes = array('INBOX');
 
         $view->mbox_flist = new IMP_Ftree_Select(array(
             'basename' => true,
