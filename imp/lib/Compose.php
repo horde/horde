@@ -1302,10 +1302,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (isset($hdr[$key])) {
                 if (strlen(trim($hdr[$key]))) {
-                    $addrlist->add(IMP::parseAddressList($hdr[$key]));
+                    $ob = IMP::parseAddressList($hdr[$key]);
+                    $addrlist->add($ob);
+                    $header[$key] = $ob;
                     $has_input = true;
+                } else {
+                    $header[$key] = null;
                 }
-                $header[$key] = $obs;
             }
         }
 
