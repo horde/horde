@@ -262,7 +262,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function addCollection(array $collection, $requireSyncKey = false)
     {
-
         if ($requireSyncKey && empty($collection['synckey'])) {
             $cached_collections = $this->_cache->getCollections(false);
             $collection['synckey'] = !empty($cached_collections[$collection['id']])
