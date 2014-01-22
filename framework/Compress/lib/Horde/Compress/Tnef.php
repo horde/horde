@@ -119,32 +119,32 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_REMINDER_DELTA               = 0x8501; // Minutes between start of mtg and overdue.
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
-    const MAPI_ENTRY_UID                    = 0x00000003; // GOID??
+    const MAPI_ENTRY_UID                    = 0x0003; // GOID??
     const MAPI_MEETING_TYPE                 = 0x0026;
 
     const MAPI_NAMED_TYPE_ID                = 0x0000;
     const MAPI_NAMED_TYPE_STRING            = 0x0001;
     const MAPI_MV_FLAG                      = 0x1000;
 
-    const IPM_MEETING_REQUEST           = 'IPM.Microsoft Schedule.MtgReq';
-    const IPM_MEETING_RESPONSE_POS      = 'IPM.Microsoft Schedule.MtgRespP';
-    const IPM_MEETING_RESPONSE_NEG      = 'IPM.Microsoft Schedule.MtgRespN';
-    const IPM_MEETING_RESPONSE_TENT     = 'IPM.Microsoft Schedule.MtgRespA';
-    const IPM_MEETING_REQUEST_CANCELLED = 'IPM.Microsoft Schedule.MtgCncl';
+    const IPM_MEETING_REQUEST               = 'IPM.Microsoft Schedule.MtgReq';
+    const IPM_MEETING_RESPONSE_POS          = 'IPM.Microsoft Schedule.MtgRespP';
+    const IPM_MEETING_RESPONSE_NEG          = 'IPM.Microsoft Schedule.MtgRespN';
+    const IPM_MEETING_RESPONSE_TENT         = 'IPM.Microsoft Schedule.MtgRespA';
+    const IPM_MEETING_REQUEST_CANCELLED     = 'IPM.Microsoft Schedule.MtgCncl';
 
-    const RECUR_DAILY = 0x200A;
-    const RECUR_WEEKLY = 0x200B;
-    const RECUR_MONTHLY = 0x200C;
-    const RECUR_YEARLY = 0x200D;
+    const RECUR_DAILY                       = 0x200A;
+    const RECUR_WEEKLY                      = 0x200B;
+    const RECUR_MONTHLY                     = 0x200C;
+    const RECUR_YEARLY                      = 0x200D;
 
-    const PATTERN_DAY  = 0x0000;
-    const PATTERN_WEEK = 0x0001;
-    const PATTERN_MONTH = 0x0002;
-    const PATTERN_MONTH_END = 0x0004;
-    const PATTERN_MONTH_NTH = 0x0003;
+    const PATTERN_DAY                       = 0x0000;
+    const PATTERN_WEEK                      = 0x0001;
+    const PATTERN_MONTH                     = 0x0002;
+    const PATTERN_MONTH_END                 = 0x0004;
+    const PATTERN_MONTH_NTH                 = 0x0003;
 
-    const RECUR_END_DATE = 0x00002021;
-    const RECUR_END_N = 0x00002022;
+    const RECUR_END_DATE                    = 0x00002021;
+    const RECUR_END_N                       = 0x00002022;
 
 
     /**
