@@ -167,7 +167,7 @@ class Horde_Core_ActiveSync_Connector
             // configuration, err on the side of caution and DO NOT auto import.
             $config = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_MimeViewer')
-                ->getViewerConfig('text/calendar', $GLOBALS['registry']->hasInterface('mail'));
+                ->getViewerConfig('text/calendar', $this->_registry->hasInterface('mail'));
 
             if ($config[1]['driver'] == 'Itip' && !empty($config[1]['auto_update_eventreply'])) {
                 if (is_array($config[1]['auto_update_eventreply'])) {
@@ -833,8 +833,8 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_getMaillog($mid)
     {
-        if ($GLOBALS['registry']->hasMethod('getMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
-            return $GLOBALS['registry']->mail->getMaillog($mid);
+        if ($this->_registry->hasMethod('getMaillog', $this->_registry->hasInterface('mail'))) {
+            return $this->_registry->mail->getMaillog($mid);
         }
 
         return false;
@@ -851,8 +851,8 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_logMaillog($action, $mid, $recipients = null)
     {
-        if ($GLOBALS['registry']->hasMethod('logMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
-            $GLOBALS['registry']->mail->logMaillog($action, $mid, $recipients);
+        if ($this->_registry->hasMethod('logMaillog', $this->_registry->hasInterface('mail'))) {
+            $this->_registry->mail->logMaillog($action, $mid, $recipients);
         }
     }
 
@@ -872,8 +872,8 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_getMaillogChanges($ts)
     {
-        if ($GLOBALS['registry']->hasMethod('getMaillogChanges', $GLOBALS['registry']->hasInterface('mail'))) {
-            return $GLOBALS['registry']->mail->getMaillogChanges($ts);
+        if ($this->_registry->hasMethod('getMaillogChanges', $this->_registry->hasInterface('mail'))) {
+            return $this->_registry->mail->getMaillogChanges($ts);
         }
     }
 
