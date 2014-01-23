@@ -154,7 +154,7 @@ class Horde_Script_File
         /* Add cache-busting version param. */
         return empty($GLOBALS['conf']['cachejsparams']['url_version_param'])
             ? $url
-            : $url->add('v', hash('md5', $GLOBALS['registry']->getVersion($this->app)));
+            : $url->add('v', hash('sha1', $GLOBALS['registry']->getVersion($this->app)));
     }
 
 }

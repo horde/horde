@@ -54,7 +54,7 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
             ? $registry->listApps()
             : array_intersect($registry->listApps(), $apps);
         sort($apps);
-        $sig = hash('md5', serialize(array($apps, $layout)));
+        $sig = hash('sha1', serialize(array($apps, $layout)));
 
         if (!isset($this->_instances[$sig])) {
             if (!($ob = $session->retrieve('horde', 'blocks/' . $sig))) {

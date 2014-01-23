@@ -44,7 +44,7 @@ class Horde_Core_Factory_Nosql extends Horde_Core_Factory_Base
      */
     public function create($app = 'horde', $backend = null)
     {
-        $sig = hash('md5', serialize(array($app, $backend)));
+        $sig = hash('sha1', serialize(array($app, $backend)));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];

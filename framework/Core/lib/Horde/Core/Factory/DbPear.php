@@ -49,7 +49,7 @@ class Horde_Core_Factory_DbPear extends Horde_Core_Factory_Base
     {
         global $registry;
 
-        $sig = hash('md5', serialize($type . '|' . $app . '|' . $dtype));
+        $sig = hash('sha1', serialize($type . '|' . $app . '|' . $dtype));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];

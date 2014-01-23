@@ -103,7 +103,7 @@ class Horde_Themes_Css
                 $url = Horde::url($file['uri'], true, -1);
                 $css_out[] = (is_null($file['app']) || empty($conf['cachecssparams']['url_version_param']))
                     ? $url
-                    : $url->add('v', hash('md5', $registry->getVersion($file['app'])));
+                    : $url->add('v', hash('sha1', $registry->getVersion($file['app'])));
             }
             return $css_out;
         }
@@ -115,7 +115,7 @@ class Horde_Themes_Css
         }
 
         $out = '';
-        $sig = hash('md5', serialize($css) . $this->_cacheid);
+        $sig = hash('sha1', serialize($css) . $this->_cacheid);
 
         switch ($cache_type) {
         case 'filesystem':
