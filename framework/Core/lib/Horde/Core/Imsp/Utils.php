@@ -131,7 +131,7 @@ class Horde_Core_Imsp_Utils
                 $shareparams = array('name' => $abook_uid,
                                      'source' => 'imsp');
 
-                $params['uid'] = md5(mt_rand());
+                $params['uid'] = hash('md5', mt_rand());
                 $params['name'] = $abook_uid . ' (IMSP)';
                 $params['acl'] = $imsp->myRights($abook_uid);
                 if ($abook_uid == $serverInfo['params']['username']) {

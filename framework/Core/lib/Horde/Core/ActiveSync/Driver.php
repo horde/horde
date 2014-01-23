@@ -1760,7 +1760,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!empty($this->_cache)) {
                 $clear_cache = !empty($query['rebuildresults']);
                 unset($query['rebuildresults']);
-                $cache_key = $GLOBALS['registry']->getAuth() . ':HCASD:' . md5(serialize($query));
+                $cache_key = $GLOBALS['registry']->getAuth() . ':HCASD:' . hash('md5', serialize($query));
                 if ($clear_cache) {
                     $this->_cache->expire($cache_key);
                 }

@@ -1486,7 +1486,7 @@ function obrowserCallback(name, oid)
             return $image->getMessage();
         }
 
-        $cid = md5($var->type->getText());
+        $cid = hash('md5', $var->type->getText());
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         $cache->set($cid, serialize(array('data' => $captcha->getCAPTCHAAsJPEG(),
