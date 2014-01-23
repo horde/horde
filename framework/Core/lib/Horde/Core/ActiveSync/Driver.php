@@ -991,7 +991,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
-
+        case 'RI':
+            $folder->setChanges($this->_connector->getRecipientCache());
+            $changes = array(
+                'add' => $folder->added(),
+                'delete' => $folder->removed(),
+                'modify' => array(),
+                'soft' => array());
+            break;
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
                 $this->_endBuffer();
@@ -1158,6 +1165,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw new Horde_ActiveSync_Exception($e->getMessage());
             }
+            break;
+
+        case 'RI':
+            $id = explode(':', $id);
+            try {
+                $recipients = $this->_connector->contacts_search($id[0], array('recipient_cache_search' => true));
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                throw new Horde_ActiveSync_Exception($e->getMessage());
+            }
+            $row = array_pop(array_pop($recipients));
+            $message = Horde_ActiveSync::messageFactory('RecipientInformation');
+            $message->alias = !empty($row['alias']) ? $row['alias'] : $id[0];
+            $message->email1address = !empty($row['email']) ? $row['email'] : $id[0];
+            $message->fileas = empty($row['name']) ? $id[0] : $row['name'];
+            $message->weightedrank = $id[1] + 1;
             break;
 
         case Horde_ActiveSync::CLASS_CONTACTS:

@@ -317,6 +317,11 @@ class Horde_Core_ActiveSync_Connector
             $uid, $action, $addressbook, $this->hasFeature('modseq', 'contacts'));
     }
 
+    public function getRecipientCache($max = 100)
+    {
+        return $this->_registry->mail->favouriteRecipients($max);
+    }
+
     /**
      * Search the contacts store.
      *
