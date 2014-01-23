@@ -43,6 +43,9 @@ class Horde_Registry implements Horde_Shutdown_Task
     const VIEW_MINIMAL = 3;
     const VIEW_SMARTMOBILE = 4;
 
+    /* Session keys. */
+    const REGISTRY_CACHE = 'registry_cache';
+
     /**
      * Hash storing information on each registry-aware application.
      *
@@ -634,13 +637,15 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function rebuild()
     {
+        global $session;
+
         $app = $this->getApp();
 
         $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = $this->_obCache = array();
 
-        $GLOBALS['session']->remove('horde', 'nls/');
-        $GLOBALS['session']->remove('horde', 'registry/');
-        $this->_saveCache('app');
+        $session->remove('horde', 'nls/');
+        $session->remove('horde', 'registry/');
+        $session->remove('horde', self::REGISTRY_CACHE);
 
         $this->_loadApplications();
 
@@ -649,15 +654,30 @@ class Horde_Registry implements Horde_Shutdown_Task
     }
 
     /**
-     * Load application configuration information.
+     * Load application information from registry config files.
      */
     protected function _loadApplications()
     {
-        /* First, try to load from cache. */
-        if ($ret = $this->_loadCache('app')) {
-            $this->applications = $ret[0];
-            $this->_interfaces = $ret[1];
+        global $injector;
+
+        if (!empty($this->_interfaces)) {
             return;
+        }
+
+        /* First, try to load from cache. */
+        if (empty($this->_args['test'])) {
+            $lcache = $injector->getInstance('Horde_Core_Localcache');
+
+            if (($cid = $this->_cacheId()) &&
+                ($cdata = $lcache->get($cid))) {
+                $this->applications = $cdata[0];
+                $this->_interfaces = $cdata[1];
+                Horde::log(
+                    'Retrieved registry cache (ID ' . $cid . ')',
+                    'DEBUG'
+                );
+                return;
+            }
         }
 
         /* Read the registry configuration files. */
@@ -771,9 +791,52 @@ class Horde_Registry implements Horde_Shutdown_Task
             }
         }
 
-        $this->_saveCache('app', array(
+        if (!empty($this->_args['test'])) {
+            return;
+        }
+
+        /* Need to determine hash of generated data, since it is possible that
+         * there is dynamic data in the config files. This only needs to
+         * be done once per session. */
+        $cid = $this->_cacheId(hash('sha1', json_encode(array(
             $this->applications,
             $this->_interfaces
+        ))));
+        $res = $lcache->set($cid, array(
+            $this->applications,
+            $this->_interfaces
+        ));
+        if ($res) {
+            Horde::log(
+                'Stored registry cache (ID ' . $cid . ')',
+                'DEBUG'
+            );
+        }
+    }
+
+    /**
+     * Get the cache ID for the registry information.
+     *
+     * @param string $sha1  If set, use this value as the SHA1 hash of the
+     *                      registry data. If false, uses session stored
+     *                      value.
+     */
+    protected function _cacheId($sha1 = null)
+    {
+        global $session;
+
+        if (!is_null($sha1)) {
+            $session->set('horde', self::REGISTRY_CACHE, $sha1);
+        } elseif (!($sha1 = $session->get('horde', self::REGISTRY_CACHE))) {
+            return false;
+        }
+
+        /* Generate cache ID. */
+        return implode('|', array(
+            'horde_registry_cache',
+            __FILE__,
+            $this->_regmtime,
+            $sha1
         ));
     }
 
@@ -2009,79 +2072,6 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" is not configured in the Horde Registry."), $app));
-    }
-
-    /**
-     * Retrieves a cache variable.
-     *
-     * @param string $name  Cache variable name.
-     *
-     * @return mixed  The cached data or false if no data retrieved.
-     */
-    protected function _loadCache($name)
-    {
-        if (empty($this->_args['test']) &&
-            ($id = $this->_getCacheId($name))) {
-            $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
-            if ($result !== false) {
-                Horde::log(__CLASS__ . ': retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
-                return unserialize($result);
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Get the cache storage ID for a particular cache name.
-     *
-     * @param string $name  Cache variable name.
-     * @param string $md5   Use this MD5 value instead of session MD5 value.
-     *
-     * @return mixed  The cache ID or false if cache entry doesn't exist in
-     *                the session.
-     */
-    protected function _getCacheId($name, $md5 = null)
-    {
-        $id = 'horde_registry|' . $name . '|' . $this->_regmtime;
-
-        if (!is_null($md5) ||
-            ($md5 = $GLOBALS['session']->get('horde', 'registry/' . $name))) {
-            return $id . '|' . $md5;
-        }
-
-        return false;
-    }
-
-    /**
-     * Save a registry cache entry.
-     *
-     * @param string $key  The cache key.
-     * @param mixed $data  The cache data. If null, deletes the item.
-     */
-    protected function _saveCache($key, $data = null)
-    {
-        if (!empty($this->_args['test'])) {
-            return;
-        }
-
-        $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-        if (is_null($data)) {
-            if ($id = $this->_getCacheId($key)) {
-                // Entry has been deleted.
-                $ob->expire($id);
-            }
-        } else {
-            // Entry has been updated.
-            $data = serialize($data);
-            $md5sum = hash('md5', $data);
-            $GLOBALS['session']->set('horde', 'registry/' . $key, $md5sum);
-            $id = $this->_getCacheId($key, $md5sum);
-            if ($ob->set($id, $data, 86400)) {
-                Horde::log(__CLASS__ . ': stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
-            }
-        }
     }
 
     /**
