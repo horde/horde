@@ -285,10 +285,6 @@ class Horde_ActiveSync
     const RESOLVE_RESULT_GAL                    = 1;
     const RESOLVE_RESULT_ADDRESSBOOK            = 2;
 
-    /* Maximum number of times we can see the same synckey before we call it an
-    infinite loop */
-    const MAXIMUM_SYNCKEY_COUNT                 = 10;
-
     /* Auth failure reasons */
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
