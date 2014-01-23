@@ -667,17 +667,26 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* First, try to load from cache. */
         if (!$this->isTest()) {
-            $lcache = $injector->getInstance('Horde_Core_Localcache');
+            $cache = new Horde_Cache(
+                new Horde_Cache_Storage_File(array(
+                    'no_gc' => true,
+                    'prefix' => 'horde_registry_cache_'
+                )),
+                array(
+                    'lifetime' => 0,
+                    'logger' => $injector->getInstance('Horde_Log_Logger')
+                )
+            );
+            $pack = $injector->getInstance('Horde_Pack');
 
             if (($cid = $this->_cacheId()) &&
-                ($cdata = $lcache->get($cid))) {
-                $this->applications = $cdata[0];
-                $this->_interfaces = $cdata[1];
-                Horde::log(
-                    'Retrieved registry cache (ID ' . $cid . ')',
-                    'DEBUG'
-                );
-                return;
+                ($cdata = $cache->get($cid))) {
+                try {
+                    $cdata = $pack->unpack($cdata);
+                    $this->applications = $cdata[0];
+                    $this->_interfaces = $cdata[1];
+                    return;
+                } catch (Horde_Pack_Exception $e) {}
             }
         }
 
@@ -692,20 +701,14 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Need to determine hash of generated data, since it is possible that
          * there is dynamic data in the config files. This only needs to
          * be done once per session. */
-        $cid = $this->_cacheId(hash('sha1', json_encode(array(
-            $this->applications,
-            $this->_interfaces
-        ))));
-        $res = $lcache->set($cid, array(
+        $packed_data = $pack->pack(array(
             $this->applications,
             $this->_interfaces
         ));
-        if ($res) {
-            Horde::log(
-                'Stored registry cache (ID ' . $cid . ')',
-                'DEBUG'
-            );
-        }
+        $cache->set(
+            $this->_cacheId(hash('sha1', $packed_data)),
+            $packed_data
+        );
     }
 
     /**
