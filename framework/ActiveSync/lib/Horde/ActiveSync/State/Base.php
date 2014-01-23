@@ -800,7 +800,7 @@ abstract class Horde_ActiveSync_State_Base
                 // Create a new folder object.
                 $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
                     new Horde_ActiveSync_Folder_Imap($this->_collection['serverid'], Horde_ActiveSync::CLASS_EMAIL) :
-                    new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']);
+                    ($this->_collection['serverid'] == 'RI' ? new Horde_ActiveSync_Folder_RI('RI', 'RI') : new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']));
             }
             $this->_syncKey = '0';
             $this->_resetDeviceState($id);

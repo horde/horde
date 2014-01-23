@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-17</date>
+ <date>2014-01-23</date>
  <version>
   <release>2.11.1</release>
   <api>2.11.0</api>
@@ -56,6 +56,7 @@
        <file name="Base.php" role="php" />
        <file name="Collection.php" role="php" />
        <file name="Imap.php" role="php" />
+       <file name="RI.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Folder -->
       <dir name="Imap">
        <file name="Adapter.php" role="php" />
@@ -83,6 +84,7 @@
        <file name="Mail.php" role="php" />
        <file name="MeetingRequest.php" role="php" />
        <file name="Note.php" role="php" />
+       <file name="RecipientInformation.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="ResolveRecipientsPicture.php" role="php" />
        <file name="SendMail.php" role="php" />
@@ -400,6 +402,7 @@
    <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
    <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
    <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
+   <install as="Horde/ActiveSync/Folder/RI.php" name="lib/Horde/ActiveSync/Folder/RI.php" />
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
@@ -421,6 +424,7 @@
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
+   <install as="Horde/ActiveSync/Message/RecipientInformation.php" name="lib/Horde/ActiveSync/Message/RecipientInformation.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/ResolveRecipientsPicture.php" name="lib/Horde/ActiveSync/Message/ResolveRecipientsPicture.php" />
    <install as="Horde/ActiveSync/Message/SendMail.php" name="lib/Horde/ActiveSync/Message/SendMail.php" />
@@ -1908,7 +1912,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-17</date>
+   <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
