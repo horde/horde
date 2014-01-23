@@ -2737,8 +2737,6 @@ KronolithCore = {
 
     /**
      * Propagates a SELECT drop down list with the editable task lists.
-     *
-     * @param string id  The id of the SELECT element.
      */
     updateTasklistDropDown: function()
     {
