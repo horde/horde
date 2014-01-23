@@ -276,6 +276,13 @@ class IMP_Contents
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
+        if (substr($id, -2) === '.0') {
+            $rfc822 = true;
+            $id = substr($id, 0, -2);
+        } else {
+            $rfc822 = false;
+        }
+
         if (!isset($options['length']) || !empty($options['length'])) {
             $bodypart_params = array(
                 'decode' => !empty($options['decode']),
@@ -287,27 +294,55 @@ class IMP_Contents
                 $bodypart_params['length'] = $options['length'];
             }
 
-            $query->bodyPart($id, $bodypart_params);
+            if ($rfc822) {
+                $bodypart_params['id'] = $id;
+                $query->bodyText($bodypart_params);
+            } else {
+                $query->bodyPart($id, $bodypart_params);
+            }
         }
 
         if (!empty($options['mimeheaders'])) {
-            $query->mimeHeader($id, array(
-                'peek' => true
-            ));
+            if ($rfc822) {
+                $query->headerText(array(
+                    'id' => $id,
+                    'peek' => true
+                ));
+            } else {
+                $query->mimeHeader($id, array(
+                    'peek' => true
+                ));
+            }
         }
 
         if ($res = $this->_fetchData($query)) {
             try {
                 if (empty($options['mimeheaders'])) {
                     $ret->decode = $res->getBodyPartDecode($id);
-                    $ret->data = $res->getBodyPart($id, !empty($options['stream']));
+                    $ret->data = $rfc822
+                        ? $res->getBodyText($id, !empty($options['stream']))
+                        : $res->getBodyPart($id, !empty($options['stream']));
                     return $ret;
                 } elseif (empty($options['stream'])) {
-                    $ret->data = $res->getMimeHeader($id) . $res->getBodyPart($id);
+                    $ret->data = $rfc822
+                        ? ($res->getHeaderText($id) . $res->getBodyText($id))
+                        : ($res->getMimeHeader($id) . $res->getBodyPart($id));
                     return $ret;
                 }
 
-                $swrapper = new Horde_Support_CombineStream(array($res->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM), $res->getBodyPart($id, true)));
+                if ($rfc822) {
+                    $swrapper_params = array(
+                        $res->getHeaderText($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
+                        $res->getBodyText($id, true)
+                    );
+                } else {
+                    $swrapper_params = array(
+                        $res->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
+                        $res->getBodyPart($id, true)
+                    );
+                }
+
+                $swrapper = new Horde_Support_CombineStream($swrapper_params);
                 $ret->data = $swrapper->fopen();
                 return $ret;
             } catch (Horde_Exception $e) {}
