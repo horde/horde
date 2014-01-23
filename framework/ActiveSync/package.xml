@@ -12,8 +12,8 @@
  </lead>
  <date>2014-01-23</date>
  <version>
-  <release>2.11.1</release>
-  <api>2.11.0</api>
+  <release>2.12.0</release>
+  <api>2.12.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Add support for Recipient Information Cache collection.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1907,15 +1907,15 @@
   </release>
   <release>
    <version>
-    <release>2.11.1</release>
-    <api>2.11.0</api></version>
+    <release>2.12.0</release>
+    <api>2.12.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Add support for Recipient Information Cache collection.
    </notes>
   </release>
  </changelog>
