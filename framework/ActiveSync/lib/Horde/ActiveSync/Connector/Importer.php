@@ -181,8 +181,12 @@ class Horde_ActiveSync_Connector_Importer
                 '[%s] Change message failed when updating %s',
                 $this->_procid, $id)
             );
-            // Assume any error means the message was not found.
-            return array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
+            if ($id) {
+                // Assume any error means the message was not found.
+                return array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
+            } else {
+                return array(false, Horde_ActiveSync_Request_Sync::STATUS_SERVERERROR);
+            }
         }
         $stat['serverid'] = $this->_folderId;
 
