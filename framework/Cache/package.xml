@@ -18,8 +18,8 @@
  </lead>
  <date>2013-10-08</date>
  <version>
-  <release>2.3.1</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add &apos;no_gc&apos; parameter to the Horde_Cache_Storage_File driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -524,15 +524,15 @@ Initial packaging.
   </release>
   <release>
    <version>
-    <release>2.3.1</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add &apos;no_gc&apos; parameter to the Horde_Cache_Storage_File driver.
    </notes>
   </release>
  </changelog>

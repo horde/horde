@@ -38,13 +38,17 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
+     * <pre>
      *   - dir: (string) The base directory to store the cache files in.
      *          DEFAULT: System default
+     *   - no_gc: (boolean) If true, don't perform garbage collection.
+     *            DEFAULT: false
      *   - prefix: (string) The filename prefix to use for the cache files.
      *             DEFAULT: 'cache_'
      *   - sub: (integer) If non-zero, the number of subdirectories to create
      *          to store the file (i.e. PHP's session.save_path).
      *          DEFAULT: 0
+     * </pre>
      */
     public function __construct(array $params = array())
     {
@@ -68,7 +72,8 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         $c_time = time();
 
         /* Only do garbage collection 0.1% of the time we create an object. */
-        if (intval(substr($c_time, -3)) != 0) {
+        if (!empty($this->_params['no_gc']) ||
+            (intval(substr($c_time, -3)) !== 0)) {
             return;
         }
 
