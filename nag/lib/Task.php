@@ -942,6 +942,7 @@ class Nag_Task
     {
         $json = new stdClass;
         $json->l = $this->tasklist;
+        $json->i = $this->indent;
         $json->n = $this->name;
         if ($this->desc) {
             //TODO: Get the proper amount of characters, and cut by last

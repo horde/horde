@@ -2403,7 +2403,11 @@ KronolithCore = {
         row.store('tasklist', task.value.l);
         row.store('taskid', task.key);
         col.addClassName('kronolithTask' + (!!task.value.cp ? 'Completed' : ''));
-        col.setStyle({ backgroundColor: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].bg, color: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].fg });
+        col.setStyle({
+            backgroundColor: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].bg,
+            color: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].fg,
+            textIndent: task.value.i + 'em'
+        });
         col.insert(task.value.n.escapeHTML());
         if (!Object.isUndefined(task.value.due)) {
             var now = new Date();

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Indent sub tasks.
 * [jan] Make shares table compatible with Oracle.
 * [mjr] Imporove display of Free/Busy information and add pagination (Requests #12899, #12676).
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
@@ -1029,7 +1030,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.2.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -2245,6 +2246,7 @@
    <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Indent sub tasks.
 * [jan] Make shares table compatible with Oracle.
 * [mjr] Imporove display of Free/Busy information and add pagination (Requests #12899, #12676).
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
