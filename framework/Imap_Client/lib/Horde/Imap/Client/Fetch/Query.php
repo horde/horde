@@ -104,8 +104,8 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
     /**
      * Return MIME header text.
      *
-     *  MIME header text is defined only for non-RFC 2822 messages and
-     *  non-message/rfc822 parts.
+     * MIME header text is defined only for non-RFC 2822 messages and
+     * non-message/rfc822 parts.
      *
      * @param string $id   The MIME ID to obtain the MIME header text for.
      * @param array $opts  The following options are available:
