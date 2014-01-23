@@ -563,7 +563,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _parseFolderId($id, $checkEmail = false)
     {
         if ($id == 'RI') {
-            return Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE;
+            return $id;
         }
         if (strpos($id, ':') === false) {
             switch ($id) {

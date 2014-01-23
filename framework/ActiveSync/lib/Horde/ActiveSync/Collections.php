@@ -447,7 +447,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getCollectionClass($id)
     {
         if ($id == 'RI') {
-            return Horde_ActiveSync::FOLDER_TYPE_RECIPIENT_CACHE;
+            return $id;
         }
         if (isset($this->_cache->folders[$id]['class'])) {
             $class = $this->_cache->folders[$id]['class'];
