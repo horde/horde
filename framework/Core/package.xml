@@ -641,6 +641,7 @@
       <file name="Application.php" role="php" />
       <file name="Caller.php" role="php" />
       <file name="Nlsconfig.php" role="php" />
+      <file name="Registryconfig.php" role="php" />
      </dir> <!-- /lib/Horde/Registry -->
      <dir name="Script">
       <dir name="File">
@@ -1906,6 +1907,7 @@
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
+   <install as="Horde/Registry/Registryconfig.php" name="lib/Horde/Registry/Registryconfig.php" />
    <install as="Horde/Script/File.php" name="lib/Horde/Script/File.php" />
    <install as="Horde/Script/List.php" name="lib/Horde/Script/List.php" />
    <install as="Horde/Script/Package.php" name="lib/Horde/Script/Package.php" />
