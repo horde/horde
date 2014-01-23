@@ -11,8 +11,6 @@ TODO
 
 - Email recurrence related properties for recurring meeting requests.
 
-- Recipient Information Cache: Sync with Turba's favorites source.
-
 - Email categories - possible to map to custom IMAP Flags?
 
 - Support EMPTY_FOLDER commands in ITEMOPERATIONS requests. Need a client that
