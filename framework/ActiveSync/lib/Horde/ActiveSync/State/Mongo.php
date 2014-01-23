@@ -669,8 +669,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * @param string $user  The username to list devices for. If empty, will
      *                      return all devices.
      * @param array $filter An array of optional filters where the keys are
-     *                      field names and the values are values to match
-     *                      exactly.
+     *                      field names and the values are values to
+     *                      prefix-match.
      *
      * @return array  An array of device hashes
      * @throws Horde_ActiveSync_Exception
@@ -684,7 +684,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $explicit_fields = array('device_id', 'device_type', 'device_agent', 'device_user');
         foreach ($filter as $key => $value) {
             if (in_array($key, $explicit_fields)) {
-                $query[$key] = $value;
+                $query[$key] = new MongoRegex("/^$value*/");
             } else {
                 $query['device_properties.' . $key] = new MongoRegex("/^$value*/");
             }
