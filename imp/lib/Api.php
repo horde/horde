@@ -303,6 +303,22 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
+     * Log an entry to the IMP_Sentmail system.
+     *
+     * @param string $action             The performed action. One of:
+     *                                   'new', 'reply', 'forward', 'redirect',
+     *                                   or 'mdn'.
+     * @param string|array $recipients   The message recipients.
+     * @param string $message_id         The message-id.
+     * @param boolean $success           Was the message successfully sent?
+     */
+    public function logRecipient($reason, $recipients, $message_id, $success = true)
+    {
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(
+            $reason, $message_id, $recipients, $success);
+    }
+
+    /**
      * Returns the Horde_Imap_Client object created using the IMP credentials.
      *
      * @return Horde_Imap_Client_Base  The imap object.
