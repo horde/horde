@@ -31,6 +31,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     const EACCELERATOR = 3;
     const TEMPFILE = 4;
 
+    /* Cache key prefix. */
+    const PREFIX = 'horde_autoloader_cache';
+
     /* Key that holds list of autoloader cache keys. */
     const KEYLIST = 'horde_autoloader_keys';
 
@@ -46,7 +49,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      *
      * @var string
      */
-    protected $_cachekey = 'horde_autoloader_cache';
+    protected $_cachekey = self::PREFIX;
 
     /**
      * The cache type.
@@ -104,7 +107,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
             $this->_tempdir = $tempdir;
-            $this->_cachekey = hash('sha1', $this->_cachekey);
+            /* For files, add cachekey prefix for easy filesystem
+             * identification. */
+            $this->_cachekey = self::PREFIX . '_' . hash('sha1', $this->_cachekey);
             if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
                 unlink($tempdir . '/' . $this->_cachekey);
             }
