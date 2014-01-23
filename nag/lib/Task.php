@@ -708,15 +708,21 @@ class Nag_Task
      *
      * @param integer $indent  The indention level of the tasks.
      */
-    public function process($indent = 0)
+    public function process($indent = null)
     {
         /* Link cache. */
         static $view_url_list, $task_url_list;
 
         /* Set indention. */
+        if (is_null($indent)) {
+            $indent = 0;
+            if ($parent = $this->getParent()) {
+                $indent = $parent->indent + 1;
+            }
+        }
         $this->indent = $indent;
         if ($this->id) {
-            ++$indent;
+            $indent++;
         }
 
         /* Process children. */
@@ -966,6 +972,7 @@ class Nag_Task
         if ($full) {
             // @todo: do we really need all this?
             $json->id = $this->id;
+            $json->p = $this->parent_id;
             $json->de = $this->desc;
             if ($this->due) {
                 $date = new Horde_Date($this->due);

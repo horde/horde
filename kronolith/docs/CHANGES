@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[jan] Support parent tasks in dynamic view.
 [jan] Indent sub tasks.
 [jan] Make shares table compatible with Oracle.
 [mjr] Imporove display of Free/Busy information and add pagination (Requests
