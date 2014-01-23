@@ -1278,7 +1278,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         default:
             $this->_endBuffer();
-            throw new Horde_ActiveSync_Exception('Unsupported type');
+            throw new Horde_ActiveSync_Exception(sprintf(
+                'Unsupported type: %s', $folder_class));
         }
 
         $this->_endBuffer();

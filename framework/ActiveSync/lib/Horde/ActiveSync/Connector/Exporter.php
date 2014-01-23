@@ -300,9 +300,11 @@ class Horde_ActiveSync_Connector_Exporter
         if ($message->getClass() != $this->_currentCollection['class'] ||
             in_array($id, $this->_seenObjects)) {
             $this->_logger->err(sprintf(
-                '[%s] IGNORING message %s since it looks like it was already sent or does not belong to this collection.',
+                '[%s] IGNORING message %s since it looks like it was already sent or does not belong to this collection. Class: %s, CurrentClass: %s',
                 $this->_procid,
-                $id));
+                $id,
+                $message->getClass(),
+                $this->_currentCollection['class']));
             return;
         }
 
