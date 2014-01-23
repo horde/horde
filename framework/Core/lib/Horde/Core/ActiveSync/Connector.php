@@ -856,6 +856,13 @@ class Horde_Core_ActiveSync_Connector
         }
     }
 
+    public function mail_logRecipient($action, $recipients, $message_id)
+    {
+        if ($this->_registry->hasMethod('logRecipient', $this->_registry->hasInterface('mail'))) {
+            $this->_registry->mail->logRecipient($action, $recipients, $message_id);
+        }
+    }
+
     /**
      * Poll the maillog for changes since the specified timestamp.
      *

@@ -2046,6 +2046,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
+        // Attempt to log the recipient.
+        $this->_logger->info('Logging recipients for RI.');
+        if (!empty($reply)) {
+            $action = 'reply';
+        } elseif (!empty($forward)) {
+            $action = 'forward';
+        } else {
+            $action = 'new';
+        }
+        try {
+            $this->_connector->mail_logRecipient(
+                $action, $headers->getValue('To'), $headers->getValue('Message-ID'));
+        } catch (Horde_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
+
         return true;
     }
 
