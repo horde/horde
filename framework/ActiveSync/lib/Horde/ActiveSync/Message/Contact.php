@@ -95,7 +95,7 @@
  * @property string     nickname
  * @property string     mms
  * @property string     alias (EAS >= 14.0 only)
- * @property string     weighedrank (EAS >= 14.0 only)
+ * @property string     weightedrank (EAS >= 14.0 only)
  * @property string     body (EAS 2.5 only)
  * @property integer    bodysize (EAS 2.5 only)
  * @property integer    bodytruncated (EAS 2.5 only)
@@ -175,8 +175,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     const MMS                   = 'POOMCONTACTS2:MMS';
 
     /* EAS 14 (Only used in Recipient Information Cache responses) */
-    const ALIAS                 = 'POOMCONTACTS:ALIAS';
-    const WEIGHEDRANK           = 'POOMCONTACTS:WEIGHEDRANK';
+    const ALIAS                 = 'POOMCONTACTS:Alias';
+    const WEIGHTEDRANK          = 'POOMCONTACTS:WeightedRank';
 
     public $categories = array();
 
@@ -358,11 +358,11 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
                 $this->_mapping += array(
                     self::ALIAS => array(self::KEY_ATTRIBUTE => 'alias'),
-                    self::WEIGHEDRANK => array(self::KEY_ATTRIBUTE  => 'weighedrank')
+                    self::WEIGHTEDRANK => array(self::KEY_ATTRIBUTE  => 'weightedrank')
                 );
                 $this->_properties += array(
                     'alias' => false,
-                    'weighedrank' => false
+                    'weightedrank' => false
                 );
             }
         }
