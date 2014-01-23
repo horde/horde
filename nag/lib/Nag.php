@@ -1585,7 +1585,7 @@ class Nag
     }
 
     /**
-     * Returns the calendars that should be used for syncing.
+     * Returns the tasklists that should be used for syncing.
      *
      * @return array  An array of task list ids
      */

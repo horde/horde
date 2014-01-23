@@ -268,7 +268,7 @@ $_prefs['display_tasklists'] = array(
     'value' => 'a:0:{}'
 );
 
-// Calendars use for synchronization
+// Tasklists use for synchronization
 $_prefs['sync_lists'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
