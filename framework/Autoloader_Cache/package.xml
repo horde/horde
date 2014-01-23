@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde-specific prefix to filesystem cahe name to allow for easy identification.
+* [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -306,7 +306,7 @@
    <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add Horde-specific prefix to filesystem cahe name to allow for easy identification.
+* [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
    </notes>
   </release>
  </changelog>
