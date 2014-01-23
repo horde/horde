@@ -800,7 +800,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *      The ActiveSync folder object to request changes for.
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
-     * @param integer $cutoffdate  The earliest date to retrieve back to
+     * @param integer $cutoffdate  The earliest date to retrieve back to. If
+     *
      * @param boolean $ping        If true, returned changeset may
      *                             not contain the full changeset, but rather
      *                             only a single change, designed only to
@@ -811,11 +812,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                  if $from_ts is 0. Needed to avoid race
      *                                  conditions when we don't have any history
      *                                  data. @since 2.6.0
+     * @param integer $maxitems         Maximum number of recipients for a RI
+     *                                  collection. @since 2.12.0
      *
      * @return array A list of messge uids that have changed in the specified
      *               time period.
+     * @todo H6 - clean up method parameters, update parent class etc...
      */
-    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false)
+    public function getServerChanges(
+        $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100)
     {
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d)",
@@ -992,7 +997,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
         case 'RI':
-            $folder->setChanges($this->_connector->getRecipientCache());
+            $folder->setChanges($this->_connector->getRecipientCache($maxitems));
             $changes = array(
                 'add' => $folder->added(),
                 'delete' => $folder->removed(),
