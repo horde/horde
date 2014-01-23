@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
@@ -3296,6 +3297,7 @@
    <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
