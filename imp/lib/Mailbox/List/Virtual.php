@@ -48,7 +48,7 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
     protected function _buildMailboxProcess($mbox, $sorted)
     {
         if (count($sorted)) {
-            $this->_sortedMbox = array_merge($this->_sortedMbox, array_fill(0, count($sorted), $mbox));
+            $this->_sortedMbox = array_merge($this->_sortedMbox, array_fill(0, count($sorted), strval($mbox)));
         }
     }
 
