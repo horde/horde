@@ -1252,7 +1252,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 $attendee = $addr_ob->bare_address;
                 $name = $addr_ob->personal;
             } else {
-                $attendee = str_replace('mailto:', '', $attendee);
+                $attendee = str_ireplace('mailto:', '', $attendee);
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
             }
             if ($event->hasAttendee($attendee)) {
