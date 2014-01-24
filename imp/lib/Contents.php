@@ -52,13 +52,6 @@ class IMP_Contents
     const HEADER_STREAM = 3;
 
     /**
-     * Close session when fetching data from IMAP server?
-     *
-     * @var boolean
-     */
-    public $fetchCloseSession = false;
-
-    /**
      * Have we scanned for embedded parts?
      *
      * @var boolean
@@ -1604,25 +1597,15 @@ class IMP_Contents
      */
     protected function _fetchData(Horde_Imap_Client_Fetch_Query $query)
     {
-        if ($this->fetchCloseSession) {
-            $GLOBALS['session']->close();
-        }
-
         try {
             $mbox = $this->getMailbox();
             $imp_imap = $mbox->imp_imap;
-            $res = $imp_imap->fetch($mbox, $query, array(
+            return $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($this->getUid())
             ))->first();
         } catch (Horde_Imap_Client_Exception $e) {
-            $res = new Horde_Imap_Client_Data_Fetch();
+            return new Horde_Imap_Client_Data_Fetch();
         }
-
-        if ($this->fetchCloseSession) {
-            $GLOBALS['session']->start();
-        }
-
-        return $res;
     }
 
     /**

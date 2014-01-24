@@ -45,6 +45,8 @@ class IMP_Contents_View
      */
     public function downloadAll()
     {
+        global $page_output, $session;
+
         $headers = $this->_contents->getHeader();
         $zipfile = trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $headers->getValue('subject')), ' _');
         if (empty($zipfile)) {
@@ -53,8 +55,8 @@ class IMP_Contents_View
             $zipfile .= '.zip';
         }
 
-        $GLOBALS['page_output']->disableCompression();
-        $this->_contents->fetchCloseSession = true;
+        $page_output->disableCompression();
+        $session->close();
 
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
@@ -86,9 +88,12 @@ class IMP_Contents_View
      */
     public function downloadAttach($id, $zip = false)
     {
+        global $page_output, $session;
+
+        $session->close();
+
         $mime = $this->_contents->getMIMEPart($id);
         if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
-            $this->_contents->fetchCloseSession = true;
             $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
             $part = reset($render);
             $mime->setContents($part['data'], array(
@@ -111,7 +116,7 @@ class IMP_Contents_View
             $name .= '.zip';
             $type = 'application/zip';
 
-            $GLOBALS['page_output']->disableCompression();
+            $page_output->disableCompression();
         } else {
             $data = $mime->getContents(array('stream' => true));
             $type = $mime->getType(true);
@@ -128,7 +133,9 @@ class IMP_Contents_View
      */
     public function downloadRender($id, $mode, $ctype = null)
     {
-        $this->_contents->fetchCloseSession = true;
+        global $session;
+
+        $session->close();
 
         $render = $this->_contents->renderMIMEPart(
             $id,
@@ -145,7 +152,9 @@ class IMP_Contents_View
      */
     public function viewAttach($id, $mode, $autodetect = false, $ctype = null)
     {
-        $this->_contents->fetchCloseSession = true;
+        global $session;
+
+        $session->close();
 
         $render = $this->_contents->renderMIMEPart(
             $id,
@@ -171,7 +180,9 @@ class IMP_Contents_View
      */
     public function viewSource()
     {
-        $this->_contents->fetchCloseSession = true;
+        global $session;
+
+        $session->close();
 
         return array(
             'data' => $this->_contents->fullMessageText(array(
@@ -186,11 +197,13 @@ class IMP_Contents_View
      */
     public function saveMessage()
     {
+        global $session;
+
+        $session->close();
+
         $name = ($subject = $this->_contents->getHeader()->getValue('subject'))
             ? trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $subject), ' _')
             : 'saved_message';
-
-        $this->_contents->fetchCloseSession = true;
 
         return array(
             'data' => $this->_contents->fullMessageText(array(

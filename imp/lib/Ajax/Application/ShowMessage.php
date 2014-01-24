@@ -126,7 +126,7 @@ class IMP_Ajax_Application_ShowMessage
      */
     public function showMessage($args)
     {
-        global $injector, $page_output, $prefs, $registry;
+        global $injector, $page_output, $prefs, $registry, $session;
 
         $preview = !empty($args['preview']);
 
@@ -288,13 +288,13 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
-        $this->_contents->fetchCloseSession = true;
+        $session->close();
         $inlineout = $this->_contents->getInlineOutput(array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts
         ));
-        $this->_contents->fetchCloseSession = false;
+        $session->start();
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];
