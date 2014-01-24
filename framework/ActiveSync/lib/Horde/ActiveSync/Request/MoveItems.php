@@ -129,16 +129,20 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                         array($move[self::SRCMSGKEY]),
                         $move[self::DSTFLDKEY]);
                     if (empty($move_res['results'][$move[self::SRCMSGKEY]])) {
-                        $status = self::STATUS_SERVER_ERR;
+                        // Hm. Specs say to send INVALID_SRC if the msg is
+                        // already moved, or no longer present, but that seems
+                        // to lead to the client keeping the item and continuously
+                        // retrying. We can't fake the move since we need a
+                        // new uid.....
+                        $status = in_array($move[self::SRCMSGKEY], $move_res['missing'])
+                            ? self::STATUS_INVALID_SRC
+                            : self::STATUS_SERVER_ERR;
                     } else {
                         $new_msgid = $move_res['results'][$move[self::SRCMSGKEY]];
                     }
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
-                    $status = self::STATUS_SERVER_ERR;
-                }
-                if (empty($new_msgid)) {
-                    $status = self::STATUS_SERVER_ERR;
+                    $status = self::STATUS_INVALID_SRC;
                 }
             }
 
