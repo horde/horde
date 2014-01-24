@@ -239,6 +239,7 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
             }
         } catch (Horde_Service_Twitter_Exception $e) {
             $this->_twitterError($e);
+            return;
         }
         if (count($stream)) {
             $newest = $stream[0]->id_str;
