@@ -91,12 +91,8 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         }
 
         foreach ($this->_getCacheFiles() as $fname => $pname) {
-            $d_time = isset($excepts[$fname])
-                ? $excepts[$fname]
-                : $this->_params['lifetime'];
-
-            if (!empty($d_time) &&
-                (($c_time - $d_time) > filemtime($pname))) {
+            if (!empty($excepts[$fname]) &&
+                (($c_time - $excepts[$fname]) > filemtime($pname))) {
                 @unlink($pname);
                 unset($excepts[$fname]);
             }
@@ -143,12 +139,12 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         @rename($tmp_file, $filename);
 
-        if (($lifetime != $this->_params['lifetime']) &&
+        if ($lifetime &&
             ($fp = @fopen($this->_params['dir'] . '/' . self::GC_FILE, 'a'))) {
             // This may result in duplicate entries in GC_FILE, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
-            fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
+            fwrite($fp, $filename . "\t" . (time() + $lifetime) . "\n");
             fclose($fp);
         }
     }

@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix lifetime usage in the file driver.
 * [mms] Add &apos;no_gc&apos; parameter to the Horde_Cache_Storage_File driver.
  </notes>
  <contents>
@@ -532,6 +533,7 @@ Initial packaging.
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix lifetime usage in the file driver.
 * [mms] Add &apos;no_gc&apos; parameter to the Horde_Cache_Storage_File driver.
    </notes>
   </release>
