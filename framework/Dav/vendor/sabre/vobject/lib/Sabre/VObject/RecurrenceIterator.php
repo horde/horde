@@ -459,7 +459,7 @@ class RecurrenceIterator implements \Iterator {
                     try {
                         $this->exceptionDates[] =
                             DateTimeParser::parse($exceptionDate, $this->startDate->getTimeZone());
-                    } catch (Exception $e) {
+                    } catch (\LogicException $e) {
                     }
 
                 }
