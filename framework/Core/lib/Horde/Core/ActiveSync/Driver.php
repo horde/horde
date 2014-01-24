@@ -2696,51 +2696,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         }
 
-        // Note we don't use the Itip factory because we need to access the
-        // Horde_Itip_Response directly in order to save the response email to
-        // the sent items folder.
-        $itip_response = new Horde_Itip_Response(
-            new Horde_Itip_Event_Vevent($vEvent),
-            $resource
-        );
-        $itip_handler = new Horde_Itip($itip_response);
-        $options = new Horde_Itip_Response_Options_Horde(
-            'UTF-8',
-            array(
-                'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
-                'server' => $GLOBALS['conf']['server']['name']
-            )
-        );
-        try {
-            // Send the response email
-            $itip_handler->sendMultiPartResponse(
-                $type, $options, $GLOBALS['injector']->getInstance('Horde_Mail'));
-            $this->_logger->info(sprintf(
-                "[%s] Successfully sent iTip response.",
-                $this->_pid));
-        } catch (Horde_Itip_Exception $e) {
-            $this->_logger->err('Error sending response: ' . $e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
-
-        // Save to SENT
-        $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
-        if (!empty($sf)) {
-            $this->_logger->info(sprintf(
-                "[%s] Preparing to copy to '%s'",
-                $this->_pid,
-                $sf));
-            list($headers, $body) = $itip_response->getMultiPartMessage(
-                $type, $options);
-            $flags = array(Horde_Imap_Client::FLAG_SEEN);
-            $msg = $body->toString(array('headers' => $headers));
-            try {
-                $this->_imap->appendMessage($sf, $msg, $flags);
-            } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                $this->_logger->err('No Sent Folder. Could not copy.');
-            }
-        }
-
         // Delete the original request. EAS Specs require this. Most clients
         // will remove the email from the UI as soon as the response is sent.
         // Failure to remove it from the server will result in an inconsistent
