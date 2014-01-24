@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Cache results of inline image view status.
 [mjr] Add IMP_Api::logRecipient.
 [mms] Remove the mail_domain preference.
 [mjr] Add display of reccurence data to iTip viewer (Request #12919).

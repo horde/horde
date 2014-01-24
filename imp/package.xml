@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Cache results of inline image view status.
 * [mjr] Add IMP_Api::logRecipient.
 * [mms] Remove the mail_domain preference.
 * [mjr] Add display of reccurence data to iTip viewer (Request #12919).

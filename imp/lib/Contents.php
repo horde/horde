@@ -129,6 +129,16 @@ class IMP_Contents
     }
 
     /**
+     * String representation of object.
+     *
+     * @return string  The indices string.
+     */
+    public function __toString()
+    {
+        return strval($this->getIndicesOb());
+    }
+
+    /**
      * Returns the IMAP UID for the current message.
      *
      * @return integer  The message UID.

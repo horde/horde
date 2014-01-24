@@ -30,6 +30,13 @@ class IMP_Images
     public $alwaysShow = false;
 
     /**
+     * Results cache.
+     *
+     * @var array
+     */
+    protected $_cache = array();
+
+    /**
      * Show inline images in messages?
      *
      * @param IMP_Contents $contents  The contents object containing the
@@ -38,6 +45,20 @@ class IMP_Images
      * @return boolean  True if inline image should be shown.
      */
     public function showInlineImage(IMP_Contents $contents)
+    {
+        $cid = strval($contents);
+
+        if (!isset($this->_cache[$cid])) {
+            $this->_cache[$cid] = $this->_showInlineImage($contents);
+        }
+
+        return $this->_cache[$cid];
+    }
+
+    /**
+     * @see showInlineImage
+     */
+    protected function _showInlineImage(IMP_Contents $contents)
     {
         global $injector, $prefs, $registry;
 
