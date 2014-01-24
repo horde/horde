@@ -376,8 +376,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // to be sure we don't screw up state. Any detected changes will be
             // ignored until the next cycle, utilizing the existing mechanism
             // for sending MOREITEMS when we will return the previously
-            // selected changes.
-            if (!empty($collection['importedchanges']) && empty($collection['getchanges'])) {
+            // selected changes. getchanges defaults to true if it is missing
+            // and the synckey != 0, defaults to true if it is present as an
+            // empty tag. If it is present, but '0' or not present but synckey
+            // is 0 then it defaults to false.
+            if (!isset($collection['getchanges']) && $collection['synckey'] != '0') {
+                $collection['getchanges'] = true;
+            }
+            if (!empty($collection['importedchanges']) && (empty($collection['getchanges']))) {
                 $forceChanges = true;
                 $collection['getchanges'] = true;
                 $this->_logger->notice(sprintf(
