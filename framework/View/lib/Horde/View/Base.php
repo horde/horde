@@ -273,7 +273,9 @@ abstract class Horde_View_Base
         // Pop name off of the path.
         $parts = strstr($name, '/') ? explode('/', $name) : array($name);
         $name = array_pop($parts);
-        $path = implode('/', $parts) . '/';
+        $path = count($parts)
+            ? implode('/', $parts) . '/'
+            : '';
 
         // Check if they passed in a collection before validating keys.
         $useCollection = array_key_exists('collection', $options);
