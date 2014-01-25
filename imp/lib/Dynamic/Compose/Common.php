@@ -38,7 +38,7 @@ class IMP_Dynamic_Compose_Common
     {
         global $injector, $page_output, $prefs;
 
-        $page_output->addScriptPackage('Keynavlist');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');
@@ -46,7 +46,7 @@ class IMP_Dynamic_Compose_Common
 
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-            $page_output->addScriptPackage('Dialog');
+            $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
             $page_output->addScriptFile('passphrase.js');
         }
 

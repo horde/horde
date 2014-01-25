@@ -1191,7 +1191,7 @@ class Horde
      */
     static public function popupJs($url, $options = array())
     {
-        $GLOBALS['page_output']->addScriptPackage('Popup');
+        $GLOBALS['page_output']->addScriptPackage('Horde_Core_Script_Package_Popup');
 
         $params = new stdClass;
 

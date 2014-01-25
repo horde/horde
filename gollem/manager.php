@@ -594,7 +594,7 @@ if (is_array($list) && $numitem && $read_perms) {
 $template->itemcount = sprintf(ngettext(_("%d item"), _("%d items"), $total), $total);
 
 $page_output->addScriptFile('manager.js');
-$page_output->addScriptPackage('Dialog');
+$page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
 $page_output->addInlineJsVars(array(
     'var GollemVar' => array(
         'actionUrl' => strval(Horde::url('manager.php')),

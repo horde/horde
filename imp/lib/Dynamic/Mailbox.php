@@ -36,7 +36,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('jstorage.js', 'horde');
         $page_output->addScriptFile('slider2.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
-        $page_output->addScriptPackage('Dialog');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();

@@ -24,7 +24,7 @@ class Kronolith_Ajax
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('colorpicker.js', 'horde');
-        $page_output->addScriptPackage('Datejs');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Datejs');
         $page_output->addScriptFile('kronolith.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 

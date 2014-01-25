@@ -400,7 +400,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('mailbox.js');
-        $page_output->addScriptPackage('Dialog');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
 
         $page_output->metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 

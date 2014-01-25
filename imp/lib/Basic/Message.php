@@ -898,7 +898,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         if (!empty($conf['tasklist']['use_notepad']) ||
             !empty($conf['tasklist']['use_tasklist'])) {
-            $page_output->addScriptPackage('Dialog');
+            $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
         }
 
         $page_output->noDnsPrefetch();

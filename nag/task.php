@@ -134,7 +134,7 @@ $formhtml = Horde::endBuffer();
 $GLOBALS['page_output']->addScriptFile('date/' . $datejs, 'horde');
 $GLOBALS['page_output']->addScriptFile('date/date.js', 'horde');
 $GLOBALS['page_output']->addScriptFile('task.js');
-$GLOBALS['page_output']->addScriptPackage('Keynavlist');
+$GLOBALS['page_output']->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
 
 $GLOBALS['page_output']->header(array(
     'title' => $form->getTitle()

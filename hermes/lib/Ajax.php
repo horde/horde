@@ -22,7 +22,7 @@ class Hermes_Ajax
 
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
-        $page_output->addScriptPackage('Datejs');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Datejs');
         $page_output->addScriptFile('quickfinder.js', 'horde');
         if ($GLOBALS['browser']->isBrowser('msie')) {
             $page_output->addScriptFile('excanvas/excanvas.min.js', 'horde');

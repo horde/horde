@@ -42,7 +42,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         global $page_output;
 
         if ($init) {
-            $page_output->addScriptPackage('Dialog');
+            $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
             $page_output->addScriptFile('passphrase.js', 'imp');
         }
 

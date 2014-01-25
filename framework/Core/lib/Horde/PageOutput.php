@@ -725,7 +725,7 @@ class Horde_PageOutput
             $this->growler = true;
 
             $this->_addBasicScripts();
-            $this->addScriptPackage('Popup');
+            $this->addScriptPackage('Horde_Core_Script_Package_Popup');
             break;
 
         case $registry::VIEW_MINIMAL:
