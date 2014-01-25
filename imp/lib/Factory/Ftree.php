@@ -24,6 +24,9 @@ class IMP_Factory_Ftree
 extends Horde_Core_Factory_Injector
 implements Horde_Shutdown_Task
 {
+    /* Storage key in session. */
+    const STORAGE_KEY = 'imp_ftree';
+
     /**
      * @var IMP_Ftree
      */
@@ -38,25 +41,7 @@ implements Horde_Shutdown_Task
     {
         global $registry, $session;
 
-        /* If an IMP_Ftree object is currently stored in the cache,
-         * re-create that object.  Else, create a new instance. */
-        if ($session->exists('imp', 'treeob')) {
-            /* Since IMAP tree generation is so expensive/time-consuming,
-             * fallback to storing in the session even if no permanent cache
-             * backend is setup. */
-            $cache = $injector->getInstance('Horde_Cache');
-            if ($cache instanceof Horde_Cache_Null) {
-                $this->_instance = $session->retrieve('imp_tree');
-            } else {
-                try {
-                    $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 0));
-                } catch (Exception $e) {
-                    Horde::log('Could not unserialize stored IMP_Ftree object.', 'DEBUG');
-                }
-            }
-        } else {
-            $session->set('imp', 'treeob', strval(new Horde_Support_Randomid()));
-        }
+        $this->_instance = $session->retrieve(self::STORAGE_KEY);
 
         if (!($this->_instance instanceof IMP_Ftree)) {
             $this->_instance = new IMP_Ftree();
@@ -83,12 +68,7 @@ implements Horde_Shutdown_Task
 
         /* Only need to store the object if the tree has changed. */
         if ($this->_instance->changed) {
-            $cache = $this->_injector->getInstance('Horde_Cache');
-            if ($cache instanceof Horde_Cache_Null) {
-                $session->store($this->_instance, true, 'imp_tree');
-            } else {
-                $cache->set($session->get('imp', 'treeob'), serialize($this->_instance), 86400);
-            }
+            $session->store($this->_instance, true, self::STORAGE_KEY);
         }
     }
 
