@@ -135,6 +135,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
+        $hash['users'] = Kronolith::listShareUsers($this->_share);
         $hash['show']  = in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
         try {

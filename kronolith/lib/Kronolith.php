@@ -1339,6 +1339,39 @@ class Kronolith
     }
 
     /**
+     * Returns a list of user with read access to a share.
+     *
+     * @param Horde_Share_Object $share  A share object.
+     *
+     * @return array  A hash of share users.
+     */
+    public function listShareUsers($share)
+    {
+        global $injector;
+
+        $users = $share->listUsers(Horde_Perms::READ);
+        $groups = $share->listGroups(Horde_Perms::READ);
+        if (count($groups)) {
+            $horde_group = $injector->getInstance('Horde_Group');
+            foreach ($groups as $group) {
+                $users = array_merge(
+                    $users,
+                    $horde_group->listUsers($group)
+                );
+            }
+        }
+
+        $users = array_flip($users);
+        $factory = $injector->getInstance('Horde_Core_Factory_Identity');
+        foreach (array_keys($users) as $user) {
+            $fullname = $factory->create($user)->getValue('fullname');
+            $users[$user] = strlen($fullname) ? $fullname : $user;
+        }
+
+        return $users;
+    }
+
+    /**
      * Reads a submitted permissions form and updates the share permissions.
      *
      * @param Horde_Share_Object $share  The share to update.

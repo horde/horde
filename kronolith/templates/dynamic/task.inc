@@ -15,38 +15,47 @@
     <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker" class="kronolithDatePicker"') ?>
   </label>
   <label>
-    <?php echo _("at") ?>
+    <?php echo _("at") ?>:
     <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" tabindex="3" />
   </label>
 </div>
 
 <div>
   <label>
+    <?php echo _("Add to") ?>:
+    <select name="task[tasklist]" id="kronolithTaskList" tabindex="4">
+    </select>
+  </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
     <?php echo _("Priority") ?>:
-    <select name="task[priority]" id="kronolithTaskPriority" tabindex="4">
+    <select name="task[priority]" id="kronolithTaskPriority" tabindex="5">
       <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
       <option value="<?php echo $prio ?>"><?php echo $label ?></option>
       <?php endforeach; ?>
     </select>
   </label>
-  <span class="kronolithSeparator">|</span>
-  <label>
-    <?php echo _("Add to") ?>
-    <select name="task[tasklist]" id="kronolithTaskList" tabindex="5">
-    </select>
-  </label>
-  <span class="kronolithSeparator">|</span>
+</div>
+
+<div>
   <label>
     <?php echo _("Parent task") ?>:
     <select name="task[parent]" id="kronolithTaskParent" tabindex="6">
       <option value=""><?php echo _("No parent task") ?></option>
     </select>
   </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
+    <?php echo _("Assignee") ?>:
+    <select name="task[assignee]" id="kronolithTaskAssignee" tabindex="7">
+      <option value=""><?php echo _("None") ?></option>
+    </select>
+  </label>
 </div>
 
 <div>
   <?php echo _("Mark task as") ?>
-  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" tabindex="7" />
+  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" tabindex="8" />
   <label for="kronolithTaskCompleted"><?php echo _("completed") ?></label>
 </div>
 
@@ -61,7 +70,7 @@
 <br class="clear" />
 
 <div id="kronolithTaskTabDescription" class="kronolithTabsOption">
-  <textarea name="task[desc]" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField" tabindex="8"></textarea>
+  <textarea name="task[desc]" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField" tabindex="9"></textarea>
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
@@ -152,8 +161,8 @@
 </div>
 
 <div class="kronolithFormActions">
-  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" tabindex="9" />
-  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" tabindex="10" />
+  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" tabindex="10" />
+  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" tabindex="11" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 

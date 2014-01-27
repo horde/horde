@@ -130,6 +130,7 @@ abstract class Kronolith_Calendar
             'name'  => $this->name(),
             'desc'  => $this->description(),
             'owner' => true,
+            'users' => array(),
             'fg'    => $this->foreground(),
             'bg'    => $this->background(),
         );

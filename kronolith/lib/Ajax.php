@@ -139,6 +139,7 @@ class Kronolith_Ajax
             'hidelog' => _("Hide Notifications"),
             'import_warning' => _("Importing calendar data. This may take a while..."),
             'more' => _("more..."),
+            'no_assignee' => _("None"),
             'no_calendar_title' => _("The calendar title must not be empty."),
             'no_parent' => _("No parent task"),
             'no_tasklist_title' => _("The task list title must not be empty."),

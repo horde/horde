@@ -2613,6 +2613,7 @@ KronolithCore = {
         if (id) {
             RedBox.loading();
             this.updateTaskParentDropDown(tasklist);
+            this.updateTaskAssigneeDropDown(tasklist);
             HordeCore.doAction('getTask', {
                 list: tasklist,
                 id: id
@@ -2625,7 +2626,9 @@ KronolithCore = {
             $('kronolithTaskOldList').clear();
             $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
             this.updateTaskParentDropDown(Kronolith.conf.tasks.default_tasklist);
+            this.updateTaskAssigneeDropDown(Kronolith.conf.tasks.default_tasklist);
             $('kronolithTaskParent').setValue('');
+            $('kronolithTaskAssignee').setValue('');
             //$('kronolithTaskLocation').setValue('http://');
             HordeCore.doAction('listTopTags', {}, {
                 callback: this.topTagsCallback.curry('kronolithTaskTopTags', 'kronolithTaskTag')
@@ -2665,6 +2668,7 @@ KronolithCore = {
         $('kronolithTaskList').setValue(task.l);
         $('kronolithTaskTitle').setValue(task.n);
         $('kronolithTaskParent').setValue(task.p);
+        $('kronolithTaskAssignee').setValue(task.as);
         //$('kronolithTaskLocation').setValue(task.l);
         if (task.dd) {
             $('kronolithTaskDueDate').setValue(task.dd);
@@ -2781,6 +2785,22 @@ KronolithCore = {
                                 .update(task.value.n.escapeHTML()));
                 });
             }.bind(this)
+        });
+    },
+
+    /**
+     * Propagates a SELECT drop down list with the users of a task list.
+     *
+     * @param string list  A task list ID.
+     */
+    updateTaskAssigneeDropDown: function(list)
+    {
+        var assignee = $('kronolithTaskAssignee');
+        assignee.update(new Element('option', { value: '' })
+                       .update(Kronolith.text.no_assignee));
+        $H(Kronolith.conf.calendars.tasklists['tasks/' + list].users).each(function(user) {
+            assignee.insert(new Element('option', { value: user.key })
+                            .update(user.value.escapeHTML()));
         });
     },
 
@@ -2927,7 +2947,6 @@ KronolithCore = {
              Object.isUndefined(Kronolith.conf.calendars[type][cal])) &&
             (type == 'internal' || type == 'tasklists')) {
             HordeCore.doAction('getCalendar', {
-                type: type,
                 cal: cal
             }, {
                 callback: function(r) {
@@ -6779,7 +6798,10 @@ KronolithCore = {
 
         if (Kronolith.conf.has_tasks) {
             $('kronolithTaskDueDate', 'kronolithTaskDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
-            $('kronolithTaskList').observe('change', function() { this.updateTaskParentDropDown($F('kronolithTaskList')); }.bind(this));
+            $('kronolithTaskList').observe('change', function() {
+                this.updateTaskParentDropDown($F('kronolithTaskList'));
+                this.updateTaskAssigneeDropDown($F('kronolithTaskList'));
+            }.bind(this));
         }
 
         document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));

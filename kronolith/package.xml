@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Support task assignees.
 * [jan] Support parent tasks in dynamic view.
 * [jan] Indent sub tasks.
 * [jan] Make shares table compatible with Oracle.
@@ -2247,6 +2248,7 @@
    <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Support task assignees.
 * [jan] Support parent tasks in dynamic view.
 * [jan] Indent sub tasks.
 * [jan] Make shares table compatible with Oracle.
