@@ -766,20 +766,30 @@ class Turba_Api extends Horde_Registry_Api
      * Export a contact, identified by UID, in the requested contentType.
      *
      * @param string $uid            Identify the contact to export.
-     * @param mixed $contentType     What format should the data be in?  Either
-     *                               a string with one of: - text/directory -
-     *                               text/vcard - text/x-vcard The first two
-     *                               produce a vcard3.0 (rfc2426), the second
-     *                               produces a vcard in old 2.1 format
-     *                               defined by imc.org Also supports a raw
-     *                               array
+     * @param mixed $contentType     What format should the data be in?
+     *   - text/directory: Returns RFC2426 vcard3.0
+     *   - text/vcard:     Returns RFC2426 vcard3.0
+     *   - text/x-vcard:   Returns imc.org vcard 2.1 format.
+     *   - array:          Returns a raw array
+     *   - activesync:     Returns a Horde_ActiveSync_Message_Contact:: object
      * @param string|array $sources  The source(s) from which the contact will
      *                               be exported.
      * @param array $fields          Hash of field names and
      *                               Horde_SyncMl_Property properties with the
      *                               requested fields.
      * @param array $options         Any additional options to be passed to the
-     *                               exporter.
+     *                               exporter. Currently supported:
+     *   - skip_empty:       (boolean) {text/vcard or text/x-vcard} Set to
+     *                       true to not output empty properties.
+     *                       DEFAULT: false.
+     *   - protocolversion:  (float) {activesync} The EAS version to support
+     *                       DEFAULT: 2.5
+     *   - bodyprefs:        (array) {activesync} A BODYPREFERENCE array.
+     *                       DEFAULT: none (No body prefs enforced).
+     *   - truncation:       (integer) {activesync} Truncate event body to this
+     *                       length.
+     *                       DEFAULT: none (No truncation).
+     *
      *
      * @return mixed  The requested data.
      * @throws Turba_Exception
