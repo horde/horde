@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-23</date>
+ <date>2014-01-27</date>
  <version>
   <release>2.12.1</release>
   <api>2.12.0</api>
@@ -1926,7 +1926,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-23</date>
+   <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some edge case issues that could cause issues in sending changes to the client.
