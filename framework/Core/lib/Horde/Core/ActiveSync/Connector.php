@@ -337,16 +337,22 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query, array $options = array())
     {
-        if (!$gal = $this->contacts_getGal()) {
+        if ((!$gal = $this->contacts_getGal()) && empty($options['recipient_cache_search'])) {
             return array();
         }
 
         if (!empty($options['recipient_cache_search'])) {
-            $return_fields = array($gal => array('name', 'alias', 'email'));
+            $sources = array_keys($this->_registry->contacts->sources(false, true));
+            $return_fields = array('name', 'alias', 'email');
+            foreach ($sources as $source) {
+                $fields[$source] = array('email');
+            }
         } else {
-            $return_fields = array($gal => array('name', 'alias', 'email', 'firstname', 'lastname',
+            $sources = array($gal);
+            $fields = array();
+            $return_fields = array('name', 'alias', 'email', 'firstname', 'lastname',
                 'company', 'homePhone', 'workPhone', 'cellPhone', 'title',
-                'office'));
+                'office');
         }
         if (!empty($options['pictures'])) {
             $fields[$gal][] = 'photo';
@@ -354,9 +360,9 @@ class Horde_Core_ActiveSync_Connector
         $opts = array(
             'matchBegin' => true,
             'forceSource' => true,
-            'sources' => array($gal),
+            'sources' => $sources,
             'returnFields' => $return_fields,
-            'fields' => !empty($options['recipient_cache_search']) ? array('email') : array()
+            'fields' => $fields
         );
 
         return $this->_registry->contacts->search($query, $opts);
