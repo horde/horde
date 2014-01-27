@@ -309,15 +309,15 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * @return array  The array of user IDs.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         if ($this->_base) {
-            return $this->_base->listUsers();
+            return $this->_base->listUsers($sort);
         }
 
         return $this->hasCapability('list')
             ? $GLOBALS['registry']->callAppMethod($this->_app, 'authUserList')
-            : parent::listUsers();
+            : parent::listUsers($sort);
     }
 
     /**
