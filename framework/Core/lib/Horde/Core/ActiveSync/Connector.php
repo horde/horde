@@ -317,9 +317,25 @@ class Horde_Core_ActiveSync_Connector
             $uid, $action, $addressbook, $this->hasFeature('modseq', 'contacts'));
     }
 
+    /**
+     * Returns the favouriteRecipients data for RI requests.
+     *
+     * @param integer $max  The maximum number of recipients to return.
+     *
+     * @return array  An array of email addresses.
+     */
     public function getRecipientCache($max = 100)
     {
-        return $this->_registry->mail->favouriteRecipients($max);
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $cache_key = 'HCASC:' . $this->_registry->getAuth() . ':' . $max;
+        if (!$cache->exists($cache_key, 3600)) {
+            $results = $this->_registry->mail->favouriteRecipients($max);
+            $cache->set($cache_key, json_encode($results));
+        } else {
+            $results = json_decode($cache->get($cache_key, 3600));
+        }
+
+        return $results;
     }
 
     /**
