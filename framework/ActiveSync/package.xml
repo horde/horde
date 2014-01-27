@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix some edge case issues that could cause issues in sending changes to the client.
 * [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
  </notes>
  <contents>
@@ -1928,6 +1929,7 @@
    <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix some edge case issues that could cause issues in sending changes to the client.
 * [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
    </notes>
   </release>
