@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Do not export empty property names in CardDav responses (Bug #12782).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Export free/busy URL to vCard (Request #12915).
 * [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
@@ -1765,6 +1766,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Do not export empty property names in CardDav responses (Bug #12782).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Export free/busy URL to vCard (Request #12915).
 * [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
