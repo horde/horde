@@ -35,8 +35,8 @@ class Horde_ActiveSync_Folder_RI extends Horde_ActiveSync_Folder_Base implements
      */
     protected $_contacts = array();
     protected $_serverid = 'RI';
-    protected $_removed;
-    protected $_added;
+    protected $_removed = array();
+    protected $_added = array();
 
     /**
      * Flag for indicating we have an initial sync for this collection.
