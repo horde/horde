@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix cloning the HashTable object when a prefix parameter is specified.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -546,7 +546,7 @@ Initial packaging.
    <date>2014-01-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix cloning the HashTable object when a prefix parameter is specified.
    </notes>
   </release>
  </changelog>

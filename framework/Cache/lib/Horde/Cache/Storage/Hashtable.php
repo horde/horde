@@ -44,12 +44,6 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
             throw new InvalidArgumentException('Missing hashtable parameter.');
         }
 
-        if (isset($params['prefix'])) {
-            $params['hashtable'] = clone $params['hashtable'];
-            $params['hashtable']->prefix = $params['prefix'];
-            unset($params['prefix']);
-        }
-
         parent::__construct($params);
     }
 
@@ -58,6 +52,11 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
     protected function _initOb()
     {
         $this->_hash = $this->_params['hashtable'];
+
+        if (isset($this->_params['prefix'])) {
+            $this->_hash = clone $this->_hash;
+            $this->_hash->prefix = $this->_params['prefix'];
+        }
     }
 
     /**
