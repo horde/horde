@@ -292,6 +292,7 @@ extends Horde_Kolab_Storage_Driver_Base
             return parent::getNamespace();
         }
         try {
+            $this->getBackend()->login();
             if ($this->getBackend()->queryCapability('NAMESPACE') === true) {
                 $c = array();
                 $configuration = $this->getParam('namespaces', array());
