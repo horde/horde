@@ -237,7 +237,7 @@ class Turba_Driver implements Countable
         foreach (array_keys($this->fields) as $attribute) {
             if (isset($attributes[$attribute]) &&
                 $attributes[$attribute]['type'] == 'monthdayyear') {
-                $dates[$attribute] = true;
+                $dates[$attribute] = '0000-00-00';
             }
         }
 
