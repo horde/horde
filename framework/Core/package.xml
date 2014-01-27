@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
 * [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
@@ -3295,6 +3296,7 @@
    <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
 * [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
