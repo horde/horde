@@ -40,7 +40,7 @@
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
 * [jan] Store full name in Kolab contacts.
-* [jan] Fix distribution list support in Kolab driver.
+* [jan] Fix distribution list support in Kolab driver (Bug #12450).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
