@@ -1181,7 +1181,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw new Horde_ActiveSync_Exception($e->getMessage());
             }
-            $row = array_pop(array_pop($recipients));
+            if (is_array($recipients)) {
+                $row = array_pop(array_pop($recipients));
+            } else {
+                $row = array();
+            }
             $message = Horde_ActiveSync::messageFactory('RecipientInformation');
             $message->alias = !empty($row['alias']) ? $row['alias'] : $id[0];
             $message->email1address = !empty($row['email']) ? $row['email'] : $id[0];
