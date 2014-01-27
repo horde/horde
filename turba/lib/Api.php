@@ -356,7 +356,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
                 if (in_array('contentlength', $properties)) {
                     try {
-                        $data = $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource());
+                        $data = $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true));
                     } catch (Turba_Exception $e) {
                         $data = '';
                     }
@@ -387,7 +387,7 @@ class Turba_Api extends Horde_Registry_Api
             $contact = $driver->getObject($parts[2]);
 
             $result = array(
-                'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource()),
+                'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true)),
                 'mimetype' => 'text/x-vcard'
             );
             $modified = $this->_modified($contact->getValue('__uid'), $parts[1]);
@@ -823,7 +823,7 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/directory':
                 $export = '';
                 foreach ($result->objects as $obj) {
-                    $vcard = $sdriver->tovCard($obj, $version, $fields);
+                    $vcard = $sdriver->tovCard($obj, $version, $fields, !empty($options['skip_empty']));
                     /* vCards are not enclosed in
                      * BEGIN:VCALENDAR..END:VCALENDAR.  Export the individual
                      * cards instead. */
