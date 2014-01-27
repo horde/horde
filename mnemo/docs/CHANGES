@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 [jan] Make shares table compatible with Oracle.
 [jan] Make notepad checkbox links switches instead of toggles.
 [jan] Replace categories with tags.
