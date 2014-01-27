@@ -171,9 +171,6 @@ case 'save_memo':
             $new_category = $cManager->add($new_category);
             $memo_category = $new_category ? $new_category : '';
         }
-        if (!strlen($memo_passphrase)) {
-            $memo_passphrase = Mnemo::getPassphrase($memo_id);
-        }
 
         /* If $memo_id is set, we're modifying an existing note.  Otherwise,
          * we're adding a new note with the provided attributes. */
@@ -203,8 +200,7 @@ case 'save_memo':
                 }
             }
             $memo_desc = $storage->getMemoDescription($memo_body);
-            if (empty($memo_passphrase) &&
-                Horde_Util::getFormData('memo_encrypt') == 'on') {
+            if (!strlen($memo_passphrase) && Horde_Util::getFormData('memo_encrypt') == 'on') {
                 $memo_passphrase = Mnemo::getPassphrase($memo_id);
             }
             try {
