@@ -69,35 +69,40 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
         }
         while ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_REQUEST)) {
             $req = array();
-            if ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_USERRESPONSE)) {
-                $req['response'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    throw new Horde_ActiveSync_Exception('Protocol Error');
+            while (($tag = ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_USERRESPONSE) ? self::MEETINGRESPONSE_USERRESPONSE :
+                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_FOLDERID) ? self::MEETINGRESPONSE_FOLDERID :
+                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_REQUESTID) ? self::MEETINGRESPONSE_REQUESTID : -1)))) != -1) {
+
+                switch ($tag) {
+                case self::MEETINGRESPONSE_USERRESPONSE:
+                    $req['response'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
+                case self::MEETINGRESPONSE_FOLDERID:
+                    $req['folderid'] = $this->_activeSync->getCollectionsObject()
+                        ->getBackendIdForFolderUid($this->_decoder->getElementContent());
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
+                case self::MEETINGRESPONSE_REQUESTID:
+                    $req['requestid'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
                 }
             }
-
-            if ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_FOLDERID)) {
-                $req['folderid'] = $this->_activeSync->getCollectionsObject()
-                    ->getBackendIdForFolderUid(
-                        $this->_decoder->getElementContent());
-                if (!$this->_decoder->getElementEndTag()) {
-                    throw new Horde_ActiveSync_Exception('Protocol Error');
-                }
-            }
-
-            if ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_REQUESTID)) {
-                $req['requestid'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    throw new Horde_ActiveSync_Exception('Protocol Error');
-                }
-            }
-
+            $requests[] = $req;
+            // </self::MEETINGRESPONSE_REQUEST>
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
-            $requests[] = $req;
         }
 
+        // </self::MEETINGRESPONSE>
         if (!$this->_decoder->getElementEndTag()) {
             throw new Horde_ActiveSync_Exception('Protocol Error');
         }
@@ -136,4 +141,5 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
 
         return true;
     }
+
 }
