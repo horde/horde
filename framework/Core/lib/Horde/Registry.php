@@ -467,8 +467,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Import and global Horde's configuration values. Almost a chicken
-         * and egg issue - since loadConfiguration() uses registry in certain
-         * instances. However, if HORDE_BASE is defined, and app is
+         * and egg issue - since Horde#loadConfiguration() uses registry in
+         * certain instances. However, if HORDE_BASE is defined, and app is
          * 'horde', registry is not used in the method so we are free to
          * call it here (prevents us from duplicating a bunch of code). */
         $this->importConfig('horde');
@@ -477,6 +477,10 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* The basic framework is up and loaded, so set the init flag. */
         $this->hordeInit = true;
 
+        /* Set the error reporting level in accordance with the config
+         * settings. */
+        error_reporting($conf['debug_level']);
+
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
@@ -484,13 +488,9 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Set the maximum execution time in accordance with the config
          * settings, but only if not running from the CLI */
-        if (!Horde_Cli::runningFromCLI()) {
+        if (!isset($GLOBALS['cli'])) {
             set_time_limit($conf['max_exec_time']);
         }
-
-        /* Set the error reporting level in accordance with the config
-         * settings. */
-        error_reporting($conf['debug_level']);
 
         /* Set the umask according to config settings. */
         if (isset($conf['umask'])) {
@@ -498,32 +498,34 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Get modified time of registry files. */
-        $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
-                               filemtime(HORDE_BASE . '/config/registry.d'));
+        $regfiles = array(
+            HORDE_BASE . '/config/registry.php',
+            HORDE_BASE . '/config/registry.d'
+        );
         if (file_exists(HORDE_BASE . '/config/registry.local.php')) {
-            $this->_regmtime = max($this->_regmtime, filemtime(HORDE_BASE . '/config/registry.local.php'));
+            $regfiles[] = HORDE_BASE . '/config/registry.local.php';
         }
         if (!empty($conf['vhosts'])) {
             $vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
             if (file_exists($vhost)) {
-                $this->vhost = $vhost;
-                $this->_regmtime = max($this->_regmtime, filemtime($vhost));
+                $regfiles[] = $this->vhost = $vhost;
             }
         }
+        $this->_regmtime = max(array_map('filemtime', $regfiles));
 
         /* Start a session. */
         if ($session_flags & self::SESSION_NONE) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $GLOBALS['session'] = $session = new Horde_Session_Null();
+            $session = new Horde_Session_Null();
             $session->setup(true, $args['session_cache_limiter']);
-        } elseif (PHP_SAPI == 'cli' ||
-                  ((PHP_SAPI == 'cgi' || PHP_SAPI == 'cgi-fcgi') &&
-                    empty($_SERVER['SERVER_NAME']))) {
-            $GLOBALS['session'] = $session = new Horde_Session();
+        } elseif ((PHP_SAPI === 'cli') ||
+                  (empty($_SERVER['SERVER_NAME']) &&
+                   ((PHP_SAPI === 'cgi') || (PHP_SAPI === 'cgi-fcgi')))) {
+            $session = new Horde_Session();
             $session->setup(false, $args['session_cache_limiter']);
         } else {
-            $GLOBALS['session'] = $session = new Horde_Session();
+            $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
@@ -532,6 +534,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             }
         }
         $injector->setInstance('Horde_Session', $session);
+        $GLOBALS['session'] = $session;
 
         /* Always need to load applications information. */
         $this->_loadApplications();
@@ -547,25 +550,24 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
 
-        /* Initialize notification object. Always attach status listener by
-         * default. */
-        $notify_class = null;
-        switch ($this->getView()) {
-        case self::VIEW_DYNAMIC:
-            $notify_class = 'Horde_Core_Notification_Listener_DynamicStatus';
-            break;
-
-        case self::VIEW_SMARTMOBILE:
-            $notify_class = 'Horde_Core_Notification_Listener_SmartmobileStatus';
-            break;
-        }
-
         /* Initialize global page output object. */
         $GLOBALS['page_output'] = $injector->getInstance('Horde_PageOutput');
 
+        /* Initialize notification object. Always attach status listener by
+         * default. */
+        $nclass = null;
+        switch ($this->getView()) {
+        case self::VIEW_DYNAMIC:
+            $nclass = 'Horde_Core_Notification_Listener_DynamicStatus';
+            break;
+
+        case self::VIEW_SMARTMOBILE:
+            $nclass = 'Horde_Core_Notification_Listener_SmartmobileStatus';
+            break;
+        }
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
-        $GLOBALS['notification']->attach('status', null, $notify_class);
+        $GLOBALS['notification']->attach('status', null, $nclass);
 
         Horde_Shutdown::add($this);
     }
@@ -604,7 +606,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     }
 
     /**
-     * TODO
+     * A property call to the registry object will return a Caller object.
      */
     public function __get($api)
     {
