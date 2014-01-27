@@ -126,17 +126,16 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     }
 
     /**
-     * Return a JSON object representing the requested event.
+     * Returns a JSON object representing the requested event.
+     *
      * Request variables used:
-     *<pre>
-     *  -cal    The calendar id
-     *  -id     The event id
-     *  -date   The date of the event we are requesting [OPTIONAL]
-     *  -rsd    The event start date of the instance of a recurring event, if
+     *  - cal:  The calendar id
+     *  - id:   The event id
+     *  - date: The date of the event we are requesting [OPTIONAL]
+     *  - rsd:  The event start date of the instance of a recurring event, if
      *          requesting a specific instance.
-     *  -red    The event end date of the instance of a recurring event, if
+     *  - red:  The event end date of the instance of a recurring event, if
      *          requesting a specific instance.
-     *</pre>
      */
     public function getEvent()
     {
