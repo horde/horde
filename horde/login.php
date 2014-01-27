@@ -96,10 +96,11 @@ if ($logout_reason) {
             exit;
         }
         $is_auth = null;
+
+        $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
+        Horde::logMessage($entry, 'NOTICE');
     }
 
-    $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
-    Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
 
     /* Reset notification handler now, since it may still be using a status
