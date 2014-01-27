@@ -680,7 +680,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             $pack = $injector->getInstance('Horde_Pack');
 
             if (($cid = $this->_cacheId()) &&
-                ($cdata = $cache->get($cid))) {
+                ($cdata = $cache->get($cid, 0))) {
                 try {
                     $cdata = $pack->unpack($cdata);
                     $this->applications = $cdata[0];
