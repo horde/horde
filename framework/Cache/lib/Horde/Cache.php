@@ -68,6 +68,8 @@ class Horde_Cache
     /**
      * Attempts to directly output a cached object.
      *
+     * @todo Change default lifetime to 0
+     *
      * @param string $key        Object ID to query.
      * @param integer $lifetime  Lifetime of the object in seconds.
      *
@@ -86,6 +88,8 @@ class Horde_Cache
 
     /**
      * Retrieve cached data.
+     *
+     * @todo Change default lifetime to 0
      *
      * @param string $key        Object ID to query.
      * @param integer $lifetime  Lifetime of the object in seconds.
@@ -131,6 +135,8 @@ class Horde_Cache
     /**
      * Checks if a given key exists in the cache, valid for the given
      * lifetime.
+     *
+     * @todo Change default lifetime to 0
      *
      * @param string $key        Cache key to check.
      * @param integer $lifetime  Lifetime of the key in seconds.
