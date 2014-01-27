@@ -1183,6 +1183,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if (is_array($recipients)) {
                 $row = array_pop(array_pop($recipients));
+                if (!count($row)) {
+                    $row = array();
+                }
             } else {
                 $row = array();
             }
