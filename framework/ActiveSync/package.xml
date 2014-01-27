@@ -12,7 +12,7 @@
  </lead>
  <date>2014-01-27</date>
  <version>
-  <release>2.12.1</release>
+  <release>2.12.2</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix some edge case issues that could cause issues in sending changes to the client.
-* [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1931,6 +1930,19 @@
    <notes>
 * [mjr] Fix some edge case issues that could cause issues in sending changes to the client.
 * [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-01-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
