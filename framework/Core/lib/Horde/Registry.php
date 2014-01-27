@@ -125,6 +125,13 @@ class Horde_Registry implements Horde_Shutdown_Task
     protected $_args = array();
 
     /**
+     * Cached textdomain bindings.
+     *
+     * @var array
+     */
+    protected $_bindCache = array();
+
+    /**
      * Cached configuration information.
      *
      * @var array
@@ -2705,12 +2712,17 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function setTextdomain($app, $directory)
     {
-        bindtextdomain($app, $directory);
-        textdomain($app);
+        if (isset($this->_bindCache[$app])) {
+            textdomain($app);
+        } else {
+            bindtextdomain($app, $directory);
+            textdomain($app);
 
-        /* The existence of this function depends on the platform. */
-        if (function_exists('bind_textdomain_codeset')) {
-            bind_textdomain_codeset($app, 'UTF-8');
+            /* The existence of this function depends on the platform. */
+            if (function_exists('bind_textdomain_codeset')) {
+                bind_textdomain_codeset($app, 'UTF-8');
+            }
+            $this->_bindCache[$app] = true;
         }
     }
 
