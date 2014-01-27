@@ -1874,7 +1874,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 // Need the message if we are saving to sent.
                 if ($save) {
-                    $copy = $raw_message->getMimeObject();
+                    $copy = $raw_message->getString();
                 }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -1976,7 +1976,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 if ($save) {
-                    $copy = $mail->getBasePart();
+                    $copy = $mail->getBasePart()->toString(array('stream' => true));
                 }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -1992,11 +1992,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_pid,
                     $sf));
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                if ($headers->getValue('Content-Transfer-Encoding')) {
-                    $copy->setTransferEncoding($headers->getValue('Content-Transfer-Encoding'), array('send' => true));
-                }
-                $headers = $copy->addMimeHeaders(array('headers' => $headers));
-                $msg = $copy->toString(array('headers' => $headers->toString(array('charset' => 'UTF-8')), 'stream' => true));
+                $msg = $raw_message->getString();
 
                 // Ignore issues sending to sent, in case the folder isn't
                 // available.
