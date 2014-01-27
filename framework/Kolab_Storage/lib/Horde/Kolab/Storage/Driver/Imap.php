@@ -228,8 +228,8 @@ extends Horde_Kolab_Storage_Driver_Base
 
         try {
             foreach ($this->listFolders() as $val) {
-                if (strlen($res = $this->getAnnotation($val, $annotation))) {
-                    $data[$folder] = $res;
+                if (strlen($res = $this->getAnnotation((string)$val, $annotation))) {
+                    $data[(string)$val] = $res;
                 }
             }
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
