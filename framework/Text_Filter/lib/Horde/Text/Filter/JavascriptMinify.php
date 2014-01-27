@@ -68,7 +68,7 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
      *
      * @return string  The modified text.
      */
-    protected function _runCompressor($jar, $args = '')
+    protected function _runCompressor($text, $jar, $args = '')
     {
         if (!is_executable($this->_params['java']) ||
             !file_exists($jar)) {
