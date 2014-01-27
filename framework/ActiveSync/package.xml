@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1928,7 +1928,7 @@
    <date>2014-01-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix handling MEETING_RESPONSE requests for certain broken clients (Bug #12934).
    </notes>
   </release>
  </changelog>
