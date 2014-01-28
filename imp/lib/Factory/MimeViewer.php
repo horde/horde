@@ -105,6 +105,8 @@ class IMP_Factory_MimeViewer extends Horde_Core_Factory_MimeViewer
         list($driver, $params) = parent::getViewerConfig($type, $app);
 
         switch ($driver) {
+        case 'Horde_Mime_Viewer_Report':
+        case 'Horde_Mime_Viewer_Security':
         case 'Report':
         case 'Security':
             $params['viewer_callback'] = array($this, 'createCallback');
