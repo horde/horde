@@ -40,7 +40,8 @@ class Horde_Registry_Nlsconfig
         }
 
         if (!isset($this->_config)) {
-            $this->_config = Horde::loadConfiguration('nls.php', 'horde_nls_config', 'horde');
+            $nls_conf = new Horde_Registry_Loadconfig('horde', 'nls.php', 'horde_nls_config');
+            $this->_config = $nls_conf->config['horde_nls_config'];
         }
 
         switch ($name) {

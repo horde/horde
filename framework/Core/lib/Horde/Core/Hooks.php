@@ -84,7 +84,7 @@ class Horde_Core_Hooks
             $hook_class = $app . '_Hooks';
             if (!class_exists($hook_class, false)) {
                 try {
-                    Horde::loadConfiguration('hooks.php', null, $app);
+                    new Horde_Registry_Loadconfig($app, 'hooks.php');
                     $this->_apps[$app] = new $hook_class;
                 } catch (Horde_Exception $e) {}
             }

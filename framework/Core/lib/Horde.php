@@ -275,144 +275,6 @@ class Horde
     }
 
     /**
-     * Loads global and vhost specific configuration files.
-     *
-     * @param string $config_file      The name of the configuration file.
-     * @param string|array $var_names  The name(s) of the variable(s) that
-     *                                 is/are defined in the configuration
-     *                                 file.
-     * @param string $app              The application. Defaults to the current
-     *                                 application.
-     * @param boolean $show_output     If true, the contents of the requested
-     *                                 config file are simply output instead of
-     *                                 loaded into a variable.
-     *
-     * @return mixed  The value of $var_names, in a compact()'ed array if
-     *                $var_names is an array.
-     * @throws Horde_Exception
-     */
-    static public function loadConfiguration($config_file, $var_names = null,
-                                             $app = null, $show_output = false)
-    {
-        global $registry;
-
-        if (is_null($app)) {
-            $app = $registry->getApp();
-        }
-
-        // Track if we've included some version (main or vhosted) of
-        // the config file.
-        $filelist = array();
-        $was_included = false;
-
-        // Load global configuration file.
-        $config_dir = (($app == 'horde') && defined('HORDE_BASE'))
-            ? HORDE_BASE . '/config/'
-            : $registry->get('fileroot', $app) . '/config/';
-        $base_path = $file = $config_dir . $config_file;
-        if (file_exists($file)) {
-            $filelist[$file] = 1;
-        }
-
-        // Load global configuration stanzas in .d directory
-        $directory = preg_replace('/\.php$/', '.d', $base_path);
-        if (file_exists($directory) &&
-            is_dir($directory) &&
-            ($sub_files = glob("$directory/*.php"))) {
-            foreach ($sub_files as $val) {
-                $filelist[$val] = 0;
-            }
-        }
-
-        // Load local version of configuration file
-        $file = substr($file, 0, strrpos($file, '.')) . '.local'
-            . substr($file, strrpos($file, '.'));
-        if (file_exists($file)) {
-            $filelist[$file] = 0;
-        }
-
-        // Load vhost configuration file. The vhost conf.php for Horde is added
-        // later though, because the vhost configuration variable is not
-        // available at this point.
-        $vhost_added = false;
-        if (!empty($GLOBALS['conf']['vhosts'])) {
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $GLOBALS['conf']['server']['name'] . '.php';
-
-            if (file_exists($file)) {
-                $filelist[$file] = 0;
-            }
-            $vhost_added = true;
-        }
-
-        /* We need to use a while-loop here because we modify $filelist inside
-         * the loop. */
-        while (list($file, $log_check) = each($filelist)) {
-            /* If we are not exporting variables located in the configuration
-             * file, or we are not capturing the output, then there is no
-             * need to load the configuration file more than once. */
-            self::startBuffer();
-            $success = (is_null($var_names) && !$show_output)
-                ? include_once $file
-                : include $file;
-            $output = self::endBuffer();
-
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-            }
-
-            if (!empty($output) && !$show_output) {
-                /* Horde 3 -> 4 conversion checking. This is the only place
-                 * to catch PEAR_LOG errors. */
-                if ($log_check &&
-                    isset($conf['log']['priority']) &&
-                    (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
-                    $conf['log']['priority'] = 'INFO';
-                    self::log('Logging priority is using the old PEAR_LOG constant', 'INFO');
-                } else {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
-                }
-            }
-
-            // Load vhost conf.php for Horde now if necessary.
-            if (!$vhost_added &&
-                $app == 'horde' &&
-                $config_file == 'conf.php') {
-                if (!empty($conf['vhosts'])) {
-                    $file = $config_dir . 'conf-' . $conf['server']['name'] . '.php';
-                    if (file_exists($file)) {
-                        $filelist[$file] = 0;
-                    }
-                }
-                $vhost_added = true;
-            }
-
-            $was_included = true;
-        }
-
-        // Return an error if neither main or vhosted versions of the config
-        // file exist.
-        if (!$was_included) {
-            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $base_path));
-        }
-
-        if (isset($output) && $show_output) {
-            echo $output;
-        }
-
-        self::log('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
-
-        if (is_null($var_names)) {
-            return;
-        } elseif (is_array($var_names)) {
-            return compact($var_names);
-        } elseif (isset($$var_names)) {
-            return $$var_names;
-        }
-
-        return array();
-    }
-
-    /**
      * Returns the driver parameters for the specified backend.
      *
      * @param mixed $backend  The backend system (e.g. 'prefs', 'categories',
@@ -1507,6 +1369,53 @@ class Horde
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
             ->hookExists($hook, $app);
+    }
+
+    /**
+     * Loads global and vhost specific configuration files.
+     *
+     * @deprecated  Use Horde_Registry_Loadconfig instead.
+     *
+     * @param string $config_file      The name of the configuration file.
+     * @param string|array $var_names  The name(s) of the variable(s) that
+     *                                 is/are defined in the configuration
+     *                                 file.
+     * @param string $app              The application. Defaults to the current
+     *                                 application.
+     * @param boolean $show_output     If true, the contents of the requested
+     *                                 config file are simply output instead of
+     *                                 loaded into a variable.
+     *
+     * @return mixed  The value of $var_names, in a compact()'ed array if
+     *                $var_names is an array.
+     * @throws Horde_Exception
+     */
+    static public function loadConfiguration($config_file, $var_names = null,
+                                             $app = null, $show_output = false)
+    {
+        global $registry;
+
+        if (is_null($app)) {
+            $app = $registry->getApp();
+        }
+
+        $app_conf = new Horde_Registry_Loadconfig(
+            $app,
+            $config_file,
+            $var_names
+        );
+
+        if ($show_output) {
+            echo $app_conf->output;
+        }
+
+        if (is_null($var_names)) {
+            return;
+        }
+
+        return is_array($var_names)
+            ? array_intersect_key($app_conf->config, array_flip($var_names))
+            : $app_conf->config[$var_names];
     }
 
 }

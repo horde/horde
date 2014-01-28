@@ -29,13 +29,13 @@ class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage_Base
         /* Read the configuration file.
          * Values are in the $_prefs array. */
         try {
-            $result = Horde::loadConfiguration('prefs.php', array('_prefs'), $scope_ob->scope);
+            $pconf = new Horde_Registry_Loadconfig($scope_ob->scope, 'prefs.php', '_prefs');
         } catch (Horde_Exception $e) {
             return $scope_ob;
         }
 
-        if (!empty($result) && isset($result['_prefs'])) {
-            foreach ($result['_prefs'] as $name => $pref) {
+        if (isset($pconf->config['_prefs'])) {
+            foreach ($pconf->config['_prefs'] as $name => $pref) {
                 if (!isset($pref['value'])) {
                     continue;
                 }

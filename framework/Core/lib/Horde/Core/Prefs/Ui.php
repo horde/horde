@@ -752,9 +752,16 @@ class Horde_Core_Prefs_Ui
     protected function _loadPrefs($app, $data = false)
     {
         try {
-            $res = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app);
+            $pconf = new Horde_Registry_Loadconfig($app, 'prefs.php', array('prefGroups', '_prefs'));
+            $res = array(
+                'prefGroups' => $pconf->config['prefGroups'],
+                '_prefs' => $pconf->config['_prefs'],
+            );
         } catch (Horde_Exception $e) {
-            $res = array('prefGroups' => array(), '_prefs' => array());
+            $res = array(
+                'prefGroups' => array(),
+                '_prefs' => array()
+            );
         }
 
         if ($data) {

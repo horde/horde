@@ -473,11 +473,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
         }
 
-        /* Import and global Horde's configuration values. Almost a chicken
-         * and egg issue - since Horde#loadConfiguration() uses registry in
-         * certain instances. However, if HORDE_BASE is defined, and app is
-         * 'horde', registry is not used in the method so we are free to
-         * call it here (prevents us from duplicating a bunch of code). */
+        /* Import and global Horde's configuration values. */
         $this->importConfig('horde');
         $conf = $GLOBALS['conf'];
 
@@ -1661,7 +1657,8 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         if (!isset($this->_confCache[$app])) {
             try {
-                $config = Horde::loadConfiguration('conf.php', 'conf', $app);
+                $app_conf = new Horde_Registry_Loadconfig($app, 'conf.php', 'conf');
+                $config = $app_conf->config['conf'];
             } catch (Horde_Exception $e) {
                 $config = null;
             }

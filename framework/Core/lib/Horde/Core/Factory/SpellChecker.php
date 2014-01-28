@@ -60,9 +60,10 @@ class Horde_Core_Factory_SpellChecker extends Horde_Core_Factory_Base
 
         /* Add local dictionary words. */
         try {
+            $sconf = new Horde_Registry_Loadconfig('horde', 'spelling.php', 'ignore_list');
             $args['localDict'] = array_merge(
                 $args['localDict'],
-                Horde::loadConfiguration('spelling.php', 'ignore_list', 'horde')
+                $sconf->config['ignore_list']
             );
         } catch (Horde_Exception $e) {}
 
