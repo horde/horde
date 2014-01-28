@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] More fixes for handling meeting responses sent by Outlook (Bug #12934).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1942,7 +1942,7 @@
    <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] More fixes for handling meeting responses sent by Outlook (Bug #12934).
    </notes>
   </release>
  </changelog>
