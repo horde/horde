@@ -109,8 +109,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
                 $showimg = $GLOBALS['injector']->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
-                /* For mimp - allow rendering of attachments inline (on the
-                 * view parts page). */
+                /* For minimal view - allow rendering of attachments inline
+                 * (on the view parts page). */
                 $showimg = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL);
             }
 
