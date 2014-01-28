@@ -93,11 +93,6 @@ var IMP_JS = {
 
         var d = id.contentWindow.document;
 
-        id.observe('load', function(i) {
-            i.stopObserving('load');
-            this.iframeResize.bind(this, i).delay(0.1);
-        }.bind(this, id));
-
         d.open();
         d.write(data);
         d.close();
@@ -111,18 +106,25 @@ var IMP_JS = {
         }
 
         id.show().previous().remove();
-
         this.iframeResize(id);
     },
 
     iframeResize: function(id)
     {
+        var lc;
+
         if (id = $(id)) {
+            lc = id.contentWindow.document.lastChild;
+
             id.setStyle({
                 height: 'auto'
             }).setStyle({
-                height: id.contentWindow.document.lastChild.scrollHeight + 'px'
+                height: lc.scrollHeight + 'px'
             });
+
+            if (lc.scrollHeight != lc.clientHeight) {
+                id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
+            }
         }
     },
 
