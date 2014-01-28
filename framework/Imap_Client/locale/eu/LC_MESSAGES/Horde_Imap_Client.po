@@ -23,10 +23,6 @@ msgstr ""
 msgid "%s not supported on POP3 servers."
 msgstr "ACL ez dago konfiguratuta zerbitzari honetarako."
 
-#: lib/Horde/Imap/Client/Socket.php:4380
-msgid "Authentication credentials have expired."
-msgstr ""
-
 #: lib/Horde/Imap/Client/Socket.php:4364
 msgid "Authentication failed."
 msgstr "Autentifikazioak huts egin du."
@@ -34,26 +30,6 @@ msgstr "Autentifikazioak huts egin du."
 #: lib/Horde/Imap/Client/Auth/DigestMD5.php:149
 msgid "Authentication failure."
 msgstr "Huts egitea autentifikazioan."
-
-#: lib/Horde/Imap/Client/Socket.php:4372
-msgid "Authentication was successful, but authorization failed."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Interaction/Server/Tagged.php:34
-msgid "Bad tagged response."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Exception/SearchCharset.php:36
-msgid "Cannot convert search query text to new charset"
-msgstr ""
-
-#: lib/Horde/Imap/Client/Base.php:1899 lib/Horde/Imap/Client/Base.php:1958
-msgid "Cannot expunge read-only mailbox."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:4165
-msgid "Charset used in search query is not supported on the mail server."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:931
 #, php-format
@@ -88,24 +64,9 @@ msgstr "Errorea POP3 zerbitzariarekin konektatzean."
 msgid "Error connecting to mail server."
 msgstr "Errorea posta-zerbitzariarekin konektatzean."
 
-#: lib/Horde/Imap/Client/Utf7imap.php:117
-#: lib/Horde/Imap/Client/Utf7imap.php:142
-#: lib/Horde/Imap/Client/Utf7imap.php:146
-#: lib/Horde/Imap/Client/Utf7imap.php:205
-#: lib/Horde/Imap/Client/Utf7imap.php:222
-#: lib/Horde/Imap/Client/Utf7imap.php:226
-#: lib/Horde/Imap/Client/Utf7imap.php:234
-#: lib/Horde/Imap/Client/Utf7imap.php:240
-msgid "Error converting UTF7-IMAP string."
-msgstr ""
-
 #: lib/Horde/Imap/Client/Socket.php:3683 lib/Horde/Imap/Client/Socket.php:3964
 msgid "Error when communicating with the mail server."
 msgstr "Errorea posta-zerbitzariarekin komunikatzean."
-
-#: lib/Horde/Imap/Client/Socket.php:3838
-msgid "IMAP Server closed the connection."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:3823 lib/Horde/Imap/Client/Socket.php:3854
 msgid "IMAP error reported by server."
@@ -115,15 +76,6 @@ msgstr "Zerbitzariak IMAP errorea eman du."
 #, fuzzy, php-format
 msgid "Invalid METADATA entry: \"%s\"."
 msgstr "Sarrera ez da baliozkoa"
-
-#: lib/Horde/Imap/Client/Socket.php:3476
-#, php-format
-msgid "Invalid METADATA value type \"%s\"."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:3890
-msgid "Mail server closed the connection unexpectedly."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:395
 #, fuzzy
@@ -136,18 +88,6 @@ msgstr "Erabiltzailea ez dago autentifikatuta."
 #, fuzzy
 msgid "Mailbox does not support mod-sequences."
 msgstr "Ez dago %s postontzirik."
-
-#: lib/Horde/Imap/Client/Socket.php:378
-msgid "No supported IMAP authentication method could be found."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:4388
-msgid "Operation failed due to a lack of a secure connection."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket/Pop3.php:1096
-msgid "POP3 Server closed the connection unexpectedly."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket/Pop3.php:1156
 msgid "POP3 error reported by server."
@@ -172,18 +112,6 @@ msgstr "Zerbitzariak ez du onartzen ACLrik."
 #, fuzzy
 msgid "Server does not support secure connections."
 msgstr "Zerbitzariak ez du onartzen ACLrik."
-
-#: lib/Horde/Imap/Client/Socket.php:527
-msgid "Server rejected connection."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:3748
-msgid "Server write error."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:4309
-msgid "The comparison algorithm was not recognized by the server."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:536
 #, fuzzy
@@ -214,12 +142,6 @@ msgstr "Zerbitzariak ezin izan du mezu-zerrenda sortu."
 #, fuzzy
 msgid "The metadata item could not be saved because it is too large."
 msgstr "Mezu-zati hau ezin da bistaratu, handiegia delako."
-
-#: lib/Horde/Imap/Client/Socket.php:4345
-msgid ""
-"The metadata item could not be saved because the maximum number of "
-"annotations has been exceeded."
-msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:4336
 #, fuzzy
