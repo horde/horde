@@ -34,7 +34,7 @@ $mime_drivers = array(
         /* Scans the text for inline PGP data. If true, will strip this data
          * out of the output (and, if PGP is active, will display the
          * results of the PGP action). */
-        'pgp_inline' => true,
+        'pgp_inline' => false,
 
         /* If you want to scan ALL incoming text/plain messages for UUencoded
          * data, set the following to true. This is very performance intensive
