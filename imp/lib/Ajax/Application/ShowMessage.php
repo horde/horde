@@ -331,13 +331,13 @@ class IMP_Ajax_Application_ShowMessage
                 $summary = $this->_contents->getSummary($id, $contents_mask);
                 $tmp = array();
                 foreach ($part_info as $val) {
-                    if (strlen($summary[$val])) {
+                    if (isset($summary[$val])) {
                         $tmp[$val] = ($summary[$val] instanceof Horde_Url)
                             ? strval($summary[$val]->setRaw(true))
                             : $summary[$val];
                     }
                 }
-                $partlist[] = $tmp;
+                $partlist[] = array_filter($tmp);
             }
 
             $result['atc_list'] = $partlist;
