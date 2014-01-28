@@ -1,11 +1,14 @@
 <?php
 /**
- * @package Translation
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Translation
  */
 
 /**
@@ -13,8 +16,11 @@
  * libraries that want to utilize the Horde_Translation library for
  * translations.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Translation
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Translation
  */
 abstract class Horde_Translation
 {
@@ -108,4 +114,21 @@ abstract class Horde_Translation
         }
         return self::$_handlers[self::$_domain]->ngettext($singular, $plural, $number);
     }
+
+    /**
+     * Allows a gettext string to be defined and recognized as a string by
+     * the horde translation utilities, but no translation is actually
+     * performed.
+     *
+     * @since 2.1.0
+     *
+     * @param string $message  The string to translate.
+     *
+     * @return string  The unaltered string.
+     */
+    static public function gettext_define($message)
+    {
+        return $message;
+    }
+
 }
