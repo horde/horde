@@ -300,7 +300,9 @@ class Horde_Session
      */
     public function destroy()
     {
-        session_destroy();
+        if (isset($_SESSION)) {
+            session_destroy();
+        }
         $this->_cleansession = true;
         $GLOBALS['injector']->getInstance('Horde_Secret')->clearKey();
     }
