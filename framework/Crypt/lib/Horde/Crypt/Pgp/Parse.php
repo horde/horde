@@ -106,9 +106,8 @@ class Horde_Crypt_Pgp_Parse
         }
 
         while (!$stream->eof()) {
-            $val = $stream->getToChar("\n", false);
+            $val = rtrim($stream->getToChar("\n", false), "\r");
             if ((strpos($val, '-----') === 0) &&
-                ($val = rtrim($val, "\r")) &&
                 preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
                 if (isset($temp['data'])) {
                     $data[] = $temp;
