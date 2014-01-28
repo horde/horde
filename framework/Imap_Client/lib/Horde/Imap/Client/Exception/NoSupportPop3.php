@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Exception_NoSupportPop3 extends Horde_Imap_Client_Exception
+class Horde_Imap_Client_Exception_NoSupportPop3
+extends Horde_Imap_Client_Exception
 {
     /**
      * Constructor.
@@ -30,7 +31,7 @@ class Horde_Imap_Client_Exception_NoSupportPop3 extends Horde_Imap_Client_Except
     public function __construct($feature)
     {
         parent::__construct(
-            sprintf(Horde_Imap_Client_Translation::t("%s not supported on POP3 servers."), $feature),
+            sprintf(Horde_Imap_Client_Translation::gettext_define("%s not supported on POP3 servers."), $feature),
             self::NOT_SUPPORTED
         );
     }

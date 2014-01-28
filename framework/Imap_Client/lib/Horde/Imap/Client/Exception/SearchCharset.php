@@ -21,7 +21,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Exception_SearchCharset extends Horde_Imap_Client_Exception
+class Horde_Imap_Client_Exception_SearchCharset
+extends Horde_Imap_Client_Exception
 {
     /**
      * Charset that was attempted to be converted to.
@@ -41,7 +42,7 @@ class Horde_Imap_Client_Exception_SearchCharset extends Horde_Imap_Client_Except
         $this->charset = $charset;
 
         parent::__construct(
-            Horde_Imap_Client_Translation::t("Cannot convert search query text to new charset"),
+            Horde_Imap_Client_Translation::gettext_define("Cannot convert search query text to new charset"),
             self::BADCHARSET
         );
     }

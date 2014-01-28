@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Interaction_Server_Tagged extends Horde_Imap_Client_Interaction_Server
+class Horde_Imap_Client_Interaction_Server_Tagged
+extends Horde_Imap_Client_Interaction_Server
 {
     /**
      * Tag.
@@ -39,7 +40,9 @@ class Horde_Imap_Client_Interaction_Server_Tagged extends Horde_Imap_Client_Inte
         parent::__construct($token);
 
         if (is_null($this->status)) {
-            throw new Horde_Imap_Client_Exception(Horde_Imap_Client_Translation::t("Bad tagged response."));
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::gettext_define("Bad tagged response.")
+            );
         }
     }
 

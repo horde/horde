@@ -378,7 +378,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* We should never hit this - STARTTLS is required pursuant to
                  * RFC 3501 [6.2.1]. */
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Server does not support TLS connections."),
+                    Horde_Imap_Client_Translation::gettext_define("Server does not support TLS connections."),
                     Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                 );
             }
@@ -390,7 +390,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!$this->_connection->startTls()) {
                 $this->logout();
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Could not open secure TLS connection to the IMAP server."),
+                    Horde_Imap_Client_Translation::gettext_define("Could not open secure TLS connection to the IMAP server."),
                     Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                 );
             }
@@ -466,7 +466,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (empty($auth_mech)) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("No supported IMAP authentication method could be found."),
+                    Horde_Imap_Client_Translation::gettext_define("No supported IMAP authentication method could be found."),
                     Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD
                 );
             }
@@ -539,7 +539,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Default to AUTHENTICATIONFAILED error (see RFC 5530[3]). */
         if (is_null($login_err)) {
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Mail server denied authentication."),
+                Horde_Imap_Client_Translation::gettext_define("Mail server denied authentication."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
             );
         }
@@ -571,7 +571,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         } catch (Horde\Socket\Client\Exception $e) {
             $e2 = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Translation::gettext_define("Error connecting to mail server."),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
             $e2->details = $e->details;
@@ -591,7 +591,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($e->status === Horde_Imap_Client_Interaction_Server::BYE) {
                 /* Server is explicitly rejecting our connection (RFC 3501
                  * [7.1.5]). */
-                $e->setMessage(Horde_Imap_Client_Translation::t("Server rejected connection."));
+                $e->setMessage(Horde_Imap_Client_Translation::gettext_define("Server rejected connection."));
                 $e->setCode(Horde_Imap_Client_Exception::SERVER_CONNECT);
             }
             throw $e;
@@ -600,7 +600,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Check for IMAP4rev1 support
         if (!$this->queryCapability('IMAP4REV1')) {
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("The mail server does not support IMAP4rev1 (RFC 3501)."),
+                Horde_Imap_Client_Translation::gettext_define("The mail server does not support IMAP4rev1 (RFC 3501)."),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
         }
@@ -689,7 +689,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) {
                     if (strpos(base64_decode($ob->token->current()), 'rspauth=') === false) {
                         throw new Horde_Imap_Client_Exception(
-                            Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."),
+                            Horde_Imap_Client_Translation::gettext_define("Unexpected response from server when authenticating."),
                             Horde_Imap_Client_Exception::SERVER_CONNECT
                         );
                     }
@@ -726,7 +726,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         default:
             throw new Horde_Imap_Client_Exception(
-                sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method),
+                sprintf(Horde_Imap_Client_Translation::gettext_define("Unknown authentication method: %s"), $method),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
         }
@@ -1074,7 +1074,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_mode = 0;
                 if (!$e->getCode()) {
                     throw new Horde_Imap_Client_Exception(
-                        sprintf(Horde_Imap_Client_Translation::t("Could not open mailbox \"%s\"."), $mailbox),
+                        sprintf(Horde_Imap_Client_Translation::gettext_define("Could not open mailbox \"%s\"."), $mailbox),
                         Horde_Imap_Client_Exception::MAILBOX_NOOPEN
                     );
                 }
@@ -3679,7 +3679,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         throw new Horde_Imap_Client_Exception(
-            sprintf(Horde_Imap_Client_Translation::t("Invalid METADATA entry: \"%s\"."), $name),
+            sprintf(Horde_Imap_Client_Translation::gettext_define("Invalid METADATA entry: \"%s\"."), $name),
             Horde_Imap_Client_Exception::METADATA_INVALID
         );
     }
@@ -3765,7 +3765,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             default:
                 throw new Horde_Imap_Client_Exception(
-                    sprintf(Horde_Imap_Client_Translation::t("Invalid METADATA value type \"%s\"."), $type),
+                    sprintf(Horde_Imap_Client_Translation::gettext_define("Invalid METADATA value type \"%s\"."), $type),
                     Horde_Imap_Client_Exception::METADATA_INVALID
                 );
             }
@@ -4078,7 +4078,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->_debug->info("ERROR: Unexpected response from server while waiting for a continuation request.");
         $e = new Horde_Imap_Client_Exception(
-            Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
+            Horde_Imap_Client_Translation::gettext_define("Error when communicating with the mail server."),
             Horde_Imap_Client_Exception::SERVER_READERROR
         );
         $e->details = strval($ob);
@@ -4183,7 +4183,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * [7.1.2]). */
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
                 throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
+                    Horde_Imap_Client_Translation::gettext_define("IMAP error reported by server."),
                     0,
                     $server,
                     $pipeline
@@ -4197,7 +4197,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * entire command until logging out (RFC 3501 [3.4; 7.1.5]). */
             if (empty($this->_temp['logout'])) {
                 $e = new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("IMAP Server closed the connection."),
+                    Horde_Imap_Client_Translation::gettext_define("IMAP Server closed the connection."),
                     Horde_Imap_Client_Exception::DISCONNECT
                 );
                 $e->details = strval($server);
@@ -4410,7 +4410,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("Charset used in search query is not supported on the mail server."),
+                Horde_Imap_Client_Translation::gettext_define("Charset used in search query is not supported on the mail server."),
                 Horde_Imap_Client_Exception::BADCHARSET,
                 $ob,
                 $pipeline
@@ -4426,7 +4426,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case Horde_Imap_Client_Interaction_Server::BAD:
             case Horde_Imap_Client_Interaction_Server::NO:
                 throw new Horde_Imap_Client_Exception_ServerResponse(
-                    sprintf(Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message: %s"), strval($ob->token)),
+                    sprintf(Horde_Imap_Client_Translation::gettext_define("The mail server was unable to parse the contents of the mail message: %s"), strval($ob->token)),
                     Horde_Imap_Client_Exception::PARSEERROR,
                     $ob,
                     $pipeline
@@ -4473,7 +4473,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'UNKNOWN-CTE':
             // Defined by RFC 3516
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message."),
+                Horde_Imap_Client_Translation::gettext_define("The mail server was unable to parse the contents of the mail message."),
                 Horde_Imap_Client_Exception::UNKNOWNCTE,
                 $ob,
                 $pipeline
@@ -4507,7 +4507,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'BADURL':
             // Defined by RFC 4469 [4.1]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("Could not save message on server."),
+                Horde_Imap_Client_Translation::gettext_define("Could not save message on server."),
                 Horde_Imap_Client_Exception::CATENATE_BADURL,
                 $ob,
                 $pipeline
@@ -4516,7 +4516,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'TOOBIG':
             // Defined by RFC 4469 [4.2]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("Could not save message data because it is too large."),
+                Horde_Imap_Client_Translation::gettext_define("Could not save message data because it is too large."),
                 Horde_Imap_Client_Exception::CATENATE_TOOBIG,
                 $ob,
                 $pipeline
@@ -4561,7 +4561,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'BADCOMPARATOR':
             // Defined by RFC 5255 [4.9]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The comparison algorithm was not recognized by the server."),
+                Horde_Imap_Client_Translation::gettext_define("The comparison algorithm was not recognized by the server."),
                 Horde_Imap_Client_Exception::BADCOMPARATOR,
                 $ob,
                 $pipeline
@@ -4579,7 +4579,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'MAXSIZE':
                 // Defined by RFC 5464 [4.3]
                 throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("The metadata item could not be saved because it is too large."),
+                    Horde_Imap_Client_Translation::gettext_define("The metadata item could not be saved because it is too large."),
                     Horde_Imap_Client_Exception::METADATA_MAXSIZE,
                     $ob,
                     $pipeline
@@ -4588,7 +4588,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'NOPRIVATE':
                 // Defined by RFC 5464 [4.3]
                 throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("The metadata item could not be saved because the server does not support private annotations."),
+                    Horde_Imap_Client_Translation::gettext_define("The metadata item could not be saved because the server does not support private annotations."),
                     Horde_Imap_Client_Exception::METADATA_NOPRIVATE,
                     $ob,
                     $pipeline
@@ -4597,7 +4597,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'TOOMANY':
                 // Defined by RFC 5464 [4.3]
                 throw new Horde_Imap_Client_Exception_ServerResponse(
-                    Horde_Imap_Client_Translation::t("The metadata item could not be saved because the maximum number of annotations has been exceeded."),
+                    Horde_Imap_Client_Translation::gettext_define("The metadata item could not be saved because the maximum number of annotations has been exceeded."),
                     Horde_Imap_Client_Exception::METADATA_TOOMANY,
                     $ob,
                     $pipeline
@@ -4608,7 +4608,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'UNAVAILABLE':
             // Defined by RFC 5530 [3]
             $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Remote server is temporarily unavailable."),
+                Horde_Imap_Client_Translation::gettext_define("Remote server is temporarily unavailable."),
                 Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE
             );
             break;
@@ -4616,7 +4616,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'AUTHENTICATIONFAILED':
             // Defined by RFC 5530 [3]
             $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Authentication failed."),
+                Horde_Imap_Client_Translation::gettext_define("Authentication failed."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
             );
             break;
@@ -4624,7 +4624,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'AUTHORIZATIONFAILED':
             // Defined by RFC 5530 [3]
             $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Authentication was successful, but authorization failed."),
+                Horde_Imap_Client_Translation::gettext_define("Authentication was successful, but authorization failed."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED
             );
             break;
@@ -4632,7 +4632,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'EXPIRED':
             // Defined by RFC 5530 [3]
             $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Authentication credentials have expired."),
+                Horde_Imap_Client_Translation::gettext_define("Authentication credentials have expired."),
                 Horde_Imap_Client_Exception::LOGIN_EXPIRED
             );
             break;
@@ -4640,7 +4640,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'PRIVACYREQUIRED':
             // Defined by RFC 5530 [3]
             $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Operation failed due to a lack of a secure connection."),
+                Horde_Imap_Client_Translation::gettext_define("Operation failed due to a lack of a secure connection."),
                 Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED
             );
             break;
@@ -4648,7 +4648,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'NOPERM':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("You do not have adequate permissions to carry out this operation."),
+                Horde_Imap_Client_Translation::gettext_define("You do not have adequate permissions to carry out this operation."),
                 Horde_Imap_Client_Exception::NOPERM,
                 $ob,
                 $pipeline
@@ -4657,7 +4657,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'INUSE':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("There was a temporary issue when attempting this operation. Please try again later."),
+                Horde_Imap_Client_Translation::gettext_define("There was a temporary issue when attempting this operation. Please try again later."),
                 Horde_Imap_Client_Exception::INUSE,
                 $ob,
                 $pipeline
@@ -4671,7 +4671,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CORRUPTION':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The mail server is reporting corrupt data in your mailbox."),
+                Horde_Imap_Client_Translation::gettext_define("The mail server is reporting corrupt data in your mailbox."),
                 Horde_Imap_Client_Exception::CORRUPTION,
                 $ob,
                 $pipeline
@@ -4687,7 +4687,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'LIMIT':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The mail server has denied the request."),
+                Horde_Imap_Client_Translation::gettext_define("The mail server has denied the request."),
                 Horde_Imap_Client_Exception::LIMIT,
                 $ob,
                 $pipeline
@@ -4696,7 +4696,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'OVERQUOTA':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The operation failed because the quota has been exceeded on the mail server."),
+                Horde_Imap_Client_Translation::gettext_define("The operation failed because the quota has been exceeded on the mail server."),
                 Horde_Imap_Client_Exception::OVERQUOTA,
                 $ob,
                 $pipeline
@@ -4705,7 +4705,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'ALREADYEXISTS':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The object could not be created because it already exists."),
+                Horde_Imap_Client_Translation::gettext_define("The object could not be created because it already exists."),
                 Horde_Imap_Client_Exception::ALREADYEXISTS,
                 $ob,
                 $pipeline
@@ -4714,7 +4714,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'NONEXISTENT':
             // Defined by RFC 5530 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The object could not be deleted because it does not exist."),
+                Horde_Imap_Client_Translation::gettext_define("The object could not be deleted because it does not exist."),
                 Horde_Imap_Client_Exception::NONEXISTENT,
                 $ob,
                 $pipeline
@@ -4723,7 +4723,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'USEATTR':
             // Defined by RFC 6154 [3]
             throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The special-use attribute requested for the mailbox is not supported."),
+                Horde_Imap_Client_Translation::gettext_define("The special-use attribute requested for the mailbox is not supported."),
                 Horde_Imap_Client_Exception::USEATTR,
                 $ob,
                 $pipeline

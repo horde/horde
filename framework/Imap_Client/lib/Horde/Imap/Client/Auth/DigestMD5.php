@@ -154,7 +154,10 @@ class Horde_Imap_Client_Auth_DigestMD5
 
         // Required directives.
         if (!isset($tokens['nonce']) || !isset($tokens['algorithm'])) {
-            throw new Horde_Imap_Client_Exception(Horde_Imap_Client_Translation::t("Authentication failure."), 'SERVER_CONNECT');
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::gettext_define("Authentication failure."),
+                'SERVER_CONNECT'
+            );
         }
 
         return $tokens;

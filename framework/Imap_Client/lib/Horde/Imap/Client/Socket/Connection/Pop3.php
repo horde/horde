@@ -39,7 +39,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
     {
         if (fwrite($this->_stream, $data . "\r\n") === false) {
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Server write error."),
+                Horde_Imap_Client_Translation::gettext_define("Server write error."),
                 Horde_Imap_Client_Exception::SERVER_WRITEERROR
             );
         }
@@ -60,7 +60,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
             $this->close();
             $this->_params['debug']->info("ERROR: Server closed the connection.");
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Server closed the connection unexpectedly."),
+                Horde_Imap_Client_Translation::gettext_define("Server closed the connection unexpectedly."),
                 Horde_Imap_Client_Exception::DISCONNECT
             );
         }
@@ -68,7 +68,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
         if (($read = fgets($this->_stream)) === false) {
             $this->_params['debug']->info("ERROR: read/timeout error.");
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
+                Horde_Imap_Client_Translation::gettext_define("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR
             );
         }

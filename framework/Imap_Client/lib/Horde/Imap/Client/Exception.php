@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
+class Horde_Imap_Client_Exception extends Horde_Exception
 {
     /* Error message codes. */
 
@@ -160,6 +160,31 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Function/feature is not supported on this server.
     const NOT_SUPPORTED = 400;
 
+
+    /**
+     * Raw error message (in English).
+     *
+     * @since 2.18.0
+     *
+     * @var string
+     */
+    public $raw_msg = '';
+
+    /**
+     * Constructor.
+     *
+     * @param string $msg  Error message (non-translated).
+     * @param code $code   Error code.
+     */
+    public function __construct($message = null, $code = null)
+    {
+        parent::__construct(
+            Horde_Imap_Client_Translation::t($message),
+            $code
+        );
+
+        $this->raw_msg = $message;
+    }
 
     /**
      * Allow the error message to be altered.

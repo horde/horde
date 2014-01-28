@@ -12,8 +12,8 @@
  </lead>
  <date>2014-01-28</date>
  <version>
-  <release>2.17.2</release>
-  <api>2.17.0</api>
+  <release>2.18.0</release>
+  <api>2.18.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add raw error message text (in English) to Exceptions.
 * [mms] Add debug timing information for connection/commands.
 * [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
  </notes>
@@ -321,7 +322,7 @@
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2143,14 +2144,15 @@
   </release>
   <release>
    <version>
-    <release>2.17.2</release>
-    <api>2.17.0</api></version>
+    <release>2.18.0</release>
+    <api>2.18.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-01-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add raw error message text (in English) to Exceptions.
 * [mms] Add debug timing information for connection/commands.
 * [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
    </notes>

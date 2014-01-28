@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Exception_NoSupportExtension extends Horde_Imap_Client_Exception
+class Horde_Imap_Client_Exception_NoSupportExtension
+extends Horde_Imap_Client_Exception
 {
     /**
      * The extension not supported on the server.
@@ -41,7 +42,10 @@ class Horde_Imap_Client_Exception_NoSupportExtension extends Horde_Imap_Client_E
         $this->extension = $extension;
 
         if (is_null($msg)) {
-            $msg = sprintf(Horde_Imap_Client_Translation::t("The server does not support the %s extension."), $extension);
+            $msg = sprintf(
+                Horde_Imap_Client_Translation::gettext_define("The server does not support the %s extension."),
+                $extension
+            );
         }
 
         parent::__construct($msg, self::NOT_SUPPORTED);

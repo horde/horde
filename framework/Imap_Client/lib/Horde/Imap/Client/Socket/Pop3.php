@@ -191,7 +191,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             if (!$this->queryCapability('STLS')) {
                 if ($secure === 'tls') {
                     throw new Horde_Imap_Client_Exception(
-                        Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::t("Server does not support secure connections."),
+                        Horde_Imap_Client_Translation::gettext_define("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::gettext_define("Server does not support secure connections."),
                         Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                     );
                 } else {
@@ -205,7 +205,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 if (!$this->_connection->startTls()) {
                     $this->logout();
                     throw new Horde_Imap_Client_Exception(
-                        Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server."),
+                        Horde_Imap_Client_Translation::gettext_define("Could not open secure connection to the POP3 server."),
                         Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                     );
                 }
@@ -250,7 +250,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         throw new Horde_Imap_Client_Exception(
-            Horde_Imap_Client_Translation::t("POP3 server denied authentication."),
+            Horde_Imap_Client_Translation::gettext_define("POP3 server denied authentication."),
             $e->getCode() ? $e->getCode() : Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
         );
     }
@@ -281,7 +281,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         } catch (Horde\Socket\Client\Exception $e) {
             $e2 = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
+                Horde_Imap_Client_Translation::gettext_define("Error connecting to mail server."),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
             $e2->details = $e->details;
@@ -336,7 +336,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             ));
             if (stripos(base64_decode(substr($sresponse['resp'], 2)), 'rspauth=') === false) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."),
+                    Horde_Imap_Client_Translation::gettext_define("Unexpected response from server when authenticating."),
                     Horde_Imap_Client_Exception::SERVER_CONNECT
                 );
             }
@@ -382,7 +382,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         default:
             throw new Horde_Imap_Client_Exception(
-                sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method),
+                sprintf(Horde_Imap_Client_Translation::gettext_define("Unknown authentication method: %s"), $method),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
         }
@@ -1188,7 +1188,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if (!in_array($read[0], array('+OK', '-ERR', '+'))) {
             $this->_debug->info("ERROR: IMAP read/timeout error.");
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
+                Horde_Imap_Client_Translation::gettext_define("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR
             );
         }
@@ -1247,7 +1247,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
 
             $e = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("POP3 error reported by server."),
+                Horde_Imap_Client_Translation::gettext_define("POP3 error reported by server."),
                 $errcode
             );
             $e->details = $errtext;
