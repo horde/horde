@@ -358,7 +358,11 @@ class Horde_Session
                 $value = strval($secret->read($secret->getKey(), $value));
             }
 
-            return $injector->getInstance('Horde_Pack')->unpack($value);
+            try {
+                return $injector->getInstance('Horde_Pack')->unpack($value);
+            } catch (Horde_Pack_Exception $e) {
+                return null;
+            }
         }
 
         if ($subkeys = $this->_subkeys($app, $name)) {
