@@ -58,13 +58,28 @@ class Horde_Core_Factory_Base
      */
     protected function _getDriverName($driver, $base)
     {
-        $class = $base . '_' . Horde_String::ucfirst($driver);
-        if (class_exists($class)) {
-            return $class;
-        }
+        /* Intelligent loading... if we see at least one separator character
+         * in the driver name, guess that this is a full classname so try that
+         * option first. */
+        $search = (strpbrk($driver, '\\_') === false)
+            ? array('driver', 'class')
+            : array('class', 'driver');
 
-        if (class_exists($driver)) {
-            return $driver;
+        foreach ($search as $val) {
+            switch ($val) {
+            case 'class':
+                if (class_exists($driver)) {
+                    return $driver;
+                }
+                break;
+
+            case 'driver':
+                $class = $base . '_' . Horde_String::ucfirst($driver);
+                if (class_exists($class)) {
+                    return $class;
+                }
+                break;
+            }
         }
 
         throw new Horde_Exception('"' . $driver . '" driver (for ' . $base . ' not found).');
