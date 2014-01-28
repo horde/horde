@@ -50,7 +50,10 @@ class Horde_Core_Factory_LoginTasks extends Horde_Core_Factory_Base
         }
 
         if (!isset($this->_instances[$app])) {
-            $this->_instances[$app] = new Horde_Core_LoginTasks(new Horde_Core_LoginTasks_Backend_Horde($app), $app);
+            $this->_instances[$app] = new Horde_Core_LoginTasks(
+                new Horde_Core_LoginTasks_Backend_Horde($app),
+                $app
+            );
         }
 
         return $this->_instances[$app];
