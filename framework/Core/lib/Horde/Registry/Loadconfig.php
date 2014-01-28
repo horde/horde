@@ -83,7 +83,7 @@ class Horde_Registry_Loadconfig
         foreach ($flist as $val) {
             Horde::startBuffer();
             $success = include $val;
-            $output .= Horde::endBuffer();
+            $this->output .= Horde::endBuffer();
 
             if (!$success) {
                 throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $val));
@@ -99,7 +99,7 @@ class Horde_Registry_Loadconfig
             if (file_exists($file)) {
                 Horde::startBuffer();
                 $success = include $file;
-                $output .= Horde::endBuffer();
+                $this->output .= Horde::endBuffer();
 
                 if (!$success) {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
