@@ -175,8 +175,11 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return boolean  True if $el is an empty start tag, otherwise false.
      */
-    public function isEmptyElement(array $el)
+    public function isEmptyElement($el)
     {
+        if (!is_array($el)) {
+            return false;
+        }
         switch ($el[self::EN_TYPE]) {
         case self::EN_TYPE_STARTTAG:
             return !($el[self::EN_FLAGS] & self::EN_FLAGS_CONTENT);
