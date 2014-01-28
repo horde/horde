@@ -41,7 +41,8 @@ class Horde_Core_Factory_TextFilter extends Horde_Core_Factory_Base
     public function create($driver, array $params = array())
     {
         list($driver, $params) = $this->_getDriver($driver, $params);
-        return Horde_Text_Filter::factory($driver, $params);
+        $driver = $this->_getDriverName($driver, 'Horde_Text_Filter');
+        return new $driver($params);
     }
 
     /**
