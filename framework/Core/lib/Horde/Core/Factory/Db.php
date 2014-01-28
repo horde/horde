@@ -155,12 +155,21 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         $ob = new $class($config);
 
-        if (!isset($config['cache']) &&
-            ($this->_injector->getInstance('Horde_Core_Factory_Cache')->getDriverName() != 'sql')) {
-            $injector = $this->_injector->createChildInjector();
-            $injector->setInstance('Horde_Db_Adapter', $ob);
+        if (!isset($config['cache'])) {
             $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
-            $cache = $cacheFactory->create($injector);
+
+            switch ($cacheFactory->getDriverName()) {
+            case 'sql':
+                $injector = $this->_injector->createChildInjector();
+                $injector->setInstance('Horde_Db_Adapter', $ob);
+                $cache = $cacheFactory->create($injector);
+                break;
+
+            default:
+                $cache = $this->_injector->getInstance('Horde_Cache');
+                break;
+            }
+
             $ob->setCache($cache);
         }
 
