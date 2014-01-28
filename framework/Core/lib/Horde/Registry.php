@@ -520,15 +520,15 @@ class Horde_Registry implements Horde_Shutdown_Task
         if ($session_flags & self::SESSION_NONE) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $session = new Horde_Session_Null();
+            $GLOBALS['session'] = $session = new Horde_Session_Null();
             $session->setup(true, $args['session_cache_limiter']);
         } elseif ((PHP_SAPI === 'cli') ||
                   (empty($_SERVER['SERVER_NAME']) &&
                    ((PHP_SAPI === 'cgi') || (PHP_SAPI === 'cgi-fcgi')))) {
-            $session = new Horde_Session();
+            $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(false, $args['session_cache_limiter']);
         } else {
-            $session = new Horde_Session();
+            $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
@@ -537,7 +537,6 @@ class Horde_Registry implements Horde_Shutdown_Task
             }
         }
         $injector->setInstance('Horde_Session', $session);
-        $GLOBALS['session'] = $session;
 
         /* Always need to load applications information. */
         $this->_loadApplications();
