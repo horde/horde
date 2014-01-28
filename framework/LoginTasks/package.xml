@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Only run shutdown task if the tasklist is currently incomplete.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -654,7 +654,7 @@
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Only run shutdown task if the tasklist is currently incomplete.
    </notes>
   </release>
  </changelog>

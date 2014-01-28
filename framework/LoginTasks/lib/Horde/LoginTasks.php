@@ -73,7 +73,9 @@ class Horde_LoginTasks
             $this->_createTaskList();
         }
 
-        register_shutdown_function(array($this, 'shutdown'));
+        if ($this->_tasklist !== true) {
+            register_shutdown_function(array($this, 'shutdown'));
+        }
     }
 
     /**
