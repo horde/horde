@@ -1659,17 +1659,15 @@ class Horde_Registry implements Horde_Shutdown_Task
                 $app_conf = new Horde_Registry_Loadconfig($app, 'conf.php', 'conf');
                 $config = $app_conf->config['conf'];
             } catch (Horde_Exception $e) {
-                $config = null;
+                $config = array();
             }
 
-            $this->_confCache[$app] = empty($config)
-                ? array()
-                : $config;
+            $this->_confCache[$app] = ($app == 'horde')
+                ? $config
+                : $this->_mergeConfig($this->_confCache['horde'], $config);
         }
 
-        $GLOBALS['conf'] = ($app == 'horde')
-            ? $this->_confCache['horde']
-            : $this->_mergeConfig($this->_confCache['horde'], $this->_confCache[$app]);
+        return $this->_confCache[$app];
     }
 
     /**
