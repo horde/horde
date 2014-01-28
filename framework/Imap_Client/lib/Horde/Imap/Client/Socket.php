@@ -530,8 +530,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * previously-authenticated object. */
         if (!empty($this->_init['authmethod'])) {
             $this->_setInit();
+            unset($this->_temp['no_cap']);
             try {
-                return $this->login();
+                return $this->_login();
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

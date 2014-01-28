@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2141,7 +2141,7 @@
    <date>2014-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
    </notes>
   </release>
  </changelog>
