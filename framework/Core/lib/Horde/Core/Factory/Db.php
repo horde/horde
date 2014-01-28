@@ -48,59 +48,60 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
      */
     public function create($app = 'horde', $backend = null)
     {
-        $sig = hash('sha1', serialize(array($app, $backend)));
-
-        if (isset($this->_instances[$sig])) {
-            return $this->_instances[$sig];
-        }
+        global $registry;
 
         $pushed = ($app == 'horde')
             ? false
-            : $GLOBALS['registry']->pushApp($app);
+            : $registry->pushApp($app);
 
         $config = is_array($backend)
             ? $backend
             : $this->getConfig($backend);
 
-        /* Determine if we are using the base SQL config. */
-        if (isset($config['driverconfig']) &&
-            ($config['driverconfig'] == 'horde')) {
-            $this->_instances[$sig] = $this->create();
-            return $this->_instances[$sig];
-        }
-
-        // Prevent DSN from getting polluted (this only applies to
-        // non-custom auth type connections. All other custom sql
-        // configurations MUST be cleansed prior to passing to the
-        // factory (at least until Horde 5).
-        if (!is_array($backend) && $backend == 'auth') {
-            unset($config['driverconfig'],
-                  $config['query_auth'],
-                  $config['query_add'],
-                  $config['query_getpw'],
-                  $config['query_update'],
-                  $config['query_resetpassword'],
-                  $config['query_remove'],
-                  $config['query_list'],
-                  $config['query_exists'],
-                  $config['encryption'],
-                  $config['show_encryption'],
-                  $config['username_field'],
-                  $config['password_field'],
-                  $config['table'],
-                  $config['login_block'],
-                  $config['login_block_count'],
-                  $config['login_block_time']);
+        /* Prevent DSN from getting polluted (this only applies to non-custom
+         * auth type connections. All other custom sql configurations MUST be
+         * cleansed prior to passing to the factory (at least until Horde
+         * 5). @todo Still needed? */
+        if (!is_array($backend) && ($backend == 'auth')) {
+            unset(
+                $config['driverconfig'],
+                $config['query_auth'],
+                $config['query_add'],
+                $config['query_getpw'],
+                $config['query_update'],
+                $config['query_resetpassword'],
+                $config['query_remove'],
+                $config['query_list'],
+                $config['query_exists'],
+                $config['encryption'],
+                $config['show_encryption'],
+                $config['username_field'],
+                $config['password_field'],
+                $config['table'],
+                $config['login_block'],
+                $config['login_block_count'],
+                $config['login_block_time']
+            );
         }
         unset($config['umask']);
 
         $e = null;
-        try {
-            $this->_instances[$sig] = $this->createDb($config);
-        } catch (Horde_Exception $e) {}
+
+        ksort($config);
+        $sig = hash('sha1', serialize($config));
+
+        /* Determine if we are using the base SQL config. */
+        if (isset($config['driverconfig']) &&
+            ($config['driverconfig'] == 'horde')) {
+            $this->_instances[$sig] = $this->create();
+        } elseif (!isset($this->_instances[$sig])) {
+            try {
+                $this->_instances[$sig] = $this->createDb($config);
+            } catch (Horde_Exception $e) {}
+        }
 
         if ($pushed) {
-            $GLOBALS['registry']->popApp();
+            $registry->popApp();
         }
 
         if ($e) {
