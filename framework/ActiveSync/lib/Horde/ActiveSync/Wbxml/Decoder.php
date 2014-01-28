@@ -63,11 +63,11 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @var boolean
      */
-    private $_isWbxml;
+    protected $_isWbxml;
 
-    private $_attrcp = 0;
-    private $_ungetbuffer;
-    private $_readHeader = false;
+    protected $_attrcp = 0;
+    protected $_ungetbuffer;
+    protected $_readHeader = false;
 
     /**
      * Start reading the wbxml stream, pulling off the initial header and
@@ -130,7 +130,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      * Returns either start, content or end, and auto-concatenates successive
      * content.
      *
-     * @return mixed  The element requested or false on failure.
+     * @return mixed  The element false on failure.
      */
     public function getElement()
     {
@@ -258,7 +258,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return void
      */
-    private function _logToken($el)
+    protected function _logToken($el)
     {
         switch ($el[self::EN_TYPE]) {
         case self::EN_TYPE_STARTTAG:
@@ -315,7 +315,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return array  The element array.
      */
-   private function _getToken() {
+   protected function _getToken() {
 
         // Get the data from the input stream
         $element = array();
@@ -439,7 +439,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      * Read the Wbxml version header byte, and buffer the input incase we
      * need the full stream later.
      */
-    private function _readVersion()
+    protected function _readVersion()
     {
         $b = $this->_getByte();
         if ($b != NULL) {
@@ -452,7 +452,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return mixed  The value of the element's attributes.
      */
-    private function _getAttributes()
+    protected function _getAttributes()
     {
         $attributes = array();
         $attr = '';
@@ -548,7 +548,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return array  The attribute hash
      */
-    private function _splitAttribute($attr)
+    protected function _splitAttribute($attr)
     {
         $attributes = array();
         $pos = strpos($attr,chr(61)); // equals sign
@@ -566,7 +566,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return string  The string
      */
-    private function _getTermStr()
+    protected function _getTermStr()
     {
         $str = '';
         while(1) {
@@ -589,7 +589,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return string  A string of bytes representing the opaque value.
      */
-    private function _getOpaque($len)
+    protected function _getOpaque($len)
     {
         // See http://php.net/fread for why we can't simply use a single fread()
         // here. Bottom line, for buffered network streams it may be possible
@@ -623,7 +623,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return string  The single byte.
      */
-    private function _getByte()
+    protected function _getByte()
     {
         $ch = $this->_stream->getChar();
         if (strlen($ch) > 0) {
@@ -639,7 +639,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return integer
      */
-    private function _getMBUInt()
+    protected function _getMBUInt()
     {
         $uint = 0;
         while (1) {
@@ -660,7 +660,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return string  The string table.
      */
-    private function _getStringTable()
+    protected function _getStringTable()
     {
         $stringtable = '';
         $length = $this->_getMBUInt();
@@ -682,7 +682,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return string
      */
-    private function _getStringTableEntry($id)
+    protected function _getStringTableEntry($id)
     {
         throw new Horde_ActiveSync_Exception('Not implemented');
     }
@@ -695,7 +695,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @return mixed  The mapped value.
      */
-    private function _getMapping($cp, $id)
+    protected function _getMapping($cp, $id)
     {
         if (!isset($this->_dtd['codes'][$cp]) || !isset($this->_dtd['codes'][$cp][$id])) {
             return false;
