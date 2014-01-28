@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fixed access to a non-visible internal method when performing actions on parts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1252,7 +1252,7 @@
    <date>2013-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fixed access to a non-visible internal method when performing actions on parts.
    </notes>
   </release>
  </changelog>

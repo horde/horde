@@ -931,7 +931,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $this_id = $this->getMimeId();
 
         /* Need strcmp() because, e.g., '2.0' == '2'. */
-        if (($action == 'get') && (strcmp($id, $this_id) === 0)) {
+        if (($action === 'get') && (strcmp($id, $this_id) === 0)) {
             return $this;
         }
 
@@ -939,32 +939,38 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $this->buildMimeIds(is_null($this_id) ? '1' : $this_id);
         }
 
-        foreach (array_keys($this->_parts) as $val) {
-            $partid = $this->_parts[$val]->getMimeId();
-            if (strcmp($id, $partid) === 0) {
+        foreach ($this->_parts as $key => $val) {
+            $partid = $val->getMimeId();
+
+            if (($match = (strcmp($id, $partid) === 0)) ||
+                (strpos($id, $partid . '.') === 0) ||
+                (strrchr($partid, '.') === '.0')) {
                 switch ($action) {
                 case 'alter':
-                    $mime_part->setMimeId($this->_parts[$val]->getMimeId());
-                    $this->_parts[$val] = $mime_part;
-                    return true;
+                    if ($match) {
+                        $mime_part->setMimeId($partid);
+                        $this->_parts[$key] = $mime_part;
+                        return true;
+                    }
+                    return $val->alterPart($id, $mime_part);
 
                 case 'get':
-                    return $this->_parts[$val];
+                    return $match
+                        ? $val
+                        : $val->getPart($id);
 
                 case 'remove':
-                    unset($this->_parts[$val]);
-                    $this->_reindex = true;
-                    return true;
+                    if ($match) {
+                        unset($this->_parts[$key]);
+                        $this->_reindex = true;
+                        return true;
+                    }
+                    return $val->removePart($id);
                 }
-            }
-
-            if ((strpos($id, $partid . '.') === 0) ||
-                (strrchr($partid, '.') === '.0')) {
-                return $this->_parts[$val]->_partAction($id, $action, $mime_part);
             }
         }
 
-        return ($action == 'get') ? null : false;
+        return ($action === 'get') ? null : false;
     }
 
     /**
