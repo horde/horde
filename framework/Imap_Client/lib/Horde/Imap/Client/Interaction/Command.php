@@ -24,7 +24,8 @@
  * @property-read boolean $continuation  True if the command requires a server
  *                                       continuation response.
  */
-class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Format_List
+class Horde_Imap_Client_Interaction_Command
+extends Horde_Imap_Client_Data_Format_List
 {
     /**
      * Debug string to use instead of command text.
@@ -60,6 +61,13 @@ class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Forma
      * @var string
      */
     public $tag;
+
+    /**
+     * Command timer.
+     *
+     * @var Horde_Support_Timer
+     */
+    protected $_timer;
 
     /**
      * Constructor.
@@ -105,6 +113,28 @@ class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Forma
     public function getCommand()
     {
         return $this->_data[1];
+    }
+
+    /**
+     * Start the command timer.
+     */
+    public function startTimer()
+    {
+        $this->_timer = new Horde_Support_Timer();
+        $this->_timer->push();
+    }
+
+    /**
+     * Return the timer data.
+     *
+     * @return mixed  Null if timer wasn't started, or a float containing
+     *                elapsed command time.
+     */
+    public function getTimer()
+    {
+        return $this->_timer
+            ? round($this->_timer->pop(), 4)
+            : null;
     }
 
 }

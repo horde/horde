@@ -3893,6 +3893,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
+     * Send a chunk of commands and/or continuation fragments to the server.
+     *
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  The pipeline
      *                                                          object.
      * @param array $chunk  List of commands to send.
@@ -3983,6 +3985,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _processCmd($pipeline, $cmd, $data)
     {
+        if ($this->_debug->debug &&
+            ($data instanceof Horde_Imap_Client_Interaction_Command)) {
+            $data->startTimer();
+        }
+
         foreach ($data as $key => $val) {
             if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
                 $this->_connection->write('', true);
@@ -4143,7 +4150,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
-            $pipeline->complete($server);
+            $cmd = $pipeline->complete($server);
+            if ($timer = $cmd->getTimer()) {
+                $this->_debug->info(sprintf(
+                    'Command %s took %s seconds.',
+                    $cmd->tag,
+                    $timer
+                ));
+            }
             $this->_responseCode($pipeline, $server);
             break;
 

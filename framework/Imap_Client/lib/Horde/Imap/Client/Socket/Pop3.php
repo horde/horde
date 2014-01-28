@@ -1141,6 +1141,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $this->_debug->debug = false;
         }
 
+        if ($old_debug) {
+            $timer = new Horde_Support_Timer();
+            $timer->push();
+        }
+
         try {
             $this->_connection->write($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -1150,9 +1155,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         $this->_debug->debug = $old_debug;
 
-        return $this->_getResponse(
+        $resp = $this->_getResponse(
             empty($options['multiline']) ? false : $options['multiline']
         );
+
+        if ($old_debug) {
+            $this->_debug->info(sprintf(
+                'Command took %s seconds.',
+                round($timer->pop(), 4)
+            ));
+        }
+
+        return $resp;
     }
 
     /**

@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-22</date>
+ <date>2014-01-28</date>
  <version>
   <release>2.17.2</release>
   <api>2.17.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add debug timing information for connection/commands.
 * [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
  </notes>
  <contents>
@@ -131,6 +132,7 @@
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
         <dir name="Connection">
+         <file name="Base.php" role="php" />
          <file name="Pop3.php" role="php" />
          <file name="Socket.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Socket/Connection -->
@@ -381,6 +383,13 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -467,6 +476,7 @@
    <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/Socket/Connection/Base.php" name="lib/Horde/Imap/Client/Socket/Connection/Base.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Pop3.php" name="lib/Horde/Imap/Client/Socket/Connection/Pop3.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Socket.php" name="lib/Horde/Imap/Client/Socket/Connection/Socket.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
@@ -2138,9 +2148,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-22</date>
+   <date>2014-01-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add debug timing information for connection/commands.
 * [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
    </notes>
   </release>

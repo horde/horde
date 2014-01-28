@@ -25,7 +25,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Socket_Connection_Pop3 extends Horde\Socket\Client
+class Horde_Imap_Client_Socket_Connection_Pop3
+extends Horde_Imap_Client_Socket_Connection_Base
 {
     /**
      * Writes data to the POP3 output stream.

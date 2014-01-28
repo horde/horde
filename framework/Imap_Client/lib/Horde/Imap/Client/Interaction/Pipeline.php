@@ -101,11 +101,17 @@ class Horde_Imap_Client_Interaction_Pipeline implements Countable, IteratorAggre
      *
      * @param Horde_Imap_Client_Interaction_Server_Tagged $resp  Tagged server
      *                                                           response.
+     *
+     * @return Horde_Imap_Client_Interaction_Command  Command that was
+     *                                                completed.
      */
     public function complete(Horde_Imap_Client_Interaction_Server_Tagged $resp)
     {
-        $this->_commands[$resp->tag]->response = $resp;
+        $cmd = $this->_commands[$resp->tag];
+        $cmd->response = $resp;
         unset($this->_todo[$resp->tag]);
+
+        return $cmd;
     }
 
     /**
