@@ -80,7 +80,13 @@ $mime_drivers = array(
         'inlinesize' => 262144,
 
         /* Display image thumbnails? */
-        'thumbnails' => true
+        'thumbnails' => true,
+
+        /* If displaying image thumbnails, send thumbnail data with the
+         * base message data? This saves server accesses (1 for each thumbnail
+         * generated in a message) at the expense that ALL thumbnails for a
+         * message need to be generated before the message can be viewed. */
+        'thumbnails_dataurl' => false
     ),
 
     /* Enriched text display. */

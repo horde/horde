@@ -64,6 +64,7 @@ MIME Viewer Options (mime_drivers.php)
 --------------------------------------
 
 The 'pgp_inline' config parameter has been added to the plaintext driver.
+The 'thumbnails_dataurl' config parameter has been added to the images driver.
 
 
 Permissions

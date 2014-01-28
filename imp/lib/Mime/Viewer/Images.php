@@ -277,14 +277,13 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         switch ($type) {
         case 'view_thumbnail':
-            if ($browser->getFeature('dataurl')) {
+            if ($this->getConfigParam('thumbnails_dataurl') &&
+                $browser->getFeature('dataurl')) {
                 $thumb = $this->_viewConvert(true);
                 $thumb = reset($thumb);
                 $src = Horde_Url_Data::create($thumb['type'], $thumb['data']);
                 break;
             }
-
-            // Fall-through
 
         default:
             $src = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type)));
