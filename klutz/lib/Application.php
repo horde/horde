@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('KLUTZ_BASE')) {
-    define('KLUTZ_BASE', __DIR__ . '/..');
+    define('KLUTZ_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -22,7 +22,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(KLUTZ_BASE . '/config/horde.local.php')) {
         include KLUTZ_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', KLUTZ_BASE . '/..');
+        define('HORDE_BASE', realpath(KLUTZ_BASE . '/..'));
     }
 }
 

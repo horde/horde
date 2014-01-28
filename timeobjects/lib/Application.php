@@ -10,7 +10,7 @@
  */
 /* Determine the base directories. */
 if (!defined('TIMEOBJECTS_BASE')) {
-    define('TIMEOBJECTS_BASE', __DIR__ . '/..');
+    define('TIMEOBJECTS_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -19,7 +19,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(TIMEOBJECTS_BASE . '/config/horde.local.php')) {
         include TIMEOBJECTS_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', TIMEOBJECTS_BASE . '/..');
+        define('HORDE_BASE', realpath(TIMEOBJECTS_BASE . '/..'));
     }
 }
 

@@ -17,14 +17,14 @@
  */
 
 if (!defined('ANSEL_BASE')) {
-    define('ANSEL_BASE', __DIR__ . '/..');
+    define('ANSEL_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
     if (file_exists(ANSEL_BASE . '/config/horde.local.php')) {
         include ANSEL_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', ANSEL_BASE . '/..');
+        define('HORDE_BASE', realpath(ANSEL_BASE . '/..'));
     }
 }
 require_once HORDE_BASE . '/lib/core.php';

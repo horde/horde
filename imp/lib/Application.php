@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('IMP_BASE')) {
-    define('IMP_BASE', __DIR__ . '/..');
+    define('IMP_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -22,7 +22,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(IMP_BASE . '/config/horde.local.php')) {
         include IMP_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', IMP_BASE . '/..');
+        define('HORDE_BASE', realpath(IMP_BASE . '/..'));
     }
 }
 

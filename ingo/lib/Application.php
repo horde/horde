@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('INGO_BASE')) {
-    define('INGO_BASE', __DIR__ . '/..');
+    define('INGO_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -21,7 +21,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(INGO_BASE . '/config/horde.local.php')) {
         include INGO_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', INGO_BASE . '/..');
+        define('HORDE_BASE', realpath(INGO_BASE . '/..'));
     }
 }
 

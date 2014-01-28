@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('ULAFORM_BASE')) {
-    define('ULAFORM_BASE', __DIR__ . '/..');
+    define('ULAFORM_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(ULAFORM_BASE . '/config/horde.local.php')) {
         include ULAFORM_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', ULAFORM_BASE . '/..');
+        define('HORDE_BASE', realpath(ULAFORM_BASE . '/..'));
     }
 }
 

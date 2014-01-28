@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('MNEMO_BASE')) {
-    define('MNEMO_BASE', __DIR__ . '/..');
+    define('MNEMO_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(MNEMO_BASE . '/config/horde.local.php')) {
         include MNEMO_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', MNEMO_BASE . '/..');
+        define('HORDE_BASE', realpath(MNEMO_BASE . '/..'));
     }
 }
 

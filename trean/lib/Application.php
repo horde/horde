@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('TREAN_BASE')) {
-    define('TREAN_BASE', __DIR__ . '/..');
+    define('TREAN_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -21,7 +21,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(TREAN_BASE . '/config/horde.local.php')) {
         include TREAN_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', TREAN_BASE . '/..');
+        define('HORDE_BASE', realpath(TREAN_BASE . '/..'));
     }
 }
 

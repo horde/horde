@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SESHA_BASE')) {
-    define('SESHA_BASE', __DIR__ . '/..');
+    define('SESHA_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(SESHA_BASE . '/config/horde.local.php')) {
         include SESHA_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', SESHA_BASE . '/..');
+        define('HORDE_BASE', realpath(SESHA_BASE . '/..'));
     }
 }
 

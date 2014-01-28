@@ -14,7 +14,7 @@
  */
 
 if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', __DIR__ . '/..');
+    define('CHORA_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -23,7 +23,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(CHORA_BASE . '/config/horde.local.php')) {
         include CHORA_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', CHORA_BASE . '/..');
+        define('HORDE_BASE', realpath(CHORA_BASE . '/..'));
     }
 }
 

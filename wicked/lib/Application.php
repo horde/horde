@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('WICKED_BASE')) {
-    define('WICKED_BASE', __DIR__ . '/..');
+    define('WICKED_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -21,7 +21,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(WICKED_BASE . '/config/horde.local.php')) {
         include WICKED_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', WICKED_BASE . '/..');
+        define('HORDE_BASE', realpath(WICKED_BASE . '/..'));
     }
 }
 

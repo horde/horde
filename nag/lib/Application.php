@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('NAG_BASE')) {
-    define('NAG_BASE', __DIR__ . '/..');
+    define('NAG_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -22,7 +22,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(NAG_BASE . '/config/horde.local.php')) {
         include NAG_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', NAG_BASE . '/..');
+        define('HORDE_BASE', realpath(NAG_BASE . '/..'));
     }
 }
 

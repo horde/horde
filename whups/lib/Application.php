@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('WHUPS_BASE')) {
-    define('WHUPS_BASE', __DIR__ . '/..');
+    define('WHUPS_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(WHUPS_BASE . '/config/horde.local.php')) {
         include WHUPS_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', WHUPS_BASE . '/..');
+        define('HORDE_BASE', realpath(WHUPS_BASE . '/..'));
     }
 }
 

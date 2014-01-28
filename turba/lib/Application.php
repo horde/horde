@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('TURBA_BASE')) {
-    define('TURBA_BASE', __DIR__ . '/..');
+    define('TURBA_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -26,7 +26,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(TURBA_BASE . '/config/horde.local.php')) {
         include TURBA_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', TURBA_BASE . '/..');
+        define('HORDE_BASE', realpath(TURBA_BASE . '/..'));
     }
 }
 

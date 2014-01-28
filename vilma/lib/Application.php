@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('VILMA_BASE')) {
-    define('VILMA_BASE', __DIR__ . '/..');
+    define('VILMA_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(VILMA_BASE . '/config/horde.local.php')) {
         include VILMA_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', VILMA_BASE . '/..');
+        define('HORDE_BASE', realpath(VILMA_BASE . '/..'));
     }
 }
 

@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('LUXOR_BASE')) {
-    define('LUXOR_BASE', __DIR__ . '/..');
+    define('LUXOR_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -21,7 +21,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(LUXOR_BASE . '/config/horde.local.php')) {
         include LUXOR_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', LUXOR_BASE . '/..');
+        define('HORDE_BASE', realpath(LUXOR_BASE . '/..'));
     }
 }
 

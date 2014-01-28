@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SAM_BASE')) {
-    define('SAM_BASE', __DIR__ . '/..');
+    define('SAM_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(SAM_BASE . '/config/horde.local.php')) {
         include SAM_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', SAM_BASE . '/..');
+        define('HORDE_BASE', realpath(SAM_BASE . '/..'));
     }
 }
 

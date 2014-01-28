@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('SKELETON_BASE')) {
-    define('SKELETON_BASE', __DIR__ . '/..');
+    define('SKELETON_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -22,7 +22,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(SKELETON_BASE . '/config/horde.local.php')) {
         include SKELETON_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', SKELETON_BASE . '/..');
+        define('HORDE_BASE', realpath(SKELETON_BASE . '/..'));
     }
 }
 

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('PASTIE_BASE')) {
-    define('PASTIE_BASE', __DIR__ . '/..');
+    define('PASTIE_BASE', realpath(__DIR__ . '/..'));
 }
 
 if (!defined('HORDE_BASE')) {
@@ -24,7 +24,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(PASTIE_BASE . '/config/horde.local.php')) {
         include PASTIE_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', PASTIE_BASE . '/..');
+        define('HORDE_BASE', realpath(PASTIE_BASE . '/..'));
     }
 }
 
