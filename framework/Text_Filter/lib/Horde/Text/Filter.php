@@ -18,6 +18,8 @@ class Horde_Text_Filter
     /**
      * Attempts to return a concrete instance based on $driver.
      *
+     * @deprecated
+     *
      * @param string $driver  Either a driver name, or the full class name to
      *                        use (class must extend Horde_Text_Filter_Base).
      * @param array $params   A hash containing any additional configuration
