@@ -59,7 +59,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
 
         list($driver, $params) = $this->getViewerConfig($type, $app);
 
-        return Horde_Mime_Viewer::factory($driver, $mime, $params);
+        return new $driver($mime, $params);
     }
 
     /**
@@ -145,7 +145,10 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
             break;
         }
 
-        return array($driver, $params);
+        return array(
+            $this->_getDriverName($driver, 'Horde_Mime_Viewer'),
+            $params
+        );
     }
 
     /**
