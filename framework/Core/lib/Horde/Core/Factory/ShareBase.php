@@ -29,6 +29,13 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
     protected $_instances = array();
 
     /**
+     * Cache of session share entries.
+     *
+     * @var array
+     */
+    protected $_sessionCache = array();
+
+    /**
      * Returns the share driver instance.
      *
      * @param string $app     The application scope of the share. If empty,
@@ -40,8 +47,10 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
      */
     public function create($app = null, $driver = null)
     {
+        global $conf, $registry, $session;
+
         if (empty($driver)) {
-            $driver = $GLOBALS['conf']['share']['driver'];
+            $driver = $conf['share']['driver'];
         }
         if (empty($app)) {
             $app = $this->_injector->getInstance('Horde_Registry')->getApp();
@@ -53,15 +62,21 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
         }
 
         $class = $this->_getDriverName($driver, 'Horde_Share');
-        $ob = new $class($app, $GLOBALS['registry']->getAuth(), $this->_injector->getInstance('Horde_Perms'), $this->_injector->getInstance('Horde_Group'));
+        $ob = new $class($app, $registry->getAuth(), $this->_injector->getInstance('Horde_Perms'), $this->_injector->getInstance('Horde_Group'));
         $cb = new Horde_Core_Share_FactoryCallback($app, $driver);
         $ob->setShareCallback(array($cb, 'create'));
         $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
-        if (!empty($GLOBALS['conf']['share']['cache'])) {
+
+        if (!empty($conf['share']['cache'])) {
             $cache_sig = 'horde_share/' . $app . '/' . $driver;
-            $listCache = $GLOBALS['session']->retrieve($cache_sig);
+            $listCache = $session->retrieve($cache_sig);
             $ob->setListCache($listCache);
-            register_shutdown_function(array($this, 'shutdown'), $cache_sig, $ob);
+
+            if (empty($this->_sessionCache)) {
+                register_shutdown_function(array($this, 'shutdown'));
+            }
+
+            $this->_sessionCache[$sig] = $cache_sig;
         }
 
         $this->_instances[$sig] = $ob;
@@ -71,13 +86,14 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
 
     /**
      * Shutdown function.
-     *
-     * @param string $sig              Cache signature.
-     * @param Horde_Share_Base $share  Share object to cache.
      */
-    public function shutdown($sig, $share)
+    public function shutdown()
     {
-        $GLOBALS['session']->store($share->getListCache(), false, $sig);
+        global $session;
+
+        foreach ($this->_sessionCache as $sig => $cache_sig) {
+            $session->store($this->_instances[$sig]->getListCache(), false, $cache_sig);
+        }
     }
 
 }
