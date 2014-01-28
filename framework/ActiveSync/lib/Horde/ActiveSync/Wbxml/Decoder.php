@@ -70,6 +70,14 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     protected $_readHeader = false;
 
     /**
+     * Cache the last successfully fetched start tag array. Used to be able
+     * to easily detected emtpy nodes after the element was already fetched.
+     *
+     * @var array
+     */
+    protected $_lastStartElement;
+
+    /**
      * Start reading the wbxml stream, pulling off the initial header and
      * populate the properties.
      */
@@ -160,6 +168,35 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Returns whether or not the passed in element array represents an
+     * empty tag.
+     *
+     * @param  array $el  The element array.
+     *
+     * @return boolean  True if $el is an empty start tag, otherwise false.
+     */
+    public function isEmptyElement(array $el)
+    {
+        switch ($el[self::EN_TYPE]) {
+        case self::EN_TYPE_STARTTAG:
+            return !($el[self::EN_FLAGS] & self::EN_FLAGS_CONTENT);
+        default:
+            // Not applicable.
+            return false;
+        }
+    }
+
+    /**
+     * Returns the last element array fetched using getElementStartTag()
+     *
+     * @return array|boolean  The element array, or false if none available.
+     */
+    public function getLastStartElement()
+    {
+        return $this->_lastStartElement;
+    }
+
+    /**
      * Peek at the next element in the stream.
      *
      * @return array  The next element in the stream.
@@ -186,8 +223,10 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[self::EN_TYPE] == self::EN_TYPE_STARTTAG &&
             $element[self::EN_TAG] == $tag) {
 
+            $this->_lastStartElement = $element;
             return $element;
         } else {
+            $this->_lastStartElement = false;
             $this->_ungetElement($element);
         }
 

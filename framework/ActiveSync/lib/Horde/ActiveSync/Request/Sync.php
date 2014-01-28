@@ -793,7 +793,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
 
                 case Horde_ActiveSync::SYNC_OPTIONS:
-                    $this->_parseSyncOptions($collection);
+                    if (!$this->_decoder->isEmptyElement($this->_decoder->getLastStartElement())) {
+                        $this->_parseSyncOptions($collection);
+                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
