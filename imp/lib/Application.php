@@ -581,7 +581,10 @@ class IMP_Application extends Horde_Registry_Application
     public function exceptionHandler(Exception $e)
     {
         if ($e instanceof Horde_Imap_Client_Exception) {
-            $e = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+            $e = new Horde_Exception_AuthenticationFailure(
+                $e->getMessage(),
+                Horde_Auth::REASON_MESSAGE
+            );
         }
 
         Horde_ErrorHandler::fatal($e);

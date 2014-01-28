@@ -288,9 +288,8 @@ class IMP_Imap implements Serializable
                 : new Horde_Imap_Client_Socket_Pop3($config);
             return $this->_ob;
         } catch (Horde_Imap_Client_Exception $e) {
-            $error = new IMP_Imap_Exception($e);
-            Horde::log($error);
-            throw $error;
+            Horde::log($e->raw_msg);
+            throw new IMP_Imap_Exception($e);
         }
     }
 
@@ -713,7 +712,7 @@ class IMP_Imap implements Serializable
                 throw $auth_e;
             }
 
-            Horde::log($error);
+            Horde::log($e->raw_msg);
             throw $error;
         }
 

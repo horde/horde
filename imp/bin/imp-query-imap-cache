@@ -131,7 +131,7 @@ try {
     $mboxes = $ob->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true, 'sort' => true));
     $cli->message('User mailbox count: ' . count($mboxes));
 } catch (Horde_Imap_Client_Exception $e) {
-    $cli->fatal('IMAP error: ' . $e->getMessage());
+    $cli->fatal('IMAP error: ' . $e);
 }
 
 $opts = array(
@@ -213,7 +213,7 @@ while (true) {
                         $status = $ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
                     } catch (Horde_Imap_Client_Exception $e) {
                         $cli->writeln();
-                        $cli->message('IMAP error: ' . $e->getMessage(), 'cli.error');
+                        $cli->message('IMAP error: ' . $e, 'cli.error');
                     }
                     $cli->message('UIDVALIDITY: ' . $res['uidvalid'] . ' [Server value: ' . (($status['uidvalidity'] != $res['uidvalid']) ? $cli->red($status['uidvalidity']) : $status['uidvalidity']) . ']');
                     if (isset($res[Horde_Imap_Client_Base::CACHE_MODSEQ])) {
@@ -303,7 +303,7 @@ while (true) {
             $cli->message(sprintf('Deleted %d UIDs from cache.', count($uids)), 'cli.success');
         } catch (Horde_Imap_Client_Exception $e) {
             $cli->writeln();
-            $cli->message('Failed deleting UIDs. Error: ' . $e->getMessage(), 'cli.error');
+            $cli->message('Failed deleting UIDs. Error: ' . $e, 'cli.error');
         }
         break;
     }
