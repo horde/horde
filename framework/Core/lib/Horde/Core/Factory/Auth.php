@@ -96,7 +96,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             ? Horde::getDriverConfig('auth', $driver)
             : $orig_params;
 
+        $driver = $this->_getDriverName($driver, 'Horde_Auth');
         $lc_driver = Horde_String::lower($driver);
+
         switch ($lc_driver) {
         case 'horde_core_auth_composite':
             // Both of these params are required, but we need to skip if
@@ -109,7 +111,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             }
             break;
 
-        case 'cyrsql':
+        case 'horde_auth_cyrsql':
             $imap_config = array(
                 'hostspec' => empty($params['cyrhost']) ? null : $params['cyrhost'],
                 'password' => $params['cyrpass'],
@@ -131,7 +133,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
 
-        case 'http_remote':
+        case 'horde_auth_http_remote':
             $params['client'] = $this->_injector->getInstance('Horde_Core_Factory_HttpClient')->create();
             break;
 
@@ -145,7 +147,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $params['imsp'] = $this->_injector->getInstance('Horde_Core_Factory_Imsp')->create();
             break;
 
-        case 'kolab':
+        case 'horde_auth_kolab':
             $params['kolab'] = $this->_injector
                 ->getInstance('Horde_Kolab_Session');
             break;
@@ -163,8 +165,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             }
             // @TODO: Add filters
             break;
-        case 'customsql':
-        case 'sql':
+
+        case 'horde_auth_customsql':
+        case 'horde_auth_sql':
             $params['db'] = $this->_injector
                 ->getInstance('Horde_Core_Factory_Db')
                 ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
@@ -181,7 +184,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         }
 
         $auth_ob = new $driver($params);
-        if ($driver == 'Horde_Core_Auth_Application') {
+        if ($lc_driver == 'horde_core_auth_application') {
             $this->_instances[$params['app']] = $auth_ob;
         }
 
