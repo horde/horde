@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for virtual address books.
  *
- * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.

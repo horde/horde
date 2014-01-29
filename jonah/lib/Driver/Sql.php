@@ -5,7 +5,7 @@
  * The table structure can be created by the scripts/db/jonah_news.sql
  * script. The needed tables are jonah_channels and jonah_stories.
  *
- * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Liam Hoekenga <liamr@umich.edu>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you

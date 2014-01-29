@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd

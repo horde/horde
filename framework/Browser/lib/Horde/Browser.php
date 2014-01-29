@@ -5,7 +5,7 @@
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
  *
- * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013 Horde LLC
+ * @copyright 2013-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -15,14 +15,14 @@
  * The pretty AJAX autocompleter. Extended in IMP to use the IMP-specific
  * autocompleter library instead of the Horde_Core library.
  *
- * Copyright 2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013 Horde LLC
+ * @copyright 2013-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */

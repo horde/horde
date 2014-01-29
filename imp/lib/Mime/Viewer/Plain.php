@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2013 Horde LLC
+ * @copyright 1999-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  * @author    Anil Madhavapeddy <anil@recoil.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2013 Horde LLC
+ * @copyright 1999-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */

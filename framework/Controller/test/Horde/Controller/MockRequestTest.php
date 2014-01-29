@@ -14,7 +14,7 @@
 /**
  * Test the mock request handler.
  *
- * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Controller

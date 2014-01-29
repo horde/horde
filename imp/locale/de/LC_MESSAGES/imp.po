@@ -1,8 +1,8 @@
 # German translations for IMP.
-# Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2001-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the IMP package.
 # Carsten Guenther <cguenther@guenthers.net>, 2001.
-# Jan Schneider <jan@horde.org>, 2001-2013.
+# Jan Schneider <jan@horde.org>, 2001-2014.
 #
 # attachment: Anhang
 # to compose: verfassen

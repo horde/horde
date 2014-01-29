@@ -12,7 +12,7 @@
  * port - (integer) The port used to connect to the ssh2 server if other than
  *        22.</pre>
  *
- * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

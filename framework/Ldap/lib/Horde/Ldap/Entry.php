@@ -3,7 +3,7 @@
  * Horde_Ldap_Entry represents an LDAP entry.
  *
  * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
- * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
  * @package   Ldap
  * @author    Jan Wagner <wagner@netsols.de>

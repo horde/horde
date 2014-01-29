@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for Trean.
  *
- * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

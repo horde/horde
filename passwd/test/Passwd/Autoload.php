@@ -3,7 +3,7 @@
  * Setup autoloading for the tests.
  *
  * @category   Horde
- * @copyright  2011-2013 Horde LLC
+ * @copyright  2011-2014 Horde LLC
  * @internal
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    Passwd

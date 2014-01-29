@@ -14,7 +14,7 @@
  *
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
- * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,7 +23,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2004-2007 Andrew Coleman
- * @copyright 2008-2013 Horde LLC
+ * @copyright 2008-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */

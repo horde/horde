@@ -1,7 +1,7 @@
 # German translations for Ansel.
-# Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2003-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ansel package.
-# Jan Schneider <jan@horde.org>, 2003-2013.
+# Jan Schneider <jan@horde.org>, 2003-2014.
 #
 # caption: Fotounterschrift
 msgid ""

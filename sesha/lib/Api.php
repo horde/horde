@@ -2,7 +2,7 @@
 /**
  * Sesha external API interface.
  *
- * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
  *
  * This file defines Sesha's external API interface. Other applications can
  * interact with Sesha through this API.

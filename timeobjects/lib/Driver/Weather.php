@@ -3,7 +3,7 @@
  * TimeObjects driver for exposing weatherunderground information via the
  * listTimeObjects API.
  *
- * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

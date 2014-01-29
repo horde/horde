@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Html class renders out HTML text with an effort to
  * remove potentially malicious code.
  *
- * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

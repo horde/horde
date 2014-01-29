@@ -1,10 +1,10 @@
 # IMP Slovak translation.
-# Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2014 Horde LLC (http://www.horde.org/)
 # Leo Mrafko <leo@oel.sk>, 2002
 # Ivan Noris <vix@vazka.sk>, 2002, 2003
 # Martin Matuška <martin@matuska.org>, 2008
 # Marika Schvarczova <schvarczova.marika@domeny.sk>, 2012
-# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012-2013
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012-2014
 #
 msgid ""
 msgstr ""

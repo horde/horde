@@ -1,5 +1,5 @@
 # IMP Norwegian bokmaal translation
-# Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2001-2014 Horde LLC (http://www.horde.org/)
 # Oyvind Monslop <mons@rexta.net>, 2001.
 # Oystein Steimler <oystein@rexta.net>, 2001.
 # Torstein S. Hansen <huleboer@techbee.no>, 2002.

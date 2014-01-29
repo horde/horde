@@ -2,7 +2,7 @@
 /**
  * Factory for Ansel_Storage.
  *
- * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde

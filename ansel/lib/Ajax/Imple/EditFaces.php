@@ -2,7 +2,7 @@
 /**
  * Imple for performing Ajax discovery and editing of image faces.
  *
- * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
  *
  * @author  Duck <duck@obala.net>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>

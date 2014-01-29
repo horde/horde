@@ -1,7 +1,7 @@
 /**
  * AnselGalleryViewItem
  *
- * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
  * @implements IKImageBrowserItem
  * @license http://www.horde.org/licenses/bsd

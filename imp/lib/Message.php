@@ -1,14 +1,14 @@
 <?php
 /**
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
- * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
  * @copyright 2000-2001 Chris Hyde
- * @copyright 2000-2013 Horde LLC
+ * @copyright 2000-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -24,7 +24,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2000-2001 Chris Hyde
- * @copyright 2000-2013 Horde LLC
+ * @copyright 2000-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */

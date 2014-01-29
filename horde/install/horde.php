@@ -2,14 +2,14 @@
 /**
  * Horde post-install script.
  *
- * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2011-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2011-2014 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl LGPL
  * @package   Horde
  */
@@ -17,7 +17,7 @@
 /**
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2011-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2011-2014 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl LGPL
  * @package   Horde
  */

@@ -8,7 +8,7 @@
  *   - ACTION: (string) The AJAX action identifier.
  *   - APP: (string) The application name.
  *
- * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.

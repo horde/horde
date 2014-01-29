@@ -5,7 +5,7 @@
  * This file defines Horde's application interface. Other Horde libraries
  * and applications can interact with Beatnik through this API.
  *
- * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (GPL). If you did not
  * did not receive this file, see http://www.horde.org/licenses/gpl
