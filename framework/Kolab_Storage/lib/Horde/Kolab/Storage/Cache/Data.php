@@ -1,8 +1,9 @@
 <?php
 /**
- * A cache backend for Kolab storage data handlers.
+ * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -14,11 +15,6 @@
 
 /**
  * A cache backend for Kolab storage data handlers.
- *
- * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -70,37 +66,36 @@ class Horde_Kolab_Storage_Cache_Data
      *
      * @var Horde_Kolab_Storage_Cache
      */
-    private $_cache;
+    protected $_cache;
 
     /**
      * Data parameters that will be recorded in the cache.
      *
      * @var array
      */
-    private $_parameters;
+    protected $_parameters;
 
     /**
      * Data ID.
      *
      * @var string
      */
-    private $_data_id;
+    protected $_data_id;
 
     /**
      * The cache data.
      *
      * @var array
      */
-    private $_data = false;
+    protected $_data = false;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Cache $cache      The core cache driver.
-
-     * @param array                     $parameters Data set parameters that
-     *                                              are only recorded and have
-     *                                              no further impact.
+     * @param Horde_Kolab_Storage_Cache $cache  The core cache driver.
+     * @param array $parameters                 Data set parameters that are
+     *                                          only recorded and have no
+     *                                          further impact.
      */
     public function __construct(Horde_Kolab_Storage_Cache $cache,
                                 $parameters = null)
@@ -110,11 +105,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * The ID for the data cache.
+     * Sets the ID for the data cache.
      *
-     * @param string $data_id The unique ID for the data used when caching it.
-     *
-     * @return NULL
+     * @param string $data_id  The unique ID for the data used when caching it.
      */
     public function setDataId($data_id)
     {
@@ -122,9 +115,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Return the ID for the data cache.
+     * Returns the ID for the data cache.
      *
-     * @return string The unique ID for the data used when caching it.
+     * @return string  The unique ID for the data used when caching it.
      */
     public function getDataId()
     {
@@ -137,11 +130,11 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the cached list data.
+     * Retrieves the cached list data.
      *
-     * @return mixed The data of the object.
+     * @return mixed  The data of the object.
      */
-    private function _load()
+    protected function _load()
     {
         if ($this->_data === false) {
             $this->_data = unserialize($this->_cache->loadData($this->getDataId()));
@@ -155,9 +148,7 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Cache the data.
-     *
-     * @return NULL
+     * Caches the data.
      */
     public function save()
     {
@@ -165,9 +156,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Check if the cache has been initialized.
+     * Checks if the cache has been initialized.
      *
-     * @return boolean True if cache data is available.
+     * @return boolean  True if cache data is available.
      */
     public function isInitialized()
     {
@@ -176,9 +167,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the object list from the cache.
+     * Retrieves the object list from the cache.
      *
-     * @return array The list of objects.
+     * @return array  The list of objects.
      */
     public function getObjects()
     {
@@ -186,11 +177,11 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the specified object from the cache.
+     * Retrieves the specified object from the cache.
      *
-     * @param string $obid The object ID to fetch.
+     * @param string $obid  The object ID to fetch.
      *
-     * @return array The list of objects.
+     * @return array  The list of objects.
      */
     public function getObjectByBackendId($obid)
     {
@@ -206,9 +197,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Return the object ID to backend ID mapping.
+     * Returns the object ID to backend ID mapping.
      *
-     * @return array The mapping.
+     * @return array  The mapping.
      */
     public function getObjectToBackend()
     {
@@ -216,9 +207,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Return the backend ID to object ID mapping.
+     * Returns the backend ID to object ID mapping.
      *
-     * @return array The mapping.
+     * @return array  The mapping.
      */
     public function getBackendToObject()
     {
@@ -226,9 +217,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the last stamp.
+     * Retrieves the last stamp.
      *
-     * @return Horde_Kolab_Storage_Folder_Stamp The last recorded stamp.
+     * @return Horde_Kolab_Storage_Folder_Stamp  The last recorded stamp.
      */
     public function getStamp()
     {
@@ -237,9 +228,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the data version.
+     * Retrieves the data version.
      *
-     * @return string The version of the stored data.
+     * @return string  The version of the stored data.
      */
     public function getVersion()
     {
@@ -248,9 +239,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the list of object duplicates.
+     * Retrieves the list of object duplicates.
      *
-     * @return array The list of duplicates.
+     * @return array  The list of duplicates.
      */
     public function getDuplicates()
     {
@@ -258,9 +249,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve the list of object errors.
+     * Retrieves the list of object errors.
      *
-     * @return array The list of errors.
+     * @return array  The list of errors.
      */
     public function getErrors()
     {
@@ -268,12 +259,12 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve an attachment.
+     * Retrieves an attachment.
      *
-     * @param string $obid          Object backend id.
-     * @param string $attachment_id Attachment ID.
+     * @param string $obid           Object backend id.
+     * @param string $attachment_id  Attachment ID.
      *
-     * @return resource A stream opened to the attachement data.
+     * @return resource  A stream opened to the attachment data.
      */
     public function getAttachment($obid, $attachment_id)
     {
@@ -283,12 +274,12 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve an attachment by name.
+     * Retrieves an attachment by name.
      *
-     * @param string $obid          Object backend id.
-     * @param string $attachment_id Attachment ID.
+     * @param string $obid           Object backend id.
+     * @param string $attachment_id  Attachment ID.
      *
-     * @return array An array of attachment resources.
+     * @return array  An array of attachment resources.
      */
     public function getAttachmentByName($obid, $name)
     {
@@ -312,12 +303,12 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Retrieve an attachment by name.
+     * Retrieves an attachment by name.
      *
-     * @param string $obid          Object backend id.
-     * @param string $attachment_id Attachment ID.
+     * @param string $obid           Object backend id.
+     * @param string $attachment_id  Attachment ID.
      *
-     * @return array An array of attachment resources.
+     * @return array  An array of attachment resources.
      */
     public function getAttachmentByType($obid, $type)
     {
@@ -341,9 +332,9 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Return the timestamp of the last synchronization.
+     * Returns the timestamp of the last synchronization.
      *
-     * @return int Timestamp of the last sync.
+     * @return integer  Timestamp of the last sync.
      */
     public function getLastSync()
     {
@@ -354,9 +345,9 @@ class Horde_Kolab_Storage_Cache_Data
     /**
      * Is the specified query data available in the cache?
      *
-     * @param string $key The query key.
+     * @param string $key  The query key.
      *
-     * @return boolean True in case cached data is available.
+     * @return boolean  True in case cached data is available.
      */
     public function hasQuery($key)
     {
@@ -365,11 +356,11 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Return query information.
+     * Returns query information.
      *
-     * @param string $key The query key.
+     * @param string $key  The query key.
      *
-     * @return mixed The query data.
+     * @return mixed  The query data.
      */
     public function getQuery($key)
     {
@@ -383,12 +374,10 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Set query information.
+     * Sets query information.
      *
      * @param string $key  The query key.
-     * @param mixed  $data The query data.
-     *
-     * @return NULL
+     * @param mixed $data  The query data.
      */
     public function setQuery($key, $data)
     {
@@ -397,14 +386,15 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Fetch the specified cache entry in case it is present. Returns an empty
-     * array otherwise.
+     * Fetches the specified cache entry in case it is present.
      *
-     * @param string $key The key in the cached data array.
+     * Returns an empty array otherwise.
      *
-     * @return array The cache entry.
+     * @param string $key  The key in the cached data array.
+     *
+     * @return array  The cache entry.
      */
-    private function _fetchCacheEntry($key)
+    protected function _fetchCacheEntry($key)
     {
         $this->_checkInit($key);
         if (isset($this->_data[$key])) {
@@ -415,16 +405,14 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Verify that the data cache is initialized.
+     * Verifies that the data cache is initialized.
      *
-     * @param string $key The key in the cached data array.
+     * @param string $key  The key in the cached data array.
      *
-     * @return NULL
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the cache has not been
-     *                                       initialized.
+     * @throws Horde_Kolab_Storage_Exception  In case the cache has not been
+     *                                        initialized.
      */
-    private function _checkInit($key)
+    protected function _checkInit($key)
     {
         if (!$this->isInitialized()) {
             throw new Horde_Kolab_Storage_Exception(
@@ -434,12 +422,12 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Map backend IDs to object ids.
+     * Maps backend IDs to object ids.
      *
-     * @param array $backend_ids The list of backend IDs
+     * @param array $backend_ids  The list of backend IDs
      *
-     * @return array A list that associates object IDs (values) to backend IDs
-     *               (keys).
+     * @return array  A list that associates object IDs (values) to backend IDs
+     *                (keys).
      */
     public function backendMap($backend_ids)
     {
@@ -454,15 +442,14 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Store the objects list in the cache.
+     * Stores the objects list in the cache.
      *
-     * @param array                            $object  The object data to store.
-     * @param Horde_Kolab_Storage_Folder_Stamp $stamp   The current stamp.
-     * @param string                           $version The format version of
-     *                                                  the provided data.
-     * @param array                            $delete  Backend IDs that were removed.
-     *
-     * @return NULL
+     * @param array $object                            The object data to store.
+     * @param Horde_Kolab_Storage_Folder_Stamp $stamp  The current stamp.
+     * @param string $version                          The format version of
+     *                                                 the provided data.
+     * @param array $delete                            Backend IDs that were
+     *                                                 removed.
      */
     public function store(array $objects,
                           Horde_Kolab_Storage_Folder_Stamp $stamp,
@@ -524,9 +511,7 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Initialize the cache structure.
-     *
-     * @return NULL
+     * Initializes the cache structure.
      */
     public function reset()
     {
