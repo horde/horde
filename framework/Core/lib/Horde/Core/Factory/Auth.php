@@ -48,23 +48,13 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $app = 'horde';
         }
 
-        if (isset($this->_instances[$app])) {
-            return $this->_instances[$app];
+        if (!isset($this->_instances[$app])) {
+            $this->_instances[$app] = new Horde_Core_Auth_Application(array_filter(array(
+                'app' => $app,
+                'base' => ($app === 'horde') ? $this->_create($GLOBALS['conf']['auth']['driver']) : null,
+                'logger' => $this->_injector->getInstance('Horde_Log_Logger')
+            )));
         }
-
-        $base_params = array(
-            'app' => $app,
-            'logger' => $this->_injector->getInstance('Horde_Log_Logger')
-        );
-
-        if ($app == 'horde') {
-            $base_params['base'] = $this->_create($GLOBALS['conf']['auth']['driver']);
-        }
-
-        $this->_instances[$app] = Horde_Auth::factory(
-            'Horde_Core_Auth_Application',
-            $base_params
-        );
 
         return $this->_instances[$app];
     }
@@ -190,7 +180,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $params['lock_api'] = $this->_injector->getInstance('Horde_Lock');
         }
 
-        $auth_ob = Horde_Auth::factory($driver, $params);
+        $auth_ob = new $driver($params);
         if ($driver == 'Horde_Core_Auth_Application') {
             $this->_instances[$params['app']] = $auth_ob;
         }
