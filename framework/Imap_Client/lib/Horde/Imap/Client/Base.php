@@ -2029,7 +2029,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->openMailbox($this->_selected, Horde_Imap_Client::OPEN_READWRITE);
             if ($this->_mode == Horde_Imap_Client::OPEN_READONLY) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Cannot expunge read-only mailbox."),
+                    Horde_Imap_Client_Translation::r("Cannot expunge read-only mailbox."),
                     Horde_Imap_Client_Exception::MAILBOX_READONLY
                 );
             }
@@ -2092,7 +2092,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Don't expunge if the mailbox is readonly. */
         if ($this->_mode == Horde_Imap_Client::OPEN_READONLY) {
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::gettext_define("Cannot expunge read-only mailbox."),
+                Horde_Imap_Client_Translation::r("Cannot expunge read-only mailbox."),
                 Horde_Imap_Client_Exception::MAILBOX_READONLY
             );
         }
@@ -2362,7 +2362,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (in_array('CONDSTORE', $options['_query']['exts']) &&
                 !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
                     Horde_Imap_Client_Exception::MBOXNOMODSEQ
                 );
             }
@@ -2682,7 +2682,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             /* RFC 4551 [3.1] - trying to do a MODSEQ FETCH on a mailbox that
              * doesn't support it will return BAD. */
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::gettext_define("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
                 Horde_Imap_Client_Exception::MBOXNOMODSEQ
             );
         }
@@ -2947,7 +2947,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if ($qresync) {
             if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
                     Horde_Imap_Client_Exception::MBOXNOMODSEQ
                 );
             }
@@ -3032,7 +3032,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
              * mailbox that doesn't support it will return BAD. */
             if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
                     Horde_Imap_Client_Exception::MBOXNOMODSEQ
                 );
             }

@@ -461,7 +461,7 @@ class Horde_Translation_Script
             $sh = $this->xgettext
                 . ' --language=PHP'
                 . ' --from-code=iso-8859-1'
-                . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n --keyword=gettext_define'
+                . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n --keyword=r'
                 . ' --sort-output'
                 . ' --package-name=' . ($this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]))
                 . ' --copyright-holder="Horde LLC (http://www.horde.org/)"'

@@ -118,15 +118,15 @@ abstract class Horde_Translation
     /**
      * Allows a gettext string to be defined and recognized as a string by
      * the horde translation utilities, but no translation is actually
-     * performed.
+     * performed (raw gettext = r()).
      *
      * @since 2.1.0
      *
-     * @param string $message  The string to translate.
+     * @param string $message  The raw string to mark for translation.
      *
-     * @return string  The unaltered string.
+     * @return string  The raw string.
      */
-    static public function gettext_define($message)
+    static public function r($message)
     {
         return $message;
     }

@@ -43,7 +43,7 @@ extends Horde_Imap_Client_Exception
 
         if (is_null($msg)) {
             $msg = sprintf(
-                Horde_Imap_Client_Translation::gettext_define("The server does not support the %s extension."),
+                Horde_Imap_Client_Translation::r("The server does not support the %s extension."),
                 $extension
             );
         }

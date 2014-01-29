@@ -41,7 +41,7 @@ extends Horde_Imap_Client_Interaction_Server
 
         if (is_null($this->status)) {
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::gettext_define("Bad tagged response.")
+                Horde_Imap_Client_Translation::r("Bad tagged response.")
             );
         }
     }

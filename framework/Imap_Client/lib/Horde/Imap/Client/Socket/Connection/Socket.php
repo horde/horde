@@ -51,7 +51,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
 
             if (fwrite($this->_stream, $buffer . $data . ($eol ? "\r\n" : '')) === false) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Server write error."),
+                    Horde_Imap_Client_Translation::r("Server write error."),
                     Horde_Imap_Client_Exception::SERVER_WRITEERROR
                 );
             }
@@ -84,7 +84,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
         while (!feof($data)) {
             if (fwrite($this->_stream, fread($data, 8192)) === false) {
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Server write error."),
+                    Horde_Imap_Client_Translation::r("Server write error."),
                     Horde_Imap_Client_Exception::SERVER_WRITEERROR
                 );
             }
@@ -118,7 +118,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
                 $this->close();
                 $this->_params['debug']->info("ERROR: Server closed the connection.");
                 throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::gettext_define("Mail server closed the connection unexpectedly."),
+                    Horde_Imap_Client_Translation::r("Mail server closed the connection unexpectedly."),
                     Horde_Imap_Client_Exception::DISCONNECT
                 );
             }
@@ -177,7 +177,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
         if (!$got_data) {
             $this->_params['debug']->info("ERROR: read/timeout error.");
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::gettext_define("Error when communicating with the mail server."),
+                Horde_Imap_Client_Translation::r("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR
             );
         }

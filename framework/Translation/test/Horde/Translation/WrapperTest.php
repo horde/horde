@@ -14,11 +14,11 @@ class Horde_Translation_WrapperTest extends Horde_Translation_TestBase
     public function testWrappers()
     {
         $this->assertEquals('Heute', Horde_Translation_TestWrapperA::t('Today'));
-        $this->assertEquals('Today', Horde_Translation_TestWrapperA::gettext_define('Today'));
+        $this->assertEquals('Today', Horde_Translation_TestWrapperA::r('Today'));
         $this->assertEquals('1 Woche', sprintf(Horde_Translation_TestWrapperA::ngettext('%d week', '%d weeks', 1), 1));
 
         $this->assertEquals('Morgen', Horde_Translation_TestWrapperB::t('Tomorrow'));
-        $this->assertEquals('Tomorrow', Horde_Translation_TestWrapperB::gettext_define('Tomorrow'));
+        $this->assertEquals('Tomorrow', Horde_Translation_TestWrapperB::r('Tomorrow'));
     }
 }
 

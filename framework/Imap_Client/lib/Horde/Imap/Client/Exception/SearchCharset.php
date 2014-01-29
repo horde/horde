@@ -42,7 +42,7 @@ extends Horde_Imap_Client_Exception
         $this->charset = $charset;
 
         parent::__construct(
-            Horde_Imap_Client_Translation::gettext_define("Cannot convert search query text to new charset"),
+            Horde_Imap_Client_Translation::r("Cannot convert search query text to new charset"),
             self::BADCHARSET
         );
     }
