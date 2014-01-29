@@ -235,7 +235,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         'validate' => true
                     ));
                 } catch (Horde_Mail_Exception $e) {
-                    throw new IMP_Compose_Exception(sprintf(_("Saving the message failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
+                    throw new IMP_Compose_Exception(sprintf(
+                        _("Saving the message failed because it contains an invalid e-mail address: %s."),
+                        strval($val),
+                        $e->getMessage()
+                    ), $e->getCode());
                 }
             }
         }
