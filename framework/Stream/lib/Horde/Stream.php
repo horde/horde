@@ -20,18 +20,11 @@
  * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Stream
+ *
+ * @property-read resource $stream  Stream resource (@deprecated).
  */
 class Horde_Stream implements Serializable
 {
-    /**
-     * Stream resource.
-     *
-     * @deprecated  Will be removed in 2.0.0
-     *
-     * @var resource
-     */
-    public $stream;
-
     /**
      * Parse character as UTF-8 data instead of single byte.
      *
@@ -47,6 +40,15 @@ class Horde_Stream implements Serializable
      * @var array
      */
     protected $_params;
+
+    /**
+     * Stream resource.
+     *
+     * @deprecated  Will be removed in 2.0.0
+     *
+     * @var resource
+     */
+    protected $_stream;
 
     /**
      * Constructor.
@@ -65,8 +67,18 @@ class Horde_Stream implements Serializable
     protected function _init()
     {
         // Sane default: read-write, 0-length stream.
-        if (!$this->stream) {
-            $this->stream = @fopen('php://temp', 'r+');
+        if (!$this->_stream) {
+            $this->_stream = @fopen('php://temp', 'r+');
+        }
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'stream':
+            return $this->_stream;
         }
     }
 
@@ -75,7 +87,7 @@ class Horde_Stream implements Serializable
     public function __clone()
     {
         $data = strval($this);
-        $this->stream = null;
+        $this->_stream = null;
         $this->_init();
         $this->add($data);
     }
@@ -120,7 +132,7 @@ class Horde_Stream implements Serializable
             }
             $data->seek($dpos, false);
         } else {
-            fwrite($this->stream, $data);
+            fwrite($this->_stream, $data);
         }
 
         if ($reset) {
@@ -361,8 +373,8 @@ class Horde_Stream implements Serializable
             }
         }
 
-        while (!feof($this->stream) && ($to_end || $length)) {
-            $read = fread($this->stream, $to_end ? 16384 : $length);
+        while (!feof($this->_stream) && ($to_end || $length)) {
+            $read = fread($this->_stream, $to_end ? 16384 : $length);
             $out .= $read;
             if (!$to_end) {
                 $length -= strlen($read);
@@ -411,7 +423,7 @@ class Horde_Stream implements Serializable
      */
     public function getChar()
     {
-        $char = fgetc($this->stream);
+        $char = fgetc($this->_stream);
         if (!$this->utf8_char) {
             return $char;
         }
@@ -432,7 +444,7 @@ class Horde_Stream implements Serializable
         }
 
         for ($i = 0; $i < $n; ++$i) {
-            if (($c = fgetc($this->stream)) === false) {
+            if (($c = fgetc($this->_stream)) === false) {
                 throw new Horde_Stream_Exception('ERROR');
             }
             $char .= $c;
@@ -450,7 +462,7 @@ class Horde_Stream implements Serializable
      */
     public function pos()
     {
-        return ftell($this->stream);
+        return ftell($this->_stream);
     }
 
     /**
@@ -462,7 +474,7 @@ class Horde_Stream implements Serializable
      */
     public function rewind()
     {
-        return rewind($this->stream);
+        return rewind($this->_stream);
     }
 
     /**
@@ -506,7 +518,7 @@ class Horde_Stream implements Serializable
                 $offset = abs($offset);
 
                 while ($pos-- && $offset) {
-                    fseek($this->stream, -1, SEEK_CUR);
+                    fseek($this->_stream, -1, SEEK_CUR);
                     if ((ord($this->peek()) & 0xC0) != 0x80) {
                         --$offset;
                     }
@@ -516,7 +528,7 @@ class Horde_Stream implements Serializable
             return true;
         }
 
-        return (fseek($this->stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0);
+        return (fseek($this->_stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0);
     }
 
     /**
@@ -530,7 +542,7 @@ class Horde_Stream implements Serializable
      */
     public function end($offset = 0)
     {
-        return (fseek($this->stream, $offset, SEEK_END) === 0);
+        return (fseek($this->_stream, $offset, SEEK_END) === 0);
     }
 
     /**
@@ -542,7 +554,7 @@ class Horde_Stream implements Serializable
      */
     public function eof()
     {
-        return feof($this->stream);
+        return feof($this->_stream);
     }
 
     /**
@@ -552,8 +564,8 @@ class Horde_Stream implements Serializable
      */
     public function close()
     {
-        if ($this->stream) {
-            fclose($this->stream);
+        if ($this->_stream) {
+            fclose($this->_stream);
         }
     }
 

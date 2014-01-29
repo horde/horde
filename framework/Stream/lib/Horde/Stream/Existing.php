@@ -39,7 +39,7 @@ class Horde_Stream_Existing extends Horde_Stream
             throw new Horde_Stream_Exception('Need a stream resource.');
         }
 
-        $this->stream = $opts['stream'];
+        $this->_stream = $opts['stream'];
         unset($opts['stream']);
 
         parent::__construct($opts);
