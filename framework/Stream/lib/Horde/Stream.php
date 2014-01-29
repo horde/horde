@@ -387,7 +387,7 @@ class Horde_Stream implements Serializable
         $pos2 = $this->search("\n", false, false);
         if ($pos2) {
             $this->seek(-1);
-            $eol = (fgetc($this->stream) == "\r")
+            $eol = ($this->getChar() == "\r")
                 ? "\r\n"
                 : "\n";
         } else {
