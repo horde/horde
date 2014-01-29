@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Added session_version hook.
 * [rla] Add modular horde-cli and module for conf.php editing (Request #12923).
 * [mms] By default, enforce maximum storage size on preferences values.
 * [mms] Support UglifyJS for compressing javascript.

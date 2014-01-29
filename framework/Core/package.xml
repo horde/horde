@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support session_version Horde hook.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
 * [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
@@ -3299,6 +3300,7 @@
    <date>2014-01-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support session_version Horde hook.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
 * [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
