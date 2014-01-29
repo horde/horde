@@ -130,19 +130,19 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         // Highlight quoted parts of an email.
         if ($prefs->getValue('highlight_text')) {
-            if ($registry->getView() == $registry::VIEW_SMARTMOBILE) {
-                $hideBlocks = $js_blocks = false;
-            } else {
+            $hideBlocks = $js_blocks = false;
+            if ($registry->getView() !== $registry::VIEW_SMARTMOBILE) {
                 $js_blocks = $inline;
-                $show = $prefs->getValue('show_quoteblocks');
-                $hideBlocks = $inline &&
-                    (($show == 'hidden') ||
-                     (($show == 'thread') && ($injector->getInstance('Horde_Variables')->page == 'thread')));
-                if (!$hideBlocks &&
-                    in_array($show, array('list', 'listthread'))) {
-                    $header = $this->getConfigParam('imp_contents')->getHeader();
-                    $list_info = $injector->getInstance('IMP_Message_Ui')->getListInformation($header);
-                    $hideBlocks = $list_info['exists'];
+                if ($inline) {
+                    $show = $prefs->getValue('show_quoteblocks');
+                    $hideBlocks = (($show == 'hidden') ||
+                                   (($show == 'thread') && ($injector->getInstance('Horde_Variables')->page == 'thread')));
+                    if (!$hideBlocks &&
+                        in_array($show, array('list', 'listthread'))) {
+                        $header = $this->getConfigParam('imp_contents')->getHeader();
+                        $list_info = $injector->getInstance('IMP_Message_Ui')->getListInformation($header);
+                        $hideBlocks = $list_info['exists'];
+                    }
                 }
             }
 
