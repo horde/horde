@@ -978,6 +978,7 @@ class Horde_Hooks
 //        return $params;
 //    }
 
+
     /**
      * Activesync hook for providing additional checks before allowing a device
      * to be paired with the server for the first time.
@@ -987,25 +988,27 @@ class Horde_Hooks
      * @return boolean|integer  True on success (device passed checks) or a
      *                          Horde_ActiveSync_Status:: constant on failure.
      */
-    // public function activesync_create_device(Horde_ActiveSync_Device $device)
-    // {
-    //     return true;
-    // }
+//    public function activesync_create_device(Horde_ActiveSync_Device $device)
+//    {
+//        return true;
+//    }
+
 
     /**
      * ActiveSync hook for providing additional policy checks on a device
      * after it has already been paired. Useful for enforcing things like
-     * only allowing certain user agents to connect etc...
+     * only allowing certain user agents to connect.
      *
      * @param Horde_ActiveSync_Device $device  The device object.
      *
      * @return boolean|integer  True on success (device passed checks) or a
      *                          Horde_ActiveSync_Status:: constant on failure.
      */
-    // public function activesync_device_check(Horde_ActiveSync_Device $device)
-    // {
-    //     return true;
-    // }
+//    public function activesync_device_check(Horde_ActiveSync_Device $device)
+//    {
+//        return true;
+//    }
+
 
    /**
     * Hook for providing custom X509 certificate validation routines. You can
@@ -1015,17 +1018,14 @@ class Horde_Hooks
     *
     * @param mixed $cert  The certificate string or handle.
     *
-    * @return boolean
+    * @return boolean  True if the certificate is valid.
     */
-   // public function x509_validate($cert)
-   // {
-   //    $parsed = openssl_x509_parse($cert);
-   //    if ($parsed['issuer']['CN'] != 'My CA CN') {
-   //       return false;
-   //    }
+//   public function x509_validate($cert)
+//   {
+//       $parsed = openssl_x509_parse($cert);
+//       return ($parsed['issuer']['CN'] == 'My CA CN');
+//   }
 
-   //    return true;
-   // }
 
    /**
     * Hook for modifying the device object prior to request processing. The
@@ -1051,25 +1051,25 @@ class Horde_Hooks
     *
     * @return Horde_ActiveSync_Device  The possibly modified device object.
     */
-   // public function activesync_device_modify(Horde_ActiveSync_Device $device)
-   // {
-   //      // Example for forcing certain device to force multiplexed collections
-   //      // for collection types they don't support multiple collections for.
-   //      // Note that this doesn't apply to email folders, which are NEVER
-   //      // sent multiplexed.
-   //      // NOTE: The Horde_ActiveSync library already determines this based
-   //      //       on some userAgent and version sniffing. You should only
-   //      //       perform this here if it doesn't work for you, or you have
-   //      //       discovered a device that doesn't fit the logic.
-
-   //      // iOS seems to support multiple collections for everything except
-   //      // Notes.
-   //      if (strpos($device->userAgent, 'iOS') === 0 ) {
-   //          $device->multiplex =
-   //              Horde_ActiveSync_Device::MULTIPLEX_NOTES;
-   //      }
-
-   //      return $device;
-   // }
+//   public function activesync_device_modify(Horde_ActiveSync_Device $device)
+//   {
+//       // Example for forcing certain device to force multiplexed
+//       // collections for collection types they don't support multiple
+//       // collections for. Note that this doesn't apply to email folders,
+//       // which are NEVER sent multiplexed.
+//       // NOTE: The Horde_ActiveSync library already determines this based
+//       //       on some userAgent and version sniffing. You should only
+//       //       perform this here if it doesn't work for you, or you have
+//       //       discovered a device that doesn't fit the logic.
+//
+//       // iOS seems to support multiple collections for everything except
+//       // Notes.
+//       if (strpos($device->userAgent, 'iOS') === 0) {
+//           $device->multiplex =
+//               Horde_ActiveSync_Device::MULTIPLEX_NOTES;
+//       }
+//
+//       return $device;
+//   }
 
 }
