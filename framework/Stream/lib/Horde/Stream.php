@@ -22,18 +22,11 @@
  * @package   Stream
  *
  * @property-read resource $stream  Stream resource (@deprecated).
+ * @property boolean $utf8_char  Parse character as UTF-8 data instead of
+ *                               single byte (@since 1.4.0).
  */
 class Horde_Stream implements Serializable
 {
-    /**
-     * Parse character as UTF-8 data instead of single byte.
-     *
-     * @since 1.4.0
-     *
-     * @var boolean
-     */
-    public $utf8_char = false;
-
     /**
      * Configuration parameters.
      *
@@ -49,6 +42,13 @@ class Horde_Stream implements Serializable
      * @var resource
      */
     protected $_stream;
+
+    /**
+     * Parse character as UTF-8 data instead of single byte.
+     *
+     * @var boolean
+     */
+    protected $_utf8_char = false;
 
     /**
      * Constructor.
@@ -79,6 +79,20 @@ class Horde_Stream implements Serializable
         switch ($name) {
         case 'stream':
             return $this->_stream;
+
+        case 'utf8_char':
+            return $this->_utf8_char;
+        }
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'utf8_char':
+            $this->_utf8_char = (bool)$value;
+            break;
         }
     }
 

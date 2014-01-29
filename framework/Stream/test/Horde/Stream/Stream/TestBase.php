@@ -1,20 +1,35 @@
 <?php
 /**
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
  * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Stream
  * @subpackage UnitTests
  */
 
 /**
+ * Common testing code for Horde_Stream class implementations.
+ *
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @ignore
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Stream
  * @subpackage UnitTests
  */
-class Horde_Stream_TempTest extends Horde_Test_Case
+abstract class Horde_Stream_Stream_TestBase extends Horde_Test_Case
 {
+    abstract protected function _getOb();
+
     public function testPos()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $this->assertEquals(
@@ -25,7 +40,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testRewind()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $this->assertTrue($stream->rewind());
@@ -37,7 +52,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testSeek()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $this->assertTrue($stream->seek(-2));
@@ -72,7 +87,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->pos()
         );
 
-        $stream2 = new Horde_Stream_Temp();
+        $stream2 = $this->_getOb();
         $stream2->add('Aönön');
         $stream2->utf8_char = true;
         $stream2->rewind();
@@ -122,7 +137,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testEnd()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $stream->rewind();
@@ -136,7 +151,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testEof()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $this->assertFalse($stream->eof());
@@ -148,7 +163,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testGetToChar()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('A B', true);
 
         $this->assertEquals(
@@ -164,7 +179,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getToChar(' ')
         );
 
-        $stream2 = new Horde_Stream_Temp();
+        $stream2 = $this->_getOb();
         $stream2->add('A  B  ', true);
 
         $this->assertEquals(
@@ -180,7 +195,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream2->getToChar(' ')
         );
 
-        $stream3 = new Horde_Stream_Temp();
+        $stream3 = $this->_getOb();
         $stream3->add("A\n\n\nB\n", true);
 
         $this->assertEquals(
@@ -222,7 +237,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testLength()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('A B ');
 
         $this->assertEquals(
@@ -245,7 +260,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testGetString()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('A B C');
 
         $this->assertEquals(
@@ -289,7 +304,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testPeek()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('A B', true);
 
         $this->assertEquals(
@@ -326,7 +341,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testSearch()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('0123456789', true);
 
         $this->assertEquals(
@@ -386,7 +401,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testAddMethod()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('foo');
 
         $this->assertEquals(
@@ -400,7 +415,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $stream->rewind();
 
-        $stream2 = new Horde_Stream_Temp();
+        $stream2 = $this->_getOb();
         $stream2->add($stream, true);
 
         $this->assertEquals(
@@ -418,7 +433,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $stream->rewind();
 
-        $stream3 = new Horde_Stream_Temp();
+        $stream3 = $this->_getOb();
         $stream3->add($stream);
 
         $this->assertEquals(
@@ -437,7 +452,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testStringRepresentation()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $this->assertEquals(
@@ -448,7 +463,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testSerializing()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $stream2 = unserialize(serialize($stream));
@@ -461,7 +476,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testClone()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('123');
 
         $stream2 = clone $stream;
@@ -476,7 +491,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testEolDetection()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add("123\n456");
 
         $this->assertEquals(
@@ -484,7 +499,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getEOL()
         );
 
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add("123\r\n456");
 
         $this->assertEquals(
@@ -492,12 +507,12 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getEOL()
         );
 
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add("123456");
 
         $this->assertNull($stream->getEOL());
 
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add("\n123456\n");
 
         $this->assertEquals(
@@ -510,7 +525,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     {
         $test = 'Aönön';
 
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add($test, true);
 
         $this->assertEquals(
@@ -523,7 +538,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getToChar('ö')
         );
 
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add($test, true);
         $stream->utf8_char = true;
 
@@ -565,7 +580,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testParsingAnExistingStreamObject()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         // 100000 byte stream.
         $stream->add(str_repeat('1234567890', 10000));
         $stream->rewind();
@@ -575,7 +590,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->length()
         );
 
-        $stream2 = new Horde_Stream_Temp();
+        $stream2 = $this->_getOb();
         $stream2->add($stream);
 
         $this->assertEquals(
@@ -586,7 +601,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
     public function testSubstring()
     {
-        $stream = new Horde_Stream_Temp();
+        $stream = $this->_getOb();
         $stream->add('1234567890');
         $stream->rewind();
 
@@ -629,7 +644,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->substring(-3, 3)
         );
 
-        $stream2 = new Horde_Stream_Temp();
+        $stream2 = $this->_getOb();
         $stream2->add('AönönAönön');
         $stream2->utf8_char = true;
         $stream2->rewind();

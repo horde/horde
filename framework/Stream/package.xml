@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-12</date>
+ <date>2014-01-29</date>
  <version>
-  <release>1.5.1</release>
-  <api>1.5.0</api>
+  <release>1.6.0</release>
+  <api>1.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add the Horde_Stream_TempString class.
+* [mms] Add the Horde_Stream_String class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -37,7 +38,9 @@
      <dir name="Stream">
       <file name="Exception.php" role="php" />
       <file name="Existing.php" role="php" />
+      <file name="String.php" role="php" />
       <file name="Temp.php" role="php" />
+      <file name="TempString.php" role="php" />
      </dir> <!-- /lib/Horde/Stream -->
      <file name="Stream.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -45,14 +48,17 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Stream">
-      <dir name="fixtures">
-       <file name="data.txt" role="test" />
-      </dir> <!-- /test/Horde/Stream/fixtures -->
+      <dir name="Stream">
+       <file name="ExistingTest.php" role="test" />
+       <file name="StringTest.php" role="test" />
+       <file name="TempStringStreamTest.php" role="test" />
+       <file name="TempStringTest.php" role="test" />
+       <file name="TempTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Stream/Stream -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
-      <file name="ExistingTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
-      <file name="TempTest.php" role="test" />
      </dir> <!-- /test/Horde/Stream -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -76,9 +82,23 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -90,13 +110,18 @@
    <install as="Horde/Stream.php" name="lib/Horde/Stream.php" />
    <install as="Horde/Stream/Exception.php" name="lib/Horde/Stream/Exception.php" />
    <install as="Horde/Stream/Existing.php" name="lib/Horde/Stream/Existing.php" />
+   <install as="Horde/Stream/String.php" name="lib/Horde/Stream/String.php" />
    <install as="Horde/Stream/Temp.php" name="lib/Horde/Stream/Temp.php" />
+   <install as="Horde/Stream/TempString.php" name="lib/Horde/Stream/TempString.php" />
    <install as="Horde/Stream/AllTests.php" name="test/Horde/Stream/AllTests.php" />
    <install as="Horde/Stream/bootstrap.php" name="test/Horde/Stream/bootstrap.php" />
-   <install as="Horde/Stream/ExistingTest.php" name="test/Horde/Stream/ExistingTest.php" />
    <install as="Horde/Stream/phpunit.xml" name="test/Horde/Stream/phpunit.xml" />
-   <install as="Horde/Stream/TempTest.php" name="test/Horde/Stream/TempTest.php" />
-   <install as="Horde/Stream/fixtures/data.txt" name="test/Horde/Stream/fixtures/data.txt" />
+   <install as="Horde/Stream/Stream/ExistingTest.php" name="test/Horde/Stream/Stream/ExistingTest.php" />
+   <install as="Horde/Stream/Stream/StringTest.php" name="test/Horde/Stream/Stream/StringTest.php" />
+   <install as="Horde/Stream/Stream/TempStringStreamTest.php" name="test/Horde/Stream/Stream/TempStringStreamTest.php" />
+   <install as="Horde/Stream/Stream/TempStringTest.php" name="test/Horde/Stream/Stream/TempStringTest.php" />
+   <install as="Horde/Stream/Stream/TempTest.php" name="test/Horde/Stream/Stream/TempTest.php" />
+   <install as="Horde/Stream/Stream/TestBase.php" name="test/Horde/Stream/Stream/TestBase.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -224,15 +249,16 @@
   </release>
   <release>
    <version>
-    <release>1.5.1</release>
-    <api>1.5.0</api></version>
+    <release>1.6.0</release>
+    <api>1.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-12</date>
+   <date>2014-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add the Horde_Stream_TempString class.
+* [mms] Add the Horde_Stream_String class.
    </notes>
   </release>
  </changelog>
