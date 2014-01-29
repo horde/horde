@@ -126,7 +126,6 @@ class ScriptTester {
 
     function _setupStorage()
     {
-        $GLOBALS['session']->set('ingo', 'change', 0);
         $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock();
         foreach ($this->rules as $ob) {
             $GLOBALS['ingo_storage']->store($ob);
@@ -147,7 +146,7 @@ class ScriptTester_imap extends ScriptTester {
     {
         $this->_setupStorage();
         $this->api = Ingo_Script_Imap_Api::factory('mock', array());
-        $this->api->loadFixtures(__DIR__ . '/_data/');
+        $this->api->loadFixtures(__DIR__ . '/fixtures/');
 
         $GLOBALS['notification'] = new Ingo_Test_Notification;
 
@@ -285,24 +284,14 @@ class ScriptTester_sieve extends ScriptTester {
         $mh = fopen($this->mbox, 'w');
         $uid = 1;
 
-        $dh = opendir(__DIR__ . '/_data');
-        while (($dent = readdir($dh)) !== false) {
-            if ($dent == '.' || $dent == '..' || $dent == 'CVS') {
-                continue;
-            }
-            $filespec = __DIR__ . '/_data/' . $dent;
-            $fh = fopen($filespec, 'r');
-            $data = fread($fh, filesize($filespec));
-            fclose($fh);
-
+        foreach (glob(__DIR__ . '/fixtures/*') as $file) {
+            $data = file_get_contents($file);
             fwrite($mh, $data);
-            if ($data{strlen($data)-1} != "\n") {
+            if (substr($data, 0, -1) != "\n") {
                 fwrite($mh, "\n");
             }
-
-            $this->uids[$dent] = $uid++;
+            $this->uids[$file] = $uid++;
         }
-        closedir($dh);
 
         fclose($mh);
     }

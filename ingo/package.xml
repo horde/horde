@@ -459,16 +459,16 @@
     </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Ingo">
+     <dir name="fixtures">
+      <file name="from_spammer" role="test" />
+      <file name="not_from_spammer" role="test" />
+     </dir> <!-- /test/Ingo/fixtures -->
      <dir name="Unit">
       <file name="MaildropTest.php" role="test" />
       <file name="ProcmailTest.php" role="test" />
       <file name="SieveTest.php" role="test" />
       <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Ingo/Unit -->
-     <dir name="_data">
-      <file name="from_spammer" role="test" />
-      <file name="not_from_spammer" role="test" />
-     </dir> <!-- /test/Ingo/_data -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="bootstrap.php" role="test" />
@@ -849,12 +849,12 @@
    <install as="Ingo/bootstrap.php" name="test/Ingo/bootstrap.php" />
    <install as="Ingo/phpunit.xml" name="test/Ingo/phpunit.xml" />
    <install as="Ingo/ScriptTest.php" name="test/Ingo/ScriptTest.php" />
+   <install as="Ingo/fixtures/from_spammer" name="test/Ingo/fixtures/from_spammer" />
+   <install as="Ingo/fixtures/not_from_spammer" name="test/Ingo/fixtures/not_from_spammer" />
    <install as="Ingo/Unit/MaildropTest.php" name="test/Ingo/Unit/MaildropTest.php" />
    <install as="Ingo/Unit/ProcmailTest.php" name="test/Ingo/Unit/ProcmailTest.php" />
    <install as="Ingo/Unit/SieveTest.php" name="test/Ingo/Unit/SieveTest.php" />
    <install as="Ingo/Unit/TestBase.php" name="test/Ingo/Unit/TestBase.php" />
-   <install as="Ingo/_data/from_spammer" name="test/Ingo/_data/from_spammer" />
-   <install as="Ingo/_data/not_from_spammer" name="test/Ingo/_data/not_from_spammer" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
