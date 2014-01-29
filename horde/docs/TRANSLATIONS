@@ -382,7 +382,7 @@ To have your own string (e.g. that you added to config files) displayed in
 several languages, you have to
 
   1. specify your texts as gettext arguments, in English, e.g. by using the
-     _() function.
+     _() or r() function.
   2. edit the translation files for the required national languages,
   3. compile those translation files.
 
@@ -414,6 +414,20 @@ screen:
   3. You compile the translations using the commands::
 
        horde-translation make --module imp --no-compendium
+
+"Raw" gettext strings
+~~~~~~~~~~~~~~~~~~~~~
+
+Horde provides a non-standard way to define a translatable string without
+having that string translated in the code.  By using the r() method, the
+string will be marked as a translatable string and extracted by the Horde
+translation script, but the string will not be altered in the PHP code.
+Example::
+
+  $str = r("Foo");
+  echo $str; // Output: Foo
+  echo _($str); // Output: [Translation of 'Foo']
+
 
 Access Keys
 ===========

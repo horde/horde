@@ -29,6 +29,13 @@ if (($rg = ini_get('register_globals')) && (strcasecmp($rg, 'off') !== 0)) {
     exit('Register globals is enabled. Exiting.');
 }
 
+/* Translation: Horde uses r() to allow a string to be identified as a
+ * translatable string to the gettext extraction script, but no translation
+ * is done. */
+if (!function_exists('r')) {
+    function r($msg) { return $msg; }
+}
+
 $dirname = __DIR__;
 
 if (!defined('HORDE_BASE')) {
