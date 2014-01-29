@@ -421,8 +421,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Add to the body contents of this part.
      *
-     * @param mixed $contents   The part body. Either a string or a stream
-     *                          resource, or an array containing both.
+     * @param mixed $contents  The part body. Either a string or a stream
+     *                         resource, or an array containing both.
      *   - encoding: (string) The encoding of $contents.
      *               DEFAULT: Current transfer encoding value.
      *   - usestream: (boolean) If $contents is a stream, should we directly
