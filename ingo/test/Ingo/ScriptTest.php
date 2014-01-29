@@ -10,10 +10,8 @@
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/TestBase.php';
-
-class Ingo_ScriptTest extends Ingo_TestBase {
-
+class Ingo_ScriptTest extends PHPUnit_Framework_TestCase
+{
     function test_blacklist_rule_without_folder_will_discard_matching_message()
     {
         $runner = ScriptTester::factory('all', $this);

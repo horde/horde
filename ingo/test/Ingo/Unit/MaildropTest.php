@@ -1,46 +1,60 @@
 <?php
 /**
- * Test cases for Ingo_Script_sieve:: class
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/TestBase.php';
+/**
+ * Test cases for Ingo_Script_Maildrop class
+ *
+ * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @ignore
+ * @license    http://www.horde.org/licenses/apache ASL
+ * @package    Ingo
+ * @subpackage UnitTests
+ */
 
-class Ingo_MaildropTest extends Ingo_TestBase {
-
-    function store($ob)
+class Ingo_Unit_MaildropTest extends Ingo_Unit_TestBase
+{
+    public function setUp()
     {
-        $GLOBALS['ingo_storage']->store($ob);
-    }
+        parent::setUp();
 
-    function setUp()
-    {
-        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock(array(
-            'maxblacklist' => 3,
-            'maxwhitelist' => 3
-        ));
-        $GLOBALS['ingo_script'] = new Ingo_Script_Maildrop(array(
+        $this->script = new Ingo_Script_Maildrop(array(
             'path_style' => 'mbox',
+            'skip' => array(),
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
-            'spam_char' => '*'
+            'spam_char' => '*',
+            'storage' => $this->storage,
+            'transport' => array(
+                Ingo::RULE_ALL => array(
+                    'driver' => 'Null'
+                )
+            )
         ));
     }
 
-    function testForwardKeep()
+    public function testForwardKeep()
     {
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
 
-        $this->store($forward);
-        $this->assertScript('if( \
+        $this->storage->store($forward);
+
+        $this->_assertScript('if( \
 /^From:\s*.*/:h \
 )
 exception {
@@ -49,14 +63,15 @@ to "${DEFAULT}"
 }');
     }
 
-    function testForwardNoKeep()
+    public function testForwardNoKeep()
     {
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
 
-        $this->store($forward);
-        $this->assertScript('if( \
+        $this->storage->store($forward);
+
+        $this->_assertScript('if( \
 /^From:\s*.*/:h \
 )
 exception {
@@ -65,14 +80,15 @@ exit
 }');
     }
 
-    function testBlacklistWithFolder()
+    public function testBlacklistWithFolder()
     {
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder('Junk');
 
-        $this->store($bl);
-        $this->assertScript('if( \
+        $this->storage->store($bl);
+
+        $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
 exception {
@@ -80,14 +96,15 @@ to Junk
 }');
     }
 
-    function testBlacklistMarker()
+    public function testBlacklistMarker()
     {
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
 
-        $this->store($bl);
-        $this->assertScript('if( \
+        $this->storage->store($bl);
+
+        $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
 exception {
@@ -95,14 +112,15 @@ to ++DELETE++
 }');
     }
 
-    function testBlacklistDiscard()
+    public function testBlacklistDiscard()
     {
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(null);
 
-        $this->store($bl);
-        $this->assertScript('if( \
+        $this->storage->store($bl);
+
+        $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
 exception {
@@ -110,13 +128,14 @@ exit
 }');
     }
 
-    function testWhitelist()
+    public function testWhitelist()
     {
         $wl = new Ingo_Storage_Whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
 
-        $this->store($wl);
-        $this->assertScript('if( \
+        $this->storage->store($wl);
+
+        $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
 exception {

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-01</date>
+ <date>2014-01-29</date>
  <version>
   <release>3.2.0</release>
   <api>3.2.0</api>
@@ -198,18 +198,6 @@
      <file name="VacationTest.php" role="horde" />
      <file name="Whitelist.php" role="horde" />
     </dir> <!-- /lib/Storage -->
-    <dir name="tests">
-     <dir name="_data">
-      <file name="from_spammer" role="data" />
-      <file name="not_from_spammer" role="data" />
-     </dir> <!-- /lib/tests/_data -->
-     <file name="AllTests.php" role="horde" />
-     <file name="MaildropTest.php" role="horde" />
-     <file name="ProcmailTest.php" role="horde" />
-     <file name="ScriptTest.php" role="horde" />
-     <file name="SieveTest.php" role="horde" />
-     <file name="TestBase.php" role="horde" />
-    </dir> <!-- /lib/tests -->
     <dir name="Transport">
      <file name="Base.php" role="horde" />
      <file name="Ispconfig.php" role="horde" />
@@ -440,6 +428,7 @@
     <file name="3_ingo_upgrade_sqlng.php" role="horde" />
     <file name="4_ingo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="6_ingo_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -468,6 +457,25 @@
      <file name="rules.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Ingo">
+     <dir name="Unit">
+      <file name="MaildropTest.php" role="test" />
+      <file name="ProcmailTest.php" role="test" />
+      <file name="SieveTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+     </dir> <!-- /test/Ingo/Unit -->
+     <dir name="_data">
+      <file name="from_spammer" role="test" />
+      <file name="not_from_spammer" role="test" />
+     </dir> <!-- /test/Ingo/_data -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="ScriptTest.php" role="test" />
+    </dir> <!-- /test/Ingo -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="block">
@@ -739,14 +747,6 @@
    <install as="ingo/lib/Storage/VacationTest.php" name="lib/Storage/VacationTest.php" />
    <install as="ingo/lib/Storage/Whitelist.php" name="lib/Storage/Whitelist.php" />
    <install as="ingo/lib/Storage/Filters/Sql.php" name="lib/Storage/Filters/Sql.php" />
-   <install as="ingo/lib/tests/AllTests.php" name="lib/tests/AllTests.php" />
-   <install as="ingo/lib/tests/MaildropTest.php" name="lib/tests/MaildropTest.php" />
-   <install as="ingo/lib/tests/ProcmailTest.php" name="lib/tests/ProcmailTest.php" />
-   <install as="ingo/lib/tests/ScriptTest.php" name="lib/tests/ScriptTest.php" />
-   <install as="ingo/lib/tests/SieveTest.php" name="lib/tests/SieveTest.php" />
-   <install as="ingo/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
-   <install as="tests/_data/from_spammer" name="lib/tests/_data/from_spammer" />
-   <install as="tests/_data/not_from_spammer" name="lib/tests/_data/not_from_spammer" />
    <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
    <install as="ingo/lib/Transport/Ispconfig.php" name="lib/Transport/Ispconfig.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
@@ -834,6 +834,7 @@
    <install as="ingo/migration/3_ingo_upgrade_sqlng.php" name="migration/3_ingo_upgrade_sqlng.php" />
    <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
+   <install as="ingo/migration/6_ingo_upgrade_parents.php" name="migration/6_ingo_upgrade_parents.php" />
    <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
    <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
    <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
@@ -843,6 +844,17 @@
    <install as="ingo/templates/basic/whitelist/whitelist.html.php" name="templates/basic/whitelist/whitelist.html.php" />
    <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
    <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
+   <install as="Ingo/AllTests.php" name="test/Ingo/AllTests.php" />
+   <install as="Ingo/Autoload.php" name="test/Ingo/Autoload.php" />
+   <install as="Ingo/bootstrap.php" name="test/Ingo/bootstrap.php" />
+   <install as="Ingo/phpunit.xml" name="test/Ingo/phpunit.xml" />
+   <install as="Ingo/ScriptTest.php" name="test/Ingo/ScriptTest.php" />
+   <install as="Ingo/Unit/MaildropTest.php" name="test/Ingo/Unit/MaildropTest.php" />
+   <install as="Ingo/Unit/ProcmailTest.php" name="test/Ingo/Unit/ProcmailTest.php" />
+   <install as="Ingo/Unit/SieveTest.php" name="test/Ingo/Unit/SieveTest.php" />
+   <install as="Ingo/Unit/TestBase.php" name="test/Ingo/Unit/TestBase.php" />
+   <install as="Ingo/_data/from_spammer" name="test/Ingo/_data/from_spammer" />
+   <install as="Ingo/_data/not_from_spammer" name="test/Ingo/_data/not_from_spammer" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />

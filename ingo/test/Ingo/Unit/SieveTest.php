@@ -1,50 +1,61 @@
 <?php
 /**
- * Test cases for Ingo_Script_sieve:: class
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/TestBase.php';
+/**
+ * Test cases for Ingo_Script_Sieve class
+ *
+ * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @ignore
+ * @license    http://www.horde.org/licenses/apache ASL
+ * @package    Ingo
+ * @subpackage UnitTests
+ */
 
-class Ingo_SieveTest extends Ingo_TestBase {
-
-    function store($ob)
+class Ingo_Unit_SieveTest extends Ingo_Unit_TestBase
+{
+    public function setUp()
     {
-        $GLOBALS['ingo_storage']->store($ob);
-    }
+        parent::setUp();
 
-    function setUp()
-    {
-        $GLOBALS['conf']['spam'] = array('enabled' => true,
-                                         'char' => '*',
-                                         'header' => 'X-Spam-Level');
-        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock(array(
-            'maxblacklist' => 3,
-            'maxwhitelist' => 3
-        ));
-        $GLOBALS['ingo_script'] = new Ingo_Script_Sieve(array(
+        $this->script = new Ingo_Script_Sieve(array(
+            'date_format' => '%x',
+            'skip' => array(),
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
             'spam_char' => '*',
-            'date_format' => '%x',
-            'time_format' => '%R'
+            'time_format' => '%R',
+            'storage' => $this->storage,
+            'transport' => array(
+                Ingo::RULE_ALL => array(
+                    'driver' => 'Null'
+                )
+            )
         ));
     }
 
-    function testForwardKeep()
+    public function testForwardKeep()
     {
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
 
-        $this->store($forward);
-        $this->assertScript('if true {
+        $this->storage->store($forward);
+
+        $this->_assertScript('if true {
 redirect "joefabetes@example.com";
 }
 if true {
@@ -53,27 +64,29 @@ stop;
 }');
     }
 
-    function testForwardNoKeep()
+    public function testForwardNoKeep()
     {
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
 
-        $this->store($forward);
-        $this->assertScript('if true {
+        $this->storage->store($forward);
+
+        $this->_assertScript('if true {
 redirect "joefabetes@example.com";
 stop;
 }');
     }
 
-    function testBlacklistMarker()
+    public function testBlacklistMarker()
     {
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
 
-        $this->store($bl);
-        $this->assertScript('require "imapflags";
+        $this->storage->store($bl);
+
+        $this->_assertScript('require "imapflags";
 if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
 addflag "\\\\Deleted";
 keep;
@@ -82,53 +95,57 @@ stop;
 }');
     }
 
-    function testWhitelist()
+    public function testWhitelist()
     {
         $wl = new Ingo_Storage_Whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
 
-        $this->store($wl);
-        $this->assertScript('if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
+        $this->storage->store($wl);
+
+        $this->_assertScript('if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
 keep;
 stop;
 }');
     }
 
-    function testVacationDisabled()
+    public function testVacationDisabled()
     {
         $vacation = new Ingo_Storage_VacationTest();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
 
-        $this->store($vacation);
-        $this->assertScript('');
+        $this->storage->store($vacation);
+
+        $this->_assertScript('');
     }
 
-    function testVacationEnabled()
+    public function testVacationEnabled()
     {
         $vacation = new Ingo_Storage_VacationTest();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
 
-        $this->store($vacation);
+        $this->storage->store($vacation);
+
         $this->_enableRule(Ingo_Storage::ACTION_VACATION);
 
-        $this->assertScript('require ["vacation", "regex"];
+        $this->_assertScript('require ["vacation", "regex"];
 if allof ( not exists ["list-help", "list-unsubscribe", "list-subscribe", "list-owner", "list-post", "list-archive", "list-id", "Mailing-List"], not header :comparator "i;ascii-casemap" :is "Precedence" ["list", "bulk", "junk"], not header :comparator "i;ascii-casemap" :matches "To" "Multiple recipients of*" ) {
 vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don\'t like working!";
 }');
     }
 
-    function testSpamDisabled()
+    public function testSpamDisabled()
     {
         $spam = new Ingo_Storage_Spam();
         $spam->setSpamLevel(7);
         $spam->setSpamFolder("Junk");
 
-        $this->store($spam);
-        $this->assertScript('');
+        $this->storage->store($spam);
+
+        $this->_assertScript('');
     }
 
     function testSpamEnabled()
@@ -137,9 +154,11 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
         $spam->setSpamLevel(7);
         $spam->setSpamFolder("Junk");
 
-        $this->store($spam);
+        $this->storage->store($spam);
+
         $this->_enableRule(Ingo_Storage::ACTION_SPAM);
-        $this->assertScript('require "fileinto";
+
+        $this->_assertScript('require "fileinto";
 if header :comparator "i;ascii-casemap" :contains "X-Spam-Level" "*******"  {
 fileinto "Junk";
 stop;

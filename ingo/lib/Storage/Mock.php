@@ -28,7 +28,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
 
     /**
      */
-    protected function _retrieve($field)
+    protected function _retrieve($field, $readonly = false)
     {
         if (empty($this->_data[$field])) {
             switch ($field) {
