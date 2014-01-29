@@ -347,7 +347,7 @@ class Horde_Smtp implements Serializable
                 );
             } catch (Horde\Socket\Client\Exception $e) {
                 $e2 = new Horde_Smtp_Exception(
-                    Horde_Smtp_Translation::t("Error connecting to SMTP server."),
+                    Horde_Smtp_Translation::r("Error connecting to SMTP server."),
                     Horde_Smtp_Exception::SERVER_CONNECT
                 );
                 $e2->details = $e->details;
@@ -431,7 +431,7 @@ class Horde_Smtp implements Serializable
 
         $this->logout();
         throw new Horde_Smtp_Exception(
-            Horde_Smtp_Translation::t("Server denied authentication."),
+            Horde_Smtp_Translation::r("Server denied authentication."),
             Horde_Smtp_Exception::LOGIN_AUTHENTICATIONFAILED
         );
     }
@@ -634,7 +634,7 @@ class Horde_Smtp implements Serializable
             }
 
             throw new Horde_Smtp_Exception(
-                Horde_Smtp_Translation::t("Server does not support TLS connections."),
+                Horde_Smtp_Translation::r("Server does not support TLS connections."),
                 Horde_Smtp_Exception::LOGIN_TLSFAILURE
             );
         }

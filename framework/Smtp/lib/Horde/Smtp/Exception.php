@@ -65,6 +65,15 @@ class Horde_Smtp_Exception extends Horde_Exception
 
 
     /**
+     * Raw error message (in English).
+     *
+     * @since 1.4.0
+     *
+     * @var string
+     */
+    public $raw_msg = '';
+
+    /**
      * SMTP Enhanced Mail System Status Code (see RFC 3463).
      *
      * @var string
@@ -77,6 +86,22 @@ class Horde_Smtp_Exception extends Horde_Exception
      * @var integer
      */
     protected $_smtpcode = 0;
+
+    /**
+     * Constructor.
+     *
+     * @param string $msg  Error message (non-translated).
+     * @param code $code   Error code.
+     */
+    public function __construct($message = null, $code = null)
+    {
+        parent::__construct(
+            Horde_Smtp_Translation::t($message),
+            $code
+        );
+
+        $this->raw_msg = $message;
+    }
 
     /**
      * Set the SMTP reply code.
@@ -93,22 +118,26 @@ class Horde_Smtp_Exception extends Horde_Exception
         switch ($code) {
         case 450:
         case 550:
-            $this->message = Horde_Smtp_Translation::t("Mailbox unavailable.");
+            $this->raw_msg = Horde_Smtp_Translation::r("Mailbox unavailable.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::MAILBOX_UNAVAILABLE;
             break;
 
         case 452:
-            $this->message = Horde_Smtp_Translation::t("Insufficient system storage.");
+            $this->raw_msg = Horde_Smtp_Translation::r("Insufficient system storage.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::INSUFFICIENT_STORAGE;
             break;
 
         case 454:
-            $this->message = Horde_Smtp_Translation::t("Could not open secure TLS connection to the server.");
+            $this->raw_msg = Horde_Smtp_Translation::r("Could not open secure TLS connection to the server.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::LOGIN_TLSFAILURE;
             break;
 
         case 530:
-            $this->message = Horde_Smtp_Translation::t("Server requires authentication.");
+            $this->raw_msg = Horde_Smtp_Translation::r("Server requires authentication.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::LOGIN_REQUIREAUTHENTICATION;
             break;
 
@@ -121,7 +150,8 @@ class Horde_Smtp_Exception extends Horde_Exception
             break;
 
         case 554:
-            $this->message = Horde_Smtp_Translation::t("Server is not accepting SMTP connections.");
+            $this->raw_msg = Horde_Smtp_Translation::r("Server is not accepting SMTP connections.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::DISCONNECT;
             break;
         }

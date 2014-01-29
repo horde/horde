@@ -78,7 +78,7 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
     {
         if (fwrite($this->_stream, $data) === false) {
             throw new Horde_Smtp_Exception(
-                Horde_Smtp_Translation::t("Server write error."),
+                Horde_Smtp_Translation::r("Server write error."),
                 Horde_Smtp_Exception::SERVER_WRITEERROR
             );
         }
@@ -97,7 +97,7 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
             $this->close();
             $this->_params['debug']->info("ERROR: Server closed the connection.");
             throw new Horde_Smtp_Exception(
-                Horde_Smtp_Translation::t("Server closed the connection unexpectedly."),
+                Horde_Smtp_Translation::r("Server closed the connection unexpectedly."),
                 Horde_Smtp_Exception::DISCONNECT
             );
         }
@@ -105,7 +105,7 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
         if (($read = fgets($this->_stream)) === false) {
             $this->_params['debug']->info("ERROR: Server read/timeout error.");
             throw new Horde_Smtp_Exception(
-                Horde_Smtp_Translation::t("Error when communicating with the server."),
+                Horde_Smtp_Translation::r("Error when communicating with the server."),
                 Horde_Smtp_Exception::SERVER_READERROR
             );
         }
