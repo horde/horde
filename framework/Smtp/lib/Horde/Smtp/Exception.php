@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
  */
-class Horde_Smtp_Exception extends Horde_Exception_Wrapped
+class Horde_Smtp_Exception extends Horde_Exception
 {
     /* Error message codes. */
 
