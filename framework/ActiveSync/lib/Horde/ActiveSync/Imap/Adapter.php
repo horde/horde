@@ -269,7 +269,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
      *
-     * @throws Horde_ActiveSync_Exception_FolderGone, Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception_FolderGone,
+               Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StaleState
      */
     public function getMessageChanges(
         Horde_ActiveSync_Folder_Imap $folder, array $options = array())
@@ -460,6 +461,8 @@ class Horde_ActiveSync_Imap_Adapter
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
+        } elseif ($modseq > 0 && $folder->modseq() == 0) {
+                throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
         }
         $folder->setStatus($status);
 
