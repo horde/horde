@@ -111,20 +111,17 @@ var IMP_JS = {
 
     iframeResize: function(id)
     {
-        var lc;
+        var h, lc;
 
         if (id = $(id)) {
             lc = id.contentWindow.document.lastChild;
-
-            id.setStyle({
-                height: 'auto'
-            }).setStyle({
-                height: lc.scrollHeight + 'px'
-            });
+            h = lc.scrollHeight;
 
             if (lc.scrollHeight != lc.clientHeight) {
-                id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
+                h += 25;
             }
+
+            id.setStyle({ height: h + 'px' });
         }
     },
 

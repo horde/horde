@@ -90,7 +90,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $data['js'][] = '$("#imp-message-body a[href=\'#unblock-image\']").button()';
             }
 
-            $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
+            $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;
         }
