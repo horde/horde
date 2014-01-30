@@ -1462,6 +1462,7 @@ document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 
 /* Other UI event handlers. */
+document.observe('AutoComplete:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
 
 /* ContextSensitive functions. */

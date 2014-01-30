@@ -3,12 +3,13 @@
  * (completed elements are stored in separate DIV elements).
  *
  * Events handled by this class:
- * -----------------------------
  *   - AutoComplete:focus
  *   - AutoComplete:handlers
  *   - AutoComplete:reset
  *   - AutoComplete:update
  *
+ * Events triggered by this class:
+ *   - AutoComplete:resize
  *
  * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
  *
@@ -263,6 +264,7 @@ var IMP_PrettyAutocompleter = Class.create({
         this.input.setStyle({
             width: Math.max(80, $F(this.input).length * 9) + 'px'
         });
+        this.input.fire('AutoComplete:resize');
     },
 
     toObject: function(elt)
