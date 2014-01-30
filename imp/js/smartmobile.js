@@ -1493,11 +1493,6 @@ var ImpMobile = {
      */
     onDocumentReady: function()
     {
-        $(document).on('pagebeforechange', ImpMobile.toPage)
-            .on('pagebeforeshow', ImpMobile.beforeShow)
-            .on('pagechange', ImpMobile.pageShow)
-            .on('HordeMobile:runTasks', ImpMobile.runTasks);
-
         $('#imp-mailbox-list')
             .swipebutton()
                 .on('swipebutton', 'li.imp-message', ImpMobile.swipeButtons)
@@ -1569,12 +1564,15 @@ var ImpMobile = {
 
 // JQuery Mobile setup
 $(ImpMobile.onDocumentReady);
-
 $(document).on('mobileinit', function() {
     $.mobile.buttonMarkup.hoverDelay = 80;
     $.mobile.defaultPageTransition = 'none';
     $.event.special.tap.tapholdThreshold = 600;
 });
+$(document).on('pagebeforechange', ImpMobile.toPage)
+    .on('pagebeforeshow', ImpMobile.beforeShow)
+    .on('pagechange', ImpMobile.pageShow)
+    .on('HordeMobile:runTasks', ImpMobile.runTasks);
 
 var ImpMobileMbox = {
     // Vars used: cacheid, label, readonly
