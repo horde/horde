@@ -17,11 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:13:00</time>
+ <date>2014-01-30</date>
  <version>
-  <release>2.0.2</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Autoloader_ClassPathMapper_PrefixString mapper implementation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,6 +49,7 @@
        <file name="Application.php" role="php" />
        <file name="Default.php" role="php" />
        <file name="Prefix.php" role="php" />
+       <file name="PrefixString.php" role="php" />
       </dir> <!-- /lib/Horde/Autoloader/ClassPathMapper -->
       <file name="ClassPathMapper.php" role="php" />
       <file name="Default.php" role="php" />
@@ -63,6 +63,7 @@
       <dir name="ClassPathMapper">
        <file name="ApplicationTest.php" role="test" />
        <file name="DefaultTest.php" role="test" />
+       <file name="PrefixStringTest.php" role="test" />
        <file name="PrefixTest.php" role="test" />
       </dir> <!-- /test/Horde/Autoloader/ClassPathMapper -->
       <file name="AllTests.php" role="test" />
@@ -103,12 +104,14 @@
    <install as="Horde/Autoloader/ClassPathMapper/Application.php" name="lib/Horde/Autoloader/ClassPathMapper/Application.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Default.php" name="lib/Horde/Autoloader/ClassPathMapper/Default.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Prefix.php" name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/PrefixString.php" name="lib/Horde/Autoloader/ClassPathMapper/PrefixString.php" />
    <install as="Horde/Autoloader/AllTests.php" name="test/Horde/Autoloader/AllTests.php" />
    <install as="Horde/Autoloader/AutoloaderTest.php" name="test/Horde/Autoloader/AutoloaderTest.php" />
    <install as="Horde/Autoloader/bootstrap.php" name="test/Horde/Autoloader/bootstrap.php" />
    <install as="Horde/Autoloader/phpunit.xml" name="test/Horde/Autoloader/phpunit.xml" />
    <install as="Horde/Autoloader/ClassPathMapper/ApplicationTest.php" name="test/Horde/Autoloader/ClassPathMapper/ApplicationTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/DefaultTest.php" name="test/Horde/Autoloader/ClassPathMapper/DefaultTest.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/PrefixStringTest.php" name="test/Horde/Autoloader/ClassPathMapper/PrefixStringTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/PrefixTest.php" name="test/Horde/Autoloader/ClassPathMapper/PrefixTest.php" />
   </filelist>
  </phprelease>
@@ -258,15 +261,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.2</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2014-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Autoloader_ClassPathMapper_PrefixString mapper implementation.
    </notes>
   </release>
  </changelog>
