@@ -470,17 +470,14 @@ class Horde_Registry implements Horde_Shutdown_Task
         $this->importConfig('horde');
         $conf = $GLOBALS['conf'];
 
-        /* The basic framework is up and loaded, so set the init flag. */
-        $this->hordeInit = true;
+        /* Set the umask according to config settings. */
+        if (isset($conf['umask'])) {
+            umask($conf['umask']);
+        }
 
         /* Set the error reporting level in accordance with the config
          * settings. */
         error_reporting($conf['debug_level']);
-
-        /* Initialize browser object. */
-        $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
-
-        /* Initial Horde-wide settings. */
 
         /* Set the maximum execution time in accordance with the config
          * settings, but only if not running from the CLI */
@@ -488,10 +485,13 @@ class Horde_Registry implements Horde_Shutdown_Task
             set_time_limit($conf['max_exec_time']);
         }
 
-        /* Set the umask according to config settings. */
-        if (isset($conf['umask'])) {
-            umask($conf['umask']);
-        }
+        /* The basic framework is up and loaded, so set the init flag. */
+        $this->hordeInit = true;
+
+        /* Initial Horde-wide settings. */
+
+        /* Initialize browser object. */
+        $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
         /* Get modified time of registry files. */
         $regfiles = array(
