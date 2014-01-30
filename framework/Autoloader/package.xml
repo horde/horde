@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Remove duplicate paths when initializing the default Autoloader.
 * [mms] Add Horde_Autoloader_ClassPathMapper_PrefixString mapper implementation.
  </notes>
  <contents>
@@ -269,6 +270,7 @@
    <date>2014-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Remove duplicate paths when initializing the default Autoloader.
 * [mms] Add Horde_Autoloader_ClassPathMapper_PrefixString mapper implementation.
    </notes>
   </release>

@@ -32,12 +32,18 @@ class Horde_Autoloader_Default extends Horde_Autoloader
      */
     public function __construct()
     {
-        foreach (array_reverse(explode(PATH_SEPARATOR, get_include_path())) as $path) {
-            if (($path != '.') && ($path = realpath($path))) {
-                $this->addClassPathMapper(
-                    new Horde_Autoloader_ClassPathMapper_Default($path)
-                );
-            }
+        $paths = array_map(
+            'realpath',
+            array_diff(
+                array_unique(explode(PATH_SEPARATOR, get_include_path())),
+                array('.')
+            )
+        );
+
+        foreach (array_reverse($paths) as $path) {
+            $this->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Default($path)
+            );
         }
     }
 
