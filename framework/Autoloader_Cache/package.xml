@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Saving cache data should be handled in a shutdown function, not a destructor.
 * [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
  </notes>
  <contents>
@@ -306,6 +307,7 @@
    <date>2013-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Saving cache data should be handled in a shutdown function, not a destructor.
 * [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
    </notes>
   </release>

@@ -116,6 +116,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cachetype = self::TEMPFILE;
         }
 
+        if ($this->_cachetype) {
+            register_shutdown_function(array($this, 'shutdown'));
+        }
+
         if ($data) {
             if (extension_loaded('horde_lz4')) {
                 $data = @horde_lz4_uncompress($data);
@@ -137,13 +141,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     }
 
     /**
-     * Destructor.
+     * Shutdown method.
      *
      * Attempts to save the class map to the cache.
      */
-    public function __destruct()
+    public function shutdown()
     {
-        if (!$this->_changed || !$this->_cachetype) {
+        if (!$this->_changed) {
             return;
         }
 
