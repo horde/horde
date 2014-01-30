@@ -48,7 +48,7 @@ class Horde_Stream_Temp extends Horde_Stream
             $cmd .= '/maxmemory:' . intval($this->_params['max_memory']);
         }
 
-        if (($this->_stream = @fopen($cmd, 'r+')) === false) {
+        if (($this->stream = @fopen($cmd, 'r+')) === false) {
             throw new Horde_Stream_Exception('Failed to open temporary memory stream.');
         }
     }
