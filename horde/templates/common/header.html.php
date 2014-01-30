@@ -10,9 +10,6 @@
 <?php if ($this->outputJs): ?>
   <?php $this->pageOutput->includeScriptFiles(); ?>
   <?php $this->pageOutput->outputInlineScript(); ?>
-<?php if ($this->smartmobileView): ?>
-  <?php $this->pageOutput->outputSmartmobileFiles(); ?>
-<?php endif; ?>
 <?php endif; ?>
 <?php endif; ?>
   <title><?php echo $this->pageTitle ?></title>

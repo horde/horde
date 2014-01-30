@@ -102,6 +102,14 @@ class Horde_PageOutput
     protected $_compress = false;
 
     /**
+     * Smartmobile init code that needs to be output before jquery.mobile.js
+     * is loaded.
+     *
+     * @var array
+     */
+    protected $_smartmobileInit = array();
+
+    /**
      * View mode.
      *
      * @var integer
@@ -179,6 +187,14 @@ class Horde_PageOutput
 
         if (!$browser->hasFeature('javascript')) {
             return;
+        }
+
+        if (!empty($this->_smartmobileInit)) {
+            echo Horde::wrapInlineScript(array(
+                'var horde_jquerymobile_init = function() {' .
+                implode('', $this->_smartmobileInit) . '};'
+            ));
+            $this->_smartmobileInit = array();
         }
 
         $all_scripts = $jsvars = $tmp = array();
@@ -741,17 +757,19 @@ class Horde_PageOutput
                 ($this->debug ? 'jquery.mobile/jquery.js' : 'jquery.mobile/jquery.min.js'),
                 'growler-jquery.js',
                 'horde-jquery.js',
-                'smartmobile.js'
+                'smartmobile.js',
+                'horde-jquery-init.js',
+                ($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js')
             );
             foreach ($smobile_files as $val) {
                 $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
             }
 
-            $init_js = implode('', array_merge(array(
+            $this->_smartmobileInit = array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
                 '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
-            ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
+            ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array());
 
             $this->addInlineJsVars(array(
                 'HordeMobile.conf' => array(
@@ -761,7 +779,6 @@ class Horde_PageOutput
                     'token' => $session->getToken()
                 )
             ));
-            $this->addInlineScript('$(window.document).bind("mobileinit", function() {' . $init_js . '});');
 
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
@@ -910,11 +927,11 @@ class Horde_PageOutput
 
     /**
      * Output files needed for smartmobile mode.
+     *
+     * @deprecated
      */
     public function outputSmartmobileFiles()
     {
-        $this->addScriptFile($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js', 'horde');
-        $this->includeScriptFiles();
     }
 
     /**

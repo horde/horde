@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-01-28</date>
+ <date>2014-01-30</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Support session_version Horde hook.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
@@ -280,6 +281,7 @@
     <file name="form_helpers.js" role="horde" />
     <file name="growler-jquery.js" role="horde" />
     <file name="growler.js" role="horde" />
+    <file name="horde-jquery-init.js" role="horde" />
     <file name="horde-jquery.js" role="horde" />
     <file name="horde.js" role="horde" />
     <file name="hordeblocks.js" role="horde" />
@@ -1490,6 +1492,7 @@
    <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/growler-jquery.js" name="js/growler-jquery.js" />
    <install as="js/growler.js" name="js/growler.js" />
+   <install as="js/horde-jquery-init.js" name="js/horde-jquery-init.js" />
    <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
    <install as="js/horde.js" name="js/horde.js" />
    <install as="js/hordeblocks.js" name="js/hordeblocks.js" />
@@ -3297,9 +3300,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-28</date>
+   <date>2014-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Support session_version Horde hook.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
