@@ -335,8 +335,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $mime_headers = new Horde_Mime_Headers();
             $headers = $mime_headers->listHeaders();
             $headers['Mailing-List'] = null;
-            $tmp = new Ingo_Script_Sieve_Test_Exists(array('headers' => implode("\n", array_keys($headers))));
-            $tests[] = new Ingo_Script_Sieve_Test_Not($tmp);
+            foreach (array_keys($headers) as $h) {
+                $tests[] = new Ingo_Script_Sieve_Test_Not(
+                    new Ingo_Script_Sieve_Test_Exists(array('headers' => $h))
+                );
+            }
             $vals = array('headers' => 'Precedence',
                           'match-type' => ':is',
                           'strings' => "list\nbulk\njunk",

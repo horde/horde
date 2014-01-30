@@ -1336,5 +1336,18 @@
 * [mms] SECURITY: Protect against CSRF attacks by using tokens on destructive actions (Bug #12796; CVE-2013-6275; found by Marcela Benetrix &lt;m.benetrix@e-secure.com.au&gt;).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>3.1.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (Bug #12938; skhorde@smail.inf.fg-bonn-rhein-sieg.de).
+   </notes>
+  </release>
  </changelog>
 </package>
