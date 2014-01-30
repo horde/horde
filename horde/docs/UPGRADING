@@ -69,7 +69,7 @@ The default value for the following options were changed::
 Hooks (hooks.php)
 -----------------
 
-New ActiveSync related hooks have been added:
+New ActiveSync related hooks have been added::
 
     activesync_create_device
     activesync_device_check
