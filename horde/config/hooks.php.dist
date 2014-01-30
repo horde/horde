@@ -669,20 +669,6 @@ class Horde_Hooks
 
 
     /**
-     * Define a unique session version identifier that, when changed, will
-     * cause all existing (non-matching) sessions to become invalidated when
-     * subsequently accessed.
-     *
-     * @return string  Unique session version identifier.
-     */
-//     public function session_version()
-//     {
-//         // Example: Sessions become invalidated each week.
-//         return date('W-y');
-//     }
-
-
-    /**
      * Modify the browser object.
      *
      * @param Horde_Core_Browser $browser  The browser object.

@@ -38,7 +38,6 @@ class Horde_Session
     const MODIFIED = '_m'; /* @deprecated */
     const PRUNE = '_p';
     const REGENERATE = '_r'; /* @since 2.5.0 */
-    const VERSION = '_v'; /* @since 2.12.0 */
 
     const TYPE_ARRAY = 1;
     const TYPE_OBJECT = 2;
@@ -197,8 +196,6 @@ class Horde_Session
      */
     public function start()
     {
-        global $injector, $registry;
-
         /* Limit session ID to 32 bytes. Session IDs are NOT cryptographically
          * secure hashes. Instead, they are nothing more than a way to
          * generate random strings. */
@@ -209,24 +206,11 @@ class Horde_Session
         $this->_active = true;
         $this->_data = &$_SESSION;
 
-        try {
-            $version = $injector->getInstance('Horde_Core_Hooks')->callHook('session_version', 'horde');
-            if (!isset($this->_data[self::VERSION])) {
-                $this->_data[self::VERSION] = $version;
-                $this->sessionHandler->changed = true;
-            } elseif ($version != $this->_data[self::VERSION]) {
-                throw new Horde_Exception_AuthenticationFailure(
-                    'Session invalidated due to version ID change.',
-                     Horde_Auth::REASON_SESSION
-                );
-            }
-        } catch (Horde_Exception_HookNotSet $e) {}
-
         /* We have reopened a session. Check to make sure that authentication
          * status has not changed in the meantime. */
         if (!$this->_readonly &&
             !is_null($this->_relogin) &&
-            (($registry->getAuth() !== false) !== $this->_relogin)) {
+            (($GLOBALS['registry']->getAuth() !== false) !== $this->_relogin)) {
             Horde::log('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
             $this->_readonly = true;
         }
