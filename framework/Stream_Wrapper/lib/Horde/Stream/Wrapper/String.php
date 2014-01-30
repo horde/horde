@@ -30,18 +30,11 @@ class Horde_Stream_Wrapper_String
     public $context;
 
     /**
-     * String length.
-     *
-     * @var integer
-     */
-    protected $_length;
-
-    /**
      * String position.
      *
      * @var integer
      */
-    protected $_position;
+    protected $_pos;
 
     /**
      * The string.
@@ -65,8 +58,8 @@ class Horde_Stream_Wrapper_String
             return false;
         }
 
-        $this->_length = strlen($this->_string);
-        $this->_position = 0;
+        $this->_pos= 0;
+
         return true;
     }
 
@@ -75,8 +68,8 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_read($count)
     {
-        $current = $this->_position;
-        $this->_position += $count;
+        $current = $this->_pos;
+        $this->_pos+= $count;
         return substr($this->_string, $current, $count);
     }
 
@@ -93,7 +86,7 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_tell()
     {
-        return $this->_position;
+        return $this->_pos;
     }
 
     /**
@@ -101,7 +94,7 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_eof()
     {
-        return ($this->_position > $this->_length);
+        return ($this->_pos> strlen($this->_string));
     }
 
     /**
@@ -117,7 +110,7 @@ class Horde_Stream_Wrapper_String
             'uid' => 0,
             'gid' => 0,
             'rdev' => 0,
-            'size' => $this->_length,
+            'size' => strlen($this->_string),
             'atime' => 0,
             'mtime' => 0,
             'ctime' => 0,
@@ -131,26 +124,26 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_seek($offset, $whence)
     {
-        if ($offset > $this->_length) {
+        if ($offset > strlen($this->_string)) {
             return false;
         }
 
         switch ($whence) {
         case SEEK_SET:
-            $this->_position = $offset;
+            $this->_pos= $offset;
             break;
 
         case SEEK_CUR:
-            $target = $this->_position + $offset;
-            if ($target < $this->_length) {
-                $this->_position = $target;
+            $target = $this->_pos+ $offset;
+            if ($target < strlen($this->_string)) {
+                $this->_pos= $target;
             } else {
                 return false;
             }
             break;
 
         case SEEK_END:
-            $this->_position = $this->_length - $offset;
+            $this->_pos = strlen($this->_string) - $offset;
             break;
         }
 
