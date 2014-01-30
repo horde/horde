@@ -46,7 +46,9 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
 if (!@include_once 'Horde/Autoloader/Cache.php') {
     require_once 'Horde/Autoloader/Default.php';
 }
-$__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Horde(?:$|_)/i', $dirname));
+$__autoloader->addClassPathMapper(
+    new Horde_Autoloader_ClassPathMapper_PrefixString('Horde', $dirname)
+);
 
 /* Sanity checking - if we can't even load the Horde_ErrorHandler file, then
  * the installation is all sorts of busted. */

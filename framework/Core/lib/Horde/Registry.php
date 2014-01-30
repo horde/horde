@@ -782,29 +782,39 @@ class Horde_Registry implements Horde_Shutdown_Task
             return $this->_obCache[$app][$type];
         }
 
+        $path = $this->get('fileroot', $app) . '/lib';
+
         /* Set up autoload paths for the current application. This needs to
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
-        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
-        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $this->get('fileroot', $app) . '/lib'));
+        if (!isset($this->_obCache[$app])) {
+            $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
 
-        $app_mappers = array(
-            'Controller' =>  'controllers',
-            'Helper' => 'helpers',
-            'SettingsExporter' => 'settings'
-        );
-        $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
-        foreach ($app_mappers as $key => $val) {
-            $applicationMapper->addMapping($key, $val);
+            $app_mappers = array(
+                'Controller' =>  'controllers',
+                'Helper' => 'helpers',
+                'SettingsExporter' => 'settings'
+            );
+            $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
+            foreach ($app_mappers as $key => $val) {
+                $applicationMapper->addMapping($key, $val);
+            }
+            $autoloader->addClassPathMapper($applicationMapper);
+
+            /* Skip horde, since this was already setup in core.php. */
+            if ($app != 'horde') {
+                $autoloader->addClassPathMapper(
+                    new Horde_Autoloader_ClassPathMapper_PrefixString($app, $path)
+                );
+            }
         }
-        $autoloader->addClassPathMapper($applicationMapper);
 
         $cname = Horde_String::ucfirst($type);
 
         /* Can't autoload here, since the application may not have been
          * initialized yet. */
         $classname = Horde_String::ucfirst($app) . '_' . $cname;
-        $path = $this->get('fileroot', $app) . '/lib/' . $cname . '.php';
+        $path = $path . '/' . $cname . '.php';
         if (file_exists($path)) {
             include_once $path;
         } else {
