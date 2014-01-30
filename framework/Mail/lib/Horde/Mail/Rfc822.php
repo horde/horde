@@ -146,7 +146,7 @@ class Horde_Mail_Rfc822
         }
 
         if (empty($params['limit'])) {
-            $params['limit'] = null;
+            $params['limit'] = -1;
         }
 
         $this->_params = array_merge(array(
@@ -245,8 +245,7 @@ class Horde_Mail_Rfc822
     {
         $limit = $this->_params['limit'];
 
-        while (($this->_curr() !== false) &&
-               (is_null($limit) || ($limit > 0))) {
+        while (($this->_curr() !== false) && ($limit-- !== 0)) {
             try {
                 $this->_parseAddress();
             } catch (Horde_Mail_Exception $e) {
@@ -271,7 +270,6 @@ class Horde_Mail_Rfc822
                }
                break;
             }
-            $limit--;
         }
     }
 
@@ -527,9 +525,9 @@ class Horde_Mail_Rfc822
             }
 
             $chr = $this->_curr();
-            if (!$this->_rfc822IsAtext($chr) &&
-                ($chr != '"') &&
-                ($chr != '.')) {
+            if (($chr != '"') &&
+                ($chr != '.') &&
+                !$this->_rfc822IsAtext($chr)) {
                 break;
             }
 
@@ -558,7 +556,7 @@ class Horde_Mail_Rfc822
 
             case "\n":
                 /* Folding whitespace, remove the (CR)LF. */
-                if ($str[strlen($str) - 1] == "\r") {
+                if (substr($str, -1) == "\r") {
                     $str = substr($str, 0, -1);
                 }
                 continue;
@@ -597,8 +595,14 @@ class Horde_Mail_Rfc822
             throw new Horde_Mail_Exception('Error when parsing dot-atom.');
         }
 
+        $is_validate = $this->_params['validate'];
+
         while (($chr = $this->_curr()) !== false) {
-            if ($this->_rfc822IsAtext($chr, $validate)) {
+            /* $this->_rfc822IsAtext($chr, $validate);
+             * Optimization: Function would be called excessively in this
+             * loop, so eliminate function call overhead. */
+            if (($is_validate && !strcspn($chr, self::ATEXT)) ||
+                (!$is_validate && strcspn($chr, $validate))) {
                 $str .= $chr;
                 ++$this->_ptr;
             } else {
@@ -607,7 +611,7 @@ class Horde_Mail_Rfc822
                 if ($this->_curr() != '.') {
                     return;
                 }
-                $str .= '.';
+                $str .= $chr;
 
                 $this->_rfc822SkipLwsp(true);
             }
@@ -626,10 +630,17 @@ class Horde_Mail_Rfc822
      */
     protected function _rfc822ParseAtomOrDot(&$str)
     {
+        $validate = $this->_params['validate'];
+
         while (($chr = $this->_curr()) !== false) {
-            if (($chr != '.') && !$this->_rfc822IsAtext($chr, ',<:')) {
+            if (($chr != '.') &&
+                /* !$this->_rfc822IsAtext($chr, ',<:');
+                 * Optimization: Function would be called excessively in this
+                 * loop, so eliminate function call overhead. */
+                !(($validate && !strcspn($chr, self::ATEXT)) ||
+                  (!$validate && strcspn($chr, ',<:')))) {
                 $this->_rfc822SkipLwsp();
-                if (!$this->_params['validate']) {
+                if (!$validate) {
                     $str = trim($str);
                 }
                 return;
@@ -780,13 +791,9 @@ class Horde_Mail_Rfc822
      */
     protected function _rfc822IsAtext($chr, $validate = null)
     {
-        if (is_null($chr)) {
-            return false;
-        }
-
-        return ($this->_params['validate'] || is_null($validate))
-            ? !strcspn($chr, self::ATEXT)
-            : strcspn($chr, $validate);
+        return (!$this->_params['validate'] && !is_null($validate))
+            ? strcspn($chr, $validate)
+            : !strcspn($chr, self::ATEXT);
     }
 
     /* Helper methods. */
