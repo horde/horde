@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-16</date>
+ <date>2014-01-30</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -176,6 +176,7 @@
      <file name="Contacts.php" role="horde" />
      <file name="Error.php" role="horde" />
      <file name="Folders.php" role="horde" />
+     <file name="Listinfo.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Pgp.php" role="horde" />
@@ -915,6 +916,9 @@
      <file name="action.html.php" role="horde" />
      <file name="base.html.php" role="horde" />
     </dir> <!-- /templates/itip -->
+    <dir name="listinfo">
+     <file name="listinfo.html.php" role="horde" />
+    </dir> <!-- /templates/listinfo -->
     <dir name="minimal">
      <file name="compose.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
@@ -1104,6 +1108,7 @@
       <file name="checkbox_over.png" role="horde" />
       <file name="checkmail.png" role="horde" />
       <file name="clearflag.png" role="horde" />
+      <file name="clipboard.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
       <file name="delete-small.png" role="horde" />
@@ -1464,13 +1469,6 @@
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>Horde_Text_Filter_Csstidy</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
    <extension>
     <name>openssl</name>
    </extension>
@@ -1587,6 +1585,7 @@
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
    <install as="imp/lib/Basic/Error.php" name="lib/Basic/Error.php" />
    <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
+   <install as="imp/lib/Basic/Listinfo.php" name="lib/Basic/Listinfo.php" />
    <install as="imp/lib/Basic/Mailbox.php" name="lib/Basic/Mailbox.php" />
    <install as="imp/lib/Basic/Message.php" name="lib/Basic/Message.php" />
    <install as="imp/lib/Basic/Pgp.php" name="lib/Basic/Pgp.php" />
@@ -1985,6 +1984,7 @@
    <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
    <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
+   <install as="imp/templates/listinfo/listinfo.html.php" name="templates/listinfo/listinfo.html.php" />
    <install as="imp/templates/minimal/compose.html.php" name="templates/minimal/compose.html.php" />
    <install as="imp/templates/minimal/folders.html.php" name="templates/minimal/folders.html.php" />
    <install as="imp/templates/minimal/header.html.php" name="templates/minimal/header.html.php" />
@@ -2068,6 +2068,7 @@
    <install as="imp/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="imp/themes/default/graphics/checkmail.png" name="themes/default/graphics/checkmail.png" />
    <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
+   <install as="imp/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
    <install as="imp/themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
