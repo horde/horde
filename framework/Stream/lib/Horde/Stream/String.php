@@ -100,7 +100,7 @@ class Horde_Stream_String extends Horde_Stream
      */
     public function length($utf8 = false)
     {
-        return ($utf8 && $this->utf8_char)
+        return ($utf8 && $this->_utf8_char)
             ? Horde_String::length($this->_str)
             : strlen($this->_str);
     }
@@ -109,7 +109,7 @@ class Horde_Stream_String extends Horde_Stream
      */
     public function peek($length = 1)
     {
-        return $this->utf8_char
+        return $this->_utf8_char
             ? Horde_String::substr($this->_str, $this->_posUtf8(), $length)
             : substr($this->_str, $this->_ptr, $length);
     }
@@ -125,7 +125,7 @@ class Horde_Stream_String extends Horde_Stream
 
         $pos = $this->pos();
 
-        if ($this->utf8_char) {
+        if ($this->_utf8_char) {
             $found_pos = $reverse
                 ? Horde_String::rpos($this->_str, $char, $this->length(true) - $this->_posUtf8())
                 : Horde_String::pos($this->_str, $char, $this->_posUtf8());
@@ -269,7 +269,7 @@ class Horde_Stream_String extends Horde_Stream
     {
         $this->_ptr = $this->length();
         if ($offset) {
-            $this->seek($offset, true, $this->utf8_char);
+            $this->seek($offset, true, $this->_utf8_char);
         }
 
         return true;

@@ -169,7 +169,7 @@ class Horde_Stream implements Serializable
     {
         $pos = $this->pos();
 
-        if ($utf8 && $this->utf8_char) {
+        if ($utf8 && $this->_utf8_char) {
             $this->rewind();
             $len = 0;
             while ($this->getChar() !== false) {
@@ -366,7 +366,7 @@ class Horde_Stream implements Serializable
          * algorithm below. Also, if doing a negative length, deal with that
          * below also. */
         if ($char &&
-            $this->utf8_char &&
+            $this->_utf8_char &&
             !$to_end &&
             ($length >= 0) &&
             ($length < ($this->length() - $this->pos()))) {
@@ -438,7 +438,7 @@ class Horde_Stream implements Serializable
     public function getChar()
     {
         $char = fgetc($this->_stream);
-        if (!$this->utf8_char) {
+        if (!$this->_utf8_char) {
             return $char;
         }
 
@@ -518,7 +518,7 @@ class Horde_Stream implements Serializable
             }
         }
 
-        if ($char && $this->utf8_char) {
+        if ($char && $this->_utf8_char) {
             if ($offset > 0) {
                 if (!$curr) {
                     $this->rewind();
