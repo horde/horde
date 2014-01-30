@@ -263,29 +263,35 @@ class Horde_Stream implements Serializable
         $found_pos = null;
 
         if ($len = strlen($char)) {
-            do {
-                $pos = $this->pos();
+            $pos = $this->pos();
+            $single_char = ($len === 1);
 
+            do {
                 if ($reverse) {
                     for ($i = $pos - 1; $i >= 0; --$i) {
                         $this->seek($i, false);
                         $c = $this->peek();
-                        if ($c == substr($char, 0, strlen($c))) {
+                        if ($c == ($single_char ? $char : substr($char, 0, strlen($c)))) {
                             $found_pos = $i;
                             break;
                         }
                     }
                 } else {
-                    while (($c = $this->getChar()) !== false) {
-                        if ($c == substr($char, 0, strlen($c))) {
-                            $found_pos = $this->pos() - strlen($c);
+                    /* Optimization for the common use case of searching for
+                     * a single character in byte data. Reduces calling
+                     * getChar() a bunch of times. */
+                    $fgetc = ($single_char && !$this->_utf8_char);
+
+                    while (($c = ($fgetc ? fgetc($this->_stream) : $this->getChar())) !== false) {
+                        if ($c == ($single_char ? $char : substr($char, 0, strlen($c)))) {
+                            $found_pos = $this->pos() - ($single_char ? 1 : strlen($c));
                             break;
                         }
                     }
                 }
 
-                if (is_null($found_pos) ||
-                    ($len == 1) ||
+                if ($single_char ||
+                    is_null($found_pos) ||
                     ($this->getString($found_pos, $found_pos + $len - 1) == $char)) {
                     break;
                 }
