@@ -94,8 +94,9 @@
    <configstring name="name" desc="What name should we use for the session
    that Horde applications share? If you want to share sessions with other
    applications on your webserver, you will need to make sure that they are
-   using the same session name.  Note: Session names must consist of only
-   alphanumeric characters.">Horde</configstring>
+   using the same session name. This value can also be used to invalidate
+   previous sessions when upgrading your local version of Horde (Note: Session
+   names must consist of only alphanumeric characters.)">Horde</configstring>
    <configboolean name="use_only_cookies" desc="Should we only allow session
    information to be stored in a session cookie and not be passed by URL (GET)
    parameters? This is on by default because passing session information in
