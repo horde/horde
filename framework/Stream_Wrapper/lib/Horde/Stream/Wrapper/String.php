@@ -2,17 +2,23 @@
 /**
  * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Stream_Wrapper
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Stream_Wrapper
  */
 
 /**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Stream_Wrapper
+ * A stream wrapper that will treat a native PHP string as a stream.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Stream_Wrapper
  */
 class Horde_Stream_Wrapper_String
 {
