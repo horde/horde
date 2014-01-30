@@ -1208,6 +1208,9 @@ var ImpMobile = {
     closeCompose: function()
     {
         $('#imp-compose-form')[0].reset();
+        $.each($('#imp-compose-to,#imp-compose-cc'), function(undefined, v) {
+            $(v).autocomplete('clear');
+        });
         window.history.back();
     },
 
