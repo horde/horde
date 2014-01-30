@@ -23,30 +23,35 @@
 class Horde_Stream_Wrapper_String
 {
     /**
+     * The current context.
+     *
      * @var resource
      */
     public $context;
 
     /**
-     * @var string
-     */
-    protected $_string;
-
-    /**
+     * String length.
+     *
      * @var integer
      */
     protected $_length;
 
     /**
+     * String position.
+     *
      * @var integer
      */
     protected $_position;
 
     /**
-     * @param string $path
-     * @param string $mode
-     * @param integer $options
-     * @param string &$opened_path
+     * The string.
+     *
+     * @var string
+     */
+    protected $_string;
+
+    /**
+     * @see streamWrapper::stream_open()
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
@@ -66,9 +71,7 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @param integer $count
-     *
-     * @return string
+     * @see streamWrapper::stream_read()
      */
     public function stream_read($count)
     {
@@ -78,9 +81,7 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @param string $data
-     *
-     * @return integer
+     * @see streamWrapper::stream_write()
      */
     public function stream_write($data)
     {
@@ -88,7 +89,7 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @return integer
+     * @see streamWrapper::stream_tell()
      */
     public function stream_tell()
     {
@@ -96,7 +97,7 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @return boolean
+     * @see streamWrapper::stream_eof()
      */
     public function stream_eof()
     {
@@ -105,8 +106,6 @@ class Horde_Stream_Wrapper_String
 
     /**
      * @see streamWrapper::stream_stat()
-     *
-     * @return array
      */
     public function stream_stat()
     {
@@ -128,8 +127,7 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @param integer $offset
-     * @param integer $whence SEEK_SET, SEEK_CUR, or SEEK_END
+     * @see streamWrapper::stream_seek()
      */
     public function stream_seek($offset, $whence)
     {
