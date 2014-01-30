@@ -15,6 +15,7 @@
  * A stream wrapper that will treat a native PHP string as a stream.
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2007-2014 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
@@ -48,12 +49,13 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
-        $options = stream_context_get_options($this->context);
-        if (empty($options['horde-string']['string']) || ! $options['horde-string']['string'] instanceof Horde_Stream_Wrapper_StringStream) {
-            throw new Exception('String streams must be created using the Horde_Stream_Wrapper_StringStream interface');
+        $opts = stream_context_get_options($this->context);
+        if (empty($opts['horde-string']['string']) ||
+            !($opts['horde-string']['string'] instanceof Horde_Stream_Wrapper_StringStream)) {
+            throw new Exception('String streams must be created using the Horde_Stream_Wrapper_StringStream interface.');
         }
 
-        $this->_string =& $options['horde-string']['string']->getString();
+        $this->_string =& $opts['horde-string']['string']->getString();
         if (is_null($this->_string)) {
             return false;
         }
@@ -64,13 +66,22 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
+     * @see streamWrapper::stream_close()
+     */
+    public function stream_close()
+    {
+        $this->_string = '';
+        $this->_pos = 0;
+    }
+
+    /**
      * @see streamWrapper::stream_read()
      */
     public function stream_read($count)
     {
-        $current = $this->_pos;
-        $this->_pos+= $count;
-        return substr($this->_string, $current, $count);
+        $curr = $this->_pos;
+        $this->_pos += $count;
+        return substr($this->_string, $curr, $count);
     }
 
     /**
@@ -78,7 +89,12 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_write($data)
     {
-        return strlen($data);
+        $len = strlen($data);
+
+        $this->_string = substr_replace($this->_string, $data, $this->_pos, $len);
+        $this->_pos += $len;
+
+        return $len;
     }
 
     /**
@@ -94,7 +110,7 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_eof()
     {
-        return ($this->_pos> strlen($this->_string));
+        return ($this->_pos > strlen($this->_string));
     }
 
     /**
@@ -124,28 +140,25 @@ class Horde_Stream_Wrapper_String
      */
     public function stream_seek($offset, $whence)
     {
-        if ($offset > strlen($this->_string)) {
-            return false;
-        }
-
         switch ($whence) {
         case SEEK_SET:
-            $this->_pos= $offset;
+            $pos = $offset;
             break;
 
         case SEEK_CUR:
-            $target = $this->_pos+ $offset;
-            if ($target < strlen($this->_string)) {
-                $this->_pos= $target;
-            } else {
-                return false;
-            }
+            $pos = $this->_pos + $offset;
             break;
 
         case SEEK_END:
-            $this->_pos = strlen($this->_string) - $offset;
+            $pos = strlen($this->_string) - $offset;
             break;
         }
+
+        if (($pos < 0) || ($pos > strlen($this->_string))) {
+            return false;
+        }
+
+        $this->_pos = $pos;
 
         return true;
     }
