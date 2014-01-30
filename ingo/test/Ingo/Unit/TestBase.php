@@ -47,7 +47,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
         $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
         $registry->expects($this->any())
             ->method('hasMethod')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(true));
         $GLOBALS['registry'] = $registry;
 
         if (!defined('INGO_BASE')) {
@@ -125,14 +125,6 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
 
         $new_script = join("\n", $new);
         $this->assertEquals($expect, $new_script);
-    }
-
-}
-
-class Ingo_Test_Notification {
-
-    function push()
-    {
     }
 
 }

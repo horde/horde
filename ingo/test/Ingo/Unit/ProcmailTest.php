@@ -192,6 +192,8 @@ DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.from@example.com\' && test $FILEDA
 :0 h
 SUBJECT=| formail -xSubject:
 :0 Whc: ${VACATION_DIR:-.}/vacation.lock
+{
+:0 Wh
 * ^TO_from@example.com
 * !^X-Loop: from@example.com
 * !^X-Spam-Flag: YES
@@ -204,6 +206,7 @@ SUBJECT=| formail -xSubject:
 -i"Subject: Subject (Re: $SUBJECT)" ; \
 echo -e "Because I don\'t like working!" \
 ) | $SENDMAIL -ffrom@example.com -oi -t
+}
 }
 }');
     }

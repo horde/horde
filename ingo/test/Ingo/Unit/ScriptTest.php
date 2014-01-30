@@ -10,9 +10,14 @@
  * @subpackage UnitTests
  */
 
-class Ingo_ScriptTest extends PHPUnit_Framework_TestCase
+class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
 {
-    function test_blacklist_rule_without_folder_will_discard_matching_message()
+    public function setUp()
+    {
+        $this->markTestSkipped('TODO');
+    }
+
+    function testBlacklistRuleWithoutFolderWillDiscardMatchingMessage()
     {
         $runner = ScriptTester::factory('all', $this);
 
