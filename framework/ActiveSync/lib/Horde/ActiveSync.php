@@ -804,6 +804,9 @@ class Horde_ActiveSync
             }
 
             // Check this here so we only need to save the device object once.
+            if (empty(self::$_device->properties[Horde_ActiveSync_Device::VERSION])) {
+                self::$_device->version = $version;
+            }
             if (self::$_device->properties[Horde_ActiveSync_Device::VERSION] < $this->_maxVersion &&
                 self::$_device->needsVersionUpdate($this->getSupportedVersions())) {
 
