@@ -430,8 +430,10 @@ class Wicked_Page
 
     /**
      * Renders this page in diff mode.
+     *
+     * @param string $version  The version to diff this page against.
      */
-    public function diff()
+    public function diff($version)
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
