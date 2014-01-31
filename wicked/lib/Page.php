@@ -199,7 +199,7 @@ class Wicked_Page
      * @return Wicked_Page  The current page.
      * @throws Wicked_Exception
      */
-    public function getCurrentPage()
+    static public function getCurrentPage()
     {
         return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
                                     Horde_Util::getFormData('version'),
