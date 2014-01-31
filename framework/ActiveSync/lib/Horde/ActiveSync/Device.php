@@ -159,7 +159,10 @@ class Horde_ActiveSync_Device
             $properties[$property] = $value;
             $this->setDeviceProperties($properties);
             break;
-
+        case self::VERSION:
+            $this->_properties['properties'][self::VERSION] = $value;
+            $this->_dirty['properties'] = true;
+            break;
         default:
             if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
                 $this->_dirty[$property] = true;
