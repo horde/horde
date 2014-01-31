@@ -270,7 +270,7 @@ class Horde_ActiveSync_Imap_Adapter
      *                                       change instructions for the device.
      *
      * @throws Horde_ActiveSync_Exception_FolderGone,
-               Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StaleState
+     *         Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StaleState
      */
     public function getMessageChanges(
         Horde_ActiveSync_Folder_Imap $folder, array $options = array())
