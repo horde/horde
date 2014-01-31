@@ -109,7 +109,7 @@ class Kronolith_Day extends Horde_Date
         return $date->compareDate(new Horde_Date(mktime(0, 0, 0))) == 0;
     }
 
-    public function diff()
+    public function diff($other = null)
     {
         $day2 = new Kronolith_Day();
         return Date_Calc::dateDiff($this->mday, $this->month, $this->year,
