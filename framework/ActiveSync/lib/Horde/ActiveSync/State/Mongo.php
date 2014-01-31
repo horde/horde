@@ -146,8 +146,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         'rwstatus'   => 'device_rwstatus',
         'supported'  => 'device_supported',
         'properties' => 'device_properties',
-        'id'         => 'device_id',
-        'version'    => 'device_version'
+        'id'         => 'device_id'
     );
 
     /**
