@@ -472,7 +472,7 @@ class Wicked_Page_StandardPage extends Wicked_Page
         $time = ceil(($this->_lock['lock_expiry_timestamp'] - time()) / 60);
         return sprintf(ngettext("%d minute", "%d minutes", $time), $time);
     }
-    
+
     /**
      * @throws Wicked_Exception
      */
@@ -544,6 +544,11 @@ class Wicked_Page_StandardPage extends Wicked_Page
         }
     }
 
+    /**
+     * Renders this page in diff mode.
+     *
+     * @param string $version  The version to diff this page against.
+     */
     public function diff($version)
     {
         $view = $GLOBALS['injector']->createInstance('Horde_View');
