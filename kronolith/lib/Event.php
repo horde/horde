@@ -1644,26 +1644,28 @@ abstract class Kronolith_Event
         if (!$this->isPrivate()) {
             // Handle body/truncation
             if (!empty($options['bodyprefs'])) {
-                $bp = $options['bodyprefs'];
-                $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
-                // No HTML supported. Always use plaintext.
-                $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                    $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
-                } elseif (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
-                    $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
-                    $this->description = Horde_Text_Filter::filter($this->description, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-                } else {
-                    $truncation = false;
+                if (Horde_String::length($this->description) > 0) {
+                    $bp = $options['bodyprefs'];
+                    $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                    // No HTML supported. Always use plaintext.
+                    $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                        $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
+                    } elseif (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
+                        $truncation = $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
+                        $this->description = Horde_Text_Filter::filter($this->description, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                    } else {
+                        $truncation = false;
+                    }
+                    if ($truncation && Horde_String::length($this->description) > $truncation) {
+                        $note->data = Horde_String::substr($this->desciption, 0, $truncation);
+                        $note->truncated = 1;
+                    } else {
+                        $note->data = $this->description;
+                    }
+                    $note->estimateddatasize = Horde_String::length($this->description);
+                    $message->airsyncbasebody = $note;
                 }
-                if ($truncation && Horde_String::length($this->description) > $truncation) {
-                    $note->data = Horde_String::substr($this->desciption, 0, $truncation);
-                    $note->truncated = 1;
-                } else {
-                    $note->data = $this->description;
-                }
-                $note->estimateddatasize = Horde_String::length($this->description);
-                $message->airsyncbasebody = $note;
             } else {
                 $message->setBody($this->description);
             }
