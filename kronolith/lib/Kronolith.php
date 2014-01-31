@@ -1345,7 +1345,7 @@ class Kronolith
      *
      * @return array  A hash of share users.
      */
-    public function listShareUsers($share)
+    static public function listShareUsers($share)
     {
         global $injector;
 
