@@ -319,11 +319,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
-        $properties = $this->_device->properties;
-        $multiplex = empty($properties[Horde_ActiveSync_Device::MULTIPLEX])
-            ? 0
-            : $properties[Horde_ActiveSync_Device::MULTIPLEX];
-
+        $multiplex = $this->_device->multiplex;
         if (empty($this->_folders)) {
             ob_start();
             try {
