@@ -131,6 +131,11 @@ class Horde_ActiveSync_Device
         case 'clientType':
             $type = $this->_getClientType();
             return $type;
+        case self::VERSION:
+            if (isset($this->_properties['properties'][self::VERSION])) {
+                return $this->_properties['properties'][self::VERSION];
+            }
+            break;
         default:
             if (isset($this->_properties[$property])) {
                 return $this->_properties[$property];
