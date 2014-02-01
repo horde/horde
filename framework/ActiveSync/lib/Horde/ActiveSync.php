@@ -462,7 +462,7 @@ class Horde_ActiveSync
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
 
-        $this->_procid = $this->_procid;
+        $this->_procid = getmypid();
     }
 
     /**
