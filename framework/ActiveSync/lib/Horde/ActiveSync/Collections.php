@@ -161,7 +161,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $collection['class'] = $this->getCollectionClass($collection['id']);
             }
             if (empty($collection['serverid'])) {
-                $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
+                try {
+                    $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    continue;
+                }
             }
             $this->_collections[$collection['id']] = $collection;
             $this->_logger->info(sprintf(
