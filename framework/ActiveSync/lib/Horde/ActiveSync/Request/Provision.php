@@ -97,13 +97,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
             $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
-            if ($this->_device->version == Horde_ActiveSync::VERSION_FOURTEENONE) {
-                if ($deviceinfo = $this->_handleSettings()) {
-                    $deviceinfo['version'] = $this->_device->version;
-                    $this->_device->setDeviceProperties($deviceinfo);
-                }
-            } else {
-                $deviceinfo = false;
+            if ($deviceinfo = $this->_handleSettings()) {
+                $deviceinfo['version'] = $this->_device->version;
+                $this->_device->setDeviceProperties($deviceinfo);
             }
 
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
