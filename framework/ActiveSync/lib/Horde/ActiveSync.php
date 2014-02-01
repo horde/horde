@@ -804,13 +804,11 @@ class Horde_ActiveSync
                 self::$_device->user = $this->_driver->getUser();
             }
 
-            // Check this here so we only need to save the device object once.
-            if (empty(self::$_device->properties[Horde_ActiveSync_Device::VERSION])) {
+            if (empty(self::$_device->version)) {
                 self::$_device->version = $version;
             }
-            if (self::$_device->properties[Horde_ActiveSync_Device::VERSION] < $this->_maxVersion &&
+            if (self::$_device->version < $this->_maxVersion &&
                 self::$_device->needsVersionUpdate($this->getSupportedVersions())) {
-
                 $needMsRp = true;
             }
 
