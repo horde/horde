@@ -521,6 +521,8 @@ class Horde_ActiveSync_Device
                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                 Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                 Horde_ActiveSync_Device::MULTIPLEX_TASKS;
+        } else {
+            $this->_properties['properties']['multiplex'] = 0;
         }
     }
 
