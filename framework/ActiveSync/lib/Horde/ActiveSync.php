@@ -768,7 +768,7 @@ class Horde_ActiveSync
             self::$_device->user = $this->_driver->getUser();
             self::$_device->id = $devId;
             self::$_device->needsVersionUpdate($this->getSupportedVersions());
-
+            self::$_device->version = $version;
             // @TODO: Remove is_callable check for H6.
             //        Combine this with the modifyDevice callback? Allow $device
             //        to be modified here?
