@@ -889,6 +889,8 @@ class Horde_ActiveSync
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
+        // @TODO: Look at getting rid of having to set the version in the driver
+        //        and get it from the device object for H6.
         $this->_driver->setDevice(self::$_device);
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
