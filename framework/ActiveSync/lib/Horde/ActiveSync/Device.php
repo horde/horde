@@ -137,6 +137,11 @@ class Horde_ActiveSync_Device
                 return $this->_properties['properties'][self::VERSION];
             }
             break;
+        case 'properties':
+            if (!isset($this->_properties['properties'])) {
+                return array();
+            }
+            // Fall through.
         default:
             if (isset($this->_properties[$property])) {
                 return $this->_properties[$property];
