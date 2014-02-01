@@ -118,9 +118,11 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             } else {
                 $policytype = $this->_decoder->getElementContent();
                 if ($this->_device->version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                    $this->_logger->err('EAS version < 12.0 but policy type is not POLICYTYPE_XML');
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
+                    $this->_logger->err('EAS version >= 12.0 but policy type is not POLICYTYPE_WBXML');
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
