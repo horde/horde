@@ -256,8 +256,7 @@ class Horde_ActiveSync_Device
      */
     public function setDeviceProperties(array $data)
     {
-        $properties = $this->properties;
-        $data = array_merge($properties, $data);
+        $data = array_merge($this->properties, $data);
         if (empty($data['userAgent']) && !empty($this->_properties['userAgent'])) {
             $data['userAgent'] = $this->_properties['userAgent'];
         }
