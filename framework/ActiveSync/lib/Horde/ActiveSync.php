@@ -820,7 +820,6 @@ class Horde_ActiveSync
         }
 
         self::$_device->save();
-        self::$_device->version = $version;
         if (is_callable(array($this->_driver, 'deviceCallback'))) {
             $callback_ret = $this->_driver->deviceCallback(self::$_device);
             if ($callback_ret !== true) {
