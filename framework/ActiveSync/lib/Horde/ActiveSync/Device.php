@@ -124,6 +124,7 @@ class Horde_ActiveSync_Device
         case self::MULTIPLEX:
             if (!$this->_multiplexSet && empty($this->_properties['properties'][self::MULTIPLEX])) {
                 $this->_sniffMultiplex();
+                $this->multiplex = $this->_properties['properties'][self::MULTIPLEX];
             }
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
