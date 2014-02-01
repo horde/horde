@@ -415,6 +415,7 @@ class Horde_ActiveSync
      * @since 2.4.0
      *
      * @return Horde_ActiveSync_Message_Base   The concrete message object.
+     * @todo For H6, move to Horde_ActiveSync_Message_Base::factory()
      */
     static public function messageFactory($message)
     {
