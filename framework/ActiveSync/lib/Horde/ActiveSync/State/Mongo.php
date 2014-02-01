@@ -629,7 +629,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             )
         );
         try {
-            $this->_db->HAS_device->update($query, $update);
+            $this->_db->HAS_device->update($query, $update, array('upsert' => true));
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
