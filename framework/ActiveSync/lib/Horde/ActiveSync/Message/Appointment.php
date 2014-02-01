@@ -141,22 +141,22 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     protected $_mapping = array(
         self::POOMCAL_TIMEZONE       => array (self::KEY_ATTRIBUTE => 'timezone'),
-        self::POOMCAL_ALLDAYEVENT    => array (self::KEY_ATTRIBUTE => 'alldayevent'),
-        self::POOMCAL_BUSYSTATUS     => array (self::KEY_ATTRIBUTE => 'busystatus'),
-        self::POOMCAL_ORGANIZERNAME  => array (self::KEY_ATTRIBUTE => 'organizername'),
-        self::POOMCAL_ORGANIZEREMAIL => array (self::KEY_ATTRIBUTE => 'organizeremail'),
-        self::POOMCAL_DTSTAMP        => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
+        self::POOMCAL_STARTTIME      => array (self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
         self::POOMCAL_ENDTIME        => array (self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
+        self::POOMCAL_SUBJECT        => array (self::KEY_ATTRIBUTE => 'subject'),
         self::POOMCAL_LOCATION       => array (self::KEY_ATTRIBUTE => 'location'),
         self::POOMCAL_REMINDER       => array (self::KEY_ATTRIBUTE => 'reminder'),
+        self::POOMCAL_ALLDAYEVENT    => array (self::KEY_ATTRIBUTE => 'alldayevent'),
+        self::POOMCAL_BUSYSTATUS     => array (self::KEY_ATTRIBUTE => 'busystatus'),
+        self::POOMCAL_RECURRENCE     => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_Recurrence'),
         self::POOMCAL_SENSITIVITY    => array (self::KEY_ATTRIBUTE => 'sensitivity'),
-        self::POOMCAL_SUBJECT        => array (self::KEY_ATTRIBUTE => 'subject'),
-        self::POOMCAL_STARTTIME      => array (self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
-        self::POOMCAL_UID            => array (self::KEY_ATTRIBUTE => 'uid', self::KEY_TYPE => self::TYPE_HEX),
-        self::POOMCAL_MEETINGSTATUS  => array (self::KEY_ATTRIBUTE => 'meetingstatus'),
+        self::POOMCAL_DTSTAMP        => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
         self::POOMCAL_ATTENDEES      => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
         self::POOMCAL_CATEGORIES     => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),
-        self::POOMCAL_RECURRENCE     => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_Recurrence'),
+        self::POOMCAL_MEETINGSTATUS  => array (self::KEY_ATTRIBUTE => 'meetingstatus'),
+        self::POOMCAL_ORGANIZERNAME  => array (self::KEY_ATTRIBUTE => 'organizername'),
+        self::POOMCAL_ORGANIZEREMAIL => array (self::KEY_ATTRIBUTE => 'organizeremail'),
+        self::POOMCAL_UID            => array (self::KEY_ATTRIBUTE => 'uid', self::KEY_TYPE => self::TYPE_HEX),
         self::POOMCAL_EXCEPTIONS     => array (self::KEY_ATTRIBUTE => 'exceptions', self::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', self::KEY_VALUES => self::POOMCAL_EXCEPTION),
     );
 
@@ -222,10 +222,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
             if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                 $this->_mapping += array(
+                    self::POOMCAL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'disallownewtimeproposal'),
                     self::POOMCAL_RESPONSEREQUESTED => array(self::KEY_ATTRIBUTE => 'responserequested'),
                     self::POOMCAL_APPOINTMENTREPLYTIME => array(self::KEY_ATTRIBUTE => 'appointmentreplytime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
                     self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
-                    self::POOMCAL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'disallownewtimeproposal'),
                 );
                 $this->_properties += array(
                     'disallownewtimeproposal' => false,
