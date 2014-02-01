@@ -157,16 +157,13 @@ class Horde_ActiveSync_Device
             // fallthrough
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
+        case self::VERSION:
             $properties = $this->properties;
             if (empty($properties)) {
                 $properties = array();
             }
             $properties[$property] = $value;
             $this->setDeviceProperties($properties);
-            break;
-        case self::VERSION:
-            $this->_properties['properties'][self::VERSION] = $value;
-            $this->_dirty['properties'] = true;
             break;
         default:
             if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
