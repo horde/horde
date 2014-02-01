@@ -21,7 +21,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Attempt a fix for clients that duplicate calendar entries when tags are received in a certain order (Bug #12741).
+* [mjr] Transparently handle moving from a non-MODSEQ IMAP server to a MODSEQ server (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12941).
+* [mjr] Fix handling of empty OPTIONS tags.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1955,7 +1957,9 @@
    <date>2014-01-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Attempt a fix for clients that duplicate calendar entries when tags are received in a certain order (Bug #12741).
+* [mjr] Transparently handle moving from a non-MODSEQ IMAP server to a MODSEQ server (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12941).
+* [mjr] Fix handling of empty OPTIONS tags.
    </notes>
   </release>
  </changelog>
