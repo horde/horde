@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
 * [jan] Support task assignees.
 * [jan] Support parent tasks.
 * [jan] Indent sub tasks.
@@ -2250,6 +2251,7 @@
    <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
 * [jan] Support task assignees.
 * [jan] Support parent tasks.
 * [jan] Indent sub tasks.
