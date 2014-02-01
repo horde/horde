@@ -100,6 +100,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             if ($deviceinfo = $this->_handleSettings()) {
                 $deviceinfo['version'] = $this->_device->version;
                 $this->_device->setDeviceProperties($deviceinfo);
+                $this->_device->save();
             }
 
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||

@@ -125,6 +125,7 @@ class Horde_ActiveSync_Device
             if (!$this->_multiplexSet && empty($this->_properties['properties'][self::MULTIPLEX])) {
                 $this->_sniffMultiplex();
                 $this->multiplex = $this->_properties['properties'][self::MULTIPLEX];
+                $this->save();
             }
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
@@ -266,7 +267,8 @@ class Horde_ActiveSync_Device
         if (empty($data['userAgent']) && !empty($this->_properties['userAgent'])) {
             $data['userAgent'] = $this->_properties['userAgent'];
         }
-        $this->_state->setDeviceProperties($data, $this->id);
+        $this->properties = $data;
+        $this->_dirty['properties'] = true;
     }
 
     /**
@@ -326,6 +328,9 @@ class Horde_ActiveSync_Device
     public function save()
     {
         $this->_state->setDeviceInfo($this, $this->_dirty);
+        if (!empty($this->_dirty['properties'])) {
+            $this->_state->setDeviceProperties($this->properties, $this->id);
+        }
         $this->_dirty = array();
     }
 
