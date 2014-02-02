@@ -468,8 +468,9 @@ class Horde_ActiveSync_Device
     protected function _getClientType()
     {
         // Differentiate between the deviceType and the client app.
-        if (strpos($this->properties[self::OS], 'Android') !== false ||
-            strtolower($this->deviceType) == self::TYPE_ANDROID) {
+        if ((!empty($this->properties[self::OS]) &&
+             strpos($this->properties[self::OS], 'Android') !== false) ||
+             strtolower($this->deviceType) == self::TYPE_ANDROID) {
 
             // We can detect native android and TouchDown so far.
             // Moxier does not distinguish itself, so we can't sniff it.
