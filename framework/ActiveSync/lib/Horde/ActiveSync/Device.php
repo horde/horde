@@ -492,10 +492,11 @@ class Horde_ActiveSync_Device
      */
     protected function _sniffMultiplex()
     {
-        if (strpos($this->userAgent, 'iOS') === 0 ) {
+        $clientType = strtolower($this->clientType);
+        if (strpos($this->userAgent, 'iOS') === 0 || in_array($clientType, array(self::TYPE_IPAD, self::TYPE_IPOD, self::TYPE_IPHONE))) {
             // iOS seems to support multiple collections for everything except Notes.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
-        } else if ($this->_getClientType() == self::TYPE_ANDROID) {
+        } else if ($clientType == self::TYPE_ANDROID) {
             // All android before 4.4 KitKat requires multiplex. KitKat supports
             // non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
