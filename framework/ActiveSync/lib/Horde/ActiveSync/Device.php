@@ -479,7 +479,7 @@ class Horde_ActiveSync_Device
             } else if (strpos($this->userAgent, 'Android') !== false) {
                 return $this->deviceType;
             } else {
-                return self::TYPE_ANDROID;
+                return self::TYPE_UNKNOWN;
             }
        } else {
             return $this->deviceType;
