@@ -36,7 +36,7 @@
  *                                    along with any custom properties set.
  * @property string announcedVersion  The most last EAS supported versions
  *                                    announced to the device.
- * @property string multiplex         Bitmask describing collections that this
+ * @property integer multiplex        Bitmask describing collections that this
  *                                    device does not support user created
  *                                    folders for, therefore all sources must
  *                                    be multiplexed together. Masks are
