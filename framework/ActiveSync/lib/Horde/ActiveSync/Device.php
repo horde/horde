@@ -140,7 +140,8 @@ class Horde_ActiveSync_Device
             break;
         case 'properties':
             if (!isset($this->_properties['properties'])) {
-                return array();
+                $return = array();
+                return $return;
             }
             // Fall through.
         default:
