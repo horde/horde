@@ -514,7 +514,7 @@ class Horde_ActiveSync_Device
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                     Horde_ActiveSync_Device::MULTIPLEX_TASKS;
             }
-        } else if (strpos($this->userAgent, 'MSFT-WP/8.0') !== false || $device->deviceType == 'WP8') {
+        } else if (strpos($this->userAgent, 'MSFT-WP/8.0') !== false || $this->deviceType == 'WP8') {
             // Windows Phone. For the devices I've tested, it seems that
             // only multiple tasklists are accepted. The rest must be
             // multiplexed.
