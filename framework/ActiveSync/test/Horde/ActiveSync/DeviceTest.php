@@ -19,6 +19,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPOD, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         $fixture = array(
             'deviceType' => 'iPhone',
@@ -27,6 +28,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(6, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         $fixture = array(
           'userAgent' => 'Android/0.3',
@@ -35,6 +37,10 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(0, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
+                    Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
+                    Horde_ActiveSync_Device::MULTIPLEX_NOTES |
+                    Horde_ActiveSync_Device::MULTIPLEX_TASKS, $device->multiplex);
 
         $fixture = array(
           'userAgent' => 'TouchDown(MSRPC)/7.1.0005',
@@ -43,6 +49,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, strtolower($device->clientType));
+        $this->assertEquals(0, $device->multiplex);
 
         $fixture = array(
           'userAgent' => 'MOTOROLA-Droid(4D6F7869SAM)/2.1707',
@@ -51,6 +58,20 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(0, $device->getMajorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_UNKNOWN, strtolower($device->clientType));
+        $this->assertEquals(0, $device->multiplex);
+
+        // Devices like this (from a Note 3) we simply can't sniff multiplex for since there
+        // is no version string. Stuff like this would go in the hook.
+        $fixture = array(
+            'deviceType' => 'SAMSUNGSMN900V',
+            'userAgent' => 'SAMSUNG-SM-N900V/101.403',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(0, $device->getMajorVersion());
+        $this->assertEquals('samsungsmn900v', strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_UNKNOWN, strtolower($device->clientType));
+        $this->assertEquals(0, $device->multiplex);
     }
 
     public function testPoomContactsDate()
