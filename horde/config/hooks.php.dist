@@ -1051,25 +1051,33 @@ class Horde_Hooks
     *
     * @return Horde_ActiveSync_Device  The possibly modified device object.
     */
-//   public function activesync_device_modify(Horde_ActiveSync_Device $device)
-//   {
-//       // Example for forcing certain device to force multiplexed
-//       // collections for collection types they don't support multiple
-//       // collections for. Note that this doesn't apply to email folders,
-//       // which are NEVER sent multiplexed.
-//       // NOTE: The Horde_ActiveSync library already determines this based
-//       //       on some userAgent and version sniffing. You should only
-//       //       perform this here if it doesn't work for you, or you have
-//       //       discovered a device that doesn't fit the logic.
-//
-//       // iOS seems to support multiple collections for everything except
-//       // Notes.
-//       if (strpos($device->userAgent, 'iOS') === 0) {
-//           $device->multiplex =
-//               Horde_ActiveSync_Device::MULTIPLEX_NOTES;
-//       }
-//
-//       return $device;
-//   }
+  // public function activesync_device_modify(Horde_ActiveSync_Device $device)
+  // {
+  //     // Example for forcing certain device to force multiplexed
+  //     // collections for collection types they don't support multiple
+  //     // collections for. Note that this doesn't apply to email folders,
+  //     // which are NEVER sent multiplexed.
+  //     // NOTE: The Horde_ActiveSync library already determines this based
+  //     //       on some userAgent and version sniffing. You should only
+  //     //       perform this here if it doesn't work for you, or you have
+  //     //       discovered a device that doesn't fit the logic.
+
+  //     // For android devices that don't advertise the android version we have
+  //     // to manually set the multiplex flag if we want to force any. E.g.,
+  //     // the Galaxy Note 3 doesn't support multiple collections prior to
+  //     // KitKat so we have to force them all.
+  //     if (empty($device->multiplex)) {
+  //         switch (strtolower($device->userAgent)) {
+  //         case 'SAMSUNG-SM-N900V/101.403':
+  //             // Note 3, Android 4.3
+  //             $device->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES |
+  //                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
+  //                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
+  //                 Horde_ActiveSync_Device::MULTIPLEX_TASKS;
+  //         }
+  //     }
+
+  //     return $device;
+  // }
 
 }
