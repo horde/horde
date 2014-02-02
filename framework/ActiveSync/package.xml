@@ -12,7 +12,7 @@
  </lead>
  <date>2014-02-02</date>
  <version>
-  <release>2.12.3</release>
+  <release>2.12.4</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve device property management and forced-multiplex detecection.
-* [mjr] Attempt a fix for clients that duplicate calendar entries when tags are received in a certain order (Bug #12741).
-* [mjr] Transparently handle moving from a non-MODSEQ IMAP server to a MODSEQ server (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12941).
-* [mjr] Fix handling of empty OPTIONS tags.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1962,6 +1959,19 @@
 * [mjr] Attempt a fix for clients that duplicate calendar entries when tags are received in a certain order (Bug #12741).
 * [mjr] Transparently handle moving from a non-MODSEQ IMAP server to a MODSEQ server (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12941).
 * [mjr] Fix handling of empty OPTIONS tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.4</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
