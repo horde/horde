@@ -139,29 +139,31 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             $rule['conditions'][] = $condition;
         }
 
-        switch ($ingo_storage->getActionInfo($this->vars->action)->type) {
-        case 'folder':
-            if ($actionID == 'rule_save') {
-                try {
-                    $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                    $actionID = null;
+        if ($this->vars->action) {
+            switch ($ingo_storage->getActionInfo($this->vars->action)->type) {
+            case 'folder':
+                if ($actionID == 'rule_save') {
+                    try {
+                        $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
+                    } catch (Ingo_Exception $e) {
+                        $notification->push($e, 'horde.error');
+                        $actionID = null;
+                    }
+                } else {
+                    $rule['action-value'] = $this->vars->actionvalue;
+                    if (!$this->vars->actionvalue &&
+                        isset($this->vars->actionvalue_new)) {
+                        $page_output->addInlineScript(array(
+                            'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($this->vars->actionvalue_new, Horde_Serialize::JSON) . ')'
+                        ), true);
+                    }
                 }
-            } else {
-                $rule['action-value'] = $this->vars->actionvalue;
-                if (!$this->vars->actionvalue &&
-                    isset($this->vars->actionvalue_new)) {
-                    $page_output->addInlineScript(array(
-                        'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($this->vars->actionvalue_new, Horde_Serialize::JSON) . ')'
-                    ), true);
-                }
-            }
-            break;
+                break;
 
-        default:
-            $rule['action-value'] = $this->vars->actionvalue;
-            break;
+            default:
+                $rule['action-value'] = $this->vars->actionvalue;
+                break;
+            }
         }
 
         $flags = empty($this->vars->flags)
