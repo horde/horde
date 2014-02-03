@@ -22,8 +22,8 @@ class Horde_Vfs_Gc
      */
     public function gc($vfs, $path, $secs = 345600)
     {
-        /* A 1% chance we will run garbage collection during a call. */
-        if (rand(0, 99) != 0) {
+        /* A 0.1% chance we will run garbage collection during a call. */
+        if (substr(time(), -3) !== '000') {
             return;
         }
 
