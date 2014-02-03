@@ -52,6 +52,15 @@ class IMP_Smartmobile
 
         $page_output->addScriptFile('smartmobile.js');
         $page_output->addScriptFile('json2.js', 'horde');
+        $page_output->addScriptFile('jquery.mobile/plugins/listviewtaphold.js');
+        $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
+        if (IMP_Compose::canCompose()) {
+            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
+            $page_output->addScriptFile('jquery.mobile/plugins/textchange.js');
+            if (IMP_Compose::canUploadAttachment()) {
+                $page_output->addScriptFile('jquery.mobile/plugins/form.js', 'horde');
+            }
+        }
 
         $page_output->smartmobileInit = array_merge(
             $page_output->smartmobileInit,
@@ -76,7 +85,7 @@ class IMP_Smartmobile
      */
     public function render()
     {
-        global $injector, $page_output;
+        global $injector;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -91,18 +100,6 @@ class IMP_Smartmobile
         }
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             echo $this->view->render('copymove');
-        }
-
-        /* jQuery Mobile plugins must be loaded AFTER the main mobile script
-         * is loaded. */
-        $page_output->addScriptFile('jquery.mobile/plugins/listviewtaphold.js');
-        $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
-        if (IMP_Compose::canCompose()) {
-            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
-            $page_output->addScriptFile('jquery.mobile/plugins/textchange.js');
-            if (IMP_Compose::canUploadAttachment()) {
-                $page_output->addScriptFile('jquery.mobile/plugins/form.js', 'horde');
-            }
         }
     }
 
