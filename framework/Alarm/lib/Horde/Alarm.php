@@ -61,6 +61,13 @@ abstract class Horde_Alarm
     protected $_handlersLoaded = false;
 
     /**
+     * A list of errors, exceptions etc. that occured during notify() calls.
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters:
@@ -401,7 +408,8 @@ abstract class Horde_Alarm
      *                          ttl time span?
      * @param array $exclude    Don't notify with these methods.
      *
-     * @throws Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception if loading of alarms fails, but not if
+     *                               notifying of individual alarms fails.
      */
     public function notify($user = null, $load = true, $preload = true,
                            array $exclude = array())
@@ -424,7 +432,11 @@ abstract class Horde_Alarm
             foreach ($alarm['methods'] as $alarm_method) {
                 if (isset($handlers[$alarm_method]) &&
                     !in_array($alarm_method, $exclude)) {
-                    $handlers[$alarm_method]->notify($alarm);
+                    try {
+                        $handlers[$alarm_method]->notify($alarm);
+                    } catch (Horde_Alarm_Exception $e) {
+                        $this->_errors[] = $e;
+                    }
                 }
             }
         }
@@ -475,6 +487,19 @@ abstract class Horde_Alarm
         }
 
         return $this->_handlers;
+    }
+
+    /**
+     * Returns a list of errors, exceptions etc. that occured during notify()
+     * calls.
+     *
+     * @since Horde_Alarm 2.1.0
+     *
+     * @return array  Error list.
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
     }
 
     /**
