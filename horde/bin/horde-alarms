@@ -22,4 +22,8 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('horde', array('cli' => true, 'user_admin' => true));
 
-$injector->getInstance('Horde_Alarm')->notify(null, true, false, array('notify', 'desktop'));
+$alarm = $injector->getInstance('Horde_Alarm');
+$alarm->notify(null, true, false, array('notify', 'desktop'));
+foreach ($alarm->getErrors() as $error) {
+    $cli->message($error, 'cli.error');
+}
