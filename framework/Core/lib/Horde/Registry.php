@@ -1670,7 +1670,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 : $this->_mergeConfig($this->_confCache['horde'], $config);
         }
 
-        return $this->_confCache[$app];
+        $GLOBALS['conf'] = $this->_confCache[$app];
     }
 
     /**
