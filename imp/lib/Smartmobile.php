@@ -53,6 +53,15 @@ class IMP_Smartmobile
         $page_output->addScriptFile('smartmobile.js');
         $page_output->addScriptFile('json2.js', 'horde');
 
+        $page_output->smartmobileInit = array_merge(
+            $page_output->smartmobileInit,
+            array(
+                '$.mobile.buttonMarkup.hoverDelay = 80;',
+                '$.mobile.defaultPageTransition = \'none\';',
+                '$.event.special.tap.tapholdThreshold = 600;'
+            )
+        );
+
         $page_output->addStylesheet(
             new Horde_Themes_Element('mime.css')
         );
