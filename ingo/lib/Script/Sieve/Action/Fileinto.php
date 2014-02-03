@@ -34,8 +34,8 @@ class Ingo_Script_Sieve_Action_Fileinto extends Ingo_Script_Sieve_Action
             ? $vars['folder']
             : '';
 
-        if (!empty($vars['utf8'])) {
-            $this->_vars['folder'] = Horde_String::convertCharset($this->_vars['folder'], 'UTF7-IMAP', 'UTF-8');
+        if (empty($vars['utf8'])) {
+            $this->_vars['folder'] = Horde_String::convertCharset($this->_vars['folder'], 'UTF-8', 'UTF7-IMAP');
         }
     }
 
