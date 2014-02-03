@@ -73,7 +73,8 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
             $this->_params['track_lifetime'] = ini_get('session.gc_maxlifetime');
         }
 
-        if (!empty($this->_params['track']) && (rand(0, 999) == 0)) {
+        if (!empty($this->_params['track']) &&
+            (substr(time(), -3) === '000')) {
             register_shutdown_function(array($this, 'trackGC'));
         }
     }

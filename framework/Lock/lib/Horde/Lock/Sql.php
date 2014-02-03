@@ -65,7 +65,7 @@ class Horde_Lock_Sql extends Horde_Lock
 
         /* Only do garbage collection if asked for, and then only 0.1% of the
          * time we create an object. */
-        if (rand(0, 999) == 0) {
+        if (substr(time(), -3) === '000') {
             register_shutdown_function(array($this, 'doGC'));
         }
     }

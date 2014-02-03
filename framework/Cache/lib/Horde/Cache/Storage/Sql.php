@@ -77,7 +77,7 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
     public function __destruct()
     {
         /* Only do garbage collection 0.1% of the time we create an object. */
-        if (rand(0, 999) != 0) {
+        if (substr(time(), -3) !== '000') {
             return;
         }
 
