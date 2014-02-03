@@ -1,19 +1,25 @@
 <?php
 /**
- * @package Alarm
- *
  * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 
 /**
- * The Horde_Alarm:: class provides an interface to deal with reminders,
- * alarms and notifications through a standardized API.
+ * The Horde_Alarm class provides an interface to deal with reminders, alarms
+ * and notifications through a standardized API.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Alarm
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 abstract class Horde_Alarm
 {

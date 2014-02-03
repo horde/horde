@@ -5,14 +5,20 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @package Alarm
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 
 /**
  * Null Alarm driver.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Alarm
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 class Horde_Alarm_Null extends Horde_Alarm
 {

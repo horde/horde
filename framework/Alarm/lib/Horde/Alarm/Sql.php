@@ -1,22 +1,27 @@
 <?php
 /**
- * @package Alarm
- *
  * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 
 /**
  * The Horde_Alarm_Sql class is a Horde_Alarm storage implementation using the
  * Horde Db package.
  *
- * The table structure can be created by the
- * migration script.
+ * The table structure can be created by the migration script.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Alarm
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 class Horde_Alarm_Sql extends Horde_Alarm
 {

@@ -1,19 +1,25 @@
 <?php
 /**
- * @package Alarm
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 
 /**
  * The Horde_Alarm_Handler_Mail class is a Horde_Alarm handler that notifies
  * of active alarms by e-mail.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Alarm
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Alarm
  */
 class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
 {
