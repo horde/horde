@@ -88,6 +88,16 @@ class Horde_PageOutput
     public $sidebar = true;
 
     /**
+     * Smartmobile init code that needs to be output before jquery.mobile.js
+     * is loaded.
+     *
+     * @since 2.12.0
+     *
+     * @var array
+     */
+    public $smartmobileInit = array();
+
+    /**
      * Load the topbar in this page?
      *
      * @var boolean
@@ -100,14 +110,6 @@ class Horde_PageOutput
      * @var boolean
      */
     protected $_compress = false;
-
-    /**
-     * Smartmobile init code that needs to be output before jquery.mobile.js
-     * is loaded.
-     *
-     * @var array
-     */
-    protected $_smartmobileInit = array();
 
     /**
      * View mode.
@@ -189,12 +191,12 @@ class Horde_PageOutput
             return;
         }
 
-        if (!empty($this->_smartmobileInit)) {
+        if (!empty($this->smartmobileInit)) {
             echo Horde::wrapInlineScript(array(
                 'var horde_jquerymobile_init = function() {' .
-                implode('', $this->_smartmobileInit) . '};'
+                implode('', $this->_martmobileInit) . '};'
             ));
-            $this->_smartmobileInit = array();
+            $this->smartmobileInit = array();
         }
 
         $all_scripts = $jsvars = $tmp = array();
@@ -707,7 +709,8 @@ class Horde_PageOutput
      *   - body_class: (string)
      *   - body_id: (string)
      *   - html_id: (string)
-     *   - smartmobileinit: (string)
+     *   - smartmobileinit: (string) (@deprecated; use $this->smartmobileInit
+     *                      instead)
      *   - stylesheet_opts: (array)
      *   - title: (string)
      *   - view: (integer)
@@ -765,7 +768,7 @@ class Horde_PageOutput
                 $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
             }
 
-            $this->_smartmobileInit = array_merge(array(
+            $this->smartmobileInit = array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
                 '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
