@@ -194,7 +194,7 @@ class Horde_PageOutput
         if (!empty($this->smartmobileInit)) {
             echo Horde::wrapInlineScript(array(
                 'var horde_jquerymobile_init = function() {' .
-                implode('', $this->_martmobileInit) . '};'
+                implode('', $this->smartmobileInit) . '};'
             ));
             $this->smartmobileInit = array();
         }
