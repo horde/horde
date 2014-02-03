@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (Bug #12938; skhorde@smail.inf.fg-bonn-rhein-sieg.de).
+* [jan] Fix behavior of &apos;utf&apos; parameter (Bug #12937).
+* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1328,7 +1329,8 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (Bug #12938; skhorde@smail.inf.fg-bonn-rhein-sieg.de).
+* [jan] Fix behavior of &apos;utf&apos; parameter (Bug #12937).
+* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
    </notes>
   </release>
  </changelog>

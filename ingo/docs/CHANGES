@@ -2,6 +2,7 @@
 v3.1.4-git
 ----------
 
+[jan] Fix behavior of 'utf' parameter (Bug #12937).
 [mms] Fix sieve driver correctly identifying mailing lists when determining
       whether to send vacation messages (Bug #12938;
       skhorde@smail.inf.fg-bonn-rhein-sieg.de).
