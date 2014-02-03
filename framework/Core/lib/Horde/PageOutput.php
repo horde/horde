@@ -765,7 +765,8 @@ class Horde_PageOutput
                 ($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js')
             );
             foreach ($smobile_files as $val) {
-                $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
+                $ob = $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
+                $ob->cache = 'package_smartmobile';
             }
 
             $this->smartmobileInit = array_merge(array(
