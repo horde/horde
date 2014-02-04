@@ -1,17 +1,25 @@
 <?php
 /**
- * This class provides the code needed to generate the Horde topbar.
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * Generates the Horde topbar.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Core_Topbar
 {
@@ -51,10 +59,10 @@ class Horde_Core_Topbar
             return $this->_tree;
         }
 
-        global $registry;
+        global $injector, $prefs, $registry;
 
-        $isAdmin = $registry->isAdmin();
         $current = $registry->getApp();
+        $isAdmin = $registry->isAdmin();
         $menu = array();
 
         foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'link', 'notoolbar', 'topbar'), true, null) as $app => $params) {
@@ -63,12 +71,11 @@ class Horde_Core_Topbar
              * everyone (but get filtered out later if they have no
              * children). Administrators always see all applications except
              * those marked 'inactive'. */
-            if ($app != 'horde' &&
-                ($params['status'] == 'heading' ||
-                $params['status'] == 'link' ||
-                 (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
-                  $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW) &&
-                  !($isAdmin && $params['status'] == 'noadmin')))) {
+            if (($app != 'horde') &&
+                 (in_array($params['status'], array('heading', 'link')) ||
+                  (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
+                  !($isAdmin && ($params['status'] == 'noadmin')) &&
+                  $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW)))) {
                 $menu[$app] = $params;
             }
         }
@@ -80,9 +87,10 @@ class Horde_Core_Topbar
                     $children[$params['menu_parent']] = true;
                 }
             }
+
             $found = false;
             foreach (array_keys($menu) as $key) {
-                if ($menu[$key]['status'] == 'heading' &&
+                if (($menu[$key]['status'] == 'heading') &&
                     empty($children[$key])) {
                     unset($menu[$key]);
                     $found = true;
@@ -90,15 +98,15 @@ class Horde_Core_Topbar
             }
         } while ($found);
 
-        /* Add the administration menu if the user is an admin or has any admin
-         * permissions. */
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        /* Add the administration menu if the user is an admin or has any
+         * admin permissions. */
+        $perms = $injector->getInstance('Horde_Perms');
         $admin_item_count = 0;
         try {
             foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
                 if ($isAdmin ||
                     $perms->hasPermission('horde:administration:' . $method, $registry->getAuth(), Horde_Perms::SHOW)) {
-                    $admin_item_count++;
+                    ++$admin_item_count;
                     $menu['administration_' . $method] = array(
                         'icon' => $val['icon'],
                         'menu_parent' => 'administration',
@@ -108,8 +116,7 @@ class Horde_Core_Topbar
                     );
                 }
             }
-        } catch (Horde_Exception $e) {
-        }
+        } catch (Horde_Exception $e) {}
 
         if ($admin_item_count) {
             $menu['administration'] = array(
@@ -128,7 +135,7 @@ class Horde_Core_Topbar
 
         /* Add preferences. */
         if ($registry->showService('prefs') &&
-            !($GLOBALS['prefs'] instanceof Horde_Prefs_Session)) {
+            !($prefs instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
                 'menu_parent' => 'settings',
@@ -202,7 +209,16 @@ class Horde_Core_Topbar
             switch ($params['status']) {
             case 'topbar':
                 try {
-                    $registry->callAppMethod($params['app'], 'topbarCreate', array('args' => array($this->_tree, empty($params['menu_parent']) ? null : $params['menu_parent'], isset($params['topbar_params']) ? $params['topbar_params'] : array())));
+                    $registry->callAppMethod(
+                        $params['app'],
+                        'topbarCreate', array(
+                            'args' => array(
+                                $this->_tree,
+                                empty($params['menu_parent']) ? null : $params['menu_parent'],
+                                isset($params['topbar_params']) ? $params['topbar_params'] : array()
+                            )
+                        )
+                    );
                 } catch (Horde_Exception_PushApp $e) {
                     // Ignore
                 } catch (Horde_Exception $e) {
@@ -250,7 +266,7 @@ class Horde_Core_Topbar
                             ? $params['target']
                             : null,
                         'url' => $url,
-                        'active' => $app == $current,
+                        'active' => ($app == $current),
                     )
                 ));
             }
@@ -283,4 +299,5 @@ class Horde_Core_Topbar
     {
         return strcoll(_($a['name']), _($b['name']));
     }
+
 }
