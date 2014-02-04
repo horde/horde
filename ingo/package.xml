@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-30</date>
+ <date>2014-02-04</date>
  <version>
   <release>3.2.0</release>
   <api>3.2.0</api>
@@ -100,6 +100,7 @@
     </dir> <!-- /lib/Exception -->
     <dir name="Factory">
      <file name="Script.php" role="horde" />
+     <file name="Shares.php" role="horde" />
      <file name="Storage.php" role="horde" />
      <file name="Transport.php" role="horde" />
     </dir> <!-- /lib/Factory -->
@@ -678,6 +679,7 @@
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
+   <install as="ingo/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
    <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
    <install as="ingo/lib/Form/Base.php" name="lib/Form/Base.php" />

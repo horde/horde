@@ -56,13 +56,6 @@ class Ingo
     const RULE_SPAM = 6;
 
     /**
-     * hasSharePermission() cache.
-     *
-     * @var integer
-     */
-    static private $_shareCache = null;
-
-    /**
      * Generates a folder widget.
      *
      * If an application is available that provides a mailboxList method
@@ -146,11 +139,13 @@ class Ingo
      */
     static public function getUser($full = true)
     {
-        if (empty($GLOBALS['ingo_shares'])) {
-            return $GLOBALS['registry']->getAuth($full ? null : 'bare');
+        global $injector, $registry, $session;
+
+        if (!$injector->getInstance('Ingo_Shares')) {
+            return $registry->getAuth($full ? null : 'bare');
         }
 
-        list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
+        list(, $user) = explode(':', $session->get('ingo', 'current_share'), 2);
         return $user;
     }
 
@@ -290,11 +285,17 @@ class Ingo
     static public function listRulesets($owneronly = false,
                                         $permission = Horde_Perms::SHOW)
     {
+        global $registry;
+
         try {
-            $tmp = $GLOBALS['ingo_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
+            if (!($share = $injector->getInstance('Ingo_Shares'))) {
+                return array();
+            }
+            $auth = $registry->getAuth();
+            $tmp = $share->listShares(
+                $auth,
                 array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
+                      'attributes' => $owneronly ? $auth : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -322,15 +323,14 @@ class Ingo
      */
     static public function hasSharePermission($mask = null)
     {
-        if (!isset($GLOBALS['ingo_shares'])) {
-            return true;
-        }
+        global $injector, $registry, $session;
 
-        if (is_null(self::$_shareCache)) {
-            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($GLOBALS['session']->get('ingo', 'current_share'), $GLOBALS['registry']->getAuth());
-        }
-
-        return self::$_shareCache & $mask;
+        return ($share = $injector->getInstance('Ingo_Shares'))
+            ? ($share->getPermissions(
+                  $session->get('ingo', 'current_share'),
+                  $registry->getAuth()
+              ) & $mask)
+            : true;
     }
 
     /**

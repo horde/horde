@@ -52,19 +52,26 @@ class Ingo_Application extends Horde_Registry_Application
     public $version = 'H5 (3.1.4-git)';
 
     /**
+     */
+    protected function _bootstrap()
+    {
+        global $injector;
+
+        $injector->bindFactory('Ingo_Shares', 'Ingo_Factory_Shares', 'create');
+    }
+
+    /**
      * Global variables defined:
      *   - all_rulesets
-     *   - ingo_shares
      */
     protected function _init()
     {
-        global $injector, $registry, $session;
+        global $registry, $session;
 
         // Create the session.
         $this->_createSession();
 
         if ($sig = $session->get('ingo', 'personal_share')) {
-            $GLOBALS['ingo_shares'] = $injector->getInstance('Horde_Core_Factory_Share')->create();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
             $curr_share = $session->get('ingo', 'current_share');
@@ -79,8 +86,6 @@ class Ingo_Application extends Horde_Registry_Application
                     $session->set('ingo', 'current_share', $sig);
                 }
             }
-        } else {
-            $GLOBALS['ingo_shares'] = null;
         }
     }
 
@@ -183,7 +188,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $ingo_shares, $injector, $prefs, $registry, $session;
+        global $conf, $injector, $prefs, $registry, $session;
 
         $s_categories = $session->get('ingo', 'script_categories');
         $vars = $injector->getInstance('Horde_Variables');
@@ -219,7 +224,8 @@ class Ingo_Application extends Horde_Registry_Application
             $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script', null, null, null, $vars->page == 'script' ? 'current' : '__noselection');
         }
 
-        if (!empty($ingo_shares) && empty($conf['share']['no_sharing'])) {
+        if ($injector->getInstance('Ingo_Shares') &&
+            empty($conf['share']['no_sharing'])) {
             $menu->add(
                 '#',
                 _("_Permissions"),
@@ -271,7 +277,7 @@ class Ingo_Application extends Horde_Registry_Application
             $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
         }
 
-        if (!empty($GLOBALS['ingo_shares']) &&
+        if ($injector->getInstance('Ingo_Shares') &&
             (count($GLOBALS['all_rulesets']) > 1)) {
             $url = Ingo_Basic_Filters::url();
             $current = $GLOBALS['session']->get('ingo', 'current_share');
@@ -317,20 +323,21 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
+        global $injector;
+
         /* Remove all filters/rules owned by the user. */
         try {
-            $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->removeUserData($user);
+            $injector->getInstance('Ingo_Factory_Storage')->create()->removeUserData($user);
         } catch (Ingo_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw $e;
         }
 
         /* Now remove all shares owned by the user. */
-        if (!empty($GLOBALS['ingo_shares'])) {
+        if ($ingo_shares = $injector->getInstance('Ingo_Shares')) {
             /* Get the user's default share. */
             try {
-                $share = $GLOBALS['ingo_shares']->getShare($user);
-                $GLOBALS['ingo_shares']->removeShare($share);
+                $ingo_shares->removeShare($ingo_shares->getShare($user));
             } catch (Horde_Share_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 throw new Ingo_Exception($e);
@@ -339,7 +346,7 @@ class Ingo_Application extends Horde_Registry_Application
             /* Get a list of all shares this user has perms to and remove the
              * perms. */
             try {
-                $shares = $GLOBALS['ingo_shares']->listShares($user);
+                $shares = $ingo_shares->listShares($user);
                 foreach ($shares as $share) {
                     $share->removeUser($user);
                 }
@@ -350,7 +357,7 @@ class Ingo_Application extends Horde_Registry_Application
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
             try {
-                $shares = $GLOBALS['ingo_shares']->listShares($user, array(
+                $shares = $ingo_shares->listShares($user, array(
                     'attributes' => $user,
                     'perm' => Horde_Perms::DELETE
                 ));
@@ -360,7 +367,7 @@ class Ingo_Application extends Horde_Registry_Application
             }
 
             foreach ($shares as $share) {
-                $GLOBALS['ingo_shares']->removeShare($share);
+                $ingo_shares->removeShare($share);
             }
         }
     }
