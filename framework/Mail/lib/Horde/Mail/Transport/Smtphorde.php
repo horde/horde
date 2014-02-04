@@ -122,7 +122,7 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
         list($from, $textHeaders) = $this->prepareHeaders($headers);
         $from = $this->_getFrom($from, $headers);
 
-        $combine = Horde_String_Wrapper_Combine::getStream(array(
+        $combine = Horde_Stream_Wrapper_Combine::getStream(array(
             rtrim($textHeaders, $this->sep),
             $this->sep . $this->sep,
             $body
