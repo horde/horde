@@ -28,14 +28,11 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     protected $_app = 'imp';
 
     /**
-     * Listeners are handling their messages.
-     *
-     * @param Horde_Notification_Handler  $handler   The base handler object.
-     * @param Horde_Notification_Listener $listener  The Listener object that
-     *                                               is handling its messages.
      */
-    public function notify(Horde_Notification_Handler $handler,
-                           Horde_Notification_Listener $listener)
+    protected function _notify(
+        Horde_Notification_Handler $handler,
+        Horde_Notification_Listener $listener
+    )
     {
         if (($listener instanceof Horde_Notification_Listener_Status) &&
             ($ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap'))) {

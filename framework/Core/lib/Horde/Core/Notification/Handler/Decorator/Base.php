@@ -36,18 +36,33 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
      *                                         Horde_Notification_Handler for
      *                                         details).
      */
-    public function push(Horde_Notification_Event $event, $options)
+    final public function push(Horde_Notification_Event $event, $options)
     {
-        $pushed = $GLOBALS['registry']->pushApp($this->_app, array(
-            'check_perms' => true,
-            'logintasks' => false
-        ));
+        global $registry;
 
-        parent::push($event, $options);
+        try {
+            $pushed = $registry->pushApp($this->_app, array(
+                'check_perms' => true,
+                'logintasks' => false
+            ));
+        } catch (Exception $e) {
+            return;
+        }
+
+        $this->_push($event, $options);
 
         if ($pushed) {
-            $GLOBALS['registry']->popApp();
+            $registry->popApp();
         }
+    }
+
+    /**
+     * @see   push()
+     * @since 2.12.0
+     */
+    protected function _push(Horde_Notification_Event $event, $options)
+    {
+        parent::push($event, $options);
     }
 
     /**
@@ -59,29 +74,49 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
      *
      * @throws Horde_Notification_Exception
      */
-    public function notify(Horde_Notification_Handler $handler,
-                           Horde_Notification_Listener $listener)
+    final public function notify(
+        Horde_Notification_Handler $handler,
+        Horde_Notification_Listener $listener
+    )
     {
+        global $registry;
+
         $error = null;
 
-        $pushed = $GLOBALS['registry']->pushApp($this->_app, array(
-            'check_perms' => true,
-            'logintasks' => false
-        ));
+        try {
+            $pushed = $registry->pushApp($this->_app, array(
+                'check_perms' => true,
+                'logintasks' => false
+            ));
+        } catch (Exception $e) {
+            return;
+        }
 
         try {
-            parent::notify($handler, $listener);
+            $this->_notify($handler, $listener);
         } catch (Exception $e) {
             $error = $e;
         }
 
         if ($pushed) {
-            $GLOBALS['registry']->popApp();
+            $registry->popApp();
         }
 
         if ($error) {
             throw $error;
         }
+    }
+
+    /**
+     * @see   notify()
+     * @since 2.12.0
+     */
+    protected function _notify(
+        Horde_Notification_Handler $handler,
+        Horde_Notification_Listener $listener
+    )
+    {
+        parent::notify($handler, $listener);
     }
 
 }

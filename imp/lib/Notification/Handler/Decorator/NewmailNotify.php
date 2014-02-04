@@ -34,32 +34,11 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     protected $_app = 'imp';
 
     /**
-     * Listeners are handling their messages.
-     *
-     * @param Horde_Notification_Handler  $handler   The base handler object.
-     * @param Horde_Notification_Listener $listener  The Listener object that
-     *                                               is handling its messages.
      */
-    public function notify(Horde_Notification_Handler $handler,
-                           Horde_Notification_Listener $listener)
-    {
-        global $registry;
-
-        $pushed = $registry->pushApp($this->_app, array(
-            'check_perms' => true,
-            'logintasks' => false
-        ));
-
-        $this->_notify($handler, $listener);
-
-        if ($pushed) {
-            $registry->popApp();
-        }
-    }
-
-    /**
-     */
-    protected function _notify($handler, $listener)
+    protected function _notify(
+        Horde_Notification_Handler $handler,
+        Horde_Notification_Listener $listener
+    )
     {
         global $injector, $prefs, $session;
 
