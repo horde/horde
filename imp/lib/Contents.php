@@ -334,19 +334,18 @@ class IMP_Contents
                 }
 
                 if ($rfc822) {
-                    $swrapper_params = array(
+                    $data = array(
                         $res->getHeaderText($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
                         $res->getBodyText($id, true)
                     );
                 } else {
-                    $swrapper_params = array(
+                    $data = array(
                         $res->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
                         $res->getBodyPart($id, true)
                     );
                 }
 
-                $swrapper = new Horde_Support_CombineStream($swrapper_params);
-                $ret->data = $swrapper->fopen();
+                $ret->data = Horde_Stream_Wrapper_Combine::getStream($data);
                 return $ret;
             } catch (Horde_Exception $e) {}
         }
@@ -385,8 +384,10 @@ class IMP_Contents
                     return $this->getHeader(self::HEADER_TEXT) . $res->getBodyText(0);
                 }
 
-                $swrapper = new Horde_Support_CombineStream(array($this->getHeader(self::HEADER_STREAM), $res->getBodyText(0, true)));
-                return $swrapper->fopen();
+                return Horde_Stream_Wrapper_Combine::getStream(array(
+                    $this->getHeader(self::HEADER_STREAM),
+                    $res->getBodyText(0, true)
+                ));
             } catch (Horde_Exception $e) {}
         }
 
