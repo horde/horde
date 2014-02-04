@@ -6,8 +6,6 @@
  * @package  Ingo
  */
 
-require_once __DIR__ . '/../lib/Ingo.php';
-
 /**
  * Add hierarchcal related columns to the legacy sql share driver
  *
