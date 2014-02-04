@@ -14,11 +14,12 @@
 /**
  * Provides access to the CombineStream stream wrapper.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2009-2014 Horde LLC
- * @license   http://www.horde.org/licenses/bsd BSD
- * @package   Stream_Wrapper
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @deprecated Use Horde_Stream_Wrapper_Combine::getStream()
+ * @copyright  2009-2014 Horde LLC
+ * @license    http://www.horde.org/licenses/bsd BSD
+ * @package    Stream_Wrapper
  */
 interface Horde_Stream_Wrapper_CombineStream
 {

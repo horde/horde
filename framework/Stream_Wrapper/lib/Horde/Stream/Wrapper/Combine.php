@@ -23,6 +23,9 @@
  */
 class Horde_Stream_Wrapper_Combine
 {
+    /**/
+    const WRAPPER_NAME = 'horde-stream-wrapper-combine';
+
     /**
      * Context.
      *
@@ -66,6 +69,40 @@ class Horde_Stream_Wrapper_Combine
     protected $_ateof = false;
 
     /**
+     * Unique ID tracker for the streams.
+     *
+     * @var integer
+     */
+    static private $_id = 0;
+
+    /**
+     * Create a stream from multiple data sources.
+     *
+     * @since 2.1.0
+     *
+     * @param array $data  An array of strings and/or streams to combine into
+     *                     a single stream.
+     *
+     * @return resource  A PHP stream.
+     */
+    static public function getStream($data)
+    {
+        if (!self::$_id) {
+            stream_wrapper_register(self::WRAPPER_NAME, __CLASS__);
+        }
+
+        return fopen(
+            self::WRAPPER_NAME . '://' . ++self::$_id,
+            'wb',
+            false,
+            stream_context_create(array(
+                self::WRAPPER_NAME => array(
+                    'data' => $data
+                )
+            ))
+        );
+    }
+    /**
      * @see streamWrapper::stream_open()
      *
      * @param string $path
@@ -78,12 +115,15 @@ class Horde_Stream_Wrapper_Combine
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         $opts = stream_context_get_options($this->context);
-        if (empty($opts['horde-combine']['data']) ||
-            !($opts['horde-combine']['data'] instanceof Horde_Stream_Wrapper_CombineStream)) {
-            throw new Exception('A combined stream must be created using the Horde_Stream_Wrapper_CombineStream interface.');
-        }
 
-        $data = $opts['horde-combine']['data']->getData();
+        if (isset($opts[self::WRAPPER_NAME]['data'])) {
+            $data = $opts[self::WRAPPER_NAME]['data'];
+        } elseif (isset($opts['horde-combine']['data'])) {
+            // @deprecated
+            $data = $opts['horde-combine']['data']->getData();
+        } else {
+            throw new Exception('Use ' . __CLASS__ . '::getStream() to initialize the stream.');
+        }
 
         reset($data);
         while (list(,$val) = each($data)) {
