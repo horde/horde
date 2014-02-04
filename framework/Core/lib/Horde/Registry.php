@@ -253,7 +253,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         // For 'fallback' authentication, try authentication first.
         if ($args['authentication'] === 'fallback') {
             $fallback_auth = true;
-            $args['authentication'] = '';
+            $args['authentication'] = null;
         } else {
             $fallback_auth = false;
         }
@@ -287,23 +287,33 @@ class Horde_Registry implements Horde_Shutdown_Task
         $appob = $registry->getApiInstance($app, 'application');
         $appob->initParams = $args;
 
-        try {
-            $registry->pushApp($app, array(
-                'check_perms' => ($args['authentication'] != 'none'),
-                'logintasks' => !$args['nologintasks'],
-                'notransparent' => !empty($args['notransparent'])
-            ));
+        do {
+            try {
+                $registry->pushApp($app, array(
+                    'check_perms' => ($args['authentication'] != 'none'),
+                    'logintasks' => !$args['nologintasks'],
+                    'notransparent' => !empty($args['notransparent'])
+                ));
 
-            if ($args['admin'] && !$registry->isAdmin()) {
-                throw new Horde_Exception(Horde_Core_Translation::t("Not an admin"));
-            }
-        } catch (Horde_Exception_PushApp $e) {
-            if ($fallback_auth) {
-                $args['authentication'] = 'none';
-                $registry->authException = $e;
-                return self::appInit($app, $args);
+                if ($args['admin'] && !$registry->isAdmin()) {
+                    throw new Horde_Exception(Horde_Core_Translation::t("Not an admin"));
+                }
+
+                $e = null;
+            } catch (Horde_Exception_PushApp $e) {
+                if ($fallback_auth) {
+                    $registry->authException = $e;
+                    $registry->setAuthenticationSetting('none');
+                    $args['authentication'] = 'none';
+                    $fallback_auth = false;
+                    continue;
+                }
             }
 
+            break;
+        } while (true);
+
+        if (!is_null($e)) {
             $appob->appInitFailure($e);
 
             switch ($e->getCode()) {
@@ -584,6 +594,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         $this->_args['authentication'] = $authentication;
         $this->_obCache = array();
+        while ($this->popApp());
     }
 
     /**
