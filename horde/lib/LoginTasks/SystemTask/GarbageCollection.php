@@ -39,55 +39,18 @@ extends Horde_LoginTasks_SystemTask
      */
     public function execute()
     {
-        /* Clean out static cache files. Any user has a 1% chance of
+        global $injector;
+
+        /* Clean out static cache files. Any user has a 0.1% chance of
          * triggering weekly (these static files are shared amongst all
          * users). */
-        if (rand(0, 9) === 0) {
-            foreach (array('cachecss', 'cachejs') as $val) {
-                if (!empty($GLOBALS['conf'][$val]) &&
-                    (strcasecmp($GLOBALS['conf'][$val . 'params']['driver'], 'filesystem') === 0)) {
-                    $this->_staticFilesGc($val);
-                }
-            }
+        if (substr(time(), -3) === '000') {
+            /* CSS files. */
+            $injector->getInstance('Horde_Core_CssCache')->gc();
+
+            /* Javascript files. */
+            $injector->getInstance('Horde_Core_JavascriptCache')->gc();
         }
-    }
-
-    /**
-     * Do cleanup of static files directory.
-     */
-    protected function _staticFilesGc($type)
-    {
-        if (!($lifetime = $GLOBALS['conf'][$type . 'params']['lifetime'])) {
-            continue;
-        }
-
-        /* Keep a file in the static directory that prevents us from doing
-         * garbage collection more than once a day. */
-        $curr_time = time();
-        $static_dir = $GLOBALS['registry']->get('fileroot', 'horde') . '/static';
-        $static_stat = $static_dir . '/gc_' . $type;
-        $next_run = null;
-
-        if (file_exists($static_stat)) {
-            $next_run = $static_stat;
-        }
-
-        if (is_null($next_run) || ($curr_time > $next_run)) {
-            file_put_contents($static_stat, $curr_time + 86400);
-        }
-
-        if (is_null($next_run) || ($curr_time < $next_run)) {
-            return;
-        }
-
-        $c_time = $curr_time - $lifetime;
-        foreach (glob($static_dir . '/*.' . substr($type, 5)) as $file) {
-            if ($c_time > filemtime($file)) {
-                @unlink($file);
-            }
-        }
-
-        Horde::logMessage('Cleaned out static files for ' . $type, 'DEBUG');
     }
 
 }
