@@ -85,7 +85,7 @@ class Horde_Themes_Css
      */
     public function getStylesheetUrls(array $opts = array())
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector, $prefs;
 
         $theme = isset($opts['theme'])
             ? $opts['theme']
@@ -95,64 +95,11 @@ class Horde_Themes_Css
             return array();
         }
 
-        $cache_type = !empty($opts['nocache']) || empty($conf['cachecss'])
-            ? 'none'
-            : $conf['cachecssparams']['driver'];
+        $cache_ob = empty($opts['nocache'])
+            ? $injector->getInstance('Horde_Core_CssCache')
+            : new Horde_Themes_Css_Cache_Null();
 
-        if ($cache_type == 'none') {
-            $css_out = array();
-            foreach ($css as $file) {
-                $url = Horde::url($file['uri'], true, -1);
-                $css_out[] = (is_null($file['app']) || empty($conf['cachecssparams']['url_version_param']))
-                    ? $url
-                    : $url->add('v', hash('sha1', $registry->getVersion($file['app'])));
-            }
-            return $css_out;
-        }
-
-        if (!empty($conf['cachecssparams']['filemtime'])) {
-            foreach ($css as &$val) {
-                $val['mtime'] = @filemtime($val['fs']);
-            }
-        }
-
-        $out = '';
-        $sig = hash('sha1', serialize($css) . $this->_cacheid);
-
-        switch ($cache_type) {
-        case 'filesystem':
-            $css_filename = '/static/' . $sig . '.css';
-            $css_path = $registry->get('fileroot', 'horde') . $css_filename;
-            $css_url = Horde::url($registry->get('webroot', 'horde') . $css_filename, true, array('append_session' => -1));
-            $exists = file_exists($css_path);
-            break;
-
-        case 'horde_cache':
-            $cache = $injector->getInstance('Horde_Cache');
-
-            // Do lifetime checking here, not on cache display page.
-            $exists = $cache->exists($sig, empty($conf['cachecssparams']['lifetime']) ? 0 : $conf['cachecssparams']['lifetime']);
-            $css_url = Horde::getCacheUrl('css', array('cid' => $sig));
-            break;
-        }
-
-        if (!$exists) {
-            $out = $this->loadCssFiles($css);
-
-            switch ($cache_type) {
-            case 'filesystem':
-                if (!file_put_contents($css_path, $out)) {
-                    throw new Horde_Exception('Could not write cached CSS file to disk.');
-                }
-                break;
-
-            case 'horde_cache':
-                $cache->set($sig, $out);
-                break;
-            }
-        }
-
-        return array($css_url);
+        return $cache_ob->process($css, $this->_cacheid);
     }
 
     /**
@@ -182,8 +129,10 @@ class Horde_Themes_Css
      */
     public function getStylesheets($theme = '', array $opts = array())
     {
-        if (($theme === '') && isset($GLOBALS['prefs'])) {
-            $theme = $GLOBALS['prefs']->getValue('theme');
+        global $injector, $prefs, $registry;
+
+        if (($theme === '') && isset($prefs)) {
+            $theme = $prefs->getValue('theme');
         }
 
         $add_css = $css_out = array();
@@ -194,7 +143,7 @@ class Horde_Themes_Css
         $css_list = array_unique(array_merge($css_list, array_keys($this->_cssThemeFiles)));
 
         $curr_app = empty($opts['app'])
-            ? $GLOBALS['registry']->getApp()
+            ? $registry->getApp()
             : $opts['app'];
         $mask = empty($opts['nohorde'])
             ? 0
@@ -203,7 +152,7 @@ class Horde_Themes_Css
             ? null
             : $opts['sub'];
 
-        $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
+        $cache = $injector->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
         $this->_cacheid = $cache->getCacheId();
 
         /* Add external stylesheets first, since they are ALWAYS overwritable
@@ -230,7 +179,7 @@ class Horde_Themes_Css
         }
 
         /* Add user-defined additional stylesheets. */
-        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
         try {
             $add_css = array_merge($add_css, $hooks->callHook('cssfiles', 'horde', array($theme)));
         } catch (Horde_Exception_HookNotSet $e) {}
@@ -293,6 +242,8 @@ class Horde_Themes_Css
     /**
      * Loads CSS files, cleans up the input, and concatenates to a string.
      *
+     * @deprecated  Use Horde_Themes_Css_Compress instead.
+     *
      * @param array $files  List of CSS files as returned from
      *                      getStylesheets().
      *
@@ -300,73 +251,8 @@ class Horde_Themes_Css
      */
     public function loadCssFiles($files)
     {
-        global $browser, $conf;
-
-        $dataurl = (empty($conf['nobase64_img']) && $browser->hasFeature('dataurl'));
-        $out = '';
-
-        foreach ($files as $file) {
-            $data = file_get_contents($file['fs']);
-            $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
-            $url = array();
-
-            try {
-                $css_parser = new Horde_Css_Parser($data);
-            } catch (Exception $e) {
-                /* If the CSS is broken, log error and output as-is. */
-                Horde::log($e, 'ERR');
-                $out .= $data;
-                continue;
-            }
-
-            foreach ($css_parser->doc->getContents() as $val) {
-                if ($val instanceof Sabberworm\CSS\Property\Import) {
-                    $ob = Horde_Themes_Element::fromUri($path . $val->getLocation()->getURL()->getString());
-                    $out .= $this->loadCssFiles(array(array(
-                        'app' => null,
-                        'fs' => $ob->fs,
-                        'uri' => $ob->uri
-                    )));
-                    $css_parser->doc->remove($val);
-                }
-            }
-
-            foreach ($css_parser->doc->getAllRuleSets() as $val) {
-                foreach ($val->getRules('background-') as $val2) {
-                    $item = $val2->getValue();
-
-                    if ($item instanceof Sabberworm\CSS\Value\URL) {
-                        $url[] = $item;
-                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
-                        foreach ($item->getListComponents() as $val3) {
-                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
-                                $url[] = $val3;
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach ($url as $val) {
-                $url_ob = $val->getURL();
-                $url_str = $url_ob->getString();
-
-                if (Horde_Url_Data::isData($url_str)) {
-                    $url_ob->setString($url_str);
-                } else {
-                    if ($dataurl) {
-                        /* Limit data to 16 KB in stylesheets. */
-                        $url_ob->setString(Horde_Themes_Image::base64ImgData($path . $url_str, 16384));
-                    } else {
-                        $url_ob->setString($path . $url_str);
-                    }
-                }
-            }
-
-            $out .= $css_parser->compress();
-        }
-
-        return $out;
+        $compress = new Horde_Themes_Css_Compress();
+        return $compress->compress($files);
     }
 
 }

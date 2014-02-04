@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
@@ -437,6 +438,7 @@
        <file name="Browser.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Crypt.php" role="php" />
+       <file name="CssCache.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="DavServer.php" role="php" />
        <file name="DavStorage.php" role="php" />
@@ -674,6 +676,15 @@
       <file name="Task.php" role="php" />
      </dir> <!-- /lib/Horde/Shutdown -->
      <dir name="Themes">
+      <dir name="Css">
+       <dir name="Cache">
+        <file name="File.php" role="php" />
+        <file name="HordeCache.php" role="php" />
+        <file name="Null.php" role="php" />
+       </dir> <!-- /lib/Horde/Themes/Css/Cache -->
+       <file name="Cache.php" role="php" />
+       <file name="Compress.php" role="php" />
+      </dir> <!-- /lib/Horde/Themes/Css -->
       <file name="Cache.php" role="php" />
       <file name="Css.php" role="php" />
       <file name="Element.php" role="php" />
@@ -1798,6 +1809,7 @@
    <install as="Horde/Core/Factory/Browser.php" name="lib/Horde/Core/Factory/Browser.php" />
    <install as="Horde/Core/Factory/Cache.php" name="lib/Horde/Core/Factory/Cache.php" />
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
+   <install as="Horde/Core/Factory/CssCache.php" name="lib/Horde/Core/Factory/CssCache.php" />
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
    <install as="Horde/Core/Factory/DavServer.php" name="lib/Horde/Core/Factory/DavServer.php" />
    <install as="Horde/Core/Factory/DavStorage.php" name="lib/Horde/Core/Factory/DavStorage.php" />
@@ -1942,6 +1954,11 @@
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
    <install as="Horde/Themes/Image.php" name="lib/Horde/Themes/Image.php" />
    <install as="Horde/Themes/Sound.php" name="lib/Horde/Themes/Sound.php" />
+   <install as="Horde/Themes/Css/Cache.php" name="lib/Horde/Themes/Css/Cache.php" />
+   <install as="Horde/Themes/Css/Compress.php" name="lib/Horde/Themes/Css/Compress.php" />
+   <install as="Horde/Themes/Css/Cache/File.php" name="lib/Horde/Themes/Css/Cache/File.php" />
+   <install as="Horde/Themes/Css/Cache/HordeCache.php" name="lib/Horde/Themes/Css/Cache/HordeCache.php" />
+   <install as="Horde/Themes/Css/Cache/Null.php" name="lib/Horde/Themes/Css/Cache/Null.php" />
    <install as="locale/Horde_Core.pot" name="locale/Horde_Core.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Core.po" name="locale/ar/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Core.po" name="locale/bg/LC_MESSAGES/Horde_Core.po" />
@@ -3317,6 +3334,7 @@
    <date>2014-02-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
