@@ -435,7 +435,6 @@ pre, code, .fixed, table.lineNumbered * {
 
 /* Various popup and status layers. */
 .notices {
-    text-align: left;
     list-style-type: none;
 }
 .notices li, .notice {
@@ -443,10 +442,17 @@ pre, code, .fixed, table.lineNumbered * {
     color: #000;
     background: #ffc;
     border-bottom: 1px solid #d0d0d0;
-    padding: 7px 15px;
+    padding: 7px 10px;
+    position: relative;
 }
 .notices img, .notice img {
-    margin-right: .5em;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
+}
+.notices div.noticetext, .notice div.noticetext {
+    margin-left: 30px;
 }
 .tooltip, div.nicetitle {
     color: #000;
