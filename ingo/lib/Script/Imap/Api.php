@@ -31,15 +31,6 @@ abstract class Ingo_Script_Imap_Api
     /**
      * TODO
      */
-    static public function factory($type, $params)
-    {
-        $class = 'Ingo_Script_Imap_' . ucfirst($type);
-        return new $class($params);
-    }
-
-    /**
-     * TODO
-     */
     public function __construct($params = array())
     {
         $this->_params = $params;

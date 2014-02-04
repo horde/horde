@@ -76,8 +76,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
             $params['notification'] = $notification;
             $params['registry'] = $registry;
             $params['show_filter_msg'] = $prefs->getValue('show_filter_msg');
-            // @todo Use factory class.
-            $params['api'] = Ingo_Script_Imap_Api::factory('Live', $params);
+            $params['api'] = new Ingo_Script_Imap_Live($params);
             break;
 
         case 'Sieve':
