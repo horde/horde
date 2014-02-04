@@ -129,20 +129,25 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             return new Horde_Db_Adapter_SplitRead($this->createDb(array_merge($config, $read_config)), $this->createDb($config));
         }
 
-        if (!isset($config['adapter'])) {
-            if (empty($config['phptype'])) {
-                throw new Horde_Exception('The database configuration is missing.');
-            }
-            if ($config['phptype'] == 'mysqli') {
-                $config['adapter'] = 'mysqli';
-            } elseif ($config['phptype'] == 'mysql') {
-                if (extension_loaded('pdo_mysql')) {
-                    $config['adapter'] = 'pdo_mysql';
-                } else {
-                    $config['adapter'] = 'mysql';
-                }
-            } else {
-                $config['adapter'] = 'pdo_' . $config['phptype'];
+        if (isset($config['adapter'])) {
+            $class = $this->_getDriverName($config['adapter'], 'Horde_Db_Adapter');
+        } elseif (empty($config['phptype'])) {
+            throw new Horde_Exception('The database configuration is missing.');
+        } else {
+            switch ($config['phptype']) {
+            case 'mysqli':
+                $class = 'Horde_Db_Adatper_Mysqli';
+                break;
+
+            case 'mysql':
+                $class = extension_loaded('pdo_mysql')
+                    ? 'Horde_Db_Adapter_Pdo_Mysql'
+                    : 'Horde_Db_Adapter_Mysql';
+                break;
+
+            default:
+                $class = 'Horde_Db_Adapter_Pdo_' . ucfirst($config['phptype']);
+                break;
             }
         }
 
@@ -150,9 +155,6 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             $config['host'] = $config['hostspec'];
             unset($config['hostspec']);
         }
-
-        $adapter = str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($config['adapter']))));
-        $class = $this->_getDriverName($adapter, 'Horde_Db_Adapter');
 
         $ob = new $class($config);
 
