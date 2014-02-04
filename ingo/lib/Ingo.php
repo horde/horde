@@ -273,52 +273,6 @@ class Ingo
     }
 
     /**
-     * Returns all rulesets a user has access to, according to several
-     * parameters/permission levels.
-     *
-     * @param boolean $owneronly   Only return rulesets that this user owns?
-     *                             Defaults to false.
-     * @param integer $permission  The permission to filter rulesets by.
-     *
-     * @return array  The ruleset list.
-     */
-    static public function listRulesets($owneronly = false,
-                                        $permission = Horde_Perms::SHOW)
-    {
-        global $registry;
-
-        try {
-            if (!($share = $injector->getInstance('Ingo_Shares'))) {
-                return array();
-            }
-            $auth = $registry->getAuth();
-            $tmp = $share->listShares(
-                $auth,
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $auth : null));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array();
-        }
-
-        /* Check if filter backend of the share still exists. */
-        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
-        if (!isset($backends) || !is_array($backends)) {
-            throw new Ingo_Exception(_("No backends configured in backends.php"));
-        }
-        $rulesets = array();
-        foreach ($tmp as $id => $ruleset) {
-            list($backend) = explode(':', $id);
-            if (isset($backends[$backend]) &&
-                empty($backends[$backend]['disabled'])) {
-                $rulesets[$id] = $ruleset;
-            }
-        }
-
-        return $rulesets;
-    }
-
-    /**
      * TODO
      */
     static public function hasSharePermission($mask = null)

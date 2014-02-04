@@ -52,6 +52,13 @@ class Ingo_Application extends Horde_Registry_Application
     public $version = 'H5 (3.1.4-git)';
 
     /**
+     * Cached list of all rulesets.
+     *
+     * @var array
+     */
+    protected $_rulesets;
+
+    /**
      */
     protected function _bootstrap()
     {
@@ -61,8 +68,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Global variables defined:
-     *   - all_rulesets
      */
     protected function _init()
     {
@@ -72,17 +77,17 @@ class Ingo_Application extends Horde_Registry_Application
         $this->_createSession();
 
         if ($sig = $session->get('ingo', 'personal_share')) {
-            $GLOBALS['all_rulesets'] = Ingo::listRulesets();
-
             $curr_share = $session->get('ingo', 'current_share');
             $ruleset = Horde_Util::getFormData('ruleset');
 
             /* Select current share. */
             if (is_null($curr_share) || ($ruleset != $curr_share)) {
                 $session->set('ingo', 'current_share', $ruleset);
+                $all_rulesets = $this->_listRulesets();
+
                 if (is_null($curr_share) ||
-                    empty($GLOBALS['all_rulesets'][$ruleset]) ||
-                    !$GLOBALS['all_rulesets'][$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+                    empty($all_rulesets[$ruleset]) ||
+                    !$all_rulesets[$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
                     $session->set('ingo', 'current_share', $sig);
                 }
             }
@@ -370,6 +375,53 @@ class Ingo_Application extends Horde_Registry_Application
                 $ingo_shares->removeShare($share);
             }
         }
+    }
+
+    /**
+     * Returns all rulesets a user has access to.
+     *
+     * @return array  The ruleset list.
+     */
+    protected function _listRulesets()
+    {
+        global $injector, $registry;
+
+        if (isset($this->_rulesets)) {
+            return $this->_rulesets;
+        }
+
+        try {
+            if (!($share = $injector->getInstance('Ingo_Shares'))) {
+                $this->_rulesets = array();
+                return $this->_rulesets;
+            }
+
+            $tmp = $share->listShares(
+                $registry->getAuth(),
+                array('perm' => Horde_Perms::SHOW)
+            );
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            $this->_rulesets = array();
+            return $this->_rulesets;
+        }
+
+        /* Check if filter backend of the share still exists. */
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
+        if (!isset($backends) || !is_array($backends)) {
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
+        }
+
+        $this->_rulesets = array();
+        foreach ($tmp as $id => $ruleset) {
+            list($backend) = explode(':', $id);
+            if (isset($backends[$backend]) &&
+                empty($backends[$backend]['disabled'])) {
+                $this->_rulesets[$id] = $ruleset;
+            }
+        }
+
+        return $this->_rulesets;
     }
 
 }
