@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-01-30</date>
+ <date>2014-02-04</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
@@ -456,6 +457,7 @@
        <file name="Imsp.php" role="php" />
        <file name="ImspAuth.php" role="php" />
        <file name="Injector.php" role="php" />
+       <file name="JavascriptCache.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
@@ -649,11 +651,18 @@
       <file name="Registryconfig.php" role="php" />
      </dir> <!-- /lib/Horde/Registry -->
      <dir name="Script">
+      <dir name="Cache">
+       <file name="File.php" role="php" />
+       <file name="HordeCache.php" role="php" />
+       <file name="Null.php" role="php" />
+      </dir> <!-- /lib/Horde/Script/Cache -->
       <dir name="File">
        <file name="External.php" role="php" />
        <file name="JsDir.php" role="php" />
        <file name="JsFramework.php" role="php" />
       </dir> <!-- /lib/Horde/Script/File -->
+      <file name="Cache.php" role="php" />
+      <file name="Compress.php" role="php" />
       <file name="File.php" role="php" />
       <file name="List.php" role="php" />
       <file name="Package.php" role="php" />
@@ -1809,6 +1818,7 @@
    <install as="Horde/Core/Factory/Imsp.php" name="lib/Horde/Core/Factory/Imsp.php" />
    <install as="Horde/Core/Factory/ImspAuth.php" name="lib/Horde/Core/Factory/ImspAuth.php" />
    <install as="Horde/Core/Factory/Injector.php" name="lib/Horde/Core/Factory/Injector.php" />
+   <install as="Horde/Core/Factory/JavascriptCache.php" name="lib/Horde/Core/Factory/JavascriptCache.php" />
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
    <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
@@ -1914,9 +1924,14 @@
    <install as="Horde/Registry/Loadconfig.php" name="lib/Horde/Registry/Loadconfig.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
    <install as="Horde/Registry/Registryconfig.php" name="lib/Horde/Registry/Registryconfig.php" />
+   <install as="Horde/Script/Cache.php" name="lib/Horde/Script/Cache.php" />
+   <install as="Horde/Script/Compress.php" name="lib/Horde/Script/Compress.php" />
    <install as="Horde/Script/File.php" name="lib/Horde/Script/File.php" />
    <install as="Horde/Script/List.php" name="lib/Horde/Script/List.php" />
    <install as="Horde/Script/Package.php" name="lib/Horde/Script/Package.php" />
+   <install as="Horde/Script/Cache/File.php" name="lib/Horde/Script/Cache/File.php" />
+   <install as="Horde/Script/Cache/HordeCache.php" name="lib/Horde/Script/Cache/HordeCache.php" />
+   <install as="Horde/Script/Cache/Null.php" name="lib/Horde/Script/Cache/Null.php" />
    <install as="Horde/Script/File/External.php" name="lib/Horde/Script/File/External.php" />
    <install as="Horde/Script/File/JsDir.php" name="lib/Horde/Script/File/JsDir.php" />
    <install as="Horde/Script/File/JsFramework.php" name="lib/Horde/Script/File/JsFramework.php" />
@@ -3299,9 +3314,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-30</date>
+   <date>2014-02-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).

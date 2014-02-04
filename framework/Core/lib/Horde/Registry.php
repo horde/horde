@@ -400,6 +400,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 'getRequestConfiguration',
             ),
             'Horde_Core_Auth_Signup' => 'Horde_Core_Factory_AuthSignup',
+            'Horde_Core_JavascriptCache' => 'Horde_Core_Factory_JavascriptCache',
             'Horde_Core_Perms' => 'Horde_Core_Factory_PermsCore',
             'Horde_Dav_Server' => 'Horde_Core_Factory_DavServer',
             'Horde_Dav_Storage' => 'Horde_Core_Factory_DavStorage',

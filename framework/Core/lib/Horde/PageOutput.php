@@ -185,7 +185,7 @@ class Horde_PageOutput
      */
     public function includeScriptFiles()
     {
-        global $browser, $conf;
+        global $browser, $injector;
 
         if (!$browser->hasFeature('javascript')) {
             return;
@@ -199,208 +199,18 @@ class Horde_PageOutput
             $this->smartmobileInit = array();
         }
 
-        $all_scripts = $jsvars = $tmp = array();
-        $driver = empty($conf['cachejs'])
-            ? 'none'
-            : strtolower($conf['cachejsparams']['driver']);
-        $last_cache = null;
+        $out = $injector->getInstance('Horde_Core_JavascriptCache')->process($this->hsl);
 
-        foreach ($this->hsl as $val) {
-            if ($driver == 'none') {
-                echo $val;
-            } elseif (is_null($val->cache)) {
-                if (!empty($tmp)) {
-                    $this->_outputCachedScripts($tmp);
-                    $tmp = array();
-                }
-                echo $val;
-            } else {
-                if (!is_null($last_cache) && ($last_cache != $val->cache)) {
-                    $this->_outputCachedScripts($tmp);
-                    $tmp = array();
-                }
-                $tmp[$val->hash] = $val;
-            }
-
-            $last_cache = $val->cache;
-
-            if (!empty($val->jsvars)) {
-                $jsvars = array_merge($jsvars, $val->jsvars);
-            }
-
-            $all_scripts[] = strval($val->url);
-        }
-
-        if (($this->ajax || $this->growler) && $all_scripts) {
-            $jsvars['HordeCore.jsfiles'] = $all_scripts;
-        }
-
-        $this->_outputCachedScripts($tmp);
         $this->hsl->clear();
-        $this->addInlineJsVars($jsvars);
-    }
 
-    /**
-     */
-    protected function _outputCachedScripts($scripts)
-    {
-        global $conf, $injector, $registry;
-
-        if (empty($scripts)) {
-            return;
+        foreach ($out->script as $val) {
+            echo '<script type="text/javascript" src="' . $val . '"></script>';
         }
 
-        $mtime = 0;
-        foreach ($scripts as $val) {
-            if (($tmp = $val->modified) > $mtime) {
-                $mtime = $tmp;
-            }
+        if (($this->ajax || $this->growler) && $out->all) {
+            $out->jsvars['HordeCore.jsfiles'] = $out->all;
         }
-
-        $hashes = array_keys($scripts);
-        sort($hashes);
-
-        $sig = hash('sha1', serialize($hashes) . $mtime);
-
-        $driver = empty($conf['cachejs'])
-            ? 'none'
-            : strtolower($conf['cachejsparams']['driver']);
-
-        switch ($driver) {
-        case 'filesystem':
-            $js_filename = '/static/' . $sig . '.js';
-            $js_path = $registry->get('fileroot', 'horde') . $js_filename;
-            $js_url = $registry->get('webroot', 'horde') . $js_filename;
-            $sourcemap_url = $js_url . '.map';
-            $exists = file_exists($js_path);
-            break;
-
-        case 'horde_cache':
-            $cache = $injector->getInstance('Horde_Cache');
-            $cache_lifetime = empty($conf['cachejsparams']['lifetime'])
-                ? 0
-                : $conf['cachejsparams']['lifetime'];
-
-            // Do lifetime checking here, not on cache display page.
-            $exists = $cache->exists($sig, $cache_lifetime);
-            $js_url = Horde::getCacheUrl('js', array('cid' => $sig));
-            $sourcemap_url = Horde::getCacheUrl('js', array('cid' => $sig . '.map'));
-            break;
-        }
-
-        echo '<script type="text/javascript" src="' . $js_url . '"></script>';
-
-        if ($exists) {
-            return;
-        }
-
-        /* Check for existing process creating file. Maximum 15 seconds
-         * wait time. */
-        for ($i = 0; $i < 15; ++$i) {
-            switch ($driver) {
-            case 'filesystem':
-                if (file_exists($js_path . '.lock')) {
-                    sleep(1);
-                } elseif ($i) {
-                    return;
-                } else {
-                    touch($js_path . '.lock');
-                    break 2;
-                }
-                break;
-
-            case 'horde_cache':
-                if ($cache->exists($sig . '.lock')) {
-                    sleep(1);
-                } elseif ($i) {
-                    return;
-                } else {
-                    $cache->set($sig . '.lock', 1);
-                    break 2;
-                }
-                break;
-            }
-        }
-
-        $jsmin_params = array(
-            'logger' => $injector->getInstance('Horde_Log_Logger')
-        );
-
-        switch ($conf['cachejsparams']['compress']) {
-        case 'closure':
-            $jsmin = 'Horde_JavascriptMinify_Closure';
-            $jsmin_params = array_merge($jsmin_params, array(
-                'closure' => $conf['cachejsparams']['closurepath'],
-                'java' => $conf['cachejsparams']['javapath'],
-                'sourcemap' => $sourcemap_url
-            ));
-            break;
-
-        case 'none':
-            $jsmin = 'Horde_JavascriptMinify_Null';
-            break;
-
-        case 'php':
-            /* Due to licensing issues, Jsmin might not be available. */
-            $jsmin = class_exists('Horde_JavascriptMinify_Jsmin')
-                ? 'Horde_JavascriptMinify_Jsmin'
-                : 'Horde_JavascriptMinify_Null';
-            break;
-
-        case 'uglifyjs':
-            $jsmin = 'Horde_JavascriptMinify_Uglifyjs';
-            $jsmin_params = array_merge($jsmin_params, array(
-                'cmdline' => $conf['cachejsparams']['uglifyjscmdline'],
-                'sourcemap' => $sourcemap_url,
-                'uglifyjs' => $conf['cachejsparams']['uglifyjspath']
-            ));
-            break;
-
-        case 'yui':
-            $jsmin = 'Horde_JavascriptMinify_Yui';
-            $jsmin_params = array_merge($jsmin_params, array(
-                'java' => $conf['cachejsparams']['javapath'],
-                'yui' => $conf['cachejsparams']['yuipath']
-            ));
-            break;
-
-        default:
-            /* Treat as a custom driver. */
-            if (class_exists($conf['cachejsparams']['compress'])) {
-                $jsmin = $conf['cachejsparams']['compress'];
-                $jsmin_params = array_merge($jsmin_params, $conf['cachejsparams']);
-            } else {
-                $jsmin = 'Horde_JavascriptMinify_Null';
-            }
-            break;
-        }
-
-        $js_files = array();
-        foreach ($scripts as $val) {
-            $js_files[strval($val->url_full)] = $val->full_path;
-        }
-
-        $jsmin_ob = new $jsmin($js_files, $jsmin_params);
-        $js_text = $jsmin_ob->minify();
-
-        switch ($driver) {
-        case 'filesystem':
-            if (!file_put_contents($js_path, $js_text)) {
-                Horde::log('Could not write cached JS file to disk.', Horde_Log::EMERG);
-            } elseif (isset($jsmin_params['sourcemap'])) {
-                file_put_contents($js_path . '.map', $jsmin_ob->sourcemap());
-            }
-            unlink($js_path . '.lock');
-            break;
-
-        case 'horde_cache':
-            $cache->set($sig, $js_text);
-            if (isset($jsmin_params['sourcemap'])) {
-                $cache->set($sig . '.map', $jsmin_ob->sourcemap());
-            }
-            $cache->expire($sig . '.lock');
-            break;
-        }
+        $this->addInlineJsVars($out->jsvars);
     }
 
     /**
