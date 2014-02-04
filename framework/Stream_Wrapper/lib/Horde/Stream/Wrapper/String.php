@@ -195,7 +195,7 @@ class Horde_Stream_Wrapper_String
             break;
 
         case SEEK_END:
-            $pos = strlen($this->_string) - $offset;
+            $pos = strlen($this->_string) + $offset;
             break;
         }
 
