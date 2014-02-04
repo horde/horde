@@ -35,7 +35,7 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
      */
     public function create(array $transport)
     {
-        global $registry, $session;
+        global $registry;
 
         /* Get authentication parameters. */
         try {

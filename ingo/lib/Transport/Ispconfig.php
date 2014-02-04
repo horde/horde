@@ -104,7 +104,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
             // otherwise ISPConfig calculates the hash of this hash... braindead
             unset($user['password']);
 
-            $affected_rows = $this->_soap->mail_user_update(
+            $this->_soap->mail_user_update(
                 $this->_soap_session, $this->_details['client_id'],
                 $this->_details['mailuser_id'], $user);
         } catch (SoapFault $e) {
