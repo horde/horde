@@ -597,9 +597,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Register memory tracker if logging in debug mode. */
-        if (function_exists('memory_get_peak_usage')) {
-            Horde::log('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
-        }
+        Horde::log('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
     }
 
     /**
