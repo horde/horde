@@ -218,6 +218,7 @@
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Ingo.php" role="horde" />
+    <file name="Session.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Test.php" role="horde" />
@@ -662,6 +663,7 @@
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
+   <install as="ingo/lib/Session.php" name="lib/Session.php" />
    <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />

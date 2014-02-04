@@ -216,63 +216,6 @@ class Ingo
     }
 
     /**
-     * Determine the backend to use.
-     *
-     * This decision is based on the global 'SERVER_NAME' and 'HTTP_HOST'
-     * server variables and the contents of the 'preferred' either field
-     * in the backend's definition.  The 'preferred' field may take a
-     * single value or an array of multiple values.
-     *
-     * @return array  The backend entry.
-     * @throws Ingo_Exception
-     */
-    static public function getBackend()
-    {
-        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
-        if (!isset($backends) || !is_array($backends)) {
-            throw new Ingo_Exception(_("No backends configured in backends.php"));
-        }
-
-        $backend = null;
-        foreach ($backends as $name => $temp) {
-            if (!empty($temp['disabled'])) {
-                continue;
-            }
-            if (!isset($backend)) {
-                $backend = $name;
-            } elseif (!empty($temp['preferred'])) {
-                if (is_array($temp['preferred'])) {
-                    foreach ($temp['preferred'] as $val) {
-                        if (($val == $_SERVER['SERVER_NAME']) ||
-                            ($val == $_SERVER['HTTP_HOST'])) {
-                            $backend = $name;
-                        }
-                    }
-                } elseif (($temp['preferred'] == $_SERVER['SERVER_NAME']) ||
-                          ($temp['preferred'] == $_SERVER['HTTP_HOST'])) {
-                    $backend = $name;
-                }
-            }
-            $backends[$name]['id'] = $name;
-        }
-
-        /* Check for valid backend configuration. */
-        if (is_null($backend)) {
-            throw new Ingo_Exception(_("No backend configured for this host"));
-        }
-
-        $backend = $backends[$backend];
-
-        foreach (array('script', 'transport') as $val) {
-            if (empty($backend[$val])) {
-                throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), $val));
-            }
-        }
-
-        return $backend;
-    }
-
-    /**
      * TODO
      */
     static public function hasSharePermission($mask = null)

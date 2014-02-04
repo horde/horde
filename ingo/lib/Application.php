@@ -74,7 +74,9 @@ class Ingo_Application extends Horde_Registry_Application
         global $registry, $session;
 
         // Create the session.
-        $this->_createSession();
+        if (!$session->exists('ingo', 'script_categories')) {
+            Ingo_Session::create();
+        }
 
         if ($sig = $session->get('ingo', 'personal_share')) {
             $curr_share = $session->get('ingo', 'current_share');
@@ -90,85 +92,6 @@ class Ingo_Application extends Horde_Registry_Application
                     !$all_rulesets[$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
                     $session->set('ingo', 'current_share', $sig);
                 }
-            }
-        }
-    }
-
-    /**
-     * Create an ingo session.
-     *
-     * Session entries:
-     *   - backend: (array) The backend configuration to use.
-     *   - change: (integer) The timestamp of the last time the rules were
-     *                       altered.
-     *   - personal_share: (string) Personal share signature.
-     *   - storage: (array) Used by Ingo_Storage:: for caching data.
-     *   - script_categories: (array) The list of available categories for the
-     *                                Ingo_Script driver in use.
-     *
-     * @throws Ingo_Exception
-     */
-    protected function _createSession()
-    {
-        global $injector, $prefs, $registry, $session;
-
-        if ($session->exists('ingo', 'script_categories')) {
-            return;
-        }
-
-        /* getBackend() and loadIngoScript() will both throw Exceptions, so
-         * do these first as errors are fatal. */
-        foreach (array_filter(Ingo::getBackend()) as $key => $val) {
-            $session->set('ingo', 'backend/' . $key, $val);
-        }
-
-        /* Disable categories as specified in preferences */
-        $locked_prefs = array(
-            'blacklist' => Ingo_Storage::ACTION_BLACKLIST,
-            'forward' => Ingo_Storage::ACTION_FORWARD,
-            'spam' => Ingo_Storage::ACTION_SPAM,
-            'vacation' => Ingo_Storage::ACTION_VACATION,
-            'whitelist' => Ingo_Storage::ACTION_WHITELIST
-        );
-        $locked = array();
-        foreach ($locked_prefs as $key => $val) {
-            if ($prefs->isLocked($key)) {
-                $locked[] = $val;
-            }
-        }
-
-        /* Set the list of categories this driver supports. */
-        $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')
-            ->createAll();
-        $categories = array();
-        foreach ($ingo_scripts as $ingo_script) {
-            $categories = array_merge($categories,
-                                      $ingo_script->availableActions(),
-                                      $ingo_script->availableCategories());
-        }
-        $session->set('ingo', 'script_categories',
-                      array_diff($categories, $locked));
-
-        /* Create shares if necessary. */
-        $factory = $injector->getInstance('Ingo_Factory_Transport');
-        foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
-            if ($factory->create($transport)->supportShares()) {
-                $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
-
-                /* If personal share doesn't exist then create it. */
-                $sig = $session->get('ingo', 'backend/id') . ':' . $registry->getAuth();
-                if (!$shares->exists($sig)) {
-                    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
-                    $name = $identity->getValue('fullname');
-                    if (trim($name) == '') {
-                        $name = $registry->getAuth('original');
-                    }
-                    $share = $shares->newShare($registry->getAuth(), $sig, $name);
-                    $shares->addShare($share);
-                }
-
-                $session->set('ingo', 'personal_share', $sig);
-                break;
             }
         }
     }
