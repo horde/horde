@@ -14,11 +14,12 @@
 /**
  * Provides access to the StringStream stream wrapper.
  *
- * @author    Chuck Hagenbuch <chuck@horde.org>
- * @category  Horde
- * @copyright 2007-2014 Horde LLC
- * @license   http://www.horde.org/licenses/bsd BSD
- * @package   Stream_Wrapper
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @copyright  2007-2014 Horde LLC
+ * @deprecated Use Horde_Stream_Wrapper_String::getStream()
+ * @license    http://www.horde.org/licenses/bsd BSD
+ * @package    Stream_Wrapper
  */
 interface Horde_Stream_Wrapper_StringStream
 {

@@ -23,6 +23,9 @@
  */
 class Horde_Stream_Wrapper_String
 {
+    /**/
+    const WRAPPER_NAME = 'horde-stream-wrapper-string';
+
     /**
      * The current context.
      *
@@ -45,22 +48,64 @@ class Horde_Stream_Wrapper_String
     protected $_string;
 
     /**
+     * Unique ID tracker for the streams.
+     *
+     * @var integer
+     */
+    static private $_id = 0;
+
+    /**
+     * Create a stream from a PHP string.
+     *
+     * @since 2.1.0
+     *
+     * @param string &$string  A PHP string variable.
+     *
+     * @return resource  A PHP stream pointing to the variable.
+     */
+    static public function getStream(&$string)
+    {
+        if (!self::$_id) {
+            stream_wrapper_register(self::WRAPPER_NAME, __CLASS__);
+        }
+
+        /* Needed to keep reference. */
+        $ob = new stdClass;
+        $ob->string = &$string;
+
+        return fopen(
+            self::WRAPPER_NAME . '://' . ++self::$_id,
+            'wb',
+            false,
+            stream_context_create(array(
+                self::WRAPPER_NAME => array(
+                    'string' => $ob
+                )
+            ))
+        );
+    }
+
+    /**
      * @see streamWrapper::stream_open()
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         $opts = stream_context_get_options($this->context);
-        if (empty($opts['horde-string']['string']) ||
-            !($opts['horde-string']['string'] instanceof Horde_Stream_Wrapper_StringStream)) {
-            throw new Exception('String streams must be created using the Horde_Stream_Wrapper_StringStream interface.');
+
+        if (isset($opts[self::WRAPPER_NAME]['string'])) {
+            $this->_string =& $opts[self::WRAPPER_NAME]['string']->string;
+        } elseif (isset($opts['horde-string']['string'])) {
+            // @deprecated
+            $this->_string =& $opts['horde-string']['string']->getString();
+        } else {
+            throw new Exception('Use ' . __CLASS__ . '::getStream() to initialize the stream.');
         }
 
-        $this->_string =& $opts['horde-string']['string']->getString();
         if (is_null($this->_string)) {
             return false;
         }
 
-        $this->_pos= 0;
+        $this->_pos = 0;
 
         return true;
     }
