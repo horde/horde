@@ -16,8 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:08:40</time>
+ <date>2014-02-04</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -28,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Add unit tests.
 * [mms] Add Horde_Stream_Wrapper_Combine::getStream().
 * [mms] Add Horde_Stream_Wrapper_String::getStream().
 * [mms] Fix documentation regarding proper license for this package (BSD).
@@ -55,6 +55,19 @@
      </dir> <!-- //lib/Horde/Stream -->
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Stream">
+      <dir name="Wrapper">
+       <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
+       <file name="CombineTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="StringTest.php" role="test" />
+      </dir> <!-- /test/Horde/Stream/Wrapper -->
+     </dir> <!-- /test/Horde/Stream -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -74,6 +87,11 @@
    <install as="Horde/Stream/Wrapper/CombineStream.php" name="lib/Horde/Stream/Wrapper/CombineStream.php" />
    <install as="Horde/Stream/Wrapper/String.php" name="lib/Horde/Stream/Wrapper/String.php" />
    <install as="Horde/Stream/Wrapper/StringStream.php" name="lib/Horde/Stream/Wrapper/StringStream.php" />
+   <install as="Horde/Stream/Wrapper/AllTests.php" name="test/Horde/Stream/Wrapper/AllTests.php" />
+   <install as="Horde/Stream/Wrapper/bootstrap.php" name="test/Horde/Stream/Wrapper/bootstrap.php" />
+   <install as="Horde/Stream/Wrapper/CombineTest.php" name="test/Horde/Stream/Wrapper/CombineTest.php" />
+   <install as="Horde/Stream/Wrapper/phpunit.xml" name="test/Horde/Stream/Wrapper/phpunit.xml" />
+   <install as="Horde/Stream/Wrapper/StringTest.php" name="test/Horde/Stream/Wrapper/StringTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -224,9 +242,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2014-02-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Add unit tests.
 * [mms] Add Horde_Stream_Wrapper_Combine::getStream().
 * [mms] Add Horde_Stream_Wrapper_String::getStream().
 * [mms] Fix documentation regarding proper license for this package (BSD).
