@@ -27,7 +27,10 @@ class Horde_Stream_Stream_StringTest extends Horde_Stream_Stream_TestBase
 {
     protected function _getOb()
     {
-        return new Horde_Stream_String();
+        $temp = '';
+        return new Horde_Stream_String(array(
+            'string' => $temp
+        ));
     }
 
 }

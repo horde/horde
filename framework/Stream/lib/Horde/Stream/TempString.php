@@ -41,7 +41,10 @@ class Horde_Stream_TempString extends Horde_Stream_Temp
     {
         parent::__construct($opts);
 
-        $this->_string = new Horde_Stream_String();
+        $temp = '';
+        $this->_string = new Horde_Stream_String(array(
+            'string' => $temp
+        ));
     }
 
     /**
