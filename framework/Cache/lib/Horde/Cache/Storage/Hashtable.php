@@ -44,19 +44,16 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
             throw new InvalidArgumentException('Missing hashtable parameter.');
         }
 
-        parent::__construct($params);
+        parent::__construct(array_merge(array(
+            'prefix' => ''
+        ), $params));
     }
 
     /**
      */
     protected function _initOb()
     {
-        if (isset($this->_params['prefix'])) {
-            $this->_hash = clone $this->_params['hashtable'];
-            $this->_hash->prefix = $this->_params['prefix'];
-        } else {
-            $this->_hash = $this->_params['hashtable'];
-        }
+        $this->_hash = $this->_params['hashtable'];
     }
 
     /**
@@ -64,14 +61,14 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function get($key, $lifetime = 0)
     {
-        return $this->_hash->get($key);
+        return $this->_hash->get($this->_params['prefix'] . $key);
     }
 
     /**
      */
     public function set($key, $data, $lifetime = 0)
     {
-        $this->_hash->set($key, $data, array_filter(array(
+        $this->_hash->set($this->_params['prefix'] . $key, $data, array_filter(array(
             'timeout' => $lifetime
         )));
     }
@@ -81,14 +78,14 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function exists($key, $lifetime = 0)
     {
-        return $this->_hash->exists($key);
+        return $this->_hash->exists($this->_params['prefix'] . $key);
     }
 
     /**
      */
     public function expire($key)
     {
-        $this->_hash->delete($key);
+        $this->_hash->delete($this->_params['prefix'] . $key);
     }
 
     /**
