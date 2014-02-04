@@ -9,10 +9,11 @@
  */
 
 /**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Support
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @deprecated Use Horde_Stream_Wrapper_String::getStream()
+ * @license    http://www.horde.org/licenses/bsd BSD
+ * @package    Support
  */
 class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
 {
