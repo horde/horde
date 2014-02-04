@@ -68,6 +68,7 @@ class Horde_Themes_Css
      * Honors configuration choices as to stylesheet caching.
      *
      * @param array $opts  Additional options:
+     * <pre>
      *   - app: (string) The current application.
      *   - nobase: (boolean) If true, don't load base stylesheets.
      *   - nocache: (boolean) If true, don't load files from cache.
@@ -78,6 +79,7 @@ class Horde_Themes_Css
      *              the default theme files.
      *   - theme: (string) Use this theme instead of the default.
      *   - themeonly: (boolean) If true, only load the theme files.
+     * </pre>
      *
      * @return array  The list of URLs to display (Horde_Url objects).
      */
@@ -160,6 +162,7 @@ class Horde_Themes_Css
      *                      retrieve the theme from user preferences, and
      *                      false for no theme.
      * @param array $opts   Additional options:
+     * <pre>
      *   - app: (string) The current application.
      *   - nobase: (boolean) If true, don't load base stylesheets.
      *   - nohorde: (boolean) If true, don't load files from Horde.
@@ -168,11 +171,14 @@ class Horde_Themes_Css
      *   - subonly: (boolean) If true, only load the files in 'sub', not
      *              the default theme files.
      *   - themeonly: (boolean) If true, only load the theme files.
+     * </pre>
      *
      * @return array  An array of 2-element array arrays containing 2 keys:
+     * <pre>
      *   - app: (string) App of the CSS file.
      *   - fs: (string) Filesystem location of stylesheet.
      *   - uri: (string) URI of stylesheet.
+     * </pre>
      */
     public function getStylesheets($theme = '', array $opts = array())
     {
