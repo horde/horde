@@ -1,7 +1,5 @@
 <?php
 /**
- * Provides access to the Combine stream wrapper.
- *
  * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -11,10 +9,13 @@
  */
 
 /**
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Support
+ * Provides access to the Combine stream wrapper.
+ *
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @license    http://www.horde.org/licenses/bsd BSD
+ * @category   Horde
+ * @deprecated Use Horde_String_Wrapper_Combine::getStream()
+ * @package    Support
  */
 class Horde_Support_CombineStream implements Horde_Stream_Wrapper_CombineStream
 {
