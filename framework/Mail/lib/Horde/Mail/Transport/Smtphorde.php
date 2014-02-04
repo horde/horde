@@ -122,14 +122,14 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
         list($from, $textHeaders) = $this->prepareHeaders($headers);
         $from = $this->_getFrom($from, $headers);
 
-        $swrapper = new Horde_Support_CombineStream(array(
+        $combine = Horde_String_Wrapper_Combine::getStream(array(
             rtrim($textHeaders, $this->sep),
             $this->sep . $this->sep,
             $body
         ));
 
         try {
-            $this->_smtp->send($from, $recipients, $swrapper->fopen(), array(
+            $this->_smtp->send($from, $recipients, $combine, array(
                 '8bit' => $this->send8bit
             ));
         } catch (Horde_Smtp_Exception $e) {
