@@ -137,7 +137,8 @@ function smtpd_access_policy($query)
     }
 
     try {
-        $user = Horde::callHook('smtpd_access_policy_username', $query, 'ingo');
+        $user = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+            ->callHook('smtpd_access_policy_username', 'ingo', $query);
     } catch (Horde_Exception_HookNotSet $e) {}
 
     // Get $user's rules if we don't have them already.

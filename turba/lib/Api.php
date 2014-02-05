@@ -750,10 +750,15 @@ class Turba_Api extends Horde_Registry_Api
 
         // We can't use $object->setValue() here since that cannot be used
         // with composite fields.
-        if (Horde::hookExists('encode_attribute', 'turba')) {
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+        if ($hooks->hookExists('encode_attribute', 'turba')) {
             foreach ($content as $attribute => &$value) {
                 try {
-                    $value = Horde::callHook('encode_attribute', array($attribute, $value, null, null), 'turba');
+                    $value = $hooks->callHook(
+                        'encode_attribute',
+                        'turba',
+                        array($attribute, $value, null, null)
+                    );
                 } catch (Turba_Exception $e) {}
             }
         }

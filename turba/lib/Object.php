@@ -90,10 +90,17 @@ class Turba_Object
      */
     public function getValue($attribute)
     {
+        global $attributes, $injector;
+
         if (isset($this->attributes[$attribute]) &&
-            Horde::hookExists('decode_attribute', 'turba')) {
+            ($hooks = $injector->getInstance('Horde_Core_Hooks')) &&
+            $hooks->hookExists('decode_attribute', 'turba')) {
             try {
-                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
+                return $hooks->callHook(
+                    'decode_attribute',
+                    'turba',
+                    array($attribute, $this->attributes[$attribute], $this)
+                );
             } catch (Turba_Exception $e) {}
         } elseif (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute])) {
@@ -103,15 +110,15 @@ class Turba_Object
             }
             return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
         } elseif (!isset($this->attributes[$attribute])) {
-            if (isset($GLOBALS['attributes'][$attribute]) &&
-                ($GLOBALS['attributes'][$attribute]['type'] == 'Turba:TurbaTags') &&
+            if (isset($attributes[$attribute]) &&
+                ($attributes[$attribute]['type'] == 'Turba:TurbaTags') &&
                 ($uid = $this->getValue('__uid'))) {
-                $this->synchronizeTags($GLOBALS['injector']->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
+                $this->synchronizeTags($injector->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
             } else {
                 return null;
             }
-        } elseif (isset($GLOBALS['attributes'][$attribute]) &&
-            ($GLOBALS['attributes'][$attribute]['type'] == 'image')) {
+        } elseif (isset($attributes[$attribute]) &&
+            ($attributes[$attribute]['type'] == 'image')) {
             return empty($this->attributes[$attribute])
                 ? null
                 : array(
@@ -133,11 +140,25 @@ class Turba_Object
      */
     public function setValue($attribute, $value)
     {
-        if (Horde::hookExists('encode_attribute', 'turba')) {
+        global $injector;
+
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+
+        if ($hooks->hookExists('encode_attribute', 'turba')) {
             try {
-                $value = Horde::callHook('encode_attribute', array($attribute, $value, isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null, $this), 'turba');
+                $value = $hooks->callHook(
+                    'encode_attribute',
+                    'turba',
+                    array(
+                        $attribute,
+                        $value,
+                        isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null,
+                        $this
+                    )
+                );
             } catch (Turba_Exception $e) {}
         }
+
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute]) &&
             !isset($this->driver->map[$attribute]['attribute'])) {

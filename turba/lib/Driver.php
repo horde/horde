@@ -1106,6 +1106,8 @@ class Turba_Driver implements Countable
     public function tovCard(Turba_Object $object, $version = '2.1',
                             array $fields = null, $skipEmpty = false)
     {
+        global $injector;
+
         $hash = $object->getAttributes();
         $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
@@ -1113,17 +1115,20 @@ class Turba_Driver implements Countable
             ? array('CHARSET' => 'UTF-8')
             : array();
 
-        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+        $decode_hook = $hooks->hookExists('decode_attribute', 'turba');
+
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
                 continue;
             }
-            if ($haveDecodeHook) {
+            if ($decode_hook) {
                 try {
-                    $val = Horde::callHook(
+                    $val = $hooks->callHook(
                         'decode_attribute',
-                        array($key, $val, $object),
-                        'turba');
+                        'turba',
+                        array($key, $val, $object)
+                    );
                 } catch (Turba_Exception $e) {}
             }
             switch ($key) {
@@ -2479,8 +2484,10 @@ class Turba_Driver implements Countable
      */
     public function toASContact(Turba_Object $object, array $options = array())
     {
+        global $injector;
+
         $message = new Horde_ActiveSync_Message_Contact(array(
-            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+            'logger' => $injector->getInstance('Horde_Log_Logger'),
             'protocolversion' => $options['protocolversion'])
         );
         $hash = $object->getAttributes();
@@ -2509,14 +2516,17 @@ class Turba_Driver implements Countable
             }
         }
 
-        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+        $decode_hook = $hooks->hookExists('decode_attribute', 'turba');
+
         foreach ($hash as $field => $value) {
-            if ($haveDecodeHook) {
+            if ($decode_hook) {
                 try {
-                    $value = Horde::callHook(
+                    $value = $hooks->callHook(
                         'decode_attribute',
-                        array($field, $value, $object),
-                        'turba');
+                        'turba',
+                        array($field, $value, $object)
+                    );
                 } catch (Turba_Exception $e) {
                     Horde::log($e);
                 }

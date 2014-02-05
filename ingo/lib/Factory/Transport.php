@@ -39,7 +39,8 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
 
         /* Get authentication parameters. */
         try {
-            $auth = Horde::callHook('transport_auth', array($transport['driver']), 'ingo');
+            $auth = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                ->callHook('transport_auth', 'ingo', array($transport['driver']));
         } catch (Horde_Exception_HookNotSet $e) {
             $auth = null;
         }
