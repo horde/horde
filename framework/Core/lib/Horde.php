@@ -1320,15 +1320,6 @@ class Horde
     }
 
     /**
-     * Whether the hook has already been loaded.
-     *
-     * @deprecated
-     *
-     * @var array
-     */
-    static protected $_hooksLoaded = array();
-
-    /**
      * Call a Horde hook, handling all of the necessary lookups and parsing
      * of the hook code.
      *
