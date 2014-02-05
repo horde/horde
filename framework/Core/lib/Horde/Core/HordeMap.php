@@ -25,6 +25,7 @@
  * @copyright 2009-2014 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
+ * @since     2.12.0
  */
 class Horde_Core_HordeMap
 {
