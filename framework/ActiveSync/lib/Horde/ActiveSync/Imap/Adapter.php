@@ -1378,31 +1378,6 @@ class Horde_ActiveSync_Imap_Adapter
             switch ($component->getType()) {
             case 'vEvent':
                 try {
-                    $atname = $component->getAttribute('ATTENDEE');
-                } catch (Horde_Icalendar_Exception $e) {
-                    throw new Horde_ActiveSync_Exception($e);
-                }
-                // EAS only allows a single name per response.
-                if (is_array($atname)) {
-                    $atname = current($atname);
-                }
-
-                try {
-                    $version = $component->getAttribute('VERSION');
-                } catch (Horde_Icalendar_Exception $e) {
-                    throw new Horde_ActiveSync_Exception($e);
-                }
-                if ($version < 2) {
-                    $addr = new Horde_Mail_Rfc822_Address($atname);
-                    if (!$addr->isValid) {
-                        throw new Horde_ActiveSync_Exception('Invalid Email Address');
-                    }
-                    $attendee = Horde_String::lower($addr->bare_address);
-                } else {
-                    $attendee = str_replace('mailto:', '', Horde_String::lower($atname));
-                }
-
-                try {
                     $atparams = $component->getAttribute('ATTENDEE', true);
                 } catch (Horde_Icalendar_Exception $e) {
                     throw new Horde_ActiveSync_Exception($e);
