@@ -145,7 +145,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             case 'folder':
                 if ($actionID == 'rule_save') {
                     try {
-                        $rule['action-value'] = Ingo::validateFolder($this->vars, 'actionvalue');
+                        $rule['action-value'] = $this->validateMbox('actionvalue');
                     } catch (Ingo_Exception $e) {
                         $notification->push($e, 'horde.error');
                         $actionID = null;

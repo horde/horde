@@ -56,31 +56,6 @@ class Ingo
     const RULE_SPAM = 6;
 
     /**
-     * Validates an IMAP mailbox provided by user input.
-     *
-     * @param Horde_Variables $vars  An variables object.
-     * @param string $name           The form name of the folder input.
-     *
-     * @return string  The IMAP mailbox name.
-     * @throws Horde_Exception
-     */
-    static public function validateFolder(Horde_Variables $vars, $name)
-    {
-        $new_id = $name . '_new';
-
-        if (isset($vars->$new_id)) {
-            if ($GLOBALS['registry']->hasMethod('mail/createMailbox') &&
-                $GLOBALS['registry']->call('mail/createMailbox', array($vars->$new_id))) {
-                return $vars->$new_id;
-            }
-        } elseif (isset($vars->$name) && strlen($vars->$name)) {
-            return $vars->$name;
-        }
-
-        throw new Ingo_Exception(_("Could not validate IMAP mailbox."));
-    }
-
-    /**
      * Returns the user whose rules are currently being edited.
      *
      * @param boolean $full  Always return the full user name with realm?

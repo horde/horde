@@ -59,7 +59,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
             $success = false;
 
             try {
-                $spam->setSpamFolder(Ingo::validateFolder($this->vars, 'folder'));
+                $spam->setSpamFolder($this->validateMbox('folder'));
                 $success = true;
             } catch (Horde_Exception $e) {
                 $notification->push($e);

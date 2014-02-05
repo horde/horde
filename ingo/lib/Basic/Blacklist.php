@@ -57,7 +57,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                 break;
 
             case 'folder':
-                $folder = Ingo::validateFolder($this->vars, 'actionvalue');
+                $folder = $this->validateMbox('actionvalue');
                 break;
             }
 

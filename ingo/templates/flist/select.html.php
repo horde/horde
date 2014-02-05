@@ -8,7 +8,7 @@
     }
 
     foreach ($this->mboxes as $v) {
-        $o .= $this->optionTag($v['ob'], $this->escape(str_repeat(' ', $val['level'] * 2) . $val['label']), $val['ob'] == $this->val);
+        $o .= $this->optionTag($v['ob'], $this->escape(str_repeat(' ', $v['level'] * 2) . $v['label']), $v['ob'] == $this->val);
     }
 
     echo $this->selectTag($this->tagname, $o, array('class' => 'flistSelect'));

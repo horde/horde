@@ -69,6 +69,32 @@ abstract class Ingo_Basic_Base
     }
 
     /**
+     * Validates an IMAP mailbox provided by user input.
+     *
+     * @param string $name  The form name of the input.
+     *
+     * @return string  The IMAP mailbox name.
+     * @throws Horde_Exception
+     */
+    public function validateMbox($name)
+    {
+        global $registry;
+
+        $new_id = $name . '_new';
+
+        if (isset($this->vars->$new_id)) {
+            if ($registry->hasMethod('mail/createMailbox') &&
+                $registry->call('mail/createMailbox', array($this->vars->$new_id))) {
+                return $this->vars->$new_id;
+            }
+        } elseif (strlen($this->vars->$name)) {
+            return $this->vars->$name;
+        }
+
+        throw new Ingo_Exception(_("Could not validate IMAP mailbox."));
+    }
+
+    /**
      * Add the ingo action token to a URL.
      *
      * @param Horde_Url $url  URL.
