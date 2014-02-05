@@ -32,7 +32,7 @@ class Horde_Core_Ui_VarRenderer_Ingo extends Horde_Core_Ui_VarRenderer_Html
 
     protected function _renderVarInput_ingo_folders(&$form, &$var, &$vars)
     {
-        return Ingo::flistSelect($var->type->getFolder(), 'folder');
+        return Ingo_Flist::select($var->type->getFolder(), 'folder');
     }
 
     protected function _renderVarInput_ingo_form_type_longemail($form, &$var, &$vars)

@@ -56,56 +56,6 @@ class Ingo
     const RULE_SPAM = 6;
 
     /**
-     * Generates a folder widget.
-     *
-     * If an application is available that provides a mailboxList method
-     * then a &lt;select&gt; input is created. Otherwise a simple text field
-     * is returned.
-     *
-     * @param string $value    The current value for the field.
-     * @param string $tagname  The label for the select tag.
-     *
-     * @return string  The HTML to render the field.
-     */
-    static public function flistSelect($value = null, $tagname = 'actionvalue')
-    {
-        global $page_output, $registry;
-
-        if ($registry->hasMethod('mail/mailboxList')) {
-            try {
-                $mailboxes = $registry->call('mail/mailboxList');
-
-                $text = '<select class="flistSelect" id="' . $tagname . '" name="' . $tagname . '">' .
-                    '<option value="">' . _("Select target folder:") . '</option>' .
-                    '<option disabled="disabled">- - - - - - - - - -</option>';
-
-                if ($registry->hasMethod('mail/createMailbox')) {
-                    $text .= '<option class="flistCreate" value="">' . _("Create new folder") . '</option>' .
-                        '<option disabled="disabled">- - - - - - - - - -</option>';
-                }
-
-                foreach ($mailboxes as $val) {
-                    $text .= sprintf(
-                        "<option value=\"%s\"%s>%s</option>\n",
-                        htmlspecialchars($val['ob']),
-                        ($val['ob'] == $value) ? ' selected="selected"' : '',
-                        str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
-                    );
-                }
-
-                $page_output->addScriptFile('new_folder.js');
-                $page_output->addInlineJsVars(array(
-                    'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
-                ));
-
-                return $text . '</select>';
-            } catch (Horde_Exception $e) {}
-        }
-
-        return '<input id="' . $tagname . '" name="' . $tagname . '" size="40" value="' . $value . '" />';
-    }
-
-    /**
      * Validates an IMAP mailbox provided by user input.
      *
      * @param Horde_Variables $vars  An variables object.

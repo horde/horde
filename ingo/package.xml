@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-04</date>
+ <date>2014-02-05</date>
  <version>
   <release>3.2.0</release>
   <api>3.2.0</api>
@@ -217,6 +217,7 @@
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
+    <file name="Flist.php" role="horde" />
     <file name="Ingo.php" role="horde" />
     <file name="Session.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
@@ -454,6 +455,10 @@
       <file name="whitelist.html.php" role="horde" />
      </dir> <!-- /templates/basic/whitelist -->
     </dir> <!-- /templates/basic -->
+    <dir name="flist">
+     <file name="input.html.php" role="horde" />
+     <file name="select.html.php" role="horde" />
+    </dir> <!-- /templates/flist -->
     <dir name="smartmobile">
      <file name="rule.html.php" role="horde" />
      <file name="rules.html.php" role="horde" />
@@ -662,6 +667,7 @@
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
+   <install as="ingo/lib/Flist.php" name="lib/Flist.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
    <install as="ingo/lib/Session.php" name="lib/Session.php" />
    <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
@@ -846,6 +852,8 @@
    <install as="ingo/templates/basic/script/script.html.php" name="templates/basic/script/script.html.php" />
    <install as="ingo/templates/basic/script/_script.html.php" name="templates/basic/script/_script.html.php" />
    <install as="ingo/templates/basic/whitelist/whitelist.html.php" name="templates/basic/whitelist/whitelist.html.php" />
+   <install as="ingo/templates/flist/input.html.php" name="templates/flist/input.html.php" />
+   <install as="ingo/templates/flist/select.html.php" name="templates/flist/select.html.php" />
    <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
    <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
    <install as="Ingo/AllTests.php" name="test/Ingo/AllTests.php" />

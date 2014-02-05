@@ -324,7 +324,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             switch ($current_action->type) {
             case 'folder':
                 $view->actionvaluelabel = _("Select target folder");
-                $view->actionvalue = Ingo::flistSelect($rule['action-value']);
+                $view->actionvalue = Ingo_Flist::select($rule['action-value']);
                 break;
 
             case 'text':

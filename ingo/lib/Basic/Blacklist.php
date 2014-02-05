@@ -96,7 +96,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         if (!isset($blacklist_folder)) {
             $blacklist_folder = $blacklist->getBlacklistFolder();
         }
-        $folder_list = Ingo::flistSelect($blacklist_folder, 'actionvalue');
+        $folder_list = Ingo_Flist::select($blacklist_folder, 'actionvalue');
 
         /* Get the blacklist rule. */
         $bl_rule = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS)->findRule(Ingo_Storage::ACTION_BLACKLIST);
