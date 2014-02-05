@@ -1362,6 +1362,9 @@ class Horde_ActiveSync_Imap_Adapter
     /**
      * Return the attendee participation status.
      *
+     * @param Horde_Icalendar $vCal  The vCalendar component.
+     * @param string $from           The From: address.
+     *
      * @param Horde_Icalendar
      * @throws Horde_ActiveSync_Exception
      */
