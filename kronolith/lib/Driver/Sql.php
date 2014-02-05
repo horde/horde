@@ -617,7 +617,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, $history, false);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -628,7 +628,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, $history, false);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
         $this->_updateTags($event);
@@ -687,7 +687,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         try {
             $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'add'), true);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         $this->_addTags($event);

@@ -86,14 +86,14 @@ class Agora_Api extends Horde_Registry_Api
         $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope);
         $id = $forums->getForumId($forum_name);
         if ($id instanceof PEAR_Error) {
-            Horde::logMessage($id, 'ERR');
+            Horde::log($id, 'ERR');
             return false;
         }
 
         $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope, $id);
         $result = $forums->deleteForum($id);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
+            Horde::log($result, 'ERR');
             return false;
         }
         return true;
@@ -252,7 +252,7 @@ class Agora_Api extends Horde_Registry_Api
             if (($forum_id = $forums->getForumId($forum)) instanceof PEAR_Error) {
                 // In case of error, just return zero but log the error - so
                 // the calling app always gets an array with all the image ids.
-                Horde::logMessage($forum_id, 'ERR');
+                Horde::log($forum_id, 'ERR');
                 $results[$forum] = 0;
             } elseif (empty($forum_id)) {
                 $results[$forum] = 0;

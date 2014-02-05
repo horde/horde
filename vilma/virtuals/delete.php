@@ -48,7 +48,7 @@ if ($vars->submitbutton == _("Delete") &&
             ->add('domain_id', $domain['domain_id'])
             ->redirect();
     } catch (Exception $e) {
-        Horde::logMessage($e);
+        Horde::log($e);
         $notification->push(sprintf(_("Error deleting virtual email. %s."), $e->getMessage()), 'horde.error');
     }
 }

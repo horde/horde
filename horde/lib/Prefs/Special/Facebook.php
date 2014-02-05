@@ -52,7 +52,7 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 $haveSession = true;
             }
         } catch (Horde_Service_Facebook_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             $haveSession = false;
             $prefs->setValue('facebook', serialize(array('uid' => '', 'sid' => 0)));
         }

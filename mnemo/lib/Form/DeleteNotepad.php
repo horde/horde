@@ -57,7 +57,7 @@ class Mnemo_Form_DeleteNotepad extends Horde_Form
         try {
             $GLOBALS['mnemo_shares']->removeShare($this->_notepad);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e->getMessage());
         }
     }

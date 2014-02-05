@@ -80,8 +80,7 @@ class Horde_Kolab_Resource_Epoch
      */
     private function convert2epoch($values)
     {
-        Horde::logMessage(sprintf('Converting to epoch %s',
-                                  print_r($values, true)), 'DEBUG');
+        Horde::log(sprintf('Converting to epoch %s', print_r($values, true)), 'DEBUG');
 
         if (is_array($values)) {
             $temp = $this->cleanArray($values);
@@ -91,7 +90,7 @@ class Horde_Kolab_Resource_Epoch
             $epoch=$values;
         }
 
-        Horde::logMessage(sprintf('Converted <%s>', $epoch), 'DEBUG');
+        Horde::log(sprintf('Converted <%s>', $epoch), 'DEBUG');
         return $epoch;
     }
 

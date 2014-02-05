@@ -23,8 +23,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
 
     // Make sure the view exists
     if (!$faces->viewExists($face['image_id'], $face_id, true)) {
-        Horde::logMessage(sprintf('Unable to locate or create face_id %u.',
-                                  $face_id));
+        Horde::log(sprintf('Unable to locate or create face_id %u.', $face_id));
         exit;
     }
 
@@ -34,7 +33,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
             Ansel_Faces::getVFSPath($face['image_id']) . 'faces',
             $face_id . Ansel_Faces::getExtension());
     } catch (Horde_Vfs_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         exit;
     }
     header('Content-type: image/' . $GLOBALS['conf']['image']['type']);

@@ -18,7 +18,7 @@ try {
 } catch (Exception $e) {
     global $notification, $registry;
 
-    Horde::logMessage($e, 'DEBUG');
+    Horde::log($e, 'DEBUG');
 
     if (isset($notification)) {
         $notification->push($e->getMessage(), 'horde.error');

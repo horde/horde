@@ -188,7 +188,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         // Log error if someone uses this function in an unsupported way
         if ($calendar_id != $this->calendar) {
-            Horde::logMessage(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), 'ERR');
+            Horde::log(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), 'ERR');
             throw new Kronolith_Exception(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
         }
 
@@ -426,7 +426,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         try {
             $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         // refresh IMAP cache

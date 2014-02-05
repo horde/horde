@@ -35,7 +35,7 @@ class Mnemo_Form_CreateNotepad extends Horde_Form
             $GLOBALS['display_notepads'][] = $notepad->getName();
             $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e);
         }
         return $notepad;

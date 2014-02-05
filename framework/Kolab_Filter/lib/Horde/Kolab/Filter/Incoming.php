@@ -111,7 +111,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 /* Done with headers */
                 $headers_done = true;
             } else if (preg_match('#^Content-Type: text/calendar#i', $line)) {
-                Horde::logMessage("Found iCal data in message", 'DEBUG');
+                Horde::log("Found iCal data in message", 'DEBUG');
                 $ical = true;
             } else if (preg_match('#^Message-ID: (.*)#i', $line, $regs)) {
                 $this->_id = $regs[1];
@@ -177,9 +177,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 } else {
                     $resource = $recip;
                 }
-                Horde::logMessage(sprintf("Calling resmgr_filter(%s, %s, %s, %s)",
-                                          $this->_fqhostname, $this->_sender,
-                                          $resource, $this->_tmpfile), 'DEBUG');
+                Horde::log(sprintf("Calling resmgr_filter(%s, %s, %s, %s)", $this->_fqhostname, $this->_sender, $resource, $this->_tmpfile), 'DEBUG');
                 $r = new Kolab_Resource();
                 $rc = $r->handleMessage($this->_fqhostname, $this->_sender,
                                         $resource, $this->_tmpfile);
@@ -191,7 +189,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                     if (is_a($result, 'PEAR_Error')) {
                         return $result;
                     }
-                    Horde::logMessage('Successfully sent iTip reply', 'DEBUG');
+                    Horde::log('Successfully sent iTip reply', 'DEBUG');
                 } else if ($rc === true) {
                     $newrecips[] = $resource;
                 }

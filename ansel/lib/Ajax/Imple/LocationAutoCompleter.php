@@ -31,7 +31,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
                 $results = $injector->getInstance('Ansel_Storage')->searchLocations();
                 $session->set('ansel', 'ajax_locationac', (count($results) > 50));
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -55,7 +55,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
         try {
             $locs = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations($input);
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         return $locs;

@@ -83,7 +83,7 @@ class Folks_Friends_facebook extends Folks_Friends {
             $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
             $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-            Horde::logMessage($error, 'ERR');
+            Horde::log($error, 'ERR');
 
             return $error;
         }

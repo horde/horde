@@ -176,7 +176,7 @@ class Klutz_Comic_Bysize extends Klutz_Comic
                 $msg = "URL: $url" .
                     "\nSEARCH: " . print_r($search, true) .
                     "\nHTML: " . $this->http->getResponseBody();
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::log($msg, 'DEBUG');
                 return false;
             }
 

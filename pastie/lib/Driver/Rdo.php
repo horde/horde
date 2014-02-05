@@ -81,7 +81,7 @@ class Pastie_Driver_Rdo extends Pastie_Driver
     {
         $pm = $this->_mappers->create('Pastie_Entity_PasteMapper');
         $query = new Horde_Rdo_Query($pm);
-        
+
         // Right now we will accept 'id' or 'uuid'
         if (isset($params['id'])) {
             $query->addTest('paste_id', '=', $params['id']);
@@ -90,7 +90,7 @@ class Pastie_Driver_Rdo extends Pastie_Driver
             $query->addTest('paste_uuid', '=', $params['uuid']);
         }
         if (!isset($params['id']) && !isset($params['uuid'])) {
-            Horde::logMessage('Error: must specify some kind of unique id.', 'err');
+            Horde::log('Error: must specify some kind of unique id.', 'err');
             throw new Pastie_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -124,7 +124,7 @@ class Pastie_Driver_Rdo extends Pastie_Driver
             foreach ($pm->find($query) as $paste) {
                 $pastes[$paste['paste_uuid']] = $this->_fromBackend($paste);
             }
-        return $pastes; 
+        return $pastes;
     }
 
     /**

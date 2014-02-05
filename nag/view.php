@@ -58,7 +58,7 @@ $taskurl = Horde::url('task.php')
 try {
     $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
-    Horde::logMessage($e->getMessage(), 'ERR');
+    Horde::log($e->getMessage(), 'ERR');
     throw new Nag_Exception($e);
 }
 

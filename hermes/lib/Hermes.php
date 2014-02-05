@@ -35,7 +35,7 @@ class Hermes
         try {
             $result = $GLOBALS['registry']->clients->searchClients(array($name), array('name'), true);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'WARN');
+            Horde::log($e, 'WARN');
             return self::$_clients[$name];
         }
 

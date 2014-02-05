@@ -336,7 +336,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
-                Horde::logMessage($response->getBody());
+                Horde::log($response->getBody());
                 throw new Horde_Service_Weather_Exception($response->code);
             }
             $results = $response->getBody();

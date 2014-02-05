@@ -49,7 +49,7 @@ if ($ui->validateAddForm($info)) {
         $notification->push(sprintf(_("\"%s\" was added to the permissions system."), $corePerms->getTitle($child->getName())), 'horde.success');
         Horde::url('admin/perms/edit.php', true)->add('perm_id', $child->getId())->redirect();
     } catch (Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         $notification->push(sprintf(_("\"%s\" was not created: %s."), $corePerms->getTitle($child->getName()), $e->getMessage()), 'horde.error');
     }
 }

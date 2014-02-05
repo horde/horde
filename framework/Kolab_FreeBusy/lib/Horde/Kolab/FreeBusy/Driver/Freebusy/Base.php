@@ -227,22 +227,18 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
             $c_pvcal = new Horde_Kolab_FreeBusy_Cache_File_pvcal($this->_cache_dir, $file);
             $pvCal = $c_pvcal->loadPVcal($extended_pvc);
             if (is_a($pvCal, 'PEAR_Error')) {
-                Horde::logMessage(sprintf("Ignoring partial free/busy file %s: %s)",
-                                          $file, $pvCal->getMessage()),
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::log(sprintf("Ignoring partial free/busy file %s: %s)", $file, $pvCal->getMessage()), 'INFO');
                 continue;
             }
             $pvFb = &$pvCal->findComponent('vfreebusy');
             if( !$pvFb ) {
-                Horde::logMessage(sprintf("Could not find free/busy info in file %s.)",
-                                          $file), __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::log(sprintf("Could not find free/busy info in file %s.)", $file), 'INFO');
                 continue;
             }
             if ($ets = $pvFb->getAttributeDefault('DTEND', false) !== false) {
                 // PENDING(steffen): Make value configurable
                 if ($ets < time()) {
-                    Horde::logMessage(sprintf("Free/busy info in file %s is too old.)",
-                                              $file), __FILE__, __LINE__, PEAR_LOG_INFO);
+                    Horde::log(sprintf("Free/busy info in file %s is too old.)", $file), 'INFO');
                     $c_pvcal->purge();
                     continue;
                 }
@@ -257,9 +253,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
             $remote_vfb = $this->_fetchRemote($conf['fb']['remote_servers'],
                                               $access);
             if (is_a($remote_vfb, 'PEAR_Error')) {
-                Horde::logMessage(sprintf("Ignoring remote free/busy files: %s)",
-                                          $remote_vfb->getMessage()),
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::log(sprintf("Ignoring remote free/busy files: %s)", $remote_vfb->getMessage()), 'INFO');
             } else {
                 $vFb->merge($remote_vfb);
             }
@@ -385,9 +379,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
         /* Check if we are on the right server and redirect if appropriate */
         if ($this->freebusyserver && $this->freebusyserver != $server) {
             $redirect = $this->freebusyserver . $path;
-            Horde::logMessage(sprintf("URL %s indicates remote free/busy server since we only offer %s. Redirecting.",
-                                      $this->freebusyserver, $server), __FILE__,
-                              __LINE__, PEAR_LOG_ERR);
+            Horde::log(sprintf("URL %s indicates remote free/busy server since we only offer %s. Redirecting.", $this->freebusyserver, $server), 'INFO');
             if ($do_redirect) {
                 header("Location: $redirect");
             } else {

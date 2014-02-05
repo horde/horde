@@ -59,7 +59,7 @@ try {
     // Clear the output buffer that we started above, and log any unexpected
     // output at a DEBUG level.
     if ($out = Horde::endBuffer()) {
-        Horde::logMessage('Unexpected output when creating AJAX reponse: ' . $out, 'DEBUG');
+        Horde::log('Unexpected output when creating AJAX reponse: ' . $out, 'DEBUG');
     }
 
     // Send the final result.

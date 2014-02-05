@@ -120,14 +120,14 @@ class Ansel_ImageGenerator
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
                     $err = sprintf(_("This install does not support the %s feature. Please contact your administrator."), $need);
-                    Horde::logMessage($err, 'ERR');
+                    Horde::log($err, 'ERR');
                     throw new Ansel_Exception($err);
                 }
             }
             return $view;
         } else {
             $err = sprintf(_("Unable to load the definition of %s."), $class);
-            Horde::logMessage($err, 'ERR');
+            Horde::log($err, 'ERR');
             throw new Ansel_Exception($err);
         }
     }
@@ -161,7 +161,7 @@ class Ansel_ImageGenerator
                 $images[] = $img->getHordeImage();
                 $cnt--;
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -175,7 +175,7 @@ class Ansel_ImageGenerator
                     $images[] = $aimg->getHordeImage();
                 }
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 

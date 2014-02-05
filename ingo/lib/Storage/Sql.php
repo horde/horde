@@ -56,7 +56,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 $addresses = $this->_params['db']->selectValues($query, $values);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw new Ingo_Exception($e);
             }
             if ($field == self::ACTION_BLACKLIST) {
@@ -185,7 +185,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Ingo_Exception($e);
             }
             $query = sprintf('INSERT INTO %s (list_owner, list_blacklist, list_address) VALUES (?, ?, ?)',
@@ -200,7 +200,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                               $is_blacklist,
                               $address));
                 } catch (Horde_Db_Exception $e) {
-                    Horde::logMessage($result, 'ERR');
+                    Horde::log($result, 'ERR');
                     throw new Ingo_Exception($e);
                 }
             }

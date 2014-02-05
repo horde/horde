@@ -28,7 +28,7 @@ foreach ($registry->listAPIs() as $api) {
             $results = array_merge(
                 $results, $registry->{$api}->searchTags(array($tag), 10, 0, '', $registry->getAuth()));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 }

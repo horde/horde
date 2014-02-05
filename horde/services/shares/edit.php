@@ -256,7 +256,7 @@ if ($auth->hasCapability('list') &&
         $userList = $auth->listUsers();
         sort($userList);
     } catch (Horde_Auth_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
     }
 }
 
@@ -266,7 +266,7 @@ try {
                                   : null);
     asort($groupList);
 } catch (Horde_Group_Exception $e) {
-    Horde::logMessage($e, 'NOTICE');
+    Horde::log($e, 'NOTICE');
     $groupList = array();
 }
 

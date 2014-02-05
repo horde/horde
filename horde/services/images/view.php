@@ -42,7 +42,7 @@ case 'vfs':
         $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
         $file_data = $vfs->read($vars->p, $file);
     } catch (Horde_Vfs_Exception $e) {
-        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $vars->p . '/' . $file, $e->getMessage()), 'ERR');
+        Horde::log(sprintf('Error displaying image [%s]: %s', $vars->p . '/' . $file, $e->getMessage()), 'ERR');
         exit;
     }
 
@@ -65,7 +65,7 @@ case 'tmp':
         }
     }
     if (!file_exists($file_name)) {
-        Horde::logMessage(sprintf('Image not found [%s]', $file_name), 'ERR');
+        Horde::log(sprintf('Image not found [%s]', $file_name), 'ERR');
         exit;
     }
     $file_data = file_get_contents($file_name);

@@ -225,7 +225,7 @@ if (is_a($share, 'PEAR_Error')) {
 if ($auth->hasCapability('list')) {
     $userList = $auth->listUsers();
     if (is_a($userList, 'PEAR_Error')) {
-        Horde::logMessage($userList, 'ERR');
+        Horde::log($userList, 'ERR');
         $userList = array();
     }
     sort($userList);
@@ -240,7 +240,7 @@ try {
                                   : null);
     asort($groupList);
 } catch (Horde_Group_Exception $e) {
-    Horde::logMessage($e, 'NOTICE');
+    Horde::log($e, 'NOTICE');
 }
 
 $page_output->topbar = $page_output->sidebar = false;

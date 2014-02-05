@@ -40,7 +40,7 @@ $criteria['published'] = true;
 try {
     $channel = $driver->getChannel($criteria['channel_id']);
 } catch (Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     header('HTTP/1.0 404 Not Found');
     echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -56,7 +56,7 @@ try {
 try {
     $stories = $driver->getStories($criteria);
 } catch (Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     $stories = array();
 }
 

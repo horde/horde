@@ -85,7 +85,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
         try {
             $this->_contact->store();
         } catch (Turba_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $notification->push(_("There was an error saving the contact. Contact your system administrator for further help."), 'horde.error');
             throw $e;
         }

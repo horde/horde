@@ -47,7 +47,7 @@ class Whups_Form_Ticket_Edit extends Horde_Form
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         $this->addHidden('', 'id', 'int', true, true);

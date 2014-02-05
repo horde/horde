@@ -34,7 +34,7 @@ class Whups_Form_TicketDetails extends Horde_Form
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         foreach ($grouped_fields as $header => $fields) {

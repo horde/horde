@@ -14,7 +14,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery((int)Horde_Util::getFormData('gallery'));
 } catch (Ansel_Exception $e) {
     echo $e->getMessage();
-    Horde::logMessage($e->getMessage(), 'err');
+    Horde::log($e->getMessage(), 'err');
     exit;
 }
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {

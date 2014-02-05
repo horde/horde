@@ -95,7 +95,7 @@ if ($can_validate && $form->validate($vars)) {
             $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
             exit;
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $notification->push(_("Your password has been reset, but couldn't be sent to you. Please contact the administrator."), 'horde.error');
         }
     } else {

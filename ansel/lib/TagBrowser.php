@@ -94,7 +94,7 @@ class Ansel_TagBrowser extends Horde_Core_TagBrowser
                     ->getInstance('Ansel_Storage')
                     ->getGallery($gid);
             } catch (Ansel_Exception $e) {
-                Horde::logMessage('Gallery not found: ' . $gid, 'ERR');
+                Horde::log('Gallery not found: ' . $gid, 'ERR');
             }
         }
 

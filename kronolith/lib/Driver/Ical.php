@@ -431,7 +431,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     {
         $response = $this->_saveEvent($event);
         if (!in_array($response['statusCode'], array(200, 204))) {
-            Horde::logMessage(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
+            Horde::log(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
                                       $response['url'], $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be updated on the remote server."));
         }
@@ -458,7 +458,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $response = $this->_saveEvent($event);
         if (!in_array($response['statusCode'], array(200, 201, 204))) {
-            Horde::logMessage(sprintf('Failed to create event on remote calendar: status = %s',
+            Horde::log(sprintf('Failed to create event on remote calendar: status = %s',
                                       $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be added to the remote server."));
         }
@@ -489,7 +489,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                     array('Content-Type' => 'text/calendar')
                 );
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
     }
@@ -527,11 +527,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         try {
             $response = $this->_getClient($url)->request('DELETE');
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
         if (!in_array($response['statusCode'], array(200, 202, 204))) {
-            Horde::logMessage(sprintf('Failed to delete event from remote calendar: url = "%s", status = %s',
+            Horde::log(sprintf('Failed to delete event from remote calendar: url = "%s", status = %s',
                                       $url, $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be deleted from the remote server."));
         }
@@ -570,7 +570,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 throw new Horde_Dav_Exception('Request Failed', $response['statusCode']);
             }
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage(
+            Horde::log(
                 sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
                         $url, $e->getCode()),
                 'INFO'
@@ -586,7 +586,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         /* Log fetch at DEBUG level. */
-        Horde::logMessage(
+        Horde::log(
             sprintf('Retrieved remote calendar for %s: url = "%s"',
                     $GLOBALS['registry']->getAuth(), $url),
             'DEBUG'
@@ -629,7 +629,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $this->_davSupport = $client->options();
         } catch (Horde_Dav_Exception $e) {
             if ($e->getCode() != 405) {
-                Horde::logMessage($e, 'INFO');
+                Horde::log($e, 'INFO');
             }
             return false;
         }
@@ -650,7 +650,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
             );
         } catch (\Sabre\DAV\Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            Horde::log($e, 'INFO');
             return false;
         }
 
@@ -718,7 +718,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                             'Content-Type' => 'application/xml'),
                                       $headers));
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
         if ($response['statusCode'] != 207) {

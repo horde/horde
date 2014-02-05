@@ -362,7 +362,7 @@ class Ansel
                     ->getInstance('Ansel_Storage')
                     ->getImage($imageId);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {

@@ -128,7 +128,7 @@ case 'send_problem_report':
             $mail->send($injector->getInstance('Horde_Mail'));
 
             /* Success. */
-            Horde::logMessage(
+            Horde::log(
                 sprintf("%s Message sent to %s from %s",
                     $_SERVER['REMOTE_ADDR'],
                     preg_replace('/^.*<([^>]+)>.*$/', '$1', $conf['problems']['email']),

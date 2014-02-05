@@ -480,7 +480,7 @@ abstract class Whups_Driver
                 $attachments = Whups::getAttachments($opts['ticket']->getId());
             } catch (Whups_Exception $e) {
                 $attachments = array();
-                Horde::logMessage($e);
+                Horde::log($e);
             }
         }
 
@@ -615,9 +615,9 @@ abstract class Whups_Driver
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
                                  $GLOBALS['registry']->getAuth());
-                Horde::logMessage($entry, 'INFO');
+                Horde::log($entry, 'INFO');
             } catch (Horde_Mime_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
     }

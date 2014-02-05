@@ -132,7 +132,7 @@ if (empty($rss)) {
                 }
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
         }
         $images = array();
         if (isset($galleries) && count($galleries)) {
@@ -141,7 +141,7 @@ if (empty($rss)) {
                     ->getInstance('Ansel_Storage')
                     ->getRecentImages($galleries);
             } catch (Ansel_Exception $e) {
-                 Horde::logMessage($e->getMessage(), 'ERR');
+                 Horde::log($e->getMessage(), 'ERR');
             }
             if (count($images)) {
                 $owner = $injector->getInstance('Horde_Core_Factory_Identity')->create($id);
@@ -179,7 +179,7 @@ if (empty($rss)) {
         try {
             $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $images['images']));
         } catch (Ansel_Exception $e) {
-             Horde::logMessage($e->getMessage(), 'ERR');
+             Horde::log($e->getMessage(), 'ERR');
              $images = array();
         }
         if (count($images)) {

@@ -17,7 +17,7 @@ try {
     $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(abs($image->gallery));
     $img = Ansel::getImageUrl($imageId, 'thumb', false, Ansel::getStyleDefinition('ansel_default'));
 } catch (Ansel_Exception $e) {
-    Horde::logMessage($e->getMessage(), 'ERR');
+    Horde::log($e->getMessage(), 'ERR');
     exit;
 }
 if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&

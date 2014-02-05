@@ -58,7 +58,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
             try {
                 $driver->deleteAll();
             } catch (Turba_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw $e;
             }
         }
@@ -69,7 +69,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
                 ->getInstance('Turba_Shares')
                 ->removeShare($this->_addressbook);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Turba_Exception($e);
         }
 

@@ -100,12 +100,12 @@ class Pastie_Driver_Sql extends Pastie_Driver
                       time()
         );
 
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#savePaste(): %s', $query), 'DEBUG');
-        Horde::logMessage(print_r($values, true), 'DEBUG');
+        Horde::log(sprintf('Pastie_Driver_Sql#savePaste(): %s', $query), 'DEBUG');
+        Horde::log(print_r($values, true), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'err');
+            Horde::log($result, 'ERR');
             throw new Horde_Exception_Wrapped($result);
         }
 
@@ -123,7 +123,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
     {
         // Right now we will accept 'id' or 'uuid'
         if (!isset($params['id']) && !isset($params['uuid'])) {
-            Horde::logMessage('Error: must specify some kind of unique id.', 'err');
+            Horde::log('Error: must specify some kind of unique id.', 'ERR');
             throw new Pastie_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -146,7 +146,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
         $this->_connect();
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#getPaste(): %s', $query), 'DEBUG');
+        Horde::log(sprintf('Pastie_Driver_Sql#getPaste(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -189,7 +189,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
         $this->_connect();
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#getPastes(): %s', $query), 'DEBUG');
+        Horde::log(sprintf('Pastie_Driver_Sql#getPastes(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         if ($limit !== null) {

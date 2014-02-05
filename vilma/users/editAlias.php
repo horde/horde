@@ -33,7 +33,7 @@ if (isset($vars->mode)) {
                 ->add('domain_id', $domain['id'])
                 ->redirect();
         } catch (Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
             $notification->push(sprintf(_("Error saving alias. %s"), $e->getMessage()), 'horde.error');
             // Remove the mode, and rearrange the alias information to clean
             // up the form.
@@ -81,7 +81,7 @@ if (!isset($vars->mode) || $vars->retry) {
         $form->getInfo($vars, $info);
         $alias_id = $vilma->driver->saveAlias($info);
         if (is_a($alias_id, 'PEAR_Error')) {
-            Horde::logMessage($user_id, 'ERR');
+            Horde::log($user_id, 'ERR');
             $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Alias saved."), 'horde.success');

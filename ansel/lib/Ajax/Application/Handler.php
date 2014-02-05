@@ -32,7 +32,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                 ->getGallery($id)
                 ->toJson(true);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -58,7 +58,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                         ->getInstance('Horde_Service_UrlShortener')
                         ->shorten($url->setRaw(true));
                 } catch (Horde_Service_UrlShortener_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                     header('HTTP/1.1 500');
                 }
             }
@@ -77,7 +77,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             try {
                 return $twitter->statuses->update($text);
             } catch (Horde_Service_Twitter_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 header('HTTP/1.1 500');
             }
         }

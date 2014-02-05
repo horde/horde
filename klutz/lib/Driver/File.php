@@ -99,8 +99,7 @@ class Klutz_Driver_File extends Klutz_Driver
     {
         $fp = fopen($this->sumsfile, "wb+");
         if ($fp === false) {
-            Horde::logMessage('Unable to create/write to ' . $this->sumsfile,
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::log('Unable to create/write to ' . $this->sumsfile, 'ERR');
             return false;
         }
         foreach ($this->diffs as $file => $sum) {

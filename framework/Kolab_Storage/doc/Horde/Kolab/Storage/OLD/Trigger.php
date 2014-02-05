@@ -72,16 +72,14 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
             $this->trigger($this->name);
             $this->_connection->delete($this->name);
         } catch (Exception $e) {
-            Horde::logMessage(sprintf('Failed handling the dummy folder: %s!',
-                                      $e->getMessage()), 'ERR');
+            Horde::log(sprintf('Failed handling the dummy folder: %s!', $e->getMessage()), 'ERR');
         }
 
         /** Finally trigger the folder after saving.*/
         try {
             $this->trigger();
         } catch (Horde_Kolab_Storage_Exception $e) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $e->getMessage()), 'ERR');
+            Horde::log(sprintf('Failed triggering folder %s! Error was: %s', $this->name, $e->getMessage()), 'ERR');
         }
     }
 
@@ -101,8 +99,7 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
             try {
                 $result = $this->trigger();
             } catch (Horde_Kolab_Storage_Exception $e) {
-                Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                          $this->name, $result->getMessage()), 'ERR');
+                Horde::log(sprintf('Failed triggering folder %s! Error was: %s', $this->name, $result->getMessage()), 'ERR');
             }
         }
     }

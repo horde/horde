@@ -680,7 +680,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
         }
 
         /* Copy the old version into the page history. */
-        Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
+        Horde::log('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
 
         $author = $GLOBALS['registry']->getAuth();
         if ($author === false) {

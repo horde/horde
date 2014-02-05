@@ -66,8 +66,7 @@ extends Horde_Kolab_FreeBusy_Controller_Base
      */
     public function trigger()
     {
-        //@todo: FIX:: Horde::logMessage(sprintf("Starting generation of partial free/busy data for folder %s", 
-        //                          $req_folder), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        //@todo: FIX:: Horde::log(sprintf("Starting generation of partial free/busy data for folder %s", $req_folder), 'DEBUG');
 
         $this->export = $this->_app->get(
             'Horde_Kolab_FreeBusy_Export'

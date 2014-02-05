@@ -181,7 +181,7 @@ class Mnemo
                           'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 return array();
             }
         } else {
@@ -192,7 +192,7 @@ class Mnemo
                           'attributes' => $GLOBALS['registry']->getAuth(),
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 return array();
             }
             $display_notepads = @unserialize($GLOBALS['prefs']->getValue('display_notepads'));
@@ -205,7 +205,7 @@ class Mnemo
                         }
                     } catch (Horde_Exception_NotFound $e) {
                     } catch (Horde_Share_Exception $e) {
-                        Horde::logMessage($e);
+                        Horde::log($e);
                         return array();
                     }
                 }

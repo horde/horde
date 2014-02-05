@@ -34,6 +34,6 @@ if ($error = $injector->getInstance('Horde_Core_Factory_Logger')->error) {
     $cli->fatal($error);
 } else {
     $cli->message('Logger successfully loaded', 'cli.success');
-    Horde::logMessage('Test log message.');
+    Horde::log('Test log message.');
     $cli->message('Sent test log message.');
 }

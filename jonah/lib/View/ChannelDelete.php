@@ -31,7 +31,7 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
         try {
             $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $notification->push(_("Invalid channel specified for deletion."), 'horde.message');
             Horde::url('channels')->redirect();
             exit;

@@ -51,7 +51,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
                                    array $options = array())
     {
         if (!class_exists('Date_Holidays')) {
-            Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.', 'ERR');
+            Horde::log('Support for Date_Holidays has been enabled but the package seems to be missing.', 'ERR');
             return array();
         }
 
@@ -79,7 +79,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         for ($year = $startDate->year; $year <= $endDate->year; $year++) {
             $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
             if (Date_Holidays::isError($dh)) {
-                Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
+                Horde::log(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
                                           $this->calendar, $year, $this->_params['language']), 'ERR');
                 continue;
             }
@@ -112,7 +112,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
 
         $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
         if (Date_Holidays::isError($dh)) {
-            Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
+            Horde::log(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
                                       $this->calendar, $year, $this->_params['language']), 'ERR');
             return false;
         }
@@ -134,8 +134,8 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
              $date->mday++) {
             $holidays = $dh->getHolidayForDate($date->format('Y-m-d'), null, true);
             if (Date_Holidays::isError($holidays)) {
-                Horde::logMessage(sprintf('Unable to retrieve list of holidays from %s to %s',
-                                          (string)$startDate, (string)$endDate), __FILE__, __LINE__);
+                Horde::log(sprintf('Unable to retrieve list of holidays from %s to %s',
+                           (string)$startDate, (string)$endDate), __FILE__, __LINE__);
                 continue;
             }
 

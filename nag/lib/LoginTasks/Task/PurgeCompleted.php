@@ -57,7 +57,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
                     $factory->create($task->tasklist)->delete($task->id);
                     ++$count;
                 } catch (Nag_Exception $e) {
-                    Horde::logMessage($e->getMessage(), 'ERR');
+                    Horde::log($e->getMessage(), 'ERR');
                 }
             }
         }

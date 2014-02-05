@@ -172,11 +172,11 @@ function send_agendas()
 
         $mime_mail->setBasePart(Kronolith::buildMimeMessage($view, 'notification', $image));
 
-        Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
+        Horde::log(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {
             $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         } catch (Horde_Mime_Exception $e) {
-            Horde::logMessage(sprintf('Error sending daily agenda to %s: %s', $email, $e->getMessage()), 'WARN');
+            Horde::log(sprintf('Error sending daily agenda to %s: %s', $email, $e->getMessage()), 'WARN');
         }
     }
 }

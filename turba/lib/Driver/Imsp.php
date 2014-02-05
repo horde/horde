@@ -125,7 +125,7 @@ class Turba_Driver_Imsp extends Turba_Driver
             $results = $result;
         }
 
-        Horde::logMessage(sprintf('IMSP returned %s results', count($results)), 'DEBUG');
+        Horde::log(sprintf('IMSP returned %s results', count($results)), 'DEBUG');
 
         return $count_only ? count($results) : array_values($results);
     }

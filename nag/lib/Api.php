@@ -130,7 +130,7 @@ class Nag_Api extends Horde_Registry_Api
         try {
             $tasklist = $GLOBALS['nag_shares']->getShare($name);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
         }
         if (!$tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
@@ -165,7 +165,7 @@ class Nag_Api extends Horde_Registry_Api
         try {
             $tasklist = $GLOBALS['nag_shares']->getShare($name);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
         }
 
@@ -977,7 +977,7 @@ class Nag_Api extends Horde_Registry_Api
         try {
             $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
         }
         $task = Nag::getTask($tasklist_id, $task_id);

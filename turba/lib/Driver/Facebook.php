@@ -179,7 +179,7 @@ class Turba_Driver_Facebook extends Turba_Driver
             $this->_cache->set($key, json_encode($results));
             return $results;
         } catch (Horde_Service_Facebook_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Turba_Exception($e);
         }
     }
@@ -199,7 +199,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 . 'SELECT uid2 FROM friend WHERE uid1=' . $this->_facebook->auth->getLoggedInUser() . ')';
             $results = $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             if ($e->getCode() == Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY) {
                 throw new Turba_Exception(_("You are not connected to Facebook. Create a Facebook connection in the Global Preferences."));
             }

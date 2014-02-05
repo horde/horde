@@ -48,7 +48,7 @@ class Trean_TagBrowser extends Horde_Core_TagBrowser
                     ->getInstance('Trean_Bookmarks')
                     ->getBookmark($id);
             } catch (Trean_Exception $e) {
-                Horde::logMessage('Bookmark not found: ' . $id, 'ERR');
+                Horde::log('Bookmark not found: ' . $id, 'ERR');
             }
         }
 

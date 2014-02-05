@@ -172,7 +172,7 @@ class Horde_Kolab_Filter_Response
          */
         if (!isset($conf['kolab']['filter']['debug'])
             || !$conf['kolab']['filter']['debug']) {
-            Horde::logMessage($msg, 'ERR');
+            Horde::log($msg, 'ERR');
         } else {
             $msg .= ' (Line ' . $frame['line'] . ' in ' . basename($frame['file']) . ")\n";
             fwrite(STDOUT, $msg);

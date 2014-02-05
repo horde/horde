@@ -119,7 +119,7 @@ class Horde_Scheduler_Cron extends Horde_Scheduler
      */
     public function runcmd(&$task)
     {
-        Horde::logMessage('runcmd(): ' . $task['cmd'] . ' run by ' . $task['uid'], 'INFO');
+        Horde::log('runcmd(): ' . $task['cmd'] . ' run by ' . $task['uid'], 'INFO');
         return shell_exec($task['cmd']);
     }
 

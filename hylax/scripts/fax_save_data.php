@@ -7,7 +7,7 @@ $hylax = Horde_Registry::appInit('hylax', array('cli' => true));
 /* Store the raw fax postscript data. */
 $data = $cli->readStdin();
 if (empty($data)) {
-    Horde::logMessage('No print data received from standard input. Exiting fax submission.', 'ERR');
+    Horde::log('No print data received from standard input. Exiting fax submission.', 'ERR');
     exit;
 }
 

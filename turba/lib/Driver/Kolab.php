@@ -438,8 +438,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             $result = array();
         }
 
-        Horde::logMessage(sprintf('Kolab returned %s results',
-                                  count($result)), 'DEBUG');
+        Horde::log(sprintf('Kolab returned %s results', count($result)), 'DEBUG');
 
         return $count_only ? count($result) : array_values($result);
     }
@@ -501,7 +500,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = array();
 
         if (!isset($test['field'])) {
-            Horde::logMessage('Search field not set. Returning all entries.', 'DEBUG');
+            Horde::log('Search field not set. Returning all entries.', 'DEBUG');
             foreach ($this->_contacts_cache as $entry) {
                 $ids[] = $entry['uid'];
             }

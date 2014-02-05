@@ -225,7 +225,7 @@ class Ansel_Gallery implements Serializable
         try {
             $this->_share->save();
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Ansel_Exception($e);
         }
     }
@@ -783,7 +783,7 @@ class Ansel_Gallery implements Serializable
             } catch (Ansel_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
-                Horde::logMessage($e->getMessage(), 'DEBUG');
+                Horde::log($e->getMessage(), 'DEBUG');
                 if ($style->keyimage_type != 'plain') {
                     return $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
                 }
@@ -1065,7 +1065,7 @@ class Ansel_Gallery implements Serializable
         if (!is_null($parent) && !$parent->get('has_subgalleries')) {
             $parent->set('has_subgalleries', '1', true);
         }
-        Horde::logMessage('Ansel_Gallery parent successfully set', 'DEBUG');
+        Horde::log('Ansel_Gallery parent successfully set', 'DEBUG');
 
        /* Gallery parent changed, safe to change the parent's attributes */
        if ($reset_has_subgalleries) {

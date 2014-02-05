@@ -207,7 +207,7 @@ class Gollem_Auth
                     return false;
                 }
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return false;
             }
 
@@ -228,7 +228,7 @@ class Gollem_Auth
         if (empty($backends[$backend]) || !is_array($backends[$backend])) {
             $entry = sprintf('Invalid backend key "%s" from client [%s]',
                              $backend, $_SERVER['REMOTE_ADDR']);
-            Horde::logMessage($entry, 'ERR');
+            Horde::log($entry, 'ERR');
             return false;
         }
 

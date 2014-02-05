@@ -16,6 +16,6 @@ if (isset($args[1])) {
 if (isset($args[2])) {
     $info['fax_user'] = $args[2];
 }
-Horde::logMessage(sprintf('Creating fax ID %s for user %s.', $info['fax_id'], $info['fax_user']), 'DEBUG');
+Horde::log(sprintf('Creating fax ID %s for user %s.', $info['fax_id'], $info['fax_user']), 'DEBUG');
 
 $hylax->storage->createFax($info, true);

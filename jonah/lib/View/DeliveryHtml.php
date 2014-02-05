@@ -27,7 +27,7 @@ class Jonah_View_DeliveryHtml extends Jonah_View_Base
         try {
             $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($criteria['feed']);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $notification->push(_("Invalid channel."), 'horde.error');
             Horde::url('delivery/index.php', true)->redirect();
             exit;

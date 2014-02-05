@@ -61,7 +61,7 @@ case 'hermes_form_time_entry':
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
             }
         } catch (Exception $e) {
-            Horde::logMessage($e, 'err');
+            Horde::log($e, 'ERR');
             $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $e->getMessage()), 'horde.error');
             header('Location: ' . $url);
             exit;

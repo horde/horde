@@ -407,7 +407,7 @@ class Kronolith_Driver
                 $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
                 $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
     }
@@ -456,7 +456,7 @@ class Kronolith_Driver
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -504,7 +504,7 @@ class Kronolith_Driver
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
     }
@@ -602,7 +602,7 @@ class Kronolith_Driver
         try {
             $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Kronolith_Exception($e);
         }
 

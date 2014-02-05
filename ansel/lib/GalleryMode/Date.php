@@ -585,7 +585,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             try {
                 $GLOBALS['registry']->call('forums/deleteForum', array('ansel', $image->id));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return false;
             }
         }

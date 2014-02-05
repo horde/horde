@@ -121,10 +121,10 @@ if ($cmd == 'new') {
                     array('name' => $gallery_name, 'desc' => $gallery_desc));
             $galleryId = $gallery->id;
             $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-            Horde::logMessage($msg, 'DEBUG');
+            Horde::log($msg, 'DEBUG');
         } catch (Ansel_Exception $e) {
             $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $e->getMessage());
-            Horde::logMessage($error, 'ERR');
+            Horde::log($error, 'ERR');
         }
     } else {
         if (empty($galleryId) && $prefs->getValue('autoname')) {

@@ -102,7 +102,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
      */
     public function debug($sieve, $message)
     {
-        Horde::logMessage($message, 'DEBUG');
+        Horde::log($message, 'DEBUG');
     }
 
     /**

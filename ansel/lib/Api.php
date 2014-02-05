@@ -327,7 +327,7 @@ class Ansel_Api extends Horde_Registry_Api
             isset($image['description']) &&
             isset($image['data']) &&
             isset($image['type'])) {
-                Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['filename'], strlen($image['data'])), 'DEBUG');
+                Horde::log(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['filename'], strlen($image['data'])), 'DEBUG');
                 $image_data = array(
                     'image_filename' => $image['filename'],
                     'image_caption' => $image['description'],
@@ -673,7 +673,7 @@ class Ansel_Api extends Horde_Registry_Api
                     ->create('images')
                     ->read($image->getVFSPath('full'), $image->getVFSName('full'));
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw new Ansel_Exception($e->getMessage());
             }
         } else {

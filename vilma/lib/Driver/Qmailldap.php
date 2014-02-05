@@ -79,7 +79,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         $sql = 'DELETE FROM vilma_domains WHERE domain_id=?';
         $values = array((int)$domain_id);
 
-        Horde::logMessage($sql, 'DEBUG');
+        Horde::log($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -133,7 +133,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         }
         $filter .= ')';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error in LDAP search: %s"), ldap_error($this->LDAP)));
@@ -401,7 +401,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         $filter .= '(mail=' . $user_id . ')';
         $filter .= ')';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error searching LDAP: %s"), @ldap_error($this->_ldap)));
@@ -512,7 +512,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         // End filter.
         $filter .= ')';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error searching LDAP: %s"), @ldap_error($this->_ldap)));
@@ -591,7 +591,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         // End filter
         $filter .= ')';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error searching LDAP: %s"), @ldap_error($this->_ldap)));
@@ -672,7 +672,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         // End filter.
         $filter .= ')';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error searching LDAP: %s"), @ldap_error($this->_ldap)));
@@ -753,7 +753,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         sort($maa);
 
         $dn = $user['dn'];
-        Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
+        Horde::log("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
 
         // Bind with appropriate dn to give update access.
         $res = ldap_bind($this->_ldap, $this->_params['ldap']['binddn'],
@@ -808,7 +808,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         sort($maa);
 
         $dn = $user['dn'];
-        Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
+        Horde::log("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
 
         // Bind with appropriate dn to give update access.
         $res = ldap_bind($this->_ldap, $this->_params['ldap']['binddn'],
@@ -884,7 +884,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         sort($mfa);
 
         $dn = $user['dn'];
-        Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
+        Horde::log("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
 
         // Bind with appropriate dn to give update access.
         $res = ldap_bind($this->_ldap, $this->_params['ldap']['binddn'],
@@ -938,7 +938,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         sort($mfa);
 
         $dn = $user['dn'];
-        Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
+        Horde::log("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
         // Bind with appropriate dn to give update access.
         $res = ldap_bind($this->_ldap, $this->_params['ldap']['binddn'],
                          $this->_params['ldap']['bindpw']);
@@ -971,7 +971,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         }
         $filter .= '(mail=' . $email_id . '))';
 
-        Horde::logMessage($filter, 'DEBUG');
+        Horde::log($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_params['ldap']['basedn'], $filter);
         if ($res === false) {
             throw new Vilma_Exception(sprintf(_("Error searching LDAP: %s"), @ldap_error($this->_ldap)));

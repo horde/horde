@@ -48,7 +48,7 @@ if ($valid1 && $valid2 && $valid3 &&
     try {
         $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
     } catch (Whups_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         $notification->push(
             sprintf(_("Adding your ticket failed: %s."), $e->getMessage()),
             'horde.error');

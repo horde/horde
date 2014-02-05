@@ -369,7 +369,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
-                Horde::logMessage($response->getBody());
+                Horde::log($response->getBody());
                 throw new Horde_Service_Weather_Exception($response->code);
             }
             $results = $response->getBody();

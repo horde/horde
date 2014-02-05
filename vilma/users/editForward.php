@@ -31,7 +31,7 @@ if (isset($vars->mode)) {
             $forward_id = $vilma->driver->saveForward($info);
             $notification->push(_("forward saved."), 'horde.success');
         } catch (Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
             $notification->push(sprintf(_("Error saving forward. %s"), $e->getMessage()), 'horde.error');
             // Remove the mode, and rearrange the forward information to clean
             // up the form.
@@ -53,7 +53,7 @@ if (!isset($vars->mode) || $vars->retry) {
             $addrInfo = $vilma->driver->getAddressInfo($vars->forward, 'forward');
             $address = $vilma->driver->getAddressInfo($addrInfo['destination']);
         } catch (Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $e->getMessage()), 'horde.error');
             Horde::url('users/index.php', true)->redirect();
         }
@@ -74,7 +74,7 @@ if (!isset($vars->mode) || $vars->retry) {
         $form->getInfo($vars, $info);
         $forward_id = $vilma->driver->saveforward($info);
         if (is_a($forward_id, 'PEAR_Error')) {
-            Horde::logMessage($user_id, 'ERR');
+            Horde::log($user_id, 'ERR');
             $notification->push(sprintf(_("Error saving forward. %s"), $forward_id->getMessage()), 'horde.error');
         } else {
             $notification->push(_("forward saved."), 'horde.success');

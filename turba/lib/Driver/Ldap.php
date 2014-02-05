@@ -191,8 +191,16 @@ class Turba_Driver_Ldap extends Turba_Driver
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('LDAP query by Turba_Driver_ldap::_search(): user = %s, root = %s (%s); filter = "%s"; attributes = "%s"; deref = "%s"  ; sizelimit = %d',
-                                  $GLOBALS['registry']->getAuth(), $this->_params['root'], $this->_params['server'], $filter, implode(', ', $attr), $this->_params['deref'], $sizelimit), 'DEBUG');
+        Horde::log(sprintf(
+            'LDAP query by Turba_Driver_ldap::_search(): user = %s, root = %s (%s); filter = "%s"; attributes = "%s"; deref = "%s"  ; sizelimit = %d',
+            $GLOBALS['registry']->getAuth(),
+            $this->_params['root'],
+            $this->_params['server'],
+            $filter,
+            implode(', ', $attr),
+            $this->_params['deref'],
+            $sizelimit
+        ), 'DEBUG');
 
         /* Send the query to the LDAP server and fetch the matching
          * entries. */

@@ -46,7 +46,7 @@
                 $image->createView('screen', null, $prefs->getValue('watermark_auto') ? $prefs->getValue('watermark_text', '') : '');                $image->createView('thumb');
                 $image->createView('mini');
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e->getMessage, 'ERR');
+                Horde::log($e->getMessage, 'ERR');
             }
          }
      }

@@ -387,7 +387,7 @@ class Ansel_View_GalleryProperties
                 $galleryId = null;
                 $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
                                  $gallery_name, $e->getMessage());
-                Horde::logMessage($error, 'ERR');
+                Horde::log($error, 'ERR');
                 $GLOBALS['notification']->push($error, 'horde.error');
                 Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                 exit;

@@ -207,9 +207,7 @@ class Dovecot_LDA
     {
         global $conf;
 
-        Horde::logMessage(sprintf("Starting Dovecot delivery process with UID %d, GID %d (sender=%s, recipient=%s) ...",
-                                  getmyuid(), getmygid(),
-                                  $this->_envelopeSender, $recipient), 'DEBUG');
+        Horde::log(sprintf("Starting Dovecot delivery process with UID %d, GID %d (sender=%s, recipient=%s) ...", getmyuid(), getmygid(), $this->_envelopeSender, $recipient), 'DEBUG');
 
         $deliver = $conf['kolab']['filter']['dovecot_deliver'];
 
@@ -228,9 +226,9 @@ class Dovecot_LDA
      */
     function _stop_deliver()
     {
-        Horde::logMessage("Stoping Dovecot delivery process ...", 'DEBUG');
+        Horde::log("Stoping Dovecot delivery process ...", 'DEBUG');
         $retval = pclose($this->_deliver_fh);
-        Horde::logMessage(sprintf("... return value was %d\n", $retval), 'DEBUG');
+        Horde::log(sprintf("... return value was %d\n", $retval), 'DEBUG');
         if ($retval != 0) {
             return PEAR::raiseError('Dovecot LDA Backend delivery process signaled an error.');
         }

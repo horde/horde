@@ -53,7 +53,7 @@ if (!$fb) {
     try {
         $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
     } catch (Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         exit;
     }
     $cache->set($key, $fb);

@@ -230,14 +230,14 @@ class Mnemo_Application extends Horde_Registry_Application
             try {
                 $driver->deleteAll();
             } catch (Mnemo_Exception $e) {
-                Horde::logMessage($e, 'NOTICE');
+                Horde::log($e, 'NOTICE');
                 $error = true;
             }
 
             try {
                 $GLOBALS['mnemo_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'NOTICE');
+                Horde::log($e, 'NOTICE');
                 $error = true;
             }
         }
@@ -249,7 +249,7 @@ class Mnemo_Application extends Horde_Registry_Application
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'NOTICE');
+            Horde::log($e, 'NOTICE');
             $error = true;
         }
 

@@ -160,7 +160,7 @@ class Ansel_Storage
                 strval(new Horde_Support_Randomid()),
                 $attributes['name']);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage, 'ERR');
+            Horde::log($e->getMessage, 'ERR');
             throw new Ansel_Exception($e);
         }
         $gallery = $this->buildGallery($gallery_share);
@@ -187,7 +187,7 @@ class Ansel_Storage
         } catch (Horde_Share_Exception $e) {
             $error = sprintf(_("The gallery \"%s\" could not be created: %s"),
                              $attributes['name'], $e->getMessage());
-            Horde::logMessage($error, 'ERR');
+            Horde::log($error, 'ERR');
             throw new Ansel_Exception($error);
         }
 
@@ -652,7 +652,7 @@ class Ansel_Storage
                'UPDATE ansel_images SET image_sort = '
                . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Ansel_Exception($e);
         }
     }
@@ -1259,7 +1259,7 @@ class Ansel_Storage
         try {
             $this->_db->update('UPDATE ansel_images SET gallery_id = ' . $gallery_id . ' WHERE image_id IN (' . implode(',', $image_ids) . ')');
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Ansel_Exception($e);
         }
     }

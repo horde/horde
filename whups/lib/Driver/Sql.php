@@ -1335,9 +1335,7 @@ class Whups_Driver_Sql extends Whups_Driver
                         throw new Whups_Exception($e);
                     }
                 } else {
-                    Horde::logMessage(sprintf(_("Attachment %s not found."),
-                                              $attachment['log_value']),
-                                      'WARN');
+                    Horde::log(sprintf(_("Attachment %s not found."), $attachment['log_value']), 'WARN');
                 }
             }
         }

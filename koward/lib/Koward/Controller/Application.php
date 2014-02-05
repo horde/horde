@@ -98,7 +98,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         if (!$this->koward->hasAccess($id, $permission)) {
             $this->koward->notification->push(_("Access denied."), 'horde.error');
-            Horde::logMessage(sprintf('User %s does not have access to action %s!', $GLOBALS['registry']->getAuth(), $id), 'NOTICE');
+            Horde::log(sprintf('User %s does not have access to action %s!', $GLOBALS['registry']->getAuth(), $id), 'NOTICE');
             if ($GLOBALS['registry']->getAuth()) {
                 $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
             } else {

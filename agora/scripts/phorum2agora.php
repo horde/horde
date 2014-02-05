@@ -27,7 +27,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:p:a:t:f:c:',
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, 'DEBUG');
+    Horde::log($error, 'DEBUG');
     $cli->fatal($error);
 }
 

@@ -28,7 +28,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
                 $GLOBALS['prefs']->getValue('watermark_text', '') : '')
         );
     } catch (Ansel_Exception $e) {
-        Horde::logMessage($result, 'ERR');
+        Horde::log($result, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));

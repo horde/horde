@@ -145,7 +145,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
         try {
             $view->results = $this->_browser->getSlice($this->_page, $this->_perPage);
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             return _("An error has occured retrieving the image. Details have been logged.");
         }
         $view->total = $this->_browser->count();

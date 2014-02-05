@@ -160,7 +160,7 @@ class Koward {
                     }
                 }
             } catch (Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                Horde::log($e, 'DEBUG');
             }
         }
         return $global;

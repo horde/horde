@@ -131,9 +131,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
                                  'Horde_Kolab_Server_Object_Kolab_Server');
             $this->server_object = $server;
         } catch (Horde_Kolab_Server_Exception $e) {
-            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s",
-                                      $e->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::log(sprintf("Failed fetching the k=kolab configuration object. Error was: %s", $e->getMessage()), 'ERR');
             $this->server_object = null;
         }
 
@@ -169,9 +167,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
             $idx = strpos($this->user, '@');
             if($idx !== false) {
                 $domain = substr($this->user, $idx+1);
-                Horde::logMessage(sprintf("Trying to append %s to %s",
-                                          $domain, $this->owner),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::log(sprintf("Trying to append %s to %s", $domain, $this->owner), 'DEBUG');
                 $odn = $odn = $db->uidForIdOrMail($this->owner . '@' . $domain);
             }
         }

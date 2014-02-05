@@ -37,7 +37,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     try {
         $image->createView('thumb', $style);
     } catch (Ansel_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('thumb', $style), $image->getVFSName('thumb'));

@@ -701,7 +701,7 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
                 _("The gallery \"%s\" couldn't be created: %s"),
                 $gallery_name,
                 $e->getMessage());
-            Horde::logMessage($error, 'ERR');
+            Horde::log($error, 'ERR');
             $this->_cli->message($error, 'cli.error');
         }
     }

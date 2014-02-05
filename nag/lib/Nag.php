@@ -258,7 +258,7 @@ class Nag
                                     $tasks->add(new Nag_Task(null, $task));
                                 }
                             } catch (Horde_Exception $e) {
-                                Horde::logMessage($newtasks, 'ERR');
+                                Horde::log($newtasks, 'ERR');
                             }
                         }
                     }
@@ -466,7 +466,7 @@ class Nag
                       'sort_by' => 'name'));
 
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             return array();
         }
 
@@ -480,7 +480,7 @@ class Nag
                     }
                 } catch (Horde_Exception_NotFound $e) {
                 } catch (Horde_Share_Exception $e) {
-                    Horde::logMessage($e);
+                    Horde::log($e);
                     return array();
                 }
             }
@@ -920,7 +920,7 @@ class Nag
                     $notification->push($message[0], $message[1]);
                 }
             } catch (Nag_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 $notification->push($e->getMessage(), 'horde.error');
             }
         }
@@ -955,7 +955,7 @@ class Nag
         try {
             $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::log($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
         }
 
@@ -978,7 +978,7 @@ class Nag
             try {
                 $group_users = $groups->listUsers($group);
             } catch (Horde_Group_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 continue;
             }
 
@@ -1151,8 +1151,7 @@ class Nag
                     $mail->clearRecipients();
                     $mail->addRecipients($df_recipients);
 
-                    Horde::logMessage(sprintf('Sending event notifications for %s to %s',
-                                              $task->name, implode(', ', $df_recipients)), 'INFO');
+                    Horde::log(sprintf('Sending event notifications for %s to %s', $task->name, implode(', ', $df_recipients)), 'INFO');
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }

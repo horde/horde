@@ -124,8 +124,7 @@ class Klutz_Driver_Sql extends Klutz_Driver
         $values = array($id, $date, $key, $data);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf("Klutz_Driver_sql::addSum(): %s values: %s", $query->query, print_r($values, true)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::log(sprintf("Klutz_Driver_sql::addSum(): %s values: %s", $query->query, print_r($values, true)), 'DEBUG');
 
         /* Execute the query. */
         $result = $query->execute($values);
@@ -168,8 +167,7 @@ class Klutz_Driver_Sql extends Klutz_Driver
         $query = $this->_db->prepare($sql);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('Klutz_Driver_sql::removeSum(): ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::log('Klutz_Driver_sql::removeSum(): ' . $sql, 'DEBUG');
 
         /* Execute the query. */
         $result = $query->execute($values);
@@ -203,8 +201,7 @@ class Klutz_Driver_Sql extends Klutz_Driver
         $params = array(md5($image->data));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('Klutz_Driver_sql::isUnique(): ' . $query->query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::log('Klutz_Driver_sql::isUnique(): ' . $query->query, 'DEBUG');
 
         /* Execute the query. */
         $result = $query->execute($params);
@@ -256,9 +253,7 @@ class Klutz_Driver_Sql extends Klutz_Driver
         $values = array($oldest, $newest);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Klutz_Driver_sql::listDates($date = %s, $oldest = %s, $newest = %s): %s',
-                          $date, $oldest, $newest, $query->query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::log(sprintf('Klutz_Driver_sql::listDates($date = %s, $oldest = %s, $newest = %s): %s', $date, $oldest, $newest, $query->query), 'DEBUG');
 
         /* Execute the query. */
         $result = $query->execute($values);

@@ -31,7 +31,7 @@ case 'addform':
         $form = 'edit.inc';
         $notification->push(sprintf(_("\"%s\" was added to the groups system."), $vars->name), 'horde.success');
     } catch (Horde_Group_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         $notification->push(sprintf(_("Group was not created: %s."), $e->getMessage()), 'horde.error');
         break;
     }

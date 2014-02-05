@@ -281,7 +281,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page
             $wicked->attachFile($file, $data);
         } catch (Wicked_Exception $e) {
             $notification->push($e);
-            Horde::logMessage($e);
+            Horde::log($e);
             throw $e;
         }
 

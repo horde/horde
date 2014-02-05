@@ -200,7 +200,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             try {
                 $location = $driver->searchLocations($location);
             } catch (Horde_Service_Weather_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Timeobjects_Exception($e);
             }
         } else {

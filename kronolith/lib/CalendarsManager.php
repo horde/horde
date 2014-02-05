@@ -425,7 +425,7 @@ class Kronolith_CalendarsManager
                     $this->_allExternal['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description['title'], 'share' => $tasklists[$name], 'type' => 'share'));
                 }
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                Horde::log($e, 'DEBUG');
             }
         }
 
@@ -450,7 +450,7 @@ class Kronolith_CalendarsManager
                 try {
                     $categories = $registry->call($api . '/listTimeObjectCategories');
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'DEBUG');
+                    Horde::log($e, 'DEBUG');
                     continue;
                 }
 

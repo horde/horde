@@ -1006,7 +1006,7 @@ class Kronolith
                           'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 return array();
             }
         } else {
@@ -1017,7 +1017,7 @@ class Kronolith
                           'attributes' => $GLOBALS['registry']->getAuth(),
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 return array();
             }
             $display_calendars = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
@@ -1030,7 +1030,7 @@ class Kronolith
                         }
                     } catch (Horde_Exception_NotFound $e) {
                     } catch (Horde_Share_Exception $e) {
-                        Horde::logMessage($e);
+                        Horde::log($e);
                         return array();
                     }
                 }
@@ -2069,7 +2069,7 @@ class Kronolith
             try {
                 $group_users = $groups->listUsers($group);
             } catch (Horde_Group_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 continue;
             }
 
@@ -2139,7 +2139,7 @@ class Kronolith
                         'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $registry->getVersion(),
                         'body' => $message));
-                    Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
+                    Horde::log(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
                     $mime_mail->send($injector->getInstance('Horde_Mail'));
                 }
             }
@@ -2893,7 +2893,7 @@ class Kronolith
                 ->getInstance('Kronolith_Shares')
                 ->listShares($user, array('perm' => Horde_Perms::EDIT));
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($shares, 'ERR');
+            Horde::log($shares, 'ERR');
             throw new Kronolith_Exception($shares);
         }
 

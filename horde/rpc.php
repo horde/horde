@@ -115,7 +115,7 @@ case 'Soap':
 try {
     $server = Horde_Rpc::factory($serverType, $request, $params);
 } catch (Horde_Rpc_Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     header('HTTP/1.1 501 Not Implemented');
     exit;
 }
@@ -132,7 +132,7 @@ $registry->setAuthenticationSetting(
 try {
     $server->authorize();
 } catch (Horde_Rpc_Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     header('HTTP/1.0 500 Internal Server Error');
     echo $e->getMessage();
     exit;
@@ -145,7 +145,7 @@ if (is_null($input)) {
     try {
         $input = $server->getInput();
     } catch (Horde_Rpc_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         header('HTTP/1.0 500 Internal Server Error');
         echo $e->getMessage();
         exit;
@@ -155,7 +155,7 @@ if (is_null($input)) {
 try {
     $out = $server->getResponse($input);
 } catch (Horde_Rpc_Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     header('HTTP/1.0 500 Internal Server Error');
     echo $e->getMessage();
     exit;

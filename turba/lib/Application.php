@@ -315,7 +315,7 @@ class Turba_Application extends Horde_Registry_Application
                         ->getInstance('Turba_Factory_Driver')
                         ->create($source);
                 } catch (Turba_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
 
                 try {
@@ -323,7 +323,7 @@ class Turba_Application extends Horde_Registry_Application
                 } catch (Turba_Exception_NotSupported $e) {
                     continue;
                 } catch (Turba_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                     throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
                 }
             }
@@ -355,7 +355,7 @@ class Turba_Application extends Horde_Registry_Application
             } catch (Turba_Exception_NotSupported $e) {
                 continue;
             } catch (Turba_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
             }
         }
@@ -368,7 +368,7 @@ class Turba_Application extends Horde_Registry_Application
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
         }
     }
@@ -473,7 +473,7 @@ class Turba_Application extends Horde_Registry_Application
                     'name' => $vars->file
                 );
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Turba_Exception(sprintf(_("Access denied to %s"), $vars->file));
             }
 

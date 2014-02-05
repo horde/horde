@@ -86,7 +86,7 @@ class Horde_Scheduler
             $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
             return true;
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -115,7 +115,7 @@ class Horde_Scheduler
                 $scheduler = $tmp;
             }
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         if ($autosave) {

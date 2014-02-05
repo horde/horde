@@ -78,7 +78,7 @@ if ($action == 'edit') {
             $recordings = null;
         }
     } catch (Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         $notification->push(_("Problem getting menu information."));
     }
 }

@@ -910,7 +910,7 @@ class Turba_Driver implements Countable
                 ->log('turba:' . $this->getName() . ':' . $uid,
                       array('action' => 'add'), true);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         return $key;
@@ -969,7 +969,7 @@ class Turba_Driver implements Countable
                                                 array('action' => 'delete'),
                                                 true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -1013,7 +1013,7 @@ class Turba_Driver implements Countable
                 $history->log($guid, array('action' => 'delete'), true);
             }
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 
@@ -1060,7 +1060,7 @@ class Turba_Driver implements Countable
                                                 array('action' => 'modify'),
                                                 true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -2518,7 +2518,7 @@ class Turba_Driver implements Countable
                         array($field, $value, $object),
                         'turba');
                 } catch (Turba_Exception $e) {
-                    Horde::logMessage($e);
+                    Horde::log($e);
                 }
             }
             if (isset(self::$_asMap[$field])) {

@@ -423,7 +423,7 @@ class Turba
                     $out[$sourceId] = $source;
                 }
             } catch (Turba_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -491,7 +491,7 @@ class Turba
                     try {
                         $share->save();
                     } catch (Horde_Share_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
+                        Horde::log($e, 'ERR');
                     }
                 }
 
@@ -553,7 +553,7 @@ class Turba
                     $personal = true;
                     $GLOBALS['prefs']->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
             }
         }
@@ -628,7 +628,7 @@ class Turba
                 )
             );
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return array();
         }
     }
@@ -668,7 +668,7 @@ class Turba
             $turba_shares->addShare($share);
             $share->save();
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Turba_Exception($e);
         }
 

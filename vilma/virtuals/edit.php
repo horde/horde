@@ -72,7 +72,7 @@ if ($form->validate($vars)) {
             ->add('user', $info['virtual_destination'])
             ->redirect();
     } catch (Exception $e) {
-        Horde::logMessage($e);
+        Horde::log($e);
         $notification->push(sprintf(_("Error saving virtual email. %s."), $e->getMessage()), 'horde.error');
     }
 }

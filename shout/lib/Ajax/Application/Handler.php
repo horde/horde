@@ -30,7 +30,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             }
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -50,7 +50,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -71,7 +71,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $this->getDestinations();
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -88,7 +88,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -107,7 +107,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             }
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -131,7 +131,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $menus;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -149,7 +149,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return true;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -162,7 +162,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $shout->storage->getConferences($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -182,7 +182,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return $shout->storage->saveMenuInfo($account, $info);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -218,7 +218,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             return true;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
     }
@@ -231,7 +231,7 @@ class Shout_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         $stack = $vars->get('stack');
         $log = sprintf('Client side error in %s: %s.  Stacktrace follows:\n%s',
                        $filename, $message, $stack);
-        Horde::logMessage($log, 'ERR');
+        Horde::log($log, 'ERR');
         return true;
     }
 

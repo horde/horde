@@ -75,11 +75,11 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
                  'r.ttl AS ttl FROM ' . $this->_params['domains_table'] .
                  ' AS d JOIN ' . $this->_params['records_table'] . ' AS r ON ' .
                  'r.domain_id = d.id WHERE r.type = \'SOA\'';
-        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::_getDomains(): ' .  $query, 'DEBUG');
+        Horde::log('SQL Query by Beatnik_Driver_pdnsgsql::_getDomains(): ' .  $query, 'DEBUG');
 
         $domainlist =  $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
         if (is_a($domainlist, 'PEAR_Error')) {
-            Horde::logMessage($domainlist, 'ERR');
+            Horde::log($domainlist, 'ERR');
             throw new Beatnik_Exception(_("Error getting domain list.  Details have been logged for the administrator."));
         }
 
@@ -87,7 +87,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         foreach ($domainlist as $info) {
             $soa = explode(' ', $info['content']);
             if (count($soa) != 7) {
-                Horde::logMessage(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
+                Horde::log(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
                 continue;
             }
 
@@ -123,11 +123,11 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
                  ' AS d JOIN ' . $this->_params['records_table'] . ' AS r ON ' .
                  'r.domain_id = d.id WHERE r.type = \'SOA\' AND d.name = ?';
         $values = array($domainname);
-        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::getDomain(): ' .  $query, 'DEBUG');
+        Horde::log('SQL Query by Beatnik_Driver_pdnsgsql::getDomain(): ' .  $query, 'DEBUG');
 
         $result =  $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            Horde::log($result, 'ERR');
             throw new Beatnik_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
@@ -139,7 +139,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
 
         $soa = explode(' ', $info['content']);
         if (count($soa) != 7) {
-            Horde::logMessage(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
+            Horde::log(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
             throw new Beatnik_Exception(_("Corrupt SOA found for zone.  Contact your administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
@@ -178,10 +178,10 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
                   'd.id = r.domain_id AND d.name = ?';
         $values = array($domain);
 
-        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::getRecords(): ' . $query, 'DEBUG');
+        Horde::log('SQL Query by Beatnik_Driver_pdnsgsql::getRecords(): ' . $query, 'DEBUG');
         $result = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            Horde::log($result, 'ERR');
             throw new Beatnik_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
@@ -198,7 +198,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
             case 'soa':
                 $soa = explode(' ', $rec['content']);
                 if (count($soa) != 7) {
-                    Horde::logMessage(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
+                    Horde::log(sprintf('Invalid SOA found for %s, skipping.', $info['name']), 'WARN');
                 }
 
                 $tmp['zonename'] = $rec['name'];
@@ -239,7 +239,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
             case 'srv':
                 $srv = preg_split('/\s+/', trim($rec['content']));
                 if (count($srv) != 3) {
-                    Horde::logMessage(sprintf('Invalid SRV data found for %s, skipping.', $rec['name']), 'WARN');
+                    Horde::log(sprintf('Invalid SRV data found for %s, skipping.', $rec['name']), 'WARN');
                     continue;
                 }
                 $tmp['hostname'] = $rec['name'];
@@ -387,7 +387,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
             $values[] = $change_date;
         }
 
-        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::_saveRecord(): ' . $query, 'DEBUG');
+        Horde::log('SQL Query by Beatnik_Driver_pdnsgsql::_saveRecord(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;

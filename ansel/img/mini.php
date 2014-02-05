@@ -23,7 +23,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     try {
         $image->createView('mini', Ansel::getStyleDefinition('ansel_default'));
     } catch (Ansel_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('mini'), $image->getVFSName('mini'));

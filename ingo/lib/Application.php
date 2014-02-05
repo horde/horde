@@ -131,7 +131,7 @@ class Ingo_Application extends Horde_Registry_Application
                 $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
             }
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
@@ -257,7 +257,7 @@ class Ingo_Application extends Horde_Registry_Application
         try {
             $injector->getInstance('Ingo_Factory_Storage')->create()->removeUserData($user);
         } catch (Ingo_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw $e;
         }
 
@@ -267,7 +267,7 @@ class Ingo_Application extends Horde_Registry_Application
             try {
                 $ingo_shares->removeShare($ingo_shares->getShare($user));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Ingo_Exception($e);
             }
 
@@ -279,7 +279,7 @@ class Ingo_Application extends Horde_Registry_Application
                     $share->removeUser($user);
                 }
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
 
             /* Get a list of all shares this user owns and has perms to delete
@@ -290,7 +290,7 @@ class Ingo_Application extends Horde_Registry_Application
                     'perm' => Horde_Perms::DELETE
                 ));
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Ingo_Exception($e);
             }
 
@@ -324,7 +324,7 @@ class Ingo_Application extends Horde_Registry_Application
                 array('perm' => Horde_Perms::SHOW)
             );
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $this->_rulesets = array();
             return $this->_rulesets;
         }

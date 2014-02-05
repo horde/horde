@@ -20,7 +20,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, 'DEBUG');
+    Horde::log($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -65,11 +65,11 @@ if (!empty($username) && !empty($password)) {
     $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, 'ERR');
+        Horde::log($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, 'DEBUG');
+        Horde::log($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }

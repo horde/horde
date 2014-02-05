@@ -103,7 +103,7 @@ class Klutz_Comic_Search extends Klutz_Comic
                 $msg  = "URL: $url";
                 $msg .= "\nSEARCH: " . print_r($search, true);
                 $msg .= "\nHTML: " . $this->http->getResponseBody();
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::log($msg, 'DEBUG');
                 return false;
             }
 

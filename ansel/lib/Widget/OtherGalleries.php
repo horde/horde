@@ -81,7 +81,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 ->getInstance('Ansel_Storage')
                 ->listGalleries(array('attributes' => $owner));
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return;
         }
 

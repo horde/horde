@@ -35,7 +35,7 @@ if (($reload || empty($results))) {
             );
         $results = $faces->getFromPicture($image_id, true);
     } catch (Ansel_Exception $e) {
-        Horde::logMessage($e, 'ERR');
+        Horde::log($e, 'ERR');
         $results = null;
     }
 }

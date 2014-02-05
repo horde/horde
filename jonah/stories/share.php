@@ -41,9 +41,7 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     $mail->addMIMEPart($story_part);
 
     /* Log the pending outbound message. */
-    Horde::logMessage(sprintf('<%s> is sending "%s" to (%s)',
-                              $from, $subject, $recipients),
-                      'INFO');
+    Horde::log(sprintf('<%s> is sending "%s" to (%s)', $from, $subject, $recipients), 'INFO');
 
     /* Send the message and return the result. */
     return $mail->send(Horde::getMailerConfig());

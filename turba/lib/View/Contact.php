@@ -63,7 +63,7 @@ class Turba_View_Contact
             try {
                 $comments = $registry->call('forums/doComments', array('turba', $this->contact->driver->getName() . '.' . $this->contact->getValue('__key'), 'commentCallback'));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                Horde::log($e, 'DEBUG');
                 $comments = array();
             }
         }

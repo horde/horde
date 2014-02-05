@@ -38,20 +38,20 @@ class Hylax_Image {
         $tmp_file = Horde_Util::getTempFile('fax', true, '/tmp');
         Horde::startBuffer();
         var_dump($tmp_file);
-        Horde::logMessage('Created temp file:' . Horde::endBuffer() . ':', 'DEBUG');
+        Horde::log('Created temp file:' . Horde::endBuffer() . ':', 'DEBUG');
         $fp = fopen($tmp_file, 'w');
         fwrite($fp, $this->_data);
         fclose($fp);
 
         /* Run a ImageMagick identify command on the file to get the details. */
         $command = sprintf('%s %s', $this->_cmd['identify'], $tmp_file);
-        Horde::logMessage('External command call by Hylax_Image::getDimensions(): :' . $command . ':', 'DEBUG');
+        Horde::log('External command call by Hylax_Image::getDimensions(): :' . $command . ':', 'DEBUG');
         exec($command, $output, $retval);
 
         $init = strlen($tmp_file);
 
         /* Figure out the dimensions from the output. */
-        Horde::logMessage('External command output by Hylax_Image::getDimensions(): ' . serialize($output), 'DEBUG');
+        Horde::log('External command output by Hylax_Image::getDimensions(): ' . serialize($output), 'DEBUG');
         foreach ($output as $key => $line) {
             if (substr($line, 0, $init) != $tmp_file) {
                 continue;
@@ -91,7 +91,7 @@ class Hylax_Image {
                            $tmp_file,
                            $page,
                            $tmp_file_out);
-        Horde::logMessage('Executing command: ' . $command, 'DEBUG');
+        Horde::log('Executing command: ' . $command, 'DEBUG');
         exec($command);
         echo file_get_contents($tmp_file_out);
     }
@@ -105,7 +105,7 @@ class Hylax_Image {
 
         /* Convert the page from the postscript file to PDF. */
         $command = sprintf('%s %s -', $this->_cmd['ps2pdf'], $tmp_file);
-        Horde::logMessage('Executing command: ' . $command, 'DEBUG');
+        Horde::log('Executing command: ' . $command, 'DEBUG');
         passthru($command);
     }
 

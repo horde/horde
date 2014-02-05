@@ -62,7 +62,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             try {
                 $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 $images = array();
             }
         } else {
@@ -250,7 +250,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             try {
                 $result = $GLOBALS['registry']->forums->deleteForum('ansel', $image->id);
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return false;
             }
         }

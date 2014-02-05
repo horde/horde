@@ -140,7 +140,7 @@ abstract class Nag_Driver
                           array('action' => 'add'),
                           true);
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         /* Log completion status changes. */
@@ -150,7 +150,7 @@ abstract class Nag_Driver
                               array('action' => 'complete'),
                               true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -244,7 +244,7 @@ abstract class Nag_Driver
             try {
                 $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
             }
 
@@ -256,7 +256,7 @@ abstract class Nag_Driver
             try {
                 $share = $GLOBALS['nag_shares']->getShare($properties['tasklist']);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
             }
 
@@ -274,12 +274,12 @@ abstract class Nag_Driver
                 try {
                     $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
                 } catch (Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
                 try {
                     $history->log('nag:' . $properties['tasklist'] . ':' . $task->uid, array('action' => 'add'), true);
                 } catch (Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
                 $log_tasklist = $properties['tasklist'];
             }
@@ -329,7 +329,7 @@ abstract class Nag_Driver
                         array('action' => 'modify'),
                         true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -346,7 +346,7 @@ abstract class Nag_Driver
                         $attributes,
                         true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -354,7 +354,7 @@ abstract class Nag_Driver
         try {
             $result = Nag::sendNotification('edit', $new_task, $task);
         } catch (Nag_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 
@@ -379,7 +379,7 @@ abstract class Nag_Driver
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
             } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -387,7 +387,7 @@ abstract class Nag_Driver
         try {
             $result = Nag::sendNotification('delete', $task);
         } catch (Nag_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
 
         /* Delete alarm if necessary. */
@@ -424,7 +424,7 @@ abstract class Nag_Driver
                     true);
             }
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 

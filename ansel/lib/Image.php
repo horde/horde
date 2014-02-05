@@ -301,7 +301,7 @@ class Ansel_Image Implements Iterator
                     ->create('images')
                     ->read($this->getVFSPath('full'), $this->getVFSName('full'));
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Ansel_Exception($e);
             }
             $viewHash = 'full';
@@ -335,7 +335,7 @@ class Ansel_Image Implements Iterator
                     ->create('images')
                     ->read($vfspath, $this->getVFSName($view));
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Ansel_Exception($e);
             }
         }
@@ -416,7 +416,7 @@ class Ansel_Image Implements Iterator
                 ->create('images')
                 ->read($this->getVFSPath('full'), $this->getVFSName('full'));
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Ansel_Exception($e);
         }
 
@@ -605,7 +605,7 @@ class Ansel_Image Implements Iterator
             } catch (Exception $e) {
                 // Since we got this far, the image has been added, so
                 // just log the tag failure.
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -706,7 +706,7 @@ class Ansel_Image Implements Iterator
             $exif_fields = $exif->getData($imageFile);
         } catch (Horde_Image_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $exif_fields = array();
             return false;
         }
@@ -1148,7 +1148,7 @@ class Ansel_Image Implements Iterator
         try {
             $this->_image->addEffect($type, $params);
         } catch (Horde_Image_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Ansel_Exception($e);
         }
     }

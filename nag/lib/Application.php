@@ -202,7 +202,7 @@ class Nag_Application extends Horde_Registry_Application
             $shares = $GLOBALS['nag_shares']
                 ->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Nag_Exception($e);
         }
 
@@ -213,7 +213,7 @@ class Nag_Application extends Horde_Registry_Application
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'NOTICE');
+                Horde::log($e, 'NOTICE');
                 $error = true;
             }
         }
@@ -225,7 +225,7 @@ class Nag_Application extends Horde_Registry_Application
                $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'NOTICE');
+            Horde::log($e, 'NOTICE');
             $error = true;
         }
 

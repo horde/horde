@@ -1737,7 +1737,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $list = $sdriver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
             } catch (Turba_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
 
             if ($list instanceof Turba_List) {
@@ -1903,7 +1903,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db[$key]->selectAssoc($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 throw new Horde_Exception_Wrapped($e);
             }
             foreach ($results as $id => $name) {
@@ -1934,7 +1934,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 throw new Turba_Exception($e);
             }
 
@@ -2001,7 +2001,7 @@ class Turba_Api extends Horde_Registry_Api
             unset($ret['lname']);
             return $ret;
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
             throw new Turba_Exception($e);
         }
     }
@@ -2083,7 +2083,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db[$newSource]->selectOne($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 throw new Horde_Exception_Wrapped($e);
             }
 

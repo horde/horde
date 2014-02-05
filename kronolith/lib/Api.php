@@ -502,7 +502,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $results = array();
         foreach ($calendars as $calendar) {
             if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
-                Horde::logMessage(sprintf(
+                Horde::log(sprintf(
                     _("Permission Denied or Calendar Not Found: %s - skipping."),
                     $calendar));
                 continue;
@@ -517,7 +517,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 );
                 Kronolith::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
             }
         }
         $uids = array();

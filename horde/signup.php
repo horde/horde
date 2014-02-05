@@ -26,7 +26,7 @@ if ($conf['signup']['allow'] !== true ||
 try {
     $signup = $injector->getInstance('Horde_Core_Auth_Signup');
 } catch (Horde_Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
     $registry->getServiceLink('login')->redirect();
 }

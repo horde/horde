@@ -261,7 +261,7 @@ class Turba_View_Browse
                                       array('action' => 'add'),
                                       true);
                         } catch (Exception $e) {
-                            Horde::logMessage($e, 'ERR');
+                            Horde::log($e, 'ERR');
                         }
                     }
                 }

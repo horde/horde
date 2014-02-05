@@ -218,7 +218,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         try {
             $this->_geometry = $this->resource->getDimensions('screen');
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $this->_geometry = $GLOBALS['conf']['screen'];
         }
 
@@ -515,7 +515,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
             try {
                 return $registry->forums->doComments('ansel', $this->resource->id, 'commentCallback', true, null, $url);
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                Horde::log($e, 'DEBUG');
                 return false;
             }
         } else {

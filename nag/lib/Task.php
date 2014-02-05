@@ -1002,7 +1002,7 @@ class Nag_Task
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
             } catch (Horde_Share_exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::log($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
             }
             $json->pe = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);

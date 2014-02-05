@@ -345,8 +345,7 @@ implements Horde_Kolab_Storage_Folder
 
             if (isset($attributes['type'])) {
                 if ($attributes['type'] != $type) {
-                    Horde::logMessage(sprintf('Cannot modify the type of a folder from %s to %s!',
-                                              $type, $attributes['type']), 'ERR');
+                    Horde::log(sprintf('Cannot modify the type of a folder from %s to %s!', $type, $attributes['type']), 'ERR');
                 }
                 unset($attributes['type']);
             }
@@ -379,8 +378,7 @@ implements Horde_Kolab_Storage_Folder
 
         if (isset($attributes['owner'])) {
             if ($attributes['owner'] != $this->getOwner()) {
-                Horde::logMessage(sprintf('Cannot modify the owner of a folder from %s to %s!',
-                                          $this->getOwner(), $attributes['owner']), 'ERR');
+                Horde::log(sprintf('Cannot modify the owner of a folder from %s to %s!', $this->getOwner(), $attributes['owner']), 'ERR');
             }
             unset($attributes['owner']);
         }
@@ -671,8 +669,7 @@ implements Horde_Kolab_Storage_Folder
                 if ($type == 'XML') {
                     return $handlers[$type];
                 }
-                Horde::logMessage(sprintf('Loading format handler "%s" failed: %s',
-                                          $type, $handlers[$type]->getMessage()), 'ERR');
+                Horde::log(sprintf('Loading format handler "%s" failed: %s', $type, $handlers[$type]->getMessage()), 'ERR');
                 continue;
             }
         }
@@ -924,8 +921,7 @@ implements Horde_Kolab_Storage_Folder
         }
         $data = $this->_annotation_data->getObject('KOLAB_FOLDER_CONFIGURATION');
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Error retrieving annotation data on folder %s: %s',
-                                      $this->_path, $data->getMessage()), 'ERR');
+            Horde::log(sprintf('Error retrieving annotation data on folder %s: %s', $this->_path, $data->getMessage()), 'ERR');
             return '';
         }
         if (isset($data[$key])) {
@@ -954,8 +950,7 @@ implements Horde_Kolab_Storage_Folder
         }
         $data = $this->_annotation_data->getObject('KOLAB_FOLDER_CONFIGURATION');
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Error retrieving annotation data on folder %s: %s',
-                                      $this->_path, $data->getMessage()), 'ERR');
+            Horde::log(sprintf('Error retrieving annotation data on folder %s: %s', $this->_path, $data->getMessage()), 'ERR');
             $data = array();
             $uid = null;
         } else {

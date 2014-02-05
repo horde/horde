@@ -75,7 +75,7 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
         try {
             $key = $driver->add($contact);
         } catch (Turba_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             $key = null;
         }
 

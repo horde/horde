@@ -642,7 +642,7 @@ class Ansel_ActionHandler
                     try {
                         $image->rotate('full', $angle);
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -652,7 +652,7 @@ class Ansel_ActionHandler
                     try {
                         $image->flip('full');
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -662,7 +662,7 @@ class Ansel_ActionHandler
                     try {
                         $image->mirror('full');
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -672,7 +672,7 @@ class Ansel_ActionHandler
                     try {
                         $image->grayscale('full');
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -685,7 +685,7 @@ class Ansel_ActionHandler
                     try {
                         $image->crop($x1, $y1, $x2, $y2);
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -697,7 +697,7 @@ class Ansel_ActionHandler
                     try {
                         $image->resize($width, $height, true);
                     } catch (Ansel_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
+                        Horde::log($e->getMessage(), 'ERR');
                         $notification->push($e->getMessage(), 'horde.error');
                         $error = true;
                     }
@@ -959,7 +959,7 @@ class Ansel_ActionHandler
                             $gallery->get('name'), $e->getMessage()),
                             'horde.error');
                     } catch (Horde_Exception_NotFound $e) {
-                        Horde::logMessage($e, 'err');
+                        Horde::log($e, 'err');
                     }
                 }
 

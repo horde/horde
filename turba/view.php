@@ -40,7 +40,7 @@ try {
 try {
     $data = $vfs->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $filename);
 } catch (Horde_Vfs_Exception $e) {
-    Horde::logMessage($e, 'ERR');
+    Horde::log($e, 'ERR');
     throw new Turba_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 

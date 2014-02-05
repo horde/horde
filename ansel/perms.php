@@ -274,7 +274,7 @@ try {
                                   : null);
     asort($groupList);
 } catch (Horde_Group_Exception $e) {
-    Horde::logMessage($e, 'NOTICE');
+    Horde::log($e, 'NOTICE');
 }
 
 $page_output->topbar = $page_output->sidebar = false;

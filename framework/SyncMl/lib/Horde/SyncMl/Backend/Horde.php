@@ -846,7 +846,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         parent::logMessage($message, $priority);
 
         // Logging to Horde log:
-        Horde::logMessage($message, $priority, array('file' => $trace['file'], 'line' => $trace['line']));
+        Horde::log($message, $priority, array('file' => $trace['file'], 'line' => $trace['line']));
     }
 
     /**
