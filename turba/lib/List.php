@@ -96,6 +96,8 @@ class Turba_List implements Countable
      */
     public function sort($order = null)
     {
+        global $attributes, $prefs;
+
         if (!$order) {
             $order = array(
                 array(
@@ -106,8 +108,8 @@ class Turba_List implements Countable
         }
 
         $need_lastname = $need_firstname = false;
-        $name_format = $GLOBALS['prefs']->getValue('name_format');
-        $name_sort = $GLOBALS['prefs']->getValue('name_sort');
+        $name_format = $prefs->getValue('name_format');
+        $name_sort = $prefs->getValue('name_sort');
         foreach ($order as &$field) {
             if ($field['field'] == 'name') {
                 if ($name_sort == 'last_first') {
@@ -159,6 +161,22 @@ class Turba_List implements Countable
             $sorted_objects = $this->objects;
         }
 
+            // Set the comparison type based on the type of attribute we're
+            // sorting by.
+        foreach ($order as &$val) {
+            $sm = 'text';
+
+            if (isset($attributes[$val['field']])) {
+                $f = $attributes[$val['field']];
+                if (!empty($f['cmptype'])) {
+                    $sm = $f['cmptype'];
+                } elseif (in_array($f['type'], array('int', 'intlist', 'number'))) {
+                    $sm = 'int';
+                }
+            }
+
+            $val['sortmethod'] = $sm;
+        }
         $this->_usortCriteria = $order;
 
         /* Exceptions thrown inside a sort incorrectly cause an error. See
@@ -183,21 +201,9 @@ class Turba_List implements Countable
     protected function _cmp(Turba_Object $a, Turba_Object $b)
     {
         foreach ($this->_usortCriteria as $field) {
-            // Set the comparison type based on the type of attribute we're
-            // sorting by.
-            $sortmethod = 'text';
-            if (isset($GLOBALS['attributes'][$field['field']])) {
-                $f = $GLOBALS['attributes'][$field['field']];
-
-                if (!empty($f['cmptype'])) {
-                    $sortmethod = $f['cmptype'];
-                } elseif (in_array($f['type'], array('int', 'intlist', 'number'))) {
-                    $sortmethod = 'int';
-                }
-            }
-
             $f = $field['field'];
-            switch ($sortmethod) {
+
+            switch ($field['sortmethod']) {
             case 'int':
                 $result = ($a->getValue($f) > $b->getValue($f)) ? 1 : -1;
                 break;
@@ -215,11 +221,8 @@ class Turba_List implements Countable
                 break;
             }
 
-            if (!$field['ascending']) {
-                $result = -$result;
-            }
             if ($result != 0) {
-                return $result;
+                return (($field['ascending'] ? 1 : -1) * $result);
             }
         }
 
