@@ -3,7 +3,7 @@
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header">
- <?php echo Horde::img('group.png') ?>&nbsp;<?php echo _("Add a group") ?>
+ <?php echo Horde_Themes_Image::tag('group.png') ?>&nbsp;<?php echo _("Add a group") ?>
 </h1>
 
 <p class="horde-content">

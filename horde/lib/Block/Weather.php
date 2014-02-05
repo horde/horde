@@ -126,7 +126,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
             $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="horde-default" value="'
                 . _("Change Location") . '" /><span style="display:none;" id="location' . $instance . '_loading_img">'
-                . Horde::img('loading.gif') . '</span></div>';
+                . Horde_Themes_Image::tag('loading.gif') . '</span></div>';
             $location = $this->_params['location'];
         }
 
@@ -172,10 +172,10 @@ class Horde_Block_Weather extends Horde_Core_Block
         // Sunrise/sunset.
         if ($station->sunrise) {
             $html .= '<strong>' . _("Sunrise") . ': </strong>'
-                . Horde::img('block/sunrise/sunrise.png', _("Sunrise"))
+                . Horde_Themes_Image::tag('block/sunrise/sunrise.png', array('alt' => _("Sunrise")))
                 . sprintf("%s %s", $station->sunrise->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunrise->strftime($GLOBALS['prefs']->getValue('time_format')));
             $html .= ' <strong>' . _("Sunset") . ': </strong>'
-                . Horde::img('block/sunrise/sunset.png', _("Sunset"))
+                . Horde_Themes_Image::tag('block/sunrise/sunset.png', array('alt' => _("Sunset")))
                 . sprintf("%s %s", $station->sunset->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunset->strftime($GLOBALS['prefs']->getValue('time_format')));
             $html .= '<br />';
         }
@@ -236,7 +236,7 @@ class Horde_Block_Weather extends Horde_Core_Block
         // Current condition.
         $condition = $current->condition;
         $html .= '<br /><strong>' . _("Current condition") . ': </strong>'
-            . Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
+            . Horde_Themes_Image::tag('weather/32x32/' . $current->icon)
             .  ' ' . $condition
             . '</div>';
 
@@ -307,7 +307,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
                 // Condition.
                 $html .= '<td>'
-                    . Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon))
+                    . Horde_Themes_Image::tag('weather/32x32/' . $day->icon)
                     . '<br />' . $condition . '</td>';
 
                 if (isset($this->_params['detailedForecast'])) {
@@ -349,7 +349,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 . Horde::link(
                     Horde::externalUrl($weather->link),
                     $weather->title, '', '_blank', '', $weather->title)
-                . Horde::img(new Horde_Themes_Image($weather->logo))
+                . Horde_Themes_Image::tag($weather->logo)
                 . '</a></div>';
         } else {
             $html .= '<div class="rightAlign">'

@@ -137,9 +137,9 @@ if ($vars->action == 'nosql_indices') {
 }
 
 /* Set up some icons. */
-$success = Horde::img('alerts/success.png');
-$warning = Horde::img('alerts/warning.png');
-$error = Horde::img('alerts/error.png');
+$success = Horde_Themes_Image::tag('alerts/success.png');
+$warning = Horde_Themes_Image::tag('alerts/warning.png');
+$error = Horde_Themes_Image::tag('alerts/error.png');
 
 $self_url = Horde::url('admin/config/');
 $conf_url = Horde::url('admin/config/config.php');
@@ -148,7 +148,9 @@ $i = -1;
 $config_outdated = $schema_outdated = false;
 if (class_exists('Horde_Bundle')) {
     $apps[0] = array(
-        'icon' => Horde::img($registry->get('icon', 'horde'), Horde_Bundle::FULLNAME, '', ''),
+        'icon' => Horde_Themes_Image::tag($registry->get('icon', 'horde'), array(
+            'alt' => Horde_Bundle::FULLNAME
+        )),
         'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
         'sort' => '00',
         'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>'
@@ -190,7 +192,10 @@ foreach ($a as $app) {
     } else {
         $apps[$i]['name'] = $apps[$i]['sort'];
     }
-    $apps[$i]['icon'] = Horde::img($registry->get('icon', $app), $registry->get('name', $app), '', '');
+    $apps[$i]['icon'] = Horde_Themes_Image::tag(
+        $registry->get('icon', $app),
+        array('alt' => $registry->get('name', $app))
+    );
     $apps[$i]['version'] = '';
     if ($version = $registry->getVersion($app, true)) {
         $apps[$i]['version'] = $version;
@@ -376,18 +381,30 @@ $ftpform = '';
 if ($session->get('horde', 'config/')) {
     $url = Horde::url('admin/config/diff.php');
     $action = _("Show differences between currently saved and the newly generated configuration.");
-    $actions[] = array('icon' => Horde::img('search.png', '', 'align="middle"'),
-                       'link' => Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . $action . '</a>');
+    $actions[] = array(
+        'icon' => Horde_Themes_Image::tag('search.png', array(
+            'attr' => array('align' => 'middle')
+        )),
+        'link' => Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . $action . '</a>'
+    );
 
     /* Action to download the configuration upgrade PHP script. */
     $url = Horde::url('admin/config/scripts.php')->add(array('setup' => 'conf', 'type' => 'php'));
     $action = _("Download generated configuration as PHP script.");
-    $actions[] = array('icon' => Horde::img('download.png', '', 'align="middle"'),
-                       'link' => Horde::link($url) . $action . '</a>');
+    $actions[] = array(
+        'icon' => Horde_Themes_Image::tag('download.png', array(
+            'attr' => array('align' => 'middle')
+        )),
+        'link' => Horde::link($url) . $action . '</a>'
+    );
     /* Action to save the configuration upgrade PHP script. */
     $action = _("Save generated configuration as a PHP script to your server's temporary directory.");
-    $actions[] = array('icon' => Horde::img('save.png', '', 'align="middle"'),
-                       'link' => Horde::link($url->add('save', 'tmp')) . $action . '</a>');
+    $actions[] = array(
+        'icon' => Horde_Themes_Image::tag('save.png', array(
+            'attr' => array('align' => 'middle')
+        )),
+        'link' => Horde::link($url->add('save', 'tmp')) . $action . '</a>'
+    );
 
     /* Set up the form for FTP upload of scripts. */
     $vars = Horde_Variables::getDefaultVariables();
@@ -414,8 +431,12 @@ if (file_exists(Horde::getTempDir() . '/horde_configuration_upgrade.php')) {
     /* Action to remove the configuration upgrade PHP script. */
     $url = Horde::url('admin/config/scripts.php')->add('clean', 'tmp');
     $action = _("Remove saved script from server's temporary directory.");
-    $actions[] = array('icon' => Horde::img('delete.png', '', 'align="middle"'),
-                       'link' => Horde::link($url) . $action . '</a>');
+    $actions[] = array(
+        'icon' => Horde_Themes_Image::tag('delete.png', array(
+            'attr' => array('align' => 'middle')
+        )),
+        'link' => Horde::link($url) . $action . '</a>'
+    );
 }
 
 $view = new Horde_View(array(

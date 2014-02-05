@@ -381,12 +381,20 @@ after all other output.
 All images must have an ``alt`` attribute::
 
     <img src="example.gif" alt="<?php echo _("Example") ?>" />
-    <?php echo Horde::img('example.gif', _("Example")) ?>
+    <?php
+        echo Horde_Themes_Image::tag('example.gif', array(
+            'alt' => _("Example")
+        ));
+    ?>
 
 Input fields of type "image" do not allow the border attribute and may render
 with a border on some browsers.  Use the following instead::
 
-   <a href="" onclick="document.formname.submit(); return false;"><?php echo Horde::img("example.gif", _("Example")) ?></a>
+   <a href="" onclick="document.formname.submit(); return false;"><?php
+       echo Horde_Themes_Image::tag("example.gif", array(
+           'alt' => _("Example")
+       ));
+   ?></a>
 
 
 Database Conventions

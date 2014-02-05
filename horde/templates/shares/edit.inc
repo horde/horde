@@ -10,9 +10,9 @@
 <tr valign="middle">
   <td width="100%" colspan="6" class="header">
     <span class="rightFloat">
-      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window")) ?></a>
+      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde_Themes_Image::tag('close.png', array('alt' => _("Close Window"))) ?></a>
     </span>
-    <?php echo Horde::img('perms.png') . '&nbsp;' . sprintf(_("Edit permissions for \"%s\""), htmlspecialchars($share->get('name'))); if (!empty($help)) echo '&nbsp;' . Horde_Help::link($app, $help) ?>
+    <?php echo Horde_Themes_Image::tag('perms.png') . '&nbsp;' . sprintf(_("Edit permissions for \"%s\""), htmlspecialchars($share->get('name'))); if (!empty($help)) echo '&nbsp;' . Horde_Help::link($app, $help) ?>
   </td>
 </tr>
 <tr><td>&nbsp;</td></tr>
@@ -31,7 +31,7 @@ $operm = isset($userperms[$owner])
 ?>
 <tr valign="middle">
   <td class="header leftAlign" colspan="6">
-    <?php echo Horde::img('perms.png') . '&nbsp;' . _("Owner") ?>
+    <?php echo Horde_Themes_Image::tag('perms.png') . '&nbsp;' . _("Owner") ?>
   </td>
 </tr>
 <tr>
@@ -59,7 +59,7 @@ $operm = isset($userperms[$owner])
 <!-- Default Permissions -->
 <tr valign="middle">
   <td class="header leftAlign" width="55%">
-    <?php echo Horde::img('perms.png') . '&nbsp;' . _("All Authenticated Users") ?>
+    <?php echo Horde_Themes_Image::tag('perms.png') . '&nbsp;' . _("All Authenticated Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -130,7 +130,7 @@ $operm = isset($userperms[$owner])
 <!-- Creator Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png') . '&nbsp;' . _("Object Creator") ?>
+    <?php echo Horde_Themes_Image::tag('user.png') . '&nbsp;' . _("Object Creator") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -165,7 +165,7 @@ $operm = isset($userperms[$owner])
 <!-- User Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png') . '&nbsp;' . _("Individual Users") ?>
+    <?php echo Horde_Themes_Image::tag('user.png') . '&nbsp;' . _("Individual Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -267,7 +267,7 @@ foreach ($userList as $user) {
 <!-- Group Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('group.png') . '&nbsp;' . _("Groups") ?>
+    <?php echo Horde_Themes_Image::tag('group.png') . '&nbsp;' . _("Groups") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>

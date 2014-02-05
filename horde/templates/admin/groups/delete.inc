@@ -4,7 +4,7 @@
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header">
- <?php echo Horde::img('group.png') ?>&nbsp;<?php printf(_("Are you sure you wish to delete \"%s\"?"), htmlspecialchars($group)) ?>
+ <?php echo Horde_Themes_Image::tag('group.png') ?>&nbsp;<?php printf(_("Are you sure you wish to delete \"%s\"?"), htmlspecialchars($group)) ?>
 </h1>
 
 <p class="horde-form-buttons">

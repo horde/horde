@@ -51,42 +51,40 @@ class Horde_Block_Moon extends Horde_Core_Block
             $offset++;
         }
 
-        if (isset($this->_params['phase']) && $this->_params['phase'] == 'next') {
-            $dates = array_slice(array_keys($phases), $lastNew + 4, 4);
-        } else {
-            $dates = array_slice(array_keys($phases), $lastNew, 4);
-        }
+        $dates = (isset($this->_params['phase']) && ($this->_params['phase'] == 'next'))
+            ? array_slice(array_keys($phases), $lastNew + 4, 4)
+            : array_slice(array_keys($phases), $lastNew, 4);
 
-        if (isset($this->_params['hemisphere']) && $this->_params['hemisphere'] == 'northern') {
-            $location = _("Northern Hemisphere");
-        } else {
-            $location = _("Southern Hemisphere");
-        }
+        $location = (isset($this->_params['hemisphere']) && ($this->_params['hemisphere'] == 'northern'))
+            ? _("Northern Hemisphere")
+            : _("Southern Hemisphere");
 
         $html = '<table width="100%" height="100%" cellspacing="0">' .
             '<tr><td colspan="4" class="control"><strong>' . $location . '</strong></td></tr>' .
             '<tr height="100%"><td width="25%" align="center">' .
-            Horde::img('block/moon/newmoon.png', _("New Moon")) .
+            Horde_Themes_Image::tag('block/moon/newmoon.png', array('alt' => _("New Moon"))) .
             '<br />' . strftime('%d %b', $dates[0]) .
             '</td>';
 
         $html .= '<td width="25%" align="center">';
-        if (isset($this->_params['hemisphere']) && $this->_params['hemisphere'] == 'northern') {
-            $html .= Horde::img('block/moon/lastquarter.png', _("First Quarter"));
+        if (isset($this->_params['hemisphere']) &&
+            ($this->_params['hemisphere'] == 'northern')) {
+            $html .= Horde_Themes_Image::tag('block/moon/lastquarter.png', array('alt' => _("First Quarter")));
         } else {
-            $html .= Horde::img('block/moon/firstquarter.png', _("First Quarter"));
+            $html .= Horde_Themes_Image::tag('block/moon/firstquarter.png', array('alt' => _("First Quarter")));
         }
         $html .= '<br />' . strftime('%d %b', $dates[1]) . '</td>';
 
         $html .= '<td width="25%" align="center">' .
-            Horde::img('block/moon/fullmoon.png', _("Full Moon")) .
+            Horde_Themes_Image::tag('block/moon/fullmoon.png', array('alt' => _("Full Moon"))) .
             '<br />' . strftime('%d %b', $dates[2]) . '</td>';
 
         $html .= '<td width="25%" align="center">';
-        if (isset($this->_params['hemisphere']) && $this->_params['hemisphere'] == 'northern') {
-            $html .= Horde::img('block/moon/firstquarter.png', _("Last Quarter"));
+        if (isset($this->_params['hemisphere']) &&
+            ($this->_params['hemisphere'] == 'northern')) {
+            $html .= Horde_Themes_Image::tag('block/moon/firstquarter.png', array('alt' => _("Last Quarter")));
         } else {
-            $html .= Horde::img('block/moon/lastquarter.png', _("Last Quarter"));
+            $html .= Horde_Themes_Image::tag('block/moon/lastquarter.png', array('alt' => _("Last Quarter")));
         }
         $html .= '<br />' . strftime('%d %b', $dates[3]) . '</td></tr></table>';
 

@@ -60,7 +60,7 @@ class Turba_Ajax_Application_Handler_Minisearch extends Horde_Core_Ajax_Applicat
 
                                 $results[] = '<li class="linedRow">' .
                                     Horde::link(Horde::url($ob->url()), _("View Contact"), '', '_parent') .
-                                    Horde::img('contact.png', _("View Contact")) . '</a> ' .
+                                    Horde_Themes_Image::tag('contact.png', array('alt' => _("View Contact"))) . '</a> ' .
                                     (!empty($v) ? '<a href="' . $mail_link . '">' : '') .
                                     $link .
                                     (!empty($v) ? '</a>' : '') . '</li>';

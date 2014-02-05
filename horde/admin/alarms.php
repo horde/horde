@@ -132,7 +132,7 @@ if ($horde_alarm instanceof Horde_Alarm_Null) {
                 ->add('delete', 1)
                 ->link(array('title' => sprintf(_("Delete \"%s\""), $alarm['title']),
                              'onclick' => 'return confirm(\'' . addslashes(sprintf(_("Are you sure you want to delete '%s'?"), $alarm['title'])) . '\')'))
-                . Horde::img('delete.png')
+                . Horde_Themes_Image::tag('delete.png')
                 . '</a>';
         }
         $view->alarms = $alarms;

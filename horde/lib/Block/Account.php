@@ -93,7 +93,7 @@ class Horde_Block_Account extends Horde_Core_Block
 
         if ($status) {
             $output .= '<tr><td colspan="2"><p class="notice">' .
-                Horde::img('alerts/warning.png', _("Warning")) .
+                Horde_Themes_Image::tag('alerts/warning.png', array('alt' => _("Warning"))) .
                 '&nbsp;&nbsp;' . $status . '</p></td></tr>';
         }
 

@@ -42,11 +42,13 @@ foreach ($list as $path => $values) {
 
     // Set the icon.
     if (!empty($values['icon'])) {
-        $row['icon'] = Horde::img($values['icon'], $values['name'], '', '');
+        $row['icon'] = Horde_Themes_Image::tag($values['icon'], array(
+            'alt' => $values['name']
+        ));
     } elseif (!empty($values['browseable'])) {
-        $row['icon'] = Horde::img('tree/folder.png');
+        $row['icon'] = Horde_Themes_Image::tag('tree/folder.png');
     } else {
-        $row['icon'] = Horde::img('tree/leaf.png');
+        $row['icon'] = Horde_Themes_Image::tag('tree/leaf.png');
     }
 
     // Set the name/link.

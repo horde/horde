@@ -26,7 +26,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 $ui = new Horde_Core_Perms_Ui($injector->getInstance('Horde_Perms'), $injector->getInstance('Horde_Core_Perms'));
 
-echo '<h1 class="header">' . Horde::img('perms.png') . ' ' . _("Permissions") . '</h1>';
+echo '<h1 class="header">' . Horde_Themes_Image::tag('perms.png') . ' ' . _("Permissions") . '</h1>';
 $ui->renderTree($perm_id);
 
 $page_output->footer();

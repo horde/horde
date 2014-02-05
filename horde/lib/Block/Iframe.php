@@ -52,7 +52,11 @@ class Horde_Block_Iframe extends Horde_Core_Block
 
         return htmlspecialchars($title) .
             $url->link(array('target' => '_blank')) .
-            Horde::img('external.png', '', array('style' => 'vertical-align:middle;padding-left:.3em')) . '</a>';
+            Horde_Themes_Image::tag('external.png', array(
+                'attr' => array(
+                    'style' => 'vertical-align:middle;padding-left:.3em'
+                )
+            )) . '</a>';
     }
 
     /**

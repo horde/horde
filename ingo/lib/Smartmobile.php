@@ -116,7 +116,7 @@ class Ingo_Smartmobile
             $url->setAnchor('rule');
 
             $this->view->list[] = array(
-                'img' => is_null($img) ? null : Horde::img($img, '', array('class' => 'ui-li-icon')),
+                'img' => is_null($img) ? null : Horde_Themes_Image::tag($img, array('attr' => array('class' => 'ui-li-icon'))),
                 'name' => $name,
                 'url' => $url
             );

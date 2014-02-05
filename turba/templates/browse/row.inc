@@ -11,8 +11,10 @@ if ($ob->hasValue('name')) {
 }
 
 if ($own_source == $ob->getSource() && $own_id == $ob->getValue('__key')) {
-    $own_icon = Horde::img('user.png', _("Your own contact"),
-                           array('title' => _("Your own contact")));
+    $own_icon = Horde_Themes_Image::tag('user.png', array(
+        'alt' => _("Your own contact"),
+        'attr' => array('title' => _("Your own contact"))
+    ));
 } else {
     $own_icon = '&nbsp;';
 }

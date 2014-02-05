@@ -4,7 +4,7 @@
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header">
- <?php echo Horde::img('user.png') . ' ' . htmlspecialchars($group['name']) ?>
+ <?php echo Horde_Themes_Image::tag('user.png') . ' ' . htmlspecialchars($group['name']) ?>
 </h1>
 
 <?php if (!$groups->readOnly()): ?>
@@ -15,7 +15,7 @@
 <?php endif; ?>
 
 <h1 class="header">
- <?php echo Horde::img('group.png') . ' ' . _("Members") ?>
+ <?php echo Horde_Themes_Image::tag('group.png') . ' ' . _("Members") ?>
 </h1>
 
 <table class="linedRow nowrap" cellspacing="0" width="100%">
@@ -39,7 +39,7 @@
 
 <?php if (count($inherited_users)): ?>
 <h1 class="header">
- <?php echo Horde::img('group.png') . ' ' . _("Inherited Members") ?>
+ <?php echo Horde_Themes_Image::tag('group.png') . ' ' . _("Inherited Members") ?>
 </h1>
 <div class="horde-content">
  <ul>
@@ -52,7 +52,7 @@
 
 <?php if (!$groups->readOnly()): ?>
 <h1 class="header">
- <?php echo Horde::img('user.png') . ' ' . _("Add Members") ?>
+ <?php echo Horde_Themes_Image::tag('user.png') . ' ' . _("Add Members") ?>
 </h1>
 <p class="horde-content">
 <?php if ($auth->hasCapability('list')): ?>

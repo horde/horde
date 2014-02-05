@@ -141,7 +141,12 @@ EOT;
             if (!empty($fbperms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM])) {
                 $html .= '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
                     . '<div><a class="horde-default" href="#" id="' . $instance . '_button">' . _("Post") . '</a></div>'
-                    . Horde::img('loading.gif', '', array('id' => $instance. '_loading', 'style' => 'display:none;'));
+                    . Horde_Themes_Image::tag('loading.gif', array(
+                          'attr' => array(
+                              'id' => $instance. '_loading',
+                              'style' => 'display:none;'
+                          )
+                      ));
             }
         } catch (Horde_Service_Facebook_Exception $e) {
             $prefs = $GLOBALS['registry']->getServiceLink('prefs');

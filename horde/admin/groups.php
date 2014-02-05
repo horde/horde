@@ -175,9 +175,11 @@ $group_url = Horde::url('admin/groups.php', true);
 $edit = $group_url->copy()->add('actionID', 'edit');
 if (!$groups->readOnly()) {
     $add = $group_url->copy()->add('actionID', 'addchild');
-    $add_img = Horde::img('add_group.png');
+    $add_img = Horde_Themes_Image::tag('add_group.png');
     $delete = $group_url->copy()->add('actionID', 'delete');
-    $delete_img = Horde::img('delete.png', _("Delete Group"));
+    $delete_img = Horde_Themes_Image::tag('delete.png', array(
+        'alt' => _("Delete Group")
+    ));
 }
 
 /* Set up the tree. */

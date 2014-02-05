@@ -41,7 +41,10 @@ class Horde_Block_Vatid extends Horde_Core_Block
             '<br /><input type="text" length="14" name="vatid" />' .
             '<br /><input type="submit" id="vatbutton" value="' . _("Check") .
             '" class="horde-default" /> ' .
-            Horde::img('loading.gif', _("Checking"), array('style' => 'display:none')) .
+            Horde_Themes_Image::tag('loading.gif', array(
+                'alt' => _("Checking"),
+                'attr' => array('style' => 'display:none')
+            )) .
             '<div class="vatidResults"></div>' .
             '</form>';
     }

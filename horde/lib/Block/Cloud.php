@@ -29,7 +29,12 @@ class Horde_Block_Cloud extends Horde_Core_Block
 
         return Horde::endBuffer()
             . '<div>&nbsp;'
-            . Horde::img('loading.gif', '', array('style' => 'display:none;', 'id' => 'cloudloadingimg'))
+            . Horde_Themes_Image::tag('loading.gif', array(
+                  'attr' => array(
+                      'id' => 'cloudloadingimg',
+                      'style' => 'display:none;'
+                  )
+              ))
             . '</div>' . $cloud->buildHTML()
             . '<div id="cloudsearch"></div>';
     }

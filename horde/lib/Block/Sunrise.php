@@ -67,10 +67,10 @@ class Horde_Block_Sunrise extends Horde_Core_Block
         return '<table width="100%" height="100%" cellspacing="0"><tr>' .
             '<td colspan="2" class="control"><strong>' . $location . '</strong></td></tr><tr height="100%">' .
             '<td width="50%" align="center">' .
-            Horde::img('block/sunrise/sunrise.png', _("Sun Rise")) .
+            Horde_Themes_Image::tag('block/sunrise/sunrise.png', array('alt' => _("Sun Rise"))) .
             '<br />' . $rise . '</td>' .
             '<td width="50%" align="center">' .
-            Horde::img('block/sunrise/sunset.png', _("Sun Set")) .
+            Horde_Themes_Image::tag('block/sunrise/sunset.png', array('alt' => _("Sun Set"))) .
             '<br />' . $set . '</td>' . '</tr></table>';
     }
 

@@ -333,10 +333,14 @@ class Turba_View_List implements Countable
         }
         $sortdir = $this->getColumnSortDirection($i);
         if ($this->isPrimarySortColumn($i)) {
-            return Horde::img($sortdir ? 'za.png' : 'az.png', $title);
-        } else {
-            return Horde::img($sortdir ? 'za_secondary.png' : 'az_secondary.png', _("Sort Direction"));
+            return Horde_Themes_Image::tag($sortdir ? 'za.png' : 'az.png', array(
+                'alt' => $title
+            ));
         }
+
+        return Horde_Themes_Image::tag($sortdir ? 'za_secondary.png' : 'az_secondary.png', array(
+            'alt' => _("Sort Direction")
+        ));
     }
 
     /**

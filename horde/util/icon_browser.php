@@ -42,10 +42,14 @@ if (($app = basename($vars->app)) && in_array($app, $apps)) {
 
     if (count($imgs)) {
         foreach ($imgs as $png) {
-            echo Horde::img(Horde_Themes::img(str_replace($img_fs . DIRECTORY_SEPARATOR, '', $png), $app), $png, array(
-                'hspace' => 10,
-                'title' => htmlspecialchars($png),
-                'vspace' => 10
+            echo Horde_Themes::img(str_replace($img_fs . DIRECTORY_SEPARATOR, '', $png), array(
+                'alt' => $png,
+                'app' => $app,
+                'attr' => array(
+                    'hspace' => 10,
+                    'title' => $png,
+                    'vspace' => 10
+                )
             ));
         }
     } else {

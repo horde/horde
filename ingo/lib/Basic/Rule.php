@@ -221,6 +221,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             'templatePath' => INGO_TEMPLATES . '/basic/rule'
         ));
         $view->addHelper('Horde_Core_View_Helper_Help');
+        $view->addHelper('Horde_Core_View_Helper_Image');
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('FormTag');
         $view->addHelper('Tag');

@@ -113,7 +113,7 @@
 <?php endif; ?>
 <?php if (!$f['lastfield']): ?>
       <td>
-       <?php echo Horde::link('javascript:IngoRule.delete_condition(' . intval($f['cond_num']) . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition")) ?></a>
+       <?php echo Horde::link('javascript:IngoRule.delete_condition(' . intval($f['cond_num']) . ');', _("Delete Condition")) . $this->hordeImage('delete.png', _("Delete Condition")) ?></a>
       </td>
 <?php elseif ($f['cond_num'] != 0): ?>
       <td></td>

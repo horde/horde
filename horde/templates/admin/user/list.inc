@@ -29,10 +29,10 @@ foreach ($users as $user):
 ?>
  <tr>
 <?php if ($remove): ?>
-  <td width="1%"><?php echo Horde::link($user_url->add('form', 'remove_f'), _("Delete")) . Horde::img('delete.png', _("Delete")) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'remove_f'), _("Delete")) . Horde_Themes_Image::tag('delete.png', array('alt' => _("Delete"))) ?></a></td>
 <?php endif; ?>
-  <td width="1%"><?php echo Horde::link($user_url->add('form', 'update_f'), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
-  <td width="1%"><?php echo Horde::link($user_url->add('form', 'clear_f'), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'update_f'), _("Update")) .  Horde_Themes_Image::tag('edit.png', array('alt' => _("Update"))) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'clear_f'), _("Clear user data")) .  Horde_Themes_Image::tag('reload.png', array('alt' => _("Clear user data"))) ?></a></td>
   <td><?php echo $user ?></td>
  </tr>
 <?php endforeach; ?>
