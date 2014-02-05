@@ -826,7 +826,11 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function offsetExists($offset)
     {
-        return isset($this->_elts[$this->_normalize($offset)]);
+        /* Optimization: Only normalize in the rare case it is not found on
+         * the first attempt. */
+        $offset = strval($offset);
+        return (isset($this->_elts[$offset]) ||
+                isset($this->_elts[$this->_normalize($offset)]));
     }
 
     /**
@@ -836,6 +840,13 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         if ($offset instanceof IMP_Ftree_Element) {
             return $offset;
+        }
+
+        /* Optimization: Only normalize in the rare case it is not found on
+         * the first attempt. */
+        $offset = strval($offset);
+        if (isset($this->_elts[$offset])) {
+            return new IMP_Ftree_Element($offset, $this);
         }
 
         $offset = $this->_normalize($offset);
