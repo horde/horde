@@ -5,21 +5,21 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @category  Horde
+ * @copyright 2002-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 
 /**
  * Ingo base class.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 class Ingo
 {
@@ -216,7 +216,11 @@ class Ingo
     }
 
     /**
-     * TODO
+     * Check share permissions.
+     *
+     * @param $integer $mask  Permission mask.
+     *
+     * @return boolean  True if user has permission.
      */
     static public function hasSharePermission($mask = null)
     {
