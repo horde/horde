@@ -87,7 +87,8 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         // Turba source and attribute configuration.
-        $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
+        $config = new Horde_Registry_Loadconfig('turba', 'attributes.php', 'attributes');
+        $attributes = $config->config['attributes'];
         $cfgSources = Turba::availableSources();
 
         /* UGLY UGLY UGLY - we should NOT be using this as a global

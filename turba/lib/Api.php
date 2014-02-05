@@ -1826,12 +1826,12 @@ class Turba_Api extends Horde_Registry_Api
     public function getSourcesConfig($filter = array())
     {
         $results = array();
-        $turba_sources = Horde::loadConfiguration('backends.php', 'cfgSources', 'turba');
 
-        foreach ($turba_sources as $key => $source) {
-            if (!empty($filter)) {
-                if (!empty($source[current(array_keys($filter))]) &&
-                    $source[current(array_keys($filter))] == current($filter)) {
+        if (!empty($filter)) {
+            foreach (Turba::availableSources() as $key => $source) {
+                $curr = current(array_keys($filter));
+                if (!empty($source[$curr]) &&
+                    ($source[$curr] == current($filter))) {
                     $results[$key] = $source;
                 }
             }

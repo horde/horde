@@ -767,7 +767,8 @@ class Horde_Hooks
 //        // this example does is include the attributes.php file from turba.
 //        // NOTE: You NEED Turba to be correctly installed before you can use
 //        // this example.
-//        return Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
+//        $config = new Horde_Registry_Loadconfig('turba', 'attributes.php', 'attributes');
+//        return $config->config['attributes'];
 //     }
 
 

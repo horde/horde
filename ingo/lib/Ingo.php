@@ -357,4 +357,21 @@ class Ingo
         return $descrip;
     }
 
+    /**
+     * Loads the backends.php configuration file.
+     *
+     * @return array  Configuration data.
+     * @throws Horde_Exception
+     */
+    static public function loadBackends()
+    {
+        $config = new Horde_Registry_Loadconfig('ingo', 'backends.php', 'backends');
+        if (empty($config->config['backends']) ||
+            !is_array($config->config['backends'])) {
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
+        }
+
+        return $config->config['backends'];
+    }
+
 }

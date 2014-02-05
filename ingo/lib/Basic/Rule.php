@@ -56,7 +56,8 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         }
 
         /* This provides the $ingo_fields array. */
-        $ingo_fields = Horde::loadConfiguration('fields.php', 'ingo_fields', 'ingo');
+        $config = new Horde_Registry_LoadConfig('ingo', 'fields.php', 'ingo_fields');
+        $ingo_fields = $config->config['ingo_fields'];
 
         /* Get the current rules. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();

@@ -313,9 +313,10 @@ class Ingo_Application extends Horde_Registry_Application
             return $this->_rulesets;
         }
 
+        $this->_rulesets = array();
+
         try {
             if (!($share = $injector->getInstance('Ingo_Shares'))) {
-                $this->_rulesets = array();
                 return $this->_rulesets;
             }
 
@@ -325,17 +326,12 @@ class Ingo_Application extends Horde_Registry_Application
             );
         } catch (Horde_Share_Exception $e) {
             Horde::log($e, 'ERR');
-            $this->_rulesets = array();
             return $this->_rulesets;
         }
 
         /* Check if filter backend of the share still exists. */
-        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
-        if (!isset($backends) || !is_array($backends)) {
-            throw new Ingo_Exception(_("No backends configured in backends.php"));
-        }
+        $backends = Ingo::loadBackends();
 
-        $this->_rulesets = array();
         foreach ($tmp as $id => $ruleset) {
             list($backend) = explode(':', $id);
             if (isset($backends[$backend]) &&

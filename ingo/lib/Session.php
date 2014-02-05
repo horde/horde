@@ -114,41 +114,36 @@ class Ingo_Session
      */
     static protected function _getBackend()
     {
-        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
-        if (!isset($backends) || !is_array($backends)) {
-            throw new Ingo_Exception(_("No backends configured in backends.php"));
-        }
-
         $backend = null;
-        foreach ($backends as $name => $temp) {
-            if (!empty($temp['disabled'])) {
+
+        foreach (Ingo::loadBackends() as $name => $val) {
+            if (!empty($val['disabled'])) {
                 continue;
             }
 
+            $val['id'] = $name;
+
             if (!isset($backend)) {
-                $backend = $name;
-            } elseif (!empty($temp['preferred'])) {
-                if (is_array($temp['preferred'])) {
-                    foreach ($temp['preferred'] as $val) {
+                $backend = $val;
+            } elseif (!empty($val['preferred'])) {
+                if (is_array($val['preferred'])) {
+                    foreach ($val['preferred'] as $val) {
                         if (($val == $_SERVER['SERVER_NAME']) ||
                             ($val == $_SERVER['HTTP_HOST'])) {
-                            $backend = $name;
+                            $backend = $val;
                         }
                     }
-                } elseif (($temp['preferred'] == $_SERVER['SERVER_NAME']) ||
-                          ($temp['preferred'] == $_SERVER['HTTP_HOST'])) {
-                    $backend = $name;
+                } elseif (($val['preferred'] == $_SERVER['SERVER_NAME']) ||
+                          ($val['preferred'] == $_SERVER['HTTP_HOST'])) {
+                    $backend = $val;
                 }
             }
-
-            $backends[$name]['id'] = $name;
         }
 
         /* Check for valid backend configuration. */
         if (is_null($backend)) {
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
-        $backend = $backends[$backend];
 
         foreach (array('script', 'transport') as $val) {
             if (empty($backend[$val])) {
