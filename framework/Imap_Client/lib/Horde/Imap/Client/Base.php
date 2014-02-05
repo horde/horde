@@ -3956,7 +3956,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         ksort($options);
         $cache = hash('sha1', $type . serialize($options));
-        $cacheid = $this->getCacheId($this->_selected);
+        $cacheid = $this->getSyncToken($this->_selected);
         $ret = array();
 
         $md = $this->_cache->getMetaData(
