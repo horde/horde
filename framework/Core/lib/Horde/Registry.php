@@ -125,11 +125,14 @@ class Horde_Registry implements Horde_Shutdown_Task
     protected $_args = array();
 
     /**
-     * Cached configuration information.
+     * Internal cached data.
      *
      * @var array
      */
-    protected $_confCache = array();
+    protected $_cache = array(
+        'conf' => array(),
+        'ob' => array()
+    );
 
     /**
      * Interfaces list.
@@ -137,13 +140,6 @@ class Horde_Registry implements Horde_Shutdown_Task
      * @var array
      */
     protected $_interfaces = array();
-
-    /**
-     * Object (Application/Api) cache.
-     *
-     * @var array
-     */
-    protected $_obCache = array();
 
     /**
      * The last modified time of the newest modified registry file.
@@ -593,7 +589,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     public function setAuthenticationSetting($authentication)
     {
         $this->_args['authentication'] = $authentication;
-        $this->_obCache = array();
+        $this->_cache['ob'] = array();
         while ($this->popApp());
     }
 
@@ -650,7 +646,7 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         $app = $this->getApp();
 
-        $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = $this->_obCache = array();
+        $this->applications = $this->_apiList = $this->_cache['conf'] = $this->_cache['ob'] = $this->_interfaces = array();
 
         $session->remove('horde', 'nls/');
         $session->remove('horde', 'registry/');
@@ -755,8 +751,8 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     protected function _loadApi($app)
     {
-        if (isset($this->_obCache[$app]['api'])) {
-            return $this->_obCache[$app]['api'];
+        if (isset($this->_cache['ob'][$app]['api'])) {
+            return $this->_cache['ob'][$app]['api'];
         }
 
         $api = null;
@@ -773,7 +769,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             }
         }
 
-        $this->_obCache[$app]['api'] = $api;
+        $this->_cache['ob'][$app]['api'] = $api;
 
         return $api;
     }
@@ -789,8 +785,8 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function getApiInstance($app, $type)
     {
-        if (isset($this->_obCache[$app][$type])) {
-            return $this->_obCache[$app][$type];
+        if (isset($this->_cache['ob'][$app][$type])) {
+            return $this->_cache['ob'][$app][$type];
         }
 
         $path = $this->get('fileroot', $app) . '/lib';
@@ -798,7 +794,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Set up autoload paths for the current application. This needs to
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
-        if (!isset($this->_obCache[$app])) {
+        if (!isset($this->_cache['ob'][$app])) {
             $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
 
             $app_mappers = array(
@@ -836,11 +832,11 @@ class Horde_Registry implements Horde_Shutdown_Task
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_obCache[$app][$type] = ($type == 'application')
+        $this->_cache['ob'][$app][$type] = ($type == 'application')
             ? new $classname($app)
             : new $classname();
 
-        return $this->_obCache[$app][$type];
+        return $this->_cache['ob'][$app][$type];
     }
 
     /**
@@ -1670,7 +1666,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function importConfig($app)
     {
-        if (!isset($this->_confCache[$app])) {
+        if (!isset($this->_cache['conf'][$app])) {
             try {
                 $app_conf = new Horde_Registry_Loadconfig($app, 'conf.php', 'conf');
                 $config = $app_conf->config['conf'];
@@ -1678,12 +1674,12 @@ class Horde_Registry implements Horde_Shutdown_Task
                 $config = array();
             }
 
-            $this->_confCache[$app] = ($app == 'horde')
+            $this->_cache['conf'][$app] = ($app == 'horde')
                 ? $config
-                : $this->_mergeConfig($this->_confCache['horde'], $config);
+                : $this->_mergeConfig($this->_cache['conf']['horde'], $config);
         }
 
-        $GLOBALS['conf'] = $this->_confCache[$app];
+        $GLOBALS['conf'] = $this->_cache['conf'][$app];
     }
 
     /**
