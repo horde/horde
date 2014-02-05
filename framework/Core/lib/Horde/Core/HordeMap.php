@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014 Horde LLC
+ * @copyright 2009-2014 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
@@ -19,9 +19,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014 Horde LLC
+ * @copyright 2009-2014 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
