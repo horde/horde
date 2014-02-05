@@ -21,7 +21,7 @@
  * @package   Core
  * @since     2.12.0
  */
-class Horde_Themes_Css
+class Horde_Themes_Css_Compress
 {
     /**
      * Loads CSS files, cleans up the input (and compresses), and concatenates
@@ -56,7 +56,7 @@ class Horde_Themes_Css
             foreach ($css_parser->doc->getContents() as $val) {
                 if ($val instanceof Sabberworm\CSS\Property\Import) {
                     $ob = Horde_Themes_Element::fromUri($path . $val->getLocation()->getURL()->getString());
-                    $out .= $this->loadCssFiles(array(array(
+                    $out .= $this->compress(array(array(
                         'app' => null,
                         'fs' => $ob->fs,
                         'uri' => $ob->uri
