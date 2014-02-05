@@ -1468,6 +1468,8 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function pushApp($app, array $options = array())
     {
+        global $injector, $language, $session;
+
         if ($app == $this->getApp()) {
             return false;
         }
@@ -1511,7 +1513,7 @@ class Horde_Registry implements Horde_Shutdown_Task
          * language for this app, they have to be loaded after the
          * configuration, because they rely on configuration settings. So try
          * with the current language, and reset the language later. */
-        $this->setLanguageEnvironment($GLOBALS['language'], $app);
+        $this->setLanguageEnvironment($language, $app);
 
         /* Load config and prefs. */
         $this->importConfig($app);
@@ -1523,8 +1525,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         /* Run authenticated hooks, if necessary. */
-        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
-        if ($GLOBALS['session']->get('horde', 'auth_app_init/' . $app)) {
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+        if ($session->get('horde', 'auth_app_init/' . $app)) {
             try {
                 $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'authenticated');
@@ -1535,7 +1537,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 $this->_pushAppError($e, $error);
             }
 
-            $GLOBALS['session']->remove('horde', 'auth_app_init/' . $app);
+            $session->remove('horde', 'auth_app_init/' . $app);
             unset($this->_appsInit[$app]);
         }
 
@@ -1556,8 +1558,8 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Do login tasks. */
         if ($checkPerms &&
-            ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app)) &&
-            !empty($options['logintasks'])) {
+            !empty($options['logintasks']) &&
+            ($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($app))) {
             $tasks->runTasks();
         }
 
@@ -1696,15 +1698,13 @@ class Horde_Registry implements Horde_Shutdown_Task
     protected function _mergeConfig(array $a1, array $a2)
     {
         foreach ($a2 as $key => $val) {
-            if (isset($a1[$key]) &&
-                is_array($a1[$key])) {
+            if (isset($a1[$key]) && is_array($a1[$key])) {
                 reset($a1[$key]);
-                $a1[$key] = is_int(key($a1[$key]))
-                    ? $val
-                    : $this->_mergeConfig($a1[$key], $val);
-            } else {
-                $a1[$key] = $val;
+                if (!is_int(key($a1[$key]))) {
+                    $val = $this->_mergeConfig($a1[$key], $val);
+                }
             }
+            $a1[$key] = $val;
         }
 
         return $a1;
@@ -2050,6 +2050,8 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function isAuthenticated(array $options = array())
     {
+        global $injector, $session;
+
         $app = empty($options['app'])
             ? 'horde'
             : $options['app'];
@@ -2057,7 +2059,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Check for cached authentication results. */
         if ($this->getAuth() &&
             (($app == 'horde') ||
-             $GLOBALS['session']->exists('horde', 'auth_app/' . $app))) {
+             $session->exists('horde', 'auth_app/' . $app))) {
             if ($this->checkExistingAuth($app)) {
                 return true;
             }
@@ -2068,8 +2070,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             return false;
         }
         try {
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Auth')
+            return $injector->getInstance('Horde_Core_Factory_Auth')
                 ->create($app)
                 ->transparent();
         } catch (Horde_Exception $e) {
