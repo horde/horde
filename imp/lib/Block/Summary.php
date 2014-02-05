@@ -66,7 +66,7 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Ftree')->poll->getPollList(true);
-        $status = $injector->getInstance('IMP_Factory_Imap')->create()->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT_TOTAL);
+        $status = $injector->getInstance('IMP_Factory_Imap')->create()->status($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT_TOTAL);
 
         $anyUnseen = false;
         $out = '';
