@@ -106,4 +106,23 @@ class Horde_Imap_Client_Base_Deprecated
         return $info;
     }
 
+    /**
+     * Get encryption key.
+     *
+     * @deprecated  Pass callable into 'password' parameter instead.
+     *
+     * @return string  The encryption key.
+     */
+    static public function getEncryptKey($base, $password)
+    {
+        if (is_callable($ekey = $base->getParam('encryptKey'))) {
+            try {
+                $secret = new Horde_Secret();
+                return $secret->read(call_user_func($ekey), $password);
+            } catch (Exception $e) {}
+        }
+
+        return null;
+    }
+
 }
