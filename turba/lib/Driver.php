@@ -2469,7 +2469,7 @@ class Turba_Driver implements Countable
         // the source is, therefore we don't know the mappings available. Fixes
         // importing vCards that have all EMAIL properties with a TYPE attribute.
         // See Bug: 12955
-        if (!isset($hash['email']))
+        if (!isset($hash['email'])) {
             if (!empty($hash['homeEmail'])) {
                 $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($hash['homeEmail']);
             } else if (!empty($hash['workEmail'])) {
