@@ -1,3 +1,15 @@
+<?php
+if ($this->deleteallowed) {
+    $del_img = $this->hordeImage('delete.png', _("Delete"));
+}
+if ($this->editallowed) {
+    $copy_img = $this->hordeImage('copy.png', _("Copy"));
+    $nav_down = $this->hordeImage('nav/down.png', _("Move Rule Down"));
+    $nav_up = $this->hordeImage('nav/up.png', _("Move Rule Up"));
+}
+$disable_img = $this->hordeImage('disable.png');
+$enable_img = $this->hordeImage('enable.png');
+?>
 <form method="post" id="filters" name="filters" action="<?php echo $this->formurl ?>">
  <input type="hidden" id="actionID" name="actionID" value="" />
 
@@ -29,39 +41,48 @@
    <tr>
     <td class="nowrap">
 <?php if ($this->deleteallowed): ?>
-<?php if ($v['dellink']): ?>
-     <?php echo $v['dellink'] . $v['delimg'] ?></a>
+<?php if (!empty($v['dellink'])): ?>
+     <?php echo $v['dellink'] . $del_img ?></a>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->editallowed): ?>
-<?php if ($v['copylink']): ?>
-     <?php echo $v['copylink'] . $v['copyimg'] ?></a>
+<?php if (!empty($v['copylink'])): ?>
+     <?php echo $v['copylink'] . $copy_img ?></a>
 <?php endif; ?>
 <?php endif ?>
     </td>
     <td>
      <strong>
       <?php echo $v['number'] ?>.
-      <?php echo $v['filterimg'] ?>
+      <?php if (isset($v['filterimg'])) { echo $this->hordeImage($v['filterimg']); } ?>
       <?php echo $v['descriplink'] ?>
      </strong>
-<?php if ($v['enablelink']): ?>
-     <strong>[<?php echo $v['enablelink'] ?><span style="color:red"><?php echo _("disabled - click to enable") ?></span></a>]</strong>
+<?php if (!empty($v['enablelink'])): ?>
+     <strong>[<?php echo $v['enablelink'] . $disable_img ?><span style="color:red"><?php echo _("disabled - click to enable") ?></span></a>]</strong>
 <?php endif; ?>
     </td>
     <td style="text-align:center">
-     <?php echo $v['disablelink'] ?>
-     <?php echo $v['enablelink'] ?>
+<?php if ($this->editallowed): ?>
+<?php if (!empty($v['disablelink'])): ?>
+     <?php echo $v['disablelink'] . $enable_img ?></a>
+<?php else: ?>
+     <?php echo $v['enablelink'] . $disable_img ?></a>
+<?php endif; ?>
+<?php elseif (!empty($v['disablelink'])): ?>
+     <?php echo $enable_img ?>
+<?php else: ?>
+     <?php echo $disable_img ?>
+<?php endif; ?>
     </td>
 <?php if ($this->editallowed): ?>
     <td class="nowrap">
 <?php if ($v['uplink']): ?>
-     <?php echo $v['uplink'] . $this->hordeImage('nav/up.png', _("Move Rule Up")) ?></a>
+     <?php echo $v['uplink'] . $nav_up ?></a>
 <?php endif ?>
     </td>
     <td class="nowrap">
 <?php if ($v['downlink']): ?>
-     <?php echo $v['downlink'] . $this->hordeImage('nav/down.png', _("Move Rule Down")) ?></a>
+     <?php echo $v['downlink'] . $nav_down ?></a>
 <?php endif ?>
     </td>
     <td class="nowrap">

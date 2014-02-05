@@ -178,6 +178,9 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             $i = $rule_count = 0;
             $s_categories = $session->get('ingo', 'script_categories');
 
+            $can_copy = (($perms->hasAppPermission('max_rules') === true) ||
+                         ($perms->hasAppPermission('max_rules') > count($filter_list)));
+
             foreach ($filter_list as $val) {
                 if (in_array($val['action'], $s_categories)) {
                     ++$rule_count;
@@ -199,31 +202,31 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 switch ($filter['action']) {
                 case Ingo_Storage::ACTION_BLACKLIST:
                     $editurl = Ingo_Basic_Blacklist::url();
-                    $entry['filterimg'] = Horde_Themes_Image::tag('blacklist.png');
+                    $entry['filterimg'] = 'blacklist.png';
                     $name = _("Blacklist");
                     break;
 
                 case Ingo_Storage::ACTION_WHITELIST:
                     $editurl = Ingo_Basic_Whitelist::url();
-                    $entry['filterimg'] = Horde_Themes_Image::tag('whitelist.png');
+                    $entry['filterimg'] = 'whitelist.png';
                     $name = _("Whitelist");
                     break;
 
                 case Ingo_Storage::ACTION_VACATION:
                     $editurl = Ingo_Basic_Vacation::url();
-                    $entry['filterimg'] = Horde_Themes_Image::tag('vacation.png');
+                    $entry['filterimg'] = 'vacation.png';
                     $name = _("Vacation");
                     break;
 
                 case Ingo_Storage::ACTION_FORWARD:
                     $editurl = Ingo_Basic_Forward::url();
-                    $entry['filterimg'] = Horde_Themes_Image::tag('forward.png');
+                    $entry['filterimg'] = 'forward.png';
                     $name = _("Forward");
                     break;
 
                 case Ingo_Storage::ACTION_SPAM:
                     $editurl = Ingo_Basic_Spam::url();
-                    $entry['filterimg'] = Horde_Themes_Image::tag('spam.png');
+                    $entry['filterimg'] = 'spam.png';
                     $name = _("Spam Filter");
                     break;
 
@@ -233,7 +236,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     ));
                     $delurl = $url->copy()->add('actionID', 'rule_delete');
                     $copyurl = $url->copy()->add('actionID', 'rule_copy');
-                    $entry['filterimg'] = '';
                     $name = $filter['name'];
                     break;
                 }
@@ -247,29 +249,14 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     $entry['descriplink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name)) . htmlspecialchars($name) . '</a>';
                 }
 
-                /* Create edit link. */
-                $entry['editlink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name));
-
                 /* Create delete link. */
                 if (!is_null($delurl)) {
                     $entry['dellink'] = Horde::link($delurl, sprintf(_("Delete %s"), $name), null, null, "return window.confirm('" . addslashes(_("Are you sure you want to delete this rule?")) . "');");
-                    $entry['delimg'] = Horde_Themes_Image::tag('delete.png', array(
-                        'alt' => sprintf(_("Delete %s"), $name)
-                    ));
-                } else {
-                    $entry['dellink'] = false;
                 }
 
                 /* Create copy link. */
-                if (!is_null($copyurl) &&
-                    (($perms->hasAppPermission('max_rules') === true) ||
-                     $perms->hasAppPermission('max_rules') > count($filter_list))) {
+                if ($can_copy && !is_null($copyurl)) {
                     $entry['copylink'] = Horde::link($copyurl, sprintf(_("Copy %s"), $name));
-                    $entry['copyimg'] = Horde_Themes_Image::tag('copy.png', array(
-                        'alt' => sprintf(_("Copy %s"), $name)
-                    ));
-                } else {
-                    $entry['copylink'] = false;
                 }
 
                 /* Create up/down arrow links. */
@@ -283,25 +270,13 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     : false;
 
                 if (empty($filter['disable'])) {
-                    if ($edit_allowed) {
-                        $entry['disablelink'] = Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name)) .
-                            Horde_Themes_Image::tag('enable.png', array(
-                                'alt' => sprintf(_("Disable %s"), $name)
-                            )) . '</a>';
-                    } else {
-                        $entry['disablelink'] = Horde_Themes_Image::tag('enable.png');
-                    }
-                    $entry['enablelink'] = false;
+                    $entry['disablelink'] = $edit_allowed
+                        ? Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name))
+                        : true;
                 } else {
-                    if ($edit_allowed) {
-                        $entry['enablelink'] = Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name)) .
-                            Horde_Themes_Image::tag('disable.png', array(
-                                'alt' => sprintf(_("Enable %s"), $name)
-                            )) . '</a>';
-                    } else {
-                        $entry['enablelink'] = Horde_Themes_Image::tag('disable.png');
-                    }
-                    $entry['disablelink'] = false;
+                    $entry['enablelink'] = $edit_allowed
+                        ? Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name))
+                        : true;
                 }
 
                 $display[] = $entry;
