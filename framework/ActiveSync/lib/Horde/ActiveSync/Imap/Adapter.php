@@ -1040,21 +1040,25 @@ class Horde_ActiveSync_Imap_Adapter
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
-                $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
-                $airsync_body->truncated = $message_body_data['html']['truncated'];
-                $airsync_body->data = $message_body_data['html']['body']->stream;
-                $eas_message->airsyncbasebody = $airsync_body;
+                if (!empty($message_body_data['html']['estimated_size'])) {
+                    $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
+                    $airsync_body->truncated = $message_body_data['html']['truncated'];
+                    $airsync_body->data = $message_body_data['html']['body']->stream;
+                    $eas_message->airsyncbasebody = $airsync_body;
+                }
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) {
 
                 // Non MIME encoded plaintext
                 $this->_logger->info(sprintf(
                     '[%s] Sending PLAINTEXT Message.', $this->_procid));
-                $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
-                $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                $airsync_body->data = $message_body_data['plain']['body']->stream;
-                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                $eas_message->airsyncbasebody = $airsync_body;
+                if (!empty($message_body_data['plain']['size'])) {
+                    $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
+                    $airsync_body->truncated = $message_body_data['plain']['truncated'];
+                    $airsync_body->data = $message_body_data['plain']['body']->stream;
+                    $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    $eas_message->airsyncbasebody = $airsync_body;
+                }
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             }
         }
