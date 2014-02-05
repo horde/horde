@@ -206,7 +206,7 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         if ($injector->getInstance('Ingo_Shares') &&
-            (count($GLOBALS['all_rulesets']) > 1)) {
+            (count($all_rulesets = $this->_listRulesets()) > 1)) {
             $url = Ingo_Basic_Filters::url();
             $current = $GLOBALS['session']->get('ingo', 'current_share');
 
@@ -217,7 +217,7 @@ class Ingo_Application extends Horde_Registry_Application
                     'collapsed' => false,
                 ),
             );
-            foreach ($GLOBALS['all_rulesets'] as $id => $ruleset) {
+            foreach ($all_rulesets as $id => $ruleset) {
                 $row = array(
                     'selected' => ($current == $id),
                     'url' => $url->add('ruleset', $id),
