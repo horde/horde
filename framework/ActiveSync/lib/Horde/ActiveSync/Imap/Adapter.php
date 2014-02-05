@@ -1395,15 +1395,6 @@ class Horde_ActiveSync_Imap_Adapter
                     $attendee = str_replace('mailto:', '', Horde_String::lower($atname));
                 }
 
-                // Require the sender to be the same as the attendee.
-                $addr = new Horde_Mail_Rfc822_Address($from);
-                $from = Horde_String::lower($addr->bare_address);
-                if ($from != $attendee) {
-                    throw new Horde_ActiveSync_Exception(sprintf(
-                        'Unmatched sender and attendee: %s, %s',
-                        $from,
-                        $attendee));
-                }
                 try {
                     $atparams = $component->getAttribute('ATTENDEE', true);
                 } catch (Horde_Icalendar_Exception $e) {
