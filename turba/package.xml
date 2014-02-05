@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
 * [mjr] Do not export empty property names in CardDav responses (Bug #12782).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Export free/busy URL to vCard (Request #12915).
@@ -1766,6 +1767,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
 * [mjr] Do not export empty property names in CardDav responses (Bug #12782).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Export free/busy URL to vCard (Request #12915).
