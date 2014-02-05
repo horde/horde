@@ -132,6 +132,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     protected $_cache = array(
         'auth' => null,
         'conf' => array(),
+        'existing' => array(),
         'ob' => array()
     );
 
@@ -1972,6 +1973,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->remove('horde', 'auth_app/');
 
         $this->_cache['auth'] = null;
+        $this->_cache['existing'] = array();
 
         /* Remove the user's cached preferences if they are present. */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
@@ -2414,6 +2416,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->set('horde', 'auth/timestamp', time());
         $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
         $this->_cache['auth'] = null;
+        $this->_cache['existing'] = array();
 
         $this->setAuthCredential($credentials, null, $app);
 
@@ -2436,47 +2439,49 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         global $browser, $conf, $injector, $session;
 
-        $auth = $injector
-            ->getInstance('Horde_Core_Factory_Auth')
-            ->create();
-
-        if (!empty($conf['auth']['checkip']) &&
-            ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
-            ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
-            $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
-            return false;
-        }
-
-        if (!empty($conf['auth']['checkbrowser']) &&
-            ($session->get('horde', 'auth/browser') != $browser->getAgentString())) {
-            $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
-            return false;
-        }
-
-        if (!empty($conf['session']['max_time']) &&
-            (($conf['session']['max_time'] + $session->begin) < time())) {
-            $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONMAXTIME);
-            return false;
-        }
-
-        if ($auth->validateAuth()) {
-            if ($app != 'horde') {
-                $auth = $injector
-                    ->getInstance('Horde_Core_Factory_Auth')
-                    ->create($app);
-                if (!$auth->validateAuth()) {
-                    return false;
-                }
-            }
+        if (!empty($this->_cache['existing'][$app])) {
             return true;
         }
 
-        /* Make sure there is always a logout reason set. */
-        if (!$auth->getError()) {
-            $auth->setError(Horde_Auth::REASON_SESSION);
+        /* Tasks that only need to run once. */
+        if (empty($this->_cache['existing'])) {
+            if (!empty($conf['auth']['checkip']) &&
+                ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
+                ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
+                $injector->getInstance('Horde_Core_Factory_Auth')->create()
+                    ->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
+                return false;
+            }
+
+            if (!empty($conf['auth']['checkbrowser']) &&
+                ($session->get('horde', 'auth/browser') != $browser->getAgentString())) {
+                $injector->getInstance('Horde_Core_Factory_Auth')->create()
+                    ->setError(Horde_Core_Auth_Application::REASON_BROWSER);
+                return false;
+            }
+
+            if (!empty($conf['session']['max_time']) &&
+                (($conf['session']['max_time'] + $session->begin) < time())) {
+                $injector->getInstance('Horde_Core_Factory_Auth')->create()
+                    ->setError(Horde_Core_Auth_Application::REASON_SESSIONMAXTIME);
+                return false;
+            }
         }
 
-        return false;
+        foreach (array_unique(array('horde', $app)) as $val) {
+            if (!isset($this->_cache['existing'][$val])) {
+                $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create($val);
+                if (!$auth->validateAuth()) {
+                    if (!$auth->getError()) {
+                        $auth->setError(Horde_Auth::REASON_SESSION);
+                    }
+                    return false;
+                }
+                $this->_cache['existing'][$val] = true;
+            }
+        }
+
+        return true;
     }
 
     /**
