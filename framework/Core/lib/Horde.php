@@ -1171,78 +1171,6 @@ class Horde
         }
     }
 
-    /**
-     * Initialize a HordeMap.
-     */
-    static public function initMap(array $params = array())
-    {
-        global $conf, $page_output;
-
-        if (empty($params['providers'])) {
-            $params['providers'] = $conf['maps']['providers'];
-        }
-        if (empty($params['geocoder'])) {
-            $params['geocoder'] = $conf['maps']['geocoder'];
-        }
-
-        // Language specific file needed?
-        $language = str_replace('_', '-', $GLOBALS['language']);
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
-            $language = 'en-US';
-        }
-        $params['conf'] = array(
-            'language' => $language,
-            'markerImage' => (string)Horde_Themes::img('map/marker.png'),
-            'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png'),
-            'useMarkerLayer' => true,
-        );
-
-        $params['driver'] = 'Horde';
-        foreach ($params['providers'] as $layer) {
-            switch ($layer) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
-                break;
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
-                break;
-            case 'Mytopo':
-                // Mytopo requires a hash of the *client* IP address and the key.
-                // Note that this also causes Mytopo to break if the client's
-                // IP address presented as an internal address.
-                $params['conf']['apikeys']['mytopo'] = array(
-                    'id' => $conf['api']['mytopo_partnerID'],
-                    'hash' => strtoupper(md5($conf['api']['mytopo'] . $GLOBALS['browser']->getIpAddress()))
-                );
-                break;
-            }
-        }
-
-        if (!empty($params['geocoder'])) {
-            switch ($params['geocoder']) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
-                break;
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
-                break;
-            }
-        }
-        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        $params['ssl'] = $GLOBALS['browser']->usingSSLConnection();
-
-        $page_output->addScriptFile('map/map.js', 'horde');
-        $page_output->addInlineScript(array(
-            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
-        ));
-    }
-
     /* Deprecated methods. */
 
     /**
@@ -1407,6 +1335,18 @@ class Horde
         return is_array($var_names)
             ? array_intersect_key($app_conf->config, array_flip($var_names))
             : $app_conf->config[$var_names];
+    }
+
+    /**
+     * Initialize a HordeMap.
+     *
+     * @deprecated  Call Horde_Core_HordeMap::init() instead.
+     *
+     * @param array $params
+     */
+    static public function initMap(array $params = array())
+    {
+        Horde_Core_HordeMap::init();
     }
 
 }
