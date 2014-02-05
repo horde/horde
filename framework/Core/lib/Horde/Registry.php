@@ -130,6 +130,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      * @var array
      */
     protected $_cache = array(
+        'auth' => null,
         'conf' => array(),
         'ob' => array()
     );
@@ -1970,6 +1971,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->remove('horde', 'auth');
         $session->remove('horde', 'auth_app/');
 
+        $this->_cache['auth'] = null;
+
         /* Remove the user's cached preferences if they are present. */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
 
@@ -2201,6 +2204,10 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         global $session;
 
+        if (is_null($format) && !is_null($this->_cache['auth'])) {
+            return $this->_cache['auth'];
+        }
+
         if (!isset($session)) {
             return false;
         }
@@ -2228,6 +2235,9 @@ class Horde_Registry implements Horde_Shutdown_Task
                 : substr($user, $pos + 1);
 
         default:
+            /* Specifically cache this result, since it generally is called
+             * many times in a page. */
+            $this->_cache['auth'] = $user;
             return $user;
         }
     }
@@ -2403,6 +2413,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
         $session->set('horde', 'auth/timestamp', time());
         $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+        $this->_cache['auth'] = null;
 
         $this->setAuthCredential($credentials, null, $app);
 
