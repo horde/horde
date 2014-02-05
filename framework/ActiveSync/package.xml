@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix some issues caused by attempting to process iTip responses when saving to sent mail folder (Bug #12956).
+* [mjr] Work around issues with clients that crash when receiving an empty body element (Bug #12956).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1971,7 +1972,8 @@
    <date>2014-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix some issues caused by attempting to process iTip responses when saving to sent mail folder (Bug #12956).
+* [mjr] Work around issues with clients that crash when receiving an empty body element (Bug #12956).
    </notes>
   </release>
  </changelog>
