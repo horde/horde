@@ -1973,7 +1973,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->remove('horde', 'auth_app/');
 
         $this->_cache['auth'] = null;
-        $this->_cache['existing'] = array();
+        $this->_cache['existing'] = $this->_cache['isauth'] = array();
 
         /* Remove the user's cached preferences if they are present. */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
@@ -2002,6 +2002,11 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->remove($app);
         $session->remove('horde', 'auth_app/' . $app);
         $session->remove('horde', 'auth_app_init/' . $app);
+
+        unset(
+            $this->_cache['existing'][$app],
+            $this->_cache['isauth'][$app]
+        );
 
         return true;
     }
@@ -2041,7 +2046,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      * isn't, but the configured Auth driver supports transparent
      * authentication, then we try that.
      *
-     * @param array $options  Additional options:
+     * @param array $opts  Additional options:
      *   - app: (string) Check authentication for this app.
      *          DEFAULT: Checks horde-wide authentication.
      *   - notransparent: (boolean) Do not attempt transparent authentication.
@@ -2049,35 +2054,39 @@ class Horde_Registry implements Horde_Shutdown_Task
      *
      * @return boolean  Whether or not the user is authenticated.
      */
-    public function isAuthenticated(array $options = array())
+    public function isAuthenticated(array $opts = array())
     {
         global $injector, $session;
 
-        $app = empty($options['app'])
+        $app = empty($opts['app'])
             ? 'horde'
-            : $options['app'];
+            : $opts['app'];
+        $transparent = intval(empty($opts['notransparent']));
+
+        if (isset($this->_cache['isauth'][$app][$transparent])) {
+            return $this->_cache['isauth'][$app][$transparent];
+        }
 
         /* Check for cached authentication results. */
         if ($this->getAuth() &&
             (($app == 'horde') ||
-             $session->exists('horde', 'auth_app/' . $app))) {
-            if ($this->checkExistingAuth($app)) {
-                return true;
+             $session->exists('horde', 'auth_app/' . $app)) &&
+            $this->checkExistingAuth($app)) {
+            $res = true;
+        } elseif ($transparent) {
+            try {
+                $res = $injector->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent();
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+                $res = false;
             }
+        } else {
+            $res = false;
         }
 
-        /* Try transparent authentication. */
-        if (!empty($options['notransparent'])) {
-            return false;
-        }
-        try {
-            return $injector->getInstance('Horde_Core_Factory_Auth')
-                ->create($app)
-                ->transparent();
-        } catch (Horde_Exception $e) {
-            Horde::log($e);
-            return false;
-        }
+        $this->_cache['isauth'][$app][$transparent] = $res;
+
+        return $res;
     }
 
     /**
@@ -2323,6 +2332,11 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         $session->set('horde', 'auth_app/' . $app, $entry, $session::ENCRYPT);
         $session->set('horde', 'auth_app_init/' . $app, true);
+
+        unset(
+            $this->_cache['existing'][$app],
+            $this->_cache['isauth'][$app]
+        );
     }
 
     /**
