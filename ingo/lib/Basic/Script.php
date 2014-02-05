@@ -53,7 +53,7 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
         case 'action_activate':
             if (!empty($scripts)) {
                 try {
-                    Ingo::activateScripts($scripts, false);
+                    Ingo_Script_Util::activate($scripts);
                 } catch (Ingo_Exception $e) {
                     $notification->push($e);
                 }
@@ -62,7 +62,7 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
 
         case 'action_deactivate':
             try {
-                Ingo::activateScripts('', true);
+                Ingo_Script_Util::activate('', true);
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

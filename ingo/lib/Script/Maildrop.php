@@ -265,9 +265,11 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
             $this->_addItem(
                 Ingo::RULE_VACATION,
                 new Ingo_Script_String(
-                    Ingo::getReason($vacation->getVacationReason(),
-                                    $vacation->getVacationStart(),
-                                    $vacation->getVacationEnd())
+                    Ingo_Script_Util::vacationReason(
+                        $vacation->getVacationReason(),
+                        $vacation->getVacationStart(),
+                        $vacation->getVacationEnd()
+                    )
                 ),
                 'vacation.msg'
             );

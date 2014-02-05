@@ -192,9 +192,11 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
                     $this->_action[] = '       -a"From: <' . $address . '>" \\';
                     $this->_action[] = '       -A"X-Loop: ' . $address . '" \\';
-                    $reason = Ingo::getReason($params['action-value']['reason'],
-                                              $params['action-value']['start'],
-                                              $params['action-value']['end']);
+                    $reason = Ingo_Script_Util::vacationReason(
+                        $params['action-value']['reason'],
+                        $params['action-value']['start'],
+                        $params['action-value']['end']
+                    );
                     if (Horde_Mime::is8bit($reason)) {
                         $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" \\';
                         $this->_action[] = '       -i"Content-Transfer-Encoding: quoted-printable" \\';

@@ -27,7 +27,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs, $session;
+        global $conf, $injector, $notification, $page_output, $session;
 
         /* Check rule permissions. */
         $perms = $injector->getInstance('Horde_Core_Perms');
@@ -196,12 +196,10 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             $ingo_storage->store($filters);
             $notification->push(_("Changes saved."), 'horde.success');
 
-            if ($prefs->getValue('auto_update')) {
-                try {
-                    Ingo::updateScript();
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                }
+            try {
+                Ingo_Script_Util::update();
+            } catch (Ingo_Exception $e) {
+                $notification->push($e, 'horde.error');
             }
 
             Ingo_Basic_Filters::url()->redirect();

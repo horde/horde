@@ -126,12 +126,10 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
             /* Save changes */
             $ingo_storage->store($filters);
-            if ($prefs->getValue('auto_update')) {
-                try {
-                    Ingo::updateScript();
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e->getMessage(), 'horde.error');
-                }
+            try {
+                Ingo_Script_Util::update();
+            } catch (Ingo_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
             }
             break;
 

@@ -27,7 +27,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector, $notification, $session;
 
         /* Redirect if vacation is not available. */
         if (!in_array(Ingo_Storage::ACTION_VACATION, $session->get('ingo', 'script_categories'))) {
@@ -82,9 +82,8 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
                     $notification->push(_("Rule Disabled"), 'horde.success');
                     $vac_rule['disable'] = true;
                 }
-                if ($prefs->getValue('auto_update')) {
-                    Ingo::updateScript();
-                }
+
+                Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

@@ -192,9 +192,12 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
         return $code
             . '"'
             . Ingo_Script_Sieve::escapeString(
-                  Ingo::getReason($this->_vars['reason'],
-                                  $this->_vars['start'],
-                                  $this->_vars['end']))
+                  Ingo_Script_Util::vacationReason(
+                      $this->_vars['reason'],
+                      $this->_vars['start'],
+                      $this->_vars['end']
+                  )
+              )
             . '";';
     }
 

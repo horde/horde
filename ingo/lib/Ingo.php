@@ -85,59 +85,9 @@ class Ingo
         $user = self::getUser(true);
         $pos = strpos($user, '@');
 
-        return ($pos !== false)
-            ? substr($user, $pos + 1)
-            : false;
-    }
-
-    /**
-     * Connects to the backend, uploads the scripts and sets them active.
-     *
-     * @param array $scripts       A list of scripts to set active.
-     * @param boolean $deactivate  If true, notification will identify the
-     *                             script as deactivated instead of activated.
-     *
-     * @throws Ingo_Exception
-     */
-    static public function activateScripts($scripts, $deactivate = false)
-    {
-        foreach ($scripts as $script) {
-            try {
-                $GLOBALS['injector']
-                    ->getInstance('Ingo_Factory_Transport')
-                    ->create($script['transport'])
-                  ->setScriptActive($script);
-            } catch (Ingo_Exception $e) {
-                $msg = $deactivate
-                  ? _("There was an error deactivating the script.")
-                  : _("There was an error activating the script.");
-                throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
-            }
-        }
-
-        $msg = ($deactivate)
-            ? _("Script successfully deactivated.")
-            : _("Script successfully activated.");
-        $GLOBALS['notification']->push($msg, 'horde.success');
-    }
-
-    /**
-     * Does all the work in updating the script on the server.
-     *
-     * @throws Ingo_Exception
-     */
-    static public function updateScript()
-    {
-        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
-            if ($script->hasFeature('script_file')) {
-                try {
-                    /* Generate and activate the script. */
-                    self::activateScripts($script->generate());
-                } catch (Ingo_Exception $e) {
-                    throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
-                }
-            }
-        }
+        return ($pos === false)
+            ? false
+            : substr($user, $pos + 1);
     }
 
     /**
@@ -157,36 +107,6 @@ class Ingo
                   $registry->getAuth()
               ) & $mask)
             : true;
-    }
-
-    /**
-     * Returns the vacation reason with all placeholder replaced.
-     *
-     * @param string $reason  The vacation reason including placeholders.
-     * @param integer $start  The vacation start timestamp.
-     * @param integer $end    The vacation end timestamp.
-     *
-     * @return string  The vacation reason suitable for usage in the filter
-     *                 scripts.
-     */
-    static public function getReason($reason, $start, $end)
-    {
-        $identity = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Identity')
-            ->create(Ingo::getUser());
-        $format = $GLOBALS['prefs']->getValue('date_format');
-
-        return str_replace(array('%NAME%',
-                                 '%EMAIL%',
-                                 '%SIGNATURE%',
-                                 '%STARTDATE%',
-                                 '%ENDDATE%'),
-                           array($identity->getName(),
-                                 $identity->getDefaultFromAddress(),
-                                 $identity->getValue('signature'),
-                                 $start ? strftime($format, $start) : '',
-                                 $end ? strftime($format, $end) : ''),
-                           $reason);
     }
 
     /**

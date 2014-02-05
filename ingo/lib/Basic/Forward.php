@@ -27,7 +27,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector, $notification, $session;
 
         /* Redirect if forward is not available. */
         if (!in_array(Ingo_Storage::ACTION_FORWARD, $session->get('ingo', 'script_categories'))) {
@@ -68,9 +68,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
                     $notification->push(_("Rule Disabled"), 'horde.success');
                     $fwd_rule['disable'] = true;
                 }
-                if ($prefs->getValue('auto_update')) {
-                    Ingo::updateScript();
-                }
+                Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

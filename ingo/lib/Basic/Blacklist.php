@@ -27,7 +27,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs, $session;
+        global $injector, $notification, $page_output, $session;
 
         /* Redirect if blacklist is not available. */
         if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_categories'))) {
@@ -69,9 +69,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                     $blacklist->setBlacklistFolder($folder);
                     $ingo_storage->store($blacklist);
                     $notification->push(_("Changes saved."), 'horde.success');
-                    if ($prefs->getValue('auto_update')) {
-                        Ingo::updateScript();
-                    }
+                    Ingo_Script_Util::update();
                 } catch (Ingo_Exception $e) {
                     $notification->push($e->getMessage(), $e->getCode());
                 }

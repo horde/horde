@@ -182,6 +182,7 @@
      <file name="Procmail.php" role="horde" />
      <file name="Sieve.php" role="horde" />
      <file name="String.php" role="horde" />
+     <file name="Util.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="Filters">
@@ -705,6 +706,7 @@
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
    <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
+   <install as="ingo/lib/Script/Util.php" name="lib/Script/Util.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />

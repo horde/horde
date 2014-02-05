@@ -28,7 +28,7 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs, $session;
+        global $injector, $notification, $page_output, $session;
 
         /* Redirect if whitelist not available. */
         if (!in_array(Ingo_Storage::ACTION_WHITELIST, $session->get('ingo', 'script_categories'))) {
@@ -48,9 +48,7 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
             try {
                 Ingo::updateListFilter($this->vars->whitelist, Ingo_Storage::ACTION_WHITELIST);
                 $notification->push(_("Changes saved."), 'horde.success');
-                if ($prefs->getValue('auto_update')) {
-                    Ingo::updateScript();
-                }
+                Ingo_Script_Util::update();
 
                 /* Update the timestamp for the rules. */
                 $session->set('ingo', 'change', time());

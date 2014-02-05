@@ -95,7 +95,7 @@ class Ingo_Api extends Horde_Registry_Api
             try {
                 $bl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_BLACKLIST)->getBlacklist();
                 Ingo::updateListFilter(array_merge($bl, $addresses), Ingo_Storage::ACTION_BLACKLIST);
-                Ingo::updateScript();
+                Ingo_Script_Util::update(false);
                 foreach ($addresses as $from) {
                     $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
@@ -117,7 +117,7 @@ class Ingo_Api extends Horde_Registry_Api
         try {
             $wl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
             Ingo::updateListFilter(array_merge($wl, $addresses), Ingo_Storage::ACTION_WHITELIST);
-            Ingo::updateScript();
+            Ingo_Script_Util::update(false);
             foreach ($addresses as $from) {
                 $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
             }
@@ -226,9 +226,8 @@ class Ingo_Api extends Horde_Registry_Api
             $filters->ruleDisable($vacation_id);
         }
         $ingo_storage->store($filters);
-        if ($GLOBALS['prefs']->getValue('auto_update')) {
-            Ingo::updateScript();
-        }
+
+        Ingo_Script_Util::update();
 
         /* Update the timestamp for the rules. */
         $GLOBALS['session']->set('ingo', 'change', time());
@@ -270,9 +269,7 @@ class Ingo_Api extends Horde_Registry_Api
         $vacation_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
         $filters->ruleDisable($vacation_id);
         $ingo_storage->store($filters);
-        if ($GLOBALS['prefs']->getValue('auto_update')) {
-            Ingo::updateScript();
-        }
+        Ingo_Script_Util::update();
 
         /* Update the timestamp for the rules. */
         $GLOBALS['session']->set('ingo', 'change', time());
