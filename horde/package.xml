@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [rla] Add joomla-md5 encryption option for SQL backends (Request #12889).
 * [rla] Add modular horde-cli and module for conf.php editing (Request #12923).
 * [mms] By default, enforce maximum storage size on preferences values.
 * [mms] Support UglifyJS for compressing javascript.
