@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Core_Script_Package_Sortable.
 * [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
@@ -573,6 +574,7 @@
         <file name="Dialog.php" role="php" />
         <file name="Keynavlist.php" role="php" />
         <file name="Popup.php" role="php" />
+        <file name="Sortable.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Script/Package -->
       </dir> <!-- /lib/Horde/Core/Script -->
       <dir name="Share">
@@ -1905,6 +1907,7 @@
    <install as="Horde/Core/Script/Package/Dialog.php" name="lib/Horde/Core/Script/Package/Dialog.php" />
    <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
    <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
+   <install as="Horde/Core/Script/Package/Sortable.php" name="lib/Horde/Core/Script/Package/Sortable.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Smartmobile/Url.php" name="lib/Horde/Core/Smartmobile/Url.php" />
@@ -3340,6 +3343,7 @@
    <date>2014-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Core_Script_Package_Sortable.
 * [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
