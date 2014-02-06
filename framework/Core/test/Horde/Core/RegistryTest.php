@@ -22,11 +22,6 @@
  */
 class Horde_Core_RegistryTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        require_once __DIR__ . '/Stub/Registry.php';
-    }
-
     public function testBug10381()
     {
         $a1 = array(
@@ -69,7 +64,16 @@ class Horde_Core_RegistryTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $ob = new Horde_Core_Stub_Registry();
+        $ob = new Horde_Registry_Hordeconfig_Merged(array(
+            'aconfig' => new Horde_Registry_Hordeconfig(array(
+                'app' => 'bar',
+                'config' => $a2
+            )),
+            'hconfig' => new Horde_Registry_Hordeconfig(array(
+                'app' => 'foo',
+                'config' => $a1
+            ))
+        ));
 
         $this->assertEquals(
             array(
@@ -99,7 +103,7 @@ class Horde_Core_RegistryTest extends PHPUnit_Framework_TestCase
                     )
                 )
             ),
-            $ob->mergeConfig($a1, $a2)
+            $ob->toArray()
         );
     }
 

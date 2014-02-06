@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-02-05</date>
+ <date>2014-02-06</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
@@ -646,9 +647,13 @@
       <file name="PushApp.php" role="php" />
      </dir> <!-- /lib/Horde/Exception -->
      <dir name="Registry">
+      <dir name="Hordeconfig">
+       <file name="Merged.php" role="php" />
+      </dir> <!-- /lib/Horde/Registry/Hordeconfig -->
       <file name="Api.php" role="php" />
       <file name="Application.php" role="php" />
       <file name="Caller.php" role="php" />
+      <file name="Hordeconfig.php" role="php" />
       <file name="Loadconfig.php" role="php" />
       <file name="Nlsconfig.php" role="php" />
       <file name="Registryconfig.php" role="php" />
@@ -969,9 +974,6 @@
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
       </dir> <!-- /test/Horde/Core/Factory -->
-      <dir name="Stub">
-       <file name="Registry.php" role="test" />
-      </dir> <!-- /test/Horde/Core/Stub -->
       <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -1936,9 +1938,11 @@
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
+   <install as="Horde/Registry/Hordeconfig.php" name="lib/Horde/Registry/Hordeconfig.php" />
    <install as="Horde/Registry/Loadconfig.php" name="lib/Horde/Registry/Loadconfig.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
    <install as="Horde/Registry/Registryconfig.php" name="lib/Horde/Registry/Registryconfig.php" />
+   <install as="Horde/Registry/Hordeconfig/Merged.php" name="lib/Horde/Registry/Hordeconfig/Merged.php" />
    <install as="Horde/Script/Cache.php" name="lib/Horde/Script/Cache.php" />
    <install as="Horde/Script/Compress.php" name="lib/Horde/Script/Compress.php" />
    <install as="Horde/Script/File.php" name="lib/Horde/Script/File.php" />
@@ -2048,8 +2052,7 @@
    <install as="Horde/Core/Factory/GroupTest.php" name="test/Horde/Core/Factory/GroupTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
-   <install as="Horde/Core/Stub/Registry.php" name="test/Horde/Core/Stub/Registry.php" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -3334,9 +3337,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-05</date>
+   <date>2014-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
 * [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.

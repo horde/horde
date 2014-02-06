@@ -1668,44 +1668,19 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function importConfig($app)
     {
+        /* Make sure Horde is always loaded. */
+        if (!isset($this->_cache['conf']['horde'])) {
+            $this->_cache['conf']['horde'] = new Horde_Registry_Hordeconfig(array('app' => 'horde'));
+        }
+
         if (!isset($this->_cache['conf'][$app])) {
-            try {
-                $app_conf = new Horde_Registry_Loadconfig($app, 'conf.php', 'conf');
-                $config = $app_conf->config['conf'];
-            } catch (Horde_Exception $e) {
-                $config = array();
-            }
-
-            $this->_cache['conf'][$app] = ($app == 'horde')
-                ? $config
-                : $this->_mergeConfig($this->_cache['conf']['horde'], $config);
+            $this->_cache['conf'][$app] = new Horde_Registry_Hordeconfig_Merged(array(
+                'aconfig' => new Horde_Registry_Hordeconfig(array('app' => $app)),
+                'hconfig' => $this->_cache['conf']['horde']
+            ));
         }
 
-        $GLOBALS['conf'] = $this->_cache['conf'][$app];
-    }
-
-    /**
-     * Merge configurations between two applications.
-     * See Bug #10381 for more information.
-     *
-     * @param array $a1  Horde configuration.
-     * @param array $a2  App configuration.
-     *
-     * @return array  Merged configuration.
-     */
-    protected function _mergeConfig(array $a1, array $a2)
-    {
-        foreach ($a2 as $key => $val) {
-            if (isset($a1[$key]) && is_array($a1[$key])) {
-                reset($a1[$key]);
-                if (!is_int(key($a1[$key]))) {
-                    $val = $this->_mergeConfig($a1[$key], $val);
-                }
-            }
-            $a1[$key] = $val;
-        }
-
-        return $a1;
+        $GLOBALS['conf'] = $this->_cache['conf'][$app]->toArray();
     }
 
     /**
