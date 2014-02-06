@@ -1074,10 +1074,7 @@ class Turba_Driver implements Countable
      */
     public function getCriteria()
     {
-        $criteria = $this->map;
-        unset($criteria['__key']);
-
-        return $criteria;
+        return array_diff_key($this->map, array('__key' => true));
     }
 
     /**
