@@ -157,7 +157,7 @@ class Horde_Ajax_Application_TwitterHandler extends Horde_Core_Ajax_Application_
         }
         if (!empty($tweet->entities->media)) {
             foreach ($tweet->entities->media as $picture) {
-                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url,  ENT_COMPAT, 'UTF-8') . '</a>';
+                $replace = '<a target="_blank" href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url,  ENT_COMPAT, 'UTF-8') . '</a>';
                 $map[$picture->indices[0]] = array($picture->indices[1], $replace);
                 $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
             }
