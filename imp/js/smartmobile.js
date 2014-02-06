@@ -329,6 +329,21 @@ var ImpMobile = {
             break;
 
         case 'copymove':
+            if (!$('#imp-copymove-list').children().size()) {
+                HordeMobile.doAction(
+                    'copyMoveMailboxList',
+                    {},
+                    function(r) {
+                        $('#imp-copymove-list')
+                            .html(r)
+                            .change(function() {
+                                $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
+                            });
+                    },
+                    { async: false }
+                );
+            }
+
             $('#imp-copymove')[0].reset();
             $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
             $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
@@ -1550,12 +1565,6 @@ var ImpMobile = {
                     })
                     // textchange plugin requires bind()
                     .bind('textchange', ImpMobile.processComposeAddress);
-            });
-        }
-
-        if (IMP.conf.allow_folders) {
-            $('#imp-copymove-list').change(function() {
-                $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
             });
         }
     }

@@ -110,17 +110,8 @@ class IMP_Smartmobile
         global $injector, $registry, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-        if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $this->view->options = new IMP_Ftree_Select(array(
-                'heading' => _("This message to"),
-                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::UNSUB_PREF),
-                'optgroup' => true,
-                'inc_tasklists' => true,
-                'inc_notepads' => true,
-                'new_mbox' => true
-            ));
-        }
 
+        $this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
         $this->view->canInnocent = !empty($imp_imap->config->innocent_params);
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->canSpam = !empty($imp_imap->config->spam_params);

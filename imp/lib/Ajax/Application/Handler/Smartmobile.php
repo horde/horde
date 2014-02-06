@@ -86,6 +86,25 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     }
 
     /**
+     * Return the copy/move selection list.
+     *
+     * Variables used: NONE
+     *
+     * @return string  HTML to use for the folder tree.
+     */
+    public function copyMoveMailboxList()
+    {
+        return strval(new IMP_Ftree_Select(array(
+            'heading' => _("This message to"),
+            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::UNSUB_PREF),
+            'optgroup' => true,
+            'inc_tasklists' => true,
+            'inc_notepads' => true,
+            'new_mbox' => true
+        )));
+    }
+
+    /**
      * AJAX action: Send message.
      *
      * @see IMP_Ajax_Application#getForwardData()

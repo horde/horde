@@ -11,9 +11,7 @@
     <option value="copy"><?php echo _("Copy") ?></option>
     <option value="move"><?php echo _("Move") ?></option>
    </select>
-   <select id="imp-copymove-list">
-    <?php echo $this->options ?>
-   </select>
+   <select id="imp-copymove-list"></select>
    <div id="imp-copymove-newdiv">
     <label for="imp-copymove-new"><?php echo _("New mailbox name:") ?></label>
     <input id="imp-copymove-new" type="text" />

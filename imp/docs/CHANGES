@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Load copy/move mailbox selection list on-demand in smartmobile view.
 [mms] Cache results of inline image view status.
 [mjr] Add IMP_Api::logRecipient.
 [mms] Remove the mail_domain preference.
