@@ -600,6 +600,10 @@ class IMP_Imap implements Serializable
         $args = func_get_args();
         $imap_factory = $injector->getInstance('IMP_Factory_Imap');
 
+        if (!is_array($args[0])) {
+            return $this->__call('status', $args);
+        }
+
         foreach (IMP_Mailbox::get($args[0]) as $val) {
             if ($raccount = $val->remote_account) {
                 $accounts[strval($raccount)] = $raccount;
@@ -610,18 +614,13 @@ class IMP_Imap implements Serializable
         foreach ($mboxes as $key => $val) {
             $imap = $imap_factory->create($key);
             if ($imap->init) {
-                $tmp = $args;
-                $tmp[0] = IMP_Mailbox::getImapMboxOb($val);
-
-                foreach ($imap->__call('status', $tmp) as $key2 => $val2) {
+                foreach ($imap->__call('status', array($val) + $args) as $key2 => $val2) {
                     $out[isset($accounts[$key]) ? $accounts[$key]->mailbox($key2) : $key2] = $val2;
                 }
             }
         }
 
-        return is_array($args[0])
-            ? $out
-            : reset($out);
+        return $out;
     }
 
     /**
@@ -667,7 +666,7 @@ class IMP_Imap implements Serializable
         case 'getSyncToken':
         case 'setMetadata':
         case 'setQuota':
-        // case 'status': (Handled in status() command)
+        case 'status':
         case 'store':
         case 'subscribeMailbox':
         case 'sync':
