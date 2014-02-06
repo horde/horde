@@ -169,7 +169,7 @@
 </form>
 </div>
 
-<div id="kronolithQuicktask" class="kronolithQuick" style="display:none;">
+<div id="kronolithQuicktask" class="quickAdd" style="display:none;">
  <h2><?php echo _("Quick Task Creation") ?></h2>
  <form id="kronolithQuicktaskForm" method="post" action="">
   <p><?php echo _("Enter one task per line. Create child tasks by indenting them below their parent task. Include due dates like \"laundry tomorrow\" or \"get dry cleaning next Thursday\".") ?></p>
