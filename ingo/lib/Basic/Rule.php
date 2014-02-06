@@ -74,9 +74,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         ));
 
         /* Update the current rules before performing any action. */
-        if (isset($this->vars->edit)) {
-            $rule = $filters->getRule($this->vars->edit);
-        } elseif (isset($this->vars->action)) {
+        if (isset($this->vars->action)) {
             $rule = array(
                 'action' => $this->vars->action,
                 'combine' => $this->vars->combine,
@@ -87,7 +85,9 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
                 'stop' => $this->vars->stop
             );
         } else {
-            $rule = $filters->getDefaultRule();
+            $rule = isset($this->vars->edit)
+                ? $filters->getRule($this->vars->edit)
+                : $filters->getDefaultRule();
         }
 
         if (!$rule) {
