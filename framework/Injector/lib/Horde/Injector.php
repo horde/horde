@@ -15,11 +15,6 @@
 class Horde_Injector implements Horde_Injector_Scope
 {
     /**
-     * @var Horde_Injector_Scope
-     */
-    private $_parentInjector;
-
-    /**
      * @var array
      */
     private $_bindings = array();
@@ -28,6 +23,18 @@ class Horde_Injector implements Horde_Injector_Scope
      * @var array
      */
     private $_instances;
+
+    /**
+     * @var Horde_Injector_Scope
+     */
+    private $_parentInjector;
+
+    /**
+     * Reflection cache.
+     *
+     * @var array
+     */
+    private $_reflection = array();
 
     /**
      * Create a new injector object.
@@ -88,19 +95,23 @@ class Horde_Injector implements Horde_Injector_Scope
      */
     private function _bind($type, $args)
     {
-        $interface = array_shift($args);
-
-        if (!$interface) {
+        if (!($interface = array_shift($args))) {
             throw new BadMethodCallException('First parameter for "bind' . $type . '" must be the name of an interface or class');
         }
 
-        $reflectionClass = new ReflectionClass('Horde_Injector_Binder_' . $type);
+        if (!isset($this->_reflection[$type])) {
+            $rc = new ReflectionClass('Horde_Injector_Binder_' . $type);
+            $this->_reflection[$type] = array(
+                $rc,
+                (bool)$rc->getConstructor()
+            );
+        }
 
         $this->_addBinder(
             $interface,
-            $reflectionClass->getConstructor()
-                ? $reflectionClass->newInstanceArgs($args)
-                : $reflectionClass->newInstance()
+            $this->_reflection[$type][1]
+                ? $this->_reflection[$type][0]->newInstanceArgs($args)
+                : $this->_reflection[$type][0]->newInstance()
         );
 
         return $this->_getBinder($interface);
