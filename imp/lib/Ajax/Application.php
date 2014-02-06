@@ -307,7 +307,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - from: (string) From address to use.
      *   - identity: (integer) The identity to use
      *
-     @param string $action  AJAX action.
+     * @param string $action  AJAX action.
      *
      * @return array  An array with the following values:
      *   - (object) AJAX base return object (with action and success
