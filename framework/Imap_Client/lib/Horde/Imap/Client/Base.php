@@ -310,6 +310,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * Get encryption key.
+     *
+     * @deprecated  Pass callable into 'password' parameter instead.
+     *
+     * @return string  The encryption key.
+     */
+    protected function _getEncryptKey()
+    {
+        if (is_callable($ekey = $this->getParam('encryptKey'))) {
+            return call_user_func($ekey);
+        }
+
+        throw new InvalidArgumentException('encryptKey parameter is not a valid callback.');
+    }
+
+    /**
      * Do initialization tasks.
      */
     protected function _initOb()
@@ -504,12 +520,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 return $this->_params[$key]->getPassword();
             }
 
-            // @deprecated
+            // DEPRECATED
             if (!empty($this->_params['_passencrypt'])) {
-                return Horde_Imap_Client_Base_Deprecated::getEncryptKey(
-                    $this,
-                    $this->_params['password']
-                );
+                try {
+                    $secret = new Horde_Secret();
+                    return $secret->read($this->_getEncryptKey(), $this->_params['password']);
+                } catch (Exception $e) {
+                    return null;
+                }
             }
             break;
         }
