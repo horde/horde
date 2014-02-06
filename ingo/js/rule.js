@@ -7,9 +7,9 @@ var IngoRule = {
 
     delete_condition: function(num)
     {
-        document.rule.actionID.value = 'rule_delete';
-        document.rule.conditionnumber.value = num;
-        document.rule.submit();
+        $('actionID').setValue('rule_delete');
+        $('conditionnumber').setValue(num);
+        $('rule').submit();
         return true;
     },
 

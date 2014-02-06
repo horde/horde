@@ -1,11 +1,11 @@
 <form method="post" id="rule" name="rule" action="<?php echo $this->formurl ?>">
- <input type="hidden" name="actionID" id="actionID" value="" />
- <input type="hidden" name="conditionnumber" value="-1" />
+ <?php echo $this->hiddenFieldTag('actionID') ?>
+ <?php echo $this->hiddenFieldTag('conditionnumber', -1) ?>
 <?php if (!is_null($this->edit)): ?>
- <input type="hidden" name="edit" value="<?php echo $this->edit ?>" />
+ <?php echo $this->hiddenFieldTag('edit', $this->edit) ?>
 <?php endif; ?>
 <?php if (isset($this->rule['id'])): ?>
- <input type="hidden" name="id" value="<?php echo $this->rule['id'] ?>" />
+ <?php echo $this->hiddenFieldTag('id', $this->rule['id']) ?>
 <?php endif; ?>
 
  <div class="header">
