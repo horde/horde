@@ -97,6 +97,7 @@ case 'ActiveSync':
         exit;
     }
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
+    $params['requireAuthorization'] = true;
     break;
 
 case 'Soap':
