@@ -60,6 +60,7 @@ abstract class Horde_Script_Cache
         $out->script = array();
 
         $last_cache = null;
+        $tmp = array();
 
         foreach ($hsl as $val) {
             $out->all[] = $url = strval($val->url);
