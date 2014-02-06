@@ -144,10 +144,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             break;
 
         case 'apply_filters':
-            if (!$edit_allowed) {
-                $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-                self::url()->redirect();
-            }
             $factory->perform($session->get('ingo', 'change'));
             break;
         }
