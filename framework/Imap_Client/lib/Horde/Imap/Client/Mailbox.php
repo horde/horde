@@ -106,7 +106,7 @@ class Horde_Imap_Client_Mailbox implements Serializable
                     $this->_utf7imap = true;
                 }
             }
-            return $this->_utf8;
+            return (string)$this->_utf8;
         }
     }
 
