@@ -3,8 +3,12 @@ table {
     width: 100%;
 }
 
-table.scriptHeader {
-    width: auto;
+/* Scripts page. */
+.scriptHeader {
+    width: 100%;
+}
+.scriptHeader form {
+    display: inline;
 }
 
 /* Filters page. */
