@@ -69,7 +69,7 @@
  * @package  Ingo
  */
 
-$baseFile = __DIR__ . '/../../ingo/lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

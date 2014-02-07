@@ -19,14 +19,14 @@
  * @package  Ingo
  */
 
-if (file_exists(__DIR__ . '/../../ingo/lib/Application.php')) {
-    $baseDir = __DIR__ . '/../';
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
-        ->get('horde_dir', null, 'pear.horde.org') . '/ingo/';
+        ->get('horde_dir', null, 'pear.horde.org') . '/ingo/lib/Application.php';
 }
-require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ingo', array('cli' => true));
 
 require_once $baseDir . 'migration/3_ingo_upgrade_sqlng.php';
