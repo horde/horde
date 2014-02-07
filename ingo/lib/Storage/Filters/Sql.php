@@ -247,67 +247,29 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
     }
 
     /**
-     * Moves a rule up in the filters list.
-     *
-     * @param integer $id     Number of the rule to move.
-     * @param integer $steps  Number of positions to move the rule up.
      */
-    public function ruleUp($id, $steps = 1)
+    public function sort($rules)
     {
-        return $this->_ruleMove($id, -$steps);
-    }
+        $old = $this->_filters;
 
-    /**
-     * Moves a rule down in the filters list.
-     *
-     * @param integer $id     Number of the rule to move.
-     * @param integer $steps  Number of positions to move the rule down.
-     */
-    public function ruleDown($id, $steps = 1)
-    {
-        return $this->_ruleMove($id, $steps);
-    }
+        parent::sort($rules);
 
-    /**
-     * Moves a rule in the filters list.
-     *
-     * @param integer $id     Number of the rule to move.
-     * @param integer $steps  Number of positions and direction to move the
-     *                        rule.
-     */
-    protected function _ruleMove($id, $steps)
-    {
-        $query = sprintf('UPDATE %s SET rule_order = rule_order %s 1 WHERE rule_owner = ? AND rule_order %s ? AND rule_order %s ?',
-                         $this->_params['table_rules'],
-                         $steps > 0 ? '-' : '+',
-                         $steps > 0 ? '>' : '>=',
-                         $steps > 0 ? '<=' : '<');
-        $values = array(Ingo::getUser());
-        if ($steps < 0) {
-            $values[] = (int)($id + $steps);
-            $values[] = (int)$id;
-        } else {
-            $values[] = (int)$id;
-            $values[] = (int)($id + $steps);
-        }
+        $query = sprintf(
+            'UPDATE %s SET rule_order = ? WHERE rule_id = ?',
+             $this->_params['table_rules']
+        );
 
+        $this->_db->beginDbTransaction();
         try {
-            $this->_db->update($query, $values);
+            foreach ($this->_filters as $key => $val) {
+                $this->_db->update($query, array($key, $val['id']));
+            }
         } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            $this->_filters = $old;
             throw new Ingo_Exception($e);
         }
-        $query = sprintf('UPDATE %s SET rule_order = ? WHERE rule_owner = ? AND rule_id = ?',
-                         $this->_params['table_rules']);
-        $values = array((int)($id + $steps),
-                        Ingo::getUser(),
-                        $this->_filters[$id]['id']);
-        try {
-            $this->_db->update($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Ingo_Exception($e);
-        }
-
-        $this->init();
+        $this->_db->commitDbTransaction();
     }
 
     /**

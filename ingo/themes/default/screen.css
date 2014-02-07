@@ -12,8 +12,23 @@ table.scriptHeader {
     vertical-align: middle;
 }
 
-.striped tr td:first-child {
-    padding-right: 8px;
+/* Filters page. */
+.filtersRow {
+    cursor: move;
+    height: 30px;
+    line-height: 30px;
+}
+.filtersRow div {
+    display: inline-block;
+}
+.filtersEdit {
+    width: 50px;
+}
+.filtersEnable {
+    padding-left: 12px;
+}
+.filtersDisabled a {
+    color: red;
 }
 
 /* Icons. */

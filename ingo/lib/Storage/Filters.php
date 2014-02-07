@@ -250,45 +250,19 @@ class Ingo_Storage_Filters
     }
 
     /**
-     * Moves a rule up in the filters list.
+     * Sorts the list of rules in the given order.
      *
-     * @param integer $id     Number of the rule to move.
-     * @param integer $steps  Number of positions to move the rule up.
-     */
-    public function ruleUp($id, $steps = 1)
-    {
-        for ($i = 0; $i < $steps && $id > 0;) {
-            $temp = $this->_filters[$id - 1];
-            $this->_filters[$id - 1] = $this->_filters[$id];
-            $this->_filters[$id] = $temp;
-            /* Continue to move up until we swap with a viewable category. */
-            if (in_array($temp['action'], $GLOBALS['session']->get('ingo', 'script_categories'))) {
-                $i++;
-            }
-            $id--;
-        }
-    }
-
-    /**
-     * Moves a rule down in the filters list.
+     * @param array $rules  List of rule numbers.
      *
-     * @param integer $id     Number of the rule to move.
-     * @param integer $steps  Number of positions to move the rule down.
+     * @throws Ingo_Exception
      */
-    public function ruleDown($id, $steps = 1)
+    public function sort($rules)
     {
-        $rulecount = count($this->_filters) - 1;
-        for ($i = 0; $i < $steps && $id < $rulecount;) {
-            $temp = $this->_filters[$id + 1];
-            $this->_filters[$id + 1] = $this->_filters[$id];
-            $this->_filters[$id] = $temp;
-            /* Continue to move down until we swap with a viewable
-               category. */
-            if (in_array($temp['action'], $GLOBALS['session']->get('ingo', 'script_categories'))) {
-                $i++;
-            }
-            $id++;
+        $new = array();
+        foreach ($rules as $val) {
+            $new[] = $this->_filters[$val];
         }
+        $this->_filters = $new;
     }
 
     /**

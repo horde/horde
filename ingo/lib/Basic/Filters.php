@@ -45,18 +45,15 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         /* Token checking. */
         $actionID = $this->_checkToken(array(
-            'rule_down',
-            'rule_up',
             'rule_copy',
             'rule_delete',
             'rule_disable',
             'rule_enable',
+            'update_sort'
         ));
 
         /* Perform requested actions. */
         switch ($actionID) {
-        case 'rule_down':
-        case 'rule_up':
         case 'rule_copy':
         case 'rule_delete':
         case 'rule_disable':
@@ -103,14 +100,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 }
                 break;
 
-            case 'rule_up':
-                $filters->ruleUp($this->vars->rulenumber, $this->vars->get('steps', 1));
-                break;
-
-            case 'rule_down':
-                $filters->ruleDown($this->vars->rulenumber, $this->vars->get('steps', 1));
-                break;
-
             case 'rule_disable':
                 $tmp = $filters->getFilter($this->vars->rulenumber);
                 $filters->ruleDisable($this->vars->rulenumber);
@@ -146,6 +135,25 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         case 'apply_filters':
             $factory->perform($session->get('ingo', 'change'));
             break;
+
+        case 'update_sort':
+            if (!$edit_allowed) {
+                $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
+                self::url()->redirect();
+            }
+            try {
+                $filters->sort(json_decode($this->vars->sort_order));
+                $notification->push(
+                    _("Rule sort saved successfully."),
+                    'horde.success'
+                );
+            } catch (Ingo_Exception $e) {
+                $notification->push(
+                    _("Rule sort not saved."),
+                    'horde.error'
+                );
+            }
+            break;
         }
 
         /* Get the list of rules now. */
@@ -171,29 +179,23 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         if (count($filter_list)) {
             $display = array();
-            $i = $rule_count = 0;
             $s_categories = $session->get('ingo', 'script_categories');
 
-            $can_copy = (($perms->hasAppPermission('max_rules') === true) ||
-                         ($perms->hasAppPermission('max_rules') > count($filter_list)));
-
-            foreach ($filter_list as $val) {
-                if (in_array($val['action'], $s_categories)) {
-                    ++$rule_count;
-                }
-            }
+            $view->can_copy =
+                $edit_allowed &&
+                ((($max_rules = $perms->hasAppPermission('max_rules')) === true) ||
+                ($max_rules > count($filter_list)));
 
             foreach ($filter_list as $rule_number => $filter) {
-                /* Skip non-display categories. */
+                /* Non-display categories. */
                 if (!in_array($filter['action'], $s_categories)) {
+                    $display[$rule_number] = false;
                     continue;
                 }
 
-                $entry = array(
-                    'number' => ++$i
-                );
-                $url = $filters_url->copy()->add('rulenumber', $rule_number);
                 $copyurl = $delurl = $editurl = $name = null;
+                $entry = array();
+                $url = $filters_url->copy()->add('rulenumber', $rule_number);
 
                 switch ($filter['action']) {
                 case Ingo_Storage::ACTION_BLACKLIST:
@@ -246,39 +248,28 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 }
 
                 /* Create delete link. */
-                if (!is_null($delurl)) {
+                if ($delete_allowed && !is_null($delurl)) {
                     $entry['dellink'] = Horde::link($delurl, sprintf(_("Delete %s"), $name), null, null, "return window.confirm('" . addslashes(_("Are you sure you want to delete this rule?")) . "');");
                 }
 
                 /* Create copy link. */
-                if ($can_copy && !is_null($copyurl)) {
+                if ($view->can_copy && !is_null($copyurl)) {
                     $entry['copylink'] = Horde::link($copyurl, sprintf(_("Copy %s"), $name));
                 }
 
-                /* Create up/down arrow links. */
-                $entry['upurl'] = $url->copy()->add('actionID', 'rule_up');
-                $entry['downurl'] = $url->copy()->add('actionID', 'rule_down');
-                $entry['uplink'] = ($i > 1)
-                    ? Horde::link($entry['upurl'], _("Move Rule Up"))
-                    : false;
-                $entry['downlink'] = ($i < $rule_count)
-                    ? Horde::link($entry['downurl'], _("Move Rule Down"))
-                    : false;
-
+                /* Create disable/enable link. */
                 if (empty($filter['disable'])) {
-                    $entry['disablelink'] = $edit_allowed
-                        ? Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name))
-                        : true;
-                } else {
-                    $entry['enablelink'] = $edit_allowed
-                        ? Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name))
-                        : true;
+                    $entry['disabled'] = true;
+                    if ($edit_allowed) {
+                        $entry['disablelink'] = Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
+                    }
+                } elseif ($edit_allowed) {
+                    $entry['enablelink'] = Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
                 }
 
-                $display[] = $entry;
+                $display[$rule_number] = $entry;
             }
 
-            // TODO: This can probably be better abstracted into the view file.
             $view->filter = $display;
         }
 
@@ -288,6 +279,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             $view->show_filter_msg = $prefs->getValue('show_filter_msg');
         }
 
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Sortable');
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('filters.js');
 

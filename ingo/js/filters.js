@@ -5,17 +5,6 @@
 
 var IngoFilters = {
 
-    moveFromTo: function(from, to, upurl, downurl)
-    {
-        var steps = to - from;
-        if (steps < 0) {
-            window.location = upurl + '&steps=' + -steps;
-        } else if (steps > 0) {
-            window.location = downurl + '&steps=' + steps;
-        }
-        return true;
-    },
-
     onDomLoad: function()
     {
         if ($('apply_filters')) {
@@ -25,6 +14,21 @@ var IngoFilters = {
                 e.stop();
             });
         }
+
+        Sortable.create('filterslist', {
+            onUpdate: function() {
+                $('filtersSort').show();
+                Horde.stripeElement('filterslist');
+            },
+            tag: 'div'
+        });
+
+        $('filtersSort').down('INPUT').observe('click', function(e) {
+            $('actionID').setValue('update_sort');
+            $('sort_order').setValue(Object.toJSON(Sortable.sequence('filterslist')));
+            $('filters').submit();
+            e.stop();
+        });
     }
 
 };

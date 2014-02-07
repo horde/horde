@@ -2,107 +2,72 @@
 if ($this->deleteallowed) {
     $del_img = $this->hordeImage('delete.png', _("Delete"));
 }
-if ($this->editallowed) {
+if ($this->can_copy) {
     $copy_img = $this->hordeImage('copy.png', _("Copy"));
-    $nav_down = $this->hordeImage('nav/down.png', _("Move Rule Down"));
-    $nav_up = $this->hordeImage('nav/up.png', _("Move Rule Up"));
 }
 $disable_img = $this->hordeImage('disable.png');
 $enable_img = $this->hordeImage('enable.png');
 ?>
 <form method="post" id="filters" name="filters" action="<?php echo $this->formurl ?>">
- <input type="hidden" id="actionID" name="actionID" value="" />
+ <?php echo $this->hiddenFieldTag('actionID') ?>
+ <?php echo $this->hiddenFieldTag('sort_order') ?>
 
  <div class="header">
   <?php echo _("Existing Rules") ?>
   <?php echo $this->hordeHelp('ingo', 'filters_rules') ?>
  </div>
 
- <table class="striped">
-  <thead>
-   <tr class="item">
-    <th width="1%"><?php echo _("Edit") ?></th>
-    <th class="leftAlign"><?php echo _("Rule") ?></th>
-    <th width="1%"><?php echo _("Enabled") ?></th>
-<?php if ($this->editallowed): ?>
-    <th colspan="3" width="1%"><?php echo _("Move") ?></th>
-<?php endif; ?>
-   </tr>
-  </thead>
-  <tbody>
 <?php if (!count($this->filter)): ?>
-   <tr>
-    <td colspan="<?php echo $this->editallowed ? 6 : 3 ?>" class="text">
-     <em><?php printf(_("No filters. Click \"%s\" to create a new filter."), _("New Rule")) ?></em>
-    </td>
-   </tr>
+ <div class="text">
+  <em><?php printf(_("No filters. Click \"%s\" to create a new filter."), _("New Rule")) ?></em>
+ </div>
 <?php else: ?>
-<?php foreach ($this->filter as $v): ?>
-   <tr>
-    <td class="nowrap">
-<?php if ($this->deleteallowed): ?>
+ <div class="striped" id="filterslist">
+<?php foreach ($this->filter as $k => $v): ?>
+<?php if ($v === false): ?>
+  <div id="filtersrow_<?php echo $k ?>" style="display:none">
+<?php else: ?>
+  <div class="filtersRow" id="filtersrow_<?php echo $k ?>">
+   <div class="filtersEdit">
 <?php if (!empty($v['dellink'])): ?>
-     <?php echo $v['dellink'] . $del_img ?></a>
+    <?php echo $v['dellink'] . $del_img ?></a>
 <?php endif; ?>
-<?php endif; ?>
-<?php if ($this->editallowed): ?>
 <?php if (!empty($v['copylink'])): ?>
-     <?php echo $v['copylink'] . $copy_img ?></a>
-<?php endif; ?>
+    <?php echo $v['copylink'] . $copy_img ?></a>
 <?php endif ?>
-    </td>
-    <td>
-     <strong>
-      <?php echo $v['number'] ?>.
-      <?php if (isset($v['filterimg'])) { echo $this->hordeImage($v['filterimg']); } ?>
-      <?php echo $v['descriplink'] ?>
-     </strong>
-<?php if (!empty($v['enablelink'])): ?>
-     <strong>[<?php echo $v['enablelink'] . $disable_img ?><span style="color:red"><?php echo _("disabled - click to enable") ?></span></a>]</strong>
-<?php endif; ?>
-    </td>
-    <td style="text-align:center">
-<?php if ($this->editallowed): ?>
+   </div>
+   <div class="filtersName">
+    <strong>
+     <?php if (isset($v['filterimg'])) { echo $this->hordeImage($v['filterimg']); } ?>
+     <?php echo $v['descriplink'] ?>
+    </strong>
+   </div>
+   <div class="filtersEnable">
 <?php if (!empty($v['disablelink'])): ?>
-     <?php echo $v['disablelink'] . $enable_img ?></a>
+    <strong><?php echo $v['disablelink'] . $enable_img ?></a></strong>
+<?php elseif (!empty($v['enablelink'])): ?>
+    <strong class="filtersDisabled"><?php echo $v['enablelink'] . $disable_img . _("Disabled") ?></a></strong>
+<?php elseif (!empty($v['disabled'])): ?>
+    <?php echo $disable_img ?>
 <?php else: ?>
-     <?php echo $v['enablelink'] . $disable_img ?></a>
+    <?php echo $enable_img ?>
 <?php endif; ?>
-<?php elseif (!empty($v['disablelink'])): ?>
-     <?php echo $enable_img ?>
-<?php else: ?>
-     <?php echo $disable_img ?>
+   </div>
 <?php endif; ?>
-    </td>
-<?php if ($this->editallowed): ?>
-    <td class="nowrap">
-<?php if ($v['uplink']): ?>
-     <?php echo $v['uplink'] . $nav_up ?></a>
-<?php endif ?>
-    </td>
-    <td class="nowrap">
-<?php if ($v['downlink']): ?>
-     <?php echo $v['downlink'] . $nav_down ?></a>
-<?php endif ?>
-    </td>
-    <td class="nowrap">
-     <label>
-      <?php echo _("To:") ?>
-      <input type="text" size="2" onchange="IngoFilters.moveFromTo(<?php echo $v['number'] ?>, this.value, '<?php echo $v['upurl'] ?>', '<?php echo $v['downurl'] ?>');"/>
-     </label>
-    </td>
-<?php endif; ?>
-   </tr>
+  </div>
 <?php endforeach; ?>
+ </div>
 <?php endif; ?>
-  </tbody>
- </table>
 
 <?php if ($this->canapply): ?>
  <p class="horde-form-buttons">
   <input class="button" id="apply_filters" type="button" value="<?php echo _("Apply Filters") ?>" />
  </p>
 <?php endif; ?>
+
+ <p class="horde-form-buttons" id="filtersSort" style="display:none">
+  <input class="button" type="button" value="<?php echo _("Update Rules Sorting") ?>" />
+ </p>
 </form>
 
 <?php if ($this->settings): ?>
