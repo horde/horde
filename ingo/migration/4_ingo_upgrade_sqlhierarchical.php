@@ -1,22 +1,21 @@
 <?php
 /**
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
 class IngoUpgradeSqlhierarchical extends Horde_Db_Migration_Base
