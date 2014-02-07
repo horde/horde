@@ -109,10 +109,10 @@ class Ingo_Application extends Horde_Registry_Application
 
         try {
             if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
-                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist', null, null, null, $vars->page == 'whitelist' ? 'current' : '__noselection');
+                $menu->add(Horde::url($registry->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist', null, null, null, $vars->page == 'whitelist' ? 'current' : '__noselection');
             }
             if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
-                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
+                $menu->add(Horde::url($registry->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
             }
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
@@ -170,7 +170,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-        global $injector;
+        global $injector, $session;
 
         $actions = array();
         foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
@@ -191,7 +191,7 @@ class Ingo_Application extends Horde_Registry_Application
         if ($injector->getInstance('Ingo_Shares') &&
             (count($all_rulesets = $this->_listRulesets()) > 1)) {
             $url = Ingo_Basic_Filters::url();
-            $current = $GLOBALS['session']->get('ingo', 'current_share');
+            $current = $session->get('ingo', 'current_share');
 
             $sidebar->containers['rulesets'] = array(
                 'header' => array(
