@@ -98,26 +98,16 @@
     <para>The original message will be discarded, and a new message will be
     sent to the sender with the text that you specify.</para>
   </entry>
-  <entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
+  <entry id="rule-match">
+    <title>Filter Rule: Matching</title>
     <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
+    group them together logically using ALL or OR. You may not create complex
     filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>
-  <entry id="rule-mark">
-    <title>Filter Rule: Mark Message</title>
-    <para>You may specify marking a message with one or more IMAP flags as one
-    of the actions in a rule. The possible values are Seen, Flagged For Followup,
-    Answered, and Deleted.</para>
-  </entry>
-  <entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
+    <para>If you select <b>ALL</b>, an incoming message must match every
+    condition that you specify in order for the actions to be executed.</para>
+    <para>If you select <b>ANY</b>, the specified actions will be executed if
+    at least one of the conditions is met.</para>
+    <heading>Conditions</heading>
     <para>There are 3 components to each condition in a rule. The first is the
     field to examine. The second is the type of comparison to perform. The
     third is the value to which the field should be compared. There are a few
@@ -191,6 +181,12 @@
     <warn>The Sieve specification doesn't support comparions with negative
     numbers. If you enter a negative value in one of the relational tests,
     your rule won't work correctly.</warn>
+  </entry>
+  <entry id="rule-mark">
+    <title>Filter Rule: Mark Message</title>
+    <para>You may specify marking a message with one or more IMAP flags as one
+    of the actions in a rule. The possible values are Seen, Flagged For Followup,
+    Answered, and Deleted.</para>
   </entry>
   <entry id="rule-name">
     <title>Filter Rule: Name</title>

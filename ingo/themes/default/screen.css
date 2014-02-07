@@ -31,9 +31,17 @@ table {
 }
 
 /* Rules page. */
-.ruleAction, .ruleFilters {
-    margin: 0 2%;
-    width: 98%;
+.ruleAction, .ruleCondition, .ruleMatch {
+    margin-left: 20px;
+}
+.ruleAction, .ruleMatch {
+    margin-bottom: 15px;
+}
+.ruleCondition input {
+    vertical-align: middle;
+}
+.ruleCondition label {
+    padding-right: 8px;
 }
 .ruleStopChecking {
     margin-right: 5px;
