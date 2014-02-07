@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-22</date>
+ <date>2014-02-07</date>
  <version>
   <release>2.1.3</release>
   <api>2.0.0</api>
@@ -38,6 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add null VFS driver.
 * [jan] Support Oracle with SQL driver.
  </notes>
  <contents>
@@ -67,6 +68,7 @@ Reading, writing and listing of files are all supported.</description>
       <file name="Kolab.php" role="php" />
       <file name="Mongo.php" role="php" />
       <file name="Musql.php" role="php" />
+      <file name="Null.php" role="php" />
       <file name="Smb.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="SqlFile.php" role="php" />
@@ -499,6 +501,7 @@ Reading, writing and listing of files are all supported.</description>
    <install as="Horde/Vfs/Kolab.php" name="lib/Horde/Vfs/Kolab.php" />
    <install as="Horde/Vfs/Mongo.php" name="lib/Horde/Vfs/Mongo.php" />
    <install as="Horde/Vfs/Musql.php" name="lib/Horde/Vfs/Musql.php" />
+   <install as="Horde/Vfs/Null.php" name="lib/Horde/Vfs/Null.php" />
    <install as="Horde/Vfs/Smb.php" name="lib/Horde/Vfs/Smb.php" />
    <install as="Horde/Vfs/Sql.php" name="lib/Horde/Vfs/Sql.php" />
    <install as="Horde/Vfs/SqlFile.php" name="lib/Horde/Vfs/SqlFile.php" />
@@ -1192,9 +1195,10 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-22</date>
+   <date>2014-02-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add null VFS driver.
 * [jan] Support Oracle with SQL driver.
    </notes>
   </release>
