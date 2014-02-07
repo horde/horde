@@ -30,8 +30,8 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         global $conf, $injector, $notification, $page_output;
 
         /* Check rule permissions. */
-        $perms = $injector->getInstance('Horde_Core_Perms');
-        if (!$perms->hasAppPermission('allow_rules')) {
+        $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+        if ($max === 0) {
             Horde::permissionDeniedError(
                 'ingo',
                 'allow_rules',
@@ -63,7 +63,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
-        if ($this->_assertMaxRules($perms, $filters)) {
+        if ($this->_assertMaxRules($max, $filters)) {
             Ingo_Basic_Filters::url()->redirect();
         }
 
@@ -183,7 +183,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             }
 
             if (!isset($this->vars->edit)) {
-                if ($this->_assertMaxRules($perms, $filters)) {
+                if ($this->_assertMaxRules($max, $filters)) {
                     break;
                 }
                 $filters->addRule($rule);
@@ -344,15 +344,16 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
     }
 
     /**
+     * @param mixed $max
+     * @param Ingo_Storage_Filters $filters
      */
-    protected function _assertMaxRules($perms, $filters)
+    protected function _assertMaxRules($max, $filters)
     {
-        if (($perms->hasAppPermission('max_rules') !== true) &&
-            ($perms->hasAppPermission('max_rules') <= count($filters->getFilterList()))) {
+        if (($max !== true) && ($max <= count($filters->getFilterList()))) {
             Horde::permissionDeniedError(
                 'ingo',
                 'max_rules',
-                sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
+                sprintf(_("You are not allowed to create more than %d rules."), $max)
             );
             return true;
         }

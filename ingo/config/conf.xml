@@ -11,10 +11,6 @@
     </configsection>
    </case>
   </configswitch>
-  <configinteger name="maxblacklist" desc="The maximum number of blacklist
-  addresses a user can store.  Set to 0 for no limit.">0</configinteger>
-  <configinteger name="maxwhitelist" desc="The maximum number of whitelist
-  addresses a user can store.  Set to 0 for no limit.">0</configinteger>
  </configsection>
 
  <configsection name="rules">

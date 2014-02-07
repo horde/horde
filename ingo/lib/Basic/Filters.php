@@ -77,26 +77,27 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 break;
 
             case 'rule_copy':
-                if (!$perms->hasAppPermission('allow_rules')) {
-                    Horde::permissionDeniedError(
-                        'ingo',
-                        'allow_rules',
-                        _("You are not allowed to create or edit custom rules.")
-                    );
-                    break 2;
-                } elseif (($perms->hasAppPermission('max_rules') !== true) &&
-                          $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
+                $max = $perms->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+                if ($max === 0) {
                     Horde::permissionDeniedError(
                         'ingo',
                         'max_rules',
-                        sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
+                        _("You are not allowed to create or edit custom rules.")
                     );
                     break 2;
-                } else {
-                    $tmp = $filters->getFilter($this->vars->rulenumber);
-                    if ($filters->copyRule($this->vars->rulenumber)) {
-                        $notification->push(sprintf(_("Rule \"%s\" copied."), $tmp['name']), 'horde.success');
-                    }
+                } elseif (($max !== true) &&
+                          ($max <= count($filters->getFilterList()))) {
+                    Horde::permissionDeniedError(
+                        'ingo',
+                        'max_rules',
+                        sprintf(_("You are not allowed to create more than %d rules."), $max)
+                    );
+                    break 2;
+                }
+
+                $tmp = $filters->getFilter($this->vars->rulenumber);
+                if ($filters->copyRule($this->vars->rulenumber)) {
+                    $notification->push(sprintf(_("Rule \"%s\" copied."), $tmp['name']), 'horde.success');
                 }
                 break;
 
@@ -183,7 +184,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
             $view->can_copy =
                 $edit_allowed &&
-                ((($max_rules = $perms->hasAppPermission('max_rules')) === true) ||
+                ((($max_rules = $perms->hasAppPermission(Ingo_Perms::getPerm('max_rules'))) === true) ||
                 ($max_rules > count($filter_list)));
 
             foreach ($filter_list as $rule_number => $filter) {

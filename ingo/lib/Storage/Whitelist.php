@@ -39,14 +39,15 @@ class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
      */
     public function setWhitelist($data)
     {
-        global $conf;
+        global $injector;
 
         $addr = $this->_addressList($data);
+        $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_whitelist'));
 
-        if (!empty($conf['storage']['maxwhitelist'])) {
+        if (($max !== true) && !empty($max)) {
             $addr_count = count($addr);
-            if ($addr_count > $conf['storage']['maxwhitelist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $conf['storage']['maxwhitelist']));
+            if ($addr_count > $max) {
+                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $max));
             }
         }
 

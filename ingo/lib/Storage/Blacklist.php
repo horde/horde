@@ -35,14 +35,15 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
      */
     public function setBlacklist($data)
     {
-        global $conf;
+        global $injector;
 
         $addr = $this->_addressList($data);
+        $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_blacklist'));
 
-        if (!empty($conf['storage']['maxblacklist'])) {
+        if (($max !== true) && !empty($max)) {
             $addr_count = count($addr);
-            if ($addr_count > $conf['storage']['maxblacklist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $conf['storage']['maxblacklist']));
+            if ($addr_count > $max) {
+                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $max));
             }
         }
 

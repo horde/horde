@@ -98,22 +98,6 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
-    public function perms()
-    {
-        return array(
-            'allow_rules' => array(
-                'title' => _("Allow Rules"),
-                'type' => 'boolean'
-            ),
-            'max_rules' => array(
-                'title' => _("Maximum Number of Rules"),
-                'type' => 'int'
-            )
-        );
-    }
-
-    /**
-     */
     public function menu($menu)
     {
         global $conf, $injector, $prefs, $registry, $session;
@@ -188,7 +172,6 @@ class Ingo_Application extends Horde_Registry_Application
     {
         global $injector;
 
-        $perms = $injector->getInstance('Horde_Core_Perms');
         $actions = array();
         foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
             $actions = array_merge($actions, $script->availableActions());
@@ -198,11 +181,11 @@ class Ingo_Application extends Horde_Registry_Application
             ->retrieve(Ingo_Storage::ACTION_FILTERS)
             ->getFilterList();
 
-        if (!empty($actions) &&
-            ($perms->hasAppPermission('allow_rules') &&
-             ($perms->hasAppPermission('max_rules') === true ||
-              $perms->hasAppPermission('max_rules') > count($filters)))) {
-            $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
+        if (!empty($actions)) {
+            $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+            if (($max === true) || ($max > count($filters))) {
+                $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
+            }
         }
 
         if ($injector->getInstance('Ingo_Shares') &&
@@ -231,20 +214,16 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
+    public function perms()
+    {
+        return $GLOBALS['injector']->getInstance('Ingo_Perms')->perms();
+    }
+
+    /**
+     */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'allow_rules':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
-
-            case 'max_rules':
-                $allowed = max($allowed);
-                break;
-            }
-        }
-        return $allowed;
+        return $GLOBALS['injector']->getInstance('Ingo_Perms')->hasPermission($permission, $allowed, $opts);
     }
 
     /**

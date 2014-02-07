@@ -1,0 +1,94 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Perform admin upgrade tasks specific to Ingo.
+ *
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ingo/lib/Application.php';
+}
+Horde_Registry::appInit('ingo', array('cli' => true));
+
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-t', '--task', array(
+    'dest' => 'task',
+    'help' => 'Upgrade task'
+));
+list($values,) = $parser->parseArgs();
+
+$pkey = 'ingo:';
+
+switch ($values->task) {
+case 'backend_perms':
+case 'backend_perms_force':
+    $backends = array_keys(Ingo::loadBackends());
+    $perms = $injector->getInstance('Horde_Perms');
+
+    $cli->message($cli->bold('Upgrading permissions.'));
+
+    if ($values->task == 'backend_perms_force') {
+        foreach ($backends as $backend) {
+            try {
+                $perms->removePermission($perms->getPermission($pkey . $backend), true);
+                $cli->message(sprintf('Force deletion of all "%s" backend permissions.', $backend));
+            } catch (Horde_Exception $e) {}
+        }
+    }
+
+    try {
+        $pval = null;
+        $remove = array();
+
+        if ($perms->exists($pkey . 'allow_rules')) {
+            $remove[] = $pkey . 'allow_rules';
+            $pval = $perms->getPermission($pkey . 'allow_rules');
+        }
+
+        if ($perms->exists($pkey . 'max_rules')) {
+            $remove[] = $pkey . 'max_rules';
+            if (!$pval) {
+                $pval = $perms->getPermission($pkey . 'max_rules');
+            }
+        }
+
+        if ($pval) {
+            foreach ($backends as $backend) {
+                $parent_perm = $pkey . $backend;
+                if (!$perms->exists($parent_perm)) {
+                    $perms->addPermission($perms->newPermission($parent_perm));
+                }
+
+                $perm_edit = clone $pval;
+                $perm_edit->setName($parent_perm . ':max_rules');
+                $perms->addPermission($perm_edit);
+                $cli->message(sprintf('Added "%s" permission to the "%s" backend.', 'max_rules', $backend));
+            }
+
+            foreach ($remove as $val) {
+                $perms->removePermission($val);
+                $cli->message(sprintf('Removed obsolete "%s" permission.', $val));
+            }
+        }
+    } catch (Horde_Exception $e) {
+        $cli->message(sprintf('Error upgrading "%s" permission: %s.', 'max_rules', $e->getMessage()), 'cli.error');
+    }
+
+    $cli->message($cli->bold('DONE upgrading permissions.'));
+    break;
+}

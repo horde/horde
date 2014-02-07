@@ -39,6 +39,35 @@ Added the 'newEmailFilter' API link.  Takes one argument: 'email', the
 e-mail address to pre-populate into a new rule.
 
 
+Configuration Options (conf.php)
+--------------------------------
+
+The following options have been removed (see Permissions section for
+replacement functionality)::
+
+   $conf['storage']['maxblacklist']
+   $conf['storage']['maxwhitelist']
+
+
+Permissions
+-----------
+
+Ingo permissions are now applied per backend. To upgrade existing permissions,
+an admin needs to run the following script::
+
+   bin/ingo-admin-upgrade --task=backend_perms
+
+The following permissions have been added::
+
+   max_blacklist
+   max_whitelist
+
+The following permissions have been removed::
+
+   allow_rules (replacement: set max_rules permission to 0)
+
+
+
 Upgrading Ingo From 3.0.x To 3.1.x
 ==================================
 

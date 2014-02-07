@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-05</date>
+ <date>2014-02-09</date>
  <version>
   <release>3.2.0</release>
   <api>3.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Replace max blacklist/whitelist configuration parameters with equivalent permissions options.
 * [mms] Sorting of rules now done via drag/drop javascript.
 * [jan] Make shares table compatible with Oracle.
 * [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
@@ -41,6 +42,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
+    <file name="ingo-admin-upgrade" role="script" />
     <file name="ingo-convert-prefs-to-sql" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -221,6 +223,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Flist.php" role="horde" />
     <file name="Ingo.php" role="horde" />
+    <file name="Perms.php" role="horde" />
     <file name="Session.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
@@ -645,6 +648,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="ingo-admin-upgrade" name="bin/ingo-admin-upgrade" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
    <install as="ingo-convert-sql-shares-to-sqlng" name="bin/ingo-convert-sql-shares-to-sqlng" />
    <install as="ingo-postfix-policyd" name="bin/ingo-postfix-policyd" />
@@ -671,6 +675,7 @@
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Flist.php" name="lib/Flist.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
+   <install as="ingo/lib/Perms.php" name="lib/Perms.php" />
    <install as="ingo/lib/Session.php" name="lib/Session.php" />
    <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
