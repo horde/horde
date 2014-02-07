@@ -34,80 +34,74 @@
   <?php echo $this->hordeLabel('any', _("ANY of the following")) ?>
  </div>
 
- <table class="ruleMatch">
+ <div class="ruleMatch">
 <?php foreach ($this->filter as $f): ?>
-     <tr>
+  <div class="ruleMatchRow">
+   <div class="ruleMatchCondition">
 <?php if ($f['cond_num'] > 0): ?>
-      <td>
-       <strong><?php echo ($this->rule['combine'] == Ingo_Storage::COMBINE_ALL) ? _("and") : _("or") ?></strong>
-      </td>
-<?php elseif (($f['cond_num'] == 0) && !$f['lastfield']): ?>
-      <td></td>
+    <strong><?php echo ($this->rule['combine'] == Ingo_Storage::COMBINE_ALL) ? _("and") : _("or") ?></strong>
 <?php endif; ?>
-      <td>
-       <label for="field_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("Field") ?></label>
-       <select id="field_<?php echo $f['cond_num'] ?>" name="field[<?php echo $f['cond_num'] ?>]">
+   </div>
+   <div>
+    <label for="field_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("Field") ?></label>
+    <select id="field_<?php echo $f['cond_num'] ?>" name="field[<?php echo $f['cond_num'] ?>]">
 <?php if ($f['lastfield']): ?>
-        <option value=""><?php echo _("Select a field") ?></option>
-        <option disabled="disabled" value="">- - - - - - - - - -</option>
+     <option value=""><?php echo _("Select a field") ?></option>
+     <option disabled="disabled" value="">- - - - - - - - - -</option>
 <?php endif; ?>
 <?php foreach ($this->fields as $k => $v): ?>
 <?php if (in_array($v['type'], $this->avail_types)): ?>
-        <?php echo $this->optionTag($k, $this->h($v['label']), $f['field'] == $k) ?>
+     <?php echo $this->optionTag($k, $this->h($v['label']), $f['field'] == $k) ?>
 <?php endif; ?>
 <?php endforeach; ?>
 <?php if (count($this->special)): ?>
-        <option disabled="disabled" value="">- - - - - - - - - -</option>
+     <option disabled="disabled" value="">- - - - - - - - - -</option>
 <?php foreach ($this->special as $v): ?>
-        <?php echo $this->optionTag($v, $this->h($v), $f['field'] == $v) ?>
+     <?php echo $this->optionTag($v, $this->h($v), $f['field'] == $v) ?>
 <?php endforeach; ?>
 <?php endif ?>
 <?php if ($this->userheader): ?>
-        <option disabled="disabled" value="">- - - - - - - - - -</option>
-        <?php echo $this->optionTag(Ingo::USER_HEADER, _("Self-Defined Header"), isset($f['userheader'])) ?>
+     <option disabled="disabled" value="">- - - - - - - - - -</option>
+     <?php echo $this->optionTag(Ingo::USER_HEADER, _("Self-Defined Header"), isset($f['userheader'])) ?>
 <?php endif; ?>
-       </select>
+    </select>
 <?php if (isset($f['userheader'])): ?>
-       <label for="userheader_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("User header") ?></label>
-       <input id="userheader_<?php echo $f['cond_num'] ?>" name="userheader[<?php echo $f['cond_num'] ?>]" value="<?php echo $this->h($f['userheader']) ?>" />
+    <label for="userheader_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("User header") ?></label>
+    <input id="userheader_<?php echo $f['cond_num'] ?>" name="userheader[<?php echo $f['cond_num'] ?>]" value="<?php echo $this->h($f['userheader']) ?>" />
 <?php endif; ?>
-      </td>
-<?php if ($f['lastfield']): ?>
-      <td colspan="2"></td>
-<?php else: ?>
-      <td>
-       <label for="match_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("Match type") ?></label>
-       <select id="match_<?php echo $f['cond_num'] ?>" name="match[<?php echo $f['cond_num'] ?>]">
+   </div>
+<?php if (!$f['lastfield']): ?>
+   <div>
+    <label for="match_<?php echo $f['cond_num'] ?>" class="hidden"><?php echo _("Match type") ?></label>
+    <select id="match_<?php echo $f['cond_num'] ?>" name="match[<?php echo $f['cond_num'] ?>]">
 <?php if (empty($f['matchtest'])): ?>
-        <option disabled="disabled" value="">- - - - - - - - - -</option>
+     <option disabled="disabled" value="">- - - - - - - - - -</option>
 <?php else: ?>
 <?php foreach ($f['matchtest'] as $v): ?>
-        <?php echo $this->optionTag($v['value'], $this->h($v['label']), $v['selected']) ?>
+     <?php echo $this->optionTag($v['value'], $this->h($v['label']), $v['selected']) ?>
 <?php endforeach; ?>
 <?php endif; ?>
-       </select>
-      </td>
-      <td>
+    </select>
+   </div>
+   <div>
 <?php if (isset($f['match_value'])): ?>
-       <label for="value_<?php echo $f['cond_num'] ?>" class="hidden">Value</label>
-       <input id="value_<?php echo $f['cond_num'] ?>" name="value[<?php echo $f['cond_num'] ?>]" size="40" value="<?php echo $this->h($f['match_value']) ?>" />
+    <label for="value_<?php echo $f['cond_num'] ?>" class="hidden">Value</label>
+    <input id="value_<?php echo $f['cond_num'] ?>" name="value[<?php echo $f['cond_num'] ?>]" size="40" value="<?php echo $this->h($f['match_value']) ?>" />
 <?php endif; ?>
 <?php if (isset($f['case_sensitive'])): ?>
-       <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, (bool)$f['case_sensitive'], array('class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num'])) ?>
-       <?php echo $this->hordeLabel('case_' . $f['cond_num'], _("Case Sensitive")) ?>
+    <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, (bool)$f['case_sensitive'], array('class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num'])) ?>
+    <?php echo $this->hordeLabel('case_' . $f['cond_num'], _("Case Sensitive")) ?>
 <?php endif; ?>
-      </td>
+   </div>
 <?php endif; ?>
 <?php if (!$f['lastfield']): ?>
-      <td>
-       <?php echo Horde::link('javascript:IngoRule.delete_condition(' . intval($f['cond_num']) . ');', _("Delete Condition")) . $this->hordeImage('delete.png', _("Delete Condition")) ?></a>
-      </td>
-<?php elseif ($f['cond_num'] != 0): ?>
-      <td></td>
+   <div>
+    <?php echo Horde::link('javascript:IngoRule.delete_condition(' . intval($f['cond_num']) . ');', _("Delete Condition")) . $this->hordeImage('delete.png', _("Delete Condition")) ?></a>
+   </div>
 <?php endif; ?>
-     </tr>
+  </div>
 <?php endforeach; ?>
- </table>
+ </div>
 
  <div>
   <em><?php echo $this->hordeLabel('action', _("Do this:")) ?></em>

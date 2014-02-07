@@ -35,13 +35,23 @@ table {
     margin-left: 20px;
 }
 .ruleAction, .ruleMatch {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .ruleCondition input {
     vertical-align: middle;
 }
 .ruleCondition label {
     padding-right: 8px;
+}
+.ruleMatchRow {
+    padding-bottom: 5px;
+}
+.ruleMatchRow div {
+    display: inline-block;
+    padding-right: 5px;
+}
+.ruleMatchCondition {
+    width: 30px;
 }
 .ruleStopChecking {
     margin-right: 5px;
