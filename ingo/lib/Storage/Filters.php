@@ -65,43 +65,26 @@ class Ingo_Storage_Filters
      */
     public function getFilterList($skip = array())
     {
-        $skip = array_flip($skip);
         $filters = array();
+        $skip = array_flip($skip);
+        $skip_list = array(
+            Ingo_Storage::ACTION_BLACKLIST => Ingo::RULE_BLACKLIST,
+            Ingo_Storage::ACTION_WHITELIST => Ingo::RULE_WHITELIST,
+            Ingo_Storage::ACTION_FORWARD => Ingo::RULE_FORWARD,
+            Ingo_Storage::ACTION_VACATION => Ingo::RULE_VACATION,
+            Ingo_Storage::ACTION_SPAM => Ingo::RULE_SPAM
+        );
+
         foreach ($this->_filters as $id => $filter) {
-            switch ($filter['action']) {
-            case Ingo_Storage::ACTION_BLACKLIST:
-                if (isset($skip[Ingo::RULE_BLACKLIST])) {
-                    continue 2;
+            if (isset($skip_list[$filter['action']])) {
+                if (!isset($skip[$skip_list[$filter['action']]])) {
+                    $filters[$id] = $filter;
                 }
-                break;
-            case Ingo_Storage::ACTION_WHITELIST:
-                if (isset($skip[Ingo::RULE_WHITELIST])) {
-                    continue 2;
-                }
-                break;
-            case Ingo_Storage::ACTION_FORWARD:
-                if (isset($skip[Ingo::RULE_FORWARD])) {
-                    continue 2;
-                }
-                break;
-            case Ingo_Storage::ACTION_VACATION:
-                if (isset($skip[Ingo::RULE_VACATION])) {
-                    continue 2;
-                }
-                break;
-            case Ingo_Storage::ACTION_SPAM:
-                if (isset($skip[Ingo::RULE_SPAM])) {
-                    continue 2;
-                }
-                break;
-            default:
-                if (isset($skip[Ingo::RULE_FILTER])) {
-                    continue 2;
-                }
-                break;
+            } elseif (!isset($skip[Ingo::RULE_FILTER])) {
+                $filters[$id] = $filter;
             }
-            $filters[$id] = $filter;
         }
+
         return $filters;
     }
 
