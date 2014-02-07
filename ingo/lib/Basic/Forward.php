@@ -27,13 +27,10 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $session;
+        global $injector, $notification;
 
         /* Redirect if forward is not available. */
-        if (!in_array(Ingo_Storage::ACTION_FORWARD, $session->get('ingo', 'script_categories'))) {
-            $notification->push(_("Forward is not supported in the current filtering driver."), 'horde.error');
-            self::url()->redirect();
-        }
+        $this->_assertCategory(Ingo_Storage::ACTION_FORWARD, _("Forward"));
 
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             self::url()->redirect();

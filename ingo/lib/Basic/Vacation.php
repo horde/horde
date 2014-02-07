@@ -27,13 +27,9 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $session;
+        global $injector, $notification;
 
-        /* Redirect if vacation is not available. */
-        if (!in_array(Ingo_Storage::ACTION_VACATION, $session->get('ingo', 'script_categories'))) {
-            $notification->push(_("Vacation is not supported in the current filtering driver."), 'horde.error');
-            Ingo_Basic_Filters::url()->redirect();
-        }
+        $this->_assertCategory(Ingo_Storage::ACTION_VACATION, _("Vacation"));
 
         /* Get vacation object and rules. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();

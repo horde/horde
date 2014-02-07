@@ -28,12 +28,9 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $session;
+        global $injector, $notification;
 
-        if (!in_array(Ingo_Storage::ACTION_SPAM, $session->get('ingo', 'script_categories'))) {
-            $notification->push(_("Simple spam filtering is not supported in the current filtering driver."), 'horde.error');
-            Ingo_Basic_Filters::url()->redirect();
-        }
+        $this->_assertCategory(Ingo_Storage::ACTION_SPAM, _("Spam filtering"));
 
         /* Get the spam object and rule. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();

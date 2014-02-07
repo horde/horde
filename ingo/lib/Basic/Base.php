@@ -137,6 +137,28 @@ abstract class Ingo_Basic_Base
     }
 
     /**
+     * Assert category.
+     *
+     * @param integer $type  Category type.
+     * @param string $label  Category label.
+     */
+    protected function _assertCategory($type, $label)
+    {
+        global $notification, $session;
+
+        if (!in_array($type, $session->get('ingo', 'script_categories'))) {
+            $notification->push(
+                sprintf(
+                    _("%s is not supported in the current filtering driver."),
+                    $label
+                ),
+                'horde.error'
+            );
+            Ingo_Basic_Filters::url()->redirect();
+        }
+    }
+
+    /**
      */
     abstract protected function _init();
 

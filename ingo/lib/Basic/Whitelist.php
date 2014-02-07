@@ -28,13 +28,9 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $session;
+        global $injector, $notification, $page_output;
 
-        /* Redirect if whitelist not available. */
-        if (!in_array(Ingo_Storage::ACTION_WHITELIST, $session->get('ingo', 'script_categories'))) {
-            $notification->push(_("Whitelist is not supported in the current filtering driver."), 'horde.error');
-            Ingo_Basic_Filters::url()->redirect();
-        }
+        $this->_assertCategory(Ingo_Storage::ACTION_WHITELIST, _("Whitelist"));
 
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
