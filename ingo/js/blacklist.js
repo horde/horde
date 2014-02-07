@@ -1,4 +1,8 @@
 var IngoBlacklist = {
+
+    // Vars used and defaulting to null/false:
+    //   filtersurl
+
     onDomLoad: function()
     {
         $('actionvalue').observe('change', function(e) {
@@ -8,7 +12,7 @@ var IngoBlacklist = {
         });
 
         $('blacklist_return').observe('click', function(e) {
-            document.location.href = IngoBlacklist.filtersurl;
+            document.location.href = this.filtersurl;
             e.stop();
         }.bind(this));
     }
