@@ -131,42 +131,41 @@ class Ingo_Storage
     {
         global $session;
 
-        $type = $ob->obType();
-        if (in_array($type, array(self::ACTION_BLACKLIST,
-                                  self::ACTION_VACATION,
-                                  self::ACTION_WHITELIST,
-                                  self::ACTION_FORWARD,
-                                  self::ACTION_SPAM))) {
-            $filters = $this->retrieve(self::ACTION_FILTERS);
-            if ($filters->findRuleId($type) === null) {
-                switch ($type) {
-                case self::ACTION_BLACKLIST:
-                    $name = 'Blacklist';
-                    break;
+        switch ($type = $ob->obType()) {
+        case self::ACTION_BLACKLIST:
+            $name = 'Blacklist';
+            break;
 
-                case self::ACTION_VACATION:
-                    $name = 'Vacation';
-                    break;
+        case self::ACTION_VACATION:
+            $name = 'Vacation';
+            break;
 
-                case self::ACTION_WHITELIST:
-                    $name = 'Whitelist';
-                    break;
+        case self::ACTION_WHITELIST:
+            $name = 'Whitelist';
+            break;
 
-                case self::ACTION_FORWARD:
-                    $name = 'Forward';
-                    break;
+        case self::ACTION_FORWARD:
+            $name = 'Forward';
+            break;
 
-                case self::ACTION_SPAM:
-                    $name = 'Spam Filter';
-                    break;
-                }
-                $filters->addRule(array('action' => $type, 'name' => $name));
-                $this->store($filters);
-            }
+        case self::ACTION_SPAM:
+            $name = 'Spam Filter';
+            break;
+
+        default:
+            $name = null;
+            break;
+        }
+
+        if (!is_null($name) &&
+            ($filters = $this->retrieve(self::ACTION_FILTERS)) &&
+            ($filters->findRuleId($type) === null)) {
+            $filters->addRule(array('action' => $type, 'name' => $name));
+            $this->store($filters);
         }
 
         $this->_store($ob);
-        $this->_cache[$ob->obType()] = $ob;
+        $this->_cache[$type] = $ob;
 
         $session->set('ingo', 'change', time());
     }

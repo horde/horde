@@ -37,15 +37,10 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
         $ingo_script = $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_BLACKLIST);
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $blacklist_folder = $folder = null;
-
         $flagonly = ($ingo_script && in_array(Ingo_Storage::ACTION_FLAGONLY, $ingo_script->availableActions()));
 
-        /* Token checking. */
-        $actionID = $this->_checkToken(array('rule_update'));
-
-        /* Perform requested actions. */
-        switch ($actionID) {
+        /* Token checking & perform requested actions. */
+        switch ($this->_checkToken(array('rule_update'))) {
         case 'rule_update':
             switch ($this->vars->action) {
             case 'delete':
@@ -58,6 +53,10 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
             case 'folder':
                 $folder = $this->validateMbox('actionvalue');
+                break;
+
+            default:
+                $folder = null;
                 break;
             }
 
@@ -88,9 +87,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         }
 
         /* Create the folder listing. */
-        if (!isset($blacklist_folder)) {
-            $blacklist_folder = $blacklist->getBlacklistFolder();
-        }
+        $blacklist_folder = $blacklist->getBlacklistFolder();
         $folder_list = Ingo_Flist::select($blacklist_folder, 'actionvalue');
 
         /* Get the blacklist rule. */

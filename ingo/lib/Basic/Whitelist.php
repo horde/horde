@@ -39,11 +39,8 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
-        /* Token checking. */
-        $actionID = $this->_checkToken(array('rule_update'));
-
-        /* Perform requested actions. */
-        switch ($actionID) {
+        /* Token checking & perform requested actions. */
+        switch ($this->_checkToken(array('rule_update'))) {
         case 'rule_update':
             try {
                 Ingo::updateListFilter($this->vars->whitelist, Ingo_Storage::ACTION_WHITELIST);
