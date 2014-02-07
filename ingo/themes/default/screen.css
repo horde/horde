@@ -7,11 +7,6 @@ table.scriptHeader {
     width: auto;
 }
 
-.caseSensitive {
-    margin-left: 5px;
-    vertical-align: middle;
-}
-
 /* Filters page. */
 .filtersRow {
     cursor: move;
@@ -30,6 +25,21 @@ table.scriptHeader {
 .filtersDisabled a {
     color: red;
 }
+
+/* Rules page. */
+.ruleAction, .ruleFilters {
+    margin: 0 2%;
+    width: 98%;
+}
+.ruleStopChecking {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.caseSensitive {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
 
 /* Icons. */
 .ingo-rules {

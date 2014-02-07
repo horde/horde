@@ -337,6 +337,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $view->stop = $ingo_script->hasFeature('stop_script');
 
         $page_output->addScriptFile('rule.js');
+        $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addInlineJsVars(array(
             'IngoRule.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true))
         ));

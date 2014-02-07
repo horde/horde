@@ -47,7 +47,7 @@
 
   <tr>
    <td>
-    <table>
+    <table class="striped ruleFilters">
 <?php foreach ($this->filter as $f): ?>
      <tr>
 <?php if ($f['cond_num'] > 0): ?>
@@ -128,18 +128,24 @@
   </tr>
 
   <tr>
-   <td>
+   <td colspan="2">
     <em><?php echo $this->hordeLabel('action', _("Do this:")) ?></em>
-    <br />
-    <select id="action" name="action">
+   </td>
+  </tr>
+
+  <tr>
+   <td>
+    <div class="ruleAction">
+     <select id="action" name="action">
 <?php foreach ($this->actions as $v): ?>
-     <?php echo $this->optionTag($v['value'], $this->h($v['label']), $v['selected']) ?>
+      <?php echo $this->optionTag($v['value'], $this->h($v['label']), $v['selected']) ?>
 <?php endforeach; ?>
-    </select>
+     </select>
 <?php if ($this->actionvaluelabel): ?>
-    <label for="actionvalue" class="hidden"><?php echo $this->actionvaluelabel ?></label>
+     <label for="actionvalue" class="hidden"><?php echo $this->actionvaluelabel ?></label>
     <?php echo $this->actionvalue ?>
 <?php endif; ?>
+    </div>
    </td>
    <td>
     <?php echo $this->hordeHelp('ingo', 'rule-action') ?>
@@ -181,7 +187,7 @@
 <?php if ($this->stop): ?>
   <tr>
    <td>
-    <?php echo $this->checkBoxTag('stop', '1', (bool)$this->rule['stop']) ?>
+    <?php echo $this->checkBoxTag('stop', '1', (bool)$this->rule['stop'], array('class' => 'ruleStopChecking')) ?>
     <?php echo $this->hordeLabel('stop', _("Stop checking if this rule matches?")) ?>
    </td>
    <td>
