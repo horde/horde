@@ -30,10 +30,9 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
 
         parent::_addFields($this->_contact);
 
-        try {
-            $contact->vfsInit();
+        if (!($contact->vfsInit() instanceof Horde_Vfs_Null)) {
             $this->addVariable(_("Add file"), 'vfs', 'file', false);
-        } catch (Turba_Exception $e) {}
+        }
 
         $object_values = $vars->get('object');
         $object_keys = array_keys($contact->attributes);

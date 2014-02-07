@@ -10,7 +10,9 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
      * @param array $vars  Array of form variables
      * @param Turba_Object $contact
      */
-    public function __construct($vars, Turba_Object $contact, $tabs = true, $title = null)
+    public function __construct(
+        $vars, Turba_Object $contact, $tabs = true, $title = null
+    )
     {
         global $injector, $notification;
 
@@ -40,10 +42,7 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
         $this->_addFields($contact, $tabs);
 
         /* List files. */
-        try {
-            /* This throws Turba_Exception if VFS not available. */
-            $contact->vfsInit();
-
+        if (!($contact->vfsInit() instanceof Horde_Vfs_Null)) {
             try {
                 $files = $contact->listFiles();
                 $this->addVariable(_("Files"), '__vfs', 'html', false);
@@ -51,8 +50,6 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
             } catch (Turba_Exception $e) {
                 $notification->push($files, 'horde.error');
             }
-        } catch (Turba_Exception $e) {
-            /* Ignore: VFS is not active. */
         }
     }
 }

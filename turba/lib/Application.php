@@ -463,14 +463,8 @@ class Turba_Application extends Horde_Registry_Application
             }
 
             try {
-                $vfs = $object->vfsInit();
-            } catch (Horde_Vfs_Exception $e) {
-                throw new Turba_Exception(_("Data cannot be downloaded as no VFS driver is configured."));
-            }
-
-            try {
                 return array(
-                    'data' => $vfs->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $vars->file),
+                    'data' => $object->vfsInit()->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $vars->file),
                     'name' => $vars->file
                 );
             } catch (Horde_Vfs_Exception $e) {

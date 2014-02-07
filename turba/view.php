@@ -32,13 +32,7 @@ if (!$object->hasPermission(Horde_Perms::READ)) {
 }
 
 try {
-    $vfs = $object->vfsInit();
-} catch (Horde_Exception $e) {
-    throw new Turba_Exception($e);
-}
-
-try {
-    $data = $vfs->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $filename);
+    $data = $object->vfsInit()->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $filename);
 } catch (Horde_Vfs_Exception $e) {
     Horde::log($e, 'ERR');
     throw new Turba_Exception(sprintf(_("Access denied to %s"), $filename));
