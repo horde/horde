@@ -33,7 +33,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         $this->_assertCategory(Ingo_Storage::ACTION_FORWARD, _("Forward"));
 
         if ($this->vars->submitbutton == _("Return to Rules List")) {
-            self::url()->redirect();
+            Ingo_Basic_Filters::url()->redirect();
         }
 
         /* Get the forward object and rule. */
