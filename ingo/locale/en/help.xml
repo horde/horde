@@ -255,10 +255,6 @@
     always wish to see in your INBOX. Each address should be entered on a
     separate line.</para>
   </entry>
-  <entry id="whitelist-addresses">
-    <title>Whitelist: Addresses</title>
-    <para>Each address should be entered on a separate line.</para>
-  </entry>
   <entry id="spam-level">
     <title>Spam Filtering: Spam Level</title>
     <para>The system will consider messages with a likely spam score greater
