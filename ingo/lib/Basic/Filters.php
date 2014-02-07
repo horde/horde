@@ -133,7 +133,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             break;
 
         case 'apply_filters':
-            $factory->perform($session->get('ingo', 'change'));
+            $factory->perform();
             break;
 
         case 'update_sort':

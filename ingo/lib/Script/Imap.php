@@ -89,7 +89,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
      * @param integer $change  The timestamp of the latest rule change during
      *                         the current session.
      */
-    public function perform($change)
+    protected function _perform($change)
     {
         $api = $this->_params['api'];
         $notification = $this->_params['notification'];

@@ -143,7 +143,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
      * @param integer $change  The timestamp of the latest rule change during
      *                         the current session.
      */
-    public function perform($change)
+    public function perform($change = null)
     {
         foreach ($this->createAll() as $driver) {
             $driver->perform($change);

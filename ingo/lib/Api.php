@@ -155,9 +155,7 @@ class Ingo_Api extends Horde_Registry_Api
                 $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
         }
         foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
-            $script
-                ->setParams($params)
-                ->perform($GLOBALS['session']->get('ingo', 'change'));
+            $script->setParams($params)->perform();
         }
     }
 

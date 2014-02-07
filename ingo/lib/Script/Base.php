@@ -328,9 +328,24 @@ abstract class Ingo_Script_Base
      * Performs the filtering specified in the rules.
      *
      * @param integer $change  The timestamp of the latest rule change during
-     *                         the current session.
+     *                         the current session (uses session value if
+     *                         null).
      */
-    public function perform($change)
+    public function perform($change = null)
+    {
+        global $session;
+
+        if (is_null($change)) {
+            $change = $session->get('ingo', 'change');
+        }
+
+        $this->_perform($change);
+    }
+
+    /**
+     * @see perform()
+     */
+    protected function _perform($change)
     {
     }
 
