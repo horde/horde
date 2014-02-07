@@ -77,6 +77,10 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             : $conf[$name];
 
         switch (Horde_String::lower($vfs['type'])) {
+        case 'none':
+            $vfs['type'] = 'null';
+            break;
+
         case 'nosql':
             $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'vfs');
             if ($nosql instanceof Horde_Mongo_Client) {
