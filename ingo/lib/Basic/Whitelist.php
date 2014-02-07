@@ -49,9 +49,6 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
                 Ingo::updateListFilter($this->vars->whitelist, Ingo_Storage::ACTION_WHITELIST);
                 $notification->push(_("Changes saved."), 'horde.success');
                 Ingo_Script_Util::update();
-
-                /* Update the timestamp for the rules. */
-                $session->set('ingo', 'change', time());
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

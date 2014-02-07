@@ -228,9 +228,6 @@ class Ingo_Api extends Horde_Registry_Api
         $ingo_storage->store($filters);
 
         Ingo_Script_Util::update();
-
-        /* Update the timestamp for the rules. */
-        $GLOBALS['session']->set('ingo', 'change', time());
     }
 
     /**
@@ -270,9 +267,6 @@ class Ingo_Api extends Horde_Registry_Api
         $filters->ruleDisable($vacation_id);
         $ingo_storage->store($filters);
         Ingo_Script_Util::update();
-
-        /* Update the timestamp for the rules. */
-        $GLOBALS['session']->set('ingo', 'change', time());
     }
 
 }

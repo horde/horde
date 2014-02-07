@@ -27,7 +27,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $session;
+        global $conf, $injector, $notification, $page_output;
 
         /* Check rule permissions. */
         $perms = $injector->getInstance('Horde_Core_Perms');
@@ -190,8 +190,6 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             } else {
                 $filters->updateRule($rule, $this->vars->edit);
             }
-
-            $session->set('ingo', 'change', time());
 
             $ingo_storage->store($filters);
             $notification->push(_("Changes saved."), 'horde.success');

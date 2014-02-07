@@ -73,9 +73,6 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                 } catch (Ingo_Exception $e) {
                     $notification->push($e->getMessage(), $e->getCode());
                 }
-
-                /* Update the timestamp for the rules. */
-                $session->set('ingo', 'change', time());
             }
             break;
         }

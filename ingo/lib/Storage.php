@@ -129,6 +129,8 @@ class Ingo_Storage
      */
     public function store($ob)
     {
+        global $session;
+
         $type = $ob->obType();
         if (in_array($type, array(self::ACTION_BLACKLIST,
                                   self::ACTION_VACATION,
@@ -165,6 +167,8 @@ class Ingo_Storage
 
         $this->_store($ob);
         $this->_cache[$ob->obType()] = $ob;
+
+        $session->set('ingo', 'change', time());
     }
 
     /**

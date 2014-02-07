@@ -87,9 +87,6 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }
-
-            /* Update the timestamp for the rules. */
-            $session->set('ingo', 'change', time());
         }
 
         /* Add buttons depending on the above actions. */
