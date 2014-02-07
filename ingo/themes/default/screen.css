@@ -40,6 +40,14 @@ table.scriptHeader {
     vertical-align: middle;
 }
 
+/* Blacklist page. */
+.blacklistAction {
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.blacklistAction input {
+    vertical-align: middle;
+}
 
 /* Icons. */
 .ingo-rules {
