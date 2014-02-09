@@ -334,8 +334,7 @@ class Ingo_Application extends Horde_Registry_Application
 
         foreach ($tmp as $id => $ruleset) {
             list($backend) = explode(':', $id);
-            if (isset($backends[$backend]) &&
-                empty($backends[$backend]['disabled'])) {
+            if (isset($backends[$backend])) {
                 $this->_rulesets[$id] = $ruleset;
             }
         }

@@ -117,10 +117,6 @@ class Ingo_Session
         $backend = null;
 
         foreach (Ingo::loadBackends() as $name => $val) {
-            if (!empty($val['disabled'])) {
-                continue;
-            }
-
             $val['id'] = $name;
 
             if (!isset($backend)) {

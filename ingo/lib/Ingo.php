@@ -220,7 +220,14 @@ class Ingo
             throw new Ingo_Exception(_("No backends configured in backends.php"));
         }
 
-        return $config->config['backends'];
+        $out = array();
+        foreach ($config->config['backends'] as $key => $val) {
+            if (empty($val['disabled'])) {
+                $out[$key] = $val;
+            }
+        }
+
+        return $out;
     }
 
 }
