@@ -131,6 +131,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     protected $_cache = array(
         'auth' => null,
+        'cfile' => array(),
         'conf' => array(),
         'existing' => array(),
         'ob' => array()
@@ -591,7 +592,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     public function setAuthenticationSetting($authentication)
     {
         $this->_args['authentication'] = $authentication;
-        $this->_cache['ob'] = array();
+        $this->_cache['cfile'] = $this->_cache['ob'] = array();
         $this->_appsInit = array();
         while ($this->popApp());
     }
@@ -1723,6 +1724,37 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create($app, $opts);
+    }
+
+    /**
+     * Load a configuration file from a Horde application's config directory.
+     * This call is cached (a config file is only loaded once, regardless of
+     * the $vars value).
+     *
+     * @since 2.12.0
+     *
+     * @param string $conf_file  Configuration file name.
+     * @param mixed $vars        List of config variables to load.
+     * @param string $app        Application.
+     *
+     * @return Horde_Registry_Loadconfig  The config object.
+     * @throws Horde_Exception
+     */
+    public function loadConfigFile($conf_file, $vars = null, $app = null)
+    {
+        if (is_null($app)) {
+            $app = $this->getApp();
+        }
+
+        if (!isset($this->_cache['cfile'][$app][$conf_file])) {
+            $this->_cache['cfile'][$app][$conf_file] = new Horde_Registry_Loadconfig(
+                $app,
+                $conf_file,
+                $vars
+            );
+        }
+
+        return $this->_cache['cfile'][$app][$conf_file];
     }
 
     /**

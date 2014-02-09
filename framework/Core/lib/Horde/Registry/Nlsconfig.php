@@ -25,6 +25,8 @@ class Horde_Registry_Nlsconfig
      */
     public function __get($name)
     {
+        global $language, $registry, $session;
+
         /* These entries can be cached in the session. */
         $cached = array(
             'curr_charset',
@@ -35,13 +37,12 @@ class Horde_Registry_Nlsconfig
         );
 
         if (in_array($name, $cached) &&
-            $GLOBALS['session']->exists('horde', 'nls/' . $name)) {
-            return $GLOBALS['session']->get('horde', 'nls/' . $name);
+            $session->exists('horde', 'nls/' . $name)) {
+            return $session->get('horde', 'nls/' . $name);
         }
 
         if (!isset($this->_config)) {
-            $nls_conf = new Horde_Registry_Loadconfig('horde', 'nls.php', 'horde_nls_config');
-            $this->_config = $nls_conf->config['horde_nls_config'];
+            $this->_config = $registry->loadConfigFile('nls.php', 'horde_nls_config', 'horde')->config['horde_nls_config'];
         }
 
         switch ($name) {
@@ -65,8 +66,8 @@ class Horde_Registry_Nlsconfig
 
         case 'curr_charset':
             /* Return charset for the current language. */
-            $ret = isset($this->_config['charsets'][$GLOBALS['language']])
-                ? $this->_config['charsets'][$GLOBALS['language']]
+            $ret = isset($this->_config['charsets'][$language])
+                ? $this->_config['charsets'][$language]
                 : null;
             break;
 
@@ -79,19 +80,19 @@ class Horde_Registry_Nlsconfig
 
         case 'curr_emails':
             /* Return e-mail charset for the current language. */
-            $ret = isset($this->_config['emails'][$GLOBALS['language']])
-                ? $this->_config['emails'][$GLOBALS['language']]
+            $ret = isset($this->_config['emails'][$language])
+                ? $this->_config['emails'][$language]
                 : null;
             break;
 
         case 'curr_multibyte':
             /* Is the current language charset multibyte? */
-            $ret = isset($this->_config['multibyte'][$GLOBALS['registry']->getLanguageCharset()]);
+            $ret = isset($this->_config['multibyte'][$registry->getLanguageCharset()]);
             break;
 
         case 'curr_rtl':
             /* Is the current language RTL? */
-            $ret = isset($this->_config['rtl'][$GLOBALS['language']]);
+            $ret = isset($this->_config['rtl'][$language]);
             break;
 
         case 'encodings_sort':
@@ -105,7 +106,7 @@ class Horde_Registry_Nlsconfig
         }
 
         if (in_array($name, $cached)) {
-            $GLOBALS['session']->set('horde', 'nls/' . $name, $ret);
+            $session->set('horde', 'nls/' . $name, $ret);
         }
 
         return $ret;

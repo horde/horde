@@ -213,6 +213,8 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
      */
     private function _loadConfig($app)
     {
+        global $registry;
+
         if ($app != 'horde') {
             $this->_loadConfig('horde');
         }
@@ -224,8 +226,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
         }
 
         try {
-            $mconf = new Horde_Registry_Loadconfig($app, 'mime_drivers.php', 'mime_drivers');
-            $aconfig = $mconf->config['mime_drivers'];
+            $aconfig = $registry->loadConfigFile('mime_drivers.php', 'mime_drivers', $app)->config['mime_drivers'];
         } catch (Horde_Exception $e) {
             $aconfig = array();
         }

@@ -39,13 +39,16 @@ class Turba
      * configured as available sources in the main Turba configuration.
      *
      * @return array  List of available sources.
+     * @throws Horde_Exception
      */
     static public function availableSources()
     {
-        $config = new Horde_Registry_Loadconfig('turba', 'backends.php', 'cfgSources');
+        global $registry;
+
+        $s = $registry->loadConfigFile('backends.php', 'cfgSources', 'turba')->config['cfgSources'];
 
         $sources = array();
-        foreach ($config->config['cfgSources'] as $key => $source) {
+        foreach ($s as $key => $source) {
             if (empty($source['disabled'])) {
                 $sources[$key] = $source;
             }

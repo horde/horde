@@ -751,8 +751,10 @@ class Horde_Core_Prefs_Ui
      */
     protected function _loadPrefs($app, $data = false)
     {
+        global $registry;
+
         try {
-            $pconf = new Horde_Registry_Loadconfig($app, 'prefs.php', array('prefGroups', '_prefs'));
+            $pconf = $registry->loadConfigFile('prefs.php', array('prefGroups', '_prefs'), $app);
             $res = array(
                 'prefGroups' => $pconf->config['prefGroups'],
                 '_prefs' => $pconf->config['_prefs'],

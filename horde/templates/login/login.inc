@@ -91,6 +91,5 @@ $reset_passwd = !empty($conf['auth']['resetpassword']) && $auth->hasCapability('
 
 <?php
 try {
-    $config = new Horde_Registry_Loadconfig('horde', 'motd.php');
-    echo $config->output;
+    echo $registry->loadConfigFile('motd.php', null, 'horde')->output;
 } catch (Horde_Exception $e) {}

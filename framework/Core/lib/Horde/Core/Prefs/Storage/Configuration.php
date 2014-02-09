@@ -26,10 +26,12 @@ class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage_Base
      */
     public function get($scope_ob)
     {
+        global $registry;
+
         /* Read the configuration file.
          * Values are in the $_prefs array. */
         try {
-            $pconf = new Horde_Registry_Loadconfig($scope_ob->scope, 'prefs.php', '_prefs');
+            $pconf = $registry->loadConfigFile('prefs.php', '_prefs', $scope_ob->scope);
         } catch (Horde_Exception $e) {
             return $scope_ob;
         }

@@ -5,6 +5,5 @@
 
 <?php
 try {
-    $config = new Horde_Registry_Loadconfig('horde', 'motd.php');
-    echo $config->output;
+    echo $registry->loadConfigFile('motd.php', null, 'horde')->output;
 } catch (Horde_Exception $e) {}

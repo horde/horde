@@ -75,20 +75,21 @@ class Turba_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        global $injector, $registry, $session;
+
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
          * the fileroot entry. */
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+        $injector->getInstance('Horde_Autoloader')
             ->addClassPathMapper(
-                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $registry->get('fileroot', 'content') . '/lib/'));
 
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
         }
 
         // Turba source and attribute configuration.
-        $config = new Horde_Registry_Loadconfig('turba', 'attributes.php', 'attributes');
-        $attributes = $config->config['attributes'];
+        $attributes = $registry->loadConfigFile('attributes.php', 'attributes', 'turba')->config['attributes'];
         $cfgSources = Turba::availableSources();
 
         /* UGLY UGLY UGLY - we should NOT be using this as a global
@@ -99,7 +100,7 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($cfgSources as $key => $cfg) {
             if (!empty($cfg['use_shares'])) {
                 // Create a share instance.
-                $GLOBALS['session']->set('turba', 'has_share', true);
+                $session->set('turba', 'has_share', true);
                 $cfgSources = Turba::getConfigFromShares($cfgSources);
                 break;
             }
@@ -110,7 +111,7 @@ class Turba_Application extends Horde_Registry_Application
 
         // Build the directory sources select widget.
         if (empty(Turba::$source)) {
-            if (!(Turba::$source = $GLOBALS['session']->get('turba', 'source'))) {
+            if (!(Turba::$source = $session->get('turba', 'source'))) {
                 Turba::$source = Turba::getDefaultAddressbook();
             }
             Turba::$source = Horde_Util::getFormData('source', Turba::$source);
@@ -130,7 +131,7 @@ class Turba_Application extends Horde_Registry_Application
         if (empty($cfgSources[Turba::$source]['browse'])) {
             Turba::$source = Turba::getDefaultAddressbook();
         }
-        $GLOBALS['session']->set('turba', 'source', Turba::$source);
+        $session->set('turba', 'source', Turba::$source);
 
         $GLOBALS['addSources'] = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
         $GLOBALS['copymoveSources'] = $GLOBALS['addSources'];

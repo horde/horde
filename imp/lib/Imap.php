@@ -875,15 +875,17 @@ class IMP_Imap implements Serializable
      */
     static public function loadServerConfig($server = null)
     {
+        global $registry;
+
         if (empty(self::$_backends)) {
             try {
-                $s = new Horde_Registry_Loadconfig('imp', 'backends.php', 'servers');
+                $s = $registry->loadConfigFile('backends.php', 'servers', 'imp')->config['servers'];
             } catch (Horde_Exception $e) {
                 Horde::log($e, 'ERR');
                 return false;
             }
 
-            foreach ($s->config['servers'] as $key => $val) {
+            foreach ($s as $key => $val) {
                 if (empty($val['disabled'])) {
                     self::$_backends[$key] = new IMP_Imap_Config($val);
                 }

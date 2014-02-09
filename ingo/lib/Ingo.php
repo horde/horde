@@ -214,7 +214,9 @@ class Ingo
      */
     static public function loadBackends()
     {
-        $config = new Horde_Registry_Loadconfig('ingo', 'backends.php', 'backends');
+        global $registry;
+
+        $config = $registry->loadConfigFile('backends.php', 'backends', 'ingo');
         if (empty($config->config['backends']) ||
             !is_array($config->config['backends'])) {
             throw new Ingo_Exception(_("No backends configured in backends.php"));

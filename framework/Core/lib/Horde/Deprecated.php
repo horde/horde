@@ -210,7 +210,7 @@ class Horde_Deprecated
     /**
      * Loads global and vhost specific configuration files.
      *
-     * @deprecated  Use Horde_Registry_Loadconfig instead.
+     * @deprecated  Use Horde_Registry#loadConfigFile() instead.
      *
      * @param string $config_file      The name of the configuration file.
      * @param string|array $var_names  The name(s) of the variable(s) that
@@ -231,15 +231,7 @@ class Horde_Deprecated
     {
         global $registry;
 
-        if (is_null($app)) {
-            $app = $registry->getApp();
-        }
-
-        $app_conf = new Horde_Registry_Loadconfig(
-            $app,
-            $config_file,
-            $var_names
-        );
+        $app_conf = $registry->loadConfigFile($config_file, $var_names, $app);
 
         if ($show_output) {
             echo $app_conf->output;

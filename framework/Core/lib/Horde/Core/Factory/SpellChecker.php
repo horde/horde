@@ -34,7 +34,7 @@ class Horde_Core_Factory_SpellChecker extends Horde_Core_Factory_Base
      */
     public function create(array $args = array(), $input = null)
     {
-        global $conf, $language;
+        global $conf, $language, $registry;
 
         if (empty($conf['spell']['driver'])) {
             throw new Horde_Exception('No spellcheck driver configured.');
@@ -60,10 +60,9 @@ class Horde_Core_Factory_SpellChecker extends Horde_Core_Factory_Base
 
         /* Add local dictionary words. */
         try {
-            $sconf = new Horde_Registry_Loadconfig('horde', 'spelling.php', 'ignore_list');
             $args['localDict'] = array_merge(
                 $args['localDict'],
-                $sconf->config['ignore_list']
+                $registry->loadConfigFile('spelling.php', 'ignore_list', 'horde')->config['ignore_list']
             );
         } catch (Horde_Exception $e) {}
 

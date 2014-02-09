@@ -79,12 +79,14 @@ class Horde_Core_Hooks
      */
     public function hookExists($hook, $app)
     {
+        global $registry;
+
         if (!isset($this->_apps[$app])) {
             $this->_apps[$app] = false;
             $hook_class = $app . '_Hooks';
             if (!class_exists($hook_class, false)) {
                 try {
-                    new Horde_Registry_Loadconfig($app, 'hooks.php');
+                    $registry->loadConfigFile('hooks.php', null, $app);
                     $this->_apps[$app] = new $hook_class;
                 } catch (Horde_Exception $e) {}
             }
