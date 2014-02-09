@@ -17,17 +17,13 @@ var IngoFilters = {
 
         Sortable.create('filterslist', {
             onUpdate: function() {
-                $('filtersSort').show();
+                HordeCore.doAction(
+                    'reSortFilters',
+                    { sort: Object.toJSON(Sortable.sequence('filterslist')) }
+                );
                 Horde.stripeElement('filterslist');
             },
             tag: 'div'
-        });
-
-        $('filtersSort').down('INPUT').observe('click', function(e) {
-            $('actionID').setValue('update_sort');
-            $('sort_order').setValue(Object.toJSON(Sortable.sequence('filterslist')));
-            $('filters').submit();
-            e.stop();
         });
     }
 

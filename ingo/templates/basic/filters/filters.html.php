@@ -10,7 +10,6 @@ $enable_img = $this->hordeImage('enable.png');
 ?>
 <form method="post" id="filters" name="filters" action="<?php echo $this->formurl ?>">
  <?php echo $this->hiddenFieldTag('actionID') ?>
- <?php echo $this->hiddenFieldTag('sort_order') ?>
 
  <div class="header">
   <?php echo _("Existing Rules") ?>
@@ -64,10 +63,6 @@ $enable_img = $this->hordeImage('enable.png');
   <input class="button" id="apply_filters" type="button" value="<?php echo _("Apply Filters") ?>" />
  </p>
 <?php endif; ?>
-
- <p class="horde-form-buttons" id="filtersSort" style="display:none">
-  <input class="button" type="button" value="<?php echo _("Update Rules Sorting") ?>" />
- </p>
 </form>
 
 <?php if ($this->settings): ?>

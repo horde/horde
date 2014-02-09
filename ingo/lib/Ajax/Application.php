@@ -28,6 +28,11 @@ class Ingo_Ajax_Application extends Horde_Core_Ajax_Application
         global $registry;
 
         switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+        case $registry::VIEW_DYNAMIC:
+            $this->addHandler('Ingo_Ajax_Application_Filters');
+            break;
+
         case $registry::VIEW_SMARTMOBILE:
             $this->addHandler('Ingo_Ajax_Application_Smartmobile');
             break;

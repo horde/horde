@@ -48,8 +48,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             'rule_copy',
             'rule_delete',
             'rule_disable',
-            'rule_enable',
-            'update_sort'
+            'rule_enable'
         ));
 
         /* Perform requested actions. */
@@ -135,25 +134,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         case 'apply_filters':
             $factory->perform();
-            break;
-
-        case 'update_sort':
-            if (!$edit_allowed) {
-                $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-                self::url()->redirect();
-            }
-            try {
-                $filters->sort(json_decode($this->vars->sort_order));
-                $notification->push(
-                    _("Rule sort saved successfully."),
-                    'horde.success'
-                );
-            } catch (Ingo_Exception $e) {
-                $notification->push(
-                    _("Rule sort not saved."),
-                    'horde.error'
-                );
-            }
             break;
         }
 
@@ -280,7 +260,10 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             $view->show_filter_msg = $prefs->getValue('show_filter_msg');
         }
 
-        $page_output->addScriptPackage('Horde_Core_Script_Package_Sortable');
+        if ($edit_allowed) {
+            $page_output->addScriptFile('hordecore.js', 'horde');
+            $page_output->addScriptPackage('Horde_Core_Script_Package_Sortable');
+        }
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('filters.js');
 

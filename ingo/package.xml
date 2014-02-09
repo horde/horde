@@ -80,6 +80,7 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
+      <file name="Filters.php" role="horde" />
       <file name="Smartmobile.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
@@ -681,6 +682,7 @@
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="ingo/lib/Ajax/Application/Filters.php" name="lib/Ajax/Application/Filters.php" />
    <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="ingo/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="ingo/lib/Basic/Blacklist.php" name="lib/Basic/Blacklist.php" />
