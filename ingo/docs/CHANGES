@@ -2,6 +2,7 @@
 v3.2.0-git
 ----------
 
+[mms] Permissions can now be applied per backend, rather than globally.
 [mms] Replace max blacklist/whitelist configuration parameters with equivalent
       permissions options.
 [mms] Sorting of rules now done via drag/drop javascript.
