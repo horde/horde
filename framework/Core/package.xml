@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Registry_Application#getInitialPage().
 * [mms] Add Horde_Core_Script_Package_Sortable.
 * [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
@@ -3343,6 +3344,7 @@
    <date>2014-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Registry_Application#getInitialPage().
 * [mms] Add Horde_Core_Script_Package_Sortable.
 * [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
 * [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.

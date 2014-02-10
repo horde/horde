@@ -1957,6 +1957,12 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function getInitialPage($app = null)
     {
+        try {
+            if (($url = $this->callAppMethod($app, 'getInitialPage')) !== null) {
+                return $url;
+            }
+        } catch (Horde_Exception $e) {}
+
         if (($webroot = $this->get('webroot', $app)) !== null) {
             return $webroot . '/' . strval($this->get('initial_page', $app));
         }

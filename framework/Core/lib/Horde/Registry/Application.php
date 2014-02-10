@@ -199,6 +199,18 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
     {
     }
 
+    /**
+     * Return the initial page to access.
+     *
+     * @since 2.12.0
+     *
+     * @return mixed  URL of the initial page, or null to use Horde defaults.
+     */
+    public function getInitialPage()
+    {
+        return null;
+    }
+
 
     // Horde permissions.
 
