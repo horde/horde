@@ -63,7 +63,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     public function getResponse($request)
     {
-        //xdebug_break();
         $this->_server->exec();
     }
 
