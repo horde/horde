@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "1.8.7",
+            "version": "1.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-dav.git",
-                "reference": "41c750da3c60a427cdd847df090ef0fc7e8f1076"
+                "reference": "f8bad179521f434c60d836c8203f791b37a30657"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/41c750da3c60a427cdd847df090ef0fc7e8f1076",
-                "reference": "41c750da3c60a427cdd847df090ef0fc7e8f1076",
+                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/f8bad179521f434c60d836c8203f791b37a30657",
+                "reference": "f8bad179521f434c60d836c8203f791b37a30657",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2013-10-02 18:38:26"
+            "time": "2014-02-09 21:25:45"
         },
         {
             "name": "sabre/vobject",
