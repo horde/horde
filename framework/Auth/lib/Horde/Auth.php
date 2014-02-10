@@ -132,8 +132,8 @@ class Horde_Auth
             return ($show_encrypt ? '{crypt}' : '') . crypt($plaintext, $salt);
 
         case 'joomla-md5':
-            $result = $salt ? md5($plaintext.$salt) : md5($plaintext);
-            return md5($plaintext.$salt) . ':' . $salt;
+            return md5($plaintext . $salt) . ':' . $salt;
+
         case 'md5-base64':
             $encrypted = base64_encode(pack('H*', hash('md5', $plaintext)));
             return $show_encrypt ? '{MD5}' . $encrypted : $encrypted;
