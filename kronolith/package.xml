@@ -33,6 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
+* [mjr] Properly set event status to Cancelled on Resource calendars when the original event status is set to Cancelled.
+* [mjr] Fix updating free/busy display when updating event times (Bug #12676).
 * [mjr] Fix issue that could cause calendar sync to break when creating an exception on EAS versions &lt; 14.0
 * [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
@@ -2247,6 +2250,9 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
+* [mjr] Properly set event status to Cancelled on Resource calendars when the original event status is set to Cancelled.
+* [mjr] Fix updating free/busy display when updating event times (Bug #12676).
 * [mjr] Fix issue that could cause calendar sync to break when creating an exception on EAS versions &lt; 14.0
 * [jan] Fix rounding of start time when dragging events (Bug #11904).
 * [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
