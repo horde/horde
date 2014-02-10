@@ -228,62 +228,6 @@ class IMP_Auth
     }
 
     /**
-     * Returns the initial page.
-     *
-     * @return object  Object with the following properties:
-     *   - mbox (IMP_Mailbox)
-     *   - url (Horde_Url)
-     */
-    static public function getInitialPage()
-    {
-        $init_url = $GLOBALS['prefs']->getValue('initial_page');
-        if (!$init_url ||
-            !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $init_url = 'INBOX';
-        }
-
-        if ($init_url == IMP::INITIAL_FOLDERS) {
-            $mbox = null;
-        } else {
-            $mbox = IMP_Mailbox::get($init_url);
-            $GLOBALS['injector']->getInstance('Horde_Variables')->mailbox = $mbox->exists
-                ? $mbox->form_to
-                : IMP_Mailbox::get('INBOX')->form_to;
-        }
-
-        $result = new stdClass;
-        $result->mbox = $mbox;
-
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-            $result->url = is_null($mbox)
-                ? IMP_Basic_Folders::url()
-                : $mbox->url('mailbox');
-            break;
-
-        case Horde_Registry::VIEW_DYNAMIC:
-            $result->url = IMP_Dynamic_Mailbox::url(array(
-                'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
-            ));
-            break;
-
-        case Horde_Registry::VIEW_MINIMAL:
-            $result->url = is_null($mbox)
-                ? IMP_Minimal_Folders::url()
-                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
-            break;
-
-        case Horde_Registry::VIEW_SMARTMOBILE:
-            $result->url = is_null($mbox)
-                ? Horde::url('smartmobile.php', true)
-                : $mbox->url('mailbox');
-            break;
-        }
-
-        return $result;
-    }
-
-    /**
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
      *

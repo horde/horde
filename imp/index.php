@@ -17,4 +17,4 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-IMP_Auth::getInitialPage()->url->redirect();
+IMP::getInitialPage()->url->redirect();

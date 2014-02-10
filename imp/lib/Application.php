@@ -153,7 +153,7 @@ class IMP_Application extends Horde_Registry_Application
         if (($registry->initialApp == 'imp') &&
             !empty($this->initParams['impmode']) &&
             ($this->initParams['impmode'] != $registry->getView())) {
-            IMP_Auth::getInitialPage()->url->redirect();
+            IMP::getInitialPage()->url->redirect();
         }
     }
 
@@ -181,7 +181,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function getInitialPage()
     {
-        return strval(IMP_Auth::getInitialPage()->url);
+        return strval(IMP::getInitialPage()->url);
     }
 
     /* Horde permissions. */

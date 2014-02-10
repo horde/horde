@@ -134,4 +134,64 @@ class IMP
         return $res;
     }
 
+    /**
+     * Returns the initial page for IMP.
+     *
+     * @return object  Object with the following properties:
+     * <pre>
+     *   - mbox (IMP_Mailbox)
+     *   - url (Horde_Url)
+     * </pre>
+     */
+    static public function getInitialPage()
+    {
+        global $injector, $prefs, $registry;
+
+        $init_url = $prefs->getValue('initial_page');
+        if (!$init_url ||
+            !$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $init_url = 'INBOX';
+        }
+
+        if ($init_url == IMP::INITIAL_FOLDERS) {
+            $mbox = null;
+        } else {
+            $mbox = IMP_Mailbox::get($init_url);
+            $injector->getInstance('Horde_Variables')->mailbox = $mbox->exists
+                ? $mbox->form_to
+                : IMP_Mailbox::get('INBOX')->form_to;
+        }
+
+        $result = new stdClass;
+        $result->mbox = $mbox;
+
+        switch ($registry->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            $result->url = is_null($mbox)
+                ? IMP_Basic_Folders::url()
+                : $mbox->url('mailbox');
+            break;
+
+        case Horde_Registry::VIEW_DYNAMIC:
+            $result->url = IMP_Dynamic_Mailbox::url(array(
+                'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
+            ));
+            break;
+
+        case Horde_Registry::VIEW_MINIMAL:
+            $result->url = is_null($mbox)
+                ? IMP_Minimal_Folders::url()
+                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
+            break;
+
+        case Horde_Registry::VIEW_SMARTMOBILE:
+            $result->url = is_null($mbox)
+                ? Horde::url('smartmobile.php', true)
+                : $mbox->url('mailbox');
+            break;
+        }
+
+        return $result;
+    }
+
 }
