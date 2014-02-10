@@ -119,7 +119,8 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                             $params = $backend['params'];
                             unset($params['table'], $params['user_col'],
                                   $params['pass_col'], $params['encryption'],
-                                  $params['show_encryption']);
+                                  $params['show_encryption'],
+                                  $params['query_lookup'], $params['query_modify']);
                             $backend['params']['db'] = $this->_injector
                                 ->getInstance('Horde_Core_Factory_Db')
                                 ->create('passwd', $params);
