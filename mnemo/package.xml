@@ -27,7 +27,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
@@ -1102,7 +1101,7 @@
   </release>
   <release>
    <version>
-    <release>4.2.0alpha1</release>
+    <release>4.2.0</release>
     <api>4.0.0</api></version>
    <stability>
     <release>alpha</release>
@@ -1110,6 +1109,7 @@
    <date>2013-08-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Make shares table compatible with Oracle.
 * [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
 * [jan] Convert to Horde_View.
