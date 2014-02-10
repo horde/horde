@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 * [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
 * [mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug #12855).
  </notes>
@@ -1082,6 +1083,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 * [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
 * [mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug #12855).
    </notes>
