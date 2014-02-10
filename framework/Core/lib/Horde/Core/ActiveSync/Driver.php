@@ -875,15 +875,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // We introduce an element of randomness in the time to help
                 // avoid a large number of clients performing a softdelete at
                 // once. It's 23 hours + some random number of minutes < 60.
-                $sd = $folder->getSoftDeleteTimes();
-                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
-                    $this->_logger->info(sprintf(
-                        '[%s] Polling for SOFTDELETE items in calendar collection',
-                        getmypid()));
-                    // Gets the list of ids contained between the last softdelete
-                    // run and the current cutoffdate.
-                    $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate, $server_id);
-                    $folder->setSoftDeleteTimes($cutoffdate, time());
+                if (!$ping) {
+                    $sd = $folder->getSoftDeleteTimes();
+                    if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                        $this->_logger->info(sprintf(
+                            '[%s] Polling for SOFTDELETE items in calendar collection',
+                            getmypid()));
+                        // Gets the list of ids contained between the last softdelete
+                        // run and the current cutoffdate.
+                        $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate, $server_id);
+                        $folder->setSoftDeleteTimes($cutoffdate, time());
+                    }
                 }
             }
             break;
