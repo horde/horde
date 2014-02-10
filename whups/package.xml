@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2014-02-10</date>
  <version>
   <release>3.0.0RC4</release>
   <api>3.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Add "show" API link.
  </notes>
  <contents>
@@ -329,6 +330,12 @@
       <file name="whups.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="whups.mo" role="horde" />
+      <file name="whups.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
       <file name="whups.mo" role="horde" />
@@ -807,6 +814,8 @@
    <install as="whups/locale/ru/LC_MESSAGES/whups.po" name="locale/ru/LC_MESSAGES/whups.po" />
    <install as="whups/locale/sl/LC_MESSAGES/whups.mo" name="locale/sl/LC_MESSAGES/whups.mo" />
    <install as="whups/locale/sl/LC_MESSAGES/whups.po" name="locale/sl/LC_MESSAGES/whups.po" />
+   <install as="whups/locale/sv/LC_MESSAGES/whups.mo" name="locale/sv/LC_MESSAGES/whups.mo" />
+   <install as="whups/locale/sv/LC_MESSAGES/whups.po" name="locale/sv/LC_MESSAGES/whups.po" />
    <install as="whups/locale/tr/LC_MESSAGES/whups.mo" name="locale/tr/LC_MESSAGES/whups.mo" />
    <install as="whups/locale/tr/LC_MESSAGES/whups.po" name="locale/tr/LC_MESSAGES/whups.po" />
    <install as="whups/locale/uk/LC_MESSAGES/whups.mo" name="locale/uk/LC_MESSAGES/whups.mo" />
@@ -1062,9 +1071,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-11-19</date>
+   <date>2014-02-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Add "show" API link.
    </notes>
   </release>

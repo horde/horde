@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2014-02-10</date>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -307,6 +307,12 @@
       <file name="wicked.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="wicked.mo" role="horde" />
+      <file name="wicked.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
     <dir name="uk">
      <dir name="LC_MESSAGES">
       <file name="wicked.mo" role="horde" />
@@ -778,6 +784,8 @@
    <install as="wicked/locale/sk/LC_MESSAGES/wicked.po" name="locale/sk/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/sl/LC_MESSAGES/wicked.mo" name="locale/sl/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/sl/LC_MESSAGES/wicked.po" name="locale/sl/LC_MESSAGES/wicked.po" />
+   <install as="wicked/locale/sv/LC_MESSAGES/wicked.mo" name="locale/sv/LC_MESSAGES/wicked.mo" />
+   <install as="wicked/locale/sv/LC_MESSAGES/wicked.po" name="locale/sv/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/uk/LC_MESSAGES/wicked.mo" name="locale/uk/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/uk/LC_MESSAGES/wicked.po" name="locale/uk/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/zh_TW/LC_MESSAGES/wicked.mo" name="locale/zh_TW/LC_MESSAGES/wicked.mo" />
@@ -1011,10 +1019,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2014-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
    </notes>
   </release>
  </changelog>
