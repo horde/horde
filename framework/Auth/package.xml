@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add MySQL password hashing (Request #12962).
 * [rla] Add joomla encrypted password format (Enhancement #12889).
 * [mms] Fix parsing salted SHA256 entries (Adam James &lt;adam.james@transitiv.co.uk&gt;).
  </notes>
@@ -905,6 +906,7 @@
    <date>2013-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add MySQL password hashing (Request #12962).
 * [rla] Add joomla encrypted password format (Enhancement #12889).
 * [mms] Fix parsing salted SHA256 entries (Adam James &lt;adam.james@transitiv.co.uk&gt;).
    </notes>

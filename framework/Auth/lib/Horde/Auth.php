@@ -171,6 +171,10 @@ class Horde_Auth
         case 'msad':
             return Horde_String::convertCharset('"' . $plaintext . '"', 'ISO-8859-1', 'UTF-16LE');
 
+        case 'mysql':
+            $encrypted = '*' . Horde_String::upper(sha1(sha1($plaintext, true), false));
+            return $show_encrypt ? '{MYSQL}' . $encrypted : $encrypted;
+
         case 'plain':
             return $plaintext;
 
