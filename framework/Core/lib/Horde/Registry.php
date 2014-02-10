@@ -1772,13 +1772,25 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         if (isset($this->applications[$app][$parameter])) {
             $pval = $this->applications[$app][$parameter];
-        } elseif ($parameter == 'icon') {
-            $pval = Horde_Themes::img($app . '.png', $app);
-            if ((string)$pval == '') {
-                $pval = Horde_Themes::img('app-unknown.png', 'horde');
-            }
         } else {
-            $pval = isset($this->applications['horde'][$parameter]) ? $this->applications['horde'][$parameter] : null;
+            switch ($parameter) {
+            case 'icon':
+                $pval = Horde_Themes::img($app . '.png', $app);
+                if ((string)$pval == '') {
+                    $pval = Horde_Themes::img('app-unknown.png', 'horde');
+                }
+                break;
+
+            case 'initial_page':
+                $pval = null;
+                break;
+
+            default:
+                $pval = isset($this->applications['horde'][$parameter])
+                    ? $this->applications['horde'][$parameter]
+                    : null;
+                break;
+            }
         }
 
         return ($parameter == 'name')
