@@ -166,6 +166,22 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
+    public function getInitialPage()
+    {
+        global $registry;
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
+            return strval(Horde::url('smartmobile.php'));
+            break;
+
+        default:
+            return null;
+        }
+    }
+
+    /**
+     */
     public function menu($menu)
     {
         if ($GLOBALS['browse_source_count']) {
