@@ -1240,13 +1240,32 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function signMIMEPart($mime_part, $params = array())
     {
-        $params = array_merge($params, array('type' => 'signature', 'sigtype' => 'detach'));
+        $params = array_merge($params, array(
+            'sigtype' => 'detach',
+            'type' => 'signature'
+        ));
 
         /* RFC 3156 Requirements for a PGP signed message:
          * + Content-Type params 'micalg' & 'protocol' are REQUIRED.
          * + The digitally signed message MUST be constrained to 7 bits.
-         * + The MIME headers MUST be a part of the signed data. */
-        $msg_sign = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true, 'encode' => Horde_Mime_Part::ENCODE_7BIT)), $params);
+         * + The MIME headers MUST be a part of the signed data.
+         * + Ensure there are no trailing spaces in encoded data by forcing
+         *   text to be Q-P encoded (see, e.g., RFC 3676 [4.6]). */
+
+        /* Ensure that all text parts are Q-P encoded. */
+        foreach ($mime_part->contentTypeMap(false) as $key => $val) {
+            if (strpos($val, 'text/') === 0) {
+                $mime_part[$key]->setTransferEncoding('quoted-printable', array(
+                    'send' => true
+                ));
+            }
+        }
+
+        /* Get the signature. */
+        $msg_sign = $this->encrypt($mime_part->toString(array(
+            'canonical' => true,
+            'headers' => true
+        )), $params);
 
         /* Add the PGP signature. */
         $pgp_sign = new Horde_Mime_Part();

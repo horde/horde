@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure that all text parts are Q-P encoded when signing a MIME part.
 * [mms] More efficient parsing in Horde_Crypt_Pgp_Parse.
  </notes>
  <contents>
@@ -990,6 +991,7 @@ Initial release as a PEAR package
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure that all text parts are Q-P encoded when signing a MIME part.
 * [mms] More efficient parsing in Horde_Crypt_Pgp_Parse.
    </notes>
   </release>
