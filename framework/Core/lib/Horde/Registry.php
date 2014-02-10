@@ -1945,15 +1945,14 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function getInitialPage($app = null)
     {
-        if (is_null($app)) {
-            $app = $this->getApp();
+        if (($webroot = $this->get('webroot', $app)) !== null) {
+            return $webroot . '/' . strval($this->get('initial_page', $app));
         }
 
-        if (isset($this->applications[$app])) {
-            return $this->applications[$app]['webroot'] . '/' . (isset($this->applications[$app]['initial_page']) ? $this->applications[$app]['initial_page'] : '');
-        }
-
-        throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" is not configured in the Horde Registry."), $app));
+        throw new Horde_Exception(sprintf(
+            Horde_Core_Translation::t("\"%s\" is not configured in the Horde Registry."),
+            is_null($app) ? $this->getApp() : $app
+        ));
     }
 
     /**
