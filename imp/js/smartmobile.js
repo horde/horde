@@ -338,7 +338,8 @@ var ImpMobile = {
                             .html(r)
                             .change(function() {
                                 $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
-                            });
+                            })
+                            .find('OPTION[value=""]').attr('disabled', true);
                     },
                     { async: false }
                 );
