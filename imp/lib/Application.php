@@ -177,6 +177,13 @@ class IMP_Application extends Horde_Registry_Application
         $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->server_key;
     }
 
+    /**
+     */
+    public function getInitialPage()
+    {
+        return strval(IMP_Auth::getInitialPage()->url);
+    }
+
     /* Horde permissions. */
 
     /**
