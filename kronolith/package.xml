@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix exporting recurring events with no recur_end value to CSV.
 * [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
 * [mjr] Properly set event status to Cancelled on Resource calendars when the original event status is set to Cancelled.
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
@@ -2250,6 +2251,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix exporting recurring events with no recur_end value to CSV.
 * [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
 * [mjr] Properly set event status to Cancelled on Resource calendars when the original event status is set to Cancelled.
 * [mjr] Fix updating free/busy display when updating event times (Bug #12676).
