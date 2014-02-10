@@ -1229,9 +1229,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         foreach ($args as $key => $val) {
             $link = str_replace('%' . $key . '%', htmlentities($val), $link);
         }
-        if (isset($this->applications[$app]['webroot'])) {
-            $link = str_replace('%application%', $this->get('webroot', $app), $link);
-        }
+
+        $link = $this->applicationWebPath($link, $app);
 
         /* Replace htmlencoded arguments that haven't been specified with
            an empty string (this is where the default would be substituted
@@ -1295,11 +1294,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function applicationWebPath($path, $app = null)
     {
-        if (!isset($app)) {
-            $app = $this->getApp();
-        }
-
-        return str_replace('%application%', $this->applications[$app]['webroot'], $path);
+        return str_replace('%application%', $this->get('webroot', $app), $path);
     }
 
     /**
