@@ -181,7 +181,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function getInitialPage()
     {
-        return strval(IMP::getInitialPage()->url);
+        return strval(IMP::getInitialPage()->url->setRaw(true));
     }
 
     /* Horde permissions. */

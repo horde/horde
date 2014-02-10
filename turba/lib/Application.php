@@ -172,7 +172,7 @@ class Turba_Application extends Horde_Registry_Application
 
         switch ($registry->getView()) {
         case $registry::VIEW_SMARTMOBILE:
-            return strval(Horde::url('smartmobile.php'));
+            return strval(Horde::url('smartmobile.php')->setRaw(true));
             break;
 
         default:

@@ -100,7 +100,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function getInitialPage()
     {
-        return strval(Ingo::getInitialPage());
+        return strval(Ingo::getInitialPage()->setRaw(true));
     }
 
     /**
