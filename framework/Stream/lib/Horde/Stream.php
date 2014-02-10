@@ -199,14 +199,27 @@ class Horde_Stream implements Serializable
      */
     public function getToChar($end, $all = true)
     {
-        $res = $this->search($end);
+        if (($len = strlen($end)) === 1) {
+            $out = '';
+            do {
+                if (($tmp = stream_get_line($this->stream, 8192, $end)) === false) {
+                    return $out;
+                }
 
-        if (is_null($res)) {
-            return $this->substring();
+                $out .= $tmp;
+                if ((strlen($tmp) < 8192) || ($this->peek(-1) == $end)) {
+                    break;
+                }
+            } while (true);
+        } else {
+            $res = $this->search($end);
+
+            if (is_null($res)) {
+                return $this->substring();
+            }
+
+            $out = substr($this->getString(null, $res + $len - 1), 0, $len * -1);
         }
-
-        $len = strlen($end);
-        $out = substr($this->getString(null, $res + $len - 1), 0, $len * -1);
 
         /* Remove all further characters also. */
         if ($all) {

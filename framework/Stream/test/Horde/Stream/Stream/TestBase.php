@@ -233,6 +233,25 @@ abstract class Horde_Stream_Stream_TestBase extends Horde_Test_Case
             '',
             $stream3->getToChar("\n", false)
         );
+
+        $long_string = str_repeat('A', 15000);
+        $stream4 = $this->_getOb();
+        $stream4->add($long_string . "B\n", true);
+
+        $this->assertEquals(
+            $long_string,
+            $stream4->getToChar('B', false)
+        );
+        $stream4->rewind();
+        $this->assertEquals(
+            $long_string . "B",
+            $stream4->getToChar("\n", false)
+        );
+        $stream4->rewind();
+        $this->assertEquals(
+            $long_string,
+            $stream4->getToChar("B\n", false)
+        );
     }
 
     public function testLength()

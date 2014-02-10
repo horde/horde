@@ -143,6 +143,16 @@ class Horde_Stream_TempString extends Horde_Stream_Temp
 
     /**
      */
+    public function getToChar($end, $all = true)
+    {
+        return $this->_string
+            ? $this->_string->getToChar($end, $all)
+            : parent::getToChar($end, $all);
+    }
+
+
+    /**
+     */
     public function peek($length = 1)
     {
         return $this->_string
