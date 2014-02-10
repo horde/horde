@@ -472,6 +472,9 @@ class Horde
         if (isset($puri['query'])) {
             $url .= '?' . $puri['query'];
         }
+        if (isset($puri['fragment'])) {
+            $url .= '#' . $puri['fragment'];
+        }
 
         $ob = new Horde_Url($url, $full);
 
