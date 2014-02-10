@@ -609,7 +609,9 @@ class Kronolith_Application extends Horde_Registry_Application
 
                             if ($event->recurs()) {
                                 $row['recur_type'] = $event->recurrence->getRecurType();
-                                $row['recur_end_date'] = $event->recurrence->recurEnd->format('Y-m-d');
+                                if ($event->recurrence->hasRecurEnd()) {
+                                    $row['recur_end_date'] = $event->recurrence->recurEnd->format('Y-m-d');
+                                }
                                 $row['recur_interval'] = $event->recurrence->getRecurInterval();
                                 $row['recur_data'] = $event->recurrence->recurData;
                             }
