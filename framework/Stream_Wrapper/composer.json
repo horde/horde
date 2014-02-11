@@ -3,7 +3,7 @@
     "description": "Horde Stream wrappers",
     "type": "library",
     "homepage": "http://pear.horde.org",
-    "license": "LGPL-2.1",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Chuck Hagenbuch",
@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.2",
-    "time": "2012-11-22",
+    "version": "2.1.0",
+    "time": "2014-02-11",
     "repositories": [
         {
             "type": "pear",
