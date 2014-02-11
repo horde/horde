@@ -223,7 +223,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                 if (!$edit_allowed) {
                     $entry['descriplink'] = htmlspecialchars($name);
                 } elseif (!empty($filter['conditions'])) {
-                    $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, Ingo::ruleDescription($filter)) . htmlspecialchars($name) . '</a>';
+                    $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, $ingo_storage->ruleDescription($filter)) . htmlspecialchars($name) . '</a>';
                 } else {
                     $entry['descriplink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name)) . htmlspecialchars($name) . '</a>';
                 }

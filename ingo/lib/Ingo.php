@@ -163,50 +163,6 @@ class Ingo
     }
 
     /**
-     * Output description for a rule.
-     *
-     * @param array $rule  Rule.
-     *
-     * @return string  Text description.
-     */
-    static public function ruleDescription($rule)
-    {
-        global $injector;
-
-        $condition_size = count($rule['conditions']) - 1;
-        $descrip = '';
-        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-
-        foreach ($rule['conditions'] as $key => $val) {
-            $info = $storage->getTestInfo($val['match']);
-            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), $info->label, $val['value']);
-
-            if (!empty($val['case'])) {
-                $descrip .= ' [' . _("Case Sensitive") . ']';
-            }
-
-            if ($key < $condition_size) {
-                $descrip .= ($rule['combine'] == Ingo_Storage::COMBINE_ALL)
-                    ? _(" and")
-                    : _(" or");
-                $descrip .= "\n  ";
-            }
-        }
-
-        $descrip .= "\n" . $storage->getActionInfo($rule['action'])->label;
-
-        if ($rule['action-value']) {
-            $descrip .= ': ' . $rule['action-value'];
-        }
-
-        if ($rule['stop']) {
-            $descrip .= "\n[stop]";
-        }
-
-        return $descrip;
-    }
-
-    /**
      * Loads the backends.php configuration file.
      *
      * @return array  Configuration data.

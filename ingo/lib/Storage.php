@@ -322,4 +322,45 @@ class Ingo_Storage
 	    throw new Ingo_Exception(_("Removing user data is not supported with the current filter storage backend."));
     }
 
+    /**
+     * Output description for a rule.
+     *
+     * @param array $rule  Rule.
+     *
+     * @return string  Text description.
+     */
+    public function ruleDescription($rule)
+    {
+        $condition_size = count($rule['conditions']) - 1;
+        $descrip = '';
+
+        foreach ($rule['conditions'] as $key => $val) {
+            $info = $this->getTestInfo($val['match']);
+            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), $info->label, $val['value']);
+
+            if (!empty($val['case'])) {
+                $descrip .= ' [' . _("Case Sensitive") . ']';
+            }
+
+            if ($key < $condition_size) {
+                $descrip .= ($rule['combine'] == self::COMBINE_ALL)
+                    ? _(" and")
+                    : _(" or");
+                $descrip .= "\n  ";
+            }
+        }
+
+        $descrip .= "\n" . $this->getActionInfo($rule['action'])->label;
+
+        if ($rule['action-value']) {
+            $descrip .= ': ' . $rule['action-value'];
+        }
+
+        if ($rule['stop']) {
+            $descrip .= "\n[stop]";
+        }
+
+        return $descrip;
+    }
+
 }

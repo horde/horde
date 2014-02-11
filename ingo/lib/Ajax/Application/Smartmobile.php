@@ -44,16 +44,15 @@ class Ingo_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Hand
             $notification->push(_("Individual rules are not supported in the current filtering driver."), 'horde.error');
             $out->error = 1;
         } else {
-            $rule = $injector->getInstance('Ingo_Factory_Storage')
-                ->create()
-                ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+            $rule = $storage->retrieve(Ingo_Storage::ACTION_FILTERS)
                 ->getRule($this->vars->rule);
 
             if (!$rule) {
                 $notification->push(_("Rule not found."), 'horde.error');
                 $out->error = 1;
             } else {
-                $out->descrip = trim(Ingo::ruleDescription($rule));
+                $out->descrip = trim($storage->ruleDescription($rule));
                 $out->label = $rule['name'];
             }
         }
