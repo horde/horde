@@ -154,11 +154,12 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
             return true;
         }
 
-        if ($elt->mbox_ob->special) {
-            if ($this->_mask & self::NO_SPECIALMBOXES) {
-                return false;
-            }
-        } elseif (($this->_mask & self::NO_UNPOLLED) && !$elt->polled) {
+        if (($this->_mask & self::NO_SPECIALMBOXES) &&
+            $elt->mbox_ob->special) {
+            return false;
+        }
+
+        if (($this->_mask & self::NO_UNPOLLED) && !$elt->polled) {
             return false;
         }
 
