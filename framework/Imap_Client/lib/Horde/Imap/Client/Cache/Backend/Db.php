@@ -133,7 +133,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                 try {
                     /* Update */
                     $this->_db->update(
-                        sprintf('UPDATE %s SET data = ? WHERE uid = ? AND msguid = ?', self::MSG_TABLE),
+                        sprintf('UPDATE %s SET data = ? WHERE messageid = ? AND msguid = ?', self::MSG_TABLE),
                         array(
                             new Horde_Db_Value_Binary($compress->compress(serialize(array_merge($res[$key], $val)))),
                             $uid,
@@ -145,7 +145,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                 /* Insert */
                 try {
                     $this->_db->insert(
-                        sprintf('INSERT INTO %s (data, msguid, uid) VALUES (?, ?, ?)', self::MSG_TABLE),
+                        sprintf('INSERT INTO %s (data, msguid, messageid) VALUES (?, ?, ?)', self::MSG_TABLE),
                         array(
                             new Horde_Db_Value_Binary($compress->compress(serialize($val))),
                             strval($key),
@@ -160,7 +160,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         try {
             $this->_db->update(
                 sprintf(
-                    'UPDATE %s SET modified = ? WHERE uid = ?',
+                    'UPDATE %s SET modified = ? WHERE messageid = ?',
                     self::BASE_TABLE
                 ),
                 array(time(), $uid)
@@ -227,7 +227,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
             $uid = $this->_createUid($mailbox);
         }
 
-        $query = sprintf('SELECT field FROM %s where uid = ?', self::MD_TABLE);
+        $query = sprintf('SELECT field FROM %s where messageid = ?', self::MD_TABLE);
         $values = array($uid);
 
         try {
@@ -244,7 +244,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                 try {
                     $this->_db->update(
                         sprintf(
-                            'UPDATE %s SET data = ? WHERE field = ? AND uid = ?',
+                            'UPDATE %s SET data = ? WHERE field = ? AND messageid = ?',
                             self::MD_TABLE
                         ),
                         array($val, $key, $uid)
@@ -255,7 +255,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                 try {
                     $this->_db->insert(
                         sprintf(
-                            'INSERT INTO %s (data, field, uid) VALUES (?, ?, ?)',
+                            'INSERT INTO %s (data, field, messageid) VALUES (?, ?, ?)',
                             self::MD_TABLE
                         ),
                         array($val, $key, $uid)
@@ -271,7 +271,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
     {
         $query = $this->_baseSql($mailbox);
         $query[0] = sprintf(
-            'DELETE FROM %s WHERE uid IN (SELECT uid ' . $query[0] . ')',
+            'DELETE FROM %s WHERE messageid IN (SELECT messageid ' . $query[0] . ')',
             self::MSG_TABLE
         );
 
@@ -298,7 +298,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         foreach (array(self::BASE_TABLE, self::MD_TABLE, self::MSG_TABLE) as $val) {
             try {
                 $this->_db->delete(
-                    sprintf('DELETE FROM %s WHERE uid = ?', $val),
+                    sprintf('DELETE FROM %s WHERE messageid = ?', $val),
                     array($uid)
                 );
             } catch (Horde_Db_Exception $e) {}
@@ -319,7 +319,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         }
 
         $purge = time() - $lifetime;
-        $sql = 'DELETE FROM %s WHERE uid IN (SELECT uid FROM %s WHERE modified < ?';
+        $sql = 'DELETE FROM %s WHERE messageid IN (SELECT messageid FROM %s WHERE modified < ?';
 
         foreach (array(self::MD_TABLE, self::MSG_TABLE) as $val) {
             try {
@@ -351,7 +351,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         $sql = sprintf('FROM %s d', self::BASE_TABLE);
 
         if (!is_null($join)) {
-            $sql .= sprintf(' INNER JOIN %s t ON d.uid = t.uid', $join);
+            $sql .= sprintf(' INNER JOIN %s t ON d.messageid = t.messageid', $join);
         }
 
         return array(
@@ -373,7 +373,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
     protected function _getUid($mailbox)
     {
         $query = $this->_baseSql($mailbox);
-        $query[0] = 'SELECT d.uid ' . $query[0];
+        $query[0] = 'SELECT d.messageid ' . $query[0];
 
         try {
             return $this->_db->selectValue($query[0], $query[1]);

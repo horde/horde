@@ -30,7 +30,7 @@ class HordeImapClientBaseTables extends Horde_Db_Migration_Base
         }
 
         $t = $this->createTable('horde_imap_client_data', array(
-            'autoincrementKey' => 'uid'
+            'autoincrementKey' => 'messageid'
         ));
         $t->column('hostspec', 'string', array(
             'limit' => 255,
@@ -62,14 +62,14 @@ class HordeImapClientBaseTables extends Horde_Db_Migration_Base
         $t->column('msguid', 'string', array(
             'null' => false
         ));
-        $t->column('uid', 'bigint', array(
+        $t->column('messageid', 'bigint', array(
             'null' => false
         ));
         $t->end();
 
         $this->addIndex(
             'horde_imap_client_message',
-            array('msguid', 'uid')
+            array('msguid', 'messageid')
         );
 
         $t = $this->createTable('horde_imap_client_metadata', array(
@@ -79,14 +79,14 @@ class HordeImapClientBaseTables extends Horde_Db_Migration_Base
         $t->column('field', 'string', array(
             'null' => false
         ));
-        $t->column('uid', 'bigint', array(
+        $t->column('messageid', 'bigint', array(
             'null' => false
         ));
         $t->end();
 
         $this->addIndex(
             'horde_imap_client_metadata',
-            array('uid')
+            array('messageid')
         );
     }
 

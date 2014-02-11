@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
  </notes>
  <contents>
@@ -2165,6 +2166,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
    </notes>
   </release>
