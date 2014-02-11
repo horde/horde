@@ -145,6 +145,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                     : 'Horde_Db_Adapter_Mysql';
                 break;
 
+            case 'oci8':
+                $class = 'Horde_Db_Adapter_Oci8';
+                break;
+
             default:
                 $class = 'Horde_Db_Adapter_Pdo_' . ucfirst($config['phptype']);
                 break;

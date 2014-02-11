@@ -1313,6 +1313,65 @@ class Horde_Config
                         )
                     )
                 ),
+                'oci8' => array(
+                    'desc' => 'Oracle',
+                    'fields' => array(
+                        'username' => $username,
+                        'password' => $password,
+                        'method' => array(
+                            'desc' => 'How should the database connection be specified',
+                            'default' => $this->_default(
+                                $ctx . '|method',
+                                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="method"]/text())', $node) ?: 'easy') : 'easy'),
+                            'switch' => array(
+                                'tns' => array(
+                                    'desc' => 'TNS',
+                                    'fields' => array(
+                                        'tns' => array(
+                                            '_type' => 'text',
+                                            'required' => true,
+                                            'desc' => 'Connect name from tnsnames.ora',
+                                            'default' => $this->_default(
+                                                $ctx . '|tns',
+                                                $node ? ($xpath->evaluate('string(configstring[@name="tns"])', $node) ?: false) : false),
+                                        ),
+                                    ),
+                                ),
+                                'easy' => array(
+                                    'desc' => 'Easy Connect',
+                                    'fields' => array(
+                                        'hostspec' => $hostspec,
+                                        'port' => $port,
+                                        'service' => array(
+                                            '_type' => 'text',
+                                            'required' => false,
+                                            'desc' => 'Service name',
+                                            'default' => $this->_default(
+                                                $ctx . '|service',
+                                                $node ? ($xpath->evaluate('string(configstring[@name="service"])', $node) ?: false) : false),
+                                        ),
+                                        'type' => array(
+                                            '_type' => 'text',
+                                            'required' => false,
+                                            'desc' => 'Server type',
+                                            'default' => $this->_default(
+                                                $ctx . '|type',
+                                                $node ? ($xpath->evaluate('string(configstring[@name="type"])', $node) ?: false) : false),
+                                        ),
+                                        'instance' => array(
+                                            '_type' => 'text',
+                                            'required' => false,
+                                            'desc' => 'Instance name',
+                                            'default' => $this->_default(
+                                                $ctx . '|instance',
+                                                $node ? ($xpath->evaluate('string(configstring[@name="instance"])', $node) ?: false) : false),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
                 'pgsql' => array(
                     'desc' => 'PostgreSQL',
                     'fields' => array(
