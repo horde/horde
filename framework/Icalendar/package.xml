@@ -406,7 +406,6 @@
       <file name="AttributeTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CharsetTest.php" role="test" />
-      <file name="DateTest.php" role="test" />
       <file name="ExportTest.php" role="test" />
       <file name="FreeBusyTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
@@ -598,7 +597,6 @@
    <install as="Horde/Icalendar/AttributeTest.php" name="test/Horde/Icalendar/AttributeTest.php" />
    <install as="Horde/Icalendar/bootstrap.php" name="test/Horde/Icalendar/bootstrap.php" />
    <install as="Horde/Icalendar/CharsetTest.php" name="test/Horde/Icalendar/CharsetTest.php" />
-   <install as="Horde/Icalendar/DateTest.php" name="test/Horde/Icalendar/DateTest.php" />
    <install as="Horde/Icalendar/ExportTest.php" name="test/Horde/Icalendar/ExportTest.php" />
    <install as="Horde/Icalendar/FreeBusyTest.php" name="test/Horde/Icalendar/FreeBusyTest.php" />
    <install as="Horde/Icalendar/ParseTest.php" name="test/Horde/Icalendar/ParseTest.php" />
