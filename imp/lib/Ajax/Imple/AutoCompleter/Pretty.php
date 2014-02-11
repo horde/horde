@@ -2,13 +2,13 @@
 /**
  * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
  * @copyright 2013-2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Core
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
 /**
@@ -17,14 +17,14 @@
  *
  * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2013-2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Core
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Imple_AutoCompleter_Pretty
 extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax

@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Tree_Flist class provides an IMP dropdown mailbox (folder tree)
- * list.
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Tree_Flist class provides an IMP dropdown mailbox (folder tree)
+ * list.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
 {
