@@ -52,7 +52,25 @@ class IMP_Mime_Viewer_Audio extends Horde_Mime_Viewer_Audio
             return array();
         }
 
-        $status = new IMP_Mime_Status(sprintf(_("This audio file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60));
+        $text = array();
+
+        if ($minutes = floor($duration / 60)) {
+            $text[] = sprintf(
+                ngettext(_("%d minute"), _("%d minutes"), $minutes),
+                $minutes
+            );
+        }
+
+        if ($seconds = ($duration % 60)) {
+            $text[] = sprintf(
+                ngettext(_("%d second"), _("%d seconds"), $seconds),
+                $seconds
+            );
+        }
+
+        $status = new IMP_Mime_Status(
+            sprintf(_("This audio file is reported to be %s in length."), implode(' ', $text))
+        );
         $status->icon('mime/audio.png');
 
         return array(

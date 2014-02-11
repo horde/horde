@@ -80,7 +80,23 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
         ))->data);
 
         if (($duration = $headers->getValue('content-duration')) !== null) {
-            $status[] = sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60);
+            $text = array();
+
+            if ($minutes = floor($duration / 60)) {
+                $text[] = sprintf(
+                    ngettext(_("%d minute"), _("%d minutes"), $minutes),
+                    $minutes
+                );
+            }
+
+            if ($seconds = ($duration % 60)) {
+                $text[] = sprintf(
+                    ngettext(_("%d second"), _("%d seconds"), $seconds),
+                    $seconds
+                );
+            }
+
+            $status[] = sprintf(_("This video file is reported to be %s in length."), implode(' ', $text));
         }
 
         if ($this->_thumbnailBinary()) {
