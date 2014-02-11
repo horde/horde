@@ -28,7 +28,6 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Cache prefix should be handled by Hashtable driver, not underlying backend object.
-* [mms] Fix cloning the HashTable object when a prefix parameter is specified.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -548,7 +547,6 @@ Initial packaging.
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Cache prefix should be handled by Hashtable driver, not underlying backend object.
-* [mms] Fix cloning the HashTable object when a prefix parameter is specified.
    </notes>
   </release>
  </changelog>
