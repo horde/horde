@@ -16,12 +16,14 @@ var IngoFilters = {
         }
 
         Sortable.create('filterslist', {
+            onChange: function() {
+                Horde.stripeElement('filterslist');
+            },
             onUpdate: function() {
                 HordeCore.doAction(
                     'reSortFilters',
                     { sort: Object.toJSON(Sortable.sequence('filterslist')) }
                 );
-                Horde.stripeElement('filterslist');
             },
             tag: 'div'
         });
