@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Optimize Horde_Url#toString().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -364,7 +364,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Optimize Horde_Url#toString().
    </notes>
   </release>
  </changelog>
