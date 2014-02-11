@@ -10,8 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>14:40:39</time>
+ <date>2014-02-11</date>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -299,7 +298,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Cache creation of Reflection objects when binding.
