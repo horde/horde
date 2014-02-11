@@ -97,20 +97,19 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
      */
     public function addPollList($id)
     {
-        if ($this->locked && ($this->_data !== true)) {
+        if ($this->locked) {
             return;
         }
 
         foreach ((is_array($id) ? $id : array($id)) as $val) {
             if (($elt = $this->_ftree[$val]) &&
+                !$elt->polled &&
                 !$elt->nonimap &&
                 !$elt->container) {
-                if (($this->_data !== true) && !$elt->polled) {
-                    if (!$elt->subscribed) {
-                        $elt->subscribed = true;
-                    }
-                    $this[$elt] = true;
+                if (!$elt->subscribed) {
+                    $elt->subscribed = true;
                 }
+                $this[$elt] = true;
                 $elt->polled = true;
             }
         }
