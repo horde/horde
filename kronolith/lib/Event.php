@@ -2247,6 +2247,7 @@ abstract class Kronolith_Event
             if (!$this->isPrivate()) {
                 $json->d = $this->description;
                 $json->u = $this->url;
+                $json->uhl = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->url, 'linkurls');
                 $json->tg = array_values($this->tags);
                 $json->gl = $this->geoLocation;
                 if ($this->attendees) {

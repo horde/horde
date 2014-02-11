@@ -4776,6 +4776,11 @@ KronolithCore = {
             case 'kronolithEditRecurAll':
                 this.toggleRecurrence(this.lastRecurType);
                 break;
+            case 'kronolithEventUrlToggle':
+                $('kronolithEventUrlDisplay').hide();
+                $('kronolithEventUrl').show();
+                e.stop();
+                return;
             }
 
             // Caution, this only works if the element has definitely only a
@@ -5686,6 +5691,11 @@ KronolithCore = {
         $('kronolithEventTimezone').setValue(ev.tz);
         if (ev.l && Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').show();
+        }
+        if (ev.uhl) {
+            $('kronolithEventUrlDisplay').down().update(ev.uhl);
+            $('kronolithEventUrlDisplay').show();
+            $('kronolithEventUrl').hide();
         }
         $('kronolithEventUrl').setValue(ev.u);
         $('kronolithEventAllday').setValue(ev.al);

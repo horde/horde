@@ -202,6 +202,7 @@
 
 <div id="kronolithEventTabUrl" class="kronolithTabsOption" style="display:none">
   <input type="text" name="eventurl" id="kronolithEventUrl" class="kronolithLongField" value="http://" />
+  <span style="display:none;" id="kronolithEventUrlDisplay"><span></span>&nbsp;<input type="button" id="kronolithEventUrlToggle" value="<?php echo _("Edit") ?>" /></span>
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
