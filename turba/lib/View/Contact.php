@@ -40,7 +40,7 @@ class Turba_View_Contact
 
         $vars = new Horde_Variables();
         $form = new Turba_Form_Contact($vars, $this->contact);
-        $form->setOpenSection(Horde_Util::getFormData('section'));
+        $form->setOpenSection(Horde_Util::getFormData('section', 0));
 
         /* Get the contact's history. */
         $history = $this->contact->getHistory();
