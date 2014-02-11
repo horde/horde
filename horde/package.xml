@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-23</date>
+ <date>2013-11-22</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -40,7 +40,6 @@
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
 * [rla] Add joomla-md5 encryption option for SQL backends (Request #12889).
-* [rla] Add modular horde-cli and module for conf.php editing (Request #12923).
 * [mms] By default, enforce maximum storage size on preferences values.
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add improved ActiveSync device administration page.
@@ -122,9 +121,6 @@
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-crond" role="script">
-     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
-    </file>
-    <file name="horde-cli" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-db-migrate" role="script">
@@ -251,12 +247,6 @@
     <file name="vatid.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
-    <dir name="AdminCli">
-     <dir name="Module">
-      <file name="Base.php" role="horde" />
-      <file name="Config.php" role="horde" />
-     </dir> <!-- /lib/AdminCli/Module -->
-    </dir> <!-- /lib/AdminCli -->
     <dir name="Ajax">
      <dir name="Application">
       <file name="FacebookHandler.php" role="horde" />
@@ -321,7 +311,6 @@
      <file name="Topbar.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
-    <file name="AdminCli.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="core.php" role="horde" />
@@ -1461,110 +1450,6 @@
        <file name="rev-plusonly.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
-      <dir name="weather">
-       <dir name="23x23">
-        <file name="0.png" role="horde" />
-        <file name="1.png" role="horde" />
-        <file name="2.png" role="horde" />
-        <file name="3.png" role="horde" />
-        <file name="4.png" role="horde" />
-        <file name="5.png" role="horde" />
-        <file name="6.png" role="horde" />
-        <file name="7.png" role="horde" />
-        <file name="8.png" role="horde" />
-        <file name="9.png" role="horde" />
-        <file name="10.png" role="horde" />
-        <file name="11.png" role="horde" />
-        <file name="12.png" role="horde" />
-        <file name="13.png" role="horde" />
-        <file name="14.png" role="horde" />
-        <file name="15.png" role="horde" />
-        <file name="16.png" role="horde" />
-        <file name="17.png" role="horde" />
-        <file name="18.png" role="horde" />
-        <file name="19.png" role="horde" />
-        <file name="20.png" role="horde" />
-        <file name="21.png" role="horde" />
-        <file name="22.png" role="horde" />
-        <file name="23.png" role="horde" />
-        <file name="24.png" role="horde" />
-        <file name="25.png" role="horde" />
-        <file name="26.png" role="horde" />
-        <file name="27.png" role="horde" />
-        <file name="28.png" role="horde" />
-        <file name="29.png" role="horde" />
-        <file name="30.png" role="horde" />
-        <file name="31.png" role="horde" />
-        <file name="32.png" role="horde" />
-        <file name="33.png" role="horde" />
-        <file name="34.png" role="horde" />
-        <file name="35.png" role="horde" />
-        <file name="36.png" role="horde" />
-        <file name="37.png" role="horde" />
-        <file name="38.png" role="horde" />
-        <file name="39.png" role="horde" />
-        <file name="40.png" role="horde" />
-        <file name="41.png" role="horde" />
-        <file name="42.png" role="horde" />
-        <file name="43.png" role="horde" />
-        <file name="44.png" role="horde" />
-        <file name="45.png" role="horde" />
-        <file name="46.png" role="horde" />
-        <file name="47.png" role="horde" />
-        <file name="na.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/weather/23x23 -->
-       <dir name="32x32">
-        <file name="0.png" role="horde" />
-        <file name="1.png" role="horde" />
-        <file name="2.png" role="horde" />
-        <file name="3.png" role="horde" />
-        <file name="4.png" role="horde" />
-        <file name="5.png" role="horde" />
-        <file name="6.png" role="horde" />
-        <file name="7.png" role="horde" />
-        <file name="8.png" role="horde" />
-        <file name="9.png" role="horde" />
-        <file name="10.png" role="horde" />
-        <file name="11.png" role="horde" />
-        <file name="12.png" role="horde" />
-        <file name="13.png" role="horde" />
-        <file name="14.png" role="horde" />
-        <file name="15.png" role="horde" />
-        <file name="16.png" role="horde" />
-        <file name="17.png" role="horde" />
-        <file name="18.png" role="horde" />
-        <file name="19.png" role="horde" />
-        <file name="20.png" role="horde" />
-        <file name="21.png" role="horde" />
-        <file name="22.png" role="horde" />
-        <file name="23.png" role="horde" />
-        <file name="24.png" role="horde" />
-        <file name="25.png" role="horde" />
-        <file name="26.png" role="horde" />
-        <file name="27.png" role="horde" />
-        <file name="28.png" role="horde" />
-        <file name="29.png" role="horde" />
-        <file name="30.png" role="horde" />
-        <file name="31.png" role="horde" />
-        <file name="32.png" role="horde" />
-        <file name="33.png" role="horde" />
-        <file name="34.png" role="horde" />
-        <file name="35.png" role="horde" />
-        <file name="36.png" role="horde" />
-        <file name="37.png" role="horde" />
-        <file name="38.png" role="horde" />
-        <file name="39.png" role="horde" />
-        <file name="40.png" role="horde" />
-        <file name="41.png" role="horde" />
-        <file name="42.png" role="horde" />
-        <file name="43.png" role="horde" />
-        <file name="44.png" role="horde" />
-        <file name="45.png" role="horde" />
-        <file name="46.png" role="horde" />
-        <file name="47.png" role="horde" />
-        <file name="na.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/weather/32x32 -->
-      </dir> <!-- /themes/default/graphics/weather -->
       <file name="add_group.png" role="horde" />
       <file name="administration.png" role="horde" />
       <file name="app-unknown.png" role="horde" />
@@ -1712,7 +1597,6 @@
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
    <file name=".htaccess" role="horde" />
-   <file name="composer.json" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
@@ -2069,7 +1953,6 @@
    <install as="horde-alarms" name="bin/horde-alarms" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
-   <install as="horde-cli" name="bin/horde-cli" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
@@ -2160,13 +2043,10 @@
    <install as="js/plupload/i18n/ru.js" name="js/plupload/i18n/ru.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
    <install as="lib/.htaccess" name="lib/.htaccess" />
-   <install as="lib/AdminCli.php" name="lib/AdminCli.php" />
    <install as="lib/Api.php" name="lib/Api.php" />
    <install as="lib/Application.php" name="lib/Application.php" />
    <install as="lib/core.php" name="lib/core.php" />
    <install as="lib/Test.php" name="lib/Test.php" />
-   <install as="lib/AdminCli/Module/Base.php" name="lib/AdminCli/Module/Base.php" />
-   <install as="lib/AdminCli/Module/Config.php" name="lib/AdminCli/Module/Config.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="lib/Ajax/Application/FacebookHandler.php" name="lib/Ajax/Application/FacebookHandler.php" />
    <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
@@ -3184,104 +3064,6 @@
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
-   <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
-   <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
-   <install as="themes/default/graphics/weather/23x23/2.png" name="themes/default/graphics/weather/23x23/2.png" />
-   <install as="themes/default/graphics/weather/23x23/3.png" name="themes/default/graphics/weather/23x23/3.png" />
-   <install as="themes/default/graphics/weather/23x23/4.png" name="themes/default/graphics/weather/23x23/4.png" />
-   <install as="themes/default/graphics/weather/23x23/5.png" name="themes/default/graphics/weather/23x23/5.png" />
-   <install as="themes/default/graphics/weather/23x23/6.png" name="themes/default/graphics/weather/23x23/6.png" />
-   <install as="themes/default/graphics/weather/23x23/7.png" name="themes/default/graphics/weather/23x23/7.png" />
-   <install as="themes/default/graphics/weather/23x23/8.png" name="themes/default/graphics/weather/23x23/8.png" />
-   <install as="themes/default/graphics/weather/23x23/9.png" name="themes/default/graphics/weather/23x23/9.png" />
-   <install as="themes/default/graphics/weather/23x23/10.png" name="themes/default/graphics/weather/23x23/10.png" />
-   <install as="themes/default/graphics/weather/23x23/11.png" name="themes/default/graphics/weather/23x23/11.png" />
-   <install as="themes/default/graphics/weather/23x23/12.png" name="themes/default/graphics/weather/23x23/12.png" />
-   <install as="themes/default/graphics/weather/23x23/13.png" name="themes/default/graphics/weather/23x23/13.png" />
-   <install as="themes/default/graphics/weather/23x23/14.png" name="themes/default/graphics/weather/23x23/14.png" />
-   <install as="themes/default/graphics/weather/23x23/15.png" name="themes/default/graphics/weather/23x23/15.png" />
-   <install as="themes/default/graphics/weather/23x23/16.png" name="themes/default/graphics/weather/23x23/16.png" />
-   <install as="themes/default/graphics/weather/23x23/17.png" name="themes/default/graphics/weather/23x23/17.png" />
-   <install as="themes/default/graphics/weather/23x23/18.png" name="themes/default/graphics/weather/23x23/18.png" />
-   <install as="themes/default/graphics/weather/23x23/19.png" name="themes/default/graphics/weather/23x23/19.png" />
-   <install as="themes/default/graphics/weather/23x23/20.png" name="themes/default/graphics/weather/23x23/20.png" />
-   <install as="themes/default/graphics/weather/23x23/21.png" name="themes/default/graphics/weather/23x23/21.png" />
-   <install as="themes/default/graphics/weather/23x23/22.png" name="themes/default/graphics/weather/23x23/22.png" />
-   <install as="themes/default/graphics/weather/23x23/23.png" name="themes/default/graphics/weather/23x23/23.png" />
-   <install as="themes/default/graphics/weather/23x23/24.png" name="themes/default/graphics/weather/23x23/24.png" />
-   <install as="themes/default/graphics/weather/23x23/25.png" name="themes/default/graphics/weather/23x23/25.png" />
-   <install as="themes/default/graphics/weather/23x23/26.png" name="themes/default/graphics/weather/23x23/26.png" />
-   <install as="themes/default/graphics/weather/23x23/27.png" name="themes/default/graphics/weather/23x23/27.png" />
-   <install as="themes/default/graphics/weather/23x23/28.png" name="themes/default/graphics/weather/23x23/28.png" />
-   <install as="themes/default/graphics/weather/23x23/29.png" name="themes/default/graphics/weather/23x23/29.png" />
-   <install as="themes/default/graphics/weather/23x23/30.png" name="themes/default/graphics/weather/23x23/30.png" />
-   <install as="themes/default/graphics/weather/23x23/31.png" name="themes/default/graphics/weather/23x23/31.png" />
-   <install as="themes/default/graphics/weather/23x23/32.png" name="themes/default/graphics/weather/23x23/32.png" />
-   <install as="themes/default/graphics/weather/23x23/33.png" name="themes/default/graphics/weather/23x23/33.png" />
-   <install as="themes/default/graphics/weather/23x23/34.png" name="themes/default/graphics/weather/23x23/34.png" />
-   <install as="themes/default/graphics/weather/23x23/35.png" name="themes/default/graphics/weather/23x23/35.png" />
-   <install as="themes/default/graphics/weather/23x23/36.png" name="themes/default/graphics/weather/23x23/36.png" />
-   <install as="themes/default/graphics/weather/23x23/37.png" name="themes/default/graphics/weather/23x23/37.png" />
-   <install as="themes/default/graphics/weather/23x23/38.png" name="themes/default/graphics/weather/23x23/38.png" />
-   <install as="themes/default/graphics/weather/23x23/39.png" name="themes/default/graphics/weather/23x23/39.png" />
-   <install as="themes/default/graphics/weather/23x23/40.png" name="themes/default/graphics/weather/23x23/40.png" />
-   <install as="themes/default/graphics/weather/23x23/41.png" name="themes/default/graphics/weather/23x23/41.png" />
-   <install as="themes/default/graphics/weather/23x23/42.png" name="themes/default/graphics/weather/23x23/42.png" />
-   <install as="themes/default/graphics/weather/23x23/43.png" name="themes/default/graphics/weather/23x23/43.png" />
-   <install as="themes/default/graphics/weather/23x23/44.png" name="themes/default/graphics/weather/23x23/44.png" />
-   <install as="themes/default/graphics/weather/23x23/45.png" name="themes/default/graphics/weather/23x23/45.png" />
-   <install as="themes/default/graphics/weather/23x23/46.png" name="themes/default/graphics/weather/23x23/46.png" />
-   <install as="themes/default/graphics/weather/23x23/47.png" name="themes/default/graphics/weather/23x23/47.png" />
-   <install as="themes/default/graphics/weather/23x23/na.png" name="themes/default/graphics/weather/23x23/na.png" />
-   <install as="themes/default/graphics/weather/32x32/0.png" name="themes/default/graphics/weather/32x32/0.png" />
-   <install as="themes/default/graphics/weather/32x32/1.png" name="themes/default/graphics/weather/32x32/1.png" />
-   <install as="themes/default/graphics/weather/32x32/2.png" name="themes/default/graphics/weather/32x32/2.png" />
-   <install as="themes/default/graphics/weather/32x32/3.png" name="themes/default/graphics/weather/32x32/3.png" />
-   <install as="themes/default/graphics/weather/32x32/4.png" name="themes/default/graphics/weather/32x32/4.png" />
-   <install as="themes/default/graphics/weather/32x32/5.png" name="themes/default/graphics/weather/32x32/5.png" />
-   <install as="themes/default/graphics/weather/32x32/6.png" name="themes/default/graphics/weather/32x32/6.png" />
-   <install as="themes/default/graphics/weather/32x32/7.png" name="themes/default/graphics/weather/32x32/7.png" />
-   <install as="themes/default/graphics/weather/32x32/8.png" name="themes/default/graphics/weather/32x32/8.png" />
-   <install as="themes/default/graphics/weather/32x32/9.png" name="themes/default/graphics/weather/32x32/9.png" />
-   <install as="themes/default/graphics/weather/32x32/10.png" name="themes/default/graphics/weather/32x32/10.png" />
-   <install as="themes/default/graphics/weather/32x32/11.png" name="themes/default/graphics/weather/32x32/11.png" />
-   <install as="themes/default/graphics/weather/32x32/12.png" name="themes/default/graphics/weather/32x32/12.png" />
-   <install as="themes/default/graphics/weather/32x32/13.png" name="themes/default/graphics/weather/32x32/13.png" />
-   <install as="themes/default/graphics/weather/32x32/14.png" name="themes/default/graphics/weather/32x32/14.png" />
-   <install as="themes/default/graphics/weather/32x32/15.png" name="themes/default/graphics/weather/32x32/15.png" />
-   <install as="themes/default/graphics/weather/32x32/16.png" name="themes/default/graphics/weather/32x32/16.png" />
-   <install as="themes/default/graphics/weather/32x32/17.png" name="themes/default/graphics/weather/32x32/17.png" />
-   <install as="themes/default/graphics/weather/32x32/18.png" name="themes/default/graphics/weather/32x32/18.png" />
-   <install as="themes/default/graphics/weather/32x32/19.png" name="themes/default/graphics/weather/32x32/19.png" />
-   <install as="themes/default/graphics/weather/32x32/20.png" name="themes/default/graphics/weather/32x32/20.png" />
-   <install as="themes/default/graphics/weather/32x32/21.png" name="themes/default/graphics/weather/32x32/21.png" />
-   <install as="themes/default/graphics/weather/32x32/22.png" name="themes/default/graphics/weather/32x32/22.png" />
-   <install as="themes/default/graphics/weather/32x32/23.png" name="themes/default/graphics/weather/32x32/23.png" />
-   <install as="themes/default/graphics/weather/32x32/24.png" name="themes/default/graphics/weather/32x32/24.png" />
-   <install as="themes/default/graphics/weather/32x32/25.png" name="themes/default/graphics/weather/32x32/25.png" />
-   <install as="themes/default/graphics/weather/32x32/26.png" name="themes/default/graphics/weather/32x32/26.png" />
-   <install as="themes/default/graphics/weather/32x32/27.png" name="themes/default/graphics/weather/32x32/27.png" />
-   <install as="themes/default/graphics/weather/32x32/28.png" name="themes/default/graphics/weather/32x32/28.png" />
-   <install as="themes/default/graphics/weather/32x32/29.png" name="themes/default/graphics/weather/32x32/29.png" />
-   <install as="themes/default/graphics/weather/32x32/30.png" name="themes/default/graphics/weather/32x32/30.png" />
-   <install as="themes/default/graphics/weather/32x32/31.png" name="themes/default/graphics/weather/32x32/31.png" />
-   <install as="themes/default/graphics/weather/32x32/32.png" name="themes/default/graphics/weather/32x32/32.png" />
-   <install as="themes/default/graphics/weather/32x32/33.png" name="themes/default/graphics/weather/32x32/33.png" />
-   <install as="themes/default/graphics/weather/32x32/34.png" name="themes/default/graphics/weather/32x32/34.png" />
-   <install as="themes/default/graphics/weather/32x32/35.png" name="themes/default/graphics/weather/32x32/35.png" />
-   <install as="themes/default/graphics/weather/32x32/36.png" name="themes/default/graphics/weather/32x32/36.png" />
-   <install as="themes/default/graphics/weather/32x32/37.png" name="themes/default/graphics/weather/32x32/37.png" />
-   <install as="themes/default/graphics/weather/32x32/38.png" name="themes/default/graphics/weather/32x32/38.png" />
-   <install as="themes/default/graphics/weather/32x32/39.png" name="themes/default/graphics/weather/32x32/39.png" />
-   <install as="themes/default/graphics/weather/32x32/40.png" name="themes/default/graphics/weather/32x32/40.png" />
-   <install as="themes/default/graphics/weather/32x32/41.png" name="themes/default/graphics/weather/32x32/41.png" />
-   <install as="themes/default/graphics/weather/32x32/42.png" name="themes/default/graphics/weather/32x32/42.png" />
-   <install as="themes/default/graphics/weather/32x32/43.png" name="themes/default/graphics/weather/32x32/43.png" />
-   <install as="themes/default/graphics/weather/32x32/44.png" name="themes/default/graphics/weather/32x32/44.png" />
-   <install as="themes/default/graphics/weather/32x32/45.png" name="themes/default/graphics/weather/32x32/45.png" />
-   <install as="themes/default/graphics/weather/32x32/46.png" name="themes/default/graphics/weather/32x32/46.png" />
-   <install as="themes/default/graphics/weather/32x32/47.png" name="themes/default/graphics/weather/32x32/47.png" />
-   <install as="themes/default/graphics/weather/32x32/na.png" name="themes/default/graphics/weather/32x32/na.png" />
    <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
@@ -3291,7 +3073,6 @@
    <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
    <install as=".htaccess" name=".htaccess" />
-   <install as="composer.json" name="composer.json" />
    <install as="COPYING" name="COPYING" />
    <install as="index.php" name="index.php" />
    <install as="login.php" name="login.php" />

@@ -155,33 +155,6 @@ class Horde_Config
     }
 
     /**
-     * Retrieve the XML default value of a given config item
-     * @param array $queryPath  An array of name parameters
-     * @throws Horde_Exception  On bad query
-     * @return string|boolean   The default value
-     */
-    public function getXmlDefaultValue(array $queryPath)
-    {
-        /* This could use some caching */
-        $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
-        $dom = new DOMDocument();
-        $dom->load($path . '/conf.xml');
-        $xpath = new DOMXpath($dom);
-
-        $queryString = "/";
-        foreach ($queryPath as $level) {
-            $queryString .= "/*[@name='$level']";
-        }
-        $nodes = $xpath->query($queryString);
-        /*TODO: Support for conf.d/*.xml */
-        /*TODO: Support for config specials */
-         if ($nodes->length!=1) {
-            throw new Horde_Exception(_("Ambiguous Query String"));
-        }
-        return $nodes->item(0)->textContent;
-    }
-
-    /**
      * Reads the application's conf.xml file and builds an associative array
      * from its XML tree.
      *
@@ -442,7 +415,7 @@ class Horde_Config
                     if (is_bool($val)) {
                         $value = $val ? 'true' : 'false';
                     } else {
-                        $value = in_array($val, array('on', 'true')) ? 'true' : 'false';
+                        $value = ($val == 'on') ? 'true' : 'false';
                     }
                     break;
 

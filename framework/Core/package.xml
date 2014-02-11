@@ -47,7 +47,6 @@
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
-* [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
@@ -3352,7 +3351,6 @@
 * [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
 * [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
 * [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
-* [rla] Add method to get conf.xml defaults when conf.php is present for (Request #12923).
 * [mms] Store registry cache on the local filesystem.
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
