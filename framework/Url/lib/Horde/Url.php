@@ -26,18 +26,18 @@
 class Horde_Url
 {
     /**
-     * The basic URL, without query parameters.
+     * The anchor string.
      *
      * @var string
      */
-    public $url;
+    public $anchor = '';
 
     /**
-     * Whether to output the URL in the raw URL format or HTML-encoded.
+     * Any PATH_INFO to be added to the URL.
      *
-     * @var boolean
+     * @var string
      */
-    public $raw;
+    public $pathInfo;
 
     /**
      * The query parameters.
@@ -50,18 +50,11 @@ class Horde_Url
     public $parameters = array();
 
     /**
-     * Any PATH_INFO to be added to the URL.
+     * Whether to output the URL in the raw URL format or HTML-encoded.
      *
-     * @var string
+     * @var boolean
      */
-    public $pathInfo;
-
-    /**
-     * The anchor string.
-     *
-     * @var string
-     */
-    public $anchor = '';
+    public $raw;
 
     /**
      * A callback function to use when converting to a string.
@@ -69,6 +62,13 @@ class Horde_Url
      * @var callback
      */
     public $toStringCallback;
+
+    /**
+     * The basic URL, without query parameters.
+     *
+     * @var string
+     */
+    public $url;
 
     /**
      * Constructor.
@@ -285,10 +285,9 @@ class Horde_Url
                 foreach ($v as $val) {
                     $params[] = rawurlencode($p) . '[]=' . rawurlencode($val);
                 }
-            } elseif (strlen($v)) {
-                $params[] = rawurlencode($p) . '=' . rawurlencode($v);
             } else {
-                $params[] = rawurlencode($p);
+                $params[] = rawurlencode($p) .
+                    (strlen($v) ? ('=' . rawurlencode($v)) : '');
             }
         }
 
