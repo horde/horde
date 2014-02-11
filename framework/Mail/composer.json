@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.1.4",
-    "time": "2014-01-21",
+    "version": "2.1.5",
+    "time": "2014-02-11",
     "repositories": [
         {
             "type": "pear",
@@ -27,7 +27,7 @@
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Smtp": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Stream_Wrapper": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.php.net/Net_DNS2": "*",
         "pear-pear.php.net/Net_SMTP": ">=1.6.0@stable"
