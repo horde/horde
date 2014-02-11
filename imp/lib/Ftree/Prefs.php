@@ -68,7 +68,7 @@ class IMP_Ftree_Prefs implements ArrayAccess, Horde_Shutdown_Task
      */
     public function offsetSet($offset, $value)
     {
-        if (($this[$offset] != $value) && !$this->locked) {
+        if (!$this->locked && ($this[$offset] != $value)) {
             if ($value) {
                 $this->_data[strval($offset)] = true;
             } else {
