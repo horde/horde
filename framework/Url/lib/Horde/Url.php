@@ -271,6 +271,24 @@ class Horde_Url
             $url .= '/' . $this->pathInfo;
         }
 
+        if ($params = $this->_getParameters()) {
+            $url .= '?' . implode($raw ? '&' : '&amp;', $params);
+        }
+
+        if ($this->anchor) {
+            $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
+        }
+
+        return strval($url);
+    }
+
+    /**
+     * Return a formatted list of URL parameters.
+     *
+     * @return array  Parameter list.
+     */
+    protected function _getParameters()
+    {
         if (!isset($this->_cache)) {
             $params = array();
 
@@ -288,15 +306,7 @@ class Horde_Url
             $this->_cache = $params;
         }
 
-        if (!empty($this->_cache)) {
-            $url .= '?' . implode($raw ? '&' : '&amp;', $this->_cache);
-        }
-
-        if ($this->anchor) {
-            $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
-        }
-
-        return strval($url);
+        return $this->_cache;
     }
 
     /**
