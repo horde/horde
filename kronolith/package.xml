@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Make event url property a true hyperlink in dynamic view (Request #12920).
 * [jan] Support task assignees.
 * [jan] Support parent tasks.
 * [jan] Indent sub tasks.
@@ -2249,11 +2250,12 @@
    <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Make event url property a true hyperlink in dynamic view (Request #12920).
 * [jan] Support task assignees.
 * [jan] Support parent tasks.
 * [jan] Indent sub tasks.
 * [jan] Make shares table compatible with Oracle.
-* [mjr] Imporove display of Free/Busy information and add pagination (Requests #12899, #12676).
+* [mjr] Improve display of Free/Busy information and add pagination (Requests #12899, #12676).
 * [mjr] Add ability to export event to a timeslice (Request #1111307).
 * [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
 * [jan] Improve sort order of events in month view (Request #11155).

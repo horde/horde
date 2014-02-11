@@ -2,6 +2,8 @@
 v4.2.0-git
 ----------
 
+[mjr] Make event url property a true hyperlink in dynamic view (Request
+      #12920).
 [jan] Support task assignees.
 [jan] Support parent tasks.
 [jan] Indent sub tasks.
