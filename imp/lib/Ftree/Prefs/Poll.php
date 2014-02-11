@@ -73,11 +73,15 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
     {
         $plist = array();
 
-        foreach ($this->_ftree->getIterator()->getIterator() as $val) {
-            if ($val->polled) {
-                $plist[] = strval($val);
-            }
+        $mask = IMP_Ftree_IteratorFilter::NO_NONIMAP;
+        if ($this->_data !== true) {
+            $mask |= IMP_Ftree_IteratorFilter::NO_UNPOLLED;
         }
+
+        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+            IMP_Ftree_IteratorFilter::create($mask)
+        );
+        $plist = array_map('strval', iterator_to_array($iterator, false));
 
         if ($sort) {
             $this->_ftree->sortList($plist, $this->_ftree[IMP_Ftree::BASE_ELT]);
@@ -93,19 +97,20 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
      */
     public function addPollList($id)
     {
-        if ($this->locked) {
+        if ($this->locked && ($this->_data !== true)) {
             return;
         }
 
         foreach ((is_array($id) ? $id : array($id)) as $val) {
             if (($elt = $this->_ftree[$val]) &&
-                !$elt->polled &&
                 !$elt->nonimap &&
                 !$elt->container) {
-                if (!$elt->subscribed) {
-                    $elt->subscribed = true;
+                if (($this->_data !== true) && !$elt->polled) {
+                    if (!$elt->subscribed) {
+                        $elt->subscribed = true;
+                    }
+                    $this[$elt] = true;
                 }
-                $this[$elt] = true;
                 $elt->polled = true;
             }
         }
