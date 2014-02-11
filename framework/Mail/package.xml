@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Optimizations to address parsing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -562,7 +562,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Optimizations to address parsing.
    </notes>
   </release>
  </changelog>

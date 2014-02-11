@@ -517,22 +517,22 @@ class Horde_Mail_Rfc822
             throw new Horde_Mail_Exception('Error when parsing a group.');
         }
 
-        while (($curr = $this->_curr()) !== false) {
+        do {
             if ($curr == '"') {
                 $this->_rfc822ParseQuotedString($phrase);
             } else {
                 $this->_rfc822ParseAtomOrDot($phrase);
             }
 
-            $chr = $this->_curr();
-            if (($chr != '"') &&
-                ($chr != '.') &&
-                !$this->_rfc822IsAtext($chr)) {
+            $curr = $this->_curr();
+            if (($curr != '"') &&
+                ($curr != '.') &&
+                !$this->_rfc822IsAtext($curr)) {
                 break;
             }
 
             $phrase .= ' ';
-        }
+        } while ($this->_ptr < $this->_datalen);
 
         $this->_rfc822SkipLwsp();
     }
@@ -590,14 +590,12 @@ class Horde_Mail_Rfc822
      */
     protected function _rfc822ParseDotAtom(&$str, $validate = null)
     {
-        $curr = $this->_curr();
-        if (($curr === false) || !$this->_rfc822IsAtext($curr, $validate)) {
-            throw new Horde_Mail_Exception('Error when parsing dot-atom.');
-        }
-
         $is_validate = $this->_params['validate'];
+        $valid = false;
 
-        while (($chr = $this->_curr()) !== false) {
+        while ($this->_ptr < $this->_datalen) {
+            $chr = $this->_data[$this->_ptr];
+
             /* $this->_rfc822IsAtext($chr, $validate);
              * Optimization: Function would be called excessively in this
              * loop, so eliminate function call overhead. */
@@ -605,6 +603,8 @@ class Horde_Mail_Rfc822
                 (!$is_validate && strcspn($chr, $validate))) {
                 $str .= $chr;
                 ++$this->_ptr;
+            } elseif (!$valid) {
+                throw new Horde_Mail_Exception('Error when parsing dot-atom.');
             } else {
                 $this->_rfc822SkipLwsp();
 
@@ -615,6 +615,8 @@ class Horde_Mail_Rfc822
 
                 $this->_rfc822SkipLwsp(true);
             }
+
+            $valid = true;
         }
     }
 
@@ -632,7 +634,8 @@ class Horde_Mail_Rfc822
     {
         $validate = $this->_params['validate'];
 
-        while (($chr = $this->_curr()) !== false) {
+        while ($this->_ptr < $this->_datalen) {
+            $chr = $this->_data[$this->_ptr];
             if (($chr != '.') &&
                 /* !$this->_rfc822IsAtext($chr, ',<:');
                  * Optimization: Function would be called excessively in this
