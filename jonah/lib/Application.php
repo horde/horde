@@ -135,7 +135,6 @@ class Jonah_Application extends Horde_Registry_Application
         try {
             $channels = $driver->getChannels('internal');
         } catch (Jonah_Exception $e) {
-            var_dump($e);
             return;
         }
 
