@@ -12,7 +12,7 @@
  </lead>
  <date>2014-02-11</date>
  <version>
-  <release>2.18.0</release>
+  <release>2.18.1</release>
   <api>2.18.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add raw error message text (in English) to Exceptions.
-* [mms] Add debug timing information for connection/commands.
-* [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2155,6 +2153,19 @@
 * [mms] Add raw error message text (in English) to Exceptions.
 * [mms] Add debug timing information for connection/commands.
 * [mms] Fix resetting capability list when internally cached authentication information becomes invalid.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.18.1</release>
+    <api>2.18.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
