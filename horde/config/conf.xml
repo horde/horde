@@ -530,6 +530,7 @@
         <value>joomla-md5</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
+        <value>mysql</value>
         <value>plain</value>
         <value>sha</value>
         <value>smd5</value>
@@ -600,6 +601,7 @@
         <value>joomla-md5</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
+        <value>mysql</value>
         <value>plain</value>
         <value>sha</value>
         <value>smd5</value>

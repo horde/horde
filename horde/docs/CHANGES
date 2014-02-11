@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[jan] Add mysql encryption option for SQL backends (Request #12962).
 [rla] Add joomla-md5 encryption option for SQL backends (Request #12889).
 [mms] By default, enforce maximum storage size on preferences values.
 [mms] Support UglifyJS for compressing javascript.
