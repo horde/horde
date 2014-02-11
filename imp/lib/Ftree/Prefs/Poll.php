@@ -151,4 +151,13 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
         }
     }
 
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return ($this->_data === true)
+            ? (($elt = $this->_ftree[$offset]) && !$elt->nonimap && !$elt->container)
+            : parent::offsetGet($offset);
+    }
+
 }
