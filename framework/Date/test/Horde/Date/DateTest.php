@@ -328,4 +328,14 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('20100101T130000', $test->toiCalendar(true));
         $this->assertEquals('20100101T160000Z', $test->toiCalendar(false));
     }
+
+    public function testBug12843()
+    {
+        $date = new Horde_Date(1384880400, 'Europe/Berlin');
+        $this->assertEquals(18, $date->hour);
+
+        date_default_timezone_set('America/New_York');
+        $date = new Horde_Date(1384880400, 'Europe/Berlin');
+        $this->assertEquals(18, $date->hour);
+    }
 }

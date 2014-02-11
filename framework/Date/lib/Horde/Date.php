@@ -345,6 +345,10 @@ class Horde_Date
             $this->_hour = $this->_min = $this->_sec = 0;
         } elseif ((string)(int)$date == $date) {
             // Try as a timestamp.
+            if ($this->_timezone) {
+                $oldtimezone = date_default_timezone_get();
+                date_default_timezone_set($this->_timezone);
+            }
             $parts = @getdate($date);
             if ($parts) {
                 $this->_year  = $parts['year'];
@@ -353,6 +357,9 @@ class Horde_Date
                 $this->_hour  = $parts['hours'];
                 $this->_min   = $parts['minutes'];
                 $this->_sec   = $parts['seconds'];
+            }
+            if ($this->_timezone) {
+                date_default_timezone_set($oldtimezone);
             }
         } else {
             try {
