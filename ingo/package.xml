@@ -1369,6 +1369,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Make spam level a required form field (Bug #12964).
 * [jan] Fix behavior of &apos;utf&apos; parameter (Bug #12937).
 * [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
    </notes>

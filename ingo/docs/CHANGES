@@ -16,6 +16,7 @@ v3.2.0-git
 v3.1.4
 ------
 
+[jan] Make spam level a required form field (Bug #12964).
 [jan] Fix behavior of 'utf' parameter (Bug #12937).
 [mms] Fix sieve driver correctly identifying mailing lists when determining
       whether to send vacation messages
