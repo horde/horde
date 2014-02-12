@@ -169,10 +169,12 @@ class Horde_Stream implements Serializable
             while ($this->getChar() !== false) {
                 ++$len;
             }
-        } elseif (!$this->end()) {
-            throw new Horde_Stream_Exception('ERROR');
         } else {
-            $len = $pos;
+            if (!$this->end()) {
+                throw new Horde_Stream_Exception('ERROR');
+            }
+
+            $len = $this->pos();
         }
 
         if (!$this->seek($pos, false)) {
