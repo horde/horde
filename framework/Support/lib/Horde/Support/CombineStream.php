@@ -14,7 +14,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @license    http://www.horde.org/licenses/bsd BSD
  * @category   Horde
- * @deprecated Use Horde_String_Wrapper_Combine::getStream()
+ * @deprecated Use Horde_Stream_Wrapper_Combine::getStream()
  * @package    Support
  */
 class Horde_Support_CombineStream implements Horde_Stream_Wrapper_CombineStream
