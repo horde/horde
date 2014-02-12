@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Use more efficient FNV1-32 hashing algorithm for internal hashtable storage, if available.
 * [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
  </notes>
@@ -2166,6 +2167,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Use more efficient FNV1-32 hashing algorithm for internal hashtable storage, if available.
 * [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
    </notes>

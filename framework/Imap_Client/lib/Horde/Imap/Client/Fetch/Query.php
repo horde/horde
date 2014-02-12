@@ -292,7 +292,10 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function hash()
     {
-        return hash('sha1', serialize($this));
+        return hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            serialize($this)
+        );
     }
 
     /* ArrayAccess methods. */

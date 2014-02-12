@@ -704,7 +704,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getNamespaces(array $additional = array())
     {
         $additional = array_map('strval', $additional);
-        $sig = hash('sha1', serialize($additional));
+        $sig = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            json_encode($additional)
+        );
 
         if (isset($this->_init['namespace'][$sig])) {
             return $this->_init['namespace'][$sig];
@@ -2709,7 +2712,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if (!empty($val['cache']) && !empty($val['peek'])) {
                             $cache_array[$k] = $v;
                             ksort($val);
-                            $header_cache[$key] = hash('sha1', serialize($val));
+                            $header_cache[$key] = hash(
+                                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                                serialize($val)
+                            );
                         }
                     }
                     break;
