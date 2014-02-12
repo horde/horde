@@ -88,7 +88,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         $e = null;
 
         ksort($config);
-        $sig = hash('sha1', serialize($config));
+        $sig = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            serialize($config)
+        );
 
         /* Determine if we are using the base SQL config. */
         if (isset($config['driverconfig']) &&

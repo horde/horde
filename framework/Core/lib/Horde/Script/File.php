@@ -96,7 +96,10 @@ class Horde_Script_File
             return $this->path . $this->_file;
 
         case 'hash':
-            return hash('sha1', $this->_app . "\0" . $this->_file);
+            return hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $this->_app . "\0" . $this->_file
+            );
 
         case 'modified':
             return filemtime($this->full_path);
@@ -154,7 +157,10 @@ class Horde_Script_File
         /* Add cache-busting version param. */
         return empty($GLOBALS['conf']['cachejsparams']['url_version_param'])
             ? $url
-            : $url->add('v', hash('sha1', $GLOBALS['registry']->getVersion($this->app)));
+            : $url->add('v', hash(
+                  (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                  $GLOBALS['registry']->getVersion($this->app))
+              );
     }
 
 }

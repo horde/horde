@@ -48,7 +48,10 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
      */
     public function create($app = 'horde', $backend = null)
     {
-        $sig = hash('sha1', serialize(array($app, $backend)));
+        $sig = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            serialize(array($app, $backend))
+        );
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];

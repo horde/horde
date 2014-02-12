@@ -49,7 +49,10 @@ class Horde_Script_Cache_HordeCache extends Horde_Script_Cache
         $hashes = array_keys($scripts);
         sort($hashes);
 
-        $sig = hash('sha1', serialize($hashes) . $mtime);
+        $sig = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            json_encode($hashes) . $mtime
+        );
 
         $cache = $injector->getInstance('Horde_Cache');
         $cache_lifetime = empty($this->_params['lifetime'])

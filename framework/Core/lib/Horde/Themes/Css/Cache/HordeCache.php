@@ -36,7 +36,13 @@ class Horde_Themes_Css_Cache_Horde_Cache extends Horde_Themes_Css_Cache
         }
 
         $cache = $injector->getInstance('Horde_Cache');
-        $sig = hash('sha1', serialize($css) . $cacheid);
+        $sig = hash(
+            /* Use 64-bit FNV algo (instead of 32-bit) since this is a
+             * publicly accessible key and we want to guarantee filename
+             * is unique. */
+            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            json_encode($css) . $cacheid
+        );
 
         // Do lifetime checking here, not on cache display page.
         if (!$cache->exists($sig, empty($this->_params['lifetime']) ? 0 : $this->_params['lifetime'])) {

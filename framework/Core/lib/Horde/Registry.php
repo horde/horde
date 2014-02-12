@@ -714,7 +714,10 @@ class Horde_Registry implements Horde_Shutdown_Task
             $this->_interfaces
         ));
         $cache->set(
-            $this->_cacheId(hash('sha1', $packed_data)),
+            $this->_cacheId(hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $packed_data
+            )),
             $packed_data
         );
     }

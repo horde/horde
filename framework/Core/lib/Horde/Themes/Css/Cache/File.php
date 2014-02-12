@@ -35,7 +35,13 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
             }
         }
 
-        $sig = hash('sha1', serialize($css) . $cacheid);
+        $sig = hash(
+            /* Use 64-bit FNV algo (instead of 32-bit) since this is a
+             * publicly accessible key and we want to guarantee filename
+             * is unique. */
+            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            json_encode($css) . $cacheid
+        );
         $filename = '/static/' . $sig . '.css';
         $path = $registry->get('fileroot', 'horde') . $filename;
 

@@ -91,7 +91,13 @@ class Horde_Script_Cache_File extends Horde_Script_Cache
         $hashes = array_keys($scripts);
         sort($hashes);
 
-        $sig = hash('sha1', serialize($hashes) . $mtime);
+        /* Use 64-bit FNV algo (instead of 32-bit) since this is a
+         * publicly accessible key and we want to guarantee filename
+         * is unique. */
+        $sig = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            json_encode($hashes) . $mtime
+        );
 
         $js_filename = '/static/' . $sig . '.js';
         $js_path = $registry->get('fileroot', 'horde') . $js_filename;
