@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix packaging error.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -81,7 +81,7 @@
   </required>
   <optional>
    <package>
-    <name>Horde_String_Wrapper</name>
+    <name>Horde_Stream_Wrapper</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
     <max>3.0.0alpha1</max>
@@ -270,7 +270,7 @@
    <date>2014-02-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix packaging error.
    </notes>
   </release>
  </changelog>
