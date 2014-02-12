@@ -109,12 +109,13 @@ class Horde_Core_Db_Migration
     public function getMigrator($app, Horde_Log_Logger $logger = null)
     {
         $app = Horde_String::lower($app);
+        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
         return new Horde_Db_Migration_Migrator(
-            $GLOBALS['injector']->getInstance('Horde_Db_Adapter'),
+            $db,
             $logger,
             array(
                 'migrationsPath' => $this->dirs[array_search($app, $this->_lower)],
-                'schemaTableName' => $app . '_schema_info')
+                'schemaTableName' => $db->tableAliasFor($app . '_schema_info'))
             );
     }
 }
