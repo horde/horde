@@ -122,7 +122,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                     if (strlen($s) == 0) {
                         break;
                     }
-                    if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+                    if (PHP_MINOR_VERSION >= 5) {
                         $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/Z512Content', $s);
                     } else {
                         $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);

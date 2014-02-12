@@ -71,7 +71,7 @@ class Horde_Compress_Tar extends Horde_Compress_Base
         $return_array = array();
 
         while ($position < $data_len) {
-            if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+            if (PHP_MINOR_VERSION >= 5) {
                 $info = @unpack('Z100filename/Z8mode/Z8uid/Z8gid/Z12size/Z12mtime/Z8checksum/Ctypeflag/Z100link/Z6magic/Z2version/Z32uname/Z32gname/Z8devmajor/Z8devminor', substr($data, $position));
             } else {
                 $info = @unpack('a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/Ctypeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor', substr($data, $position));
