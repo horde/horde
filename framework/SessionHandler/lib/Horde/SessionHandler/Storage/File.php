@@ -103,8 +103,8 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
         $data = '';
         rewind($this->_fp);
 
-        while (($read = fgets($this->_fp)) !== false) {
-            $data .= $read;
+        while (!feof($this->_fp)) {
+            $data .= fread($this->_fp, 16384);
         }
 
         return $data;
