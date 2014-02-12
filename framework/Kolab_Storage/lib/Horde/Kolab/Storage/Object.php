@@ -332,19 +332,10 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
     public function load($backend_id,
                          Horde_Kolab_Storage_Folder $folder,
                          Horde_Kolab_Storage_Object_Writer $data,
-                         $structure = null)
+                         Horde_Mime_Part $structure = null)
     {
         $this->_folder = $folder->getPath();
         $this->_backend_id = $backend_id;
-
-        if (!$structure instanceOf Horde_Mime_Part) {
-            throw new Horde_Kolab_Storage_Data_Exception(
-                sprintf(
-                    'The provided data is not of type Horde_Mime_Part but %s instead!',
-                    get_class($structure)
-                )
-            );
-        }
 
         $result = Horde_Kolab_Storage_Object_MimeType::matchMimePartToFolderType(
             $structure, $folder->getType()
