@@ -39,6 +39,10 @@ class Ingo_Perms
                 'title' => _("Maximum number of blacklist addresses."),
                 'type' => 'int'
             ),
+            'max_forward' => array(
+                'title' => _("Maximum number of forward addresses."),
+                'type' => 'int'
+            ),
             'max_rules' => array(
                 'title' => _("Maximum number of rules (0 to disable rules editing)."),
                 'type' => 'int'
