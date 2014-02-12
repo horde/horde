@@ -35,7 +35,7 @@
  <notes>
 * [mms] Permissions can now be applied per backend, rather than globally.
 * [mms] Replace max blacklist/whitelist configuration parameters with equivalent permissions options.
-* [mms] Sorting of rules now done via drag/drop javascript.
+* [mms] Sorting of rules now done via drag/drop javascript (Request #1993).
 * [jan] Make shares table compatible with Oracle.
 * [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
 * [mms] Add &apos;newEmailFilter&apos; API link.
