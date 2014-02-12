@@ -79,7 +79,7 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
             if (isset($prefs) && ($params['user'] == $registry->getAuth())) {
                 $params['prefs'] = $prefs;
             } else {
-                $params['prefs'] = $this->_injector->getInstance('Horde_Core_Factory_Prefs')->create($registry->getApp(), array(
+                $params['prefs'] = $this->_injector->getInstance('Horde_Core_Factory_Prefs')->create($registry->getApp() ?: 'horde', array(
                     'cache' => false,
                     'user' => $user
                 ));
