@@ -1318,6 +1318,7 @@ class Horde_Config
                     'fields' => array(
                         'username' => $username,
                         'password' => $password,
+                        'charset' => $charset,
                         'method' => array(
                             'desc' => 'How should the database connection be specified',
                             'default' => $this->_default(
