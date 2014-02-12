@@ -5,15 +5,12 @@
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
-#include "php_verdep.h"
 #include "horde_lz4.h"
 
 /* lz4 */
 #include "lz4.h"
 #include "lz4hc.h"
 
-static ZEND_FUNCTION(horde_lz4_compress);
-static ZEND_FUNCTION(horde_lz4_uncompress);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_horde_lz4_compress, 0, 0, 1)
     ZEND_ARG_INFO(0, data)
@@ -24,19 +21,13 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_horde_lz4_uncompress, 0, 0, 1)
     ZEND_ARG_INFO(0, data)
 ZEND_END_ARG_INFO()
 
-static zend_function_entry horde_lz4_functions[] = {
-    ZEND_FE(horde_lz4_compress, arginfo_horde_lz4_compress)
-    ZEND_FE(horde_lz4_uncompress, arginfo_horde_lz4_uncompress)
-    ZEND_FE_END
+
+const zend_function_entry horde_lz4_functions[] = {
+    PHP_FE(horde_lz4_compress, arginfo_horde_lz4_compress)
+    PHP_FE(horde_lz4_uncompress, arginfo_horde_lz4_uncompress)
+    PHP_FE_END
 };
 
-ZEND_MINFO_FUNCTION(horde_lz4)
-{
-    php_info_print_table_start();
-    php_info_print_table_row(2, "Horde LZ4 support", "enabled");
-    php_info_print_table_row(2, "Extension Version", HORDE_LZ4_EXT_VERSION);
-    php_info_print_table_end();
-}
 
 zend_module_entry horde_lz4_module_entry = {
 #if ZEND_MODULE_API_NO >= 20010901
@@ -48,7 +39,7 @@ zend_module_entry horde_lz4_module_entry = {
     NULL,
     NULL,
     NULL,
-    ZEND_MINFO(horde_lz4),
+    PHP_MINFO(horde_lz4),
 #if ZEND_MODULE_API_NO >= 20010901
     HORDE_LZ4_EXT_VERSION,
 #endif
@@ -59,14 +50,25 @@ zend_module_entry horde_lz4_module_entry = {
 ZEND_GET_MODULE(horde_lz4)
 #endif
 
-char headerid = 'H';
 
-static ZEND_FUNCTION(horde_lz4_compress)
+PHP_MINFO_FUNCTION(horde_lz4)
+{
+    php_info_print_table_start();
+    php_info_print_table_row(2, "Horde LZ4 support", "enabled");
+    php_info_print_table_row(2, "Extension Version", HORDE_LZ4_EXT_VERSION);
+    php_info_print_table_end();
+}
+
+
+char horde_lz4_headerid = 'H';
+
+
+PHP_FUNCTION(horde_lz4_compress)
 {
     zval *data;
     char *output;
-    int header_offset = (sizeof(headerid) + sizeof(int));
-    int output_len, data_len;
+    int data_len, output_len;
+    int header_offset = (sizeof(horde_lz4_headerid) + sizeof(data_len));
     zend_bool high = 0;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
@@ -88,8 +90,8 @@ static ZEND_FUNCTION(horde_lz4_compress)
         RETURN_FALSE;
     }
 
-    *output = headerid;
-    memcpy(output + sizeof(headerid), &data_len, sizeof(int));
+    output[0] = horde_lz4_headerid;
+    memcpy(output + sizeof(horde_lz4_headerid), &data_len, sizeof(data_len));
 
     if (high) {
         output_len = LZ4_compressHC(Z_STRVAL_P(data), output + header_offset, data_len);
@@ -106,12 +108,13 @@ static ZEND_FUNCTION(horde_lz4_compress)
     efree(output);
 }
 
-static ZEND_FUNCTION(horde_lz4_uncompress)
+
+PHP_FUNCTION(horde_lz4_uncompress)
 {
     zval *data;
     int data_len = 0;
-    int header_offset = (sizeof(headerid) + sizeof(int));
     int output_len;
+    int header_offset = (sizeof(horde_lz4_headerid) + sizeof(data_len));
     char *output, *p;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
@@ -128,8 +131,8 @@ static ZEND_FUNCTION(horde_lz4_uncompress)
     p = Z_STRVAL_P(data);
 
     /* Check for header information. */
-    if (p[0] == headerid) {
-        memcpy(&data_len, p + sizeof(headerid), sizeof(int));
+    if (p[0] == horde_lz4_headerid) {
+        memcpy(&data_len, p + sizeof(horde_lz4_headerid), sizeof(data_len));
     }
 
     /* Header information not found. */
