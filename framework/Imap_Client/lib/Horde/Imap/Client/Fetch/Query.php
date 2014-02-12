@@ -286,9 +286,9 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Returns a MD5 hash of the current query object.
+     * Returns a hash of the current query object.
      *
-     * @return string  MD5 hash.
+     * @return string  Hash.
      */
     public function hash()
     {
