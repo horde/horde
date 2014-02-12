@@ -321,13 +321,15 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
     }
 
     /**
-     * Load the object from the backend.
+     * Loads the object from the backend.
      *
-     * @param string $backend_id The object ID within the backend.
-     * @param Horde_Kolab_Storage_Folder  $folder  The folder to retrieve the
-     *                                             data object from.
-     * @param Horde_Kolab_Storage_Object_Writer $data The data parser.
-     * @param Horde_Mime_Part $structure The MIME message structure of the object.
+     * @param string $backend_id                       The object ID within the
+     *                                                 backend.
+     * @param Horde_Kolab_Storage_Folder $folder       The folder to retrieve
+     *                                                 the data object from.
+     * @param Horde_Kolab_Storage_Object_Writer $data  The data parser.
+     * @param Horde_Mime_Part $structure               The MIME message
+     *                                                 structure of the object.
      */
     public function load($backend_id,
                          Horde_Kolab_Storage_Folder $folder,
