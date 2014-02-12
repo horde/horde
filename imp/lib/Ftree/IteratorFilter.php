@@ -33,6 +33,7 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
     const INVISIBLE = 128;
     const UNSUB = 256;
     const UNSUB_PREF = 512;
+    const SPECIALMBOXES = 1024;
 
     /**
      * Cached data.
@@ -87,6 +88,7 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      *   - self::NO_NONIMAP: Don't include non-IMAP elements.
      *   - self::NO_REMOTE: Don't include remote accounts.
      *   - self::NO_SPECIALMBOXES: Don't include special mailboxes.
+     *   - self::SPECIALMBOXES: Always include special mailboxes.
      *   - self::NO_UNEXPANDED: Don't include unexpanded mailboxes.
      *   - self::NO_UNPOLLED: Don't include unpolled mailboxes.
      *   - self::NO_VFOLDER: Don't include Virtual Folders.
@@ -154,8 +156,12 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
             return true;
         }
 
-        if (($this->_mask & self::NO_SPECIALMBOXES) &&
-            $elt->mbox_ob->special) {
+        if ($this->_mask & self::SPECIALMBOXES) {
+            if ($elt->mbox_ob->special) {
+                return true;
+            }
+        } elseif (($this->_mask & self::NO_SPECIALMBOXES) &&
+                  $elt->mbox_ob->special) {
             return false;
         }
 
