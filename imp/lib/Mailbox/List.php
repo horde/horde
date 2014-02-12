@@ -21,8 +21,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
+class IMP_Mailbox_List
+implements ArrayAccess, Countable, Iterator, Serializable
 {
+    /* The UID count at which the sorted list will undergo UID compression
+     * when being serialized. */
+    const SERIALIZE_LIMIT = 500;
+
     /**
      * Has the internal message list changed?
      *
@@ -969,7 +974,16 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if (!is_null($this->_sorted)) {
-            $data['so'] = $this->_sorted;
+            /* Store UIDs in sequence string to save on storage space. */
+            if (count($this->_sorted) > self::SERIALIZE_LIMIT) {
+                $ids = $this->_mailbox->imp_imap->getIdsOb();
+                /* Optimization: we know there are no duplicates in sorted. */
+                $ids->duplicates = true;
+                $ids->add($this->_sorted);
+                $data['so'] = $ids;
+            } else {
+                $data['so'] = $this->_sorted;
+            }
         }
 
         return $data;
@@ -1007,7 +1021,9 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if (isset($data['so'])) {
-            $this->_sorted = $data['so'];
+            $this->_sorted = is_object($data['so'])
+                ? $data['so']->ids
+                : $data['so'];
         }
     }
 
