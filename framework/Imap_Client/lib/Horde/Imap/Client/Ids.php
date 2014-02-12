@@ -159,9 +159,13 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             }
 
             if ($add = $this->_resolveIds($ids)) {
-                $this->_ids = is_array($this->_ids)
-                    ? array_merge($this->_ids, $add)
-                    : $add;
+                if (is_array($this->_ids) && !empty($this->_ids)) {
+                    foreach ($add as $val) {
+                        $this->_ids[] = $val;
+                    }
+                } else {
+                    $this->_ids = $add;
+                }
                 if (!$this->duplicates) {
                     $this->_ids = (count($this->_ids) > 25000)
                         ? array_unique($this->_ids)
