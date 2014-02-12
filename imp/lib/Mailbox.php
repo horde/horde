@@ -1800,17 +1800,19 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Overwrite the icon information now. */
-        if (empty($this->_cache[self::CACHE_ICONS]) &&
-            ($hooks = $injector->getInstance('Horde_Core_Hooks')) &&
-            $hooks->hookExists('mbox_icons', 'imp')) {
+        if (!isset($this->_cache[self::CACHE_ICONS])) {
             if (!isset(self::$_temp[self::CACHE_ICONHOOK])) {
-                self::$_temp[self::CACHE_ICONHOOK] = $hooks->callHook('mbox_icons', 'imp');
+                try {
+                    self::$_temp[self::CACHE_ICONHOOK] = $injector->getInstance('Horde_Core_Hooks')->callHook('mbox_icons', 'imp');
+                } catch (Horde_Exception_HookNotSet $e) {
+                    self::$_temp[self::CACHE_ICONHOOK] = array();
+                }
             }
 
-            if (isset(self::$_temp[self::CACHE_ICONHOOK][$this->_mbox])) {
-                $this->_cache[self::CACHE_ICONS] = self::$_temp[self::CACHE_ICONHOOK][$this->_mbox];
-                $this->_changed = self::CHANGED_YES;
-            }
+            $this->_cache[self::CACHE_ICONS] = isset(self::$_temp[self::CACHE_ICONHOOK][$this->_mbox])
+                ? self::$_temp[self::CACHE_ICONHOOK][$this->_mbox]
+                : false;
+            $this->_changed = self::CHANGED_YES;
         }
 
         if (!empty($this->_cache[self::CACHE_ICONS])) {
