@@ -137,7 +137,10 @@ abstract class IMP_Dynamic_Base
 
             // Other variables
             'disable_compose' => !IMP_Compose::canCompose(),
-            'pref_prefix' => base64_encode(pack('H*', hash('sha1', $registry->getAuth() . '|' . $_SERVER['SERVER_NAME'])))
+            'pref_prefix' => hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $registry->getAuth() . '|' . $_SERVER['SERVER_NAME']
+            )
         ));
 
         /* Context menu definitions.

@@ -63,7 +63,10 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         $out = array();
         $flaglist = $injector->getInstance('IMP_Flags')->getList();
         foreach ($flaglist as $val) {
-            $hash = hash('sha1', $val->id);
+            $hash = hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $val->id
+            );
             $bgid = 'bg_' . $hash;
             $color = $val->bgdefault ? '' : $val->bgcolor;
             $tmp = array();
@@ -107,11 +110,14 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         // actions.
         $update = false;
         foreach ($imp_flags->getList() as $val) {
-            $sha1 = hash('sha1', $val->id);
+            $hash = hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $val->id
+            );
 
             switch ($ui->vars->flag_action) {
             case 'delete':
-                if ($ui->vars->flag_data == ('bg_' . $sha1)) {
+                if ($ui->vars->flag_data == ('bg_' . $hash)) {
                     unset($imp_flags[$val->id]);
                     $notification->push(sprintf(_("Deleted flag \"%s\"."), $val->label), 'horde.success');
                 }
@@ -120,7 +126,7 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
             default:
                 /* Change labels for user-defined flags. */
                 if ($val instanceof IMP_Flag_User) {
-                    $label = $ui->vars->get('label_' . $sha1);
+                    $label = $ui->vars->get('label_' . $hash);
                     if (strlen($label) && ($label != $val->label)) {
                         $imp_flags->updateFlag($val->id, 'label', $label);
                         $update = true;
@@ -128,7 +134,7 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
                 }
 
                 /* Change background for all flags. */
-                $bg = strtolower($ui->vars->get('bg_' . $sha1));
+                $bg = strtolower($ui->vars->get('bg_' . $hash));
                 if ($bg != $val->bgcolor) {
                     $imp_flags->updateFlag($val->id, 'bgcolor', $bg);
                     $update = true;

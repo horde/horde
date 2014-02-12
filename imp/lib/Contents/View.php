@@ -290,7 +290,10 @@ class IMP_Contents_View
                 $cache_list[] = $val;
                 $cache_list[] = filemtime($val);
             }
-            $cache_id = hash('sha1', implode('', $cache_list));
+            $cache_id = 'imp_printcss_' . hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                implode('|', $cache_list)
+            );
 
             if (($style = $cache_ob->get($cache_id, 0)) === false) {
                 try {
