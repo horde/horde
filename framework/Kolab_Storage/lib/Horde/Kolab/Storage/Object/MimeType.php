@@ -105,14 +105,20 @@ class Horde_Kolab_Storage_Object_MimeType
     }    
 
     /**
-     * Try to determine the MIME part that carries an object matching the specified folder type.
+     * Tries to determine the MIME part that carries an object matching the
+     * specified folder type.
      *
-     * @param Horde_Mime_Part $structure A structural representation of the mime message.
-     * @param string $type The folder type.
+     * @param Horde_Mime_Part $structure  A structural representation of the
+     *                                    mime message.
+     * @param string $type                The folder type.
      *
-     * @return string|boolean The MIME ID of the message part carrying an object matching the specified folder type or false if such a part was not identified within the message.
+     * @return array|boolean  The MIME ID and MIME type of the message part
+     *                        carrying an object matching the specified folder
+     *                        type or false if such a part was not identified
+     *                        within the message.
      */
-    static public function matchMimePartToFolderType(Horde_Mime_Part $structure, $type)
+    static public function matchMimePartToFolderType(Horde_Mime_Part $structure,
+                                                     $type)
     {
         $mime_types = self::getMimeTypesFromFolderType($type);
         $id = false;
@@ -127,7 +133,7 @@ class Horde_Kolab_Storage_Object_MimeType
                 );
             }
         }
-	return false;
+        return false;
     }    
 
     /**
