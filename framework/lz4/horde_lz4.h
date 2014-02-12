@@ -1,7 +1,7 @@
 #ifndef PHP_HORDE_LZ4_H
 #define PHP_HORDE_LZ4_H
 
-#define HORDE_LZ4_EXT_VERSION "1.0.3"
+#define HORDE_LZ4_EXT_VERSION "1.0.4"
 
 extern char headerid;
 extern zend_module_entry horde_lz4_module_entry;
