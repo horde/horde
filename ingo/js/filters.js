@@ -15,18 +15,20 @@ var IngoFilters = {
             });
         }
 
-        Sortable.create('filterslist', {
-            onChange: function() {
-                Horde.stripeElement('filterslist');
-            },
-            onUpdate: function() {
-                HordeCore.doAction(
-                    'reSortFilters',
-                    { sort: Object.toJSON(Sortable.sequence('filterslist')) }
-                );
-            },
-            tag: 'div'
-        });
+        if (window.Sortable) {
+            Sortable.create('filterslist', {
+                onChange: function() {
+                    Horde.stripeElement('filterslist');
+                },
+                onUpdate: function() {
+                    HordeCore.doAction(
+                        'reSortFilters',
+                        { sort: Object.toJSON(Sortable.sequence('filterslist')) }
+                    );
+                },
+                tag: 'div'
+            });
+        }
     }
 
 };

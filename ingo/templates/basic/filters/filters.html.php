@@ -12,7 +12,11 @@ $enable_img = $this->hordeImage('enable.png');
  <?php echo $this->hiddenFieldTag('actionID') ?>
 
  <div class="header">
+<?php if ($this->mbox_search): ?>
+  <?php printf(_("Rules Containing Mailbox \"%s\""), $this->mbox_search) ?>
+<?php else: ?>
   <?php echo _("Existing Rules") ?>
+<?php endif; ?>
   <?php echo $this->hordeHelp('ingo', 'filters_rules') ?>
  </div>
 

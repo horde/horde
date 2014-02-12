@@ -51,8 +51,17 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             'rule_enable'
         ));
 
+        /* Default to no mailbox filtering. */
+        $mbox_search = null;
+
         /* Perform requested actions. */
         switch ($actionID) {
+        case 'mbox_search':
+            if (isset($this->vars->searchfield)) {
+                $mbox_search = $this->vars->searchfield;
+            }
+            break;
+
         case 'rule_copy':
         case 'rule_delete':
         case 'rule_disable':
@@ -180,36 +189,56 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
                 switch ($filter['action']) {
                 case Ingo_Storage::ACTION_BLACKLIST:
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
                     $editurl = Ingo_Basic_Blacklist::url();
                     $entry['filterimg'] = 'blacklist.png';
                     $name = _("Blacklist");
                     break;
 
                 case Ingo_Storage::ACTION_WHITELIST:
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
                     $editurl = Ingo_Basic_Whitelist::url();
                     $entry['filterimg'] = 'whitelist.png';
                     $name = _("Whitelist");
                     break;
 
                 case Ingo_Storage::ACTION_VACATION:
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
                     $editurl = Ingo_Basic_Vacation::url();
                     $entry['filterimg'] = 'vacation.png';
                     $name = _("Vacation");
                     break;
 
                 case Ingo_Storage::ACTION_FORWARD:
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
                     $editurl = Ingo_Basic_Forward::url();
                     $entry['filterimg'] = 'forward.png';
                     $name = _("Forward");
                     break;
 
                 case Ingo_Storage::ACTION_SPAM:
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
                     $editurl = Ingo_Basic_Spam::url();
                     $entry['filterimg'] = 'spam.png';
                     $name = _("Spam Filter");
                     break;
 
                 default:
+                    if (!is_null($mbox_search) &&
+                        (strcasecmp($filter['action-value'], $mbox_search) !== 0)) {
+                        continue 2;
+                    }
+
                     $editurl = $rule_url->copy()->add(array(
                         'edit' => $rule_number
                     ));
@@ -252,30 +281,54 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             }
 
             $view->filter = $display;
+            $view->mbox_search = $mbox_search;
         }
 
-        if ($factory->hasFeature('on_demand') && $edit_allowed) {
-            $view->settings = true;
-            $view->flags = $prefs->getValue('filter_seen');
-            $view->show_filter_msg = $prefs->getValue('show_filter_msg');
-        }
+        if ($edit_allowed && is_null($mbox_search)) {
+            if ($factory->hasFeature('on_demand')) {
+                $view->settings = true;
+                $view->flags = $prefs->getValue('filter_seen');
+                $view->show_filter_msg = $prefs->getValue('show_filter_msg');
+            }
 
-        if ($edit_allowed) {
             $page_output->addScriptFile('hordecore.js', 'horde');
             $page_output->addScriptPackage('Horde_Core_Script_Package_Sortable');
         }
+
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('filters.js');
+
+        $topbar = $injector->getInstance('Horde_View_Topbar');
+        $topbar->search = true;
+        $topbar->searchAction = self::url();
+        $topbar->searchLabel = _("Mailbox Search");
+        $topbar->searchParameters = array(
+            'actionID' => 'mbox_search',
+            'page' => 'filters'
+        );
 
         $this->header = _("Filter Rules");
         $this->output = $view->render('filters');
     }
 
     /**
+     * @param array $opts  Additional options:
+     * <pre>
+     *   - mbox_search: (string) Filter results by this mailbox.
+     * </pre>
      */
     static public function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'filters');
+        $url = Horde::url('basic.php')->add('page', 'filters');
+
+        if (isset($opts['mbox_search'])) {
+            $url->add(array(
+                'actionID' => 'mbox_search',
+                'mbox_search' => strval($opts['mbox_search'])
+            ));
+        }
+
+        return $url;
     }
 
 }

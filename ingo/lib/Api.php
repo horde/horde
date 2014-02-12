@@ -60,9 +60,11 @@ class Ingo_Api extends Horde_Registry_Api
         $pushed = $registry->pushApp('ingo');
 
         $links = array(
-            // @since 3.2.0
+            /* @since 3.2.0 */
             'newEmailFilter' => strval(Ingo_Basic_Rule::url()) . '&field[0]=From&match[0]=is&value[0]=|email|',
-            'showFilters' => strval(Ingo_Basic_Filters::url())
+            'showFilters' => strval(Ingo_Basic_Filters::url()),
+            /* @since 3.2.0 */
+            'showFiltersMbox' => strval(Ingo_Basic_Filters::url(array('mbox_search' => '|mailbox|')))
         );
 
         if (!$prefs->isLocked('blacklist')) {
