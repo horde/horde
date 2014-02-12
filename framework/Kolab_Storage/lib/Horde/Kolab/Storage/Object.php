@@ -343,19 +343,15 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             $structure, $folder->getType()
         );
 
-        /**
-         * No object content matching the folder type: Try fetching the header
-         * and look for a Kolab type deviating from the folder type.
-         */
-        if ($result === false | $result[0] === false) {
+        /* No object content matching the folder type: Try fetching the header
+         * and look for a Kolab type deviating from the folder type. */
+        if ($result === false || $result[0] === false) {
             $result = Horde_Kolab_Storage_Object_MimeType::matchMimePartToHeaderType(
                 $structure,
                 $this->getHeaders()
             );
-            /**
-             * Seems to have no Kolab data part: mark invalid.
-             */
-            if ($result === false | $result[0] === false) {
+            /* Seems to have no Kolab data part: mark invalid. */
+            if ($result === false || $result[0] === false) {
                 $this->_type = self::TYPE_INVALID;
                 $this->addParseError(self::ERROR_MISSING_KOLAB_PART);
                 return;
