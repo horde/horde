@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Exception extends Horde_Exception
+class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 {
     /* Error message codes. */
 
