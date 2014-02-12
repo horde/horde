@@ -160,6 +160,18 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Converts a table name into a suitable table alias.
+     *
+     * @param string $tableName  A table name.
+     *
+     * @return string  A possible alias name for the table.
+     */
+    public function tableAliasFor($tableName)
+    {
+        return parent::tableAliasFor($this->_truncateTo30($tableName));
+    }
+
+    /**
      * Returns a list of all tables of the current database.
      *
      * @return array  A table list.
