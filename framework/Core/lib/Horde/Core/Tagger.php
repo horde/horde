@@ -57,23 +57,24 @@ abstract class Horde_Core_Tagger
      */
     public function __construct()
     {
+        global $injector;
+
+        $cache = $injector->getInstance('Horde_Cache');
         $key = $this->_app . '.tagger.type_ids';
-        $ids = $GLOBALS['injector']->getInstance('Horde_Cache')
-            ->get($key, 360);
+        $ids = $cache->get($key, 360);
+
         if ($ids) {
             $this->_type_ids = unserialize($ids);
         } else {
-            $type_mgr = $GLOBALS['injector']
-                ->getInstance('Content_Types_Manager');
-            $types = $type_mgr->ensureTypes($this->_types);
+            $types = $injector->getInstance('Content_Types_Manager')
+                ->ensureTypes($this->_types);
             foreach ($this->_types as $k => $v) {
                 $this->_type_ids[$v] = intval($types[$k]);
             }
-            $GLOBALS['injector']->getInstance('Horde_Cache')
-                ->set($key, serialize($this->_type_ids));
+            $cache->set($key, serialize($this->_type_ids));
         }
 
-        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
+        $this->_tagger = $injector->getInstance('Content_Tagger');
     }
 
     /**
@@ -92,7 +93,7 @@ abstract class Horde_Core_Tagger
     }
 
     /**
-     * Tags an oject with any number of tags.
+     * Tags an object with any number of tags.
      *
      * @param string $localId       The identifier of the object.
      * @param mixed $tags           Either a single tag string or an array of
@@ -193,7 +194,6 @@ abstract class Horde_Core_Tagger
             throw new Horde_Exception($e);
         }
     }
-
 
     /**
      * Tags the given resource with *only* the tags provided, removing any
