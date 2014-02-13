@@ -139,7 +139,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         } else {
             switch ($config['phptype']) {
             case 'mysqli':
-                $class = 'Horde_Db_Adatper_Mysqli';
+                $class = 'Horde_Db_Adapter_Mysqli';
                 break;
 
             case 'mysql':
