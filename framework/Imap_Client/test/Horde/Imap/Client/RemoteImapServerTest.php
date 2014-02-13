@@ -34,14 +34,13 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
     public function setUp()
     {
         $config = self::getConfig('IMAPCLIENT_TEST_CONFIG');
-        if (is_null($config) ||
-            empty($config['imapclient']['client_config']['username']) ||
-            empty($config['imapclient']['client_config']['password'])) {
-            $this->markTestSkipped('Remote server authentication not configured.');
+        if (is_null($config) || empty($config['imapclient']['enabled'])) {
+            $this->markTestSkipped('IMAP server test not enabled.');
         }
 
-        if (empty($config['imapclient']['client_config']['username'])) {
-            $this->markTestSkipped('IMAP server test not enabled.');
+        if (empty($config['imapclient']['client_config']['username']) ||
+            empty($config['imapclient']['client_config']['password'])) {
+            $this->markTestSkipped('Remote server authentication not configured.');
         }
 
         $this->test_mbox = $config['imapclient']['test_mbox'];

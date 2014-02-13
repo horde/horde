@@ -30,14 +30,13 @@ class Horde_Imap_Client_RemotePop3ServerTest extends Horde_Test_Case
     public function setUp()
     {
         $config = self::getConfig('IMAPCLIENT_TEST_CONFIG_POP3');
-        if (is_null($config) ||
-            empty($config['pop3client']['client_config']['username']) ||
-            empty($config['pop3client']['client_config']['password'])) {
-            $this->markTestSkipped('Remote server authentication not configured.');
+        if (is_null($config) || empty($config['pop3client']['enabled'])) {
+            $this->markTestSkipped('POP3 server test not enabled.');
         }
 
-        if (empty($config['pop3client']['client_config']['username'])) {
-            $this->markTestSkipped('IMAP server test not enabled.');
+        if (empty($config['pop3client']['client_config']['username']) ||
+            empty($config['pop3client']['client_config']['password'])) {
+            $this->markTestSkipped('Remote server authentication not configured.');
         }
 
         try {
