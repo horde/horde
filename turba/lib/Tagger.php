@@ -46,7 +46,10 @@ class Turba_Tagger extends Horde_Core_Tagger
      */
     public function search($tags, $filter = array())
     {
+        global $injector;
+
         $args = array();
+        $tagger = $injector->getInstance('Content_Tagger');
 
         // These filters are mutually exclusive
         if (array_key_exists('user', $filter)) {
@@ -61,12 +64,10 @@ class Turba_Tagger extends Horde_Core_Tagger
         }
 
         // Add the tags to the search
-        $args['tagId'] = $GLOBALS['injector']
-            ->getInstance('Content_Tagger')
-            ->ensureTags($tags);
-
+        $args['tagId'] = $tagger->ensureTags($tags);
         $args['typeId'] = $this->_type_ids['contact'];
 
-        return array_values($GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args));
+        return array_values($tagger->getObjects($args));
     }
+
 }
