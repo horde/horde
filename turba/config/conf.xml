@@ -46,4 +46,9 @@
   <configheader>Virtual File Storage</configheader>
   <configvfs switchname="type" />
  </configsection>
+
+ <configsection name="tags">
+  <configheader>Tag Settings</configheader>
+  <configboolean name="enabled" desc="Enable tagging?">true</configboolean>
+ </configsection>
 </configuration>

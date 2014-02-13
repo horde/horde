@@ -65,7 +65,8 @@ class Turba_Application extends Horde_Registry_Application
     {
         /* Add Turba-specific factories. */
         $factories = array(
-            'Turba_Shares' => 'Turba_Factory_Shares'
+            'Turba_Shares' => 'Turba_Factory_Shares',
+            'Turba_Tagger' => 'Turba_Factory_Tagger'
         );
 
         foreach ($factories as $key => $val) {

@@ -57,13 +57,10 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
         }
 
         /* Get tags. */
-        if (($uid = $contact->getValue('__uid')) &&
-            !isset($object_values['__tags'])) {
-            $object_values['__tags'] = implode(
-                ', ',
-                $injector->getInstance('Turba_Tagger')
-                    ->getTags($uid, 'contact')
-            );
+        if (($tagger = $injector->getInstance('Turba_Tagger')) &&
+            !($tagger instanceof Horde_Core_Tagger_Null) &&
+            ($uid = $contact->getValue('__uid'))) {
+            $object_values['__tags'] = implode(', ', $tagger->getTags($uid, 'contact'));
         }
 
         $vars->set('object', $object_values);

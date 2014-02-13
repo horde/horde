@@ -42,7 +42,9 @@ class Turba_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoComple
      */
     protected function _handleAutoCompleter($input)
     {
-        return array_values($GLOBALS['injector']->getInstance('Turba_Tagger')->listTags($input));
+        return array_values(
+            $GLOBALS['injector']->getInstance('Turba_Tagger')->listTags($input)
+        );
     }
 
 }

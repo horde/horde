@@ -28,8 +28,21 @@ configurations and database schemes. Log in as an administrator, go to
 Administration => Configuration and update anything that's highlighted as
 outdated.
 
-Upgrading Turba from 4.0.x to 4.1
-=================================
+
+Upgrading Turba from 4.1 to 4.2
+===============================
+
+Configuration Options (conf.php)
+--------------------------------
+
+The following options have been added::
+
+   $conf['tags']['enabled']
+
+
+
+Upgrading Turba from 4.0 to 4.1
+===============================
 
 Attribute Changes
 -----------------
@@ -40,6 +53,8 @@ Attribute Changes
   - The default SQL schema has been updated, as well as the out of the box
     field definitions for the 'localsql' source. You must execute the database
     migrations for Turba to ensure you have the latest schema.
+
+
 
 Upgrading Turba from 3.x to 4.x
 ===============================

@@ -903,13 +903,12 @@ class Turba_Driver implements Countable
 
         /* Add tags. */
         if (isset($attributes['__tags'])) {
-            $GLOBALS['injector']->getInstance('Turba_Tagger')
-                ->tag(
-                    $uid,
-                    $attributes['__tags'],
-                    $this->getContactOwner(),
-                    'contact'
-                );
+            $GLOBALS['injector']->getInstance('Turba_Tagger')->tag(
+                $uid,
+                $attributes['__tags'],
+                $this->getContactOwner(),
+                'contact'
+            );
         }
 
         /* Log the creation of this item in the history log. */
@@ -1053,13 +1052,12 @@ class Turba_Driver implements Countable
         if ($uid = $object->getValue('__uid')) {
             /* Update tags. */
             if (!is_null($tags = $object->getValue('__tags'))) {
-                $GLOBALS['injector']->getInstance('Turba_Tagger')
-                    ->replaceTags(
-                        $uid,
-                        $tags,
-                        $this->getContactOwner(),
-                        'contact'
-                    );
+                $GLOBALS['injector']->getInstance('Turba_Tagger')->replaceTags(
+                    $uid,
+                    $tags,
+                    $this->getContactOwner(),
+                    'contact'
+                );
             }
 
             /* Log the modification of this item in the history log. */
