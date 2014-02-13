@@ -99,7 +99,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             $casesensitive = $this->vars->case;
         }
 
-        foreach (array_filter($this->vars->field) as $key => $val) {
+        foreach (array_filter(isset($this->vars->field) ? $this->vars->field : array()) as $key => $val) {
             $condition = array();
             $f_label = null;
 
