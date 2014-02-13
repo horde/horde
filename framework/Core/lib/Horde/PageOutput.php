@@ -657,6 +657,7 @@ class Horde_PageOutput
             );
 
             if ($this->topbar) {
+                $js_text['growlerclear'] = Horde_Core_Translation::t("Clear All");
                 $js_text['growlerinfo'] = Horde_Core_Translation::t("This is the notification log.");
                 $js_text['growlernoalerts'] = Horde_Core_Translation::t("No Alerts");
             }

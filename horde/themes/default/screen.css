@@ -1317,6 +1317,9 @@ ul.horde-tags {
     font-style: italic;
     padding-left: 10px;
 }
+.GrowlerLogClear {
+    padding-left: 10px;
+}
 div.GrowlerNoticeExit {
     background: url("graphics/close.png") no-repeat;
     cursor: pointer;

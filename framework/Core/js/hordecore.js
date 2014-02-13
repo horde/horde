@@ -701,6 +701,7 @@ var HordeCore = {
         if (window.Growler) {
             if (this.conf.growler_log) {
                 this.Growler = new Growler({
+                    clear: this.text.growlerclear,
                     info: this.text.growlerinfo,
                     location: 'br',
                     log: true,

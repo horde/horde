@@ -75,10 +75,11 @@
     },
 
     growlerOptions = {
+        clear: 'Clear All',
         location: 'tr',
         log: false,
         noalerts: 'No Alerts',
-        info: 'This is the notification backlog'
+        info: 'This is the notification log.'
     };
 
     function removeNotice(n)
@@ -97,71 +98,56 @@
         });
     }
 
-    function removeLog(l)
-    {
-        try {
-            var le = l.down('DIV.GrowlerNoticeExit');
-            if (!Object.isUndefined(le)) {
-                le.stopObserving('click', removeLog);
-            }
-        } catch (e) {}
-        try {
-            l.remove();
-        } catch (e) {}
-    }
-
     window.Growler = Class.create({
 
         initialize: function(opts)
         {
-            var logExit;
+            var style;
+
             this.opts = Object.extend(Object.clone(growlerOptions), opts || {});
 
-            this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: 'fixed', padding: '10px', zIndex: 50000 }).hide();
+            this.growler = new Element('DIV', { id: 'Growler' }).setStyle({
+                position: 'fixed',
+                padding: '10px',
+                zIndex: 50000
+            }).hide();
             this.growler.on('click', 'DIV.GrowlerNoticeExit', function(e, elt) {
                 removeNotice(elt.up('DIV.GrowlerNotice'));
             });
 
             if (this.opts.log) {
-                logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
-                logExit.observe('click', this.toggleLog.bind(this));
                 this.growlerlog = new Element('DIV', { id: 'GrowlerLog' })
                     .insert(new Element('DIV').hide()
-                            .insert(new Element('UL')
-                                    .insert(new Element('LI', { className: 'GrowlerInfo' })
-                                            .insert(this.opts.info)
-                                            .insert(logExit))
-                                    .insert(new Element('LI', { className: 'GrowlerNoAlerts' })
-                                            .insert(this.opts.noalerts))));
+                        .insert(new Element('UL')
+                            .insert(new Element('LI', { className: 'GrowlerInfo' })
+                                .insert(this.opts.info)
+                                .insert(new Element('SPAN', { className: 'GrowlerLogClear' })
+                                    .insert('[')
+                                    .insert(new Element('A')
+                                        .insert(this.opts.clear))
+                                    .insert(']')))
+                            .insert(new Element('LI', { className: 'GrowlerNoAlerts' })
+                                .insert(this.opts.noalerts))));
                 $(document.body).insert(this.growlerlog);
+                this.growlerlog.on('click', 'SPAN.GrowlerLogClear A', function() {
+                    this.growlerlog.down('LI.GrowlerInfo').siblings().invoke('remove');
+                    this.growlerlog.down('UL').insert(
+                        new Element('LI', { className: 'GrowlerNoAlerts' })
+                            .insert(this.opts.noalerts));
+                }.bind(this));
             }
 
-            switch (this.opts.location) {
-            case 'br':
-                this.growler.setStyle({ bottom: 0, right: 0 });
-                break;
+            style = {
+                bc: { bottom: 0, left: '25%', width: '50%' },
+                bl: { top: 0, right: 0 },
+                br: { bottom: 0, right: 0 },
+                tc: { top: 0, left: '25%', width: '50%' },
+                tl: { top: 0, left: 0 }
+            };
 
-            case 'tl':
-                this.growler.setStyle({ top: 0, left: 0 });
-                break;
-
-            case 'bl':
-                this.growler.setStyle({ top: 0, right: 0 });
-                break;
-
-            case 'tc':
-                this.growler.setStyle({ top: 0, left: '25%', width: '50%' });
-                break;
-
-            case 'bc':
-                this.growler.setStyle({ bottom: 0, left: '25%', width: '50%' });
-                break;
-
-            default:
-                this.growler.setStyle({ top: 0, right: 0 });
-                break;
-            }
-
+            this.growler.setStyle(
+                style[this.opts.location] || { top: 0, right: 0 }
+            );
             this.growler.wrap(document.body);
 
             if (!opts.noclick) {
@@ -174,16 +160,14 @@
 
         growl: function(msg, options)
         {
-            options = options || {};
-            var exists, notice, log, logExit, tmp,
+            var notice, log, tmp,
                 opts = Object.clone(noticeOptions);
-            Object.extend(opts, options);
+            Object.extend(opts, options || {});
 
             /* Check if sticky notice with same message already exists. */
-            exists = this.growler.select('> .GrowlerSticky').detect(function(n) {
-                return (n.down('.GrowlerNoticeBody').textContent == msg);
-            });
-            if (exists) {
+            if (this.growler.select('> .GrowlerSticky').detect(function(n) {
+                    return (n.down('.GrowlerNoticeBody').textContent == msg);
+                })) {
                 return;
             }
 
@@ -192,11 +176,13 @@
                 if (tmp.down('.GrowlerNoAlerts')) {
                     tmp.down('.GrowlerNoAlerts').remove();
                 }
-                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'GrowlerAlertDate'} ).insert('[' + (new Date()).toLocaleString() + ']'));
-                logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
-                logExit.observe('click', removeLog.curry(log));
-                log.insert(logExit);
-                tmp.insert(log);
+                tmp.insert(
+                    new Element('LI', {
+                        className: opts.className.empty() ? null : opts.className
+                    }).insert(msg).insert(new Element('SPAN', {
+                        className: 'GrowlerAlertDate'}
+                    ).insert('[' + (new Date()).toLocaleString() + ']'))
+                );
             }
 
             notice = new Element('DIV', { className: 'GrowlerNotice' })
@@ -206,17 +192,26 @@
                 notice.addClassName(opts.className);
             }
 
-            notice.insert(new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;"));
+            notice.insert(new Element('DIV', {
+                className: 'GrowlerNoticeExit'
+            }).update("&times;"));
 
             if (!opts.header.empty()) {
-                notice.insert(new Element('DIV', { className: 'GrowlerNoticeHead' }).update(opts.header));
+                notice.insert(new Element('DIV', {
+                    className: 'GrowlerNoticeHead'
+                }).update(opts.header));
             }
 
-            notice.insert(new Element('DIV', { className: 'GrowlerNoticeBody' }).update(msg));
+            notice.insert(new Element('DIV', {
+                className: 'GrowlerNoticeBody'
+            }).update(msg));
 
             this.growler.show().insert(notice);
 
-            new Effect.Opacity(notice, { to: opts.opacity, duration: opts.speedin });
+            new Effect.Opacity(notice, {
+                to: opts.opacity,
+                duration: opts.speedin
+            });
 
             if (opts.sticky) {
                 notice.addClassName('GrowlerSticky');
@@ -248,7 +243,9 @@
                 }
             });
             this.logvisible = !this.logvisible;
-            this.growlerlog.fire('Growler:toggled', { visible: this.logvisible });
+            this.growlerlog.fire('Growler:toggled', {
+                visible: this.logvisible
+            });
             return this.logvisible;
         },
 
