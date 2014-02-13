@@ -2,12 +2,22 @@
 /**
  * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL). If you
+ * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Turba
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {

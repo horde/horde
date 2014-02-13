@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
  * A binder object for binding an interface to a factory class and method.
  *
  * An interface may be bound to a factory class.  That factory class must
@@ -17,23 +29,21 @@
  * }
  * </pre>
  *
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @category Horde
- * @package  Injector
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
 {
     /**
-     * TODO
-     *
      * @var string
      */
     private $_factory;
 
     /**
-     * TODO
-     *
      * @var string
      */
     private $_method;
@@ -52,9 +62,7 @@ class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
-     *
-     * @param Horde_Injector_Binder $otherBinder  TODO
+     * @param Horde_Injector_Binder $otherBinder
      *
      * @return boolean  Equality.
      */
@@ -99,7 +107,7 @@ class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
      *
      * @param Horde_Injector $injector  Injector object.
      *
-     * @return TODO
+     * @return Horde_Injector
      */
     public function create(Horde_Injector $injector)
     {

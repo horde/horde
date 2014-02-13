@@ -1,18 +1,27 @@
 <?php
 /**
+ * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
  * Turba application API.
  *
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Turba through this API.
  *
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (APL). If you
- * did not receive this file, see http://www.horde.org/licenses/apl.html.
- *
- * @category Horde
- * @license  http://www.horde.org/licenses/apl.html APL
- * @package  Turba
+ * @author    Michael Slusarz <slusarz@horde.org?
+ * @category  Horde
+ * @copyright 2010-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 
 /* Determine the base directories. */

@@ -1,23 +1,35 @@
 <?php
 /**
- * This is a simple class that uses reflection to figure out the dependencies of
- * a method and attempts to return them using the Injector instance.
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @package  Injector
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
+ * This is a simple class that uses reflection to figure out the dependencies
+ * of a method and attempts to return them using the Injector instance.
+ *
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 class Horde_Injector_DependencyFinder
 {
     /**
-     * TODO
+     * @param Horde_Injector $injector
+     * @param ReflectionMethod $method
      *
-     * @param Horde_Injector $injector  TODO
-     * @param ReflectionMethod $method  TODO
-     *
-     * @return array  TODO
+     * @return array
      * @throws Horde_Injector_Exception
      */
     public function getMethodDependencies(Horde_Injector $injector,
@@ -37,12 +49,10 @@ class Horde_Injector_DependencyFinder
     }
 
     /**
-     * TODO
+     * @param Horde_Injector $injector
+     * @param ReflectionParameter $method
      *
-     * @param Horde_Injector $injector     TODO
-     * @param ReflectionParameter $method  TODO
-     *
-     * @return mixed  TODO
+     * @return mixed
      * @throws Horde_Injector_Exception
      */
     public function getParameterDependency(Horde_Injector $injector,

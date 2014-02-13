@@ -1,19 +1,27 @@
 <?php
 /**
- * The Turba_Driver:: class provides a common abstracted interface to the
- * various directory search drivers.  It includes functions for searching,
- * adding, removing, and modifying directory entries.
- *
  * Copyright 2000-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL).  If you
+ * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Jon Parise <jon@csh.rit.edu>
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Turba
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * Provides a common abstracted interface to the various directory search
+ * drivers.  It includes functions for searching, adding, removing, and
+ * modifying directory entries.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@csh.rit.edu>
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Driver implements Countable
 {

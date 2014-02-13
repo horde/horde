@@ -1,16 +1,24 @@
 <?php
 /**
- * Interface to the Horde_Content tagger
- *
  * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package Core
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * Interface to the Horde_Content tagger.
+ *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 abstract class Horde_Core_Tagger
 {
@@ -45,9 +53,7 @@ abstract class Horde_Core_Tagger
     protected $_tagger;
 
     /**
-     * Constructor
-     *
-     * @return Horde_Core_Tagger
+     * Constructor.
      */
     public function __construct()
     {
@@ -73,8 +79,7 @@ abstract class Horde_Core_Tagger
     /**
      * Split a tag string into an array of tags.
      *
-     * Overides Content_Tagger::split to only split on
-     * commas.
+     * Overides Content_Tagger::split to only split on commas.
      *
      * @param string $tags  A string of tags to be split.
      *
@@ -127,7 +132,8 @@ abstract class Horde_Core_Tagger
      *                         an array of identifiers.
      * @param string $type     The type of object $localId represents.
      *
-     * @return array A tag_id => tag_name hash, possibly wrapped in a localid hash.
+     * @return array  A tag_id => tag_name hash, possibly wrapped in a localid
+     *                hash.
      * @throws Horde_Exception
      */
     public function getTags($localId, $type = null)
@@ -165,7 +171,8 @@ abstract class Horde_Core_Tagger
      * @param string $localId       The object identifier.
      * @param mixed $tags           Either a tag_id, tag_name or an array of
      *                              ids or names to remove.
-     * @param string $content_type  The type of object that $localId represents.
+     * @param string $content_type  The type of object that $localId
+     *                              represents.
      *
      * @throws Horde_Exception
      */
@@ -192,11 +199,13 @@ abstract class Horde_Core_Tagger
      * Tags the given resource with *only* the tags provided, removing any
      * tags that are already present but not in the list.
      *
-     * @param string $localId  The identifier for the object.
-     * @param mixed $tags      Either a tag_id, tag_name, or array of tag_ids.
-     * @param string $owner    The tag owner - should normally be the resource
-     *                         owner.
-     * @param $content_type    The type of object that $localId represents.
+     * @param string $localId       The identifier for the object.
+     * @param mixed $tags           Either a tag_id, tag_name, or array of
+     *                              tag_ids.
+     * @param string $owner         The tag owner - should normally be the
+     *                              resource owner.
+     * @param string $content_type  The type of object that $localId
+     *                              represents.
      */
     public function replaceTags($localId, $tags, $owner, $content_type = null)
     {
@@ -251,7 +260,7 @@ abstract class Horde_Core_Tagger
      *
      * @param string $token  The token to match the start of the tag with.
      *
-     * @return A tag_id => tag_name hash
+     * @return array  A tag_id => tag_name hash
      * @throws Horde_Exception
      */
     public function listTags($token)
@@ -276,7 +285,8 @@ abstract class Horde_Core_Tagger
      * @param boolean $all    Return all tags, not just tags for the current
      *                        types.
      *
-     * @return An array of hashes, each containing tag_id, tag_name, and count.
+     * @return array  An array of hashes, each containing tag_id, tag_name,
+     *                and count.
      * @throws Horde_Exception
      */
     public function getCloud($user, $limit = 5, $all = false)
@@ -298,7 +308,7 @@ abstract class Horde_Core_Tagger
      * Get the number of times tags are used within a specific set of objects
      * basically a tag cloud, restricted to objects of a specific type.
      *
-     * @param array $ids  An array of local object ids.
+     * @param array $ids     An array of local object ids.
      * @param integer $type  The type identifier of of the objects.
      *
      * @return array  An array of tag_ids => counts.
@@ -325,11 +335,11 @@ abstract class Horde_Core_Tagger
      * the tag being considered. Used to "browse" tagged resources.
      *
      *
-     * @param array $tags   An array of tags to check. This would represent the
-     *                      current "directory" of tags while browsing.
+     * @param array $tags   An array of tags to check. This would represent
+     *                      the current "directory" of tags while browsing.
      * @param string $user  The resource must be owned by this user.
      *
-     * @return array  An tag_id => tag_name hash
+     * @return array  A tag_id => tag_name hash.
      * @throws Horde_Exception
      */
     public function browseTags($tags, $user)
@@ -384,9 +394,11 @@ abstract class Horde_Core_Tagger
      * @param string $user    Restrict results to those tagged by $user.
      *
      * @return array  An array of hashes, tag_id, tag_name, and count.
-     * @throws Ansel_Exception
+     * @throws Horde_Exception
      */
-    public function getTagInfo($tags = null, $limit = 500, $type = null, $user = null)
+    public function getTagInfo(
+        $tags = null, $limit = 500, $type = null, $user = null
+    )
     {
         $filter = array(
             'typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
@@ -402,5 +414,14 @@ abstract class Horde_Core_Tagger
         }
     }
 
-    abstract public function search($tags, $filter = array());
+    /**
+     * Searches for resources that are tagged with all of the requested tags.
+     *
+     * @param array $tags    Either a tag_id, tag_name or an array.
+     * @param array $filter  Array of filter parameters.
+     *
+     * @return array  A hash of results.
+     */
+    abstract public function search($tags, array $filter = array());
+
 }

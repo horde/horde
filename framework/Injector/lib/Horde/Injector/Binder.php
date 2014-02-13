@@ -1,26 +1,25 @@
 <?php
 /**
- * Binder interface definition.
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @category Horde
- * @package  Injector
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @link     http://pear.horde.org/index.php?package=Injector
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 
 /**
  * Describes a binding class that is able to create concrete object instances.
  *
- * @category Horde
- * @package  Injector
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @link     http://pear.horde.org/index.php?package=Injector
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 interface Horde_Injector_Binder
 {
@@ -31,7 +30,7 @@ interface Horde_Injector_Binder
      *                                  required dependencies for creating the
      *                                  instance.
      *
-     * @return mixed The concrete instance.
+     * @return mixed  The concrete instance.
      */
     public function create(Horde_Injector $injector);
 

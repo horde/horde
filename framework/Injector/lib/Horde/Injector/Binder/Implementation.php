@@ -1,16 +1,27 @@
 <?php
 /**
- * TODO
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
  *
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @category Horde
- * @package  Injector
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
 {
     /**
-     * TODO
      */
     private $_implementation;
 
@@ -20,7 +31,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     private $_dependencyFinder;
 
     /**
-     * TODO
      */
     public function __construct($implementation,
                                 Horde_Injector_DependencyFinder $finder = null)
@@ -32,9 +42,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
-     *
-     * @return TODO
      */
     public function getImplementation()
     {
@@ -42,8 +49,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
-     *
      * @return boolean  Equality.
      */
     public function equals(Horde_Injector_Binder $otherBinder)
@@ -53,7 +58,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
      */
     public function create(Horde_Injector $injector)
     {
@@ -67,7 +71,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
      */
     protected function _validateImplementation(ReflectionClass $reflectionClass)
     {
@@ -77,7 +80,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
      */
     protected function _getInstance(Horde_Injector $injector,
                                     ReflectionClass $class)

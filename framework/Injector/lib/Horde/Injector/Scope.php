@@ -1,13 +1,27 @@
 <?php
 /**
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
  * Interface for injector scopes
  *
  * Injectors implement a Chain of Responsibility pattern.  This is the
  * required interface for injectors to pass on responsibility to parent
  * objects in the chain.
  *
- * @category Horde
- * @package  Injector
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 interface Horde_Injector_Scope
 {
@@ -30,7 +44,7 @@ interface Horde_Injector_Scope
      * @param string $interface  Interface name of object which is being
      *                           requested.
      *
-     * @return Object
+     * @return object
      */
     public function getInstance($interface);
 

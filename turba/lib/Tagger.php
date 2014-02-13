@@ -1,29 +1,46 @@
 <?php
 /**
- * Interface to the Horde_Content tagger
- *
  * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL). If you
+ * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael J Rubinsky <mrubinsk@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @license http://www.horde.org/licenses/asl ASL
- * @package Turba
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * Interface to the Horde_Content tagger.
+ *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Tagger extends Horde_Core_Tagger
 {
+    /**
+     */
     protected $_app = 'turba';
+
+    /**
+     */
     protected $_types = array('contact');
 
     /**
      * Searches for resources that are tagged with all of the requested tags.
      *
      * @param array $tags    Either a tag_id, tag_name or an array.
-     * @param array $filter  Array of filter parameters.
-     *      - user: (array) - only include objects owned by these users.
-     *      - list (array) - restrict to contacts contained in these address books.
+     * @param array $filter  Array of filter parameters:
+     * <pre>
+     *   - user: (array) Only include objects owned by these users.
+     *   - list: (array) Restrict to contacts contained in these address
+     *           books.
+     * </pre>
      *
      * @return array  A hash of results.
      */

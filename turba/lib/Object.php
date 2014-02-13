@@ -1,11 +1,25 @@
 <?php
 /**
- * The Turba_Object:: class provides a base implementation for Turba
- * objects - people, groups, restaurants, etc.
+ * Copyright 2000-2014 Horde LLC (http://www.horde.org/)
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * A base implementation for Turba objects - people, groups, restaurants, etc.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@csh.rit.edu>
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Object
 {

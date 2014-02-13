@@ -1,8 +1,23 @@
 <?php
 /**
+ * Copyright 2000-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
  * Form for displaying a contact
  *
- * @package Turba
+ * @category  Horde
+ * @copyright 2000-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Form_Contact extends Turba_Form_ContactBase
 {

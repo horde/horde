@@ -1,17 +1,25 @@
 <?php
 /**
- * Move tags from Turba categories to content storage.
- *
  * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL). If you
+ * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Turba
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * Move tags from Turba categories to content storage.
+ *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {

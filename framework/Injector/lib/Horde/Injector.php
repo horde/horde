@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
  * Injector class for injecting dependencies of objects
  *
  * This class is responsible for injecting dependencies of objects.  It is
@@ -7,10 +19,12 @@
  * support many different types of bindings as well as allowing for setter
  * injection bindings.
  *
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @category Horde
- * @package  Injector
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 class Horde_Injector implements Horde_Injector_Scope
 {
@@ -37,7 +51,7 @@ class Horde_Injector implements Horde_Injector_Scope
     private $_reflection = array();
 
     /**
-     * Create a new injector object.
+     * Create a new Injector object.
      *
      * Every injector object has a parent scope.  For the very first
      * Horde_Injector, you should pass it a Horde_Injector_TopLevel object.
@@ -69,7 +83,6 @@ class Horde_Injector implements Horde_Injector_Scope
      * Method overloader.  Handles $this->bind[BinderType] type calls.
      *
      * @return Horde_Injector_Binder  See _bind().
-     * @throws BadMethodCallException
      */
     public function __call($name, $args)
     {
@@ -91,7 +104,6 @@ class Horde_Injector implements Horde_Injector_Scope
      *
      * @return Horde_Injector_Binder  The binder object created. Useful for
      *                                method chaining.
-     * @throws BadMethodCallException
      */
     private function _bind($type, $args)
     {
@@ -124,8 +136,10 @@ class Horde_Injector implements Horde_Injector_Scope
      * implentation or factory.  For convenience, binders may be added by
      * $this->bind[BinderType].
      *
+     * <pre>
      * bindFactory - Creates a Horde_Injector_Binder_Factory
      * bindImplementation - Creates a Horde_Injector_Binder_Implementation
+     * </pre>
      *
      * All subsequent arguments are passed to the constructor of the
      * Horde_Injector_Binder object.

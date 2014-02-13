@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
+ */
+
+/**
  * A binder object for binding an interface to a closure.
  *
  * An interface may be bound to a closure.  That closure must accept a
@@ -10,17 +22,17 @@
  * $injector->bindClosure('database', function($injector) { return new my_mysql(); });
  * </pre>
  *
- * @author   Bob Mckee <bmckee@bywires.com>
- * @author   James Pepin <james@jamespepin.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @package  Injector
+ * @author    Bob Mckee <bmckee@bywires.com>
+ * @author    James Pepin <james@jamespepin.com>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Injector
  */
 class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
 {
     /**
-     * TODO
-     *
      * @var Horde_Injector_Binder_Closure
      */
     private $_closure;
@@ -36,9 +48,7 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
-     *
-     * @param Horde_Injector_Binder $otherBinder  TODO
+     * @param Horde_Injector_Binder $otherBinder
      *
      * @return boolean  Equality.
      */
@@ -59,7 +69,7 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
     }
 
     /**
-     * Create instance using a closure
+     * Create instance using a closure.
      *
      * If the closure depends on a Horde_Injector we want to limit its scope
      * so it cannot change anything that effects any higher-level scope.  A
@@ -72,7 +82,7 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
      *
      * @param Horde_Injector $injector  Injector object.
      *
-     * @return TODO
+     * @return Horde_Injector
      */
     public function create(Horde_Injector $injector)
     {
