@@ -38,7 +38,7 @@
   <release>alpha</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/asl">ASL</license>
+ <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
 * [mms] Allow tagging system to be disabled via configuration option.
 * [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
@@ -1178,7 +1178,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -1193,7 +1193,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Fix the listTimeObjects API for shared sources (Bug #9649).
 * Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
@@ -1209,7 +1209,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Adapted the Kolab driver to Horde 4.
@@ -1228,7 +1228,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Second release candidate for Horde 4.
 * [mjr] Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
@@ -1244,7 +1244,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First stable release for Horde 4.
 * [mjr] Fix deletion of virtual address books (Bug # 9779).
@@ -1262,7 +1262,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix LDAP schema checking (Bug #9826).
 * [jan] Fix creating temporary files with open_basedir restrictions.
@@ -1279,7 +1279,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix exporting department attribute over ActiveSync.
 * [mjr] Fix adding contacts with a category selected.
@@ -1293,7 +1293,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [rla] Support multiple address books in search portal block (Request #8786).
 * [mjr] Fix importing LDIF files (Bug #10139).
@@ -1310,7 +1310,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
 * [jan] Complete fix for importing LDIF files (Bug #10139).
@@ -1324,7 +1324,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
 * [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
@@ -1338,7 +1338,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
 * [jan] Fix searching for duplicates on some databases (Bug #10383).
@@ -1353,7 +1353,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add missing migration script (Bug #10436).
    </notes>
@@ -1366,7 +1366,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix attribute name for assistant phone (Bug #10449).
    </notes>
@@ -1379,7 +1379,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-22</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
 * [mjr] Run attribute values through decode_attribute hook when exporting.
@@ -1397,7 +1397,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-02</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Add the ability to specify the fields to return from contacts/search.
 * [jan] Fix importing contacts with composite fields.
@@ -1413,7 +1413,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-01-17</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
 * [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
@@ -1428,7 +1428,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-28</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Ensure contact lists are always populated with their members (Bug #10961).
 * [jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol clients (Bug #10912).
@@ -1445,7 +1445,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-04-11</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug #11123).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
@@ -1461,7 +1461,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
@@ -1478,7 +1478,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix sorting of columns in preferences (Bug #10795).
 * [jan] Remove user&apos;s address books when removing users, independent from address book permissions.
@@ -1501,7 +1501,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First alpha release for Horde 5.
 * [mms] Import API call now throws an ObjectExists exception when a duplicate is found.
@@ -1516,7 +1516,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-20</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add configuration example for Kolab/IMAP address books.
 * [jan] Update icon set.
@@ -1532,7 +1532,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-08-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Use Horde 5 action bar.
    </notes>
@@ -1545,7 +1545,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-12</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Support importing contacts via API if using &apos;emails&apos; attributes (Bug #8358).
 * [jan] Support &apos;emails&apos; attribute with ActiveSync.
@@ -1565,7 +1565,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-27</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Allow searching for &apos;emails&apos; attributes (Bug #11185).
 * [jan] Fix LIKE matching of attributes in Kolab driver.
@@ -1584,7 +1584,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-10-30</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
 * [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
@@ -1598,7 +1598,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-27</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add free-text country attributes and use them in default Kolab backend (Request #11692).
 * [gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
@@ -1616,7 +1616,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-01-10</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Avoid sending broken datetime values to ActiveSync.
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
@@ -1632,7 +1632,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-02-12</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix emptying shared address books.
@@ -1647,7 +1647,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-05-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [jan] Fix importing certain phone fields from vCard (Bug #12178).
@@ -1666,7 +1666,7 @@
     <release>beta</release>
     <api>stable</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add CardDAV server support.
 * [mjr] Update the default SQL source schema (Request #11993).
@@ -1683,7 +1683,7 @@
     <release>beta</release>
     <api>stable</api></stability>
    <date>2013-05-14</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Update the default SQL schema.
 * [jan] Fix incorrect dependencies.
@@ -1697,7 +1697,7 @@
     <release>beta</release>
     <api>stable</api></stability>
    <date>2013-05-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Back button in smartmobile view for group member returns to group entry, not browse list.
 * [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
@@ -1711,7 +1711,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-06-04</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix searching in LDAP address books (Bug #12297).
    </notes>
@@ -1724,7 +1724,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-07-16</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Import and export UID vCard attributes (Bug #12427).
 * [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
@@ -1740,7 +1740,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-27</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
 * [mjr] Fix deleting multiple contacts via the API (Bug #12554).
@@ -1755,7 +1755,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-10-29</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] SECURITY: Fix XSS vulnerabilities when deleting address books.
 * [jan] Fix exporting selected contacts (Bug #12759).
@@ -1773,7 +1773,7 @@
     <release>alpha</release>
     <api>stable</api></stability>
    <date>2013-08-15</date>
-   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Allow tagging system to be disabled via configuration option.
 * [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
