@@ -422,6 +422,6 @@ abstract class Horde_Core_Tagger
      *
      * @return array  A hash of results.
      */
-    abstract public function search($tags, array $filter = array());
+    abstract public function search($tags, $filter = array());
 
 }

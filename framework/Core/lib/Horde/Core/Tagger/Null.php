@@ -100,7 +100,7 @@ class Horde_Core_Tagger_Null extends Horde_Core_Tagger
 
     /**
      */
-    public function search($tags, array $filter = array())
+    public function search($tags, $filter = array())
     {
         return array();
     }
