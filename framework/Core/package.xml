@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-02-06</date>
+ <date>2014-02-13</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add null driver for the content tagger.
 * [jan] Add database configuration for Oracle.
 * [mms] Add Horde_Registry_Application#getInitialPage().
 * [mms] Add Horde_Core_Script_Package_Sortable.
@@ -588,6 +589,9 @@
        </dir> <!-- /lib/Horde/Core/Smartmobile/View -->
        <file name="Url.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Smartmobile -->
+      <dir name="Tagger">
+       <file name="Null.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Tagger -->
       <dir name="Text">
        <dir name="Filter">
         <file name="Bbcode.php" role="php" />
@@ -1913,6 +1917,7 @@
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Smartmobile/Url.php" name="lib/Horde/Core/Smartmobile/Url.php" />
    <install as="Horde/Core/Smartmobile/View/Helper.php" name="lib/Horde/Core/Smartmobile/View/Helper.php" />
+   <install as="Horde/Core/Tagger/Null.php" name="lib/Horde/Core/Tagger/Null.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
@@ -3341,9 +3346,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-06</date>
+   <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add null driver for the content tagger.
 * [jan] Add database configuration for Oracle.
 * [mms] Add Horde_Registry_Application#getInitialPage().
 * [mms] Add Horde_Core_Script_Package_Sortable.
