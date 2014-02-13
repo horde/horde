@@ -54,7 +54,10 @@ class Horde_JavascriptMinify_Util_Cmdline
             $error .= fread($pipes[2], 8192);
         }
         if (strlen($error)) {
-            $log->log($error, Horde_Log::DEBUG);
+            $log->log(
+                sprintf('Output from %s: %s', $cmd, $error),
+                'DEBUG'
+            );
         }
 
         fclose($pipes[1]);
