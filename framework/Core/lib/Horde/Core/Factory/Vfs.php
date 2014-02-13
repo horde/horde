@@ -78,6 +78,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
 
         switch (Horde_String::lower($vfs['type'])) {
         case 'none':
+            $vfs['params'] = array();
             $vfs['type'] = 'null';
             break;
 
