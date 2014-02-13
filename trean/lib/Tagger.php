@@ -23,7 +23,7 @@ class Trean_Tagger extends Horde_Core_Tagger
      *
      * @return  A hash of 'bookmark' that contains an array of bookmark ids
      */
-    public function search($tags, array $filter = array())
+    public function search($tags, $filter = array())
     {
         $args = array();
 
