@@ -14,7 +14,7 @@ abstract class Turba_Form_ContactBase extends Horde_Form
     protected function _addFields(Turba_Object $contact, $useTabs = true)
     {
         // @TODO: inject this
-        global $attributes;
+        global $attributes, $injector;
 
         // Run through once to see what form actions, if any, we need
         // to set up.
@@ -85,7 +85,9 @@ abstract class Turba_Form_ContactBase extends Horde_Form
         }
 
         /* Add tags. */
-        if (isset($map['__uid'])) {
+        if (isset($map['__uid']) &&
+            ($tagger = $injector->getInstance('Turba_Tagger')) &&
+            !($tagger instanceof Horde_Core_Tagger_Null)) {
             $this->addVariable(
                 _("Tags"),
                 'object[__tags]',
