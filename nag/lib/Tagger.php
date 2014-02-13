@@ -26,7 +26,7 @@ class Nag_Tagger extends Horde_Core_Tagger
      *
      * @return array  A hash of results.
      */
-    public function search($tags, $filter = array())
+    public function search($tags, array $filter = array())
     {
         $args = array();
 
