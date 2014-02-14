@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression where Horde_Imap_Client_Exception was inheriting from a different class than before.
 * [mms] Use more efficient FNV1-32 hashing algorithm for internal hashtable storage, if available.
 * [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
@@ -2173,6 +2174,7 @@
    <date>2014-02-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression where Horde_Imap_Client_Exception was inheriting from a different class than before.
 * [mms] Use more efficient FNV1-32 hashing algorithm for internal hashtable storage, if available.
 * [jan] Make SQL cache backend compatible with Oracle.
 * [mms] Optimizations to IMAP tokenizer.
