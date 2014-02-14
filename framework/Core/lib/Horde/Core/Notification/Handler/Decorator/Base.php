@@ -31,6 +31,8 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
     /**
      * Event is being added to the Horde message stack.
      *
+     * @todo Declare as final.
+     *
      * @param Horde_Notification_Event $event  Event object.
      * @param array $options                   Additional options (see
      *                                         Horde_Notification_Handler for
@@ -67,6 +69,8 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
 
     /**
      * Listeners are handling their messages.
+     *
+     * @todo Declare as final.
      *
      * @param Horde_Notification_Handler $handler    The base handler object.
      * @param Horde_Notification_Listener $listener  The Listener object that
