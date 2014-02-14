@@ -16,8 +16,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.0.6",
-    "time": "2013-08-20",
+    "version": "2.0.7",
+    "time": "2014-02-14",
     "repositories": [
         {
             "type": "pear",
@@ -32,6 +32,7 @@
     "suggest": {
         "pear-pear.horde.org/horde_lz4": "*",
         "pear-pecl.php.net/lzf": ">=1.5.2@stable",
+        "pear-pecl.php.net/msgpack": "*",
         "ext-apc": "*",
         "ext-eaccelerator": "*",
         "ext-xcache": "*"
