@@ -496,7 +496,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
 
         $idarray = explode(',', $str);
         if (strpos($str, ':') === false) {
-            return $idarray();
+            return $idarray;
         }
         reset($idarray);
         while (list(,$val) = each($idarray)) {
