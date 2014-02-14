@@ -45,7 +45,6 @@ class Horde_ActiveSync_Folder_RI extends Horde_ActiveSync_Folder_Base implements
      */
     public $haveInitialSync = false;
 
-
     /**
      * Set the current Recipient Cache
      *
