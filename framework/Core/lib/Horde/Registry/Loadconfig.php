@@ -56,10 +56,7 @@ class Horde_Registry_Loadconfig
         $conf_dir = (($app == 'horde') && defined('HORDE_BASE'))
             ? HORDE_BASE . '/config/'
             : $registry->get('fileroot', $app) . '/config/';
-        $file = $conf_dir . $conf_file;
-        if (file_exists($file)) {
-            $flist[] = $file;
-        }
+        $flist[] = $conf_dir . $conf_file;
 
         $pinfo = pathinfo($conf_file);
 
@@ -70,44 +67,35 @@ class Horde_Registry_Loadconfig
         }
 
         /* Load local version of configuration file. */
-        $file = $conf_dir . $pinfo['filename'] . '.local.' . $pinfo['extension'];
-        if (file_exists($file)) {
-            $flist[] = $file;
-        }
+        $flist[] = $conf_dir . $pinfo['filename'] . '.local.' . $pinfo['extension'];
 
-        foreach ($flist as $val) {
-            Horde::startBuffer();
-            $success = include $val;
-            $this->output .= Horde::endBuffer();
+        $end = count($flist) - 1;
+        $load = 0;
 
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $val));
-            }
-        }
-
-        /* Load vhost configuration file. The vhost conf.php is not determined
-         * until here because, if this is Horde, the vhost configuration
-         * variable is not available until this point. */
-        if (!empty($conf['vhosts'])) {
-            $file = $conf_dir . $pinfo['filename'] . '-' . $conf['server']['name'] . '.' . $pinfo['extension'];
-
-            if (file_exists($file)) {
+        while (list($k, $v) = each($flist)) {
+            if (file_exists($v)) {
                 Horde::startBuffer();
-                $success = include $file;
+                $success = include $v;
                 $this->output .= Horde::endBuffer();
 
                 if (!$success) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $v));
                 }
 
-                /* Add to filelist to satisfy check below that at least one
-                 * file was loaded. */
-                $flist[] = $file;
+                ++$load;
+            }
+
+            if (($k === $end) && !empty($conf['vhosts'])) {
+                /* Load vhost configuration file. The vhost conf.php is not
+                 * determined until here because, if this is Horde, the vhost
+                 * configuration variable is not available until this
+                 * point. */
+                $flist[] = $conf_dir . $pinfo['filename'] . '-' . $conf['server']['name'] . '.' . $pinfo['extension'];
             }
         }
 
         /* Return an error if no version of the config file exists. */
-        if (empty($flist)) {
+        if (!$load) {
             throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $conf_dir . $conf_file));
         }
 
