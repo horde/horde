@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H3 (3.1-cvs)\n"
+"Project-Id-Version: Passwd H5 (5.0.1)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-01-16 13:23+0100\n"
-"PO-Revision-Date: 2014-01-16 13:42+0100\n"
+"PO-Revision-Date: 2014-01-18 00:36+0100\n"
 "Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -60,8 +60,8 @@ msgstr "Skift dit kodeord"
 
 #: lib/Basic.php:134
 #, php-format
-msgid "Changing password for %s"
-msgstr "Skifter kodeord for %s"
+msgid "Changing password for"
+msgstr "Skift dit kodeord"
 
 #: templates/index.html.php:60 templates/orig.index.html.php:49
 msgid "Confirm new password:"

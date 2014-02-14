@@ -6,328 +6,386 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H3 (1.2-cvs)\n"
+"Project-Id-Version: Ingo H5 (3.1.3)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2006-03-11 12:34+0100\n"
-"PO-Revision-Date: 2006-03-11 12:51+0100\n"
-"Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"PO-Revision-Date: 2014-01-18 18:23+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: filters.php:222
+#: lib/Ingo.php:444
 msgid " and"
 msgstr " og"
 
-#: filters.php:222
+#: lib/Ingo.php:445
 msgid " or"
 msgstr " eller"
 
-#: templates/blacklist/blacklist.inc:17
-msgid "Action for blacklisted addresses:"
-msgstr "Handling for uønskede adresser:"
+#: lib/Transport/Ispconfig.php:141
+#, php-format
+msgid "%d users with login %s found, one expected."
+msgstr "%d brugere med login %s fundet, forventede en."
 
-#: templates/script/activate.inc:10
+#: lib/Ingo.php:194
+#, php-format
+msgid "%s The driver said: %s"
+msgstr "%s Driveren svarede: %s"
+
+#: templates/basic/blacklist/blacklist.html.php:15
+msgid "Action for blacklisted addresses:"
+msgstr "Handling for negativ listede adresser:"
+
+#: templates/basic/script/script.html.php:12
 msgid "Activate Script"
 msgstr "Aktivér script"
 
-#: lib/Driver/ldap.php:229
+#: lib/Transport/Ldap.php:235
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "Aktivering af scripted til \"%s\" mislykkedes: (%d) %s"
 
-#: templates/filters/settings.inc:6
+#: templates/basic/filters/filters.html.php:93
 msgid "Additional Settings"
 msgstr "Yderligere indstillinger"
 
-#: templates/rule/header.inc:44
+#: lib/Form/Forward.php:30
+msgid "Address(es) to forward to:"
+msgstr "Adresser at videresende til:"
+
+#: lib/Form/Vacation.php:68
+msgid "Addresses to not send responses to:"
+msgstr "Adresser der ikke skal sendes respons til:"
+
+#: lib/Form/Vacation.php:62
+msgid "Advanced Settings"
+msgstr "Avancerede indstillinger"
+
+#: templates/basic/rule/rule.html.php:39
 msgid "All of the following"
 msgstr "Alle nedenstående"
 
-#: lib/api.php:54
+#: lib/Application.php:172
 msgid "Allow Rules"
 msgstr "Tillad regler"
 
-#: templates/rule/footer.inc:33
+#: templates/basic/rule/rule.html.php:166
 msgid "Answered"
 msgstr "Besvaret"
 
-#: templates/rule/header.inc:45
+#: templates/basic/rule/rule.html.php:41
 msgid "Any of the following"
 msgstr "Vilkårlige af nedenstående"
 
-#: templates/filters/footer.inc:7
+#: templates/basic/filters/filters.html.php:82
 msgid "Apply Filters"
 msgstr "Påfør filtre"
 
-#: filters.php:251
+#: lib/Basic/Filters.php:258
 msgid "Are you sure you want to delete this rule?"
 msgstr "Er du sikker på, at du vil slette denne regel?"
 
-#: config/prefs.php.dist:33
-msgid "Automatically update the script after each change?"
-msgstr "Opdatér automatisk scriptet efter hver ændring?"
+#: config/prefs.php:29
+msgid "Automatically activate the script after each change?"
+msgstr "Aktiver automatisk scriptet efter hver ændring?"
 
-#: config/fields.php.dist:47
+#: lib/Form/Vacation.php:42
+msgid "Basic Settings"
+msgstr "Basis indstillinger"
+
+#: config/fields.php:52
 msgid "Bcc"
 msgstr "Bcc"
 
-#: lib/Storage.php:387
+#: lib/Storage.php:263
 msgid "Begins with"
 msgstr "Starter med"
 
-#: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
+#: lib/Transport/Ldap.php:123
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr "Tilkobling fejlede: (%s) %s"
 
-#: filters.php:173 templates/blacklist/blacklist.inc:7
-#: lib/Block/overview.php:87 lib/Block/overview.php:90
+#: lib/Basic/Filters.php:205 lib/Block/Overview.php:101 lib/Smartmobile.php:85
+#: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
-msgstr "Blackliste"
+msgstr "Negativ liste"
 
-#: blacklist.php:107
+#: lib/Basic/Blacklist.php:126
 msgid "Blacklist Edit"
-msgstr "Ændre sortlistning"
+msgstr "Ændre negativ listen"
 
-#: blacklist.php:17
+#: lib/Basic/Blacklist.php:34
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "Sortlistning understøttes ikke af den nuværende filtreringsmekanisme."
+msgstr ""
+"Negativ listen understøttes ikke af den nuværende filtreringsmekanisme."
 
-#: lib/Script/maildrop.php:176 lib/Script/procmail.php:207
-#: lib/Script/sieve.php:252
+#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
+#: lib/Script/Sieve.php:230
 msgid "Blacklisted Addresses"
-msgstr "Sortlistede adresser"
+msgstr "Negativ listede adresser"
 
-#: config/fields.php.dist:88
+#: config/fields.php:105
 msgid "Body"
-msgstr "Besked"
+msgstr "Indhold"
 
-#: filters.php:219 rule.php:297
+#: lib/Ingo.php:439 templates/basic/rule/rule.html.php:110
 msgid "Case Sensitive"
 msgstr "Forskel på store og små bogstaver"
 
-#: config/fields.php.dist:43
+#: config/fields.php:48
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:73 forward.php:33 rule.php:128 vacation.php:41
-#: whitelist.php:36 spam.php:38
+#: lib/Basic/Blacklist.php:71 lib/Basic/Forward.php:59 lib/Basic/Rule.php:196
+#: lib/Basic/Spam.php:72 lib/Basic/Vacation.php:73 lib/Basic/Whitelist.php:50
 msgid "Changes saved."
 msgstr "Ændringer gemt."
 
-#: lib/Driver/ldap.php:73
+#: lib/Transport/Ldap.php:87
 msgid "Connection failure"
 msgstr "Forbindelsesfejl"
 
-#: lib/Storage.php:383
+#: lib/Storage.php:259
 msgid "Contains"
 msgstr "Indeholder"
 
-#: filters.php:262 filters.php:263
+#: lib/Basic/Filters.php:268 lib/Basic/Filters.php:269
 #, php-format
 msgid "Copy %s"
 msgstr "Kopiér %s"
 
-#: lib/Storage.php:905 lib/Storage/sql.php:569
+#: lib/Storage/Filters.php:244 lib/Storage/Filters/Sql.php:240
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopi af %s"
 
-#: lib/Ingo.php:63
+#: lib/Ingo.php:137
+msgid "Could not validate IMAP mailbox."
+msgstr "Kunne ikke validere IMAP postkasse."
+
+#: lib/Ingo.php:90
 msgid "Create new folder"
 msgstr "Opret ny mappe"
 
-#: lib/Script/maildrop.php:280 lib/Script/procmail.php:336
+#: lib/Script/Maildrop/Comment.php:43 lib/Script/Procmail/Comment.php:43
 msgid "DISABLED: "
-msgstr "Slået FRA: "
+msgstr "DEAKTIVERET:"
 
-#: templates/script/activate.inc:17
+#: templates/basic/script/script.html.php:18
 msgid "Deactivate Script"
-msgstr "Inaktivér script"
+msgstr "deaktiver script"
 
-#: filters.php:251 filters.php:252
+#: lib/Basic/Filters.php:258 lib/Basic/Filters.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Slet %s"
 
-#: templates/rule/filter.inc:30
+#: templates/basic/rule/rule.html.php:116
 msgid "Delete Condition"
 msgstr "Slet betingelse"
 
-#: lib/Storage.php:331
+#: lib/Storage.php:209
 msgid "Delete message completely"
-msgstr "Slet beskeder totalt"
+msgstr "Slet beskeder permanent"
 
-#: templates/rule/footer.inc:35
+#: templates/basic/rule/rule.html.php:170
 msgid "Deleted"
 msgstr "Slettet"
 
-#: lib/Storage.php:319
+#: lib/Storage.php:197
 msgid "Deliver into my Inbox"
 msgstr "Aflevér i min Indbakke"
 
-#: lib/Storage.php:345
-msgid "Deliver into my Inbox and copy to"
-msgstr "Aflevér i min Indbakke og kopiér til"
+#: lib/Storage.php:223
+msgid "Deliver into my Inbox and copy to..."
+msgstr "Aflevér i min Indbakke og kopiér til..."
 
-#: lib/Storage.php:340
-msgid "Deliver into my Inbox and redirect to"
-msgstr "Aflevér i min Indbakke og omadressér til"
+#: lib/Storage.php:218
+msgid "Deliver into my Inbox and redirect to..."
+msgstr "Aflevér i min Indbakke og omadressér til..."
 
-#: lib/Storage.php:325
-msgid "Deliver to folder"
-msgstr "Aflevér i mappe"
+#: lib/Storage.php:203
+msgid "Deliver to folder..."
+msgstr "Aflevér i mappe..."
 
-#: filters.php:276 filters.php:277
+#: templates/smartmobile/rule.html.php:8
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: config/fields.php:88
+msgid "Destination (To, Cc, Bcc, etc.)"
+msgstr "Modtagere (Til, Cc, Bcc ,etc.)"
+
+#: lib/Basic/Filters.php:286 lib/Basic/Filters.php:287
 #, php-format
 msgid "Disable %s"
-msgstr "Slå %s fra"
+msgstr "Deaktiver %s"
 
-#: templates/spam/spam.inc:7 templates/whitelist/whitelist.inc:10
-#: templates/vacation/vacation.inc:6 templates/rule/header.inc:26
-#: templates/forward/forward.inc:10 templates/blacklist/blacklist.inc:10
+#: lib/Basic/Forward.php:91 lib/Basic/Spam.php:109 lib/Basic/Vacation.php:132
+#: templates/basic/blacklist/blacklist.html.php:8
+#: templates/basic/rule/rule.html.php:14
+#: templates/basic/whitelist/whitelist.html.php:8
 msgid "Disabled"
-msgstr "Slået fra"
+msgstr "Deaktiver"
 
-#: templates/filters/settings.inc:13
+#: templates/basic/filters/filters.html.php:99
 msgid "Display detailed notification when each filter is applied?"
 msgstr "Vis detaljerede notifikationer når hvert filter udføres?"
 
-#: templates/vacation/vacation.inc:34
-msgid "Do _not send responses to bulk or list messages"
-msgstr "Send ikke meddelelser til masse- eller liste-beskeder"
+#: lib/Form/Vacation.php:72
+msgid "Do not send responses to bulk or list messages?"
+msgstr "Send ikke svar til masse eller liste beskeder"
 
-#: templates/rule/footer.inc:10
+#: templates/basic/rule/rule.html.php:132
 msgid "Do this:"
 msgstr "Gør dette:"
 
-#: lib/Storage.php:388
+#: lib/Storage.php:264
 msgid "Doesn't begin with"
 msgstr "Starter ikke med"
 
-#: lib/Storage.php:384
+#: lib/Storage.php:260
 msgid "Doesn't contain"
 msgstr "Indeholder ikke"
 
-#: lib/Storage.php:390
+#: lib/Storage.php:266
 msgid "Doesn't end with"
 msgstr "Slutter ikke med"
 
-#: lib/Storage.php:392
+#: lib/Storage.php:268
 msgid "Doesn't exist"
 msgstr "Findes ikke"
 
-#: lib/Storage.php:395
+#: lib/Storage.php:271
 msgid "Doesn't match (with placeholders)"
 msgstr "Passer ikke (med pladsholder)"
 
-#: templates/filters/header.inc:26 lib/Block/overview.php:61
-#: lib/Block/overview.php:68 lib/Block/overview.php:81
-#: lib/Block/overview.php:89 lib/Block/overview.php:97
+#: lib/Block/Overview.php:63 lib/Block/Overview.php:74
+#: lib/Block/Overview.php:89 lib/Block/Overview.php:100
+#: lib/Block/Overview.php:111 templates/basic/filters/filters.html.php:12
 msgid "Edit"
 msgstr "Rediger"
 
-#: filters.php:240 filters.php:242 filters.php:246 filters.php:247
+#: lib/Basic/Filters.php:248 lib/Basic/Filters.php:250
+#: lib/Basic/Filters.php:254
 #, php-format
 msgid "Edit %s"
-msgstr "Ret %s"
+msgstr "Redigér %s"
 
-#: filters.php:285 filters.php:286
+#: lib/Basic/Filters.php:295 lib/Basic/Filters.php:296
 #, php-format
 msgid "Enable %s"
-msgstr "Slå %s til"
+msgstr "Aktiver %s"
 
-#: templates/filters/header.inc:28
+#: templates/basic/filters/filters.html.php:14
 msgid "Enabled"
-msgstr "Slået til"
+msgstr "Aktiveret"
 
-#: lib/Storage.php:389
+#: lib/Form/Vacation.php:47
+msgid "End of vacation:"
+msgstr "Ferien slutter:"
+
+#: lib/Storage.php:265
 msgid "Ends with"
 msgstr "Ender med"
 
-#: lib/Storage.php:400
+#: lib/Storage.php:276
 msgid "Equal to"
 msgstr "Lig med"
 
-#: lib/Driver/ldap.php:138 lib/Driver/ldap.php:148 lib/Driver/ldap.php:157
-#: lib/Driver/ldap.php:167
+#: lib/Transport/Ldap.php:146 lib/Transport/Ldap.php:158
+#: lib/Transport/Ldap.php:167 lib/Transport/Ldap.php:177
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
 msgstr "Der opstod en fejl under hentning af aktuel rutine: (%d) %s"
 
-#: blacklist.php:71
-msgid "Error saving changes."
-msgstr "Fejl under lagring af ændringer."
-
-#: templates/filters/header.inc:22
+#: templates/basic/filters/filters.html.php:5
 msgid "Existing Rules"
 msgstr "Eksisterende regler"
 
-#: lib/Storage.php:391
+#: lib/Storage.php:267
 msgid "Exists"
 msgstr "Findes"
 
-#: lib/Driver/ldap.php:143
+#: lib/Transport/Ldap.php:152
 #, php-format
 msgid "Expected 1 object, got %d."
 msgstr "Forventede 1 objekt, fik %d."
 
-#: templates/filters/settings.inc:20
+#: lib/Transport/Sivtest.php:155
+msgid "Failed to read from socket: "
+msgstr "Læsning fra socket fejlede:"
+
+#: lib/Transport/Sivtest.php:150
+msgid "Failed to write to socket: "
+msgstr "Skrivning til socket fejlede:"
+
+#: lib/Transport/Sivtest.php:145
+msgid "Failed to write to socket: (connection lost!)"
+msgstr "Skrivning til socket fejlede: (forbindelsen forsvandt!)"
+
+#: templates/basic/rule/rule.html.php:61
+msgid "Field"
+msgstr "Felt"
+
+#: templates/basic/filters/filters.html.php:105
 msgid "Filter All Messages"
 msgstr "Filtrér alle beskeder"
 
-#: templates/filters/settings.inc:22
+#: templates/basic/filters/filters.html.php:107
 msgid "Filter Only Seen Messages"
 msgstr "Filtrér kun læste beskeder"
 
-#: templates/filters/settings.inc:21
+#: templates/basic/filters/filters.html.php:106
 msgid "Filter Only Unseen Messages"
 msgstr "Filtrér kun ulæste beskeder"
 
-#: templates/filters/settings.inc:18
+#: templates/basic/filters/filters.html.php:103
 msgid "Filter Options"
-msgstr "Filter-indstillinger"
+msgstr "Filter indstillinger"
 
-#: templates/rule/header.inc:25
+#: templates/basic/rule/rule.html.php:12
 msgid "Filter Rule"
 msgstr "Filterregel"
 
-#: filters.php:137
+#: lib/Basic/Filters.php:320
 msgid "Filter Rules"
 msgstr "Filterregler"
 
-#: script.php:52
+#: lib/Basic/Script.php:108
 msgid "Filter Script Display"
-msgstr "Visning af filter-script"
+msgstr "Visning af filter script"
 
-#: lib/Ingo.php:375
+#: lib/Application.php:191
 msgid "Filter _Rules"
-msgstr "Filterregler"
+msgstr "Filterregler   _R"
 
-#: lib/Script/imap.php:314
+#: lib/Script/Imap.php:321
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Filteraktivitet: %s besked(er) er blevet kopieret til mappen \"%s\"."
 
-#: lib/Script/imap.php:301
+#: lib/Script/Imap.php:298
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Filteraktivitet: %s besked(er) er blevet slettet."
 
-#: lib/Script/imap.php:279
+#: lib/Script/Imap.php:273
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Filteraktivitet: %s besked(er) er flyttet til mappen \"%s\"."
 
-#: lib/Script/imap.php:182
+#: lib/Script/Imap.php:171
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
-msgstr "Filteraktivitet: %s besked(er), der var sortlistet, er slettet."
+msgstr "Filteraktivitet: %s besked(er), der var negativ listet, er slettet."
 
-#: lib/Script/imap.php:311
+#: lib/Script/Imap.php:314
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -335,12 +393,12 @@ msgid ""
 msgstr ""
 "Filteraktivitet: Beskeden \"%s\" fra \"%s\" er kopieret til mappen \"%s\"."
 
-#: lib/Script/imap.php:296
+#: lib/Script/Imap.php:292
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Filteraktivitet: Beskeden \"%s\" fra \"%s\" er slettet."
 
-#: lib/Script/imap.php:273
+#: lib/Script/Imap.php:266
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -348,618 +406,737 @@ msgid ""
 msgstr ""
 "Filteraktivitet: Beskeden \"%s\" fra \"%s\" er flyttet til mappen \"%s\"."
 
-#: rule.php:176
+#: lib/Basic/Rule.php:235
 msgid "Filter not found."
 msgstr "Filter ikke fundet"
 
-#: templates/rule/header.inc:42
+#: templates/basic/rule/rule.html.php:162
+msgid "Flagged"
+msgstr "Flagged"
+
+#: lib/Form/Spam.php:38
+msgid "Folder to receive spam:"
+msgstr "Mapppe til spam:"
+
+#: templates/basic/rule/rule.html.php:32
 msgid "For an incoming message that matches:"
 msgstr "For en indkommende besked, som passer til:"
 
-#: filters.php:191 templates/forward/forward.inc:8 lib/Block/overview.php:67
-#: lib/Block/overview.php:69
+#: lib/Basic/Filters.php:223 lib/Basic/Forward.php:89
+#: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "Videresend"
 
-#: forward.php:16
+#: lib/Script/Sieve.php:182
+msgid "Forward Keep Action"
+msgstr "Videresend behold handling"
+
+#: lib/Basic/Forward.php:34
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Videresendelse er ikke understøttet af den nuværende filtermekanisme."
 
-#: lib/Script/maildrop.php:225 lib/Script/procmail.php:282
-#: lib/Script/sieve.php:212
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
+#: lib/Script/Sieve.php:192
 msgid "Forwards"
 msgstr "Videresendelse"
 
-#: forward.php:45
+#: lib/Basic/Forward.php:96
 msgid "Forwards Edit"
 msgstr "Redigér videresendelser"
 
-#: config/fields.php.dist:39
+#: config/fields.php:44
 msgid "From"
 msgstr "Fra"
 
-#: lib/Script/sieve.php:2145
+#: lib/Script/Sieve/Action/Notify.php:52
 msgid "From:"
 msgstr "Fra:"
 
-#: lib/Script/sieve.php:111
-msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "Genereret af Ingo (http://www.horde.org/ingo/)"
+#: lib/Script/Sieve.php:467
+msgid "Generated by Ingo"
+msgstr "Genereret af Ingo"
 
-#: lib/Storage.php:398
+#: lib/Storage.php:274
 msgid "Greater than"
 msgstr "Større end"
 
-#: lib/Storage.php:399
+#: lib/Storage.php:275
 msgid "Greater than or equal to"
 msgstr "Større end eller lig med"
 
-#: templates/rule/footer.inc:31
-msgid "Important"
-msgstr "Vigtigt"
-
-#: rule.php:36
+#: lib/Ajax/Application/Smartmobile.php:44 lib/Basic/Rule.php:49
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr ""
 "Individuelle regler er ikke understøttet af den nuværende filtermekanisme."
 
-#: lib/Script/sieve.php:1943
+#: lib/Script/Sieve/Action/Fileinto.php:61
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "Ikke-eksisterende brevbakke angivet til aflevering af besked."
+msgstr "Ikke eksisterende brevbakke angivet til aflevering af besked."
 
-#: lib/Storage.php:385
+#: lib/Storage.php:261
 msgid "Is"
 msgstr "Er"
 
-#: lib/Storage.php:386
+#: lib/Storage.php:262
 msgid "Isn't"
 msgstr "Er ikke"
 
-#: lib/Driver/ldap.php:23
+#: lib/Form/Forward.php:28
+msgid "Keep a copy of messages in this account?"
+msgstr "Behold en kopi af beskeder i denne konto?"
+
+#: lib/Transport/Ldap.php:35
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
-msgstr ""
-"LDAP understøttelse er nødvendig men LDAP-modulet er ikke tilgængelig eller "
-"ikke lastet."
+msgstr "LDAP understøttelse er nødvendig men LDAP-modulet er ikke tilgængelig."
 
-#: lib/Storage.php:396
+#: templates/smartmobile/rule.html.php:6
+msgid "Label"
+msgstr "Etiket"
+
+#: lib/Storage.php:272
 msgid "Less than"
 msgstr "Mindre end"
 
-#: lib/Storage.php:397
+#: lib/Storage.php:273
 msgid "Less than or equal to"
 msgstr "Mindre end eller lig med"
 
-#: config/fields.php.dist:59
+#: config/fields.php:64
 msgid "List-ID"
-msgstr "List-ID"
+msgstr "List ID"
 
-#: templates/blacklist/blacklist.inc:20
+#: lib/Transport/Ispconfig.php:196
+#, php-format
+msgid "Login to %s failed."
+msgstr "Login til %s fejlede."
+
+#: templates/basic/blacklist/blacklist.html.php:25
 msgid "Mar_k message as deleted"
-msgstr "Markér beskeden slettet"
+msgstr "Mar_kér beskeden slettet"
 
-#: templates/rule/footer.inc:24
+#: templates/basic/rule/rule.html.php:152
 msgid "Mark message as:"
-msgstr "Markér beskeden:"
+msgstr "Markér beskeden som:"
 
-#: lib/Storage.php:394
+#: templates/basic/rule/rule.html.php:92
+msgid "Match type"
+msgstr "Match type"
+
+#: lib/Storage.php:270
 msgid "Matches (with placeholders)"
 msgstr "Passer til (med pladsholdere)"
 
-#: lib/api.php:57
+#: lib/Application.php:176
 msgid "Maximum Number of Rules"
 msgstr "Maksimalt antal regler"
 
-#: lib/Storage.php:521
+#: lib/Storage/Blacklist.php:45
 #, php-format
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Maksimalt antal sortlistede adresser oversteget (Antal adresser: %s, "
-"maksimalt antal: %s).  Kunne ikke tilføje nye adresser til sortlistning."
+"Maksimalt antal negativ listede adresser er oversteget (Antal adresser: %s, "
+"maksimalt antal: %s).  Kunne ikke tilføje nye adresser til negativ listen."
 
-#: lib/Storage.php:574
+#: lib/Storage/Whitelist.php:49
 #, php-format
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Maksimalt antal hvidlistede adresser oversteget (Antal adresser: %s, "
-"maksimalt antal: %s).  Kunne ikke tilføje nye adresser til hvidlistning."
+"Maksimalt antal positiv listede adresser oversteget (Antal adresser: %s, "
+"maksimalt antal: %s).  Kunne ikke tilføje nye adresser til positiv listen."
 
-#: templates/spam/spam.inc:18
+#: lib/Form/Spam.php:35
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
 msgstr ""
-"Beskeder med et sandsynlig skidtpost-pointtal større end eller lig med dette "
-"tal vil bliver håndteret som skidtpost."
+"Beskeder med et sandsynlig spam pointtal større end eller lig med dette tal "
+"vil blive håndteret som spam."
 
-#: lib/Script/sieve.php:2153
+#: lib/Script/Sieve/Action/Notify.php:66
 msgid "Missing address to notify"
 msgstr "Mangler adresser at informere"
 
-#: lib/Script/sieve.php:1811
+#: lib/Script/Sieve/Action/Redirect.php:55
 msgid "Missing address to redirect message to"
 msgstr "Mangler adresser at omadressere til"
 
-#: lib/Script/sieve.php:1843
+#: lib/Script/Sieve/Action/Reject.php:57
 msgid "Missing reason for reject"
 msgstr "Mangler årsag for afvisning"
 
-#: lib/Script/sieve.php:2010
+#: lib/Script/Sieve/Action/Vacation.php:150
 msgid "Missing reason in vacation."
 msgstr "Mangler årsag i ferie."
 
-#: templates/filters/header.inc:30
+#: smartmobile.php:22
+msgid "Mobile"
+msgstr "Mobil"
+
+#: templates/basic/filters/filters.html.php:16
 msgid "Move"
 msgstr "Flyt"
 
-#: filters.php:155 filters.php:272
+#: lib/Basic/Filters.php:281 templates/basic/filters/filters.html.php:64
 msgid "Move Rule Down"
 msgstr "Flyt regel ned"
 
-#: filters.php:156 filters.php:271
+#: lib/Basic/Filters.php:278 templates/basic/filters/filters.html.php:59
 msgid "Move Rule Up"
 msgstr "Flyt regel op"
 
-#: templates/vacation/vacation.inc:42
-msgid "N_umber of days between vacation replies:"
-msgstr "Antal dage mellem ferie-svar:"
+#: lib/Form/Vacation.php:64
+msgid "My email addresses:"
+msgstr "Mine email adresser:"
 
-#: templates/filters/filter-none.inc:3 templates/filters/footer.inc:5
-#: lib/Storage.php:801
+#: lib/Application.php:271 lib/Storage/Filters.php:140
+#: templates/basic/filters/filters.html.php:24
 msgid "New Rule"
 msgstr "Ny regel"
 
-#: lib/Ingo.php:225 lib/Ingo.php:227
+#: lib/Ingo.php:273
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
-msgstr "\"%s\" element ikke fundet i <em>backend</em>-konfiguration."
+msgstr "\"%s\" element ikke fundet i backend konfiguration."
 
-#: lib/Ingo.php:218
+#: lib/Smartmobile.php:135
+msgid "No Description"
+msgstr "Ingen beskrivelse"
+
+#: lib/Ingo.php:266
 msgid "No backend configured for this host"
-msgstr "Ingen <em>backend</em> konfigureret for denne server"
+msgstr "Ingen backend konfigureret for denne server"
 
-#: lib/Ingo.php:194
+#: lib/Ingo.php:238 lib/Ingo.php:306
 msgid "No backends configured in backends.php"
-msgstr "Ingen <em>backends</em> konfigureret i <code>backends.php</code>"
+msgstr "Ingen backends konfigureret i backends.php"
 
-#: templates/filters/filter-none.inc:3
+#: templates/basic/filters/filters.html.php:24
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "Ingen filtre. Click \"%s\" for at oprettet et nyt filter."
 
-#: lib/Script/sieve.php:1415 lib/Script/sieve.php:1508
-#: lib/Script/sieve.php:1682
+#: lib/Script/Sieve/Test/Exists.php:49 lib/Script/Sieve/Test/Header.php:84
+#: lib/Script/Sieve/Test/Relational.php:106
 msgid "No headers specified"
 msgstr "Ingen brevhoveder angivet"
 
-#: script.php:67
+#: templates/smartmobile/rules.html.php:7
+msgid "No rules"
+msgstr "Ingen regler"
+
+#: templates/basic/script/script.html.php:43
 msgid "No script generated."
 msgstr "Script ikke genereret."
 
-#: lib/Script/sieve.php:1697
+#: lib/Script/Sieve/Test/Body.php:80 lib/Script/Sieve/Test/Header.php:100
 msgid "No strings specified"
-msgstr "Ingen tekst-strenge angivet"
+msgstr "Ingen tekst strenge angivet"
 
-#: lib/Storage.php:401
+#: lib/Storage.php:277
 msgid "Not equal to"
 msgstr "Ikke lig med"
 
-#: lib/Storage.php:361
-msgid "Notify email address"
-msgstr "Informér e-post-adresser"
+#: lib/Storage.php:239
+msgid "Notify email address..."
+msgstr "Informér email adresser"
 
-#: lib/Storage.php:355
+#: lib/Form/Vacation.php:76
+msgid "Number of days between vacation replies:"
+msgstr "Antal dage mellem ferie svar:"
+
+#: lib/Storage.php:233
 msgid "Only flag the message"
-msgstr "Markér kun beskeden"
+msgstr "Sæt kun flag på beskeden"
 
-#: config/prefs.php.dist:19
-msgid "Options about script updating."
-msgstr "Indstillinger vedrørende script-opdatering."
+#: config/prefs.php:14
+msgid "Other Preferences"
+msgstr "Andre Indstillinger"
 
-#: config/prefs.php.dist:17
-msgid "Other Options"
-msgstr "Andre indstillinger"
-
-#: lib/Block/overview.php:3
+#: lib/Block/Overview.php:30
 msgid "Overview"
 msgstr "Overblik"
 
-#: templates/javascript/new_folder.js:7
+#: config/fields.php:96
+msgid "Participant (From, To, etc.)"
+msgstr "Deltagere (Fra, Til, etc.)"
+
+#: lib/Storage/Sql.php:291
+msgid "Permission Denied"
+msgstr "Tilladelse nægtet"
+
+#: lib/Ingo.php:105
 msgid "Please enter the name of the new folder:"
 msgstr "Indtast venligst navnet til den nye mappe:"
 
-#: templates/vacation/vacation.inc:60
-msgid "R_eason"
+#: config/prefs.php:16
+msgid "Preferences about script updating."
+msgstr "Indstillinger vedrørende script opdatering."
+
+#: lib/Form/Vacation.php:54
+msgid "Reason:"
 msgstr "Årsag"
 
-#: config/fields.php.dist:63
+#: config/fields.php:68
 msgid "Received"
 msgstr "Modtaget"
 
-#: lib/Storage.php:336
-msgid "Redirect to"
+#: lib/Storage.php:214
+msgid "Redirect to..."
 msgstr "Omadresser til"
 
-#: lib/Storage.php:393
+#: lib/Storage.php:269
 msgid "Regular expression"
 msgstr "Regulære udtryk"
 
-#: lib/Storage.php:351
-msgid "Reject with reason"
-msgstr "Afvis med årsag"
+#: lib/Storage.php:229
+msgid "Reject with reason..."
+msgstr "Afvis med årsag..."
 
-#: config/fields.php.dist:55
-msgid "Resent To"
-msgstr "Gensendt til"
+#: lib/Storage.php:319
+msgid ""
+"Removing user data is not supported with the current filter storage backend."
+msgstr ""
+"Fjernelse af bruger data er ikke understøttet af den nuværende filter "
+"backend."
 
-#: config/fields.php.dist:51
-msgid "Resent-from"
+#: config/fields.php:56
+msgid "Resent-From"
 msgstr "Gensendt fra"
 
-#: templates/rule/footer.inc:60
+#: config/fields.php:60
+msgid "Resent-To"
+msgstr "Gensendt til"
+
+#: templates/basic/rule/rule.html.php:196
 msgid "Return to Filters List"
 msgstr "Vend tilbage til filterfortegnelsen"
 
-#: templates/spam/spam.inc:38 templates/whitelist/whitelist.inc:24
-#: templates/vacation/vacation.inc:71 templates/forward/forward.inc:34
-#: templates/blacklist/blacklist.inc:41
+#: lib/Basic/Forward.php:38 lib/Basic/Spam.php:45 lib/Basic/Vacation.php:46
+#: lib/Form/Base.php:56 templates/basic/blacklist/blacklist.html.php:53
+#: templates/basic/whitelist/whitelist.html.php:29
 msgid "Return to Rules List"
 msgstr "Vend tilbage til regelfortegnelsen"
 
-#: templates/filters/header.inc:27
+#: templates/basic/filters/filters.html.php:13
 msgid "Rule"
 msgstr "Regel"
 
-#: filters.php:77
-msgid "Rule Copied"
-msgstr "Regel kopieret"
+#: lib/Basic/Filters.php:101
+#, php-format
+msgid "Rule \"%s\" copied."
+msgstr "Regel \"%s\" er kopieret."
 
-#: filters.php:56
-msgid "Rule Deleted"
-msgstr "Regel slettet"
+#: lib/Basic/Filters.php:78
+#, php-format
+msgid "Rule \"%s\" deleted."
+msgstr "Regel \"%s\" er slettet."
 
-#: filters.php:93
+#: lib/Basic/Filters.php:117
+#, php-format
+msgid "Rule \"%s\" disabled."
+msgstr "Regel \"%s\" er deaktiveret."
+
+#: lib/Basic/Filters.php:123
+#, php-format
+msgid "Rule \"%s\" enabled."
+msgstr "Regel \"%s\" er akriveret"
+
+#: lib/Basic/Forward.php:68 lib/Basic/Spam.php:81 lib/Basic/Vacation.php:82
 msgid "Rule Disabled"
-msgstr "Regel slået fra"
+msgstr "Regel Deaktiveret"
 
-#: filters.php:98
+#: lib/Basic/Forward.php:63 lib/Basic/Spam.php:76 lib/Basic/Vacation.php:77
 msgid "Rule Enabled"
-msgstr "Regel slået til"
+msgstr "Regel Aktiveret"
 
-#: templates/rule/header.inc:33
-msgid "Rule Name"
-msgstr "Regelnavn"
+#: templates/basic/rule/rule.html.php:22
+msgid "Rule Name:"
+msgstr "Regelnavn:"
 
-#: lib/Script/sieve.php:2147
+#: lib/Ajax/Application/Smartmobile.php:53
+msgid "Rule not found."
+msgstr "Regel ikke fundet."
+
+#: lib/Script/Sieve/Action/Notify.php:54
 msgid "Rule:"
 msgstr "Regel:"
 
-#: lib/Driver/ldap.php:86
+#: templates/smartmobile/rule.html.php:2
+#: templates/smartmobile/rules.html.php:2
+msgid "Rules"
+msgstr "Regler"
+
+#: lib/Application.php:282
+msgid "Ruleset"
+msgstr "Regelsæt"
+
+#: lib/Transport/Ldap.php:100
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
 msgstr "STARTTLS fejlede: (%s) %s"
 
-#: lib/Ingo.php:390
+#: lib/Application.php:213
 msgid "S_pam"
-msgstr "Skidtpost"
+msgstr "S_pam"
 
-#: templates/spam/spam.inc:37 templates/whitelist/whitelist.inc:23
-#: templates/vacation/vacation.inc:70 templates/rule/footer.inc:59
-#: templates/forward/forward.inc:33 templates/blacklist/blacklist.inc:40
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:42
+#: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:52
+#: templates/basic/rule/rule.html.php:195
+#: templates/basic/whitelist/whitelist.html.php:28
 msgid "Save"
 msgstr "Gem"
 
-#: templates/filters/settings.inc:29
+#: templates/basic/filters/filters.html.php:113
 msgid "Save Settings"
 msgstr "Gem indstillinger"
 
-#: templates/script/header.inc:2
+#: lib/Basic/Forward.php:65 lib/Basic/Spam.php:78 lib/Basic/Vacation.php:79
+#: lib/Form/Base.php:54
+msgid "Save and Disable"
+msgstr "Gem og deaktiver"
+
+#: lib/Basic/Forward.php:60 lib/Basic/Spam.php:73 lib/Basic/Vacation.php:74
+#: lib/Form/Base.php:52
+msgid "Save and Enable"
+msgstr "Gem og aktiver"
+
+#: templates/basic/script/script.html.php:1
 msgid "Script"
 msgstr "Script"
 
-#: config/prefs.php.dist:18
+#: config/prefs.php:15
 msgid "Script Updating"
 msgstr "Opdaterer script"
 
-#: lib/Ingo.php:170
-msgid "Script not updated."
-msgstr "Script ikke opdateret."
+#: templates/basic/script/_script.html.php:1
+msgid "Script name:"
+msgstr "Script navn:"
 
-#: lib/Ingo.php:141
+#: lib/Ingo.php:217
+#, php-format
+msgid "Script not updated: %s"
+msgstr "Script ikke opdateret: %s"
+
+#: lib/Ingo.php:200
 msgid "Script successfully activated."
-msgstr "Script slået til."
+msgstr "Script er aktiveret."
 
-#: lib/Ingo.php:140
+#: lib/Ingo.php:199
 msgid "Script successfully deactivated."
-msgstr "Script slået fra."
+msgstr "Script er deaktiveret."
 
-#: templates/rule/footer.inc:29
+#: templates/basic/rule/rule.html.php:158
 msgid "Seen"
-msgstr "Set"
+msgstr "Læst"
 
-#: rule.php:206
+#: templates/basic/rule/rule.html.php:64
 msgid "Select a field"
 msgstr "Vælg et felt"
 
-#: templates/menu.inc:7
-msgid "Select ruleset to display:"
-msgstr "Vælg de regelsæt, der skal vises:"
+#: templates/basic/menu/menu.html.php:4 templates/basic/menu/menu.html.php:6
+msgid "Select ruleset to display"
+msgstr "Vælg regelsæt der skal vises:"
 
-#: lib/Ingo.php:60
+#: lib/Basic/Rule.php:348 templates/basic/blacklist/blacklist.html.php:30
 msgid "Select target folder"
 msgstr "Vælg endelig mappe"
 
-#: rule.php:243
+#: lib/Ingo.php:86
+msgid "Select target folder:"
+msgstr "Vælg endelig mappe:"
+
+#: templates/basic/rule/rule.html.php:80
 msgid "Self-Defined Header"
 msgstr "Egen-defined brevhoved"
 
-#: config/fields.php.dist:35
+#: config/fields.php:40
 msgid "Sender"
 msgstr "Afsender"
 
-#: filters.php:117
+#: lib/Basic/Filters.php:145
 msgid "Settings successfully updated."
 msgstr "Præferencerne opdateret."
 
-#: templates/script/activate.inc:24
+#: templates/basic/script/script.html.php:24
 msgid "Show Active Script"
 msgstr "Vis aktivt script"
 
-#: templates/script/activate.inc:31
+#: templates/basic/script/script.html.php:30
 msgid "Show Current Script"
 msgstr "Vis nuværende script"
 
-#: spam.php:15
+#: lib/Basic/Spam.php:34
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
-"Simpel skidtpost-filtrering er ikke understøttet i den nuværende "
-"filtermekanisme."
+"Simpel spam filtrering er ikke understøttet i den nuværende filter driver."
 
-#: config/fields.php.dist:83
+#: config/fields.php:100
 msgid "Size"
 msgstr "Størrelse"
 
-#: filters.php:197 lib/Block/overview.php:95 lib/Block/overview.php:98
-#: lib/Script/sieve.php:414
+#: config/fields.php:92
+msgid "Source (From, Reply-to, etc.)"
+msgstr "Kilde (Fra, Svar til, etc.)"
+
+#: lib/Basic/Filters.php:229 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:294 lib/Script/Sieve.php:394
+#: lib/Smartmobile.php:105
 msgid "Spam Filter"
-msgstr "Skidtpost-filter"
+msgstr "Spam filter"
 
-#: spam.php:59 templates/spam/spam.inc:6
+#: lib/Basic/Spam.php:107 lib/Basic/Spam.php:114
 msgid "Spam Filtering"
-msgstr "Skidtpost-filtrering"
+msgstr "Spam filtrering"
 
-#: templates/spam/spam.inc:14
-msgid "Spam _Level:"
-msgstr "Skidtpost-niveau:"
+#: lib/Form/Spam.php:35
+msgid "Spam Level:"
+msgstr "Spam niveau:"
 
-#: templates/rule/footer.inc:49
+#: lib/Form/Vacation.php:45
+msgid "Start of vacation:"
+msgstr "Start på ferie:"
+
+#: templates/basic/rule/rule.html.php:185
 msgid "Stop checking if this rule matches?"
 msgstr "Stop videre undersøgelser, hvis denne regel passer?"
 
-#: templates/vacation/vacation.inc:51
-msgid "Subje_ct of vacation message:"
-msgstr "Emne til ferie-besked:"
-
-#: config/fields.php.dist:31
+#: config/fields.php:36
 msgid "Subject"
 msgstr "Emne"
 
-#: lib/Script/sieve.php:2146
+#: lib/Form/Vacation.php:50
+msgid "Subject of vacation message:"
+msgstr "Emne til ferie besked:"
+
+#: lib/Script/Sieve/Action/Notify.php:53
 msgid "Subject:"
 msgstr "Emne:"
 
-#: lib/api.php:89
+#: lib/Api.php:96
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
-msgstr "Adressen \"%s\" er sat på din negativliste."
+msgstr "Adressen \"%s\" er sat på din negativ liste."
 
-#: lib/api.php:112
+#: lib/Api.php:118
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Adressen \"%s\" er sat på din positivliste."
 
-#: lib/Ingo.php:136
-msgid "The driver said: "
-msgstr "Mekanismen sagde: "
-
-#: lib/Ingo.php:135
+#: lib/Ingo.php:193
 msgid "There was an error activating the script."
 msgstr "Der opstod en fejl under aktivering af scriptet."
 
-#: lib/Ingo.php:134
+#: lib/Ingo.php:192
 msgid "There was an error deactivating the script."
 msgstr "Der opstod en fejl under deaktivering af scriptet."
 
-#: config/fields.php.dist:27
+#: config/fields.php:32
 msgid "To"
 msgstr "Til"
 
-#: templates/filters/filter.html:28
+#: templates/basic/filters/filters.html.php:69
 msgid "To:"
 msgstr "Til:"
 
-#: lib/Script.php:127
+#: lib/Factory/Script.php:102
 #, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Kan ikke indlæse definitionen af %s."
+msgid "Unable to load the script driver \"%s\"."
+msgstr "Kan ikke indlæse script driveren \"%s\"."
 
-#: filters.php:185 templates/vacation/vacation.inc:5 lib/Block/overview.php:60
-#: lib/Block/overview.php:62 lib/Script/procmail.php:262
-#: lib/Script/sieve.php:381
+#: lib/Factory/Storage.php:70
+#, php-format
+msgid "Unable to load the storage driver \"%s\"."
+msgstr "Kan ikke indlæse lager driveren \"%s\""
+
+#: lib/Factory/Transport.php:66
+#, php-format
+msgid "Unable to load the transport driver \"%s\"."
+msgstr "Kan ikke indlæse transport driveren \"%s\"."
+
+#: templates/basic/rule/rule.html.php:84
+msgid "User header"
+msgstr "Bruger header"
+
+#: lib/Basic/Filters.php:217 lib/Basic/Vacation.php:130
+#: lib/Block/Overview.php:64 lib/Script/Maildrop.php:259
+#: lib/Script/Procmail.php:292 lib/Script/Sieve.php:367 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "Ferie"
 
-#: vacation.php:71
+#: lib/Basic/Vacation.php:137
 msgid "Vacation Edit"
 msgstr "Ændre ferie"
 
-#: vacation.php:16
+#: lib/Form/Vacation.php:98
+msgid "Vacation end date is prior to start."
+msgstr "Ferie og dato er før starten."
+
+#: lib/Form/Vacation.php:102
+msgid "Vacation end date is prior to today."
+msgstr "Ferie og dato er før i dag."
+
+#: lib/Basic/Vacation.php:34
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Ferie er ikke understøttet i den nuværende filtermekanisme."
 
-#: templates/whitelist/whitelist.inc:16
-msgid "Wh_itelist addresses:"
-msgstr "Hvidlistede adresser:"
+#: lib/Basic/Rule.php:354
+msgid "Value"
+msgstr "Værdi"
 
-#: filters.php:179 templates/whitelist/whitelist.inc:8
-#: lib/Block/overview.php:79 lib/Block/overview.php:82
+#: templates/smartmobile/rule.html.php:2
+msgid "View Rule"
+msgstr "Vis regel"
+
+#: templates/basic/whitelist/whitelist.html.php:15
+msgid "Wh_itelist addresses:"
+msgstr "Hv_idlistede adresser:"
+
+#: lib/Basic/Filters.php:211 lib/Block/Overview.php:90 lib/Smartmobile.php:90
+#: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"
 msgstr "Positivliste"
 
-#: whitelist.php:55
+#: lib/Basic/Whitelist.php:83
 msgid "Whitelist Edit"
-msgstr "Ændre hvidliste"
+msgstr "Ændre positiv liste"
 
-#: whitelist.php:18
+#: lib/Basic/Whitelist.php:35
 msgid "Whitelist is not supported in the current filtering driver."
-msgstr "Hvidlistning er ikke understøttet i den nuværende filtermekanisme."
+msgstr "Positiv listen er ikke understøttet i den nuværende filtermekanisme."
 
-#: lib/Script/maildrop.php:203 lib/Script/procmail.php:234
-#: lib/Script/sieve.php:315
+#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
+#: lib/Script/Sieve.php:291
 msgid "Whitelisted Addresses"
-msgstr "Hvidlistede adresser"
+msgstr "Positiv listede adresser"
 
-#: config/fields.php.dist:79
+#: config/fields.php:84
 msgid "X-Priority"
 msgstr "X-Priority"
 
-#: config/fields.php.dist:67
+#: config/fields.php:72
 msgid "X-Spam-Level"
 msgstr "X-Spam-Level"
 
-#: config/fields.php.dist:71
+#: config/fields.php:76
 msgid "X-Spam-Score"
 msgstr "X-Spam-Score"
 
-#: config/fields.php.dist:75
+#: config/fields.php:80
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:70 rule.php:160
+#: lib/Basic/Filters.php:95 lib/Basic/Rule.php:184 lib/Basic/Rule.php:225
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Du har ikke tilladelse til at danne flere end %d regler."
 
-#: filters.php:62 rule.php:21
+#: lib/Basic/Filters.php:87 lib/Basic/Rule.php:38
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Du har ikke tilladelse til at danne eller ændre fælles regler."
 
-#: filters.php:51 rule.php:138
+#: lib/Form/Vacation.php:54
+msgid ""
+"You can use placeholders like %NAME% in the vacation message. See the online "
+"help for details."
+msgstr ""
+"Du kan bruge pladsholdere som %NAME% i Ferie beskeden. Se online hjælp for "
+"detaljer."
+
+#: lib/Basic/Rule.php:108
+#, php-format
+msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
+msgstr "Du kan ikke oprette tomme betingelser. Angiv en værdi for \"%s\"."
+
+#: lib/Basic/Filters.php:72
 msgid "You do not have permission to delete filter rules."
 msgstr "Du har ikke tilladelse til at slette filterregler."
 
-#: filters.php:44 filters.php:111 filters.php:122 rule.php:56 rule.php:153
+#: lib/Basic/Filters.php:65 lib/Basic/Filters.php:140
+#: lib/Basic/Filters.php:150 lib/Basic/Rule.php:169
 msgid "You do not have permission to edit filter rules."
 msgstr "Du har ikke tilladelse til at ændre filterregler."
 
-#: lib/Script/sieve.php:2144
+#: lib/Script/Sieve/Action/Notify.php:51
 msgid "You have received a new message"
 msgstr "Du har modtaget en ny besked"
 
-#: vacation.php:30
-msgid ""
-"You must specify at least one email address for which the vacation messages "
-"should be activated."
-msgstr ""
-"Du skal angive mindst én e-mail-adresse hvortil ferie-beskeder skal være "
-"aktiveret."
+#: lib/Basic/Rule.php:174
+msgid "You need to select at least one field to match."
+msgstr "Du skal angive mindst et sammenlignings felt."
 
-#: lib/Script/imap.php:274 lib/Script/imap.php:297 lib/Script/imap.php:311
+#: lib/Script/Imap.php:268 lib/Script/Imap.php:294 lib/Script/Imap.php:316
+msgid "[No Sender]"
+msgstr "[Ingen Afsender]"
+
+#: lib/Script/Imap.php:267 lib/Script/Imap.php:293 lib/Script/Imap.php:315
 msgid "[No Subject]"
 msgstr "[Intet emne]"
 
-#: templates/forward/forward.inc:24
-msgid "_Address(es) to forward to:"
-msgstr "Adresser at videresende til:"
-
-#: templates/vacation/vacation.inc:23
-msgid "_Addresses to not send responses to:"
-msgstr "Adresser, som der ikke skal sendes respons til:"
-
-#: lib/Ingo.php:380
+#: lib/Application.php:198
 msgid "_Blacklist"
-msgstr "Blackliste"
+msgstr "Negativ liste  _B"
 
-#: templates/blacklist/blacklist.inc:18
+#: templates/basic/blacklist/blacklist.html.php:21
 msgid "_Delete message completely"
-msgstr "Slet besked totalt"
+msgstr "Slet besked permanent   _D"
 
-#: templates/blacklist/blacklist.inc:31
+#: templates/basic/blacklist/blacklist.html.php:39
 msgid "_Enter each address on a new line:"
-msgstr "Kun én adresse pr. linie:"
+msgstr "Kun én adresse pr. linie   _E:"
 
-#: templates/spam/spam.inc:26
-msgid "_Folder to receive spam:"
-msgstr "Mapppe til skidtpost:"
-
-#: lib/Ingo.php:386
+#: lib/Application.php:209
 msgid "_Forward"
-msgstr "Videresend"
+msgstr "Videresend   _F"
 
-#: templates/forward/forward.inc:17
-msgid "_Keep a copy of messages in this account?"
-msgstr "Behold en kopi af beskeder i denne konto?"
-
-#: templates/blacklist/blacklist.inc:22
+#: templates/basic/blacklist/blacklist.html.php:29
 msgid "_Move message to folder:"
-msgstr "Flyt beskeder til mappe:"
+msgstr "Flyt beskeder til _Mappe:"
 
-#: templates/vacation/vacation.inc:13
-msgid "_My email addresses:"
-msgstr "Mine e-mail-adresser:"
-
-#: lib/Ingo.php:396
+#: lib/Application.php:225
 msgid "_Permissions"
-msgstr "Tilladelser"
+msgstr "Tilladelser   _P"
 
-#: lib/Ingo.php:393
+#: lib/Application.php:219
 msgid "_Script"
-msgstr "Script"
+msgstr "_Script"
 
-#: lib/Ingo.php:383
+#: lib/Application.php:205
 msgid "_Vacation"
-msgstr "Ferie"
+msgstr "Ferie   _V"
 
-#: lib/Ingo.php:377
+#: lib/Application.php:195
 msgid "_Whitelist"
-msgstr "Positivliste"
+msgstr "Positivliste   _W"
 
-#: lib/Block/overview.php:54
+#: lib/Block/Overview.php:52
 msgid "active"
 msgstr "aktivt"
 
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55
 msgid "and"
 msgstr "og"
 
-#: templates/filters/filter.html:19
+#: templates/basic/filters/filters.html.php:49
 msgid "disabled - click to enable"
-msgstr "slået fra - klik for at slå til"
+msgstr "Deaktiveret - klik for at aktivere"
 
-#: filters.php:217
-msgid "field"
-msgstr "brevhovede"
-
-#: lib/Block/overview.php:52
+#: lib/Block/Overview.php:50
 msgid "inactive"
 msgstr "inaktivt"
 
-#: lib/Script/maildrop.php:121
+#: lib/Script/Maildrop.php:112
 msgid "maildrop script generated by Ingo"
 msgstr "maildrop script genereret af Ingo"
 
-#: filters.php:217
-msgid "match"
-msgstr "passer til"
-
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55
 msgid "or"
 msgstr "eller"
 
-#: lib/Script/procmail.php:128
+#: lib/Script/Procmail.php:136
 msgid "procmail script generated by Ingo"
 msgstr "procmail script genereret af Ingo"
