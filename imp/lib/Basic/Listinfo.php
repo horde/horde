@@ -122,7 +122,11 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
             }
         }
 
-        return htmlspecialchars($data);
+        /* Pass through Linkurls filter anyway, since it is possible the
+         * sender did not correctly put URL between brackets. */
+        return Horde_Text_Filter_Linkurls::decode(htmlspecialchars(
+            $text_filter->filter($data, 'Linkurls', array('encode' => true))
+        ));
     }
 
 }
