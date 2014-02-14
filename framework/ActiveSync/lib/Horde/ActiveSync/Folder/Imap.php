@@ -100,11 +100,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function setChanges(array $messages, array $flags = array())
     {
+        $uidnext = $this->uidnext();
+        $minuid = $this->minuid();
+        $modseq = $this->modseq();
         foreach ($messages as $uid) {
-            if ($uid >= $this->uidnext()) {
+            if ($uid >= $uidnext) {
                 $this->_added[] = $uid;
-            } elseif ($uid >= $this->minuid()) {
-                if ($this->modseq() > 0) {
+            } elseif ($uid >= $minuid) {
+                if ($modseq > 0) {
                     $this->_changed[] = $uid;
                 } else {
                     if (empty($this->_messages[$uid])) {
