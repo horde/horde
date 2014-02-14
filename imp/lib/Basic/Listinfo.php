@@ -29,17 +29,9 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
     {
         global $injector, $page_output;
 
-        $imp_mailbox = $this->indices->mailbox->list_ob;
-        list($m, $u) = $this->indices->getSingle();
-        $imp_indices = $imp_mailbox->getFullThread($u, $m);
-
-        if (!count($imp_indices)) {
-            throw new IMP_Exception(_("Could not load message."));
-        }
-
         /* Parse the message. */
         try {
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Exception(_("Could not load message."));
         }
