@@ -25,6 +25,7 @@
  *
  * Implements the following IMAP-related RFCs (see
  * http://www.iana.org/assignments/imap4-capabilities):
+ * <pre>
  *   - RFC 2086/4314: ACL
  *   - RFC 2087: QUOTA
  *   - RFC 2088: LITERAL+
@@ -62,6 +63,7 @@
  *   - RFC 6203: SEARCH=FUZZY
  *   - RFC 6851: MOVE
  *   - RFC 6858: DOWNGRADED response code
+ * </pre>
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -119,7 +121,9 @@
  */
 class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 {
-    /* Cache names used exclusively within this class. */
+    /**
+     * Cache names used exclusively within this class.
+     */
     const CACHE_FLAGS = 'HICflags';
 
     /**

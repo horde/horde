@@ -23,7 +23,9 @@
  */
 class Horde_Imap_Client_Interaction_Server
 {
-    /* Response codes (RFC 3501 [7.1]). */
+    /**
+     * Response codes (RFC 3501 [7.1]).
+     */
     const BAD = 1;
     const BYE = 2;
     const NO = 3;

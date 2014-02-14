@@ -23,16 +23,16 @@
  */
 abstract class Horde_Imap_Client_Base implements Serializable
 {
-    /* Serialized version. */
+    /** Serialized version. */
     const VERSION = 2;
 
-    /* Cache names for miscellaneous data. */
+    /** Cache names for miscellaneous data. */
     const CACHE_MODSEQ = '_m';
     const CACHE_SEARCH = '_s';
     /* @since 2.9.0 */
     const CACHE_SEARCHID = '_i';
 
-    /* Cache names used exclusively within this class. @since 2.11.0 */
+    /** Cache names used exclusively within this class. @since 2.11.0 */
     const CACHE_DOWNGRADED = 'HICdg';
 
     /**

@@ -62,9 +62,10 @@ class Horde_Imap_Client_Mailbox implements Serializable
     /**
      * Constructor.
      *
-     * @param string $mbox     The mailbox name.
-     * @param mixed $utf7imap  Is mailbox UTF7-IMAP encoded (true). Otherwise,
-     *                         mailbox is assumed to be UTF-8 encoded.
+     * @param string $mbox       The mailbox name.
+     * @param boolean $utf7imap  Is mailbox UTF7-IMAP encoded (true).
+     *                           Otherwise, mailbox is assumed to be UTF-8
+     *                           encoded.
      */
     public function __construct($mbox, $utf7imap = false)
     {

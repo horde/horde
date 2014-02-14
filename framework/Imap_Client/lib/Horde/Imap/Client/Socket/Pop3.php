@@ -55,6 +55,7 @@
  * IMAP equivalents.
  *
  * This driver implements the following POP3-related RFCs:
+ * <pre>
  *   - STD 53/RFC 1939: POP3 specification
  *   - RFC 2195: CRAM-MD5 authentication
  *   - RFC 2449: POP3 extension mechanism
@@ -63,6 +64,7 @@
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
+ * </pre>
  *
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Michael Slusarz <slusarz@horde.org>

@@ -22,7 +22,7 @@
  */
 class Horde_Imap_Client_Data_AclCommon
 {
-    /* Constants for getString(). */
+    /** Constants for getString(). */
     const RFC_2086 = 1;
     const RFC_4314 = 2;
 

@@ -24,15 +24,21 @@
  */
 class Horde_Imap_Client_Search_Query implements Serializable
 {
-    /* Serialized version. */
+    /**
+     * Serialized version.
+     */
     const VERSION = 3;
 
-    /* Constants for dateSearch() */
+    /**
+     * Constants for dateSearch()
+     */
     const DATE_BEFORE = 'BEFORE';
     const DATE_ON = 'ON';
     const DATE_SINCE = 'SINCE';
 
-    /* Constants for intervalSearch() */
+    /**
+     * Constants for intervalSearch()
+     */
     const INTERVAL_OLDER = 'OLDER';
     const INTERVAL_YOUNGER = 'YOUNGER';
 

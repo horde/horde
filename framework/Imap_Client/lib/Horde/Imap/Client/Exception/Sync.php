@@ -24,10 +24,14 @@ class Horde_Imap_Client_Exception_Sync extends Horde_Exception_Wrapped
 {
     /* Error message codes. */
 
-    // Token could not be parsed.
+    /**
+     * Token could not be parsed.
+     */
     const BAD_TOKEN = 1;
 
-    // UIDVALIDITY of the mailbox changed.
+    /**
+     * UIDVALIDITY of the mailbox changed.
+     */
     const UIDVALIDITY_CHANGED = 2;
 
 }

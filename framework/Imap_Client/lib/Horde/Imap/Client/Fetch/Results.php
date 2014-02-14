@@ -24,7 +24,9 @@
  */
 class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, IteratorAggregate
 {
-    /* Key type constants. */
+    /**
+     * Key type constants.
+     */
     const SEQUENCE = 1;
     const UID = 2;
 

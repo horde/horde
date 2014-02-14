@@ -23,7 +23,7 @@
  */
 class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
 {
-    /* Table names. */
+    /** SQL table names. */
     const BASE_TABLE = 'horde_imap_client_data';
     const MD_TABLE = 'horde_imap_client_metadata';
     const MSG_TABLE = 'horde_imap_client_message';

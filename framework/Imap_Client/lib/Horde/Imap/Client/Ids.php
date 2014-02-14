@@ -38,7 +38,9 @@
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {
-    /* "Special" representation constants. */
+    /**
+     * "Special" representation constants.
+     */
     const ALL = "\01";
     const SEARCH_RES = "\02";
     const LARGEST = "\03";

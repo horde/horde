@@ -28,7 +28,7 @@
  */
 class Horde_Imap_Client_Base_Debug
 {
-    /* Time, in seconds, to be labeled a slow command. */
+    /** Time, in seconds, to be labeled a slow command. */
     const SLOW_CMD = 5;
 
     /**

@@ -23,7 +23,7 @@
  */
 class Horde_Imap_Client_Data_Fetch
 {
-    /* Constants. */
+    /** Header formatting constants. */
     const HEADER_PARSE = 1;
     const HEADER_STREAM = 2;
 

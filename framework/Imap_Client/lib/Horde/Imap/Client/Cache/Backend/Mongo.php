@@ -23,7 +23,7 @@
  */
 class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Horde_Mongo_Collection_Index
 {
-    /* Collection names. */
+    /** Mongo collection names. */
     const BASE = 'horde_imap_client_cache_data';
     const MD = 'horde_imap_client_cache_metadata';
     const MSG = 'horde_imap_client_cache_message';
