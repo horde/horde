@@ -19,6 +19,8 @@
  * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
+ *
+ * @property-read boolean $changed  Has the internal object storage changed?
  */
 class IMP_Mailbox_SessionCache implements Serializable
 {
@@ -73,6 +75,16 @@ class IMP_Mailbox_SessionCache implements Serializable
             return $this->_changed;
         default:
             throw new InvalidArgumentException(sprintf('Invalid property name, %s in IMP_Mailbox_SessionCache'));
+        }
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'changed':
+            return $this->_changed;
         }
     }
 
