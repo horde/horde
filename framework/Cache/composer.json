@@ -38,6 +38,5 @@
         "pear-pear.horde.org/Horde_Memcache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pecl.php.net/APC": ">=3.1.1@stable",
-        "ext-eaccelerator": ">=0.9.5,<=0.9.6"
     }
 }

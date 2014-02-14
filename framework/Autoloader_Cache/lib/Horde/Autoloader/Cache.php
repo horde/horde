@@ -28,7 +28,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     /* Cache types. */
     const APC = 1;
     const XCACHE = 2;
-    const EACCELERATOR = 3;
+    //const EACCELERATOR = 3; // obsolete
     const TEMPFILE = 4;
 
     /* Cache key prefix. */
@@ -102,9 +102,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         } elseif (extension_loaded('xcache')) {
             $data = xcache_get($this->_cachekey);
             $this->_cachetype = self::XCACHE;
-        } elseif (extension_loaded('eaccelerator')) {
-            $data = eaccelerator_get($this->_cachekey);
-            $this->_cachetype = self::EACCELERATOR;
         } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
             $this->_tempdir = $tempdir;
             /* For files, add cachekey prefix for easy filesystem
@@ -169,10 +166,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             xcache_set($this->_cachekey, $data);
             break;
 
-        case self::EACCELERATOR:
-            eaccelerator_put($this->_cachekey, $data);
-            break;
-
         case self::TEMPFILE:
             if (!file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data)) {
                 error_log('Cannot write Autoloader cache file to system temp directory: ' . $this->_tempdir, 4);
@@ -225,11 +218,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
                 xcache_unset($val);
                 break;
 
-            case self::EACCELERATOR:
-                /* Undocumented, unknown return value. */
-                eaccelerator_rm($val);
-                break;
-
             case self::TEMPFILE:
                 @unlink($this->_tempdir . '/' . $val);
                 break;
@@ -255,10 +243,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 
         case self::XCACHE:
             $keylist = xcache_get(self::KEYLIST);
-            break;
-
-        case self::EACCELERATOR:
-            $keylist = eaccelerator_get(self::KEYLIST);
             break;
 
         case self::TEMPFILE:
@@ -288,10 +272,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 
         case self::XCACHE:
             xcache_set(self::KEYLIST, $keylist);
-            break;
-
-        case self::EACCELERATOR:
-            eaccelerator_put(self::KEYLIST, $keylist);
             break;
 
         case self::TEMPFILE:

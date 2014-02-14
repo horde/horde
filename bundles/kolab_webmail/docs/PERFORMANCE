@@ -6,7 +6,6 @@
 
 .. contents:: Contents
 
-
 Some tips on performance tuning systems for Horde Kolab Edition.  This
 does not cover hardware tuning or even low level system (network,
 filesystem, etc) tuning.
@@ -31,7 +30,7 @@ Webserver/PHP tuning
 ====================
 
 * Consider a PHP accelerator program.  See for example `The Zend
-  Performance Suite`_, the `Alternative PHP Cache`_, eAccelerator_, or
+  Performance Suite`_, the `Alternative PHP Cache`_, or
   XCache_.  These accelerators speed up access by caching the compiled
   PHP code, eliminating the need to recompile the code for every
   single page load. **This is probably the easiest way to improve the
@@ -137,7 +136,6 @@ Webserver/PHP tuning
 
 .. _`The Zend Performance Suite`: http://www.zend.com/horde.php
 .. _`Alternative PHP Cache`: http://www.php.net/apc
-.. _eAccelerator: http://eaccelerator.net/
 .. _XCache: http://xcache.lighttpd.net/
 .. _`lighttpd`: http://www.lighttpd.net/
 .. _`Hiawatha`: http://hiawatha.leisink.org/

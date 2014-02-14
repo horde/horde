@@ -93,9 +93,6 @@
     <name>apc</name>
    </extension>
    <extension>
-    <name>eaccelerator</name>
-   </extension>
-   <extension>
     <name>xcache</name>
    </extension>
   </optional>

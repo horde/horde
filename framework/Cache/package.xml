@@ -3,7 +3,7 @@
  <name>Horde_Cache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Caching API</summary>
- <description>A simple, functional caching API, with the option to store the cached data on the filesystem, in one of the PHP opcode cache systems (APC, eAcclerator, XCache, or Zend Performance Suite&apos;s content cache), memcached, or an SQL table.</description>
+ <description>A simple, functional caching API, with the option to store the cached data on the filesystem, in one of the PHP opcode cache systems (APC, XCache, or Zend Performance Suite&apos;s content cache), memcached, or an SQL table.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -47,7 +47,6 @@
       <dir name="Storage">
        <file name="Apc.php" role="php" />
        <file name="Base.php" role="php" />
-       <file name="Eaccelerator.php" role="php" />
        <file name="File.php" role="php" />
        <file name="Hashtable.php" role="php" />
        <file name="Memcache.php" role="php" />
@@ -150,12 +149,6 @@
     <min>3.1.1</min>
     <providesextension>apc</providesextension>
    </package>
-   <extension>
-    <name>eaccelerator</name>
-    <min>0.9.5</min>
-    <max>0.9.6</max>
-    <exclude>0.9.6</exclude>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -166,7 +159,6 @@
    <install as="Horde/Cache/Exception.php" name="lib/Horde/Cache/Exception.php" />
    <install as="Horde/Cache/Storage/Apc.php" name="lib/Horde/Cache/Storage/Apc.php" />
    <install as="Horde/Cache/Storage/Base.php" name="lib/Horde/Cache/Storage/Base.php" />
-   <install as="Horde/Cache/Storage/Eaccelerator.php" name="lib/Horde/Cache/Storage/Eaccelerator.php" />
    <install as="Horde/Cache/Storage/File.php" name="lib/Horde/Cache/Storage/File.php" />
    <install as="Horde/Cache/Storage/Hashtable.php" name="lib/Horde/Cache/Storage/Hashtable.php" />
    <install as="Horde/Cache/Storage/Memcache.php" name="lib/Horde/Cache/Storage/Memcache.php" />
