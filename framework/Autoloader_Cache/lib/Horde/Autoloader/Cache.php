@@ -109,7 +109,8 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_tempdir = $tempdir;
             /* For files, add cachekey prefix for easy filesystem
              * identification. */
-            $this->_cachekey = self::PREFIX . '_' . hash('sha1', $this->_cachekey);
+            $this->_cachekey = self::PREFIX . '_' .
+                hash(PHP_MINOR_VERSION >= 4 ? 'fnv164' : 'sha1', $this->_cachekey);
             if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
                 unlink($tempdir . '/' . $this->_cachekey);
             }
