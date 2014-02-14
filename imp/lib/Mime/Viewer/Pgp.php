@@ -424,7 +424,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
             if (!$sig_part) {
                 $status2->action(IMP_Mime_Status::ERROR);
-                $sig_text = _("This digitally signed messages is broken");
+                $sig_text = _("This digitally signed message is broken.");
                 $ret[$base_id]['wrap'] = 'mimePartWrapInvalid';
             } else {
                 try {
