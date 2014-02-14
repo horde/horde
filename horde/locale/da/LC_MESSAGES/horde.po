@@ -7,133 +7,159 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 3.2-cvs\n"
+"Project-Id-Version: Horde H5 (5.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2009-01-16 23:58-0500\n"
-"Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
+"POT-Creation-Date: 2014-01-16 14:18+0100\n"
+"PO-Revision-Date: 2014-01-18 22:43+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
-#: lib/Block/weatherdotcom.php:409
-msgid " at "
-msgstr " med "
-
-#: admin/groups.php:50
+#: admin/groups.php:32
 #, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "\"%s\" blev tilføjet i gruppe-systemet."
+msgstr "\"%s\" blev tilføjet i gruppe systemet."
 
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:49
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "\"%s\" blev tilføjet tilladelses-systemet."
+msgstr "\"%s\" blev tilføjet tilladelses systemet."
 
-#: admin/groups.php:56 admin/perms/addchild.php:47
+#: admin/perms/addchild.php:53
 #, php-format
 msgid "\"%s\" was not created: %s."
-msgstr "\"%s\" blev ikke dannet: %s."
+msgstr "\"%s\" blev ikke oprettet: %s."
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB brugt ud af %.2fMB tilladt (%.2f%%)"
 
-#: lib/Block/weatherdotcom.php:241
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s og %s"
 
-#: lib/Block/account.php:708 lib/Block/account.php:720
+#: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr "%d dage til dit kodeord udløber."
 
-#: lib/Block/metar.php:281
-#, fuzzy, php-format
+#: lib/Block/Metar.php:260
+#, php-format
 msgid "%d minutes"
-msgstr "%s minutter"
+msgstr "%d minutter"
 
-#: services/facebook.php:114
+#: services/facebook/index.php:97
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d synes om dette"
+msgstr[1] "%d synes om dette"
 
 #: templates/admin/user/list.inc:4
-#, fuzzy, php-format
+#, php-format
 msgid "%d to %d of %d"
-msgstr "%s til %s af %s"
+msgstr "%d til %d af %d"
 
-#: lib/Block/weatherdotcom.php:288
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
-msgstr "%d-dags udsigt"
+msgstr "%d dags udsigt"
 
-#: services/logintasks.php:83
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Notits"
 
-#: admin/config/config.php:21 admin/config/index.php:226
-#, fuzzy, php-format
+#: admin/config/config.php:28 admin/config/index.php:437
+#, php-format
 msgid "%s Configuration"
-msgstr "Generér %s-konfiguration"
+msgstr "%s Konfiguration"
 
-#: services/logintasks.php:64
-#, fuzzy, php-format
+#: services/logintasks.php:71
+#, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "Kodeord med bekræftelse"
+msgstr "%s Opgaver - Bekræftigelse"
 
-#: services/logintasks.php:74
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
-msgstr "%s brugsbetingelser"
+msgstr "%s Brugsbetingelser"
 
-#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
-#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#: lib/Block/Metar.php:133 lib/Block/Metar.php:139 lib/Block/Metar.php:213
+#: lib/Block/Metar.php:319 lib/Block/Metar.php:325
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s ved %s %s"
 
-#: services/logintasks.php:63
-#, fuzzy, php-format
+#: templates/prefs/twitter.html.php:9
+#, php-format
+msgid "%s can interact with your Twitter account"
+msgstr "%s kan samvirke med din Twitter konto"
+
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr "%s kan ikke læse information på dine Facebook venner."
+
+#: templates/prefs/facebook.html.php:34
+#, php-format
 msgid ""
-"%s is ready to perform the tasks checked below. Check the box for any "
-"operation(s) you want to perform at this time."
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr "%s kan ikke læse dine Facebook data og beskeder."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s kan ikke sætte din status eller videresende andet indhold til Facebook."
+
+#: services/logintasks.php:72
+#, php-format
+msgid ""
+"%s is ready to perform the tasks below. Select each operation to run at this "
+"time."
 msgstr ""
 "%s er parat til at udføre de vedligeholdelseshandlinger, som er markeret "
-"nedenfor.  Sæt hak ud for de handlinger, som du ønsker udført nu."
+"nedenfor.  Vælg de handlinger du ønsker udført nu."
 
-#: lib/Block/vatid.php:58
-#, php-format
-msgid "%s not found."
-msgstr "%s ikke fundet."
-
-#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
-msgid ", gusting "
-msgstr ", diset "
-
-#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
 msgid ", gusting %s %s"
-msgstr ", blæsende %s %s"
+msgstr ",diset %s %s"
 
-#: lib/Block/metar.php:196
+#: lib/Block/Metar.php:175
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", skriftende fra %s til %s"
 
-#: lib/Block/time.php:26
+#: lib/Application.php:325
+msgid "1 Day"
+msgstr "1 Dag"
+
+#: lib/Application.php:329
+msgid "1 Month"
+msgstr "1 Måned"
+
+#: lib/Application.php:327
+msgid "1 Week"
+msgstr "1 Uge"
+
+#: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12-timers format"
 
-#: lib/Block/time.php:25
+#: lib/Application.php:328
+msgid "2 Weeks"
+msgstr "2 Uger"
+
+#: lib/Block/Time.php:30
 msgid "24 Hour Format"
 msgstr "24-timers format"
 
@@ -141,147 +167,74 @@ msgstr "24-timers format"
 msgid "24 hours"
 msgstr "24 timer"
 
-#: templates/prefs/facebook.html:15
-msgid ""
-"<tag:app_name /> can interact with your Facebook account, but you must login "
-"to Facebook manually each time."
-msgstr ""
+#: config/prefs.php:492 config/prefs.php:494
+msgid "24-hour format"
+msgstr "24-timers format"
 
-#: templates/prefs/facebook.html:38
-msgid "<tag:app_name /> cannot read your stream messages."
-msgstr ""
+#: lib/Application.php:326
+msgid "3 Days"
+msgstr "3 Dage"
 
-#: templates/prefs/facebook.html:26
-msgid ""
-"<tag:app_name /> cannot set your status messages or publish other content to "
-"Facebook."
-msgstr ""
-
-#: templates/prefs/twitter.html:9
-msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
-
-#: services/keyboard.php:46
-#, fuzzy
-msgid "A characters"
-msgstr "Antal tegn"
-
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr "En database-backend er krævet for denne blok."
-
-#: admin/activesync.php:35
+#: admin/activesync.php:33
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"En Enhedssletning er bestilt. Enheden vil blive slettet ved næste "
+"synkroniserings forsøg. "
 
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "A newer version (%s) exists."
-msgstr ""
+msgstr "En nyere version (%s) findes."
 
-#: lib/Prefs/Ui.php:743
+#: lib/Prefs/Special/Activesync.php:77
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:7
-msgid "AM Clouds"
-msgstr "Formiddag Skyet"
-
-#: lib/Block/weatherdotcom_strings.php:8
-#, fuzzy
-msgid "AM Drizzle"
-msgstr "Støvregn"
-
-#: lib/Block/weatherdotcom_strings.php:9
-#, fuzzy
-msgid "AM Fog"
-msgstr "Tåge"
-
-#: lib/Block/weatherdotcom_strings.php:10
-msgid "AM Light Rain"
-msgstr "Formiddag Let Regn"
-
-#: lib/Block/weatherdotcom_strings.php:11
-#, fuzzy
-msgid "AM Light Snow"
-msgstr "Let sne"
-
-#: lib/Block/weatherdotcom_strings.php:12
-msgid "AM Rain"
-msgstr "Formiddag Regn"
-
-#: lib/Block/weatherdotcom_strings.php:13
-msgid "AM Showers"
-msgstr "Formiddag Byger"
-
-#: lib/Block/weatherdotcom_strings.php:14
-#, fuzzy
-msgid "AM Snow"
-msgstr "Eftm. sne"
-
-#: lib/Block/weatherdotcom_strings.php:15
-msgid "AM Snow Showers"
-msgstr "Formiddag Snebyger"
-
-#: lib/Block/weatherdotcom_strings.php:16
-#, fuzzy
-msgid "AM Sun"
-msgstr "Eftm. sol"
-
-#: lib/Block/weatherdotcom_strings.php:17
-#, fuzzy
-msgid "AM T-Showers"
-msgstr "Formiddag Byger"
-
-#: lib/Block/weatherdotcom_strings.php:18
-#, fuzzy
-msgid "AM T-Storms"
-msgstr "Eft. torden"
+"En Fjern sletning af enhed id %s er indledt. Enheden vil blive slettet under "
+"næste synkronisering. "
 
 #: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "AM/PM"
 
-#: lib/Block/account.php:3
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "Konto-information"
 
-#: config/prefs.php.dist:276
+#: config/prefs.php:334
 msgid "Account Password"
 msgstr "Kontoens kodeord"
 
-#: admin/activesync.php:126
-#, fuzzy
+#: admin/activesync.php:129
 msgid "Actions"
-msgstr "Indstillinger"
+msgstr "Handlinger"
 
-#: config/prefs.php.dist:676
+#: config/prefs.php:739 lib/Application.php:200
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:71
-#, fuzzy
+#: admin/activesync.php:74
 msgid "ActiveSync Device Administration"
-msgstr "Bruger-administration"
+msgstr "ActiveSync enhedsadministration"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: admin/activesync.php:196 lib/Api.php:93
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "ActiveSync enheder"
 
-#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
-msgstr ""
+msgstr "ActiveSync er ikke aktiveret."
 
-#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:12 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Tilføj"
 
-#: services/portal/index.php:68
+#: templates/portal/new.inc:2
 msgid "Add Content"
 msgstr "Tilføj indhold"
 
@@ -289,39 +242,31 @@ msgstr "Tilføj indhold"
 msgid "Add Here:"
 msgstr "Tilføj her:"
 
-#: templates/admin/groups/edit.inc:49
-#, fuzzy
+#: templates/admin/groups/edit.inc:55
 msgid "Add Members"
-msgstr "Medlemmer"
+msgstr "Tilføj Medlemmer"
 
-#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
-#, php-format
-msgid "Add a child group to \"%s\""
-msgstr "Tilføj undergruppe til \"%s\""
+#: templates/admin/groups/add.inc:6
+msgid "Add a group"
+msgstr "Tilføj en gruppe"
 
-#: admin/groups.php:238
-#, fuzzy
-msgid "Add a new group"
-msgstr "Tilføj ny gruppe"
-
-#: admin/user.php:21
+#: admin/user.php:26
 msgid "Add a new user:"
 msgstr "Oprette en ny bruger:"
 
-#: admin/alarms.php:22
-#, fuzzy
+#: admin/alarms.php:27
 msgid "Add new alarm"
-msgstr "Oprette en ny bruger:"
+msgstr "Tilføj ny alarm"
 
-#: templates/data/csvmap.inc:92
+#: templates/data/csvmap.inc:93
 msgid "Add pair"
 msgstr "Opret par"
 
-#: admin/user.php:22
+#: admin/user.php:27
 msgid "Add user"
 msgstr "Opret bruger"
 
-#: admin/signup_confirm.php:80 admin/user.php:92
+#: admin/signup_confirm.php:82 admin/user.php:93
 #, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
@@ -330,7 +275,7 @@ msgstr ""
 "Har tilføjet \"%s\" til systemet, men kunne ikke tilføje ekstra "
 "opskrivningsinformation: %s."
 
-#: signup.php:44
+#: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
 msgstr "Tilføjet \"%s\" til systemet. Du kan logge ind nu."
@@ -339,295 +284,285 @@ msgstr "Tilføjet \"%s\" til systemet. Du kan logge ind nu."
 msgid "Adding users is disabled."
 msgstr "Oprettelse af brugere er slået fra"
 
-#: lib/Block/vatid.php:101
+#: lib/Block/Vatid.php:94
 msgid "Address"
 msgstr "Adresse"
 
-#: config/registry.php.dist:142
+#: config/registry.php:132
 msgid "Address Book"
 msgstr "Adressekartotek"
 
-#: admin/alarms.php:26
-#, fuzzy
+#: lib/Application.php:55
+msgid "Administration"
+msgstr "Administration"
+
+#: admin/alarms.php:31
 msgid "Alarm end"
-msgstr "Armenien"
+msgstr "Alarm slut"
 
-#: admin/alarms.php:28
+#: admin/alarms.php:33
 msgid "Alarm methods"
-msgstr ""
+msgstr "Alarm metoder"
 
-#: admin/alarms.php:25
+#: admin/alarms.php:30
 msgid "Alarm start"
-msgstr ""
+msgstr "Alarm start"
 
-#: admin/alarms.php:27
-#, fuzzy
+#: admin/alarms.php:32
 msgid "Alarm text"
-msgstr "Stikordstekst"
+msgstr "Alarm tekst"
 
-#: admin/alarms.php:24
-#, fuzzy
+#: admin/alarms.php:29
 msgid "Alarm title"
-msgstr "Kolonnetitler"
+msgstr "Alarm titel"
 
-#: admin/alarms.php:133
-#, fuzzy
+#: admin/alarms.php:146
 msgid "Alarms"
-msgstr "Kaldenavn"
+msgstr "Alarmer"
 
-#: lib/Block/fortune.php:94
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Alarmer er deaktiveret i konfigurationen"
+
+#: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Alle"
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
-msgstr "Alle ægtede brugere"
+msgstr "Alle godkendte (login) brugere"
 
-#: admin/groups.php:26 admin/groups.php:244
-msgid "All Groups"
-msgstr "Alle grupper"
-
-#: admin/activesync.php:50
+#: admin/activesync.php:51
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Alle policy keys blev nulstillet."
 
-#: lib/Prefs/Ui.php:753
+#: lib/Prefs/Special/Activesync.php:92
 msgid ""
-"All state removed for your devices. They will resynchronize next time they "
-"connect to the server."
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
 msgstr ""
+"All status for dine ActiveSync enheder er nulstillet. De vil gensynkronisere "
+"næste gang de forbinder til serveren."
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
-msgstr ""
+msgstr "Alle synkroniserings sessioner er slettet."
 
-#: config/prefs.php.dist:644
+#: lib/Application.php:216
+msgid "Allow"
+msgstr "Tillad"
+
+#: lib/Application.php:236
+msgid "Allow alphanumeric"
+msgstr "Tillad Bogstaver"
+
+#: lib/Application.php:237
+msgid "Allow any"
+msgstr "Tillad enhver"
+
+#: lib/Application.php:235
+msgid "Allow only numeric"
+msgstr "Tillad kun tal"
+
+#: config/prefs.php:694
 msgid "Alternate IMSP Login"
 msgstr "Alternativ IMSP-login"
 
-#: config/prefs.php.dist:658
+#: config/prefs.php:711
 msgid "Alternate IMSP Password"
 msgstr "Alternativ IMSP-kodeord"
 
-#: config/prefs.php.dist:652
+#: config/prefs.php:705
 msgid "Alternate IMSP Username"
 msgstr "Alternativ IMSP-brugernavn"
 
-#: services/resetpassword.php:31
+#: services/resetpassword.php:35
 msgid "Alternate email address"
-msgstr "Din e-mail-adresse"
+msgstr "Din e-mail adresse"
 
-#: lib/Block/weatherdotcom.php:170
-msgid "An unknown error has occured."
-msgstr "Der er opstået en ukendt fejl."
-
-#: services/resetpassword.php:48
+#: services/resetpassword.php:52
 msgid "Answer"
 msgstr "Besvar"
 
-#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
 msgid "Application"
 msgstr "Applikation"
 
-#: admin/phpshell.php:44
-#, fuzzy
-msgid "Application Context: "
-msgstr "Applikationsliste"
+#: templates/admin/phpshell.html.php:6
+msgid "Application Context"
+msgstr "Applikations sammenhæng"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Applikationsliste"
-
-#: admin/config/index.php:160
+#: admin/config/index.php:245
 msgid "Application is ready."
 msgstr "Applikation er parat."
 
-#: admin/config/index.php:95 admin/config/index.php:127
-#, fuzzy
-msgid "Application is up-to-date."
-msgstr "Applikation er parat."
-
-#: templates/admin/user/approve.inc:33
+#: templates/admin/user/approve.inc:34
 msgid "Approve"
 msgstr "Godkend"
 
-#: config/nls.php:167
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Arabisk (Windows-1256)"
 
-#: admin/alarms.php:123
-#, fuzzy, php-format
+#: admin/alarms.php:134
+#, php-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr "Er du sikker, at du ønsker at slette \"%s\" og enhver undergruppe?"
+msgstr "Er du sikker på, at du ønsker at slette '%s'?"
 
 #: templates/admin/user/removequeued.inc:10
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you want to remove the signup request for \"%s\"?"
-msgstr "Er du sikker på, at du vil slette opskrivningsanmodningen for %s ?"
+msgstr "Er du sikker på, at du vil slette deltager anmodningen for \"%s\" ?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
-msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Er du sikker, at du ønsker at slette \"%s\" og enhver undergruppe?"
+msgid "Are you sure you wish to delete \"%s\"?"
+msgstr "Er du sikker på, at du ønsker at slette \"%s\"?"
 
-#: config/nls.php:168
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armensk (ARMSCII-8)"
 
-#: lib/Block/fortune.php:35
+#: lib/Block/Fortune.php:35
 msgid "Art"
 msgstr "Kunst"
 
-#: lib/Block/fortune.php:36
+#: lib/Block/Fortune.php:36
 msgid "Ascii Art"
 msgstr "ASCII Art"
 
-#: templates/problem/problem.inc:43
+#: lib/LoginTasks/Task/AdminCheck.php:57
+msgid "At least one database schema is outdated."
+msgstr "Mindst et database skema er ikke opdateret."
+
+#: templates/problem/problem.inc:22
 msgid "Attachment"
-msgstr ""
+msgstr "Vedhæftelse"
 
-#: admin/groups.php:72
+#: lib/Application.php:259
+msgid "Attachment Download"
+msgstr "Download Vedhæftelse"
+
+#: admin/groups.php:56
 msgid "Attempt to delete a non-existent group."
-msgstr "Forsøg på at slette en ikke-eksisterende gruppe."
+msgstr "Forsøg på at slette en ikke eksisterende gruppe."
 
-#: admin/perms/delete.php:24
+#: admin/perms/delete.php:30
 msgid "Attempt to delete a non-existent permission."
-msgstr "Forsøg på at slette en ikke-eksisterende tilladelse."
+msgstr "Forsøg på at slette en ikke eksisterende tilladelse."
 
-#: admin/perms/edit.php:92
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
-msgstr "Forsøg på at ændre en ikke-eksisterende tilladelse."
+msgstr "Forsøg på at ændre en ikke eksisterende tilladelse."
 
-#: services/shares/edit.php:66
+#: services/shares/edit.php:73
 msgid "Attempt to edit a non-existent share."
-msgstr "Forsøg på at ændre en ikke-eksisterende deling."
+msgstr "Forsøg på at ændre en ikke eksisterende deling."
 
-#: admin/sessions.php:40
-#, fuzzy
-msgid "Authenticated to:"
-msgstr "Alle ægtede brugere"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "Godkendt (login) til programmer:"
 
-#: templates/prefs/facebook.html:27
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Godkend (login)"
+
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Godkend adgang til Venne data"
+
+#: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Tillade Offentliggørelse"
 
-#: templates/prefs/facebook.html:39
-msgid "Authorize Read:"
-msgstr ""
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Godkend læsning"
 
-#: templates/prefs/facebook.html:16
-msgid "Authorize an infinite session:"
-msgstr ""
+#: templates/login/login.inc:19 templates/login/smartmobile.html.php:31
+msgid "Automatic"
+msgstr "Automatisk"
 
-#: templates/data/csvmap.inc:70
+#: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Felter til rådighed:"
 
-#: themes/azur/info.php:6
-msgid "Azur"
-msgstr ""
-
-#: lib/Block/fortune.php:37
+#: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
-msgstr "BOFH-undskyldninger"
+msgstr "BOFH undskyldninger"
 
-#: config/nls.php:169
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltikum (ISO-8859-13)"
 
-#: themes/barbie/info.php:2
-#, fuzzy
-msgid "Barbie"
-msgstr "Bahrain"
-
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "Basis grafikkatalog \"%s\" ikke fundet."
+#: templates/login/login.inc:21 templates/login/smartmobile.html.php:33
+msgid "Basic"
+msgstr "Grundlæggende"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
-msgstr "Blok-egenskaber"
+msgstr "Blok egenskaber"
 
 #: templates/portal/layout.inc:72
 msgid "Block Type"
 msgstr "Bloktype"
 
-#: themes/bluemoon/info.php:2
-#, fuzzy
-msgid "Blue Moon"
-msgstr "Nymåne"
+#: lib/Application.php:292
+msgid "Bluetooth"
+msgstr "Bluetooth"
 
-#: themes/bluewhite/info.php:2
-#, fuzzy
-msgid "Blue and White"
-msgstr "Regionaldata og tid"
-
-#: config/registry.php.dist:226
+#: config/registry.php:183
 msgid "Bookmarks"
 msgstr "Bogmærker"
 
-#: lib/Block/fortune.php:103
+#: lib/Block/Fortune.php:103
 msgid "Both"
 msgstr "Begge"
 
-#: themes/brown/info.php:2
-#, fuzzy
-msgid "Brown"
-msgstr "Botsvana"
+#: config/prefs.php:755
+msgid "Bottom"
+msgstr "Bund"
 
-#: admin/sessions.php:38
-msgid "Browser:"
-msgstr ""
+#: templates/admin/sessions.html.php:9
+msgid "Browser"
+msgstr "Browser"
 
-#: themes/burntorange/info.php:7
-msgid "Burnt Orange"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:166
-msgid "Cache init was not completed."
-msgstr "Initialisering af midlertidigt lager ikke færdiggjort."
-
-#: config/registry.php.dist:157
+#: config/registry.php:118
 msgid "Calendar"
 msgstr "Kalender"
 
-#: lib/Block/weatherdotcom.php:250
-msgid "Calm"
-msgstr "Vindstille"
+#: lib/Application.php:280
+msgid "Camera"
+msgstr "Kamera"
 
-#: themes/camouflage/info.php:2
-msgid "Camouflage"
-msgstr ""
-
-#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
-#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
+#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
 msgid "Cancel"
 msgstr "Annuller"
 
-#: templates/problem/problem.inc:58
+#: templates/problem/problem.inc:37
 msgid "Cancel Problem Report"
 msgstr "Afbryd reportering af problem"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:31
-#, fuzzy
+#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
 msgid "Cancel Wipe"
-msgstr "Annuller"
+msgstr "Annuller nulstilling"
 
-#: services/resetpassword.php:17
-#, fuzzy
+#: services/resetpassword.php:23
 msgid "Cannot reset password automatically, contact your administrator."
-msgstr "Kan ikke nulstille kodeord automatisk; kontakt din administrator."
+msgstr "Kan ikke nulstille kodeord automatisk, kontakt din administrator."
 
-#: config/prefs.php.dist:440
+#: config/prefs.php:516
 msgid "Categories and Labels"
 msgstr "Kategorier og Mærker"
 
-#: config/nls.php:170
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Keltisk (ISO-8859-14)"
 
-#: config/nls.php:171
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Central-europæisk (ISO-8859-2)"
 
@@ -635,19 +570,19 @@ msgstr "Central-europæisk (ISO-8859-2)"
 msgid "Change"
 msgstr "Ændre"
 
-#: services/changepassword.php:23
+#: lib/Block/Weather.php:120
+msgid "Change Location"
+msgstr "Ændre lokation"
+
+#: services/changepassword.php:26
 msgid "Change Your Password"
 msgstr "Ændre dit kodeord"
 
-#: config/prefs.php.dist:214
-msgid ""
-"Change the name and address that people see when they read and reply to your "
-"emails."
-msgstr ""
-"Her kan du ændre det navn og den adresse, som andre ser, når de læser og "
-"svarer på dine e-mail."
+#: config/prefs.php:273
+msgid "Change your personal information."
+msgstr "Ændre dine Personlige Informationer"
 
-#: services/changepassword.php:17
+#: services/changepassword.php:20
 msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
@@ -655,179 +590,146 @@ msgstr ""
 "Kodeordsændring er ikke understøttet af den nuværende opsætning.  Kontakt "
 "din administrator."
 
-#: lib/Block/vatid.php:45
-#, fuzzy
+#: lib/Block/Vatid.php:42
 msgid "Check"
-msgstr "Chile"
+msgstr "Kontrol"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4
 msgid "Check for newer versions"
-msgstr ""
+msgstr "Check for nyere versioner"
 
-#: lib/Block/vatid.php:47
-#, fuzzy
+#: lib/Block/Vatid.php:44
 msgid "Checking"
-msgstr "Kina"
+msgstr "Kontrollerer"
 
-#: templates/admin/groups/addchild.inc:10
-#, fuzzy
-msgid "Child"
-msgstr "Chile"
-
-#: config/nls.php:172
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Simplificeret kinesisk (GB2312)"
 
-#: config/nls.php:173
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Traditionelt kinesisk (Big5)"
 
-#: services/obrowser/index.php:91
-#, fuzzy, php-format
+#: services/obrowser/index.php:59
+#, php-format
 msgid "Choose %s"
-msgstr "Kurser"
+msgstr "Vælg %s"
 
-#: config/prefs.php.dist:403
-#, fuzzy
+#: config/prefs.php:484
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Vælg hvordan datoer skal vises:"
+msgstr "Vælg hvordan datoer skal vises (kort format):"
 
-#: config/prefs.php.dist:377
-#, fuzzy
+#: config/prefs.php:460
 msgid "Choose how to display dates (full format):"
-msgstr "Vælg hvordan datoer skal vises:"
+msgstr "Vælg hvordan datoer skal vises (langt format):"
 
-#: config/prefs.php.dist:419
-#, fuzzy
+#: config/prefs.php:497
 msgid "Choose how to display times:"
-msgstr "Vælg hvordan datoer skal vises:"
+msgstr "Vælg hvordan klokken skal vises:"
 
-#: lib/Block/weatherdotcom_strings.php:19
-msgid "Clear"
-msgstr "Klart"
-
-#: admin/sqlshell.php:109
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "Nulstil forespørgsel"
 
-#: templates/admin/user/clear.inc:5
+#: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
 msgstr "Rens bruger ud: %s"
 
-#: templates/admin/user/clear.inc:11
+#: templates/admin/user/clear.inc:13
 msgid "Clear user"
-msgstr "Nulstil bruger"
+msgstr "Rens bruger"
 
-#: templates/admin/user/list.inc:37
+#: templates/admin/user/list.inc:35
 msgid "Clear user data"
-msgstr "Visk brugerdata ud"
-
-#: lib/Block/weatherdotcom_strings.php:20
-#, fuzzy
-msgid "Clearing Early"
-msgstr "Regn tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:21
-msgid "Clearing Late"
-msgstr "Sen opklaring"
+msgstr "Rens brugerdata ud"
 
 #: templates/prefs/addressbooks.html:3
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
-msgstr ""
+msgstr "Klik på en af dine addressebøger og vælg de felter der skal søges på."
 
-#: templates/logintasks/logintasks.html:38
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 msgid "Click to Continue"
 msgstr "Klik for at fortsætte"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13
 msgid "Client Anchor"
-msgstr ""
+msgstr "Klient anker"
 
-#: services/keyboard.php:154 templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Luk vindue"
 
-#: lib/Block/metar.php:239
+#: lib/Block/Metar.php:218
 msgid "Clouds"
 msgstr "Skyer"
 
-#: lib/Block/weatherdotcom_strings.php:22
-msgid "Clouds Early"
-msgstr "Skyer tidligt"
+#: lib/Application.php:252
+msgid "Codeword frequency"
+msgstr "Kodeords frekvens"
 
-#: lib/Block/weatherdotcom_strings.php:23
-#, fuzzy
-msgid "Clouds Late"
-msgstr "Skyer"
-
-#: lib/Block/weatherdotcom_strings.php:24
-msgid "Cloudy"
-msgstr "Skyet"
-
-#: admin/sessions.php:31
-#, fuzzy
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
-msgstr "Fold sidepanel sammen"
+msgstr "Fold sammen"
 
-#: templates/sidebar/sidebar.inc:3
-msgid "Collapse Sidebar"
-msgstr "Fold sidepanel sammen"
-
-#: lib/Prefs/Ui.php:237
+#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
+#: templates/prefs/category.html.php:36
 msgid "Color Picker"
 msgstr "Farvevælger"
 
-#: admin/cmdshell.php:20 admin/cmdshell.php:42
+#: config/registry.php:247
+msgid "Comics"
+msgstr "Vittigheder"
+
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
 msgid "Command"
 msgstr "Kommando"
 
-#: admin/cmdshell.php:14
+#: admin/cmdshell.php:19
 msgid "Command Shell"
 msgstr "Kommandolinie"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:38
+#, php-format
 msgid "Comments: %d"
-msgstr "Kommentar"
+msgstr "Kommentarer: %d"
 
-#: lib/Block/fortune.php:38
+#: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Computere"
 
-#: lib/Block/weatherdotcom.php:300
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr "Forhold"
 
-#: lib/Block/metar.php:244
+#: lib/Block/Metar.php:223
 msgid "Conditions"
 msgstr "Betingelser"
 
-#: admin/config/config.php:65 templates/admin/config/config.html:9
-#, fuzzy
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
 msgid "Configuration"
-msgstr "Gendan konfiguration"
+msgstr "Konfiguration"
 
-#: admin/config/diff.php:80
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "Konfigurationsforskelle"
 
-#: config/prefs.php.dist:665
+#: config/prefs.php:721
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Konfiguration til synkronisering med PDAer, Smartphones og Outlook."
 
-#: admin/config/index.php:155
+#: admin/config/index.php:240
 msgid "Configuration is out of date."
 msgstr "Konfigurationen er forældet."
 
-#: templates/admin/config/index.html:61
-#, fuzzy
+#: templates/admin/config/index.html.php:96
 msgid "Configuration upgrade scripts available"
 msgstr "Skripts til opgradering af opsætning tilgængelige"
 
-#: admin/config/index.php:111
+#: admin/config/index.php:180
 #, php-format
 msgid "Configure %s"
 msgstr "Konfigurér %s"
@@ -836,49 +738,41 @@ msgstr "Konfigurér %s"
 msgid "Confirm Password"
 msgstr "Bekræft kodeord"
 
-#: services/changepassword.php:25 services/resetpassword.php:25
+#: services/changepassword.php:28 services/resetpassword.php:29
 msgid "Continue"
 msgstr "Fortsæt"
 
-#: lib/Block/fortune.php:39
+#: lib/Block/Fortune.php:39
 msgid "Cookie"
-msgstr "Småkage"
+msgstr "Cookie"
 
-#: themes/cornflower/info.php:2
-#, fuzzy
-msgid "Cornflower"
-msgstr "Farve"
-
-#: lib/Block/account.php:484
-msgid "Could not bind to LDAP server."
-msgstr "Kunne ikke koble til LDAP-server."
-
-#: lib/Block/account.php:463
-msgid "Could not connect to LDAP server."
-msgstr "Kunne ikke forbinde til LDAP-server."
-
-#: admin/config/index.php:27
+#: admin/config/index.php:32
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Kunne ikke forbinde til server \"%s\" ved brug af FTP: %s"
 
-#: admin/config/index.php:66
-#, fuzzy
+#: admin/config/index.php:88
 msgid "Could not contact server. Try again later."
-msgstr "Kunne ikke forbinde til server \"%s\" ved brug af FTP: %s"
+msgstr "Kunne ikke forbinde til serverren. Prøv igen senere."
 
 #: admin/config/scripts.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
-msgstr "Kunne ikke slette <em>script</em> \"%s\" til opgradering af opsætning."
+msgstr "Kunne ikke slette skript til opgradering af opsætning \"%s\"."
 
-#: templates/prefs/twitter.html:14
+#: templates/prefs/facebook.html.php:57
+#, php-format
 msgid ""
-"Could not find authorization for <tag:appname /> to interact with your "
-"Twitter account"
-msgstr ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr "Kunne ikke finde Logindata til %s for samvirke med din Facebook konto."
 
-#: services/resetpassword.php:92
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr "Kunne ikke finde Logindata til %s for samvirke med din Twitter konto."
+
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -888,26 +782,30 @@ msgstr ""
 "detaljer er ukorrekte. Prøv igen eller kontakt din administrator, hvis du "
 "har behov for yderligere hjælp."
 
-#: admin/config/config.php:43
+#: admin/config/config.php:52
 msgid "Could not revert configuration."
 msgstr "Kunne ikke gendanne konfiguration."
 
-#: admin/config/index.php:41
+#: admin/config/index.php:46
 #, php-format
 msgid "Could not save a backup configuation: %s"
 msgstr "Kunne ikke gemme en backup-konfiguration: %s"
 
 #: admin/config/scripts.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Kunne ikke gemme script til opgradering af opsætning til: \"%s\"."
 
-#: admin/config/config.php:53
+#: admin/config/index.php:109
 #, php-format
-msgid "Could not save the backup configuration file %s."
-msgstr "Kunne ikke gemme backup-konfigurationsfilen %s."
+msgid ""
+"Could not save the configuration file %s. Use one of the options below to "
+"save the code."
+msgstr ""
+"Kunne ikke gemme konfigurationsfilen %s. Brug en af mulighederne herunder "
+"for at gemme den."
 
-#: admin/config/config.php:65
+#: admin/config/config.php:59
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -917,12 +815,12 @@ msgstr ""
 "mulighederne for at gemme koden tilbage på %s eller manuelt kopiere koden "
 "nedenfor til %s."
 
-#: admin/config/index.php:51
+#: admin/config/index.php:56
 #, php-format
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Kunne ikke skrive konfiguration for \"%s\": %s"
 
-#: lib/Block/vatid.php:91
+#: lib/Block/Vatid.php:82
 msgid "Country"
 msgstr "Land"
 
@@ -930,47 +828,53 @@ msgstr "Land"
 msgid "Create"
 msgstr "Opret"
 
-#: templates/prefs/identityselect.html:22
-#, fuzzy
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
-msgstr "Standard-identitet"
+msgstr "Opret ny dentitet"
 
-#: lib/Block/moon.php:24
+#: lib/Block/Moon.php:25
 msgid "Current 4 Phases"
 msgstr "Nuværende 4 faser"
 
 #: templates/admin/alarms/list.html.php:2
-#, fuzzy
 msgid "Current Alarms"
-msgstr "Nuværende brugere"
+msgstr "Nuværende Alarmer"
 
-#: admin/sessions.php:23
+#: templates/admin/locks/list.html.php:2
+msgid "Current Locks"
+msgstr "Nuværende låsninger"
+
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "Indeværende session"
 
-#: lib/Block/time.php:3 lib/Block/time.php:36
+#: lib/Block/Time.php:17
 msgid "Current Time"
 msgstr "Aktuel tid"
 
-#: lib/Block/metar.php:31
+#: lib/Block/Metar.php:30
 msgid "Current Weather"
 msgstr "Aktuelt vejr"
 
-#: lib/Block/weatherdotcom.php:279
-msgid "Current condition: "
-msgstr "Nuværende vejr: "
+#: lib/Block/Weather.php:230
+msgid "Current condition"
+msgstr "Nuværende vejr"
 
-#: config/nls.php:174
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Kyrillisk (KOI8-R)"
 
-#: config/nls.php:175
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Kyrillisk (Windows-1251)"
 
-#: config/nls.php:176
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kyrillisk/Ukrainsk (KOI8-U)"
+
+#: admin/config/index.php:260 admin/config/index.php:312
+msgid "DB access is not configured."
+msgstr "Database adgang er ikke konfigureret."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -979,182 +883,168 @@ msgstr "Kyrillisk/Ukrainsk (KOI8-U)"
 msgid "DD"
 msgstr "DD"
 
-#: templates/data/csvmap.inc:101
-#, fuzzy
+#: templates/data/csvmap.inc:102
 msgid "Data"
-msgstr "Dato"
+msgstr "Data"
 
-#: admin/datatree.php:62
-#, fuzzy
-msgid "DataTree"
-msgstr "DataTree"
-
-#: admin/datatree.php:59
-msgid "DataTree Browser"
-msgstr "DataTree stifinder"
-
-#: templates/prefs/syncml.html:11
-#, fuzzy
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
-msgstr "List databaser"
+msgstr "Database"
 
-#: lib/Block/vatid.php:94
+#: lib/Block/Vatid.php:85
 msgid "Date"
 msgstr "Dato"
 
-#: templates/admin/user/approve.inc:23
+#: templates/admin/user/approve.inc:24
 msgid "Date Received"
 msgstr "Modtagelsesdato"
 
 #: templates/data/datetime.inc:70 templates/data/datetime.inc:71
 #, php-format
 msgid "Date: %s; time: %s"
-msgstr ""
+msgstr "Dato: %s; tid: %s"
 
-#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr "Dag"
 
-#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
+#: config/prefs.php:491 themes/default/info.php:2
 msgid "Default"
 msgstr "Standard"
 
-#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
 msgid "Default Color"
 msgstr "Standardfarve"
 
-#: lib/Block/account.php:78
+#: lib/Block/Account.php:76
 msgid "Default Shell"
 msgstr "Standard-skal"
 
-#: lib/Block/fortune.php:40
+#: config/prefs.php:412
+msgid "Default charset for sending e-mail messages:"
+msgstr "Standard tegnsæt til afsending af email beskeder:"
+
+#: config/prefs.php:305
+msgid "Default location to use for location-aware features."
+msgstr "Standard lokation, til brug for lokation opmærksomme komponenter."
+
+#: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definitioner"
 
-#: admin/groups.php:68 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+#: admin/groups.php:52 templates/admin/groups/delete.inc:11
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Slet"
 
-#: admin/alarms.php:122 admin/groups.php:254
-#, fuzzy, php-format
+#: admin/alarms.php:133 admin/groups.php:206
+#, php-format
 msgid "Delete \"%s\""
-msgstr "Slet"
+msgstr "Slet \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30
 msgid "Delete All SyncML Data"
-msgstr ""
+msgstr "Slet alle SyncML data"
 
-#: admin/groups.php:215
+#: admin/groups.php:180
 msgid "Delete Group"
 msgstr "Slet gruppe"
 
 #: admin/config/scripts.php:33
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
-msgstr "Opgraderingsscript \"%s\" slettet."
+msgstr "Opgraderingsscript \"%s\" er slettet."
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
-msgstr ""
+msgstr "Slet synkroniserings session for enheden \"%s\" og database \"%s\"."
 
-#: templates/problem/problem.inc:27
+#: templates/problem/problem.inc:6
 msgid "Describe the Problem"
 msgstr "Beskriv problemet"
 
-#: config/registry.php.dist:239
+#: config/registry.php:207
 msgid "Development"
 msgstr "Udvikling"
 
-#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
-#, fuzzy
+#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
 msgid "Device"
-msgstr "Glimt"
+msgstr "Enhed"
 
-#: admin/activesync.php:119
+#: admin/activesync.php:122
 msgid "Device ID"
-msgstr ""
+msgstr "Enhed ID"
 
-#: templates/prefs/activesync.html:11
-#, fuzzy
+#: templates/prefs/activesync.html.php:23
+msgid "Device Information"
+msgstr "Enheds Information"
+
+#: templates/prefs/activesync.html.php:11
 msgid "Device Management"
-msgstr "Filhåndtering"
+msgstr "Enhedshåndtering"
 
-#: lib/Prefs/Ui.php:432
-msgid "Device id:"
-msgstr ""
+#: lib/Application.php:312
+msgid "Device encryption"
+msgstr "Enheds kryptering"
 
-#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+#: templates/prefs/activesync.html.php:35
+msgid "Device is Wiped"
+msgstr "Enheden er nulstillet"
+
+#: admin/activesync.php:165
 msgid "Device is wiped"
-msgstr ""
+msgstr "Enhed er nulstillet"
 
-#: admin/activesync.php:45
-#, fuzzy
+#: admin/activesync.php:46
 msgid "Device successfully removed."
-msgstr "\"%s\" skrevet."
+msgstr "Enheden er fjernet"
 
-#: admin/activesync.php:40
+#: admin/activesync.php:38
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "Nulstilling af enheden er annuleret."
 
-#: lib/Block/metar.php:212
+#: lib/Block/Metar.php:191
 msgid "Dew Point"
 msgstr "Dugpunkt"
 
-#: lib/Block/metar.php:289
+#: lib/Block/Metar.php:268
 msgid "Dew Point for last hour: "
 msgstr "Dugpunkt for sidste time: "
 
-#: lib/Block/weatherdotcom.php:231
-msgid "Dew point: "
-msgstr "Dugpunkt: "
+#: lib/Block/Weather.php:181
+msgid "Dew point"
+msgstr "Dugpunkt"
 
-#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
-#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
-#, fuzzy
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
-msgstr "List tabeller"
+msgstr "Deaktiver"
 
-#: config/prefs.php.dist:345
+#: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "Vis tid med 24 timer?"
 
-#: config/prefs.php.dist:468
-#, fuzzy
+#: config/prefs.php:541
 msgid "Display Preferences"
-msgstr "Vis uddybende vejrudsigt"
+msgstr "Visnings Indstillinger"
 
-#: lib/Block/weatherdotcom.php:86
+#: lib/Block/Weather.php:87
 msgid "Display detailed forecast"
 msgstr "Vis uddybende vejrudsigt"
 
-#: lib/Block/metar.php:84
+#: lib/Block/Metar.php:72
 msgid "Display forecast (TAF)"
 msgstr "Vis vejrudsigt (TAF)"
-
-#: scripts/import_squirrelmail_prefs.php:77
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "Fortryd sletning"
-
-#: scripts/import_squirrelmail_prefs.php:44
-#: scripts/import_squirrelmail_prefs.php:145
-#, fuzzy
-msgid "Do not use Sent"
-msgstr "Fortryd sletning"
-
-#: scripts/import_squirrelmail_prefs.php:183
-msgid "Do not use Trash"
-msgstr ""
 
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
@@ -1164,86 +1054,77 @@ msgstr "Indeholder den første række feltnavne? Hvis ja, markér denne boks:"
 msgid "Don't have an account? Sign up."
 msgstr "Har du ikke nogen konto? Meld dig til."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
-#, fuzzy
-msgid "Done"
-msgstr "Ingen"
-
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "Download %s"
 msgstr "Hent %s"
 
-#: admin/config/index.php:179
+#: admin/config/index.php:384
 msgid "Download generated configuration as PHP script."
 msgstr "Hent genereret konfiguration ned som PHP-script."
 
-#: lib/Block/weatherdotcom_strings.php:25
-#, fuzzy
-msgid "Drizzle"
-msgstr "Støvregn"
-
-#: lib/Block/fortune.php:41
+#: lib/Block/Fortune.php:41
 msgid "Drugs"
 msgstr "Medikamenter"
 
-#: services/keyboard.php:64
-#, fuzzy
-msgid "E characters"
-msgstr "Antal tegn"
+#: templates/login/login.inc:22 templates/login/smartmobile.html.php:34
+msgid "Dynamic"
+msgstr "Dynamic"
 
-#: lib/Block/vatid.php:3
+#: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
-msgstr ""
+msgstr "EU moms identifikation"
 
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Rediger"
 
-#: admin/alarms.php:89
-#, fuzzy, php-format
+#: admin/alarms.php:94
+#, php-format
 msgid "Edit \"%s\""
-msgstr "\"%s\" opdateret."
+msgstr "Redigér \"%s\""
 
-#: admin/groups.php:214
-msgid "Edit Group"
-msgstr "Ændre gruppe"
-
-#: templates/prefs/app.html:7
-#, fuzzy
+#: templates/prefs/app.html:6
 msgid "Edit Preferences for"
-msgstr "Ændre tilladelser for %s"
+msgstr "Ændre Indstillinger for"
 
-#: services/shares/edit.php:259
-#, fuzzy
+#: services/shares/edit.php:252
 msgid "Edit permissions"
-msgstr "Ændre tilladelser"
+msgstr "Redigér tilladelser"
 
-#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#: services/shares/edit.php:251 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Ændre tilladelser for \"%s\""
+msgstr "Redigér tilladelser for \"%s\""
 
-#: lib/Block/fortune.php:42
+#: lib/Block/Fortune.php:42
 msgid "Education"
 msgstr "Uddannelse"
 
-#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
-msgstr "e-mail-adresse"
+msgstr "e-mail adresse"
 
-#: lib/Prefs/Ui.php:225
-#, fuzzy
+#: templates/admin/locks/list.html.php:14
+msgid "End Time"
+msgstr "Slut tid"
+
+#: lib/Block/Weather.php:75
+msgid "English"
+msgstr "Engelsk"
+
+#: lib/Prefs/Special/Category.php:32
 msgid "Enter a name for the new category:"
 msgstr "Indtast et navn til den nye kategori:"
 
-#: config/prefs.php.dist:288
+#: config/prefs.php:351
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1251,59 +1132,60 @@ msgstr ""
 "Indtast et sikkerhedsspørgsmål, som du vil blive spurgt, når du har brug for "
 "at ændre dit kodeord, fx 'hvad er dit kæledyrs navn?':"
 
-#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
-msgid "Error"
-msgstr "Fejl"
+#: services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Fejl under kontakten med Twitter. Detaljer er skrevet til loggen af hensyn "
+"til admin."
 
-#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
-#, fuzzy, php-format
+#: lib/Prefs/Special/Twitter.php:54
+#, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
-msgstr "Detaljer er skrevet til logbogen af hensyn til administratoren."
+msgstr ""
+"Fejl under kontakten med Twitter: %s Detaljer er skrevet til loggen af "
+"hensyn til admin."
 
-#: lib/Prefs/Ui.php:715
-#, fuzzy
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
-msgstr "Fejl under sletning af sync-hægte: %s"
+msgstr "Fejl under sletning af synkroniseringssessionen:"
 
-#: lib/Prefs/Ui.php:722
-#, fuzzy
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
-msgstr "Fejl under sletning af sync-hægte: %s"
+msgstr "Fejl under sletning af synkroniseringssessionerne:"
 
-#: services/changepassword.php:61
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Fejl under opdatering af kodeord: %s"
 
-#: lib/Block/fortune.php:43
+#: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Etnisk"
 
-#: services/facebook.php:69
+#: services/facebook/index.php:189
 msgid "Event Invites:"
-msgstr ""
+msgstr "Begivenheds invitationer:"
 
-#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+#: config/prefs.php:599 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
-msgstr "Hver kvarter"
+msgstr "Hvert kvarter"
 
-#: config/prefs.php.dist:559
+#: config/prefs.php:618
 msgid "Every 2 minutes"
 msgstr "Hvert 2. minut"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:517
-#: config/prefs.php.dist:557
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
-msgstr "Hver halve minut"
+msgstr "Hvert halve minut"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:519
-#: config/prefs.php.dist:560
+#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Hver 5. minut"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+#: config/prefs.php:600 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Hver halve time"
 
@@ -1311,122 +1193,92 @@ msgstr "Hver halve time"
 msgid "Every hour"
 msgstr "Hver time"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:518
-#: config/prefs.php.dist:558
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
 msgid "Every minute"
-msgstr "Hver minut"
+msgstr "Hvert minut"
 
-#: templates/data/datemap.inc:24
+#: templates/data/datemap.inc:27
 msgid "Example values:"
 msgstr "Eksempelværdier:"
 
-#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "Udfør"
 
-#: admin/sessions.php:30
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Udvid"
 
-#: lib/Block/iframe.php:29
+#: lib/Block/Iframe.php:38
 msgid "Extra Large"
-msgstr ""
+msgstr "Ekstra store"
 
-#: templates/admin/config/index.html:74
-#, fuzzy
+#: templates/admin/config/index.html.php:110
 msgid "FTP upload of configuration"
-msgstr "Gemt %s-konfiguration."
+msgstr "FTP upload af Konfiguration"
 
-#: config/prefs.php.dist:604
+#: config/prefs.php:642
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Facebook samvirke"
 
-#: themes/fadetogreen/info.php:9
-msgid "Fade to Green"
-msgstr ""
+#: lib/Application.php:247
+msgid "Failed unlock attempts before device is wiped"
+msgstr "Oplåsningsforsøg fejlede før enheden blev nulstillet"
 
-#: lib/Block/weatherdotcom_strings.php:26
-msgid "Fair"
-msgstr "Smukt"
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Favoriser"
 
-#: lib/Block/feed.php:41
+#: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr ""
+msgstr "Feed"
 
-#: lib/Block/feed.php:17
-#, fuzzy
+#: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Vej"
+msgstr "Feed addresse"
 
-#: lib/Block/metar.php:215
+#: lib/Block/Metar.php:194
 msgid "Feels Like"
 msgstr "Føles"
 
-#: lib/Block/weatherdotcom.php:235
-msgid "Feels like: "
-msgstr "Føles: "
-
-#: lib/Block/weatherdotcom_strings.php:27
-msgid "Few Showers"
-msgstr "Få byger"
-
-#: lib/Block/weatherdotcom_strings.php:28
-msgid "Few Snow Showers"
-msgstr "Få snebyger"
-
-#: templates/prefs/addressbooks.html:17
+#: templates/prefs/addressbooks.html:15
 msgid "Fields to search"
-msgstr ""
+msgstr "Felter at søge"
 
-#: config/registry.php.dist:340
+#: config/registry.php:313
 msgid "File Manager"
 msgstr "Filhåndtering"
 
-#: lib/Block/fb_stream.php:82
-#, fuzzy
+#: lib/Block/FbStream.php:60
 msgid "Filter"
 msgstr "Filtre"
 
-#: config/registry.php.dist:93
+#: config/registry.php:89
 msgid "Filters"
 msgstr "Filtre"
 
-#: lib/Block/moon.php:164
+#: lib/Block/Moon.php:167
 msgid "First Half"
 msgstr "Første halvdel"
 
-#: lib/Block/moon.php:72 lib/Block/moon.php:74
+#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
 msgid "First Quarter"
 msgstr "Første kvartal"
 
-#: lib/Block/weatherdotcom_strings.php:29
-msgid "Fog"
-msgstr "Tåge"
-
-#: lib/Block/weatherdotcom_strings.php:30
-#, fuzzy
-msgid "Fog Early"
-msgstr "Skyer tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:31
-#, fuzzy
-msgid "Fog Late"
-msgstr "Byger sent"
-
-#: lib/Block/weatherdotcom_strings.php:32
-#, fuzzy
-msgid "Foggy"
-msgstr "Tåge"
-
-#: lib/Block/fortune.php:44
+#: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Mad"
 
-#: lib/Block/metar.php:329
+#: lib/Application.php:215
+msgid "Force"
+msgstr "Tving"
+
+#: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Vejrudsigt (TAF)"
 
-#: lib/Block/weatherdotcom.php:74
+#: lib/Block/Weather.php:81
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1434,158 +1286,147 @@ msgstr ""
 "Udsigtsdage (bemærk at den returnere vejrudsigt vedrører både dag og nat; et "
 "stort antal her kan resultere i en meget bred blok)"
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:79
 msgid "Forgot your password?"
 msgstr "Glemt dit kodeord?"
 
-#: lib/Block/fortune.php:28
+#: config/registry.php:342
+msgid "Forms"
+msgstr "Formularer"
+
+#: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Ordsprog"
 
-#: lib/Block/fortune.php:106
+#: lib/Block/Fortune.php:108
 msgid "Fortune type"
 msgstr "Epigramtype"
 
-#: lib/Block/fortune.php:45
+#: lib/Block/Fortune.php:45
 msgid "Fortunes"
 msgstr "Epigrammer"
 
-#: lib/Block/fortune.php:46
+#: lib/Block/Fortune.php:46
 msgid "Fortunes 2"
 msgstr "Epigrammer 2"
 
-#: config/registry.php.dist:376
+#: config/registry.php:336
 msgid "Forums"
 msgstr "Fora"
 
-#: config/registry.php.dist:113
-msgid "Forwards"
-msgstr "Videresendelse"
-
-#: lib/Block/weatherdotcom_strings.php:33
-#, fuzzy
-msgid "Freezing Drizzle"
-msgstr "Støvregn"
-
-#: services/facebook.php:68
+#: services/facebook/index.php:188
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Venne anmodning:"
 
-#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
-#: lib/Block/weatherdotcom.php:408
-msgid "From the "
-msgstr "Fra"
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Venner aktiveret"
 
-#: templates/problem/problem.inc:48
+#: lib/Block/Weather.php:207
+#, php-format
+msgid "From the %s (%s &deg;) at %s %s"
+msgstr "Fra %s (%s &deg;) med %s %s"
+
+#: lib/Block/Weather.php:318
+#, php-format
+msgid "From the %s at %s %s"
+msgstr "fra %s med %s %s"
+
+#: templates/problem/problem.inc:27
 msgid "Full Description"
 msgstr "Fuld beskrivelse"
 
-#: lib/Block/moon.php:79 lib/Block/moon.php:174
+#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
 msgid "Full Moon"
 msgstr "Fuldmåne"
 
-#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+#: lib/Block/Account.php:70 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Fuldt navn"
 
-#: admin/config/config.php:31
+#: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Generér %s-konfiguration"
+msgstr "Generér %s konfiguration"
 
-#: templates/admin/config/config.html:6
+#: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "Genereret kode"
 
-#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
 msgid "Get More"
-msgstr ""
+msgstr "Få mere"
 
-#: templates/prefs/app.html:10
+#: templates/prefs/app.html:9
 msgid "Global Preferences"
-msgstr ""
+msgstr "Basis indstillinger"
 
-#: templates/prefs/app.html:17
+#: templates/prefs/app.html:16
 msgid "Go"
 msgstr "Udfør"
 
-#: lib/Block/fortune.php:47
+#: lib/Block/Fortune.php:47
 msgid "Goedel"
 msgstr "Gödel"
 
-#: lib/Block/google.php:3 lib/Block/google.php:19
+#: themes/gold/info.php:2
+msgid "Gold"
+msgstr "Gold"
+
+#: lib/Block/Google.php:14
 msgid "Google Search"
 msgstr "Google-søgning"
 
-#: lib/Block/google.php:30
-msgid "Google search is not enabled."
-msgstr ""
-
-#: config/nls.php:177
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Græsk (ISO-8859-7)"
 
-#: themes/green/info.php:2
-#, fuzzy
-msgid "Green"
-msgstr "Grækenland"
-
-#: themes/grey/info.php:2
-#, fuzzy
-msgid "Grey"
-msgstr "Guernsey"
-
-#: admin/groups.php:195
+#: admin/groups.php:161
 msgid "Group Administration"
-msgstr "Gruppe-administration"
+msgstr "Gruppe administration"
 
-#: admin/groups.php:44
-#, fuzzy, php-format
+#: templates/admin/groups/add.inc:10
+msgid "Group name"
+msgstr "Gruppe navn"
+
+#: admin/groups.php:35
+#, php-format
 msgid "Group was not created: %s."
-msgstr "\"%s\" blev ikke dannet: %s."
+msgstr "Gruppen blev ikke dannet: %s."
 
-#: admin/groups.php:268 templates/shares/edit.inc:266
+#: admin/groups.php:219 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Grupper"
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Gæstetilladelser"
 
-#: lib/Block/weatherdotcom_strings.php:34
-msgid "Haze"
-msgstr "Dis"
+#: lib/Application.php:316
+msgid "HTML Email"
+msgstr "HTML email"
 
-#: lib/Block/weatherdotcom_strings.php:35
-msgid "Heavy Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:36
-msgid "Heavy T-Storm"
-msgstr "Kraftig torden"
-
-#: config/nls.php:178
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebraisk (ISO-8859-8-I)"
 
-#: lib/Block/iframe.php:24
+#: lib/Block/Iframe.php:32
 msgid "Height"
 msgstr "Højde"
 
-#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
-msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
+#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+msgid "Height of stream content (width automatically adjusts to block)"
+msgstr "Strøm indholdshøjde (Bredden justeres automatisk til blokken)"
 
-#: services/help/index.php:17 templates/help/index.inc:4
+#: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
 msgstr "Hjælp"
 
-#: services/help/index.php:70
-#, fuzzy
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "Oplistning af hjælpeemner"
 
-#: lib/Block/moon.php:27
+#: lib/Block/Moon.php:28
 msgid "Hemisphere"
 msgstr "Hemisfære"
 
@@ -1593,80 +1434,44 @@ msgstr "Hemisfære"
 msgid "Here is the beginning of the file:"
 msgstr "Her er starten af filen:"
 
-#: themes/hi-contrast/info.php:3
-#, fuzzy
-msgid "Hi-Contrast"
-msgstr "Kontakter"
-
 #: templates/prefs/app.html:23
 msgid "Hide Advanced Preferences"
-msgstr ""
+msgstr "Skjul avancerede indstillinger"
 
-#: services/portal/cloud_search.php:33
-#, fuzzy
+#: services/portal/cloud_search.php:40
 msgid "Hide Results"
-msgstr "Resultater"
+msgstr "Skjul Resultater"
 
-#: lib/Block/weatherdotcom_strings.php:100
-msgid "High"
-msgstr "Høj"
-
-#: lib/Block/account.php:73
+#: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Hjemmekatalog"
 
-#: config/registry.php.dist:76
+#: config/registry.php:76
 msgid "Horde"
 msgstr "Horde"
 
-#: themes/hordeweb/info.php:2
-msgid "Horde Website"
-msgstr ""
-
-#: templates/data/csvinfo.inc:21
+#: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
 msgstr "Hvor mange felter (kolonner) er der?"
 
-#: lib/Block/feed.php:21
+#: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
-msgstr ""
+msgstr "Hvor mange sekunder inden vi checker efter nye artikler?"
 
-#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr "Fugtighed"
 
-#: lib/Block/weatherdotcom.php:263
-msgid "Humidity: "
-msgstr "Fugtighed: "
-
-#: lib/Block/fortune.php:48
+#: lib/Block/Fortune.php:48
 msgid "Humorists"
 msgstr "Humorister"
 
-#: services/keyboard.php:78
-#, fuzzy
-msgid "I characters"
-msgstr "Antal tegn"
-
-#: config/prefs.php.dist:545
-msgid "Icons Only"
-msgstr "Kun ikoner"
-
-#: util/icon_browser.php:53
+#: util/icon_browser.php:34
 #, php-format
 msgid "Icons for %s"
 msgstr "Ikoner for %s"
 
-#: config/prefs.php.dist:546
-msgid "Icons with text"
-msgstr "Ikoner med tekst"
-
-#: themes/ideas/info.php:2
-#, fuzzy
-msgid "Ideas"
-msgstr "Indien"
-
-#: config/prefs.php.dist:226
+#: config/prefs.php:283
 msgid "Identity's name:"
 msgstr "Identitetsnavn:"
 
@@ -1676,7 +1481,7 @@ msgstr "Identitetsnavn:"
 msgid "Import, Step %d"
 msgstr "Importering, trin %d"
 
-#: templates/data/datemap.inc:15
+#: templates/data/datemap.inc:18
 #, php-format
 msgid "Imported field: %s"
 msgstr "Importerede felter: %s"
@@ -1685,9 +1490,9 @@ msgstr "Importerede felter: %s"
 msgid "Imported fields:"
 msgstr "Importerede felter:"
 
-#: lib/Block/twitter_timeline.php:136
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
-msgstr ""
+msgstr "Som svar til:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1696,8 +1501,11 @@ msgid ""
 "Then hit \"Add pair\" to mark them for the import. Once your are finished "
 "hit \"Next\"."
 msgstr ""
+"I listen herunder vælg både, et felt fra kildefilen på venstre side, og det "
+"tilhørende felt i din adressebog i højre side. Tryk \"Tilføj par\" for at "
+"markere dem til importering. Når du er færdig klik \"Næste\"."
 
-#: services/resetpassword.php:50
+#: services/resetpassword.php:58
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
@@ -1705,299 +1513,245 @@ msgstr ""
 "Ukorrekt brugernavn eller alternativ adresse. Prøv igen eller kontakt din "
 "administrator, hvis du har brug for yderligere hjælp."
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Individuelle brugere"
 
-#: templates/prefs/facebook.html:10
-#, fuzzy
-msgid "Infinite sessions enabled."
-msgstr "Listning af sessions fejlede: %s"
-
-#: config/registry.php.dist:281
+#: config/registry.php:241
 msgid "Information"
 msgstr "Information"
 
-#: lib/Block/weatherdotcom.php:332
-msgid "Information no longer available."
-msgstr "Information ikke længere tilgængelig"
-
-#: templates/admin/groups/edit.inc:36
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
-msgstr ""
+msgstr "Arvede medlemmer"
 
-#: config/prefs.php.dist:304
+#: config/prefs.php:363
 msgid "Insert an email address to which you can receive the new password:"
-msgstr "Indtast en e-mail-adresse, hvortil du kan modtage det nye kodeord:"
+msgstr "Indtast en e-mail adresse, hvortil du kan modtage det nye kodeord:"
 
-#: config/prefs.php.dist:296
+#: config/prefs.php:357
 msgid "Insert the required answer to the security question:"
 msgstr "Indtast det krævede svar til sikkerhedsspørgsmålet:"
 
-#: lib/Block/vatid.php:52
-#, fuzzy
+#: lib/Block/Vatid.php:58
 msgid "Invalid VAT identification number format."
-msgstr "Ugyldigt filformat"
+msgstr "Ugyldigt VAT identifikations nummer formatering."
 
-#: admin/signup_confirm.php:43
-#, fuzzy, php-format
+#: admin/signup_confirm.php:45
+#, php-format
 msgid "Invalid action %s"
-msgstr "Ugyldigt applikation."
+msgstr "Ugyldig handling %s."
 
-#: admin/config/config.php:24
+#: admin/config/config.php:31
 msgid "Invalid application."
-msgstr "Ugyldigt applikation."
+msgstr "Ugyldig applikation."
 
-#: admin/signup_confirm.php:33
-#, fuzzy
+#: admin/signup_confirm.php:35
 msgid "Invalid hash."
-msgstr "Ugyldigt skript-ID."
+msgstr "Ugyldig hash"
 
-#: lib/Block/weatherdotcom.php:180
-msgid "Invalid license key."
-msgstr "Ugyldig licensnøgle."
-
-#: lib/Block/weatherdotcom.php:174
-msgid "Invalid location provided."
-msgstr "Ugyldig placering angivet."
-
-#: admin/perms/addchild.php:23
+#: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
-msgstr "Ugyldige forældre-tilladelser."
+msgstr "Ugyldige forældre tilladelser."
 
-#: lib/Block/weatherdotcom.php:176
-msgid "Invalid partner id."
-msgstr "Ugyldig partner-id."
+#: config/registry.php:294
+msgid "Inventory"
+msgstr "Lagerliste"
 
-#: lib/Block/weatherdotcom.php:178
-msgid "Invalid product code."
-msgstr "Ugyldig produkt-kode."
-
-#: lib/Block/weatherdotcom_strings.php:37
-msgid "Isolated T-Storms"
-msgstr "Stedvis torden"
-
-#: config/nls.php:179
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japansk (ISO-2022-JP)"
 
-#: lib/Block/twitter_timeline.php:138
+#: login.php:168
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
+msgstr ""
+"JavaScript er enten deaktiveret eller ikke tilgængeligt i din browser. Du "
+"har kun mulighed for minimal visning."
+
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
-msgstr ""
+msgstr "Lige nu....."
 
-#: lib/Block/fortune.php:49
+#: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
-msgstr "Kerne-<em>Newbies</em>"
+msgstr "Kernel Newbies"
 
-#: services/help/index.php:138
+#: services/help/index.php:161
 msgid "Keyword"
-msgstr ""
+msgstr "Nøgleord"
 
-#: lib/Block/fortune.php:50
+#: lib/Block/Fortune.php:50
 msgid "Kids"
 msgstr "Børn"
 
-#: themes/kolab/info.php:7
+#: config/registry.php:302
 msgid "Kolab"
-msgstr ""
+msgstr "Kolab"
 
-#: config/nls.php:180
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "koreansk (EUC-KR)"
 
-#: login.php:314 templates/login/login.inc:49
+#: login.php:358 templates/login/login.inc:52
 msgid "Language"
 msgstr "Sprog"
 
-#: lib/Block/iframe.php:28
-#, fuzzy
+#: lib/Block/Iframe.php:37
 msgid "Large"
-msgstr "Sprog"
+msgstr "Stor"
 
-#: lib/Block/moon.php:167
+#: lib/Block/Moon.php:170
 msgid "Last Half"
 msgstr "Sidste halvdel"
 
-#: lib/Block/account.php:91
+#: lib/Block/Account.php:86
 msgid "Last Password Change"
 msgstr "Sidste kodeordsændring"
 
-#: lib/Block/moon.php:84 lib/Block/moon.php:86
+#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
 msgid "Last Quarter"
 msgstr "Sidste kvartal"
 
-#: admin/activesync.php:98 templates/prefs/activesync.html:21
-#, fuzzy
+#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
 msgid "Last Sync Time"
-msgstr "Regionaldata og tid"
+msgstr "Seneste synkroniserings tidspunkt"
 
-#: lib/Block/metar.php:146
+#: lib/Block/Metar.php:125
 msgid "Last Updated:"
 msgstr "Sidst opdateret:"
 
-#: lib/LoginTasks/Task/LastLogin.php:46
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Sidste login: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:48
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Sidste indlogning: %s fra %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:44
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Sidste login: Aldrig"
 
-#: lib/Block/twitter_timeline.php:168
-#, fuzzy
+#: templates/block/twitter-layout.html.php:19
 msgid "Latest"
-msgstr "Lesoto"
+msgstr "Senest"
 
-#: themes/lavander/info.php:2
-#, fuzzy
-msgid "Lavender"
-msgstr "Kalender"
-
-#: lib/Block/fortune.php:51
+#: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Lov"
 
-#: themes/lightblue/info.php:2
-#, fuzzy
-msgid "Light Blue"
-msgstr "Højre værdier"
-
-#: lib/Block/weatherdotcom_strings.php:38
-msgid "Light Drizzle"
-msgstr "Støvregn"
-
-#: lib/Block/weatherdotcom_strings.php:39
-msgid "Light Rain"
-msgstr "Let regn"
-
-#: lib/Block/weatherdotcom_strings.php:40
-msgid "Light Rain Early"
-msgstr "Let regn tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:41
-msgid "Light Rain Late"
-msgstr "Let regn sent"
-
-#: lib/Block/weatherdotcom_strings.php:42
-msgid "Light Rain Shower"
-msgstr "Let byge"
-
-#: lib/Block/weatherdotcom_strings.php:43
-msgid "Light Rain with Thunder"
-msgstr "Let byge med torden"
-
-#: lib/Block/weatherdotcom_strings.php:44
-msgid "Light Snow"
-msgstr "Let sne"
-
-#: lib/Block/weatherdotcom_strings.php:45
-#, fuzzy
-msgid "Light Snow Early"
-msgstr "Let regn tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:46
-#, fuzzy
-msgid "Light Snow Late"
-msgstr "Let regn sent"
-
-#: lib/Block/weatherdotcom_strings.php:47
-msgid "Light Snow Shower"
-msgstr "Let sne byge"
-
-#: services/facebook.php:105
-#, fuzzy
+#: services/facebook/index.php:81
 msgid "Like"
-msgstr "Henvisning"
+msgstr "Synes om"
 
-#: lib/Block/fortune.php:52
+#: lib/Block/Fortune.php:52
 msgid "Limerick"
 msgstr "Vittighed"
 
-#: lib/Block/fortune.php:53
+#: lib/Block/Fortune.php:53
 msgid "Linux Cookie"
-msgstr "Linux-kiks"
+msgstr "Linux Cookie"
 
-#: admin/sqlshell.php:113
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "List tabeller"
 
-#: admin/alarms.php:130
-#, fuzzy, php-format
+#: admin/alarms.php:141
+#, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Listning af brugere fejlede: %s"
+msgstr "Listning af alarmer fejlede: %s"
 
-#: admin/sessions.php:62
+#: admin/locks.php:57
+#, php-format
+msgid "Listing locks failed: %s"
+msgstr "Listning af låsninger fejlede: %s"
+
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Listning af sessions fejlede: %s"
 
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "Listning af alle brugere fejlede med denne fejl besked: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "Listning af brugere fejlede."
+
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "Visning af brugere er slået fra."
+msgstr "Visning af brugere er deaktiveret."
 
-#: lib/Block/fortune.php:54
+#: lib/Block/Fortune.php:54
 msgid "Literature"
 msgstr "Litteratur"
 
-#: lib/Block/weatherdotcom.php:215
-msgid "Local time: "
-msgstr "Lokal tid:"
+#: lib/Block/Weather.php:159
+#, php-format
+msgid "Local time: %s %s"
+msgstr "Lokal tid: %s %s"
 
-#: config/prefs.php.dist:313
+#: config/prefs.php:372
 msgid "Locale and Time"
 msgstr "Regionaldata og tid"
 
-#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
-#: lib/Block/weatherdotcom.php:59
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
 msgid "Location"
 msgstr "Sted"
 
-#: login.php:261 templates/login/login.inc:64
+#: templates/admin/user/update.inc:54
+msgid "Lock User"
+msgstr "Lås Bruger"
+
+#: admin/locks.php:61
+msgid "Locks"
+msgstr "Låsninger"
+
+#: login.php:285 templates/login/login.inc:61
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Log ind"
 
-#: lib/Block/account.php:64
-msgid "Login"
-msgstr "Log ind"
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
+msgid "Log out"
+msgstr "Log ud"
 
-#: login.php:286
+#: templates/prefs/facebook.html.php:8
+msgid "Logged in to Facebook"
+msgstr "Logged in til Facebook"
+
+#: login.php:314
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Log ind fejlede fordi dit brugernavn eller kodeord blev angivet forkert."
 
-#: login.php:282
+#: login.php:310
 msgid "Login failed."
 msgstr "Logind mislykkedes."
 
-#: templates/prefs/facebook.html:46
-msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+#: templates/prefs/facebook.html.php:61
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Login til Facebook og Godkend %s"
 
-#: templates/prefs/twitter.html:21
-msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Login til Twitter og Godkend applikationen %s"
 
-#: lib/Block/fortune.php:55
+#: templates/prefs/facebook.html.php:10
+msgid "Logout"
+msgstr "Logout"
+
+#: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Kærlighed"
-
-#: lib/Block/weatherdotcom_strings.php:98
-msgid "Low"
-msgstr "Lav"
-
-#: themes/luc/info.php:2
-msgid "Loyola"
-msgstr ""
-
-#: themes/lucblue/info.php:2
-msgid "Loyola Blue"
-msgstr ""
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -2006,200 +1760,195 @@ msgstr ""
 msgid "MM"
 msgstr "MM"
 
-#: lib/Block/fortune.php:56
+#: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Magi"
 
-#: config/registry.php.dist:85
+#: config/registry.php:81
 msgid "Mail"
 msgstr "E-mail"
 
-#: config/registry.php.dist:403
+#: config/registry.php:347
 msgid "Mail Admin"
-msgstr "E-mail-administrator"
+msgstr "E-mail administrator"
 
-#: config/prefs.php.dist:441
+#: config/prefs.php:517
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Håndtér listen af kategorier, som du skal markere emner med, og farverne, "
-"der skal knyttes til disse kategorier."
+"Håndtér listen af kategorier, som du kan markere emner med, og farverne, der "
+"skal knyttes til disse kategorier."
 
-#: config/prefs.php.dist:677
+#: config/prefs.php:740
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Håndter dine ActiveSync enheder."
 
-#: templates/data/csvmap.inc:96
-#, fuzzy
+#: templates/data/csvmap.inc:97
 msgid "Matching fields:"
-msgstr "Overenspassende felter"
+msgstr "Matchende felter"
 
-#: lib/Block/metar.php:301
+#: lib/Block/Metar.php:280
 msgid "Max temp last 24 hours: "
 msgstr "Maks. temp. sidst 24 timer: "
 
-#: lib/Block/metar.php:293
+#: lib/Block/Metar.php:272
 msgid "Max temp last 6 hours: "
 msgstr "Maks. temp. sidste 6 timer: "
 
-#: lib/Application.php:38
+#: lib/Application.php:320
+msgid "Maximum Email age"
+msgstr "Max. email alder"
+
+#: lib/Application.php:51
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maksimum antal af portalblokke"
 
-#: lib/Block/fb_stream.php:86
-#, fuzzy
-msgid "Maximum number of entries to display"
-msgstr "Maksimum antal af portalblokke"
+#: lib/Application.php:264
+msgid "Maximum attachment size"
+msgstr "Max. vedhæftelses størrelse"
 
-#: lib/Block/fortune.php:57
+#: lib/Application.php:205
+msgid "Maximum number of devices"
+msgstr "Maksimum antal af enheder"
+
+#: lib/Block/FbStream.php:66
+msgid "Maximum number of entries to display"
+msgstr "Maksimum antal af opdateringer at vise"
+
+#: lib/Block/Fortune.php:57
 msgid "Medicine"
 msgstr "Medicin"
 
-#: lib/Block/iframe.php:27
-#, fuzzy
+#: lib/Block/Iframe.php:36
 msgid "Medium"
-msgstr "Belgien"
+msgstr "Middel"
 
-#: templates/admin/groups/edit.inc:17
+#: templates/admin/groups/edit.inc:18
 msgid "Members"
 msgstr "Medlemmer"
 
-#: config/prefs.php.dist:548
-msgid "Menu mode:"
-msgstr "Menu-tilstand:"
+#: templates/block/twitter-layout.html.php:25
+msgid "Mentions"
+msgstr "Omtaler"
 
-#: lib/Block/metar.php:5
+#: lib/Block/Metar.php:23
 msgid "Metar Weather"
 msgstr "Metar Weather"
 
-#: lib/Block/metar.php:42
-msgid "Metar block not available."
-msgstr "Metarblok ikke tilgængelig."
-
-#: lib/Block/metar.php:110
-msgid ""
-"Metar block not available. Details have been logged for the administrator."
-msgstr ""
-"Metarblok ikke tilgængelig. Detaljer er blevet noteret til brug for "
-"administratoren."
-
-#: lib/Block/weatherdotcom.php:168
-msgid "MetarDB is not connected."
-msgstr "MetarDB er ikke forbundet."
-
-#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
 msgid "Metric"
 msgstr "Måleenhed"
 
-#: lib/Block/metar.php:305
+#: lib/Block/Metar.php:284
 msgid "Min temp last 24 hours: "
 msgstr "Min. temp. sidste 24 timer: "
 
-#: lib/Block/metar.php:297
+#: lib/Block/Metar.php:276
 msgid "Min temp last 6 hours: "
 msgstr "Min. temp. sidste 6 timer: "
 
-#: lib/Block/fortune.php:58
+#: lib/Application.php:226
+msgid "Minimum PIN length"
+msgstr "Minimum PIN længde"
+
+#: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Forskelligt"
 
-#: admin/config/index.php:135
-msgid ""
-"Missing configuration. You must generate it before using this application."
-msgstr ""
-"Konfiguration mangler. Du skal generere den, før du kan bruge denne "
-"applikation."
+#: admin/config/index.php:217
+msgid "Missing configuration."
+msgstr "Mangler Konfiguration"
 
-#: lib/Block/weatherdotcom_strings.php:48
-msgid "Mist"
-msgstr ""
+#: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
+msgid "Mobile (Minimal)"
+msgstr "Mobil (minimal)"
 
-#: lib/Block/weatherdotcom_strings.php:99
-msgid "Moderate"
-msgstr "Jævn"
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mobil (Uden Java)"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
-#, php-format
-msgid "Modified sequence for %s"
-msgstr ""
+#: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
+msgid "Mobile (Smartphone/Tablet)"
+msgstr "Mobil (Smartphone / Tablet)"
 
-#: config/prefs.php.dist:430
-#, fuzzy
+#: templates/portal/smartmobile.inc:12
+msgid "Mobile Optimized Apps"
+msgstr "Mobil optimerede Apps"
+
+#: templates/login/login.inc:16 templates/login/smartmobile.html.php:29
+msgid "Mode"
+msgstr "Mode"
+
+#: admin/config/index.php:165 admin/config/index.php:206
+#: admin/config/index.php:339 admin/config/index.php:365
+msgid "Module is up-to-date."
+msgstr "Applikation er opdateret."
+
+#: config/prefs.php:505
 msgid "Monday"
-msgstr "I Dag"
+msgstr "Mandag"
 
-#: lib/Block/moon.php:3 lib/Block/moon.php:14
+#: lib/Block/Moon.php:13
 msgid "Moon Phases"
 msgstr "Månefaser"
 
-#: lib/Block/weatherdotcom_strings.php:49
-msgid "Mostly Clear"
-msgstr "Mest skyfrit"
-
-#: lib/Block/weatherdotcom_strings.php:50
-msgid "Mostly Cloudy"
-msgstr "Mest skyet"
-
-#: lib/Block/weatherdotcom_strings.php:51
-msgid "Mostly Cloudy and Windy"
-msgstr "Mest skyet og blæsende"
-
-#: lib/Block/weatherdotcom_strings.php:52
-msgid "Mostly Sunny"
-msgstr "Mest sol"
-
-#: themes/mozilla/info.php:2
-msgid "Mozilla"
-msgstr ""
-
-#: config/registry.php.dist:333
+#: config/registry.php:307
 msgid "My Account"
 msgstr "Min konto"
 
-#: lib/Block/account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
-msgstr "Mine konto-informationer"
+msgstr "Mine konto informationer"
 
-#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+#: lib/Block/FbStream.php:37
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Min Facebook strøm"
 
-#: services/portal/index.php:62
+#: services/portal/index.php:45
 msgid "My Portal"
 msgstr "Min Portal"
 
-#: services/portal/edit.php:36
+#: services/portal/edit.php:37
 msgid "My Portal Layout"
-msgstr "Min Portal-udformning"
+msgstr "Min Portal udformning"
 
-#: templates/logintasks/logintasks.html:35
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
+msgid "N/A"
+msgstr "N/A"
+
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 msgid "NO, I Do NOT Agree"
 msgstr "NEJ, jeg er IKKE enig"
 
-#: lib/Block/vatid.php:98
+#: templates/prefs/activesync.html.php:60
+msgid ""
+"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
+"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
+msgstr ""
+"VIGTIGT: NULSTILLING AF EN ENHED, VIL NULSTILLE DEN TIL FABRIKKENS STANDARD "
+"INDSTILLING. VÆR SIKKE PÅ AT DU VIRKELIGT VIL DETTE...."
+
+#: lib/Block/Vatid.php:90
 msgid "Name"
 msgstr "Navn"
 
-#: themes/NeXTgrey/info.php:2
-msgid "NeXT"
-msgstr ""
-
-#: templates/portal/layout.inc:97 config/prefs.php.dist:516
-#: config/prefs.php.dist:556
+#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
+#: templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Aldrig"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:3
 msgid "New Category"
 msgstr "Ny kategori"
 
-#: services/facebook.php:65
-#, fuzzy
+#: services/facebook/index.php:185
 msgid "New Messages:"
-msgstr "Besked"
+msgstr "Nye beskeder:"
 
-#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
 msgid "New Moon"
 msgstr "Nymåne"
 
@@ -2207,7 +1956,7 @@ msgstr "Nymåne"
 msgid "New Username (optional)"
 msgstr "Nyt brugernavn (valgfrit)"
 
-#: services/changepassword.php:29
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Nyt kodeord"
 
@@ -2215,50 +1964,44 @@ msgstr "Nyt kodeord"
 msgid "New passwords don't match."
 msgstr "Nye kodeord er ikke ens."
 
-#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#: config/registry.php:252 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Nyheder"
 
-#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
-#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:123
+#: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:17
 msgid "Next"
 msgstr "Næste"
 
-#: lib/Block/moon.php:25
+#: lib/Block/Moon.php:26
 msgid "Next 4 Phases"
 msgstr "Næste 4 faser"
 
-#: lib/Block/weatherdotcom.php:382
-msgid "Night"
-msgstr "Nat"
-
 #: templates/prefs/alarm.html:32
-#, fuzzy
 msgid "No Sound"
-msgstr "Fandt ingen ikoner."
+msgstr "Ingen lyd"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
 msgstr "Ingen tilgængelige konfigurationdata at vise forskelle for."
 
-#: admin/config/diff.php:39
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Ingen ændring."
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:52
 msgid "No icons found."
 msgstr "Fandt ingen ikoner."
 
-#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
-#: lib/Block/weatherdotcom.php:133
+#: templates/sidebar/_container.html.php:30
+msgid "No items to display"
+msgstr "Ingen elementer at vise."
+
+#: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
 msgstr "Intet sted indstillet."
 
-#: lib/Block/weatherdotcom.php:172
-msgid "No location provided."
-msgstr "Intet sted angivet."
-
-#: lib/Block/fortune.php:101
+#: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
 msgstr "Ingen anstødelige epigrammer"
 
@@ -2266,77 +2009,90 @@ msgstr "Ingen anstødelige epigrammer"
 msgid "No pending signups."
 msgstr "Ingen ventende opskrivninger."
 
-#: admin/config/index.php:89 admin/config/index.php:121
+#: lib/Application.php:333
+msgid "No push while roaming"
+msgstr "Ikke muligt at skubbe data under roaming"
+
+#: services/resetpassword.php:54
+msgid "No security question has been set. Please contact your administrator."
+msgstr "Du har ikke angivet et sikkerheds spørgsmål. Kontakt SysAdmin."
+
+#: admin/config/index.php:159 admin/config/index.php:200
+#: admin/config/index.php:333 admin/config/index.php:359
 msgid "No stable version exists yet."
-msgstr ""
+msgstr "Ingen stabile versioner endnu."
 
-#: lib/Block/weatherdotcom.php:143
-msgid "No temporary directory available for cache."
-msgstr "Der mangler et midlertidigt katalog til mellemlager."
-
-#: admin/signup_confirm.php:57
-#, fuzzy
+#: admin/signup_confirm.php:59
 msgid "No username specified."
-msgstr "Intet navn angivet."
+msgstr "Intet brugernavn angivet."
 
-#: admin/config/index.php:140
+#: admin/config/index.php:223
 msgid "No version found in original configuration. Regenerate configuration."
-msgstr ""
-"Original konfiguration mangler versionsnummer. Regenerér konfiguration."
+msgstr "Original konfiguration mangler versionsnummer. Gendan konfiguration."
 
-#: admin/config/index.php:148
+#: admin/config/index.php:232
 msgid "No version found in your configuration. Regenerate configuration."
-msgstr "Din konfiguration mangler versionsnummer. Regenerér konfiguration."
+msgstr "Din konfiguration mangler versionsnummer. Gendan konfiguration."
 
-#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: admin/config/index.php:284
+msgid "NoSQL indices are ready."
+msgstr "NoSQL er klar."
+
+#: admin/config/index.php:279
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "NoSQL indices for %s"
+
+#: admin/config/index.php:281
+msgid "NoSQL indices out of date."
+msgstr "NoSQL indices er ikke opdateret"
+
+#: templates/prefs/activesync.html.php:42
+#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Ingen"
 
-#: config/nls.php:181
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordisk (ISO-8859-10)"
 
-#: lib/Block/moon.php:30 lib/Block/moon.php:58
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
 msgid "Northern Hemisphere"
 msgstr "Nordlige halvkugle"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:426
-#, fuzzy
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Not Provisioned"
-msgstr "Ændre tilladelse"
+msgstr "Ikke Provisioned"
 
-#: config/registry.php.dist:211
+#: config/registry.php:167
 msgid "Notes"
 msgstr "Noter"
 
-#: services/obrowser/index.php:32
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "Intet at browse, vend tilbage."
 
-#: lib/Block/feed.php:18
-#, fuzzy
+#: lib/Block/Feed.php:31
 msgid "Number of articles to display"
-msgstr "Antal tegn"
+msgstr "Antal artikler at vise"
 
-#: lib/Block/twitter_timeline.php:91
+#: lib/Block/TwitterTimeline.php:69
 msgid "Number of seconds to wait to refresh"
-msgstr ""
+msgstr "Sekunder mellem refresh."
 
-#: services/keyboard.php:92
-#, fuzzy
-msgid "O characters"
-msgstr "Antal tegn"
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Objekt browser"
 
-#: templates/shares/edit.inc:129
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Objektdanner"
 
-#: lib/Block/fortune.php:99
+#: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Anstødende filter"
 
-#: config/registry.php.dist:301
+#: config/registry.php:264
 msgid "Office"
 msgstr "Kontor"
 
@@ -2344,7 +2100,7 @@ msgstr "Kontor"
 msgid "Old and new passwords must be different."
 msgstr "Gammelt og nyt kodeord skal være forskellige."
 
-#: services/changepassword.php:28
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Gammelt kodeord"
 
@@ -2352,11 +2108,11 @@ msgstr "Gammelt kodeord"
 msgid "Old password is not correct."
 msgstr "Gammelt kodeord er ikke korrekt."
 
-#: lib/Block/fortune.php:102
+#: lib/Block/Fortune.php:102
 msgid "Only offensive fortunes"
 msgstr "Kun anstødelige epigrammer"
 
-#: services/shares/edit.php:83
+#: services/shares/edit.php:94
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2364,140 +2120,78 @@ msgstr ""
 "En delings ejerskab og ejertilladelser må kun ændre af en "
 "systemadministrator eller ejeren selv"
 
-#: lib/Block/fortune.php:60
+#: lib/Block/Fortune.php:60
 msgid "Operating System"
 msgstr "Operativsystem"
 
-#: templates/shares/edit.inc:236
-#, fuzzy
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
-msgstr "Vælg et brugernavn"
+msgstr "Eller skriv et brugernavn"
 
-#: config/registry.php.dist:135
-msgid "Organizing"
-msgstr "Organisering"
-
-#: services/keyboard.php:124
-msgid "Other"
-msgstr "Anden"
-
-#: config/prefs.php.dist:467 config/prefs.php.dist:582
-#: config/prefs.php.dist:603 config/prefs.php.dist:624
-#: config/prefs.php.dist:643 config/prefs.php.dist:663
-#: config/prefs.php.dist:675
+#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
+#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
 msgid "Other Information"
 msgstr "Anden information"
 
-#: services/keyboard.php:122
-#, fuzzy
-msgid "Other characters"
-msgstr "Antal tegn"
+#: templates/login/smartmobile.html.php:18
+msgid "Other Options"
+msgstr "Andre Indstillinger"
 
-#: templates/shares/edit.inc:30
-#, fuzzy
+#: config/registry.php:178
+msgid "Others"
+msgstr "Andre"
+
+#: templates/shares/edit.inc:34
 msgid "Owner"
-msgstr "List-Owner"
+msgstr "Ejer"
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
-#, fuzzy
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
-msgstr "List-Owner"
+msgstr "Ejer:"
 
-#: admin/phpshell.php:51
+#: templates/admin/phpshell.html.php:15
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
-#: admin/phpshell.php:71
+#: templates/admin/phpshell.html.php:27
 msgid "PHP Code"
 msgstr "PHP-kode"
 
-#: admin/phpshell.php:32
+#: admin/phpshell.php:38
 msgid "PHP Shell"
 msgstr "PHP-skal"
 
-#: lib/Block/weatherdotcom_strings.php:54
-#, fuzzy
-msgid "PM Clouds"
-msgstr "Formiddag Skyet"
+#: lib/Application.php:296
+msgid "POP/IMAP Email accounts"
+msgstr "POP/IMAP email konti"
 
-#: lib/Block/weatherdotcom_strings.php:55
-#, fuzzy
-msgid "PM Drizzle"
-msgstr "Støvregn"
-
-#: lib/Block/weatherdotcom_strings.php:56
-#, fuzzy
-msgid "PM Fog"
-msgstr "Tåge"
-
-#: lib/Block/weatherdotcom_strings.php:57
-msgid "PM Light Rain"
-msgstr "Eftm. let regn"
-
-#: lib/Block/weatherdotcom_strings.php:58
-#, fuzzy
-msgid "PM Light Snow"
-msgstr "Let sne"
-
-#: lib/Block/weatherdotcom_strings.php:59
-msgid "PM Rain"
-msgstr "Eftm. regn"
-
-#: lib/Block/weatherdotcom_strings.php:60
-msgid "PM Showers"
-msgstr "Eftm. byger"
-
-#: lib/Block/weatherdotcom_strings.php:61
-msgid "PM Snow"
-msgstr "Eftm. sne"
-
-#: lib/Block/weatherdotcom_strings.php:62
-msgid "PM Snow Showers"
-msgstr "Eftm. snebyger"
-
-#: lib/Block/weatherdotcom_strings.php:63
-msgid "PM Sun"
-msgstr "Eftm. sol"
-
-#: lib/Block/weatherdotcom_strings.php:64
-#, fuzzy
-msgid "PM T-Showers"
-msgstr "Eftm. byger"
-
-#: lib/Block/weatherdotcom_strings.php:65
-msgid "PM T-Storms"
-msgstr "Eft. torden"
-
-#: lib/Block/account.php:287
+#: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "POSIX-udviddelse mangler"
 
-#: lib/Api.php:62
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "PHP-skal"
 
-#: lib/Block/weatherdotcom_strings.php:53
-msgid "Partly Cloudy"
-msgstr "Delvist skyet"
-
-#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
-#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+#: login.php:205 admin/config/index.php:397 admin/user.php:39
+#: admin/user.php:53 config/registry.php:325
+#: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Kodeord"
 
-#: services/changepassword.php:52
+#: lib/Application.php:231
+msgid "Password Complexity"
+msgstr "Kodeord Kompleksitet"
+
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "Kodeord ændret."
 
-#: lib/Prefs/Ui.php:326
-msgid "Password:"
-msgstr "Kodeord:"
-
-#: admin/user.php:168 admin/user.php:220
+#: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "Kodeordene skal være ens."
 
-#: admin/sqlshell.php:100
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "Indsæt"
 
@@ -2505,363 +2199,360 @@ msgstr "Indsæt"
 msgid "Pending Signups:"
 msgstr "Ventende opskrivninger:"
 
-#: lib/Block/fortune.php:61
+#: lib/Block/Fortune.php:61
 msgid "People"
 msgstr "Folk"
 
-#: templates/logintasks/logintasks.html:30
-#, fuzzy
+#: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
-msgstr "Login-opgaver"
+msgstr "Udfør Login opgaver"
 
-#: admin/perms/delete.php:42
+#: admin/perms/delete.php:48
 #, php-format
 msgid "Permission \"%s\" not deleted."
 msgstr "Tilladelse \"%s\" ikke slettet."
 
-#: admin/perms/index.php:23
+#: admin/perms/index.php:29
 msgid "Permissions"
 msgstr "Tilladelser"
 
-#: admin/perms/addchild.php:51 admin/perms/delete.php:46
-#: admin/perms/edit.php:110 admin/perms/index.php:17
+#: admin/perms/addchild.php:58 admin/perms/delete.php:53
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "Tilladelses-administration"
 
-#: config/prefs.php.dist:213
+#: config/prefs.php:272
 msgid "Personal Information"
-msgstr "Profiler"
+msgstr "Personlig Information"
 
-#: lib/Block/fortune.php:62
+#: lib/Block/Fortune.php:62
 msgid "Pets"
 msgstr "Kæledyr"
 
-#: config/registry.php.dist:385
+#: config/registry.php:195
 msgid "Photos"
 msgstr "Fotos"
 
-#: lib/Block/fortune.php:63
+#: lib/Block/Fortune.php:63
 msgid "Platitudes"
 msgstr "Banaliteter"
 
-#: login.php:87
-#, fuzzy
+#: login.php:211
 msgid "Please enter a password."
-msgstr "Indtast en gyldig tidsangivelse."
+msgstr "Indtast venligst en adgangskode."
 
-#: login.php:86
-#, fuzzy
+#: login.php:210
 msgid "Please enter a username."
-msgstr "Indtast en gyldig tidsangivelse."
+msgstr "Indtast Venligst et brugernavn."
 
-#: templates/problem/problem.inc:7
+#: services/problem.php:156
 msgid "Please provide a summary of the problem."
 msgstr "Skriv venligst, hvad problemet går ud på og hvad der sker."
 
-#: services/logintasks.php:73
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
 "Læs følgende tekst. Du SKAL være enig i betingelserne for at bruge systemet."
 
-#: services/facebook.php:67
-#, fuzzy
+#: services/facebook/index.php:187
 msgid "Pokes:"
-msgstr "Kæledyr"
+msgstr "Prik:"
 
-#: admin/activesync.php:105
-#, fuzzy
+#: admin/activesync.php:108
 msgid "Policy Key"
-msgstr "Offentlige nøgle"
+msgstr "Policy Key"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
-msgid "Policy Key:"
-msgstr "Offentlige nøgle"
-
-#: lib/Block/fortune.php:64
+#: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politik"
 
-#: services/facebook.php:101
+#: config/prefs.php:754
+msgid ""
+"Position of reply text when replying to email on your device. Note that some "
+"devices will always send the citation string at the end of the reply text."
+msgstr ""
+"Placering af svar tekst når du svarer på emails på din enhed. Bemærk nogle "
+"enheder vil altid sende den citerede tekst i slutningen af svar teksten."
+
+#: lib/Block/FbStream.php:142
+msgid "Post"
+msgstr "Send"
+
+#: services/facebook/index.php:33
 #, php-format
 msgid "Posted %s"
-msgstr ""
+msgstr "Sent %s"
 
 #: templates/block/twitter_tweet.html.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Posted %s via %s"
-msgstr "%d %s og %s"
+msgstr "Sendte %s via %s"
 
-#: themes/postnuke/info.php:2
-#, fuzzy
-msgid "Postnuke"
-msgstr "Fortsæt"
-
-#: lib/Block/metar.php:261 lib/Block/metar.php:266
-#, fuzzy, php-format
+#: lib/Block/Metar.php:240 lib/Block/Metar.php:245
+#, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
-msgstr[0] "Nedbør gennem senest %s timer: "
-msgstr[1] "Nedbør gennem senest %s timer: "
+msgstr[0] "Nedbør gennem senest %d timer: "
+msgstr[1] "Nedbør gennem seneste %d timer: "
 
-#: lib/Block/weatherdotcom.php:301
-msgid "Precipitation<br />chance"
-msgstr "Nedbør<br />chance"
+#: lib/Block/Weather.php:255
+#, php-format
+msgid "Precipitation%schance"
+msgstr "Nedbør%schance"
 
-#: lib/Block/metar.php:220
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr "Tryk"
 
-#: lib/Block/metar.php:254
+#: lib/Block/Metar.php:233
 msgid "Pressure at sea level: "
 msgstr "Tryk ved overfladen: "
 
-#: lib/Block/weatherdotcom.php:239
-msgid "Pressure: "
-msgstr "Tryk: "
+#: templates/admin/locks/list.html.php:11
+msgid "Principal"
+msgstr "Overordnet"
 
-#: services/problem.php:145
+#: services/problem.php:161
 msgid "Problem Description"
 msgstr "Problembeskrivelse"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:425
-#, fuzzy
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Provisioned"
-msgstr "Tilladelse"
+msgstr "Provisioned"
 
-#: templates/prefs/facebook.html:21
+#: lib/Application.php:210
+msgid "Provisioning"
+msgstr "Provisioning"
+
+#: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
-msgstr ""
+msgstr "Offentliggøring muliggjort."
 
-#: themes/purple/info.php:2
-msgid "Purple Horde"
-msgstr ""
-
-#: admin/sqlshell.php:50
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "Forespørgsel"
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kvote"
 
-#: lib/Block/weatherdotcom_strings.php:66
-msgid "Rain"
-msgstr "Regn"
-
-#: lib/Block/weatherdotcom_strings.php:67
-msgid "Rain Early"
-msgstr "Regn tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:68
-msgid "Rain Late"
-msgstr "Regn sent"
-
-#: lib/Block/weatherdotcom_strings.php:69
-msgid "Rain Shower"
-msgstr "Regnbyger"
-
-#: lib/Block/weatherdotcom_strings.php:70
-msgid "Rain and Snow"
-msgstr "Regn og sne"
-
-#: lib/Block/weatherdotcom_strings.php:71
-msgid "Rain to Snow"
-msgstr "Slud"
-
-#: lib/Block/fortune.php:6
+#: lib/Block/Fortune.php:18
 msgid "Random Fortune"
 msgstr "Tilfældigt epigram"
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Læs"
 
-#: templates/prefs/facebook.html:33
-#, fuzzy
-msgid "Read enabled"
-msgstr "Læs beskeder"
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Læsning aktiveret"
 
-#: templates/admin/user/remove.inc:8
-#, fuzzy, php-format
+#: templates/admin/user/remove.inc:11
+#, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
-msgstr "Virkelig slette %s? Denne operation kan ikke blive omgjort."
+msgstr "Virkelig slette \"%s\"? Denne handling kan ikke fortrydes."
 
-#: templates/admin/user/clear.inc:8
-#, fuzzy, php-format
+#: templates/admin/user/clear.inc:10
+#, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Virkelig slette data for bruger %s? Denne operation kan ikke blive omgjort."
+"Virkelig slette data for bruger \"%s\"? Denne handling kan ikke fortrydes."
 
-#: config/prefs.php.dist:562
+#: themes/red-wine/info.php:2
+msgid "Red wine"
+msgstr "Red wine"
+
+#: config/prefs.php:621
 msgid "Refresh Dynamic Menu Elements:"
-msgstr "Opfrisk dynamiske menu-elementer:"
+msgstr "Opfrisk dynamiske menu elementer:"
 
-#: config/prefs.php.dist:523
+#: config/prefs.php:602
 msgid "Refresh Portal View:"
 msgstr "Genopfrisk portalvisning:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
-msgstr "Genopfrisksrate:"
+msgstr "Genopfrisks rate:"
 
-#: admin/activesync.php:134
+#: admin/activesync.php:137
 msgid "Registered User Devices"
-msgstr ""
+msgstr "Registrerede bruger enheder."
 
-#: lib/Block/metar.php:321
+#: templates/portal/smartmobile.inc:22
+msgid "Regular Apps"
+msgstr "Standard programmer"
+
+#: lib/Block/Metar.php:300
 msgid "Remarks"
 msgstr "Noter"
 
-#: admin/sessions.php:39 admin/sessions.php:50
-#, fuzzy
-msgid "Remote Host:"
-msgstr "Fjerne servere"
+#: templates/admin/sessions.html.php:10
+msgid "Remote Host"
+msgstr "Fjern server"
 
-#: config/prefs.php.dist:583
-msgid "Remote Servers"
-msgstr "Fjerne servere"
-
-#: lib/Prefs/Ui.php:324
-msgid "Remote URL (http://www.example.com/horde):"
-msgstr "Fjern URL (http://www.eksempel.dk/horde):"
-
-#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
+#: templates/admin/user/approve.inc:41
+#: templates/admin/user/removequeued.inc:13
+#: templates/prefs/activesync.html.php:39
 msgid "Remove"
 msgstr "Slet"
 
-#: templates/data/csvmap.inc:118
+#: templates/data/csvmap.inc:119
 msgid "Remove pair"
 msgstr "Slet par"
 
-#: admin/config/index.php:211
+#: admin/config/index.php:416
 msgid "Remove saved script from server's temporary directory."
-msgstr "Fjern lagret skript fra servers midlertidige katalog."
+msgstr "Fjern gemt skript fra servers midlertidige mappe."
 
-#: templates/admin/user/remove.inc:11
+#: templates/admin/user/remove.inc:14
 msgid "Remove user"
 msgstr "Slet bruger"
 
-#: templates/admin/user/remove.inc:5
+#: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Remove user: %s"
 msgstr "Slet bruger: %s"
 
 #: templates/block/twitter_tweet.html.php:34
-#, fuzzy
 msgid "Reply"
-msgstr "Nepal"
+msgstr "Svar"
 
-#: admin/activesync.php:138
-#, fuzzy
+#: admin/activesync.php:140
 msgid "Reprovision All Devices"
-msgstr "Tilladelse nægtet"
+msgstr "Reprovision Alle enheder"
 
-#: lib/Block/weatherdotcom.php:160
-msgid "Requested service could not be found."
-msgstr "Anmodet tjeneste kunne ikke findes."
+#: lib/Application.php:221
+msgid "Require PIN"
+msgstr "Kræver PIN"
 
-#: admin/user.php:22 templates/admin/user/update.inc:54
+#: lib/Application.php:304
+msgid "Require S/MIME Encryption"
+msgstr "Kræver S/MIME kryptering"
+
+#: lib/Application.php:308
+msgid "Require S/MIME Signature"
+msgstr "Kræver S/MIME signatur"
+
+#: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Nulstil"
 
-#: services/resetpassword.php:45
+#: services/resetpassword.php:49
 msgid "Reset Password"
 msgstr "Nulstil kodeord"
 
-#: services/resetpassword.php:23
-msgid "Reset Your Password"
-msgstr "Nulstil dit kodeord"
-
-#: templates/prefs/activesync.html:6
+#: templates/prefs/activesync.html.php:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
+"Nulstil enheders status. Det vil få dine enheder til at resynkronisere alt."
 
-#: admin/sqlshell.php:111
+#: services/resetpassword.php:27
+msgid "Reset your password"
+msgstr "Nulstil dit kodeord"
+
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "Genskab sidste forespørgsel"
 
-#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "Resultater"
 
-#: services/portal/cloud_search.php:30
-#, fuzzy, php-format
+#: services/portal/cloud_search.php:37
+#, php-format
 msgid "Results for %s"
-msgstr "Resultater"
+msgstr "Resultater for %s"
 
-#: templates/prefs/end.html:7
-#, fuzzy
+#: templates/prefs/end.html:8
 msgid "Return to Main Screen"
-msgstr "Tilbage til indstillingerne"
+msgstr "Tilbage til oversigten"
 
 #: templates/block/twitter_tweet.html.php:35
-#, fuzzy
 msgid "Retweet"
-msgstr "Nulstil"
+msgstr "ReTweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Retweeted af %s"
 
-#: services/changepassword.php:30
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Gentast nyt kodeord"
 
-#: admin/config/config.php:33 admin/config/config.php:37
+#: admin/config/config.php:38 admin/config/config.php:47
 msgid "Revert Configuration"
 msgstr "Gendan konfiguration"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Gåder"
 
-#: admin/sqlshell.php:101
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "Udfør"
 
-#: admin/sqlshell.php:14
+#: templates/logintasks/smartmobile.html.php:29
+msgid "Run Login Tasks"
+msgstr "Kør login opgaver"
+
+#: lib/Application.php:276
+msgid "SD card"
+msgstr "SD kort"
+
+#: lib/Application.php:269
+msgid "SD card encryption"
+msgstr "SD kort kryptering"
+
+#: lib/Application.php:284
+msgid "SMS Text messages"
+msgstr "SMS beskeder:"
+
+#: admin/config/index.php:266 admin/config/index.php:319
+msgid "SQL DB schema is out of date."
+msgstr "SQL DB skema er ikke opdateret."
+
+#: admin/config/index.php:271 admin/config/index.php:324
+msgid "SQL DB schema is ready."
+msgstr "SQL DB skema er klar."
+
+#: admin/sqlshell.php:23
 msgid "SQL Shell"
-msgstr "SQL-fortolker"
+msgstr "SQL fortolker"
 
-#: config/registry.php.dist:363
-msgid "SSH"
-msgstr "SSH"
-
-#: lib/Api.php:67
+#: lib/Api.php:80
 msgid "S_QL Shell"
-msgstr "SQL-fortolker"
+msgstr "SQL fortolker"
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:115 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Gem"
 
-#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Gem \"%s\""
 
-#: templates/shares/edit.inc:331
-#, fuzzy
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
-msgstr "Soa Tome og Principe"
+msgstr "Gem og slut"
 
-#: admin/config/index.php:183
+#: admin/config/index.php:388
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2870,72 +2561,58 @@ msgstr ""
 "katalog."
 
 #: admin/config/scripts.php:92
-#, fuzzy, php-format
+#, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Gemte skript for opgradering af opsætning til: \"%s\"."
+msgstr "Gemte skript til opgradering af opsætning til: \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:72
-#, fuzzy
-msgid "Scattered Showers"
-msgstr "Spredt torden"
-
-#: lib/Block/weatherdotcom_strings.php:73
-msgid "Scattered T-Storms"
-msgstr "Spredt torden"
-
-#: lib/Block/fortune.php:66
+#: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Videnskab"
 
-#: services/help/index.php:71
-#, fuzzy
-msgid "Sea_rch"
-msgstr "Søg"
+#: templates/admin/locks/list.html.php:10
+msgid "Scope"
+msgstr "Scope"
 
-#: services/help/index.php:134 templates/admin/user/list.inc:16
+#: services/help/index.php:95
+msgid "Sea_rch"
+msgstr "Søg (_r)"
+
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Søg"
 
-#: templates/admin/user/list.inc:14
-#, fuzzy
+#: templates/admin/user/list.inc:12
 msgid "Search:"
-msgstr "Søg"
+msgstr "Søg:"
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
-#, fuzzy
+#: lib/Application.php:242
+msgid "Seconds of inactivity before device should lock"
+msgstr "Sekunder inaktivitet inden enheden skal låse"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
-msgstr "Vælg en gruppe at tilføje"
+msgstr "Vælg en gruppe at tilføje:"
 
-#: templates/shares/edit.inc:38
-#, fuzzy
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
-msgstr "Vælg en ny ejer"
+msgstr "Vælg en ny ejer:"
 
 #: templates/prefs/rpc.html:4
 msgid "Select a server"
 msgstr "Vælg en server"
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
-#, fuzzy
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
-msgstr "Vælg en bruger at tilføje"
+msgstr "Vælg en bruger at tilføje:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr ""
-
-#: services/keyboard.php:38
-msgid ""
-"Select the characters you need from the boxes below. You can then copy and "
-"paste them from the text area."
-msgstr ""
-"Vælg de tegn du har brug for fra kasserne nedenfor. De kan så klippes og "
-"kopieres fra textfeltet."
+msgstr "Vælg alle felter som skal gennemsøges, når adresser ekspanderes. "
 
 #: templates/data/datetime.inc:57
-#, fuzzy
 msgid "Select the date and time format:"
-msgstr "Vælg datoformat:"
+msgstr "Vælg dato og tidsformat:"
 
 #: templates/data/date.inc:34 templates/data/datetime.inc:76
 msgid "Select the date delimiter:"
@@ -2946,9 +2623,8 @@ msgid "Select the date format:"
 msgstr "Vælg datoformat:"
 
 #: templates/data/datetime.inc:66
-#, fuzzy
 msgid "Select the day and time order:"
-msgstr "Vælg datoformat:"
+msgstr "Vælg dato og tids rækkefølge:"
 
 #: templates/data/datetime.inc:97 templates/data/time.inc:16
 msgid "Select the time delimiter:"
@@ -2958,249 +2634,178 @@ msgstr "Vælg tids-adskilleren:"
 msgid "Select the time format:"
 msgstr "Vælg tidsformat:"
 
-#: config/prefs.php.dist:509
+#: config/prefs.php:588
 msgid "Select your color scheme."
 msgstr "Vælg din farvesammensætning."
 
-#: config/prefs.php.dist:328
+#: config/prefs.php:385
 msgid "Select your preferred language:"
 msgstr "Vælg dit foretrukne sprog:"
 
-#: templates/problem/problem.inc:57
+#: templates/problem/problem.inc:36
 msgid "Send Problem Report"
 msgstr "Send problembeskrivelse"
 
-#: lib/Block/metar.php:311
+#: lib/Block/Metar.php:290
 msgid "Sensor: "
 msgstr "Føler: "
 
-#: templates/prefs/syncml.html:12
-#, fuzzy
+#: templates/prefs/syncml.html.php:12
 msgid "Server Time"
-msgstr "Leveringstidspunkt"
+msgstr "Server tid"
 
-#: lib/Block/weatherdotcom.php:164
-msgid "Server data wrong or not available."
-msgstr "Server-data forkert eller ikke tilgængelig."
+#: admin/sessions.php:67
+msgid "Session Administration"
+msgstr "sessions administration"
 
-#: admin/sessions.php:14
-msgid "Session Admin"
-msgstr "Sessionsadministrator"
+#: templates/admin/sessions.html.php:8
+msgid "Session Timestamp"
+msgstr "Sessions Tidsstempel:"
 
-#: admin/sessions.php:37
-#, fuzzy
-msgid "Session Timestamp:"
-msgstr "Sessioner"
-
-#: lib/Api.php:57
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Sessioner"
 
-#: config/prefs.php.dist:277
-#, fuzzy
+#: config/prefs.php:335
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
 "Indstillinger der tillader dig at nulstille dit kodeord, hvis du nogensinde "
 "skulle glemme det."
 
-#: config/prefs.php.dist:605
+#: config/prefs.php:643
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Indstil integrationen med din Facebook konto."
 
-#: config/prefs.php.dist:626
+#: config/prefs.php:669
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Indstil integrationen med din Twitter konto"
 
-#: config/prefs.php.dist:584
-msgid "Set up remote servers that you want to access from your portal."
-msgstr "Indstil fjerne servere, som du ønsker at tilgå fra din portal."
-
-#: config/prefs.php.dist:314
-#, fuzzy
+#: config/prefs.php:373
 msgid "Set your preferred language, timezone and date preferences."
-msgstr "Indstil din foretrukne sprog-, tidszone- og datovalg."
+msgstr "Indstil dit foretrukne sprog, tidszone og dato visning."
 
-#: config/prefs.php.dist:469
-#, fuzzy
+#: config/prefs.php:542
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
 "Indstil dine opstartsapplikationer, farvesammensætning, sideopfrisknin og "
-"andre visningstilvalg."
+"andre visningsindstillinger."
 
-#: lib/Block/weatherdotcom.php:190
-msgid "Several locations possible with the parameter: "
-msgstr "Flere steder mulig med parameteren: "
+#: lib/Block/Weather.php:136
+#, php-format
+msgid "Several locations possible with the parameter: %s"
+msgstr "Flere steder mulig med parameteren: %s"
 
-#: templates/problem/problem.inc:38
+#: templates/problem/problem.inc:17
 msgid "Short Summary"
 msgstr "Kort opsummering"
 
-#: config/prefs.php.dist:570
+#: config/prefs.php:627
 msgid "Should access keys be defined for most links?"
 msgstr "Skal hurtig-taster defineres for de fleste henvisninger? (÷)"
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Vis"
 
 #: templates/prefs/app.html:21
-#, fuzzy
 msgid "Show Advanced Preferences"
-msgstr "vis forskelle"
+msgstr "Vis avancerede indstillinger"
 
-#: admin/config/index.php:173
+#: admin/config/index.php:378
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr ""
 "Vis forskellene mellem den gemte og den nyligt genererede konfiguration."
 
-#: lib/Block/feed.php:24
+#: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr ""
+msgstr "Vis flere detaljer?"
 
-#: config/prefs.php.dist:491
+#: config/prefs.php:573
 msgid "Show last login time when logging in?"
 msgstr "Vis tidspunkt for seneste tilgang ved pålogning?"
 
-#: lib/Block/fb_stream.php:89
-#, fuzzy
+#: lib/Block/FbStream.php:71
 msgid "Show notifications"
-msgstr "Overdragelsesnotits"
+msgstr "Vis notifikationer"
 
-#: config/prefs.php.dist:530
-#, php-format
-msgid "Show the %s Menu on the left?"
-msgstr "Vis %s-menuen til venstre?"
-
-#: lib/Block/weatherdotcom_strings.php:74
-msgid "Showers"
-msgstr "Byger"
-
-#: lib/Block/weatherdotcom_strings.php:75
-msgid "Showers Early"
-msgstr "Byger tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:76
-msgid "Showers Late"
-msgstr "Byger sent"
-
-#: lib/Block/weatherdotcom_strings.php:77
-msgid "Showers in the Vicinity"
-msgstr "Byger i nærheden"
-
-#: themes/simplex/info.php:2
-msgid "Simplex"
-msgstr ""
-
-#: templates/logintasks/logintasks.html:31
-#, fuzzy
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
-msgstr "Login-opgaver"
+msgstr "Spring over login opgaver"
 
-#: lib/Block/iframe.php:26
-#, fuzzy
+#: lib/Block/Iframe.php:35
 msgid "Small"
-msgstr "Somalia"
+msgstr "Lille"
 
-#: lib/Block/weatherdotcom_strings.php:78
-msgid "Snow"
-msgstr "Sne"
-
-#: lib/Block/weatherdotcom_strings.php:79
-#, fuzzy
-msgid "Snow Early"
-msgstr "Byger tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:80
-#, fuzzy
-msgid "Snow Late"
-msgstr "Byger sent"
-
-#: lib/Block/weatherdotcom_strings.php:81
-msgid "Snow Shower"
-msgstr "Snebyge"
-
-#: lib/Block/weatherdotcom_strings.php:82
-msgid "Snow Showers"
-msgstr "Snebyger"
-
-#: lib/Block/weatherdotcom_strings.php:83
-msgid "Snow Showers Early"
-msgstr "Snebyger tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:84
-msgid "Snow Showers Late"
-msgstr "Snebyger sent"
-
-#: lib/Block/metar.php:273
+#: lib/Block/Metar.php:252
 msgid "Snow depth: "
 msgstr "Snedybde: "
 
-#: lib/Block/metar.php:277
+#: lib/Block/Metar.php:256
 msgid "Snow equivalent in water: "
 msgstr "Sneækvivalent i vand: "
 
-#: lib/Block/fortune.php:67
+#: lib/Block/Fortune.php:67
 msgid "Songs & Poems"
 msgstr "Sange og poesi"
 
-#: config/nls.php:182
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "Sydeuropæisk (ISO-8859-3)"
 
-#: lib/Block/moon.php:31 lib/Block/moon.php:60
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
 msgid "Southern Hemisphere"
 msgstr "Sydlige halvkugle"
 
-#: config/registry.php.dist:102
+#: config/registry.php:104
 msgid "Spam"
-msgstr "Skidtpost"
+msgstr "Spam"
 
-#: services/keyboard.php:14
-msgid "Special Character Input"
-msgstr "Indtastning for specialkarakter"
-
-#: lib/Block/fortune.php:68
+#: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Sport"
 
-#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#: lib/Block/Metar.php:61
 msgid "Standard"
 msgstr "Standard"
 
-#: lib/Block/fortune.php:69
+#: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Star Trek"
 
-#: templates/prefs/activesync.html:2
-msgid "State Management"
-msgstr ""
+#: templates/admin/locks/list.html.php:13
+msgid "Start Time"
+msgstr "Start tid"
 
-#: admin/activesync.php:112 templates/admin/config/index.html:17
-#: templates/prefs/activesync.html:22
+#: templates/prefs/activesync.html.php:2
+msgid "State Management"
+msgstr "Tilstands håndtering"
+
+#: admin/activesync.php:115 templates/admin/config/index.html.php:36
+#: templates/prefs/activesync.html.php:22
 msgid "Status"
 msgstr "Status"
 
-#: services/facebook.php:144
+#: services/facebook/index.php:232
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Der er ikke muligt at sætte status."
 
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Underkatalog \"%s\" ikke fundet."
+#: templates/block/twitter-layout.html.php:24
+msgid "Stream"
+msgstr "Strøm"
 
-#: signup.php:52
+#: signup.php:55
 #, php-format
 msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
@@ -3209,316 +2814,249 @@ msgstr ""
 "Anmodning om at tilføje \"%s\" til system afsendt.  Du kan ikke logge på før "
 "din anmodning er blevet anerkendt."
 
-#: services/facebook.php:38
-msgid "Succesfully connected your Facebook account."
-msgstr ""
+#: services/facebook/index.php:138
+msgid "Succesfully connected your Facebook account or updated permissions."
+msgstr "Fik kontakt med din Facebook konto eller opdatere tilladelser."
 
-#: admin/sqlshell.php:88
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "Udført"
 
-#: admin/signup_confirm.php:85 admin/user.php:100
+#: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" blev tilføjet til systemet."
 
-#: admin/user.php:138
+#: admin/user.php:147
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Data for bruger \"%s\" blev slettet fra systemet."
 
-#: admin/groups.php:78 admin/perms/delete.php:36
+#: admin/groups.php:63 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "\"%s\" slettet."
+msgstr "\"%s\" er slettet."
 
-#: admin/user.php:118
+#: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
-msgstr "\"%s\" slettet fra systemet."
+msgstr "\"%s\" er slettet fra systemet."
 
-#: admin/config/config.php:40
+#: admin/config/config.php:49
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr "Konfiguration tilbageført. Genindlæs for at se ændringerne."
 
-#: admin/config/index.php:39
+#: admin/config/index.php:44
 msgid "Successfully saved backup configuration."
-msgstr "Reservekonfiguration gemt."
+msgstr "Backup af konfigurationen er gemt."
 
-#: admin/config/config.php:51
-#, php-format
-msgid "Successfully saved the backup configuration file %s."
-msgstr "Reservekonfigurationfil %s gemt."
-
-#: admin/user.php:184
+#: admin/user.php:199
 #, php-format
 msgid "Successfully updated \"%s\""
-msgstr "\"%s\" opdateret."
+msgstr "\"%s\" er opdateret."
 
-#: admin/config/config.php:60 admin/config/index.php:47
+#: admin/config/index.php:52
 #, php-format
 msgid "Successfully wrote %s"
-msgstr "\"%s\" skrevet."
+msgstr "\"%s\" er skrevet."
 
-#: lib/Block/sunrise.php:63
+#: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
 msgstr "Solopgang"
 
-#: lib/Block/sunrise.php:66
+#: lib/Block/Sunrise.php:73
 msgid "Sun Set"
 msgstr "Solnedgang"
 
-#: config/prefs.php.dist:429
-#, fuzzy
+#: config/prefs.php:504
 msgid "Sunday"
-msgstr "Sudan"
+msgstr "Søndag"
 
-#: lib/Block/weatherdotcom_strings.php:85
-msgid "Sunny"
-msgstr "Solrigt"
-
-#: lib/Block/weatherdotcom.php:220
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr "Solopgang"
 
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#: lib/Block/Sunrise.php:13
 msgid "Sunrise/Sunset"
 msgstr "Solopgang/solnedgang"
 
-#: lib/Block/weatherdotcom.php:219
-msgid "Sunrise: "
-msgstr "Solopgang: "
-
-#: lib/Block/weatherdotcom.php:223
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr "Solnedgang"
 
-#: lib/Block/weatherdotcom.php:222
-msgid "Sunset: "
-msgstr "Solnedgang: "
+#: lib/Application.php:324
+msgid "Sync all"
+msgstr "Sync Alle"
 
-#: config/prefs.php.dist:664
+#: config/prefs.php:720
 msgid "SyncML"
 msgstr "SyncML"
 
-#: lib/Block/feed.php:3
+#: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr ""
+msgstr "Syndicated feed"
 
-#: lib/Block/weatherdotcom_strings.php:86
-#, fuzzy
-msgid "T-Showers"
-msgstr "Byger"
-
-#: lib/Block/weatherdotcom_strings.php:87
-#, fuzzy
-msgid "T-Showers Early"
-msgstr "Byger tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:88
-#, fuzzy
-msgid "T-Showers Late"
-msgstr "Byger sent"
-
-#: lib/Block/weatherdotcom_strings.php:89
-msgid "T-Storm"
-msgstr "Torden"
-
-#: lib/Block/weatherdotcom_strings.php:90
-msgid "T-Storm and Windy"
-msgstr "Torden og vind"
-
-#: lib/Block/weatherdotcom_strings.php:91
-msgid "T-Storms"
-msgstr "Torden"
-
-#: lib/Block/weatherdotcom_strings.php:92
-msgid "T-Storms Early"
-msgstr "Torden tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:93
-#, fuzzy
-msgid "T-Storms Late"
-msgstr "Torden"
-
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
-#, fuzzy
+#: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
-msgstr "Formiddag Skyet"
+msgstr "Mærkat oversigt"
 
-#: themes/tango-blue/info.php:24
-msgid "Tango Blue"
-msgstr ""
-
-#: config/registry.php.dist:184
+#: config/registry.php:153
 msgid "Tasks"
 msgstr "Opgaver"
 
-#: themes/gennevilliers/info.php:12
-#, fuzzy
-msgid "Teal"
-msgstr "Nepal"
-
-#: lib/Block/metar.php:285
+#: lib/Block/Metar.php:264
 msgid "Temp for last hour: "
 msgstr "Temp. sidste time: "
 
-#: lib/Block/metar.php:209
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: lib/Block/weatherdotcom.php:227
-msgid "Temperature: "
-msgstr "Temperatur: "
-
-#: lib/Block/weatherdotcom.php:296
+#: lib/Block/Weather.php:247
 #, php-format
-msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
-msgstr "Temperatur<br />(%sHøj%s/%sLav%s) &deg;%s"
+msgid "Temperature%s(%sHi%s/%sLo%s)"
+msgstr "Temperatur%s(%sHøj%s/%sLav%s)"
 
-#: lib/Prefs/Ui.php:518 services/facebook.php:31
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
 msgid "Temporarily unable to connect with Facebook, Please try again."
-msgstr ""
+msgstr "Midlertidigt ingen forbindelse til Facebook, Prøv igen."
 
-#: lib/Block/twitter_timeline.php:122
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr "Der opstod en fejl under opdatering af kontakt-detaljerne. Prøv igen."
+msgstr "Midlertidigt umuligt at kontakte Twitter. Prøv igen senere."
 
-#: services/keyboard.php:148
-#, fuzzy
-msgid "Text Area"
-msgstr "Tekst"
-
-#: config/prefs.php.dist:544
-msgid "Text Only"
-msgstr "Ren tekst"
-
-#: config/nls.php:183
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Thai (TIS-620)"
 
-#: lib/Prefs/Ui.php:747
-#, fuzzy, php-format
+#: lib/Prefs/Special/Activesync.php:83
+#, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr "Serveren \"%s\" er slettet."
+msgstr "Fjern sletningen af Enheden id %s er annuleret."
 
-#: admin/alarms.php:81
-#, fuzzy
+#: admin/alarms.php:86
 msgid "The alarm has been deleted."
-msgstr "Serveren \"%s\" er slettet."
+msgstr "Alarmen er slettet."
 
-#: admin/alarms.php:70
-#, fuzzy
+#: admin/alarms.php:75
 msgid "The alarm has been saved."
-msgstr "Serveren \"%s\" er gemt."
+msgstr "Alarmen er gemt."
 
-#: config/prefs.php.dist:246
-msgid "The default e-mail address to use with this identity:"
+#: admin/config/index.php:112
+#, php-format
+msgid ""
+"The configuration for %s cannot be updated automatically. Please update the "
+"configuration manually."
 msgstr ""
+"Konfigurationen af %s kunne ikke opdateres automatisk. Opdater "
+"konfigurationen manuelt."
 
-#: lib/Block/vatid.php:76
+#: config/prefs.php:299
+msgid "The default e-mail address to use with this identity:"
+msgstr "Standard e-mail addresse til brug for denne indentitet:"
+
+#: admin/locks.php:24
+msgid "The lock has been removed."
+msgstr "Låsen er fjernet."
+
+#: lib/Block/Vatid.php:113
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
 msgstr ""
+"Medlemsstatens Service kunne ikke findes i tide. Prøv igen senere eller med "
+"en anden medlemsstat."
 
-#: lib/Block/vatid.php:73
+#: lib/Block/Vatid.php:109
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
 msgstr ""
+"Medlemsstatens Service ikke til stede lige nu. Prøv igen senere eller med en "
+"anden medlemsstat."
 
-#: lib/Block/vatid.php:67
+#: lib/Block/Vatid.php:101
 msgid "The provided country code is invalid."
-msgstr ""
+msgstr "Landekoden er ugyldig eller forkert."
 
-#: lib/Prefs/Ui.php:681
-#, php-format
-msgid "The server \"%s\" has been deleted."
-msgstr "Serveren \"%s\" er slettet."
-
-#: lib/Prefs/Ui.php:676
-#, php-format
-msgid "The server \"%s\" has been saved."
-msgstr "Serveren \"%s\" er gemt."
-
-#: lib/Block/vatid.php:70
+#: lib/Block/Vatid.php:105
 msgid "The service is currently not available. Try again later."
-msgstr ""
+msgstr "Denne service er midlertidigt ikke tilgængelig. Prøv igen senere."
 
-#: lib/Block/vatid.php:79
+#: lib/Block/Vatid.php:117
 msgid "The service is currently too busy. Try again later."
-msgstr ""
+msgstr "Denne service har travlt lige nu. Prøv igen senere."
 
-#: admin/user.php:209
-#, fuzzy, php-format
+#: admin/user.php:224
+#, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "Opskrivningsanmodningen for %s er slettet."
+msgstr "Deltager anmodningen for \"%s\" er slettet."
 
-#: admin/signup_confirm.php:39
-#, fuzzy, php-format
+#: admin/signup_confirm.php:41
+#, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "Opskrivningsanmodningen for %s er slettet."
+msgstr "Deltager anmodningen for \"%s\" er slettet."
 
-#: lib/LoginTasks/Task/TestScriptActive.php:38
+#: lib/Prefs/Special/Activesync.php:98
+#, php-format
+msgid ""
+"The state for device id %s has been reset. It will resynchronize next time "
+"it connects to the server."
+msgstr ""
+"Status for enhed id %s er nulstillet. Den vil gensynkronisere næste gang den "
+"forbinder til serveren."
+
+#: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
+"Test scriptet er tilgængeligt. Af sikkerhedsgrunde bør du \"disable\" test "
+"scriptet, når du er færdig med at teste. (se horde/docs/INSTALL)."
 
-#: admin/signup_confirm.php:60 admin/user.php:72
-#, fuzzy, php-format
-msgid "The user \"%s\" already exists."
-msgstr "Brugernavn \"%s\" findes allerede."
-
-#: services/shares/edit.php:85 services/shares/edit.php:177
-#, fuzzy, php-format
-msgid "The user \"%s\" does not exist."
-msgstr "Den midlertidige fil \"%s\" findes ikke."
-
-#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
-msgid "The weather.com block is not available."
-msgstr "weather.com-blokken er ikke tilgængelig."
-
-#: lib/Prefs/Ui.php:46
-#, fuzzy
-msgid "Theme directory can't be opened"
-msgstr "Tema-kataloget \"%s\" ikke fundet."
-
-#: util/icon_browser.php:28
+#: admin/signup_confirm.php:62 admin/user.php:73
 #, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "Tema-kataloget \"%s\" ikke fundet."
+msgid "The user \"%s\" already exists."
+msgstr "Brugeren \"%s\" findes allerede."
 
-#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#: services/shares/edit.php:96 services/shares/edit.php:181
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "Brugeren \"%s\" findes ikke."
+
+#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Der opstod et problem under tilføjelsen af '%s' til systemet: %s"
 
-#: admin/user.php:140
+#: admin/user.php:149
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
 "Der opstod et problem under fjernelse af data for bruger \"%s\" fra "
 "systemet: "
 
-#: admin/user.php:120
+#: admin/user.php:126
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "Der opstod et problem under sletning af \"%s\" fra systemet: "
 
-#: admin/user.php:173
+#: admin/user.php:180
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Der opstod et problem under opdatering af \"%s\": %s"
 
-#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
-#, fuzzy, php-format
-msgid "There was an error contacting Twitter: %s"
-msgstr "Der opstod en fejl under importeringen af iCalendar data."
+#: lib/Prefs/Special/Activesync.php:101
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Der opstod en fejl under kontakten med ActiveSync serveren: %s"
 
-#: admin/config/config.php:70
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
+#, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "Fejl under kontakten til Twitter: %s"
+
+#: admin/config/config.php:62
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
@@ -3526,63 +3064,72 @@ msgstr ""
 "Der opstod en fejl i konfigurationsformularen. Nuligvis har du udeladt et "
 "krævet felt."
 
-#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
-#: services/facebook.php:54 services/facebook.php:71
-#, fuzzy, php-format
+#: lib/Block/FbStream.php:147 services/facebook/index.php:174
+#: services/facebook/index.php:191
+#, php-format
 msgid "There was an error making the request: %s"
-msgstr "Der opstod en fejl under importeringen af kontaktinformation."
+msgstr "Der opstod en fejl under håndteringen af anmodningen: %s"
 
-#: lib/Api.php:284
+#: services/facebook/index.php:142
+msgid ""
+"There was an error obtaining your Facebook session. Please try again later."
+msgstr ""
+"Der opstod en fejl under hentningen af din Facebook session. Prøv igen "
+"senere."
+
+#: lib/Application.php:191
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
+"Der opstod en fejl under fjernelsen af globale data for %s. Detaljerne er "
+"logget."
 
-#: lib/Block/vatid.php:89
+#: services/facebook/index.php:157
+msgid "There was an error with the requested permissions"
+msgstr "Der opstod en fejl under håndteringen af anmodningen"
+
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is invalid."
-msgstr ""
+msgstr "Dette VAT identifikationsnummer er ugyldigt."
 
-#: lib/Block/vatid.php:86
+#: lib/Block/Vatid.php:76
 msgid "This VAT identification number is valid."
-msgstr ""
+msgstr "Dette VAT identifikationsnummer er gyldigt"
 
-#: lib/Block/weatherdotcom_strings.php:94
-msgid "Thunder"
-msgstr "Torden"
-
-#: config/registry.php.dist:260
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Sager"
 
-#: config/registry.php.dist:308
+#: config/registry.php:270
 msgid "Time Tracking"
-msgstr "Tidsopgørelse"
+msgstr "Tids registrering"
 
-#: lib/Block/time.php:23
+#: lib/Block/Time.php:27
 msgid "Time format"
 msgstr "Tidsformat"
 
 #: templates/data/datetime.inc:60 templates/data/datetime.inc:69
-#, fuzzy
 msgid "Timestamp or unknown"
-msgstr "ukendt maskinnavn"
+msgstr "Tidsstempel eller ukendt"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2
 msgid "Timestamps of successful synchronization sessions"
-msgstr ""
+msgstr "Tidskode for udførte synkroniseringssessioner."
 
-#: lib/Block/iframe.php:22
+#: lib/Block/Iframe.php:28
 msgid "Title"
 msgstr "Titel"
 
-#: templates/data/csvmap.inc:95
+#: templates/data/csvmap.inc:96
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
+"For at fjerne et felt fra importen eller for at rette en forkert parring. "
+"Vælg feltet i listen herunder og klik \"Fjern par\"."
 
-#: templates/prefs/addressbooks.html:10
-#, fuzzy
+#: templates/prefs/addressbooks.html:8
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
@@ -3590,97 +3137,89 @@ msgstr ""
 "For at vælge multiple indgange skal Ctrl- (PC) eller Command (Mac)-tasten "
 "holdes nede medens der klikkes."
 
-#: lib/Block/weatherdotcom.php:313
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "I Dag"
 
-#: lib/Block/weatherdotcom.php:315
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "I morgen"
 
-#: lib/Block/fortune.php:70
+#: config/prefs.php:755
+msgid "Top"
+msgstr "Top"
+
+#: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Oversættelser"
 
-#: config/nls.php:184
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Tyrkisk (ISO-8859-9)"
 
-#: lib/Block/twitter_timeline.php:166
-#, fuzzy
+#: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Tekst"
+msgstr "Tweet"
 
-#: config/prefs.php.dist:625
-#, fuzzy
+#: config/prefs.php:668
 msgid "Twitter Integration"
-msgstr "Anden information"
+msgstr "Twitter samvirke"
 
-#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
-#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
-#, php-format
+#: lib/Block/TwitterTimeline.php:35
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Twitter tidslinje"
 
-#: lib/Block/twitter_timeline.php:70
-#, fuzzy, php-format
+#: lib/Block/TwitterTimeline.php:51
+#, php-format
 msgid "Twitter Timeline for %s"
-msgstr "Ændre tilladelser for %s"
+msgstr "Twitter tidslinje for %s"
 
-#: services/keyboard.php:108
-#, fuzzy
-msgid "U characters"
-msgstr "Antal tegn"
-
-#: lib/Block/weatherdotcom.php:273
-msgid "U.V. index: "
-msgstr "U.V.-indeks: "
-
-#: lib/Block/iframe.php:19
+#: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter.php:64
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
-
-#: admin/groups.php:82 admin/perms/delete.php:39
+#: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Kan ikke slette \"%s\": %s."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
-#, fuzzy, php-format
-msgid "Unable to modify the sequence for %s: %s"
-msgstr "Kan ikke slette \"%s\": %s."
-
-#: services/facebook.php:175
-#, fuzzy
+#: services/facebook/index.php:257
 msgid "Unable to set like."
-msgstr "Kan ikke lave VFS-fil."
+msgstr "Kan ikke formidle \"synes om\"."
 
-#: templates/prefs/end.html:4
+#: services/facebook/index.php:126
+msgid "Unable to validate the request token. Please try your request again."
+msgstr "Ikke i stand til at validere den anmodede token. Prøv igen."
+
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Fortryd ændringer"
 
-#: lib/Prefs/Ui.php:266
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Affavoriser"
+
+#: templates/prefs/category.html.php:19
 msgid "Unfiled"
 msgstr "Ikke anbragt"
 
-#: config/nls.php:185
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
 msgid "Units"
 msgstr "Enheder"
 
-#: lib/Block/weatherdotcom.php:162
-msgid "Unknown location provided."
-msgstr "Ukendt sted angivet."
+#: admin/sessions.php:36
+msgid "Unknown"
+msgstr "Ukendt"
 
-#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+#: admin/locks.php:43
+msgid "Unlock"
+msgstr "Oplås"
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Opdatér"
 
@@ -3689,74 +3228,85 @@ msgstr "Opdatér"
 msgid "Update %s"
 msgstr "Opdatér %s"
 
-#: templates/admin/user/update.inc:53
+#: admin/config/index.php:183 admin/config/index.php:298
+#, php-format
+msgid "Update %s schema"
+msgstr "Opdatér %s skema"
+
+#: templates/admin/config/index.html.php:19
+msgid "Update all DB schemas"
+msgstr "Opdater alle DB skemaer"
+
+#: templates/admin/config/index.html.php:11
+msgid "Update all configurations"
+msgstr "Opdater alle konfigurationer"
+
+#: templates/admin/user/update.inc:63
 msgid "Update user"
 msgstr "Opdatér bruger"
 
-#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:244
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" opdateret."
 
-#: admin/config/index.php:190
+#: admin/config/index.php:127
+#, php-format
+msgid "Updated schema for %s."
+msgstr "Opdatere skema for %s."
+
+#: admin/config/index.php:395
 msgid "Upload"
 msgstr "Upload"
 
-#: admin/config/index.php:198
-#, fuzzy
+#: admin/config/index.php:403
 msgid "Uploaded all application configuration files to the server."
-msgstr "Opsætningsfiler til alle applikationer lagt op på server."
+msgstr "Opsætningsfiler til alle applikationer er lagt op på serveren."
 
-#: config/prefs.php.dist:645
+#: config/prefs.php:695
 msgid "Use if name/password is different for IMSP server."
 msgstr "Brug hvis navn/kodeord er forskellig for IMSP-server."
 
-#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Bruger"
 
-#: admin/user.php:224
+#: admin/user.php:240
 msgid "User Administration"
 msgstr "Bruger-administration"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
-msgid "User Agent:"
-msgstr "Anvend nuværende: %s"
+#: lib/Block/Account.php:68
+msgid "User Name"
+msgstr "Brugernavn"
 
-#: signup.php:67
+#: signup.php:74
 msgid "User Registration"
 msgstr "Bruger-registrering"
 
-#: admin/signup_confirm.php:18 signup.php:19
+#: signup.php:22 admin/signup_confirm.php:23
 msgid "User Registration has been disabled for this site."
-msgstr "Bruger-registrering er blevet slået fra på dette websted."
+msgstr "Bruger registrering er blevet slået fra på dette websted."
 
-#: admin/signup_confirm.php:25 signup.php:27
-#, fuzzy
+#: signup.php:30 admin/signup_confirm.php:30
 msgid "User Registration is not properly configured for this site."
-msgstr "Bruger-registrering er blevet slået fra på dette websted."
+msgstr "Bruger registrering er ikke sat rigtigt op på dette websted."
 
-#: lib/Block/account.php:561
+#: lib/Block/Account/Ldap.php:101
 msgid "User account not found"
 msgstr "Brugerkonto ikke fundet"
 
-#: templates/shares/edit.inc:238
-#, fuzzy
+#: templates/shares/edit.inc:242
 msgid "User to add:"
-msgstr "Vælg en bruger at tilføje"
+msgstr "Vælg en bruger at tilføje:"
 
-#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
-#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+#: login.php:200 admin/config/index.php:396 admin/user.php:36
+#: admin/user.php:52 services/resetpassword.php:33
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Brugernavn"
 
-#: lib/Prefs/Ui.php:325
-msgid "Username:"
-msgstr "Brugernavn:"
-
-#: templates/admin/groups/edit.inc:53
-#, fuzzy
+#: templates/admin/groups/edit.inc:59
 msgid "Users"
 msgstr "Brugere"
 
@@ -3764,175 +3314,150 @@ msgstr "Brugere"
 msgid "Users in the system:"
 msgstr "Brugere i systemet:"
 
-#: lib/Block/vatid.php:19
+#: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
-msgstr ""
+msgstr "VAT id nummer verificering"
 
-#: lib/Block/vatid.php:42
+#: lib/Block/Vatid.php:40
 msgid "VAT identification number:"
-msgstr ""
+msgstr "VAT identificationsnummer:"
 
-#: lib/Block/vatid.php:93
-#, fuzzy
+#: lib/Block/Vatid.php:84
 msgid "VAT number"
-msgstr "Tal"
+msgstr "VAT nummer"
 
-#: config/registry.php.dist:122
-msgid "Vacation"
-msgstr "Ferie"
+#: templates/admin/config/index.html.php:43
+msgid "Version Check"
+msgstr "Versionskontrol"
 
-#: lib/Block/weatherdotcom.php:248
-msgid "Variable"
-msgstr "Skiftende"
-
-#: config/registry.php.dist:246
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Versionskontrol"
 
-#: lib/Block/weatherdotcom_strings.php:101
-msgid "Very High"
-msgstr "Meget høj"
-
-#: config/nls.php:186
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamesisk (VISCII)"
 
-#: lib/Block/iframe.php:3
+#: lib/Block/Iframe.php:13
 msgid "View an external web page"
 msgstr "Se på ekstern webside"
 
-#: lib/Block/metar.php:204
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "Synlighed"
 
-#: lib/Block/weatherdotcom.php:267
-msgid "Visibility: "
-msgstr "Synlighed: "
-
-#: lib/Block/account.php:98
+#: lib/Block/Account.php:96
 msgid "Warning"
 msgstr "Advarsel"
 
-#: lib/Block/weatherdotcom.php:32
-msgid "Weather Forecast"
-msgstr "Vejrudsigt"
+#: lib/Block/Weather.php:54
+msgid "Weather"
+msgstr "Vejret"
 
-#: lib/Block/weatherdotcom.php:429
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "Vejrinformation stillet tilrådighed af"
 
-#: config/registry.php.dist:369
+#: config/registry.php:330
 msgid "Web Site"
 msgstr "Website"
 
-#: services/portal/mobile.php:29
+#: lib/Application.php:300
+msgid "Web browser"
+msgstr "Web browser"
+
+#: services/portal/smartmobile.php:44
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: templates/login/login.inc:5 templates/login/mobile.inc:1
-#, php-format
-msgid "Welcome to %s"
-msgstr "Velkommen til %s"
-
-#: templates/portal/mobile.inc:1
+#: templates/portal/smartmobile.inc:3
 #, php-format
 msgid "Welcome, %s"
 msgstr "Velkommen, %s"
 
-#: config/nls.php:187
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Vestlig (ISO-8859-1)"
 
-#: config/nls.php:188
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Vestlig (ISO-8859-15)"
 
-#: config/prefs.php.dist:483
+#: config/prefs.php:554
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Hvilken applikation skal %s vise efter logind?"
 
-#: lib/Block/twitter_timeline.php:131
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
-msgstr ""
+msgstr "Hvad laver du lige nu?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
 msgstr "Hvad er separatortegnet?"
 
-#: templates/data/csvinfo.inc:17
+#: templates/data/csvinfo.inc:16
 msgid "What is the quote character?"
 msgstr "Hvad er citationstegnet?"
 
-#: lib/Block/fb_stream.php:165
-msgid "What's on your mind?"
-msgstr ""
-
-#: config/prefs.php.dist:427
+#: config/prefs.php:507
 msgid "Which day would you like to be displayed as the first day of the week?"
-msgstr ""
+msgstr "Hvilken dag vil du have vist som første ugedag?"
 
-#: lib/Block/moon.php:21
+#: lib/Block/Moon.php:22
 msgid "Which phases"
 msgstr "Hvilke faser"
 
-#: config/prefs.php.dist:536
-#, fuzzy, php-format
+#: config/prefs.php:608
+#, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Vis %s-menuen til venstre?"
+msgstr "Bredden på %s menuen til venstre:"
 
-#: config/registry.php.dist:394
+#: lib/Application.php:288
+msgid "Wifi"
+msgstr "Wifi"
+
+#: config/registry.php:201
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr "Vind"
 
-#: lib/Block/weatherdotcom_strings.php:96
-msgid "Wind Early"
-msgstr "Blæst tidligt"
-
-#: lib/Block/weatherdotcom_strings.php:97
-#, fuzzy
-msgid "Wind Late"
-msgstr "Regn sent"
-
-#: lib/Block/metar.php:79
+#: lib/Block/Metar.php:67
 msgid "Wind speed in knots"
 msgstr "Vindhastighed i knob"
 
-#: lib/Block/metar.php:151
+#: lib/Block/Metar.php:130
 msgid "Wind:"
 msgstr "Vind:"
 
-#: lib/Block/weatherdotcom.php:246
-msgid "Wind: "
-msgstr "Vind: "
-
-#: lib/Block/account.php:634
-#, fuzzy
-msgid "Windows"
-msgstr "Vind"
-
-#: admin/activesync.php:181 templates/prefs/activesync.html:28
-#, fuzzy
+#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
 msgid "Wipe"
-msgstr "Ons"
+msgstr "Nulstil"
 
-#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+#: templates/prefs/activesync.html.php:32
+msgid "Wipe Pending"
+msgstr "Nulstilling venter"
+
+#: admin/activesync.php:160
 msgid "Wipe is pending"
-msgstr ""
+msgstr "Nulstilling venter"
 
-#: lib/Block/fortune.php:71
+#: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Visdom"
 
-#: lib/Block/fortune.php:72
+#: templates/block/facebook_story.html.php:48
+msgid "With "
+msgstr "med"
+
+#: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Arbejde"
 
-#: config/registry.php.dist:275
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3943,156 +3468,146 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "ÅÅ"
 
-#: templates/logintasks/logintasks.html:34
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 msgid "Yes, I Agree"
 msgstr "Ja, jeg er enig"
 
-#: services/facebook.php:110 services/facebook.php:169
+#: services/facebook/index.php:89 services/facebook/index.php:251
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du og %d synes om dette"
+msgstr[1] "Du og %d andre synes om dette"
 
-#: lib/Api.php:301
-#, fuzzy
+#: lib/Api.php:255
 msgid "You are not allowed to add groups."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at tilføje gruppe."
 
-#: lib/Api.php:476
-#, fuzzy
+#: lib/Api.php:353
 msgid "You are not allowed to add shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at tilføje delinger."
 
-#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
-#, fuzzy
+#: lib/Api.php:290 lib/Api.php:309
 msgid "You are not allowed to change groups."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at ændre grupper."
 
-#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
-#, fuzzy
+#: lib/Api.php:427 lib/Api.php:460 lib/Api.php:490 lib/Api.php:511
 msgid "You are not allowed to change shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at ændre delinger"
 
-#: lib/Api.php:327
-#, fuzzy
+#: lib/Api.php:273
 msgid "You are not allowed to delete groups."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at slette grupper."
 
-#: lib/Api.php:505
-#, fuzzy
+#: lib/Api.php:374
 msgid "You are not allowed to delete shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at slette delinger."
 
-#: lib/Api.php:820
-#, fuzzy
+#: lib/Api.php:642
 msgid "You are not allowed to list groups of shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at se grupper af delinger."
 
-#: lib/Api.php:702 lib/Api.php:744
-#, fuzzy
+#: lib/Api.php:533 lib/Api.php:571
 msgid "You are not allowed to list share permissions."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at se delingstilladelser"
 
-#: lib/Api.php:532
-#, fuzzy
+#: lib/Api.php:395
 msgid "You are not allowed to list shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at delinger"
 
-#: lib/Api.php:448
-#, fuzzy
+#: lib/Api.php:329
 msgid "You are not allowed to list users of groups."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at se brugere of grupper."
 
-#: lib/Api.php:786
-#, fuzzy
+#: lib/Api.php:610
 msgid "You are not allowed to list users of shares."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+msgstr "Du har ikke tilladelse til at brugere af delinger."
 
-#: lib/Api.php:216
-#, fuzzy
-msgid "You are not allowed to remove user data."
-msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
+#: lib/Block/FbStream.php:106
+#, php-format
+msgid ""
+"You are not connected to your Facebook account. You should check your "
+"Facebook settings in your %s."
+msgstr ""
+"Du er ikke forbundet til din Facebook konto. Du bør checke dine Facebook "
+"indstillinger i din %s."
 
-#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:148 services/facebook/index.php:175
+#: services/facebook/index.php:192
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Du kan også checke dine Facebook indstillinger i din %s."
 
-#: lib/LoginTasks/Task/TosAgreement.php:54
+#: lib/LoginTasks/Task/TosAgreement.php:66
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
 msgstr ""
+"Du godkendte ikke vores \"Terms of service agreement\". Derfor kan du ikke "
+"logge ind."
 
-#: login.php:278
+#: login.php:306
 msgid "You have been logged out."
 msgstr "Du er blevet logget ud."
 
-#: lib/Block/fb_stream.php:124
-#, php-format
-msgid ""
-"You have not properly connected your Facebook account with Horde. You should "
-"check your Facebook settings in your %s."
-msgstr ""
+#: services/facebook/index.php:155
+msgid "You have denied the requested permissions."
+msgstr "Du har Sagt nej til de anmodede tilladelser."
 
-#: lib/Block/twitter_timeline.php:182
+#: lib/Block/TwitterTimeline.php:163
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Forbindelsen mellem din Twitter konto og Horde er ikke korrekt. Du bør "
+"checke dine Twitter indstillinger i din %s."
 
-#: services/facebook.php:112 services/facebook.php:163
-#: services/facebook.php:171
+#: services/facebook/index.php:92 services/facebook/index.php:245
+#: services/facebook/index.php:253
 msgid "You like this"
-msgstr ""
+msgstr "Du synes om dette"
 
-#: templates/problem/problem.inc:11
+#: services/problem.php:155
 msgid "You must describe the problem before you can send the problem report."
 msgstr ""
 "Du bliver nød til at lave en problembeskrivelse, før du kan sende den ind."
 
-#: lib/Prefs/Ui.php:679
-msgid "You must select an server to be deleted."
-msgstr "Du skal vælge den server, som skal slettes."
-
-#: admin/user.php:134
+#: admin/user.php:142
 msgid "You must specify a username to clear out."
 msgstr "Du skal angive brugernavnet, som du vil fjerne."
 
-#: admin/user.php:114
+#: admin/user.php:119
 msgid "You must specify a username to remove."
 msgstr "Du skal angive brugernavnet, som du vil fjerne."
 
-#: admin/user.php:70
+#: admin/user.php:71
 msgid "You must specify the username to add."
 msgstr "Du skal angive brugernavnet, som du vil tilføje."
 
-#: admin/user.php:164
+#: admin/user.php:171
 msgid "You must specify the username to update."
 msgstr "Du skal angive brugernavnet, som du vil opdatere."
 
-#: templates/problem/problem.inc:34
+#: templates/problem/problem.inc:13
 msgid "Your Email Address"
-msgstr "Din e-post-adresse"
+msgstr "Din e-mail adresse"
 
-#: config/prefs.php.dist:212 config/prefs.php.dist:275
-#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
+#: config/prefs.php:515
 msgid "Your Information"
 msgstr "Dine informationer"
 
-#: login.php:270
-#, fuzzy
+#: login.php:294
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Din Internet-adresse er skiftet siden begyndelsen af din %s-session. For at "
+"Din Internet adresse er skiftet siden begyndelsen af din session. For at "
 "beskytte din sikkerhed bliver du nødt til at logge ind igen."
 
-#: templates/problem/problem.inc:30
+#: templates/problem/problem.inc:9
 msgid "Your Name"
 msgstr "Dit navn"
 
@@ -4102,62 +3617,60 @@ msgid ""
 "use Horde to administer user accounts, you must use a different "
 "authentication backend."
 msgstr ""
-"Din ægtnings-backend understøtter ikke tilføjelsen af brugere. Hvis du "
+"Din Godkendelses-backend understøtter ikke tilføjelsen af brugere. Hvis du "
 "ønsker at bruge Horde til at administrere brugerkonti, bliver du nødt til at "
-"bruge en anden ægtnings-backend."
+"bruge en anden backend."
 
 #: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Din autorisations-backend understøtter ikke oplistningen af brugere eller er "
+"Din godkendelses backend understøtter ikke oplistningen af brugere eller er "
 "den funktion af en eller anden grund blevet slået fra."
 
-#: login.php:274
-#, fuzzy
+#: login.php:298
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Din browser synes at være skiftet siden begyndelsen af din %s-session. For "
-"at beskytte din sikkerhed, skal du logge ind igen."
+"Din browser synes at være skiftet siden begyndelsen af din session. For at "
+"beskytte din sikkerhed, skal du logge ind igen."
 
-#: lib/Block/iframe.php:58
+#: lib/Block/Iframe.php:65
 msgid "Your browser does not support this feature."
 msgstr "Din browser understøtter ikke denne funktionalitet."
 
-#: config/prefs.php.dist:337
+#: config/prefs.php:419
 msgid "Your current time zone:"
 msgstr "Din aktuelle tidszone:"
 
-#: config/prefs.php.dist:236
+#: config/prefs.php:291
 msgid "Your full name:"
 msgstr "Dit fulde navn:"
 
-#: login.php:290
+#: login.php:318
 msgid "Your login has expired."
 msgstr "Dit logind er udløbet."
 
-#: services/resetpassword.php:74
+#: services/resetpassword.php:82
 #, php-format
 msgid "Your new password for %s is: %s"
 msgstr "Dit nye kodeord for %s er: %s"
 
-#: services/resetpassword.php:73
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr "Dit kodeord er blevet nulstillet"
 
-#: services/resetpassword.php:87
-#, fuzzy
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"Dit kodeord er blevet nulstille; kontrollér din indbakke og log ind med dit "
-"nye kodeord."
+"Dit kodeord er blevet nulstille, Men det kunne ikke sendes til dig. Kontakt "
+"Admin."
 
-#: services/resetpassword.php:82
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
@@ -4165,119 +3678,108 @@ msgstr ""
 "Dit kodeord er blevet nulstille; kontrollér din indbakke og log ind med dit "
 "nye kodeord."
 
-#: lib/Block/account.php:689 lib/Block/account.php:704
-#, fuzzy
-msgid "Your password has expired"
-msgstr "Dit kodeord er udløbet."
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Dit kodeord er blevet ændret. Log af og log ind igen med dit nye kodeord."
 
-#: login.php:178
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
+msgid "Your password has expired"
+msgstr "Dit kodeord er udløbet"
+
+#: login.php:179
 msgid "Your password has expired."
 msgstr "Dit kodeord er udløbet."
 
-#: lib/Prefs/Ui.php:322
-msgid "Your remote servers:"
-msgstr "Dine fjerne servere:"
-
-#: login.php:266
-#, fuzzy
+#: login.php:290
 msgid "Your session has expired. Please login again."
-msgstr "Din %s session er udløbet. Log venligst ind igen."
+msgstr "Din session er udløbet. Log venligst ind igen."
 
-#: lib/Block/fortune.php:73
+#: login.php:302
+msgid ""
+"Your session length has exceeded the maximum amount of time allowed. Please "
+"login again."
+msgstr ""
+"Din session har overskredet max. tilladt sessions tid. Log venligst ind igen."
+
+#: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Zippy"
 
-#: services/problem.php:107
+#: services/problem.php:112
 msgid "[Problem Report]"
-msgstr "[Problembeskrivelse]"
+msgstr "[Problem indberetning]"
 
-#: admin/sessions.php:39
-#, fuzzy
-msgid "[Unknown]"
-msgstr "Ukendt"
-
-#: lib/Api.php:47
-#, fuzzy
+#: lib/Api.php:65
 msgid "_Alarms"
-msgstr "Kaldenavn"
+msgstr "_Alarmer"
 
-#: lib/Api.php:72
+#: lib/Api.php:85
 msgid "_CLI"
-msgstr "CLI"
+msgstr "_CLI"
 
-#: lib/Api.php:27
-#, fuzzy
+#: lib/Api.php:40
 msgid "_Configuration"
-msgstr "Gendan konfiguration"
+msgstr "Konfiguration _C"
 
-#: lib/Api.php:52
-msgid "_DataTree"
-msgstr "DataTree"
-
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
-msgstr "Grupper"
+msgstr "_Grupper"
 
-#: lib/Api.php:42
+#: lib/Api.php:60
+msgid "_Locks"
+msgstr "_Låse"
+
+#: lib/Api.php:55
 msgid "_Permissions"
-msgstr "Tilladelser"
+msgstr "Tilladelser   _P"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
-msgstr "Brugere"
+msgstr "Brugere   _U"
 
-#: services/problem.php:56
+#: services/problem.php:59
 msgid "attachment"
-msgstr ""
+msgstr "vedhæftelse"
 
-#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, php-format
 msgid "calm"
 msgstr "vindstille"
 
-#: lib/Block/weatherdotcom_strings.php:102
-msgid "falling"
-msgstr "faldende"
-
-#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "fra %s (%s) med %s %s"
 
-#: lib/Block/weatherdotcom.php:254
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "stormfuld"
 
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "indlejret"
 
-#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
-#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
+#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
+#: services/facebook/index.php:192
 msgid "preferences"
-msgstr ""
+msgstr "indstillinger"
 
-#: lib/Block/weatherdotcom_strings.php:104
-msgid "rising"
-msgstr "stigende"
-
-#: admin/config/config.php:80
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "vis forskelle"
 
-#: lib/Block/weatherdotcom_strings.php:103
-msgid "steady"
-msgstr "stabilt"
-
-#: admin/user.php:35 admin/user.php:49
+#: admin/user.php:39 admin/user.php:53
 msgid "type the password twice to confirm"
 msgstr "indtast kodeordet to gange for at bekræfte"
 
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
-msgstr "sammensmeltet"
+msgstr "samlet"
 
-#: lib/Block/weatherdotcom.php:6
-msgid "weather.com"
-msgstr "weather.com"
+#: lib/Block/Weather.php:33
+msgid "weather"
+msgstr "weather"

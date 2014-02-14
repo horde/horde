@@ -2,6 +2,7 @@
 v3.1.4-git
 ----------
 
+[jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [jan] Make spam level a required form field (Bug #12964).
 [jan] Fix behavior of 'utf' parameter (Bug #12937).
 [mms] Fix sieve driver correctly identifying mailing lists when determining

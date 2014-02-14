@@ -2,6 +2,7 @@
 v5.1.6-git
 ----------
 
+[jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mms] Fix regression where AJAX actions were not correctly checking permissions
       and potential authentication expiration actions.
 

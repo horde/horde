@@ -7,296 +7,291 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H3 (3.1-cvs)\n"
+"Project-Id-Version: Passwd H5 (5.0.1)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2006-02-01 21:00+0100\n"
-"PO-Revision-Date: 2006-03-06 22:05+0100\n"
-"Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
+"POT-Creation-Date: 2014-01-16 13:23+0100\n"
+"PO-Revision-Date: 2014-01-18 00:36+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Driver/expect.php:34
+#: lib/Driver/Expect.php:31
 #, php-format
 msgid "%s does not exist or is not executable."
 msgstr "%s findes ikke eller er ikke eksekverbar."
 
-#: lib/Driver/composite.php:65
+#: lib/Driver/Composite.php:66
 #, php-format
-msgid "%s: unable to load driver: %s"
+msgid "%s: unable to load sub driver: %s"
 msgstr "%s: kan ikke indlæse driver: %s"
 
-#: lib/Driver/adsi.php:61
+#: lib/Driver/Adsi.php:73
 #, php-format
 msgid "ADSI error %s."
 msgstr "ADSI fejl %s."
 
-#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
+#: lib/Driver/Adsi.php:70 lib/Driver/Pspasswd.php:119
 msgid "Access Denied."
 msgstr "Adgang nægtet."
 
-#: lib/Driver.php:85
-msgid "Backend not correctly implemented."
-msgstr "Backend er ikke korrekt implementeret."
+#: lib/Driver/Servuftp.php:69
+msgid "Cannot change password"
+msgstr "Kan ikke skifte kodeord"
 
-#: main.php:255 templates/main/main.inc:142
+#: lib/Driver/Poppassd.php:98
+msgid "Cannot send command to server."
+msgstr "Kunne ikke sende komandoen til serveren."
+
+#: index.php:25 templates/index.html.php:89 templates/orig.index.html.php:78
 msgid "Change Password"
 msgstr "Skift kodeord"
 
-#: templates/main/main.inc:127
-msgid "Change password on:"
-msgstr "Skift kodeord på:"
+#: templates/index.html.php:71 templates/orig.index.html.php:60
+msgid "Change password for:"
+msgstr "Skift kodeord for:"
 
-#: templates/main/main.inc:62
+#: lib/Basic.php:132
 msgid "Change your password"
 msgstr "Skift dit kodeord"
 
-#: templates/main/main.inc:69
+#: lib/Basic.php:134
 #, php-format
-msgid "Changing password on %s"
-msgstr "Skifter kodeord på %s"
+msgid "Changing password for"
+msgstr "Skift dit kodeord"
 
-#: templates/main/main.inc:114
+#: templates/index.html.php:60 templates/orig.index.html.php:49
 msgid "Confirm new password:"
 msgstr "Bekræft nyt kodeord:"
 
-#: lib/Driver/kolab.php:54 lib/Driver/ldap.php:99 lib/Driver/ldap.php:189
+#: lib/Driver/Servuftp.php:54
+msgid "Connection failed"
+msgstr "Forbindelsesfejl"
+
+#: lib/Driver/Kolab.php:54
 msgid "Could not bind to LDAP server"
 msgstr "Kunne ikke koble til LDAP-server"
 
-#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:74
+#: lib/Driver/Expectpecl.php:120
+msgid "Could not change password (bad old password?)"
+msgstr "Kunne ikke skifte kodeord (forkert gammelt kodeord?)"
+
+#: lib/Driver/Expectpecl.php:138
+msgid "Could not change password."
+msgstr "Kunne ikke skifte  kodeord."
+
+#: lib/Driver/Kolab.php:40
 msgid "Could not connect to LDAP server"
 msgstr "Kunne ikke opnå forbindelse til LDAP-server"
 
-#: lib/Driver/smbpasswd.php:57
+#: lib/Driver/Expectpecl.php:102
+msgid "Could not login to system (no password prompt)"
+msgstr "Kunne ikke åbne forbindelse til systemet (ingen kodeords prompt)"
+
+#: lib/Driver/Smbpasswd.php:66
 msgid "Could not open pipe to smbpasswd."
 msgstr "Kunne ikke åbne forbindelse til smbpasswd."
 
-#: lib/Driver/ldap.php:80
-msgid "Could not start TLS connection to LDAP server"
-msgstr "Kunne ikke start TLS-forbindelse til LDAP-server"
+#: lib/Driver/Expectpecl.php:111
+msgid "Could not start passwd program (no old password prompt)"
+msgstr "Kunne ikke starte passwd programmet (ingen gammel passwd prompt)"
 
-#: lib/Driver/smbpasswd.php:79
+#: lib/Driver/Expectpecl.php:57
+msgid "End of file."
+msgstr "Enden af filen."
+
+#: lib/Driver/Smbpasswd.php:88
 msgid "Error sending data to smbpasswd."
 msgstr "Fejl ved dataoverførsel til smbpasswd."
 
-#: lib/Driver/pspasswd.php:93
+#: lib/Driver/Pspasswd.php:109
 msgid "Failed to verify old password."
 msgstr "Kontrol af gammelt kodeord fejlede."
 
-#: main.php:211 lib/Driver/composite.php:104
+#: lib/Basic.php:226 lib/Driver/Composite.php:84
 #, php-format
-msgid "Failure in changing password on %s: %s"
-msgstr "Der skete en fejl ved ændring af kodeord på %s: %s"
+msgid "Failure in changing password for %s: %s"
+msgstr "Der skete en fejl ved ændring af kodeord for %s: %s"
 
-#: lib/Driver.php:56 lib/Driver/kolab.php:78 lib/Driver/ldap.php:190
-#: lib/Driver/poppassd.php:114 lib/Driver/vmailmgr.php:42
-msgid "Incorrect Password"
+#: lib/Driver/Expectpecl.php:63
+msgid "Full buffer."
+msgstr "Buffer er fuld"
+
+#: lib/Driver.php:74 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
+#: lib/Driver/Kolab.php:78 lib/Driver/Poppassd.php:120
+#: lib/Driver/Vmailmgr.php:40
+msgid "Incorrect old password."
+msgstr "Forkert gammelt kodeord"
+
+#: lib/Driver/Servuftp.php:64
+msgid "Incorrect password"
 msgstr "Forkert kodeord"
 
-#: lib/Driver/ldap.php:166
+#: lib/Driver/Ldap.php:154
 msgid "Minimum password age has not yet expired"
 msgstr "Minimum kodeordsalder er endnu ikke udstået"
 
-#: templates/main/main.inc:102
+#: lib/Driver/Expectpecl.php:129
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr ""
+"Nyt adgangskode er ikke gyldig (for kort, ligner det gamle, for let...)"
+
+#: templates/index.html.php:50 templates/orig.index.html.php:39
 msgid "New password:"
 msgstr "Nyt kodeord:"
 
-#: lib/Driver.php:113
-#, php-format
-msgid "No such backend \"%s\" found."
-msgstr "Backend \"%s\" ikke fundet."
+#: lib/Factory/Driver.php:199
+msgid "No backend configured for this host"
+msgstr "Ingen backend konfigureret for denne server"
 
-#: lib/Driver/http.php:72
-msgid "Old password is incorrect."
-msgstr "Gammelt kodeord er ikke korrekt."
+#: lib/Factory/Driver.php:182
+msgid "No backends configured in backends.php"
+msgstr "Ingen backends konfigureret i backends.php"
 
-#: templates/main/main.inc:90
+#: lib/Driver/Poppassd.php:75
+msgid "No prompt returned from server."
+msgstr "Ingen promt fra serveren."
+
+#: templates/index.html.php:40 templates/orig.index.html.php:29
 msgid "Old password:"
 msgstr "Gammelt kodeord:"
 
-#: lib/Driver/smbpasswd.php:47
+#: lib/Driver/Smbpasswd.php:54
 msgid "Passwd is not properly configured."
 msgstr "Passwd-modulet er ikke sat korrekt op."
 
-#: main.php:203
+#: lib/Basic.php:230
 #, php-format
 msgid "Password changed on %s."
 msgstr "Kodeord er skiftet på %s."
 
-#: lib/Driver/sql.php:127
-#, php-format
-msgid "Password column \"%s\" not found in password table."
-msgstr "Kodeordskolonne \"%s\" ikke fundet i kodeordstabel."
-
-#: lib/Driver/pspasswd.php:75
+#: lib/Driver/Pspasswd.php:83
 msgid "Password module can't find the supplied bin."
 msgstr "Passwd-modulet kan ikke finde den angivne <code>bin</code>."
 
-#: lib/Driver/pspasswd.php:73
+#: lib/Driver/Pspasswd.php:79 lib/Driver/Servuftp.php:41
 msgid "Password module is missing required parameters."
 msgstr "Passwd-modulet mangler krævede parametre."
 
-#: lib/Driver/adsi.php:51
+#: lib/Driver/Adsi.php:58
 msgid "Password module is missing target parameter."
 msgstr "Passwd-modulet mangler mål-parametre."
 
-#: main.php:178 lib/Driver/servuftp.php:71
+#: lib/Basic.php:215
 msgid "Password module is not properly configured"
 msgstr "Passwd modulet er ikke korrekt opsat"
 
-#: lib/Driver/servuftp.php:98
-msgid "Password module is not properly configured."
-msgstr "Passwd-modulet er ikke korrekt sat op."
-
-#: templates/main/main.inc:11
+#: lib/Basic.php:145
 msgid "Please provide a new password"
 msgstr "Du skal angive et nyt kodeord"
 
-#: templates/main/main.inc:7
+#: lib/Basic.php:144
 msgid "Please provide your current password"
 msgstr "Indtast venligst dit nuværende kodeord"
 
-#: templates/main/main.inc:15
+#: lib/Basic.php:146
 msgid "Please verify your new password"
 msgstr "Du skal bekræfte dit nye kodeord"
 
-#: lib/Driver/composite.php:41
+#: lib/Driver/Composite.php:42
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr "Påkrævet 'drivers' er forkert konfigureret i Composite-konfiguration."
 
-#: lib/Driver/sql.php:46
-msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Påkrævet 'phptype' er ikke specificeret i Passwd SQL-opsætning."
-
-#: lib/Driver/vpopmail.php:49
-msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Påkrævet 'phptype' er ikke specificeret i SQL opsætning"
-
-#: templates/main/main.inc:143
+#: templates/index.html.php:90 templates/orig.index.html.php:79
 msgid "Reset"
 msgstr "Nulstil"
 
-#: lib/Driver/http.php:65
+#: lib/Driver/Horde.php:36
+msgid "The current horde configuration does not allow changing passwords."
+msgstr ""
+"Nuværende konfiguration tillader ikke ændring af kodeord. kontakt admin."
+
+#: lib/Factory/Driver.php:71
+#, php-format
+msgid "The password backend \"%s\" does not exist."
+msgstr "Backend til passwd \"%s\" eksisterer ikke."
+
+#: lib/Driver/Http.php:48
 msgid "The requested website for changing user passwords could not be reached."
 msgstr "Websitet, hvortil brugeres kodeord ændres, kunne ikke nås."
 
-#: lib/Driver/http.php:74
+#: lib/Driver/Http.php:58
 msgid "The username could not be found."
 msgstr "Brugernavnet kunne ikke findes."
 
-#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
-msgid "Unable to connect to SQL server."
-msgstr "Kunne ikke opnå forbindelse til SQL serveren."
+#: lib/Driver/Expectpecl.php:60
+msgid "Time out."
+msgstr "Time out."
 
-#: lib/Driver/poppassd.php:108 lib/Driver/sql.php:135
-#: lib/Driver/vpopmail.php:150
+#: lib/Factory/Driver.php:78
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "Kan ikke indlæse definitionen af %s."
+
+#: lib/Driver/Expectpecl.php:96
+msgid "Unable to open expect stream"
+msgstr "Kunne ikke åbne expect stream"
+
+#: lib/Driver/Servuftp.php:59
+msgid "Unknown user"
+msgstr "Ukendt bruger"
+
+#: lib/Driver/Poppassd.php:113 lib/Driver/Sql.php:97
+#: lib/Driver/Vpopmail.php:111
 msgid "User not found"
 msgstr "Brugernavn ikke fundet"
 
-#: lib/Driver/kolab.php:70 lib/Driver/ldap.php:133 lib/Driver/pine.php:231
+#: lib/Driver/Kolab.php:70 lib/Driver/Ldap.php:132 lib/Driver/Pine.php:240
 msgid "User not found."
 msgstr "Brugernavn ikke fundet."
 
-#: templates/main/main.inc:77
+#: templates/index.html.php:29 templates/orig.index.html.php:18
 msgid "Username:"
 msgstr "Brugernavn:"
 
-#: main.php:47
+#: lib/Basic.php:163
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "Du kan ikke skifte kodeord for brugeren %s"
 
-#: main.php:55
+#: lib/Basic.php:169
 msgid "You must give your current password"
 msgstr "Du skal angive dit nuværende kodeord"
 
-#: main.php:64
+#: lib/Basic.php:174
 msgid "You must give your new password"
 msgstr "Du skal angive et nyt kodeord"
 
-#: main.php:68
+#: lib/Basic.php:178
 msgid "You must verify your new password"
 msgstr "Du skal bekræfte dit nye kodeord"
 
-#: main.php:88
-#, php-format
-msgid ""
-"Your new password is too long; passwords may not be more than %d characters "
-"long!"
-msgstr ""
-"Dit nye kodeord er for langt. Kodeord må ikke være mere end %d tegn lange!"
-
-#: main.php:167
-msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Dit nye kodeord er for simpelt at gætte!  Det er ikke blevet skiftet!"
-
-#: main.php:158
-msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Dit nye kodeord er for simpelt at gætte!  Det er ikke blevet skiftet!"
-
-#: main.php:83
-#, php-format
-msgid "Your new password must be at least %d characters long!"
-msgstr "Dit nye kodeord skal være mindst %d tegn langt!"
-
-#: main.php:76
+#: lib/Basic.php:188
 msgid "Your new password must be different from your current password"
 msgstr "Dit nye kodeord skal være forskelligt fra dit nuværende kodeord"
 
-#: main.php:128
-#, php-format
-msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d bogstaver."
-
-#: main.php:133
-#, php-format
-msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d alfanumeriske tegn."
-
-#: main.php:138
-#, php-format
-msgid ""
-"Your new password must contain at least %d different types of characters. "
-"The types are: lower, upper, numeric, and symbols."
-msgstr ""
-"Dit nye kodeord skal indeholde mindst %d forskellige typer tegn. Typerne er: "
-"minuskler, majuskler, cifre og symboler."
-
-#: main.php:118
-#, php-format
-msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d små bogstaver."
-
-#: main.php:123
-#, php-format
-msgid "Your new password must contain at least %d numeric characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d tal."
-
-#: main.php:113
-#, php-format
-msgid "Your new password must contain at least %d uppercase characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d store bogstaver."
-
-#: main.php:144
-#, php-format
-msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Dit nye kodeord skal indeholde færre end %d mellemrumstegn."
-
-#: main.php:146
-msgid "Your new password must not contain whitespace characters."
-msgstr "Dit nye kodeord må ikke indeholde mellemrumstegn."
-
-#: main.php:72
+#: lib/Basic.php:183
 msgid "Your new passwords didn't match"
 msgstr "Dit nye kodeord er ikke ens i begge felter"
 
-#: lib/Driver/http.php:76
+#: lib/Driver/Http.php:61
 msgid "Your password could not be changed."
 msgstr "Dit kodeord kunne ikke ændres."
 
-#: templates/main/main.inc:19
+#: lib/Basic.php:238
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Dit kodeord er blevet ændret. Log af og log ind igen med dit nye kodeord."
+
+#: lib/Basic.php:147
 msgid "Your passwords do not match"
 msgstr "Dine kodeord stemmer ikke overens"
+
+#: lib/Driver/Expectpecl.php:78
+msgid "expect extension cannot be loaded"
+msgstr "Udvidelsen kan ikke hentes."

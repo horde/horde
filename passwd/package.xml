@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -706,7 +706,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
    </notes>
   </release>
  </changelog>

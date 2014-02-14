@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [jan] Don't return future tasks from cost objects API.
 
 
