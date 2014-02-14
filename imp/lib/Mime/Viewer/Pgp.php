@@ -387,7 +387,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      */
     protected function _outputPGPSigned()
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry, $session;
 
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
@@ -427,6 +427,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 $sig_text = _("This digitally signed message is broken.");
                 $ret[$base_id]['wrap'] = 'mimePartWrapInvalid';
             } else {
+                /* Close session, since this may be a long-running
+                 * operation. */
+                $session->close();
+
                 try {
                     $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                     if ($sig_raw = $sig_part->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
