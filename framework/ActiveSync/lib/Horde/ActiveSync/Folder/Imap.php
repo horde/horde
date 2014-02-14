@@ -37,6 +37,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /* Serialize version */
     const VERSION        = 2;
 
+    /* The UID count at which UID lists will be compressed before serialization */
+    const COMPRESSION_LIMIT = 500;
+
     /**
      * The folder's current message list.
      * Note: This represents the folder list on the client and is affected by
@@ -359,9 +362,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function serialize()
     {
+        if (!empty($this->_status[self::HIGHESTMODSEQ]) && count($this->_messages) > self::COMPRESSION_LIMIT) {
+            $msgs = $this->_toSequenceString($this->_messages);
+        } else {
+            $msgs = $this->_messages;
+        }
         return json_encode(array(
             's' => $this->_status,
-            'm' => $this->_messages,
+            'm' => $msgs,
             'f' => $this->_serverid,
             'c' => $this->_class,
             'lsd' => $this->_lastSinceDate,
@@ -392,6 +400,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_class = $d_data['c'];
         $this->_lastSinceDate = $d_data['lsd'];
         $this->_softDelete = $d_data['sd'];
+
+        if (!empty($this->_status[self::HIGHESTMODSEQ]) && is_string($this->_messages)) {
+            $this->_messages = $this->_fromSequenceString($this->_messages);
+        }
     }
 
     /**
@@ -408,6 +420,89 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             join(', ', $this->_added),
             join(', ', $this->_removed)
         );
+    }
+
+    /**
+     * Create an IMAP message sequence string from a list of indices.
+     *
+     * Index Format: range_start:range_end,uid,uid2,...
+     *
+     * @param array $ids  An array of UIDs.
+     *
+     * @return string  The IMAP message sequence string.
+     */
+    protected function _toSequenceString(array $ids)
+    {
+        if (empty($ids)) {
+            return '';
+        }
+
+        $in = $ids;
+        sort($in, SORT_NUMERIC);
+        $first = $last = array_shift($in);
+        $i = count($in) - 1;
+        $out = array();
+
+        reset($in);
+        while (list($key, $val) = each($in)) {
+            if (($last + 1) == $val) {
+                $last = $val;
+            }
+
+            if (($i == $key) || ($last != $val)) {
+                if ($last == $first) {
+                    $out[] = $first;
+                    if ($i == $key) {
+                        $out[] = $val;
+                    }
+                } else {
+                    $out[] = $first . ':' . $last;
+                    if (($i == $key) && ($last != $val)) {
+                        $out[] = $val;
+                    }
+                }
+                $first = $last = $val;
+            }
+        }
+
+        return empty($out)
+            ? $first
+            : implode(',', $out);
+    }
+
+    /**
+     * Parse an IMAP message sequence string into a list of indices.
+     *
+     * @see _toSequenceString()
+     *
+     * @param string $str  The IMAP message sequence string.
+     *
+     * @return array  An array of indices.
+     */
+    protected function _fromSequenceString($str)
+    {
+        $ids = array();
+        $str = trim($str);
+
+        if (!strlen($str)) {
+            return $ids;
+        }
+
+        $idarray = explode(',', $str);
+
+        reset($idarray);
+        while (list(,$val) = each($idarray)) {
+            $range = explode(':', $val);
+            if (isset($range[1])) {
+                for ($i = min($range), $j = max($range); $i <= $j; ++$i) {
+                    $ids[] = $i;
+                }
+            } else {
+                $ids[] = $val;
+            }
+        }
+
+        return $ids;
     }
 
 }
