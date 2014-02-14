@@ -18,7 +18,7 @@
  </developer>
  <date>2014-02-14</date>
  <version>
-  <release>2.0.7</release>
+  <release>2.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Use more efficient hashing algorithm, if available.
-* [mms] Saving cache data should be handled in a shutdown function, not a destructor.
-* [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -311,6 +309,19 @@
 * [mms] Use more efficient hashing algorithm, if available.
 * [mms] Saving cache data should be handled in a shutdown function, not a destructor.
 * [mms] Add Horde-specific prefix to filesystem cache name to allow for easy identification.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-02-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
