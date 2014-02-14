@@ -2524,12 +2524,19 @@ KronolithCore = {
             return;
         }
         if ((this.tasktype == 'complete' && !task.cp) ||
-            ((this.tasktype == 'incomplete' || this.tasktype == 'future_incomplete') && task.cp)) {
+            ((this.tasktype == 'incomplete' || this.tasktype == 'future_incomplete') && task.cp) ||
+            ( ( complete === true ) && ( this.tasktype == 'future' ) )
+        ) {
             row.fade({
                 duration: this.effectDur,
                 afterFinish: function() {
                     row.purge();
                     row.remove();
+
+                    //Check if items remained in interface
+                    if ($('kronolithViewTasksBody').select('tr').length < 3) {
+                        $('kronolithTasksNoItems').show();
+                    }
                 }
             });
         }
