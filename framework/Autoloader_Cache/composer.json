@@ -33,7 +33,6 @@
         "pear-pear.horde.org/horde_lz4": "*",
         "pear-pecl.php.net/lzf": ">=1.5.2@stable",
         "ext-apc": "*",
-        "ext-eaccelerator": "*",
         "ext-xcache": "*"
     }
 }

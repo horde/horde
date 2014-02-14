@@ -29,7 +29,7 @@ Webserver/PHP tuning
 ====================
 
 * Consider a PHP accelerator program.  See for example `The Zend Performance
-  Suite`_, the `Alternative PHP Cache`_, eAccelerator_, or XCache_.  These
+  Suite`_, the `Alternative PHP Cache`_, or XCache_.  These
   accelerators speed up access by caching the compiled PHP code, eliminating
   the need to recompile the code for every single page load. **This is probably
   the easiest way to improve the performance of Horde**. See Autoloading_
@@ -133,7 +133,6 @@ Webserver/PHP tuning
 
 .. _`The Zend Performance Suite`: http://www.zend.com/horde.php
 .. _`Alternative PHP Cache`: http://www.php.net/apc
-.. _eAccelerator: http://eaccelerator.net/
 .. _XCache: http://xcache.lighttpd.net/
 .. _`IBM Article`: http://www.ibm.com/developerworks/web/library/wa-ltwebserv/
 .. _`Yahoo's Analysis`: http://yuiblog.com/blog/2006/11/28/performance-research-part-1/
