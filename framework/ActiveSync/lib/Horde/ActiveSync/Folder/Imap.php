@@ -362,11 +362,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function serialize()
     {
-        if (!empty($this->_status[self::HIGHESTMODSEQ]) && count($this->_messages) > self::COMPRESSION_LIMIT) {
-            $msgs = $this->_toSequenceString($this->_messages);
+        if (!empty($this->_status[self::HIGHESTMODSEQ])) {
+             $msgs = (count($this->_messages) > self::COMPRESSION_LIMIT) ?
+                $this->_toSequenceString($this->_messages) :
+                implode(',', $this->_messages);
         } else {
             $msgs = $this->_messages;
         }
+
         return json_encode(array(
             's' => $this->_status,
             'm' => $msgs,
@@ -489,7 +492,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         }
 
         $idarray = explode(',', $str);
-
+        if (strpos($str, ':') === false) {
+            return $idarray();
+        }
         reset($idarray);
         while (list(,$val) = each($idarray)) {
             $range = explode(':', $val);
