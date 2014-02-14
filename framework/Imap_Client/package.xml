@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-11</date>
+ <date>2014-02-14</date>
  <version>
   <release>2.18.1</release>
   <api>2.18.0</api>
@@ -31,6 +31,9 @@
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="examples">
+        <file name="tutorial.html" role="doc" />
+       </dir> <!-- /doc/Horde/Imap/Client/examples -->
        <file name="COPYING" role="doc" />
        <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
@@ -209,6 +212,7 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="1_horde_imap_client_base_tables.php" role="data" />
+       <file name="2_horde_imap_client_change_column_name.php" role="data" />
       </dir> <!-- /migration/Horde/Imap/Client -->
      </dir> <!-- /migration/Horde/Imap -->
     </dir> <!-- /migration/Horde -->
@@ -406,6 +410,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
+   <install as="examples/tutorial.html" name="doc/Horde/Imap/Client/examples/tutorial.html" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
@@ -496,6 +501,7 @@
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="migration/1_horde_imap_client_base_tables.php" name="migration/Horde/Imap/Client/1_horde_imap_client_base_tables.php" />
+   <install as="migration/2_horde_imap_client_change_column_name.php" name="migration/Horde/Imap/Client/2_horde_imap_client_change_column_name.php" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
@@ -2164,7 +2170,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-11</date>
+   <date>2014-02-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Use more efficient FNV1-32 hashing algorithm for internal hashtable storage, if available.
