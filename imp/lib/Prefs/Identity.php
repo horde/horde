@@ -532,11 +532,8 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
             break;
 
         case IMP_Mailbox::MBOX_SENT:
-            if ($val) {
-                $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
-            } else {
-                IMP_Mailbox::get('INBOX')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
-            }
+            $GLOBALS['injector']->getInstance('IMP_Mailbox_SessionCache')
+                ->expire(IMP_MailboxSessionCache::CACHE_SPECIALMBOXES);
             $val = IMP_Mailbox::prefTo($val);
             break;
         }

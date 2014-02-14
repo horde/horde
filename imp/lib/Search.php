@@ -93,6 +93,8 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
      */
     public function createQuery($criteria, array $opts = array())
     {
+        global $injector;
+
         $opts = array_merge(array(
             'id' => null,
             'label' => null,
@@ -150,11 +152,14 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
-            $ob->mbox_ob->expire(array(
-                IMP_Mailbox::CACHE_DISPLAY,
-                IMP_Mailbox::CACHE_LABEL
-            ));
-            $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
+            $injector->getInstance('IMP_Mailbox_SessionCache')->expire(
+                array(
+                    IMP_Mailbox_SessionCache::CACHE_DISPLAY,
+                    IMP_Mailbox_SessionCache::CACHE_LABEL
+                ),
+                $ob->mbox_ob
+            );
+            $ftree = $injector->getInstance('IMP_Ftree');
             $ftree->delete($ob);
             $ftree->insert($ob);
             break;

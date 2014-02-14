@@ -56,12 +56,16 @@ class IMP_Prefs_Special_SpecialMboxes
             return false;
         }
 
+        $cache = $injector->getInstance('IMP_Mailbox_SessionCache');
         if ($mbox_ob = IMP_Mailbox::getPref($pref)) {
-            $mbox_ob->expire(array(
-                IMP_Mailbox::CACHE_DISPLAY,
-                IMP_Mailbox::CACHE_LABEL,
-                IMP_Mailbox::CACHE_SPECIALMBOXES
-            ));
+            $cache->expire(
+                array(
+                    IMP_Mailbox_SessionCache::CACHE_DISPLAY,
+                    IMP_Mailbox_SessionCache::CACHE_LABEL,
+                    IMP_Mailbox_SessionCache::CACHE_SPECIALMBOXES
+                ),
+                $mbox_ob
+            );
         }
 
         if ($form == self::PREF_NO_MBOX) {
@@ -88,10 +92,13 @@ class IMP_Prefs_Special_SpecialMboxes
             return false;
         }
 
-        $mbox->expire(array(
-            IMP_Mailbox::CACHE_DISPLAY,
-            IMP_Mailbox::CACHE_LABEL
-        ));
+        $cache->expire(
+            array(
+                IMP_Mailbox_SessionCache::CACHE_DISPLAY,
+                IMP_Mailbox_SessionCache::CACHE_LABEL
+            ),
+            $mbox
+        );
 
         return $prefs->setValue($pref, $mbox->pref_to);
     }

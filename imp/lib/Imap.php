@@ -740,7 +740,10 @@ class IMP_Imap implements Serializable
             break;
 
         case 'setACL':
-            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
+            $injector->getInstance('IMP_Mailbox_SessionCache')->expire(
+                IMP_MailboxSessionCache::CACHE_ACL,
+                IMP_Mailbox::get($params[0])
+            );
             break;
         }
 

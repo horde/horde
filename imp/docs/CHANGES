@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] More efficiently store mailbox cache information in the session.
 [mms] Load copy/move mailbox selection list on-demand in smartmobile view.
 [mms] Cache results of inline image view status.
 [mjr] Add IMP_Api::logRecipient.
