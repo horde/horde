@@ -141,7 +141,7 @@ class IMP_Ajax_Application_ListMessages
             $parsed = $imp_imap->parseCacheId($args['cacheid']);
             $uid_expire = true;
 
-            if (!$parsed['date'] != date('z')) {
+            if ($parsed['date'] == date('z')) {
                 try {
                     $imp_imap->sync($mbox, $parsed['token'], array(
                         'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
