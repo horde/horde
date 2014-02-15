@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-05</date>
+ <date>2014-02-15</date>
  <version>
   <release>2.12.5</release>
   <api>2.12.0</api>
@@ -229,6 +229,7 @@
        <dir name="Sql">
         <dir name="Pdo">
          <file name="MysqlTest.php" role="test" />
+         <file name="SqliteTest.php" role="test" />
         </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql/Pdo -->
         <file name="Base.php" role="test" />
         <file name="MysqliTest.php" role="test" />
@@ -520,6 +521,7 @@
    <install as="Horde/ActiveSync/StateTest/Sql/MysqliTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqliTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqlTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1982,7 +1984,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-05</date>
+   <date>2014-02-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
