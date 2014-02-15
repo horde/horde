@@ -68,18 +68,6 @@ class IMP_Mailbox_SessionCache implements Serializable
 
     /**
      */
-    public function __get($property)
-    {
-        switch ($property) {
-        case 'changed':
-            return $this->_changed;
-        default:
-            throw new InvalidArgumentException(sprintf('Invalid property name, %s in IMP_Mailbox_SessionCache'));
-        }
-    }
-
-    /**
-     */
     public function __get($name)
     {
         switch ($name) {
@@ -105,6 +93,7 @@ class IMP_Mailbox_SessionCache implements Serializable
      */
     public function setAcl($mbox, $acl)
     {
+
         /* Store string representation of ACL for a more compact
          * serialized format. */
         $this->_cache[$mbox][self::CACHE_ACL] = strval($acl);
