@@ -185,7 +185,6 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
         $this->_testPartialSyncWithOnlyChangedHbInterval();
     }
 
-
     public static function setUpBeforeClass()
     {
         $dir = dirname(__FILE__) . '/../../../../../migration/Horde/ActiveSync';
