@@ -114,7 +114,7 @@ class IMP_Mailbox_SessionCache implements Serializable
 
     /**
      */
-    public function setLabel($mbox)
+    public function setLabel($mbox, $label)
     {
         $this->_cache[$mbox][self::CACHE_LABEL] = (isset($this->_cache[$mbox][self::CACHE_DISPLAY]) && ($this->_cache[$mbox][self::CACHE_DISPLAY] == $label))
             ? true
