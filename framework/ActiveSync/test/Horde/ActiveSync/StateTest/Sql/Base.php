@@ -223,7 +223,11 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
     {
         if (!self::$db) {
             $this->markTestSkipped(self::$reason);
+            return;
         }
         self::$state = new Horde_ActiveSync_State_Sql(array('db' => self::$db));
+        $backend = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
+        $backend->expects($this->any())->method('getUser')->will($this->returnValue('mike'));
+        self::$state->setBackend($backend);
     }
 }
