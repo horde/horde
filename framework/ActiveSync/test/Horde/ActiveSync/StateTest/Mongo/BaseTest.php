@@ -50,11 +50,6 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
         } catch (MongoConnectionException $e) {}
     }
 
-    public function loadStateTest()
-    {
-        $this->_loadStateTest();
-    }
-
     /**
      * @depends testGetDeviceInfo
      */
