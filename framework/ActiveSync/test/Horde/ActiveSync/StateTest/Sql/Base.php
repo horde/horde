@@ -197,20 +197,22 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
             error_reporting(E_ALL | E_STRICT);
         }
         self::$logger = new Horde_Test_Log();
-        self::$migrator = new Horde_Db_Migration_Migrator(
-            self::$db,
-            self::$logger->getLogger(),
-            array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_activesync_test_schema'));
-        self::$migrator->up();
+        if (self::$db) {
+            self::$migrator = new Horde_Db_Migration_Migrator(
+                self::$db,
+                self::$logger->getLogger(),
+                array('migrationsPath' => $dir,
+                      'schemaTableName' => 'horde_activesync_test_schema'));
+            self::$migrator->up();
+        }
     }
 
     public static function tearDownAfterClass()
     {
-        if (self::$migrator) {
-            self::$migrator->down();
-        }
         if (self::$db) {
+            if (self::$migrator) {
+                self::$migrator->down();
+            }
             self::$db->disconnect();
             self::$db = null;
         }
