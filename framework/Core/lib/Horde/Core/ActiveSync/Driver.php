@@ -2122,7 +2122,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $msg_pre = ($from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted")) . "\n\n";
         $msg = $this->_msgBody($body_data, $part, $html, true);
         if (!empty($msg) && $html) {
-            $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
+            $msg = '<p>' . self::text2html($msg_pre) . '</p>'
                 . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
         } else {
             $msg = empty($msg)
