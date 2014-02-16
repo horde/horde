@@ -1930,9 +1930,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // Do we need to add to the HTML part?
             if (!empty($html_id)) {
                 if (!$id = $mime_message->findBody('html')) {
-                    $smart_text = self::text2html($mime_message->getPart($mime_message->findBody('plain'))->getContents());
+                    $smart_text = self::text2html(
+                        Horde_ActiveSync_Utils::ensureUtf8(
+                            $mime_message->getPart($mime_message->findBody('plain'))->getContents(),
+                            $mime_message->getCharset()));
                 } else {
-                    $smart_text = $mime_message->getPart($id)->getContents();
+                    $smart_text = Horde_ActiveSync_Utils::ensureUtf8(
+                        $mime_message->getPart($id)->getContents(),
+                        $mime_message->getCharset());
                 }
                 if ($forward) {
                     $newbody_text_html = $smart_text . $this->_forwardText($imap_message, $body_data, $base_part->getPart($html_id), true);
@@ -1946,9 +1951,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // Do we need to add a PLAIN part?
             if (!empty($plain_id)) {
                 if (!$id = $mime_message->findBody('plain')) {
-                    $smart_text = self::html2text($mime_message->getPart($mime_message->findBody())->getContents());
+                    $smart_text = self::html2text(
+                        Horde_ActiveSync_Utils::ensureUtf8(
+                            $mime_message->getPart($mime_message->findBody())->getContents(),
+                            $mime_message->getCharset()));
                 } else {
-                    $smart_text = $mime_message->getPart($id)->getContents();
+                    $smart_text = Horde_ActiveSync_Utils::ensureUtf8(
+                        $mime_message->getPart($id)->getContents(),
+                        $mime_message->getCharset());
                 }
                 if ($forward) {
                     $newbody_text_plain = $smart_text . $this->_forwardText($imap_message, $body_data, $base_part->getPart($plain_id));
