@@ -900,7 +900,7 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
-        $eas_message->subject = $this->_validateUtf8($imap_message->getSubject(), $hdr_charset);
+        $eas_message->subject = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getSubject(), $hdr_charset);
         $eas_message->threadtopic = $eas_message->subject;
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
@@ -1467,82 +1467,6 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Strip out non 7Bit characters from a text string.
-     *
-     * @param string $text  The string to strip.
-     *
-     * @return string|boolean  The stripped string, or false if failed.
-     */
-    protected function _stripNon7BitChars($text)
-    {
-        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
-    }
-
-    /**
-     * Ensure $data is converted to valid UTF-8 data. Works as follows:
-     * Converts to UTF-8, assuming data is in $from_charset encoding. If
-     * that produces invalid UTF-8, attempt to convert to most common mulitibyte
-     * encodings. If that *still* fails, strip out non 7-Bit characters...and
-     * force encoding to UTF-8 from $from_charset as a last resort.
-     *
-     * @param string $data          The string data to convert to UTF-8.
-     * @param string $from_charset  The character set to assume $data is encoded
-     *                              in.
-     *
-     * @return string  A valid UTF-8 encoded string.
-     */
-    protected function _validateUtf8($data, $from_charset)
-    {
-        $this->_logger->info(sprintf(
-            '[%s] Validating UTF-8 data coming from %s',
-            $this->_procid,
-            $from_charset));
-        $text = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
-        if (!Horde_String::validUtf8($text)) {
-            $this->_logger->info(sprintf(
-                '[%s] Found invalid UTF-8 data, try different encodings.',
-                $this->_procid));
-            $test_charsets = array(
-                'windows-1252',
-                'UTF-8'
-            );
-            foreach ($test_charsets as $charset) {
-                if ($charset != $from_charset) {
-                    $text = Horde_String::convertCharset($data, $charset, 'UTF-8');
-                    if (Horde_String::validUtf8($text)) {
-                        $this->_logger->info(sprintf(
-                            '[%s] Found valid UTF-8 data when using %s',
-                            $this->_procid,
-                            $charset));
-                        return $text;
-                    }
-                }
-            }
-
-            // Invalid UTF-8 still found. Strip out non 7-bit characters, or if
-            // that fails, force a conersion to UTF-8 as a last resort. Need
-            // to break string into smaller chunks to avoid hitting
-            // https://bugs.php.net/bug.php?id=37793
-            $this->_logger->info(sprintf(
-                '[%s] Could not encode UTF-8 data. Removing non 7-bit characters.',
-                $this->_procid));
-            $chunk_size = 4000;
-            $text = '';
-            while ($data !== false && strlen($data)) {
-                $test = $this->_stripNon7BitChars(substr($data, 0, $chunk_size));
-                if ($test !== false) {
-                    $text .= $test;
-                } else {
-                    return Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
-                }
-                $data = substr($data, $chunk_size);
-            }
-        }
-
-        return $text;
-    }
-
-    /**
      * Converts and validates the message body data structure.
      *
      * @param array $data  Message body data structure.
@@ -1559,14 +1483,14 @@ class Horde_ActiveSync_Imap_Adapter
         if (!empty($data['plain'])) {
             $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
             $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add($this->_validateUtf8($data['plain']['body'], $data['plain']['charset']), true);
+            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['plain']['body'], $data['plain']['charset']), true);
             stream_filter_remove($filter_h);
             $data['plain']['body'] = $stream;
         }
         if (!empty($data['html'])) {
             $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
             $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add($this->_validateUtf8($data['html']['body'], $data['html']['charset']), true);
+            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['html']['body'], $data['html']['charset']), true);
             stream_filter_remove($filter_h);
             $data['html']['body'] = $stream;
         }
