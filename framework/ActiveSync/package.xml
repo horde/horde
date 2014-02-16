@@ -12,8 +12,8 @@
  </lead>
  <date>2014-02-15</date>
  <version>
-  <release>2.12.5</release>
-  <api>2.12.0</api>
+  <release>2.13.0</release>
+  <api>2.13.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Expose public Horde_ActiveSync_Utils::ensureUtf8() method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1979,15 +1979,15 @@
   </release>
   <release>
    <version>
-    <release>2.12.5</release>
-    <api>2.12.0</api></version>
+    <release>2.13.0</release>
+    <api>2.13.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-02-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Expose public Horde_ActiveSync_Utils::ensureUtf8() method.
    </notes>
   </release>
  </changelog>
