@@ -367,7 +367,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     {
         return is_array($this->_ids)
             ? count($this->_ids)
-           : 0;
+            : 0;
     }
 
     /* Iterator methods. */
