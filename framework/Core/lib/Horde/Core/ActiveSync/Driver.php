@@ -2181,9 +2181,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     static public function text2html($msg)
     {
-        return $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_TextFilter')
-            ->filter($msg, 'Text2html', array(
+        return Horde_Text_Filter::filter(
+            $msg,
+            'Text2html',
+            array(
                 'flowed' => self::HTML_BLOCKQUOTE,
                 'parselevel' => Horde_Text_Filter_Text2html::MICRO)
         );
@@ -2191,8 +2192,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     static public function html2text($msg)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')
-            ->filter($msg, 'Html2text');
+        Horde_Text_Filter::filter($msg, 'Html2text');
     }
 
     /**
