@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-14</date>
+ <date>2014-02-17</date>
  <version>
   <release>2.18.2</release>
   <api>2.18.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] More correct fix for Exception construction.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2184,10 +2184,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-13</date>
+   <date>2014-02-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] More correct fix for Exception construction.
    </notes>
   </release>
  </changelog>

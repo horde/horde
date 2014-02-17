@@ -252,12 +252,10 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
      */
     public function __construct($message = null, $code = null)
     {
-        parent::__construct(
-            Horde_Imap_Client_Translation::t($message),
-            $code
-        );
+        parent::__construct($message, $code);
 
-        $this->raw_msg = $message;
+        $this->raw_msg = $this->message;
+        $this->message = Horde_Imap_Client_Translation::t($this->message);
     }
 
     /**
