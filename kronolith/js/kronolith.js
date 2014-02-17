@@ -3131,6 +3131,7 @@ KronolithCore = {
             case 'resource':
                 $('kronolithCalendarresourceDescription').setValue(info.desc);
                 $('kronolithCalendarresourceResponseType').setValue(info.response_type);
+                $('kronolithCalendarresourceExport').href = Kronolith.conf.URI_RESOURCE_EXPORT.interpolate({ calendar: calendar });
             }
         }
 

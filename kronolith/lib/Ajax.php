@@ -63,8 +63,11 @@ class Kronolith_Ajax
                 array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
                 array('#', '#', '{', '{', '}', '}'),
                 strval($registry->downloadUrl('#{calendar}.ics', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_#{calendar}'))->setRaw(true))),
+            'URI_RESOURCE_EXPORT' => str_replace(
+                array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+                array('#', '#', '{', '{', '}', '}'),
+                strval($registry->downloadUrl('#{calendar}.ics', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'resource_#{calendar}'))->setRaw(true))),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
-
             'images' => array(
                 'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
                 'attendees' => strval(Horde_Themes::img('attendees-fff.png')),

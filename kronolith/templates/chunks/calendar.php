@@ -357,12 +357,6 @@ $accountUrl = Horde::url($accountUrl, true, -1)
     <input type="text" name="name" id="kronolithCalendarresourceName" class="kronolithLongField" />
   </label>
 </div>
-
-<div>
-  <label><?php echo _("Description") ?>:<br />
-    <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
-  </label>
-</div>
 <div>
   <label><?php echo _("Resource Response Type")?>:<br />
     <select id="kronolithCalendarresourceResponseType" name="response_type">
@@ -375,13 +369,34 @@ $accountUrl = Horde::url($accountUrl, true, -1)
   </label>
 <input id="kronolithCalendarresourceColor" type="hidden" name="color" />
 <input class="kronolithColorPicker" type="hidden" />
+</div>
+<div class="tabset">
+  <ul>
+    <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkDescription"><?php echo _("Description") ?></a></li>
+  </ul>
+  <span>
+    <span class="kronolithSeparator">|</span>
+    <ul>
+      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkExport"><?php echo _("Export") ?></a></li>
+    </ul>
+  </span>
+</div>
+<br class="clear" />
+<div id="kronolithCalendarresourceTabDescription" class="kronolithTabsOption">
+    <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+</div>
+<div id="kronolithCalendarresourceTabExport" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
+  <div>
+    <label><?php echo _("Export ICS file") ?>:</label>
+    <a id="kronolithCalendarresourceExport"><?php echo _("Calendar ICS file") ?></a>
+  </div>
+</div>
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
-</div>
-
 </div>
 </form>
 
