@@ -18,7 +18,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Text_Wiki": "./"
+            "Text": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/Text_Wiki",
