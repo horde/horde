@@ -707,13 +707,11 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
+            Horde::log($e->raw_msg, 'WARN');
             $error = new IMP_Imap_Exception($e);
-            if ($auth_e = $error->authException(false)) {
-                throw $auth_e;
-            }
-
-            Horde::log($e->raw_msg);
-            throw $error;
+            throw ($auth_e = $error->authException(false))
+                ? $auth_e
+                : $error;
         }
 
         /* Special handling for various methods. */
