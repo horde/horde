@@ -60,6 +60,7 @@ class Kronolith
     const ALL_REMOTE_CALENDARS      = 'allRemote';
     const ALL_EXTERNAL_CALENDARS    = 'allExternal';
     const ALL_HOLIDAYS              = 'allHolidays';
+    const ALL_RESOURCE_CALENDARS    = 'allResource';
 
     /**
      * @var Kronolith_Tagger
@@ -2528,31 +2529,25 @@ class Kronolith
      */
     static public function getCalendar(Kronolith_Driver $driver)
     {
+        global $calendar_manager;
+
         switch (true) {
         case $driver instanceof Kronolith_Driver_Sql:
         case $driver instanceof Kronolith_Driver_Kolab:
-            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $driver->calendar);
+            return $calendar_manager->getEntry(Kronolith::ALL_CALENDARS, $driver->calendar);
 
         case $driver instanceof Kronolith_Driver_Ical:
-            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $driver->calendar);
+            return $calendar_manager->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $driver->calendar);
 
         case $driver instanceof Kronolith_Driver_Horde:
-            $all = $GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS);
+            $all = $calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS);
             return $all[$driver->calendar];
 
         case $driver instanceof Kronolith_Driver_Holidays:
-            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_HOLIDAYS, $driver->calendar);
+            return $calendar_manager->getEntry(Kronolith::ALL_HOLIDAYS, $driver->calendar);
 
         case $driver instanceof Kronolith_Driver_Resource_Sql:
-            if ($driver->get('type') == Kronolith_Resource::TYPE_GROUP) {
-                return new Kronolith_Calendar_ResourceGroup(array(
-                    'resource' => $driver
-                ));
-            } else {
-                return new Kronolith_Calendar_Resource(array(
-                    'resource' => $driver
-                ));
-            }
+            return $calendar_manager->getEntry(Kronolith::ALL_RESOURCE_CALENDARS, $driver->calendar);
         }
     }
 

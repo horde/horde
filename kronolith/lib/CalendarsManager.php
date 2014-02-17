@@ -78,6 +78,13 @@ class Kronolith_CalendarsManager
     protected $_displayResource;
 
     /**
+     * Lazy loaded list of all resource calendars.
+     *
+     * @var array.
+     */
+    protected $_allResource = false;
+
+    /**
      * List of holiday calendars selected for display. Used internally to hold
      * the user prefs for displayed holiday calendars before we need to see
      * if they are all available.
@@ -113,6 +120,7 @@ class Kronolith_CalendarsManager
      *  - allRemote
      *  - allExternal
      *  - allHolidays
+     *  - allResource
      *  - displayRemote
      *  - displayExternal
      *  - displayHolidays
@@ -150,6 +158,11 @@ class Kronolith_CalendarsManager
             return $this->$property;
 
         //Lazy loaded
+        case Kronolith::ALL_RESOURCE_CALENDARS:
+            if ($this->_allResource !== false) {
+                return $this->_allResource;
+            }
+            return $this->_getAllResource();
         case Kronolith::ALL_REMOTE_CALENDARS:
             if ($this->_allRemote !== false) {
                 return $this->_allRemote;
@@ -542,6 +555,26 @@ class Kronolith_CalendarsManager
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($this->_displayHolidays));
 
         return $this->_displayHolidays;
+    }
+
+    /**
+     * Return list of all resource calendars.
+     *
+     * @return array  Resource calendars, keyed by calendar id.
+     */
+    protected function _getAllResource()
+    {
+        $this->_allResource = array();
+        if (!empty($GLOBALS['conf']['resource']['driver'])) {
+            foreach (Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE)) as $resource) {
+                $rcal = new Kronolith_Calendar_Resource(array(
+                    'resource' => $resource
+                ));
+                $this->_allResource[$resource->get('calendar')] = $rcal;
+            }
+        }
+
+        return $this->_allResource;
     }
 
     protected function _getRemoteCalendars()
