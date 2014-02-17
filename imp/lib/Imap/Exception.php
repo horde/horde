@@ -59,8 +59,6 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
      */
     public function authException($default = true)
     {
-        $e = $this;
-
         switch ($this->getCode()) {
         case self::LOGIN_AUTHENTICATIONFAILED:
         case self::LOGIN_AUTHORIZATIONFAILED:
@@ -91,7 +89,7 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
 
         return is_null($code)
             ? null
-            : new Horde_Auth_Exception($e, $code);
+            : new Horde_Auth_Exception($this, $code);
     }
 
     /**
