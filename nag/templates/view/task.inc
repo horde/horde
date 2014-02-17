@@ -11,6 +11,10 @@
 <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete"), 'class' => 'nag-delete')) ?></li>
 <?php endif ?>
+<?php if (Horde_Util::getFormData('have_search')): ?>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('list.php', true)->add('actionID', 'search_return'), 'title' => _("Return to search results"), 'class' => 'nag-search')) ?></li>
+<?php endif ?>
+
   </ul>
 </div>
 

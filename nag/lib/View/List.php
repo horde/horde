@@ -55,6 +55,13 @@ class Nag_View_List
     protected $_vars;
 
     /**
+     * Flag to indicate if we have a search.
+     *
+     * @var boolean
+     */
+    protected $_haveSearch = false;
+
+    /**
      * Const'r
      *
      * @param Horde_Variables $vars  Variables for the view.
@@ -121,6 +128,8 @@ class Nag_View_List
         $view->dateFormat = $prefs->getValue('date_format');
         $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
         $view->smartShare = $this->_smartShare;
+        $view->haveSearch = $this->_haveSearch;
+
         if (empty($view->columns)) {
             $view->columns = array();
         }
@@ -176,6 +185,11 @@ class Nag_View_List
             $action = $this->_vars->actionID;
         }
         switch ($action) {
+        case 'search_return':
+            if ($search = $GLOBALS['session']->get('nag', 'search', Horde_Session::TYPE_OBJECT)) {
+                $search->getVars($this->_vars);
+            }
+            // Fall through
         case 'search_tasks':
             if ($this->_vars->deletebutton) {
                 $this->_doDeleteSmartList();
@@ -341,7 +355,8 @@ class Nag_View_List
                 $this->_title .= sprintf(_("and tagged with %s"), $this->_vars->search_tags);
             }
         }
-
+        $GLOBALS['session']->set('nag', 'search', $search, Horde_Session::TYPE_OBJECT);
+        $this->_haveSearch = true;
         $this->_tasks = $tasks;
     }
 

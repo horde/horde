@@ -145,6 +145,9 @@ class Nag_Form_Task extends Horde_Form
         if (!$vars->get('task_id')) {
             $buttons[] = array('value' => _("Save and New"), 'name' => 'savenewbutton', 'class' => 'horde-create');
         }
+        if (Horde_Util::getFormData('have_search')) {
+            $buttons[] = array('value' => _("Return to Search Results"), 'name' => 'search_return', 'class' => 'horde-button');
+        }
         $this->setButtons($buttons);
     }
 
