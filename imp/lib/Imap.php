@@ -289,7 +289,7 @@ class IMP_Imap implements Serializable
             return $this->_ob;
         } catch (Horde_Imap_Client_Exception $e) {
             Horde::log($e->raw_msg);
-            throw new IMP_Imap_Exception($e->getMessage());
+            throw new IMP_Imap_Exception($e);
         }
     }
 
@@ -707,7 +707,7 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
-            $error = new IMP_Imap_Exception($e->getMessage());
+            $error = new IMP_Imap_Exception($e);
             if ($auth_e = $error->authException(false)) {
                 throw $auth_e;
             }
