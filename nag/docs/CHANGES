@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[mjr] Add button for creating sub-task from task view (Request #12309).
 [mjr] Add ability to return to existing search results after navigating to a
       task (Request #12879).
 [jan] Make shares table compatible with Oracle.

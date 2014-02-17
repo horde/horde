@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add button for creating sub-task from task view (Request #12309).
 * [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
 * [jan] Make shares table compatible with Oracle.
 * [mjr] Add API support for multiple tasklists via ActiveSync.
@@ -1443,6 +1444,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add button for creating sub-task from task view (Request #12309).
 * [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
 * [jan] Make shares table compatible with Oracle.
 * [mjr] Add API support for multiple tasklists via ActiveSync.
