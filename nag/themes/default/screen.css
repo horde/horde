@@ -122,6 +122,9 @@
 .nag-delete {
     background-image: url("graphics/delete.png");
 }
+.nag-new {
+    background-image: url("graphics/add.png");
+}
 
 @media print {
     .header .smallheader, .tabset, .notices, #quicksearchL, #quicksearch {

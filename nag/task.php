@@ -78,6 +78,9 @@ case 'add_task':
     if (!$vars->exists('tasklist_id')) {
         $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
     }
+    if ($parent = Horde_Util::getFormData('parent_task')) {
+        $vars->set('parent', $parent);
+    }
     $form = new Nag_Form_Task($vars, _("New Task"));
     break;
 
