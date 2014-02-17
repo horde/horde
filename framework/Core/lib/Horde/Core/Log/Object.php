@@ -240,10 +240,8 @@ class Horde_Core_Log_Object
         case 'priority':
             if (is_integer($value)) {
                 $this->_priority = $value;
-            } else {
-                $this->_priority = defined('Horde_Log::' . $value)
-                ? constant('Horde_Log::' . $value)
-                : Horde_Log::INFO;
+            } elseif (defined('Horde_Log::' . $value)) {
+                $this->_priority = constant('Horde_Log::' . $value);
             }
             break;
 
