@@ -1,0 +1,41 @@
+{
+    "authors": [
+        {
+            "email": "pmjones@ciaweb.net",
+            "name": "Paul Jones",
+            "role": "Lead"
+        },
+        {
+            "email": "papercrane@reversefold.com",
+            "name": "Justin Patrin",
+            "role": "Lead"
+        },
+        {
+            "email": "del@babel.com.au",
+            "name": "Del Elson",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Text_Wiki": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/Text_Wiki",
+    "include-path": [
+        "./"
+    ],
+    "license": "LGPL",
+    "name": "pear/text_wiki",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Text_Wiki",
+        "source": "https://github.com/pear/Text_Wiki"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
