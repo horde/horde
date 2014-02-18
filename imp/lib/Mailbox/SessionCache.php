@@ -235,10 +235,23 @@ class IMP_Mailbox_SessionCache implements Serializable
      * Expire cache entries.
      *
      * @param mixed $entries     A CACHE_* constant (or array of constants).
+     *                           If null, expires all mailbox-level cache
+     *                           entries.
      * @param IMP_Mailbox $mbox  If set, only clear this mailbox's cache.
      */
     public function expire($entries, $mbox = null)
     {
+        if (is_null($entries)) {
+            $entries = array(
+                self::CACHE_ACL,
+                self::CACHE_DISPLAY,
+                self::CACHE_ICONS,
+                self::CACHE_LABEL,
+                self::CACHE_PREFTO,
+                self::CACHE_UIDVALIDITY
+            );
+        }
+
         foreach ((is_array($entries) ? $entries : array($entries)) as $val) {
             switch ($val) {
             case self::CACHE_ACL:
