@@ -250,8 +250,8 @@ class IMP_Mailbox_SessionCache implements Serializable
             case self::CACHE_DISPLAY:
             case self::CACHE_ICONS:
             case self::CACHE_LABEL:
+            case self::CACHE_PREFTO:
             case self::CACHE_UIDVALIDITY:
-            case self::PREFTO:
                 if ($mbox) {
                     $mbox = strval($mbox);
                     if (isset($this->_cache[$val][$mbox]) ||
