@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix watermark font size preference.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1321,7 +1321,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix watermark font size preference.
    </notes>
   </release>
  </changelog>
