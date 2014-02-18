@@ -781,6 +781,7 @@ span.attachmentImg {
 /* Context Menus */
 .context div.contactAddr, .context div.mboxName {
     font-style: italic;
+    padding: 0 2px;
     text-align: center;
 }
 
