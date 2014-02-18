@@ -281,7 +281,7 @@ class Ansel_ActionHandler
         $watermark_font = Horde_Util::getFormData('font');
         $watermark_halign = Horde_Util::getFormData('whalign');
         $watermark_valign = Horde_Util::getFormData('wvalign');
-        $watermark = Horde_Util::getFormData('watermark', $GLOBALS['prefs']->getValue('watermark'));
+        $watermark = Horde_Util::getFormData('watermark', $GLOBALS['prefs']->getValue('watermark_text'));
 
         // Get the gallery object and style information.
         try {
