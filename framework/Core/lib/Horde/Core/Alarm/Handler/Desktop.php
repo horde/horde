@@ -61,7 +61,7 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
     }
 
     /**
-     * Notifies about an alarm through javscript.
+     * Notifies about an alarm through javascript.
      *
      * @param array $alarm  An alarm hash.
      */

@@ -605,7 +605,7 @@ Initial release as a PEAR package
 * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
 * Add support for Google Closure Compiler in javascript minfiy filter.
 * Fix dimming signatures when mixed with quoted text (Bug #4299).
-* Added javscript minify filter.
+* Added javascript minify filter.
 * Add support for using the tidy extension when filtering HTML data.
    </notes>
   </release>

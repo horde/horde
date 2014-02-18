@@ -54,7 +54,7 @@
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
-* [mms] Combine all javscript to compress into a single string.
+* [mms] Combine all javascript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.
@@ -3365,7 +3365,7 @@
 * [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
 * [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
 * [mms] Use Horde_JavascriptMinify package to compress javascript.
-* [mms] Combine all javscript to compress into a single string.
+* [mms] Combine all javascript to compress into a single string.
 * [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
 * [mms] Support UglifyJS for compressing javascript.
 * [mjr] Add support for DocumentLibrary via the files API.
