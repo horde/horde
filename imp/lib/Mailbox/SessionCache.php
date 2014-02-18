@@ -24,23 +24,18 @@
  */
 class IMP_Mailbox_SessionCache implements Serializable
 {
-    /* Changed constants. */
+    /** Changed constants. */
     const CHANGED_NO = 0;
     const CHANGED_YES = 1;
 
-    /* Cache identifiers. */
-    // (array) ACL rights
-    const CACHE_ACL = 'a';
-    // (string) Display string
-    const CACHE_DISPLAY = 'd';
-    // (array) Icons array
-    const CACHE_ICONS = 'i';
-    // (string) Label string
-    const CACHE_LABEL = 'l';
-    // (integer) UIDVALIDITY
-    const CACHE_UIDVALIDITY = 'v';
+    /** Cache identifiers. */
+    const CACHE_ACL = 'a'; // (array) ACL rights
+    const CACHE_DISPLAY = 'd'; // (string) Display string
+    const CACHE_ICONS = 'i'; // (array) Icons array
+    const CACHE_LABEL = 'l'; // (string) Label string
+    const CACHE_UIDVALIDITY = 'v'; // (integer) UIDVALIDITY
 
-    /* Cache identifiers - temporary data. */
+    /** Cache identifiers - temporary data. */
     const CACHE_ICONHOOK = 'ic';
     const CACHE_PREFTO = 'pt';
     const CACHE_SPECIALMBOXES = 's';
