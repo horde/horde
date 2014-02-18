@@ -178,7 +178,7 @@ class Mnemo_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                  array $params = array())
     {
-        $add = Horde::url('memo.php')->add('actionID', 'add_memo');
+        $add = Horde::url('memo.php', true)->add('actionID', 'add_memo');
 
         $tree->addNode(array(
             'id' => $parent . '__new',
