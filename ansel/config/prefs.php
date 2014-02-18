@@ -107,12 +107,6 @@ $_prefs['showexif'] = array(
     'desc' => _("Show EXIF data")
 );
 
-$_prefs['watermark'] = array(
-    'value' => '',
-    'type' => 'text',
-    'desc' => _("Custom watermark to use for photos")
-);
-
 $_prefs['myansel_layout'] = array(
  'value' => 'a:1:{i:0;a:3:{i:0;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:5:"type2";s:17:"ansel_Block_Cloud";s:6:"params";a:1:{s:5:"count";s:2:"20";}}}i:1;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:5:"type2";s:23:"ansel_Block_MyGalleries";s:6:"params";a:1:{s:5:"limit";s:1:"0";}}}i:2;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:5:"type2";s:25:"ansel_Block_RecentlyAdded";s:6:"params";a:2:{s:7:"gallery";s:3:"all";s:5:"limit";s:2:"10";}}}}}'
 );
