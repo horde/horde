@@ -179,8 +179,8 @@
  *
  * approximate: (array) Only applies to LDAP servers. If set, should be an
  *              array of native field/attribute names to search
- *              "approximately" (for example, "S�nchez", "Sanchez", and
- *              "Sanch�z" will all match a search string of "sanchez").
+ *              "approximately" (for example, "Sénchez", "Sanchez", and
+ *              "Sanchéz" will all match a search string of "sanchez").
  *
  * export: (boolean) If true, this source will appear on the Export menu,
  *         allowing users to export the contacts to a CSV (etc.) file.
