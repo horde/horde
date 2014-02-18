@@ -164,7 +164,7 @@ $_prefs['watermark_vertical'] = array(
 );
 
 $_prefs['watermark_font'] = array(
-    'value' => 'bottom',
+    'value' => 'medium',
     'type' => 'enum',
     'enum' => array(
         'tiny' => _("Tiny"),
@@ -173,7 +173,7 @@ $_prefs['watermark_font'] = array(
         'large' => _("Large"),
         'giant' => _("Giant")
     ),
-    'desc' => _("Vertical Alignment")
+    'desc' => _("Font Size")
 );
 
 $_prefs['watermark_auto'] = array(
