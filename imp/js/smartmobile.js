@@ -339,7 +339,7 @@ var ImpMobile = {
                             .change(function() {
                                 $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
                             })
-                            .find('OPTION[value=""]').attr('disabled', true);
+                            .find('.flistMailboxes OPTION[value=""]').attr('disabled', true);
                     },
                     { async: false }
                 );
