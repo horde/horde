@@ -13,7 +13,7 @@
 <?php endif; ?>
 
 <?php if ($this->optgroup): ?>
-<optgroup label="<?php echo _("Mailboxes") ?>">
+<optgroup class="flistMailboxes" label="<?php echo _("Mailboxes") ?>">
 <?php endif; ?>
 
 <?php echo $this->tree ?>
@@ -24,7 +24,7 @@
 
 <?php if ($this->vfolder): ?>
 <?php if ($this->optgroup): ?>
-<optgroup label="<?php echo _("Virtual Folders") ?>">
+<optgroup class="flistVfolders" label="<?php echo _("Virtual Folders") ?>">
 <?php else: ?>
 <option value="" disabled="disabled">- - - - - - - -</option>
 <?php endif; ?>
@@ -40,7 +40,7 @@
 
 <?php if ($this->tasklist): ?>
 <?php if ($this->optgroup): ?>
-<optgroup label="<?php echo _("Task Lists") ?>">
+<optgroup class="flistTasklists" label="<?php echo _("Task Lists") ?>">
 <?php else: ?>
 <option value="" disabled="disabled"></option>
 <option value="" disabled="disabled">- - <?php echo _("Task Lists") ?> - -</option>
@@ -57,7 +57,7 @@
 
 <?php if ($this->notepad): ?>
 <?php if ($this->optgroup): ?>
-<optgroup label="<?php echo _("Notepads") ?>">
+<optgroup class="flistNotepads" label="<?php echo _("Notepads") ?>">
 <?php else: ?>
 <option value="" disabled="disabled"></option>
 <option value="" disabled="disabled">- - <?php echo _("Notepads") ?> - -</option>
