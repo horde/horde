@@ -40,7 +40,8 @@ class Horde_Test
      */
     protected $_supported = array(
         '5.3',
-        '5.4'
+        '5.4',
+        '5.5'
     );
 
     /**
