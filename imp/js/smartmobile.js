@@ -973,8 +973,6 @@ var ImpMobile = {
         if (purl.params.to || purl.params.cc) {
             ImpMobile.addAddress('to', purl.params.to);
             ImpMobile.addAddress('cc', purl.params.cc);
-            HordeMobile.changePage('compose', data);
-            return;
         }
 
         $('#imp-compose-form').show();
@@ -1014,7 +1012,7 @@ var ImpMobile = {
             break;
 
         default:
-            HordeMobile.changePage('compose');
+            HordeMobile.changePage('compose', data);
             return;
         }
 
