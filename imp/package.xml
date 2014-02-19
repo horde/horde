@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-14</date>
+ <date>2014-02-19</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -155,6 +155,9 @@
        <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
       </dir> <!-- /lib/Ajax/Application/Handler -->
+      <dir name="Viewport">
+       <file name="Error.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Viewport -->
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
@@ -1586,6 +1589,7 @@
    <install as="imp/lib/Ajax/Application/Handler/Remote.php" name="lib/Ajax/Application/Handler/Remote.php" />
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
+   <install as="imp/lib/Ajax/Application/Viewport/Error.php" name="lib/Ajax/Application/Viewport/Error.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />

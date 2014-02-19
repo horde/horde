@@ -62,7 +62,11 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function viewPort()
     {
+        global $notification, $session;
+
         if (!$this->_base->indices->mailbox) {
+            /* Sanity checking only - this would only happen by direct
+             * access, so don't worry about clean error handling. */
             return false;
         }
 
@@ -90,26 +94,35 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $this->_base->queue->poll($this->_base->indices->mailbox);
 
+        $result = false;
         if ($changed || $vp_vars->rangeslice || !$vp_vars->checkcache) {
             /* Ticket #7422: Listing messages may be a long-running operation
              * so close the session while we are doing it to prevent
              * deadlocks. */
-            $GLOBALS['session']->close();
+            $session->close();
 
-            $vp = $this->_base->viewPortData($changed);
+            try {
+                $vp = $this->_base->viewPortData($changed);
+                $result = true;
+
+                if (isset($vp_vars->delhide)) {
+                    $vp->metadata_reset = 1;
+                }
+            } catch (Exception $e) {
+                $vp = new IMP_Ajax_Application_Viewport_Error($this->_base->indices->mailbox);
+            }
 
             /* Reopen the session. */
-            $GLOBALS['session']->start();
+            $session->start();
 
-            if (isset($vp_vars->delhide)) {
-                $vp->metadata_reset = 1;
+            if ($result === false) {
+                $notification->push($e, 'horde.error');
             }
 
             $this->_base->addTask('viewport', $vp);
-            return true;
         }
 
-        return false;
+        return $result;
     }
 
     /**
