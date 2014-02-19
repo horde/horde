@@ -29,6 +29,7 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
+
 Upgrading Horde from 5.1.x to 5.2
 =================================
 
@@ -64,6 +65,10 @@ The available options for the following options were changed::
 The default value for the following options were changed::
 
     $conf['prefs']['maxsize']
+
+The following options were removed::
+
+    $conf['mailformat']['brokenrfc2231']
 
 
 Hooks (hooks.php)

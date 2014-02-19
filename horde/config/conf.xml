@@ -1387,18 +1387,6 @@
     </case>
    </configswitch>
   </configsection>
-  <configsection name="mailformat">
-   <configheader>Format</configheader>
-    <configboolean name="brokenrfc2231" required="false" desc="Some MUAs
-    (e.g. Outlook) do not correctly parse MIME parameter information according
-    to the relevant standard. This may result, for example, in filenames that
-    do not appear correctly in these MUAs. If this option is enabled, Horde
-    will attempt to send messages in a way that both standards compliant
-    agents and these broken agents can understand. However, since these
-    messages are no longer standards compliant, there is no guarantee these
-    messages will appear correctly in *any* MUA so the default is to send
-    in the standards compliant method only.">false</configboolean>
-  </configsection>
  </configtab>
 
  <configtab name="vfs" desc="Virtual File Storage">
