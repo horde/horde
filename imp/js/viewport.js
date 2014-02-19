@@ -805,30 +805,18 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endRangeFetch', r.view);
         }
 
-        if (!Object.isUndefined(r.cacheid)) {
-            this._ajaxResponse(r);
-        }
+        this._ajaxResponse(r);
     },
 
-    // r = (Object) viewport response object
     _ajaxResponse: function(r)
     {
         if (this.isbusy) {
             this._ajaxResponse.bind(this, r).delay(0.1);
-        } else {
-            this.isbusy = true;
-            try {
-                this._ajaxResponseDo(r);
-            } catch (e) {
-                this.isbusy = false;
-                throw e;
-            }
-            this.isbusy = false;
+            return;
         }
-    },
 
-    _ajaxResponseDo: function(r)
-    {
+        this.isbusy = true;
+
         this._clearWait();
 
         var callback, offset, tmp,
@@ -886,6 +874,8 @@ var ViewPort = Class.create({
             // viewport incorrectly.
             buffer.setMetaData({ offset: Number(r.rownum) - 1 }, true);
         }
+
+        this.isbusy = false;
     },
 
     // offset = (integer) Offset of row to display
