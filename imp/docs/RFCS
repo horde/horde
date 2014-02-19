@@ -58,6 +58,7 @@ The following IMAP extensions/features are supported:
 :draft-ietf-morg-inthread-01: THREAD=REFS
 :draft-daboo-imap-annotatemore-07: ANNOTATEMORE
 :draft-daboo-imap-annotatemore-08: ANNOTATEMORE2
+:draft-ietf-qresync-rfc5162bis-09: CONDSTORE/QRESYNC
 
 
 POP3
