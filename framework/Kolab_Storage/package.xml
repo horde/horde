@@ -11,11 +11,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>12:52:48</time>
+ <date>2014-02-20</date>
  <version>
-  <release>2.0.6</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -23,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
 * [mms] Fix grabbing annotation list from IMAP server.
  </notes>
  <contents>
@@ -625,7 +625,6 @@
        <file name="AttachmentTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="bootstrap.php" role="test" />
-       <file name="conf.php.dist" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Scenario.php" role="test" />
        <file name="TestCase.php" role="test" />
@@ -923,7 +922,6 @@
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
    <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
    <install as="Horde/Kolab/Storage/bootstrap.php" name="test/Horde/Kolab/Storage/bootstrap.php" />
-   <install as="Horde/Kolab/Storage/conf.php.dist" name="test/Horde/Kolab/Storage/conf.php.dist" />
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
@@ -1325,14 +1323,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
 * [mms] Fix grabbing annotation list from IMAP server.
    </notes>
   </release>

@@ -313,6 +313,15 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $this->_type = $type;
         $envelope = $this->createEnvelope();
         $envelope->addPart($this->createFreshKolabPart($data->save($this)));
+        if (isset($this['_attachments'])) {
+            foreach ($this['_attachments'] as $name => $attachment) {
+                $part = new Horde_Mime_Part();
+                $part->setType($attachment['type']);
+                $part->setContents($attachment['content']);
+                $part->setContentId($name);
+                $envelope->addPart($part);
+            }
+        }
         $envelope->buildMimeIds();
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $envelope, $this->getType()
@@ -369,6 +378,20 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $result = $data->load($mime_part->getContents(array('stream' => true)), $this);
         if ($result instanceOf Exception) {
             $this->addParseError(self::ERROR_INVALID_KOLAB_PART, $result->getMessage());
+        } else {
+            foreach ($structure->getParts() as $part) {
+                if ($part->getMimeId() == $result[0] || !$part->getContentId()) {
+                    continue;
+                }
+                $this->_data['_attachments'][$part->getContentId()] = array(
+                    'type' => $part->getType(),
+                    'content' => $this->_getDriver()->fetchBodypart(
+                            $this->_getFolder(),
+                            $this->_getBackendId(),
+                            $part->getMimeId()
+                    )
+                );
+            }
         }
 
         $this->_structure = $structure;
@@ -386,7 +409,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      */
     public function save(Horde_Kolab_Storage_Object_Writer $data)
     {
-        list($headers, $body) = $this->_driver->fetchComplete(
+        list($headers, $body) = $this->_getDriver()->fetchComplete(
             $this->_getFolder(), $this->_getBackendId()
         );
         $mime_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
@@ -404,19 +427,28 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         }
         $original = $body->getPart($mime_id);
         $original->setContents(
-            $this->_driver->fetchBodypart($this->_getFolder(), $this->_getBackendId(), $mime_id)
+            $this->_getDriver()->fetchBodypart($this->_getFolder(), $this->_getBackendId(), $mime_id)
         );
         $this->_content = $original->getContents(array('stream' => true));
 
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
+        if (isset($this['_attachments'])) {
+            foreach ($this['_attachments'] as $name => $attachment) {
+                $part = new Horde_Mime_Part();
+                $part->setType($attachment['type']);
+                $part->setContents($attachment['content']);
+                $part->setContentId($name);
+                $body->addPart($part);
+            }
+        }
         $body->buildMimeIds();
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );
         $old_uid = $this->_getBackendId();
         $result = $this->_appendMessage($body, $headers);
-        $this->_driver->deleteMessages($this->_getFolder(), array($old_uid));
-        $this->_driver->expunge($this->_getFolder());
+        $this->_getDriver()->deleteMessages($this->_getFolder(), array($old_uid));
+        $this->_getDriver()->expunge($this->_getFolder());
         return $result;
     }
 

@@ -492,7 +492,7 @@ class Horde_Kolab_Storage_Cache_Data
                         if (isset($attachment['type'])) {
                             $attachments['type'][$attachment['type']][] = $id;
                         }
-                        $this->_cache->storeAttachment($this->getDataId(), $obid, $id, $attachment['content']);
+                        $this->_cache->storeAttachment($this->getDataId(), $object['uid'], $id, $attachment['content']);
                     }
                     $object['_attachments'] = $attachments;
                 }

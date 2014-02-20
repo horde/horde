@@ -513,7 +513,8 @@ extends Horde_Kolab_Storage_Driver_Base
     public function fetchBodypart($folder, $uid, $id)
     {
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyPart($id);
+        $query->structure();
+        $query->bodyPart($id, array('decode' => true));
 
         try {
             $ret = $this->getBackend()->fetch(
@@ -521,8 +522,15 @@ extends Horde_Kolab_Storage_Driver_Base
                 $query,
                 array('ids' => new Horde_Imap_Client_Ids($uid))
             );
-
-            return $ret[$uid]->getBodyPart($id, true);
+            $part = $ret[$uid]->getStructure()->getPart($id);
+            $part->setContents(
+                $ret[$uid]->getBodyPart($id, true),
+                array(
+                    'encoding' => $ret[$uid]->getBodyPartDecode($id),
+                    'usestream' => true
+                )
+            );
+            return $part->getContents(array('stream' => true));
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {

@@ -145,15 +145,18 @@ extends Horde_Kolab_Storage_Data_Base
     }
 
     /**
-     * Return the specified attachment.
+     * Returns the specified attachment.
      *
-     * @param string $attachment_id The attachment id.
+     * @param string $object_id      The object id. @since Kolab_Storage 2.1.0
+     * @param string $attachment_id  The attachment id.
      *
      * @return resource An open stream to the attachment data.
      */
-    public function getAttachment($attachment_id)
+    public function getAttachment($object_id, $attachment_id)
     {
-        //@todo
+        $this->_init();
+        return $this->_data_cache->getAttachment($object_id, $attachment_id)
+            ?: parent::getAttachment($object_id, $attachment_id);
     }
 
     /**

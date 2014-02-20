@@ -274,15 +274,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
-     * Return the specified attachment.
+     * Returns the specified attachment.
      *
-     * @param string $attachment_id The attachment id.
+     * @param string $object_id      The object id. @since Kolab_Storage 2.1.0
+     * @param string $attachment_id  The attachment id.
      *
      * @return resource An open stream to the attachment data.
      */
-    public function getAttachment($attachment_id)
+    public function getAttachment($object_id, $attachment_id)
     {
-        return $this->_data->getAttachment($attachment_id);
+        return $this->_data->getAttachment($object_id, $attachment_id);
     }
 
     /**

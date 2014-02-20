@@ -118,14 +118,17 @@ class Horde_Kolab_Storage_Cache
      * @param string $obid          Object backend id.
      * @param string $attachment_id Attachment ID.
      *
-     * @return resource A stream opened to the attachement data.
+     * @return resource A stream opened to the attachment data.
      */
     public function loadAttachment($data_id, $obid, $attachment_id)
     {
-        return $this->horde_cache->get(
-            $this->_getAttachmentId($data_id, $obid, $attachment_id),
-            0
+        $stream = new Horde_Support_StringStream(
+            $this->horde_cache->get(
+                $this->_getAttachmentId($data_id, $obid, $attachment_id),
+                0
+            )
         );
+        return $stream->fopen();
     }
 
     /**
@@ -134,7 +137,7 @@ class Horde_Kolab_Storage_Cache
      * @param string   $data_id       ID of the data set.
      * @param string   $obid          Object backend id.
      * @param string   $attachment_id Attachment ID.
-     * @param resource $data          A stream opened to the attachement data.
+     * @param resource $data          A stream opened to the attachment data.
      *
      * @return NULL
      */
@@ -142,7 +145,7 @@ class Horde_Kolab_Storage_Cache
     {
         $this->horde_cache->set(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
-            $data,
+            (string)new Horde_Stream_Existing(array('stream' => $data)),
             0
         );
     }
