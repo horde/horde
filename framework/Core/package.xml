@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Move CSS minification to the Horde_CssMinify package.
 * [mjr] Work around parsing broken incoming ActiveSync SMARTREPLY requests with incorrect character sets (Bug #12969).
 * [mms] Add null driver for the content tagger.
 * [jan] Add database configuration for Oracle.
@@ -1066,6 +1067,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_CssMinify</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1232,13 +1240,6 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Css_Parser</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
@@ -3350,6 +3351,7 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Move CSS minification to the Horde_CssMinify package.
 * [mjr] Work around parsing broken incoming ActiveSync SMARTREPLY requests with incorrect character sets (Bug #12969).
 * [mms] Add null driver for the content tagger.
 * [jan] Add database configuration for Oracle.

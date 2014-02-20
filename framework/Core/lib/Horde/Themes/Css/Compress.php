@@ -33,74 +33,36 @@ class Horde_Themes_Css_Compress
      */
     public function compress($css)
     {
-        global $browser, $conf;
+        global $browser, $conf, $injector;
 
-        $dataurl = (empty($conf['nobase64_img']) &&
-                    $browser->hasFeature('dataurl'));
-        $out = '';
-
-        foreach ($css as $file) {
-            $data = file_get_contents($file['fs']);
-            $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
-            $url = array();
-
-            try {
-                $css_parser = new Horde_Css_Parser($data);
-            } catch (Exception $e) {
-                /* If the CSS is broken, log error and output as-is. */
-                Horde::log($e, 'ERR');
-                $out .= $data;
-                continue;
-            }
-
-            foreach ($css_parser->doc->getContents() as $val) {
-                if ($val instanceof Sabberworm\CSS\Property\Import) {
-                    $ob = Horde_Themes_Element::fromUri($path . $val->getLocation()->getURL()->getString());
-                    $out .= $this->compress(array(array(
-                        'app' => null,
-                        'fs' => $ob->fs,
-                        'uri' => $ob->uri
-                    )));
-                    $css_parser->doc->remove($val);
-                }
-            }
-
-            foreach ($css_parser->doc->getAllRuleSets() as $val) {
-                foreach ($val->getRules('background-') as $val2) {
-                    $item = $val2->getValue();
-
-                    if ($item instanceof Sabberworm\CSS\Value\URL) {
-                        $url[] = $item;
-                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
-                        foreach ($item->getListComponents() as $val3) {
-                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
-                                $url[] = $val3;
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach ($url as $val) {
-                $url_ob = $val->getURL();
-                $url_str = $url_ob->getString();
-
-                if (Horde_Url_Data::isData($url_str)) {
-                    $url_ob->setString($url_str);
-                } else {
-                    if ($dataurl) {
-                        /* Limit data to 16 KB in stylesheets. */
-                        $url_ob->setString(Horde_Themes_Image::base64ImgData($path . $url_str, 16384));
-                    } else {
-                        $url_ob->setString($path . $url_str);
-                    }
-                }
-            }
-
-            $out .= $css_parser->compress();
+        $files = array();
+        foreach ($css as $val) {
+            $files[$val['uri']] = $val['fs'];
         }
 
-        return $out;
+        $parser = new Horde_CssMinify_CssParser($files, array(
+            'dataurl' => (empty($conf['nobase64_img']) && $browser->hasFeature('dataurl')) ? array($this, 'dataurlCallback') : null,
+            'import' => array($this, 'importCallback'),
+            'logger' => $injector->getInstance('Horde_Log_Logger')
+        ));
+
+        return $parser->minify();
+    }
+
+    /**
+     */
+    public function dataurlCallback($uri)
+    {
+        /* Limit data to 16 KB in stylesheets. */
+        return Horde_Themes_Image::base64ImgData($uri, 16384);
+    }
+
+    /**
+     */
+    public function importCallback($uri)
+    {
+        $ob = Horde_Themes_Element::fromUri($uri);
+        return array($ob->uri, $ob->fs);
     }
 
 }
