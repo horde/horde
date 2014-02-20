@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fixed comments parsing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -217,7 +217,7 @@
    <date>2014-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fixed comments parsing.
    </notes>
   </release>
  </changelog>

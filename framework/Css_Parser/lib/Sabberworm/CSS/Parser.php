@@ -535,10 +535,10 @@ class Parser {
 
     private function consumeComment() {
         if ($this->comes('/*')) {
-            $this->consume(2);
-            while ($this->consumeUntil('*', false, true)) {
-                if ($this->comes('/')) {
-                    $this->consume(1);
+            $this->consume(1);
+            while ($this->consume(1) !== '') {
+                if ($this->comes('*/')) {
+                    $this->consume(2);
                     return true;
                 }
             }
