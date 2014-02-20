@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.
 * [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
 * [mjr] Do not export empty property names in CardDav responses (Bug #12782).
@@ -847,7 +848,7 @@
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1775,6 +1776,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.
 * [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
 * [mjr] Do not export empty property names in CardDav responses (Bug #12782).
