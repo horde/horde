@@ -43,7 +43,7 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
             $object = $handler->getObject($uid);
 
             if (isset($object['_attachments'][$name])) {
-                return $handler->getAttachment($object['_attachments'][$name]['key']);
+                return $handler->getAttachment($uid, $object['_attachments'][$name]['key']);
             }
         }
 
