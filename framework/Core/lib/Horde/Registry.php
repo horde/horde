@@ -667,14 +667,16 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     protected function _loadApplications()
     {
-        global $injector;
+        global $cli, $injector;
 
         if (!empty($this->_interfaces)) {
             return;
         }
 
+        $use_cache = (!isset($cli) && !$this->isTest());
+
         /* First, try to load from cache. */
-        if (!$this->isTest()) {
+        if ($use_cache) {
             $cache = new Horde_Cache(
                 new Horde_Cache_Storage_File(array(
                     'no_gc' => true,
@@ -702,7 +704,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $this->applications = $config->applications;
         $this->_interfaces = $config->interfaces;
 
-        if ($this->isTest()) {
+        if (!$use_cache) {
             return;
         }
 
