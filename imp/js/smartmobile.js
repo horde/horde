@@ -700,8 +700,8 @@ var ImpMobile = {
 
         ImpMobile.buid = r.buid;
 
+        document.title = data.title;
         $('#message .smartmobile-title').text(data.title);
-        document.title = $('#message .smartmobile-title').text();
 
         tmp = (ImpMobile.mailbox == IMP.conf.qsearchid);
         $('#message .smartmobile-back').attr(
