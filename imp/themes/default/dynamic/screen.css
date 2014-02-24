@@ -470,6 +470,10 @@ div.dimpActionsMsg #windowclose {
 .msgHeaders table thead td.subject {
     font-weight: bold;
 }
+#msgHeaderAtc td.label a {
+    font-weight: normal;
+    padding-right: 2px;
+}
 
 #msgAtc td {
     padding-bottom: 0;

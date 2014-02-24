@@ -2,6 +2,7 @@
 v6.1.7-git
 ----------
 
+[mms] Add Save All link to the popup message page in dynamic view.
 [jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mms] Cleaner handling of broken S/MIME signed messages.
 [mms] Fix displaying user-defined message headers when multiple-headers exist

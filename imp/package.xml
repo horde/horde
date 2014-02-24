@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add Save All link to the popup message page in dynamic view.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Cleaner handling of broken S/MIME signed messages.
 * [mms] Fix displaying user-defined message headers when multiple-headers exist in a single message.
@@ -3329,6 +3330,7 @@
    <date>2013-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add Save All link to the popup message page in dynamic view.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Cleaner handling of broken S/MIME signed messages.
 * [mms] Fix displaying user-defined message headers when multiple-headers exist in a single message.
