@@ -87,6 +87,11 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
             }
         }
 
+        // fopen() requires a protocol scheme
+        if (parse_url($uri, PHP_URL_SCHEME) === null) {
+            $uri = 'http://' . $uri;
+        }
+
         // Concatenate the headers
         $hdr = array();
         foreach ($headers as $header => $value) {
