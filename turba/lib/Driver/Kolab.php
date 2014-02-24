@@ -791,7 +791,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             if (isset($attributes['photo']) && isset($attributes['phototype'])) {
                 $attributes['_attachments']['photo.attachment'] = array(
                     'type' => $attributes['phototype'],
-                    'content' => $attributes['photo']
+                    'content' => Horde_Stream_Wrapper_String::getStream($attributes['photo'])
                 );
                 $attributes['picture'] = 'photo.attachment';
                 unset($attributes['photo'], $attributes['phototype']);
