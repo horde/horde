@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-17</date>
+ <date>2014-02-24</date>
  <version>
   <release>2.18.3</release>
   <api>2.18.0</api>
@@ -2197,7 +2197,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-17</date>
+   <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix obtaining bodypart size (Bug #12992; martin@matuska.org).
