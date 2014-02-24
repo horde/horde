@@ -156,11 +156,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             if (is_string($ids) &&
                 in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
-                $this->_sorted = false;
-                return;
-            }
-
-            if ($add = $this->_resolveIds($ids)) {
+            } elseif ($add = $this->_resolveIds($ids)) {
                 if (is_array($this->_ids) && !empty($this->_ids)) {
                     foreach ($add as $val) {
                         $this->_ids[] = $val;
@@ -173,8 +169,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                         ? array_unique($this->_ids)
                         : array_keys(array_flip($this->_ids));
                 }
-                $this->_sorted = false;
             }
+
+            $this->_sorted = (count($this->_ids) === 1);
         }
     }
 
@@ -289,7 +286,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         $in = $this->_ids;
 
-        if ($sort) {
+        if ($sort && !$this->_sorted) {
             sort($in, SORT_NUMERIC);
         }
 
