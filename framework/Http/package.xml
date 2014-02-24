@@ -17,8 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>12:41:47</time>
+ <date>2014-02-24</date>
  <version>
   <release>2.0.5</release>
   <api>1.2.0</api>
@@ -427,7 +426,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fopen driver needs to handle URIs without a protocol scheme - default to http (Bug #12991).
