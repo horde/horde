@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Kolab_Storage_Object#getBackendId().
 * [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
 * [mms] Fix grabbing annotation list from IMAP server.
  </notes>
@@ -1331,6 +1332,7 @@
    <date>2014-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Kolab_Storage_Object#getBackendId().
 * [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
 * [mms] Fix grabbing annotation list from IMAP server.
    </notes>

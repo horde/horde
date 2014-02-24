@@ -149,7 +149,10 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         return $this->_folder;
     }
 
-    private function _getBackendId()
+    /**
+     * @since Horde_Kolab_Storage 2.1.0
+     */
+    public function getBackendId()
     {
         if (empty($this->_backend_id)) {
             throw new Horde_Kolab_Storage_Object_Exception(
@@ -189,7 +192,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         if ($this->_headers === null) {
             $this->_headers = $this->_getDriver()->fetchHeaders(
                 $this->_getFolder(),
-                $this->_getBackendId()
+                $this->getBackendId()
             );
         }
         return $this->_headers;
@@ -215,7 +218,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         if ($this->_content === null) {
             $this->_content = $this->_getDriver()->fetchBodypart(
                 $this->_getFolder(),
-                $this->_getBackendId(),
+                $this->getBackendId(),
                 $this->_getMimePartId()
             );
         }
@@ -387,7 +390,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                     'type' => $part->getType(),
                     'content' => $this->_getDriver()->fetchBodypart(
                             $this->_getFolder(),
-                            $this->_getBackendId(),
+                            $this->getBackendId(),
                             $part->getMimeId()
                     )
                 );
@@ -410,7 +413,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
     public function save(Horde_Kolab_Storage_Object_Writer $data)
     {
         list($headers, $body) = $this->_getDriver()->fetchComplete(
-            $this->_getFolder(), $this->_getBackendId()
+            $this->_getFolder(), $this->getBackendId()
         );
         $mime_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
@@ -420,14 +423,14 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 sprintf(
                     'Missing expected mime type (%s) in object "%s" in folder "%s"!',
                     Horde_Kolab_Storage_Object_MimeType::getMimeTypeFromObjectType($this->getType()),
-                    $this->_getBackendId(),
+                    $this->getBackendId(),
                     $this->_getFolder()
                 )
             );
         }
         $original = $body->getPart($mime_id);
         $original->setContents(
-            $this->_getDriver()->fetchBodypart($this->_getFolder(), $this->_getBackendId(), $mime_id)
+            $this->_getDriver()->fetchBodypart($this->_getFolder(), $this->getBackendId(), $mime_id)
         );
         $this->_content = $original->getContents(array('stream' => true));
 
@@ -445,7 +448,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );
-        $old_uid = $this->_getBackendId();
+        $old_uid = $this->getBackendId();
         $result = $this->_appendMessage($body, $headers);
         $this->_getDriver()->deleteMessages($this->_getFolder(), array($old_uid));
         $this->_getDriver()->expunge($this->_getFolder());
