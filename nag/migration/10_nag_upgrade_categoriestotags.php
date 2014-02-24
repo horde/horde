@@ -14,10 +14,8 @@
  */
 class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
-    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    protected function _init()
     {
-        parent::__construct($connection, $version);
-
         // Can't use Nag's tagger since we can't init Nag.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')
             ->addClassPathMapper(
@@ -43,6 +41,7 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function up()
     {
+        $this->_init();
         $sql = 'SELECT task_uid, task_category, task_creator, task_owner FROM nag_tasks';
         $this->announce('Migrating task categories to tags.');
         $rows = $this->select($sql);
@@ -77,6 +76,7 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
+        $this->_init();
         $this->addColumn('nag_tasks', 'task_category', 'string', array('limit' => 80));
         $this->announce('Migrating task tags to categories.');
         $sql = 'UPDATE nag_tasks SET task_category = ? WHERE task_uid = ?';

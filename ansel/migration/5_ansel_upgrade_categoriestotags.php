@@ -14,11 +14,8 @@
  */
 class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
-
-    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    public function up()
     {
-        parent::__construct($connection, $version);
-
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
@@ -30,10 +27,7 @@ class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             'image' => (int)$types[1]);
         $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
         $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('ansel');
-    }
 
-    public function up()
-    {
         /* Gallery tags */
         $t = $this->_connection->table('ansel_shares');
         $cols = $t->getColumns();

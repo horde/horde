@@ -15,10 +15,8 @@
  */
 class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
-    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    protected function _init()
     {
-        parent::__construct($connection, $version);
-
         // Can't use Mnemo's tagger since we can't init Mnemo.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')
             ->addClassPathMapper(
@@ -44,6 +42,7 @@ class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function up()
     {
+        $this->_init();
         if ($this->_shares) {
             $sql = 'SELECT memo_uid, memo_category, memo_owner FROM mnemo_memos';
             $this->announce('Migrating note categories to tags.');
@@ -68,6 +67,7 @@ class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
+        $this->_init();
         $this->addColumn('mnemo_memos', 'memo_category', 'string', array('limit' => 80));
         $this->announce('Migrating note tags to categories.');
         $sql = 'UPDATE mnemo_memos SET memo_category = ? WHERE memo_uid = ?';

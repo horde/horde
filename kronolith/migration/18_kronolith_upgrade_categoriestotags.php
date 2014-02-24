@@ -15,10 +15,8 @@
  */
 class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
-    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    protected function _init()
     {
-        parent::__construct($connection, $version);
-
         // Can't use Kronolith's tagger since we can't init kronolith.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
@@ -33,6 +31,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function up()
     {
+        $this->_init();
         $sql = 'SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events';
         $this->announce('Migrating event categories to tags.');
         $rows = $this->select($sql);
@@ -63,6 +62,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
+        $this->_init();
         $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
         $this->announce('Migrating event tags to categories.');
         $sql = 'UPDATE kronolith_events SET event_category = ? WHERE event_uid = ?';

@@ -25,10 +25,8 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
     protected $_shares = null;
 
-    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    protected function _init()
     {
-        parent::__construct($connection, $version);
-
         // Skip if run during unit tests when we don't need to migrate data.
         if (getenv('HORDE_UNIT_TEST')) {
             return;
@@ -61,6 +59,7 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function up()
     {
+        $this->_init();
         if ($this->_shares) {
             $sql = 'SELECT object_uid, object_category, owner_id FROM turba_objects';
             $this->announce('Migrating contact categories to tags.');
@@ -89,6 +88,7 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
+        $this->_init();
         $this->addColumn('turba_objects', 'object_category', 'string', array('limit' => 80));
         $this->announce('Migrating contact tags to categories.');
         $sql = 'UPDATE turba_objects SET object_category = ? WHERE object_uid = ?';
