@@ -431,9 +431,6 @@ class Horde_Kolab_Storage_Cache_Data
      */
     public function backendMap($backend_ids)
     {
-        if (empty($backend_ids)) {
-            return array();
-        }
         $map = array();
         foreach ($backend_ids as $item) {
             $map[$item] = $this->_data[self::B2O][$item];
