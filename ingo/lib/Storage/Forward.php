@@ -39,7 +39,8 @@ class Ingo_Storage_Forward extends Ingo_Storage_Rule
     public function setForwardAddresses($data)
     {
         $addr = $this->_addressList($data);
-        $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_forward'));
+        $max = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
+            ->hasAppPermission(Ingo_Perms::getPerm('max_forward'));
 
         if (($max !== true) && !empty($max)) {
             $addr_count = count($addr);
