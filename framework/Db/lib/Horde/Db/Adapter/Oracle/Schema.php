@@ -497,12 +497,39 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $this->commitDbTransaction();
             return;
         }
-
         if ($type != 'binary' && $column->getType() == 'binary') {
             $this->beginDbTransaction();
             $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
             $this->update(sprintf(
                 'UPDATE %s SET %s = UTL_RAW.CAST_TO_VARCHAR2(%s)',
+                $this->quoteTableName($tableName),
+                $this->quoteColumnName($columnName . '_tmp'),
+                $this->quoteColumnName($columnName)
+            ));
+            $this->removeColumn($tableName, $columnName);
+            $this->renameColumn($tableName, $columnName . '_tmp', $columnName);
+            $this->commitDbTransaction();
+            return;
+        }
+        if ($type == 'text' && $column->getType() != 'text') {
+            $this->beginDbTransaction();
+            $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
+            $this->update(sprintf(
+                'UPDATE %s SET %s = TO_CLOB(%s)',
+                $this->quoteTableName($tableName),
+                $this->quoteColumnName($columnName . '_tmp'),
+                $this->quoteColumnName($columnName)
+            ));
+            $this->removeColumn($tableName, $columnName);
+            $this->renameColumn($tableName, $columnName . '_tmp', $columnName);
+            $this->commitDbTransaction();
+            return;
+        }
+        if ($type != 'text' && $column->getType() == 'text') {
+            $this->beginDbTransaction();
+            $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
+            $this->update(sprintf(
+                'UPDATE %s SET %s = DBMS_LOB.SUBSTR(%s, 4000)',
                 $this->quoteTableName($tableName),
                 $this->quoteColumnName($columnName . '_tmp'),
                 $this->quoteColumnName($columnName)
