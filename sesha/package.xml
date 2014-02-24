@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -415,7 +415,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
    </notes>
   </release>
  </changelog>

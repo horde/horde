@@ -533,11 +533,16 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                 $filter_values = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
                 $filter_test   = $filter['test'] ? $filter['test'] : 'LIKE';
                 $filter_field  = $filter['type'];
+                if ($filter_field == 'stock_id') {
+                    $filter_test = '=';
+                }
                 foreach ($filter_values as $filter_value) {
-                    if ($filter_test == 'LIKE' and empty($filter['exact'])) {
-                         $filter_value = '%' . $filter_value . '%';
+                    if (strlen($filter_value)) {
+                        if ($filter_test == 'LIKE' && empty($filter['exact'])) {
+                            $filter_value = '%' . $filter_value . '%';
+                        }
+                        $query->addTest($filter_field, $filter_test, $filter_value);
                     }
-                    $query->addTest($filter_field, $filter_test, $filter_value);
                 }
 
                 break;
