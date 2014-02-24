@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2014-02-24</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix type of ansel_shares_users.user_uid column.
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
@@ -267,6 +268,12 @@
     <file name="XPPublisher.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="ansel.mo" role="horde" />
@@ -369,6 +376,8 @@
     <file name="10_ansel_upgrade_computestylehashes.php" role="horde" />
     <file name="11_ansel_fix_blob_length.php" role="horde" />
     <file name="12_ansel_upgrade_fixautoincrement.php" role="horde" />
+    <file name="13_ansel_upgrade_parents.php" role="horde" />
+    <file name="14_ansel_upgrade_fixshareusers.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="browse">
@@ -972,6 +981,8 @@
    <install as="ansel/lib/Widget/Tags.php" name="lib/Widget/Tags.php" />
    <install as="ansel/locale/.htaccess" name="locale/.htaccess" />
    <install as="ansel/locale/ansel.pot" name="locale/ansel.pot" />
+   <install as="ansel/locale/da/LC_MESSAGES/ansel.mo" name="locale/da/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/da/LC_MESSAGES/ansel.po" name="locale/da/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="ansel/locale/de/LC_MESSAGES/ansel.mo" name="locale/de/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/de/LC_MESSAGES/ansel.po" name="locale/de/LC_MESSAGES/ansel.po" />
@@ -1016,6 +1027,8 @@
    <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
    <install as="ansel/migration/11_ansel_fix_blob_length.php" name="migration/11_ansel_fix_blob_length.php" />
    <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
+   <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
+   <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
@@ -1320,9 +1333,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix type of ansel_shares_users.user_uid column.
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).

@@ -44,8 +44,6 @@ class AnselUpgradeUnsignedints extends Horde_Db_Migration_Base
 
         $this->changeColumn('ansel_shares_groups', 'group_uid', 'integer', array('null' => false, 'unsigned' => true));
 
-        $this->changeColumn('ansel_shares_users', 'user_uid', 'integer', array('null' => false, 'unsigned' => true));
-
         $this->changeColumn('ansel_images_geolocation', 'image_id', 'integer', array('null' => false, 'unsigned' => true));
     }
 
