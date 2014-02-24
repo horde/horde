@@ -80,6 +80,10 @@
        <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
         <td class="label">
          <?php echo _("Attachments") ?>:
+<?php if (isset($this->atc_download)): ?>
+         <br />
+         <?php echo $this->atc_download ?>
+<?php endif; ?>
         </td>
         <td>
          <div id="partlist">
