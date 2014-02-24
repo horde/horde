@@ -702,7 +702,13 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     public function indexName($tableName, $options = array())
     {
         $index = parent::indexName($tableName, $options);
-        return $this->_truncateTo30($index);
+        if (strlen($index) <= 30) {
+            return $index;
+        }
+        if (isset($options['name']) && $index == $options['name']) {
+            return $this->_truncate($index);
+        }
+        return substr('ind_' . $this->_truncate($tableName, 15) . '_' . hash('crc32', $index), 0, 30);
     }
 
     /**
