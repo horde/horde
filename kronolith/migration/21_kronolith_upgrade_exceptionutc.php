@@ -88,7 +88,7 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
         } catch (Exception $e) {
             return;
         }
-        $sql = 'SELECT event_creator_id, event_uid, event_exceptionoriginaldate FROM kronolith_events WHERE event_exceptionoriginaldate IS NOT NULL;';
+        $sql = 'SELECT event_creator_id, event_uid, event_exceptionoriginaldate FROM kronolith_events WHERE event_exceptionoriginaldate IS NOT NULL';
         $update = 'UPDATE kronolith_events SET event_exceptionoriginaldate = ? WHERE event_uid = ?';
         $rows = $this->selectAll($sql);
         $creator = null;

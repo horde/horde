@@ -29,7 +29,7 @@ class AnselUpgradeSqlHierarchical extends Horde_Db_Migration_Base
         $this->changeColumn('ansel_shares', 'share_parents', 'text');
 
         // Add sharenames
-        $sql = 'SELECT share_id FROM ansel_shares;';
+        $sql = 'SELECT share_id FROM ansel_shares';
         $ids = $this->_connection->selectValues($sql);
         $sql = 'UPDATE ansel_shares SET share_name = ? WHERE share_id = ?';
         foreach ($ids as $id) {

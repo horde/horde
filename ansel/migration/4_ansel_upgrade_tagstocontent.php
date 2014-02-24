@@ -38,7 +38,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
             /* Gallery tags */
             $sql = 'SELECT gallery_id, tag_name, share_owner FROM ansel_shares RIGHT JOIN '
                 . 'ansel_galleries_tags ON ansel_shares.share_id = ansel_galleries_tags.gallery_id '
-                . 'LEFT JOIN ansel_tags ON ansel_tags.tag_id = ansel_galleries_tags.tag_id;';
+                . 'LEFT JOIN ansel_tags ON ansel_tags.tag_id = ansel_galleries_tags.tag_id';
 
             // Maybe iterate over results and aggregate them by user and gallery so we can
             // tag all tags for a single gallery at once. Probably not worth it for a one
