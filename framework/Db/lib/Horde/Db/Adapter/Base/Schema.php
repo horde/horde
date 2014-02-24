@@ -758,7 +758,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $columnNames = (array)$columnName;
         $indexName = empty($options['name'])
             ? $this->indexName($tableName, array('column' => $columnNames))
-            : $options['name'];
+            : $this->indexName($tableName, $options);
         foreach ($columnNames as &$colName) {
             $colName = $this->quoteColumnName($colName);
         }

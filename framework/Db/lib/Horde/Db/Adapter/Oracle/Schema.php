@@ -168,7 +168,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function tableAliasFor($tableName)
     {
-        return parent::tableAliasFor($this->_truncateTo30($tableName));
+        return parent::tableAliasFor($this->_truncate($tableName));
     }
 
     /**
@@ -552,14 +552,14 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $this->execute('CREATE TABLE horde_db_autoincrement (id INTEGER)');
             $this->execute('INSERT INTO horde_db_autoincrement (id) VALUES (0)');
         }
-        $sequence = $this->_truncateTo30($id . '_seq');
+        $sequence = $this->_truncate($id . '_seq');
         $this->execute(sprintf(
             'CREATE SEQUENCE %s',
             $sequence
         ));
         $this->execute(sprintf(
             'CREATE OR REPLACE TRIGGER %s BEFORE INSERT ON %s FOR EACH ROW DECLARE increment INTEGER; BEGIN SELECT %s.NEXTVAL INTO :NEW.%s FROM dual; SELECT %s.CURRVAL INTO increment FROM dual; UPDATE horde_db_autoincrement SET id = increment; END;',
-            $this->_truncateTo30($id . '_trig'),
+            $this->_truncate($id . '_trig'),
             $tableName,
             $sequence,
             $columnName,
@@ -779,18 +779,19 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Truncates an indentifier to 30 chars.
+     * Truncates an indentifier to a certain length.
      *
      * To avoid collisions, the identifier is split up by underscores and the
      * parts truncated to 3 characters first.
      *
-     * @param string $name  An identifier.
+     * @param string $name     An identifier.
+     * @param integer $length  The maximum length.
      *
      * @return string  The truncated identifier.
      */
-    protected function _truncateTo30($name)
+    protected function _truncate($name, $length = 30)
     {
-        if (strlen($name) > 30) {
+        if (strlen($name) > $length) {
             $name = implode(
                 '_',
                 array_map(
@@ -802,6 +803,6 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                 )
             );
         }
-        return substr($name, 0, 30);
+        return substr($name, 0, $length);
     }
 }
