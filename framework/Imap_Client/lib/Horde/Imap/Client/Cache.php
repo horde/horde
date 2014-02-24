@@ -91,7 +91,10 @@ class Horde_Imap_Client_Cache
         if (isset($params['debug']) &&
             ($params['debug'] instanceof Horde_Imap_Client_Base_Debug)) {
             $this->_debug = $params['debug'];
-            $this->_debug->info(sprintf("CACHE: Using the %s storage driver.", get_class($this->_backend)));
+            $this->_debug->info(sprintf(
+                'CACHE: Using the %s storage driver.',
+                get_class($this->_backend)
+            ));
         }
     }
 
@@ -122,7 +125,12 @@ class Horde_Imap_Client_Cache
             $ret = $this->_backend->get($mailbox, $uids, $fields, $uidvalid);
 
             if ($this->_debug && !empty($ret)) {
-                $this->_debug->info('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_baseob->getIdsOb(array_keys($ret))->tostring_sort . ")");
+                $this->_debug->info(sprintf(
+                    'CACHE: Retrieved messages (%s [%s; %s])',
+                    empty($fields) ? 'ALL' : implode(',', $fields),
+                    $mailbox,
+                    $this->_baseob->getIdsOb(array_keys($ret))->tostring_sort
+                ));
             }
         }
 
@@ -149,7 +157,11 @@ class Horde_Imap_Client_Cache
             $this->_backend->set($mailbox, $data, $uidvalid);
 
             if ($this->_debug) {
-                $this->_debug->info('CACHE: Stored messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_baseob->getIdsOb(array_keys($data))->tostring_sort . ")");
+                $this->_debug->info(sprintf(
+                    'CACHE: Stored messages [%s; %s]',
+                    $mailbox,
+                    $this->_baseob->getIdsOb(array_keys($data))->tostring_sort
+                ));
             }
         }
     }
@@ -196,7 +208,11 @@ class Horde_Imap_Client_Cache
             $this->_backend->setMetaData($mailbox, $data);
 
             if ($this->_debug) {
-                $this->_debug->info('CACHE: Stored metadata (mailbox: ' . $mailbox . '; keys: ' . implode(',', array_keys($data)) . ")");
+                $this->_debug->info(sprintf(
+                    'CACHE: Stored metadata (%s [%s])',
+                    implode(',', array_keys($data)),
+                    $mailbox
+                ));
             }
         }
     }
@@ -218,7 +234,11 @@ class Horde_Imap_Client_Cache
         $this->_backend->deleteMsgs($mailbox, $uids);
 
         if ($this->_debug) {
-            $this->_debug->info('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_baseob->getIdsOb($uids)->tostring_sort . ")");
+            $this->_debug->info(sprintf(
+                'CACHE: Deleted messages [%s; %s]',
+                $mailbox,
+                $this->_baseob->getIdsOb($uids)->tostring_sort
+            ));
         }
     }
 
@@ -233,7 +253,10 @@ class Horde_Imap_Client_Cache
         $this->_backend->deleteMailbox($mbox);
 
         if ($this->_debug) {
-            $this->_debug->info('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")");
+            $this->_debug->info(sprintf(
+                'CACHE: Deleted mailbox [%s]',
+                $mbox
+            ));
         }
     }
 
