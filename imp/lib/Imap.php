@@ -190,13 +190,23 @@ class IMP_Imap implements Serializable
     /**
      * Determine if this is a connection to an IMAP server.
      *
-     * @return boolean  True if connected to IMAP server, false if connected
-     *                  to a POP3 server.
+     * @return boolean  True if connected to IMAP server.
      */
     public function isImap()
     {
-        return (!$this->init ||
+        return ($this->init &&
                 ($this->_ob instanceof Horde_Imap_Client_Socket));
+    }
+
+    /**
+     * Determine if this is a connection to an IMAP server.
+     *
+     * @return boolean  True if connected to IMAP server.
+     */
+    public function isPop3()
+    {
+        return ($this->init &&
+                ($this->_ob instanceof Horde_Imap_Client_Socket_Pop3));
     }
 
     /**
@@ -473,7 +483,7 @@ class IMP_Imap implements Serializable
      */
     public function getNamespace($mailbox, $personal = false)
     {
-        if (!$this->isImap() || !$this->_ob->getParam('imp:login')) {
+        if (!$this->isImap()) {
             return null;
         }
 
@@ -728,7 +738,7 @@ class IMP_Imap implements Serializable
         case 'login':
             if (!$this->_ob->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
-                if (!$this->isImap() &&
+                if (!$this->isPop3() &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
                     Horde::log($error);
