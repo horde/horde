@@ -743,7 +743,6 @@ class Horde_Registry implements Horde_Shutdown_Task
         return implode('|', array(
             'horde_registry_cache',
             gethostname() ?: php_uname(),
-            getmyuid(),
             __FILE__,
             $this->_regmtime,
             $sha1
