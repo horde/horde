@@ -310,6 +310,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             if ($contact->getType() != 'contact') {
                 continue;
             }
+            $backendId = $contact->getBackendId();
             $contact = $contact->getData();
             $contact['__type'] = 'Object';
             $contact['__key'] = Horde_Url::uriB64Encode($id);
@@ -317,7 +318,8 @@ class Turba_Driver_Kolab extends Turba_Driver
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 $contact['photo'] = new Horde_Stream_Existing(array(
-                    'stream' => $this->_getData()->getAttachment($id, $name)
+                    'stream' => $this->_getData()
+                        ->getAttachment($backendId, $name)
                 ));
                 foreach ($contact['_attachments']['type'] as $type => $list) {
                     if (array_search($name, $list) !== false) {

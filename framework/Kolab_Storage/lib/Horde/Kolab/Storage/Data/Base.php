@@ -425,7 +425,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getAttachment($object_id, $attachment_id)
     {
         foreach ($this->fetch($this->getStamp()->ids()) as $object) {
-            if ($object['uid'] == $object_id &&
+            if ($object->getBackendId() == $object_id &&
                 isset($object['_attachments'][$attachment_id])) {
                 return $object['_attachments'][$attachment_id]['content'];
             }
