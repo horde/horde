@@ -43,7 +43,7 @@ extends PHPUnit_Framework_TestCase
     {
         $data = $this->getMock('Horde_Kolab_Storage_Object_Writer');
         $object = new Horde_Kolab_Storage_Object();
-        $object->load('1', $this->folder, $data, new stdClass);
+        $object->load('1', $this->folder, $data, new Horde_Mime_Part());
     }
 
     public function testObjectType()
