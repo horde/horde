@@ -419,6 +419,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetAttachment()
     {
         $resource = fopen('php://temp', 'r+');
+        fwrite($resource, 'test');
         $this->horde_cache = $this->getMockCache();
         $cache = $this->horde_cache->getDataCache(
             array(
@@ -433,26 +434,30 @@ extends Horde_Kolab_Storage_TestCase
         $this->horde_cache->storeAttachment(
             $cache->getDataId(), '100', '1', $resource
         );
+        rewind($resource);
         $this->assertSame(
-            $resource,
-            $cache->getAttachment('100', '1')
+            stream_get_contents($resource),
+            stream_get_contents($cache->getAttachment('100', '1'))
         );
     }
 
     public function testGetStoredAttachment()
     {
+        $data = 'test';
         $resource = fopen('php://temp', 'r+');
+        fwrite($resource, $data);
         $this->assertSame(
-            $resource,
-            $this->_getSyncedCacheWithAttachment($resource)
-            ->getAttachment('100', '1')
+            $data,
+            stream_get_contents(
+                $this->_getSyncedCacheWithAttachment($data)
+                    ->getAttachment('100', '1')
+            )
         );
     }
 
     public function testDeletedAttachment()
     {
-        $resource = fopen('php://temp', 'r+');
-        $cache = $this->_getSyncedCacheWithAttachment($resource);
+        $cache = $this->_getSyncedCacheWithAttachment('');
         $cache->store(
             array(),
             new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
@@ -470,7 +475,7 @@ extends Horde_Kolab_Storage_TestCase
             array('1', '3'),
             array_keys(
                 $this->_getSyncedCacheWithAttachment('Y')
-                ->getAttachmentByName('100', 'test.txt')
+                    ->getAttachmentByName('100', 'test.txt')
             )
         );
     }
@@ -569,8 +574,9 @@ extends Horde_Kolab_Storage_TestCase
         return $cache;
     }
 
-    private function _getSyncedCacheWithAttachment($resource)
+    private function _getSyncedCacheWithAttachment($data)
     {
+        $resource = Horde_Stream_Wrapper_String::getStream($data);
         $cache = $this->getMockDataCache();
         $cache->store(
             array(

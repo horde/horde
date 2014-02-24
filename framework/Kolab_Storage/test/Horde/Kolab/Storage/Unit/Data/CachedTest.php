@@ -34,8 +34,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'event',
-            $this->_getDataCache()
-            ->getType()
+            $this->_getDataCache()->getType()
         );
     }
 

@@ -191,7 +191,6 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testStoreAttachment()
     {
-        
         $this->cache->storeAttachment('test', '1', '1', $this->_getResource());
         $this->assertEquals(
             'test',
@@ -207,11 +206,15 @@ extends Horde_Kolab_Storage_TestCase
         $resource2 = $this->_getResource();
         $this->cache->storeAttachment('test', '1', '1', $resource);
         $this->cache->storeAttachment('test', '1', '1', $resource2);
+        rewind($resource);
+        rewind($resource2);
         $this->assertSame(
-            $resource2, $this->cache->loadAttachment('test', '1', '1')
+            stream_get_contents($resource2),
+            stream_get_contents($this->cache->loadAttachment('test', '1', '1'))
         );
-        $this->assertNotSame(
-            $resource, $this->cache->loadAttachment('test', '1', '1')
+        $this->assertSame(
+            stream_get_contents($resource),
+            stream_get_contents($this->cache->loadAttachment('test', '1', '1'))
         );
     }
 
@@ -221,11 +224,15 @@ extends Horde_Kolab_Storage_TestCase
         $resource2 = $this->_getResource();
         $this->cache->storeAttachment('test', '1', '1', $resource);
         $this->cache->storeAttachment('test', '2', '1', $resource2);
+        rewind($resource);
+        rewind($resource2);
         $this->assertSame(
-            $resource, $this->cache->loadAttachment('test', '1', '1')
+            stream_get_contents($resource),
+            stream_get_contents($this->cache->loadAttachment('test', '1', '1'))
         );
         $this->assertSame(
-            $resource2, $this->cache->loadAttachment('test', '2', '1')
+            stream_get_contents($resource2),
+            stream_get_contents($this->cache->loadAttachment('test', '2', '1'))
         );
     }
 
@@ -235,11 +242,15 @@ extends Horde_Kolab_Storage_TestCase
         $resource2 = $this->_getResource();
         $this->cache->storeAttachment('test', '1', '1', $resource);
         $this->cache->storeAttachment('test', '1', '2', $resource2);
+        rewind($resource);
+        rewind($resource2);
         $this->assertSame(
-            $resource, $this->cache->loadAttachment('test', '1', '1')
+            stream_get_contents($resource),
+            stream_get_contents($this->cache->loadAttachment('test', '1', '1'))
         );
         $this->assertSame(
-            $resource2, $this->cache->loadAttachment('test', '1', '2')
+            stream_get_contents($resource2),
+            stream_get_contents($this->cache->loadAttachment('test', '1', '2'))
         );
     }
 
