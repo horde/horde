@@ -111,31 +111,28 @@ implements Horde_Kolab_Storage_Folder_Stamp
             return false;
         }
     }
+
     /**
      * What changed between this old stamp and the new provided stamp?
      *
-     * @param Horde_Kolab_Storage_Folder_Stamp_Uids The new stamp to compare against.
+     * @param Horde_Kolab_Storage_Folder_Stamp_Uids $stamp  The new stamp to
+     *                                                      compare against.
      *
-     * @return array|boolean False if there was no change, an array of two
-     *                       elements (added IDs, deleted IDs) otherwise.
+     * @return array  An array of two elements (added IDs, deleted IDs).
      */
     public function getChanges(Horde_Kolab_Storage_Folder_Stamp $stamp)
     {
         if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
-        if ($this->uidnext() != $stamp->uidnext()
-            || count($this->ids()) != count($stamp->ids())) {
-            return array(
-                self::DELETED => array_values(
-                    array_diff($this->ids(), $stamp->ids())
-                ),
-                self::ADDED => array_values(
-                    array_diff($stamp->ids(), $this->ids())
-                )
-            );
-        }
-        return false;
+        return array(
+            self::DELETED => array_values(
+                array_diff($this->ids(), $stamp->ids())
+            ),
+            self::ADDED => array_values(
+                array_diff($stamp->ids(), $this->ids())
+            )
+        );
     }
 
     /**

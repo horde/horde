@@ -92,7 +92,11 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testUnserialize()
     {
-        $this->assertFalse(
+        $this->assertEquals(
+            array(
+                Horde_Kolab_Storage_Folder_Stamp::DELETED => array(),
+                Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
+            ),
             $this->_getStamp()->getChanges(
                 unserialize(serialize($this->_getStamp()))
             )
@@ -101,7 +105,13 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testNoChange()
     {
-        $this->assertFalse($this->_getStamp()->getChanges($this->_getStamp()));
+        $this->assertEquals(
+            array(
+                Horde_Kolab_Storage_Folder_Stamp::DELETED => array(),
+                Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
+            ),
+            $this->_getStamp()->getChanges($this->_getStamp())
+        );
     }
 
     public function testAdded()
