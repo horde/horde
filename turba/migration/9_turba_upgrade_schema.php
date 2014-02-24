@@ -50,7 +50,7 @@ class TurbaUpgradeSchema extends Horde_Db_Migration_Base
     {
         $this->removeColumn('turba_objects', 'object_assistant');
         $this->removeColumn('turba_objects', 'object_workemail');
-        $this->removeColumn('turba_objects', 'object_workhomeemail');
+        $this->removeColumn('turba_objects', 'object_homeemail');
     }
 
 }
