@@ -338,24 +338,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function dropTable($name)
     {
-        $pk = $this->primaryKey($name);
-        if (count($pk->columns) == 1) {
-            $prefix = $name . '_' . $pk->columns[0];
-            try {
-                $this->execute(sprintf(
-                    'DROP SEQUENCE %s',
-                    $this->quoteColumnName($this->_truncateTo30($prefix . '_seq'))
-                ));
-            } catch (Horde_Db_Exception $e) {
-            }
-            try {
-                $this->execute(sprintf(
-                    'DROP TRIGGER %s',
-                    $this->quoteColumnName($this->_truncateTo30($prefix . '_trig'))
-                ));
-            } catch (Horde_Db_Exception $e) {
-            }
-        }
+        $this->removeAutoincrementTrigger($name);
         parent::dropTable($name);
     }
 
@@ -464,6 +447,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
 
         if ($type == 'autoincrementKey') {
             try {
+                $this->removeAutoincrementTrigger($tableName);
                 $this->removePrimaryKey($tableName);
             } catch (Horde_Db_Exception $e) {
             }
@@ -545,6 +529,14 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         }
     }
 
+    /**
+     * Creates sequences and triggers for an autoincrementKey column.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     */
     public function createAutoincrementTrigger($tableName, $columnName)
     {
         $id = $tableName . '_' . $columnName;
@@ -565,6 +557,36 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $columnName,
             $sequence
         ));
+    }
+
+    /**
+     * Drops sequences and triggers for an autoincrementKey column.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     */
+    public function removeAutoincrementTrigger($name)
+    {
+        $pk = $this->primaryKey($name);
+        if (count($pk->columns) == 1) {
+            $prefix = $name . '_' . $pk->columns[0];
+            try {
+                $this->execute(sprintf(
+                    'DROP SEQUENCE %s',
+                    $this->quoteColumnName($this->_truncate($prefix . '_seq'))
+                ));
+            } catch (Horde_Db_Exception $e) {
+            }
+            try {
+                $this->execute(sprintf(
+                    'DROP TRIGGER %s',
+                    $this->quoteColumnName($this->_truncate($prefix . '_trig'))
+                ));
+            } catch (Horde_Db_Exception $e) {
+            }
+        }
     }
 
     /**
