@@ -2134,7 +2134,7 @@ KronolithCore = {
             if (!event.start.equals(event.end)) {
                 time.insert('-' + event.end.toString(Kronolith.conf.time_format));
             }
-            div.insert(time);
+            div.insert(time).insert(' ');
         }
         div.insert(event.t.escapeHTML());
         div.insert(span);
