@@ -444,6 +444,24 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             return;
         }
 
+        $old = $this->typeToSql(
+            $column->getType(),
+            is_null($options['limit']) ? null : $column->getLimit(),
+            is_null($options['precision']) ? null : $column->precision(),
+            is_null($options['scale']) ? null : $column->scale(),
+            is_null($options['unsigned']) ? null : $column->isUnsigned()
+        );
+        $new = $this->typeToSql(
+            $type,
+            $options['limit'],
+            $options['precision'],
+            $options['scale'],
+            $options['unsigned']
+        );
+        if ($old == $new) {
+            return;
+        }
+
         if ($type == 'autoincrementKey') {
             try {
                 $this->removePrimaryKey($tableName);
@@ -511,15 +529,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             return;
         }
 
-        $sql = $this->quoteColumnName($columnName)
-            . ' '
-            . $this->typeToSql(
-                $type,
-                $options['limit'],
-                $options['precision'],
-                $options['scale'],
-                $options['unsigned']
-            );
+        $sql = $this->quoteColumnName($columnName) . ' ' . $new;
         $sql = $this->addColumnOptions($sql, $options);
 
         $sql = sprintf(
