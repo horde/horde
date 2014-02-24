@@ -1188,7 +1188,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         $read = explode(' ', rtrim($this->_connection->read(), "\r\n"), 2);
         if (!in_array($read[0], array('+OK', '-ERR', '+'))) {
-            $this->_debug->info("ERROR: IMAP read/timeout error.");
+            $this->_debug->info('ERROR: IMAP read/timeout error.');
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::r("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR

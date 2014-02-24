@@ -3877,7 +3877,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * cache any data and immediately close the mailbox. */
         foreach ($pipeline->data['modseqs_nouid'] as $val) {
             if (!$pipeline->fetch[$val]->getUid()) {
-                $this->_debug->info('Server provided FLAGS MODSEQ without providing UID.');
+                $this->_debug->info(
+                    'Server provided FLAGS MODSEQ without providing UID.'
+                );
                 $this->close();
                 return $pipeline;
             }
@@ -4080,7 +4082,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return false;
         }
 
-        $this->_debug->info("ERROR: Unexpected response from server while waiting for a continuation request.");
+        $this->_debug->info(
+            'ERROR: Unexpected response from server while waiting for a continuation request.'
+        );
         $e = new Horde_Imap_Client_Exception(
             Horde_Imap_Client_Translation::r("Error when communicating with the mail server."),
             Horde_Imap_Client_Exception::SERVER_READERROR
@@ -4685,7 +4689,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLIENTBUG':
         case 'CANNOT':
             // Defined by RFC 5530 [3]
-            $this->_debug->info("ERROR: mail server explicitly reporting an error.");
+            $this->_debug->info(
+                'ERROR: mail server explicitly reporting an error.'
+            );
             break;
 
         case 'LIMIT':

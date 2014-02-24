@@ -58,7 +58,9 @@ extends Horde_Imap_Client_Socket_Connection_Base
     {
         if (feof($this->_stream)) {
             $this->close();
-            $this->_params['debug']->info("ERROR: Server closed the connection.");
+            $this->_params['debug']->info(
+                'ERROR: Server closed the connection.'
+            );
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::r("Server closed the connection unexpectedly."),
                 Horde_Imap_Client_Exception::DISCONNECT
@@ -66,7 +68,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
         }
 
         if (($read = fgets($this->_stream)) === false) {
-            $this->_params['debug']->info("ERROR: read/timeout error.");
+            $this->_params['debug']->info('ERROR: read/timeout error.');
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::r("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR

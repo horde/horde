@@ -41,9 +41,10 @@ class Horde_Imap_Client_Socket_Connection_Base extends Horde\Socket\Client
         parent::_connect($host, $port, $timeout, $secure, $retries);
 
         if ($timer) {
-            $this->_params['debug']->info(
-                sprintf('Server connection took %s seconds.', round($timer->pop(), 4))
-            );
+            $this->_params['debug']->info(sprintf(
+                'Server connection took %s seconds.',
+                round($timer->pop(), 4)
+            ));
         }
     }
 

@@ -401,7 +401,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 if ($ci = $this->getParam('capability_ignore')) {
                     if ($this->_debug->debug &&
                         ($ignored = array_intersect_key($val, array_flip($ci)))) {
-                        $this->_debug->info(sprintf("CONFIG: IGNORING these IMAP capabilities: %s", implode(', ', array_keys($ignored))));
+                        $this->_debug->info(sprintf(
+                            'CONFIG: IGNORING these IMAP capabilities: %s',
+                            implode(', ', array_keys($ignored))
+                        ));
                     }
 
                     $val = array_diff_key($val, array_flip($ci));
@@ -3802,7 +3805,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $c = $this->getParam('cache');
         if (in_array(strval($this->_selected), $c['fetch_ignore'])) {
-            $this->_debug->info(sprintf("CACHE: Ignoring FETCH data (mailbox: %s)", $this->_selected));
+            $this->_debug->info(sprintf(
+                'CACHE: Ignoring FETCH data [%s]',
+                $this->_selected
+            ));
             return;
         }
 
@@ -3908,7 +3914,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $c = $this->getParam('cache');
         if (in_array(strval($to), $c['fetch_ignore'])) {
-            $this->_debug->info(sprintf("CACHE: Ignoring moving FETCH data (%s => %s)", $this->_selected, $to));
+            $this->_debug->info(sprintf(
+                'CACHE: Ignoring moving FETCH data (%s => %s)',
+                $this->_selected,
+                $to
+            ));
             return;
         }
 
@@ -3995,11 +4005,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $md[self::CACHE_SEARCHID] = $cacheid;
             if ($this->_debug->debug &&
                 !isset($this->_temp['searchcacheexpire'][strval($this->_selected)])) {
-                $this->_debug->info(sprintf("SEARCH: Expired from cache (mailbox: %s)", $this->_selected));
+                $this->_debug->info(sprintf(
+                    'SEARCH: Expired from cache [%s]',
+                    $this->_selected
+                ));
                 $this->_temp['searchcacheexpire'][strval($this->_selected)] = true;
             }
         } elseif (isset($md[self::CACHE_SEARCH][$cache])) {
-            $this->_debug->info(sprintf("SEARCH: Retrieved %s from cache (mailbox: %s; id: %s)", $type, $this->_selected, $cache));
+            $this->_debug->info(sprintf(
+                'SEARCH: Retrieved %s from cache (%s [%s])',
+                $type,
+                $cache,
+                $this->_selected
+            ));
             $ret['data'] = $md[self::CACHE_SEARCH][$cache];
             unset($md[self::CACHE_SEARCHID]);
         }
@@ -4024,7 +4042,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_cache->setMetaData($this->_selected, null, $sdata['metadata']);
 
         if ($this->_debug->debug) {
-            $this->_debug->info(sprintf("SEARCH: Saved %s to cache (mailbox: %s; id: %s)", $sdata['type'], $this->_selected, $sdata['id']));
+            $this->_debug->info(sprintf(
+                'SEARCH: Saved %s to cache (%s [%s])',
+                $sdata['type'],
+                $sdata['id'],
+                $this->_selected
+            ));
             unset($this->_temp['searchcacheexpire'][strval($this->_selected)]);
         }
     }
