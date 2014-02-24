@@ -742,7 +742,7 @@ class IMP_Imap implements Serializable
 
         case 'setACL':
             $injector->getInstance('IMP_Mailbox_SessionCache')->expire(
-                IMP_MailboxSessionCache::CACHE_ACL,
+                IMP_Mailbox_SessionCache::CACHE_ACL,
                 IMP_Mailbox::get($params[0])
             );
             break;
