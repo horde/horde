@@ -122,13 +122,13 @@ class Horde_Kolab_Storage_Cache
      */
     public function loadAttachment($data_id, $obid, $attachment_id)
     {
-        $stream = new Horde_Support_StringStream(
-            $this->horde_cache->get(
-                $this->_getAttachmentId($data_id, $obid, $attachment_id),
-                0
-            )
+        $data = $this->horde_cache->get(
+            $this->_getAttachmentId($data_id, $obid, $attachment_id),
+            0
         );
-        return $stream->fopen();
+        return $data === false
+            ? $data
+            : Horde_Stream_Wrapper_String::getStream($data);
     }
 
     /**
