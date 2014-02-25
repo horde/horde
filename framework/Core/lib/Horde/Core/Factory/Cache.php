@@ -103,18 +103,25 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
      */
     public function getDriverName()
     {
-        $driver = empty($GLOBALS['conf']['cache']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['cache']['driver'];
+        global $conf;
 
-        if (strcasecmp($driver, 'None') === 0) {
-            $driver = 'Null';
-        } elseif (Horde_Cli::runningFromCLI() &&
-                  (strcasecmp($driver, 'Xcache') === 0)) {
-            $driver = 'Null';
+        $driver = empty($conf['cache']['driver'])
+            ? 'null'
+            : Horde_String::lower($conf['cache']['driver']);
+
+        switch ($driver) {
+        case 'none':
+            $driver = 'null';
+            break;
+
+        case 'xcache':
+            if (Horde_Cli::runningFromCLI()) {
+                $driver = 'null';
+            }
+            break;
         }
 
-        return Horde_String::lower($driver);
+        return $driver;
     }
 
     /**
@@ -123,7 +130,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
      * @param string $driver  The storage driver name.
      * @param array  $params  The storage backend parameters.
      *
-     * @return Horde_Cache_Storage_Base A cache storage backend.
+     * @return Horde_Cache_Storage_Base  A cache storage backend.
      */
     protected function _getStorage($driver, $params)
     {
