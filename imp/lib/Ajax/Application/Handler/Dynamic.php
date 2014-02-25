@@ -1072,8 +1072,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         $flist = array();
-        $iterator = IMP_Ftree_IteratorFilter::create(
-            IMP_Ftree_IteratorFilter::NO_NONIMAP
+        $iterator = new IMP_Ftree_IteratorFilter_Nonimap(
+            IMP_Ftree_IteratorFilter::create()
         );
 
         foreach ($iterator as $val) {

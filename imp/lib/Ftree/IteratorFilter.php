@@ -24,7 +24,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
 {
     /* The list filtering constants. */
     const NO_CHILDREN = 1;
-    const NO_NONIMAP = 2;
     const NO_REMOTE = 4;
     const NO_SPECIALMBOXES = 8;
     const NO_UNEXPANDED = 16;
@@ -84,7 +83,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      * @param integer $mask  A mask with the following possible elements:
      * <pre>
      *   - self::NO_CHILDREN: Don't include child elements.
-     *   - self::NO_NONIMAP: Don't include non-IMAP elements.
      *   - self::NO_REMOTE: Don't include remote accounts.
      *   - self::NO_SPECIALMBOXES: Don't include special mailboxes.
      *   - self::SPECIALMBOXES: Always include special mailboxes.
@@ -127,10 +125,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
     public function accept()
     {
         $elt = $this->current();
-
-        if (($this->_mask & self::NO_NONIMAP) && $elt->nonimap) {
-            return false;
-        }
 
         if ($elt->vfolder) {
             return !($this->_mask & self::NO_VFOLDER);

@@ -246,7 +246,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'heading' => _("Messages to"),
                 'inc_notepads' => true,
                 'inc_tasklists' => true,
-                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF),
+                'iterator' => new IMP_Ftree_IteratorFilter_Nonimap(IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::UNSUB_PREF)),
                 'new_mbox' => true
             ));
         }

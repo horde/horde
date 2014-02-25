@@ -914,7 +914,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 }
                 if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
                     $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-                        IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB_PREF)
+                        new IMP_Ftree_IteratorFilter_Nonimap(
+                            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::UNSUB_PREF)
+                        )
                     );
                     $iterator->setFilter(array('INBOX'));
 

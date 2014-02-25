@@ -49,7 +49,9 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
         $view->addHelper('Horde_Core_View_Helper_Label');
 
         $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
+            new IMP_Ftree_IteratorFilter_Nonimap(
+                IMP_Ftree_IteratorFilter::create()
+            )
         );
         $iterator->mboxes = array('INBOX');
 

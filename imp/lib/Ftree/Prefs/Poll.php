@@ -74,8 +74,8 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
         $plist = array();
 
         $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-            IMP_Ftree_IteratorFilter::create(
-                IMP_Ftree_IteratorFilter::NO_NONIMAP
+            new IMP_Ftree_IteratorFilter_Nonimap(
+                IMP_Ftree_IteratorFilter::create()
             )
         );
         if ($this->_data !== true) {
