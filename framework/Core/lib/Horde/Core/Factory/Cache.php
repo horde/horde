@@ -57,10 +57,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         $driver = $this->getDriverName();
 
         /* Storage driver parameters. */
-        $dconfig = Horde::getDriverConfig('cache', $driver);
-        $sparams = isset($dconfig['params'])
-            ? $dconfig['params']
-            : array();
+        $sparams = Horde::getDriverConfig('cache', $driver);
 
         switch ($driver) {
         case 'hashtable':
