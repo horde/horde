@@ -55,8 +55,6 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         }
 
         $driver = $this->getDriverName();
-
-        /* Storage driver parameters. */
         $sparams = Horde::getDriverConfig('cache', $driver);
 
         switch ($driver) {
@@ -64,7 +62,8 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         // DEPRECATED
         case 'memcache':
             $sparams['hashtable'] = $injector->getInstance('Horde_Core_HashTable_Wrapper');
-            $driver = 'hashtable';
+            $driver = 'Horde_Cache_Storage_Hashtable';
+            unset($sparams['driverconfig'], $sparams['umask']);
             break;
 
         case 'nosql':
@@ -72,11 +71,15 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             if ($nosql instanceof Horde_Mongo_Client) {
                 $sparams['mongo_db'] = $nosql;
                 $driver = 'Horde_Cache_Storage_Mongo';
+            } else {
+                $driver = 'Horde_Cache_Storage_Null';
             }
+            unset($sparams['driverconfig'], $sparams['umask']);
             break;
 
         case 'sql':
             $sparams['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'cache');
+            unset($sparams['driverconfig'], $sparams['umask']);
             break;
         }
 
