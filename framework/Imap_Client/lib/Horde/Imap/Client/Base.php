@@ -278,7 +278,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         // Default values.
         $params = array_merge(array(
-            'encryptKey' => null,
             'hostspec' => 'localhost',
             'secure' => false,
             'timeout' => 30
