@@ -2525,8 +2525,8 @@ KronolithCore = {
         }
         if ((this.tasktype == 'complete' && !task.cp) ||
             ((this.tasktype == 'incomplete' || this.tasktype == 'future_incomplete') && task.cp) ||
-            ( ( complete === true ) && ( this.tasktype == 'future' ) )
-        ) {
+            ((complete === true) && (this.tasktype == 'future'))) {
+
             row.fade({
                 duration: this.effectDur,
                 afterFinish: function() {
