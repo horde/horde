@@ -46,8 +46,24 @@ class Horde_Core_Smartmobile_Url extends Horde_Url
         if (!($url instanceof Horde_Url)) {
             throw new InvalidArgumentException('First argument to Horde_Core_Smartmobile_Url constructor must be a Horde_Url object');
         }
+
+        $query = '';
+
+        /* Smartmobile URLs carry around query information in fragment, so
+         * copy any information found in the incoming URL. */
+        if (strlen($url->anchor)) {
+            $anchor = parse_url($url->anchor);
+            if (isset($anchor['query'])) {
+                $this->anchor = $anchor['path'];
+                $query = '?' . $anchor['query'];
+            } else {
+                $this->anchor = $url->anchor;
+            }
+            $url->anchor = '';
+        }
+
         $this->_baseUrl = $url;
-        parent::__construct('', $raw);
+        parent::__construct($query, $raw);
     }
 
     /**
