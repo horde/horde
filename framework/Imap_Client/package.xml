@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Relax type checking on cache driver object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2213,7 +2213,7 @@
    <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Relax type checking on cache driver object.
    </notes>
   </release>
  </changelog>
