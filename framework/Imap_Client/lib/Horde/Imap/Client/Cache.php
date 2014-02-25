@@ -54,28 +54,15 @@ class Horde_Imap_Client_Cache
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <ul>
-     *  <li>
-     *   REQUIRED Parameters:
-     *   <ul>
-     *    <li>
-     *     backend: (Horde_Imap_Client_Cache_Backend) The cache backend.
-     *    </li>
-     *    <li>
-     *     baseob: (Horde_Imap_Client_Base) The base client object.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   Optional Parameters:
-     *   <ul>
-     *    <li>
-     *     debug: (Horde_Imap_Client_Base_Debug) Debug object.
-     *            DEFAULT: No debug output
-     *    </li>
-     *   </ul>
-     *  </li>
-     * </ul>
+     * <pre>
+     *   - REQUIRED Parameters:
+     *     - backend: (Horde_Imap_Client_Cache_Backend) The cache backend.
+     *     - baseob: (Horde_Imap_Client_Base) The base client object.
+     *
+     *   - Optional Parameters:
+     *     - debug: (Horde_Imap_Client_Base_Debug) Debug object.
+     *              DEFAULT: No debug output
+     * </pre>
      */
     public function __construct(array $params = array())
     {

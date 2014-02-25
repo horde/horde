@@ -69,29 +69,16 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <ul>
-     *  <li>
-     *   REQUIRED Parameters:
-     *   <ul>
-     *    <li>
-     *     cacheob: (Horde_Cache) [REQUIRED] The cache object to use.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   Optional Parameters:
-     *   <ul>
-     *    <li>
-     *     lifetime: (integer) The lifetime of the cache data (in seconds).
-     *               DEFAULT: 1 week (604800 seconds)
-     *    </li>
-     *    <li>
-     *     slicesize: (integer) The slicesize to use.
-     *                DEFAULT: 50
-     *    </li>
-     *   </ul>
-     *  </li>
-     * </ul>
+     * <pre>
+     *   - REQUIRED Parameters:
+     *     - cacheob: (Horde_Cache) The cache object to use.
+     *
+     *   - Optional Parameters:
+     *     - lifetime: (integer) The lifetime of the cache data (in seconds).
+     *                 DEFAULT: 1 week (604800 seconds)
+     *     - slicesize: (integer) The slicesize to use.
+     *                  DEFAULT: 50
+     * </pre>
      */
     public function __construct(array $params = array())
     {

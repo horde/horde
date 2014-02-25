@@ -74,15 +74,10 @@ extends Horde_Imap_Client_Cache_Backend
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <ul>
-     *  <li>
-     *   REQUIRED parameters:
-     *   <ul>
-     *    <li>
-     *     hashtable: (Horde_HashTable) A HashTable object.
-     *    </li>
-     *   </ul>
-     *  </li>
+     * <pre>
+     *   - REQUIRED parameters:
+     *     - hashtable: (Horde_HashTable) A HashTable object.
+     * </pre>
      */
     public function __construct(array $params = array())
     {

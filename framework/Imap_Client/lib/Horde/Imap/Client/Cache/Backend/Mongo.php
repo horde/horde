@@ -61,15 +61,10 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <ul>
-     *  <li>
-     *   REQUIRED parameters:
-     *   <ul>
-     *    <li>
-     *     mongo_db: (Horde_Mongo_Client) A MongoDB client object.
-     *    </li>
-     *   </ul>
-     *  </li>
+     * <pre>
+     *   - REQUIRED parameters:
+     *     - mongo_db: (Horde_Mongo_Client) A MongoDB client object.
+     * </pre>
      */
     public function __construct(array $params = array())
     {

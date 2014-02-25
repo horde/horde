@@ -66,51 +66,34 @@
  * </pre>
  *
  * Implements the following non-RFC extensions:
- * <ul>
- *  <li>draft-ietf-morg-inthread-01: THREAD=REFS</li>
- *  <li>draft-daboo-imap-annotatemore-07: ANNOTATEMORE</li>
- *  <li>draft-daboo-imap-annotatemore-08: ANNOTATEMORE2</li>
- *  <li>XIMAPPROXY
- *   <ul>
- *    <li>Requires imapproxy v1.2.7-rc1 or later</li>
- *    <li>
+ * <pre>
+ *   - draft-ietf-morg-inthread-01: THREAD=REFS
+ *   - draft-daboo-imap-annotatemore-07: ANNOTATEMORE
+ *   - draft-daboo-imap-annotatemore-08: ANNOTATEMORE2
+ *   - XIMAPPROXY
+ *     Requires imapproxy v1.2.7-rc1 or later
  *     See https://squirrelmail.svn.sourceforge.net/svnroot/squirrelmail/trunk/imap_proxy/README
- *    </li>
- *   </ul>
- *  </li>
- *  <li>AUTH=XOAUTH2
- *   <ul>
- *    <li>https://developers.google.com/gmail/xoauth2_protocol</li>
- *   </ul>
- *  </li>
- * </ul>
+ *   - AUTH=XOAUTH2
+ *     https://developers.google.com/gmail/xoauth2_protocol
+ * </pre>
  *
  * TODO (or not necessary?):
- * <ul>
- *  <li>RFC 2177: IDLE
- *   <ul>
- *    <li>
+ * <pre>
+ *   - RFC 2177: IDLE
  *     Probably not necessary due to the limited connection time of each
  *     HTTP/PHP request
- *    </li>
- *   </ul>
- *  <li>RFC 2193: MAILBOX-REFERRALS</li>
- *  <li>
- *   RFC 4467/5092/5524/5550/5593: URLAUTH, URLAUTH=BINARY, URL-PARTIAL
- *  </li>
- *  <li>RFC 4978: COMPRESS=DEFLATE
- *   <ul>
- *    <li>See: http://bugs.php.net/bug.php?id=48725</li>
- *   </ul>
- *  </li>
- *  <li>RFC 5257: ANNOTATE (Experimental)</li>
- *  <li>RFC 5259: CONVERT</li>
- *  <li>RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT</li>
- *  <li>RFC 5465: NOTIFY</li>
- *  <li>RFC 5466: FILTERS</li>
- *  <li>RFC 6237: MULTISEARCH (Experimental)</li>
- *  <li>RFC 6855: UTF8
- * </ul>
+ *   - RFC 2193: MAILBOX-REFERRALS
+ *   - RFC 4467/5092/5524/5550/5593: URLAUTH, URLAUTH=BINARY, URL-PARTIAL
+ *   - RFC 4978: COMPRESS=DEFLATE
+ *     See: http://bugs.php.net/bug.php?id=48725
+ *   - RFC 5257: ANNOTATE (Experimental)
+ *   - RFC 5259: CONVERT
+ *   - RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT
+ *   - RFC 5465: NOTIFY
+ *   - RFC 5466: FILTERS
+ *   - RFC 6237: MULTISEARCH (Experimental)
+ *   - RFC 6855: UTF8
+ * </pre>
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde

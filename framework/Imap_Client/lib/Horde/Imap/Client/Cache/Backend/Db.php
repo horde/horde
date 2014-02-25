@@ -39,16 +39,10 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <ul>
-     *  <li>
-     *   REQUIRED Parameters:
-     *   <ul>
-     *    <li>
-     *     db: (Horde_Db_Adapter) DB object.
-     *    </li>
-     *   </ul>
-     *  </li>
-     * </ul>
+     * <pre>
+     *   - REQUIRED Parameters:
+     *     - db: (Horde_Db_Adapter) DB object.
+     * </pre>
      */
     public function __construct(array $params = array())
     {
