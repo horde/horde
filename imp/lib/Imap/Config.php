@@ -52,7 +52,7 @@
  * @property-read array $spam_params  Spam reporting parameters.
  * @property array $special_mboxes  List of special mailboxes overrides.
  * @property-read array $user_special_mboxes  List of user special mailboxes.
- * @propert string $thread  The preferred thread sort algorithm.
+ * @property string $thread  The preferred thread sort algorithm.
  * @property string $timeout  The connection timeout (in seconds).
  */
 class IMP_Imap_Config implements Serializable
