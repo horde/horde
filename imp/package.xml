@@ -315,6 +315,7 @@
       <file name="Ancestors.php" role="horde" />
       <file name="Mailboxes.php" role="horde" />
       <file name="Nocontainers.php" role="horde" />
+      <file name="Polled.php" role="horde" />
       <file name="Prefetch.php" role="horde" />
      </dir> <!-- /lib/Ftree/IteratorFilter -->
      <dir name="Prefs">
@@ -1701,6 +1702,7 @@
    <install as="imp/lib/Ftree/IteratorFilter/Ancestors.php" name="lib/Ftree/IteratorFilter/Ancestors.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Nocontainers.php" name="lib/Ftree/IteratorFilter/Nocontainers.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Polled.php" name="lib/Ftree/IteratorFilter/Polled.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Prefetch.php" name="lib/Ftree/IteratorFilter/Prefetch.php" />
    <install as="imp/lib/Ftree/Prefs/Expanded.php" name="lib/Ftree/Prefs/Expanded.php" />
    <install as="imp/lib/Ftree/Prefs/Poll.php" name="lib/Ftree/Prefs/Poll.php" />

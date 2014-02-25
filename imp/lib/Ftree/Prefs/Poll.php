@@ -73,14 +73,15 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
     {
         $plist = array();
 
-        $mask = IMP_Ftree_IteratorFilter::NO_NONIMAP;
+        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+            IMP_Ftree_IteratorFilter::create(
+                IMP_Ftree_IteratorFilter::NO_NONIMAP
+            )
+        );
         if ($this->_data !== true) {
-            $mask |= IMP_Ftree_IteratorFilter::NO_UNPOLLED;
+            $iterator = new IMP_Ftree_IteratorFilter_Polled($iterator);
         }
 
-        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-            IMP_Ftree_IteratorFilter::create($mask)
-        );
         $plist = array_map('strval', iterator_to_array($iterator, false));
 
         if ($sort) {

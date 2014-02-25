@@ -28,7 +28,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
     const NO_REMOTE = 4;
     const NO_SPECIALMBOXES = 8;
     const NO_UNEXPANDED = 16;
-    const NO_UNPOLLED = 32;
     const NO_VFOLDER = 64;
     const INVISIBLE = 128;
     const UNSUB = 256;
@@ -90,7 +89,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      *   - self::NO_SPECIALMBOXES: Don't include special mailboxes.
      *   - self::SPECIALMBOXES: Always include special mailboxes.
      *   - self::NO_UNEXPANDED: Don't include unexpanded mailboxes.
-     *   - self::NO_UNPOLLED: Don't include unpolled mailboxes.
      *   - self::NO_VFOLDER: Don't include Virtual Folders.
      *   - self::INVISIBLE: Include invisible elements.
      *   - self::UNSUB: Include unsubscribed elements.
@@ -162,10 +160,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
             }
         } elseif (($this->_mask & self::NO_SPECIALMBOXES) &&
                   $elt->mbox_ob->special) {
-            return false;
-        }
-
-        if (($this->_mask & self::NO_UNPOLLED) && !$elt->polled) {
             return false;
         }
 

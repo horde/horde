@@ -72,13 +72,15 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
             IMP_Ftree_IteratorFilter::UNSUB_PREF;
         if (!$this->vars->all) {
-            $mask |= IMP_Ftree_IteratorFilter::NO_UNPOLLED |
-                IMP_Ftree_IteratorFilter::SPECIALMBOXES;
+            $mask |= IMP_Ftree_IteratorFilter::SPECIALMBOXES;
         }
 
         $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
             IMP_Ftree_IteratorFilter::create($mask)
         );
+        if (!$this->vars->all) {
+            $iterator = new IMP_Ftree_IteratorFilter_Polled($iterator);
+        }
 
         return $ftree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
             'iterator' => $iterator,
