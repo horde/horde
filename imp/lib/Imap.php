@@ -738,8 +738,7 @@ class IMP_Imap implements Serializable
         case 'login':
             if (!$this->_ob->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
-                if (!$this->isPop3() &&
-                    !$this->queryCapability('UIDL')) {
+                if ($this->isPop3() && !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
                     Horde::log($error);
                     throw $error;
