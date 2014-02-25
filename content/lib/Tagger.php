@@ -97,9 +97,9 @@ class Content_Tagger
     public function tag($userId, $objectId, $tags, Horde_Date $created = null)
     {
         if (is_null($created)) {
-            $created = date('Y-m-d\TH:i:s');
+            $created = date('Y-m-d H:i:s');
         } else {
-            $created = $created->format('Y-m-d\TH:i:s');
+            $created = $created->format('Y-m-d H:i:s');
         }
 
         // Make sure the object exists
