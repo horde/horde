@@ -26,7 +26,7 @@
 class Horde_Url
 {
     /**
-     * The anchor string.
+     * The anchor string (a/k/a fragment).
      *
      * @var string
      */
