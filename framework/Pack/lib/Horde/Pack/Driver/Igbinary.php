@@ -34,6 +34,9 @@ class Horde_Pack_Driver_Igbinary extends Horde_Pack_Driver
      */
     static public function supported()
     {
+        // @todo: Enable when igbinary 1.1.2 (or higher) is released
+        return false;
+
         return extension_loaded('igbinary');
     }
 

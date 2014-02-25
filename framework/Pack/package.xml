@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Due to issues with igbinary 1.1.1, disable the igbinary driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -167,7 +167,7 @@
    <date>2013-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Due to issues with igbinary 1.1.1, disable the igbinary driver.
    </notes>
   </release>
  </changelog>
