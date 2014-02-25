@@ -35,9 +35,11 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Parameters:
+     * <pre>
      *   - stack: (array) [REQUIRED] An array of storage instances to loop
      *            through, in order of priority. The last entry is considered
      *            the 'master' driver, for purposes of writes.
+     * </pre>
      */
     public function __construct(array $params = array())
     {

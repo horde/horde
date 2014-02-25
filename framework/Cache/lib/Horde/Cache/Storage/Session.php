@@ -33,8 +33,10 @@ class Horde_Cache_Storage_Session extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
+     * <pre>
      *   - session: (string) Store session data in this entry.
      *              DEFAULT: 'horde_cache_session'
+     * </pre>
      */
     public function __construct(array $params = array())
     {

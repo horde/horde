@@ -43,9 +43,11 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
      * Construct a new Horde_Cache_Memcache object.
      *
      * @param array $params  Parameter array:
+     * <pre>
      *   - memcache: (Horde_Memcache) [REQUIRED] A Horde_Memcache object.
      *   - prefix: (string) The prefix to use for the cache keys.
      *             DEFAULT: ''
+     * </pre>
      */
     public function __construct(array $params = array())
     {

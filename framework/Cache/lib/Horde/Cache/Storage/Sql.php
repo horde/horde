@@ -49,9 +49,11 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Parameters:
+     * <pre>
      *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
      *   - table: (string) The name of the cache table.
      *            DEFAULT: 'horde_cache'
+     * </pre>
      */
     public function __construct($params = array())
     {

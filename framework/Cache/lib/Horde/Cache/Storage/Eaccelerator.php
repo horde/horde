@@ -26,8 +26,10 @@ class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
+     * <pre>
      *   - prefix: (string) The prefix to use for the cache keys.
      *             DEFAULT: ''
+     * </pre>
      *
      * @throws Horde_Cache_Exception
      */
