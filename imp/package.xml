@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-19</date>
+ <date>2014-02-25</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -330,6 +330,9 @@
      <file name="Select.php" role="horde" />
     </dir> <!-- /lib/Ftree -->
     <dir name="Imap">
+     <dir name="Cache">
+      <file name="Wrapper.php" role="horde" />
+     </dir> <!-- /lib/Imap/Cache -->
      <file name="Acl.php" role="horde" />
      <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
@@ -1297,7 +1300,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.18.0</min>
+    <min>2.18.4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1707,6 +1710,7 @@
    <install as="imp/lib/Imap/Password.php" name="lib/Imap/Password.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Remote.php" name="lib/Imap/Remote.php" />
+   <install as="imp/lib/Imap/Cache/Wrapper.php" name="lib/Imap/Cache/Wrapper.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />

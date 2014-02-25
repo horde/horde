@@ -208,29 +208,32 @@ class IMP_Imap_Config implements Serializable
             if ($c = $this->cache) {
                 if ($c instanceof Horde_Imap_Client_Cache_Backend) {
                     $ob = $c;
-                } elseif (strcasecmp($c, 'nosql') === 0) {
-                    $db = $injector->getInstance('Horde_Nosql_Adapter');
-                    if ($db instanceof Horde_Mongo_Client) {
-                        $ob = new Horde_Imap_Client_Cache_Backend_Mongo(array(
-                            'mongo_db' => $db
-                        ));
-                    } else {
-                        Horde::log(sprintf('IMAP client package does not support %s as a cache driver.', get_class($db)), 'ERR');
-                    }
-                } elseif (strcasecmp($c, 'sql') === 0) {
-                    $ob = new Horde_Imap_Client_Cache_Backend_Db(array(
-                        'db' => $injector->getInstance('Horde_Db_Adapter')
-                    ));
-                } elseif (strcasecmp($c, 'hashtable') === 0) {
-                    $ob = new Horde_Imap_Client_Cache_Backend_Hashtable(array(
-                        'hashtable' => $injector->getInstance('Horde_HashTable')
-                    ));
                 } else {
+                    switch ($driver = Horde_String::lower($c)) {
+                    case 'hashtable':
+                    case 'sql':
+                        // No-op.
+                        break;
+
+                    case 'nosql':
+                        $db = $injector->getInstance('Horde_Nosql_Adapter');
+                        if (!$db instanceof Horde_Mongo_Client) {
+                            $driver = null;
+                            Horde::log(sprintf('IMAP client package does not support %s as a cache driver.', get_class($db)), 'ERR');
+                        }
+                        break;
+
+                    case 'cache':
                     /* TODO: For IMP 6.x BC, treat everything else as the
                      * 'cache' option. */
-                    $ob = new Horde_Imap_Client_Cache_Backend_Cache(array(
-                        'cacheob' => $injector->getInstance('Horde_Cache')
-                    ));
+                    default:
+                        $driver = 'cache';
+                        break;
+                    }
+
+                    if (!is_null($driver)) {
+                        $ob = new IMP_Imap_Cache_Wrapper($driver);
+                    }
                 }
             }
 
