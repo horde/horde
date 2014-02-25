@@ -26,7 +26,7 @@ $links = $mobile_links = array();
 foreach (array_diff($registry->listApps(), array('horde')) as $app) {
     $name = $registry->get('name', $app);
     $tmp = array(
-        Horde::url($registry->getInitialPage($app)),
+        new Horde_Core_Smartmobile_Url(Horde::url($registry->getInitialPage($app))),
         $registry->get('icon', $app)
     );
     if ($registry->hasView($registry::VIEW_SMARTMOBILE, $app)) {
