@@ -38,6 +38,12 @@ class Horde_Core_HordeMap
     {
         global $browser, $conf, $language, $page_output, $registry;
 
+        // Language specific file needed?
+        $language = str_replace('_', '-', $language);
+        if (!file_exists($registry->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
+            $language = 'en-US';
+        }
+
         $params = array_merge(array(
             'conf' => array(
                 'language' => $language,
@@ -51,12 +57,6 @@ class Horde_Core_HordeMap
             'providers' => $conf['maps']['providers'],
             'ssl' => $browser->usingSSLConnection(),
         ), $params);
-
-        // Language specific file needed?
-        $language = str_replace('_', '-', $language);
-        if (!file_exists($registry->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
-            $language = 'en-US';
-        }
 
         foreach ($params['providers'] as $layer) {
             switch ($layer) {
