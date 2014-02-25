@@ -2023,10 +2023,12 @@ class Horde_Registry implements Horde_Shutdown_Task
             return false;
         }
 
-        $this->callAppMethod($app, 'logout');
-        $session->remove($app);
-        $session->remove('horde', 'auth_app/' . $app);
-        $session->remove('horde', 'auth_app_init/' . $app);
+        if ($this->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+            $this->callAppMethod($app, 'logout');
+            $session->remove($app);
+            $session->remove('horde', 'auth_app/' . $app);
+            $session->remove('horde', 'auth_app_init/' . $app);
+        }
 
         unset(
             $this->_cache['existing'][$app],

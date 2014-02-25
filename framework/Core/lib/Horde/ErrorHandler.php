@@ -27,8 +27,10 @@ class Horde_ErrorHandler
         if (is_object($error)) {
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
-                if ($registry->isAuthenticated(array('app' => $error->application, 'notransparent' => true)) &&
-                    !$registry->clearAuthApp($error->application)) {
+                $auth_app = !$registry->clearAuthApp($error->application);
+
+                if ($auth_app &&
+                    $registry->isAuthenticated(array('app' => $error->application, 'notransparent' => true))) {
                     break;
                 }
 
@@ -60,7 +62,7 @@ class Horde_ErrorHandler
                  * issues on the login page since we would otherwise need
                  * to do session token checking (which might not be
                  * available, so logout won't happen, etc...) */
-                if (array_key_exists('app', $params)) {
+                if ($auth_app && array_key_exists('app', $params)) {
                     $registry->clearAuth();
                 }
 
