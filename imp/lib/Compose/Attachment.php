@@ -23,6 +23,8 @@
  * @property-read boolean $linked  Should this attachment be linked?
  * @property-read Horde_Url $link_url  The URL, if the attachment is linked.
  * @property-read IMP_Compose_Attachment_Storage $storage  The storage object.
+ * @property-read string $tmpfile  The temporary file location on the local
+ *                                 filesystem.
  */
 class IMP_Compose_Attachment implements Serializable
 {
@@ -46,13 +48,6 @@ class IMP_Compose_Attachment implements Serializable
      * @var boolean
      */
     public $related = false;
-
-    /**
-     * Temporary filename.
-     *
-     * @var string
-     */
-    public $tmpfile = null;
 
     /**
      * Compose object cache ID.
@@ -102,7 +97,15 @@ class IMP_Compose_Attachment implements Serializable
         $this->id = ++$ob->atcId;
         $this->_composeCache = strval($ob);
         $this->_part = $part;
-        $this->tmpfile = $tmp_file;
+        $this->_uuid = strval(new Horde_Support_Uuid());
+
+        $storage = $this->storage;
+        $storage->forceLinked = true;
+        $storage->write($tmp_file, $this->getPart());
+        /* Need to save this information now, since it is possible that
+         * storage backends change their linked status based on the data
+         * written to the backend. */
+        $this->_linked = $storage->linked;
     }
 
     /**
@@ -119,26 +122,10 @@ class IMP_Compose_Attachment implements Serializable
             return $this->storage->link_url;
 
         case 'storage':
-            if (is_null($this->_uuid)) {
-                $this->_uuid = strval(new Horde_Support_Uuid());
-                $store = true;
-            } else {
-                $store = false;
-            }
+            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->forceLinked || $this->_linked);
 
-            $ob = $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->forceLinked || $this->_linked);
-
-            if ($store && !is_null($this->tmpfile)) {
-                $ob->forceLinked = true;
-                $ob->write($this->tmpfile, $this->getPart());
-                /* Need to save this information now, since it is possible
-                 * that storage backends change their linked status based on
-                 * the data written to the backend. */
-                $this->_linked = $ob->linked;
-                $this->tmpfile = null;
-            }
-
-            return $ob;
+        case 'tmpfile':
+            return $this->storage->getTempFile();
         }
     }
 
@@ -153,10 +140,10 @@ class IMP_Compose_Attachment implements Serializable
     public function getPart($build = false)
     {
         if ($build && !$this->_isBuilt) {
-            $data = is_null($this->tmpfile)
-                ? $this->storage->read()
-                : fopen($this->tmpfile, 'r');
-            $this->_part->setContents($data->stream, array('stream' => true));
+            $this->_part->setContents(
+                $this->storage->read()->stream,
+                array('stream' => true)
+            );
             $this->_isBuilt = true;
         }
 
@@ -168,15 +155,10 @@ class IMP_Compose_Attachment implements Serializable
      */
     public function delete()
     {
-        $this->tmpfile = null;
-
-        if (!is_null($this->_uuid)) {
-            if (!$this->linked) {
-                try {
-                    $this->storage->delete();
-                } catch (Exception $e) {}
-            }
-            $this->_uuid = null;
+        if (!$this->linked) {
+            try {
+                $this->storage->delete();
+            } catch (Exception $e) {}
         }
     }
 
@@ -207,11 +189,6 @@ class IMP_Compose_Attachment implements Serializable
          * effects. */
         $this->_part->clearContents();
         $this->_isBuilt = false;
-
-        if (!is_null($this->tmpfile)) {
-            /* This ensures data is stored in the backend. */
-            $this->storage;
-        }
 
         return $GLOBALS['injector']->getInstance('Horde_Pack')->pack(
             array(

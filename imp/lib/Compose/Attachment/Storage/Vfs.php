@@ -54,7 +54,7 @@ class IMP_Compose_Attachment_Storage_Vfs extends IMP_Compose_Attachment_Storage
 
     /**
      */
-    public function read()
+    protected function _read()
     {
         try {
             if (method_exists($this->_vfs, 'readStream')) {
@@ -74,7 +74,7 @@ class IMP_Compose_Attachment_Storage_Vfs extends IMP_Compose_Attachment_Storage
 
     /**
      */
-    public function write($filename, Horde_Mime_Part $part)
+    protected function _write($filename, Horde_Mime_Part $part)
     {
         try {
             $this->_vfs->write($this->_vfspath, $this->_id, $filename, true);

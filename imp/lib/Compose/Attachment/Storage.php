@@ -33,6 +33,13 @@ abstract class IMP_Compose_Attachment_Storage
     protected $_id;
 
     /**
+     * Temporary file location.
+     *
+     * @var string
+     */
+    protected $_tmpfile;
+
+    /**
      * Attachment owner.
      *
      * @var string
@@ -79,7 +86,17 @@ abstract class IMP_Compose_Attachment_Storage
      * @return Horde_Stream  Stream object containing data.
      * @throws IMP_Compose_Exception
      */
-    abstract public function read();
+    public function read()
+    {
+        return (isset($this->_tmpfile) && is_readable($this->_tmpfile))
+            ? new Horde_Stream_Existing(array('stream' => fopen($this->_tmpfile)))
+            : $this->_read();
+    }
+
+    /**
+     * @see read()
+     */
+    abstract protected function _read();
 
     /**
      * Write attachment to storage.
@@ -90,7 +107,16 @@ abstract class IMP_Compose_Attachment_Storage
      *
      * @throws IMP_Compose_Exception
      */
-    abstract public function write($filename, Horde_Mime_Part $part);
+    public function write($filename, Horde_Mime_Part $part)
+    {
+        $this->_tmpfile = $filename;
+        $this->_write($filename, $part);
+    }
+
+    /**
+     * @see write()
+     */
+    abstract protected function _write($filename, Horde_Mime_Part $part);
 
     /**
      * Writes attachment data to a temporary file.
@@ -101,6 +127,10 @@ abstract class IMP_Compose_Attachment_Storage
      */
     public function getTempFile()
     {
+        if (isset($this->_tmpfile)) {
+            return $this->_tmpfile;
+        }
+
         $stream = $this->read();
 
         $tmp = Horde::getTempFile('impatt');

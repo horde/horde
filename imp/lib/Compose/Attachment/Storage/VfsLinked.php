@@ -76,7 +76,7 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
 
     /**
      */
-    public function write($filename, Horde_Mime_Part $part)
+    protected function _write($filename, Horde_Mime_Part $part)
     {
         global $browser, $conf;
 
