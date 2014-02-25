@@ -54,7 +54,7 @@ abstract class Horde_Core_Ui_Widget
      *
      * @var callable
      */
-    protected $_url_callback = array('Horde', 'applicationUrl');
+    protected $_url_callback = array('Horde', 'url');
 
     /**
      * Construct a new UI Widget interface.
