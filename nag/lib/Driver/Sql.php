@@ -100,7 +100,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         if (!is_array($taskIds)) {
-            $results = new Nag_Task($this, $this->_buildTask(current($rows)));
+            $results = new Nag_Task($this, $this->_buildTask(reset($rows)));
             $this->_tasklist = $results->tasklist;
         } else {
             $results = new Nag_Task();

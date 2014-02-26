@@ -121,7 +121,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $on = $task_due > 0;
 
         /* Set up the radio buttons. */
-        $html .= sprintf(
+        $html = sprintf(
             '<input id="due_type_none" name="due_type" type="radio" class="radio" value="none"%s />
 %s
 <br />
@@ -176,6 +176,8 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                     $value = array('value' => $value, 'unit' => 1);
                 }
                 $value['on'] = true;
+            } else {
+                $value = array('on' => false);
             }
         }
         $units = array(1 => _("Minute(s)"), 60 => _("Hour(s)"),
