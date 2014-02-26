@@ -333,8 +333,11 @@ class Gollem_Auth
         global $session;
 
         if ($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) {
-            foreach ($session->get('gollem', 'backends_password', $session::TYPE_ARRAY) as $key => $val) {
-                $backends[$key]['params']['password'] = $val;
+            $passwords = $session->get('gollem', 'backends_password', $session::TYPE_ARRAY);
+            if ($passwords) {
+                foreach ($passwords as $key => $val) {
+                    $backends[$key]['params']['password'] = $val;
+                }
             }
         }
 
