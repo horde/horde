@@ -97,7 +97,7 @@ case 'add_memo':
     $memo_body = '';
     $memo_encrypted = $show_passphrase = false;
     $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
-    $memo_tags = '';
+    $memo_tags = array();
 
     $title = _("New Note");
     break;
