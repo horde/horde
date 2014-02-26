@@ -85,7 +85,7 @@
     line-height: 20px;
 }
 
-#dueimg, #startimg {
+#dueimg, #startimg, #recur_endimg {
     cursor: pointer;
     padding-left: 3px;
 }
