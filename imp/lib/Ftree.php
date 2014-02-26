@@ -763,7 +763,8 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     protected function _insertElt($elt)
     {
         $name = $this->_normalize($elt['v']);
-        if ($this->getAttribute('container', $name) === false) {
+        if (isset($this->_elts[$name]) ||
+            ($this->getAttribute('container', $name) === false)) {
             return;
         }
 
