@@ -72,6 +72,12 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Get ACL data.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  A Horde_Imap_Client_Data_Acl object, null if no ACL
+     *                data, or false if not set.
      */
     public function getAcl($mbox)
     {
@@ -85,10 +91,13 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Set ACL data.
+     *
+     * @param string $mbox  Mailbox.
+     * @param mixed $acl    Horde_Imap_Client_Data_Acl object, or null.
      */
     public function setAcl($mbox, $acl)
     {
-
         /* Store string representation of ACL for a more compact
          * serialized format. */
         $this->_cache[$mbox][self::CACHE_ACL] = strval($acl);
@@ -96,6 +105,11 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Get the mailbox label.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  Mailbox label, or false if not set.
      */
     public function getLabel($mbox)
     {
@@ -109,6 +123,10 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Set the mailbox label.
+     *
+     * @param string $mbox   Mailbox.
+     * @param string $label  Label.
      */
     public function setLabel($mbox, $label)
     {
@@ -119,6 +137,11 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Preference storage name.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  Preference string, or false if not set.
      */
     public function getPrefTo($mbox)
     {
@@ -128,6 +151,10 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Set the preference storage name.
+     *
+     * @param string $mbox     Mailbox.
+     * @param string $pref_to  Preference storage name.
      */
     public function setPrefTo($mbox, $pref_to)
     {
@@ -136,6 +163,11 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Get the UIDVALIDITY of the mailbox.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  UIDVALIDITY, or false if not set.
      */
     public function getUidvalidity($mbox)
     {
@@ -145,6 +177,10 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Set the UIDVALIDITY of the mailbox.
+     *
+     * @param string $mbox       Mailbox.
+     * @param integer $uidvalid  UIDVALIDITY.
      */
     public function setUidvalidity($mbox, $uidvalid)
     {
@@ -153,6 +189,11 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Get mailbox display label.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  Mailbox display label, or false if not set.
      */
     public function getDisplay($mbox)
     {
@@ -162,6 +203,10 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Set mailbox display label.
+     *
+     * @param string $mbox     Mailbox.
+     * @param string $display  Display label.
      */
     public function setDisplay($mbox, $display)
     {
@@ -170,6 +215,11 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Get icon information.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return mixed  Icon information (array), or false if not set.
      */
     public function getIcons($mbox)
     {
