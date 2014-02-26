@@ -81,7 +81,7 @@ class IMP_Mailbox_SessionCache implements Serializable
      */
     public function getAcl($mbox)
     {
-        if (!isset($this->_cache[$mbox][self::CACHE_ACL])) {
+        if (!array_key_exists($this->_cache[$mbox][self::CACHE_ACL])) {
             return false;
         }
 
@@ -100,7 +100,9 @@ class IMP_Mailbox_SessionCache implements Serializable
     {
         /* Store string representation of ACL for a more compact
          * serialized format. */
-        $this->_cache[$mbox][self::CACHE_ACL] = strval($acl);
+        $this->_cache[$mbox][self::CACHE_ACL] = is_null($acl)
+            ? $acl
+            : strval($acl);
         $this->_changed = self::CHANGED_YES;
     }
 
