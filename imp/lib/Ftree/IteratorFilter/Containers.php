@@ -12,8 +12,7 @@
  */
 
 /**
- * Iterator filter for the IMP_Ftree object that returns the ancestors for an
- * element.
+ * Iterator filter for IMP_Ftree that allows filtering of container elements.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -21,19 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ftree_IteratorFilter_Ancestors extends IMP_Ftree_IteratorFilter
+class IMP_Ftree_IteratorFilter_Containers extends FilterIterator
 {
     /**
      */
-    static public function create($mask = 0, $elt = null)
+    public function accept()
     {
-        $elts = array();
-
-        while ($elt = $elt->parent) {
-            $elts = array_merge($elt->child_list, $elts);
-        }
-
-        return parent::create($mask | self::NO_CHILDREN, $elts);
+        return !$this->current()->container;
     }
 
 }

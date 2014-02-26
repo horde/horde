@@ -55,6 +55,11 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
 
         $rightslist = $acl->getRights();
 
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
+        );
+        $iterator->add($iterator::NONIMAP);
+
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));
@@ -68,7 +73,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
         $view->mbox = $mbox->form_to;
         $view->options = new IMP_Ftree_Select(array(
             'basename' => true,
-            'iterator' => new IMP_Ftree_IteratorFilter_Nonimap(IMP_Ftree_IteratorFilter::create()),
+            'iterator' => $iterator,
             'selected' => $mbox
         ));
 

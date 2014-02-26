@@ -93,12 +93,15 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function mailboxList()
     {
-        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-            IMP_Ftree_IteratorFilter::create(
-                IMP_Ftree_IteratorFilter::NO_REMOTE |
-                IMP_Ftree_IteratorFilter::UNSUB_PREF
-            )
+        global $injector;
+
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
         );
+        $iterator->add(array(
+            $iterator::CONTAINERS,
+            $iterator::REMOTE
+        ));
         $mboxes = array();
 
         foreach ($iterator as $val) {

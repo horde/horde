@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes implements Horde_Core_Prefs_Ui_Special
+class IMP_Prefs_Special_ComposeTemplates
+extends IMP_Prefs_Special_SpecialMboxes
+implements Horde_Core_Prefs_Ui_Special
 {
     /**
      */
@@ -32,7 +34,7 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $page_output, $prefs;
+        global $injector, $page_output, $prefs;
 
         if ($prefs->isLocked(IMP_Mailbox::MBOX_TEMPLATES)) {
             return '';
@@ -48,11 +50,10 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
         ));
         $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-            new IMP_Ftree_IteratorFilter_Nonimap(
-                IMP_Ftree_IteratorFilter::create()
-            )
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
         );
+        $iterator->add($iterator::NONIMAP);
         $iterator->mboxes = array('INBOX');
 
         $view->mbox_flist = new IMP_Ftree_Select(array(

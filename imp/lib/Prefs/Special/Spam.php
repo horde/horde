@@ -32,7 +32,7 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $page_output;
+        global $injector, $page_output;
 
         $page_output->addScriptFile('folderprefs.js');
         $page_output->addInlineJsVars(array(
@@ -46,11 +46,10 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
 
         $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
 
-        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-            new IMP_Ftree_IteratorFilter_Nonimap(
-                IMP_Ftree_IteratorFilter::create()
-            )
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
         );
+        $iterator->add($iterator::NONIMAP);
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(

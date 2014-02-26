@@ -72,24 +72,25 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $ftree[$remote_ob]->open = true;
             $this->_base->queue->setMailboxOpt('expand', 1);
 
-            $mask = $this->vars->unsub
-                ? IMP_Ftree_Iterator_Filter::UNSUB
-                : 0;
+            $iterator = new IMP_Ftree_IteratorFilter($ftree);
+            if ($this->vars->unsub) {
+                $ftree->loadUnsubscribed();
+                $iterator->remove($iterator::UNSUB);
+            }
 
             switch ($prefs->getValue('nav_expanded')) {
             case IMP_Ftree_Prefs_Expanded::NO:
-                $mask |= IMP_Ftree_IteratorFilter::NO_CHILDREN;
+                $iterator->add($iterator::CHILDREN);
                 break;
 
             case IMP_Ftree_Prefs_Expanded::LAST:
-                $mask |= IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
+                $iterator->add($iterator::EXPANDED);
                 break;
             }
 
-            $iterator = IMP_Ftree_IteratorFilter::create($mask);
             array_map(
                 array($ftree->eltdiff, 'add'),
-                array_unique(iterator_to_array($iterator, false))
+                iterator_to_array($iterator, false)
             );
         } catch (Exception $e) {
             $notification->push(sprintf(_("Could not authenticate to %s."), $remote_ob->label), 'horde.error');

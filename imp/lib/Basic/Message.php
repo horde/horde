@@ -493,11 +493,17 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'title' => _("Copy"),
                 'nocheck' => true
             ));
+
+            $iterator = new IMP_Ftree_IteratorFilter(
+                $injector->getInstance('IMP_Ftree')
+            );
+            $iterator->add($iterator::NONIMAP);
+
             $n_view->options = new IMP_Ftree_Select(array(
                 'heading' => _("This message to"),
                 'inc_tasklists' => true,
                 'inc_notepads' => true,
-                'iterator' => new IMP_Ftree_IteratorFilter_Nonimap(IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::UNSUB_PREF)),
+                'iterator' => $iterator,
                 'new_mbox' => true
             ));
         }

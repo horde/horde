@@ -25,14 +25,6 @@
 class IMP_Ajax_Queue
 {
     /**
-     * The folder tree mask to use when determining what folder entries to
-     * return.
-     *
-     * @var integer
-     */
-    public $ftreemask = 0;
-
-    /**
      * The list of compose autocompleter address error data.
      *
      * @var array
@@ -641,17 +633,7 @@ class IMP_Ajax_Queue
         $ob->m = $mbox_ob->form_to;
 
         if ($elt->children) {
-            if ($this->ftreemask) {
-                $filter = IMP_Ftree_IteratorFilter::create($this->ftreemask, $elt);
-
-                /* Only need to check for a single child. */
-                foreach ($filter as $val) {
-                    $ob->ch = 1;
-                    break;
-                }
-            } else {
-                $ob->ch = 1;
-            }
+            $ob->ch = 1;
         } elseif ($elt->nochildren) {
             $ob->nc = 1;
         }

@@ -42,12 +42,14 @@ class IMP_Minimal_Folders extends IMP_Minimal_Base
 
         /* Initialize the IMP_Ftree object. */
         $ftree = $injector->getInstance('IMP_Ftree');
-        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE;
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
+        $iterator->add($iterator::REMOTE);
         if ($showAll) {
-            $mask |= IMP_Ftree_IteratorFilter::UNSUB;
+            $ftree->loadUnsubscribed();
+            $iterator->remove($iterator::UNSUB);
         }
         $tree = $ftree->createTree('mimp_folders', array(
-            'iterator' => IMP_Ftree_IteratorFilter::create($mask),
+            'iterator' => $iterator,
             'poll_info' => true,
             'render_type' => 'IMP_Tree_Simplehtml'
         ));

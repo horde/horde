@@ -42,15 +42,16 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
     {
         global $injector, $notification, $prefs;
 
+        $iterator = new IMP_Imap_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
+        );
+        $iterator->add($filter::CONTAINERS);
+        $mbox_list = array();
+
         /* Get list of all mailboxes, parse through and get the list of all
          * old sent-mail mailboxes. Then sort this array according to the
          * date. */
-        $sent_mail =$injector->getInstance('IMP_Identity')->getAllSentmail();
-
-        $iterator = new IMP_Imap_Ftree_IteratorFilter_Nocontainers(
-            IMP_Ftree_IteratorFilter::create()
-        );
-        $mbox_list = array();
+        $sent_mail = $injector->getInstance('IMP_Identity')->getAllSentmail();
 
         foreach (array_map('strval', $iterator) as $k) {
             foreach ($sent_mail as $mbox) {

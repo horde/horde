@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-25</date>
+ <date>2014-02-26</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -311,13 +311,21 @@
       <file name="Remote.php" role="horde" />
       <file name="Vfolder.php" role="horde" />
      </dir> <!-- /lib/Ftree/Account -->
-     <dir name="IteratorFilter">
+     <dir name="Iterator">
       <file name="Ancestors.php" role="horde" />
+     </dir> <!-- /lib/Ftree/Iterator -->
+     <dir name="IteratorFilter">
+      <file name="Children.php" role="horde" />
+      <file name="Containers.php" role="horde" />
+      <file name="Expanded.php" role="horde" />
+      <file name="Invisible.php" role="horde" />
       <file name="Mailboxes.php" role="horde" />
-      <file name="Nocontainers.php" role="horde" />
       <file name="Nonimap.php" role="horde" />
       <file name="Polled.php" role="horde" />
-      <file name="Prefetch.php" role="horde" />
+      <file name="Remote.php" role="horde" />
+      <file name="Special.php" role="horde" />
+      <file name="Subscribed.php" role="horde" />
+      <file name="Vfolder.php" role="horde" />
      </dir> <!-- /lib/Ftree/IteratorFilter -->
      <dir name="Prefs">
       <file name="Expanded.php" role="horde" />
@@ -1700,12 +1708,18 @@
    <install as="imp/lib/Ftree/Account/Inboxonly.php" name="lib/Ftree/Account/Inboxonly.php" />
    <install as="imp/lib/Ftree/Account/Remote.php" name="lib/Ftree/Account/Remote.php" />
    <install as="imp/lib/Ftree/Account/Vfolder.php" name="lib/Ftree/Account/Vfolder.php" />
-   <install as="imp/lib/Ftree/IteratorFilter/Ancestors.php" name="lib/Ftree/IteratorFilter/Ancestors.php" />
+   <install as="imp/lib/Ftree/Iterator/Ancestors.php" name="lib/Ftree/Iterator/Ancestors.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Children.php" name="lib/Ftree/IteratorFilter/Children.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Containers.php" name="lib/Ftree/IteratorFilter/Containers.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Expanded.php" name="lib/Ftree/IteratorFilter/Expanded.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Invisible.php" name="lib/Ftree/IteratorFilter/Invisible.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
-   <install as="imp/lib/Ftree/IteratorFilter/Nocontainers.php" name="lib/Ftree/IteratorFilter/Nocontainers.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Nonimap.php" name="lib/Ftree/IteratorFilter/Nonimap.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Polled.php" name="lib/Ftree/IteratorFilter/Polled.php" />
-   <install as="imp/lib/Ftree/IteratorFilter/Prefetch.php" name="lib/Ftree/IteratorFilter/Prefetch.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Remote.php" name="lib/Ftree/IteratorFilter/Remote.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Special.php" name="lib/Ftree/IteratorFilter/Special.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Subscribed.php" name="lib/Ftree/IteratorFilter/Subscribed.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Vfolder.php" name="lib/Ftree/IteratorFilter/Vfolder.php" />
    <install as="imp/lib/Ftree/Prefs/Expanded.php" name="lib/Ftree/Prefs/Expanded.php" />
    <install as="imp/lib/Ftree/Prefs/Poll.php" name="lib/Ftree/Prefs/Poll.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />

@@ -164,6 +164,8 @@ class IMP_Search_Query implements Serializable
      */
     public function __get($name)
     {
+        global $injector;
+
         switch ($name) {
         case 'all':
             return in_array(self::ALLSEARCH, $this->_mboxes);
@@ -213,9 +215,10 @@ class IMP_Search_Query implements Serializable
 
                 if ($this->all) {
                     $mbox = array();
-                    $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-                        IMP_Ftree_IteratorFilter::create()
+                    $iterator = new IMP_Ftree_IteratorFilter(
+                        $injector->getInstance('IMP_Ftree')
                     );
+                    $iterator->add($iterator::CONTAINERS);
 
                     foreach ($iterator as $val) {
                         $mbox[] = $val->mbox_ob;

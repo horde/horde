@@ -913,12 +913,11 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
                 if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
-                    $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-                        new IMP_Ftree_IteratorFilter_Nonimap(
-                            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::UNSUB_PREF)
-                        )
+                    $iterator = new IMP_Ftree_IteratorFilter(
+                        $injector->getInstance('IMP_Ftree')
                     );
-                    $iterator->setFilter(array('INBOX'));
+                    $iterator->add($iterator::NONIMAP);
+                    $iterator->mboxes = array('INBOX');
 
                     $ssm_options = array(
                         'abbrev' => false,

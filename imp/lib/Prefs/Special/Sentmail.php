@@ -55,11 +55,10 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
 
         $view->default = IMP_Mailbox::formTo(self::PREF_DEFAULT);
 
-        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
-            new IMP_Ftree_IteratorFilter_Nonimap(
-                IMP_Ftree_IteratorFilter::create()
-            )
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
         );
+        $iterator->add($iterator::NONIMAP);
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(

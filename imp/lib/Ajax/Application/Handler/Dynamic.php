@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_Handler
+class IMP_Ajax_Application_Handler_Dynamic
+extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * The list of actions that require readonly access to the session.
@@ -284,12 +285,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $ftree->init();
         }
 
-        $mask = $this->vars->unsub
-            ? IMP_Ftree_IteratorFilter::UNSUB
-            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
-
-        $this->_base->queue->ftreemask |= $mask |
-            IMP_Ftree_IteratorFilter::NO_SPECIALMBOXES;
+        $filter = new IMP_Ftree_IteratorFilter($ftree);
+        if ($this->vars->unsub) {
+            $ftree->loadUnsubscribed();
+            $filter->remove($filter::UNSUB);
+        }
 
         if (isset($this->vars->base)) {
             $this->_base->queue->setMailboxOpt('base', $this->vars->base);
@@ -297,38 +297,39 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         if ($this->vars->all) {
             $this->_base->queue->setMailboxOpt('all', 1);
-            $iterator->append(IMP_Ftree_IteratorFilter::create($mask));
+            $iterator->append($filter);
         } elseif ($this->vars->initial || $this->vars->reload) {
             $no_mbox = false;
 
             switch ($prefs->getValue('nav_expanded')) {
             case IMP_Ftree_Prefs_Expanded::NO:
-                $iterator->append(IMP_Ftree_IteratorFilter::create(
-                    $mask | IMP_Ftree_IteratorFilter::NO_CHILDREN
-                ));
+                $filter->add($filter::CHILDREN);
                 break;
 
             case IMP_Ftree_Prefs_Expanded::YES:
-                $iterator->append(IMP_Ftree_IteratorFilter::create($mask));
                 $this->_base->queue->setMailboxOpt('expand', 1);
                 $no_mbox = true;
                 break;
 
             case IMP_Ftree_Prefs_Expanded::LAST:
-                $iterator->append(IMP_Ftree_IteratorFilter::create(
-                    $mask | IMP_Ftree_IteratorFilter::NO_UNEXPANDED
-                ));
+                $filter->add($filter::EXPANDED);
                 $this->_base->queue->setMailboxOpt('expand', 1);
                 break;
             }
+
+            $iterator->append($filter);
 
             if (!$no_mbox) {
                 $mboxes = IMP_Mailbox::formFrom(json_decode($this->vars->mboxes));
                 foreach ($mboxes as $val) {
                     if (!$val->inbox) {
-                        $iterator->append(
-                            IMP_Ftree_IteratorFilter_Ancestors::create($mask, $val->tree_elt)
+                        $ancestors = new IMP_Ftree_IteratorFilter(
+                            new IMP_Ftree_Iterator_Ancestors($val->tree_elt)
                         );
+                        if ($this->vars->unsub) {
+                            $ancestors->remove($ancestors::UNSUB);
+                        }
+                        $iterator->append($ancestors);
                     }
                 }
             }
@@ -345,11 +346,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $iterator->append($special);
         } else {
             $this->_base->queue->setMailboxOpt('expand', 1);
+            $filter->add($filter::EXPANDED);
+
             foreach (IMP_Mailbox::formFrom(json_decode($this->vars->mboxes)) as $val) {
-                $iterator->append(IMP_Ftree_IteratorFilter::create(
-                    $mask | IMP_Ftree_IteratorFilter::NO_UNEXPANDED,
-                    $val->tree_elt
-                ));
+                $filter->iterator = new IMP_Ftree_Iterator($val->tree_elt);
+                $iterator->append($filter);
                 $ftree->expand($val);
             }
         }
@@ -1072,9 +1073,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         $flist = array();
-        $iterator = new IMP_Ftree_IteratorFilter_Nonimap(
-            IMP_Ftree_IteratorFilter::create()
-        );
+        $iterator = new IMP_Ftree_IteratorFilter($injector->getInstance('IMP_Ftree'));
+        $iterator->add($iterator::NONIMAP);
 
         foreach ($iterator as $val) {
             $mbox_ob = $val->mbox_ob;

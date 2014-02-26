@@ -71,15 +71,14 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
      */
     public function getPollList($sort = false)
     {
-        $plist = array();
+        global $injector;
 
-        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-            new IMP_Ftree_IteratorFilter_Nonimap(
-                IMP_Ftree_IteratorFilter::create()
-            )
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
         );
+        $iterator->add(array($iterator::CONTAINERS, $iterator::NONIMAP));
         if ($this->_data !== true) {
-            $iterator = new IMP_Ftree_IteratorFilter_Polled($iterator);
+            $iterator->add($iterator::POLLED);
         }
 
         $plist = array_map('strval', iterator_to_array($iterator, false));

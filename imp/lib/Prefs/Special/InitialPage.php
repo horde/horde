@@ -32,7 +32,7 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $prefs;
+        global $injector, $prefs;
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
@@ -40,6 +40,11 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
         $view->addHelper('FormTag');
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('Tag');
+
+        $iterator = new IMP_Ftree_IteratorFilter(
+            $injector->getInstance('IMP_Ftree')
+        );
+        $iterator->add($iterator::REMOTE);
 
         if (!($initial_page = $prefs->getValue('initial_page'))) {
             $initial_page = 'INBOX';
@@ -49,7 +54,7 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
         $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
             'inc_vfolder' => true,
-            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE),
+            'iterator' => $iterator,
             'selected' => $initial_page
         ));
 

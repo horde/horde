@@ -12,9 +12,8 @@
  */
 
 /**
- * Iterator filter for the IMP_Ftree object that allows filtering of container
- * elements. Necessary because RecursiveIterators won't allow traversing
- * children if the parent element is labeled as inactive.
+ * Iterator that returns all the ancestors (and their siblings) for an
+ * element.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -22,13 +21,29 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ftree_IteratorFilter_Nocontainers extends FilterIterator
+class IMP_Ftree_Iterator_Ancestors extends IMP_Ftree_Iterator
 {
     /**
      */
-    public function accept()
+    public function __construct($elt)
     {
-        return !$this->current()->container;
+        while ($elt && ($elt = $elt->parent)) {
+            $this->_elts = array_merge($elt->child_list, $this->_elts);
+        }
+    }
+
+    /**
+     */
+    public function getChildren()
+    {
+        return new self(array());
+    }
+
+    /**
+     */
+    public function hasChildren()
+    {
+        return false;
     }
 
 }

@@ -44,16 +44,17 @@ class IMP_Search_Ui
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
         $ftree = $injector->getInstance('IMP_Ftree');
-        $mask = $unsub
-            ? IMP_Ftree_IteratorFilter::UNSUB
-            : IMP_Ftree_IteratorFilter::UNSUB_PREF;
-        if ($registry->getView() != $registry::VIEW_DYNAMIC) {
-            $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
+        if ($unsub) {
+            $ftree->loadUnsubscribed();
+            $iterator->remove($iterator::UNSUB);
         }
-        $filter = IMP_Ftree_IteratorFilter::create($mask);
+        if ($registry->getView() != $registry::VIEW_DYNAMIC) {
+            $iterator->add($iterator::REMOTE);
+        }
 
         $ob->tree = $ftree->createTree('imp_search', array(
-            'iterator' => $filter,
+            'iterator' => $iterator,
             'render_params' => array(
                 'abbrev' => 0,
                 'container_select' => true,
@@ -64,7 +65,7 @@ class IMP_Search_Ui
         ));
 
         $mbox_list = array();
-        foreach ($filter as $val) {
+        foreach ($iterator as $val) {
             $mbox_ob = $val->mbox_ob;
             $mbox_list[$mbox_ob->form_to] = $mbox_ob->display;
         }

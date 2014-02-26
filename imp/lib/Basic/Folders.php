@@ -406,15 +406,16 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         ));
 
         /* Build the folder tree. */
-        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
-                IMP_Ftree_IteratorFilter::NO_VFOLDER;
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
+        $iterator->add(array($iterator::REMOTE, $iterator::VFOLDER));
         if ($showAll) {
-            $mask |= IMP_Ftree_IteratorFilter::UNSUB;
+            $ftree->loadUnsubscribed();
+            $iterator->remove($iterator::UNSUB);
         }
         $tree = $ftree->createTree('imp_folders', array(
             'checkbox' => true,
             'editvfolder' => true,
-            'iterator' => IMP_Ftree_IteratorFilter::create($mask),
+            'iterator' => $iterator,
             'poll_info' => true
         ));
 

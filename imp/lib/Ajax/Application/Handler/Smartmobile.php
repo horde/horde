@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Application_Handler
+class IMP_Ajax_Application_Handler_Smartmobile
+extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Get autocomplete data.
@@ -69,18 +70,30 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         /* Poll all mailboxes on initial display. */
         $this->_base->queue->poll($ftree->poll->getPollList());
 
-        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE |
-            IMP_Ftree_IteratorFilter::UNSUB_PREF;
-        if (!$this->vars->all) {
-            $mask |= IMP_Ftree_IteratorFilter::SPECIALMBOXES;
-        }
+        $iterator = new AppendIterator();
 
-        $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
-            IMP_Ftree_IteratorFilter::create($mask)
-        );
-        if (!$this->vars->all) {
-            $iterator = new IMP_Ftree_IteratorFilter_Polled($iterator);
+        /* Add special mailboxes explicitly. INBOX should appear first. */
+        $special = new ArrayIterator();
+        $special->append($ftree['INBOX']);
+        foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
+            if (isset($ftree[$val])) {
+                $special->append($ftree[$val]);
+            }
         }
+        $iterator->append($special);
+
+        /* Now add polled mailboxes. */
+        $filter = new IMP_Ftree_IteratorFilter($ftree);
+        $filter->add(array(
+            $filter::CONTAINERS,
+            $filter::REMOTE,
+            $filter::SPECIALMBOXES
+        ));
+        if (!$this->vars->all) {
+            $filter->add($filter::POLLED);
+        }
+        $filter->mboxes = array('INBOX');
+        $iterator->append($filter);
 
         return $ftree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
             'iterator' => $iterator,
@@ -97,9 +110,12 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function copyMoveMailboxList()
     {
+        $iterator = new IMP_Ftree_IteratorFilter($GLOBALS['injector']->getInstance('IMP_Ftree'));
+        $iterator->add($iterator::REMOTE);
+
         return strval(new IMP_Ftree_Select(array(
             'heading' => _("This message to"),
-            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::UNSUB_PREF),
+            'iterator' => $iterator,
             'optgroup' => true,
             'inc_tasklists' => true,
             'inc_notepads' => true,

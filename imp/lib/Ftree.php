@@ -30,10 +30,13 @@
  * @property-read IMP_FTree_Prefs_Expanded $expanded  The expanded folders
  *                                                    list.
  * @property-read IMP_Ftree_Prefs_Poll $poll  The poll list.
+ * @property-read boolean $subscriptions  Whether IMAP subscriptions are
+ *                                        enabled.
  * @property-read boolean $unsubscribed_loaded  True if unsubscribed mailboxes
  *                                              have been loaded.
  */
-class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializable
+class IMP_Ftree
+implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
@@ -112,6 +115,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function __get($name)
     {
+        global $prefs;
+
         switch ($name) {
         case 'changed':
             return ($this->_changed || $this->eltdiff->changed);
@@ -131,6 +136,9 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             }
             return $this->_temp['poll'];
 
+        case 'subscriptions':
+            return $prefs->getValue('subscribe');
+
         case 'unsubscribed_loaded':
             return $this[self::BASE_ELT]->subscribed;
         }
@@ -141,7 +149,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function init()
     {
-        global $injector, $prefs, $session;
+        global $injector, $session;
 
         $access_folders = $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
 
@@ -158,7 +166,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         $this->_parent[self::BASE_ELT] = array();
 
         $mask = IMP_Ftree_Account::INIT;
-        if (!$access_folders || !$prefs->getValue('subscribe') || $session->get('imp', 'showunsub')) {
+        if (!$access_folders || !$this->subscriptions || $session->get('imp', 'showunsub')) {
             $mask |= IMP_Ftree_Account::UNSUB;
             $this->setAttribute('subscribed', self::BASE_ELT, true);
         }
@@ -295,11 +303,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             $this->_changed = true;
 
             if ($mask & IMP_Ftree_Account::DELETE_RECURSIVE) {
-                $iterator = iterator_to_array(
-                    IMP_Ftree_IteratorFilter::create(0, $elt),
-                    false
-                );
-                foreach (array_map('strval', $iterator) as $val) {
+                foreach (array_map('strval', iterator_to_array(new IMP_Ftree_Iterator($elt), false)) as $val) {
                     unset(
                         $this->_elts[$val],
                         $this->_parent[$val]
@@ -366,10 +370,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         $new_list = $polled = array();
         $old_list = array_merge(
             array($old),
-            iterator_to_array(
-                IMP_Ftree_IteratorFilter::create(0, $old),
-                false
-            )
+            iterator_to_array(new IMP_Ftree_IteratorFilter($old), false)
         );
 
         foreach ($old_list as $val) {
@@ -876,13 +877,13 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function count()
     {
-        return iterator_count(
-            new IMP_Ftree_IteratorFilter_Nonimap(
-                IMP_Ftree_IteratorFilter::create(
-                    IMP_Ftree_IteratorFilter::UNSUB
-                )
-            )
-        );
+        $this->loadUnsubscribed();
+
+        $iterator = new IMP_Ftree_IteratorFilter($this);
+        $iterator->add($iterator::NONIMAP);
+        $iterator->remove($iterator::UNSUB);
+
+        return iterator_count($iterator);
     }
 
     /* Serializable methods. */
@@ -972,7 +973,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         }
 
         $iterator = empty($opts['iterator'])
-            ? $this->getIterator()
+            ? new IMP_Ftree_IteratorFilter($this)
             : $opts['iterator'];
 
         foreach ($iterator as $val) {
@@ -1112,6 +1113,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     /* IteratorAggregate methods. */
 
     /**
+     * This returns a RecursiveIterator - a RecursiveIteratorIterator is
+     * needed to properly iterate through all elements.
+     *
+     * @return IMP_Ftree_Iterator  Iterator object.
      */
     public function getIterator()
     {

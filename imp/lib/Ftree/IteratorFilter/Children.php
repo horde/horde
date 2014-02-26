@@ -12,7 +12,7 @@
  */
 
 /**
- * Iterator filter for IMP_Ftree that filters non-IMAP elements.
+ * Iterator filter for IMP_Ftree that filters child elements.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,13 +20,20 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ftree_IteratorFilter_Nonimap extends FilterIterator
+class IMP_Ftree_IteratorFilter_Children extends RecursiveFilterIterator
 {
     /**
      */
     public function accept()
     {
-        return !$this->current()->nonimap;
+        return true;
+    }
+
+    /**
+     */
+    public function hasChildren()
+    {
+        return false;
     }
 
 }

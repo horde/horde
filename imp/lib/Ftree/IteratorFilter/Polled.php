@@ -12,7 +12,7 @@
  */
 
 /**
- * Iterator filter for the IMP_Ftree object that filters by polled elements.
+ * Iterator filter for IMP_Ftree that filters by polled elements.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde

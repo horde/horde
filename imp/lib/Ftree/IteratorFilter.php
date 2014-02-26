@@ -12,7 +12,7 @@
  */
 
 /**
- * Iterator filter for the IMP_Ftree object.
+ * Iterator filter for IMP_Ftree.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,200 +20,184 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
+class IMP_Ftree_IteratorFilter implements Iterator
 {
-    /* The list filtering constants. */
-    const NO_CHILDREN = 1;
-    const NO_REMOTE = 4;
-    const NO_SPECIALMBOXES = 8;
-    const NO_UNEXPANDED = 16;
-    const NO_VFOLDER = 64;
-    const INVISIBLE = 128;
+    /**
+     * Filter mask constants.
+     *   - CHILDREN: Don't include child elements.
+     *   - CONTAINERS: Don't include container elements.
+     *   - EXPANDED: Don't include unexpanded mailboxes.
+     *   - INVISIBLE: Don't include invisible elements.
+     *   - NONIMAP: Don't include non-IMAP elements.
+     *   - POLLED: Don't include non-polled elements.
+     *   - REMOTE: Don't include remote accounts.
+     *   - SPECIALMBOXES: Don't include special mailboxes.
+     *   - UNSUB: Don't include unsubscribed elements.
+     *   - VFOLDER: Don't include Virtual Folders.
+     */
+    const CHILDREN = 1;
+    const CONTAINERS = 2;
+    const EXPANDED = 4;
+    const INVISIBLE = 8;
+    const NONIMAP = 16;
+    const POLLED = 32;
+    const REMOTE = 64;
+    const SPECIALMBOXES = 128;
     const UNSUB = 256;
-    const UNSUB_PREF = 512;
-    const SPECIALMBOXES = 1024;
+    const VFOLDER = 1024;
 
     /**
-     * Cached data.
+     * Master iterator object.
+     *
+     * @var Iterator
+     */
+    public $iterator;
+
+    /**
+     * A list of mailboxes to filter out.
      *
      * @var array
      */
-    protected $_cache = array();
+    public $mboxes = array();
+
+    /**
+     * Filtered iterator used for actual iteration.
+     *
+     * @var Iterator
+     */
+    private $_filter;
 
     /**
      * Filter mask.
      *
      * @var integer
      */
-    protected $_mask = 0;
+    protected $_mask;
 
     /**
-     * Creates an Iterator object.
+     * Constructor.
      *
-     * @param integer $mask           Any mask to apply to the filter.
-     * @param IMP_Ftree_Element $elt  Base element.
+     * @param Iterator $i  Master iterator object.
+     */
+    public function __construct($i = null)
+    {
+        $this->iterator = $i;
+
+        $this->_filter = new EmptyIterator();
+        $this->_mask = (self::INVISIBLE | self::UNSUB);
+    }
+
+    /**
+     * Add filter masks.
      *
-     * @return Iterator  Filter iterator.
+     * @param mixed $mask  Filter masks to add.
      */
-    static public function create($mask = 0, $elt = null)
+    public function add($mask)
     {
-        $ob = new self(new IMP_Ftree_Iterator($elt, self::showUnsub($mask)));
-        $ob->setFilter($mask);
-        return $ob->getIterator();
+        foreach ((is_array($mask) ? $mask : array($mask)) as $val) {
+            $this->_mask |= $val;
+        }
     }
 
     /**
-     * Show unsubscribed mailboxes based on the mask?
+     * Remove filter masks.
      *
-     * @param integer $mask  Mask to apply to the filter.
-     *
-     * @return boolean  True if showing unsubscribed mailboxes.
+     * @param mixed $mask  Filter masks to remove.
      */
-    static public function showUnsub($mask = 0)
+    public function remove($mask)
     {
-        global $prefs;
-
-        return (($mask & self::UNSUB) ||
-                (($mask & self::UNSUB_PREF) && !$prefs->getValue('subscribe')));
-    }
-
-    /**
-     * Set the iterator filter and reset the internal pointer.
-     *
-     * @param integer $mask  A mask with the following possible elements:
-     * <pre>
-     *   - self::NO_CHILDREN: Don't include child elements.
-     *   - self::NO_REMOTE: Don't include remote accounts.
-     *   - self::NO_SPECIALMBOXES: Don't include special mailboxes.
-     *   - self::SPECIALMBOXES: Always include special mailboxes.
-     *   - self::NO_UNEXPANDED: Don't include unexpanded mailboxes.
-     *   - self::NO_VFOLDER: Don't include Virtual Folders.
-     *   - self::INVISIBLE: Include invisible elements.
-     *   - self::UNSUB: Include unsubscribed elements.
-     *   - self::UNSUB_PREF: Include unsubscribed elements based on current
-     *                       subscribe preference value.
-     * </pre>
-     */
-    public function setFilter($mask = 0)
-    {
-        if (self::showUnsub($mask)) {
-            $mask |= self::UNSUB;
+        foreach ((is_array($mask) ? $mask : array($mask)) as $val) {
+            $this->_mask &= ~$val;
         }
-        $mask &= ~self::UNSUB_PREF;
-
-        $this->_mask = $mask;
-        reset($this);
     }
 
-    /**
-     * Return the iterator needed to traverse tree.
-     *
-     * @return RecursiveIteratorIterator  Iterator.
-     */
-    public function getIterator()
-    {
-        return new RecursiveIteratorIterator(
-            $this,
-            RecursiveIteratorIterator::SELF_FIRST
-        );
-    }
-
-    /* RecursiveFilterIterator methods. */
+    /* Iterator methods. */
 
     /**
      */
-    public function accept()
+    public function current()
     {
-        $elt = $this->current();
-
-        if ($elt->vfolder) {
-            return !($this->_mask & self::NO_VFOLDER);
-        }
-
-        if ($elt->invisible && !($this->_mask & self::INVISIBLE)) {
-            return false;
-        }
-
-        if ($elt->container) {
-            if ($elt->remote) {
-                if ($this->_mask & self::NO_REMOTE) {
-                    return false;
-                }
-            } elseif (!$this->getInnerIterator()->hasChildren() ||
-                      !($prefetch = iterator_to_array($this->getChildren()->getIterator(), false))) {
-                return false;
-            } else {
-                $this->_cache[$this->key()] = $prefetch;
-            }
-            return true;
-        }
-
-        if ($this->_mask & self::SPECIALMBOXES) {
-            if ($elt->mbox_ob->special) {
-                return true;
-            }
-        } elseif (($this->_mask & self::NO_SPECIALMBOXES) &&
-                  $elt->mbox_ob->special) {
-            return false;
-        }
-
-        if (!($this->_mask & self::UNSUB) && !$elt->subscribed) {
-            return false;
-        }
-
-        return true;
+        return $this->_filter->current();
     }
 
     /**
      */
-    public function getChildren()
+    public function key()
     {
-        $key = $this->key();
-
-        if (isset($this->_cache[$key])) {
-            $filter = new IMP_Ftree_IteratorFilter_Prefetch(
-                new IMP_Ftree_Iterator($this->_cache[$key])
-            );
-            unset($this->_cache[$key]);
-        } else {
-            $filter = new self($this->getInnerIterator()->getChildren());
-            $filter->setFilter($this->_mask);
-        }
-
-        return $filter;
+        return $this->_filter->key();
     }
 
     /**
      */
-    public function hasChildren()
+    public function next()
     {
-        /* Check for the existence of children in the first place. Use this
-         * recursive hasChildren() call since it will cache the results. */
-        if (!$this->getInnerIterator()->hasChildren()) {
-            return false;
-        }
-
-        /* If expanded is requested, we assume it overrides child filter. */
-        if (($this->_mask & self::NO_UNEXPANDED) && !$this->current()->open) {
-            return false;
-        }
-
-        /* Explicitly don't return child elements. */
-        if ($this->_mask & self::NO_CHILDREN) {
-            return false;
-        }
-
-        return true;
+        $this->_filter->next();
     }
-
-    /* RecursiveIterator methods. */
 
     /**
      */
     public function rewind()
     {
-        parent::rewind();
-        $this->_cache = array();
+        if (!isset($this->iterator)) {
+            throw new InvalidArgumentException('Missing iterator.');
+        }
+
+        $i = $this->iterator;
+        if (!($i instanceof RecursiveIterator)) {
+            $i = $i->getIterator();
+        }
+
+        /* Need to add RecursiveIteratorFilters first. */
+        $filters = array(
+            self::CHILDREN => 'IMP_Ftree_IteratorFilter_Children',
+            self::EXPANDED => 'IMP_Ftree_IteratorFilter_Expanded',
+            self::REMOTE => 'IMP_Ftree_IteratorFilter_Remote'
+        );
+
+        foreach ($filters as $key => $val) {
+            if ($this->_mask & $key) {
+                $i = new $val($i);
+            }
+        }
+
+        $i = new RecursiveIteratorIterator(
+            $i,
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        /* Now we can add regular FilterIterators. */
+        $filters = array(
+            self::CONTAINERS => 'IMP_Ftree_IteratorFilter_Containers',
+            self::INVISIBLE => 'IMP_Ftree_IteratorFilter_Invisible',
+            self::NONIMAP => 'IMP_Ftree_IteratorFilter_Nonimap',
+            self::POLLED => 'IMP_Ftree_IteratorFilter_Polled',
+            self::SPECIALMBOXES => 'IMP_Ftree_IteratorFilter_Special',
+            self::UNSUB => 'IMP_Ftree_IteratorFilter_Subscribed',
+            self::VFOLDER => 'IMP_Ftree_IteratorFilter_Vfolder'
+        );
+
+        foreach ($filters as $key => $val) {
+            if ($this->_mask & $key) {
+                $i = new $val($i);
+            }
+        }
+
+        /* Mailbox filter is handled separately. */
+        if (!empty($this->mboxes)) {
+            $i = new IMP_Ftree_IteratorFilter_Mailboxes($i);
+            $i->mboxes = $this->mboxes;
+        }
+
+        $i->rewind();
+
+        $this->_filter = $i;
+    }
+
+    /**
+     */
+    public function valid()
+    {
+        return $this->_filter->valid();
     }
 
 }
