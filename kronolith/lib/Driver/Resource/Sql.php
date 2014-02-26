@@ -24,6 +24,13 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected $_driver;
 
     /**
+     * Column information as Horde_Db_Adapter_Base_Column objects.
+     *
+     * @var array
+     */
+    protected $_columns = array();
+
+    /**
      * The class name of the event object to instantiate.
      *
      * @var string
@@ -51,6 +58,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
         ), $this->_params);
 
         $this->_driver = Kronolith::getDriver();
+        $this->_columns = $this->_db->columns($this->_params['table']);
     }
 
     /**
@@ -497,11 +505,21 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected function _fromDriver(array $params)
     {
         $return = array();
+
         foreach ($params as $field => $value) {
-            if ($field == 'resource_name' || $field == 'resource_description') {
+            switch ($field) {
+            case 'resource_description':
+                $value = $this->_columns['resource_description']
+                    ->binaryToString($value);
+                // Fall through.
+            case 'resource_name':
                 $value = $this->convertFromDriver($value);
-            } elseif ($field == 'resource_members') {
+                break;
+            case 'resource_members':
+                $value = $this->_columns['resource_members']
+                    ->binaryToString($value);
                 $value = @unserialize($value);
+                break;
             }
 
             $return[str_replace('resource_', '', $field)] = $value;
@@ -534,5 +552,4 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     {
         // noop
     }
-
 }

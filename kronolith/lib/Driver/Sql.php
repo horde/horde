@@ -23,6 +23,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     protected $_db;
 
     /**
+     * Column information as Horde_Db_Adapter_Base_Column objects.
+     *
+     * @var array
+     */
+    protected $_columns = array();
+
+    /**
      * Cache events as we fetch them to avoid fetching the same event from the
      * DB twice.
      *
@@ -374,8 +381,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = array();
         foreach ($qr as $row) {
-            /* If the event did not have a UID before, we need to give
-             * it one. */
+            /* If the event did not have a UID before, we need to give it
+             * one. */
             if (empty($row['event_uid'])) {
                 $row['event_uid'] = (string)new Horde_Support_Guid;
 
@@ -388,6 +395,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                     throw new Kronolith_Exception($e);
                 }
             }
+
+            /* Convert TEXT/CLOB fields. */
+            $row = $this->convertBlobs($row);
 
             /* We have all the information we need to create an event object
              * for this event, so go ahead and cache it. */
@@ -460,6 +470,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         if ($event) {
+            /* Convert TEXT/CLOB fields. */
+            $event = $this->convertBlobs($event);
+
             $this->_cache[$this->calendar][$eventId] = new $this->_eventClass($this, $event);
             return $this->_cache[$this->calendar][$eventId];
         }
@@ -511,6 +524,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $eventArray = array();
         foreach ($events as $event) {
+            /* Convert TEXT/CLOB fields. */
+            $event = $this->convertBlobs($event);
+
             $this->open($event['calendar_id']);
             $this->_cache[$this->calendar][$event['event_id']] = new $this->_eventClass($this, $event);
             $eventArray[] = $this->_cache[$this->calendar][$event['event_id']];
@@ -857,6 +873,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_params = array_merge(array(
             'table' => 'kronolith_events'
         ), $this->_params);
+
+        $this->_columns = $this->_db->columns($this->_params['table']);
     }
 
     /**
@@ -885,4 +903,23 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
     }
 
+    /**
+     * Converts TEXT/CLOB fields in an event.
+     *
+     * @param array $event  An event hash with TEXT/CLOB columns.
+     *
+     * @return array  The event with TEXT/CLOB columns converted to strings.
+     */
+    public function convertBlobs($event)
+    {
+        $clobs = array(
+            'alarm_methods', 'attendees', 'description', 'exceptions',
+            'location', 'resources'
+        );
+        foreach ($clobs as $clob) {
+            $event['event_' . $clob] = $this->_columns['event_' . $clob]
+                ->binaryToString($event['event_' . $clob]);
+        }
+        return $event;
+    }
 }
