@@ -376,7 +376,7 @@ abstract class Kronolith_Event
      * @param mixed $eventObject        Backend specific event object
      *                                  that this will represent.
      */
-    public function __construct($driver, $eventObject = null)
+    public function __construct(Kronolith_Driver $driver, $eventObject = null)
     {
         $this->calendar = $driver->calendar;
         list($this->_backgroundColor, $this->_foregroundColor) = $driver->colors();

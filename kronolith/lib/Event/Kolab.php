@@ -20,14 +20,14 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     public $calendarType = 'internal';
 
     /**
-     * Const'r
+     * Constructor.
      *
-     * @param Kronolith_Driver $driver  The backend driver that this event is
-     *                                  stored in.
-     * @param mixed $eventObject        Backend specific event object
-     *                                  that this will represent.
+     * @param Kronolith_Driver_Kolab $driver  The backend driver that this
+     *                                        event is stored in.
+     * @param mixed $eventObject              Backend specific event object
+     *                                        that this will represent.
      */
-    public function __construct($driver, $eventObject = null)
+    public function __construct(Kronolith_Driver_Kolab $driver, $eventObject = null)
     {
         static $alarm;
 

@@ -83,12 +83,12 @@ class Kronolith_Event_Horde extends Kronolith_Event
     /**
      * Constructor.
      *
-     * @param Kronolith_Driver $driver  The backend driver that this event is
-     *                                  stored in.
-     * @param mixed $eventObject        Backend specific event object
-     *                                  that this will represent.
+     * @param Kronolith_Driver_Horde $driver  The backend driver that this
+     *                                        event is stored in.
+     * @param mixed $eventObject              Backend specific event object
+     *                                        that this will represent.
      */
-    public function __construct($driver, $eventObject = null)
+    public function __construct(Kronolith_Driver_Horde $driver, $eventObject = null)
     {
         $this->_api = $driver->api;
         parent::__construct($driver, $eventObject);
