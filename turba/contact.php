@@ -96,8 +96,9 @@ if ($contact->hasPermission(Horde_Perms::DELETE)) {
                         'onclick' => 'return TurbaTabs.showTab(\'DeleteContact\');'));
 }
 
-@list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
-if ($own_source == $source && $own_id == $contact->getValue('__key')) {
+$owner = explode(';', $prefs->getValue('own_contact'));
+if (count($owner) == 2 &&
+    $owner[0] == $source && $owner[1] == $contact->getValue('__key')) {
     $own_icon = ' ' . Horde_Themes_Image::tag('user.png', array(
        'alt' =>  _("Your own contact"),
        'attr' => array('title' => _("Your own contact"))
