@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Prevent PHP error when a FETCH call is unsuccessful.
 * [mms] Relax type checking on cache driver object.
  </notes>
  <contents>
@@ -2213,6 +2214,7 @@
    <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Prevent PHP error when a FETCH call is unsuccessful.
 * [mms] Relax type checking on cache driver object.
    </notes>
   </release>

@@ -2566,6 +2566,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($resp->data['expungeissued'])) {
                 $this->noop();
             }
+
+            foreach ($resp->fetch as $k => $v) {
+                $results->get($sequence ? $k : $v->getUid())->merge($v);
+            }
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most
             // likely means that messages were expunged. RFC 2180 [4.1]
@@ -2577,10 +2581,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // For any other error, ignore the Exception - fetch() is nice in
             // that the return value explicitly handles missing data for any
             // given message.
-        }
-
-        foreach ($resp->fetch as $k => $v) {
-            $results->get($sequence ? $k : $v->getUid())->merge($v);
         }
     }
 
