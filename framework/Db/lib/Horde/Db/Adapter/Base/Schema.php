@@ -1138,7 +1138,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     protected function _clearTableCache($tableName)
     {
-        $this->_cache->set('tables/columns/' . $tableName, '');
-        $this->_cache->set('tables/indexes/' . $tableName, '');
+        $this->cacheWrite('tables/columns/' . $tableName, '');
+        $this->cacheWrite('tables/indexes/' . $tableName, '');
     }
 }

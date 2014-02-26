@@ -202,7 +202,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             array()
         );
 
-        $rows = @unserialize($this->_cache->get("tables/primarykeys/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/primarykeys/$tableName", 0));
 
         if (!$rows) {
             $constraint = $this->selectOne(
@@ -217,7 +217,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                     array($constraint['constraint_name'])
                 );
                 $rows = array_map(array('Horde_String', 'lower'), $rows);
-                $this->_cache->set("tables/primarykeys/$tableName", serialize($rows));
+                $this->cacheWrite("tables/primarykeys/$tableName", serialize($rows));
             } else {
                 $rows = array();
             }
@@ -238,7 +238,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/indexes/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll(
@@ -247,7 +247,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                 $name
             );
 
-            $this->_cache->set("tables/indexes/$tableName", serialize($rows));
+            $this->cacheWrite("tables/indexes/$tableName", serialize($rows));
         }
 
         $indexes = array();
@@ -283,7 +283,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll(
@@ -292,7 +292,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                 $name
             );
 
-            $this->_cache->set("tables/columns/$tableName", serialize($rows));
+            $this->cacheWrite("tables/columns/$tableName", serialize($rows));
         }
 
         // Create columns from rows.
@@ -830,7 +830,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
     protected function _clearTableCache($tableName)
     {
         parent::_clearTableCache($tableName);
-        $this->_cache->set('tables/primarykeys/' . $tableName, '');
+        $this->cacheWrite('tables/primarykeys/' . $tableName, '');
     }
 
     /**

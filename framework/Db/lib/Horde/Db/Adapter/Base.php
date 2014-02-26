@@ -349,6 +349,41 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         return $this->_runtime;
     }
 
+    /**
+     * Writes values to the cache handler.
+     *
+     * The key is automatically prefixed to avoid collisions when using
+     * different adapters or different configurations.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $key    A cache key.
+     * @param string $value  A value.
+     */
+    public function cacheWrite($key, $value)
+    {
+        $key = get_class($this) . hash('sha1', serialize($this->_config)) . $key;
+        $this->_cache->set($key, $value);
+    }
+
+    /**
+     * Reads values from the cache handler.
+     *
+     * The key is automatically prefixed to avoid collisions when using
+     * different adapters or different configurations.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $key  A cache key.
+     *
+     * @return string  A value.
+     */
+    public function cacheRead($key)
+    {
+        $key = get_class($this) . hash('sha1', serialize($this->_config)) . $key;
+        return $this->_cache->get($key);
+    }
+
 
     /*##########################################################################
     # Connection Management

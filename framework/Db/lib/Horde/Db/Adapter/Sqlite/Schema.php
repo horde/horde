@@ -126,12 +126,12 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function primaryKey($tableName, $name = null)
     {
         // Share the columns cache with the columns() method
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
 
-            $this->_cache->set("tables/columns/$tableName", serialize($rows));
+            $this->cacheWrite("tables/columns/$tableName", serialize($rows));
         }
 
         $pk = $this->makeIndex($tableName, 'PRIMARY', true, true, array());
@@ -154,7 +154,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
+        $indexes = @unserialize($this->cacheRead("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $indexes = array();
@@ -172,7 +172,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
                 $indexes[] = $index;
             }
 
-            $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
+            $this->cacheWrite("tables/indexes/$tableName", serialize($indexes));
         }
 
         return $indexes;
@@ -188,11 +188,11 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
-            $this->_cache->set("tables/columns/$tableName", serialize($rows));
+            $this->cacheWrite("tables/columns/$tableName", serialize($rows));
         }
 
         // create columns from rows
