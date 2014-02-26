@@ -1423,11 +1423,9 @@ class IMP_Mailbox
         global $injector;
 
         $cache = $injector->getInstance('IMP_Mailbox_SessionCache');
-        if (($pref_to = $cache->getPrefTo($mbox)) !== false) {
+        if (($pref_to = $cache->getPrefTo(strval($mbox))) !== false) {
             return $pref_to;
         }
-
-        $ret = strval($mbox);
 
         if (($ns = self::get($mbox)->namespace_info) !== null) {
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -1445,7 +1443,7 @@ class IMP_Mailbox
             }
         }
 
-        $cache->setPrefTo($mbox, $ret);
+        $cache->setPrefTo(strval($mbox), $ret);
 
         return $ret;
     }
