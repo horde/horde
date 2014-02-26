@@ -129,10 +129,16 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->status = (int)$SQLEvent['event_status'];
         }
         if (isset($SQLEvent['event_attendees'])) {
-            $this->attendees = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_attendees'])));
+            $attendees = unserialize($SQLEvent['event_attendees']);
+            if ($attendees) {
+                $this->attendees = array_change_key_case($driver->convertFromDriver($attendees));
+            }
         }
         if (isset($SQLEvent['event_resources'])) {
-            $this->_resources = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_resources'])));
+            $resources = unserialize($SQLEvent['event_resources']);
+            if ($resources) {
+                $this->_resources = array_change_key_case($driver->convertFromDriver($resources));
+            }
         }
         if (isset($SQLEvent['event_description'])) {
             $this->description = $driver->convertFromDriver($SQLEvent['event_description']);
@@ -141,7 +147,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->alarm = (int)$SQLEvent['event_alarm'];
         }
         if (isset($SQLEvent['event_alarm_methods'])) {
-            $this->methods = $driver->convertFromDriver(unserialize($SQLEvent['event_alarm_methods']));
+            $methods = unserialize($SQLEvent['event_alarm_methods']);
+            if ($methods) {
+                $this->methods = $driver->convertFromDriver($methods);
+            }
         }
         if (isset($SQLEvent['event_baseid'])) {
             $this->baseid = $SQLEvent['event_baseid'];
