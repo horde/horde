@@ -36,6 +36,13 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     protected $_charset;
 
     /**
+     * Column definition of body column.
+     *
+     * @var Horde_Db_Adapter_Base_Column
+     */
+    protected $_column;
+
+    /**
      * Construct a new SQL storage object.
      *
      * @param string $notepad  The name of the notepad to load/save notes from.
@@ -52,6 +59,8 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         $this->_db = $params['db'];
         $this->_table = $params['table'];
         $this->_charset = $params['charset'];
+
+        $this->_column = $this->_db->column($params['table'], 'memo_body');
     }
 
     /**
@@ -311,7 +320,8 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
 
         // Decrypt note if requested.
         $encrypted = false;
-        $body = Horde_String::convertCharset($row['memo_body'], $this->_charset, 'UTF-8');
+        $body = $this->_column->binaryToString($row['memo_body']);
+        $body = Horde_String::convertCharset($body, $this->_charset, 'UTF-8');
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
             $encrypted = true;
             if (empty($passphrase)) {

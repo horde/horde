@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Make SQL backend compatible with Oracle.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
@@ -437,7 +438,7 @@
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1109,6 +1110,7 @@
    <date>2013-08-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Make SQL backend compatible with Oracle.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
