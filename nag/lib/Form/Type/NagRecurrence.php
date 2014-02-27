@@ -11,7 +11,7 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
     public function getInfo(&$vars, &$var, &$info)
     {
         $recur = $vars->recurrence;
-        if (!strlen($recur)) {
+        if (!$recur) {
             return;
         }
         $recurrence = new Horde_Date_Recurrence($this->_getDue($var, $vars));
@@ -127,12 +127,11 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
 
     public function isValid(&$var, &$vars, $value, &$message)
     {
-        if ($this->_getDue($var, $vars)) {
+        if (!$vars->recurrence || $this->_getDue($var, $vars)) {
             return true;
-        } else {
-            $message = _("A due date is necessary to enable recurrences.");
-            return false;
         }
+        $message = _("A due date is necessary to enable recurrences.");
+        return false;
     }
 
     public function _getDue($var, $vars)
