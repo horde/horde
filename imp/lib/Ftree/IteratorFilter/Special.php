@@ -26,7 +26,7 @@ class IMP_Ftree_IteratorFilter_Special extends FilterIterator
      */
     public function accept()
     {
-        return !$this->current()->special;
+        return !$this->current()->mbox_ob->special;
     }
 
 }
