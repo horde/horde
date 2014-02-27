@@ -228,7 +228,7 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
     {
         $name = $this->_conn->indexName('sports', array('column' =>
                                                 array('name', 'is_college')));
-        $this->assertEquals('ind_spo_on_nam_and_is_col', $name);
+        $this->assertEquals('ind_sports_5ca2d9c7', $name);
     }
 
     public function testTypeToSqlTypePrimaryKey()
