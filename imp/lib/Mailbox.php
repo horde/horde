@@ -1371,18 +1371,19 @@ class IMP_Mailbox
 
         foreach (array_filter(self::getSpecialMailboxes()) as $val) {
             if (is_array($val)) {
-                $tmp = array();
-                foreach ($val as $val2) {
-                    $tmp[strval($val2)] = $val2->abbrev_label;
-                }
-                asort($tmp, SORT_LOCALE_STRING);
-                $out = array_merge($out, array_keys($tmp));
+                $out = array_merge($out, $val);
             } else {
                 $out[] = $val;
             }
         }
 
-        return self::get($out);
+        $tmp = array();
+        foreach ($out as $val) {
+            $tmp[strval($val)] = $val->abbrev_label;
+        }
+        asort($tmp, SORT_LOCALE_STRING);
+
+        return self::get(array_keys($tmp));
     }
 
     /**
