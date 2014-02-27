@@ -27,9 +27,13 @@ class IMP_Ftree_Iterator_Ancestors extends IMP_Ftree_Iterator
      */
     public function __construct($elt)
     {
+        $elts = array();
+
         while ($elt && ($elt = $elt->parent)) {
-            $this->_elts = array_merge($elt->child_list, $this->_elts);
+            $elts = array_merge($elt->child_list, $elts);
         }
+
+        parent::__construct($elts);
     }
 
     /**
