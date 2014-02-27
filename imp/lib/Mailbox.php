@@ -1254,12 +1254,14 @@ class IMP_Mailbox
         }
         $buid_list = $buids->getSingle(true);
 
-        $list_ob = $this->list_ob;
         $out = new IMP_Indices();
 
-        foreach ($buid_list[1] as $buid) {
-            if ($resolve = $list_ob->resolveBuid($buid)) {
-                $out->add($resolve['m'], $resolve['u']);
+        if ($buid_list[1]) {
+            $list_ob = $this->list_ob;
+            foreach ($buid_list[1] as $buid) {
+                if ($resolve = $list_ob->resolveBuid($buid)) {
+                    $out->add($resolve['m'], $resolve['u']);
+                }
             }
         }
 
