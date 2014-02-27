@@ -750,6 +750,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      *                                  - name: (string) the index name.
      *                                  - unique: (boolean) create a unique
      *                                            index?
+     *
+     * @return string  The index name. @since Horde_Db 2.1.0
      */
     public function addIndex($tableName, $columnName, $options = array())
     {
@@ -768,8 +770,9 @@ abstract class Horde_Db_Adapter_Base_Schema
                        $this->quoteColumnName($indexName),
                        $this->quoteTableName($tableName),
                        implode(', ', $columnNames));
+        $this->execute($sql);
 
-        return $this->execute($sql);
+        return $indexName;
     }
 
     /**

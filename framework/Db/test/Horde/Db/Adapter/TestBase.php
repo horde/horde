@@ -444,31 +444,54 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     {
         $this->_createTestUsersTable();
 
-        // Limit size of last_name and key columns to support Firebird index limitations
-        $this->_conn->addColumn('users', 'last_name',     'string',  array('limit' => 100));
-        $this->_conn->addColumn('users', 'key',           'string',  array('limit' => 100));
-        $this->_conn->addColumn('users', 'administrator', 'boolean');
+        // Limit size of last_name and key columns to support Firebird index
+        // limitations.
+        $this->_conn->addColumn(
+            'users', 'last_name',     'string',  array('limit' => 100)
+        );
+        $this->_conn->addColumn(
+            'users', 'key',           'string',  array('limit' => 100)
+        );
+        $this->_conn->addColumn(
+            'users', 'administrator', 'boolean'
+        );
 
         $this->_conn->addIndex('users', 'last_name');
         $this->_conn->removeIndex('users', 'last_name');
 
         $this->_conn->addIndex('users', array('last_name', 'first_name'));
-        $this->_conn->removeIndex('users', array('column' => array('last_name', 'first_name')));
+        $this->_conn->removeIndex(
+            'users',
+            array('column' => array('last_name', 'first_name'))
+        );
 
-        $this->_conn->addIndex('users', array('last_name', 'first_name'));
-        $this->_conn->removeIndex('users', array('name' => 'index_users_on_last_name_and_first_name'));
+        $index = $this->_conn->addIndex(
+            'users',
+            array('last_name', 'first_name')
+        );
+        $this->_conn->removeIndex('users', array('name' => $index));
 
         $this->_conn->addIndex('users', array('last_name', 'first_name'));
         $this->_conn->removeIndex('users', 'last_name_and_first_name');
 
         // quoting
-        $this->_conn->addIndex('users', array('key'), array('name' => 'key_idx', 'unique' => true));
-        $this->_conn->removeIndex('users', array('name' => 'key_idx', 'unique' => true));
+        $index = $this->_conn->addIndex(
+            'users',
+            array('key'),
+            array('name' => 'key_idx', 'unique' => true)
+        );
+        $this->_conn->removeIndex(
+            'users',
+            array('name' => $index, 'unique' => true)
+        );
 
-        $this->_conn->addIndex('users', array('last_name', 'first_name', 'administrator'),
-                                        array('name' => 'named_admin'));
+        $index = $this->_conn->addIndex(
+            'users',
+            array('last_name', 'first_name', 'administrator'),
+            array('name' => 'named_admin')
+        );
 
-        $this->_conn->removeIndex('users', array('name' => 'named_admin'));
+        $this->_conn->removeIndex('users', array('name' => $index));
     }
 
     public function testAddIndexDefault()
