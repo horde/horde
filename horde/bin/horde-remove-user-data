@@ -42,7 +42,7 @@ if (!strlen($app)) {
 
 $cli->writeln();
 
-if (!$cli->prompt($cli->red('Are you sure you want to remove user data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+if ($cli->prompt($cli->red('Are you sure you want to remove user data?'), array('y' => 'Yes', 'n' => 'No'), 'n') != 'y') {
     exit(0);
 }
 
