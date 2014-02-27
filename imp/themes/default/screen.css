@@ -126,6 +126,9 @@ div.partsTreeDiv {
 .trashImg {
     background-image: url("graphics/folders/trash.png");
 }
+.remoteImg {
+    background-image: url("graphics/shared.png");
+}
 
 .mboxunsub {
     background: #bbb;

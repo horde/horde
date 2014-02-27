@@ -1640,6 +1640,10 @@ class IMP_Mailbox
                 $info->icon = 'folders/folder.png';
                 $info->iconopen = Horde_Themes::img('folders/open.png');
             }
+        } elseif ($this->remote_container) {
+            $info->alt = _("Remote Account");
+            $info->class = 'remoteImg';
+            $info->icon = 'shared.png';
         } else {
             $special = $this->getSpecialMailboxes();
 
