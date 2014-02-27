@@ -299,6 +299,9 @@ extends Horde_Core_Ajax_Application_Handler
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append($filter);
         } elseif ($this->vars->initial || $this->vars->reload) {
+            /* Skip special mailboxes, as they will be handled later. */
+            $filter->add($filter::SPECIALMBOXES);
+
             $no_mbox = false;
 
             switch ($prefs->getValue('nav_expanded')) {
@@ -338,12 +341,41 @@ extends Horde_Core_Ajax_Application_Handler
              * since they are ALWAYS displayed, may appear outside of the
              * folder slice requested, and need to be sorted logically. */
             $special = new ArrayIterator();
+            $s_elts = array();
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
                 if (isset($ftree[$val])) {
                     $special->append($val);
+                    $s_elts[] = $ftree[$val];
                 }
             }
             $iterator->append($special);
+
+            /* Go through and find any parent elements that contain only
+             * special mailbox children - this need to be suppressed in
+             * display. */
+            $filter2 = clone $filter;
+            $filter2->add($filter2::CONTAINERS);
+            $no_children = array();
+
+            foreach (array_unique($s_elts) as $val) {
+                while (($val = $val->parent) && !$val->base_elt) {
+                    $filter2->iterator = new IMP_Ftree_Iterator($val);
+                    foreach ($filter2 as $val) {
+                        /* If we found at least one viewable mailbox, this
+                         * element needs its children to be displayed. */
+                        break 2;
+                    }
+                    $no_children[] = strval($val);
+                }
+            }
+
+            if (!empty($no_children)) {
+                $this->_base->queue->ftreeCallback = function($id, $ob) use ($no_children) {
+                    if (in_array($id, $no_children)) {
+                        unset($ob->ch);
+                    }
+                };
+            }
         } else {
             $this->_base->queue->setMailboxOpt('expand', 1);
             $filter->add($filter::EXPANDED);

@@ -25,6 +25,13 @@
 class IMP_Ajax_Queue
 {
     /**
+     * Callback method to use for each ftree element.
+     *
+     * @var callback
+     */
+    public $ftreeCallback;
+
+    /**
      * The list of compose autocompleter address error data.
      *
      * @var array
@@ -578,6 +585,8 @@ class IMP_Ajax_Queue
     /**
      * Create a folder tree element.
      *
+     * @param string $id  Tree element ID.
+     *
      * @return mixed  The element object, or null if the element is not
      *                active. Object contains the following properties:
      * <pre>
@@ -698,6 +707,10 @@ class IMP_Ajax_Queue
             $ob->i = strval($icon->icon);
         } else {
             $ob->cl = $icon->class;
+        }
+
+        if ($this->ftreeCallback) {
+            call_user_func($this->ftreeCallback, $id, $ob);
         }
 
         return $ob;
