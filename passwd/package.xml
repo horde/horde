@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
  </notes>
@@ -355,7 +356,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.11.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -707,6 +708,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
    </notes>

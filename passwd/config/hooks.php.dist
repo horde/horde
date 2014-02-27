@@ -33,6 +33,21 @@ class Passwd_Hooks
 
 
     /**
+     * Userdn hook.
+     *
+     * @param string $authid  The authenticated username.
+     *
+     * @return string  Userdn to use.
+     */
+//    public function userdn($authid)
+//    {
+//        // Example: Provide LDAP server with a userdn so that you do not
+//        // have to perform anonymous binds.
+//        return 'uid=' . $authid . ',o=example.com';
+//    }
+
+
+    /**
      * Default username hook.
      *
      * @return string  Return the username to use in the form.

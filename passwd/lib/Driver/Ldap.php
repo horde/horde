@@ -96,6 +96,8 @@ class Passwd_Driver_Ldap extends Passwd_Driver
      */
     protected function _changePassword($user, $oldpass, $newpass)
     {
+        global $injector;
+
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
             $user .= '@' . $this->_params['realm'];
@@ -105,9 +107,17 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         if (isset($this->_params['userdn'])) {
             $this->_userdn = str_replace('%u', $user, $this->_params['userdn']);
         } else {
-            // @todo Fix finding the user DN.
-            // $this->_userdn = $this->_ldap->findUserDN($user);
-            $this->_userdn = $this->_params['uid'] . '=' . $user . ',' . $this->_params['basedn'];
+            try {
+                $this->_userdn = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'userdn',
+                    'passwd',
+                    array($user)
+                );
+            } catch (Horde_Exception_HookNotSet $e) {
+                // @todo Fix finding the user DN.
+                // $this->_userdn = $this->_ldap->findUserDN($user);
+                $this->_userdn = $this->_params['uid'] . '=' . $user . ',' . $this->_params['basedn'];
+            }
         }
 
         try {

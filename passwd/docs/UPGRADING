@@ -26,6 +26,16 @@ configurations. Log in as an administrator, go to Administration =>
 Configuration and update anything that's highlighted as outdated.
 
 
+Upgrading to Passwd 5.0.2
+=========================
+
+Hooks Configuration (hooks.php)
+-------------------------------
+
+The 'userdn' hook has been re-added.
+
+
+
 Upgrading to Passwd 5.0
 =======================
 

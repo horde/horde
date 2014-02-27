@@ -178,7 +178,6 @@ $backends['smbpasswd'] = array(
     ),
 );
 
-// NOTE: to set the ldap userdn, see horde/config/hooks.php
 $backends['ldap'] = array(
     'disabled' => true,
     'name' => 'LDAP Server',
@@ -208,6 +207,8 @@ $backends['ldap'] = array(
         // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
         // Determine the user's DN. %u will be replaced by the user's ID.
+        // Alternatively, disable this option and instead use the 'userdn'
+        // hook (config/hooks.php) to dynamically set the userdn.
         //'userdn' => 'uid=%u,o=example.com'
     ),
 );
