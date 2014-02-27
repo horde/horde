@@ -219,7 +219,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         if (empty($this->_init['authmethod'])) {
-            $auth_mech = ($sasl = $this->queryCapability('SASL'))
+            /* Sanity checking: at least one server (Dovecot 1.x) may return
+             * SASL response with no arguments. */
+            $auth_mech = (($sasl = $this->queryCapability('SASL')) && is_array($sasl))
                 ? $sasl
                 : array();
 
