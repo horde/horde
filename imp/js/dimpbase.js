@@ -10,14 +10,15 @@
 var DimpBase = {
 
     // Vars used and defaulting to null/false:
-    //   colorpicker, expandmbox, init, pollPE, pp, resize, rownum, search,
-    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
-    //   template, uid, view, viewaction, viewport, viewswitch
+    //   colorpicker, init, pollPE, pp, resize, rownum, search,
+    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
+    //   uid, view, viewaction, viewport, viewswitch
 
     flags: {},
     flags_o: [],
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     mboxes: {},
+    mboxopts: {},
     ppcache: {},
     ppfifo: [],
     showunsub: 0,
@@ -3168,14 +3169,11 @@ var DimpBase = {
         var nm = $('imp-normalmboxes');
 
         if (r.expand) {
-            this.expandmbox = r.base
+            r.expand = r.base
                 ? this.getSubMboxElt(r.base).previous()
                 : true;
         }
-
-        if (r['switch']) {
-            this.switchmbox = r['switch'];
-        }
+        this.mboxopts = r;
 
         if (r.d) {
             r.d.each(this.deleteMbox.bind(this));
@@ -3187,7 +3185,7 @@ var DimpBase = {
             r.a.each(this.createMbox.bind(this));
         }
 
-        this.expandmbox = this.switchmbox = false;
+        this.mboxopts = {};
 
         if (r.all) {
             this._toggleSubFolder(nm, 'expall', true);
@@ -3410,7 +3408,7 @@ var DimpBase = {
 
     // For format of the ob object, see
     // IMP_Ajax_Application#_createMailboxElt().
-    // If this.expandmbox is set, expand folder list on initial display.
+    // If mboxopts.expand is set, expand folder list on initial display.
     createMbox: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
@@ -3526,12 +3524,12 @@ var DimpBase = {
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
-            if (this.expandmbox &&
+            if (this.mboxopts.expand &&
                 parent_e.id != 'imp-specialmboxes' &&
                 parent_e.id != 'imp-normalmboxes') {
                 tmp2 = parent_e.previous();
-                if (!Object.isElement(this.expandmbox) ||
-                    this.expandmbox != tmp2) {
+                if (!Object.isElement(this.mboxopts.expand) ||
+                    this.mboxopts.expand != tmp2) {
                     tmp2.next().show();
                     tmp2.down().removeClassName('exp').addClassName('col');
                 }
@@ -3601,7 +3599,7 @@ var DimpBase = {
     deleteMbox: function(mbox)
     {
         if (this.view == mbox) {
-            this.go('mbox', this.switchmbox || this.INBOX);
+            this.go('mbox', this.mboxopts['switch'] || this.INBOX);
         }
         this.deleteMboxElt(mbox, true);
     },
