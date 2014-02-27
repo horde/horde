@@ -2,6 +2,8 @@
 /**
  * Icon browser for Horde themes.
  *
+ * This script requires the user to be authenticated (to prevent abuses).
+ *
  * Copyright 2004-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
@@ -15,7 +17,7 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
+Horde_Registry::appInit('horde');
 
 $apps = $registry->listAllApps();
 sort($apps);
