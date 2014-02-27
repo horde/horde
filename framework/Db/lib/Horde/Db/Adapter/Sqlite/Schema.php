@@ -275,7 +275,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $defs = array(sprintf('$definition["%s"]->setType("%s"); if ("%s" == "autoincrementKey") $definition->primaryKey(false);', $columnName, $type, $type));
+        $defs = array(
+            sprintf('$definition["%s"]->setType("%s");', $columnName, $type),
+            sprintf('if ("%s" == "autoincrementKey") $definition->primaryKey(false);', $type)
+        );
         if (isset($options['limit'])) {
             $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
         }
@@ -603,14 +606,16 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $columnType = $column->getName() == $pkColumn
                 ? 'autoincrementKey'
                 : $column->getType();
+            $columnOptions = array('limit' => $column->getLimit());
 
             if ($columnType == 'autoincrementKey') {
                 $copyPk = false;
+            } else {
+                $columnOptions['default'] = $column->getDefault();
+                $columnOptions['null'] = $column->isNull();
             }
-            $definition->column($columnName, $columnType,
-                                array('limit' => $column->getLimit(),
-                                      'default' => $column->getDefault(),
-                                      'null' => $column->isNull()));
+
+            $definition->column($columnName, $columnType, $columnOptions);
         }
 
         if ($pkColumn && count($pk->columns) && $copyPk) {
