@@ -81,7 +81,7 @@ class IMP_Mailbox_SessionCache implements Serializable
      */
     public function getAcl($mbox)
     {
-        if (!array_key_exists($this->_cache[$mbox][self::CACHE_ACL])) {
+        if (!array_key_exists(self::CACHE_ACL, $this->_cache[$mbox])) {
             return false;
         }
 
