@@ -530,9 +530,7 @@ span.mimePartInfoSize {
     background-image: url("graphics/gallery.png");
 }
 .deleteImg, .searchuiDelete {
-    background-image: url("graphics/delete-small.png");
-    height: 8px;
-    width: 8px;
+    background-image: url("graphics/delete.png");
 }
 .closeImg {
     background-image: url("graphics/close.png");
