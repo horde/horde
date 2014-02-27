@@ -127,7 +127,6 @@ class IMP_Compose_Ui
 
         $identities = array();
         $identity = $injector->getInstance('IMP_Identity');
-        $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
         $sigs = $identity->hasSignature(true);
 
