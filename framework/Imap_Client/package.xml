@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved/more concise debug output.
+* [mms] Optimize sorting in Horde_Imap_Client_Ids object.
 * [mms] Workaround broken SASL capability responses from POP3 servers.
 * [mms] Prevent PHP error when a FETCH call is unsuccessful.
 * [mms] Relax type checking on cache driver object.
@@ -2215,6 +2217,8 @@
    <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved/more concise debug output.
+* [mms] Optimize sorting in Horde_Imap_Client_Ids object.
 * [mms] Workaround broken SASL capability responses from POP3 servers.
 * [mms] Prevent PHP error when a FETCH call is unsuccessful.
 * [mms] Relax type checking on cache driver object.
