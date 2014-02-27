@@ -299,9 +299,6 @@ extends Horde_Core_Ajax_Application_Handler
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append($filter);
         } elseif ($this->vars->initial || $this->vars->reload) {
-            /* Skip special mailboxes, as they will be handled later. */
-            $filter->add($filter::SPECIALMBOXES);
-
             $no_mbox = false;
 
             switch ($prefs->getValue('nav_expanded')) {
@@ -354,7 +351,7 @@ extends Horde_Core_Ajax_Application_Handler
              * special mailbox children - this need to be suppressed in
              * display. */
             $filter2 = clone $filter;
-            $filter2->add($filter2::CONTAINERS);
+            $filter2->add(array($filter2::CONTAINERS, $filter2::SPECIALMBOXES));
             $no_children = array();
 
             foreach (array_unique($s_elts) as $val) {
