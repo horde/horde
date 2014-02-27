@@ -260,6 +260,7 @@ extends Horde_Core_Ajax_Application_Handler
      * Variables used:
      *   - all: (integer) 1 to show all mailboxes.
      *   - base: (string) The base mailbox.
+     *   - expall: (boolean) 1 to expand all (requires 'all').
      *   - initial: (string) 1 to indicate the initial request for mailbox
      *              list.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
@@ -298,6 +299,13 @@ extends Horde_Core_Ajax_Application_Handler
         if ($this->vars->all) {
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append($filter);
+            if ($this->vars->expall) {
+                // @todo: Move to Mboxtoggle:expandAll action
+                $old_track = $ftree->eltdiff->track;
+                $ftree->eltdiff->track = false;
+                $ftree->expandAll();
+                $ftree->eltdiff->track = $old_track;
+            }
         } elseif ($this->vars->initial || $this->vars->reload) {
             $special = new ArrayIterator();
             $special->append($ftree['INBOX']);

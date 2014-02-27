@@ -3341,6 +3341,7 @@ var DimpBase = {
                 this._listMboxes({
                     all: Number(mode == 'expall'),
                     base: base,
+                    expall: Number(mode == 'expall'),
                     mboxes: need
                 });
                 return;
