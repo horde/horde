@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-22</date>
+ <date>2014-02-27</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -1594,7 +1594,6 @@
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
    <dir name="util">
-    <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
    <file name=".htaccess" role="horde" />
@@ -3071,7 +3070,6 @@
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
    <install as="themes/default/sounds/reminder.wav" name="themes/default/sounds/reminder.wav" />
    <install as="themes/default/sounds/theetone.wav" name="themes/default/sounds/theetone.wav" />
-   <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
    <install as=".htaccess" name=".htaccess" />
    <install as="COPYING" name="COPYING" />
