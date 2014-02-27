@@ -51,7 +51,7 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
             $v->setHelp('vacation-subject');
         }
         if ($this->hasFeature('reason')) {
-            $v = $this->addVariable(_("Reason:"), 'reason', 'ingo:Longemail', true, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
+            $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', true, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
             $v->setHelp('vacation-reason');
         }
 
