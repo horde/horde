@@ -41,22 +41,30 @@ if (($app = basename($vars->app)) && in_array($app, $apps)) {
 
     foreach ($iterator as $val) {
         if ($val->isFile() &&
-            (substr($val->getFilename(), -4) == '.png')) {
+            (in_array(substr($val->getFilename(), -4), array('.png', '.gif', 'jpg')))) {
             $imgs[] = strval($val);
         }
     }
 
     if (count($imgs)) {
-        foreach ($imgs as $png) {
-            echo Horde_Themes::img(str_replace($img_fs . DIRECTORY_SEPARATOR, '', $png), array(
-                'alt' => $png,
-                'app' => $app,
-                'attr' => array(
-                    'hspace' => 10,
-                    'title' => $png,
-                    'vspace' => 10
+        foreach ($imgs as $img) {
+            echo Horde_Themes_Image::tag(
+                Horde_Themes::img(
+                    str_replace($img_fs . DIRECTORY_SEPARATOR, '', $img),
+                    array(
+                        'app' => $app,
+                        'theme' => 'default'
+                    )
+                ),
+                array(
+                    'alt' => $img,
+                    'attr' => array(
+                        'hspace' => 10,
+                        'title' => $img,
+                        'vspace' => 10
+                    )
                 )
-            ));
+            );
         }
     } else {
         echo _("No icons found.");
