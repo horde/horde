@@ -392,8 +392,6 @@ extends Horde_Core_Ajax_Application_Handler
             array_unique(iterator_to_array($iterator, false))
         );
 
-        $this->_base->queue->quota($this->_base->indices->mailbox);
-
         if ($this->vars->initial) {
             $session->start();
         }

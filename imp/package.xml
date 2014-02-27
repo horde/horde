@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Only refresh quota information when switching to a mailbox the first time.
 * [mms] More efficiently store mailbox cache information in the session.
 * [mms] Load copy/move mailbox selection list on-demand in smartmobile view.
 * [mms] Cache results of inline image view status.

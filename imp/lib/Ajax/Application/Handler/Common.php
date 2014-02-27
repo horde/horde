@@ -37,8 +37,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
          * separate poll action because there are other tasks done when
          * specifically requesting a poll. */
 
-        $this->_base->queue->quota($this->_base->indices->mailbox);
-
         if ($this->_base->changed()) {
             $this->_base->addTask('viewport', $this->_base->viewPortData(true));
         }
@@ -120,6 +118,10 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
 
             $this->_base->addTask('viewport', $vp);
+        }
+
+        if ($vp_vars->checkcache) {
+            $this->_base->queue->quota($this->_base->indices->mailbox);
         }
 
         return $result;

@@ -175,6 +175,9 @@ class IMP_Ajax_Application_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            /* Load queue information on original request. */
+            $injector->getInstance('IMP_Ajax_Queue')->quota($mbox);
+
             if (!$mbox->is_imap) {
                 $result->setMetadata('pop3', 1);
             }
