@@ -83,7 +83,7 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
             break;
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-            $recurrence->setRecurInterval($vars('recur_week_of_month_interval', 1));
+            $recurrence->setRecurInterval($vars->get('recur_week_of_month_interval', 1));
             break;
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
