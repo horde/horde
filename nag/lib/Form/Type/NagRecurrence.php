@@ -50,7 +50,7 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
 
             if ($weekdays == 0) {
                 // Sunday starts at 0.
-                switch ($start->dayOfWeek()) {
+                switch ($recurrence->start->dayOfWeek()) {
                 case 0: $weekdays |= Horde_Date::MASK_SUNDAY; break;
                 case 1: $weekdays |= Horde_Date::MASK_MONDAY; break;
                 case 2: $weekdays |= Horde_Date::MASK_TUESDAY; break;
