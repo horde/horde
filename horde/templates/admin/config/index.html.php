@@ -30,15 +30,9 @@
     <?php echo _("Database") ?>
    </th>
    <th>
-    &nbsp;
-   </th>
-   <th>
     <?php echo _("Status") ?>
    </th>
 <?php if ($this->versions): ?>
-   <th class="header">
-    &nbsp;
-   </th>
    <th>
     <?php echo _("Version Check") ?>
    </th>
@@ -55,31 +49,20 @@
    </td>
    <td>
 <?php if (!empty($v['db'])): ?>
-    <table>
 <?php for ($i = 0; $i < count($v['db']); ++$i): ?>
-     <tr>
-      <td align="center">
-       <?php echo $v['db'][$i] ?>
-      </td>
-      <td>
-       <?php echo $v['dbstatus'][$i] ?>
-      </td>
-     </tr>
+    <?php echo $v['db'][$i] ?>
+    <?php echo $v['dbstatus'][$i] ?>
+    <br />
 <?php endfor; ?>
-    </table>
 <?php endif; ?>
    </td>
-   <td align="center">
-    <?php if (isset($v['conf'])) echo $v['conf'] ?>
-   </td>
    <td>
+    <?php if (isset($v['conf'])) echo $v['conf'] ?>
     <?php if (isset($v['status'])) echo $v['status'] ?>
    </td>
 <?php if ($this->versions): ?>
-   <td align="center">
-    <?php echo $v['load'] ?>
-   </td>
    <td>
+    <?php echo $v['load'] ?>
     <?php echo $v['vstatus'] ?>
    </td>
 <?php endif; ?>
@@ -95,7 +78,7 @@
    <h1 class="header">
     <?php echo _("Configuration upgrade scripts available") ?>
    </h1>
-   <table class="striped headerbox" cellspacing="0" width="100%">
+   <table class="headerbox" width="100%">
 <?php foreach ($this->actions as $v): ?>
     <tr>
      <td><?php echo $v['icon'] ?></td>
