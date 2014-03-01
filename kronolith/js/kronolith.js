@@ -967,6 +967,9 @@ KronolithCore = {
                 .insert(link));
         this.addShareIcon(cal, link);
         div.insert(calendar);
+        if (cal.show) {
+            this.addCalendarLegend(type, id, cal);
+        }
     },
 
     /**
@@ -1120,6 +1123,12 @@ KronolithCore = {
         elt.toggleClassName('horde-resource-on');
         elt.toggleClassName('horde-resource-off');
 
+        if (Kronolith.conf.calendars[type][calendar].show) {
+            this.addCalendarLegend(type, calendar, Kronolith.conf.calendars[type][calendar]);
+        } else {
+            this.deleteCalendarLegend(type, calendar);
+        }
+
         switch (this.view) {
         case 'month':
         case 'agenda':
@@ -1220,6 +1229,38 @@ KronolithCore = {
                 }
             });
         });
+    },
+
+    /**
+     * Adds a calendar entry to the print legend.
+     *
+     * @param string type  The calendar type.
+     * @param string id    The calendar id.
+     * @param object cal   The calendar object.
+     */
+    addCalendarLegend: function(type, id, cal)
+    {
+        $('kronolith-legend').insert(
+            new Element('span')
+                .insert(cal.name.escapeHTML())
+                .store('calendar', id)
+                .store('calendarclass', type)
+                .setStyle({ backgroundColor: cal.bg, color: cal.fg })
+        );
+    },
+
+    /**
+     * Deletes a calendar entry from the print legend.
+     *
+     * @param string type  The calendar type.
+     * @param string id    The calendar id.
+     */
+    deleteCalendarLegend: function(type, id)
+    {
+        $('kronolith-legend').select('span').find(function(span) {
+            return span.retrieve('calendarclass') == type &&
+                span.retrieve('calendar') == id;
+        }).remove();
     },
 
     /**
@@ -3725,6 +3766,10 @@ KronolithCore = {
                         el.setStyle(color);
                     }
                 });
+                $('kronolith-legend').select('span').find(function(span) {
+                    return span.retrieve('calendarclass') == type &&
+                        span.retrieve('calendar') == id;
+                }).setStyle(color).update(cal.name.escapeHTML());
                 Kronolith.conf.calendars[type][id] = cal;
             } else {
                 id = r.id;
@@ -3771,6 +3816,7 @@ KronolithCore = {
             !container.childElements().size()) {
             noItems.show();
         }
+        this.deleteCalendarLegend(type, calendar);
         this.removeEvent(type + '|' + calendar);
         this.deleteCache([type, calendar]);
         if (type == 'tasklists' && this.view == 'tasks') {

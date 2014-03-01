@@ -598,6 +598,16 @@ tr.kronolithNight td {
     height: 100%;
 }
 
+/* Legend */
+#kronolith-legend {
+    display: none;
+}
+#kronolith-legend span {
+    display: inline-block;
+    padding: 3px;
+    margin: 3px;
+}
+
 /* Events */
 .kronolith-event {
     cursor: pointer;
@@ -704,6 +714,10 @@ div.kronolithEditable:hover .kronolithDragger,
         position: static;
     }
 
+    #kronolith-legend {
+        display: block;
+    }
+
     table.kronolith-view td,
     .kronolith-minical th,
     .kronolith-minical tbody td,
@@ -731,6 +745,11 @@ div.kronolithEditable:hover .kronolithDragger,
     }
     .kronolithViewMonth {
         border: 0;
+    }
+    #kronolithViewMonthContainer {
+        overflow: hidden;
+        position: relative;
+        top: 0;
     }
     #kronolithViewDay .kronolithViewBody .kronolith-event,
     #kronolithViewWeek .kronolithViewBody .kronolith-event {

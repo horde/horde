@@ -68,6 +68,10 @@ if (Kronolith::hasApiPermission('tasks')) {
 require __DIR__ . '/agenda.inc';
 ?>
 </div>
+
+<div id="kronolith-legend">
+  <?php echo ("Legend:") ?>
+</div>
 <!-- end body -->
 
 </div>
