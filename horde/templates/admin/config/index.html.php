@@ -20,26 +20,26 @@
 </form>
 <?php endif; ?>
 
-<table class="striped" cellspacing="0" width="100%">
+<table class="horde-table" cellspacing="0" width="100%">
  <thead>
   <tr>
-   <th class="header leftAlign">
+   <th>
     <?php echo _("Application") ?>
    </th>
-   <th class="header leftAlign">
+   <th>
     <?php echo _("Database") ?>
    </th>
-   <th class="header">
+   <th>
     &nbsp;
    </th>
-   <th class="header leftAlign">
+   <th>
     <?php echo _("Status") ?>
    </th>
 <?php if ($this->versions): ?>
    <th class="header">
     &nbsp;
    </th>
-   <th class="header leftAlign">
+   <th>
     <?php echo _("Version Check") ?>
    </th>
 <?php endif; ?>
