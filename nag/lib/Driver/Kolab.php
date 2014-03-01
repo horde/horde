@@ -482,7 +482,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $tasks = array();
 
         foreach ($task_list as $task) {
-          if (Horde_Url::uriB64Encode($task['parent']) != $parentId) {
+            if (Horde_Url::uriB64Encode($task['parent']) != $parentId) {
                 continue;
             }
             $t = new Nag_Task($this, $this->_buildTask($task));
