@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix regression in obtaining bodypart size when BINARY extension is available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2230,7 +2230,7 @@
    <date>2014-02-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix regression in obtaining bodypart size when BINARY extension is available.
    </notes>
   </release>
  </changelog>
