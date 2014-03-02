@@ -193,7 +193,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      *                   DEFAULT: false
      *   - nonotificationinit: (boolean) If set, don't initialize the
      *                         application handlers for the notification
-     *                         system.
+     *                         system (@since 2.12.0).
      *   - permission: (array) The permission required by the user to access
      *                 the page. The first element (REQUIRED) is the permission
      *                 name. The second element (OPTION; defaults to SHOW) is
