@@ -47,18 +47,29 @@ class Horde_Core_ActiveSync_Auth extends Horde_Auth_Base
     }
 
     /**
-     * Find out if a set of login credentials are valid.
+     * Find out if a set of login credentials are valid, and if requested,
+     * mark the user as logged in in the current session.
      *
      * @param string $userId      The userId to check.
-     * @param array $credentials  The credentials to use.
+     * @param array $credentials  The credentials to check.
+     * @param boolean $login      Whether to log the user in. If false, we'll
+     *                            only test the credentials and won't modify
+     *                            the current session. Defaults to true.
      *
-     * @throws Horde_Auth_Exception
+     * @return boolean  Whether or not the credentials are valid.
      */
-    protected function _authenticate($userId, $credentials)
+    public function authenticate($userId, $credentials, $login = true)
     {
-        if (!$this->_params['base_driver']->authenticate($userId, $credentials)) {
-            throw new Horde_Auth_Exception($this->_params['base_driver']->getError(true), $this->_params['base_driver']->getError());
+        if (!$this->_params['base_driver']->authenticate($userId, $credentials, $login)) {
+            return false;
         }
+
+        return true;
+    }
+
+    public function _authenticate($userId, $credentials)
+    {
+        // noop
     }
 
     /**
