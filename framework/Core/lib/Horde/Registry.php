@@ -593,6 +593,7 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         $this->_args['authentication'] = $authentication;
         $this->_cache['cfile'] = $this->_cache['ob'] = array();
+        $this->_cache['isauth'] = array();
         $this->_appsInit = array();
         while ($this->popApp());
     }
