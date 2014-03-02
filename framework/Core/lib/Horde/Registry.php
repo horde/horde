@@ -191,6 +191,9 @@ class Horde_Registry implements Horde_Shutdown_Task
      *   - nologintasks: (boolean) If set, don't perform logintasks (never
      *                   performed if authentication is 'none').
      *                   DEFAULT: false
+     *   - nonotificationinit: (boolean) If set, don't initialize the
+     *                         application handlers for the notification
+     *                         system.
      *   - permission: (array) The permission required by the user to access
      *                 the page. The first element (REQUIRED) is the permission
      *                 name. The second element (OPTION; defaults to SHOW) is
@@ -227,11 +230,12 @@ class Horde_Registry implements Horde_Shutdown_Task
             'cli' => null,
             'nocompress' => false,
             'nologintasks' => false,
+            'nonotificationinit' => false,
             'permission' => false,
             'session_cache_limiter' => null,
             'session_control' => null,
             'timezone' => false,
-            'user_admin' => null
+            'user_admin' => null,
         ), $args);
 
         /* CLI initialization. */
@@ -572,7 +576,9 @@ class Horde_Registry implements Horde_Shutdown_Task
             break;
         }
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
+        if (!empty($args['nonotificationinit'])) {
+            $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
+        }
         $GLOBALS['notification']->attach('status', null, $nclass);
 
         Horde_Shutdown::add($this);

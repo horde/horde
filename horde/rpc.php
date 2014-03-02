@@ -25,7 +25,7 @@ require_once __DIR__ . '/lib/Application.php';
 // call appInit() until we know which server we are requesting. We  don't
 // initialize the application until after we know the rpc server we want.
 $input = $session_control = $cache_control = null;
-$nocompress = false;
+$nocompress = $no_notification = false;
 $params = array();
 
 /* Look at the Content-type of the request, if it is available, to try
@@ -40,6 +40,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $nocompress = true;
     $session_control = 'none';
     $cache_control = 'private';
+    $no_notification = true;
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
@@ -75,7 +76,8 @@ Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'nocompress' => $nocompress,
     'session_control' => $session_control,
-    'session_cache_limiter' => $cache_control
+    'session_cache_limiter' => $cache_control,
+    'nonotificationinit' => $no_notification
 ));
 
 $request = $injector->getInstance('Horde_Controller_Request');
