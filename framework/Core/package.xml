@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix issue authenticating to certain applications when accessed via RPC.
 * [mms] Move CSS minification to the Horde_CssMinify package.
 * [mjr] Work around parsing broken incoming ActiveSync SMARTREPLY requests with incorrect character sets (Bug #12969).
 * [mms] Add null driver for the content tagger.
@@ -3351,6 +3352,7 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue authenticating to certain applications when accessed via RPC.
 * [mms] Move CSS minification to the Horde_CssMinify package.
 * [mjr] Work around parsing broken incoming ActiveSync SMARTREPLY requests with incorrect character sets (Bug #12969).
 * [mms] Add null driver for the content tagger.
