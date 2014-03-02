@@ -1436,7 +1436,7 @@ class IMP_Mailbox
 
             if ($ns['name'] == $def_ns['name']) {
                 /* From personal namespace => strip namespace. */
-                $ret = substr($ret, strlen($def_ns['name']));
+                $ret = substr(strval($mbox), strlen($def_ns['name']));
             } else {
                 $empty_ns = $imp_imap->getNamespace('');
                 if ($ns['name'] == $empty_ns['name']) {
