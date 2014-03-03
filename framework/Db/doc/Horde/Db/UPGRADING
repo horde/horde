@@ -25,3 +25,8 @@ Upgrading to 2.1.0
 
     - The select() method always returns a Horde_Db_Adapter_Base_Result
       sub-class now.
+
+    - The addIndex() method returns the used index name now.
+
+    - The writeCache(), readCache(), insertBlob(), and column() methods have
+      been added.
