@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-07</date>
+ <date>2014-03-03</date>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Make SQL backend compatible with Oracle.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -443,10 +443,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-07</date>
+   <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Make SQL backend compatible with Oracle.
    </notes>
   </release>
  </changelog>
