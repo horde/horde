@@ -367,10 +367,14 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      */
     public function rename($old, $new)
     {
+        if (!($old_elt = $this[$old])) {
+            return;
+        }
+
         $new_list = $polled = array();
         $old_list = array_merge(
             array($old),
-            iterator_to_array(new IMP_Ftree_IteratorFilter($old), false)
+            iterator_to_array(new IMP_Ftree_IteratorFilter(new IMP_Ftree_Iterator($old_elt)), false)
         );
 
         foreach ($old_list as $val) {
