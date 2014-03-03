@@ -16,8 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-27</date>
- <time>11:52:35</time>
+ <date>2014-03-03</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -28,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Detect Internet Explorer 11.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -794,10 +793,10 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Detect Internet Explorer 11.
    </notes>
   </release>
  </changelog>
