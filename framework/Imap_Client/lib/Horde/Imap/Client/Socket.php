@@ -2707,8 +2707,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_BODYPARTSIZE:
                 if ($this->queryCapability('BINARY')) {
-                    foreach ($c_val as $mime_id) {
-                        $fetch->add('BINARY.SIZE[' . $mime_id . ']');
+                    foreach ($c_val as $key) {
+                        $fetch->add('BINARY.SIZE[' . $key . ']');
                     }
                 }
                 break;
