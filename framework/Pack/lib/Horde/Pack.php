@@ -160,7 +160,11 @@ class Horde_Pack
      */
     public function unpack($data)
     {
-        if ($data && is_string($data)) {
+        if (!$data) {
+            return $data;
+        }
+
+        if (is_string($data)) {
             $mask = unpack('C*', $data[0]);
             $mask = reset($mask);
             $data = substr($data, 1);
@@ -175,7 +179,7 @@ class Horde_Pack
             }
         }
 
-        throw new Horde_Pack_Exception('Could not unpack data.');
+        throw new Horde_Pack_Exception('Could not unpack data');
     }
 
 }
