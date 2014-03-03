@@ -30,7 +30,9 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_TestBase
             in_array('pgsql', PDO::getAvailableDrivers())) {
             self::$_skip = false;
             list($conn,) = static::_getConnection();
-            $conn->disconnect();
+            if ($conn) {
+                $conn->disconnect();
+            }
         }
         self::$_columnTest = new Horde_Db_Adapter_Postgresql_ColumnDefinition();
         self::$_tableTest = new Horde_Db_Adapter_Postgresql_TestTableDefinition();
