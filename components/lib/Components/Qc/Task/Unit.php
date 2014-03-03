@@ -68,12 +68,15 @@ extends Components_Qc_Task_Base
             return false;
         }
 
+        $result = null;
         foreach ($iterator as $file) {
             if ($file->getFilename() == 'AllTests.php') {
                 $result = Horde_Test_AllTests::init(strval($file))->run();
             }
         }
 
-        return $result->errorCount() + $result->failureCount();
+        if ($result) {
+            return $result->errorCount() + $result->failureCount();
+        }
     }
 }
