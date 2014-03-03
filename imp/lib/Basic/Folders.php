@@ -45,7 +45,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $page_output->addScriptFile('folders.js');
 
         /* Get the base URL for this page. */
-        $folders_url = self::url();
+        $folders_url = self::url()->setRaw(true);
 
         /* These JS defines are required by all sub-pages. */
         $page_output->addInlineJsVars(array(
