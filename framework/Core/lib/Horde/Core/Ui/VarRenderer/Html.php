@@ -22,6 +22,17 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             htmlspecialchars($var->getTypeName());
     }
 
+    protected function _renderVarInput_basic($form, &$var, &$vars)
+    {
+        return sprintf('<input type="text" name="%s" id="%s" value="%s" %s%s />',
+                       htmlspecialchars($var->getVarName()),
+                       $this->_genID($var->getVarName(), false),
+                       htmlspecialchars($var->getValue($vars)),
+                       $var->isDisabled() ? ' disabled="disabled" ' : '',
+                       $this->_getActionScripts($form, $var)
+               );
+    }
+
     protected function _renderVarInput_number($form, &$var, &$vars)
     {
         $value = $var->getValue($vars);
@@ -468,6 +479,12 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_monthdayyear($form, &$var, &$vars)
     {
+        try {
+            $date = $var->type->getDateParts($var->getValue($vars));
+        } catch (Horde_Date_Exception $e) {
+            return $this->_renderVarInput_basic($form, $var, $vars);
+        }
+
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
             "document.observe('Horde_Calendar:select', " .
               "function(e) {" .
@@ -510,7 +527,6 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                 $dates['year'][$i] = $i;
             }
         }
-        $date = $var->type->getDateParts($var->getValue($vars));
 
         // TODO: use NLS to get the order right for the Rest Of The
         // World.
@@ -1380,7 +1396,7 @@ function obrowserCallback(name, oid)
             try {
                 return $var->type->formatDate($date);
             } catch (Horde_Date_Exception $e) {
-                return $e->getMessage();
+                return $date;
             }
         }
         return '';
@@ -1392,8 +1408,9 @@ function obrowserCallback(name, oid)
         try {
             $html = htmlspecialchars($var->type->formatDate($value));
         } catch (Horde_Date_Exception $e) {
-            return $e->getMessage();
+            return $value;
         }
+
         if (!$var->type->emptyDateArray($value)) {
             $html .= Horde_Form_Type_date::getAgo($value);
         }
