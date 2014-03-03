@@ -2,18 +2,19 @@
  <?php echo _("Mailbox Sizes") ?>
 </div>
 
-<table class="striped sortable">
+<br />
+<table class="horde-table sortable">
  <thead>
   <tr>
-   <th class="leftAlign"><?php echo _("Mailbox") ?></th>
-   <th class="leftAlign"><?php echo _("Size") ?></th>
+   <th><?php echo _("Mailbox") ?></th>
+   <th><?php echo _("Size") ?></th>
   </tr>
  </thead>
 
  <tbody>
 <?php foreach ($this->mboxes as $v): ?>
   <tr>
-   <td class="leftAlign">
+   <td>
     <?php echo $this->escape($v['name']) ?>
    </td>
    <td class="rightAlign" sortval="<?php echo $v['sort'] ?>">
@@ -25,7 +26,7 @@
 
  <tfoot>
   <tr>
-   <td class="leftAlign">
+   <td>
     <strong><?php echo _("Sum") ?></strong>
    </td>
    <td class="rightAlign">
@@ -36,7 +37,7 @@
 </table>
 
 <form name="returnform">
- <div class="control leftAlign">
-  <input id="btn_return" type="button" class="button" value="<?php echo _("Return to Folders View") ?>" />
+ <div class="horde-form-buttons">
+  <input id="btn_return" type="button" class="horde-default" value="<?php echo _("Return to Folders View") ?>" />
  </div>
 </form>
