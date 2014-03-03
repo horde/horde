@@ -51,17 +51,17 @@
     },
     {
         "name": "sabre/dav",
-        "version": "1.8.8",
-        "version_normalized": "1.8.8.0",
+        "version": "1.8.9",
+        "version_normalized": "1.8.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fruux/sabre-dav.git",
-            "reference": "f8bad179521f434c60d836c8203f791b37a30657"
+            "reference": "25e095469e44d195cd255bdce55ce473224558bc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/f8bad179521f434c60d836c8203f791b37a30657",
-            "reference": "f8bad179521f434c60d836c8203f791b37a30657",
+            "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/25e095469e44d195cd255bdce55ce473224558bc",
+            "reference": "25e095469e44d195cd255bdce55ce473224558bc",
             "shasum": ""
         },
         "require": {
@@ -90,7 +90,7 @@
             "ext-curl": "*",
             "ext-pdo": "*"
         },
-        "time": "2014-02-09 21:25:45",
+        "time": "2014-02-26 22:17:11",
         "bin": [
             "bin/sabredav"
         ],

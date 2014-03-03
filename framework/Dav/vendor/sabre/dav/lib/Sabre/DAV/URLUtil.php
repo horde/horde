@@ -33,7 +33,7 @@ class URLUtil {
      */
     static function encodePath($path) {
 
-        return preg_replace_callback('/([^A-Za-z0-9_\-\.~\(\)\/:@])/',function($match) {
+        return preg_replace_callback('/([^A-Za-z0-9_\-\.~\(\)\/:])/',function($match) {
 
             return '%'.sprintf('%02x',ord($match[0]));
 
@@ -51,7 +51,7 @@ class URLUtil {
      */
     static function encodePathSegment($pathSegment) {
 
-        return preg_replace_callback('/([^A-Za-z0-9_\-\.~\(\):@])/',function($match) {
+        return preg_replace_callback('/([^A-Za-z0-9_\-\.~\(\):])/',function($match) {
 
             return '%'.sprintf('%02x',ord($match[0]));
 
