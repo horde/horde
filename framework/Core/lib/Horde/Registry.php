@@ -576,7 +576,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             break;
         }
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        if (!empty($args['nonotificationinit'])) {
+        if (empty($args['nonotificationinit'])) {
             $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
         }
         $GLOBALS['notification']->attach('status', null, $nclass);
