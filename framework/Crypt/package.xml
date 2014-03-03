@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2014-03-03</date>
  <version>
   <release>2.4.1</release>
   <api>2.4.0</api>
@@ -988,7 +988,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Ensure that all text parts are Q-P encoded when signing a MIME part.
