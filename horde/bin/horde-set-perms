@@ -50,7 +50,7 @@ $group = $grouppars['gid'];
 
 $cli->writeln();
 
-if (!$cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+if ($cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') != 'y') {
     exit(0);
 }
 
