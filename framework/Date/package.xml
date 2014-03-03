@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-15</date>
+ <date>2014-03-03</date>
  <version>
   <release>2.0.8</release>
   <api>2.0.0</api>
@@ -31,6 +31,7 @@
 * [mjr] Add ability to return human readable description of recurrence rules.
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
 * [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
+* [rla] Add aliases for Windows and Lotus timezone identifiers (Bug #11688).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -329,6 +330,7 @@
      <dir name="Date">
       <dir name="fixtures">
        <file name="bug2813.ics" role="test" />
+       <file name="bug12869.ics" role="test" />
       </dir> <!-- /test/Horde/Date/fixtures -->
       <dir name="Repeater">
        <file name="DayNameTest.php" role="test" />
@@ -513,6 +515,7 @@
    <install as="Horde/Date/SpanTest.php" name="test/Horde/Date/SpanTest.php" />
    <install as="Horde/Date/UtilsTest.php" name="test/Horde/Date/UtilsTest.php" />
    <install as="Horde/Date/fixtures/bug2813.ics" name="test/Horde/Date/fixtures/bug2813.ics" />
+   <install as="Horde/Date/fixtures/bug12869.ics" name="test/Horde/Date/fixtures/bug12869.ics" />
    <install as="Horde/Date/Repeater/DayNameTest.php" name="test/Horde/Date/Repeater/DayNameTest.php" />
    <install as="Horde/Date/Repeater/DayTest.php" name="test/Horde/Date/Repeater/DayTest.php" />
    <install as="Horde/Date/Repeater/HourTest.php" name="test/Horde/Date/Repeater/HourTest.php" />
@@ -949,13 +952,14 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-15</date>
+   <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix date calculation if providing both a timestamp and a timezone (Bug #12843).
 * [mjr] Add ability to return human readable description of recurrence rules.
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
 * [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
+* [rla] Add aliases for Windows and Lotus timezone identifiers (Bug #11688).
    </notes>
   </release>
  </changelog>
