@@ -18,7 +18,7 @@
  </lead>
  <date>2014-03-03</date>
  <version>
-  <release>2.0.8</release>
+  <release>2.0.9</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,11 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix date calculation if providing both a timestamp and a timezone (Bug #12843).
-* [mjr] Add ability to return human readable description of recurrence rules.
-* [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
-* [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
-* [rla] Add aliases for Windows and Lotus timezone identifiers (Bug #11688).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -960,6 +956,19 @@
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
 * [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
 * [rla] Add aliases for Windows and Lotus timezone identifiers (Bug #11688).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.9</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
