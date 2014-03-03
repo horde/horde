@@ -646,6 +646,8 @@ class IMP_Imap implements Serializable
      */
     public function __call($method, $params)
     {
+        global $injector;
+
         if (!$this->init) {
             /* Fallback for these methods. */
             switch ($method) {
