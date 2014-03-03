@@ -18,7 +18,7 @@
  </lead>
  <date>2014-03-03</date>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -1225,6 +1225,19 @@ Initial packaging
   <release>
    <version>
     <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
