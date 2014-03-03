@@ -29,7 +29,7 @@ Reading, writing and listing of files are all supported.</description>
  </lead>
  <date>2014-03-03</date>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -38,9 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Remove broken Kolab driver.
-* [mms] Add null VFS driver.
-* [jan] Support Oracle with SQL driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1200,6 +1198,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
 * [jan] Remove broken Kolab driver.
 * [mms] Add null VFS driver.
 * [jan] Support Oracle with SQL driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
