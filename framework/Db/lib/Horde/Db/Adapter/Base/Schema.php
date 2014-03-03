@@ -900,7 +900,7 @@ abstract class Horde_Db_Adapter_Base_Schema
 
         $sql = is_array($native) ? $native['name'] : $native;
         if ($type == 'decimal' ||
-            isset($native['precision']) || isset($native['scale']) ||
+            is_array($native) && (isset($native['precision']) || isset($native['scale'])) ||
             isset($precision) || isset($scale)) {
             $nativePrec  = isset($native['precision']) ? $native['precision'] : null;
             $nativeScale = isset($native['scale'])     ? $native['scale']     : null;
