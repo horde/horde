@@ -45,7 +45,10 @@ var NagCalendar =
 
     updateWday: function(p)
     {
-        $(p + '_wday').update('(' + Horde_Calendar.fullweekdays[this.getFormDate(p).getDay()] + ')');
+        var d = this.getFormDate(p);
+        if (d) {
+            $(p + '_wday').update('(' + Horde_Calendar.fullweekdays[d.getDay()] + ')');
+        }
     },
 
     getFormDate: function(p)
