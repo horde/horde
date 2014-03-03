@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-15</date>
+ <date>2014-03-03</date>
  <version>
   <release>2.1.2</release>
   <api>2.1.0</api>
@@ -903,7 +903,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-15</date>
+   <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add MySQL password hashing (Request #12962).
