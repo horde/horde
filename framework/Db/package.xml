@@ -25,7 +25,7 @@
  </lead>
  <date>2014-03-03</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,20 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Return generated (or manipulated) index name from addIndex().
-* [jan] Avoid cache collisions when changing adapters or configurations.
-* [jan] Add Horde_Db_Adapter_Base#writeCache() and readCache().
-* [jan] Add Horde_Db_Adapter#insertBlob().
-* [jan] Make value of Horde_Db_Value_Binary publically accessible.
-* [jan] Add Oracle driver (Request #11974).
-* [jan] Add Horde_Db_Adapter_Base_Schema#column() method.
-* [jan] Always re-throw PDOExceptions as Horde_Db_Exceptions.
-* [jan] Fix issues with active Turkish locale.
-* [jan] Always return a Horde_Db_Adapter_Base_Result sub-class from the select() method.
-* [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
-* [jan] Re-organize unit tests.
-* [jan] Make several methods abstract in Horde_Db_Adapter_Base.
-* [jan] Deprecate external usage of execute() method.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -770,6 +757,19 @@
 * [jan] Re-organize unit tests.
 * [jan] Make several methods abstract in Horde_Db_Adapter_Base.
 * [jan] Deprecate external usage of execute() method.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-03</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
