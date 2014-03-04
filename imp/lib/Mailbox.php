@@ -1426,7 +1426,9 @@ class IMP_Mailbox
         global $injector;
 
         $cache = $injector->getInstance('IMP_Mailbox_SessionCache');
-        if (($pref_to = $cache->getPrefTo(strval($mbox))) !== false) {
+        $mbox_str = strval($mbox);
+
+        if (($pref_to = $cache->getPrefTo($mbox_str)) !== false) {
             return $pref_to;
         }
 
@@ -1436,17 +1438,17 @@ class IMP_Mailbox
 
             if ($ns['name'] == $def_ns['name']) {
                 /* From personal namespace => strip namespace. */
-                $ret = substr(strval($mbox), strlen($def_ns['name']));
+                $ret = substr($mbox_str, strlen($def_ns['name']));
             } else {
                 $empty_ns = $imp_imap->getNamespace('');
                 if ($ns['name'] == $empty_ns['name']) {
                     /* From empty namespace => prefix with delimiter. */
-                    $ret = $empty_ns['delimiter'] . $ret;
+                    $ret = $empty_ns['delimiter'] . $mbox_str;
                 }
             }
         }
 
-        $cache->setPrefTo(strval($mbox), $ret);
+        $cache->setPrefTo($mbox_str, $ret);
 
         return $ret;
     }
