@@ -363,9 +363,9 @@ class Turba_Driver_Kolab extends Turba_Driver
 
             if (isset($contact['categories'])) {
                 if (empty($contact['categories'])) {
-                    $contact['categories'] = '';
+                    $contact['categories'] = array();
                 } else {
-                    $contact['categories'] = $contact['categories'][0];
+                    $contact['categories'] = $contact['categories'];
                 }
             }
 
