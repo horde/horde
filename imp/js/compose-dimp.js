@@ -883,8 +883,6 @@ var DimpCompose = {
         var al = $('attach_list'),
             u = $('upload');
 
-        u.clear();
-
         if (this.upload_limit) {
             $('upload_limit').show();
             u.up().hide();
