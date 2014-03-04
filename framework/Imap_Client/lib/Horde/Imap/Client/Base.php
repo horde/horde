@@ -3890,7 +3890,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* Search for deleted messages, and remove from cache. */
-        $vanished = $this->vanished($this->_selected, $modseq, $uids_ob);
+        $vanished = $this->vanished($this->_selected, $modseq, array(
+            'ids' => $uids_ob
+        ));
         $disappear = array_diff($uids_ob->ids, $vanished->ids);
         if (!empty($disappear)) {
             $this->_deleteMsgs($this->_selected, $this->getIdsOb($disappear));

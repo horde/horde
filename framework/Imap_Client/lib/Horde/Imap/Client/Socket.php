@@ -3872,7 +3872,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!empty($pipeline->data['modseqs'])) {
             $modseq = max($pipeline->data['modseqs']);
             $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
-            $this->_updateModSeq($modseq);
+            /* CONDSTORE has not yet updated flag information, so don't update
+             * modseq yet. */
+            if (!empty($this->_temp['enabled']['QRESYNC'])) {
+                $this->_updateModSeq($modseq);
+            }
         }
 
         /* Update cache items. */

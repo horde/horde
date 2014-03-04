@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix updating cached flags list on a CONDSTORE-only server.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2240,10 +2240,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix updating cached flags list on a CONDSTORE-only server.
    </notes>
   </release>
  </changelog>
