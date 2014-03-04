@@ -161,8 +161,8 @@ class Turba_List implements Countable
             $sorted_objects = $this->objects;
         }
 
-            // Set the comparison type based on the type of attribute we're
-            // sorting by.
+        // Set the comparison type based on the type of attribute we're
+        // sorting by.
         foreach ($order as &$val) {
             $sm = 'text';
 
