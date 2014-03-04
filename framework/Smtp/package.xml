@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Better exception message for a 550 error, since it is common and may be displayed to an end user (Request #12990).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -338,7 +338,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Better exception message for a 550 error, since it is common and may be displayed to an end user (Request #12990).
    </notes>
   </release>
  </changelog>

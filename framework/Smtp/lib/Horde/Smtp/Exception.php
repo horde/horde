@@ -117,7 +117,6 @@ class Horde_Smtp_Exception extends Horde_Exception
 
         switch ($code) {
         case 450:
-        case 550:
             $this->raw_msg = Horde_Smtp_Translation::r("Mailbox unavailable.");
             $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::MAILBOX_UNAVAILABLE;
@@ -139,6 +138,12 @@ class Horde_Smtp_Exception extends Horde_Exception
             $this->raw_msg = Horde_Smtp_Translation::r("Server requires authentication.");
             $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::LOGIN_REQUIREAUTHENTICATION;
+            break;
+
+        case 550:
+            $this->raw_msg = Horde_Smtp_Translation::r("Message could not be delivered - the address was not found, is unknown, or is not receiving messages.");
+            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
+            $this->code = self::MAILBOX_UNAVAILABLE;
             break;
 
         case 551:
