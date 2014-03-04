@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
 * [mjr] Added the nonotificationinit parameter to Horde_Registry::appInit().
 * [mjr] Fix issue authenticating to certain applications when accessed via RPC.
 * [mms] Move CSS minification to the Horde_CssMinify package.
@@ -3353,6 +3354,7 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
 * [mjr] Added the nonotificationinit parameter to Horde_Registry::appInit().
 * [mjr] Fix issue authenticating to certain applications when accessed via RPC.
 * [mms] Move CSS minification to the Horde_CssMinify package.

@@ -208,3 +208,15 @@ Object.extend(Date.prototype, {
     }
 
 });
+
+/*
+ * IE 11 fix:
+ * https://prototype.lighthouseapp.com/projects/8886/tickets/3508-ie11-support
+ */
+Prototype.Browser = (function(res) {
+    if (navigator.userAgent.include('Trident')) {
+        res.Gecko = false;
+        res.IE = true;
+    }
+    return res;
+})(Prototype.Browser);
