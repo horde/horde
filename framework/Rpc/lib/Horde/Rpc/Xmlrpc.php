@@ -103,7 +103,7 @@ class Horde_Rpc_Xmlrpc extends Horde_Rpc
         try {
             $result = $client->post($url, xmlrpc_encode_request($method, $params), $headers);
         } catch (Horde_Http_Exception $e) {
-            throw new Horde_Rpc_Exception($result);
+            throw new Horde_Rpc_Exception($e);
         }
         if ($result->code != 200) {
             throw new Horde_Rpc_Exception('Request couldn\'t be answered. Returned errorcode: "' . $result->code);
