@@ -293,46 +293,47 @@ class Turba_Driver implements Countable
 
         $fields = array();
         foreach ($hash as $key => $val) {
-            if (isset($this->map[$key])) {
-                if (!is_array($this->map[$key])) {
-                    $fields[$this->map[$key]] = $val;
-                } elseif (!empty($this->map[$key]['attribute'])) {
-                    $fieldarray = array();
-                    foreach ($this->map[$key]['fields'] as $mapfields) {
-                        $fieldarray[] = isset($hash[$mapfields])
-                            ? $hash[$mapfields]
-                            : '';
-                    }
-                    $fields[$this->map[$key]['attribute']] = Turba::formatCompositeField($this->map[$key]['format'], $fieldarray);
-                } else {
-                    // If 'parse' is not specified, use 'format' and 'fields'.
-                    if (!isset($this->map[$key]['parse'])) {
-                        $this->map[$key]['parse'] = array(
-                            array(
-                                'format' => $this->map[$key]['format'],
-                                'fields' => $this->map[$key]['fields']
-                            )
-                        );
-                    }
-                    foreach ($this->map[$key]['parse'] as $parse) {
-                        $splitval = sscanf($val, $parse['format']);
-                        $count = 0;
-                        $tmp_fields = array();
-                        foreach ($parse['fields'] as $mapfield) {
-                            if (isset($hash[$mapfield])) {
-                                // If the compositing fields are set
-                                // individually, then don't set them at all.
-                                break 2;
-                            }
-                            $tmp_fields[$this->map[$mapfield]] = $splitval[$count++];
-                        }
-                        // Exit if we found the best match.
-                        if ($splitval[$count - 1] !== null) {
-                            break;
-                        }
-                    }
-                    $fields = array_merge($fields, $tmp_fields);
+            if (!isset($this->map[$key])) {
+                continue;
+            }
+            if (!is_array($this->map[$key])) {
+                $fields[$this->map[$key]] = $val;
+            } elseif (!empty($this->map[$key]['attribute'])) {
+                $fieldarray = array();
+                foreach ($this->map[$key]['fields'] as $mapfields) {
+                    $fieldarray[] = isset($hash[$mapfields])
+                        ? $hash[$mapfields]
+                        : '';
                 }
+                $fields[$this->map[$key]['attribute']] = Turba::formatCompositeField($this->map[$key]['format'], $fieldarray);
+            } else {
+                // If 'parse' is not specified, use 'format' and 'fields'.
+                if (!isset($this->map[$key]['parse'])) {
+                    $this->map[$key]['parse'] = array(
+                        array(
+                            'format' => $this->map[$key]['format'],
+                            'fields' => $this->map[$key]['fields']
+                        )
+                    );
+                }
+                foreach ($this->map[$key]['parse'] as $parse) {
+                    $splitval = sscanf($val, $parse['format']);
+                    $count = 0;
+                    $tmp_fields = array();
+                    foreach ($parse['fields'] as $mapfield) {
+                        if (isset($hash[$mapfield])) {
+                            // If the compositing fields are set
+                            // individually, then don't set them at all.
+                            break 2;
+                        }
+                        $tmp_fields[$this->map[$mapfield]] = $splitval[$count++];
+                    }
+                    // Exit if we found the best match.
+                    if ($splitval[$count - 1] !== null) {
+                        break;
+                    }
+                }
+                $fields = array_merge($fields, $tmp_fields);
             }
         }
 
