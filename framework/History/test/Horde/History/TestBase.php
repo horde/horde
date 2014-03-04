@@ -129,7 +129,9 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->log('test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->log('test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a')));
         $result = self::$history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
-        $this->assertEquals(array('test_uid' => 2), $result);
+        // History ID is not required to be numeric.
+        // $this->assertEquals(array('test_uid' => 2), $result);
+        $this->assertArrayHasKey('test_uid', $result);
     }
 
     public function testMethodGetbytimestampHasParameterStringParent()
@@ -138,7 +140,11 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->log('test_uid:b_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action'));
         self::$history->log('yours_uid', array('who' => 'you', 'ts' => 3000, 'action' => 'yours_action'));
         $result = self::$history->getByTimestamp('>', 1, array(), 'test_uid');
-        $this->assertEquals(array('test_uid:a_uid' => 1, 'test_uid:b_uid' => 2), $result);
+
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid:a_uid' => 1, 'test_uid:b_uid' => 2), $result);
+        $this->assertArrayHasKey('test_uid:a_uid', $result);
+        $this->assertArrayHasKey('test_uid:b_uid', $result);
     }
 
     public function testMethodGetbytimestampHasResultArrayContainingTheMatchingEventIds()
@@ -146,16 +152,32 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->log('test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->log('test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->log('test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a')));
+
         $result = self::$history->getByTimestamp('<=', 1000);
-        $this->assertEquals(array('test_uid' => 2), $result);
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid' => 2), $result);
+        $this->assertArrayHasKey('test_uid', $result);
+
         $result = self::$history->getByTimestamp('<', 1001);
-        $this->assertEquals(array('test_uid' => 2), $result);
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid' => 2), $result);
+        $this->assertArrayHasKey('test_uid', $result);
+
         $result = self::$history->getByTimestamp('>', 1001);
-        $this->assertEquals(array('test_uid' => 3), $result);
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid' => 3), $result);
+        $this->assertArrayHasKey('test_uid', $result);
+
         $result = self::$history->getByTimestamp('>=', 2000);
-        $this->assertEquals(array('test_uid' => 3), $result);
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid' => 3), $result);
+        $this->assertArrayHasKey('test_uid', $result);
+
         $result = self::$history->getByTimestamp('=', 2000);
-        $this->assertEquals(array('test_uid' => 3), $result);
+        // History ID is not required to be numeric.
+        //$this->assertEquals(array('test_uid' => 3), $result);
+        $this->assertArrayHasKey('test_uid', $result);
+
         $result = self::$history->getByTimestamp('>', 2000);
         $this->assertEquals(array(), $result);
     }
@@ -211,11 +233,12 @@ class Horde_History_TestBase extends Horde_Test_Case
             'action' => 'yours_action',
             'desc'   => null,
             'who'    => 'you',
-            'id'     => 3,
             'ts'     => 2000,
             'modseq' => 4
         );
-        $this->assertEquals($expect, $data[0]);
+        // Remove ID, since it can not be determined beforehand.
+        $this->assertEquals($expect, array_diff_key($data[0], array('id' => 1)));
+
         self::$history->removeByNames(array('yours_uid'));
         $data = self::$history->getHistory('yours_uid');
         $this->assertEquals(0, count($data));

@@ -10,7 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-15</date>
+ <date>2014-03-05</date>
  <version>
   <release>2.2.2</release>
   <api>2.2.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add MongoDB driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -38,6 +38,7 @@
       <file name="Exception.php" role="php" />
       <file name="Log.php" role="php" />
       <file name="Mock.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/History -->
      <file name="History.php" role="php" />
@@ -61,6 +62,9 @@
       <dir name="Mock">
        <file name="MockTest.php" role="test" />
       </dir> <!-- /test/Horde/History/Mock -->
+      <dir name="Mongo">
+       <file name="MongoTest.php" role="test" />
+      </dir> <!-- /test/Horde/History/Mongo -->
       <dir name="Sql">
        <dir name="Pdo">
         <file name="MysqlTest.php" role="test" />
@@ -68,6 +72,7 @@
        </dir> <!-- /test/Horde/History/Sql/Pdo -->
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
+       <file name="Oci8Test.php" role="test" />
       </dir> <!-- /test/Horde/History/Sql -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -111,6 +116,13 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -126,6 +138,7 @@
    <install as="Horde/History/Exception.php" name="lib/Horde/History/Exception.php" />
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
+   <install as="Horde/History/Mongo.php" name="lib/Horde/History/Mongo.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde/History/1_horde_history_base_tables.php" />
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
@@ -139,8 +152,10 @@
    <install as="Horde/History/phpunit.xml" name="test/Horde/History/phpunit.xml" />
    <install as="Horde/History/TestBase.php" name="test/Horde/History/TestBase.php" />
    <install as="Horde/History/Mock/MockTest.php" name="test/Horde/History/Mock/MockTest.php" />
+   <install as="Horde/History/Mongo/MongoTest.php" name="test/Horde/History/Mongo/MongoTest.php" />
    <install as="Horde/History/Sql/MysqliTest.php" name="test/Horde/History/Sql/MysqliTest.php" />
    <install as="Horde/History/Sql/MysqlTest.php" name="test/Horde/History/Sql/MysqlTest.php" />
+   <install as="Horde/History/Sql/Oci8Test.php" name="test/Horde/History/Sql/Oci8Test.php" />
    <install as="Horde/History/Sql/Pdo/MysqlTest.php" name="test/Horde/History/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/History/Sql/Pdo/PgsqlTest.php" name="test/Horde/History/Sql/Pdo/PgsqlTest.php" />
   </filelist>
@@ -458,10 +473,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-15</date>
+   <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add MongoDB driver.
    </notes>
   </release>
  </changelog>

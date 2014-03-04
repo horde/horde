@@ -29,3 +29,4 @@ $conf['history']['sql']['pdo_pgsql']['dbname'] = 'test';
 $conf['history']['sql']['pdo_pgsql']['charset'] = 'utf-8';
 $conf['history']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
 $conf['history']['sql']['pdo_sqlite']['database'] = ':memory:';
+$conf['history']['mongo'] = 'mongodb://localhost';
