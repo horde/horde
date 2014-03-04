@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-27</date>
+ <date>2014-03-04</date>
  <version>
   <release>2.18.5</release>
   <api>2.18.0</api>
@@ -2227,7 +2227,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-26</date>
+   <date>2014-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix regression in obtaining bodypart size when BINARY extension is available.
