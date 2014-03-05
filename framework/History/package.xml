@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Null driver.
 * [mms] Add MongoDB driver.
  </notes>
  <contents>
@@ -39,6 +40,7 @@
       <file name="Log.php" role="php" />
       <file name="Mock.php" role="php" />
       <file name="Mongo.php" role="php" />
+      <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/History -->
      <file name="History.php" role="php" />
@@ -139,6 +141,7 @@
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Mongo.php" name="lib/Horde/History/Mongo.php" />
+   <install as="Horde/History/Null.php" name="lib/Horde/History/Null.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde/History/1_horde_history_base_tables.php" />
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
@@ -476,6 +479,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Null driver.
 * [mms] Add MongoDB driver.
    </notes>
   </release>
