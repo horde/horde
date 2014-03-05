@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.1.4).
+Calendar Application version H5 (4.1.5).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -31,17 +31,19 @@ http://www.horde.org/apps/kronolith/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to the Kronolith version H5 (4.1.3) are:
-    * Fixed XSS and CSRF vulnerabilities.
-    * Fixed some issues with recurring events.
-    * Small bugfixes and improvements.
+The major changes compared to the Kronolith version H5 (4.1.4) are:
+    * Fixed fatal error if recurrence exceptions have timezones set.
+    * Fixed deleting and sending iTip notifications for recurring events.
+    * Updated Danish translation.
+    * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS and CSRF vulnerabilities.
-Fixed some issues with recurring events.
-Small bugfixes and improvements.
+Fixed fatal error if recurrence exceptions have timezones set.
+Fixed deleting and sending iTip notifications for recurring events.
+Updated Danish translation.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Kronolith';

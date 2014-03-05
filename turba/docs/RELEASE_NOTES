@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H5 (4.1.3).
+Manager version H5 (4.1.4).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
@@ -29,15 +29,15 @@ http://www.horde.org/apps/turba/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/turba/docs/INSTALL
 
-The major changes compared to the Turba version H5 (4.1.2) are:
-    * Fixed XSS vulnerability.
-    * Small bugfixes and improvements.
+The major changes compared to the Turba version H5 (4.1.3) are:
+    * Fixed distribution list support for Kolab backends.
+    * Small improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerability.
-Small bugfixes and improvements.
+Fixed distribution list support for Kolab backends.
+Small improvements.
 FM;
 
 $this->notes['name'] = 'Turba';

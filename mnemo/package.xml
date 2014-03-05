@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>mnemo</name>
  <channel>pear.horde.org</channel>
  <summary>A web based notes manager</summary>
@@ -30,7 +30,7 @@
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 * [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
-* [mjr] Fix saving notepad after saving failed due to mismatched passwords (Bug #12855).
+* [mjr] Fix saving note after saving failed due to mismatched passwords (Bug #12855).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -20,8 +20,8 @@ v4.1.5-git
       #12770).
 [mjr] Honor recurrence-id range values when deleting recurring events (Bug
       #12746).
-[mjr] Fix deleting and sending iTip notifications for recurring events (Bug:
-      12746).
+[mjr] Fix deleting and sending iTip notifications for recurring events (Bug
+      #12746).
 [jan] Fix calculation of work week start if on a weekend.
 [jan] Fix deleting calendars with exceptions to recurring events.
 [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
