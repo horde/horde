@@ -49,6 +49,7 @@ class Horde_Core_NoSql
             $backends = array(
                 'Horde_ActiveSync_State_Mongo' => $injector->getInstance('Horde_ActiveSyncState'),
                 'Horde_Cache_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_Cache')->storage,
+                'Horde_History_Mongo' => $injector->getInstance('Horde_History'),
                 'Horde_Lock_Mongo' => $injector->getInstance('Horde_Lock'),
                 'Horde_Prefs_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_Prefs')->storage,
                 'Horde_SessionHandler_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_SessionHandler')->storage,
