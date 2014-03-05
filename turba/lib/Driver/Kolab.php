@@ -625,83 +625,84 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         $count = count($fields);
         foreach ($ids as $id) {
-            if (isset($this->_contacts_cache[$id])) {
-                $object = $this->_contacts_cache[$id];
+            if (!isset($this->_contacts_cache[$id])) {
+                continue;
+            }
+            $object = $this->_contacts_cache[$id];
 
-                if (!isset($object['__type']) || $object['__type'] == 'Object') {
-                    if ($count) {
-                        $result = array();
-                        foreach ($fields as $field) {
-                            if (isset($object[$field])) {
-                                $result[$field] = $object[$field];
-                            }
+            if (!isset($object['__type']) || $object['__type'] == 'Object') {
+                if ($count) {
+                    $result = array();
+                    foreach ($fields as $field) {
+                        if (isset($object[$field])) {
+                            $result[$field] = $object[$field];
                         }
-                        $results[] = $result;
-                    } else {
-                        $results[] = $object;
                     }
+                    $results[] = $result;
                 } else {
-                    $member_ids = array();
-                    if (isset($object['member'])) {
-                        foreach ($object['member'] as $member) {
-                            if (isset($member['uid'])) {
-                                $id = Horde_Url::uriB64Encode($member['uid']);
-                                $found = false;
-                                try {
-                                    $this->getObject($id);
-                                    $found = true;
-                                } catch (Horde_Exception_NotFound $e) {
-                                    foreach (Turba::listShares() as $share) {
-                                        $driver = $GLOBALS['injector']
-                                            ->getInstance('Turba_Factory_Driver')
-                                            ->create($share->getName());
-                                        try {
-                                            $driver->getObject($id);
-                                            $id = $share->getName() . ':' . $id;
-                                            $found = true;
-                                            break;
-                                        } catch (Horde_Exception_NotFound $e) {
-                                            continue;
-                                        }
-                                    }
-                                }
-                                if ($found) {
-                                    $member_ids[] = $id;
-                                }
-                                continue;
-                            }
-                            $display_name = $member['display-name'];
-                            $smtp_address = $member['smtp-address'];
-                            $criteria = array(
-                                'AND' => array(
-                                    array(
-                                        'field' => 'full-name',
-                                        'op' => 'LIKE',
-                                        'test' => $display_name,
-                                        'begin' => false,
-                                    ),
-                                    array(
-                                        'field' => 'emails',
-                                        'op' => 'LIKE',
-                                        'test' => $smtp_address,
-                                        'begin' => false,
-                                    ),
-                                ),
-                            );
-                            $fields = array('uid');
-
-                            // we expect only one result here!!!
-                            $contacts = $this->_search($criteria, $fields);
-
-                            // and drop everything else except the first search
-                            // result
-                            $member_ids[] = $contacts[0]['__key'];
-                        }
-                        $object['__members'] = serialize($member_ids);
-                        unset($object['member']);
-                    }
                     $results[] = $object;
                 }
+            } else {
+                $member_ids = array();
+                if (isset($object['member'])) {
+                    foreach ($object['member'] as $member) {
+                        if (isset($member['uid'])) {
+                            $id = Horde_Url::uriB64Encode($member['uid']);
+                            $found = false;
+                            try {
+                                $this->getObject($id);
+                                $found = true;
+                            } catch (Horde_Exception_NotFound $e) {
+                                foreach (Turba::listShares() as $share) {
+                                    $driver = $GLOBALS['injector']
+                                        ->getInstance('Turba_Factory_Driver')
+                                        ->create($share->getName());
+                                    try {
+                                        $driver->getObject($id);
+                                        $id = $share->getName() . ':' . $id;
+                                        $found = true;
+                                        break;
+                                    } catch (Horde_Exception_NotFound $e) {
+                                        continue;
+                                    }
+                                }
+                            }
+                            if ($found) {
+                                $member_ids[] = $id;
+                            }
+                            continue;
+                        }
+                        $display_name = $member['display-name'];
+                        $smtp_address = $member['smtp-address'];
+                        $criteria = array(
+                            'AND' => array(
+                                array(
+                                    'field' => 'full-name',
+                                    'op' => 'LIKE',
+                                    'test' => $display_name,
+                                    'begin' => false,
+                                ),
+                                array(
+                                    'field' => 'emails',
+                                    'op' => 'LIKE',
+                                    'test' => $smtp_address,
+                                    'begin' => false,
+                                ),
+                            ),
+                        );
+                        $fields = array('uid');
+
+                        // we expect only one result here!!!
+                        $contacts = $this->_search($criteria, $fields);
+
+                        // and drop everything else except the first search
+                        // result
+                        $member_ids[] = $contacts[0]['__key'];
+                    }
+                    $object['__members'] = serialize($member_ids);
+                    unset($object['member']);
+                }
+                $results[] = $object;
             }
         }
 
