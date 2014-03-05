@@ -233,7 +233,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (isset($ptr['ids']) &&
             (count($ptr['ids']['ids']) || $ptr['ids']['ids']->special)) {
-            $this->_addFuzzy(!empty($val['fuzzy']), $temp);
+            $this->_addFuzzy(!empty($ptr['ids']['fuzzy']), $temp);
             if (!empty($ptr['ids']['not'])) {
                 $cmds->add('NOT');
             }
