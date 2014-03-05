@@ -2101,13 +2101,13 @@ abstract class Kronolith_Event
                 }
             }
             if ($this->isAllDay()) {
-                if ($this->start->compareDate($this->end) == 0) {
-                    $methods['notify']['subtitle'] = sprintf(_("On %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')) . '</strong>');
+                if ($start->compareDate($end) == 0) {
+                    $methods['notify']['subtitle'] = sprintf(_("On %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')) . '</strong>');
                 } else {
-                    $methods['notify']['subtitle'] = sprintf(_("From %s to %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')) . '</strong>', '<strong>' . $this->end->strftime($prefs->getValue('date_format')) . '</strong>');
+                    $methods['notify']['subtitle'] = sprintf(_("From %s to %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')) . '</strong>', '<strong>' . $end->strftime($prefs->getValue('date_format')) . '</strong>');
                 }
             } else {
-                $methods['notify']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>', '<strong>' . $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>');
+                $methods['notify']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')), $start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>', '<strong>' . $end->strftime($prefs->getValue('date_format')), $end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>');
             }
         }
         if (isset($methods['mail'])) {
@@ -2120,6 +2120,8 @@ abstract class Kronolith_Event
             $view->user = $user;
             $view->dateFormat = $prefs->getValue('date_format');
             $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
+            $view->start = $start;
+            $view->end = $end;
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
@@ -2132,12 +2134,12 @@ abstract class Kronolith_Event
         if (isset($methods['desktop'])) {
             if ($this->isAllDay()) {
                 if ($this->start->compareDate($this->end) == 0) {
-                    $methods['desktop']['subtitle'] = sprintf(_("On %s"), $this->start->strftime($prefs->getValue('date_format')));
+                    $methods['desktop']['subtitle'] = sprintf(_("On %s"), $start->strftime($prefs->getValue('date_format')));
                 } else {
-                    $methods['desktop']['subtitle'] = sprintf(_("From %s to %s"), $this->start->strftime($prefs->getValue('date_format')), $this->end->strftime($prefs->getValue('date_format')));
+                    $methods['desktop']['subtitle'] = sprintf(_("From %s to %s"), $start->strftime($prefs->getValue('date_format')), $end->strftime($prefs->getValue('date_format')));
                 }
             } else {
-                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
+                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $start->strftime($prefs->getValue('date_format')), $start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $end->strftime($prefs->getValue('date_format')), $end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
             }
             $methods['desktop']['url'] = strval($this->getViewUrl(array(), true, false));
         }
