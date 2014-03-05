@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.19.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - copy()
+
+      Added the 'force_map' parameter.
+
+
 Upgrading to 2.18.0
 ===================
 

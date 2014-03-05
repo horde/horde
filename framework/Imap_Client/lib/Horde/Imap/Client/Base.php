@@ -2822,14 +2822,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param array $options  Additional options:
      *   - create: (boolean) Try to create $dest if it does not exist?
      *             DEFAULT: No.
+     *   - force_map: (boolean) Forces the array mapping to always be
+     *                returned. [@since 2.19.0]
      *   - ids: (Horde_Imap_Client_Ids) The list of messages to copy.
      *          DEFAULT: All messages in $mailbox will be copied.
      *   - move: (boolean) If true, delete the original messages.
      *           DEFAULT: Original messages are not deleted.
      *
      * @return mixed  An array mapping old UIDs (keys) to new UIDs (values) on
-     *                success (if the IMAP server and/or driver support the
-     *                UIDPLUS extension) or true.
+     *                success (only guaranteed if 'force_map' is true) or
+     *                true.
      *
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupportExtension
@@ -2849,7 +2851,26 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
-        return $this->_copy(Horde_Imap_Client_Mailbox::get($dest), $options);
+        $dest = Horde_Imap_Client_Mailbox::get($dest);
+        $res = $this->_copy($dest, $options);
+
+        if (($res === true) && !empty($options['force_map'])) {
+            /* Need to manually create mapping from Message-ID data. */
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+            $fetch = $this->fetch($source, $query, array(
+                'ids' => $options['ids']
+            ));
+
+            $res = array();
+            foreach ($fetch as $val) {
+                if ($uid = $this->_getUidByMessageId($dest, $val->getEnvelope()->message_id)) {
+                    $res[$val->getUid()] = $uid;
+                }
+            }
+        }
+
+        return $res;
     }
 
     /**

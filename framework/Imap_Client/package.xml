@@ -12,8 +12,8 @@
  </lead>
  <date>2014-03-05</date>
  <version>
-  <release>2.18.7</release>
-  <api>2.18.0</api>
+  <release>2.19.0</release>
+  <api>2.19.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add &apos;force_map&apos; option to Horde_Imap_Client_Base#copy() to guarantee that the mapping array is always returned.
 * [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.
 * [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.
@@ -2274,14 +2275,15 @@
   </release>
   <release>
    <version>
-    <release>2.18.7</release>
-    <api>2.18.0</api></version>
+    <release>2.19.0</release>
+    <api>2.19.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add &apos;force_map&apos; option to Horde_Imap_Client_Base#copy() to guarantee that the mapping array is always returned.
 * [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.
 * [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.

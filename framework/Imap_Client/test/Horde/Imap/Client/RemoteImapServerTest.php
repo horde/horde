@@ -169,7 +169,15 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
         fclose($handle2);
 
         // Copying test e-mail 1 to utf-8 test mailbox.
-        $uid5 = $this->imap->copy($test_mbox, $test_mbox_utf8, array('ids' => new Horde_Imap_Client_Ids($uid1)));
+        $uid5 = $this->imap->copy($test_mbox, $test_mbox_utf8, array(
+            'force_map' => true,
+            'ids' => new Horde_Imap_Client_Ids($uid1)
+        ));
+
+        $this->assertEquals(
+            1,
+            count($uid5)
+        );
 
         // Flagging test e-mail 2 with the Deleted flag.
         $this->imap->store($test_mbox, array(
@@ -191,13 +199,11 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
         $status = $this->imap->status($test_mbox, Horde_Imap_Client::STATUS_MESSAGES);
         $this->assertNotEmpty($status['messages']);
 
-        if (is_array($uid5)) {
-            // Move test e-mail 1 from utf-8 test mailbox to the test mailbox.
-            $this->imap->copy($test_mbox_utf8, $test_mbox, array(
-                'ids' => new Horde_Imap_Client_Ids(reset($uid5)),
-                'move' => true
-            ));
-        }
+        // Move test e-mail 1 from utf-8 test mailbox to the test mailbox.
+        $this->imap->copy($test_mbox_utf8, $test_mbox, array(
+            'ids' => new Horde_Imap_Client_Ids(reset($uid5)),
+            'move' => true
+        ));
 
         // Deleting utf-8 test mailbox.
         $this->imap->deleteMailbox($test_mbox_utf8);
