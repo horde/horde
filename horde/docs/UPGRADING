@@ -49,6 +49,9 @@ ActiveSync configuration section for more details.
 A new NoSQL driver is now available for storing ActiveSync device state. Refer
 to the ActiveSync configuration section for more details.
 
+The History driver can now be explicitly defined in the configuration (and a
+new NoSQL driver has been added).
+
 The following options were added::
 
     $conf['activesync']['logging']['level']
@@ -57,6 +60,8 @@ The following options were added::
     $conf['activesync']['storage']
     $conf['activesync']['params']['driverconfig']
     $conf['cachecssparams']['filemtime']
+    $conf['history']['driver']
+    $conf['history']['params']['driverconfig']
 
 The available options for the following options were changed::
 

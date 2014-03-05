@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] The history driver can now be configured via conf.php.
 * [jan] Add mysql encryption option for SQL backends (Request #12962).
 * [rla] Add joomla-md5 encryption option for SQL backends (Request #12889).
 * [mms] By default, enforce maximum storage size on preferences values.
