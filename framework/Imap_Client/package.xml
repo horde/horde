@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.
 * [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.
  </notes>
@@ -2281,6 +2282,7 @@
    <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.
 * [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.
    </notes>

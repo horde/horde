@@ -1771,8 +1771,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if ($msgid) {
                 $search_query = new Horde_Imap_Client_Search_Query();
                 $search_query->headerText('Message-ID', $msgid);
-                $uidsearch = $this->search($mailbox, $search_query);
-                $uids->add($uidsearch['match']);
+                $uidsearch = $this->search($mailbox, $search_query, array(
+                    'results' => array(Horde_Imap_Client::SEARCH_RESULTS_MAX)
+                ));
+                $uids->add($uidsearch['max']);
             }
         }
 
