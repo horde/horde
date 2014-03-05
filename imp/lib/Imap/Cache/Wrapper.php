@@ -28,7 +28,7 @@ class IMP_Imap_Cache_Wrapper implements Serializable
      *
      * @var Horde_Imap_Client_Cache_Backend
      */
-    protected $_backend;
+    public $backend;
 
     /**
      * Cache driver to use.
@@ -80,7 +80,7 @@ class IMP_Imap_Cache_Wrapper implements Serializable
             break;
         }
 
-        $this->_backend = $ob;
+        $this->backend = $ob;
     }
 
     /**
@@ -88,7 +88,7 @@ class IMP_Imap_Cache_Wrapper implements Serializable
      */
     public function __call($name, $arguments)
     {
-        return call_user_func_array(array($this->_backend, $name), $arguments);
+        return call_user_func_array(array($this->backend, $name), $arguments);
     }
 
     /* Serializable methods. */

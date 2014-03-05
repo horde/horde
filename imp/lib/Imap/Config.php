@@ -245,9 +245,7 @@ class IMP_Imap_Config implements Serializable
                 ));
             }
 
-            $out = array(
-                'backend' => $ob,
-            );
+            $out = array('backend' => $ob);
             break;
 
         case 'import_limit':
