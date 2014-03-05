@@ -62,8 +62,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
      */
     public function __toString()
     {
-        $res = $this->build(null);
-        return $res['query']->escape();
+        try {
+            $res = $this->build(null);
+            return $res['query']->escape();
+        } catch (Exception $e) {
+            return '';
+        }
     }
 
     /**
