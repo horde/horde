@@ -183,4 +183,23 @@ To: recipient2@example.com"
         $this->assertNotNull($hdrs->getValue('From'));
     }
 
+    public function testParseHeadersGivingStreamResource()
+    {
+        $fp = fopen(__DIR__ . '/fixtures/multiple_to.txt', 'r');
+        $hdrs = Horde_Mime_Headers::parseHeaders($fp);
+        fclose($fp);
+
+        $this->assertNotEmpty($hdrs->getValue('To'));
+    }
+
+    public function testParseHeadersGivingHordeStreamObject()
+    {
+        $stream = new Horde_Stream_Existing(array(
+            'stream' => fopen(__DIR__ . '/fixtures/multiple_to.txt', 'r')
+        ));
+        $hdrs = Horde_Mime_Headers::parseHeaders($stream);
+
+        $this->assertNotEmpty($hdrs->getValue('To'));
+    }
+
 }

@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.3
+================
+
+  - Horde_Mime_Headers
+
+    - parseHeaders()
+
+      The $text parameter now accepts both resources and Horde_Stream objects.
+
+
 Upgrading to 2.2
 ================
 

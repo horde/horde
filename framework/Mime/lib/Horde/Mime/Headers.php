@@ -632,10 +632,9 @@ class Horde_Mime_Headers implements Serializable
 
     /**
      * Builds a Horde_Mime_Headers object from header text.
-     * This function can be called statically:
-     *   $headers = Horde_Mime_Headers::parseHeaders().
      *
-     * @param string $text  A text string containing the headers.
+     * @param mixed $text  A text string (or, as of 2.3.0, a Horde_Stream
+     *                     object or stream resource) containing the headers.
      *
      * @return Horde_Mime_Headers  A new Horde_Mime_Headers object.
      */
@@ -645,9 +644,16 @@ class Horde_Mime_Headers implements Serializable
         $mime = self::mimeParamFields();
         $to_process = array();
 
-        foreach (explode("\n", $text) as $val) {
-            $val = rtrim($val, "\r\n");
-            if (empty($val)) {
+        if ($text instanceof Horde_Stream) {
+            $stream = $text;
+            $stream->rewind();
+        } else {
+            $stream = new Horde_Stream_Temp();
+            $stream->add($text, true);
+        }
+
+        while (!$stream->eof()) {
+            if (!($val = rtrim($stream->getToChar("\n", false), "\r"))) {
                 break;
             }
 

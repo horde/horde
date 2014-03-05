@@ -19,8 +19,8 @@
  </lead>
  <date>2014-02-11</date>
  <version>
-  <release>2.2.10</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Horde_Mime_Headers#parseHeaders() now accepts resources and Horde_Stream objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1257,15 +1257,15 @@
   </release>
   <release>
    <version>
-    <release>2.2.10</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Horde_Mime_Headers#parseHeaders() now accepts resources and Horde_Stream objects.
    </notes>
   </release>
  </changelog>
