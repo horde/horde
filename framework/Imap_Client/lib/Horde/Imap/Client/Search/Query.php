@@ -507,6 +507,8 @@ class Horde_Imap_Client_Search_Query implements Serializable
     /**
      * Search for messages smaller/larger than a certain size.
      *
+     * @todo: Remove $not for 3.0
+     *
      * @param integer $size    The size (in bytes).
      * @param boolean $larger  Search for messages larger than $size?
      * @param boolean $not     If true, do a 'NOT' search of $text.
@@ -528,12 +530,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
     }
 
     /**
-     * Search for messages within a given ID sequence range. Only one message
-     * range can be specified per query.
+     * Search for messages within a given UID range. Only one message range
+     * can be specified per query.
      *
-     * @param Horde_Imap_Client_Ids $ids  The list of IDs to search.
+     * @param Horde_Imap_Client_Ids $ids  The list of UIDs to search.
      * @param boolean $not                If true, do a 'NOT' search of the
-     *                                    IDs.
+     *                                    UIDs.
      * @param array $opts                 Additional options:
      *   - fuzzy: (boolean) If true, perform a fuzzy search. The IMAP server
      *            MUST support RFC 6203.
