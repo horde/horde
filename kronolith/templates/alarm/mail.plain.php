@@ -9,7 +9,7 @@
 
 <?php echo _("Date:") ?> <?php echo $this->start->strftime($this->dateFormat) ?>
 
-<?php echo _("Time:") ?> <?php echo $this->start->format($this->timeFormat) ?>
+<?php echo _("Time:") ?> <?php echo $this->event->start->format($this->timeFormat) ?>
 
 
 <?php if (!$this->event->isPrivate($this->user)) echo $this->event->description ?>
