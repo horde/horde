@@ -641,7 +641,29 @@ class Turba_Driver_Kolab extends Turba_Driver
                     if (isset($object['member'])) {
                         foreach ($object['member'] as $member) {
                             if (isset($member['uid'])) {
-                                $member_ids[] = Horde_Url::uriB64Encode($member['uid']);
+                                $id = Horde_Url::uriB64Encode($member['uid']);
+                                $found = false;
+                                try {
+                                    $this->getObject($id);
+                                    $found = true;
+                                } catch (Horde_Exception_NotFound $e) {
+                                    foreach (Turba::listShares() as $share) {
+                                        $driver = $GLOBALS['injector']
+                                            ->getInstance('Turba_Factory_Driver')
+                                            ->create($share->getName());
+                                        try {
+                                            $driver->getObject($id);
+                                            $id = $share->getName() . ':' . $id;
+                                            $found = true;
+                                            break;
+                                        } catch (Horde_Exception_NotFound $e) {
+                                            continue;
+                                        }
+                                    }
+                                }
+                                if ($found) {
+                                    $member_ids[] = $id;
+                                }
                                 continue;
                             }
                             $display_name = $member['display-name'];
@@ -667,7 +689,8 @@ class Turba_Driver_Kolab extends Turba_Driver
                             // we expect only one result here!!!
                             $contacts = $this->_search($criteria, $fields);
 
-                            // and drop everything else except the first search result
+                            // and drop everything else except the first search
+                            // result
                             $member_ids[] = $contacts[0]['__key'];
                         }
                         $object['__members'] = serialize($member_ids);
@@ -823,9 +846,35 @@ class Turba_Driver_Kolab extends Turba_Driver
             $member_ids = unserialize($attributes['__members']);
             $attributes['member'] = array();
             foreach ($member_ids as $member_id) {
-                if (isset($this->_contacts_cache[$member_id])) {
+                $source_id = null;
+                if (strpos($member_id, ':')) {
+                    list($source_id, $member_id) = explode(':', $member_id, 2);
+                }
+                $mail = array('uid' => Horde_Url::uriB64Decode($member_id));
+                $member = null;
+                if ($source_id) {
+                    try {
+                        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source_id);
+                        try {
+                            $member = $driver->getObject($member_id);
+                            $name = $member->getValue('name');
+                            if (!empty($name)) {
+                                $mail['display-name'] = $name;
+                            }
+                            $emails = $member->getValue('emails');
+                            if ($emails) {
+                                $emails = explode(',', $emails);
+                                $mail['smtp-address'] = trim($emails[0]);
+                                if (!isset($mail['display-name'])) {
+                                    $mail['display-name'] = $mail['smtp-address'];
+                                }
+                            }
+                        } catch (Horde_Exception_NotFound $e) {
+                        }
+                    } catch (Turba_Exception $e) {
+                    }
+                } elseif (isset($this->_contacts_cache[$member_id])) {
                     $member = $this->_contacts_cache[$member_id];
-                    $mail = array('uid' => Horde_Url::uriB64Decode($member_id));
                     if (!empty($member['full-name'])) {
                         $mail['display-name'] = $member['full-name'];
                     }
@@ -836,8 +885,8 @@ class Turba_Driver_Kolab extends Turba_Driver
                             $mail['display-name'] = $mail['smtp-address'];
                         }
                     }
-                    $attributes['member'][] = $mail;
                 }
+                $attributes['member'][] = $mail;
             }
             unset($attributes['__members']);
         }
