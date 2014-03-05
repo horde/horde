@@ -2044,6 +2044,29 @@ abstract class Kronolith_Event
             if ($eventDate && $this->recurrence->hasException($eventDate->year, $eventDate->month, $eventDate->mday)) {
                 return;
             }
+            $start = clone $eventDate;
+            $diff = Date_Calc::dateDiff(
+                $this->start->mday,
+                $this->start->month,
+                $this->start->year,
+                $this->end->mday,
+                $this->end->month,
+                $this->end->year
+            );
+            if ($diff == -1) {
+                $diff = 0;
+            }
+            $end = new Horde_Date(array(
+                'year' => $start->year,
+                'month' => $start->month,
+                'mday' => $start->mday + $diff,
+                'hour' => $this->end->hour,
+                'min' => $this->end->min,
+                'sec' => $this->end->sec)
+            );
+        } else {
+            $start = clone $this->start;
+            $end = clone $this->end;
         }
 
         $serverName = $_SERVER['SERVER_NAME'];
@@ -2060,7 +2083,6 @@ abstract class Kronolith_Event
         }
 
         $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
-        $start = clone $this->start;
         $start->min -= $this->alarm;
         if (isset($methods['notify'])) {
             $methods['notify']['show'] = array(
@@ -2119,11 +2141,12 @@ abstract class Kronolith_Event
             }
             $methods['desktop']['url'] = strval($this->getViewUrl(array(), true, false));
         }
+
         $alarm = array(
             'id' => $this->uid,
             'user' => $user,
             'start' => $start,
-            'end' => $this->end,
+            'end' => $end,
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->getTitle($user),
