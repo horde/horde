@@ -17,6 +17,7 @@ $conf['imapclient'] = array(
     'test_mbox_utf8' => 'TestMailboxTest1è',
 
     // Configuration for the Mongo cache driver test.
+    // Format: mongodb://[username:password@]host
     'mongo' => null,
 );
 
@@ -34,5 +35,6 @@ $conf['pop3client'] = array(
     ),
 
     // Configuration for the Mongo cache driver test.
+    // Format: mongodb://[username:password@]host
     'mongo' => null,
 );
