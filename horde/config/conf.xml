@@ -22,12 +22,9 @@
   mode. See http://www.php.net/manual/function.set-time-limit.php for more
   information.">0</configinteger>
   <configboolean name="compress_pages" desc="If this option is set to true, and
-  you have the php zlib extension, pages over a certain size will be compressed
-  and sent to the browser as gzip-encoded data in order to save
-  bandwidth. There is a CPU-usage penalty to pay for this, but the decrease in
-  page size can be dramatic (70k to under 10k for a full mailbox page), and is
-  more than worth it over anything but an extremely fast
-  link.">true</configboolean>
+  you have the php zlib extension installed, pages over a certain size will be
+  compressed and sent to the browser as gzip-encoded data in order to save
+  bandwidth. There is little reason not to enable this.">true</configboolean>
   <configsecret name="secret_key" desc="Secret key for generating signed
   messages from this server. This is a random string unique to this Horde
   installation."></configsecret>
