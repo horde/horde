@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-04</date>
+ <date>2014-03-05</date>
  <version>
   <release>2.18.7</release>
   <api>2.18.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Split data format object test into individual files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -225,6 +225,21 @@
         <file name="MongoTest.php" role="test" />
         <file name="TestBase.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Cache -->
+       <dir name="Data">
+        <dir name="Format">
+         <file name="AstringTest.php" role="test" />
+         <file name="AtomTest.php" role="test" />
+         <file name="DateTest.php" role="test" />
+         <file name="DateTimeTest.php" role="test" />
+         <file name="ListMailboxTest.php" role="test" />
+         <file name="ListTest.php" role="test" />
+         <file name="MailboxTest.php" role="test" />
+         <file name="NilTest.php" role="test" />
+         <file name="NstringTest.php" role="test" />
+         <file name="NumberTest.php" role="test" />
+         <file name="StringTest.php" role="test" />
+        </dir> <!-- /test/Horde/Imap/Client/Data/Format -->
+       </dir> <!-- /test/Horde/Imap/Client/Data -->
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
         <file name="remote1.txt" role="test" />
@@ -242,7 +257,6 @@
        <file name="AuthTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
        <file name="conf.php.dist" role="test" />
-       <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="MailboxTest.php" role="test" />
@@ -505,7 +519,6 @@
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/bootstrap.php" name="test/Horde/Imap/Client/bootstrap.php" />
    <install as="Horde/Imap/Client/conf.php.dist" name="test/Horde/Imap/Client/conf.php.dist" />
-   <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
@@ -525,6 +538,17 @@
    <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
    <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
+   <install as="Horde/Imap/Client/Data/Format/AstringTest.php" name="test/Horde/Imap/Client/Data/Format/AstringTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/AtomTest.php" name="test/Horde/Imap/Client/Data/Format/AtomTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/DateTest.php" name="test/Horde/Imap/Client/Data/Format/DateTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/DateTimeTest.php" name="test/Horde/Imap/Client/Data/Format/DateTimeTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/ListMailboxTest.php" name="test/Horde/Imap/Client/Data/Format/ListMailboxTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/ListTest.php" name="test/Horde/Imap/Client/Data/Format/ListTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/MailboxTest.php" name="test/Horde/Imap/Client/Data/Format/MailboxTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/NilTest.php" name="test/Horde/Imap/Client/Data/Format/NilTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/NstringTest.php" name="test/Horde/Imap/Client/Data/Format/NstringTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/NumberTest.php" name="test/Horde/Imap/Client/Data/Format/NumberTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/StringTest.php" name="test/Horde/Imap/Client/Data/Format/StringTest.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
@@ -2253,10 +2277,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Split data format object test into individual files.
    </notes>
   </release>
  </changelog>
