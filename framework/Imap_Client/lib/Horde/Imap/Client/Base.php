@@ -1765,17 +1765,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
             }
 
-            $headers = Horde_Mime_Headers::parseHeaders($text);
-            $msgid = $headers->getValue('message-id');
-
-            if ($msgid) {
-                $search_query = new Horde_Imap_Client_Search_Query();
-                $search_query->headerText('Message-ID', $msgid);
-                $uidsearch = $this->search($mailbox, $search_query, array(
-                    'results' => array(Horde_Imap_Client::SEARCH_RESULTS_MAX)
-                ));
-                $uids->add($uidsearch['max']);
-            }
+            $uids->add($this->_getUidByMessageId(
+                $mailbox,
+                Horde_Mime_Headers::parseHeaders($text)->getValue('message-id')
+            ));
         }
 
         return $uids;
@@ -3955,6 +3948,30 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return array_filter($out);
+    }
+
+    /**
+     * Get a message UID by the Message-ID. Returns the last message in a
+     * mailbox that matches.
+     *
+     * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox to search
+     * @param string $msgid                       Message-ID.
+     *
+     * @return string  UID (null if not found).
+     */
+    protected function _getUidByMessageId($mailbox, $msgid)
+    {
+        if (!$msgid) {
+            return null;
+        }
+
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->headerText('Message-ID', $msgid);
+        $res = $this->search($mailbox, $query, array(
+            'results' => array(Horde_Imap_Client::SEARCH_RESULTS_MAX)
+        ));
+
+        return $res['max'];
     }
 
 }
