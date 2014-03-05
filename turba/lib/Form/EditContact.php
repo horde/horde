@@ -50,18 +50,11 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
 
         $object_values = $vars->get('object');
         $object_keys = array_keys($contact->attributes);
+        $object_keys[] = '__tags';
         foreach ($object_keys as $info_key) {
             if (!isset($object_values[$info_key])) {
                 $object_values[$info_key] = $contact->getValue($info_key);
             }
-        }
-
-        /* Get tags. */
-        if (!isset($object_values['__tags']) &&
-            ($tagger = $injector->getInstance('Turba_Tagger')) &&
-            !($tagger instanceof Horde_Core_Tagger_Null) &&
-            ($uid = $contact->getValue('__uid'))) {
-            $object_values['__tags'] = implode(', ', $tagger->getTags($uid, 'contact'));
         }
 
         $vars->set('object', $object_values);

@@ -214,13 +214,14 @@ class Turba_Object
     public function synchronizeTags(array $tags)
     {
         if (!is_null($internaltags = $this->getValue('__internaltags'))) {
+            $internaltags = unserialize($internaltags);
             usort($tags, 'strcoll');
             if (array_diff($internaltags, $tags)) {
                 $GLOBALS['injector']->getInstance('Turba_Tagger')->replaceTags(
                     $this->getValue('__uid'),
                     $internaltags,
                     $this->driver->getContactOwner(),
-                    'task'
+                    'contact'
                 );
             }
             $this->setValue('__tags', implode(', ', $internaltags));

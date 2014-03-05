@@ -607,6 +607,7 @@ $cfgSources['kolab'] = array(
         '__uid' => 'uid',
         '__type' => '__type',
         '__members' => '__members',
+        '__internaltags' => 'categories',
         /* Personal */
         'name' => array(
             'fields' => array(

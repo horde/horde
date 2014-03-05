@@ -223,10 +223,6 @@ class Turba_Driver_Kolab extends Turba_Driver
             $entry['last-name'] = $entry['display-name'];
         }
 
-        if (!empty($entry['categories'])) {
-            $entry['categories'] = $entry['categories'][0];
-        }
-
         return parent::toTurbaKeys($entry);
     }
 
@@ -365,10 +361,6 @@ class Turba_Driver_Kolab extends Turba_Driver
                     }
                 }
                 unset($contact['address']);
-            }
-
-            if (isset($contact['categories'])) {
-                $contact['__internaltags'] = $contact['categories'];
             }
 
             if (!empty($contact['birthday'])) {
@@ -629,6 +621,10 @@ class Turba_Driver_Kolab extends Turba_Driver
                 continue;
             }
             $object = $this->_contacts_cache[$id];
+
+            if (isset($object['categories'])) {
+                $object['categories'] = serialize($object['categories']);
+            }
 
             if (!isset($object['__type']) || $object['__type'] == 'Object') {
                 if ($count) {
