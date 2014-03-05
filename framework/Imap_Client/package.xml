@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.
  </notes>
  <contents>
@@ -2280,6 +2281,7 @@
    <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fixes for stream handling in the Nstring object.
 * [mms] Split data format object test into individual files.
    </notes>
   </release>

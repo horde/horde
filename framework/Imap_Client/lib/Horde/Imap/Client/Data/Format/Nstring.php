@@ -52,6 +52,17 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
             : parent::escape();
     }
 
+    public function escapeStream()
+    {
+        if (is_null($this->_data)) {
+            $stream = new Horde_Stream_Temp();
+            $stream->add('NIL', true);
+            return $stream->stream;
+        }
+
+        return parent::escapeStream();
+    }
+
     /**
      */
     public function quoted()
@@ -76,7 +87,7 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
     {
         return is_null($this->_data)
             ? new Horde_Stream_Temp()
-            : parent::length();
+            : parent::getStream();
     }
 
 }
