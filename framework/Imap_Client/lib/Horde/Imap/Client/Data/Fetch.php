@@ -552,7 +552,7 @@ class Horde_Imap_Client_Data_Fetch
             } elseif (is_object($this->_data[$key][$id])) {
                 return clone $this->_data[$key][$id];
             }
-            return Horde_Mime_Headers::parseHeaders($this->_getHeaders($id, 0, $key));
+            return Horde_Mime_Headers::parseHeaders($this->_getHeaders($id, self::HEADER_STREAM, $key));
         }
 
         if (!isset($this->_data[$key][$id])) {
