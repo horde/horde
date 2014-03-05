@@ -652,8 +652,6 @@ abstract class Kronolith_Event
 
         $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ($alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']))) {
-            $alarm['start'] = new Horde_Date($alarm['start']);
-            $alarm['end'] = new Horde_Date($alarm['end']);
             $hordeAlarm->set($alarm);
             if ($this->_snooze) {
                 $hordeAlarm->snooze($this->uid, $GLOBALS['registry']->getAuth(), $this->_snooze);
