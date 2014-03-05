@@ -1752,22 +1752,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $uids = $this->getIdsOb();
 
         while (list(,$val) = each($data)) {
-            if (is_string($val['data'])) {
-                $text = $val['data'];
-            } elseif (is_resource($val['data'])) {
-                $text = '';
+            if (is_resource($val['data'])) {
                 rewind($val['data']);
-                while (!feof($val['data'])) {
-                    $text .= fread($val['data'], 512);
-                    if (preg_match("/\n\r{2,}/", $text)) {
-                        break;
-                    }
-                }
             }
 
             $uids->add($this->_getUidByMessageId(
                 $mailbox,
-                Horde_Mime_Headers::parseHeaders($text)->getValue('message-id')
+                Horde_Mime_Headers::parseHeaders($val['data'])->getValue('message-id')
             ));
         }
 
