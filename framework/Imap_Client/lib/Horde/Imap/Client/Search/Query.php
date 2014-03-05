@@ -289,7 +289,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (!empty($ptr['modseq'])) {
             if (!is_null($exts) && !isset($exts['CONDSTORE'])) {
-                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support CONDSTORE.');
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
             }
 
             $exts_used[] = 'CONDSTORE';
@@ -311,7 +311,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (isset($ptr['prevsearch'])) {
             if (!is_null($exts) && !isset($exts['SEARCHRES'])) {
-                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCHRES.');
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
             }
 
             $exts_used[] = 'SEARCHRES';
@@ -386,7 +386,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         if ($add) {
             if (!isset($temp['exts']['SEARCH']) ||
                 !in_array('FUZZY', $temp['exts']['SEARCH'])) {
-                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCH=FUZZY.');
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCH=FUZZY');
             }
             $temp['cmds']->add('FUZZY');
             $temp['exts_used'][] = 'SEARCH=FUZZY';
