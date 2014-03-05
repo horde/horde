@@ -44,9 +44,7 @@ class Turba_View_Browse
             $notification->push(_("There are no browseable address books."), 'horde.warning');
         } else {
             try {
-                $driver = $GLOBALS['injector']
-                    ->getInstance('Turba_Factory_Driver')
-                    ->create($source);
+                $driver = $factory->create($source);
             } catch (Turba_Exception $e) {
                 $notification->push($e, 'horde.error');
                 unset($driver);
@@ -136,9 +134,7 @@ class Turba_View_Browse
                 $targetSource = $vars->get('targetAddressbook');
 
                 try {
-                    $targetDriver = $GLOBALS['injector']
-                        ->getInstance('Turba_Factory_Driver')
-                        ->create($targetSource);
+                    $targetDriver = $factory->create($targetSource);
                 } catch (Turba_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
@@ -167,9 +163,7 @@ class Turba_View_Browse
 
                     // Try and load the driver for the source.
                     try {
-                        $sourceDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Factory_Driver')
-                            ->create($objectSource);
+                        $sourceDriver = $factory->create($objectSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         continue;
@@ -212,9 +206,10 @@ class Turba_View_Browse
                             // Get 'data' value if object type is image, the
                             // direct value in other case.
                             $objAttributes[$info_key] =
-                                isset($GLOBALS['attributes'][$info_key]) &&
-                                      $GLOBALS['attributes'][$info_key]['type'] == 'image' ?
-                                        $objectValue['load']['data'] : $objectValue;
+                                isset($attributes[$info_key]) &&
+                                    $attributes[$info_key]['type'] == 'image'
+                                    ? $objectValue['load']['data']
+                                    : $objectValue;
                         }
                     }
                     unset($objAttributes['__owner']);
@@ -256,8 +251,7 @@ class Turba_View_Browse
                          * because otherwise the delete log would be after the
                          * add log. */
                         try {
-                            $GLOBALS['injector']->getInstance('Horde_History')
-                                ->log('turba:' . $targetDriver->getName() . ':' . $objAttributes['__uid'],
+                            $history->log('turba:' . $targetDriver->getName() . ':' . $objAttributes['__uid'],
                                       array('action' => 'add'),
                                       true);
                         } catch (Exception $e) {
@@ -282,9 +276,7 @@ class Turba_View_Browse
                     }
 
                     try {
-                        $targetDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Factory_Driver')
-                            ->create($targetSource);
+                        $targetDriver = $factory->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         break;
@@ -299,9 +291,7 @@ class Turba_View_Browse
                 } else {
                     $targetSource = $vars->get('targetAddressbook');
                     try {
-                        $targetDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Factory_Driver')
-                            ->create($targetSource);
+                        $targetDriver = $factory->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         break;
@@ -416,7 +406,7 @@ class Turba_View_Browse
             // We might get here from the search page but are not allowed to browse
             // the current address book.
             if ($actionID && empty($cfgSources[$source]['browse'])) {
-                Horde::url($GLOBALS['prefs']->getValue('initial_page'), true)
+                Horde::url($prefs->getValue('initial_page'), true)
                     ->redirect();
             }
         }
@@ -492,7 +482,6 @@ class Turba_View_Browse
             $templates[] = '/browse/header.inc';
         }
 
-        global $page_output;
         $page_output->addScriptFile('quickfinder.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');

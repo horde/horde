@@ -26,19 +26,22 @@ if (empty($cfgSources[Turba::$source]['browse'])) {
 }
 
 $params = array(
-    'vars' => Horde_Variables::getDefaultVariables(),
-    'prefs' => &$prefs,
-    'notification' => &$notification,
-    'registry' => &$registry,
-    'browse_source_count' => $browse_source_count,
-    'copymoveSources' => $copymoveSources,
     'addSources' => $addSources,
-    'cfgSources' => $cfgSources,
     'attributes' => $attributes,
-    'turba_shares' => $injector->getInstance('Turba_Shares'),
+    'browse_source_count' => $browse_source_count,
+    'browser' => $browser,
+    'cfgSources' => $cfgSources,
+    'copymoveSources' => $copymoveSources,
     'conf' => $conf,
+    'factory' => $injector->getInstance('Turba_Factory_Driver'),
+    'history' => $injector->getInstance('Horde_History'),
+    'notification' => $notification,
+    'page_output' => $page_output,
+    'prefs' => $prefs,
+    'registry' => $registry,
     'source' => Turba::$source,
-    'browser' => $browser
+    'turba_shares' => $injector->getInstance('Turba_Shares'),
+    'vars' => Horde_Variables::getDefaultVariables(),
 );
 
 $browse = new Turba_View_Browse($params);
