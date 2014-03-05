@@ -42,6 +42,22 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ids->isEmpty());
     }
 
+    public function testIgnoreNullInput()
+    {
+        $ids = new Horde_Imap_Client_Ids(null);
+        $this->assertEquals(
+            0,
+            count($ids)
+        );
+
+        $ids = new Horde_Imap_Client_Ids();
+        $ids->add(null);
+        $this->assertEquals(
+            0,
+            count($ids)
+        );
+    }
+
     public function testEmptyIdsArray()
     {
         $ids = new Horde_Imap_Client_Ids(array());
