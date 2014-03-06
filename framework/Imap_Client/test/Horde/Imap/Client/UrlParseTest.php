@@ -26,69 +26,76 @@
 class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
 {
     private $_testurls = array(
-        'test.example.com/',
-        'test.example.com:143/',
-        'testuser@test.example.com/',
-        'testuser@test.example.com:143/',
-        ';AUTH=PLAIN@test.example.com/',
-        ';AUTH=PLAIN@test.example.com:143/',
-        ';AUTH=*@test.example.com:143/',
-        'testuser;AUTH=*@test.example.com:143/',
-        'testuser;AUTH=PLAIN@test.example.com:143/',
-        'test.example.com/INBOX.Quarant%26AOQ-ne;UIDVALIDITY=1240054819/;UID=39193/;SECTION=HEADER',
-    );
-
-    private $_expected = array(
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'username' => 'testuser',
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'username' => 'testuser',
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'auth' => 'PLAIN',
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'auth' => 'PLAIN',
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'username' => 'testuser',
-              'relative' => false,
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'username' => 'testuser',
-              'auth' => 'PLAIN',
-              'mailbox' => ''),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'section' => 'HEADER',
-              'uid' => 39193,
-              'uidvalidity' => 1240054819,
-              'mailbox' => 'INBOX.Quarant&AOQ-ne'),
+        'test.example.com/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'mailbox' => ''
+        ),
+        'test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'mailbox' => ''
+        ),
+        'testuser@test.example.com/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'username' => 'testuser',
+            'mailbox' => ''
+        ),
+        'testuser@test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'username' => 'testuser',
+            'mailbox' => ''
+        ),
+        ';AUTH=PLAIN@test.example.com/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'auth' => 'PLAIN',
+            'mailbox' => ''
+        ),
+        ';AUTH=PLAIN@test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'auth' => 'PLAIN',
+            'mailbox' => ''
+        ),
+        ';AUTH=*@test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'mailbox' => ''
+        ),
+        'testuser;AUTH=*@test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'username' => 'testuser',
+            'relative' => false,
+            'mailbox' => ''
+        ),
+        'testuser;AUTH=PLAIN@test.example.com:143/' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'username' => 'testuser',
+            'auth' => 'PLAIN',
+            'mailbox' => ''
+        ),
+        'test.example.com/INBOX.Quarant%26AOQ-ne;UIDVALIDITY=1240054819/;UID=39193/;SECTION=HEADER' => array(
+            'hostspec' => 'test.example.com',
+            'port' => 143,
+            'relative' => false,
+            'section' => 'HEADER',
+            'uid' => 39193,
+            'uidvalidity' => 1240054819,
+            'mailbox' => 'INBOX.Quarant&AOQ-ne'
+        )
     );
 
     public function testBadUrl()
@@ -106,14 +113,15 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
     public function testPopUrlParsing()
     {
         foreach ($this->_testurls as $key => $val) {
-            $url = new Horde_Imap_Client_Url('pop://' . $val);
-            $expected = $this->_expected[$key];
-            $expected['protocol'] = 'pop';
-            unset($expected['mailbox'],
-                  $expected['section'],
-                  $expected['uid'],
-                  $expected['uidvalidity']);
-            foreach ($expected as $key2 => $val2) {
+            $url = new Horde_Imap_Client_Url('pop://' . $key);
+            $val['protocol'] = 'pop';
+            unset(
+                $val['mailbox'],
+                $val['section'],
+                $val['uid'],
+                $val['uidvalidity']
+            );
+            foreach ($val as $key2 => $val2) {
                 $this->assertEquals(
                     $val2,
                     $url->$key2
@@ -126,10 +134,9 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
     public function testImapUrlParsing()
     {
         foreach ($this->_testurls as $key => $val) {
-            $url = new Horde_Imap_Client_Url('imap://' . $val);
-            $expected = $this->_expected[$key];
-            $expected['protocol'] = 'imap';
-            foreach ($expected as $key2 => $val2) {
+            $url = new Horde_Imap_Client_Url('imap://' . $key);
+            $val['protocol'] = 'imap';
+            foreach ($val as $key2 => $val2) {
                 $this->assertEquals(
                     $val2,
                     $url->$key2
@@ -140,8 +147,10 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
 
     public function testSerialize()
     {
+        end($this->_testurls);
+
         $url = unserialize(serialize(
-            new Horde_Imap_Client_Url('imap://' . end($this->_testurls))
+            new Horde_Imap_Client_Url('imap://' . key($this->_testurls))
         ));
 
         $this->assertEquals(
