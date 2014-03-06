@@ -2152,7 +2152,8 @@ abstract class Kronolith_Event
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->getTitle($user),
-            'text' => $this->description);
+            'text' => $this->description,
+            'instanceid' => $this->recurs() ? $eventDate->dateString() : null);
 
         $_SERVER['SERVER_NAME'] = $serverName;
         $GLOBALS['conf']['server']['name'] = $serverConf;
