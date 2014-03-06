@@ -119,19 +119,23 @@ extends Horde_Imap_Client_Cache_Backend
         $ptr = &$this->_data[$mailbox];
         $to_delete = array();
 
-        foreach (array_intersect($uids, array_keys($ptr)) as $val) {
-            if (is_string($ptr[$val])) {
-                try {
-                    $ptr[$val] = $this->_pack->unpack($ptr[$val]);
-                } catch (Horde_Pack_Exception $e) {
-                    $to_delete[] = $val;
-                    continue;
+        foreach ($uids as $val) {
+            if (isset($ptr[$val])) {
+                if (is_string($ptr[$val])) {
+                    try {
+                        $ptr[$val] = $this->_pack->unpack($ptr[$val]);
+                    } catch (Horde_Pack_Exception $e) {
+                        $to_delete[] = $val;
+                        continue;
+                    }
                 }
-            }
 
-            $ret[$val] = (empty($fields) || empty($ptr[$val]))
-                ? $ptr[$val]
-                : array_intersect_key($ptr[$val], $fields);
+                $ret[$val] = (empty($fields) || empty($ptr[$val]))
+                    ? $ptr[$val]
+                    : array_intersect_key($ptr[$val], $fields);
+            } else {
+                $to_delete[] = $val;
+            }
         }
 
         $this->deleteMsgs($mailbox, $to_delete);
