@@ -101,6 +101,16 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function toDriverKeys(array $hash)
     {
+        if (isset($hash['__tags'])) {
+            if (!is_array($hash['__tags'])) {
+                $hash['__tags'] = $GLOBALS['injector']
+                    ->getInstance('Turba_Tagger')
+                    ->split($hash['__tags']);
+            }
+            usort($hash['__tags'], 'strcoll');
+            $hash['__internaltags'] = serialize($hash['__tags']);
+        }
+
         $hash = parent::toDriverKeys($hash);
 
         if (isset($hash['name'])) {
@@ -193,7 +203,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         if (isset($hash['categories'])) {
-            $hash['categories'] = array($hash['categories']);
+            $hash['categories'] = unserialize($hash['categories']);
         }
 
         if (!empty($hash['birthday'])) {
@@ -311,6 +321,10 @@ class Turba_Driver_Kolab extends Turba_Driver
             $contact['__type'] = 'Object';
             $contact['__key'] = Horde_Url::uriB64Encode($id);
 
+            if (isset($contact['categories'])) {
+                $contact['categories'] = serialize($contact['categories']);
+            }
+
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 $contact['photo'] = new Horde_Stream_Existing(array(
@@ -384,6 +398,9 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $group = $group->getData();
                 $group['__type'] = 'Group';
                 $group['__key'] = Horde_Url::uriB64Encode($id);
+                if (isset($group['categories'])) {
+                    $group['categories'] = serialize($group['categories']);
+                }
                 $groups[Horde_Url::uriB64Encode($id)] = $group;
             }
         }
@@ -622,10 +639,6 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
             $object = $this->_contacts_cache[$id];
 
-            if (isset($object['categories'])) {
-                $object['categories'] = serialize($object['categories']);
-            }
-
             if (!isset($object['__type']) || $object['__type'] == 'Object') {
                 if ($count) {
                     $result = array();
@@ -825,15 +838,6 @@ class Turba_Driver_Kolab extends Turba_Driver
                 }
             }
             $data = $this->_getData();
-        }
-
-        if (isset($attributes['__tags'])) {
-            if (!is_array($attributes['__tags'])) {
-                $attributes['categories'] = $GLOBALS['injector']->getInstance('Nag_Tagger')->split($attributes['__tags']);
-            } else {
-                $attributes['categories'] = $attributes['__tags'];
-            }
-            usort($attributes['categories'], 'strcoll');
         }
 
         if ($object_id === null) {
