@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add support for multiple instances of the same alarm, such as for a recurring event.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -876,7 +876,7 @@
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add support for multiple instances of the same alarm, such as for a recurring event.
    </notes>
   </release>
  </changelog>
