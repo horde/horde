@@ -2002,7 +2002,7 @@ abstract class Kronolith_Event
      */
     public function toAlarm($time, $user = null, $prefs = null)
     {
-        if (!$this->alarm) {
+        if (!$this->alarm || $this->status == Kronolith::STATUS_CANCELLED) {
             return;
         }
 
