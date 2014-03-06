@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix triggering alarms for cancelled events (Bug #12928).
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mjr] Fix exporting recurring events with no recur_end value to CSV.
 * [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
@@ -2252,6 +2253,7 @@
    <date>2013-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix triggering alarms for cancelled events (Bug #12928).
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mjr] Fix exporting recurring events with no recur_end value to CSV.
 * [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
@@ -2263,7 +2265,7 @@
 * [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
 * [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
 * [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
-* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug: 12746).
+* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug #12746).
 * [jan] Fix calculation of work week start if on a weekend.
 * [jan] Fix deleting calendars with exceptions to recurring events.
 * [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
