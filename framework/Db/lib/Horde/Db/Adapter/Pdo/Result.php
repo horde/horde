@@ -49,6 +49,6 @@ class Horde_Db_Adapter_Pdo_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _columnCount()
     {
-        return $this->_result->rowCount();
+        return $this->_result->columnCount();
     }
 }
