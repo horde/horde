@@ -82,6 +82,10 @@ class IMP_Imap_Cache_Wrapper implements Serializable
             )));
             break;
 
+        case 'none':
+            $ob = new Horde_Imap_Client_Cache_Backend_Null();
+            break;
+
         case 'nosql':
             $ob = new Horde_Imap_Client_Cache_Backend_Mongo(array(
                 'mongo_db' => $injector->getInstance('Horde_Nosql_Adapter')
@@ -92,6 +96,15 @@ class IMP_Imap_Cache_Wrapper implements Serializable
             $ob = new Horde_Imap_Client_Cache_Backend_Db(array(
                 'db' => $injector->getInstance('Horde_Db_Adapter')
             ));
+            break;
+
+        default:
+            $this->_params['driver'] = 'none';
+            Horde::log(
+                'IMAP caching has been disabled for this session due to an error',
+                'WARN'
+            );
+            $ob = new Horde_Imap_Client_Cache_Backend_Null();
             break;
         }
 
