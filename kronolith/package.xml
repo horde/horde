@@ -33,7 +33,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix triggering alarms for cancelled events (Bug #12928).
 * [mjr] Fix various issues with alarms for recurring events.
 * [jan] Add calendar legend to print output.
 * [jan] Make SQL backend compatible with Oracle.
@@ -2255,7 +2254,6 @@
    <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix triggering alarms for cancelled events (Bug #12928).
 * [mjr] Fix various issues with alarms for recurring events.
 * [jan] Add calendar legend to print output.
 * [jan] Make SQL backend compatible with Oracle.

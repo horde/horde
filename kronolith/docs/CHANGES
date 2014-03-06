@@ -2,7 +2,6 @@
 v4.2.0-git
 ----------
 
-[mjr] Fix triggering alarms for cancelled events (Bug #12928).
 [mjr] Fix various issues with alarms for recurring events.
 [jan] Add calendar legend to print output.
 [jan] Make SQL backend compatible with Oracle.
