@@ -191,8 +191,8 @@ class Horde_Timezone
                 throw new Horde_Timezone_Exception($e);
             }
         } else {
-            if (($this->_tmpfile = @file_get_contents($url['path'])) === false) {
-                $e = new Horde_Timezone_Exception(sprintf('Unable to open file %s.', $url['path']));
+            if (($this->_tmpfile = @file_get_contents($this->_params['location'])) === false) {
+                $e = new Horde_Timezone_Exception(sprintf('Unable to open file %s.', $this->_params['location']));
                 if (isset($php_errormsg)) {
                     $e->details = $php_errormsg;
                 }
