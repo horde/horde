@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix updateTicket() API method (Bug #13011).
 * [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add "show" API link.
@@ -1075,6 +1076,7 @@
    <date>2014-02-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix updateTicket() API method (Bug #13011).
 * [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add "show" API link.
