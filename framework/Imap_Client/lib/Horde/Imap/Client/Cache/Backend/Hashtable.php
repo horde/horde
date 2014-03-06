@@ -89,11 +89,9 @@ extends Horde_Imap_Client_Cache_Backend
             throw new InvalidArgumentException('Missing hashtable parameter.');
         }
 
-        $params = array_merge(array(
+        parent::__construct(array_merge(array(
             'lifetime' => 604800
-        ));
-
-        parent::__construct($params);
+        ), $params));
     }
 
     /**
