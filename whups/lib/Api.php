@@ -228,7 +228,7 @@ class Whups_Api extends Horde_Registry_Api
         // Create and populate the EditTicketForm for validation. API calls can't
         // use form tokens and aren't the result of the EditTicketForm being
         // submitted.
-        $editform = new Whups_Form_Ticket_Edit($vars, null, $ticket);
+        $editform = new Whups_Form_Ticket_Edit($vars, $ticket);
         $editform->useToken(false);
         $editform->setSubmitted(true);
 
