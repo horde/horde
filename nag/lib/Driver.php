@@ -160,7 +160,6 @@ abstract class Nag_Driver
         /* Add an alarm if necessary. */
         if (!empty($task->alarm) &&
             ($alarm = $task->toAlarm())) {
-            $alarm['start'] = new Horde_Date($alarm['start']);
             $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
 
