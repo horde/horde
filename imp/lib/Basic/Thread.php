@@ -114,14 +114,21 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                 }
 
                 $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, 'UTF-8');
-                if (($mode == 'thread') && empty($subject)) {
-                    $subject = preg_replace('/^re:\s*/i', '', $subject_header);
-                }
 
-                /* Create links to current message and mailbox. */
-                $curr_msg['link'] = ($mode == 'thread')
-                    ? Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true))
-                    : Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
+                switch ($mode) {
+                case 'thread':
+                    if (empty($subject)) {
+                        $subject = preg_replace('/^re:\s*/i', '', $subject_header);
+                    }
+                    $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true));
+                    $curr_tree['subject'] = $imp_mailbox->getThreadOb($imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1)->img;
+                    break;
+
+                default:
+                    $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
+                    $curr_tree['subject'] = '';
+                    break;
+                }
 
                 switch ($registry->getView()) {
                 case $registry::VIEW_BASIC:
@@ -130,9 +137,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     break;
                 }
 
-                $curr_tree['subject'] = ($mode == 'thread')
-                    ? $imp_mailbox->getThreadOb($imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1)->img
-                    : ' ';
                 $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
                 $msgs[] = $curr_msg;
