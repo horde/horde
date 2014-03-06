@@ -197,6 +197,7 @@ class Horde_Timezone
                 if (isset($php_errormsg)) {
                     $e->details = $php_errormsg;
                 }
+                throw $e;
             }
         }
 
