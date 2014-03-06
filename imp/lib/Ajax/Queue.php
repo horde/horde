@@ -237,7 +237,15 @@ class IMP_Ajax_Queue
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
-                if ($tmp = $imp_maillog->getLogObs($val['msg_id'])) {
+                $tmp = array();
+                foreach ($imp_maillog->parseLog($val['msg_id']) as $val2) {
+                    $ret[] = array(
+                        'm' => $val2['msg'],
+                        't' => $val2['action']
+                    );
+                }
+
+                if ($tmp) {
                     $log_ob = new stdClass;
                     $log_ob->buid = intval($val['buid']);
                     $log_ob->log = $tmp;

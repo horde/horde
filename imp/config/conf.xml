@@ -86,11 +86,13 @@
 
  <configtab name="history" desc="Mail Response History">
   <configsection name="maillog">
-   <configboolean name="use_maillog" desc="If true, who a message was sent to
-   and the date it was sent when forwarding/replying/redirecting a message is
-   tracked. This information is stored using Horde's History system. These
-   entries could potentially be stored forever, so sufficient storage space is
-   required.">true</configboolean>
+   <configswitch name="driver" desc="The backend driver to use for tracking
+   who messages were sent to and the date it was sent when
+   forwarding/replying/redirecting a message. (These entries could potentially
+   be stored forever, so sufficient storage space is required.)">history
+    <case name="none" desc="None" />
+    <case name="history" desc="Horde History" />
+   </configswitch>
   </configsection>
  </configtab>
 

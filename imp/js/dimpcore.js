@@ -180,7 +180,7 @@ var DimpCore = {
             tmp = $('msgloglist').down('UL');
 
         log.each(function(entry) {
-            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
+            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m.escapeHTML()));
         });
 
         tmp.childElements().invoke('remove');

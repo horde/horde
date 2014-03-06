@@ -854,9 +854,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if ($this->_replytype) {
             /* Log the reply. */
-            if ($this->getMetadata('in_reply_to') &&
-                ($maillog = $injector->getInstance('IMP_Maillog'))) {
-                $maillog->log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
+            if ($this->getMetadata('in_reply_to')) {
+                $injector->getInstance('IMP_Maillog')->log(
+                    $this->_replytype,
+                    $this->getMetadata('in_reply_to'),
+                    $recipients
+                );
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
@@ -2279,9 +2282,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 if ($log) {
                     /* Store history information. */
-                    if ($maillog = $injector->getInstance('IMP_Maillog')) {
-                        $maillog->log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
-                    }
+                    $injector->getInstance('IMP_Maillog')->log(
+                        self::REDIRECT,
+                        $headers->getValue('message-id'),
+                        $recipients
+                    );
 
                     $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
                 }

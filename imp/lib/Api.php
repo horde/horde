@@ -379,15 +379,14 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillog($mid)
     {
-        return ($log = $GLOBALS['injector']->getInstance('IMP_Maillog'))
-            ? $log->getLog($mid)
-            : new Horde_History_Log($mid);
+        return $GLOBALS['injector']->getInstance('IMP_Maillog')->getLog($mid);
     }
 
     /**
      * Log an entry in the Maillog.
      *
      * @since 6.1.0
+     * @todo  Abstract '$action', since it is currently keyed to IMP constants.
      *
      * @param string $action  The action to log.
      * @param string $mid     The Message-ID.
@@ -395,9 +394,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function logMaillog($action, $mid, $data = null)
     {
-        if ($log = $GLOBALS['injector']->getInstance('IMP_Maillog')) {
-            $log->log($action, $mid, $data);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Maillog')->log(
+            $action, $mid, $data
+        );
     }
 
     /**
@@ -413,9 +412,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillogChanges($ts)
     {
-        return ($log = $GLOBALS['injector']->getInstance('IMP_Maillog'))
-            ? preg_replace('/^([^:]*:){2}/', '', array_keys($log->getChanges($ts)))
-            : array();
+        return $GLOBALS['injector']->getInstance('IMP_Maillog')->getChanges($ts);
     }
 
 }

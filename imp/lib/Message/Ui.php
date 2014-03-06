@@ -112,7 +112,7 @@ class IMP_Message_Ui
                 ));
                 $mdn_sent = in_array('$mdnsent', $res->first()->getFlags());
             } catch (IMP_Imap_Exception $e) {}
-        } elseif ($maillog) {
+        } else {
             /* 2nd test: Use Maillog as a fallback. */
             $mdn_sent = $maillog->sentMDN($msg_id, 'displayed');
         }
@@ -147,9 +147,7 @@ class IMP_Message_Ui
                     'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            if ($maillog) {
-                $maillog->log($maillog::MDN, $msg_id, 'displayed');
-            }
+            $maillog->log($maillog::MDN, $msg_id, 'displayed');
             $success = true;
 
             if ($mdn_flag) {

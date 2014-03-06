@@ -162,7 +162,7 @@ class IMP_Message
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $maillog = $injector->getInstance('IMP_Maillog');
 
-        $maillog_update = (empty($opts['keeplog']) && $maillog);
+        $maillog_update = empty($opts['keeplog']);
         $return_value = 0;
 
         /* Check for Trash mailbox. */
@@ -248,7 +248,7 @@ class IMP_Message
                 /* Get the list of Message-IDs for the deleted messages if
                  * using mail logging. */
                 $fetch = null;
-                if ($maillog_update) {
+                if (!($maillog->storage instanceof IMP_Maillog_Storage_Null)) {
                     /* Optimization: make sure we open mailbox read-write,
                      * since we are guaranteed to at least attempt to store
                      * flags below and this query will likely open mailbox in

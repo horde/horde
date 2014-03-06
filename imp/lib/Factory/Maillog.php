@@ -25,14 +25,31 @@ class IMP_Factory_Maillog extends Horde_Core_Factory_Injector
     /**
      * Return the IMP_Maillog instance.
      *
-     * @return IMP_Maillog|null  The singleton instance, or null if maillog
-     *                           is not available.
+     * @return IMP_Maillog  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
-        return empty($GLOBALS['conf']['maillog']['use_maillog'])
-            ? null
-            : new IMP_Maillog();
+        global $conf, $injector, $registry;
+
+        $driver = isset($conf['maillog']['driver'])
+            ? $conf['maillog']['driver']
+            // @todo BC support for 'use_maillog'
+            : (empty($conf['maillog']['use_maillog']) ? 'none' : 'history');
+
+        switch ($driver) {
+        case 'history':
+            $storage = new IMP_Maillog_Storage_History(
+                $injector->getInstance('Horde_History'),
+                $registry->getAuth()
+            );
+            break;
+
+        case 'none':
+            $storage = new IMP_Maillog_Storage_Null();
+            break;
+        }
+
+        return new IMP_Maillog($storage);
     }
 
 }

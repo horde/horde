@@ -911,7 +911,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         if ($maillog = $injector->getInstance('IMP_Maillog')) {
             Horde::startBuffer();
-            $maillog->displayLog($envelope->message_id);
+            foreach ($maillog->parseLog($msg_id) as $val) {
+                $notification->push($val['msg'], 'imp.' . $val['action']);
+            }
             $this->output = Horde::endBuffer();
         }
 

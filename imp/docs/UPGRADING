@@ -48,11 +48,13 @@ The following options have been added::
 
    $conf['compose']['link_attach_size_hard']
    $conf['contactsimage']['backends']
+   $conf['maillog']['driver']
 
 The following options have been removed::
 
    $conf['compose']['ac_threshold']
    $conf['compose']['convert_to_related']
+   $conf['maillog']['use_maillog']
 
 
 Hooks (hooks.php)
