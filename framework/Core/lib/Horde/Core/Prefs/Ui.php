@@ -712,9 +712,12 @@ class Horde_Core_Prefs_Ui
                     : reset($prefgroups);
                 $prefs_url = $this->selfUrl();
 
-                $t->set('prev', $prefs_url->copy()->add('group', $previous));
-                $t->set('prevlabel', htmlspecialchars($this->prefGroups[$previous]['label']));
-                $t->set('previcon', Horde_Themes_Image::tag('nav/left.png'));
+                if ($next != $previous) {
+                    $t->set('prev', $prefs_url->copy()->add('group', $previous));
+                    $t->set('prevlabel', htmlspecialchars($this->prefGroups[$previous]['label']));
+                    $t->set('previcon', Horde_Themes_Image::tag('nav/left.png'));
+                }
+
                 $t->set('next', $prefs_url->copy()->add('group', $next));
                 $t->set('nextlabel', htmlspecialchars($this->prefGroups[$next]['label']));
                 $t->set('nexticon', Horde_Themes_Image::tag('nav/right.png'));

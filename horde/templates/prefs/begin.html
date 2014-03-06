@@ -6,15 +6,17 @@
 <input type="hidden" id="prefs_app" name="app" value="<tag:app />" />
 
 <div class="header">
-<if:prev>
+<if:next>
  <ul>
   <li>
+<if:prev>
    <a href="<tag:prev />"><tag:previcon /><tag:prevlabel /></a>
    |
+</if:prev>
    <a href="<tag:next />"><tag:nextlabel /><tag:nexticon /></a>
   </li>
  </ul>
-</if:prev>
+</if:next>
  <tag:label />
  <br class="clear" />
 </div>
