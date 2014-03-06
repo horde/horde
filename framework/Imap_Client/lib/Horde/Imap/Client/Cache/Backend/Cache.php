@@ -151,7 +151,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
             }
 
             if (!empty($val['slicemap'])) {
-                $this->_cache->set($this->_getCid($mbox, 'slicemap'), serialize($s), $lifetime);
+                $this->_cache->set($this->_getCid($mbox, 'slicemap'), serialize($s), 0);
             }
         }
 
