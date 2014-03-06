@@ -248,7 +248,7 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         // Update attributes.
-        $whups_driver->setAttributes($info);
+        $whups_driver->setAttributes($info, $ticket);
 
         // Add attachment if one was uploaded.
         if (!empty($info['newattachment']['name'])) {
