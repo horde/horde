@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -214,7 +214,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
    </notes>
   </release>
  </changelog>

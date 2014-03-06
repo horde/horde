@@ -226,11 +226,11 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      * @param string $val  The string to store.
      * @param array $opts  Additional options:
      * <pre>
+     *   - expire: (integer) Expiration time in seconds.
+     *             DEFAULT: Doesn't expire.
      *   - replace: (boolean) Replace the value of key. If key doesn't exist,
      *              returns false.
      *              DEFAULT: false
-     *   - timeout: (integer) Expiration time in seconds.
-     *              DEFAULT: Doesn't expire.
      * </pre>
      *
      * @return boolean  True on success, false on error.
@@ -239,6 +239,11 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
     {
         if (!empty($opts['replace']) && isset($this->_noexist[$key])) {
             return false;
+        }
+
+        /* @todo BC: 'timeout' == 'expire' usage. */
+        if (isset($opts['timeout']) && !isset($opts['expire'])) {
+            $opts['expire'] = $opts['timeout'];
         }
 
         if ($this->_set($this->hkey($key), $val, $opts)) {

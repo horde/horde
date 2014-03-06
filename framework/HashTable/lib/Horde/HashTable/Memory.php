@@ -91,7 +91,7 @@ implements Horde_HashTable_Lock
         }
 
         $this->_data[$key] = array_filter(array(
-            'l' => empty($opts['timeout']) ? null : (time() + $opts['timeout']),
+            'l' => empty($opts['expire']) ? null : (time() + $opts['expire']),
             'v' => $val
         ));
 
