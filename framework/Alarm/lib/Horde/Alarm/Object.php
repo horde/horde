@@ -28,16 +28,20 @@ class Horde_Alarm_Object extends Horde_Alarm
     /**
      * Returns a certain alarm.
      *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user.
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param string $instanceid  An optional instanceid to match.
+     *
      *
      * @return array  An alarm hash.
      */
-    protected function &_findAlarm($id, $user)
+    protected function &_findAlarm($id, $user, $instanceid = null)
     {
         foreach ($this->_alarms as &$alarm) {
             if ($alarm['id'] == $id && $alarm['user'] === $user) {
-                return $alarm;
+                if (empty($instanceid) || (!empty($instanceid) && $alarm['instanceid'] == $instanceid)) {
+                    return $alarm;
+                }
             }
         }
         $result = null;
@@ -179,7 +183,7 @@ class Horde_Alarm_Object extends Horde_Alarm
      */
     protected function _exists($id, $user, $instanceid = null)
     {
-        return (bool)$this->_findAlarm($id, $user);
+        return (bool)$this->_findAlarm($id, $user, $instanceid);
     }
 
     /**
