@@ -69,7 +69,7 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
     public function set($key, $data, $lifetime = 0)
     {
         $this->_hash->set($this->_params['prefix'] . $key, $data, array_filter(array(
-            'timeout' => $lifetime
+            'expire' => $lifetime
         )));
     }
 
