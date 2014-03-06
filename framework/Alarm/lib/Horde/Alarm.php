@@ -221,6 +221,14 @@ abstract class Horde_Alarm
             $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
         }
 
+        // If this is a recurring alarm and we have a new instanceid,
+        // remove the previous entry regardless of the value of $keep.
+        // Otherwise, the alarm will never be reset.
+        if (!empty($alarm['instanceid']) &&
+            !$this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '', !empty($alarm['instanceid']) ? $alarm['instanceid'] : null)) {
+            $this->delete($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '');
+        }
+
         if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
             $this->_update($alarm, $keep);
             if (!$keep) {
@@ -267,15 +275,16 @@ abstract class Horde_Alarm
     /**
      * Returns whether an alarm with the given id exists already.
      *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param string $instanceid  An optional instanceid to check for.
      *
      * @return boolean  True if the specified alarm exists.
      */
-    public function exists($id, $user)
+    public function exists($id, $user, $instanceid = null)
     {
         try {
-            return $this->_exists($id, $user);
+            return $this->_exists($id, $user, $instanceid);
         } catch (Horde_Alarm_Exception $e) {
             return false;
         }

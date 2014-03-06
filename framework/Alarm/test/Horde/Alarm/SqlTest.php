@@ -83,6 +83,40 @@ class Horde_Alarm_SqlTest extends Horde_Test_Case
     }
 
     /**
+     * @depends testFactory
+     */
+    public function testSetWithInstanceId()
+    {
+        $now = time();
+        $date = new Horde_Date($now);
+        $end = new Horde_Date($now + 3600);
+        $hash = array('id' => '123',
+                      'user' => 'john',
+                      'start' => $date,
+                      'end' => $end,
+                      'methods' => array(),
+                      'params' => array(),
+                      'title' => 'This is the first instance',
+                      'instanceid' => '03052014');
+
+        self::$alarm->set($hash);
+        $alarm = self::$alarm->get('123', 'john');
+        $this->assertEquals('123', $alarm['id']);
+        $this->assertEquals('This is the first instance', $alarm['title']);
+       // $this->assertEquals('03052014', $alarm['instanceid']);
+        $hash['instanceid'] = '03062014';
+        $hash['title'] = 'This is the second instance';
+        self::$alarm->set($hash);
+        $alarm = self::$alarm->get('123', 'john');
+        $this->assertEquals('123', $alarm['id']);
+        $this->assertEquals('This is the second instance', $alarm['title']);
+        //$this->assertEquals('03062014', $alarm['insatnceid']);
+
+        // clean
+        self::$alarm->delete('123', 'john');
+    }
+
+    /**
      * @depends testExists
      */
     public function testGet()

@@ -187,7 +187,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _add(array $alarm)
     {
-        $query = sprintf('INSERT INTO %s (alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', $this->_params['table']);
+        $query = sprintf('INSERT INTO %s (alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_instanceid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', $this->_params['table']);
         $values = array(
             $alarm['id'],
             isset($alarm['user']) ? $alarm['user'] : '',
@@ -197,7 +197,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
             base64_encode(serialize($alarm['params'])),
             $this->_toDriver($alarm['title']),
             empty($alarm['text']) ? null : $this->_toDriver($alarm['text']),
-            null
+            null,
+            empty($alarm['instanceid']) ? null : $alarm['instanceid']
         );
 
         try {
@@ -217,7 +218,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _update(array $alarm, $keepsnooze = false)
     {
-        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
+        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_instanceid = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          $keepsnooze ? '' : ', alarm_snooze = NULL, alarm_dismissed = 0',
                          isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
@@ -226,6 +227,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
                         serialize($alarm['methods']),
                         base64_encode(serialize($alarm['params'])),
                         $this->_toDriver($alarm['title']),
+                        empty($alarm['instanceid']) ? null : $alarm['instanceid'],
                         empty($alarm['text'])
                               ? null
                               : $this->_toDriver($alarm['text']),
@@ -266,20 +268,26 @@ class Horde_Alarm_Sql extends Horde_Alarm
     /**
      * Returns whether an alarm with the given id exists already.
      *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param string $instanceid  An optional instanceid to match.
      *
      * @return boolean  True if the specified alarm exists.
      * @throws Horde_Alarm_Exception
      */
-    protected function _exists($id, $user)
+    protected function _exists($id, $user, $instanceid = null)
     {
         $query = sprintf('SELECT 1 FROM %s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
-                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
+                         (!empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)')
+                         . (!empty($instanceid) ? ' AND alarm_instanceid = ?' : ''));
+        $params = array($id, $user);
+        if (!empty($instanceid)) {
+            $params[] = $instanceid;
+        }
 
         try {
-            return ($this->_db->selectValue($query, array($id, $user)) == 1);
+            return ($this->_db->selectValue($query, $params) == 1);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception($e);
         }
