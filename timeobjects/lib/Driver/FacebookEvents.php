@@ -50,16 +50,12 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
         if ($data = $cache->get($key, 3600)) {
             return json_decode($data, true);
         }
-        $tz = $GLOBALS['prefs']->getValue('timezone');
-        if (empty($tz)) {
-            $tz = date_default_timezone_get();
-        }
         $objects = array();
         foreach ($events as $event) {
-            $start = new Horde_Date($event['start_time'], $tz);
-            $start->setTimezone('America/Los_Angeles');
-            $end = new Horde_Date($event['end_time'], $tz);
-            $end->setTimezone('America/Los_Angeles');
+            $start = new Horde_Date($event['start_time']);
+            $end = $event['end_time']
+                ? new Horde_Date($event['end_time'])
+                : clone $start;
             $title = $event['name'];
             if (isset($event['tagline']) && strlen($event['tagline'])) {
                 $title .= ' - ' . $event['tagline'];
