@@ -95,8 +95,13 @@
  *                horde/config/conf.php). It is recommended to use either
  *                'hashtable', 'nosql', or 'sql' instead, as these backends
  *                have better performance.
+ *                The 'cache_lifetime' parameter (integer) can be specified
+ *                to define the lifetime of the cached message data.
  *     - 'hashtable': Caching is enabled using the Horde HashTable driver
  *                    (configured in horde/config/conf.php).
+ *                    The 'cache_lifetime' parameter (integer) can be
+ *                    specified to define the lifetime of the cached message
+ *                    data.
  *     - 'nosql': Caching is enabled using the Horde NoSQL database
  *                (configured in horde/config/conf.php).
  *     - 'sql': Caching is enabled using the Horde SQL database (configured in

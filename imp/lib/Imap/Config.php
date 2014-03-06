@@ -25,6 +25,7 @@
  * @property array $autocreate_special  Autocreate the special mailboxes?
  * @property-read array $cache_params  The cache configuration.
  * @property mixed $cache  The cache configuration from backends.php.
+ * @property string $cache_lifetime  Cache lifetime.
  * @property array $capability_ignore  The list of capabilities to ignore.
  * @property string $comparator  The non-default comparator to use.
  * @property string $debug  The debug handler.
@@ -117,8 +118,8 @@ class IMP_Imap_Config implements Serializable
      * @var array
      */
     private $_soptions = array(
-        'comparator', 'debug', 'hostspec', 'import_limit', 'maildomain',
-        'name', 'port', 'protocol', 'thread', 'timeout'
+        'cache_lifetime', 'comparator', 'debug', 'hostspec', 'import_limit',
+        'maildomain', 'name', 'port', 'protocol', 'thread', 'timeout'
     );
 
     /**
@@ -232,7 +233,7 @@ class IMP_Imap_Config implements Serializable
                     }
 
                     if (!is_null($driver)) {
-                        $ob = new IMP_Imap_Cache_Wrapper($driver);
+                        $ob = new IMP_Imap_Cache_Wrapper($driver, $this->cache_lifetime);
                     }
                 }
             }

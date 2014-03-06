@@ -31,40 +31,55 @@ class IMP_Imap_Cache_Wrapper implements Serializable
     public $backend;
 
     /**
-     * Cache driver to use.
+     * Cache parameters:
+     *   - driver (string)
+     *   - lifetime (integer)
      *
-     * @var string
+     * @var array
      */
-    protected $_driver;
+    protected $_params = array();
+
+    /**
+     * Cache lifetime.
+     */
 
     /**
      * Constructor.
      *
-     * @param string $driver  Cache driver to use.
+     * @param string $driver     Cache driver to use.
+     * @param integer $lifetime  Cache lifetime.
      */
-    public function __construct($driver)
+    public function __construct($driver, $lifetime = null)
     {
-        $this->_driver = $driver;
-        $this->_initOb();
+        $params = array('driver' => $driver);
+        if (!is_null($lifetime)) {
+            $params['lifetime'] = intval($lifetime);
+        }
+
+        $this->_initOb($params);
     }
 
     /**
      */
-    protected function _initOb()
+    protected function _initOb($params)
     {
         global $injector;
 
-        switch ($this->_driver) {
+        $this->_params = $params;
+
+        switch ($this->_params['driver']) {
         case 'cache':
-            $ob = new Horde_Imap_Client_Cache_Backend_Cache(array(
-                'cacheob' => $injector->getInstance('Horde_Cache')
-            ));
+            $ob = new Horde_Imap_Client_Cache_Backend_Cache(array_filter(array(
+                'cacheob' => $injector->getInstance('Horde_Cache'),
+                'lifetime' => (isset($this->_params['lifetime']) ? $this->_params['lifetime'] : null)
+            )));
             break;
 
         case 'hashtable':
-            $ob = new Horde_Imap_Client_Cache_Backend_Hashtable(array(
-                'hashtable' => $injector->getInstance('Horde_HashTable')
-            ));
+            $ob = new Horde_Imap_Client_Cache_Backend_Hashtable(array_filter(array(
+                'hashtable' => $injector->getInstance('Horde_HashTable'),
+                'lifetime' => (isset($this->_params['lifetime']) ? $this->_params['lifetime'] : null)
+            )));
             break;
 
         case 'nosql':
@@ -97,15 +112,14 @@ class IMP_Imap_Cache_Wrapper implements Serializable
      */
     public function serialize()
     {
-        return $this->_driver;
+        return json_encode($this->_params);
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $this->_driver = $data;
-        $this->_initOb();
+        $this->_initOb(json_decode($data));
     }
 
 }

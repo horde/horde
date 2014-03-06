@@ -37,6 +37,9 @@ Server Options (backends.php)
 
 The 'format' quota option has been removed.
 
+The 'cache_lifetime' option is now honored for the 'cache' and 'hashtable'
+caching backends.
+
 
 Configuration Options (conf.php)
 --------------------------------
