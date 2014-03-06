@@ -560,9 +560,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $ids           The message UIDs of the messages to move.
      * @param string $newfolderid  The folder id to move $id to.
      *
-     * @return array  An hash of oldUID => newUID. If the server does not
-     *                support UIDPLUS, then this is a best guess and might fail
-     *                on busy folders.
+     * @return array  An hash of oldUID => newUID.
      *
      * @throws Horde_ActiveSync_Exception
      */
@@ -571,10 +569,6 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $from = new Horde_Imap_Client_Mailbox($folderid);
         $to = new Horde_Imap_Client_Mailbox($newfolderid);
-        if (!$imap->queryCapability('UIDPLUS')) {
-            $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
-            $uidnext = $status[Horde_Imap_Client::STATUS_UIDNEXT];
-        }
         $ids_obj = new Horde_Imap_Client_Ids($ids);
 
         // Need to ensure the source message exists so we may properly notify
@@ -587,26 +581,12 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         try {
-            $copy_res = $imap->copy($from, $to, array('ids' => $ids_obj, 'move' => true));
+            return $imap->copy($from, $to, array('ids' => $ids_obj, 'move' => true, 'force_map' => true));
         } catch (Horde_Imap_Client_Exception $e) {
-            // We already got rid of the missing ids, this must be something
-            // else.
+            // We already got rid of the missing ids, must be something else.
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-
-        // old_id => new_id
-        if (is_array($copy_res)) {
-            return $copy_res;
-        }
-
-        // No UIDPLUS
-        $ret = array();
-        foreach ($ids_obj->ids as $id) {
-            $ret[$id] = $uidnext++;
-        }
-
-        return $ret;
     }
 
     /**
