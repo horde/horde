@@ -20,6 +20,12 @@ Upgrading to 2.19.0
 
       Added the 'force_map' parameter.
 
+  - Horde_Imap_Client_Cache_Backend_Hashtable
+
+    - Constructor
+
+      Added the 'lifetime' configuration parameter.
+
 
 Upgrading to 2.18.0
 ===================

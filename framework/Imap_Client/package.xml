@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] The Hashtable cache driver now allows the lifetime of the message data to be specified.
 * [mms] Fix removing UID from cached list in Hashtable cache driver if the message data no longer exists.
 * [mms] Add &apos;force_map&apos; option to Horde_Imap_Client_Base#copy() to guarantee that the mapping array is always returned.
 * [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.
@@ -2284,6 +2285,7 @@
    <date>2014-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] The Hashtable cache driver now allows the lifetime of the message data to be specified.
 * [mms] Fix removing UID from cached list in Hashtable cache driver if the message data no longer exists.
 * [mms] Add &apos;force_map&apos; option to Horde_Imap_Client_Base#copy() to guarantee that the mapping array is always returned.
 * [mms] More accurate way of determining appended UID on append when UIDPLUS is not available.

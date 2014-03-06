@@ -77,6 +77,10 @@ extends Horde_Imap_Client_Cache_Backend
      * <pre>
      *   - REQUIRED parameters:
      *     - hashtable: (Horde_HashTable) A HashTable object.
+     *
+     *   - Optional Parameters:
+     *     - lifetime: (integer) The lifetime of the cache data (in seconds).
+     *                 DEFAULT: 604800 seconds (1 week) [@since 2.19.0]
      * </pre>
      */
     public function __construct(array $params = array())
@@ -84,6 +88,10 @@ extends Horde_Imap_Client_Cache_Backend
         if (!isset($params['hashtable'])) {
             throw new InvalidArgumentException('Missing hashtable parameter.');
         }
+
+        $params = array_merge(array(
+            'lifetime' => 604800
+        ));
 
         parent::__construct($params);
     }
@@ -267,7 +275,11 @@ extends Horde_Imap_Client_Cache_Backend
                 $ptr = &$this->_data[$mbox];
                 foreach ($this->_getMsgCids($mbox, array_keys($val['u'])) as $k2 => $v2) {
                     try {
-                        $this->_hash->set($v2, $this->_pack->pack($ptr[$k2]));
+                        $this->_hash->set(
+                            $v2,
+                            $this->_pack->pack($ptr[$k2]),
+                            array('expire' => $this->_params['lifetime'])
+                        );
                     } catch (Horde_Pack_Exception $e) {
                         $this->deleteMsgs($mbox, array($v2));
                         $val['d'][] = $v2;
