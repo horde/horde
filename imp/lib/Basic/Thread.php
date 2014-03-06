@@ -73,6 +73,8 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         /* Force images to show in HTML data. */
         $injector->getInstance('IMP_Images')->alwaysShow = true;
 
+        $multiple = (count($imp_indices) > 1);
+
         foreach ($imp_indices as $ob) {
             $imp_imap = $ob->mbox->imp_imap;
             $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
@@ -120,7 +122,9 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     if (empty($subject)) {
                         $subject = preg_replace('/^re:\s*/i', '', $subject_header);
                     }
-                    $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true));
+                    $curr_msg['link'] = $multiple
+                        ? Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true))
+                        : '';
                     $curr_tree['subject'] = $imp_mailbox->getThreadOb($imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1)->img;
                     break;
 
