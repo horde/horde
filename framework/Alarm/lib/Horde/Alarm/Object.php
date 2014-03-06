@@ -170,13 +170,14 @@ class Horde_Alarm_Object extends Horde_Alarm
     /**
      * Returns whether an alarm with the given id exists already.
      *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param string $instanceid  An optional instanceid to match.
      *
      * @return boolean  True if the specified alarm exists.
      * @throws Horde_Alarm_Exception
      */
-    protected function _exists($id, $user)
+    protected function _exists($id, $user, $instanceid = null)
     {
         return (bool)$this->_findAlarm($id, $user);
     }

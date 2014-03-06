@@ -293,13 +293,14 @@ abstract class Horde_Alarm
     /**
      * Returns whether an alarm with the given id exists already.
      *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param string $instanceid  An optional instanceid to match.
      *
      * @return boolean  True if the specified alarm exists.
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _exists($id, $user);
+    abstract protected function _exists($id, $user, $instanceid = null);
 
     /**
      * Delays (snoozes) an alarm for a certain period.
