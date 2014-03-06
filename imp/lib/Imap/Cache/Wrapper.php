@@ -119,7 +119,7 @@ class IMP_Imap_Cache_Wrapper implements Serializable
      */
     public function unserialize($data)
     {
-        $this->_initOb(json_decode($data));
+        $this->_initOb(json_decode($data, true));
     }
 
 }
