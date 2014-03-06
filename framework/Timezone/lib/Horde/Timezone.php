@@ -180,19 +180,26 @@ class Horde_Timezone
             stream_copy_to_stream($response->getStream(), fopen($this->_tmpfile, 'w'));
             return;
         }
-        try {
-            if ($url['scheme'] == 'ftp') {
+        if ($url['scheme'] == 'ftp') {
+            try {
                 $vfs = new Horde_Vfs_Ftp(array('hostspec' => $url['host'],
                                                'username' => 'anonymous',
                                                'password' => 'anonymous'));
-            } else {
-                $vfs = new Horde_Vfs_File();
+                $this->_tmpfile = $vfs->readFile(dirname($url['path']),
+                                                 basename($url['path']));
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Horde_Timezone_Exception($e);
             }
-            $this->_tmpfile = $vfs->readFile(dirname($url['path']),
-                                             basename($url['path']));
-        } catch (Horde_Vfs_Exception $e) {
-            throw new Horde_Timezone_Exception($e);
+        } else {
+            if (($this->_tmpfile = @file_get_contents($url['path'])) === false) {
+                $e = new Horde_Timezone_Exception(sprintf('Unable to open file %s.', $url['path']));
+                if (isset($php_errormsg)) {
+                    $e->details = $php_errormsg;
+                }
+                throw $e;
+            }
         }
+
     }
 
     /**
