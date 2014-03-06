@@ -177,6 +177,8 @@ abstract class Horde_Alarm
      * text: An optional alarm description.
      * snooze: The snooze time (next time) of the alarm as a Horde_Date.
      * internal: Holds internally used data.
+     * instanceid: Holds an instance identifier for recurring alarms.
+     *             (@since 2.2.0)
      * </pre>
      * @throws Horde_Alarm_Exception
      */
@@ -223,7 +225,7 @@ abstract class Horde_Alarm
 
         // If this is a recurring alarm and we have a new instanceid,
         // remove the previous entry regardless of the value of $keep.
-        // Otherwise, the alarm will never be reset.
+        // Otherwise, the alarm will never be reset. @since 2.2.0
         if (!empty($alarm['instanceid']) &&
             !$this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '', !empty($alarm['instanceid']) ? $alarm['instanceid'] : null)) {
             $this->delete($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '');
@@ -278,6 +280,7 @@ abstract class Horde_Alarm
      * @param string $id          The alarm's unique id.
      * @param string $user        The alarm's user
      * @param string $instanceid  An optional instanceid to check for.
+     *                            @since 2.2.0
      *
      * @return boolean  True if the specified alarm exists.
      */
