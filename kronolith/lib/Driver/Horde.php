@@ -98,6 +98,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
                 $event = new Kronolith_Event_Horde($this, $eventsListItem);
             } catch (Kronolith_Exception $e) {
                 Horde::log($e, 'NOTICE');
+                continue;
             }
 
             // Ignore events out of the period.
