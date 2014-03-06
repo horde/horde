@@ -718,6 +718,7 @@ abstract class Kronolith_Event
                     $vEvents[] = $tz->getZone($this->timezone)->toVtimezone();
                     $params['TZID'] = $this->timezone;
                 } catch (Horde_Exception $e) {
+                    Horde::log('Unable to locate the tz database.', 'WARN');
                 }
             }
 
