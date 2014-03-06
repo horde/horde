@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix various issues with alarms for recurring events.
 * [jan] Add calendar legend to print output.
 * [jan] Make SQL backend compatible with Oracle.
 * [mjr] Allow for exporting of resource calendars (Request #12372).
@@ -2253,7 +2254,8 @@
    <date>2014-01-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Add calenar legend to print output.
+* [mjr] Fix various issues with alarms for recurring events.
+* [jan] Add calendar legend to print output.
 * [jan] Make SQL backend compatible with Oracle.
 * [mjr] Allow for exporting of resource calendars (Request #12372).
 * [mjr] Make event url property a true hyperlink in dynamic view (Request #12920).
