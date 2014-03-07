@@ -569,6 +569,7 @@ $_prefs['initial_application'] = array(
 
 $_prefs['show_last_login'] = array(
     'value' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Show last login time when logging in?")
 );
@@ -623,6 +624,7 @@ $_prefs['menu_refresh_time'] = array(
 
 $_prefs['widget_accesskey'] = array(
     'value' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Should access keys be defined for most links?")
 );
