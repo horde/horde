@@ -30,7 +30,7 @@ class Horde_Test_Factory_History
     /**
      * Create a mock history service for testing.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'user' - (string) The current user.
      * </pre>

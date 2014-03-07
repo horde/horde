@@ -29,7 +29,7 @@ class Horde_Test_Factory_Mongo
     /**
      * Create a connector to a temporary MongoDB instance.
      *
-     * @params array $params  Additional options:
+     * @param array $params  Additional options:
      * <pre>
      *   - config: (array) Configuration for Horde_Mongo_Client.
      *   - dbname: (string) Database name to use.

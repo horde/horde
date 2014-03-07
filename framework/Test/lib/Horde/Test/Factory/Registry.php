@@ -30,7 +30,7 @@ class Horde_Test_Factory_Registry
     /**
      * Create a stub registry service for testing.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'app' - (string) The application name.
      * 'user' - (string) The current user.

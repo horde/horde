@@ -30,7 +30,7 @@ class Horde_Test_Factory_Db
     /**
      * Create a connector to an in-memory sqlite DB.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'migrations' - (array) An list of migrations that should be run.
      *                Each element must contain the keys 'migrationsPath'

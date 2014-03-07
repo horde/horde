@@ -30,7 +30,7 @@ class Horde_Test_Factory_KolabStorage
     /**
      * Create a SQL next generate share setup.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'user' - (string) The current user.
      * 'imapuser' - (string) The short IMAP ID of the user.

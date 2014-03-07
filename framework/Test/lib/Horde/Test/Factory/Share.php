@@ -47,7 +47,7 @@ class Horde_Test_Factory_Share
     /**
      * Create a SQL next generate share setup.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'app' - (string) The application name.
      * 'user' - (string) The current user.
@@ -75,7 +75,7 @@ class Horde_Test_Factory_Share
     /**
      * Create a Kolab share setup.
      *
-     * @params array $params Additional options.
+     * @param array $params Additional options.
      * <pre>
      * 'app' - (string) The application name.
      * 'user' - (string) The current user.
