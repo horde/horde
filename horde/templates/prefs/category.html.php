@@ -1,6 +1,5 @@
 <input name="cAction" value="" type="hidden" />
 <input name="category" value="" type="hidden" />
-<input type="button" class="horde-create" id="add_category" value="<?php echo _("New Category") ?>" />
 
 <table>
  <tr>
@@ -40,3 +39,5 @@
  </tr>
 <?php endforeach; ?>
 </table>
+
+<input type="button" class="horde-create" id="add_category" value="<?php echo _("New Category") ?>" />
