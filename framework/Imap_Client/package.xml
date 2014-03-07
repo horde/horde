@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-05</date>
+ <date>2014-03-07</date>
  <version>
   <release>2.19.0</release>
   <api>2.19.0</api>
@@ -224,6 +224,9 @@
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="Base">
+        <file name="MailboxTest.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Base -->
        <dir name="Cache">
         <file name="CacheTest.php" role="test" />
         <file name="DbTest.php" role="test" />
@@ -539,6 +542,7 @@
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/Xoauth2Test.php" name="test/Horde/Imap/Client/Xoauth2Test.php" />
+   <install as="Horde/Imap/Client/Base/MailboxTest.php" name="test/Horde/Imap/Client/Base/MailboxTest.php" />
    <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
    <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
@@ -2282,7 +2286,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-05</date>
+   <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] The Hashtable cache driver now allows the lifetime of the message data to be specified.
