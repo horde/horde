@@ -21,7 +21,7 @@
  * @package   Core
  * @since     2.12.0
  */
-class Horde_Themes_Css_Cache_Horde_Cache extends Horde_Themes_Css_Cache
+class Horde_Themes_Css_Cache_HordeCache extends Horde_Themes_Css_Cache
 {
     /**
      */
