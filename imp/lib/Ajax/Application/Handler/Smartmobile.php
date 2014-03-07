@@ -31,6 +31,9 @@ extends Horde_Core_Ajax_Application_Handler
 
         /* Disable quota - not used in smartmobile for now. */
         $base->queue->quota(null);
+
+        /* Disable implicit polling - not used in smartmobile for now. */
+        $base->queue->poll(null);
     }
 
     /**
@@ -78,7 +81,7 @@ extends Horde_Core_Ajax_Application_Handler
         $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
 
         /* Poll all mailboxes on initial display. */
-        $this->_base->queue->poll($ftree->poll->getPollList());
+        $this->_base->queue->poll($ftree->poll->getPollList(), true);
 
         $iterator = new AppendIterator();
 

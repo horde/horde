@@ -90,6 +90,8 @@ class IMP_Ajax_Queue
     /**
      * Poll mailboxes.
      *
+     * If null, don't output polled information unless explicitly told to.
+     *
      * @var array
      */
     protected $_poll = array();
@@ -269,8 +271,10 @@ class IMP_Ajax_Queue
 
         /* Add poll information. */
         $poll = $poll_list = array();
-        foreach ($this->_poll as $val) {
-            $poll_list[strval($val)] = 1;
+        if (!empty($this->_poll)) {
+            foreach ($this->_poll as $val) {
+                $poll_list[strval($val)] = 1;
+            }
         }
 
         if (count($poll_list)) {
@@ -528,10 +532,22 @@ class IMP_Ajax_Queue
     /**
      * Add poll entry to response queue.
      *
-     * @param mixed $mboxes  A mailbox name or list of mailbox names.
+     * @param mixed $mboxes      A mailbox name or list of mailbox names.
+     * @param boolean $explicit  If true, explicitly output poll information.
+     *                           Otherwise, add only if not disabled.
      */
-    public function poll($mboxes)
+    public function poll($mboxes, $explicit = false)
     {
+        if (is_null($this->_poll)) {
+            if (!$explicit) {
+                return;
+            }
+            $this->_poll = array();
+        } elseif (empty($this->_poll) && is_null($mboxes)) {
+            $this->_poll = null;
+            return;
+        }
+
         if (!is_array($mboxes)) {
             $mboxes = array($mboxes);
         }

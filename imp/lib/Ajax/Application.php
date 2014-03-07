@@ -116,7 +116,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->queue->poll(
                 empty($poll)
                     ? $injector->getInstance('IMP_Ftree')->poll->getPollList()
-                    : IMP_Mailbox::formFrom($poll)
+                    : IMP_Mailbox::formFrom($poll),
+                true
             );
         }
     }
