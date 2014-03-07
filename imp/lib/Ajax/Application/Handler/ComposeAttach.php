@@ -36,7 +36,7 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
      *   - action: (string) The action.
      *   - file_id: (integer) Browser ID of file.
      *   - img: (object) Image data, if 'img_data' is set. Properties:
-     *          height, related, src, width
+     *          related, src
      *   - success: (integer) 1 on success (at least one successful attached
      *              file), 0 on failure.
      */
@@ -79,14 +79,6 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
                                     $imp_compose::RELATED_ATTR,
                                     $temp2->getAttribute($imp_compose::RELATED_ATTR)
                                 );
-
-                                try {
-                                    $img_ob = $injector->getInstance('Horde_Core_Factory_Image')->create();
-                                    $img_ob->loadString($val->storage->read()->getString(0));
-                                    $d = $img_ob->getDimensions();
-                                    $result->img->height = $d['height'];
-                                    $result->img->width = $d['width'];
-                                } catch (Exception $e) {}
                             } else {
                                 $this->_base->queue->attachment($val);
                                 $notification->push(sprintf(_("Added \"%s\" as an attachment."), $val->getPart()->getName()), 'horde.success');

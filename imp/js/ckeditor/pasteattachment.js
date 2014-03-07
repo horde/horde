@@ -19,10 +19,8 @@ CKEDITOR.plugins.add('pasteattachment', {
                 iframe = editor.getThemeSpace('contents').$.down('IFRAME');
                 Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
                     elt.setAttribute(r.img.related[0], r.img.related[1]);
-                    if (r.img.height) {
-                        elt.setAttribute('height', r.img.height);
-                        elt.setAttribute('width', r.img.width);
-                    }
+                    elt.setAttribute('height', elt.height);
+                    elt.setAttribute('width', elt.width);
                 });
             }
         };
