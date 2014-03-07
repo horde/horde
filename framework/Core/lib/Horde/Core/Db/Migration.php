@@ -87,8 +87,14 @@ class Horde_Core_Db_Migration
         // Loop through installed PEAR packages.
         $registry = $pear->getRegistry();
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
-            $app = $registry->getPackage(
-                basename(dirname($dir)), 'pear.horde.org')->getName();
+            $package = $registry->getPackage(
+                basename(dirname($dir)), 'pear.horde.org');
+            if ($package == false) {
+                Horde::log("Ignoring package in directory $dir", Horde_Log::WARN);
+                continue;
+            }
+
+            $app = $package->getName();
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
                 $this->_lower[] = Horde_String::lower($app);
