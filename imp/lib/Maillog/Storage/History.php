@@ -53,7 +53,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
     public function saveLog($msg_id, $data)
     {
         try {
-            $this->_history->getInstance('Horde_History')->log(
+            $this->_history->log(
                 $this->_getUniqueHistoryId($msg_id),
                 $data
             );
