@@ -215,9 +215,19 @@ while (true) {
                         $cli->writeln();
                         $cli->message('IMAP error: ' . $e, 'cli.error');
                     }
-                    $cli->message('UIDVALIDITY: ' . $res['uidvalid'] . ' [Server value: ' . (($status['uidvalidity'] != $res['uidvalid']) ? $cli->red($status['uidvalidity']) : $status['uidvalidity']) . ']');
+                    $cli->message(
+                        'UIDVALIDITY: ' . $res['uidvalid'] .
+                        (($status['uidvalidity'] != $res['uidvalid'])
+                            ? ' [Server value: ' . $cli->red($status['uidvalidity']) . ']'
+                            : '')
+                    );
                     if (isset($res[Horde_Imap_Client_Base::CACHE_MODSEQ])) {
-                        $cli->message('Highest MODSEQ seen: ' . $res[Horde_Imap_Client_Base::CACHE_MODSEQ] . ' [Server value: ' . (($status['highestmodseq'] != $res[Horde_Imap_Client_Base::CACHE_MODSEQ]) ? $cli->red($status['highestmodseq']) : $status['highestmodseq']) . ']');
+                        $cli->message(
+                            'Highest MODSEQ seen: ' . $res[Horde_Imap_Client_Base::CACHE_MODSEQ] .
+                            (($status['highestmodseq'] != $res[Horde_Imap_Client_Base::CACHE_MODSEQ])
+                                ? ' [Server value: ' . $cli->red($status['highestmodseq']) . ']'
+                                : '')
+                        );
                     }
                     if (isset($res[Horde_Imap_Client_Base::CACHE_SEARCH])) {
                         $cli->message('Cached searches: ' . count($res[Horde_Imap_Client_Base::CACHE_SEARCH]));
