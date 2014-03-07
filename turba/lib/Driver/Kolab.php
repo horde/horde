@@ -70,6 +70,13 @@ class Turba_Driver_Kolab extends Turba_Driver
     );
 
     /**
+     * Any additional options passed to Turba_Object constructors.
+     *
+     * @var array
+     */
+    protected $_objectOptions = array('removeMissing' => true);
+
+    /**
      * Attempts to open a Kolab Groupware folder.
      */
     public function __construct($name = '', $params = array())

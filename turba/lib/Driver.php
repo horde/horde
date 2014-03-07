@@ -107,6 +107,13 @@ class Turba_Driver implements Countable
     protected $_capabilities = array();
 
     /**
+     * Any additional options passed to Turba_Object constructors.
+     *
+     * @var array
+     */
+    protected $_objectOptions = array();
+
+    /**
      * Number of contacts in this source.
      *
      * @var integer
@@ -678,12 +685,12 @@ class Turba_Driver implements Countable
                 ucwords($object['__type']) != 'Object') {
                 $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
-                    $list->insert(new $class($this, $object));
+                    $list->insert(new $class($this, $object, $this->_objectOptions));
                     $done = true;
                 }
             }
             if (!$done) {
-                $list->insert(new Turba_Object($this, $object));
+                $list->insert(new Turba_Object($this, $object, $this->_objectOptions));
             }
         }
 
@@ -836,12 +843,12 @@ class Turba_Driver implements Countable
                 ucwords($object['__type']) != 'Object') {
                 $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
-                    $results[] = new $class($this, $object);
+                    $results[] = new $class($this, $object, $this->_objectOptions);
                     $done = true;
                 }
             }
             if (!$done) {
-                $results[] = new Turba_Object($this, $object);
+                $results[] = new Turba_Object($this, $object, $this->_objectOptions);
             }
         }
 

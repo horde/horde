@@ -45,6 +45,13 @@ class Turba_Object
     public $sortValue = array();
 
     /**
+     * Any additional options.
+     *
+     * @var boolean
+     */
+    protected $_options = array();
+
+    /**
      * Reference to this object's VFS instance.
      *
      * @var VFS
@@ -56,12 +63,17 @@ class Turba_Object
      *
      * @param Turba_Driver $driver  The source that this object came from.
      * @param array $attributes     Hash of attributes for this object.
+     * @param array $options        Hash of options for this object. @since
+     *                              Turba 4.2
      */
-    public function __construct(Turba_Driver $driver, array $attributes = array())
+    public function __construct(Turba_Driver $driver,
+                                array $attributes = array(),
+                                array $options = array())
     {
         $this->driver = $driver;
         $this->attributes = $attributes;
         $this->attributes['__type'] = 'Object';
+        $this->_options = $options;
     }
 
     /**

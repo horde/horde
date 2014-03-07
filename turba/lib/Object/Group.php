@@ -15,10 +15,14 @@ class Turba_Object_Group extends Turba_Object
      * @param Turba_Driver $driver  The driver object that this group comes
      *                              from.
      * @param array $attributes     Hash of attributes for this group.
+     * @param array $options        Hash of options for this object. @since
+     *                              Turba 4.2
      */
-    public function __construct(Turba_Driver $driver, array $attributes = array())
+    public function __construct(Turba_Driver $driver,
+                                array $attributes = array(),
+                                array $options = array())
     {
-        parent::__construct($driver, $attributes);
+        parent::__construct($driver, $attributes, $options);
         $this->attributes['__type'] = 'Group';
     }
 
@@ -154,9 +158,11 @@ class Turba_Object_Group extends Turba_Object
                 try {
                     $contact = $this->driver->getObject($member);
                 } catch (Horde_Exception_NotFound $e) {
-                    // Remove the contact if it no longer exists
-                    $this->removeMember($member);
-                    $modified = true;
+                    if (!empty($this->_options['removeMissing'])) {
+                        // Remove the contact if it no longer exists
+                        $this->removeMember($member);
+                        $modified = true;
+                    }
                     continue;
                 }
             } else {
@@ -175,9 +181,11 @@ class Turba_Object_Group extends Turba_Object
                 try {
                     $contact = $driver->getObject($contactId);
                 } catch (Horde_Exception_NotFound $e) {
-                    // Remove the contact if it no longer exists
-                    $this->removeMember($member);
-                    $modified = true;
+                    if (!empty($this->_options['removeMissing'])) {
+                        // Remove the contact if it no longer exists
+                        $this->removeMember($member);
+                        $modified = true;
+                    }
                     continue;
                 }
             }
