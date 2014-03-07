@@ -38,7 +38,7 @@
   <textarea name="blacklist" id="blacklist" rows="15" cols="80"><?php echo $this->h($this->blacklist) ?></textarea>
  </div>
 
- <div class="control"
+ <div class="control">
   <input class="horde-default" type="submit" value="<?php echo _("Save") ?>" />
   <input type="button" id="blacklist_return" value="<?php echo _("Return to Rules List") ?>" />
  </div>
