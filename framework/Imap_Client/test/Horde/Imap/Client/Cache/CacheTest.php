@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
- * @copyright  2013 Horde LLC
+ * @copyright  2013-2014 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
  * @subpackage UnitTests
@@ -17,7 +17,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2013 Horde LLC
+ * @copyright  2013-2014 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
