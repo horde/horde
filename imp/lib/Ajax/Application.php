@@ -52,6 +52,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         global $injector, $registry;
 
+        $this->queue = $injector->getInstance('IMP_Ajax_Queue');
+
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
@@ -86,8 +88,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->addHandler('IMP_Ajax_Application_Handler_ImageUnblock');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
-
-        $this->queue = $injector->getInstance('IMP_Ajax_Queue');
 
         /* Copy 'view' paramter to 'mailbox', because this is what
          * IMP_Indices_Mailbox expects. */

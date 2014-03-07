@@ -97,6 +97,8 @@ class IMP_Ajax_Queue
     /**
      * Add quota information to response?
      *
+     * If null, never sends quota information.
+     *
      * @var string
      */
     protected $_quota = false;
@@ -544,11 +546,14 @@ class IMP_Ajax_Queue
     /**
      * Add quota entry to response queue.
      *
-     * @param string $mailbox  Mailbox to query for quota.
+     * @param string|null $mailbox  Mailbox to query for quota. If null,
+     *                              disables quota output.
      */
     public function quota($mailbox)
     {
-        $this->_quota = $mailbox;
+        if (!is_null($this->_quota)) {
+            $this->_quota = $mailbox;
+        }
     }
 
     /**

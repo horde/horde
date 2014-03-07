@@ -24,6 +24,16 @@ class IMP_Ajax_Application_Handler_Smartmobile
 extends Horde_Core_Ajax_Application_Handler
 {
     /**
+     */
+    public function __construct(Horde_Core_Ajax_Application $base)
+    {
+        parent::__construct($base);
+
+        /* Disable quota - not used in smartmobile for now. */
+        $base->queue->quota(null);
+    }
+
+    /**
      * AJAX action: Get autocomplete data.
      *
      * Variables used:
