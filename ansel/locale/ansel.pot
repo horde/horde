@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel H5 (3.0.1-git)\n"
+"Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -308,7 +308,7 @@ msgstr ""
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr ""
 
-#: config/prefs.php:189 templates/gallery/properties.html.php:110
+#: config/prefs.php:183 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr ""
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
-#: config/prefs.php:190 templates/gallery/properties.html.php:111
+#: config/prefs.php:185 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr ""
 
-#: config/prefs.php:182
+#: config/prefs.php:176
 msgid "Automatically watermark photos?"
 msgstr ""
 
@@ -358,7 +358,7 @@ msgstr ""
 msgid "Basic Thumbnails"
 msgstr ""
 
-#: config/prefs.php:161 lib/Form/Watermark.php:49
+#: config/prefs.php:155 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Captions Saved."
 msgstr ""
 
-#: config/prefs.php:149 config/prefs.php:160 lib/Form/Watermark.php:41
+#: config/prefs.php:143 config/prefs.php:154 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr ""
@@ -549,7 +549,7 @@ msgid ""
 "place of your username when grouping galleries by username."
 msgstr ""
 
-#: config/prefs.php:113 config/prefs.php:141
+#: config/prefs.php:135
 msgid "Custom watermark to use for photos"
 msgstr ""
 
@@ -608,7 +608,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: config/prefs.php:248
+#: config/prefs.php:242
 msgid ""
 "Do not use the ajax-enabled uploader? Select this if your browser is having "
 "trouble uploading images with the ajax uploader."
@@ -819,6 +819,10 @@ msgstr ""
 msgid "Flip"
 msgstr ""
 
+#: config/prefs.php:170
+msgid "Font Size"
+msgstr ""
+
 #: templates/tile/image.html.php:10
 msgid "From"
 msgstr ""
@@ -936,7 +940,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: config/prefs.php:174 lib/Form/Watermark.php:35
+#: config/prefs.php:168 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr ""
 
@@ -965,7 +969,7 @@ msgstr ""
 msgid "Height of map (width automatically adjusts to block)"
 msgstr ""
 
-#: config/prefs.php:152 lib/Form/Watermark.php:43
+#: config/prefs.php:146 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr ""
 
@@ -1006,7 +1010,7 @@ msgstr ""
 msgid "Landscape"
 msgstr ""
 
-#: config/prefs.php:173 lib/Form/Watermark.php:34
+#: config/prefs.php:167 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr ""
 
@@ -1018,7 +1022,7 @@ msgstr ""
 msgid "Learn how to publish photos directly from Windows."
 msgstr ""
 
-#: config/prefs.php:148 lib/Form/Watermark.php:40
+#: config/prefs.php:142 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr ""
 
@@ -1105,7 +1109,7 @@ msgstr ""
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr ""
 
-#: config/prefs.php:172 lib/Form/Watermark.php:33
+#: config/prefs.php:166 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr ""
 
@@ -1231,13 +1235,13 @@ msgstr ""
 msgid "No location data present. You may add some %s."
 msgstr ""
 
-#: config/prefs.php:73 config/prefs.php:200 config/prefs.php:221
-#: config/prefs.php:240 templates/view/gallery.html.php:34
+#: config/prefs.php:73 config/prefs.php:194 config/prefs.php:215
+#: config/prefs.php:234 templates/view/gallery.html.php:34
 #: templates/view/results.html.php:26
 msgid "None"
 msgstr ""
 
-#: config/prefs.php:211
+#: config/prefs.php:205
 msgid "None (Owner only)"
 msgstr ""
 
@@ -1487,15 +1491,15 @@ msgstr ""
 msgid "Random photo"
 msgstr ""
 
-#: config/prefs.php:202 config/prefs.php:223
+#: config/prefs.php:196 config/prefs.php:217
 msgid "Read and write"
 msgstr ""
 
-#: config/prefs.php:224
+#: config/prefs.php:218
 msgid "Read, write, and delete"
 msgstr ""
 
-#: config/prefs.php:201 config/prefs.php:212 config/prefs.php:222
+#: config/prefs.php:195 config/prefs.php:206 config/prefs.php:216
 msgid "Read-only"
 msgstr ""
 
@@ -1674,7 +1678,7 @@ msgstr ""
 msgid "Return to image view"
 msgstr ""
 
-#: config/prefs.php:150 lib/Form/Watermark.php:42
+#: config/prefs.php:144 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr ""
 
@@ -1816,7 +1820,7 @@ msgstr ""
 msgid "Shadowed Thumbnails (White Background)"
 msgstr ""
 
-#: config/prefs.php:242
+#: config/prefs.php:236
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1854,7 +1858,7 @@ msgstr ""
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr ""
 
-#: config/prefs.php:171 lib/Form/Watermark.php:32
+#: config/prefs.php:165 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr ""
 
@@ -2070,11 +2074,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr ""
 
-#: config/prefs.php:170 lib/Form/Watermark.php:31
+#: config/prefs.php:164 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr ""
 
-#: config/prefs.php:159 lib/Form/Watermark.php:47
+#: config/prefs.php:153 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr ""
 
@@ -2167,11 +2171,11 @@ msgstr ""
 msgid "Username or password are incorrect."
 msgstr ""
 
-#: config/prefs.php:191 templates/gallery/properties.html.php:112
+#: config/prefs.php:184 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr ""
 
-#: config/prefs.php:163 config/prefs.php:176 lib/Form/Watermark.php:50
+#: config/prefs.php:157 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr ""
 
@@ -2222,31 +2226,31 @@ msgstr ""
 msgid "Watermark Preferences"
 msgstr ""
 
-#: config/prefs.php:226
+#: config/prefs.php:220
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
 msgstr ""
 
-#: config/prefs.php:204
+#: config/prefs.php:198
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
 msgstr ""
 
-#: config/prefs.php:214
+#: config/prefs.php:208
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
 msgstr ""
 
-#: config/prefs.php:233
+#: config/prefs.php:227
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
 msgstr ""
 
-#: config/prefs.php:193
+#: config/prefs.php:187
 msgid "Who should be allowed to download original photos"
 msgstr ""
 

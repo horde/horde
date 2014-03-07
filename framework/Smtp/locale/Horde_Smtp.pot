@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Smtp \n"
+"Project-Id-Version: Horde_Smtp\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"POT-Creation-Date: 2014-03-07 12:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Could not open secure TLS connection to the server."
 msgstr ""
 
-#: lib/Horde/Smtp.php:346
+#: lib/Horde/Smtp.php:350
 msgid "Error connecting to SMTP server."
 msgstr ""
 
@@ -41,11 +41,11 @@ msgstr ""
 msgid "Server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Smtp.php:424
+#: lib/Horde/Smtp.php:434
 msgid "Server denied authentication."
 msgstr ""
 
-#: lib/Horde/Smtp.php:627
+#: lib/Horde/Smtp.php:637
 msgid "Server does not support TLS connections."
 msgstr ""
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Hermes H5 (2.0.0-git)\n"
+"Project-Id-Version: Hermes\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:14+0100\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Hermes.php:340
+#: lib/Hermes.php:352
 #, php-format
 msgid " (%0.2f hours)"
 msgstr ""
 
-#: lib/Hermes.php:342
+#: lib/Hermes.php:354
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr ""
@@ -37,7 +37,7 @@ msgstr ""
 msgid "\"%s\" is not a defined table."
 msgstr ""
 
-#: lib/Api.php:521
+#: lib/Api.php:517
 #, php-format
 msgid "%d hours: %s"
 msgstr ""
@@ -60,7 +60,7 @@ msgstr ""
 msgid "--- General Cost Objects ---"
 msgstr ""
 
-#: lib/Hermes.php:318
+#: lib/Hermes.php:330
 msgid "--- No Cost Object ---"
 msgstr ""
 
@@ -160,27 +160,27 @@ msgstr ""
 msgid "Budget hours"
 msgstr ""
 
-#: lib/Hermes.php:362
+#: lib/Hermes.php:374
 msgid "By Client"
 msgstr ""
 
-#: lib/Hermes.php:364
+#: lib/Hermes.php:376
 msgid "By Cost Object"
 msgstr ""
 
-#: lib/Hermes.php:360
+#: lib/Hermes.php:372
 msgid "By Date"
 msgstr ""
 
-#: lib/Hermes.php:361
+#: lib/Hermes.php:373
 msgid "By Employee"
 msgstr ""
 
-#: lib/Hermes.php:363
+#: lib/Hermes.php:375
 msgid "By Job Type"
 msgstr ""
 
-#: templates/dynamic/timer.inc:13
+#: templates/dynamic/timer.inc:34 templates/dynamic/timer.inc:47
 msgid "Cancel"
 msgstr ""
 
@@ -196,7 +196,7 @@ msgstr ""
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
 #: lib/Slice.php:157 templates/dynamic/search.inc:29
 #: templates/dynamic/search.inc:93 templates/dynamic/slices.inc:29
-#: templates/dynamic/slices.inc:82
+#: templates/dynamic/slices.inc:82 templates/dynamic/timer.inc:13
 msgid "Client"
 msgstr ""
 
@@ -227,6 +227,7 @@ msgstr ""
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
 #: templates/dynamic/search.inc:33 templates/dynamic/search.inc:94
 #: templates/dynamic/slices.inc:33 templates/dynamic/slices.inc:83
+#: templates/dynamic/timer.inc:17
 msgid "Cost Object"
 msgstr ""
 
@@ -281,11 +282,11 @@ msgstr ""
 msgid "Deliverable saved successfully."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:82
+#: lib/Ajax/Application/Handler.php:90
 msgid "Deliverable successfully added."
 msgstr ""
 
-#: deliverables.php:41 lib/Ajax/Application/Handler.php:95
+#: deliverables.php:41 lib/Ajax/Application/Handler.php:105
 msgid "Deliverable successfully deleted."
 msgstr ""
 
@@ -389,12 +390,16 @@ msgstr ""
 msgid "Enter a title for the new timer."
 msgstr ""
 
+#: templates/dynamic/timer.inc:12
+msgid "Enter details about this timer."
+msgstr ""
+
 #: deliverables.php:43
 #, php-format
 msgid "Error deleting deliverable: %s"
 msgstr ""
 
-#: lib/Form/Search.php:116 lib/Hermes.php:286
+#: lib/Form/Search.php:116 lib/Hermes.php:298
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr ""
@@ -415,6 +420,12 @@ msgstr ""
 
 #: lib/Form/Deliverable.php:26
 msgid "Estimated Hours"
+msgstr ""
+
+#: templates/dynamic/timer.inc:30
+msgid ""
+"Exclusive timers cannot run while other exclusive timers are running, but "
+"may run while other non-exclusive timers are running."
 msgstr ""
 
 #: lib/Form/Export.php:48 templates/dynamic/export.inc:27
@@ -466,8 +477,8 @@ msgid ""
 "above."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:322 lib/Ajax/Application/Handler.php:381
-#: lib/Ajax/Application/Handler.php:406
+#: lib/Ajax/Application/Handler.php:332 lib/Ajax/Application/Handler.php:382
+#: lib/Ajax/Application/Handler.php:413
 msgid "Invalid timer requested"
 msgstr ""
 
@@ -490,6 +501,7 @@ msgstr ""
 #: lib/Form/Time/Entry.php:60 lib/Slice.php:149
 #: templates/dynamic/search.inc:23 templates/dynamic/search.inc:95
 #: templates/dynamic/slices.inc:51 templates/dynamic/slices.inc:84
+#: templates/dynamic/timer.inc:21
 msgid "Job Type"
 msgstr ""
 
@@ -498,15 +510,15 @@ msgstr ""
 msgid "Job Types"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:50
+#: lib/Ajax/Application/Handler.php:55
 msgid "Job type successfully added."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:112
+#: lib/Ajax/Application/Handler.php:122
 msgid "Job type successfully deleted."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:476
+#: lib/Ajax/Application/Handler.php:490
 msgid "Job type successfully updated."
 msgstr ""
 
@@ -514,8 +526,16 @@ msgstr ""
 msgid "JobType Name"
 msgstr ""
 
+#: templates/dynamic/timer.inc:41
+msgid "Log Timer"
+msgstr ""
+
 #: templates/dynamic/deliverabledetail.inc:10
 msgid "Logged"
+msgstr ""
+
+#: templates/dynamic/timer.inc:27
+msgid "Make this timer exclusive?"
 msgstr ""
 
 #: lib/Form/Export.php:42 templates/dynamic/export.inc:19
@@ -659,7 +679,7 @@ msgstr ""
 
 #: lib/Form/Time/Entry.php:33 templates/dynamic/deliverables.inc:20
 #: templates/dynamic/jobtypes.inc:23 templates/dynamic/slices.inc:65
-#: templates/dynamic/timer.inc:12
+#: templates/dynamic/timer.inc:33
 msgid "Save"
 msgstr ""
 
@@ -746,6 +766,14 @@ msgstr ""
 msgid "Stop Watch"
 msgstr ""
 
+#: templates/dynamic/timer.inc:46
+msgid "Stop and remove"
+msgstr ""
+
+#: templates/dynamic/timer.inc:45
+msgid "Stop and reset"
+msgstr ""
+
 #: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr ""
@@ -778,7 +806,7 @@ msgstr ""
 msgid "Submitted?"
 msgstr ""
 
-#: lib/Hermes.php:359
+#: lib/Hermes.php:371
 msgid "Summary"
 msgstr ""
 
@@ -811,7 +839,7 @@ msgstr ""
 msgid "The job type was not deleted."
 msgstr ""
 
-#: lib/Hermes.php:449
+#: lib/Hermes.php:473
 msgid "The requested timer was not found."
 msgstr ""
 
@@ -822,7 +850,7 @@ msgid ""
 "next refresh."
 msgstr ""
 
-#: entry.php:32 lib/Ajax/Application/Handler.php:419
+#: entry.php:32 lib/Ajax/Application/Handler.php:425
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr ""
@@ -831,12 +859,12 @@ msgstr ""
 msgid "The time entry was successfully deleted."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:167
+#: lib/Ajax/Application/Handler.php:177
 #, php-format
 msgid "The time was successfully entered for %s."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:496
+#: lib/Ajax/Application/Handler.php:510
 #, php-format
 msgid "The time was successfully updated and saved to the time sheet of %s."
 msgstr ""
@@ -891,7 +919,7 @@ msgstr ""
 msgid "There was an error storing your timesheet: %s"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:442 time.php:47
+#: lib/Ajax/Application/Handler.php:456 time.php:47
 #, php-format
 msgid "There was an error submitting your time: %s"
 msgstr ""
@@ -949,7 +977,7 @@ msgstr ""
 msgid "Update Time"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:415
+#: lib/Ajax/Application/Handler.php:421
 #, php-format
 msgid "Using the \"%s\" stop watch from %s %s to %s %s"
 msgstr ""
@@ -966,6 +994,10 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#: templates/dynamic/timer.inc:42
+msgid "You are logging the following timer:"
+msgstr ""
+
 #: lib/Ajax.php:99
 msgid "You must select a client first."
 msgstr ""
@@ -976,19 +1008,19 @@ msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:133
+#: lib/Ajax/Application/Handler.php:143
 msgid "Your time entry was successfully deleted."
 msgstr ""
 
-#: entry.php:60 lib/Ajax/Application/Handler.php:162
+#: entry.php:60 lib/Ajax/Application/Handler.php:172
 msgid "Your time was successfully entered."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:446 time.php:44
+#: lib/Ajax/Application/Handler.php:460 time.php:44
 msgid "Your time was successfully submitted."
 msgstr ""
 
-#: entry.php:57 lib/Ajax/Application/Handler.php:494
+#: entry.php:57 lib/Ajax/Application/Handler.php:508
 msgid "Your time was successfully updated."
 msgstr ""
 

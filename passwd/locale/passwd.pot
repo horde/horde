@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H5 (5.0.0-git)\n"
+"Project-Id-Version: Passwd\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Full buffer."
 msgstr ""
 
-#: lib/Driver.php:74 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
+#: lib/Driver.php:76 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
 #: lib/Driver/Kolab.php:78 lib/Driver/Poppassd.php:120
 #: lib/Driver/Vmailmgr.php:40
 msgid "Incorrect old password."

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H5 (4.1.3-git)\n"
+"Project-Id-Version: Turba\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "<< Merge this into the first contact"
 msgstr ""
 
-#: lib/Application.php:463 view.php:44
+#: lib/Application.php:466 view.php:44
 #, php-format
 msgid "Access denied to %s"
 msgstr ""
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Address book does not exist"
 msgstr ""
 
-#: lib/Turba.php:651
+#: lib/Turba.php:652
 #, php-format
 msgid "Address book of %s"
 msgstr ""
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Addressbook entry could not be loaded."
 msgstr ""
 
-#: search.php:197 search.php:241
+#: search.php:207 search.php:252
 msgid "Advanced Search"
 msgstr ""
 
@@ -169,12 +169,12 @@ msgstr ""
 msgid "Anniversary"
 msgstr ""
 
-#: lib/Turba.php:686
+#: lib/Turba.php:687
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr ""
 
-#: lib/Turba.php:691
+#: lib/Turba.php:692
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Assistant Phone"
 msgstr ""
 
-#: search.php:196 search.php:230
+#: search.php:206 search.php:241
 msgid "Basic Search"
 msgstr ""
 
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Common Video Call"
 msgstr ""
 
-#: config/backends.php:359 config/backends.php:688
+#: config/backends.php:359 config/backends.php:698
 msgid "Communications"
 msgstr ""
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Contact Search"
 msgstr ""
 
-#: lib/Driver/Kolab.php:823
+#: lib/Driver/Kolab.php:943
 msgid "Contacts"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr ""
 msgid "Create Address Book"
 msgstr ""
 
-#: lib/Application.php:193
+#: lib/Application.php:196
 msgid "Create a new Address Book"
 msgstr ""
 
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: lib/Application.php:453
+#: lib/Application.php:456
 msgid "Data cannot be downloaded as no VFS driver is configured."
 msgstr ""
 
@@ -499,7 +499,7 @@ msgstr ""
 msgid "Download vCard"
 msgstr ""
 
-#: search.php:199 search.php:254
+#: search.php:209 search.php:265
 msgid "Duplicate Search"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Export the following address book completely."
 msgstr ""
 
-#: config/backends.php:791
+#: config/backends.php:801
 msgid "Facebook Friends"
 msgstr ""
 
@@ -627,16 +627,16 @@ msgstr ""
 msgid "Failed to find object to be added"
 msgstr ""
 
-#: search.php:184
+#: search.php:194
 msgid "Failed to search the address book"
 msgstr ""
 
-#: lib/Application.php:501
+#: lib/Application.php:504
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr ""
 
-#: config/backends.php:761
+#: config/backends.php:771
 msgid "Favourite Recipients"
 msgstr ""
 
@@ -746,7 +746,7 @@ msgstr ""
 msgid "Home Website URL"
 msgstr ""
 
-#: config/backends.php:916
+#: config/backends.php:926
 msgid "IMSP"
 msgstr ""
 
@@ -842,7 +842,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/backends.php:351 config/backends.php:684
+#: config/backends.php:351 config/backends.php:694
 msgid "Location"
 msgstr ""
 
@@ -874,7 +874,7 @@ msgstr ""
 msgid "Matching"
 msgstr ""
 
-#: lib/Application.php:143
+#: lib/Application.php:146
 msgid "Maximum Number of Contacts"
 msgstr ""
 
@@ -934,7 +934,7 @@ msgstr ""
 msgid "My Address Book"
 msgstr ""
 
-#: lib/Application.php:185
+#: lib/Application.php:188
 msgid "My Address Books"
 msgstr ""
 
@@ -955,11 +955,11 @@ msgstr ""
 msgid "Name Suffixes"
 msgstr ""
 
-#: templates/search/vbook.html.php:6
+#: templates/search/vbook.html.php:7
 msgid "Name:"
 msgstr ""
 
-#: add.php:76 lib/Application.php:378
+#: add.php:76 lib/Application.php:381
 msgid "New Contact"
 msgstr ""
 
@@ -1022,7 +1022,7 @@ msgstr ""
 msgid "No vCard data was found."
 msgstr ""
 
-#: lib/Application.php:285 templates/list/numPager.inc:8
+#: lib/Application.php:288 templates/list/numPager.inc:8
 msgid "None"
 msgstr ""
 
@@ -1048,7 +1048,7 @@ msgstr ""
 msgid "Object %s not found."
 msgstr ""
 
-#: lib/Driver/Kolab.php:636
+#: lib/Driver/Kolab.php:744
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr ""
@@ -1065,11 +1065,11 @@ msgstr ""
 msgid "Only one vcard supported."
 msgstr ""
 
-#: config/backends.php:366 config/backends.php:690
+#: config/backends.php:366 config/backends.php:700
 msgid "Organization"
 msgstr ""
 
-#: config/backends.php:367 config/backends.php:692
+#: config/backends.php:367 config/backends.php:702
 msgid "Other"
 msgstr ""
 
@@ -1077,7 +1077,7 @@ msgstr ""
 msgid "Other Address"
 msgstr ""
 
-#: lib/Application.php:232
+#: lib/Application.php:235
 msgid "Other Address Books"
 msgstr ""
 
@@ -1126,11 +1126,11 @@ msgid "Permanently delete this contact?"
 msgstr ""
 
 #: deletefile.php:32 lib/Api.php:676 lib/Api.php:1632 lib/Driver.php:932
-#: lib/Driver/Share.php:293 lib/Driver/Sql.php:649
+#: lib/Driver/Share.php:307 lib/Driver/Sql.php:649
 msgid "Permission denied"
 msgstr ""
 
-#: config/backends.php:347 config/backends.php:680
+#: config/backends.php:347 config/backends.php:690
 msgid "Personal"
 msgstr ""
 
@@ -1154,7 +1154,7 @@ msgstr ""
 msgid "Pine Address Book"
 msgstr ""
 
-#: lib/Turba.php:689
+#: lib/Turba.php:690
 msgid "Please name the new contact list:"
 msgstr ""
 
@@ -1163,7 +1163,7 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: config/backends.php:722
+#: config/backends.php:732
 msgid "Private Address Book"
 msgstr ""
 
@@ -1226,7 +1226,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/search/vbook.html.php:4
+#: templates/search/vbook.html.php:5
 msgid "Save search as a virtual address book?"
 msgstr ""
 
@@ -1234,7 +1234,7 @@ msgstr ""
 msgid "Saving contacts is not available."
 msgstr ""
 
-#: config/prefs.php:128 lib/Application.php:417
+#: config/prefs.php:128 lib/Application.php:420
 #: templates/block/minisearch.inc:4 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:21
 #: templates/search/duplicate.html.php:11
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "Selected address book \"%s\"."
 msgstr ""
 
-#: config/backends.php:228 config/backends.php:602 lib/Application.php:199
+#: config/backends.php:228 config/backends.php:602 lib/Application.php:202
 msgid "Shared Address Books"
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 msgid "Sort by %s, then by %s"
 msgstr ""
 
-#: lib/Application.php:133
+#: lib/Application.php:136
 msgid "Sources"
 msgstr ""
 
@@ -1387,7 +1387,7 @@ msgstr ""
 msgid "Successfully created the contact list \"%s\"."
 msgstr ""
 
-#: search.php:152
+#: search.php:158
 #, php-format
 msgid "Successfully created virtual address book \"%s\""
 msgstr ""
@@ -1471,7 +1471,7 @@ msgstr ""
 msgid "The addressbook \"%s\" has been saved."
 msgstr ""
 
-#: contact.php:19 lib/Application.php:440 vcard.php:18 view.php:23
+#: contact.php:19 lib/Application.php:443 vcard.php:18 view.php:23
 msgid "The contact you requested does not exist."
 msgstr ""
 
@@ -1507,7 +1507,7 @@ msgid_plural "There are %d contacts in this list that are not viewable to you"
 msgstr[0] ""
 msgstr[1] ""
 
-#: search.php:148
+#: search.php:154
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
 msgstr ""
@@ -1550,11 +1550,11 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:765
+#: lib/Application.php:768
 msgid "There was an error importing the vCard data."
 msgstr ""
 
-#: lib/Application.php:313 lib/Application.php:345 lib/Application.php:358
+#: lib/Application.php:316 lib/Application.php:348 lib/Application.php:361
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr ""
@@ -1591,7 +1591,7 @@ msgstr ""
 msgid "Time Zone"
 msgstr ""
 
-#: lib/Driver/Share.php:146
+#: lib/Driver/Share.php:160
 msgid "Unable to find contact owner."
 msgstr ""
 
@@ -1730,7 +1730,7 @@ msgstr ""
 msgid "You didn't mark a contact as your own yet."
 msgstr ""
 
-#: edit.php:63 lib/Application.php:447 lib/View/DeleteContact.php:41
+#: edit.php:63 lib/Application.php:450 lib/View/DeleteContact.php:41
 #: lib/View/EditContact.php:42 view.php:31
 msgid "You do not have permission to view this contact."
 msgstr ""
@@ -1749,19 +1749,19 @@ msgid ""
 "your own contact."
 msgstr ""
 
-#: search.php:130
+#: search.php:136
 msgid "You must provide a name for virtual address books."
 msgstr ""
 
-#: lib/Turba.php:690
+#: lib/Turba.php:691
 msgid "You must select a target address book."
 msgstr ""
 
-#: lib/Turba.php:688
+#: lib/Turba.php:689
 msgid "You must select a target contact list."
 msgstr ""
 
-#: edit.php:29 lib/Turba.php:687
+#: edit.php:29 lib/Turba.php:688
 msgid "You must select at least one contact first."
 msgstr ""
 
@@ -1782,7 +1782,7 @@ msgstr ""
 msgid "Your own contact cannot be found in the address book."
 msgstr ""
 
-#: lib/Application.php:156
+#: lib/Application.php:159
 msgid "_Browse"
 msgstr ""
 
@@ -1794,11 +1794,11 @@ msgstr ""
 msgid "_Edit"
 msgstr ""
 
-#: lib/Application.php:163
+#: lib/Application.php:166
 msgid "_Import/Export"
 msgstr ""
 
-#: lib/Application.php:175
+#: lib/Application.php:178
 msgid "_New Contact"
 msgstr ""
 
@@ -1806,7 +1806,7 @@ msgstr ""
 msgid "_Remove from this list"
 msgstr ""
 
-#: lib/Application.php:159
+#: lib/Application.php:162
 msgid "_Search"
 msgstr ""
 
@@ -1831,19 +1831,19 @@ msgstr ""
 msgid "contact"
 msgstr ""
 
-#: lib/Application.php:546 lib/Application.php:550 templates/data/export.inc:1
+#: lib/Application.php:549 lib/Application.php:553 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr ""
 
-#: lib/Application.php:568
+#: lib/Application.php:571
 msgid "contacts.ldif"
 msgstr ""
 
-#: lib/Application.php:554
+#: lib/Application.php:557
 msgid "contacts.tsv"
 msgstr ""
 
-#: lib/Application.php:559
+#: lib/Application.php:562
 msgid "contacts.vcf"
 msgstr ""
 
@@ -1855,7 +1855,7 @@ msgstr ""
 msgid "female"
 msgstr ""
 
-#: lib/Application.php:389
+#: lib/Application.php:392
 #, php-format
 msgid "in %s"
 msgstr ""
