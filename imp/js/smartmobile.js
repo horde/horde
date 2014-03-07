@@ -464,6 +464,7 @@ var ImpMobile = {
             slice = ob.slice;
         } else {
             params.initial = 1;
+            params.force = 1;
             slice = ImpMobile.mbox_slice;
         }
 
@@ -643,7 +644,6 @@ var ImpMobile = {
         HordeMobile.doAction(
             'showMessage',
             $.extend(ImpMobile.addViewportParams($.extend(params, {
-                force: 1,
                 view: purl.params.mbox
             })), {
                 buid: purl.params.buid
