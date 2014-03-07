@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2014-03-07</date>
  <version>
   <release>6.1.7</release>
   <api>6.1.0</api>
@@ -3327,7 +3327,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add Save All link to the popup message page in dynamic view.
