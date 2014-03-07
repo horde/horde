@@ -25,7 +25,7 @@ class Horde_Themes_Css_Cache_HordeCache extends Horde_Themes_Css_Cache
 {
     /**
      */
-    public function process($css)
+    public function process($css, $cacheid)
     {
         global $injector;
 
