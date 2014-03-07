@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: 2013-06-03 23:41+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -1168,7 +1168,7 @@ msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zu löschen."
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zum Ändern."
 
-#: lib/Api.php:1283 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1285 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Aufgaben"
 

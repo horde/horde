@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"POT-Creation-Date: 2014-03-07 12:17+0100\n"
 "PO-Revision-Date: 2013-10-29 10:16+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -330,7 +330,7 @@ msgstr "Alarme wurden in der Konfiguration deaktiviert."
 msgid "All"
 msgstr "Alle"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Angemeldete Benutzer"
 
@@ -459,7 +459,7 @@ msgstr "Es wurde versucht, ein nicht existierendes Recht zu löschen."
 msgid "Attempt to edit a non-existent permission."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
-#: services/shares/edit.php:68
+#: services/shares/edit.php:73
 msgid "Attempt to edit a non-existent share."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
@@ -667,7 +667,7 @@ msgstr "Fortfahren"
 msgid "Client Anchor"
 msgstr "Client-Anker"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Fenster schließen"
 
@@ -949,13 +949,13 @@ msgstr "Definitionen"
 
 #: admin/groups.php:52 templates/admin/groups/delete.inc:11
 #: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
-#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
 #: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Löschen"
@@ -1093,13 +1093,13 @@ msgstr "Dynamisch"
 msgid "EU VAT identification"
 msgstr "EU-UStId-Identifizierung"
 
-#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -1112,11 +1112,11 @@ msgstr "\"%s\" bearbeiten"
 msgid "Edit Preferences for"
 msgstr "Benutzereinstellungen für"
 
-#: services/shares/edit.php:247
+#: services/shares/edit.php:252
 msgid "Edit permissions"
 msgstr "Rechte bearbeiten"
 
-#: services/shares/edit.php:246 templates/shares/edit.inc:14
+#: services/shares/edit.php:251 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Rechte für \"%s\" bearbeiten"
@@ -1408,11 +1408,11 @@ msgstr "Gruppenname"
 msgid "Group was not created: %s."
 msgstr "Gruppe wurde nicht erstellt: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:219 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Gruppen"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Gastrechte"
 
@@ -1529,7 +1529,7 @@ msgstr ""
 "wenden Sie sich an Ihren Systemadministrator, wenn Sie weitere Hilfe "
 "benötigen."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Einzelne Benutzer"
 
@@ -1580,7 +1580,7 @@ msgstr "Inventar"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japanisch (ISO-2022-JP)"
 
-#: login.php:168
+#: login.php:153
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1612,7 +1612,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Koreanisch (EUC-KR)"
 
-#: login.php:358 templates/login/login.inc:52
+#: login.php:343 templates/login/login.inc:52
 msgid "Language"
 msgstr "Sprache"
 
@@ -1733,7 +1733,7 @@ msgstr "Benutzer sperren"
 msgid "Locks"
 msgstr "Sperren"
 
-#: login.php:285 templates/login/login.inc:61
+#: login.php:270 templates/login/login.inc:61
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Anmelden"
@@ -1746,13 +1746,13 @@ msgstr "Abmelden"
 msgid "Logged in to Facebook"
 msgstr "Angemeldet bei Facebook"
 
-#: login.php:314
+#: login.php:299
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Die Anmeldung ist fehlgeschlagen, weil Sie Ihren Benutzernamen oder Ihr "
 "Passwort falsch eingegeben haben."
 
-#: login.php:310
+#: login.php:295
 msgid "Login failed."
 msgstr "Anmeldung fehlgeschlagen."
 
@@ -2112,7 +2112,7 @@ msgstr "Wartezeit zwischen Aktualisierungen in Sekunden"
 msgid "Object Browser"
 msgstr "Objektbrowser"
 
-#: templates/shares/edit.inc:132
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Objektersteller"
 
@@ -2140,7 +2140,7 @@ msgstr "Falsches altes Passwort."
 msgid "Only offensive fortunes"
 msgstr "Nur anstößige Glückskekse"
 
-#: services/shares/edit.php:89
+#: services/shares/edit.php:94
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2152,7 +2152,7 @@ msgstr ""
 msgid "Operating System"
 msgstr "Betriebsystem"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Oder geben Sie einen Benutzernamen ein:"
 
@@ -2169,11 +2169,11 @@ msgstr "Weitere Einstellungen"
 msgid "Others"
 msgstr "Weitere"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Besitzer"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Besitzer:"
 
@@ -2201,7 +2201,7 @@ msgstr "Die POSIX-Erweiterung fehlt"
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
-#: login.php:205 admin/config/index.php:397 admin/user.php:39
+#: login.php:190 admin/config/index.php:397 admin/user.php:39
 #: admin/user.php:53 config/registry.php:325
 #: templates/admin/user/update.inc:20
 msgid "Password"
@@ -2265,11 +2265,11 @@ msgstr "Fotos"
 msgid "Platitudes"
 msgstr "Plattheiten"
 
-#: login.php:211
+#: login.php:196
 msgid "Please enter a password."
 msgstr "Bitte geben Sie ein Passwort ein."
 
-#: login.php:210
+#: login.php:195
 msgid "Please enter a username."
 msgstr "Bitte geben Sie einen Benutzernamen ein."
 
@@ -2372,13 +2372,13 @@ msgstr "Speicherplatz-Kontingent"
 msgid "Random Fortune"
 msgstr "Glückskeks"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Lesen"
 
@@ -2572,12 +2572,12 @@ msgstr "S_QL Shell"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "\"%s\" speichern"
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Speichern und Beenden"
 
@@ -2619,11 +2619,11 @@ msgstr "Suche:"
 msgid "Seconds of inactivity before device should lock"
 msgstr "Sekunden der Inaktivität vor Gerätesperrung"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Hinzuzufügende Gruppe auswählen:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Neuen Besitzer auswählen:"
 
@@ -2631,7 +2631,7 @@ msgstr "Neuen Besitzer auswählen:"
 msgid "Select a server"
 msgstr "Server auswählen"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Hinzuzufügenden Benutzer auswählen:"
 
@@ -2736,13 +2736,13 @@ msgstr "Kurze Zusammenfassung"
 msgid "Should access keys be defined for most links?"
 msgstr "Sollen Tastenkombinationen für die meisten Links aktiviert werden?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Zeigen"
 
@@ -3062,7 +3062,7 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "Der Benutzer \"%s\" existiert bereits."
 
-#: services/shares/edit.php:91 services/shares/edit.php:176
+#: services/shares/edit.php:96 services/shares/edit.php:181
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Der Benutzer \"%s\" existiert nicht."
@@ -3291,7 +3291,7 @@ msgstr "Alle Konfigurationen aktualisieren"
 msgid "Update user"
 msgstr "Benutzer aktualisieren"
 
-#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:244
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" wurde aktualisiert."
@@ -3347,11 +3347,11 @@ msgstr ""
 msgid "User account not found"
 msgstr "Benutzerkonto nicht gefunden"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "Hinzuzufügender Benutzer:"
 
-#: login.php:200 admin/config/index.php:396 admin/user.php:36
+#: login.php:185 admin/config/index.php:396 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3598,7 +3598,7 @@ msgstr ""
 "Sie haben den Benutzungsbedingungen nicht zugestimmt und dürfen sich "
 "deswegen nicht anmelden."
 
-#: login.php:306
+#: login.php:291
 msgid "You have been logged out."
 msgstr "Sie wurden abgemeldet."
 
@@ -3650,7 +3650,7 @@ msgstr "Ihre E-Mail-Adresse"
 msgid "Your Information"
 msgstr "Ihre Angaben"
 
-#: login.php:294
+#: login.php:279
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3680,7 +3680,7 @@ msgstr ""
 "Ihr Authentifizierungssystem erlaubt das Anzeigen der Benutzer nicht, oder "
 "diese Möglichkeit wurde ausgeschaltet."
 
-#: login.php:298
+#: login.php:283
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3700,7 +3700,7 @@ msgstr "Ihre aktuelle Zeitzone:"
 msgid "Your full name:"
 msgstr "Ihr vollständiger Name:"
 
-#: login.php:318
+#: login.php:303
 msgid "Your login has expired."
 msgstr "Ihr Zugang ist abgelaufen."
 
@@ -3741,15 +3741,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "Ihr Passwort ist abgelaufen"
 
-#: login.php:179
+#: login.php:164
 msgid "Your password has expired."
 msgstr "Ihr Passwort ist abgelaufen."
 
-#: login.php:290
+#: login.php:275
 msgid "Your session has expired. Please login again."
 msgstr "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
-#: login.php:302
+#: login.php:287
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H5 (5.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2014-03-07 12:18+0100\n"
 "PO-Revision-Date: 2013-05-22 14:30+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -121,7 +121,7 @@ msgstr "Fehler beim Ändern des Passworts für %s: %s"
 msgid "Full buffer."
 msgstr "Zwischenspeicher voll."
 
-#: lib/Driver.php:74 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
+#: lib/Driver.php:76 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
 #: lib/Driver/Kolab.php:78 lib/Driver/Poppassd.php:120
 #: lib/Driver/Vmailmgr.php:40
 msgid "Incorrect old password."

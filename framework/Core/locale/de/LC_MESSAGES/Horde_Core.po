@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"POT-Creation-Date: 2014-03-07 12:17+0100\n"
 "PO-Revision-Date: 2013-10-14 14:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1077
+#: lib/Horde.php:1070
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Zugriffstaste %s)"
 
-#: lib/Horde/Registry.php:1305 lib/Horde/Registry.php:1978
+#: lib/Horde/Registry.php:1337 lib/Horde/Registry.php:2011
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -34,7 +34,7 @@ msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] "%d Kontakt wurde erfolgreich Ihrem Adressbuch hinzugefügt."
 msgstr[1] "%d Kontakte wurden erfolgreich Ihrem Adressbuch hinzugefügt."
 
-#: lib/Horde/Core/Auth/Application.php:650
+#: lib/Horde/Core/Auth/Application.php:651
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
@@ -75,7 +75,7 @@ msgstr "6 Stunden"
 msgid "<Previous"
 msgstr "<Zurück"
 
-#: lib/Horde/ErrorHandler.php:91
+#: lib/Horde/ErrorHandler.php:99
 msgid "A fatal error has occurred"
 msgstr "Ein schwerer Fehler ist aufgetreten:"
 
@@ -90,7 +90,7 @@ msgstr ""
 "dabei wirklich um Ihre Adresse handelt. Die neue E-Mail-Adresse wird "
 "aktiviert, sobald Sie diese Nachricht bestätigen."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:83
+#: lib/Horde/Core/Auth/Signup/Base.php:96
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -105,7 +105,7 @@ msgstr ""
 "Ein Popup-Fenster konnte nicht geöffnet werden. Vielleicht haben Sie Ihren "
 "Browser so eingestellt, dass er Popup-Fenster blockiert?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:91
+#: lib/Horde/Core/Auth/Signup/Base.php:104
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Registrierungsanfrage von \"%s\""
@@ -152,7 +152,7 @@ msgstr "Adresse"
 msgid "Address Book"
 msgstr "Adressbuch"
 
-#: lib/Horde/Registry.php:308
+#: lib/Horde/Registry.php:340
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
@@ -179,7 +179,7 @@ msgstr "Angemeldete Benutzer"
 msgid "All Permissions"
 msgstr "Alle Rechte"
 
-#: lib/Horde/Core/Prefs/Ui.php:310 lib/Horde/Core/Prefs/Ui.php:323
+#: lib/Horde/Core/Prefs/Ui.php:318 lib/Horde/Core/Prefs/Ui.php:331
 msgid "An illegal value was specified."
 msgstr "Es wurde ein ungültiger Wert angegeben."
 
@@ -187,7 +187,7 @@ msgstr "Es wurde ein ungültiger Wert angegeben."
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:85
+#: lib/Horde/Core/Auth/Signup/Base.php:98
 msgid "Approve the account:"
 msgstr "Das Konto bestätigen:"
 
@@ -234,13 +234,13 @@ msgstr "Abbrechen"
 msgid "Cell Phone"
 msgstr "Mobiltelefon"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
+#: lib/Horde/Core/Auth/Signup/Form.php:46
+#: lib/Horde/Core/Auth/Signup/Form.php:60
 msgid "Choose a password"
 msgstr "Wählen Sie ein Passwort"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:42
-#: lib/Horde/Core/Auth/Signup/Form.php:58
+#: lib/Horde/Core/Auth/Signup/Form.php:43
+#: lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "Choose a username"
 msgstr "Wählen Sie einen Benutzernamen"
 
@@ -312,7 +312,7 @@ msgstr "Rechte für \"%s\" löschen"
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Rechte für \"%s\" und alle Unterrechte löschen?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:87
+#: lib/Horde/Core/Auth/Signup/Base.php:100
 msgid "Deny the account:"
 msgstr "Das Konto ablehnen:"
 
@@ -320,11 +320,11 @@ msgstr "Das Konto ablehnen:"
 msgid "Department"
 msgstr "Abteilung"
 
-#: lib/Horde/ErrorHandler.php:107
+#: lib/Horde/ErrorHandler.php:115
 msgid "Details"
 msgstr "Details"
 
-#: lib/Horde/ErrorHandler.php:114
+#: lib/Horde/ErrorHandler.php:122
 msgid "Details have been logged for the administrator."
 msgstr "Details wurden für den Administrator mitgeloggt."
 
@@ -371,7 +371,7 @@ msgstr "Zu bestätigende E-Mail-Adressen nicht gefunden."
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1619
+#: lib/Horde/Core/ActiveSync/Driver.php:1638
 msgid "End forwarded message"
 msgstr "Ende der weitergeleiteten Nachricht"
 
@@ -411,11 +411,11 @@ msgstr "Verhältnis zurücksetzen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1617
+#: lib/Horde/Core/ActiveSync/Driver.php:1636
 msgid "Forwarded message"
 msgstr "Weitergeleitete Nachricht"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1617
+#: lib/Horde/Core/ActiveSync/Driver.php:1636
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Weitergeleitete Nachricht von %s"
@@ -428,7 +428,7 @@ msgstr "Fr"
 msgid "Friday"
 msgstr "Freitag"
 
-#: lib/Horde/Core/Prefs/Ui.php:667 lib/Horde/Core/Topbar.php:147
+#: lib/Horde/Core/Prefs/Ui.php:675 lib/Horde/Core/Topbar.php:147
 msgid "Global Preferences"
 msgstr "Allgemeine Einstellungen"
 
@@ -465,7 +465,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2546
+#: lib/Horde/Core/ActiveSync/Driver.php:2571
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -615,12 +615,12 @@ msgid "No children can be added to this permission."
 msgstr ""
 "Unterhalb dieser Ebene können keine weiteren Unterrechte hinzugefügt werden."
 
-#: lib/Horde.php:497
+#: lib/Horde.php:490
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1647
+#: lib/Horde/Core/ActiveSync/Driver.php:1666
 msgid "No message body text"
 msgstr "Kein Nachrichtentext"
 
@@ -636,7 +636,7 @@ msgstr "Keine gültige E-Mail-Adresse gefunden"
 msgid "No values"
 msgstr "Keine Werte"
 
-#: lib/Horde/Registry.php:267
+#: lib/Horde/Registry.php:293
 msgid "Not an admin"
 msgstr "Kein Administrator"
 
@@ -682,7 +682,7 @@ msgstr "Paketadresse"
 msgid "Permission"
 msgstr "Rechte"
 
-#: lib/Horde/Registry.php:319
+#: lib/Horde/Registry.php:351
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
 
@@ -713,7 +713,7 @@ msgstr "Postadresse"
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: lib/Horde/Core/Prefs/Ui.php:670
+#: lib/Horde/Core/Prefs/Ui.php:678
 #, php-format
 msgid "Preferences for %s"
 msgstr "Benutzereinstellungen für %s"
@@ -731,11 +731,11 @@ msgstr "Vorschau"
 msgid "Problem"
 msgstr "Probleme"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1640
+#: lib/Horde/Core/ActiveSync/Driver.php:1659
 msgid "Quoted"
 msgstr "Zitat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1640
+#: lib/Horde/Core/ActiveSync/Driver.php:1659
 #, php-format
 msgid "Quoting %s"
 msgstr "Zitat von %s"
@@ -754,7 +754,7 @@ msgstr "Entfernen"
 msgid "Remove source"
 msgstr "Quelle entfernen"
 
-#: lib/Horde.php:506
+#: lib/Horde.php:499
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "\"%s\" wurde in der Konfiguration für %s nicht angegeben."
@@ -787,7 +787,7 @@ msgstr "Sa"
 msgid "Saturday"
 msgstr "Samstag"
 
-#: lib/Horde/Registry.php:219
+#: lib/Horde/Registry.php:237
 msgid "Script must be run from the command line"
 msgstr "Das Skript muss von der Kommandozeile ausgeführt werden"
 
@@ -809,7 +809,7 @@ msgstr "Objekt auswählen"
 msgid "Select none"
 msgstr "Keinen auswählen"
 
-#: lib/Horde/Core/Prefs/Ui.php:840
+#: lib/Horde/Core/Prefs/Ui.php:848
 msgid "Select the identity you want to change:"
 msgstr "Wählen Sie die Identität, die Sie ändern möchten:"
 
@@ -825,7 +825,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2541
+#: lib/Horde/Core/ActiveSync/Driver.php:2566
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -898,29 +898,29 @@ msgstr ""
 "Die E-Mail-Adresse %s wurde zu Ihren Identitäten hinzugefügt. Sie können "
 "dieses Fenster jetzt schließen."
 
-#: lib/Horde.php:280
+#: lib/Horde.php:273
 msgid "The encryption features require a secure web connection."
 msgstr ""
 "Die Verschlüsselungsfunktionen benötigen eine sichere Serververbindung."
 
-#: lib/Horde.php:507
+#: lib/Horde.php:500
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 
-#: lib/Horde.php:498
+#: lib/Horde.php:491
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2618
+#: lib/Horde/Registry.php:2665
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Bei den folgenden Anwendungen sind Fehler aufgetreten, während die "
 "Benutzerdaten entfernt wurden: %s"
 
-#: lib/Horde/ErrorHandler.php:108
+#: lib/Horde/ErrorHandler.php:116
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -929,12 +929,12 @@ msgstr ""
 "Administratoren weiter unten ausgegeben. Benutzer, die keine Administratoren "
 "sind, bekommen diese Details nicht zu sehen."
 
-#: lib/Horde/Core/Prefs/Ui.php:927
+#: lib/Horde/Core/Prefs/Ui.php:935
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Die Identität \"%s\" wurde gelöscht."
 
-#: lib/Horde/Core/Prefs/Ui.php:976
+#: lib/Horde/Core/Prefs/Ui.php:984
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
 "Die neue E-Mail-Adresse kann zur Zeit nicht bestätigt werden, probieren Sie "
@@ -962,7 +962,7 @@ msgstr ""
 msgid "There are no email addresses to confirm."
 msgstr "Keine zu bestätigende E-Mail-Adressen gefunden."
 
-#: lib/Horde/Core/Prefs/Ui.php:458
+#: lib/Horde/Core/Prefs/Ui.php:466
 msgid "There are no preferences available for this application."
 msgstr "Für diese Anwendung gibt es keine Benutzereinstellungen."
 
@@ -985,7 +985,7 @@ msgstr "Beim Importieren der Kontaktdaten ist ein Fehler aufgetreten:"
 msgid "There was an error reading the contact data."
 msgstr "Beim Lesen der Kontaktdaten ist ein Fehler aufgetreten."
 
-#: lib/Horde/Core/Prefs/Ui.php:372
+#: lib/Horde/Core/Prefs/Ui.php:380
 msgid "There were errors encountered while updating your preferences."
 msgstr "Beim Speichern Ihrer Einstellungen sind Fehler aufgetreten."
 
@@ -993,15 +993,15 @@ msgstr "Beim Speichern Ihrer Einstellungen sind Fehler aufgetreten."
 msgid "This is the notification log."
 msgstr "Hier werden alte Meldungen angezeigt."
 
-#: lib/Horde/Registry.php:505
+#: lib/Horde/Registry.php:537
 msgid "This system is currently deactivated."
 msgstr "Dieses System ist zur Zeit deaktiviert."
 
-#: lib/Horde/Core/Prefs/Ui.php:335
+#: lib/Horde/Core/Prefs/Ui.php:343
 msgid "This value must be a number."
 msgstr "Dieser Wert muss eine Zahl sein."
 
-#: lib/Horde/Core/Prefs/Ui.php:337
+#: lib/Horde/Core/Prefs/Ui.php:345
 msgid "This value must be non-zero."
 msgstr "Dieser Wert darf nicht 0 sein."
 
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Alte Meldungen ein-/ausblenden"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2536
+#: lib/Horde/Core/ActiveSync/Driver.php:2561
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -1037,8 +1037,8 @@ msgstr "Di"
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
+#: lib/Horde/Core/Auth/Signup/Form.php:46
+#: lib/Horde/Core/Auth/Signup/Form.php:60
 msgid "Type your password twice to confirm"
 msgstr "Geben Sie das Passwort zweimal zur Bestätigung ein"
 
@@ -1059,11 +1059,11 @@ msgstr "Hochladen"
 msgid "User \"%s\" does not exist."
 msgstr "Das Benutzer \"%s\" existiert nicht."
 
-#: lib/Horde/Core/Prefs/Ui.php:642
+#: lib/Horde/Core/Prefs/Ui.php:650
 msgid "User Preferences"
 msgstr "Benutzereinstellungen"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:116
+#: lib/Horde/Core/Auth/Signup/Base.php:132
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "Der Benutzername \"%s\" existiert bereits."
@@ -1117,11 +1117,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:2585
+#: lib/Horde/Registry.php:2632
 msgid "You are not allowed to remove user data."
 msgstr "Sie dürfen keine Benutzerdaten löschen."
 
-#: lib/Horde/Core/Auth/Application.php:728
+#: lib/Horde/Core/Auth/Application.php:729
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
@@ -1167,40 +1167,40 @@ msgstr "Sie müssen ein VFS-Backend konfigurieren."
 msgid "You must provide a setting for \"%s\"."
 msgstr "Sie müssen eine Einstellung für \"%s\" angeben."
 
-#: lib/Horde/Core/Auth/Application.php:695
+#: lib/Horde/Core/Auth/Application.php:696
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr ""
 "Ihr Browser unterstützt kein JavaScript. Es wird stattdessen die "
 "Minimalansicht angezeigt."
 
-#: lib/Horde/Core/Auth/Application.php:703
+#: lib/Horde/Core/Auth/Application.php:704
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
 "Ihr Browser unterstützt die dynamische Ansicht nicht. Es wird stattdessen "
 "die einfache Ansicht angezeigt."
 
-#: lib/Horde/Core/Auth/Application.php:706
-#: lib/Horde/Core/Auth/Application.php:714
+#: lib/Horde/Core/Auth/Application.php:707
+#: lib/Horde/Core/Auth/Application.php:715
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
 "Ihr Browser unterstützt die dynamische Ansicht nicht. Es wird stattdessen "
 "die Minimalansicht angezeigt."
 
-#: lib/Horde/Core/Prefs/Ui.php:943
+#: lib/Horde/Core/Prefs/Ui.php:951
 msgid "Your default identity has been changed."
 msgstr "Ihre Standardidentität wurde geändert."
 
-#: lib/Horde/Core/Prefs/Ui.php:839
+#: lib/Horde/Core/Prefs/Ui.php:847
 msgid "Your default identity:"
 msgstr "Ihre Standardidentität:"
 
-#: lib/Horde/Core/Prefs/Ui.php:382
+#: lib/Horde/Core/Prefs/Ui.php:390
 msgid "Your preferences have been updated for the duration of this session."
 msgstr "Ihre Einstellungen wurden für die Dauer dieser Sitzung gespeichert."
 
-#: lib/Horde/Core/Prefs/Ui.php:384
+#: lib/Horde/Core/Prefs/Ui.php:392
 msgid "Your preferences have been updated."
 msgstr "Ihre Einstellungen wurden gespeichert."
 
