@@ -61,12 +61,8 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
         }
 
         if (is_null($history)) {
-            throw new Horde_Exception(
-                Horde_Core_Translation::t("The History system is disabled.")
-            );
-        }
-
-        if ($cache = $injector->getInstance('Horde_Cache')) {
+            $history = new Horde_History_Null();
+        } elseif ($cache = $injector->getInstance('Horde_Cache')) {
             $history->setCache($cache);
         }
 
