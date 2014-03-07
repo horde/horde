@@ -58,7 +58,7 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
             $iterator = new IMP_Ftree_IteratorFilter(
                 $injector->getInstance('IMP_Ftree')
             );
-            $iterator->add($iterator::NOCONTAINERS);
+            $iterator->add($iterator::CONTAINERS);
 
             return array_map('strval', iterator_to_array($iterator, false));
         }
