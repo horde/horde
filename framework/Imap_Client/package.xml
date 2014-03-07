@@ -230,6 +230,7 @@
        <dir name="Cache">
         <file name="CacheTest.php" role="test" />
         <file name="DbTest.php" role="test" />
+        <file name="HashtableTest.php" role="test" />
         <file name="MongoTest.php" role="test" />
         <file name="TestBase.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Cache -->
@@ -417,7 +418,7 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.2.7</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -545,6 +546,7 @@
    <install as="Horde/Imap/Client/Base/MailboxTest.php" name="test/Horde/Imap/Client/Base/MailboxTest.php" />
    <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
    <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
+   <install as="Horde/Imap/Client/Cache/HashtableTest.php" name="test/Horde/Imap/Client/Cache/HashtableTest.php" />
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
    <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
    <install as="Horde/Imap/Client/Data/Format/AstringTest.php" name="test/Horde/Imap/Client/Data/Format/AstringTest.php" />
