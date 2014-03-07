@@ -295,7 +295,8 @@ extends Horde_Imap_Client_Cache_Backend
                 try {
                     $this->_hash->set(
                         $this->_getCid($mbox),
-                        $this->_pack->pack($this->_mbox[$mbox])
+                        $this->_pack->pack($this->_mbox[$mbox]),
+                        array('expire' => $this->_params['lifetime'])
                     );
                 } catch (Horde_Pack_Exception $e) {}
             }
