@@ -2617,6 +2617,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $related->setContentTypeParameter('start', $part->setContentId());
         $related->addPart($part);
 
+        /* HTML iteration is from child->parent, so need to gather related
+         * parts and add at end after sorting to generate a more sensible
+         * attachment list. */
+        $add = array();
+
         foreach ($html as $node) {
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
@@ -2628,13 +2633,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 } else {
                     $related_part = $r_atc->getPart(true);
                     $attr = 'cid:' . $related_part->setContentId();
-                    $related->addPart($related_part);
+                    $add[] = $related_part;
                 }
 
                 $node->setAttribute($attr_name, $attr);
                 $node->removeAttribute(self::RELATED_ATTR);
             }
         }
+
+        array_map(array($related, 'addPart'), array_reverse($add));
 
         return $related;
     }
