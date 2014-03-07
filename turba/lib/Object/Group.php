@@ -67,7 +67,7 @@ class Turba_Object_Group extends Turba_Object
 
         // Can't add a group to itself.
         if ($contactId == $this->attributes['__key']) {
-            throw new Turba_Exception(_("Can't add a group to itself."));
+            throw new Turba_Exception(_("Can't add a contact list to itself."));
         }
 
         // Try to find the contact being added.

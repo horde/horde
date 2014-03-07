@@ -84,7 +84,7 @@ try {
         ->redirect();
 } catch (Turba_Exception $e) {}
 
-$title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
+$title = sprintf($contact->isGroup() ? _("Edit Contact List \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $form->setTitle($title);

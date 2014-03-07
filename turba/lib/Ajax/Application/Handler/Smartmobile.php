@@ -102,7 +102,7 @@ class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applica
             $url->setAnchor('entry');
 
             $out->group = array(
-                'l' => _("Group Members"),
+                'l' => _("Contact List Members"),
                 'm' => array()
             );
 

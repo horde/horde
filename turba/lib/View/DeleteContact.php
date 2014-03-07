@@ -25,7 +25,7 @@ class Turba_View_DeleteContact
     public function getTitle()
     {
         return $this->contact
-            ? sprintf($this->contact->isGroup() ? _("Delete Group \"%s\"") : _("Delete \"%s\""), $this->contact->getValue('name'))
+            ? sprintf($this->contact->isGroup() ? _("Delete Contact List \"%s\"") : _("Delete \"%s\""), $this->contact->getValue('name'))
             : _("Not Found");
     }
 

@@ -116,7 +116,7 @@ class Turba_Smartmobile
             /* Gettext strings. */
             'text' => array(
                 'browse' => _("Browse"),
-                'group' => _("Group")
+                'group' => _("Contact List")
             )
         );
 
