@@ -905,7 +905,7 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data and ensure we have something to send.
-        $message_body_data = $this->_validateMessageBodyData($imap_message->getMessageBodyData($options));
+        $message_body_data =$imap_message->getMessageBodyData($options);
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $eas_message->body = $message_body_data['plain']['body']->stream;
@@ -1445,38 +1445,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return false;
-    }
-
-    /**
-     * Converts and validates the message body data structure.
-     *
-     * @param array $data  Message body data structure.
-     *
-     * @return array  The message body data structure, with the [html][body] and
-     *                [plain][body] data converted to UTF-8, EOL normalized and
-     *                placed in a stream.
-     */
-    protected function _validateMessageBodyData($data)
-    {
-        //We will need the eol filter to work around PHP bug 65776.
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-
-        if (!empty($data['plain'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['plain']['body'], $data['plain']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['plain']['body'] = $stream;
-        }
-        if (!empty($data['html'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['html']['body'], $data['html']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['html']['body'] = $stream;
-        }
-
-        return $data;
     }
 
 }
