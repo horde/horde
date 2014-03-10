@@ -42,6 +42,7 @@ class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
 
     public function testCreateKolab()
     {
+        $this->markTestIncomplete();
         self::createKolabSetup();
         list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
@@ -55,6 +56,7 @@ class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
 
     public function testCreateKolabEmpty()
     {
+        $this->markTestIncomplete();
         self::createKolabSetup();
         list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';

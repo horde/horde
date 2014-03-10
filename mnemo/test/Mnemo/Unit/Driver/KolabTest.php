@@ -29,6 +29,11 @@
  */
 class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete();
+    }
+
     public function testAdd()
     {
         $driver = $this->getKolabDriver();
