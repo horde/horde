@@ -2,6 +2,7 @@
 v4.1.3-git
 ----------
 
+[jan] Add Korean translation (Deokgon Kim <dgkim@dgkim.net>).
 [jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mjr] Fix unencrypting and saving a previously encrypted note (Bug #12890).
 [mjr] Fix fatal error when exporting encrypted notes via ActiveSync.
