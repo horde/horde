@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-15</date>
+ <date>2014-03-10</date>
  <version>
   <release>2.13.0</release>
   <api>2.13.0</api>
@@ -1986,7 +1986,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-15</date>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] More workarounds for PHP 65776, preventing segfaults for text attachments that contain inconsistent line endings.
