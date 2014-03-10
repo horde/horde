@@ -1,8 +1,9 @@
 <?php
 /**
- * A test replacement for Horde_Registry.
+ * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Test
@@ -13,11 +14,6 @@
 
 /**
  * A test replacement for Horde_Registry.
- *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Test
@@ -99,6 +95,27 @@ class Horde_Test_Stub_Registry
     public function isAdmin(array $options = array())
     {
         return false;
+    }
+
+    /**
+     * Load a configuration file from a Horde application's config directory.
+     * This call is cached (a config file is only loaded once, regardless of
+     * the $vars value).
+     *
+     * @param string $conf_file  Configuration file name.
+     * @param mixed $vars        List of config variables to load.
+     * @param string $app        Application.
+     *
+     * @return Horde_Test_Stub_Registry_Loadconfig  The config object.
+     * @throws Horde_Exception
+     */
+    public function loadConfigFile($conf_file, $vars = null, $app = null)
+    {
+        return new Horde_Test_Stub_Registry_Loadconfig(
+                $app,
+                $conf_file,
+                $vars
+        );
     }
 
     /**
