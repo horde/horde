@@ -28,7 +28,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-29</date>
+ <date>2014-03-10</date>
  <version>
   <release>4.1.4</release>
   <api>4.0.0</api>
@@ -509,6 +509,9 @@
      <dir name="fixtures">
       <file name="az.png" role="test" />
      </dir> <!-- /test/Turba/fixtures -->
+     <dir name="Stub">
+      <file name="Hooks.php" role="test" />
+     </dir> <!-- /test/Turba/Stub -->
      <dir name="ToDo">
       <file name="ApiTest.php" role="test" />
       <file name="BrowsePageTest.php" role="test" />
@@ -1065,6 +1068,7 @@
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
    <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
+   <install as="Turba/Stub/Hooks.php" name="test/Turba/Stub/Hooks.php" />
    <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
    <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
@@ -1733,12 +1737,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 * [jan] Store full name in Kolab contacts.
-* [jan] Fix distribution list support in Kolab driver.
+* [jan] Fix distribution list support in Kolab driver (Bug #12450).
    </notes>
   </release>
  </changelog>
