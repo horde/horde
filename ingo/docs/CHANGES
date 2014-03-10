@@ -1,6 +1,6 @@
-----------
-v3.1.4-git
-----------
+------
+v3.1.4
+------
 
 [jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [jan] Make spam level a required form field (Bug #12964).
