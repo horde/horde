@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the third release candidate of the Whups
-Ticket Tracking System version H5 (3.0.0).
+The Horde Team is pleased to announce the final release of the Whups Ticket
+Tracking System version H5 (3.0.0).
 
 Whups is a Horde ticket-tracking application. It is very flexible in design,
 and can be used for help-desk requests, tracking software development, and
@@ -28,20 +28,23 @@ http://www.horde.org/apps/whups/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/whups/docs/INSTALL
 
-Testing is requested and comments are encouraged.
-Updated translations would also be great.
-
-The major changes compared to the Whups version H5 (3.0.0RC2) are:
+The major changes compared to the Whups H4 versions are:
+    * Compatible with Horde 5.
+    * More flexible table column configuration.
     * Move attachments list to separate ticket tab.
     * Hide citings in comments by default.
-    * Small bugfixes.
+    * Added Swedish translation.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Compatible with Horde 5.
+More flexible table column configuration.
 Move attachments list to separate ticket tab.
 Hide citings in comments by default.
-Small bugfixes.
+Added Swedish translation.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Whups';

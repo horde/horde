@@ -16,14 +16,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-10</date>
+ <date>2014-03-10</date>
  <version>
-  <release>3.0.0RC4</release>
+  <release>3.0.0</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
@@ -374,6 +374,7 @@
     <file name="6_whups_upgrade_transactions.php" role="horde" />
     <file name="7_whups_upgrade_autoincrement.php" role="horde" />
     <file name="8_whups_add_attribute_index.php" role="horde" />
+    <file name="9_whups_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="query">
     <file name=".htaccess" role="horde" />
@@ -834,6 +835,7 @@
    <install as="whups/migration/6_whups_upgrade_transactions.php" name="migration/6_whups_upgrade_transactions.php" />
    <install as="whups/migration/7_whups_upgrade_autoincrement.php" name="migration/7_whups_upgrade_autoincrement.php" />
    <install as="whups/migration/8_whups_add_attribute_index.php" name="migration/8_whups_add_attribute_index.php" />
+   <install as="whups/migration/9_whups_upgrade_parents.php" name="migration/9_whups_upgrade_parents.php" />
    <install as="whups/query/.htaccess" name="query/.htaccess" />
    <install as="whups/query/index.php" name="query/index.php" />
    <install as="whups/query/rss.php" name="query/rss.php" />
@@ -1068,12 +1070,12 @@
   </release>
   <release>
    <version>
-    <release>3.0.0RC4</release>
+    <release>3.0.0</release>
     <api>3.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-02-10</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix updateTicket() API method (Bug #13011).
