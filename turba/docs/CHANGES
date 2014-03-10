@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 [jan] Store full name in Kolab contacts.
 [jan] Fix distribution list support in Kolab driver (Bug #12450).
 
