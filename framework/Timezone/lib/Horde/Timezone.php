@@ -184,7 +184,8 @@ class Horde_Timezone
             try {
                 $vfs = new Horde_Vfs_Ftp(array('hostspec' => $url['host'],
                                                'username' => 'anonymous',
-                                               'password' => 'anonymous'));
+                                               'password' => 'anonymous',
+                                               'pasv' => true));
                 $this->_tmpfile = $vfs->readFile(dirname($url['path']),
                                                  basename($url['path']));
             } catch (Horde_Vfs_Exception $e) {

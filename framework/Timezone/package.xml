@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use passive FTP for downloading the timezone database (arjen+horde@de-korte.org, Request #13024).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -229,7 +229,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use passive FTP for downloading the timezone database (arjen+horde@de-korte.org, Request #13024).
    </notes>
   </release>
  </changelog>
