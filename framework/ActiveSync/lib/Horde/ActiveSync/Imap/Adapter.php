@@ -61,6 +61,7 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Mime_Part::$defaultCharset = 'UTF-8';
         Horde_Mime_Headers::$defaultCharset = 'UTF-8';
         $this->_procid = getmypid();
+        $this->_logger = new Horde_Support_Stub();
     }
 
     /**
