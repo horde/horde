@@ -40,7 +40,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.
@@ -1778,7 +1777,6 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.
