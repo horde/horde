@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.1.3.
+Webmail Edition version 5.1.4.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,31 +29,41 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 5.1.2
+The major changes compared to the Horde Groupware Webmail Edition version 5.1.3
 are:
 
 General changes:
-    * Fixed XSS and CSRF vulnerabilities.
-    * Added command line script to delete user data.
+    * Fixed detecting of expired sessions via AJAX.
+    * Updated Danish translation.
     * Bugfixes and improvements.
 
 Mail changes:
-    * Several improvements and fixes for attachment handling.
+    * Added a link to save all attachments to the message popup window.
+    * Improved support for broken S/MIME messages.
+    * Fixed regressions in permissions, deleting drafts, and applying ACLs.
+
+Address book changes:
+    * Fixed distribution list support for Kolab backends.
 
 Calendar changes:
-    * Fixed some issues with recurring events.
+    * Fixed fatal error if recurrence exceptions have timezones set.
+    * Fixed deleting and sending iTip notifications for recurring events.
 
-Tasks changes:
-    * Fixed editing tasks via CalDAV.
+Notes changes:
+    * Fixed removing note encryption.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS and CSRF vulnerabilities.
-Added command line script to delete user data.
-Several improvements and fixes for email attachment handling.
-Fixed some issues with recurring events.
-Fixed editing tasks via CalDAV.
+Fixed detecting of expired sessions via AJAX.
+Added a link to save all attachments to the message popup window.
+Improved support for broken S/MIME messages.
+Fixed mail regressions in permissions, deleting drafts, and applying ACLs.
+Fixed distribution list support for Kolab backends.
+Fixed fatal error if recurrence exceptions have timezones set.
+Fixed deleting and sending iTip notifications for recurring events.
+Fixed removing note encryption.
+Updated Danish translation.
 Bugfixes and improvements.
 FM;
 
