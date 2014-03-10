@@ -36,14 +36,14 @@ class Horde_Test_Stub_Registry
      *
      * @var string
      */
-    private $_user;
+    protected $_user;
 
     /**
      * The current application.
      *
      * @var string
      */
-    private $_app;
+    protected $_app;
 
     /**
      * Constructor.
