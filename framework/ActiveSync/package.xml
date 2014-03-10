@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] More workarounds for PHP 65776, preventing segfaults for text attachments that contain inconsistent line endings.
 * [mjr] Rely on the IMAP adapter for returning accurate UID values after a message move (Bug #13010).
 * [mjr] Expose public Horde_ActiveSync_Utils::ensureUtf8() method.
  </notes>
@@ -1988,6 +1989,7 @@
    <date>2014-02-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] More workarounds for PHP 65776, preventing segfaults for text attachments that contain inconsistent line endings.
 * [mjr] Rely on the IMAP adapter for returning accurate UID values after a message move (Bug #13010).
 * [mjr] Expose public Horde_ActiveSync_Utils::ensureUtf8() method.
    </notes>
