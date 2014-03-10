@@ -24,7 +24,7 @@
  </lead>
  <date>2014-03-10</date>
  <version>
-  <release>3.1.4</release>
+  <release>3.1.5</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
-* [jan] Make spam level a required form field (Bug #12964).
-* [jan] Fix behavior of &apos;utf&apos; parameter (Bug #12937).
-* [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1335,6 +1332,19 @@
 * [jan] Make spam level a required form field (Bug #12964).
 * [jan] Fix behavior of &apos;utf&apos; parameter (Bug #12937).
 * [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
