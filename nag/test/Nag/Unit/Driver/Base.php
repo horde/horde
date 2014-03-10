@@ -48,9 +48,9 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         self::$setup = new Horde_Test_Setup();
         self::createBasicNagSetup(self::$setup);
-        parent::setUpBeforeClass();
     }
 
     public static function tearDownAfterClass()

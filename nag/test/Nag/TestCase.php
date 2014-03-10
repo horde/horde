@@ -30,6 +30,11 @@
 class Nag_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    static public function setUpBeforeClass()
+    {
+        self::markTestIncomplete();
+    }
+
     static protected function getInjector()
     {
         return new Horde_Injector(new Horde_Injector_TopLevel());

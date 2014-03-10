@@ -33,8 +33,8 @@ class Nag_Unit_Nag_Sql_Pdo_SqliteTest extends Nag_Unit_Nag_Sql_Base
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         self::$setup = new Horde_Test_Setup();
         self::createSqlPdoSqlite(self::$setup);
-        parent::setUpBeforeClass();
     }
 }
