@@ -198,8 +198,9 @@ class Whups_Api extends Horde_Registry_Api
     /**
      * Update a ticket's properties.
      *
-     * @param integer $ticket_id    The id of the id to changes.
-     * @param array   $ticket_info  The attributes to set, from the EditTicketForm.
+     * @param integer $ticket_id  The id of the id to changes.
+     * @param array $ticket_info  The attributes to set, from
+     *                            Whups_Form_Ticket_Edit.
      *
      * @return boolean  True
      */
