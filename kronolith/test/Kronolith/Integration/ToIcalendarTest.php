@@ -31,7 +31,7 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 {
     public function setUp()
     {
-        $GLOBALS['registry'] = new Kronolith_Stub_Registry();
+        $GLOBALS['registry'] = new Kronolith_Stub_Registry('test', 'kronolith');
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');

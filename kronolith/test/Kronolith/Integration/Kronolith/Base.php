@@ -50,6 +50,15 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
         parent::setUpBeforeClass();
     }
 
+    public static function tearDownAfterClass()
+    {
+        parent::tearDownAfterClass();
+        unset($GLOBALS['registry']);
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['prefs']);
+        unset($GLOBALS['session']);
+    }
+
     public function setUp()
     {
         $GLOBALS['conf']['autoshare']['shareperms'] = 'none';

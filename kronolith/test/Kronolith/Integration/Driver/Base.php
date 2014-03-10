@@ -64,6 +64,10 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
     {
         self::$driver = null;
         parent::tearDownAfterClass();
+        unset($GLOBALS['registry']);
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['prefs']);
+        unset($GLOBALS['session']);
     }
 
     public function setUp()
