@@ -69,11 +69,11 @@ class Horde_Release_Freecode
         $params['tag_list'] = implode(', ', $params['tag_list']);
         $fm_params = array('auth_code' => $this->_token,
                            'release' => $params);
-        $http = new Horde_Http_Client();
         try {
-            $response = $http->post('https://freecode.com/projects/' . $this->_project . '/releases.json',
-                                    Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
-                                    array('Content-Type' => 'application/json'));
+            $response = $this->_getClient()
+                ->post('https://freecode.com/projects/' . $this->_project . '/releases.json',
+                       Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
+                       array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
             if (strpos($e->getMessage(), '201 Created') === false) {
                 throw new Horde_Exception_Wrapped($e);
@@ -93,7 +93,7 @@ class Horde_Release_Freecode
     {
         // Need to get the list of current URLs first, then find the one we want
         // to update.
-        $http = new Horde_Http_Client();
+        $http = $this->_getClient();
         try {
             $response = $http->get('https://freecode.com/projects/' . $this->_project . '/urls.json?auth_code=' . $this->_token);
         } catch (Horde_Http_Exception $e) {
@@ -120,7 +120,6 @@ class Horde_Release_Freecode
             }
             $link = array('auth_code' => $this->_token,
                           'url' => $link);
-            $http = new Horde_Http_Client();
             if (empty($permalink)) {
                 // No link found to update...create it.
                 try {
@@ -150,5 +149,10 @@ class Horde_Release_Freecode
         }
 
         return true;
+    }
+
+    protected function _getClient()
+    {
+        return new Horde_Http_Client(array('request.timeout' => 10));
     }
 }
