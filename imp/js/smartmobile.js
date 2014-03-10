@@ -374,9 +374,7 @@ var ImpMobile = {
             if (IMP.conf.refresh_time) {
                 window.clearInterval(ImpMobile.refresh);
                 ImpMobile.refresh = window.setInterval(function() {
-                    if (HordeMobile.currentPage() == 'mailbox') {
-                        ImpMobile.refreshMailbox();
-                    }
+                    ImpMobile.refreshMailbox();
                 }, IMP.conf.refresh_time * 1000);
             }
             break;
@@ -514,9 +512,7 @@ var ImpMobile = {
             ob.disappear(r.disappear);
         }
 
-        if (HordeMobile.currentPage() == 'mailbox') {
-            ImpMobile.refreshMailbox(ob);
-        }
+        ImpMobile.refreshMailbox(ob);
     },
 
     /**
@@ -525,6 +521,10 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
+        if (HordeMobile.currentPage() == 'mailbox') {
+            return;
+        }
+
         if (!ob) {
             HordeMobile.doAction(
                 'viewPort',
