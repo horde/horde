@@ -862,7 +862,6 @@
    <notes>
 * [jan] Add getErrors() to return errors from alarm notifications.
 * [jan] Catch errors from alarm notifications (Bug #12951).
-* changed
 * [jan] Fix compatibility with Oracle.
    </notes>
   </release>
