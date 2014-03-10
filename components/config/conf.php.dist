@@ -28,3 +28,6 @@ $conf['from'] = 'Full name <user@horde.org>';
 
 /* This should be set to the developer's API token */
 $conf['fm_token'] = '';
+
+/* Path to a checkout of the horde-web repository. */
+$conf['web_dir'] = '/var/www/horde-web';

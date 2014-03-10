@@ -122,6 +122,13 @@ extends Components_Module_Base
                     'help'   => 'The token for accessing freecode.com.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--web_dir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The directory of a horde-web checkout.'
+                )
+            ),
         );
     }
 
@@ -171,6 +178,7 @@ The available tasks are:
    - upload    : Upload the package to pear.horde.org
  - tag         : Add a git release tag.
  - announce    : Announce the release on the mailing lists.
+ - website     : Add the new release on www.horde.org
  - bugs        : Add the new release on bugs.horde.org
  - freecode    : Add the new release on freecode.com
  - next        : Update package.xml with the next version.
@@ -203,6 +211,7 @@ The following example would generate the package and add the release tag to git 
             '--horde_user' => '',
             '--horde_pass' => '',
             '--fm_token' => '',
+            '--web_dir' => '',
         );
     }
 

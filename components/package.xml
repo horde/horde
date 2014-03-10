@@ -10,8 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-02-13</date>
- <time>02:22:53</time>
+ <date>2014-03-10</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -22,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.
 * [mms] Add PHP Composer generator.
@@ -58,7 +58,6 @@
        <file name="changelog" role="data" />
        <file name="compat" role="data" />
        <file name="control" role="data" />
-       <file name="pearrc" role="data" />
        <file name="rules" role="data" />
        <file name="watch" role="data" />
       </dir> <!-- /data/distribute/debian/templates -->
@@ -101,6 +100,12 @@
       <dir name="templates-php-horde-passwd">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-passwd -->
+      <dir name="templates-php-horde-role">
+       <dir name="patches">
+        <file name="0001-Set-default-horde_dir-to-usr-share-horde.patch" role="horde" />
+        <file name="series" role="horde" />
+       </dir> <!-- /data/distribute/debian/templates-php-horde-role/patches -->
+      </dir> <!-- /data/distribute/debian/templates-php-horde-role -->
       <dir name="templates-php-horde-sesha">
        <file name="rules" role="horde" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-sesha -->
@@ -185,6 +190,7 @@
       </dir> <!-- /lib/Components/Helper/Templates -->
       <file name="ChangeLog.php" role="php" />
       <file name="Commit.php" role="php" />
+      <file name="Composer.php" role="horde" />
       <file name="Dependencies.php" role="php" />
       <file name="DocsOrigin.php" role="php" />
       <file name="Installer.php" role="php" />
@@ -198,6 +204,7 @@
       <file name="Base.php" role="php" />
       <file name="Change.php" role="php" />
       <file name="CiSetup.php" role="php" />
+      <file name="Composer.php" role="horde" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Fetchdocs.php" role="php" />
@@ -234,6 +241,7 @@
        <file name="Bugs.php" role="php" />
        <file name="CommitPostRelease.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
+       <file name="Composer.php" role="horde" />
        <file name="CurrentSentinel.php" role="php" />
        <file name="Freecode.php" role="horde" />
        <file name="NextSentinel.php" role="php" />
@@ -242,6 +250,7 @@
        <file name="Sentinel.php" role="php" />
        <file name="TagRelease.php" role="php" />
        <file name="Timestamp.php" role="php" />
+       <file name="Website.php" role="horde" />
       </dir> <!-- /lib/Components/Release/Task -->
       <file name="Notes.php" role="php" />
       <file name="Tasks.php" role="php" />
@@ -250,6 +259,7 @@
       <file name="Change.php" role="php" />
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
+      <file name="Composer.php" role="horde" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Fetchdocs.php" role="php" />
@@ -272,6 +282,10 @@
      <file name="Module.php" role="php" />
      <file name="Output.php" role="php" />
     </dir> <!-- /lib/Components -->
+    <dir name="Conductor">
+     <file name="Package2XmlToComposer.php" role="horde" />
+     <file name="PEARPackageFilev2.php" role="horde" />
+    </dir> <!-- /lib/Conductor -->
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="test">
@@ -608,7 +622,6 @@
    <install as="distribute/debian/templates/changelog" name="data/distribute/debian/templates/changelog" />
    <install as="distribute/debian/templates/compat" name="data/distribute/debian/templates/compat" />
    <install as="distribute/debian/templates/control" name="data/distribute/debian/templates/control" />
-   <install as="distribute/debian/templates/pearrc" name="data/distribute/debian/templates/pearrc" />
    <install as="distribute/debian/templates/rules" name="data/distribute/debian/templates/rules" />
    <install as="distribute/debian/templates/watch" name="data/distribute/debian/templates/watch" />
    <install as="distribute/debian/templates/source/format" name="data/distribute/debian/templates/source/format" />
@@ -625,6 +638,8 @@
    <install as="distribute/debian/templates-php-horde-mnemo/rules" name="data/distribute/debian/templates-php-horde-mnemo/rules" />
    <install as="distribute/debian/templates-php-horde-nag/rules" name="data/distribute/debian/templates-php-horde-nag/rules" />
    <install as="distribute/debian/templates-php-horde-passwd/rules" name="data/distribute/debian/templates-php-horde-passwd/rules" />
+   <install as="distribute/debian/templates-php-horde-role/patches/0001-Set-default-horde_dir-to-usr-share-horde.patch" name="data/distribute/debian/templates-php-horde-role/patches/0001-Set-default-horde_dir-to-usr-share-horde.patch" />
+   <install as="distribute/debian/templates-php-horde-role/patches/series" name="data/distribute/debian/templates-php-horde-role/patches/series" />
    <install as="distribute/debian/templates-php-horde-sesha/rules" name="data/distribute/debian/templates-php-horde-sesha/rules" />
    <install as="distribute/debian/templates-php-horde-turba/rules" name="data/distribute/debian/templates-php-horde-turba/rules" />
    <install as="distribute/debian/templates-php-horde-ulaform/rules" name="data/distribute/debian/templates-php-horde-ulaform/rules" />
@@ -671,6 +686,7 @@
    <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
    <install as="Components/Helper/ChangeLog.php" name="lib/Components/Helper/ChangeLog.php" />
    <install as="Components/Helper/Commit.php" name="lib/Components/Helper/Commit.php" />
+   <install as="Components/Helper/Composer.php" name="lib/Components/Helper/Composer.php" />
    <install as="Components/Helper/Dependencies.php" name="lib/Components/Helper/Dependencies.php" />
    <install as="Components/Helper/DocsOrigin.php" name="lib/Components/Helper/DocsOrigin.php" />
    <install as="Components/Helper/Installer.php" name="lib/Components/Helper/Installer.php" />
@@ -685,6 +701,7 @@
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/Change.php" name="lib/Components/Module/Change.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
+   <install as="Components/Module/Composer.php" name="lib/Components/Module/Composer.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Fetchdocs.php" name="lib/Components/Module/Fetchdocs.php" />
@@ -713,6 +730,7 @@
    <install as="Components/Release/Task/Bugs.php" name="lib/Components/Release/Task/Bugs.php" />
    <install as="Components/Release/Task/CommitPostRelease.php" name="lib/Components/Release/Task/CommitPostRelease.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
+   <install as="Components/Release/Task/Composer.php" name="lib/Components/Release/Task/Composer.php" />
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
    <install as="Components/Release/Task/Freecode.php" name="lib/Components/Release/Task/Freecode.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
@@ -721,9 +739,11 @@
    <install as="Components/Release/Task/Sentinel.php" name="lib/Components/Release/Task/Sentinel.php" />
    <install as="Components/Release/Task/TagRelease.php" name="lib/Components/Release/Task/TagRelease.php" />
    <install as="Components/Release/Task/Timestamp.php" name="lib/Components/Release/Task/Timestamp.php" />
+   <install as="Components/Release/Task/Website.php" name="lib/Components/Release/Task/Website.php" />
    <install as="Components/Runner/Change.php" name="lib/Components/Runner/Change.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
+   <install as="Components/Runner/Composer.php" name="lib/Components/Runner/Composer.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Fetchdocs.php" name="lib/Components/Runner/Fetchdocs.php" />
@@ -733,6 +753,8 @@
    <install as="Components/Runner/Snapshot.php" name="lib/Components/Runner/Snapshot.php" />
    <install as="Components/Runner/Update.php" name="lib/Components/Runner/Update.php" />
    <install as="Components/Runner/Webdocs.php" name="lib/Components/Runner/Webdocs.php" />
+   <install as="Conductor/Package2XmlToComposer.php" name="lib/Conductor/Package2XmlToComposer.php" />
+   <install as="Conductor/PEARPackageFilev2.php" name="lib/Conductor/PEARPackageFilev2.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/bootstrap.php" name="test/Components/bootstrap.php" />
@@ -867,9 +889,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2013-02-13</date>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.
 * [mms] Add PHP Composer generator.

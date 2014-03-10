@@ -139,6 +139,10 @@ class Components_Runner_Release
             $sequence[] = 'Announce';
         }
 
+        if ($this->_doTask('website')) {
+            $sequence[] = 'Website';
+        }
+
         if ($this->_doTask('bugs')) {
             $sequence[] = 'Bugs';
         }
