@@ -557,6 +557,7 @@ London W1 1AA',
                 'commonPostalCode' => 'W1 1AA',
                 'birthday' => '2008-10-08',
                 'phototype' => 'JPEG',
+                'email' => 'test@example.org',
             ),
             $hash
         );
