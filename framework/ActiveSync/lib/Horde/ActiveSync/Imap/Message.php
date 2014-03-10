@@ -493,6 +493,13 @@ class Horde_ActiveSync_Imap_Message
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 $mpart = $this->getMimePart($id);
+                // Work around PHP bug 65776
+                if ($mpart->getPrimaryType() == 'text') {
+                    $mpart->setContents(
+                        $mpart->replaceEOL(
+                            $mpart->getContents(array('stream' => true)), Horde_Mime_Part::RFC_EOL, true)
+                    );
+                }
                 if ($mpart->getType() == 'text/calendar') {
                     $mpart->setDisposition('inline');
                 }
