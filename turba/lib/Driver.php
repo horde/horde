@@ -2290,7 +2290,7 @@ class Turba_Driver implements Countable
                     $hash['email'] = $e ? $e : '';
                 }
 
-                if (!isset($hash['emails'])) {
+                if (!isset($hash['emails']) || !strlen($hash['emails'])) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $hash['emails'] = $e ? $e : '';
                 } else {
