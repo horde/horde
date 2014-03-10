@@ -10,8 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>15:15:02</time>
+ <date>2014-03-10</date>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -22,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add release task to update website version.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,6 +38,7 @@
       <file name="Freecode.php" role="php" />
       <file name="MailingList.php" role="php" />
       <file name="Sentinel.php" role="php" />
+      <file name="Website.php" role="php" />
       <file name="Whups.php" role="php" />
      </dir> <!-- /lib/Horde/Release -->
      <file name="Release.php" role="php" />
@@ -53,6 +53,7 @@
       <dir name="Unit">
        <dir name="Release">
         <file name="SentinelTest.php" role="test" />
+        <file name="WebsiteTest.php" role="test" />
         <file name="WhupsTest.php" role="test" />
        </dir> <!-- /test/Horde/Release/Unit/Release -->
        <file name="ReleaseTest.php" role="test" />
@@ -142,6 +143,7 @@
    <install as="Horde/Release/Freecode.php" name="lib/Horde/Release/Freecode.php" />
    <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
    <install as="Horde/Release/Sentinel.php" name="lib/Horde/Release/Sentinel.php" />
+   <install as="Horde/Release/Website.php" name="lib/Horde/Release/Website.php" />
    <install as="Horde/Release/Whups.php" name="lib/Horde/Release/Whups.php" />
    <install as="Horde/Release/AllTests.php" name="test/Horde/Release/AllTests.php" />
    <install as="Horde/Release/Autoload.php" name="test/Horde/Release/Autoload.php" />
@@ -151,6 +153,7 @@
    <install as="Horde/Release/Stub/Release.php" name="test/Horde/Release/Stub/Release.php" />
    <install as="Horde/Release/Unit/ReleaseTest.php" name="test/Horde/Release/Unit/ReleaseTest.php" />
    <install as="Horde/Release/Unit/Release/SentinelTest.php" name="test/Horde/Release/Unit/Release/SentinelTest.php" />
+   <install as="Horde/Release/Unit/Release/WebsiteTest.php" name="test/Horde/Release/Unit/Release/WebsiteTest.php" />
    <install as="Horde/Release/Unit/Release/WhupsTest.php" name="test/Horde/Release/Unit/Release/WhupsTest.php" />
   </filelist>
  </phprelease>
@@ -270,10 +273,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add release task to update website version.
    </notes>
   </release>
  </changelog>
