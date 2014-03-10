@@ -28,8 +28,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-15</date>
- <time>18:30:50</time>
+ <date>2014-03-10</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.0.0</api>
@@ -156,6 +155,7 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
      <file name="Shares.php" role="horde" />
+     <file name="Tagger.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <dir name="Type">
@@ -471,6 +471,7 @@
     <file name="8_turba_fix_blob_length.php" role="horde" />
     <file name="9_turba_upgrade_schema.php" role="horde" />
     <file name="10_turba_upgrade_categoriestotags.php" role="horde" />
+    <file name="11_turba_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -531,6 +532,9 @@
      <dir name="fixtures">
       <file name="az.png" role="test" />
      </dir> <!-- /test/Turba/fixtures -->
+     <dir name="Stub">
+      <file name="Hooks.php" role="test" />
+     </dir> <!-- /test/Turba/Stub -->
      <dir name="ToDo">
       <file name="ApiTest.php" role="test" />
       <file name="BrowsePageTest.php" role="test" />
@@ -947,6 +951,7 @@
    <install as="turba/lib/Exception/ObjectExists.php" name="lib/Exception/ObjectExists.php" />
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
+   <install as="turba/lib/Factory/Tagger.php" name="lib/Factory/Tagger.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
    <install as="turba/lib/Form/ContactBase.php" name="lib/Form/ContactBase.php" />
@@ -1070,6 +1075,7 @@
    <install as="turba/migration/8_turba_fix_blob_length.php" name="migration/8_turba_fix_blob_length.php" />
    <install as="turba/migration/9_turba_upgrade_schema.php" name="migration/9_turba_upgrade_schema.php" />
    <install as="turba/migration/10_turba_upgrade_categoriestotags.php" name="migration/10_turba_upgrade_categoriestotags.php" />
+   <install as="turba/migration/11_turba_upgrade_parents.php" name="migration/11_turba_upgrade_parents.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1106,6 +1112,7 @@
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
    <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
+   <install as="Turba/Stub/Hooks.php" name="test/Turba/Stub/Hooks.php" />
    <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
    <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
@@ -1774,7 +1781,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2013-08-15</date>
+   <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).

@@ -12,6 +12,8 @@
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
 
+require __DIR__ . '/Stub/Hooks.php';
+
 /**
  * Basic Turba test case.
  *
