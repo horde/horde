@@ -1,6 +1,6 @@
-----------
-v3.0.0-git
-----------
+------
+v3.0.0
+------
 
 [jan] Fix updateTicket() API method (Bug #13011).
 [jan] Add Swedish translation (Arne Nordmark <nordmark@mech.kth.se>).
