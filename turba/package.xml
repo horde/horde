@@ -30,7 +30,7 @@
  </developer>
  <date>2014-03-10</date>
  <version>
-  <release>4.1.4</release>
+  <release>4.1.5</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
-* [jan] Store full name in Kolab contacts.
-* [jan] Fix distribution list support in Kolab driver (Bug #12450).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1743,6 +1741,19 @@
 * [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 * [jan] Store full name in Kolab contacts.
 * [jan] Fix distribution list support in Kolab driver (Bug #12450).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

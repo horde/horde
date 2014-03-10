@@ -48,7 +48,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.4)';
+    public $version = 'H5 (4.1.5-git)';
 
     /**
      */
