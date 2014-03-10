@@ -296,7 +296,7 @@ class IMP_Ajax_Queue
         }
 
         /* Add quota information. */
-        if (($this->_quota !== false) &&
+        if ($this->_quota &&
             ($quotadata = $injector->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
