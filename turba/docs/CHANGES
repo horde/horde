@@ -1,6 +1,6 @@
-----------
-v4.1.4-git
-----------
+------
+v4.1.4
+------
 
 [jan] Fix importing vCard fields with lowercase TYPE attributes (Bug #13006).
 [jan] Store full name in Kolab contacts.
