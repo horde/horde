@@ -1,26 +1,11 @@
 <?php
 
-class Kronolith_Stub_Registry
+class Kronolith_Stub_Registry extends Horde_Test_Stub_Registry
 {
     public $admin = false;
 
-    public function getAuth()
-    {
-        return 'test';
-    }
-
-    public function isAdmin()
+    public function isAdmin(array $options = array())
     {
         return $this->admin;
-    }
-
-    public function get()
-    {
-        return '';
-    }
-
-    public function getApp()
-    {
-        return 'kronolith';
     }
 }
