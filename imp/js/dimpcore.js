@@ -66,9 +66,10 @@ var DimpCore = {
 
     toggleButtons: function(elts, disable)
     {
-        elts.each(function(b) {
-            [ b.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
-        });
+        elts.compact().invoke('up').invoke(
+            disable ? 'addClassName' : 'removeClassName',
+            'disabled'
+        );
     },
 
     // p = (Element) Parent element

@@ -2278,7 +2278,16 @@ var DimpBase = {
     /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
-        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() === 0);
+        var sc = this.selectedCount();
+
+        DimpCore.toggleButtons(
+            $('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'),
+            sc === 0
+        );
+
+        if (sc > 1) {
+            DimpCore.toggleButtons([ $('button_reply') ], true);
+        }
     },
 
     /* Drag/Drop handler. */
