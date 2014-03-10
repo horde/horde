@@ -2226,6 +2226,9 @@ class Turba_Driver implements Countable
                     if (!is_array($item['params']['TYPE'])) {
                         $item['params']['TYPE'] = array($item['params']['TYPE']);
                     }
+                    foreach ($item['params']['TYPE'] as &$type) {
+                        $type = Horde_String::upper($type);
+                    }
                     // For vCard 3.0.
                     if (in_array('CELL', $item['params']['TYPE'])) {
                         if (in_array('HOME', $item['params']['TYPE']) &&
@@ -2319,6 +2322,9 @@ class Turba_Driver implements Countable
                 } elseif (isset($item['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
                         $item['params']['TYPE'] = array($item['params']['TYPE']);
+                    }
+                    foreach ($item['params']['TYPE'] as &$type) {
+                        $type = Horde_String::upper($type);
                     }
                     if (in_array('HOME', $item['params']['TYPE']) &&
                         (!isset($hash['homeEmail']) ||
@@ -2478,7 +2484,8 @@ class Turba_Driver implements Countable
 
         // Ensure we have an 'email' field since we don't know for sure what
         // the source is, therefore we don't know the mappings available. Fixes
-        // importing vCards that have all EMAIL properties with a TYPE attribute.
+        // importing vCards that have all EMAIL properties with a TYPE
+        // attribute.
         // See Bug: 12955
         if (!isset($hash['email'])) {
             if (!empty($hash['homeEmail'])) {
