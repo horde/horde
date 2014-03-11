@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2013-05-23 20:41+0900\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"PO-Revision-Date: 2013-11-22 10:39+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -410,11 +410,11 @@ msgstr "関係の表示"
 msgid "Required Field"
 msgstr "必須項目"
 
-#: lib/Horde/Form.php:623
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr "必要なシークレットが無効です - 悪意のある要求かも知れません。"
 
-#: lib/Horde/Form.php:359 lib/Horde/Form/Renderer.php:312
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr "リセット"
 
@@ -502,7 +502,7 @@ msgstr "文字並び"
 msgid "String list returning an array"
 msgstr "文字列リストを配列で返す"
 
-#: lib/Horde/Form.php:352 lib/Horde/Form/Renderer.php:309
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr "実行"
 
@@ -591,7 +591,7 @@ msgid ""
 "'#1234af'."
 msgstr "このフィールドは16進RGB表記の色コードなくてはいけません。例:'#1234af'."
 
-#: lib/Horde/Form.php:620
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
 msgstr "このフォームは既に処理されています。"
 

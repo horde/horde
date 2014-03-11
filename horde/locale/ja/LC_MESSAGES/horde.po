@@ -1,14 +1,14 @@
 # Japanese translation for Horde.
-# Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.0.1-git\n"
+"Project-Id-Version: Horde 5.2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
-"PO-Revision-Date: 2013-06-08 18:21+0900\n"
+"POT-Creation-Date: 2014-03-10 15:14+0900\n"
+"PO-Revision-Date: 2014-03-10 15:40+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -38,7 +38,7 @@ msgstr "\"%s\" は作成されませんでした: %s。"
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "容量 %2$.2fMB 中の %1$.2fMB 使用(%3$.2f%%)"
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:206
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s と %s"
@@ -53,7 +53,7 @@ msgstr "パスワードはあと %d 日有効です。"
 msgid "%d minutes"
 msgstr "%d 分"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -64,7 +64,7 @@ msgstr[0] "%d 人がこれをいいね！と言っています"
 msgid "%d to %d of %d"
 msgstr "%d から %d、合計 %d"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:246
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d 日間の予報"
@@ -74,7 +74,7 @@ msgstr "%d 日間の予報"
 msgid "%s - Notice"
 msgstr "通知 - %s"
 
-#: admin/config/config.php:28 admin/config/index.php:437
+#: admin/config/config.php:28 admin/config/index.php:458
 #, php-format
 msgid "%s Configuration"
 msgstr "%s の設定"
@@ -182,13 +182,13 @@ msgstr ""
 "端末のワイプ（データ初期化）が要求されました。端末は次回の同期時にワイプされ"
 "ます。"
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "新しいバージョン（%s）があります。"
 
-#: lib/Prefs/Special/Activesync.php:74
+#: lib/Prefs/Special/Activesync.php:90
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -209,23 +209,24 @@ msgstr "アカウント情報"
 msgid "Account Password"
 msgstr "アカウントのパスワード"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "アクション"
 
-#: config/prefs.php:739 lib/Application.php:200
+#: config/prefs.php:741 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:74
-msgid "ActiveSync Device Administration"
-msgstr "ActiveSync 端末の管理"
+#: admin/activesync.php:94
+msgid "ActiveSync Administration"
+msgstr "ActiveSync の管理"
 
-#: admin/activesync.php:199 lib/Api.php:93
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
 msgstr "ActiveSync 端末"
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:22 lib/Api.php:725 lib/Api.php:786
+#: lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
 msgstr "ActiveSync が有効ではありません。"
 
@@ -283,11 +284,11 @@ msgstr "システムに \"%s\" を追加しましたので、ログインでき�
 msgid "Adding users is disabled."
 msgstr "ユーザの追加は禁止になっています。"
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "住所"
 
-#: config/registry.php:131
+#: config/registry.php:133
 msgid "Address Book"
 msgstr "アドレス帳"
 
@@ -315,15 +316,19 @@ msgstr "アラーム文"
 msgid "Alarm title"
 msgstr "アラーム題名"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "アラーム"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "アラームは環境設定で禁止になっています"
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "全部"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "全認証ユーザ"
 
@@ -331,7 +336,7 @@ msgstr "全認証ユーザ"
 msgid "All policy keys successfully reset."
 msgstr "全てのポリシーキイは正常にリセットされました。"
 
-#: lib/Prefs/Special/Activesync.php:87
+#: lib/Prefs/Special/Activesync.php:105
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -343,10 +348,6 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr "全ての同期セッションは削除しました。"
 
-#: lib/Application.php:216
-msgid "Allow"
-msgstr "許可"
-
 #: lib/Application.php:236
 msgid "Allow alphanumeric"
 msgstr "英数字を使用"
@@ -355,19 +356,23 @@ msgstr "英数字を使用"
 msgid "Allow any"
 msgstr "全ての文字を使用"
 
+#: lib/Application.php:215
+msgid "Allow non-provisionable devices"
+msgstr "プロビジョン不能な端末を許可"
+
 #: lib/Application.php:235
 msgid "Allow only numeric"
 msgstr "数字のみ使用"
 
-#: config/prefs.php:694
+#: config/prefs.php:696
 msgid "Alternate IMSP Login"
 msgstr "代替の IMSP ログイン"
 
-#: config/prefs.php:711
+#: config/prefs.php:713
 msgid "Alternate IMSP Password"
 msgstr "代替の IMSP パスワード"
 
-#: config/prefs.php:705
+#: config/prefs.php:707
 msgid "Alternate IMSP Username"
 msgstr "代替の IMSP ユーザ名"
 
@@ -387,7 +392,7 @@ msgstr "アプリケーション"
 msgid "Application Context"
 msgstr "アプリケーション・コンテキスト"
 
-#: admin/config/index.php:245
+#: admin/config/index.php:250
 msgid "Application is ready."
 msgstr "アプリケーションは使用可能です。"
 
@@ -399,7 +404,7 @@ msgstr "承認"
 msgid "Arabic (Windows-1256)"
 msgstr "アラビア語 (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "本当に '%s' を削除していいですか？"
@@ -446,17 +451,17 @@ msgstr "存在しないグループを削除しようとしました。"
 msgid "Attempt to delete a non-existent permission."
 msgstr "存在しないアクセス権を削除しようとしました。"
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "存在しないアクセス権を編集しようとしました。"
 
-#: services/shares/edit.php:68
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "存在しない共有を編集しようとしました。"
 
-#: templates/admin/sessions.html.php:27
-msgid "Authenticated to"
-msgstr "認証対象"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "認証済みアプリケーション"
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
 #: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
@@ -496,6 +501,10 @@ msgstr "バルト言語 (ISO-8859-13)"
 msgid "Basic"
 msgstr "基本"
 
+#: templates/activesync/device_table.html.php:42
+msgid "Block"
+msgstr "ブロック"
+
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
 msgstr "ブロック設定"
@@ -508,7 +517,7 @@ msgstr "ブロック型"
 msgid "Bluetooth"
 msgstr "ブルートゥース"
 
-#: config/registry.php:182
+#: config/registry.php:184
 msgid "Bookmarks"
 msgstr "ブックマーク"
 
@@ -516,15 +525,15 @@ msgstr "ブックマーク"
 msgid "Both"
 msgstr "両方"
 
-#: config/prefs.php:755
+#: config/prefs.php:762
 msgid "Bottom"
 msgstr "最も下"
 
-#: templates/admin/sessions.html.php:19
+#: templates/admin/sessions.html.php:9
 msgid "Browser"
 msgstr "ブラウザ"
 
-#: config/registry.php:117
+#: config/registry.php:119
 msgid "Calendar"
 msgstr "予定表"
 
@@ -541,7 +550,8 @@ msgstr "キャンセル"
 msgid "Cancel Problem Report"
 msgstr "障害報告をキャンセルする"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html.php:33
+#: templates/activesync/device_table.html.php:35
+#: templates/prefs/activesync.html.php:41
 msgid "Cancel Wipe"
 msgstr "ワイプを取り消す"
 
@@ -565,7 +575,7 @@ msgstr "中央ヨーロッパ (ISO-8859-2)"
 msgid "Change"
 msgstr "変更"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:128
 msgid "Change Location"
 msgstr "場所の変更"
 
@@ -593,7 +603,7 @@ msgstr "確認"
 msgid "Check for newer versions"
 msgstr "新しいバージョンを確認"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "確認中"
 
@@ -605,7 +615,7 @@ msgstr "簡体字中国語 (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "繁体字中国語 (Big5)"
 
-#: services/obrowser/index.php:59
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "%s から選択"
@@ -656,7 +666,7 @@ msgstr "クリックすると次へ"
 msgid "Client Anchor"
 msgstr "クライアント・アンカー"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "ウインドウを閉じる"
 
@@ -668,17 +678,16 @@ msgstr "雲"
 msgid "Codeword frequency"
 msgstr "コードワードまでの回数"
 
-#: lib/View/Sidebar.php:65 templates/admin/sessions.html.php:9
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "畳む"
 
-#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
-#: templates/prefs/category.html.php:36
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "色選択"
 
-#: config/registry.php:246
+#: config/registry.php:248
 msgid "Comics"
 msgstr "コミックス"
 
@@ -690,16 +699,20 @@ msgstr "コマンド"
 msgid "Command Shell"
 msgstr "コマンドシェル"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:182
 #, php-format
 msgid "Comments: %d"
 msgstr "コメント： %d"
+
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "コモンネーム"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "コンピュータ"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:259
 msgid "Condition"
 msgstr "気象状況"
 
@@ -715,19 +728,19 @@ msgstr "環境設定"
 msgid "Configuration Differences"
 msgstr "環境設定の差分"
 
-#: config/prefs.php:721
+#: config/prefs.php:723
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "PDA、スマートフォン、Outlookとの同期を設定します。"
 
-#: admin/config/index.php:240
+#: admin/config/index.php:245
 msgid "Configuration is out of date."
 msgstr "環境設定は賞味期限切れです。"
 
-#: templates/admin/config/index.html.php:96
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "環境設定の更新用スクリプトがあります"
 
-#: admin/config/index.php:180
+#: admin/config/index.php:182
 #, php-format
 msgid "Configure %s"
 msgstr "%s を設定する"
@@ -816,7 +829,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "\"%s\" の設定が書き込めません：%s"
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "国"
 
@@ -824,7 +837,7 @@ msgstr "国"
 msgid "Create"
 msgstr "作成"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "新しい ID の作成"
 
@@ -840,7 +853,7 @@ msgstr "現在のアラーム"
 msgid "Current Locks"
 msgstr "現在のロック"
 
-#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "現在のセッション"
 
@@ -852,7 +865,7 @@ msgstr "現在の時間"
 msgid "Current Weather"
 msgstr "現在の天気"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:238
 msgid "Current condition"
 msgstr "現在の天候"
 
@@ -868,7 +881,7 @@ msgstr "キリル言語 (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "キリル/ウクライナ (KOI8-U)"
 
-#: admin/config/index.php:260 admin/config/index.php:312
+#: admin/config/index.php:265 admin/config/index.php:317
 msgid "DB access is not configured."
 msgstr "DB へのアクセスが設定されていません。"
 
@@ -887,7 +900,7 @@ msgstr "データ"
 msgid "Database"
 msgstr "データベース"
 
-#: lib/Block/Vatid.php:85
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "日付"
 
@@ -900,7 +913,7 @@ msgstr "データ受信"
 msgid "Date: %s; time: %s"
 msgstr "日付：%s、時間：%s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:254
 msgid "Day"
 msgstr "日"
 
@@ -909,7 +922,7 @@ msgstr "日"
 msgid "Default"
 msgstr "デフォルト"
 
-#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "デフォルト色"
 
@@ -931,18 +944,18 @@ msgstr "定義"
 
 #: admin/groups.php:52 templates/admin/groups/delete.inc:11
 #: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
-#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "削除"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:208
 #, php-format
 msgid "Delete \"%s\""
 msgstr "\"%s\" を削除"
@@ -951,7 +964,7 @@ msgstr "\"%s\" を削除"
 msgid "Delete All SyncML Data"
 msgstr "全ての SyncML データを削除"
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "グループを削除"
 
@@ -969,37 +982,49 @@ msgstr "端末\"%s\"とデータベース\"%s\"との同期セッションは削
 msgid "Describe the Problem"
 msgstr "障害内容の説明"
 
-#: config/registry.php:206
+#: config/registry.php:208
 msgid "Development"
 msgstr "開発"
 
-#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/activesync.html.php:28 templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "端末"
 
-#: admin/activesync.php:122
-msgid "Device ID"
-msgstr "端末 ID"
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
+msgstr "端末 id"
 
-#: templates/prefs/activesync.html.php:23
+#: templates/activesync/device_table.html.php:7
+#: templates/prefs/activesync.html.php:31
 msgid "Device Information"
 msgstr "端末情報"
 
-#: templates/prefs/activesync.html.php:11
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
 msgstr "端末の管理"
+
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "端末の種類"
 
 #: lib/Application.php:312
 msgid "Device encryption"
 msgstr "端末の暗号化"
 
-#: templates/prefs/activesync.html.php:35
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "端末はブロックされました。"
+
+#: templates/prefs/activesync.html.php:43
 msgid "Device is Wiped"
 msgstr "端末は初期化されました"
 
-#: admin/activesync.php:168
-msgid "Device is wiped"
-msgstr "端末はワイプされました"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
+"端末はワイプされました。端末の再接続を可能にするために端末ステータスは削除さ"
+"れました。"
 
 #: admin/activesync.php:46
 msgid "Device successfully removed."
@@ -1017,7 +1042,7 @@ msgstr "露点"
 msgid "Dew Point for last hour: "
 msgstr "この時間の露点："
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:189
 msgid "Dew point"
 msgstr "露点"
 
@@ -1026,15 +1051,19 @@ msgstr "露点"
 msgid "Disable"
 msgstr "無効"
 
+#: lib/Application.php:216
+msgid "Disable (not recommended)"
+msgstr "禁止（推奨しません）"
+
 #: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "24時間表示"
 
 #: config/prefs.php:541
 msgid "Display Preferences"
-msgstr "表示設定"
+msgstr "表示の個人設定"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:95
 msgid "Display detailed forecast"
 msgstr "詳細な予報の表示"
 
@@ -1047,17 +1076,17 @@ msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
 "最初の行がフィールド名を含んでいますか？ そうならチェックしてください："
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:77
 msgid "Don't have an account? Sign up."
 msgstr "アカウントが必要ならサインアップして下さい。"
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "Download %s"
 msgstr "%s のダウンロード"
 
-#: admin/config/index.php:384
+#: admin/config/index.php:393
 msgid "Download generated configuration as PHP script."
 msgstr "生成された設定を PHP スクリプトをとしてダウンロードする。"
 
@@ -1073,13 +1102,13 @@ msgstr "動的"
 msgid "EU VAT identification"
 msgstr "EU VAT（付加価値税）登録番号"
 
-#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "編集"
 
@@ -1092,11 +1121,11 @@ msgstr "\"%s\" を編集"
 msgid "Edit Preferences for"
 msgstr "個人設定編集"
 
-#: services/shares/edit.php:247
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "アクセス権の編集"
 
-#: services/shares/edit.php:246 templates/shares/edit.inc:14
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "\"%s\" のアクセス権の編集"
@@ -1109,11 +1138,15 @@ msgstr "教育"
 msgid "Email Address"
 msgstr "電子メールアドレス"
 
+#: lib/Application.php:214
+msgid "Enable"
+msgstr "有効"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "終了時間"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:83
 msgid "English"
 msgstr "英語"
 
@@ -1129,7 +1162,12 @@ msgstr ""
 "あなたのパスワードをリセットする時に尋ねる秘密の質問を入力して下さい。例え"
 "ば、「ペットの名前は？」など："
 
-#: services/twitter/index.php:27
+#: lib/Ajax/Application/FacebookHandler.php:264
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr "Facebook への接続エラーです。詳細は管理者のために記録されました。"
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
 msgid ""
 "Error connecting to Twitter. Details have been logged for the administrator."
 msgstr "Twitter への接続エラー。詳細は管理者のために記録されました。"
@@ -1158,27 +1196,27 @@ msgstr "パスワード更新エラー: %s"
 msgid "Ethnic"
 msgstr "民族的"
 
-#: services/facebook/index.php:189
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
 msgstr "イベント招待："
 
-#: config/prefs.php:599 templates/portal/layout.inc:101
+#: config/prefs.php:600 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15分毎"
 
-#: config/prefs.php:618
+#: config/prefs.php:619
 msgid "Every 2 minutes"
 msgstr "2分毎"
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30秒毎"
 
-#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
+#: config/prefs.php:599 config/prefs.php:620 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5分毎"
 
-#: config/prefs.php:600 templates/portal/layout.inc:102
+#: config/prefs.php:601 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "30分毎"
 
@@ -1186,7 +1224,7 @@ msgstr "30分毎"
 msgid "Every hour"
 msgstr "１時間毎"
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
+#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "1分毎"
 
@@ -1199,8 +1237,7 @@ msgstr "値の例："
 msgid "Execute"
 msgstr "実行"
 
-#: lib/View/Sidebar.php:66 templates/admin/sessions.html.php:8
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "拡大"
 
@@ -1208,17 +1245,21 @@ msgstr "拡大"
 msgid "Extra Large"
 msgstr "特大"
 
-#: templates/admin/config/index.html.php:110
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
 msgstr "設定を FTP でアップロード"
 
-#: config/prefs.php:642
+#: config/prefs.php:644
 msgid "Facebook Integration"
 msgstr "Facebook 統合"
 
 #: lib/Application.php:247
 msgid "Failed unlock attempts before device is wiped"
 msgstr "端末をワイプするまでのアンロックの失敗回数"
+
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "お気に入り"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
@@ -1236,23 +1277,23 @@ msgstr "気分"
 msgid "Fields to search"
 msgstr "検索項目"
 
-#: config/registry.php:312
+#: config/registry.php:314
 msgid "File Manager"
 msgstr "ファイル管理"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "フィルター"
 
-#: config/registry.php:88
+#: config/registry.php:89
 msgid "Filters"
 msgstr "フィルタ"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "上弦の半月"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "上弦の月"
 
@@ -1260,15 +1301,11 @@ msgstr "上弦の月"
 msgid "Food"
 msgstr "食べ物"
 
-#: lib/Application.php:215
-msgid "Force"
-msgstr "強制"
-
 #: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "予報（空港）"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:89
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1276,11 +1313,11 @@ msgstr ""
 "予報日数（予報は昼だけでなく夜の分も含まれますので、大きな数を指定すると、ブ"
 "ロックは大きくなります）"
 
-#: templates/login/login.inc:79
+#: templates/login/login.inc:84
 msgid "Forgot your password?"
 msgstr "パスワードを忘れてしまいましたか？"
 
-#: config/registry.php:341
+#: config/registry.php:343
 msgid "Forms"
 msgstr "フォーム"
 
@@ -1300,11 +1337,11 @@ msgstr "格言"
 msgid "Fortunes 2"
 msgstr "格言２"
 
-#: config/registry.php:335
+#: config/registry.php:337
 msgid "Forums"
 msgstr "フォーラム"
 
-#: services/facebook/index.php:188
+#: lib/Ajax/Application/FacebookHandler.php:62
 msgid "Friend Requests:"
 msgstr "友達リクエスト："
 
@@ -1312,12 +1349,12 @@ msgstr "友達リクエスト："
 msgid "Friends enabled."
 msgstr "友人を許可済み。"
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:215
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "風向 %s（%s度）、風速 %s %s"
 
-#: lib/Block/Weather.php:318
+#: lib/Block/Weather.php:326
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "風向 %s、風速 %s %s"
@@ -1326,7 +1363,7 @@ msgstr "風向 %s、風速 %s %s"
 msgid "Full Description"
 msgstr "詳しい説明"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "満月"
 
@@ -1343,7 +1380,7 @@ msgstr "%s 構成情報を生成する"
 msgid "Generated Code"
 msgstr "生成されたコード"
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "続きを見る"
 
@@ -1380,11 +1417,11 @@ msgstr "グループ名"
 msgid "Group was not created: %s."
 msgstr "グループは作成されませんでした： %s。"
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "グループ"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "ゲストアクセス権"
 
@@ -1400,7 +1437,7 @@ msgstr "ヘブライ語 (ISO-8859-8-I)"
 msgid "Height"
 msgstr "高さ"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr "ストリーム表示の高さ（幅は自動で調整されます）"
 
@@ -1432,7 +1469,7 @@ msgstr "結果を隠す"
 msgid "Home Directory"
 msgstr "ホームディレクトリー"
 
-#: config/registry.php:75
+#: config/registry.php:76
 msgid "Horde"
 msgstr "Horde"
 
@@ -1444,7 +1481,7 @@ msgstr "フィールド(列)の数はいくつですか？"
 msgid "How many seconds before we check for new articles?"
 msgstr "新着記事をチェックまで何秒待ちますか？"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
 msgstr "湿度"
 
@@ -1452,10 +1489,18 @@ msgstr "湿度"
 msgid "Humorists"
 msgstr "ユーモア"
 
-#: util/icon_browser.php:34
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
+
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "%s のアイコン"
+
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "ActiveSync経由で送信するメールの識別id。"
 
 #: config/prefs.php:283
 msgid "Identity's name:"
@@ -1476,7 +1521,7 @@ msgstr "インポートされたフィールド： %s"
 msgid "Imported fields:"
 msgstr "インポートされたフィールド："
 
-#: lib/Block/TwitterTimeline.php:110
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
 msgstr "ここに返信："
 
@@ -1499,11 +1544,11 @@ msgstr ""
 "ユーザ名か代替アドレスが正しくありません。再度試してみるか、管理者に連絡して"
 "下さい。"
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "個別ユーザ"
 
-#: config/registry.php:240
+#: config/registry.php:242
 msgid "Information"
 msgstr "情報"
 
@@ -1519,7 +1564,7 @@ msgstr "新しいパスワードを受け取るメールアドレスを入力：
 msgid "Insert the required answer to the security question:"
 msgstr "秘密の質問の答えを入力："
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "VAT（付加価値税）登録番号の形式が無効です。"
 
@@ -1540,7 +1585,7 @@ msgstr "不正なハッシュです。"
 msgid "Invalid parent permission."
 msgstr "上位のアクセス権が無効です。"
 
-#: config/registry.php:293
+#: config/registry.php:295
 msgid "Inventory"
 msgstr "一覧作成"
 
@@ -1548,7 +1593,7 @@ msgstr "一覧作成"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "日本語 (ISO-2022-JP)"
 
-#: login.php:174
+#: login.php:154
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1556,7 +1601,7 @@ msgstr ""
 "お使いのブラウザはJavaScriptの機能が無いか無効になっていますので、機能が限定"
 "されています。"
 
-#: lib/Block/TwitterTimeline.php:111
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr "ちょうど今..."
 
@@ -1572,7 +1617,7 @@ msgstr "キイワード"
 msgid "Kids"
 msgstr "子供"
 
-#: config/registry.php:301
+#: config/registry.php:303
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1580,7 +1625,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "韓国語 (EUC-KR)"
 
-#: login.php:364 templates/login/login.inc:52
+#: login.php:344 templates/login/login.inc:57
 msgid "Language"
 msgstr "言語"
 
@@ -1588,7 +1633,7 @@ msgstr "言語"
 msgid "Large"
 msgstr "特大"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "下弦の半月"
 
@@ -1596,11 +1641,12 @@ msgstr "下弦の半月"
 msgid "Last Password Change"
 msgstr "パスワード最終変更日"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "下弦の月"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/activesync/device_table.html.php:5
+#: templates/prefs/activesync.html.php:29
 msgid "Last Sync Time"
 msgstr "最後の同期時間"
 
@@ -1608,17 +1654,17 @@ msgstr "最後の同期時間"
 msgid "Last Updated:"
 msgstr "最終更新："
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "前回のログイン: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "前回のログイン: %2$s から %1$s"
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "前回のログイン: なし"
 
@@ -1630,7 +1676,7 @@ msgstr "最新"
 msgid "Law"
 msgstr "法律"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:225
 msgid "Like"
 msgstr "いいね"
 
@@ -1646,7 +1692,7 @@ msgstr "Linux クッキー"
 msgid "List Tables"
 msgstr "テーブル一覧"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "アラームの一覧作成に失敗：%s"
@@ -1656,10 +1702,19 @@ msgstr "アラームの一覧作成に失敗：%s"
 msgid "Listing locks failed: %s"
 msgstr "ロックの一覧作成に失敗：%s"
 
-#: templates/admin/sessions.html.php:37
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "セッション一覧取得に失敗：%s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "ユーザ一覧の作成はこのエラーで失敗しました：%s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "ユーザ一覧の作成に失敗しました。"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -1669,7 +1724,7 @@ msgstr "ユーザのリストは無効になっています。"
 msgid "Literature"
 msgstr "文学"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:167
 #, php-format
 msgid "Local time: %s %s"
 msgstr "現地時間：%s %s"
@@ -1678,7 +1733,7 @@ msgstr "現地時間：%s %s"
 msgid "Locale and Time"
 msgstr "地域と時間"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:75
 msgid "Location"
 msgstr "場所"
 
@@ -1690,11 +1745,12 @@ msgstr "ユーザをロック"
 msgid "Locks"
 msgstr "ロック"
 
-#: login.php:291 templates/login/login.inc:61
+#: login.php:271 templates/login/login.inc:66
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "ログイン"
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr "ログアウト"
 
@@ -1702,11 +1758,11 @@ msgstr "ログアウト"
 msgid "Logged in to Facebook"
 msgstr "Facebook にログイン"
 
-#: login.php:320
+#: login.php:300
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "ユーザ名かパスワードが正しくないためにログインに失敗しました。"
 
-#: login.php:316
+#: login.php:296
 msgid "Login failed."
 msgstr "ログインに失敗しました。"
 
@@ -1739,11 +1795,11 @@ msgstr "月"
 msgid "Magic"
 msgstr "魔法"
 
-#: config/registry.php:80
+#: config/registry.php:81
 msgid "Mail"
 msgstr "電子メール"
 
-#: config/registry.php:346
+#: config/registry.php:348
 msgid "Mail Admin"
 msgstr "メール管理"
 
@@ -1753,7 +1809,7 @@ msgid ""
 "associated with those categories."
 msgstr "色付けされたラベルを対応させて分類を管理します。"
 
-#: config/prefs.php:740
+#: config/prefs.php:742
 msgid "Manage your ActiveSync devices."
 msgstr "ActiveSync 端末を管理します。"
 
@@ -1785,7 +1841,7 @@ msgstr "最大添付サイズ"
 msgid "Maximum number of devices"
 msgstr "最大端末数"
 
-#: lib/Block/FbStream.php:66
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "表示する項目の最大数"
 
@@ -1809,7 +1865,7 @@ msgstr "言及"
 msgid "Metar Weather"
 msgstr "Metar Weather"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:84
 msgid "Metric"
 msgstr "メートル"
 
@@ -1825,21 +1881,21 @@ msgstr "過去６時間の最低気温："
 msgid "Minimum PIN length"
 msgstr "最低限の PIN の長さ"
 
-#: lib/Application.php:242
-msgid "Minutes of inactivity before device should lock"
-msgstr "端末をロックするまでのアイドル時間（分）"
-
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "その他諸々"
 
-#: admin/config/index.php:217
+#: admin/config/index.php:222
 msgid "Missing configuration."
 msgstr "設定がありません。"
 
 #: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
 msgstr "携帯（文字のみ）"
+
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "携帯（JavaScriptなし）"
 
 #: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
 msgid "Mobile (Smartphone/Tablet)"
@@ -1853,8 +1909,12 @@ msgstr "携帯に適したアプリ"
 msgid "Mode"
 msgstr "モード"
 
-#: admin/config/index.php:165 admin/config/index.php:206
-#: admin/config/index.php:339 admin/config/index.php:365
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "型番"
+
+#: admin/config/index.php:167 admin/config/index.php:211
+#: admin/config/index.php:344 admin/config/index.php:370
 msgid "Module is up-to-date."
 msgstr "モジュールは最新です。"
 
@@ -1866,7 +1926,7 @@ msgstr "月曜"
 msgid "Moon Phases"
 msgstr "月相"
 
-#: config/registry.php:306
+#: config/registry.php:308
 msgid "My Account"
 msgstr "私のアカウント"
 
@@ -1874,7 +1934,7 @@ msgstr "私のアカウント"
 msgid "My Account Information"
 msgstr "私のアカウント情報"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
 msgstr "Facebook ストリーム"
 
@@ -1886,8 +1946,8 @@ msgstr "マイポータル"
 msgid "My Portal Layout"
 msgstr "マイポータルの配置"
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:316 lib/Block/Weather.php:320
+#: lib/Block/Weather.php:336
 msgid "N/A"
 msgstr "N/A"
 
@@ -1896,7 +1956,8 @@ msgstr "N/A"
 msgid "NO, I Do NOT Agree"
 msgstr "いいえ、同意しません"
 
-#: templates/prefs/activesync.html.php:60
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:68
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1904,24 +1965,23 @@ msgstr ""
 "注意：端末をワイプすると工場出荷時の状態になります。ワイプ（初期化）が本当に"
 "必要か十分に検討して下さい。"
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "名前"
 
-#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
-#: templates/portal/layout.inc:97
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "なし"
 
-#: templates/prefs/category.html.php:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "新規分類"
 
-#: services/facebook/index.php:185
+#: lib/Ajax/Application/FacebookHandler.php:59
 msgid "New Messages:"
 msgstr "新規メッセージ："
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "新月"
 
@@ -1937,7 +1997,7 @@ msgstr "新しいパスワード"
 msgid "New passwords don't match."
 msgstr "新しいパスワードが一致しません。"
 
-#: config/registry.php:251 lib/Block/Fortune.php:59
+#: config/registry.php:253 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "ニュース"
 
@@ -1962,7 +2022,7 @@ msgstr "差分を表示するための設定がありません。"
 msgid "No change."
 msgstr "変更なし。"
 
-#: util/icon_browser.php:52
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "アイコンがありません。"
 
@@ -1990,8 +2050,8 @@ msgstr "ローミング中はプッシュしない"
 msgid "No security question has been set. Please contact your administrator."
 msgstr "秘密の質問が設定されていません。管理者に相談して下さい。"
 
-#: admin/config/index.php:159 admin/config/index.php:200
-#: admin/config/index.php:333 admin/config/index.php:359
+#: admin/config/index.php:161 admin/config/index.php:205
+#: admin/config/index.php:338 admin/config/index.php:364
 msgid "No stable version exists yet."
 msgstr "まだ安定したバージョンはありません。"
 
@@ -1999,30 +2059,31 @@ msgstr "まだ安定したバージョンはありません。"
 msgid "No username specified."
 msgstr "ユーザ名が指定されていません。"
 
-#: admin/config/index.php:223
+#: admin/config/index.php:228
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr "オリジナルの設定ファイルにバージョンがありません。設定を再生成します。"
 
-#: admin/config/index.php:232
+#: admin/config/index.php:237
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "設定ファイルにバージョンがありません。設定ファイルを作り直して下さい。"
 
-#: admin/config/index.php:284
+#: admin/config/index.php:289
 msgid "NoSQL indices are ready."
 msgstr "NoSQL索引準備完了。"
 
-#: admin/config/index.php:279
+#: admin/config/index.php:284
 #, php-format
 msgid "NoSQL indices for %s"
 msgstr "%s のNoSQL索引"
 
-#: admin/config/index.php:281
+#: admin/config/index.php:286
 msgid "NoSQL indices out of date."
 msgstr "NoSQL の索引は賞味期限切れです。"
 
-#: templates/prefs/activesync.html.php:42
-#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
-#: templates/prefs/identityselect.html:20
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:50
+#: templates/prefs/activesync.html.php:62 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "なし"
 
@@ -2030,15 +2091,16 @@ msgstr "なし"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordic (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "北半球"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Not Provisioned"
 msgstr "未プロビジョン"
 
-#: config/registry.php:166
+#: config/registry.php:168
 msgid "Notes"
 msgstr "メモ"
 
@@ -2054,11 +2116,15 @@ msgstr "表示する記事数"
 msgid "Number of seconds to wait to refresh"
 msgstr "再表示までの待ち時間（秒）"
 
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "OS"
+
 #: templates/services/obrowser.html.php:5
 msgid "Object Browser"
 msgstr "オブジェクト閲覧"
 
-#: templates/shares/edit.inc:132
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "オブジェクト作成者"
 
@@ -2066,7 +2132,7 @@ msgstr "オブジェクト作成者"
 msgid "Offense filter"
 msgstr "耳に痛いものを選別"
 
-#: config/registry.php:263
+#: config/registry.php:265
 msgid "Office"
 msgstr "オフィス"
 
@@ -2086,7 +2152,7 @@ msgstr "古いパスワードが正しくありません"
 msgid "Only offensive fortunes"
 msgstr "耳に痛い格言だけ"
 
-#: services/shares/edit.php:89
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2096,12 +2162,12 @@ msgstr "所有者かシステム管理者だけが共有の所有権とアクセ
 msgid "Operating System"
 msgstr "オペレーティング・システム"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "あるいはユーザ名を入力："
 
-#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
-#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
+#: config/prefs.php:540 config/prefs.php:643 config/prefs.php:669
+#: config/prefs.php:695 config/prefs.php:721 config/prefs.php:740
 msgid "Other Information"
 msgstr "その他の情報"
 
@@ -2109,15 +2175,15 @@ msgstr "その他の情報"
 msgid "Other Options"
 msgstr "その他のオプション"
 
-#: config/registry.php:177
+#: config/registry.php:179
 msgid "Others"
 msgstr "その他"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "所有者"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "所有者："
 
@@ -2145,8 +2211,8 @@ msgstr "POSIX 拡張が見当たりません"
 msgid "P_HP Shell"
 msgstr "_HPHPシェル"
 
-#: login.php:211 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:324
+#: login.php:191 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:326
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "パスワード"
@@ -2189,7 +2255,7 @@ msgid "Permissions"
 msgstr "アクセス権"
 
 #: admin/perms/addchild.php:58 admin/perms/delete.php:53
-#: admin/perms/edit.php:129 admin/perms/index.php:23
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "アクセス権の管理"
 
@@ -2201,7 +2267,11 @@ msgstr "個人情報"
 msgid "Pets"
 msgstr "ペット"
 
-#: config/registry.php:194
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "電話番号"
+
+#: config/registry.php:196
 msgid "Photos"
 msgstr "写真"
 
@@ -2209,11 +2279,11 @@ msgstr "写真"
 msgid "Platitudes"
 msgstr "陳腐"
 
-#: login.php:217
+#: login.php:197
 msgid "Please enter a password."
 msgstr "パスワードを入力してください。"
 
-#: login.php:216
+#: login.php:196
 msgid "Please enter a username."
 msgstr "ユーザ名を入力してください。"
 
@@ -2229,19 +2299,15 @@ msgstr ""
 "次の文書を読んでください. このシステムを使用するための規定事項に同意する必要"
 "があります。"
 
-#: services/facebook/index.php:187
+#: lib/Ajax/Application/FacebookHandler.php:61
 msgid "Pokes:"
 msgstr "あいさつ："
-
-#: admin/activesync.php:108
-msgid "Policy Key"
-msgstr "ポリシー鍵"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "政治"
 
-#: config/prefs.php:754
+#: config/prefs.php:761
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2249,7 +2315,11 @@ msgstr ""
 "あなたの端末でメールの返信をする時の文章の位置。ただし、いくつかの端末では、"
 "返信文の後に引用文を挿入します。"
 
-#: services/facebook/index.php:33
+#: lib/Block/FbStream.php:143
+msgid "Post"
+msgstr "投稿"
+
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, php-format
 msgid "Posted %s"
 msgstr "投稿 %s"
@@ -2265,12 +2335,12 @@ msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "過去 %d 時間の降水量："
 
-#: lib/Block/Weather.php:255
+#: lib/Block/Weather.php:263
 #, php-format
 msgid "Precipitation%schance"
 msgstr "降水%s確率"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:200
 msgid "Pressure"
 msgstr "気圧"
 
@@ -2286,7 +2356,8 @@ msgstr "プリンシパル"
 msgid "Problem Description"
 msgstr "障害内容の説明"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Provisioned"
 msgstr "プロビジョン済み"
 
@@ -2310,13 +2381,13 @@ msgstr "クォータ"
 msgid "Random Fortune"
 msgstr "無作為の格言"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "読出"
 
@@ -2336,21 +2407,17 @@ msgid ""
 msgstr ""
 "本当にユーザ \"%s\" のデータを削除しますか？ この操作は取り消せません。"
 
-#: config/prefs.php:621
+#: config/prefs.php:622
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "動的メニューの再表示間隔:"
 
-#: config/prefs.php:602
+#: config/prefs.php:603
 msgid "Refresh Portal View:"
 msgstr "ポータルの再表示："
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "再表示頻度："
-
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr "登録されたユーザの端末"
 
 #: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
@@ -2360,14 +2427,14 @@ msgstr "普通のアプリ"
 msgid "Remarks"
 msgstr "備考"
 
-#: templates/admin/sessions.html.php:23
+#: templates/admin/sessions.html.php:10
 msgid "Remote Host"
 msgstr "リモートホスト"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:41
+#: templates/activesync/device_table.html.php:37
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
-#: templates/prefs/activesync.html.php:39
+#: templates/prefs/activesync.html.php:47
 msgid "Remove"
 msgstr "削除"
 
@@ -2375,7 +2442,7 @@ msgstr "削除"
 msgid "Remove pair"
 msgstr "ペアを削除"
 
-#: admin/config/index.php:416
+#: admin/config/index.php:433
 msgid "Remove saved script from server's temporary directory."
 msgstr "保存したスクリプトを作業ディレクトリから削除する。"
 
@@ -2391,10 +2458,6 @@ msgstr "ユーザを削除: %s"
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
 msgstr "返信"
-
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr "全端末を再度プロビジョンする"
 
 #: lib/Application.php:221
 msgid "Require PIN"
@@ -2417,13 +2480,10 @@ msgstr "リセット"
 msgid "Reset Password"
 msgstr "パスワードをリセット"
 
-#: templates/prefs/activesync.html.php:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
-"全ての端末ステータスをリセットする。この結果、端末の全ての項目が再同期されま"
-"す。"
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
+msgstr "全ての端末ステータスをリセットする"
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
@@ -2442,10 +2502,6 @@ msgstr "結果"
 #, php-format
 msgid "Results for %s"
 msgstr "%s の結果"
-
-#: templates/prefs/end.html:8
-msgid "Return to Main Screen"
-msgstr "メイン画面に戻る"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -2488,11 +2544,11 @@ msgstr "SD カードの暗号化"
 msgid "SMS Text messages"
 msgstr "SMSテキストメッセージ"
 
-#: admin/config/index.php:266 admin/config/index.php:319
+#: admin/config/index.php:271 admin/config/index.php:324
 msgid "SQL DB schema is out of date."
 msgstr "SQL DB スキーマは賞味期限切れです。"
 
-#: admin/config/index.php:271 admin/config/index.php:324
+#: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
 msgstr "SQL DB スキーマは準備完了です。"
 
@@ -2508,16 +2564,16 @@ msgstr "_QSQL シェル"
 msgid "Save"
 msgstr "保存"
 
-#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "\"%s\" を保存"
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "保存して終了"
 
-#: admin/config/index.php:388
+#: admin/config/index.php:401
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2541,20 +2597,24 @@ msgstr "範囲"
 msgid "Sea_rch"
 msgstr "_R検索"
 
-#: lib/View/Topbar.php:60 services/help/index.php:156
-#: templates/admin/user/list.inc:14
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "検索"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "検索："
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: lib/Application.php:242
+msgid "Seconds of inactivity before device should lock"
+msgstr "端末をロックするまでのアイドル時間（秒）"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "追加するグループを選択："
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "新しい所持者を選択："
 
@@ -2562,7 +2622,7 @@ msgstr "新しい所持者を選択："
 msgid "Select a server"
 msgstr "サーバを選択"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "追加するユーザを選択："
 
@@ -2594,7 +2654,7 @@ msgstr "時刻の区切り文字を指定してください："
 msgid "Select the time format:"
 msgstr "時刻の形式を指定してください："
 
-#: config/prefs.php:588
+#: config/prefs.php:589
 msgid "Select your color scheme."
 msgstr "色調を選択してください."
 
@@ -2614,11 +2674,11 @@ msgstr "センサー："
 msgid "Server Time"
 msgstr "サーバ時刻"
 
-#: admin/sessions.php:69
+#: admin/sessions.php:67
 msgid "Session Administration"
 msgstr "セッション管理"
 
-#: templates/admin/sessions.html.php:15
+#: templates/admin/sessions.html.php:8
 msgid "Session Timestamp"
 msgstr "セッション・タイムスタンプ"
 
@@ -2631,11 +2691,11 @@ msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "忘れてしまったパスワードをリセットできるように設定します。"
 
-#: config/prefs.php:643
+#: config/prefs.php:645
 msgid "Set up integration with your Facebook account."
 msgstr "Facebook アカウントとの統合を設定します。"
 
-#: config/prefs.php:669
+#: config/prefs.php:671
 msgid "Set up integration with your Twitter account."
 msgstr "Twitter アカウントとの統合を設定します。"
 
@@ -2650,7 +2710,7 @@ msgid ""
 msgstr ""
 "開始時のアプリケーション、色調、ページ再表示、その他の表示用の設定をします。"
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:144
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "このパラメータではいくつもの場所が該当します：%s"
@@ -2659,17 +2719,21 @@ msgstr "このパラメータではいくつもの場所が該当します：%s"
 msgid "Short Summary"
 msgstr "簡単な要約："
 
-#: config/prefs.php:627
+#: config/prefs.php:629
 msgid "Should access keys be defined for most links?"
 msgstr "（メニューなどで）ショートカットキーが使えるようにしますか？"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: config/prefs.php:756
+msgid "Should multiple collections be multiplexed?"
+msgstr "複数のコレクションは多重化しますか？"
+
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "表示"
 
@@ -2677,7 +2741,11 @@ msgstr "表示"
 msgid "Show Advanced Preferences"
 msgstr "拡張個人設定を表示"
 
-#: admin/config/index.php:378
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "全ての設定グループを表示"
+
+#: admin/config/index.php:383
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2687,11 +2755,11 @@ msgstr "現在の設定と新しく生成された設定との差分を表示す
 msgid "Show extra detail?"
 msgstr "拡張詳細を表示しますか？"
 
-#: config/prefs.php:573
+#: config/prefs.php:574
 msgid "Show last login time when logging in?"
 msgstr "ログイン時に前回のログイン時間を表示しますか？"
 
-#: lib/Block/FbStream.php:71
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
 msgstr "通知を表示"
 
@@ -2720,11 +2788,11 @@ msgstr "唄と詩"
 msgid "South European (ISO-8859-3)"
 msgstr "南ヨーロッパ (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "南半球"
 
-#: config/registry.php:103
+#: config/registry.php:105
 msgid "Spam"
 msgstr "SPAM"
 
@@ -2744,16 +2812,17 @@ msgstr "スター・トレック"
 msgid "Start Time"
 msgstr "開始時間"
 
-#: templates/prefs/activesync.html.php:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "状態の管理"
 
-#: admin/activesync.php:115 templates/admin/config/index.html.php:36
-#: templates/prefs/activesync.html.php:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
+#: templates/prefs/activesync.html.php:30
 msgid "Status"
 msgstr "状態"
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:106
 msgid "Status unable to be set."
 msgstr "ステータスがセットできません。"
 
@@ -2770,7 +2839,7 @@ msgstr ""
 "システムへ　\"%s\"　の追加要求を送信しました。要求が受理されるまでログインは"
 "できません。"
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr "あなたの Facebook アカウントに正常に接続されました。"
 
@@ -2828,7 +2897,7 @@ msgstr "日の入り"
 msgid "Sunday"
 msgstr "日曜"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:174 lib/Block/Weather.php:175
 msgid "Sunrise"
 msgstr "日の出"
 
@@ -2836,7 +2905,7 @@ msgstr "日の出"
 msgid "Sunrise/Sunset"
 msgstr "日の出/日の入り"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:177 lib/Block/Weather.php:178
 msgid "Sunset"
 msgstr "日の入り"
 
@@ -2844,7 +2913,7 @@ msgstr "日の入り"
 msgid "Sync all"
 msgstr "全て同期"
 
-#: config/prefs.php:720
+#: config/prefs.php:722
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2856,7 +2925,7 @@ msgstr "Syndicated Feed"
 msgid "Tag Cloud"
 msgstr "タグ・クラウド"
 
-#: config/registry.php:152
+#: config/registry.php:154
 msgid "Tasks"
 msgstr "タスク"
 
@@ -2864,16 +2933,16 @@ msgstr "タスク"
 msgid "Temp for last hour: "
 msgstr "この１時間の気温："
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:184
 msgid "Temperature"
 msgstr "気温"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "気温%s(%s最高%s/%s最低%s) "
 
-#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "Facebook に一時的に接続できなくなっています。後で再度試して下さい。"
 
@@ -2885,7 +2954,7 @@ msgstr "Twitter への接続が一時的にできません。後で再度実行�
 msgid "Thai (TIS-620)"
 msgstr "タイ語 (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:78
+#: lib/Prefs/Special/Activesync.php:96
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "端末 ID %s へのワイプは取り消されました。"
@@ -2913,7 +2982,7 @@ msgstr "この ID でデフォルトで使用するメールアドレス："
 msgid "The lock has been removed."
 msgstr "ロックは削除されました。"
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2921,7 +2990,7 @@ msgstr ""
 "メンバー用サービスに接続できませんでした。後で再度試すか、別のメンバーで試し"
 "て下さい。"
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2929,15 +2998,15 @@ msgstr ""
 "メンバー用サービスは使用できませんでした。後で再度試すか、別のメンバーで試し"
 "て下さい。"
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "指定された国コードは無効です。"
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "このサービスは現在使用できません。後で再度試して下さい。"
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "このサービスは現在混んでいます。後で再度試して下さい。"
 
@@ -2951,7 +3020,7 @@ msgstr "\"%s\" へのサインアップ要求は削除されました。"
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "ユーザ \"%s\" へのサインアップ要求は削除されました。"
 
-#: lib/Prefs/Special/Activesync.php:93
+#: lib/Prefs/Special/Activesync.php:111
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -2973,7 +3042,7 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "ユーザ　\"%s\" は既に存在します。"
 
-#: services/shares/edit.php:91 services/shares/edit.php:176
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "\"%s\" というユーザは存在しません。"
@@ -2998,12 +3067,12 @@ msgstr "\"%s\" をシステムから削除中に問題が発生しました:"
 msgid "There was a problem updating \"%s\": %s"
 msgstr "\"%s\" を更新中に問題が発生しました: %s"
 
-#: lib/Prefs/Special/Activesync.php:96
+#: lib/Prefs/Special/Activesync.php:114
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "ActiveSync サーバへの通信でエラーがありました： %s"
 
-#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr "Twitter への接続時にエラーが起きました： %s"
@@ -3015,13 +3084,13 @@ msgid ""
 msgstr ""
 "設定フォーム中にエラーがありました。たぶん、必須項目が空白だったのでしょう。"
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "リクエスト作成中にエラーが発生しました：%s"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
@@ -3034,23 +3103,31 @@ msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr "共通データ %s の削除中にエラーが発生しました。詳細は記録されています。"
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
 msgstr "あなたの要求はエラーが発生しました"
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr "この VAT（付加価値税）登録番号は無効です。"
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr "この VAT（付加価値税）登録番号は正しい。"
 
-#: config/registry.php:223
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr "この結果、全ての端末の全項目が再同期されます。"
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr "この結果、あなたの端末の全ての項目が再同期されます。"
+
+#: config/registry.php:225
 msgid "Tickets"
 msgstr "チケット"
 
-#: config/registry.php:269
+#: config/registry.php:271
 msgid "Time Tracking"
 msgstr "経過追跡"
 
@@ -3086,15 +3163,15 @@ msgstr ""
 "複数の項目を選択するには、PCでは Control キイ、Macなら Command キイを押しなが"
 "らクリックします。"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:288
 msgid "Today"
 msgstr "今日"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:290
 msgid "Tomorrow"
 msgstr "明日"
 
-#: config/prefs.php:755
+#: config/prefs.php:762
 msgid "Top"
 msgstr "最も上"
 
@@ -3110,7 +3187,7 @@ msgstr "トルコ語 (ISO-8859-9)"
 msgid "Tweet"
 msgstr "ツイート"
 
-#: config/prefs.php:668
+#: config/prefs.php:670
 msgid "Twitter Integration"
 msgstr "Twitter 統合"
 
@@ -3123,6 +3200,10 @@ msgstr "Twitter タイムライン"
 msgid "Twitter Timeline for %s"
 msgstr "%s の Twitter タイムライン"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "Twitter は許可されていません。"
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3132,19 +3213,27 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s."
 msgstr "\"%s\"を削除できません: %s."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:138
 msgid "Unable to set like."
 msgstr "いいね！にできません。"
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "要求トークンの検証ができません。もう一度試して下さい。"
+
+#: templates/activesync/device_table.html.php:40
+msgid "Unblock"
+msgstr "アンブロック"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "変更を取り消す"
 
-#: templates/prefs/category.html.php:19
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "嫌い"
+
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "未整理"
 
@@ -3152,7 +3241,7 @@ msgstr "未整理"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:80
 msgid "Units"
 msgstr "単位"
 
@@ -3164,7 +3253,11 @@ msgstr "不明"
 msgid "Unlock"
 msgstr "アンロック"
 
-#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
+#: lib/Api.php:728 lib/Api.php:789
+msgid "Unsupported action."
+msgstr "サポートされていない動作です。"
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "更新"
 
@@ -3173,7 +3266,7 @@ msgstr "更新"
 msgid "Update %s"
 msgstr "%s を更新する。"
 
-#: admin/config/index.php:183 admin/config/index.php:298
+#: admin/config/index.php:185 admin/config/index.php:303
 #, php-format
 msgid "Update %s schema"
 msgstr "%s のスキーマを更新"
@@ -3190,7 +3283,7 @@ msgstr "全ての設定を更新"
 msgid "Update user"
 msgstr "ユーザを更新する"
 
-#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" を更新しました。"
@@ -3200,26 +3293,31 @@ msgstr "\"%s\" を更新しました。"
 msgid "Updated schema for %s."
 msgstr "%s のスキーマを更新しました。"
 
-#: admin/config/index.php:395
+#: admin/config/index.php:412
 msgid "Upload"
 msgstr "アップロード"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:420
 msgid "Uploaded all application configuration files to the server."
 msgstr "全てのアプリケーションの設定ファイルをサーバにアップロードしました。"
 
-#: config/prefs.php:695
+#: config/prefs.php:697
 msgid "Use if name/password is different for IMSP server."
 msgstr "IMSP サーバのユーザ名／パスワードが異なる場合に使用します。"
 
+#: templates/activesync/device_table.html.php:3
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
-#: templates/admin/locks/list.html.php:12
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "ユーザ"
 
 #: admin/user.php:240
 msgid "User Administration"
 msgstr "ユーザ管理"
+
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "ユーザエージェント"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3241,13 +3339,13 @@ msgstr "このサイトではユーザ登録が正しく設定されていませ
 msgid "User account not found"
 msgstr "ユーザーアカウントがありません。。"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "追加するユーザ："
 
-#: login.php:206 admin/config/index.php:396 admin/user.php:36
+#: login.php:186 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:23
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "ユーザ名"
 
@@ -3267,15 +3365,19 @@ msgstr "VAT（付加価値税）登録番号の確認"
 msgid "VAT identification number:"
 msgstr "VAT（付加価値税）登録番号"
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
 msgstr "VAT（付加価値税）番号"
 
-#: templates/admin/config/index.html.php:43
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "バージョン"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "バージョンの確認"
 
-#: config/registry.php:212
+#: config/registry.php:214
 msgid "Version Control"
 msgstr "バージョン管理"
 
@@ -3287,7 +3389,7 @@ msgstr "ベトナム語 (VISCII)"
 msgid "View an external web page"
 msgstr "外部の web ページを表示"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:232
 msgid "Visibility"
 msgstr "視界"
 
@@ -3295,15 +3397,19 @@ msgstr "視界"
 msgid "Warning"
 msgstr "警告"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:39
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "警告：Caps Lockがオンです！"
+
+#: lib/Block/Weather.php:62
 msgid "Weather"
 msgstr "天気"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:348 lib/Block/Weather.php:356
 msgid "Weather data provided by"
 msgstr "気象データの提供は"
 
-#: config/registry.php:329
+#: config/registry.php:331
 msgid "Web Site"
 msgstr "Web サイト"
 
@@ -3333,7 +3439,7 @@ msgstr "Western (ISO-8859-15)"
 msgid "What application should %s display after login?"
 msgstr "%sログイン後どのアプリケーションを表示しますか？"
 
-#: lib/Block/TwitterTimeline.php:107
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr "今何してる？"
 
@@ -3353,7 +3459,7 @@ msgstr "どちらを週の始めの日として表示しますか？"
 msgid "Which phases"
 msgstr "どちらの相"
 
-#: config/prefs.php:608
+#: config/prefs.php:609
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "左に表示する %s メニューの幅："
@@ -3362,11 +3468,11 @@ msgstr "左に表示する %s メニューの幅："
 msgid "Wifi"
 msgstr "WiFi"
 
-#: config/registry.php:200
+#: config/registry.php:202
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:271
 msgid "Wind"
 msgstr "風"
 
@@ -3378,16 +3484,14 @@ msgstr "風速（ノット）"
 msgid "Wind:"
 msgstr "風："
 
-#: admin/activesync.php:182 templates/prefs/activesync.html.php:29
+#: templates/activesync/device_table.html.php:32
+#: templates/prefs/activesync.html.php:37
 msgid "Wipe"
 msgstr "ワイプ"
 
-#: templates/prefs/activesync.html.php:32
+#: templates/activesync/device_table.html.php:12
+#: templates/prefs/activesync.html.php:40
 msgid "Wipe Pending"
-msgstr "初期化は保留中"
-
-#: admin/activesync.php:163
-msgid "Wipe is pending"
 msgstr "ワイプは保留中"
 
 #: lib/Block/Fortune.php:71
@@ -3402,7 +3506,7 @@ msgstr "with"
 msgid "Work"
 msgstr "仕事"
 
-#: config/registry.php:235
+#: config/registry.php:237
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3418,7 +3522,8 @@ msgstr "年"
 msgid "Yes, I Agree"
 msgstr "同意します"
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3468,7 +3573,7 @@ msgstr "グループのユーザ一覧を取得することは許可されてい
 msgid "You are not allowed to list users of shares."
 msgstr "共有のユーザ一覧を取得することは許可されていません。"
 
-#: lib/Block/FbStream.php:106
+#: lib/Block/FbStream.php:107
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
@@ -3477,8 +3582,8 @@ msgstr ""
 "あなたは Facebook アカウントへ接続していません。%s で Facebook の設定を確認し"
 "て下さい。"
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "%s で Facebook の設定が確認できます。"
@@ -3490,15 +3595,15 @@ msgid ""
 msgstr ""
 "あなたはサービス同意条項に合意していませんので、ログインは許可されません。"
 
-#: login.php:312
+#: login.php:292
 msgid "You have been logged out."
 msgstr "あなたはログアウトしました。"
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "あなたの要求は拒否されました。"
 
-#: lib/Block/TwitterTimeline.php:160
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3507,8 +3612,9 @@ msgstr ""
 "Horde 経由での Twitter アカウントへの接続が正しくありません。%s で Twitter の"
 "設定を確認して下さい。"
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 msgid "You like this"
 msgstr "いいね！"
 
@@ -3541,7 +3647,7 @@ msgstr "電子メールアドレス"
 msgid "Your Information"
 msgstr "あなたの情報"
 
-#: login.php:300
+#: login.php:280
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3570,7 +3676,7 @@ msgstr ""
 "この認証バックエンドでは、ユーザの一覧がサポートされていないか、あるいは何ら"
 "かの理由でこの機能が無効になっています。"
 
-#: login.php:304
+#: login.php:284
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3578,7 +3684,7 @@ msgstr ""
 "セッションの間にあなたのブラウザが変更されたようです。セキュリティー保護のた"
 "めにログインし直すべきです。"
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "お使いのブラウザはこの機能をサポートしていません。"
 
@@ -3590,7 +3696,7 @@ msgstr "あなたのタイムゾーン："
 msgid "Your full name:"
 msgstr "あなたの氏名"
 
-#: login.php:324
+#: login.php:304
 msgid "Your login has expired."
 msgstr "ログインは期限切れです。"
 
@@ -3631,15 +3737,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "パスワードが期限切れです"
 
-#: login.php:185
+#: login.php:165
 msgid "Your password has expired."
 msgstr "パスワードが期限切れです。"
 
-#: login.php:296
+#: login.php:276
 msgid "Your session has expired. Please login again."
 msgstr "セッションの有効期限が切れました。ログインし直してください。"
 
-#: login.php:308
+#: login.php:288
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3695,7 +3801,7 @@ msgstr "無風"
 msgid "from the %s (%s) at %s %s"
 msgstr "from the %s (%s) at %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:221 lib/Block/Weather.php:331
 msgid "gusting"
 msgstr "突風"
 
@@ -3703,11 +3809,11 @@ msgstr "突風"
 msgid "inline"
 msgstr "インライン"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
-msgstr "設定"
+msgstr "個人設定"
 
 #: admin/config/config.php:75
 msgid "show differences"
@@ -3721,6 +3827,6 @@ msgstr "確認のためパスワード2度入力して下さい"
 msgid "unified"
 msgstr "ユニファイド"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "天気"

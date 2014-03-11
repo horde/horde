@@ -1,14 +1,14 @@
 # Japanese translation for Nag
-# Copyright 2005-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2005-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Nag package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H5 (4.0.1-git)\n"
+"Project-Id-Version: Nag H5 (4.1.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-03 23:40+0200\n"
-"PO-Revision-Date: 2013-06-12 15:55+0900\n"
+"POT-Creation-Date: 2014-03-10 15:14+0900\n"
+"PO-Revision-Date: 2014-03-10 15:45+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
-#: templates/view/task.inc:52
+#: templates/view/task.inc:57
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr "（サブタスクを含めて %s）"
@@ -63,22 +63,22 @@ msgstr "%d 分"
 msgid "%d minutes"
 msgstr "%d 分"
 
-#: lib/Ui/VarRenderer/Nag.php:217
+#: lib/Ui/VarRenderer/Nag.php:380
 #, php-format
 msgid "%s %s days of %s"
 msgstr "%1$s が %3$s から %2$s 日以内"
 
-#: lib/Nag.php:735
+#: lib/Nag.php:738
 #, php-format
 msgid "%s at %s"
 msgstr "%s %s"
 
-#: lib/Block/Summary.php:122 lib/Nag.php:910
+#: lib/Block/Summary.php:122 lib/Nag.php:913
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s の期日はあと %s です"
 
-#: lib/Block/Summary.php:119 lib/Nag.php:908
+#: lib/Block/Summary.php:119 lib/Nag.php:911
 #, php-format
 msgid "%s is due now."
 msgstr "%s の期日です。"
@@ -98,13 +98,17 @@ msgstr "%s は未だ完了していません。"
 msgid "%s successfully imported"
 msgstr "%s は正常にインポートされました"
 
-#: lib/Form/Task.php:42 lib/Nag.php:686
+#: lib/Form/Task.php:42 lib/Nag.php:689
 msgid "(highest)"
 msgstr "（最高）"
 
-#: lib/Form/Task.php:46 lib/Nag.php:686
+#: lib/Form/Task.php:46 lib/Nag.php:689
 msgid "(lowest)"
 msgstr "（最低）"
+
+#: lib/Form/Type/NagRecurrence.php:133
+msgid "A due date is necessary to enable recurrences."
+msgstr "繰り返しを有効にするには期日を設定する必要があります。"
 
 #: lib/Form/Type/NagAlarm.php:30
 msgid "A due date must be set to enable alarms."
@@ -114,7 +118,7 @@ msgstr "アラームを有効にするには期日を設定する必要があり
 msgid "Access denied completing this task."
 msgstr "タスクの完了はアクセス拒否されました。"
 
-#: app/controllers/SaveTask.php:30
+#: app/controllers/SaveTask.php:34
 msgid "Access denied deleting task"
 msgstr "タスク削除はアクセス拒否されました"
 
@@ -122,33 +126,33 @@ msgstr "タスク削除はアクセス拒否されました"
 msgid "Access denied deleting task."
 msgstr "タスク削除はアクセス拒否されました。"
 
-#: app/controllers/SaveTask.php:26
+#: app/controllers/SaveTask.php:30
 #, php-format
 msgid "Access denied deleting task: %s"
 msgstr "タスクの削除はアクセス拒否されました：%s"
 
-#: task.php:93 task.php:99
+#: task.php:96 task.php:102
 msgid "Access denied editing task."
 msgstr "タスク %s の編集がアクセス拒否されました。"
 
-#: task.php:90
+#: task.php:93
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr "タスクの編集がアクセス拒否されました：%s"
 
-#: lib/Driver.php:264
+#: lib/Driver.php:263
 msgid "Access denied moving the task to this task list."
 msgstr "タスクのこのタスク表への移動はアクセス拒否されました。"
 
-#: lib/Driver.php:252
+#: lib/Driver.php:251
 msgid "Access denied removing task from this task list."
 msgstr "タスクのこのタスク表からの削除はアクセス拒否されました。"
 
-#: app/controllers/SaveTask.php:57
+#: app/controllers/SaveTask.php:61
 msgid "Access denied saving task to this task list."
 msgstr "タスクのこのタスク表への保存はアクセス拒否されました。"
 
-#: app/controllers/SaveTask.php:53
+#: app/controllers/SaveTask.php:57
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr "タスクの保存がアクセス拒否されました：%s"
@@ -159,7 +163,7 @@ msgid "Added %d task"
 msgid_plural "Added %d tasks"
 msgstr[0] "%d のタスクを追加"
 
-#: data.php:51 lib/Form/Task.php:120 templates/view/task.inc:43
+#: data.php:51 lib/Form/Task.php:121 templates/view/task.inc:48
 msgid "Alarm"
 msgstr "アラーム"
 
@@ -171,7 +175,7 @@ msgstr "全て"
 msgid "All Tasks"
 msgstr "全タスク"
 
-#: lib/LoginTasks/Task/PurgeCompleted.php:80
+#: lib/LoginTasks/Task/PurgeCompleted.php:81
 #, php-format
 msgid "All completed tasks older than %d days will be permanently deleted."
 msgstr "%d 日以前の完了済みタスクは全て完全に削除されます。"
@@ -205,8 +209,8 @@ msgid "Ascending"
 msgstr "昇順"
 
 #: config/prefs.php:67 config/prefs.php:86 config/prefs.php:103 data.php:49
-#: lib/Form/Task.php:111 templates/list/task_headers.html.php:37
-#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:25
+#: lib/Form/Task.php:112 templates/list/task_headers.html.php:37
+#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:30
 msgid "Assignee"
 msgstr "担当者"
 
@@ -218,20 +222,20 @@ msgstr "ブロックのタイトル"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Form/EditTaskList.php:115
+#: lib/Form/EditTaskList.php:116
 msgid "CalDAV Account URL"
 msgstr "CalDAV アカウント URL"
 
-#: lib/Form/EditTaskList.php:105
+#: lib/Form/EditTaskList.php:107
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV 登録 URL"
 
-#: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
+#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:421
 msgid "Calendar"
 msgstr "予定表"
 
 #: lib/Form/DeleteTaskList.php:43 lib/Form/DeleteTaskList.php:49
-#: lib/Form/EditTaskList.php:161 lib/Form/EditTaskList.php:180
+#: lib/Form/EditTaskList.php:164 lib/Form/EditTaskList.php:183
 #: templates/quick.inc:9 templates/smartmobile/taskform.html.php:62
 msgid "Cancel"
 msgstr "取り消し"
@@ -240,7 +244,7 @@ msgstr "取り消し"
 msgid "Cannot add tasks to smart lists."
 msgstr "スマートリストにタスクを追加できません。"
 
-#: lib/Form/EditTaskList.php:147
+#: lib/Form/EditTaskList.php:150
 msgid "Change Permissions"
 msgstr "アクセス権変更"
 
@@ -248,61 +252,61 @@ msgstr "アクセス権変更"
 msgid "Change your task sorting and display preferences."
 msgstr "タスクの並び順と表示設定を変更します。"
 
-#: lib/Nag.php:1102
+#: lib/Nag.php:1105
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr "アラームを %s から %s へ変更しました"
 
-#: lib/Nag.php:1081
+#: lib/Nag.php:1084
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr "担当者を \"%s\" から \"%s\" へ変更しました"
 
-#: lib/Nag.php:1117
+#: lib/Nag.php:1120
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr "終了を %s から %s へ変更しました"
 
-#: lib/Nag.php:1122
+#: lib/Nag.php:1125
 msgid "Changed description"
 msgstr "説明を変更しました"
 
-#: lib/Nag.php:1090
+#: lib/Nag.php:1093
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr "期日を %s から %s へ変更しました"
 
-#: lib/Nag.php:1112
+#: lib/Nag.php:1115
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr "見積もりを %s から %s へ変更しました"
 
-#: lib/Nag.php:1049
+#: lib/Nag.php:1052
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr "名前を \"%s\" から \"%s\" へ変更しました"
 
-#: lib/Nag.php:1063
+#: lib/Nag.php:1066
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr "親タスクを \"%s\" から \"%s\" へ変更しました"
 
-#: lib/Nag.php:1107
+#: lib/Nag.php:1110
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr "優先度を %s から %s へ変更しました"
 
-#: lib/Nag.php:1096
+#: lib/Nag.php:1099
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr "開始日時を %s から %s へ変更しました"
 
-#: lib/Nag.php:1055
+#: lib/Nag.php:1058
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr "タスク表 \"%s\" は \"%s\" に変更されました。"
 
-#: lib/Nag.php:1046
+#: lib/Nag.php:1049
 msgid "Changes made for this task:"
 msgstr "このタスクの変更履歴："
 
@@ -353,7 +357,7 @@ msgstr "完了 \"%s\""
 msgid "Complete tasks"
 msgstr "完了タスク"
 
-#: lib/Block/Summary.php:187 lib/Form/Search.php:54 lib/Nag.php:750
+#: lib/Block/Summary.php:187 lib/Form/Search.php:54 lib/Nag.php:753
 #: templates/smartmobile/taskform.html.php:55
 msgid "Completed"
 msgstr "完了"
@@ -371,8 +375,8 @@ msgstr "親タスクは完了していますので、先ずそれを未完にし
 msgid "Completed tasks"
 msgstr "完了タスク"
 
-#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:130
-#: templates/list/task_headers.html.php:4 templates/view/task.inc:55
+#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:132
+#: templates/list/task_headers.html.php:4 templates/view/task.inc:60
 msgid "Completed?"
 msgstr "完了？"
 
@@ -384,20 +388,20 @@ msgstr "完了日時"
 msgid "Completion Status"
 msgstr "完了状況"
 
-#: lib/Api.php:626
+#: lib/Api.php:628
 #, php-format
 msgid "Connection failed: %s"
 msgstr "接続失敗：%s"
 
-#: lib/Form/EditTaskList.php:119
+#: lib/Form/EditTaskList.php:120
 msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
 msgstr "全てのタスク表をCalDAVクライアントに登録するなら、このURLを使用"
 
-#: lib/Form/EditTaskList.php:109
+#: lib/Form/EditTaskList.php:111
 msgid "Copy this URL to a CalDAV client to subscribe to this task list"
 msgstr "このタスク表をCalDAVクライアントに登録するなら、このURLを使用"
 
-#: lib/Form/EditTaskList.php:133
+#: lib/Form/EditTaskList.php:136
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
 msgstr "このタスク表をWebDAVやICSクライアントに登録するなら、このURLを使用"
 
@@ -405,19 +409,27 @@ msgstr "このタスク表をWebDAVやICSクライアントに登録するなら
 msgid "Create"
 msgstr "作成"
 
+#: templates/view/task.inc:10
+msgid "Create Subtask"
+msgstr "サブタスク作成"
+
 #: lib/Form/CreateTaskList.php:21
 msgid "Create Task List"
 msgstr "タスク表作成"
 
-#: lib/Application.php:145
+#: lib/Application.php:146
 msgid "Create a new Task List"
 msgstr "タスク表の新規作成"
 
-#: templates/view/task.inc:66
+#: templates/view/task.inc:71
 msgid "Created"
 msgstr "作成日時"
 
-#: lib/Ui/VarRenderer/Nag.php:75 lib/Ui/VarRenderer/Nag.php:124
+#: lib/Ui/VarRenderer/Nag.php:207
+msgid "Daily: Recurs every"
+msgstr "毎日：繰り返し"
+
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:411
 msgid "Date"
 msgstr "日付"
 
@@ -429,7 +441,7 @@ msgstr "日付と時間："
 msgid "Date:"
 msgstr "日付："
 
-#: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:43
 msgid "Day(s)"
 msgstr "日"
 
@@ -441,12 +453,12 @@ msgstr "デフォルトのタスク表"
 msgid "Defaults for new tasks"
 msgstr "新らしいタスクのデフォルト"
 
-#: lib/Form/Task.php:118
+#: lib/Form/Task.php:119
 msgid "Delay Start Until"
 msgstr "開始を遅らせる"
 
-#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:160
-#: lib/Form/EditTaskList.php:175 lib/Form/Task.php:142
+#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:163
+#: lib/Form/EditTaskList.php:178 lib/Form/Task.php:144
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "削除"
@@ -473,7 +485,7 @@ msgstr "%s を削除しました。"
 msgid "Deleting Tasks"
 msgstr "タスクの削除"
 
-#: lib/Api.php:605
+#: lib/Api.php:607
 msgid "Deleting entire tasklists is not supported."
 msgstr "タスク表全体の削除はサポートされていません。"
 
@@ -482,7 +494,7 @@ msgid "Descending"
 msgstr "降順"
 
 #: data.php:48 lib/Form/CreateTaskList.php:31 lib/Form/EditTaskList.php:69
-#: lib/Form/Search.php:39 lib/Form/Task.php:138
+#: lib/Form/Search.php:39 lib/Form/Task.php:140
 #: templates/smartmobile/taskform.html.php:14
 msgid "Description"
 msgstr "説明"
@@ -493,7 +505,7 @@ msgstr "説明："
 
 #: config/prefs.php:13
 msgid "Display Preferences"
-msgstr "表示設定"
+msgstr "表示の個人設定"
 
 #: lib/Form/EditTaskList.php:75
 msgid "Display URL"
@@ -508,7 +520,7 @@ msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
 msgstr "タスクを追加、変更、削除した時、自分には通知しないようにする？"
 
-#: data.php:50 lib/Form/Task.php:116 templates/view/task.inc:39
+#: data.php:50 lib/Form/Task.php:117 templates/view/task.inc:44
 msgid "Due By"
 msgstr "期日"
 
@@ -517,7 +529,7 @@ msgstr "期日"
 msgid "Due Date"
 msgstr "期日"
 
-#: lib/Ui/VarRenderer/Nag.php:123
+#: lib/Ui/VarRenderer/Nag.php:110
 msgid "Due date specified."
 msgstr "期日が指定されました。"
 
@@ -525,7 +537,7 @@ msgstr "期日が指定されました。"
 msgid "Due date:"
 msgstr "期日："
 
-#: lib/Ui/VarRenderer/Nag.php:221
+#: lib/Ui/VarRenderer/Nag.php:384
 msgid "E.g., Is due within 2 days of today"
 msgstr "例えば、期日が今日から２日以内"
 
@@ -547,7 +559,7 @@ msgstr "タスク編集"
 msgid "Edit criteria"
 msgstr "条件を編集"
 
-#: app/controllers/SaveTask.php:12 task.php:106
+#: app/controllers/SaveTask.php:12 task.php:109
 #, php-format
 msgid "Edit: %s"
 msgstr "編集：%s"
@@ -567,7 +579,7 @@ msgstr ""
 "１行に１つのタスクを入力。インデントでその上の子タスクとすることができます。"
 "期日を指定することもできます（ただし、英語表記のみ）。"
 
-#: app/controllers/SaveTask.php:39 task.php:39
+#: app/controllers/SaveTask.php:43 task.php:39
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "タスクの削除がアクセス拒否されました：%s"
@@ -577,8 +589,8 @@ msgid "Estimate"
 msgstr "見積もり"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
-#: lib/Form/Task.php:129 templates/list/task_headers.html.php:33
-#: templates/view/task.inc:51
+#: lib/Form/Task.php:131 templates/list/task_headers.html.php:33
+#: templates/view/task.inc:56
 msgid "Estimated Time"
 msgstr "見積もり時間"
 
@@ -594,6 +606,10 @@ msgstr "タスクのエクスポート"
 msgid "External Data"
 msgstr "外部データ"
 
+#: lib/Ui/VarRenderer/Nag.php:246
+msgid "Fr"
+msgstr "金"
+
 #: config/prefs.php:227 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "今後のタスク"
@@ -606,7 +622,7 @@ msgstr "共通の個人設定"
 msgid "Highest"
 msgstr "最高"
 
-#: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:42
 msgid "Hour(s)"
 msgstr "時間"
 
@@ -619,7 +635,7 @@ msgstr "タスクのインポート、ステップ %d"
 msgid "Import/Export Tasks"
 msgstr "インポート／エクスポート タスク"
 
-#: lib/View/List.php:97
+#: lib/View/List.php:104
 msgid "Incom_plete tasks"
 msgstr "_P未完タスク"
 
@@ -635,23 +651,23 @@ msgstr "子タスクが未完ですので、先ず完了させて下さい"
 msgid "Incomplete tasks"
 msgstr "未完タスク"
 
-#: lib/Api.php:336
+#: lib/Api.php:338
 msgid "Invalid tasklist file requested."
 msgstr "無効なタスク表ファイルが要求されました。"
 
-#: lib/Api.php:470
+#: lib/Api.php:472
 msgid "Invalid tasklist name supplied."
 msgstr "無効なタスク表名が指定されました。"
 
-#: lib/Api.php:352
+#: lib/Api.php:354
 msgid "Invalid tasklist requested."
 msgstr "無効なタスク表が要求されました。"
 
-#: lib/Ui/VarRenderer/Nag.php:218
+#: lib/Ui/VarRenderer/Nag.php:381
 msgid "Is due within"
 msgstr "期日"
 
-#: templates/view/task.inc:73
+#: templates/view/task.inc:78
 msgid "Last Modified"
 msgstr "最終更新日時"
 
@@ -660,7 +676,7 @@ msgstr "最終更新日時"
 msgid "Lists"
 msgstr "一覧"
 
-#: lib/Ui/VarRenderer/Nag.php:205
+#: lib/Ui/VarRenderer/Nag.php:438
 msgid "Loading..."
 msgstr "ロード中 ..."
 
@@ -673,41 +689,49 @@ msgstr "最低"
 msgid "Mark \"%s\" as incomplete"
 msgstr "\"%s\" を未完とする"
 
-#: lib/Application.php:73
+#: lib/Application.php:74
 msgid "Maximum Number of Tasks"
 msgstr "タスクの最大数"
 
-#: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:791 lib/Ui/VarRenderer/Nag.php:42
 msgid "Minute(s)"
 msgstr "分"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:82
+#: lib/Ajax/Application/Handler/Smartmobile.php:81
 msgid "Missing required task id"
 msgstr "必要なタスクIDがありません"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:86
+#: lib/Ajax/Application/Handler/Smartmobile.php:85
 msgid "Missing required tasklist"
 msgstr "必要なタスク表がありません"
 
-#: lib/Nag.php:604
+#: lib/Nag.php:607
 msgid "Missing valid search criteria"
 msgstr "有効な検索条件がありません"
+
+#: lib/Ui/VarRenderer/Nag.php:234
+msgid "Mo"
+msgstr "月"
+
+#: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
+msgid "Monthly: Recurs every"
+msgstr "毎月：繰り返し"
 
 #: templates/list/header.html.php:11
 msgid "More Options..."
 msgstr "その他のオプション"
 
-#: lib/Api.php:1139
+#: lib/Api.php:1203
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "複数の iCalendar コンポーネントを検出しました； 一つの vTodo だけをサポートし"
 "ています。"
 
-#: lib/Application.php:138
+#: lib/Application.php:139
 msgid "My Task Lists"
 msgstr "私のタスク表"
 
-#: lib/View/List.php:67 smartmobile.php:21
+#: lib/View/List.php:74 smartmobile.php:21
 #: templates/smartmobile/main.html.php:2
 #: templates/smartmobile/taskform.html.php:2
 msgid "My Tasks"
@@ -730,8 +754,8 @@ msgstr "しない"
 msgid "New"
 msgstr "新規"
 
-#: app/controllers/SaveTask.php:12 lib/Application.php:301
-#: lib/Smartmobile.php:122 task.php:81 test/Nag/Unit/Form/Task/Base.php:72
+#: app/controllers/SaveTask.php:12 lib/Application.php:302
+#: lib/Smartmobile.php:122 task.php:84 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
 msgstr "新タスク"
@@ -744,23 +768,31 @@ msgstr "次"
 msgid "No"
 msgstr "なし"
 
-#: lib/Ui/VarRenderer/Nag.php:70
+#: lib/Ui/VarRenderer/Nag.php:408
 msgid "No delay"
 msgstr "遅延なし"
 
-#: lib/Ui/VarRenderer/Nag.php:119
+#: lib/Ui/VarRenderer/Nag.php:108
 msgid "No due date."
 msgstr "期日なし。"
 
-#: lib/Api.php:816 lib/Api.php:839 lib/Api.php:1146
+#: lib/Ui/VarRenderer/Nag.php:346
+msgid "No end date"
+msgstr "終了日付なし"
+
+#: lib/Api.php:874 lib/Api.php:903 lib/Api.php:1210
 msgid "No iCalendar data was found."
 msgstr "iCalendar のデータが見付かりません。"
 
-#: lib/Form/Task.php:71
+#: lib/Form/Task.php:72
 msgid "No parent task"
 msgstr "親タスクなし"
 
-#: lib/Nag.php:928
+#: lib/Ui/VarRenderer/Nag.php:194
+msgid "No recurrence"
+msgstr "繰り返しなし"
+
+#: lib/Nag.php:931
 msgid "No task lists are available to guests."
 msgstr "ゲストにはタスク表はありません。"
 
@@ -776,23 +808,23 @@ msgstr "一致するタスクはありません"
 msgid "No tasks to display"
 msgstr "表示するべきタスクはありません"
 
-#: lib/Form/Task.php:112 lib/Nag.php:792 lib/Ui/VarRenderer/Nag.php:179
+#: lib/Form/Task.php:113 lib/Nag.php:795 lib/Ui/VarRenderer/Nag.php:58
 msgid "None"
 msgstr "なし"
 
-#: lib/Nag.php:751
+#: lib/Nag.php:754
 msgid "Not Completed"
 msgstr "完了せず"
 
-#: templates/view/task.inc:31
+#: templates/view/task.inc:36
 msgid "Not Private"
 msgstr "私用でない"
 
-#: lib/Api.php:664
+#: lib/Api.php:666
 msgid "Not configured"
 msgstr "未設定"
 
-#: lib/Form/Task.php:123
+#: lib/Form/Task.php:124
 msgid "Notification"
 msgstr "通知"
 
@@ -820,25 +852,25 @@ msgstr "所有者"
 msgid "P_ri"
 msgstr "_R優先度"
 
-#: lib/Form/Task.php:81
+#: lib/Form/Task.php:82
 msgid "Parent task"
 msgstr "親タスク"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
-#: lib/Form/Task.php:126 templates/smartmobile/taskform.html.php:39
-#: templates/view/task.inc:47
+#: lib/Form/Task.php:127 templates/smartmobile/taskform.html.php:39
+#: templates/view/task.inc:52
 msgid "Priority"
 msgstr "優先度"
 
-#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:31
+#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:36
 msgid "Private"
 msgstr "私用"
 
-#: data.php:54 lib/Task.php:756
+#: data.php:54 lib/Task.php:751
 msgid "Private Task"
 msgstr "私的タスク"
 
-#: lib/Form/Task.php:115 templates/view/task.inc:29
+#: lib/Form/Task.php:116 templates/view/task.inc:34
 msgid "Private?"
 msgstr "私用？"
 
@@ -850,7 +882,7 @@ msgstr "完了タスクをパージする頻度："
 msgid "Purge completed tasks older than this amount of days."
 msgstr "この日数よりも古い完了タスクはパージされます。"
 
-#: lib/LoginTasks/Task/PurgeCompleted.php:65
+#: lib/LoginTasks/Task/PurgeCompleted.php:66
 #, php-format
 msgid "Purging %d completed task."
 msgid_plural "Purging %d completed tasks."
@@ -869,11 +901,19 @@ msgstr ""
 "本当にタスク表 \"%s\" を削除しますか？この操作は取り消せず、タスク表の内容は"
 "全て消去されます。"
 
-#: templates/view/task.inc:12
+#: templates/view/task.inc:13
 msgid "Really delete this task?"
 msgstr "このタスクを本当に削除しても良いですか？"
 
-#: lib/View/List.php:399
+#: lib/Ui/VarRenderer/Nag.php:344
+msgid "Recur Until"
+msgstr "終了日"
+
+#: lib/Form/Task.php:130
+msgid "Recurrence"
+msgstr "繰り返し"
+
+#: lib/View/List.php:420
 msgid "Remove from search"
 msgstr "検索から削除"
 
@@ -881,8 +921,20 @@ msgstr "検索から削除"
 msgid "Reset"
 msgstr "リセット"
 
-#: lib/Form/EditTaskList.php:159 lib/Form/EditTaskList.php:168
-#: lib/Form/Search.php:65 lib/Form/Task.php:140
+#: lib/Form/Task.php:150
+msgid "Return to Search Results"
+msgstr "検索結果に戻る"
+
+#: templates/view/task.inc:16
+msgid "Return to search results"
+msgstr "検索結果に戻る"
+
+#: lib/Ui/VarRenderer/Nag.php:249
+msgid "Sa"
+msgstr "土"
+
+#: lib/Form/EditTaskList.php:162 lib/Form/EditTaskList.php:171
+#: lib/Form/Search.php:65 lib/Form/Task.php:142
 msgid "Save"
 msgstr "保存"
 
@@ -890,7 +942,7 @@ msgstr "保存"
 msgid "Save Task"
 msgstr "タスクを保存"
 
-#: lib/Form/Task.php:145
+#: lib/Form/Task.php:147
 msgid "Save and New"
 msgstr "保存と新規"
 
@@ -898,17 +950,17 @@ msgstr "保存と新規"
 msgid "Save this search as a Smart List?"
 msgstr "この検索をスマートリストとして保存しますか？"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:193
+#: lib/Ajax/Application/Handler/Smartmobile.php:192
 #, php-format
 msgid "Saved %s"
 msgstr "%s を保存しました"
 
-#: app/controllers/SaveTask.php:91
+#: app/controllers/SaveTask.php:94
 #, php-format
 msgid "Saved %s."
 msgstr "%s を保存しました。"
 
-#: lib/Application.php:325 lib/Form/Search.php:72 search.php:17 search.php:30
+#: lib/Application.php:326 lib/Form/Search.php:72 search.php:17 search.php:30
 #: templates/list/header.html.php:6
 msgid "Search"
 msgstr "検索"
@@ -925,7 +977,7 @@ msgstr "検索文字列："
 msgid "Search:"
 msgstr "検索："
 
-#: lib/View/List.php:317
+#: lib/View/List.php:332
 #, php-format
 msgid "Search: Results for"
 msgstr "検索結果："
@@ -961,7 +1013,11 @@ msgid ""
 msgstr ""
 "外部の装置と同期を取るタスク表を選択し、必要ならデフォルトに指定します。"
 
-#: lib/Application.php:151
+#: lib/Ui/VarRenderer/Nag.php:357
+msgid "Set recurrence end date"
+msgstr "繰り返し終了日を設定"
+
+#: lib/Application.php:152
 msgid "Shared Task Lists"
 msgstr "共有タスク表"
 
@@ -1005,7 +1061,7 @@ msgstr "これらのタスク表のタスクを表示"
 msgid "Smart List Name:"
 msgstr "スマートリストの名前："
 
-#: lib/View/List.php:361
+#: lib/View/List.php:377
 msgid "Smart List deleted successfully"
 msgstr "スマートリストは正常に削除されました"
 
@@ -1026,17 +1082,25 @@ msgid "Start"
 msgstr "開始"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
-#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:35
+#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:40
 msgid "Start Date"
 msgstr "開始日時"
 
-#: lib/Ui/VarRenderer/Nag.php:74
+#: lib/Ui/VarRenderer/Nag.php:410
 msgid "Start date specified."
 msgstr "開始日時が指定されました。"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:116
+#: lib/Ui/VarRenderer/Nag.php:252
+msgid "Su"
+msgstr "日"
+
+#: lib/Ajax/Application/Handler/Smartmobile.php:115
 msgid "Successfully deleted"
 msgstr "正常に削除されました"
+
+#: config/prefs.php:328
+msgid "Support separate collections?"
+msgstr "分割したコレクションをサポートしますか？"
 
 #: config/prefs.php:41
 msgid "Synchronization Preferences"
@@ -1062,7 +1126,7 @@ msgstr ""
 msgid "Tagged with:"
 msgstr "タグの指定："
 
-#: data.php:59 lib/Form/Task.php:85
+#: data.php:59 lib/Form/Task.php:86
 msgid "Tags"
 msgstr "タグ"
 
@@ -1100,15 +1164,15 @@ msgstr "タスクノート"
 msgid "Task Note?"
 msgstr "タスクノート？"
 
-#: lib/Nag.php:1028
+#: lib/Nag.php:1031
 msgid "Task added:"
 msgstr "タスク追加："
 
-#: lib/Nag.php:1127
+#: lib/Nag.php:1130
 msgid "Task deleted:"
 msgstr "タスク削除："
 
-#: lib/Nag.php:1144
+#: lib/Nag.php:1147
 msgid "Task description:"
 msgstr "タスクの説明："
 
@@ -1117,27 +1181,31 @@ msgstr "タスクの説明："
 msgid "Task list of %s"
 msgstr "%s のタスク表"
 
-#: lib/Nag.php:1039
+#: lib/Nag.php:1042
 msgid "Task modified:"
 msgstr "タスク更新："
 
-#: task.php:97 view.php:38
+#: view.php:19 view.php:37
+msgid "Task not found"
+msgstr "タスクが見付かりません"
+
+#: task.php:100
 msgid "Task not found."
 msgstr "タスクが見付かりません。"
 
-#: app/controllers/SaveTask.php:42
+#: app/controllers/SaveTask.php:46
 msgid "Task successfully deleted"
 msgstr "タスクは正常に削除されました"
 
-#: lib/Api.php:618
+#: lib/Api.php:620
 msgid "Tasklist does not exist or no permission to delete"
 msgstr "タスク表が存在しないか削除する権利がありません"
 
-#: lib/Api.php:476
+#: lib/Api.php:478
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "タスク表が存在しないか編集する権利がありません"
 
-#: lib/Api.php:1224 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1293 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "タスク"
 
@@ -1145,10 +1213,14 @@ msgstr "タスク"
 msgid "Tasks Summary"
 msgstr "タスク概要"
 
-#: lib/Api.php:298
+#: lib/Api.php:300
 #, php-format
 msgid "Tasks from %s"
 msgstr "%s のタスク"
+
+#: lib/Ui/VarRenderer/Nag.php:243
+msgid "Th"
+msgstr "木"
 
 #: data.php:160
 #, php-format
@@ -1168,23 +1240,23 @@ msgstr "タスクのバックエンドは現在使用できません： %s"
 msgid "The current hour"
 msgstr "現在の時刻"
 
-#: lib/Nag.php:1032
+#: lib/Nag.php:1035
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr "タスク \"%s\" はタスク表 \"%s\" に追加されました。期日は：%s"
 
-#: lib/Nag.php:1033
+#: lib/Nag.php:1036
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr "タスク \"%s\" はタスク表 \"%s\" に追加されました。"
 
-#: lib/Nag.php:1131
+#: lib/Nag.php:1134
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr "タスク \"%s\" はタスク表 \"%s\" から削除されました。"
 
-#: lib/Nag.php:1042
+#: lib/Nag.php:1045
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr "タスク \"%s\" はタスク表 \"%s\" で変更されました。"
@@ -1227,7 +1299,7 @@ msgstr "%s を完了中に問題がおきました：%s"
 msgid "There was a problem deleting %s: %s"
 msgstr "%s を削除中に問題がおきました：%s"
 
-#: app/controllers/SaveTask.php:85
+#: app/controllers/SaveTask.php:89
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "タスクを保存中に問題がおきました：%s"
@@ -1242,11 +1314,11 @@ msgstr "ActiveSync サーバへの通信でエラーがありました： %s"
 msgid "There was an error importing the data: %s"
 msgstr "データをインポート中にエラーがありました：%s"
 
-#: lib/Api.php:492 lib/Api.php:808 lib/Api.php:1131 lib/Application.php:546
+#: lib/Api.php:494 lib/Api.php:866 lib/Api.php:1195 lib/Application.php:551
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar データをインポート中にエラーがありました。"
 
-#: lib/Application.php:232
+#: lib/Application.php:233
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr "%s からタスクを削除中にエラーが発生しました。詳細は記録されました。"
@@ -1255,7 +1327,7 @@ msgstr "%s からタスクを削除中にエラーが発生しました。詳細
 msgid "This file format is not supported."
 msgstr "このファイル形式はサポートされていません。"
 
-#: lib/Ui/VarRenderer/Nag.php:139
+#: lib/Ui/VarRenderer/Nag.php:130
 msgid "Time"
 msgstr "時間"
 
@@ -1267,15 +1339,19 @@ msgstr "時間："
 msgid "Title"
 msgstr "タイトル"
 
-#: lib/Nag.php:1086
+#: lib/Ui/VarRenderer/Nag.php:237
+msgid "Tu"
+msgstr "火"
+
+#: lib/Nag.php:1089
 msgid "Turned privacy off"
 msgstr "私用では無い"
 
-#: lib/Nag.php:1086
+#: lib/Nag.php:1089
 msgid "Turned privacy on"
 msgstr "私用である"
 
-#: lib/Api.php:636
+#: lib/Api.php:638
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr "タスク表 \"%s\" を削除できません：%s"
@@ -1285,7 +1361,7 @@ msgstr "タスク表 \"%s\" を削除できません：%s"
 msgid "Unable to load the definition of %s."
 msgstr "%s の定義がロードできません。"
 
-#: lib/Nag.php:611
+#: lib/Nag.php:614
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr "タスク表 \"%s\" を保存できません：%s"
@@ -1294,31 +1370,39 @@ msgstr "タスク表 \"%s\" を保存できません：%s"
 msgid "Unique ID"
 msgstr "ユニーク ID"
 
-#: lib/Api.php:572 lib/Api.php:856 lib/Api.php:980 lib/Api.php:1045
-#: lib/Api.php:1163
+#: lib/Api.php:574 lib/Api.php:920 lib/Api.php:1044 lib/Api.php:1109
+#: lib/Api.php:1227
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "サポートされていない Content-Type です：%s"
 
-#: lib/Ui/VarRenderer/Nag.php:41
+#: lib/Ui/VarRenderer/Nag.php:159
 msgid "Use custom notification method"
 msgstr "カスタムの通知方法を使用"
 
-#: lib/Ui/VarRenderer/Nag.php:35
+#: lib/Ui/VarRenderer/Nag.php:151
 msgid "Use default notification method"
 msgstr "デフォルトの通知方法を使用"
+
+#: lib/Ui/VarRenderer/Nag.php:240
+msgid "We"
+msgstr "水"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this due task."
 msgstr "タスクの期日について催促致します。"
 
-#: lib/Form/EditTaskList.php:129
+#: lib/Form/EditTaskList.php:132
 msgid "WebDAV/ICS Subscription URL"
 msgstr "WebDAV/ICS 登録 URL"
 
-#: lib/Nag.php:779 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:43
 msgid "Week(s)"
 msgstr "週"
+
+#: lib/Ui/VarRenderer/Nag.php:231
+msgid "Weekly: Recurs every"
+msgstr "毎週：繰り返し"
 
 #: config/prefs.php:161
 msgid "What do you want to be the default due time for tasks?"
@@ -1338,7 +1422,12 @@ msgstr "新タスクを作る時、デフォルトで期日付にしますか？
 msgid "Which tasklist should the tasks be added to?"
 msgstr "どのタスク表に追加しますか？"
 
-#: lib/Nag.php:595
+#: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
+#: lib/Ui/VarRenderer/Nag.php:327
+msgid "Yearly: Recurs every"
+msgstr "毎年：繰り返し"
+
+#: lib/Nag.php:598
 msgid "You are not allowed to change this task list."
 msgstr "あなたはこのタスク表を変更できません。"
 
@@ -1347,11 +1436,11 @@ msgstr "あなたはこのタスク表を変更できません。"
 msgid "You are not allowed to create more than %d tasks."
 msgstr "あなたは %d 以上のタスクを作成できません。"
 
-#: lib/Nag.php:628 tasklists/delete.php:27
+#: lib/Nag.php:631 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr "あなたはこのタスク表を削除できません。"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:107
+#: lib/Ajax/Application/Handler/Smartmobile.php:106
 msgid "You are not allowed to delete this task."
 msgstr "あなたはこのタスクの削除を許可されていません。"
 
@@ -1378,19 +1467,19 @@ msgstr ""
 "すると設定したからです。あなたは %sタスク一覧にログイン%s し、設定を変更でき"
 "ます。"
 
-#: lib/Nag.php:1029
+#: lib/Nag.php:1032
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr ""
 "あなたはあなたのタスク表にタスクが追加された時に通知することを要求しました。"
 
-#: lib/Nag.php:1129
+#: lib/Nag.php:1132
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 "あなたはあなたのタスク表からタスクが削除された時に通知することを要求しまし"
 "た。"
 
-#: lib/Nag.php:1040
+#: lib/Nag.php:1043
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 "あなたはあなたのタスク表のタスクが変更された時に通知することを要求しました。"
@@ -1404,7 +1493,7 @@ msgstr "デフォルトのタスク表："
 msgid "[none]"
 msgstr "[なし]"
 
-#: lib/View/List.php:96
+#: lib/View/List.php:103
 msgid "_All tasks"
 msgstr "_A全タスク"
 
@@ -1412,11 +1501,11 @@ msgstr "_A全タスク"
 msgid "_Complete"
 msgstr "_C完了"
 
-#: lib/View/List.php:99
+#: lib/View/List.php:106
 msgid "_Completed tasks"
 msgstr "_C完了タスク"
 
-#: templates/view/task.inc:12
+#: templates/view/task.inc:13
 msgid "_Delete"
 msgstr "_D削除"
 
@@ -1428,27 +1517,27 @@ msgstr "_D期日"
 msgid "_Edit"
 msgstr "_E編集"
 
-#: lib/View/List.php:98
+#: lib/View/List.php:105
 msgid "_Future tasks"
 msgstr "_F今後のタスク"
 
-#: lib/Application.php:95
+#: lib/Application.php:96
 msgid "_Import/Export"
 msgstr "_Iイン/アウト"
 
-#: lib/Application.php:88
+#: lib/Application.php:89
 msgid "_List Tasks"
 msgstr "_Lタスク一覧"
 
-#: lib/Application.php:114
+#: lib/Application.php:115
 msgid "_New Task"
 msgstr "_N新タスク"
 
-#: lib/Application.php:124
+#: lib/Application.php:125
 msgid "_Quick Add"
 msgstr "_Q簡易追加"
 
-#: lib/Application.php:91
+#: lib/Application.php:92
 msgid "_Search"
 msgstr "_S検索"
 
@@ -1464,33 +1553,37 @@ msgstr "_Tタスク表"
 msgid "am"
 msgstr "午前"
 
-#: lib/View/List.php:327 lib/View/List.php:336
+#: lib/View/List.php:342 lib/View/List.php:351
 msgid "and"
 msgstr "かつ"
 
-#: lib/View/List.php:340
+#: lib/View/List.php:355
 #, php-format
 msgid "and tagged with %s"
 msgstr "かつタグ %s"
 
-#: lib/Ui/VarRenderer/Nag.php:138
+#: lib/Ui/VarRenderer/Nag.php:126
 msgid "at"
 msgstr " at "
 
-#: lib/Driver/Sql.php:604 lib/Driver/Sql.php:613
+#: lib/Driver/Sql.php:616 lib/Driver/Sql.php:625
 #, php-format
 msgid "by %s"
 msgstr "%s 作"
 
-#: lib/Driver/Sql.php:606 lib/Driver/Sql.php:615
+#: lib/Driver/Sql.php:618 lib/Driver/Sql.php:627
 msgid "by me"
 msgstr "自作"
 
-#: lib/Nag.php:1118 lib/Nag.php:1119
+#: lib/Nag.php:1121 lib/Nag.php:1122
 msgid "completed"
 msgstr "完了"
 
-#: lib/View/List.php:332
+#: lib/Ui/VarRenderer/Nag.php:209
+msgid "day(s)"
+msgstr "日間"
+
+#: lib/View/List.php:347
 #, php-format
 msgid "due date within %d days of %s"
 msgstr "期日まで %d 日の %s"
@@ -1499,20 +1592,24 @@ msgstr "期日まで %d 日の %s"
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
 
-#: lib/Application.php:313
+#: lib/Application.php:314
 #, php-format
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Nag.php:1091 lib/Nag.php:1092
+#: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
+msgid "month(s)"
+msgstr "ヶ月"
+
+#: lib/Nag.php:1094 lib/Nag.php:1095
 msgid "no due date"
 msgstr "期日なし"
 
-#: lib/Nag.php:1064 lib/Nag.php:1065
+#: lib/Nag.php:1067 lib/Nag.php:1068
 msgid "no parent"
 msgstr "親タスクなし"
 
-#: lib/Nag.php:1097 lib/Nag.php:1098
+#: lib/Nag.php:1100 lib/Nag.php:1101
 msgid "no start date"
 msgstr "開始日時なし"
 
@@ -1520,26 +1617,54 @@ msgstr "開始日時なし"
 msgid "no time"
 msgstr "時間なし"
 
-#: lib/Nag.php:1118 lib/Nag.php:1119
+#: lib/Nag.php:1121 lib/Nag.php:1122
 msgid "not completed"
 msgstr "完了せず"
+
+#: lib/Ui/VarRenderer/Nag.php:269
+msgid "on the same date"
+msgstr "同じ日に"
+
+#: lib/Ui/VarRenderer/Nag.php:284
+msgid "on the same weekday"
+msgstr "同じ曜日に"
 
 #: config/prefs.php:169
 msgid "pm"
 msgstr "午後"
 
-#: lib/View/List.php:323
+#: lib/Ui/VarRenderer/Nag.php:368
+msgid "recurrences"
+msgstr "繰り返し"
+
+#: lib/View/List.php:338
 msgid "tasks"
 msgstr "タスク"
 
-#: lib/Application.php:388 templates/data/export.inc:1
+#: lib/Application.php:390 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr "tasks.csv"
 
-#: lib/Application.php:402
+#: lib/Application.php:404
 msgid "tasks.ics"
 msgstr "tasks.ics"
 
-#: lib/View/List.php:329 lib/View/List.php:338
+#: lib/Ui/VarRenderer/Nag.php:233
+msgid "week(s) on:"
+msgstr "週間："
+
+#: lib/View/List.php:344 lib/View/List.php:353
 msgid "with"
 msgstr "with"
+
+#: lib/Ui/VarRenderer/Nag.php:299
+msgid "year(s) on the same date"
+msgstr "年の同じ日時に"
+
+#: lib/Ui/VarRenderer/Nag.php:314
+msgid "year(s) on the same day of the year"
+msgstr "年の同じ日に"
+
+#: lib/Ui/VarRenderer/Nag.php:329
+msgid "year(s) on the same weekday and month of the year"
+msgstr "年の同じ月で同じ週に"
