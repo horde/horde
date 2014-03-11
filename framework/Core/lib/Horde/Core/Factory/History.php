@@ -29,7 +29,7 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        global $conf, $injector;
+        global $conf;
 
         // For BC, default to 'Sql' driver.
         $driver = empty($conf['history']['driver'])
@@ -38,13 +38,14 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
         $params = Horde::getDriverConfig('history', $driver);
 
         $history = null;
+        $user = $injector->getInstance('Horde_Registry')->getAuth();
 
         switch (Horde_String::lower($driver)) {
         case 'nosql':
             $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'history');
             if ($nosql instanceof Horde_History_Mongo) {
                 $history = new Horde_History_Mongo(
-                    $injector->getInstance('Horde_Registry')->getAuth(),
+                    $user,
                     array('mongo_db' => $nosql)
                 );
             }
@@ -53,7 +54,7 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
         case 'sql':
             try {
                 $history = new Horde_History_Sql(
-                    $injector->getInstance('Horde_Registry')->getAuth(),
+                    $user,
                     $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'history')
                 );
             } catch (Exception $e) {}
@@ -61,7 +62,7 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
         }
 
         if (is_null($history)) {
-            $history = new Horde_History_Null();
+            $history = new Horde_History_Null($user);
         } elseif ($cache = $injector->getInstance('Horde_Cache')) {
             $history->setCache($cache);
         }
