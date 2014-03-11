@@ -295,12 +295,8 @@ class Horde_ActiveSync_Imap_Message
         if (!empty($text_id) && $want_plain_text) {
             $text = $data->getBodyPart($text_id);
             if (!$data->getBodyPartDecode($text_id)) {
-                // PHP Bug 65776
-                $text_body_part->setContents(
-                    $text_body_part->replaceEOL($text, Horde_Mime_Part::RFC_EOL));
-                $text = Horde_ActiveSync_Utils::ensureUtf8($text_body_part->getContents(), $charset);
-            } else {
-                $text = Horde_ActiveSync_Utils::ensureUtf8($text_body_part->replaceEOL($text, Horde_Mime_Part::RFC_EOL), $html_charset);
+                $text_body_part->setContents($text);
+                $text = $text_body_part->getContents();
             }
 
             $text_size = !is_null($data->getBodyPartSize($text_id))
@@ -327,11 +323,8 @@ class Horde_ActiveSync_Imap_Message
         if (!empty($html_id) && $want_html_text) {
             $html = $data->getBodyPart($html_id);
             if (!$data->getBodyPartDecode($html_id)) {
-                $html_body_part->setContents(
-                    $html_body_part->replaceEOL($html, Horde_Mime_Part::RFC_EOL));
-                $html = Horde_ActiveSync_Utils::ensureUtf8($html_body_part->getContents(), $html_charset);
-            } else {
-                $html = Horde_ActiveSync_Utils::ensureUtf8($html_body_part->replaceEOL($html, Horde_Mime_Part::RFC_EOL), $html_charset);
+                $html_body_part->setContents($html);
+                $html = $html_body_part->getContents();
             }
 
             // Size of the original HTML part.
@@ -629,7 +622,7 @@ class Horde_ActiveSync_Imap_Message
      * @param array $options  Additional options:
      *   - decode: (boolean) Attempt to decode the bodypart on the remote
      *             server. If successful, sets self::$_lastBodyPartDecode to
-     *             the transfer encoding of the decoded data.
+     *             the content-type of the decoded data.
      *             DEFAULT: No
      *   - length: (integer) If set, only download this many bytes of the
      *             bodypart from the server.
