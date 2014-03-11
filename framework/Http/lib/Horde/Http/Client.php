@@ -9,6 +9,8 @@
  */
 
 /**
+ * An HTTP client.
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
@@ -17,19 +19,22 @@
 class Horde_Http_Client
 {
     /**
-     * The current HTTP request
+     * The current HTTP request.
+     *
      * @var Horde_Http_Request_Base
      */
     protected $_request;
 
     /**
-     * The previous HTTP request
+     * The previous HTTP request.
+     *
      * @var Horde_Http_Request_Base
      */
     protected $_lastRequest;
 
     /**
-     * The most recent HTTP response
+     * The most recent HTTP response.
+     *
      * @var Horde_Http_Response_Base
      */
     protected $_lastResponse;
@@ -47,24 +52,40 @@ class Horde_Http_Client
      *
      * @param array $args Any Http_Client settings to initialize in the
      *                    constructor. Available settings are:
-     *                    - client.httpMethodOverride
-     *                    - request
-     *                    - request.uri
-     *                    - request.headers
-     *                    - request.method
-     *                    - request.data
-     *                    - request.username
-     *                    - request.password
-     *                    - request.authenticationScheme
-     *                    - request.proxyServer
-     *                    - request.proxyPort
-     *                    - request.proxyType
-     *                    - request.proxyUsername
-     *                    - request.proxyPassword
-     *                    - request.proxyAuthenticationScheme
-     *                    - request.redirects
-     *                    - request.timeout
-     *                    - request.verifyPeer
+     *                    - client.httpMethodOverride: (boolean) @see
+     *                      $_httpMethodOverride
+     *                    - request: (array) See below for possible hash keys.
+     *                    - request.uri (string) Default URI if not specified
+     *                      for individual requests.
+     *                    - request.headers: (array) Hash with additional
+     *                      request headers.
+     *                    - request.method: (string) Default request method if
+     *                      not specified for individual requests.
+     *                    - request.data: (array|string) POST data fields or
+     *                      POST/PUT data body.
+     *                    - request.username: (string) Authentication user name.
+     *                    - request.password: (string) Authentication password.
+     *                    - request.authenticationScheme: (string)
+     *                      Authentication method, one of the
+     *                      Horde_Http::AUTH_* constants.
+     *                    - request.proxyServer: (string) Host name of a proxy
+     *                      server.
+     *                    - request.proxyPort: (integer) Port number of a proxy
+     *                      server.
+     *                    - request.proxyType: (integer) Proxy server type, one
+     *                      of the Horde_Http::PROXY_* constants.
+     *                    - request.proxyUsername: (string) Proxy authentication
+     *                      user name.
+     *                    - request.proxyPassword: (string) Proxy authentication
+     *                      password.
+     *                    - request.proxyAuthenticationScheme: (string) Proxy
+     *                      authentication method, one of the
+     *                      Horde_Http::AUTH_* constants.
+     *                    - request.redirects: (integer) Maximum number of
+     *                      redirects to follow.
+     *                    - request.timeout: (integer) Timeout in seconds.
+     *                    - request.verifyPeer: (boolean) Verify SSL peer
+     *                      certificates?
      */
     public function __construct($args = array())
     {
@@ -83,7 +104,10 @@ class Horde_Http_Client
     }
 
     /**
-     * Send a GET request
+     * Sends a GET request.
+     *
+     * @param string $uri     Request URI.
+     * @param array $headers  Additional request headers.
      *
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
@@ -94,7 +118,11 @@ class Horde_Http_Client
     }
 
     /**
-     * Send a POST request
+     * Sends a POST request.
+     *
+     * @param string $uri         Request URI.
+     * @param array|string $data  Data fields or data body.
+     * @param array $headers      Additional request headers.
      *
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
@@ -105,7 +133,11 @@ class Horde_Http_Client
     }
 
     /**
-     * Send a PUT request
+     * Sends a PUT request.
+     *
+     * @param string $uri     Request URI.
+     * @param string $data    Data body.
+     * @param array $headers  Additional request headers.
      *
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
@@ -121,7 +153,10 @@ class Horde_Http_Client
     }
 
     /**
-     * Send a DELETE request
+     * Sends a DELETE request.
+     *
+     * @param string $uri     Request URI.
+     * @param array $headers  Additional request headers.
      *
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
@@ -137,11 +172,13 @@ class Horde_Http_Client
     }
 
     /**
-     * Send a HEAD request
-     * @TODO
+     * Sends a HEAD request.
+     *
+     * @param string $uri     Request URI.
+     * @param array $headers  Additional request headers.
      *
      * @throws Horde_Http_Exception
-     * @return  ? Probably just the status
+     * @return Horde_Http_Response_Base
      */
     public function head($uri = null, $headers = array())
     {
@@ -149,7 +186,7 @@ class Horde_Http_Client
     }
 
     /**
-     * Send an HTTP request
+     * Sends an HTTP request.
      *
      * @param string $method  HTTP request method (GET, PUT, etc.)
      * @param string $uri     URI to request, if different from $this->uri
@@ -179,14 +216,16 @@ class Horde_Http_Client
 
         $this->_lastRequest = $this->_request;
         $this->_lastResponse = $this->_request->send();
+
         return $this->_lastResponse;
     }
 
     /**
-     * Get a client parameter
+     * Returns a client parameter.
      *
-     * @param string $name  The parameter to get.
-     * @return mixed        Parameter value.
+     * @param string $name  The parameter to return.
+     *
+     * @return mixed  The parameter value.
      */
     public function __get($name)
     {
@@ -194,10 +233,10 @@ class Horde_Http_Client
     }
 
     /**
-     * Set a client parameter
+     * Sets a client parameter.
      *
-     * @param string $name   The parameter to set.
-     * @param mixed  $value  Parameter value.
+     * @param string $name  The parameter to set.
+     * @param mixed $value  The parameter value.
      */
     public function __set($name, $value)
     {
