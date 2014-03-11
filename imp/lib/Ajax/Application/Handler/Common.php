@@ -602,7 +602,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         if ($indices = $imp_compose->getMetadata('indices')) {
             /* Update maillog information. */
-            $this->_base->queue->maillog($indices, $imp_compose->getMetadata('in_reply_to'));
+            $this->_base->queue->maillog($indices);
         }
 
         $imp_compose->destroy('send');
@@ -635,7 +635,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $subject = $val->headers->getValue('subject');
                 $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
 
-                $this->_base->queue->maillog(new IMP_Indices($val->mbox, $val->uid), $val->headers->getValue('message-id'));
+                $this->_base->queue->maillog(
+                    new IMP_Indices($val->mbox, $val->uid)
+                );
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);

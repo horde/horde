@@ -31,6 +31,12 @@ class IMP_Factory_Maillog extends Horde_Core_Factory_Injector
     {
         global $conf, $injector, $registry;
 
+        $storage = array();
+
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->isImap()) {
+            $storage[] = new IMP_Maillog_Storage_Mdnsent();
+        }
+
         $driver = isset($conf['maillog']['driver'])
             ? $conf['maillog']['driver']
             // @todo BC support for 'use_maillog'
@@ -38,18 +44,23 @@ class IMP_Factory_Maillog extends Horde_Core_Factory_Injector
 
         switch ($driver) {
         case 'history':
-            $storage = new IMP_Maillog_Storage_History(
+            $storage[] = new IMP_Maillog_Storage_History(
                 $injector->getInstance('Horde_History'),
                 $registry->getAuth()
             );
             break;
 
         case 'none':
-            $storage = new IMP_Maillog_Storage_Null();
+        default:
+            $storage[] = new IMP_Maillog_Storage_Null();
             break;
         }
 
-        return new IMP_Maillog($storage);
+        return new IMP_Maillog(
+            (count($storage) > 1)
+                ? new IMP_Maillog_Storage_Composite($storage)
+                : reset($storage)
+        );
     }
 
 }

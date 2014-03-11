@@ -855,10 +855,31 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->_replytype) {
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to')) {
+                switch ($this->_replytype) {
+                case self::FORWARD:
+                case self::FORWARD_ATTACH:
+                case self::FORWARD_BODY:
+                case self::FORWARD_BOTH:
+                    $log = new IMP_Maillog_Log_Forward($recipients);
+                    break;
+
+                case self::REPLY:
+                case self::REPLY_SENDER:
+                    $log = new IMP_Maillog_Log_Reply();
+                    break;
+
+                case IMP_Compose::REPLY_ALL:
+                    $log = new IMP_Maillog_Log_Replyall();
+                    break;
+
+                case IMP_Compose::REPLY_LIST:
+                    $log = new IMP_Maillog_Log_Replylist();
+                    break;
+                }
+
                 $injector->getInstance('IMP_Maillog')->log(
-                    $this->_replytype,
-                    $this->getMetadata('in_reply_to'),
-                    $recipients
+                    new IMP_Maillog_Message($this->getMetadata('in_reply_to')),
+                    $log
                 );
             }
 
@@ -2283,12 +2304,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if ($log) {
                     /* Store history information. */
                     $injector->getInstance('IMP_Maillog')->log(
-                        self::REDIRECT,
+                        new IMP_Maillog_Message($headers->getValue('message-id')),
+                        new IMP_Maillog_Log_Redirect($recipients)
+                    );
+
+                    $injector->getInstance('IMP_Sentmail')->log(
+                        IMP_Sentmail::REDIRECT,
                         $headers->getValue('message-id'),
                         $recipients
                     );
-
-                    $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
                 }
 
                 $tmp = new stdClass;

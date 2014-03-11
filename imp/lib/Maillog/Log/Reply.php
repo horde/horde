@@ -12,7 +12,7 @@
  */
 
 /**
- * Null storage driver for the IMP_Maillog class.
+ * Reply log entry.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,35 +20,20 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Maillog_Storage_Null extends IMP_Maillog_Storage_Base
+class IMP_Maillog_Log_Reply extends IMP_Maillog_Log_Base
 {
     /**
      */
-    public function saveLog(
-        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
-    )
-    {
-        return false;
-    }
+    protected $_action = 'reply';
 
     /**
      */
-    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
+    protected function _getMessage()
     {
-        return array();
-    }
-
-    /**
-     */
-    public function deleteLogs(array $msgs)
-    {
-    }
-
-    /**
-     */
-    public function getChanges($ts)
-    {
-        return array();
+        return sprintf(
+            _("You replied to this message on %s."),
+            $this->date
+        );
     }
 
 }

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-26</date>
+ <date>2014-03-12</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -384,6 +384,25 @@
      <file name="SessionCache.php" role="horde" />
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Mailbox -->
+    <dir name="Maillog">
+     <dir name="Log">
+      <file name="Base.php" role="horde" />
+      <file name="Forward.php" role="horde" />
+      <file name="Mdn.php" role="horde" />
+      <file name="Redirect.php" role="horde" />
+      <file name="Reply.php" role="horde" />
+      <file name="Replyall.php" role="horde" />
+      <file name="Replylist.php" role="horde" />
+     </dir> <!-- /lib/Maillog/Log -->
+     <dir name="Storage">
+      <file name="Base.php" role="horde" />
+      <file name="Composite.php" role="horde" />
+      <file name="History.php" role="horde" />
+      <file name="Mdnsent.php" role="horde" />
+      <file name="Null.php" role="horde" />
+     </dir> <!-- /lib/Maillog/Storage -->
+     <file name="Message.php" role="horde" />
+    </dir> <!-- /lib/Maillog -->
     <dir name="Mbox">
      <file name="Generate.php" role="horde" />
      <file name="Import.php" role="horde" />
@@ -1751,6 +1770,19 @@
    <install as="imp/lib/Mailbox/List/Pop3.php" name="lib/Mailbox/List/Pop3.php" />
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
+   <install as="imp/lib/Maillog/Message.php" name="lib/Maillog/Message.php" />
+   <install as="imp/lib/Maillog/Log/Base.php" name="lib/Maillog/Log/Base.php" />
+   <install as="imp/lib/Maillog/Log/Forward.php" name="lib/Maillog/Log/Forward.php" />
+   <install as="imp/lib/Maillog/Log/Mdn.php" name="lib/Maillog/Log/Mdn.php" />
+   <install as="imp/lib/Maillog/Log/Redirect.php" name="lib/Maillog/Log/Redirect.php" />
+   <install as="imp/lib/Maillog/Log/Reply.php" name="lib/Maillog/Log/Reply.php" />
+   <install as="imp/lib/Maillog/Log/Replyall.php" name="lib/Maillog/Log/Replyall.php" />
+   <install as="imp/lib/Maillog/Log/Replylist.php" name="lib/Maillog/Log/Replylist.php" />
+   <install as="imp/lib/Maillog/Storage/Base.php" name="lib/Maillog/Storage/Base.php" />
+   <install as="imp/lib/Maillog/Storage/Composite.php" name="lib/Maillog/Storage/Composite.php" />
+   <install as="imp/lib/Maillog/Storage/History.php" name="lib/Maillog/Storage/History.php" />
+   <install as="imp/lib/Maillog/Storage/Mdnsent.php" name="lib/Maillog/Storage/Mdnsent.php" />
+   <install as="imp/lib/Maillog/Storage/Null.php" name="lib/Maillog/Storage/Null.php" />
    <install as="imp/lib/Mbox/Generate.php" name="lib/Mbox/Generate.php" />
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />

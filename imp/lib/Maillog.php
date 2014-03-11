@@ -22,14 +22,6 @@
  */
 class IMP_Maillog
 {
-    /** Log Actions. */
-    const FORWARD = 'forward';
-    const MDN = 'mdn';
-    const REDIRECT = 'redirect';
-    const REPLY = 'reply';
-    const REPLY_ALL = 'reply_all';
-    const REPLY_LIST = 'reply_list';
-
     /**
      * Storage driver.
      *
@@ -50,200 +42,38 @@ class IMP_Maillog
     /**
      * Create a log entry.
      *
-     * @param mixed $type     Either an IMP_Compose:: constant or an
-     *                        IMP_Maillog:: constant.
-     * @param mixed $msg_ids  Either a single Message-ID or an array of
-     *                        Message-IDs to log.
-     * @param string $data    Any additional data to store. For forward and
-     *                        redirect this is the list of recipients the
-     *                        message was sent to. For mdn this is the
-     *                        MDN-type of the message that was sent.
+     * @param mixed $msgs                An IMP_Maillog_Message object (or an
+     *                                   array of objects).
+     * @param IMP_Maillog_Log_Base $log  The log object.
      */
-    public function log($type, $msg_ids, $data = null)
+    public function log($msgs, IMP_Maillog_Log_Base $log)
     {
-        if (!is_array($msg_ids)) {
-            $msg_ids = array($msg_ids);
-        }
-
-        foreach (array_filter($msg_ids) as $val) {
-            switch ($type) {
-            case IMP_Compose::FORWARD:
-            case IMP_Compose::FORWARD_ATTACH:
-            case IMP_Compose::FORWARD_BODY:
-            case IMP_Compose::FORWARD_BOTH:
-            case self::FORWARD:
-                $this->storage->saveLog($val, array(
-                    'action' => self::FORWARD,
-                    'recipients' => $data
-                ));
-                break;
-
-            case self::MDN:
-                $this->storage->saveLog($val, array(
-                    'action' => self::MDN,
-                    'type' => $data
-                ));
-                break;
-
-            case IMP_Compose::REDIRECT:
-            case self::REDIRECT:
-                $this->storage->saveLog($val, array(
-                    'action' => self::REDIRECT,
-                    'recipients' => $data
-                ));
-                break;
-
-            case IMP_Compose::REPLY:
-            case IMP_Compose::REPLY_SENDER:
-            case self::REPLY:
-                $this->storage->saveLog($val, array(
-                    'action' => self::REPLY
-                ));
-                break;
-
-            case IMP_Compose::REPLY_ALL:
-            case self::REPLY_ALL:
-                $this->storage->saveLog($val, array(
-                    'action' => self::REPLY_ALL
-                ));
-                break;
-
-            case IMP_Compose::REPLY_LIST:
-            case self::REPLY_LIST:
-                $this->storage->saveLog($val, array(
-                    'action' => self::REPLY_LIST
-                ));
-                break;
-            }
+        foreach ((is_array($msgs) ? $msgs : array($msgs)) as $val) {
+            $this->storage->saveLog($val, $log);
         }
     }
 
     /**
-     * Retrieve any history for the given Message-ID.
+     * Retrieve history for a message.
      *
-     * @param string $msg_id  The Message-ID of the message.
+     * @param IMP_Maillog_Message $msg  A message object.
+     * @param array $filter             Filter these actions.
      *
-     * @return Horde_History_Log  The object containing the log information.
+     * @return array  List of IMP_Maillog_Log_Base objects.
      */
-    public function getLog($msg_id)
+    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
     {
-        return strlen($msg_id)
-            ? $this->storage->getLog($msg_id)
-            : new Horde_History_Log($msg_id);
+        return $this->storage->getLog($msg, $filter);
     }
 
     /**
-     * Determines if an MDN notification of a certain type has been sent
-     * previously for this message-ID.
+     * Delete log entries.
      *
-     * @param string $msg_id  The Message-ID of the message.
-     * @param string $type    The type of MDN.
-     *
-     * @return boolean  True if a MDN has been sent for this message with
-     *                  the given type.
+     * @param array $msgs  An array of message objects to delete.
      */
-    public function sentMDN($msg_id, $type)
+    public function deleteLog(array $msgs)
     {
-        try {
-            $msg_history = $this->getLog($msg_id);
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
-        foreach ($msg_history as $entry) {
-            if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns log information for a message.
-     *
-     * @param string $msg_id  The Message-ID of the message.
-     *
-     * @return array  List of log information. Each element is an array with
-     *                the following keys:
-     *   - action: (string) The log action.
-     *   - msg: (string) The log message.
-     */
-    public function parseLog($msg_id)
-    {
-        global $prefs;
-
-        try {
-            $history = $this->getLog($msg_id);
-        } catch (Horde_Exception $e) {
-            return array();
-        }
-
-        if (!count($history)) {
-            return array();
-        }
-
-        $df = $prefs->getValue('date_format');
-        $tf = $prefs->getValue('time_format');
-        $ret = array();
-
-        foreach ($history as $entry) {
-            $msg = null;
-
-            if (isset($entry['desc'])) {
-                $msg = $entry['desc'];
-            } else {
-                switch ($entry['action']) {
-                case self::FORWARD:
-                    $msg = sprintf(_("You forwarded this message on %%s to: %s."), $entry['recipients']);
-                    break;
-
-                case self::MDN:
-                    /* We don't display 'mdn' log entries. */
-                    break;
-
-                case self::REDIRECT:
-                    $msg = sprintf(_("You redirected this message to %s on %%s."), $entry['recipients']);
-                    break;
-
-                case self::REPLY:
-                    $msg = _("You replied to this message on %s.");
-                    break;
-
-                case self::REPLY_ALL:
-                    $msg = _("You replied to all recipients of this message on %s.");
-                    break;
-
-                case self::REPLY_LIST:
-                    $msg = _("You replied to this message via the mailing list on %s.");
-                    break;
-                }
-            }
-
-            if ($msg) {
-                $ret[$entry['ts']] = array(
-                    'action' => $entry['action'],
-                    'msg' => @sprintf($msg, strftime($df . ' ' . $tf, $entry['ts']))
-                );
-            }
-        }
-
-        ksort($ret);
-
-        return array_values($ret);
-    }
-
-    /**
-     * Delete the log entries for a given list of Message-IDs.
-     *
-     * @param mixed $msg_ids  Either a single Message-ID or an array
-     *                        of Message-IDs to delete.
-     */
-    public function deleteLog($msg_ids)
-    {
-        $this->storage->deleteLogs(
-            is_array($msg_ids) ? array_filter($msg_ids) : array($msg_ids)
-        );
+        $this->storage->deleteLogs($msgs);
     }
 
     /**
@@ -251,8 +81,8 @@ class IMP_Maillog
      *
      * @param integer $ts  Timestamp.
      *
-     * @return array  An array of Message-IDs changed since the provided
-     *                timestamp.
+     * @return array  An array of messages (IMP_Maillog_Message objects)
+     *                changed since the provided timestamp.
      */
     public function getChanges($ts)
     {

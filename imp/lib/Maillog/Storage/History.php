@@ -50,13 +50,25 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function saveLog($msg_id, $data)
+    public function saveLog(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    )
     {
+        $data = array(
+            'action' => $log->action,
+            'ts' => $log->timestamp
+        );
+
+        switch ($log->action) {
+        case 'forward':
+        case 'redirect':
+            $data['recipients'] = $log->recipients;
+            break;
+        }
+
         try {
-            $this->_history->log(
-                $this->_getUniqueHistoryId($msg_id),
-                $data
-            );
+            $this->_history->log($this->_getUniqueHistoryId($msg), $data);
+            return true;
         } catch (Exception $e) {
             /* On error, log the error message only since informing the user is
              * just a waste of time and a potential point of confusion,
@@ -70,28 +82,71 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
                 'ERR'
             );
         }
+
+        return false;
     }
 
     /**
      */
-    public function getLog($msg_id)
+    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
     {
+        $out = array();
+
         try {
-            return $this->_history->getHistory(
-                $this->_getUniqueHistoryId($msg_id)
+            $history = $this->_history->getHistory(
+                $this->_getUniqueHistoryId($msg)
             );
         } catch (Exception $e) {
-            return new Horde_History_Log($msg_id);
+            return $out;
         }
+
+        foreach ($history as $key => $val) {
+            if (!in_array($val['action'], $filter)) {
+                switch ($val['action']) {
+                case 'forward':
+                    $ob = new IMP_Maillog_Log_Forward($val['recipients']);
+                    break;
+
+                case 'mdn':
+                    $ob = new IMP_Maillog_Log_Mdn();
+                    break;
+
+                case 'redirect':
+                    $ob = new IMP_Maillog_Log_Redirect($val['recipients']);
+                    break;
+
+                case 'reply':
+                    $ob = new IMP_Maillog_Log_Reply();
+                    break;
+
+                case 'reply_all':
+                    $ob = new IMP_Maillog_Log_Replyall();
+                    break;
+
+                case 'reply_list':
+                    $ob = new IMP_Maillog_Log_Replylist();
+                    break;
+
+                default:
+                    continue 2;
+                }
+
+                $ob->timestamp = $val['ts'];
+
+                $out[] = $ob;
+            }
+        }
+
+        return $out;
     }
 
     /**
      */
-    public function deleteLogs($msg_ids)
+    public function deleteLogs(array $msgs)
     {
         $this->_history->removeByNames(array_map(
             array($this, '_getUniqueHistoryId'),
-            $msg_ids
+            $msgs
         ));
     }
 
@@ -99,7 +154,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
      */
     public function getChanges($ts)
     {
-        return preg_replace(
+        $msgids = preg_replace(
             '/^([^:]*:){2}/',
             '',
             array_keys($this->_history->getByTimestamp(
@@ -109,22 +164,29 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
                 $this->_getUniqueHistoryId()
             ))
         );
+
+        $out = array();
+        foreach ($msgids as $val) {
+            $out[] = new IMP_Maillog_Message($val);
+        }
+
+        return $out;
     }
 
     /**
      * Generate the unique log ID for an event.
      *
-     * @param string $msgid  The Message-ID of the original message. If null,
-     *                       returns the parent ID.
+     * @param mixed $msg  An IMP_Maillog_Message object or, if null, return
+     *                    the parent ID.
      *
      * @return string  The unique log ID.
      */
-    protected function _getUniqueHistoryId($msgid = null)
+    protected function _getUniqueHistoryId($msg = null)
     {
         return implode(':', array_filter(array(
             'imp',
             str_replace('.', '*', $this->_user),
-            $msgid
+            $msg ? $msg->msgid : null
         )));
     }
 

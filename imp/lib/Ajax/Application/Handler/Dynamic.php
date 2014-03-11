@@ -812,21 +812,27 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function sendMDN()
     {
+        global $injector, $notification;
+
         if (count($this->_base->indices) != 1) {
             return false;
         }
 
         try {
-            $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
+            $contents = $injector->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
         } catch (IMP_Imap_Exception $e) {
             $e->notify(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage());
             return false;
         }
 
         list($mbox, $uid) = $this->_base->indices->getSingle();
-        $GLOBALS['injector']->getInstance('IMP_Message_Ui')->MDNCheck($mbox, $uid, $contents->getHeaderAndMarkAsSeen(), true);
+        $injector->getInstance('IMP_Message_Ui')->MDNCheck(
+            new IMP_Indices($mbox, $uid),
+            $contents->getHeaderAndMarkAsSeen(),
+            true
+        );
 
-        $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
+        $notification->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 
         $result = new stdClass;
         $result->buid = $this->_base->vars->buid;

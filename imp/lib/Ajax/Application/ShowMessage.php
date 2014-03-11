@@ -200,7 +200,7 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Maillog information. */
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $ajax_queue->maillog($this->_indices, $this->_envelope->message_id);
+        $ajax_queue->maillog($this->_indices);
 
         if (!$preview) {
             /* Display the user-specified headers for the current identity. */
@@ -276,7 +276,7 @@ class IMP_Ajax_Application_ShowMessage
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
-            if ($imp_ui->MDNCheck($mbox, $uid, $mime_headers)) {
+            if ($imp_ui->MDNCheck(new IMP_Indices($mbox, $uid), $mime_headers)) {
                 $status = new IMP_Mime_Status(array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
                     sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')

@@ -372,6 +372,7 @@ class IMP_Api extends Horde_Registry_Api
      * Obtain the Maillog for a given message.
      *
      * @since 6.1.0
+     * @todo  This should not be returning a Horde_History_Log object.
      *
      * @param string $mid  The Message-ID to obtain the log for.
      *
@@ -379,14 +380,34 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillog($mid)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Maillog')->getLog($mid);
+        global $injector, $registry;
+
+        $log = $injector->getInstance('IMP_Maillog')->getLog(
+            new IMP_Maillog_Message($mid)
+        );
+
+        $history = array();
+        foreach ($log as $val) {
+            $history[] = array(
+                'history_action' => $val->action,
+                'history_desc' => '',
+                'history_id' => 0,
+                'history_modseq' => 0,
+                'history_ts' => $val->timestamp,
+                'history_who' => $registry->getAuth()
+            );
+        }
+
+        return new Horde_History_Log($mid, $history);
     }
 
     /**
      * Log an entry in the Maillog.
      *
      * @since 6.1.0
-     * @todo  Abstract '$action', since it is currently keyed to IMP constants.
+     * @todo  Rewrite this. $action and $data are both IMP specific, so they
+     *        aren't intended to be set from outside of IMP. And $mid should
+     *        be replaced by mailbox/UID.
      *
      * @param string $action  The action to log.
      * @param string $mid     The Message-ID.
@@ -394,8 +415,35 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function logMaillog($action, $mid, $data = null)
     {
+        switch ($action) {
+        case 'forward':
+            $log = new IMP_Maillog_Log_Forward($data['recipients']);
+            break;
+
+        case 'mdn':
+            $log = new IMP_Maillog_Log_Mdn();
+            break;
+
+        case 'redirect':
+            $log = new IMP_Maillog_Log_Redirect($data['recipients']);
+            break;
+
+        case 'reply':
+            $log = new IMP_Maillog_Log_Reply();
+            break;
+
+        case 'reply_all':
+            $log = new IMP_Maillog_Log_Replyall();
+            break;
+
+        case 'reply_list':
+            $log = new IMP_Maillog_Log_Replylist();
+            break;
+        }
+
         $GLOBALS['injector']->getInstance('IMP_Maillog')->log(
-            $action, $mid, $data
+            new IMP_Maillog_Message($mid),
+            $log
         );
     }
 
@@ -404,6 +452,7 @@ class IMP_Api extends Horde_Registry_Api
      * the specified timestamp.
      *
      * @since 6.1.0
+     * @todo  This should not be returning Message-IDs.
      *
      * @param integer $ts  The timestamp to start searching from. Only entries
      *                     after this timestamp will be returned.
@@ -412,7 +461,10 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillogChanges($ts)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Maillog')->getChanges($ts);
+        return array_map(
+            'strval',
+            $GLOBALS['injector']->getInstance('IMP_Maillog')->getChanges($ts)
+        );
     }
 
 }

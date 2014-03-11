@@ -81,7 +81,7 @@ class IMP_Ajax_Queue
     protected $_messages = array();
 
     /**
-     * Mail log queue.
+     * Maillog queue.
      *
      * @var array
      */
@@ -235,25 +235,26 @@ class IMP_Ajax_Queue
         /* Add folder tree information. */
         $this->_addFtreeInfo($ajax);
 
-        /* Add mail log information. */
+        /* Add maillog information. */
         if (!empty($this->_maillog)) {
             $imp_maillog = $injector->getInstance('IMP_Maillog');
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
                 $tmp = array();
-                foreach ($imp_maillog->parseLog($val['msg_id']) as $val2) {
-                    $ret[] = array(
-                        'm' => $val2['msg'],
-                        't' => $val2['action']
+                foreach ($imp_maillog->getLog($val, array('mdn')) as $val2) {
+                    $tmp[] = array(
+                        'm' => $val2->message,
+                        't' => $val2->action
                     );
                 }
 
                 if ($tmp) {
+                    list($mbox, $buid) = $val->indices->getSingle();
                     $log_ob = new stdClass;
-                    $log_ob->buid = intval($val['buid']);
+                    $log_ob->buid = intval($buid);
                     $log_ob->log = $tmp;
-                    $log_ob->mbox = $val['mailbox']->form_to;
+                    $log_ob->mbox = $mbox->form_to;
                     $maillog[] = $log_ob;
                 }
             }
@@ -492,28 +493,25 @@ class IMP_Ajax_Queue
     }
 
     /**
-     * Add mail log data to output.
+     * Add maillog data to output.
      *
      * @param IMP_Indices $indices  Indices object.
-     * @param string $msg_id        The message ID of the original message.
      */
-    public function maillog(IMP_Indices $indices, $msg_id)
+    public function maillog(IMP_Indices $indices)
     {
-        if (!$GLOBALS['injector']->getInstance('IMP_Maillog')) {
-            return;
-        }
-
         if ($indices instanceof IMP_Indices_Mailbox) {
             $indices = $indices->joinIndices();
         }
 
-        foreach ($indices as $val) {
-            foreach ($val->uids as $val2) {
-                $this->_maillog[] = array(
-                    'buid' => $val2,
-                    'mailbox' => $val->mbox,
-                    'msg_id' => $msg_id
-                );
+        if (count($indices) === 1) {
+            $this->_maillog[] = new IMP_Maillog_Message($indices);
+        } else {
+            foreach ($indices as $val) {
+                foreach ($val->uids as $val2) {
+                    $this->_maillog[] = new IMP_Maillog_Message(
+                        new IMP_Indices($val->mbox, $val2)
+                    );
+                }
             }
         }
     }

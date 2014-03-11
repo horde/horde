@@ -245,24 +245,17 @@ class IMP_Message
                     }
                 }
             } else {
-                /* Get the list of Message-IDs for the deleted messages if
-                 * using mail logging. */
-                $fetch = null;
-                if (!($maillog->storage instanceof IMP_Maillog_Storage_Null)) {
-                    /* Optimization: make sure we open mailbox read-write,
-                     * since we are guaranteed to at least attempt to store
-                     * flags below and this query will likely open mailbox in
-                     * read-only mode. */
-                    $imp_imap->openMailbox($ob->mbox, Horde_Imap_Client::OPEN_READWRITE);
-
-                    $query = new Horde_Imap_Client_Fetch_Query();
-                    $query->envelope();
-
-                    try {
-                        $fetch = $imp_imap->fetch($ob->mbox, $query, array(
-                            'ids' => $ids_ob
+                /* Delete message logs now. This may result in loss of message
+                 * log data for messages that might not be deleted - i.e. if
+                 * an error occurs. But 1) the user has already indicated they
+                 * don't care about this data and 2) message IDs (used by some
+                 * maillog backends) won't be available after deletion. */
+                foreach ($ids_ob as $val) {
+                    foreach ($val->uids as $val2) {
+                        $maillog->deleteLog(new IMP_Maillog_Message(
+                            new IMP_Indices($val->mbox, $val2)
                         ));
-                    } catch (IMP_Imap_Exception $e) {}
+                    }
                 }
 
                 /* Delete the messages. */
@@ -300,16 +293,6 @@ class IMP_Message
                         $ajax_queue->flag($del_flags, true, new IMP_Indices($ob->mbox, $ids_ob));
                     }
                 } catch (IMP_Imap_Exception $e) {}
-
-                /* Get the list of Message-IDs deleted, and remove the
-                 * information from the mail log. */
-                if (!is_null($fetch)) {
-                    $msg_ids = array();
-                    foreach ($fetch as $v) {
-                        $msg_ids[] = $v->getEnvelope()->message_id;
-                    }
-                    $maillog->deleteLog(array_filter($msg_ids));
-                }
             }
         }
 
@@ -637,6 +620,7 @@ class IMP_Message
      *                              and/or 'remove'.
      * @param IMP_Indices $indices  An indices object.
      * @param array $opts           Additional options:
+     *   - silent: (boolean) Don't output notification messages.
      *   - unchangedsince: (array) The unchangedsince value to pass to the
      *                     IMAP store command. Keys are mailbox names, values
      *                     are the unchangedsince values to use for that
@@ -685,7 +669,10 @@ class IMP_Message
                     foreach ($res as $val) {
                         unset($flag_change[$val]);
                     }
-                    $notification->push(sprintf(_("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."), $ob->mbox->display), 'horde.warning');
+                    if (empty($opts['silent'])) {
+                        $notification->push(sprintf(_("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."), $ob->mbox->display), 'horde.warning');
+                        $ret = false;
+                    }
                 }
 
                 foreach ($action as $key => $val) {
@@ -695,7 +682,9 @@ class IMP_Message
                     }
                 }
             } catch (Exception $e) {
-                $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
+                if (empty($opts['silent'])) {
+                    $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
+                }
                 $ret = false;
             }
         }

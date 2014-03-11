@@ -68,56 +68,35 @@ class IMP_Message_Ui
     /**
      * Check if we need to send a MDN, and send if needed.
      *
-     * @param IMP_Mailbox $mailbox         The mailbox of the message.
-     * @param integer $uid                 The UID of the message.
+     * @param IMP_Indices $indices         Indices object of the message.
      * @param Horde_Mime_Headers $headers  The headers of the message.
      * @param boolean $confirmed           Has the MDN request been confirmed?
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function MDNCheck(IMP_Mailbox $mailbox, $uid, $headers,
-                             $confirmed = false)
+    public function MDNCheck(
+        IMP_Indices $indices, $headers, $confirmed = false
+    )
     {
         global $conf, $injector, $prefs;
 
-        $imp_imap = $mailbox->imp_imap;
         $maillog = $injector->getInstance('IMP_Maillog');
         $pref_val = $prefs->getValue('send_mdn');
 
-        if (!$pref_val || $mailbox->readonly) {
+        list($mbox, $uid) = $indices->getSingle();
+
+        if (!$pref_val || $mbox->readonly) {
             return false;
         }
 
         /* Check to see if an MDN has been requested. */
         $mdn = new Horde_Mime_Mdn($headers);
-        $return_addr = $mdn->getMdnReturnAddr();
-        if (!$return_addr) {
+        if (!($return_addr = $mdn->getMdnReturnAddr())) {
             return false;
         }
 
-        $msg_id = $headers->getValue('message-id');
-        $mdn_flag = $mdn_sent = false;
-
-        /* See if we have already processed this message. */
-        /* 1st test: MDNSent keyword (RFC 3503 [3.1]). */
-        if ($mailbox->permflags->allowed('$mdnsent')) {
-            $mdn_flag = true;
-
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->flags();
-
-            try {
-                $res = $imp_imap->fetch($mailbox, $query, array(
-                    'ids' => $imp_imap->getIdsOb($uid)
-                ));
-                $mdn_sent = in_array('$mdnsent', $res->first()->getFlags());
-            } catch (IMP_Imap_Exception $e) {}
-        } else {
-            /* 2nd test: Use Maillog as a fallback. */
-            $mdn_sent = $maillog->sentMDN($msg_id, 'displayed');
-        }
-
-        if ($mdn_sent) {
+        $log_msg = new IMP_Maillog_Message($indices);
+        if (count($maillog->getLog($log_msg, array('forward', 'redirect', 'reply_all', 'reply_list', 'reply')))) {
             return false;
         }
 
@@ -135,6 +114,7 @@ class IMP_Message_Ui
         }
 
         /* Send out the MDN now. */
+        $success = false;
         try {
             $mdn->generate(
                 false,
@@ -147,19 +127,18 @@ class IMP_Message_Ui
                     'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            $maillog->log($maillog::MDN, $msg_id, 'displayed');
+
+            $maillog->log($log_msg, new IMP_Maillog_Log_Mdn());
+
             $success = true;
+        } catch (Exception $e) {}
 
-            if ($mdn_flag) {
-                $injector->getInstance('IMP_Message')->flag(array(
-                    'add' => array(Horde_Imap_Client::FLAG_MDNSENT)
-                ), $mailbox->getIndicesOb($uid));
-            }
-        } catch (Exception $e) {
-            $success = false;
-        }
-
-        $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::MDN, '', $return_addr, $success);
+        $injector->getInstance('IMP_Sentmail')->log(
+            IMP_Sentmail::MDN,
+            '',
+            $return_addr,
+            $success
+        );
 
         return false;
     }

@@ -25,34 +25,41 @@ abstract class IMP_Maillog_Storage_Base
     /**
      * Store a log entry.
      *
-     * @param string $msg_id  A Message-ID.
-     * @param array $data    Log entry.
+     * @param IMP_Maillog_Message $msg   Message object.
+     * @param IMP_Maillog_Log_Base $log  Log entry.
+     *
+     * @return boolean  True if log entry was saved.
      */
-    abstract public function saveLog($msg_id, $data);
+    abstract public function saveLog(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    );
 
     /**
-     * Retrieve any history for the given Message-ID.
+     * Retrieve history for a message.
      *
-     * @param string $msg_id  The Message-ID of the message.
+     * @param IMP_Maillog_Message $msg  A message object.
+     * @param array $filter             Filter these actions.
      *
-     * @return Horde_History_Log  The object containing the log information.
+     * @return array  Array of IMP_Maillog_Log_Base objects.
      */
-    abstract public function getLog($msg_id);
+    abstract public function getLog(
+        IMP_Maillog_Message $msg, array $filter = array()
+    );
 
     /**
-     * Delete log entries for the given Message-IDs.
+     * Delete log entries.
      *
-     * @param array $msg_ids  Message-IDs of the messages to delete.
+     * @param array $msgs  Message objects (IMP_Maillog_Message objects).
      */
-    abstract public function deleteLogs($msg_ids);
+    abstract public function deleteLogs(array $msgs);
 
     /**
      * Retrieve changes to the maillog since the provided timestamp.
      *
      * @param integer $ts  Timestamp.
      *
-     * @return array  An array of Message-IDs changed since the provided
-     *                timestamp.
+     * @return array  An array of messages (IMP_Maillog_Message objects)
+     *                changed since the provided timestamp.
      */
     abstract public function getChanges($ts);
 

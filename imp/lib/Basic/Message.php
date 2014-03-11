@@ -786,7 +786,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             IMP_Contents::SUMMARY_PRINT;
 
         /* Do MDN processing now. */
-        $mdntext = $imp_ui->MDNCheck($msg_index['m'], $buid, $mime_headers, $this->vars->mdn_confirm)
+        $mdntext = $imp_ui->MDNCheck(new IMP_Indices($msg_index['m'], $buid), $mime_headers, $this->vars->mdn_confirm)
             ? strval(new IMP_Mime_Status(array(
                 _("The sender of this message is requesting a notification from you when you have read this message."),
                 sprintf(_("Click %s to send the notification message."), Horde::link($selfURL->copy()->add('mdn_confirm', 1)) . _("HERE") . '</a>')
@@ -909,13 +909,11 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $page_output->noDnsPrefetch();
 
-        if ($maillog = $injector->getInstance('IMP_Maillog')) {
-            Horde::startBuffer();
-            foreach ($maillog->parseLog($msg_id) as $val) {
-                $notification->push($val['msg'], 'imp.' . $val['action']);
-            }
-            $this->output = Horde::endBuffer();
+        Horde::startBuffer();
+        foreach ($injector->getInstance('IMP_Maillog')->getLog(new IMP_Maillog_Message($this->indices, array('mdn'))) as $val) {
+            $notification->push($val->message, 'imp.' . $val->action);
         }
+        $this->output = Horde::endBuffer();
 
         $this->output .= $t_view->render('navbar_top') .
             $n_view->render('navbar_navigate') .
