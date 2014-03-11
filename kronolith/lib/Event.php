@@ -1793,9 +1793,11 @@ abstract class Kronolith_Event
                         'protocolversion' => $options['protocolversion']));
                     // Kronolith stores the date only, but some AS clients need
                     // the datetime.
-                    $st = new Horde_Date($deleted);
-                    $st->hour = $this->start->hour;
-                    $st->min = $this->start->min;
+                    list($year, $month, $mday) = sscanf($deleted, '%04d%02d%02d');
+                    $st = clone $this->start;
+                    $st->year = $year;
+                    $st->month = $month;
+                    $st->mday = $mday;
                     $e->setExceptionStartTime($st);
                     $e->deleted = true;
                     $message->addException($e);
