@@ -353,8 +353,18 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
         case 'replyall_revert':
         case 'replylist_revert':
-            $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb());
-            $header = $this->_convertToHeader($reply_msg);
+            if ($contents = $imp_compose->getContentsOb()) {
+                $reply_msg = $imp_compose->replyMessage(
+                    IMP_Compose::REPLY_SENDER,
+                    $contents
+                );
+                $header = $this->_convertToHeader($reply_msg);
+            } else {
+                $notification->push(
+                    _("Could not retrieve message data from the mail server."),
+                    'horde.error'
+                );
+            }
             break;
 
         case 'forward_attach':
