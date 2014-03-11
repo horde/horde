@@ -110,8 +110,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 break;
             }
             $compose_opts['title'] .= ': ' . $result['subject'];
-
-            $show_editor = ($result['format'] == 'html');
             break;
 
         case 'forward_attach':
@@ -130,10 +128,9 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                     break;
                 }
 
-                $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
-
                 $onload = $compose_ajax->getBaseResponse();
-                if ($show_editor) {
+                if ($prefs->getValue('compose_html') &&
+                    $session->get('imp', 'rteavail')) {
                     $onload->format = 'html';
                 }
             } else {
@@ -148,7 +145,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $onload = $compose_ajax->getResponse($result);
 
                 $compose_opts['title'] = $result['title'];
-                $show_editor = ($result['format'] == 'html');
             }
 
             $ajax_queue->attachment($imp_compose, IMP_Compose::FORWARD_ATTACH);
