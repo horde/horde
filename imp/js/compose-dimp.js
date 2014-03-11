@@ -450,6 +450,12 @@ var DimpCompose = {
                     this.rte.focus();
                     this.rte_loaded = true;
                     this.resizeMsgArea();
+
+                    new CKEDITOR.dom.document(
+                        evt.editor.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
+                    .on('keydown', function(evt) {
+                        this.keydownHandler(Event.extend(evt.data.$), true);
+                    }.bind(this));
                 }.bind(this));
                 CKEDITOR.on('instanceDestroyed', function(evt) {
                     this.RTELoading('hide');
@@ -1222,7 +1228,7 @@ var DimpCompose = {
         }
     },
 
-    keydownHandler: function(e)
+    keydownHandler: function(e, fade)
     {
         switch (e.keyCode || e.charCode) {
         case Event.KEY_ESC:
@@ -1236,7 +1242,8 @@ var DimpCompose = {
             break;
         }
 
-        if (this.fwdattach && e.element() == $('composeMessage')) {
+        if (this.fwdattach &&
+            (fade || e.element() == $('composeMessage'))) {
             this.fadeNotice('fwdattachnotice');
         }
     },
