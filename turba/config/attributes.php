@@ -574,12 +574,6 @@ $attributes['workFax'] = array(
     'required' => false,
     'params' => array('size' => 15)
 );
-$attributes['homeFax'] = array(
-    'label' => _("Home Fax"),
-    'type' => 'phone',
-    'required' => false,
-    'params' => array('size' => 15)
-);
 $attributes['workCellPhone'] = array(
     'label' => _("Work Mobile Phone"),
     'type' => 'cellphone',
