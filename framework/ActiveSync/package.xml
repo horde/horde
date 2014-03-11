@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression in sending non Mime encoded messages (Bug #13029).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2002,7 +2002,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression in sending non Mime encoded messages (Bug #13029).
    </notes>
   </release>
  </changelog>
