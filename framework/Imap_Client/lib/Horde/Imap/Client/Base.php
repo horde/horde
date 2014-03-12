@@ -3757,7 +3757,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         ksort($options);
-        $cache = hash('sha1', $type . serialize($options));
+        $cache = hash(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            $type . serialize($options)
+        );
         $cacheid = $this->getSyncToken($this->_selected);
         $ret = array();
 
