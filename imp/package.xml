@@ -3520,7 +3520,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-19</date>
+   <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add Save All link to the popup message page in dynamic view.
@@ -3529,6 +3529,19 @@
 * [mms] Fix displaying user-defined message headers when multiple-headers exist in a single message.
 * [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
 * [mms] Don&apos;t provide links to view attachments in compose screen unless the attachment can be displayed (Bug #12841).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.8</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
    </notes>
   </release>
  </changelog>

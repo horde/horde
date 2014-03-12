@@ -2018,7 +2018,7 @@ var DimpBase = {
             text += ' (' + this.messageCountText(rows) + ')';
         }
 
-        $('mailboxName').update(text);
+        $('mailboxName').update(text.escapeHTML());
     },
 
     // m = (string|Element) Mailbox element.
