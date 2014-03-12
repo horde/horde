@@ -45,7 +45,6 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
-        $GLOBALS['page_output']->addScriptFile('webnotification.js', 'horde');
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC) {
             if (!isset($params['js_notify'])) {
                 throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
@@ -67,11 +66,13 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function notify(array $alarm)
     {
-        global $notification;
+        global $notification, $page_output, $registry;
 
         $icon = strval($this->_icon);
 
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
+        $page_output->addScriptFile('webnotification.js', 'horde');
+
+        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
             $alarm['params']['desktop']['icon'] = $icon;
             $notification->push($alarm['title'], 'horde.alarm', array(
                 'alarm' => $alarm
