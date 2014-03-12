@@ -521,7 +521,7 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        if (HordeMobile.currentPage() == 'mailbox') {
+        if (HordeMobile.currentPage() != 'mailbox') {
             return;
         }
 
