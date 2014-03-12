@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;.
 * [mms] Add a NoSQL driver for history storage.
 * [mms] The history driver can now be configured via conf.php.
 * [jan] Add mysql encryption option for SQL backends (Request #12962).

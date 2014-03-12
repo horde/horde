@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>.
 [mms] Add a NoSQL driver for history storage.
 [mms] The history driver can now be configured via conf.php.
 [jan] Add mysql encryption option for SQL backends (Request #12962).
