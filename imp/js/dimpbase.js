@@ -2278,7 +2278,8 @@ var DimpBase = {
     /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
-        var sc = this.selectedCount();
+        var bf = $('button_forward'),
+            sc = this.selectedCount();
 
         DimpCore.toggleButtons(
             $('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'),
@@ -2287,6 +2288,10 @@ var DimpBase = {
 
         if (sc > 1) {
             DimpCore.toggleButtons([ $('button_reply') ], true);
+        }
+
+        if (bf) {
+            [ bf.next('.horde-popdown') ].compact().invoke(sc > 1 ? 'hide' : 'show');
         }
     },
 
