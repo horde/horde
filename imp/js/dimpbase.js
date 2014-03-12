@@ -621,8 +621,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    tmp = tmp.stripTags();
-                    $('search_label').writeAttribute({ title: tmp.escapeHTML() });
+                    $('search_label').writeAttribute({ title: tmp });
                     if (tmp.length > 250) {
                         tmp = tmp.truncate(250);
                     }
