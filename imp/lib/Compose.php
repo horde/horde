@@ -172,6 +172,22 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Sets metadata for the current object.
+     *
+     * @param string $name  The metadata name.
+     * @param mixed $value  The metadata value.
+     */
+    protected function _setMetadata($name, $value)
+    {
+        if (is_null($value)) {
+            unset($this->_metadata[$name]);
+        } else {
+            $this->_metadata[$name] = $value;
+        }
+        $this->changed = 'changed';
+    }
+
+    /**
      * Saves a draft message.
      *
      * @param array $headers  List of message headers (UTF-8).
@@ -194,7 +210,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $body = $this->_saveDraftMsg($headers, $message, $opts);
         $ret = $this->_saveDraftServer($body);
-        $this->_metadata['draft_auto'] = !empty($opts['autosave']);
+        $this->_setMetadata('draft_auto', !empty($opts['autosave']));
         return $ret;
     }
 
@@ -257,18 +273,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 $imap_url = new Horde_Imap_Client_Url();
                 $imap_url->hostspec = $imp_imap->getParam('hostspec');
-                list($imap_url->mailbox, $imap_url->uid) = $indices->getSingle();
                 $imap_url->protocol = $imp_imap->isImap() ? 'imap' : 'pop';
                 $imap_url->uidvalidity = $imap_url->mailbox->uidvalid;
                 $imap_url->username = $imp_imap->getParam('username');
 
+                $urls = array();
+                foreach ($indices as $val) {
+                    $imap_url->mailbox = $val->mbox;
+                    foreach ($val->uids as $val2) {
+                        $imap_url->uid = $val2;
+                        $urls[] = '<' . strval($imap_url) . '>';
+                    }
+                }
+
                 switch ($this->replyType(true)) {
                 case self::FORWARD:
-                    $draft_headers->addHeader('X-IMP-Draft-Forward', '<' . $imap_url . '>');
+                    $draft_headers->addHeader('X-IMP-Draft-Forward', implode(', ', $urls));
                     break;
 
                 case self::REPLY:
-                    $draft_headers->addHeader('X-IMP-Draft-Reply', '<' . $imap_url . '>');
+                    $draft_headers->addHeader('X-IMP-Draft-Reply', implode(', ', $urls));
                     $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->_replytype);
                     break;
                 }
@@ -322,8 +346,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
-            $this->changed = 'changed';
+            $this->_setMetadata('draft_uid', $drafts_mbox->getIndicesOb($ids));
             return sprintf(_("The draft has been saved to the \"%s\" mailbox."), $drafts_mbox->display);
         } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
@@ -364,7 +387,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public function editTemplate($indices)
     {
         $res = $this->useTemplate($indices);
-        $this->_metadata['template_uid_edit'] = $indices;
+        $this->_setMetadata('template_uid_edit', $indices);
         return $res;
     }
 
@@ -392,7 +415,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public function resumeDraft($indices, array $opts = array())
     {
         $res = $this->_resumeDraft($indices, null, $opts);
-        $this->_metadata['draft_uid'] = $indices;
+        $this->_setMetadata('draft_uid', $indices);
         return $res;
     }
 
@@ -434,8 +457,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $injector, $prefs;
 
+        $contents_factory = $injector->getInstance('IMP_Factory_Contents');
+
         try {
-            $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
+            $contents = $contents_factory->create($indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -557,29 +582,37 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if ($val = $headers->getValue('references')) {
                 $ref_ob = new IMP_Compose_References();
                 $ref_ob->parse($val);
-                $this->_metadata['references'] = $ref_ob->references;
+                $this->_setMetadata('references', $ref_ob->references);
 
                 if ($val = $headers->getValue('in-reply-to')) {
-                    $this->_metadata['in_reply_to'] = $val;
+                    $this->_setMetadata('in_reply_to', $val);
                 }
             }
 
             if ($draft_url) {
-                $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
                 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+                $indices = new IMP_Indices();
 
-                try {
-                    if (($imap_url->protocol == ($imp_imap->isImap() ? 'imap' : 'pop')) &&
-                        ($imap_url->username == $imp_imap->getParam('username')) &&
-                        // Ignore hostspec and port, since these can change
-                        // even though the server is the same. UIDVALIDITY
-                        // should catch any true server/backend changes.
-                        (IMP_Mailbox::get($imap_url->mailbox)->uidvalid == $imap_url->uidvalidity) &&
-                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url->mailbox, $imap_url->uid))) {
-                        $this->_metadata['indices'] = new IMP_Indices($imap_url->mailbox, $imap_url->uid);
-                        $this->_replytype = $type;
-                    }
-                } catch (Exception $e) {}
+                foreach (explode(',', $draft_url) as $val) {
+                    $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($val, '<'), '>'));
+
+                    try {
+                        if (($imap_url->protocol == ($imp_imap->isImap() ? 'imap' : 'pop')) &&
+                            ($imap_url->username == $imp_imap->getParam('username')) &&
+                            // Ignore hostspec and port, since these can change
+                            // even though the server is the same. UIDVALIDITY
+                            // should catch any true server/backend changes.
+                            (IMP_Mailbox::get($imap_url->mailbox)->uidvalid == $imap_url->uidvalidity) &&
+                            $contents_factory->create(new IMP_Indices($imap_url->mailbox, $imap_url->uid))) {
+                            $indices->add($imap_url->mailbox, $imap_url->uid);
+                        }
+                    } catch (Exception $e) {}
+                }
+
+                if (count($indices)) {
+                    $this->_setMetadata('indices', $indices);
+                    $this->_replytype = $type;
+                }
             }
         }
 
@@ -660,7 +693,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function hasDrafts()
     {
-        return !empty($this->_metadata['draft_uid']);
+        return (bool)$this->getMetadata('draft_uid');
     }
 
     /**
@@ -720,8 +753,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $identity_search = $identity->getMatchingIdentity($recip['list'], false);
             if (!is_null($identity_search) &&
                 ($identity->getDefault() != $identity_search)) {
-                $this->_metadata['identity_check'] = true;
-                $this->changed = 'changed';
+                $this->_setMetadata('identity_check', true);
 
                 $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
                 $e->tied_identity = $identity_search;
@@ -854,7 +886,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if ($this->_replytype) {
             /* Log the reply. */
-            if ($this->getMetadata('in_reply_to')) {
+            if ($indices = $this->getMetadata('indices')) {
                 switch ($this->_replytype) {
                 case self::FORWARD:
                 case self::FORWARD_ATTACH:
@@ -877,10 +909,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     break;
                 }
 
-                $injector->getInstance('IMP_Maillog')->log(
-                    new IMP_Maillog_Message($this->getMetadata('in_reply_to')),
-                    $log
-                );
+                $log_msgs = array();
+                foreach ($indices as $val) {
+                    foreach ($val->uids as $val2) {
+                        $log_msgs[] = new IMP_Maillog_Message(
+                            new IMP_Indices($val->mbox, $val2)
+                        );
+                    }
+                }
+
+                $injector->getInstance('IMP_Maillog')->log($log_msgs, $log);
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
@@ -1246,12 +1284,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 switch (isset($error['level']) ? $error['level'] : $exception::BAD) {
                 case $exception::WARN:
                 case 'warn':
-                    if (!empty($this->_metadata['warn_addr']) &&
-                        in_array(strval($val), $this->_metadata['warn_addr'])) {
+                    if (($warn = $this->getMetadata('warn_addr')) &&
+                        in_array(strval($val), $warn)) {
                         $out[] = $tmp;
                         continue 2;
                     }
-                    $this->_metadata['warn_addr'][] = strval($val);
+                    $warn[] = strval($val);
+                    $this->_setMetadata('warn_addr', $warn);
                     $this->changed = 'changed';
                     $level = $exception::WARN;
                     break;
@@ -1407,8 +1446,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* We need to do the attachment check before any of the body text
          * has been altered. */
         if (!count($this) && !$this->getMetadata('attach_body_check')) {
-            $this->_metadata['attach_body_check'] = true;
-            $this->changed = 'changed';
+            $this->_setMetadata('attach_body_check', true);
 
             try {
                 $check = $hooks->callHook(
@@ -1644,7 +1682,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 switch ($encrypt) {
                 case IMP_Crypt_Pgp::SIGN:
                     $base = $imp_pgp->impSignMimePart($base);
-                    $this->_metadata['encrypt_sign'] = true;
+                    $this->_setMetadata('encrypt_sign', true);
                     break;
 
                 case IMP_Crypt_Pgp::ENCRYPT:
@@ -1687,7 +1725,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 switch ($encrypt) {
                 case IMP_Crypt_Smime::SIGN:
                     $base = $imp_smime->IMPsignMIMEPart($base);
-                    $this->_metadata['encrypt_sign'] = true;
+                    $this->_setMetadata('encrypt_sign', true);
                     break;
 
                 case IMP_Crypt_Smime::ENCRYPT:
@@ -1752,12 +1790,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $reply_type = self::REPLY_SENDER;
 
         if (!$this->_replytype) {
-            $this->_metadata['indices'] = $contents->getIndicesOb();
-            $this->changed = 'changed';
+            $this->_setMetadata('indices', $contents->getIndicesOb());
 
             /* Set the message-id related headers. */
             if (($msg_id = $h->getValue('message-id'))) {
-                $this->_metadata['in_reply_to'] = chop($msg_id);
+                $this->_setMetadata('in_reply_to', chop($msg_id));
 
                 if ($refs = $h->getValue('references')) {
                     $ref_ob = new IMP_Compose_References();
@@ -1766,8 +1803,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 } else {
                     $refs = array();
                 }
-                $refs[] = $this->_metadata['in_reply_to'];
-                $this->_metadata['references'] = $refs;
+                $refs[] = $this->getMetadata('in_reply_to');
+                $this->_setMetadata('references', $refs);
             }
         }
 
@@ -2117,13 +2154,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         $h = $contents->getHeader();
 
-        $this->_metadata['indices'] = $contents->getIndicesOb();
-
-        /* We need the Message-Id so we can log this event. This header is not
-         * added to the outgoing messages. */
-        $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
         $this->_replytype = $type;
-        $this->changed = 'changed';
+        $this->_setMetadata('indices', $contents->getIndicesOb());
 
         if (strlen($s = $h->getValue('subject'))) {
             $s = strval(new Horde_Imap_Client_Data_BaseSubject($s, array(
@@ -2223,15 +2255,47 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Prepares a forwarded message using multiple messages.
+     *
+     * @param IMP_Indices $indices  An indices object containing the indices
+     *                              of the forwarded messages.
+     *
+     * @return array  An array with the following keys:
+     *   - body: (string) The text of the body part.
+     *   - format: (string) The format of the body message ('html', 'text').
+     *   - identity: (mixed) See IMP_Prefs_Identity#getMatchingIdentity().
+     *   - subject: (string) Formatted subject.
+     *   - title: (string) Title to use on page.
+     *   - type: (integer) The compose type.
+     */
+    public function forwardMultipleMessages(IMP_Indices $indices)
+    {
+        global $injector, $prefs, $session;
+
+        $this->_setMetadata('indices', $indices);
+        $this->_replytype = self::FORWARD_ATTACH;
+
+        $subject = $this->attachImapMessage($indices);
+
+        return array(
+            'body' => '',
+            'format' => ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail')) ? 'html' : 'text',
+            'identity' => $injector->getInstance('IMP_Identity')->getDefault(),
+            'subject' => $subject,
+            'title' => $subject,
+            'type' => self::FORWARD
+        );
+    }
+
+    /**
      * Prepare a redirect message.
      *
      * @param IMP_Indices $indices  An indices object.
      */
     public function redirectMessage(IMP_Indices $indices)
     {
-        $this->_metadata['redirect_indices'] = $indices;
+        $this->_setMetadata('redirect_indices', $indices);
         $this->_replytype = self::REDIRECT;
-        $this->changed = 'changed';
     }
 
     /**
@@ -2854,10 +2918,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * message (since the original message may disappear during the
              * compose process). */
             if ($related_part = $contents->findMimeType($body_id, 'multipart/related')) {
-                $this->_metadata['related_contents'] = $contents;
+                $this->_setMetadata('related_contents', $contents);
                 $related_ob = new Horde_Mime_Related($related_part);
                 $related_ob->cidReplace($dom, array($this, '_getMessageTextCallback'), $part_charset);
-                unset($this->_metadata['related_contents']);
+                $this->_setMetadata('related_contents', null);
             }
 
             /* Convert any Data URLs to attachments. */
@@ -3201,7 +3265,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getContentsOb()
     {
-        return ($this->_replytype && $indices = $this->getMetadata('indices'))
+        return ($this->_replytype && ($indices = $this->getMetadata('indices')) && (count($indices) === 1))
             ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices)
             : null;
     }

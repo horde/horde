@@ -122,16 +122,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 }
 
                 try {
-                    $subject = $compose_opts['title'] = $imp_compose->attachImapMessage($this->indices);
+                    $result = $imp_compose->forwardMultipleMessages($this->indices);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
-                }
-
-                $onload = $compose_ajax->getBaseResponse();
-                if ($prefs->getValue('compose_html') &&
-                    $session->get('imp', 'rteavail')) {
-                    $onload->format = 'html';
                 }
             } else {
                 try {
@@ -142,10 +136,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 }
 
                 $result = $imp_compose->forwardMessage($compose_ajax->forward_map[$this->vars->type], $contents);
-                $onload = $compose_ajax->getResponse($result);
-
-                $compose_opts['title'] = $result['title'];
             }
+
+            $onload = $compose_ajax->getResponse($result);
+            $compose_opts['title'] = $result['title'];
 
             $ajax_queue->attachment($imp_compose, IMP_Compose::FORWARD_ATTACH);
             break;

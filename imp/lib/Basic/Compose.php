@@ -590,7 +590,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'fwd_digest':
             if (count($this->indices)) {
                 try {
-                    $header['subject'] = $imp_compose->attachImapMessage($this->indices);
+                    $res = $imp_compose->forwardMultipleMessages($this->indices);
+                    $header['subject'] = $res['subject'];
                     $fwd_msg = array('type' => IMP_Compose::FORWARD_ATTACH);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
