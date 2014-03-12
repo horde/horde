@@ -88,6 +88,9 @@ The following preferences have been added::
 The following preferences have been removed::
 
    mail_domain
+   mimp_download_confirm
+   mimp_inline_all
+   mimp_preview_msg
    pgp_scan_body
 
 

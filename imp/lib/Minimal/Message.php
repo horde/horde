@@ -19,7 +19,6 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
      *   a: (string) Action ID.
      *   allto: (boolean) View all To addresses?
      *   buid: (string) Browser UID.
-     *   fullmsg: (boolean) View full message?
      *   t: (string) Token.
      */
     protected function _init()
@@ -205,18 +204,10 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         /* Create the body of the message. */
         $inlineout = $imp_contents->getInlineOutput(array(
             'display_mask' => IMP_Contents::RENDER_INLINE,
-            'no_inline_all' => !$prefs->getValue('mimp_inline_all')
+            'no_inline_all' => true
         ));
 
         $msg_text = $inlineout['msgtext'];
-
-        /* Display the first 250 characters, or display the entire message? */
-        if ($prefs->getValue('mimp_preview_msg') &&
-            !isset($this->vars->fullmsg) &&
-            (strlen($msg_text) > 250)) {
-            $msg_text = Horde_String::substr(trim($msg_text), 0, 250) . " [...]\n";
-            $this->view->fullmsg_link = $self_link->copy()->add('fullmsg', 1);
-        }
 
         $this->view->msg = nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html'));
 
@@ -313,12 +304,10 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             if (!empty($summary['download'])) {
                 /* Preference: if set, only show download confirmation screen
                  * if attachment over a certain size. */
-                $tmp['download'] = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
-                    ? IMP_Minimal_Messagepart::url(array(
-                          'buid' => $buid,
-                          'mailbox' => $this->indices->mailbox
-                      ))->add('atc', $key)
-                    : $summary['download_url'];
+                $tmp['download'] = IMP_Minimal_Messagepart::url(array(
+                    'buid' => $buid,
+                    'mailbox' => $this->indices->mailbox
+                ))->add('atc', $key);
             }
 
             if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {

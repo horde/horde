@@ -979,7 +979,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_replacement_manage', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn', 'mimp_download_confirm', 'mimp_inline_all'
+        'send_mdn'
     )
 );
 
@@ -1126,21 +1126,6 @@ $_prefs['send_mdn'] = array(
     'suppress' => function() {
         return empty($GLOBALS['conf']['maillog']['use_maillog']);
     }
-);
-
-$_prefs['mimp_download_confirm'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'number',
-    'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.") . ' (<em>' . _("Minimal view only") . '</em>)'
-);
-
-$_prefs['mimp_inline_all'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
@@ -1467,7 +1452,7 @@ $prefGroups['mboxdisplay'] = array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
         'max_msgs', 'from_link', 'atc_flag', 'preview_enabled',
         'preview_maxlen', 'preview_strip_nl', 'preview_show_unread',
-        'preview_show_tooltip', 'mimp_preview_msg'
+        'preview_show_tooltip'
     )
 );
 
@@ -1621,13 +1606,6 @@ $_prefs['preview_show_tooltip'] = array(
     'type' => 'checkbox',
     'desc' => _("Show previews in tooltips?"),
     'requires' => array('preview_enabled')
-);
-
-$_prefs['mimp_preview_msg'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
