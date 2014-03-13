@@ -152,6 +152,19 @@ var IMP_JS = {
         if (w || h) {
             win.resizeBy(w, h);
         }
+    },
+
+    fnv_1a: function(str)
+    {
+        var i, l,
+            hash = 0x811c9dc5;
+
+        for (i = 0, l = str.length; i < l; ++i) {
+            hash ^= str.charCodeAt(i);
+            hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+        }
+
+        return hash >>> 0;
     }
 
 };

@@ -28,7 +28,6 @@ var DimpCompose = {
         })
     }),
     knl: {},
-    seed: 3,
 
     getCacheElt: function()
     {
@@ -702,11 +701,10 @@ var DimpCompose = {
             return;
         }
 
-        hdrs = murmurhash3(
+        hdrs = IMP_JS.fnv_1a(
             [$('to', 'cc', 'bcc', 'subject').compact().invoke('getValue'),
              $('attach_list').select('SPAN.attachName').pluck('textContent')
-            ].flatten().join('\0'),
-            this.seed
+            ].flatten().join('\0')
         );
 
         if (Object.isUndefined(this.hash_hdrs)) {
@@ -729,15 +727,16 @@ var DimpCompose = {
 
     msgHash: function()
     {
-        return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), this.seed);
+        return IMP_JS.fnv_1a(
+            ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage')
+        );
     },
 
     sigHash: function()
     {
-        if (!$('signature')) {
-            return 0;
-        }
-        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+        return $('signature')
+            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
+            : 0;
     },
 
     updateSigHash: function()

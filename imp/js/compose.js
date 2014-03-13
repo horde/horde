@@ -13,7 +13,6 @@ var ImpCompose = {
     //   sc_submit, sm_check, skip_spellcheck, spellcheck, text
 
     display_unload_warning: true,
-    seed: 3,
 
     confirmCancel: function(discard, e)
     {
@@ -147,7 +146,9 @@ var ImpCompose = {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
-            cur_msg = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'), this.seed);
+            cur_msg = IMP_JS.fnv_1a(
+                $('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage')
+            );
             if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
@@ -228,10 +229,9 @@ var ImpCompose = {
 
     sigHash: function()
     {
-        if (!$('signature')) {
-            return 0;
-        }
-        return murmurhash3(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'), this.seed);
+        return $('signature')
+            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
+            : 0;
     },
 
     updateSigHash: function()
