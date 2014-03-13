@@ -1034,7 +1034,7 @@ extends Horde_Core_Ajax_Application_Handler
 
     /**
      * AJAX action: Is the given mailbox fixed? Called dynamically to delay
-     * retrieveal of ACLs of all visible mailboxes at initialization.
+     * retrieval of ACLs of all visible mailboxes at initialization.
      *
      * Variables used:
      *   - mbox: (integer) The mailbox name.
