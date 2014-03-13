@@ -1327,7 +1327,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // above.
         foreach (array($this->_syncMapTable, $this->_syncMailMapTable) as $table) {
             $remove = array();
-            $sql = 'SELECT sync_key FROM ' . $table
+            $sql = 'SELECT DISTINCT sync_key FROM ' . $table
                 . ' WHERE sync_devid = ? AND sync_user = ?';
 
             try {

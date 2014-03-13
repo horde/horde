@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2028,7 +2028,7 @@
    <date>2014-03-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
    </notes>
   </release>
  </changelog>
