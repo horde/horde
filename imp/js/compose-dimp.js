@@ -401,17 +401,14 @@ var DimpCompose = {
             return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
 
-        if (ImpComposeBase.editor_on) {
-            this.RTELoading('show');
+        this.RTELoading('show');
 
+        if (ImpComposeBase.editor_on) {
             action = 'html2Text',
             params.set('body', {
                 changed: Number(this.msgHash() != this.hash_msgOrig),
                 text: this.rte.getData()
             });
-
-            this.rte.destroy(true);
-            delete this.rte;
 
             if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
                 sigChanged = true;
@@ -420,50 +417,16 @@ var DimpCompose = {
                     text: ImpComposeBase.rte.getData()
                 });
             }
-        } else {
-            this.RTELoading('show');
-
+        } else if (!noupdate) {
             action = 'text2Html';
 
-            if (!noupdate) {
-                tmp = $F('composeMessage');
-                if (!tmp.blank()) {
-                    params.set('body', {
-                        changed: Number(this.msgHash() != this.hash_msgOrig),
-                        text: tmp
-                    });
-                }
+            tmp = $F('composeMessage');
+            if (!tmp.blank()) {
+                params.set('body', {
+                    changed: Number(this.msgHash() != this.hash_msgOrig),
+                    text: tmp
+                });
             }
-
-            if (Object.isUndefined(this.rte_loaded)) {
-                CKEDITOR.on('instanceReady', function(evt) {
-                    this.RTELoading('hide');
-                    this.rte.focus();
-                    this.rte_loaded = true;
-                    this.resizeMsgArea();
-
-                    new CKEDITOR.dom.document(
-                        evt.editor.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
-                    .on('keydown', function(evt) {
-                        this.keydownHandler(Event.extend(evt.data.$), true);
-                    }.bind(this));
-                }.bind(this));
-                CKEDITOR.on('instanceDestroyed', function(evt) {
-                    this.RTELoading('hide');
-                    this.rte_loaded = false;
-                }.bind(this));
-            }
-
-            this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
-            this.rte.on('getData', function(evt) {
-                var elt = new Element('SPAN').insert(evt.data.dataValue),
-                    elts = elt.select('IMG[dropatc_id]');
-                if (elts.size()) {
-                    elts.invoke('writeAttribute', 'dropatc_id', null);
-                    elts.invoke('writeAttribute', 'src', null);
-                    evt.data.dataValue = elt.innerHTML;
-                }
-            }.bind(this));
 
             if ($('signature')) {
                 tmp = $F('signature');
@@ -482,8 +445,10 @@ var DimpCompose = {
                 data: Object.toJSON(params)
             }), {
                 ajaxopts: { asynchronous: false },
-                callback: this.setMessageText.bind(this, action == 'text2Html')
+                callback: this.setMessageText.bind(this, !ImpComposeBase.editor_on)
             });
+        } else {
+            this.rteInit(!ImpComposeBase.editor_on);
         }
 
         ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
@@ -569,6 +534,8 @@ var DimpCompose = {
             );
         }
 
+        this.rteInit(rte);
+
         if (this.rte_loaded && rte) {
             this.rte.setData(r.text.body);
         } else if (!this.rte_loaded && !rte) {
@@ -583,6 +550,44 @@ var DimpCompose = {
         }
 
         this.resizeMsgArea();
+    },
+
+    rteInit: function(rte)
+    {
+        if (rte && !this.rte) {
+            if (Object.isUndefined(this.rte_loaded)) {
+                CKEDITOR.on('instanceReady', function(evt) {
+                    this.RTELoading('hide');
+                    this.rte.focus();
+                    this.rte_loaded = true;
+                    this.resizeMsgArea();
+
+                    new CKEDITOR.dom.document(
+                        evt.editor.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
+                    .on('keydown', function(evt) {
+                        this.keydownHandler(Event.extend(evt.data.$), true);
+                    }.bind(this));
+                }.bind(this));
+                CKEDITOR.on('instanceDestroyed', function(evt) {
+                    this.RTELoading('hide');
+                    this.rte_loaded = false;
+                }.bind(this));
+            }
+
+            this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+            this.rte.on('getData', function(evt) {
+                var elt = new Element('SPAN').insert(evt.data.dataValue),
+                    elts = elt.select('IMG[dropatc_id]');
+                if (elts.size()) {
+                    elts.invoke('writeAttribute', 'dropatc_id', null);
+                    elts.invoke('writeAttribute', 'src', null);
+                    evt.data.dataValue = elt.innerHTML;
+                }
+            }.bind(this));
+        } else if (!rte && this.rte) {
+            this.rte.destroy(true);
+            delete this.rte;
+        }
     },
 
     // ob = addr, body, format, identity, opts, subject, type
