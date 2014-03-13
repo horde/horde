@@ -250,13 +250,13 @@ class IMP_Message
                  * an error occurs. But 1) the user has already indicated they
                  * don't care about this data and 2) message IDs (used by some
                  * maillog backends) won't be available after deletion. */
+                $delete_ids = array();
                 foreach ($ids_ob as $val) {
-                    foreach ($val->uids as $val2) {
-                        $maillog->deleteLog(new IMP_Maillog_Message(
-                            new IMP_Indices($val->mbox, $val2)
-                        ));
-                    }
+                    $delete_ids[] = new IMP_Maillog_Message(
+                        new IMP_Indices($ob->mbox, $val)
+                    );
                 }
+                $maillog->deleteLog($delete_ids);
 
                 /* Delete the messages. */
                 $expunge_now = false;
