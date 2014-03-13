@@ -891,41 +891,88 @@ extends Horde_Core_Ajax_Application_Handler
      * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:
-     *   - changed: (integer) Has the text changed from the original?
+     *   - data: (string) [JSON array] List of data to convert. Keys are UIDs
+     *           used to idetify the return values. Values are arrays with
+     *           these keys:
+     *     - changed: (integer) Has the text changed from the original?
+     *     - text: (string) The text to convert.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
-     *   - text: (string) The text to convert.
      *
      * @return object  An object with the following entries:
-     *   - text: (string) The converted text.
+     *   - text: (array) Array with keys as UIDs and values as the converted
+     *           text string.
      */
     public function html2Text()
     {
+        return $this->_convertText('text');
+    }
+
+    /**
+     * AJAX action: Convert text to HTML (compose data).
+     *
+     * Variables used:
+     *   - data: (string) [JSON array] List of data to convert. Keys are UIDs
+     *           used to idetify the return values. Values are arrays with
+     *           these keys:
+     *     - changed: (integer) Has the text changed from the original?
+     *     - text: (string) The text to convert.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *
+     * @return object  An object with the following entries:
+     *   - text: (array) Array with keys as UIDs and values as the converted
+     *           text string.
+     */
+    public function text2Html()
+    {
+        return $this->_convertText('html');
+    }
+
+    /**
+     * Helper for html2Text() and text2Html().
+     *
+     * @internal
+     */
+    protected function _convertText($mode)
+    {
+        global $injector;
+
+        $compose = null;
+
         $result = new stdClass;
+        $result->text = array();
 
-        if (!$this->vars->changed) {
-            $compose = $this->_base->initCompose();
+        foreach (json_decode($this->vars->data, true) as $key => $val) {
+            $tmp = null;
 
-            switch ($compose->compose->replyType()) {
-            case IMP_Compose::FORWARD_BODY:
-            case IMP_Compose::FORWARD_BOTH:
-                $data = $compose->compose->forwardMessageText($compose->contents, array(
-                    'format' => 'text'
-                ));
-                $result->text = $data['body'];
-                return $result;
+            if (empty($val['changed'])) {
+                if (!$compose) {
+                    $compose = $this->_base->initCompose();
+                }
 
-            case IMP_Compose::REPLY_ALL:
-            case IMP_Compose::REPLY_LIST:
-            case IMP_Compose::REPLY_SENDER:
-                $data = $compose->compose->replyMessageText($compose->contents, array(
-                    'format' => 'text'
-                ));
-                $result->text = $data['body'];
-                return $result;
+                switch ($compose->compose->replyType()) {
+                case IMP_Compose::FORWARD_BODY:
+                case IMP_Compose::FORWARD_BOTH:
+                    $data = $compose->compose->forwardMessageText($compose->contents, array(
+                        'format' => $mode
+                    ));
+                    $tmp = $data['body'];
+                    break;
+
+                case IMP_Compose::REPLY_ALL:
+                case IMP_Compose::REPLY_LIST:
+                case IMP_Compose::REPLY_SENDER:
+                    $data = $compose->compose->replyMessageText($compose->contents, array(
+                        'format' => $mode
+                    ));
+                    $tmp = $data['body'];
+                    break;
+                }
             }
-        }
 
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->convertComposeText($this->vars->text, 'text');
+            $result->text[$key] = is_null($tmp)
+                ? $injector->getInstance('IMP_Compose_Ui')->convertComposeText($val['text'], $mode)
+                : $tmp;
+        }
 
         return $result;
     }
@@ -983,49 +1030,6 @@ extends Horde_Core_Ajax_Application_Handler
             '</html>',
             'text/html'
         );
-    }
-
-    /**
-     * AJAX action: Convert text to HTML (compose data).
-     *
-     * Variables used:
-     *   - changed: (integer) Has the text changed from the original?
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
-     *   - text: (string) The text to convert.
-     *
-     * @return object  An object with the following entries:
-     *   - text: (string) The converted text.
-     */
-    public function text2Html()
-    {
-        $result = new stdClass;
-
-        if (!$this->vars->changed) {
-            $compose = $this->_base->initCompose();
-
-            switch ($compose->compose->replyType()) {
-            case IMP_Compose::FORWARD_BODY:
-            case IMP_Compose::FORWARD_BOTH:
-                $data = $compose->compose->forwardMessageText($compose->contents, array(
-                    'format' => 'html'
-                ));
-                $result->text = $data['body'];
-                return $result;
-
-            case IMP_Compose::REPLY_ALL:
-            case IMP_Compose::REPLY_LIST:
-            case IMP_Compose::REPLY_SENDER:
-                $data = $compose->compose->replyMessageText($compose->contents, array(
-                    'format' => 'html'
-                ));
-                $result->text = $data['body'];
-                return $result;
-            }
-        }
-
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->convertComposeText($this->vars->text, 'html');
-
-        return $result;
     }
 
     /**

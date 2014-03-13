@@ -384,8 +384,9 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var changed, sigChanged, sc, text, tmp,
-            identity = ImpComposeBase.identities[$F('identity')];
+        var action, sigChanged, sc, tmp,
+            identity = ImpComposeBase.identities[$F('identity')],
+            params = $H();
 
         if (!DimpCore.conf.rte_avail) {
             return;
@@ -403,43 +404,33 @@ var DimpCompose = {
         if (ImpComposeBase.editor_on) {
             this.RTELoading('show');
 
-            changed = (this.msgHash() != this.hash_msgOrig);
-            text = this.rte.getData();
-
-            DimpCore.doAction('html2Text', this.actionParams({
-                changed: Number(changed),
-                text: text
-            }), {
-                ajaxopts: { asynchronous: false },
-                callback: this.setMessageText.bind(this, false)
+            action = 'html2Text',
+            params.set('body', {
+                changed: Number(this.msgHash() != this.hash_msgOrig),
+                text: this.rte.getData()
             });
 
             this.rte.destroy(true);
             delete this.rte;
 
-            if ($('signature')) {
-                sigChanged = this.sigHash() != this.hash_sigOrig;
-                if (sigChanged) {
-                    DimpCore.doAction('html2Text', this.actionParams({
-                        changed: 1,
-                        text: ImpComposeBase.rte.getData()
-                    }), {
-                        ajaxopts: { asynchronous: false },
-                        callback: function(r) { ImpComposeBase.setSignature(false, r.text) }
-                    });
-                }
+            if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
+                sigChanged = true;
+                params.set('sig', {
+                    changed: 1,
+                    text: ImpComposeBase.rte.getData()
+                });
             }
         } else {
             this.RTELoading('show');
 
+            action = 'text2Html';
+
             if (!noupdate) {
                 tmp = $F('composeMessage');
                 if (!tmp.blank()) {
-                    DimpCore.doAction('text2Html', this.actionParams({
+                    params.set('body', {
                         changed: Number(this.msgHash() != this.hash_msgOrig),
                         text: tmp
-                    }), {
-                        callback: this.setMessageText.bind(this, true)
                     });
                 }
             }
@@ -476,17 +467,23 @@ var DimpCompose = {
 
             if ($('signature')) {
                 tmp = $F('signature');
-                sigChanged = (this.sigHash() != this.hash_sigOrig);
-                if (sigChanged && !tmp.blank()) {
-                    DimpCore.doAction('text2Html', this.actionParams({
+                if (!tmp.blank() && (this.sigHash() != this.hash_sigOrig)) {
+                    sigChanged = true;
+                    params.set('sig', {
                         changed: 1,
                         text: tmp
-                    }), {
-                        ajaxopts: { asynchronous: false },
-                        callback: function(r) { ImpComposeBase.setSignature(true, r.text) }
                     });
                 }
             }
+        }
+
+        if (params.size()) {
+            DimpCore.doAction(action, this.actionParams({
+                data: Object.toJSON(params)
+            }), {
+                ajaxopts: { asynchronous: false },
+                callback: this.setMessageText.bind(this, action == 'text2Html')
+            });
         }
 
         ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
@@ -563,16 +560,26 @@ var DimpCompose = {
     {
         var ta = $('composeMessage');
         if (!ta) {
-            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }));
+            $('composeMessageParent').insert(
+                new Element('TEXTAREA', {
+                    id: 'composeMessage',
+                    name: 'message',
+                    style: 'width:100%'
+                })
+            );
         }
 
         if (this.rte_loaded && rte) {
-            this.rte.setData(r.text);
+            this.rte.setData(r.text.body);
         } else if (!this.rte_loaded && !rte) {
-            ta.setValue(r.text);
+            ta.setValue(r.text.body);
         } else {
             this.setMessageText.bind(this, rte, r).delay(0.1);
             return;
+        }
+
+        if (r.text.sig) {
+            ImpComposeBase.setSignature(rte, r.text.sig)
         }
 
         this.resizeMsgArea();
