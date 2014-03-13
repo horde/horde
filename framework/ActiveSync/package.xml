@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression that could prevent stale sync requests to persist (Bug #13032).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2015,7 +2015,7 @@
    <date>2014-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression that could prevent stale sync requests to persist (Bug #13032).
    </notes>
   </release>
  </changelog>
