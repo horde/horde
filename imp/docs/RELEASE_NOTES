@@ -19,9 +19,9 @@ Program (IMP) version H5 (6.1.8).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
-access to IMAP and POP3 mail servers and provides dynamic, smartmobile, basic,
-and minimal interfaces with a rich range of features normally found only in
-desktop email clients. For more information on IMP, visit
+access to IMAP and POP3 mail servers and provides dynamic, mobile, basic, and
+minimal interfaces with a rich range of features normally found only in desktop
+email clients. For more information on IMP, visit
 http://www.horde.org/apps/imp.
 
 For upgrading instructions, please see
