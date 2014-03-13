@@ -162,7 +162,7 @@ class Horde_ActiveSync_SyncCache
             array('lasthbsyncstarted', 'timestamp'));
 
         if ((!$hb_only && $cache['timestamp'] > $this->_data['timestamp']) ||
-            (!empty($cache['lastsyncstarted']) && $cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
+            (!empty($cache['lasthbsyncstarted']) && $cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }
 
