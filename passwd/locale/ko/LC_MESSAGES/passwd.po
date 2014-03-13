@@ -1,0 +1,321 @@
+# Korean translations for Passwd package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Passwd package.
+# Deokgon Kim <dgkim@dgkim.net>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-03-09 16:34+0900\n"
+"PO-Revision-Date: 2014-03-13 12:49+0100\n"
+"Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Driver/Expect.php:31
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr ""
+
+#: lib/Driver/Composite.php:66
+#, php-format
+msgid "%s: unable to load sub driver: %s"
+msgstr ""
+
+#: lib/Driver/Adsi.php:73
+#, php-format
+msgid "ADSI error %s."
+msgstr ""
+
+#: lib/Driver/Adsi.php:70 lib/Driver/Pspasswd.php:119
+#, fuzzy
+msgid "Access Denied."
+msgstr "권한 없음"
+
+#: lib/Driver/Servuftp.php:69
+#, fuzzy
+msgid "Cannot change password"
+msgstr "암호 확인"
+
+#: lib/Driver/Poppassd.php:98
+#, fuzzy
+msgid "Cannot send command to server."
+msgstr "LDAP 서버 접속 실패"
+
+#: index.php:25 templates/index.html.php:78
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+#: templates/index.html.php:60
+#, fuzzy
+msgid "Change password for:"
+msgstr "암호 확인"
+
+#: lib/Basic.php:132
+#, fuzzy
+msgid "Change your password"
+msgstr "암호 확인"
+
+#: lib/Basic.php:134
+#, php-format
+msgid "Changing password for %s"
+msgstr "%s의 비밀번호 변경"
+
+#: templates/index.html.php:49
+msgid "Confirm new password:"
+msgstr "새 비밀번호 확인:"
+
+#: lib/Driver/Servuftp.php:54
+#, fuzzy
+msgid "Connection failed"
+msgstr "연결 실패"
+
+#: lib/Driver/Kolab.php:54
+#, fuzzy
+msgid "Could not bind to LDAP server"
+msgstr "LDAP 서버 접속 실패"
+
+#: lib/Driver/Expectpecl.php:120
+msgid "Could not change password (bad old password?)"
+msgstr ""
+
+#: lib/Driver/Expectpecl.php:138
+#, fuzzy
+msgid "Could not change password."
+msgstr "올바른 검색 범주를 입력하세요."
+
+#: lib/Driver/Kolab.php:40
+#, fuzzy
+msgid "Could not connect to LDAP server"
+msgstr "LDAP 서버 접속 실패"
+
+#: lib/Driver/Expectpecl.php:102
+msgid "Could not login to system (no password prompt)"
+msgstr ""
+
+#: lib/Driver/Smbpasswd.php:66
+msgid "Could not open pipe to smbpasswd."
+msgstr ""
+
+#: lib/Driver/Expectpecl.php:111
+msgid "Could not start passwd program (no old password prompt)"
+msgstr ""
+
+#: lib/Driver/Expectpecl.php:57
+msgid "End of file."
+msgstr ""
+
+#: lib/Driver/Smbpasswd.php:88
+#, fuzzy
+msgid "Error sending data to smbpasswd."
+msgstr "파일 이름 변경 오류: "
+
+#: lib/Driver/Pspasswd.php:109
+#, fuzzy
+msgid "Failed to verify old password."
+msgstr "올바른 검색 범주를 입력하세요."
+
+#: lib/Basic.php:226 lib/Driver/Composite.php:84
+#, php-format
+msgid "Failure in changing password for %s: %s"
+msgstr ""
+
+#: lib/Driver/Expectpecl.php:63
+msgid "Full buffer."
+msgstr ""
+
+#: lib/Driver.php:74 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
+#: lib/Driver/Kolab.php:78 lib/Driver/Poppassd.php:120
+#: lib/Driver/Vmailmgr.php:40
+#, fuzzy
+msgid "Incorrect old password."
+msgstr "암호 확인"
+
+#: lib/Driver/Servuftp.php:64
+#, fuzzy
+msgid "Incorrect password"
+msgstr "암호"
+
+#: lib/Driver/Ldap.php:154
+msgid "Minimum password age has not yet expired"
+msgstr ""
+
+#: lib/Driver/Expectpecl.php:129
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr ""
+
+#: templates/index.html.php:39
+msgid "New password:"
+msgstr "새 비밀번호:"
+
+#: lib/Factory/Driver.php:199 lib/Passwd.php:52
+msgid "No backend configured for this host"
+msgstr ""
+
+#: lib/Factory/Driver.php:182 lib/Passwd.php:19
+msgid "No backends configured in backends.php"
+msgstr ""
+
+#: lib/Driver/Poppassd.php:75
+msgid "No prompt returned from server."
+msgstr ""
+
+#: templates/index.html.php:29
+msgid "Old password:"
+msgstr "기존 비밀번호:"
+
+#: lib/Driver/Smbpasswd.php:54
+#, fuzzy
+msgid "Passwd is not properly configured."
+msgstr "Nag가 정상적으로 설정되어 있지 않습니다."
+
+#: lib/Basic.php:230
+#, fuzzy, php-format
+msgid "Password changed on %s."
+msgstr "암호"
+
+#: lib/Driver/Pspasswd.php:83
+msgid "Password module can't find the supplied bin."
+msgstr ""
+
+#: lib/Driver/Pspasswd.php:79 lib/Driver/Servuftp.php:41
+msgid "Password module is missing required parameters."
+msgstr ""
+
+#: lib/Driver/Adsi.php:58
+msgid "Password module is missing target parameter."
+msgstr ""
+
+#: lib/Basic.php:215
+#, fuzzy
+msgid "Password module is not properly configured"
+msgstr "Gollem이 정상 설정되지 않았습니다."
+
+#: lib/Basic.php:145
+#, fuzzy
+msgid "Please provide a new password"
+msgstr "비밀번호를 입력하세요."
+
+#: lib/Basic.php:144
+#, fuzzy
+msgid "Please provide your current password"
+msgstr "비밀번호를 입력하세요."
+
+#: lib/Basic.php:146
+#, fuzzy
+msgid "Please verify your new password"
+msgstr "비밀번호를 입력하세요."
+
+#: lib/Driver/Composite.php:42
+#, fuzzy
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr "설정에서 'table'이 명시되지 않았습니다."
+
+#: templates/index.html.php:79
+msgid "Reset"
+msgstr "취소"
+
+#: lib/Driver/Horde.php:36
+msgid "The current horde configuration does not allow changing passwords."
+msgstr ""
+
+#: lib/Factory/Driver.php:71
+#, fuzzy, php-format
+msgid "The password backend \"%s\" does not exist."
+msgstr "식별자 \"%s\" 가 삭제되었습니다."
+
+#: lib/Driver/Http.php:48
+msgid "The requested website for changing user passwords could not be reached."
+msgstr ""
+
+#: lib/Driver/Http.php:58
+#, fuzzy
+msgid "The username could not be found."
+msgstr "서명을 변경할 수 없습니다."
+
+#: lib/Driver/Expectpecl.php:60
+#, fuzzy
+msgid "Time out."
+msgstr "시간 설정"
+
+#: lib/Factory/Driver.php:78
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "%s 정의를 읽을 수 없습니다."
+
+#: lib/Driver/Expectpecl.php:96
+#, fuzzy
+msgid "Unable to open expect stream"
+msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
+
+#: lib/Driver/Servuftp.php:59
+#, fuzzy
+msgid "Unknown user"
+msgstr "알수 없는 작업"
+
+#: lib/Driver/Poppassd.php:113 lib/Driver/Sql.php:97
+#: lib/Driver/Vpopmail.php:111
+#, fuzzy
+msgid "User not found"
+msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+
+#: lib/Driver/Kolab.php:70 lib/Driver/Ldap.php:132 lib/Driver/Pine.php:240
+#, fuzzy
+msgid "User not found."
+msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+
+#: templates/index.html.php:18
+msgid "Username:"
+msgstr "사용자명:"
+
+#: lib/Basic.php:163
+#, php-format
+msgid "You can't change password for user %s"
+msgstr ""
+
+#: lib/Basic.php:169
+msgid "You must give your current password"
+msgstr ""
+
+#: lib/Basic.php:174
+#, fuzzy
+msgid "You must give your new password"
+msgstr "암호 확인"
+
+#: lib/Basic.php:178
+#, fuzzy
+msgid "You must verify your new password"
+msgstr "추가할 사용자 이름을 입력해야 합니다."
+
+#: lib/Basic.php:188
+msgid "Your new password must be different from your current password"
+msgstr ""
+
+#: lib/Basic.php:183
+#, fuzzy
+msgid "Your new passwords didn't match"
+msgstr "암호가 일치하지 않습니다."
+
+#: lib/Driver/Http.php:61
+#, fuzzy
+msgid "Your password could not be changed."
+msgstr "편지가 성공적으로 전송되었습니다."
+
+#: lib/Basic.php:238
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+
+#: lib/Basic.php:147
+#, fuzzy
+msgid "Your passwords do not match"
+msgstr "암호가 일치하지 않습니다."
+
+#: lib/Driver/Expectpecl.php:78
+msgid "expect extension cannot be loaded"
+msgstr ""

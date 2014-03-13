@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<help>
+  <entry id="username">
+    <title>사용자명</title>
+    <para>사용자명을 입력하십시오.(미리 채워져있지 않다면).
+    어떤 구성환경에서는 해당하지 않을 수 있습니다.</para>
+  </entry>
+  <entry id="old-password">
+    <title>기존 비밀번호</title>
+    <para>현재 로그인에 사용한 비밀번호를 입력하십시오.
+    현재 사용중인 비밀번호를 제대로 입력하지 않으면, 비밀번호를
+    변경할 수 없습니다.</para>
+  </entry>
+  <entry id="new-password">
+    <title>새 비밀번호</title>
+    <para>새로 사용할 비밀번호를 입력하십시오.
+    입력하는 비밀번호는 몇몇 최소 요건을 만족하여야합니다.
+    (충분한 길이, 사용자명과 일치하지 않아야 함, 문자와 특수문자의 조합 등)
+    요건에 만족하지 않을 경우, 에러가 발생합니다.</para>
+  </entry>
+  <entry id="confirm-password">
+    <title>새 비밀번호 확인</title>
+    <para>새 비밀번호를 다시한번 입력하십시오.
+    오타나 실수를 막기 위해서 입력받습니다.</para>
+  </entry>
+  <entry id="server">
+    <title>비밀번호 변경 대상</title>
+    <para>비밀번호를 변경할 서버나 애플리케이션을 선택합니다.
+    어떤 구성환경에서는 해당하지 않을 수 있습니다.</para>
+  </entry>
+</help>
