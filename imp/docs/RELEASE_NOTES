@@ -10,18 +10,19 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.1.7).
+Program (IMP) version H5 (6.1.8).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
-access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
-interfaces with a rich range of features normally found only in desktop email
-clients. For more information on IMP, visit http://www.horde.org/apps/imp.
+access to IMAP and POP3 mail servers and provides dynamic, smartmobile, basic,
+and minimal interfaces with a rich range of features normally found only in
+desktop email clients. For more information on IMP, visit
+http://www.horde.org/apps/imp.
 
 For upgrading instructions, please see
 http://www.horde.org/apps/imp/docs/UPGRADING
@@ -29,19 +30,13 @@ http://www.horde.org/apps/imp/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
-The major changes compared to IMP version H5 (6.1.6) are:
-    * Added a link to save all attachments to the message popup window.
-    * Improved support for broken S/MIME messages.
-    * Updated Danish translation.
-    * Small bugfixes and improvements.
+The major changes compared to IMP version H5 (6.1.7) are:
+    * Fix XSS vulnerability.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added a link to save all attachments to the message popup window.
-Improved support for broken S/MIME messages.
-Updated Danish translation.
-Small bugfixes and improvements.
+Fix XSS vulnerability.
 FM;
 
 $this->notes['name'] = 'IMP';
