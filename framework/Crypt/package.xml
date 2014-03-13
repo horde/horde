@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1004,7 +1004,7 @@ Initial release as a PEAR package
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
    </notes>
   </release>
  </changelog>

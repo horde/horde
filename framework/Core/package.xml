@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] Support new configuration options for history storage.
 * [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
 * [mjr] Added the nonotificationinit parameter to Horde_Registry::appInit().
@@ -3355,6 +3356,7 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] Support new configuration options for history storage.
 * [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
 * [mjr] Added the nonotificationinit parameter to Horde_Registry::appInit().
