@@ -75,7 +75,7 @@ class Turba_Ajax_Application_Handler_Minisearch extends Horde_Core_Ajax_Applicat
 
         if (count($results)) {
             $ob->html = '<ul>' . implode('', $results) . '</ul>';
-        } elseif (is_null($search)) {
+        } elseif (!is_null($search)) {
             $ob->html = _("No contacts found");
         }
 
