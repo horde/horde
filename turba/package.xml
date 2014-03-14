@@ -28,7 +28,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-03-10</date>
+ <date>2014-03-14</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.0.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.
@@ -66,6 +67,7 @@
     <file name="turba-convert-sql-shares-to-sqlng" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="turba-import-openxchange" role="script" />
     <file name="turba-import-squirrelmail-file-abook" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -865,6 +867,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_OpenXchange</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -886,6 +895,7 @@
    <install as="turba/addressbooks/index.php" name="addressbooks/index.php" />
    <install as="turba-convert-datatree-shares-to-sql" name="bin/turba-convert-datatree-shares-to-sql" />
    <install as="turba-convert-sql-shares-to-sqlng" name="bin/turba-convert-sql-shares-to-sqlng" />
+   <install as="turba-import-openxchange" name="bin/turba-import-openxchange" />
    <install as="turba-import-squirrelmail-file-abook" name="bin/turba-import-squirrelmail-file-abook" />
    <install as="turba-import-squirrelmail-sql-abook" name="bin/turba-import-squirrelmail-sql-abook" />
    <install as="turba-import-vcards" name="bin/turba-import-vcards" />
@@ -1781,9 +1791,10 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-03-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
 * [mms] Allow tagging system to be disabled via configuration option.

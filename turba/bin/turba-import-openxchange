@@ -1,0 +1,246 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script imports Open-Xchange addressbooks into Turba.
+ *
+ * The first argument must be the API endpoint of an Open-Xchange servers,
+ * usually something like http://servername/ajax.
+ *
+ * If called with three arguments, the further arguments must be the user name
+ * (usually "Administrator") and password of an administrator user to import
+ * public address books.
+ *
+ * If called with two arguments, the second argument must be a file with user
+ * names and cleartext passwords separated by spaces.
+ *
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+/**
+ * (Re-)load the $cfgSources array, necessary after adding new address books.
+ *
+ * @param array $sources  The orginal $cfgSources from backends(.local).php.
+ * @param boolean $admin  Is the current user an admin and are we updating
+ *                        global address books?
+ *
+ * @return array  List with the updated $cfgSources and flag whether we use
+ *                shares.
+ */
+function loadSources($sources, $admin)
+{
+    foreach ($sources as $key => $cfg) {
+        if ($admin && !empty($cfg['use_shares'])) {
+            continue;
+        }
+        $cfgSources[$key] = $cfg;
+        if (!empty($cfg['use_shares'])) {
+            $hasShares = true;
+        }
+    }
+    if ($hasShares && !$admin) {
+        $cfgSources = Turba::getConfigFromShares($cfgSources, true);
+    }
+    $cfgSources = Turba::permissionsFilter(
+        $cfgSources,
+        Horde_Perms::EDIT,
+        array('require_add' => true)
+    );
+    return array($cfgSources, $hasShares);
+}
+
+// Init application.
+if (file_exists(__DIR__ . '/../../turba/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/turba/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('turba', array('cli' => true, 'user_admin' => true));
+
+// Read command line parameters.
+if ($argc < 3 || $argc > 4) {
+    $cli->message('Too many or too few parameters.', 'cli.error');
+    $cli->writeln('Usage: turba-import-openxchange url [ file | user password ]');
+    $cli->writeln($cli->indent('url is the URL of an Open-Xchange AJAX endpoint'));
+    $cli->writeln($cli->indent('file is a file with space separated user names and passwords to import'));
+    $cli->writeln($cli->indent('personal address books.'));
+    $cli->writeln($cli->indent('user and password are credentials of an administrator user to import public'));
+    $cli->writeln($cli->indent('address books.'));
+    exit;
+}
+$admin = $argc == 4;
+
+// Basic objects and variables.
+$endpoint = parse_url($argv[1]);
+$cli->message('Opening endpoint ' . $argv[1]);
+$ox = new Horde_OpenXchange_Contacts(array('endpoint' => $argv[1]));
+$turba_shares = $injector->getInstance('Turba_Shares');
+$sources = Turba::availableSources();
+$contactMap = array();
+
+// Prepare handle on user/password list.
+if ($admin) {
+    $fp = fopen('php://temp', 'r+');
+    fwrite($fp, $argv[2] . ' ' . $argv[3]);
+    rewind($fp);
+} else {
+    if (!is_readable($argv[2]) || !filesize($argv[2])) {
+        $cli->message($argv[2] . ' is not readable or empty', 'cli.error');
+        exit(1);
+    }
+    $fp = fopen($argv[2], 'r');
+}
+if (!$fp) {
+    exit(1);
+}
+
+// Loop through all users.
+while ($row = fgetcsv($fp, 0, ' ')) {
+    $user = $row[0];
+    if (is_null($user)) {
+        continue;
+    }
+    $ox->logout();
+    $ox->login($user, $row[1]);
+
+    $registry->setAuth($user, array());
+    $cli->message('Importing ' . $user . '\'s address books');
+
+    // Reset sources for current user.
+    list($cfgSources, $hasShares) = loadSources($sources, $admin);
+    if (!count($cfgSources)) {
+        $cli->message('No address book available for ' . $user, 'cli.error');
+        continue;
+    }
+
+    $count = 0;
+    $groups = array();
+    $abooks = $ox->listAddressBooks(
+        $admin
+            ? Horde_OpenXchange_Contacts::ADDRESS_BOOK_PUBLIC
+            : Horde_OpenXchange_Contacts::ADDRESS_BOOK_PRIVATE
+    );
+
+    // Loop through all address books.
+    foreach ($abooks as $folderId => $abook) {
+        // Check if we already have an address book matching the name.
+        $target = null;
+        foreach ($cfgSources as $id => $source) {
+            if ($abook['label'] == $source['title']) {
+                $target = $id;
+                break;
+            }
+        }
+        if ($target) {
+            $cli->message('Address book "' . $abook['label'] . '" found, updating...');
+        } else {
+            // Create new address book.
+            $cli->message('Address book "' . $abook['label'] . '" not found, creating...');
+            $driver = $injector
+                ->getInstance('Turba_Factory_Driver')
+                ->create($sources[$conf['shares']['source']]);
+            $params = array(
+                'params' => array('source' => $conf['shares']['source']),
+                'name' => $abook['label'],
+            );
+            $target = strval(new Horde_Support_Randomid());
+            $share = $driver->createShare($target, $params);
+            foreach ($abook['hordePermission']['group'] as $group => $perm) {
+                $share->addGroupPermission($group, $perm);
+            }
+            foreach ($abook['hordePermission']['user'] as $user => $perm) {
+                $share->addUserPermission($user, $perm);
+            }
+            list($cfgSources, $hasShares) = loadSources($sources, $admin);
+        }
+        $groups[$target] = array();
+
+        // Initiate driver.
+        try {
+            $driver = $injector
+                ->getInstance('Turba_Factory_Driver')
+                ->create($target);
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . sprintf(_("Connection failed: %s"), $e->getMessage()), 'cli.error');
+            continue;
+        }
+
+        $contacts = $ox->listContacts($folderId);
+
+        // Loop through all contacts.
+        foreach ($contacts as $contact) {
+            $contact['__uid'] == $contact['uid'];
+            $contact['__tags'] == $contact['categories'];
+            if ($contact['distributionList']) {
+                // Keep contact lists for later.
+                $groups[$target][] = $contact;
+            } else {
+                // Regular contact.
+                if (!empty($contact['photourl'])) {
+                    $contact['photo'] = file_get_contents($endpoint['scheme'] . '://' . $endpoint['host'] . $contact['photourl']);
+                    if (!$contact['photo']) {
+                        $contact['phototype'] = null;
+                    }
+                }
+                try {
+                    $contactMap[$folderId][$contact['id']] = array(
+                        $target,
+                        $driver->add($contact)
+                    );
+                    $count++;
+                } catch (Turba_Exception $e) {
+                    $cli->message('  ' . $e->getMessage(), 'cli.error');
+                }
+            }
+        }
+    }
+
+    // Add all contact lists now, that we have all IDs from the imported
+    // contacts.
+    foreach ($groups as $target => $tmp) {
+        if (!count($tmp)) {
+            continue;
+        }
+        $driver = $injector
+            ->getInstance('Turba_Factory_Driver')
+            ->create($target);
+        foreach ($tmp as $group) {
+            $gid = $driver->add($group);
+            $object = new Turba_Object_Group(
+                $driver,
+                array_merge($group, array('__key' => $gid))
+            );
+            $count++;
+            foreach ($group['members'] as $member) {
+                if (isset($member['id'])) {
+                    $object->addMember(
+                        $contactMap[$member['folder_id']][$member['id']][1],
+                        $contactMap[$member['folder_id']][$member['id']][0]
+                    );
+                } else {
+                    try {
+                        $result = $driver->add(array(
+                            'name' => $member['display_name'],
+                            'email' => $member['mail']
+                        ));
+                        $object->addMember($result, $target);
+                        $count++;
+                    } catch (Turba_Exception $e) {
+                        $cli->message('  ' . $e->getMessage(), 'cli.error');
+                    }
+                }
+            }
+            $object->store();
+        }
+    }
+
+    $cli->message('  Added ' . $count . ' contacts', 'cli.success');
+    $count = 0;
+}
