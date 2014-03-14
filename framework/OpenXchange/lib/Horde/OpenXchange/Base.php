@@ -206,7 +206,9 @@ abstract class Horde_OpenXchange_Base
                 throw new Horde_OpenXchange_Exception($body);
             }
             if (isset($data['error'])) {
-                throw new Horde_OpenXchange_Exception($data['error']);
+                $e = new Horde_OpenXchange_Exception($data['error']);
+                $e->details = $data;
+                throw $e;
             }
             return $data;
         } catch (Horde_Http_Exception $e) {
