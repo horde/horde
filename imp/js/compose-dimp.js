@@ -383,7 +383,7 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var action, sigChanged, sc, tmp,
+        var action, changed, sigChanged, sc, tmp,
             identity = ImpComposeBase.identities[$F('identity')],
             params = $H();
 
@@ -404,8 +404,10 @@ var DimpCompose = {
 
         if (ImpComposeBase.editor_on) {
             action = 'html2Text',
+            changed = Number(this.msgHash() != this.hash_msgOrig);
+
             params.set('body', {
-                changed: Number(this.msgHash() != this.hash_msgOrig),
+                changed: changed,
                 text: this.rte.getData()
             });
 
@@ -421,8 +423,9 @@ var DimpCompose = {
 
             tmp = $F('composeMessage');
             if (!tmp.blank()) {
+                changed = Number(this.msgHash() != this.hash_msgOrig);
                 params.set('body', {
-                    changed: Number(this.msgHash() != this.hash_msgOrig),
+                    changed: changed,
                     text: tmp
                 });
             }
@@ -444,7 +447,10 @@ var DimpCompose = {
                 data: Object.toJSON(params)
             }), {
                 ajaxopts: { asynchronous: false },
-                callback: this.setMessageText.bind(this, !ImpComposeBase.editor_on)
+                callback: this.setMessageText.bind(this, {
+                    changed: changed,
+                    rte: !ImpComposeBase.editor_on
+                })
             });
         } else {
             this.rteInit(!ImpComposeBase.editor_on);
@@ -520,7 +526,7 @@ var DimpCompose = {
         }
     },
 
-    setMessageText: function(rte, r)
+    setMessageText: function(opts, r)
     {
         var ta = $('composeMessage');
         if (!ta) {
@@ -533,22 +539,28 @@ var DimpCompose = {
             );
         }
 
-        this.rteInit(rte);
+        this.rteInit(opts.rte);
 
-        if (this.rte_loaded && rte) {
+        if (this.rte_loaded && opts.rte) {
             this.rte.setData(r.text.body);
-        } else if (!this.rte_loaded && !rte) {
+        } else if (!this.rte_loaded && !opts.rte) {
             ta.setValue(r.text.body);
         } else {
-            this.setMessageText.bind(this, rte, r).delay(0.1);
+            this.setMessageText.bind(this, opts, r).delay(0.1);
             return;
         }
 
         if (r.text.sig) {
-            ImpComposeBase.setSignature(rte, r.text.sig)
+            ImpComposeBase.setSignature(opts.rte, r.text.sig)
         }
 
         this.resizeMsgArea();
+
+        if (!opts.changed) {
+            delete this.hash_msgOrig;
+        }
+
+        this.fillFormHash();
     },
 
     rteInit: function(rte)
@@ -677,7 +689,9 @@ var DimpCompose = {
 
         // This value is used to determine if the text has changed when
         // swapping compose modes.
-        this.hash_msgOrig = this.msgHash();
+        if (!this.hash_msgOrig) {
+            this.hash_msgOrig = this.msgHash();
+        }
         this.hash_sigOrig = this.sigHash();
 
         // Set auto-save-drafts now if not already active.
