@@ -448,18 +448,20 @@ class Turba
      * Replaces all share-enabled sources in a source list with all shares
      * from this source that the current user has access to.
      *
-     * This will only sync shares that are unique to Horde (such as a SQL
-     * source).  Any backend that supports ACLs or similar mechanism should be
-     * configured from within backends.php or via Horde's share_* hooks.
+     * This will only sync shares that are unique to Horde (such as a SQL or
+     * Kolab sources).  Any backend that supports ACLs or similar mechanism
+     * should be configured from within backends.local.php or via Horde's
+     * share_* hooks.
      *
      * @param array $sources  The default $cfgSources array.
+     * @param boolean $owner  Only return shares that the current user owns?
      *
      * @return array  The $cfgSources array.
      */
-    static public function getConfigFromShares(array $sources)
+    static public function getConfigFromShares(array $sources, $owner = false)
     {
         try {
-            $shares = self::listShares();
+            $shares = self::listShares($owner);
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
