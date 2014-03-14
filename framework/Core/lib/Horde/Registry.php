@@ -1523,6 +1523,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $this->setLanguageEnvironment($language, $app);
 
         /* Load config and prefs. */
+        $this->importConfig('horde');
         $this->importConfig($app);
         $this->loadPrefs($app);
 
@@ -1616,6 +1617,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $app = $this->getApp();
         if ($app) {
             /* Load config and prefs. */
+            $this->importConfig('horde');
             $this->importConfig($app);
             $this->loadPrefs($app);
             $this->setTextdomain(
