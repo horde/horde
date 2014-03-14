@@ -43,6 +43,8 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
      * @var array
      */
     protected $_columns = array(
+        1 => 'id',
+        100 => 'categories',
         223 => 'uid',
         500 => 'name',
         501 => 'firstname',
@@ -137,6 +139,7 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
         590 => 'userField20',
         592 => 'members',
         601 => 'phototype',
+        602 => 'distributionList',
         606 => 'photourl',
         610 => 'yomifirstname',
         611 => 'yomilastname',
