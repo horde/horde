@@ -962,7 +962,7 @@ var DimpCompose = {
         $('composeMessage').setStyle({ height: mah + 'px' });
 
         if ($('rteloading') && $('rteloading').visible()) {
-            this.RTELoading();
+            this.RTELoading('hide');
         }
     },
 
@@ -1504,4 +1504,8 @@ document.observe('HordeCore:ajaxFailure', function(e) {
     if (DimpCompose.uploading) {
         DimpCompose.addAttachmentEnd();
     }
-});
+
+    if ($('rteloading') && $('rteloading').visible()) {
+        this.RTELoading('hide');
+    }
+}.bindAsEventListener(DimpCompose));
