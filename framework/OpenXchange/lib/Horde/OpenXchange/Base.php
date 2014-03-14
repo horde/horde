@@ -156,7 +156,8 @@ abstract class Horde_OpenXchange_Base
      * @param array $params       URL parameters.
      * @param array|string $data  Request data.
      *
-     * @return array  The decoded result data.
+     * @return array  The decoded result data or null if no data has been
+     *                returned but the request was still successful.
      * @throws Horde_OpenXchange_Exception.
      */
     protected function _request($method, $namespace, $params, $data = array())
@@ -199,6 +200,9 @@ abstract class Horde_OpenXchange_Base
             $body = $response->getBody();
             $data = json_decode($body, true);
             if (!$data) {
+                if ($response->code == 200) {
+                    return;
+                }
                 throw new Horde_OpenXchange_Exception($body);
             }
             if (isset($data['error'])) {
