@@ -99,6 +99,27 @@ abstract class Horde_OpenXchange_Base
     }
 
     /**
+     * Logs the current user out.
+     *
+     * @throws Horde_OpenXchange_Exception.
+     */
+    public function logout()
+    {
+        if (!isset($this->_session)) {
+            return;
+        }
+
+        $response = $this->_request(
+            'GET',
+            'login',
+            array('action' => 'logout'),
+            array('session' => $this->_session)
+        );
+
+        unset($this->_session);
+    }
+
+    /**
      * Logs a user in, if necessary.
      *
      * @throws Horde_OpenXchange_Exception.
