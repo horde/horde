@@ -411,13 +411,14 @@ class Turba
     }
 
     /**
-     * Filters data based on permissions.
+     * Filters sources based on permissions.
      *
-     * @param array $in            The data we want filtered.
-     * @param string $filter       What type of data we are filtering.
+     * @param array $in            The source list we want filtered.
      * @param integer $permission  The Horde_Perms::* constant we will filter
      *                             on.
-     * @param array $options       Additional options.
+     * @param array $options       Additional options:
+     *                             - require_add: (boolean) Only return sources
+     *                               that can be added to.
      *
      * @return array  The filtered data.
      */
