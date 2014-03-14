@@ -431,7 +431,7 @@ class Turba
 
         foreach ($in as $sourceId => $source) {
             try {
-                $driver = $factory->create($sourceId);
+                $driver = $factory->create($source);
                 if ($driver->hasPermission($permission) &&
                     (empty($options['require_add']) || $driver->canAdd())) {
                     $out[$sourceId] = $source;
