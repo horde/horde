@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-13</date>
+ <date>2014-03-16</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -491,6 +491,7 @@
       <file name="SpecialMboxes.php" role="horde" />
       <file name="Trash.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
+     <file name="AttribText.php" role="horde" />
      <file name="Identity.php" role="horde" />
      <file name="Sort.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
@@ -1820,6 +1821,7 @@
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
    <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
+   <install as="imp/lib/Prefs/AttribText.php" name="lib/Prefs/AttribText.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Sort/FixedDate.php" name="lib/Prefs/Sort/FixedDate.php" />

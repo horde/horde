@@ -2035,13 +2035,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 ($from ? sprintf(_("Message from %s"), $from) : _("Message")) .
                 /* Extra '-'s line up with "End Message" below. */
                 " ---------\n" .
-                $this->_getMsgHeaders($h) . "\n\n";
+                $this->_getMsgHeaders($h);
 
             $msg_post = "\n\n----- " .
                 ($from ? sprintf(_("End message from %s"), $from) : _("End message")) .
                 " -----\n";
         } else {
-            $msg_pre = $this->_expandAttribution($prefs->getValue('attrib_text'), $from, $h) . "\n\n";
+            $msg_pre = strval(new IMP_Prefs_AttribText($from, $h));
             $msg_post = '';
         }
 
@@ -2064,7 +2064,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         } else {
             $msg = empty($msg_text['text'])
                 ? '[' . _("No message body text") . ']'
-                : $msg_pre . $msg_text['text'] . $msg_post;
+                : $msg_pre . "\n\n" . $msg_text['text'] . $msg_post;
             $msg_text['mode'] = 'text';
         }
 
@@ -2535,83 +2535,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         foreach (array_keys($this->_atc) as $key) {
             unset($this[$key]);
         }
-    }
-
-    /**
-     * Expand macros in attribution text when replying to messages.
-     *
-     * @param string $line           The line of attribution text.
-     * @param string $from           The email address of the original sender.
-     * @param Horde_Mime_Headers $h  The headers object for the message.
-     *
-     * @return string  The attribution text.
-     */
-    protected function _expandAttribution($line, $from, $h)
-    {
-        $addressList = $nameList = array();
-
-        /* First we'll get a comma seperated list of email addresses
-         * and a comma seperated list of personal names out of $from
-         * (there just might be more than one of each). */
-        $addr_list = IMP::parseAddressList($from);
-
-        foreach ($addr_list as $addr) {
-            if (!is_null($addr->mailbox)) {
-                $addressList[] = $addr->bare_address;
-            }
-
-            if (!is_null($addr->personal)) {
-                $nameList[] = $addr->personal;
-            } elseif (!is_null($addr->mailbox)) {
-                $nameList[] = $addr->mailbox;
-            }
-        }
-
-        /* Define the macros. */
-        if (is_array($message_id = $h->getValue('message_id'))) {
-            $message_id = reset($message_id);
-        }
-        if (!($subject = $h->getValue('subject'))) {
-            $subject = _("[No Subject]");
-        }
-        $udate = strtotime($h->getValue('date'));
-
-        $match = array(
-            /* New line. */
-            '/%n/' => "\n",
-
-            /* The '%' character. */
-            '/%%/' => '%',
-
-            /* Name and email address of original sender. */
-            '/%f/' => $from,
-
-            /* Senders email address(es). */
-            '/%a/' => implode(', ', $addressList),
-
-            /* Senders name(s). */
-            '/%p/' => implode(', ', $nameList),
-
-            /* RFC 822 date and time. */
-            '/%r/' => $h->getValue('date'),
-
-            /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => strftime("%a, %d %b %Y", $udate),
-
-            /* Date in locale's default. */
-            '/%x/' => strftime("%x", $udate),
-
-            /* Date and time in locale's default. */
-            '/%c/' => strftime("%c", $udate),
-
-            /* Message-ID. */
-            '/%m/' => $message_id,
-
-            /* Message subject. */
-            '/%s/' => $subject
-        );
-
-        return (preg_replace(array_keys($match), array_values($match), $line));
     }
 
     /**
