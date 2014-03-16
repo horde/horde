@@ -358,6 +358,15 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testParseEnvelopeBlankSubject()
+    {
+        $test = '* 1 FETCH (ENVELOPE (NIL "" (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) ((NIL NIL "foo" "example.com")) NIL NIL NIL "<id@eample.com>"))';
+
+        $env = $this->test_ob->parseFetch($test)->fetch->first()->getEnvelope();
+
+        $this->assertNotNull($env->to);
+    }
+
     protected function _serverResponse($data)
     {
         return Horde_Imap_Client_Interaction_Server::create(

@@ -226,6 +226,8 @@ class Horde_Imap_Client_Tokenize implements Iterator
                         break 2;
                     }
                     $in_quote = true;
+                    /* Set $text to non-false (could be empty string). */
+                    $text = '';
                     break;
 
                 default:
