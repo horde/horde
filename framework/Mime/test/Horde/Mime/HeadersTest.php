@@ -202,4 +202,14 @@ To: recipient2@example.com"
         $this->assertNotEmpty($hdrs->getValue('To'));
     }
 
+    public function testParseHeadersBlankSubject()
+    {
+        $stream = new Horde_Stream_Existing(array(
+            'stream' => fopen(__DIR__ . '/fixtures/blank_subject.txt', 'r')
+        ));
+        $hdrs = Horde_Mime_Headers::parseHeaders($stream);
+
+        $this->assertNotEmpty($hdrs->getValue('To'));
+    }
+
 }
