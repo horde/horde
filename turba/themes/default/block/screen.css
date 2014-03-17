@@ -1,7 +1,7 @@
-#turba_minisearch_searching {
+#turba-minisearch-searching {
     background-image: url("../graphics/loading.gif");
 }
 
-#turba_minisearch_results ul {
+#turba-minisearch-results ul {
     list-style-type: none;
 }
