@@ -3815,9 +3815,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
    </notes>
   </release>

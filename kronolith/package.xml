@@ -2246,6 +2246,47 @@
   </release>
   <release>
    <version>
+    <release>4.1.5</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix triggering alarms for cancelled events (Bug #12928).
+* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+* [mjr] Fix exporting recurring events with no recur_end value to CSV.
+* [mjr] No longer include AIRSYNCBASEBODY when exporting for ActiveSync if there is no description.
+* [mjr] Properly set event status to Cancelled on Resource calendars when the original event status is set to Cancelled.
+* [mjr] Fix updating free/busy display when updating event times (Bug #12676).
+* [mjr] Fix issue that could cause calendar sync to break when creating an exception on EAS versions &lt; 14.0
+* [jan] Fix rounding of start time when dragging events (Bug #11904).
+* [mjr] Fix fatal error when searching if Holiday driver is disabled (Bug #12870).
+* [jan] Ignore iCalendar alarms without action, and use first, not last alarm (Bug #12865).
+* [mjr] Fix incorrect case comparison when synchronizing tags with Kolab (Bug #12770).
+* [mjr] Honor recurrence-id range values when deleting recurring events (Bug #12746).
+* [mjr] Fix deleting and sending iTip notifications for recurring events (Bug #12746).
+* [jan] Fix calculation of work week start if on a weekend.
+* [jan] Fix deleting calendars with exceptions to recurring events.
+* [jan] Fix fatal error if recurrence exceptions have timezones set (Bug #12801).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.6</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.2.0alpha1</release>
     <api>4.2.0</api></version>
    <stability>
