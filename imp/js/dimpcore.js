@@ -415,20 +415,6 @@ document.observe('ImpPassphraseDialog:success', function() {
     DimpCore.reloadMessage({});
 });
 
-/* Notification events. */
-document.observe('HordeCore:showNotifications', function(e) {
-    switch (e.memo.type) {
-    case 'imp.reply':
-    case 'imp.forward':
-    case 'imp.redirect':
-        HordeBase.Growler.growl(m.message.escapeHTML(), {
-            className: m.type.replace('.', '-'),
-            life: 8
-        });
-        break;
-    }
-});
-
 /* Disable text selection for everything but compose/message body and FORM
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
