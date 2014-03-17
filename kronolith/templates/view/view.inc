@@ -176,8 +176,8 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach (Kronolith::getAttendeeEmailList($attendees) as $full): $status = $attendees[$full->bare_address]; ?>
  <tr>
   <td class="nowrap"><?php echo ($link_emails && strpos($full, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $full)))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
-  <td><?php echo Kronolith::partToString($status['attendance']) ?></td>
-  <td><?php echo Kronolith::responseToString($status['response']) ?></td>
+  <td><?php echo Kronolith::partToString($attendees[$full->bare_address]['attendance']) ?></td>
+  <td><?php echo Kronolith::responseToString($attendees[$full->bare_address]['response']) ?></td>
  </tr>
  <?php endforeach; ?>
 <?php endif; ?>
