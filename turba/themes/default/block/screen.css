@@ -2,7 +2,6 @@
     background-image: url("../graphics/loading.gif");
 }
 
-#turba_minisearch_iframe {
-    border: none;
-    width:100%;
+#turba_minisearch_results ul {
+    list-style-type: none;
 }
