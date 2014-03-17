@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Fix portal serach block response when no contacts have been found (dulinux &lt;lfbm.andamentos@gmail.com&gt;, Bug #13044).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1753,7 +1753,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix portal serach block response when no contacts have been found (dulinux &lt;lfbm.andamentos@gmail.com&gt;, Bug #13044).
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,8 @@
 v4.1.5-git
 ----------
 
+[jan] Fix portal serach block response when no contacts have been found
+      (dulinux <lfbm.andamentos@gmail.com>, Bug #13044).
 
 
 ------
