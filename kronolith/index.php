@@ -131,11 +131,13 @@ if ($conf['maps']['driver']) {
     Horde::initMap();
 }
 
+$time_jobs = $time_clients = false;
 if ($registry->hasMethod('time/listJobTypes')) {
-    $time_jobs = $registry->time->listJobTypes(array('enabled' => true));
-    $time_clients = $registry->time->listClients();
-} else {
-    $time_jobs = $time_clients = false;
+    try {
+        $time_jobs = $registry->time->listJobTypes(array('enabled' => true));
+        $time_clients = $registry->time->listClients();
+    } catch (Horde_Exception_PushApp $e) {
+    }
 }
 
 $topbar = $injector->getInstance('Horde_View_Topbar');
