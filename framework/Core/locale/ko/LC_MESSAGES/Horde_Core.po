@@ -1,15 +1,13 @@
 # Korean translations for Horde_Core module.
 # Copyright 2010-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
-# Automatically generated, 2010.
-#
 # Deokgon Kim <dgkim@dgkim.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-13 11:19+0900\n"
-"PO-Revision-Date: 2014-03-13 13:00+0900\n"
+"POT-Creation-Date: 2014-03-17 16:43+0900\n"
+"PO-Revision-Date: 2014-03-18 14:45+0100\n"
 "Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +20,7 @@ msgstr ""
 msgid " (Accesskey %s)"
 msgstr " (단축키 %s)"
 
-#: lib/Horde/Registry.php:1293 lib/Horde/Registry.php:1983
+#: lib/Horde/Registry.php:1293 lib/Horde/Registry.php:1985
 #, fuzzy, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "%s'이(가) Horde 레지스트리에서 설정되어 있지 않습니다."
@@ -47,33 +45,28 @@ msgstr "규칙(률) 선택 오류"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
 #: lib/Horde/PageOutput.php:654
-#, fuzzy
 msgid "1 day"
-msgstr "일"
+msgstr "하루동안"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
 #: lib/Horde/PageOutput.php:652
-#, fuzzy
 msgid "1 hour"
-msgstr "24 시간"
+msgstr "1 시간동안"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
 #: lib/Horde/PageOutput.php:651
-#, fuzzy
 msgid "15 minutes"
-msgstr "5분 마다"
+msgstr "15 분동안"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
 #: lib/Horde/PageOutput.php:650
-#, fuzzy
 msgid "5 minutes"
-msgstr "5분 마다"
+msgstr "5 분동안"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
 #: lib/Horde/PageOutput.php:653
-#, fuzzy
 msgid "6 hours"
-msgstr "24 시간"
+msgstr "6 시간동안"
 
 #: lib/Horde/Core/Ui/Pager.php:75
 #, fuzzy
@@ -210,9 +203,8 @@ msgid "August"
 msgstr "8월"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:202
-#, fuzzy
 msgid "Available address books:"
-msgstr "(%s)를 주소록에 추가"
+msgstr "사용가능 주소록 목록"
 
 #: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:583
 msgid "Back"
@@ -254,9 +246,8 @@ msgid "Choose a username"
 msgstr "메시지 작성"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:196
-#, fuzzy
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "주소를 추가시 주소록 사용."
+msgstr "검색에 사용할 주소록을 선택하고 순서를 정하십시오."
 
 #: lib/Horde/PageOutput.php:660
 #, fuzzy
@@ -339,7 +330,7 @@ msgstr ""
 msgid "Department"
 msgstr "부서"
 
-#: lib/Horde/Core/Alarm/Handler/Desktop.php:93
+#: lib/Horde/Core/Alarm/Handler/Desktop.php:94
 #, fuzzy
 msgid "Desktop notification (with certain browsers)"
 msgstr "새 메일 도착시 알림"
@@ -511,9 +502,8 @@ msgid "Individual Users"
 msgstr ""
 
 #: lib/Horde/Core/Alarm/Handler/Notify.php:54
-#, fuzzy
 msgid "Inline"
-msgstr "없음"
+msgstr "인라인"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:211
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:275
@@ -777,9 +767,9 @@ msgid "Preferences"
 msgstr "환경설정"
 
 #: lib/Horde/Core/Prefs/Ui.php:678
-#, fuzzy, php-format
+#, php-format
 msgid "Preferences for %s"
-msgstr "%s에게 소개"
+msgstr "%s 환경설정"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:223
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:287
@@ -890,14 +880,12 @@ msgid "Select the identity you want to change:"
 msgstr "임포트할 위치 선택:"
 
 #: lib/Horde/PageOutput.php:649
-#, fuzzy
 msgid "Select..."
-msgstr "편지 선택"
+msgstr "선택..."
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:197
-#, fuzzy
 msgid "Selected address books:"
-msgstr "(%s)를 주소록에 추가"
+msgstr "선택한 주소록 목록:"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1200
 #, fuzzy
@@ -999,7 +987,7 @@ msgstr "파일 \"%s\"에는 메모가 없습니다."
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2597
+#: lib/Horde/Registry.php:2599
 #, fuzzy, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "데이타 임포트 오류"
@@ -1195,7 +1183,7 @@ msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "%d개 이상의 메모를 작성할 수 없습니다."
 
-#: lib/Horde/Registry.php:2564
+#: lib/Horde/Registry.php:2566
 #, fuzzy
 msgid "You are not allowed to remove user data."
 msgstr "당신은 이 메모장을 제거할 수 없습니다."
@@ -1210,7 +1198,7 @@ msgstr ""
 #: lib/Horde/PageOutput.php:647
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
-msgstr ""
+msgstr "다음 지난 후 알림을 다시 받거나 %s %s 해제하기 %s"
 
 #: lib/Horde/Core/Prefs/Identity.php:44
 #, php-format
@@ -1266,9 +1254,8 @@ msgid "Your preferences have been updated for the duration of this session."
 msgstr "이 세션 동안 옵션이 저장됩니다."
 
 #: lib/Horde/Core/Prefs/Ui.php:392
-#, fuzzy
 msgid "Your preferences have been updated."
-msgstr "옵션이 저장되었습니다."
+msgstr "설정이 저장되었습니다."
 
 #: lib/Horde/Core/Text/Filter/Highlightquotes.php:52
 msgid "[Hide Quoted Text]"
