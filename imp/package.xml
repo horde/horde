@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
  </notes>
@@ -3344,6 +3345,7 @@
    <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
    </notes>

@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1455,7 +1455,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
    </notes>
   </release>
  </changelog>

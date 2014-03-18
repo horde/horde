@@ -8,41 +8,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-14 09:19+0100\n"
-"PO-Revision-Date: 2014-03-10 12:07+0100\n"
-"Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
+"POT-Creation-Date: 2014-03-17 16:15+0900\n"
+"PO-Revision-Date: 2014-03-17 16:00+0100\n"
+"Last-Translator: Deokgon Kim <dgkim@dgkim.net\n"
 "Language-Team: Korean <i18n@lists.horde.org>\n"
-"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/memo/memo.inc:51
+#: memo.php:282
 #, php-format
 msgid "%s characters"
 msgstr "%s 글자"
 
-#: data.php:159
+#: data.php:149
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s개의 메모를 가져옴"
 
-#: memo.php:95
+#: memo.php:93
 msgid "Access denied addings notes to this notepad."
 msgstr "이 메모장에 메모를 추가하는데 거부당했습니다."
 
-#: memo.php:260
+#: memo.php:257
 msgid "Access denied deleting note."
 msgstr "메모를 삭제하는데 거부당했습니다."
 
-#: memo.php:196 memo.php:199
+#: memo.php:190 memo.php:193
 msgid "Access denied moving the note."
 msgstr "메모를 옮기는데 거부당했습니다."
 
-#: memo.php:147
+#: memo.php:149
 msgid "Access denied saving note to this notepad."
 msgstr "이 메모장에 메모를 저장하는데 거부당했습니다."
+
+#: config/prefs.php:149
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
 
 #: lib/Block/Note.php:91
 #, php-format
@@ -53,9 +59,13 @@ msgstr "%s를 표시하는데 에러가 발생했습니다"
 msgid "An error occurred displaying the note"
 msgstr "메모를 표시하는데 에러가 발생했습니다"
 
-#: config/prefs.php:58
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "오름차순"
+
+#: lib/Form/Search.php:27
+msgid "Body"
+msgstr "본문"
 
 #: data.php:21 templates/data/import.inc:10
 msgid "CSV"
@@ -66,10 +76,6 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "취소"
 
-#: data.php:43 templates/view/memo.inc:24
-msgid "Category"
-msgstr "분류"
-
 #: lib/Form/EditNotepad.php:64
 msgid "Change Permissions"
 msgstr "권한 변경"
@@ -78,11 +84,16 @@ msgstr "권한 변경"
 msgid "Change your note sorting and display preferences."
 msgstr "메모의 표시와 정렬 방법 설정."
 
+#: config/prefs.php:28
+#, fuzzy
+msgid "Choose the Notepads to use for synchronization with external devices."
+msgstr "주소를 추가시 주소록 사용."
+
 #: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "기본 메모장 선택."
 
-#: templates/list/header.inc:7
+#: templates/list/header.html.php:8
 msgid "Close Search"
 msgstr "검색 닫기"
 
@@ -94,19 +105,19 @@ msgstr "생성"
 msgid "Create Notepad"
 msgstr "메모장 생성"
 
-#: lib/Application.php:109
+#: lib/Application.php:127
 msgid "Create a new Notepad"
 msgstr "새 메모장 생성"
 
-#: templates/view/memo.inc:30
+#: templates/view/view.html.php:28
 msgid "Created"
 msgstr "생성일시"
 
-#: templates/list/memo_headers.inc:24
+#: list.php:107
 msgid "Date"
 msgstr "날짜"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:62
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:56
 msgid "Decrypt"
 msgstr "복호화"
 
@@ -114,16 +125,16 @@ msgstr "복호화"
 msgid "Default Notepad"
 msgstr "기본 메모장"
 
-#: config/prefs.php:50
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "기본 정렬 조건 :"
 
-#: config/prefs.php:61
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "기본 정렬 방법 :"
 
 #: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.html.php:33
 msgid "Delete"
 msgstr "삭제"
 
@@ -132,15 +143,15 @@ msgstr "삭제"
 msgid "Delete %s"
 msgstr "삭제 %s"
 
-#: config/prefs.php:27
+#: config/prefs.php:34
 msgid "Delete Confirmation"
 msgstr "삭제 확인"
 
-#: config/prefs.php:28
+#: config/prefs.php:35
 msgid "Delete button behaviour"
 msgstr "삭제 버튼 동작"
 
-#: config/prefs.php:59
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "내림차순"
 
@@ -152,11 +163,11 @@ msgstr "설명"
 msgid "Display Preferences"
 msgstr "표시 설정"
 
-#: config/prefs.php:104
+#: config/prefs.php:174
 msgid "Do you want to confirm deleting entries?"
 msgstr "항목 삭제시 확인?"
 
-#: templates/list/memo_summaries.inc:5
+#: list.php:120
 #, php-format
 msgid "Edit \"%s\""
 msgstr "편집 \" %s \""
@@ -166,25 +177,20 @@ msgstr "편집 \" %s \""
 msgid "Edit %s"
 msgstr "편집 %s"
 
-#: lib/Block/Summary.php:88 lib/Block/Summary.php:89
-#: templates/list/memo_headers.inc:14
+#: lib/Block/Summary.php:67 lib/Block/Summary.php:68 list.php:78
 msgid "Edit Note"
 msgstr "메모 편집"
 
-#: templates/list/memo_headers.inc:32
-msgid "Edit categories and colors"
-msgstr "분류와 색상 편집"
-
-#: memo.php:126 memo.php:159
+#: memo.php:125 memo.php:161
 #, php-format
 msgid "Edit: %s"
 msgstr "편집: %s"
 
-#: lib/Block/Summary.php:106 templates/list/memo_summaries.inc:15
+#: lib/Block/Summary.php:85 list.php:139
 msgid "Empty Note"
 msgstr "메모 비우기"
 
-#: lib/Driver.php:307
+#: lib/Driver.php:315
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -198,28 +204,39 @@ msgstr "내보내기"
 msgid "Export Notes"
 msgstr "메모 내보내기"
 
-#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+#: lib/Form/Search.php:24
+#, fuzzy
+msgid "For"
+msgstr "금"
+
+#: config/prefs.php:12 config/prefs.php:33
 msgid "General Preferences"
-msgstr "일반 구성"
+msgstr "일반설정"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
 msgstr "메모 가져오기, %d 단계"
 
-#: data.php:166
+#: data.php:156
 msgid "Import/Export Notes"
 msgstr "메모 가져오기/내보내기"
 
-#: templates/search/search.inc:17
-msgid "In: "
+#: lib/Form/Search.php:26
+#, fuzzy
+msgid "In"
 msgstr "검색 범위:"
 
-#: templates/view/memo.inc:42
+#: templates/view/view.html.php:38
 msgid "Last Modified"
 msgstr "수정일시"
 
-#: lib/Application.php:56
+#: memo.php:293
+#, fuzzy
+msgid "Loading..."
+msgstr "찾는중..."
+
+#: lib/Application.php:74
 msgid "Maximum Number of Notes"
 msgstr "최대 메모 갯수"
 
@@ -227,19 +244,19 @@ msgstr "최대 메모 갯수"
 msgid "Memo Text"
 msgstr "메모 문장"
 
-#: config/prefs.php:48
+#: config/prefs.php:54
 msgid "Modification Date"
 msgstr "수정 날짜"
 
-#: templates/list/header.inc:8
+#: templates/list/header.html.php:9
 msgid "More Options..."
 msgstr "추가 선택사항..."
 
-#: lib/Api.php:367
+#: lib/Api.php:430
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "여러개의 일정항목(iCal)이 발견됨 ; 단 하나만 메모항목(vNote) 가능."
 
-#: lib/Application.php:102
+#: lib/Application.php:120
 msgid "My Notepads"
 msgstr "내 메모장"
 
@@ -251,7 +268,7 @@ msgstr "내 메모"
 msgid "Name"
 msgstr "이름"
 
-#: lib/Application.php:162 memo.php:103 memo.php:151
+#: lib/Application.php:186 memo.php:102 memo.php:153
 msgid "New Note"
 msgstr "새 메모"
 
@@ -259,7 +276,7 @@ msgstr "새 메모"
 msgid "Next"
 msgstr "다음"
 
-#: lib/Api.php:208 lib/Api.php:360
+#: lib/Api.php:266 lib/Api.php:423
 msgid "No iCalendar data was found."
 msgstr "일정항목(iCal)이 없음."
 
@@ -267,53 +284,54 @@ msgstr "일정항목(iCal)이 없음."
 msgid "No note loaded"
 msgstr "메모가 없음"
 
-#: templates/list/memo_footers.inc:4
+#: templates/list/memo_footers.html.php:4
 msgid "No notes match"
 msgstr "일치하는 메모 없음"
 
-#: templates/list/empty.inc:1
+#: templates/list/empty.html.php:1
 msgid "No notes match the current criteria."
 msgstr "현재 조건에 맞는 메모가 없음."
 
-#: lib/Block/Summary.php:114
+#: lib/Block/Summary.php:94
 msgid "No notes to display"
 msgstr "표시할 메모가 없음"
 
-#: templates/list/memo_headers.inc:21
+#: list.php:97
 msgid "No_te"
 msgstr "No_te"
 
-#: lib/Driver/Sql.php:103
+#: lib/Driver/Sql.php:112
 msgid "Not Found"
 msgstr "발견 안됨"
 
-#: config/prefs.php:46
-msgid "Note Category"
-msgstr "메모 분류"
-
-#: view.php:89
+#: view.php:155
 msgid "Note Details"
 msgstr "메모 상세"
 
-#: config/prefs.php:45
+#: config/prefs.php:52
 msgid "Note Text"
 msgstr "메모 내용"
 
-#: templates/memo/memo.inc:51
+#: templates/memo/memo.html.php:26
 msgid "Note _Text"
 msgstr "메모 내용_T"
 
-#: memo.php:114 memo.php:156 note/pdf.php:52 view.php:52
+#: memo.php:113 memo.php:158 note/pdf.php:52 view.php:55
 msgid "Note not found."
 msgstr "메모 없음"
 
-#: templates/memo/memo.inc:64
+#: templates/memo/memo.html.php:39
 msgid "Note_pad:"
 msgstr "메모장_P:"
 
-#: config/prefs.php:47 templates/list/memo_headers.inc:17
+#: config/prefs.php:53 list.php:87
 msgid "Notepad"
 msgstr "메모장"
+
+#: config/prefs.php:19 config/prefs.php:26
+#, fuzzy
+msgid "Notepad and Share Preferences"
+msgstr "표시 설정"
 
 #: lib/Notepads/Default.php:64
 #, php-format
@@ -345,21 +363,21 @@ msgstr ""
 "메모장 \"%s\"을 정말로 삭제합니까? 이번 작업은 취소될 수 없으며 메모 내용은 "
 "영구적으로 제거됩니다."
 
-#: templates/view/memo.inc:15
+#: view.php:152
 msgid "Really delete this note?"
 msgstr "이 메모를 정말 삭제합니까?"
 
 #: lib/Form/EditNotepad.php:76 lib/Form/EditNotepad.php:85
-#: templates/memo/memo.inc:56
+#: templates/memo/memo.html.php:31
 msgid "Save"
 msgstr "저장"
 
-#: templates/view/memo.inc:10
+#: templates/view/view.html.php:3
 msgid "Save as PDF"
 msgstr "PDF로 저장"
 
-#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
-#: templates/search/search.inc:4 templates/search/search.inc:27
+#: lib/Application.php:210 lib/Form/Search.php:22 lib/Form/Search.php:30
+#: list.php:59 search.php:24 templates/list/header.html.php:4
 msgid "Search"
 msgstr "검색"
 
@@ -379,45 +397,71 @@ msgstr "가져올 파일 선택:"
 msgid "Select the format of the source file:"
 msgstr "원본 파일의 형태 선택:"
 
-#: lib/Application.php:115
+#: config/prefs.php:109
+#, fuzzy
+msgid ""
+"Select the notepads that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr "주소를 추가시 주소록 사용."
+
+#: lib/Application.php:133
 msgid "Shared Notepads"
 msgstr "공유 메모장"
 
-#: config/prefs.php:37
+#: config/prefs.php:44
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "목록에서 메모장 컬럼 보이기?"
 
-#: lib/Block/Summary.php:42
+#: lib/Block/Summary.php:36
 msgid "Show action buttons?"
 msgstr "처리 버튼 보이기?"
 
-#: lib/Block/Summary.php:47
+#: lib/Block/Summary.php:41
 msgid "Show notepad name?"
 msgstr "메모장 이름 보이기?"
-
-#: lib/Block/Summary.php:52
-msgid "Show notes from these categories"
-msgstr "이 분류들 메모 보이기"
 
 #: lib/Block/Note.php:40
 msgid "Show this note"
 msgstr "이 메모 보이기"
 
-#: memo.php:233
+#: memo.php:230
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "\"%s\"를 저장하였습니다."
+
+#: config/prefs.php:161
+msgid "Support separate collections?"
+msgstr ""
+
+#: config/prefs.php:27
+#, fuzzy
+msgid "Synchronization Preferences"
+msgstr "사용자 환경"
 
 #: lib/Form/EditNotepad.php:50
 msgid "System"
 msgstr "시스템"
 
-#: data.php:154
+#: templates/memo/memo.html.php:50
+msgid "T_ags:"
+msgstr ""
+
+#: data.php:43 templates/view/view.html.php:21
+msgid "Tags"
+msgstr "태그"
+
+#: data.php:144
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "파일 \"%s\"에는 메모가 없습니다."
 
-#: memo.php:255
+#: lib/Application.php:62
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
+msgstr ""
+
+#: memo.php:252
 msgid "The note was deleted."
 msgstr "메모가 삭제되었습니다."
 
@@ -441,36 +485,41 @@ msgstr "메모장 \"%s\"이 \"%s\"으로 변경됨."
 msgid "The notepad \"%s\" has been saved."
 msgstr "메모장 \"%s\"이 저장됨."
 
-#: memo.php:149
+#: memo.php:151
 msgid "The passwords don't match."
 msgstr "비밀번호가 일치하지 않음."
 
-#: data.php:157
+#: config/prefs.php:151
+#, fuzzy, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "데이타 임포트 오류"
+
+#: data.php:147
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "자료를 가져오는데 에러가 발생함: %s"
 
-#: lib/Api.php:202 lib/Api.php:354
+#: lib/Api.php:260 lib/Api.php:417
 msgid "There was an error importing the iCalendar data."
 msgstr "일정자료(iCal)를 가져오는 중 에러발생."
 
-#: lib/Application.php:233
+#: lib/Application.php:257
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
 "\"%s\"의 자료를 지우는중 에러가 발생하였습니다. 세부내용은 로깅되었습니다."
 
-#: memo.php:257
+#: memo.php:254
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "메모를 삭제하는 중 에러 발생 : %s"
 
-#: memo.php:231
+#: memo.php:228
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "메모를 저장하는 중 에러 발생 : %s"
 
-#: note/pdf.php:42 view.php:42
+#: note/pdf.php:42 view.php:45
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "메모장을 보여주는 중 에러 발생 : %s"
@@ -479,30 +528,29 @@ msgstr "메모장을 보여주는 중 에러 발생 : %s"
 msgid "This file format is not supported."
 msgstr "이런 파일 형태를 지원하지 않습니다."
 
-#: memo.php:38 view.php:74
+#: memo.php:39 view.php:77
 msgid "This note cannot be decrypted:"
 msgstr "이 메모를 복호화할 수 없습니다:"
 
-#: memo.php:31 memo.php:41 view.php:69 view.php:77
+#: memo.php:32 memo.php:42 view.php:72 view.php:80
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
 msgstr "이 메모는 암호화되었으며, 안전한 접속없이는 복호화할 수 없습니다."
 
-#: memo.php:28 view.php:66
+#: memo.php:29 view.php:69
 msgid "This note has been encrypted, please provide the password below"
 msgstr "이 메모는 암호화되었습니다. 비밀번호를 아래 입력하십시오."
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
 msgstr "이 메모가 암호화 되었습니다."
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
-#: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
-msgid "Unfiled"
-msgstr "미분류"
+#: lib/Form/Search.php:27
+msgid "Title"
+msgstr "제목"
 
-#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
+#: lib/Api.php:304 lib/Api.php:356 lib/Api.php:445
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "지원하지 않는 내용형식: %s"
@@ -515,7 +563,7 @@ msgstr "메모 보기"
 msgid "Which Notepad should the notes be added to?"
 msgstr "어느 메모장에 메모를 추가하시겠습니까?"
 
-#: data.php:34 data.php:91 memo.php:75
+#: data.php:34 data.php:87 memo.php:73
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "%d개 이상의 메모를 작성할 수 없습니다."
@@ -532,89 +580,69 @@ msgstr "당신은 이 메모장을 볼 수 없습니다."
 msgid "You do not have permission to edit this note."
 msgstr "당신은 이 메모를 수정할 수 없습니다."
 
-#: note/pdf.php:46 view.php:46
+#: note/pdf.php:46 view.php:49
 msgid "You do not have permission to view this notepad."
 msgstr "당신은 이 메모장을 볼 수 없습니다."
 
-#: config/prefs.php:80
+#: config/prefs.php:76
 msgid "Your default notepad:"
 msgstr "기본메모장:"
 
-#: templates/search/search.inc:21
-msgid "_Body"
-msgstr "본문_B"
-
-#: templates/list/memo_headers.inc:28
-msgid "_Category"
-msgstr "분류_C"
-
-#: templates/memo/memo.inc:79
-msgid "_Category:"
-msgstr "분류_C:"
-
-#: templates/view/memo.inc:15
+#: view.php:122
 msgid "_Delete"
 msgstr "삭제_D"
 
-#: templates/view/memo.inc:12
+#: view.php:129
 msgid "_Edit"
 msgstr "수정_E"
 
-#: templates/memo/memo.inc:85
+#: templates/memo/memo.html.php:59
 msgid "_Encrypt?"
 msgstr "암호화_E?"
 
-#: templates/search/search.inc:9
-msgid "_For: "
-msgstr "찾을 내용_F: "
-
-#: lib/Application.php:75
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr "가져오기/내보내기_I"
 
-#: lib/Application.php:68
+#: lib/Application.php:86
 msgid "_List Notes"
 msgstr "메모 목록_L"
 
-#: lib/Application.php:91
+#: lib/Application.php:109
 msgid "_New Note"
 msgstr "새 메모_N"
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:60
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:54
 msgid "_Password"
 msgstr "비밀번호_P"
 
-#: templates/memo/memo.inc:90
+#: templates/memo/memo.html.php:64
 msgid "_Password:"
 msgstr "비밀번호_P:"
 
-#: templates/memo/memo.inc:94
+#: templates/memo/memo.html.php:68
 msgid "_Repeat:"
 msgstr "반목_R:"
 
-#: lib/Application.php:71
+#: lib/Application.php:89
 msgid "_Search"
 msgstr "검색_S"
 
-#: templates/search/search.inc:20
-msgid "_Title"
-msgstr "제목_T"
-
-#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
+#: lib/Driver/Sql.php:366 lib/Driver/Sql.php:375
 #, php-format
 msgid "by %s"
 msgstr "%s의"
 
-#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
+#: lib/Driver/Sql.php:368 lib/Driver/Sql.php:377
 msgid "by me"
 msgstr "본인"
 
-#: lib/Application.php:174
+#: lib/Application.php:198
 #, php-format
 msgid "in %s"
 msgstr "메모장 \"%s\""
 
-#: lib/Application.php:267 templates/data/export.inc:3
+#: lib/Application.php:294 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 
