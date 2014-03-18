@@ -27,7 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix checking for upload errors if an array of files was uploaded.
+* [mms] Catch newer PHP upload errors when checking for upload data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -809,7 +810,8 @@ Initial packaging
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix checking for upload errors if an array of files was uploaded.
+* [mms] Catch newer PHP upload errors when checking for upload data.
    </notes>
   </release>
  </changelog>

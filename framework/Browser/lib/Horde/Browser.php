@@ -1141,21 +1141,50 @@ class Horde_Browser
                 throw new Horde_Browser_Exception(Horde_Browser_Translation::t("No file uploaded"), UPLOAD_ERR_NO_FILE);
             }
             $error = $_FILES[$field]['error'];
+            if (is_array($error)) {
+                $error = reset($error);
+            }
             $tmp_name = $_FILES[$field]['tmp_name'];
+            if (is_array($tmp_name)) {
+                $tmp_name = reset($tmp_name);
+            }
         }
 
-        if (empty($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
+        if (empty($_FILES)) {
+            $error = UPLOAD_ERR_NO_FILE;
+        }
+
+        switch ($error) {
+        case UPLOAD_ERR_NO_FILE:
             throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: No %s was uploaded."), $name), UPLOAD_ERR_NO_FILE);
-        } elseif (($error == UPLOAD_ERR_OK) && is_uploaded_file($tmp_name)) {
-            if (!filesize($tmp_name)) {
+
+        case UPLOAD_ERR_OK:
+            if (is_uploaded_file($tmp_name) && !filesize($tmp_name)) {
                 throw new Horde_Browser_Exception(Horde_Browser_Translation::t("The uploaded file appears to be empty. It may not exist on your computer."), UPLOAD_ERR_NO_FILE);
             }
             // SUCCESS
-        } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
-                  ($error == UPLOAD_ERR_FORM_SIZE)) {
+            break;
+
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
             throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, $uploadSize), $error);
-        } elseif ($error == UPLOAD_ERR_PARTIAL) {
+
+        case UPLOAD_ERR_PARTIAL:
             throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was only partially uploaded."), $name), $error);
+
+        case UPLOAD_ERR_NO_TMP_DIR:
+            throw new Horde_Browser_Exception(
+                Horde_Browser_Translation::t("There was a problem with the file upload: The temporary folder used to store the upload data is missing."),
+                $error
+            );
+
+        case UPLOAD_ERR_CANT_WRITE:
+        // No reason to try to explain to user what a "PHP extension" is.
+        case UPLOAD_ERR_EXTENSION:
+            throw new Horde_Browser_Exception(
+                Horde_Browser_Translation::t("There was a problem with the file upload: Can't write the uploaded data to the server."),
+                $error
+            );
         }
     }
 
