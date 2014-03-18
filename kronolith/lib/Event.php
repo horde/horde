@@ -1912,20 +1912,13 @@ abstract class Kronolith_Event
         if ($this->id === null) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }
+
         if (!empty($hash['title'])) {
             $this->title = $hash['title'];
         } else {
             throw new Kronolith_Exception(_("Events must have a title."));
         }
-        if (!empty($hash['description'])) {
-            $this->description = $hash['description'];
-        }
-        if (!empty($hash['location'])) {
-            $this->location = $hash['location'];
-        }
-        if (!empty($hash['private'])) {
-            $this->private = true;
-        }
+
         $this->start = null;
         if (!empty($hash['start_date'])) {
             $date = array_map('intval', explode('-', $hash['start_date']));
@@ -1939,17 +1932,23 @@ abstract class Kronolith_Event
             }
             if (count($time) == 3 && count($date) == 3 &&
                 !empty($date[1]) && !empty($date[2])) {
-                $this->start = new Horde_Date(array('year' => $date[0],
-                                                    'month' => $date[1],
-                                                    'mday' => $date[2],
-                                                    'hour' => $time[0],
-                                                    'min' => $time[1],
-                                                    'sec' => $time[2]));
+                $this->start = new Horde_Date(
+                    array(
+                        'year'  => $date[0],
+                        'month' => $date[1],
+                        'mday'  => $date[2],
+                        'hour'  => $time[0],
+                        'min'   => $time[1],
+                        'sec'   => $time[2]
+                    ),
+                    isset($hash['timezone']) ? $hash['timezone'] : null
+                );
             }
         }
         if (!isset($this->start)) {
             throw new Kronolith_Exception(_("Events must have a start date."));
         }
+
         if (empty($hash['duration'])) {
             if (empty($hash['end_date'])) {
                 $hash['end_date'] = $hash['start_date'];
@@ -1979,14 +1978,20 @@ abstract class Kronolith_Event
             }
             if (count($time) == 3 && count($date) == 3 &&
                 !empty($date[1]) && !empty($date[2])) {
-                $this->end = new Horde_Date(array('year' => $date[0],
-                                                  'month' => $date[1],
-                                                  'mday' => $date[2],
-                                                  'hour' => $time[0],
-                                                  'min' => $time[1],
-                                                  'sec' => $time[2]));
+                $this->end = new Horde_Date(
+                    array(
+                        'year'  => $date[0],
+                        'month' => $date[1],
+                        'mday'  => $date[2],
+                        'hour'  => $time[0],
+                        'min'   => $time[1],
+                        'sec'   => $time[2]
+                    ),
+                    isset($hash['timezone']) ? $hash['timezone'] : null
+                );
             }
         }
+
         if (!empty($hash['alarm'])) {
             $this->alarm = (int)$hash['alarm'];
         } elseif (!empty($hash['alarm_date']) &&
@@ -1998,22 +2003,57 @@ abstract class Kronolith_Event
             }
             if (count($time) == 3 && count($date) == 3 &&
                 !empty($date[1]) && !empty($date[2])) {
-                $alarm = new Horde_Date(array('hour'  => $time[0],
-                                              'min'   => $time[1],
-                                              'sec'   => $time[2],
-                                              'month' => $date[1],
-                                              'mday'  => $date[2],
-                                              'year'  => $date[0]));
+                $alarm = new Horde_Date(
+                    array(
+                        'year'  => $date[0],
+                        'month' => $date[1],
+                        'mday'  => $date[2],
+                        'hour'  => $time[0],
+                        'min'   => $time[1],
+                        'sec'   => $time[2]
+                    ),
+                    isset($hash['timezone']) ? $hash['timezone'] : null
+                );
                 $this->alarm = ($this->start->timestamp() - $alarm->timestamp()) / 60;
             }
         }
+
+        $this->allday = !empty($hash['allday']);
+
+        if (!empty($hash['description'])) {
+            $this->description = $hash['description'];
+        }
+
+        if (!empty($hash['location'])) {
+            $this->location = $hash['location'];
+        }
+
+        // Import once we support organizers.
+        /*
+        if (!empty($hash['organizer'])) {
+            $this->organizer = $hash['organizer'];
+        }
+        */
+
+        if (!empty($hash['private'])) {
+            $this->private = true;
+        }
+
         if (!empty($hash['recur_type'])) {
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             $this->recurrence->setRecurType($hash['recur_type']);
-            if (!empty($hash['recur_end_date'])) {
+            if (!empty($hash['recur_count'])) {
+                $this->recurrence->setRecurCount($hash['recur_count']);
+            } elseif (!empty($hash['recur_end_date'])) {
                 $date = array_map('intval', explode('-', $hash['recur_end_date']));
                 if (count($date) == 3 && !empty($date[1]) && !empty($date[2])) {
-                    $this->recurrence->setRecurEnd(new Horde_Date(array('year' => $date[0], 'month' => $date[1], 'mday' => $date[2])));
+                    $this->recurrence->setRecurEnd(
+                        new Horde_Date(array(
+                            'year'  => $date[0],
+                            'month' => $date[1],
+                            'mday'  => $date[2]
+                        ))
+                    );
                 }
             }
             if (!empty($hash['recur_interval'])) {
@@ -2022,6 +2062,30 @@ abstract class Kronolith_Event
             if (!empty($hash['recur_data'])) {
                 $this->recurrence->setRecurOnDay($hash['recur_data']);
             }
+            if (!empty($hash['recur_exceptions'])) {
+                foreach ($hash['recur_exceptions'] as $exception) {
+                    $parts = explode('-', $exception);
+                    if (count($parts) == 3) {
+                        $this->recurrence->addException($parts[0], $parts[1], $parts[2]);
+                    }
+                }
+            }
+        }
+
+        if (isset($hash['sequence'])) {
+            $this->sequence = $hash['sequence'];
+        }
+
+        if (!empty($hash['tags'])) {
+            $this->tags = $hash['tags'];
+        }
+
+        if (!empty($hash['timezone'])) {
+            $this->timezone = $hash['timezone'];
+        }
+
+        if (!empty($hash['uid'])) {
+            $this->uid = $hash['uid'];
         }
 
         $this->initialized = true;
@@ -3492,11 +3556,10 @@ abstract class Kronolith_Event
         }
     }
 
-    private function _formIDEncode($id)
+    protected function _formIDEncode($id)
     {
         return str_replace(array('[', ']'),
                            array('_', ''),
                            $id);
     }
-
 }
