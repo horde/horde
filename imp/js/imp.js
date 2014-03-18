@@ -17,8 +17,7 @@ var IMP_JS = {
         var a, callback, doc,
             elt = e.element(),
             box = elt.up('.mimeStatusMessageTable').up(),
-            iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
-            imgload = false;
+            iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData');
 
         e.stop();
 
@@ -48,7 +47,7 @@ var IMP_JS = {
             );
         }
 
-        callback = this.iframeResize.bind(this, iframe);
+        callback = this.iframeResize.bindAsEventListener(this, iframe);
         doc = iframe.contentDocument || iframe.contentWindow.document;
 
         Prototype.Selector.select('[htmlimgblocked]', doc).each(function(img) {
@@ -56,7 +55,6 @@ var IMP_JS = {
             if (img.getAttribute('src')) {
                 img.onload = callback;
                 img.setAttribute('src', src);
-                imgload = true;
             } else {
                 if (img.getAttribute('background')) {
                     img.setAttribute('background', src);
@@ -80,9 +78,7 @@ var IMP_JS = {
             style.setAttribute('type', 'text/css');
         });
 
-        if (!imgload) {
-            this.iframeResize(iframe);
-        }
+        this.iframeResize(null, iframe);
     },
 
     iframeInject: function(id, data)
@@ -91,7 +87,12 @@ var IMP_JS = {
             return;
         }
 
-        var d = id.contentWindow.document;
+        var d = id.contentDocument || id.contentWindow.document;
+
+        id.onload = function(e) {
+            this.iframeResize(e, id);
+            id.setStyle({ overflowY: null });
+        }.bind(this);
 
         d.open();
         d.write(data);
@@ -105,13 +106,18 @@ var IMP_JS = {
             }
         }
 
+        id.setStyle({ overflowY: 'hidden' });
         id.show().previous().remove();
-        this.iframeResize(id);
+        this.iframeResize(null, id);
     },
 
-    iframeResize: function(id)
+    iframeResize: function(e, id)
     {
-        var body, html, lc;
+        var body, h, html;
+
+        if (e) {
+            delete Event.element(e).onload;
+        }
 
         if (id = $(id)) {
             body = id.contentWindow.document.body;
