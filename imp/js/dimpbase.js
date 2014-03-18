@@ -425,12 +425,10 @@ var DimpBase = {
             }.bind(this),
             container: container,
             onContent: function(r, mode) {
-                var bg, re, u,
+                var bg, u,
                     thread = $H(this.viewport.getMetaData('thread')),
+                    tmp = new Element('foo'),
                     tsort = this.isThreadSort();
-
-                r.subjectdata = r.status = '';
-                r.subjecttitle = r.subject;
 
                 /* HTML escape the date, from, and size entries. */
                 [ 'date', 'from', 'size' ].each(function(i) {
@@ -440,34 +438,44 @@ var DimpBase = {
                 });
 
                 // Add thread graphics
+                r.subjectdata = tmp.clone();
                 if (tsort && mode != 'vert') {
                     u = thread.get(r.VP_id);
                     if (u) {
                         $R(0, u.length, true).each(function(i) {
                             var c = u.charAt(i);
                             if (!this.tcache[c]) {
-                                this.tcache[c] = '<span class="horde-tree-image horde-tree-image-' + c + '"></span>';
+                                this.tcache[c] = new Element('SPAN', {
+                                    className: 'horde-tree-image horde-tree-image-' + c
+                                });
                             }
-                            r.subjectdata += this.tcache[c];
+                            r.subjectdata.insert(this.tcache[c].clone(true));
                         }, this);
                     }
                 }
 
                 /* Generate the status flags. */
+                r.status = tmp.clone();
                 if (r.flag) {
                     r.flag.each(function(a) {
                         var ptr = this.flags[a];
                         if (ptr.u) {
                             if (!ptr.elt) {
-                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l.escapeHTML() + '" style="background:' + ((ptr.b) ? ptr.b.escapeHTML() : '') + ';color:' + ptr.f.escapeHTML() + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
+                                ptr.elt = new Element('SPAN', { className: ptr.c })
+                                    .writeAttribute('title', ptr.l)
+                                    .writeAttribute('style', 'background:' + ((ptr.b) ? ptr.b : '') + ';color:' + ptr.f)
+                                    .insert(ptr.l.truncate(10).escapeHTML());
                             }
-                            r.subjectdata += ptr.elt;
+                            r.subjectdata.insert(ptr.elt);
                         } else {
                             if (ptr.c) {
                                 if (!ptr.elt) {
-                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l.escapeHTML() + '"></div>';
+                                    ptr.elt = new Element('DIV', {
+                                            className: 'iconImg msgflags ' + ptr.c
+                                        })
+                                        .writeAttribute('title', ptr.l);
                                 }
-                                r.status += ptr.elt;
+                                r.status.insert(ptr.elt);
 
                                 r.VP_bg.push(ptr.c);
                             }
@@ -484,24 +492,37 @@ var DimpBase = {
                     r.style = 'background:' + bg;
                 }
 
-                // Check for search strings
-                if (this.isQSearch()) {
-                    re = new RegExp("(" + $F('horde-search-input') + ")", "i");
-                    [ 'from', 'subject' ].each(function(h) {
-                        if (r[h] !== null) {
-                            r[h] = r[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
-                        }
-                    });
-                }
+                [ 'from', 'subject' ].each(function(h) {
+                    if (r[h] === null) {
+                        // If these fields are null, invalid string was
+                        // scrubbed by JSON encode.
+                        switch (h) {
+                        case 'from':
+                            r.from = '[' + DimpCore.text.badaddr + ']';
+                            break;
 
-                // If these fields are null, invalid string was scrubbed by
-                // JSON encode.
-                if (r.from === null) {
-                    r.from = '[' + DimpCore.text.badaddr + ']';
-                }
-                if (r.subject === null) {
-                    r.subject = r.subjecttitle = '[' + DimpCore.text.badsubject + ']';
-                }
+                        case 'subject':
+                            r.subject = r.subjecttitle = '[' + DimpCore.text.badsubject + ']';
+                            break;
+                        }
+                    } else if (!Object.isUndefined(r[h])) {
+                        if (h == 'subject') {
+                            /* This is an attribute, so we need to escape
+                             * quotes only. */
+                            r.subjecttitle = r[h].gsub('"', '&quot;');
+                        }
+
+                        r[h] = r[h].escapeHTML();
+
+                        if (this.isQSearch() &&
+                            DimpCore.getPref('qsearch_field') == h) {
+                            r[h] = r[h].gsub(
+                                new RegExp("(" + $F('horde-search-input').escapeHTML() + ")", "i"),
+                                '<span class="qsearchMatch">#{1}</span>'
+                            );
+                        }
+                    }
+                }, this);
 
                 r.VP_bg.push('vpRow');
 
@@ -518,6 +539,10 @@ var DimpBase = {
                 $('msglistHeaderHoriz').show();
                 r.VP_bg.unshift('vpRowHoriz');
                 r.className = r.VP_bg.join(' ');
+
+                r.status = r.status.innerHTML;
+                r.subjectdata = r.subjectdata.innerHTML;
+
                 return this.template.horiz.evaluate(r);
             }.bind(this),
 

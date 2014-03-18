@@ -457,7 +457,7 @@ class IMP_Ajax_Application_ListMessages
             $msg['from'] = $getfrom['from'];
 
             /* Format the Subject: Header. */
-            $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject, true);
+            $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject);
 
             /* Check to see if this is a list message. Namely, we want to
              * check for 'List-Post' information because that is the header
