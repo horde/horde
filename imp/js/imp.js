@@ -111,16 +111,23 @@ var IMP_JS = {
 
     iframeResize: function(id)
     {
-        var b, h, lc;
+        var body, html, lc;
 
         if (id = $(id)) {
-            b = id.contentWindow.document.body;
-            lc = id.contentWindow.document.lastChild;
+            body = id.contentWindow.document.body;
+            html = body.parentNode;
 
-            h = Math.max(b.offsetHeight, lc.offsetHeight);
+            Element.setStyle(body, { height: null });
 
-            if (b.scrollHeight != b.clientHeight ||
-                lc.scrollHeight != lc.clientHeight) {
+            h = Math.max(
+                body.offsetHeight,
+                body.scrollHeight,
+                html.offsetHeight,
+                html.scrollHeight
+            );
+
+            if (body.scrollHeight != body.clientHeight ||
+                html.scrollHeight != html.clientHeight) {
                 h += 25;
             }
 
