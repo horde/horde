@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-03-03</date>
+ <date>2014-03-18</date>
  <version>
   <release>2.0.6</release>
   <api>1.0.0</api>
@@ -807,7 +807,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-03-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix checking for upload errors if an array of files was uploaded.
