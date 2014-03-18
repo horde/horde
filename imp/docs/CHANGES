@@ -2,6 +2,8 @@
 v6.1.8-git
 ----------
 
+[mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox
+      view (João Machado <geral@jpaulo.eu>).
 [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view
       (João Machado <geral@jpaulo.eu>).
 
