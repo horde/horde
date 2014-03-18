@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-09 16:34+0900\n"
-"PO-Revision-Date: 2014-03-13 12:08+0100\n"
+"POT-Creation-Date: 2014-03-13 11:19+0900\n"
+"PO-Revision-Date: 2014-03-18 14:46+0100\n"
 "Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "메모장 \"%s\"이 생성됨."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr ""
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:206
 #, fuzzy, php-format
 msgid "%d %s and %s"
 msgstr "%d / %d (메시지: %d)"
@@ -52,7 +52,7 @@ msgstr "옵션이 저장되었습니다."
 msgid "%d minutes"
 msgstr "5분 마다"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, fuzzy, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -64,7 +64,7 @@ msgstr[1] "당신은 이 메모장을 볼 수 없습니다."
 msgid "%d to %d of %d"
 msgstr "%d / %d (메시지: %d)"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:246
 #, php-format
 msgid "%d-day forecast"
 msgstr ""
@@ -74,7 +74,7 @@ msgstr ""
 msgid "%s - Notice"
 msgstr "참조"
 
-#: admin/config/config.php:28 admin/config/index.php:437
+#: admin/config/config.php:28 admin/config/index.php:458
 #, fuzzy, php-format
 msgid "%s Configuration"
 msgstr "메일 서버 정보사항"
@@ -184,13 +184,13 @@ msgid ""
 "syncronization attempt."
 msgstr ""
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr ""
 
-#: lib/Prefs/Special/Activesync.php:77
+#: lib/Prefs/Special/Activesync.php:90
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -209,27 +209,28 @@ msgstr "계정 정보"
 msgid "Account Password"
 msgstr "비밀번호 찾기"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 #, fuzzy
 msgid "Actions"
 msgstr "실행"
 
-#: config/prefs.php:739 lib/Application.php:200
+#: config/prefs.php:741 lib/Application.php:200
 #, fuzzy
 msgid "ActiveSync"
 msgstr "실행"
 
-#: admin/activesync.php:74
+#: admin/activesync.php:94
 #, fuzzy
-msgid "ActiveSync Device Administration"
+msgid "ActiveSync Administration"
 msgstr "Horde 사용자 관리"
 
-#: admin/activesync.php:196 lib/Api.php:93
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 #, fuzzy
 msgid "ActiveSync Devices"
 msgstr "Horde 사용자 관리"
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:22 lib/Api.php:725 lib/Api.php:786
+#: lib/Prefs/Special/Activesync.php:30
 #, fuzzy
 msgid "ActiveSync not activated."
 msgstr "Horde 사용자 관리"
@@ -290,11 +291,11 @@ msgstr ""
 msgid "Adding users is disabled."
 msgstr "사용자 추가 사용안함"
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "주소"
 
-#: config/registry.php:132
+#: config/registry.php:133
 msgid "Address Book"
 msgstr "주소록"
 
@@ -351,7 +352,7 @@ msgstr "메일 전달 오류:"
 msgid "All policy keys successfully reset."
 msgstr "%s 파일이 임포트되었습니다."
 
-#: lib/Prefs/Special/Activesync.php:92
+#: lib/Prefs/Special/Activesync.php:105
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -360,11 +361,6 @@ msgstr ""
 #: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
 msgstr ""
-
-#: lib/Application.php:216
-#, fuzzy
-msgid "Allow"
-msgstr "모두 선택"
 
 #: lib/Application.php:236
 msgid "Allow alphanumeric"
@@ -375,21 +371,26 @@ msgstr ""
 msgid "Allow any"
 msgstr "모두 선택"
 
+#: lib/Application.php:215
+#, fuzzy
+msgid "Allow non-provisionable devices"
+msgstr "권한 없음"
+
 #: lib/Application.php:235
 msgid "Allow only numeric"
 msgstr ""
 
-#: config/prefs.php:694
+#: config/prefs.php:696
 #, fuzzy
 msgid "Alternate IMSP Login"
 msgstr "암호 확인"
 
-#: config/prefs.php:711
+#: config/prefs.php:713
 #, fuzzy
 msgid "Alternate IMSP Password"
 msgstr "암호 확인"
 
-#: config/prefs.php:705
+#: config/prefs.php:707
 #, fuzzy
 msgid "Alternate IMSP Username"
 msgstr "암호 확인"
@@ -414,7 +415,7 @@ msgstr "실행"
 msgid "Application Context"
 msgstr "실행"
 
-#: admin/config/index.php:245
+#: admin/config/index.php:250
 #, fuzzy
 msgid "Application is ready."
 msgstr "실행"
@@ -481,7 +482,7 @@ msgstr ""
 msgid "Attempt to edit a non-existent permission."
 msgstr ""
 
-#: services/shares/edit.php:73
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
@@ -529,6 +530,11 @@ msgstr ""
 msgid "Basic"
 msgstr "웹메일"
 
+#: templates/activesync/device_table.html.php:42
+#, fuzzy
+msgid "Block"
+msgstr "파일 유형"
+
 #: templates/portal/layout.inc:90
 #, fuzzy
 msgid "Block Settings"
@@ -544,7 +550,7 @@ msgstr "파일 유형"
 msgid "Bluetooth"
 msgstr "새 메일"
 
-#: config/registry.php:183
+#: config/registry.php:184
 #, fuzzy
 msgid "Bookmarks"
 msgstr "편지 표시:"
@@ -553,7 +559,7 @@ msgstr "편지 표시:"
 msgid "Both"
 msgstr "모두"
 
-#: config/prefs.php:755
+#: config/prefs.php:762
 msgid "Bottom"
 msgstr "하단"
 
@@ -562,7 +568,7 @@ msgstr "하단"
 msgid "Browser"
 msgstr "행:"
 
-#: config/registry.php:118
+#: config/registry.php:119
 msgid "Calendar"
 msgstr "달력"
 
@@ -580,7 +586,8 @@ msgstr "취소"
 msgid "Cancel Problem Report"
 msgstr "오류 보고하기 취소"
 
-#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
+#: templates/activesync/device_table.html.php:35
+#: templates/prefs/activesync.html.php:41
 #, fuzzy
 msgid "Cancel Wipe"
 msgstr "취소"
@@ -606,7 +613,7 @@ msgstr ""
 msgid "Change"
 msgstr "변경"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:128
 #, fuzzy
 msgid "Change Location"
 msgstr "실행"
@@ -637,7 +644,7 @@ msgstr "제목"
 msgid "Check for newer versions"
 msgstr "편지함에서 새 메일 검사"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 #, fuzzy
 msgid "Checking"
 msgstr "_k링크 검사..."
@@ -650,7 +657,7 @@ msgstr ""
 msgid "Chinese Traditional (Big5)"
 msgstr ""
 
-#: services/obrowser/index.php:59
+#: services/obrowser/index.php:61
 #, fuzzy, php-format
 msgid "Choose %s"
 msgstr "암호 확인"
@@ -721,12 +728,12 @@ msgstr ""
 msgid "Collapse"
 msgstr "왼쪽막대 닫기"
 
-#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
-#: templates/prefs/category.html.php:36
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr ""
 
-#: config/registry.php:247
+#: config/registry.php:248
 msgid "Comics"
 msgstr ""
 
@@ -740,17 +747,22 @@ msgstr "회사"
 msgid "Command Shell"
 msgstr "회사"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:182
 #, fuzzy, php-format
 msgid "Comments: %d"
 msgstr "회사"
+
+#: templates/admin/activesync.html.php:16
+#, fuzzy
+msgid "Common Name"
+msgstr "집 전화"
 
 #: lib/Block/Fortune.php:38
 #, fuzzy
 msgid "Computers"
 msgstr "새 메일"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:259
 #, fuzzy
 msgid "Condition"
 msgstr "결론"
@@ -770,21 +782,21 @@ msgstr "메일 서버 정보사항"
 msgid "Configuration Differences"
 msgstr "메일 서버 정보사항"
 
-#: config/prefs.php:721
+#: config/prefs.php:723
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "PDA나 스마트폰, 아웃룩과의 동기화 상태를 확인합니다."
 
-#: admin/config/index.php:240
+#: admin/config/index.php:245
 #, fuzzy
 msgid "Configuration is out of date."
 msgstr "메일 서버 정보사항"
 
-#: templates/admin/config/index.html.php:96
+#: templates/admin/config/index.html.php:79
 #, fuzzy
 msgid "Configuration upgrade scripts available"
 msgstr "SQL VFS 설정정보가 없습니다."
 
-#: admin/config/index.php:180
+#: admin/config/index.php:182
 #, fuzzy, php-format
 msgid "Configure %s"
 msgstr "메일 서버 정보사항"
@@ -873,7 +885,7 @@ msgstr "VFS 설정 정보에서 'port'이 없습니다."
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 #, fuzzy
 msgid "Country"
 msgstr "새 메일"
@@ -915,7 +927,7 @@ msgstr "현재 시각"
 msgid "Current Weather"
 msgstr "현재 스타일"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:238
 #, fuzzy
 msgid "Current condition"
 msgstr "결론"
@@ -932,7 +944,7 @@ msgstr ""
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr ""
 
-#: admin/config/index.php:260 admin/config/index.php:312
+#: admin/config/index.php:265 admin/config/index.php:317
 #, fuzzy
 msgid "DB access is not configured."
 msgstr "Nag가 정상적으로 설정되어 있지 않습니다."
@@ -954,7 +966,7 @@ msgstr "일자"
 msgid "Database"
 msgstr "일자"
 
-#: lib/Block/Vatid.php:85
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "날짜"
 
@@ -968,7 +980,7 @@ msgstr "수신 날짜:"
 msgid "Date: %s; time: %s"
 msgstr ""
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:254
 #, fuzzy
 msgid "Day"
 msgstr "일별"
@@ -978,7 +990,7 @@ msgstr "일별"
 msgid "Default"
 msgstr "기본"
 
-#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "기본 색상"
 
@@ -1013,7 +1025,7 @@ msgstr "규칙 정의"
 msgid "Delete"
 msgstr "삭제"
 
-#: admin/alarms.php:133 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:208
 #, fuzzy, php-format
 msgid "Delete \"%s\""
 msgstr "삭제"
@@ -1022,7 +1034,7 @@ msgstr "삭제"
 msgid "Delete All SyncML Data"
 msgstr ""
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 #, fuzzy
 msgid "Delete Group"
 msgstr "삭제"
@@ -1041,45 +1053,56 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "오류 설명"
 
-#: config/registry.php:207
+#: config/registry.php:208
 #, fuzzy
 msgid "Development"
 msgstr "부서"
 
-#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/activesync.html.php:28 templates/prefs/syncml.html.php:10
 #, fuzzy
 msgid "Device"
 msgstr "미리보기"
 
-#: admin/activesync.php:122
+#: templates/admin/activesync.html.php:11
 #, fuzzy
-msgid "Device ID"
+msgid "Device Id"
 msgstr "미리보기"
 
-#: templates/prefs/activesync.html.php:23
+#: templates/activesync/device_table.html.php:7
+#: templates/prefs/activesync.html.php:31
 #, fuzzy
 msgid "Device Information"
 msgstr "정보"
 
-#: templates/prefs/activesync.html.php:11
+#: templates/prefs/activesync.html.php:20
 #, fuzzy
 msgid "Device Management"
 msgstr "파일 관리자"
+
+#: templates/admin/activesync.html.php:10
+#, fuzzy
+msgid "Device Type"
+msgstr "미리보기"
 
 #: lib/Application.php:312
 #, fuzzy
 msgid "Device encryption"
 msgstr "보안"
 
-#: templates/prefs/activesync.html.php:35
+#: templates/activesync/device_table.html.php:16
+#, fuzzy
+msgid "Device is Blocked."
+msgstr "내림차순"
+
+#: templates/prefs/activesync.html.php:43
 #, fuzzy
 msgid "Device is Wiped"
 msgstr "내림차순"
 
-#: admin/activesync.php:165
-#, fuzzy
-msgid "Device is wiped"
-msgstr "내림차순"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
 
 #: admin/activesync.php:46
 #, fuzzy
@@ -1099,7 +1122,7 @@ msgstr ""
 msgid "Dew Point for last hour: "
 msgstr ""
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:189
 msgid "Dew point"
 msgstr ""
 
@@ -1109,6 +1132,10 @@ msgstr ""
 msgid "Disable"
 msgstr "마지막 페이지"
 
+#: lib/Application.php:216
+msgid "Disable (not recommended)"
+msgstr ""
+
 #: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "24시간제로 보기"
@@ -1117,7 +1144,7 @@ msgstr "24시간제로 보기"
 msgid "Display Preferences"
 msgstr "표시 방법 설정"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:95
 #, fuzzy
 msgid "Display detailed forecast"
 msgstr "화면 설정"
@@ -1131,17 +1158,17 @@ msgstr "화면 설정"
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "첫번째 행은 항목 이름을 갖고 있습니까? 그렇다면, 여기를 체크하세요:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:77
 msgid "Don't have an account? Sign up."
 msgstr ""
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "Download %s"
 msgstr "%s 내려받기"
 
-#: admin/config/index.php:384
+#: admin/config/index.php:393
 #, fuzzy
 msgid "Download generated configuration as PHP script."
 msgstr "Horde가 바르게 설정되지 않았습니다."
@@ -1178,12 +1205,12 @@ msgstr "수정"
 msgid "Edit Preferences for"
 msgstr "%s 설정"
 
-#: services/shares/edit.php:252
+#: services/shares/edit.php:249
 #, fuzzy
 msgid "Edit permissions"
 msgstr "%s 권한 수정"
 
-#: services/shares/edit.php:251 templates/shares/edit.inc:15
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, fuzzy, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "%s 권한 수정"
@@ -1198,11 +1225,16 @@ msgstr "소개"
 msgid "Email Address"
 msgstr "이메일 주소:"
 
+#: lib/Application.php:214
+#, fuzzy
+msgid "Enable"
+msgstr "사용중"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "종료 시간"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:83
 msgid "English"
 msgstr ""
 
@@ -1219,7 +1251,13 @@ msgstr ""
 "비밀번호 초기화를 할 때 사용할 보안질문을 넣으십시오. 예) 내 애완동물 이름은 "
 "무엇인가?"
 
-#: services/twitter/index.php:27
+#: lib/Ajax/Application/FacebookHandler.php:264
+#, fuzzy
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
 #, fuzzy
 msgid ""
 "Error connecting to Twitter. Details have been logged for the administrator."
@@ -1249,28 +1287,28 @@ msgstr "새로운 폴더 만들기 오류: "
 msgid "Ethnic"
 msgstr ""
 
-#: services/facebook/index.php:189
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
 msgstr ""
 
-#: config/prefs.php:599 templates/portal/layout.inc:101
+#: config/prefs.php:600 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15분 마다"
 
-#: config/prefs.php:618
+#: config/prefs.php:619
 #, fuzzy
 msgid "Every 2 minutes"
 msgstr "5분 마다"
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30초 마다"
 
-#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
+#: config/prefs.php:599 config/prefs.php:620 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5분 마다"
 
-#: config/prefs.php:600 templates/portal/layout.inc:102
+#: config/prefs.php:601 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "30분 마다"
 
@@ -1279,7 +1317,7 @@ msgstr "30분 마다"
 msgid "Every hour"
 msgstr "30분 마다"
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
+#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "매분"
 
@@ -1302,12 +1340,12 @@ msgstr "모두 확장"
 msgid "Extra Large"
 msgstr "다음 페이지"
 
-#: templates/admin/config/index.html.php:110
+#: templates/admin/config/index.html.php:93
 #, fuzzy
 msgid "FTP upload of configuration"
 msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: config/prefs.php:642
+#: config/prefs.php:644
 #, fuzzy
 msgid "Facebook Integration"
 msgstr "기타 정보"
@@ -1338,11 +1376,11 @@ msgstr ""
 msgid "Fields to search"
 msgstr ""
 
-#: config/registry.php:313
+#: config/registry.php:314
 msgid "File Manager"
 msgstr "파일 관리자"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 #, fuzzy
 msgid "Filter"
 msgstr "필터"
@@ -1351,12 +1389,12 @@ msgstr "필터"
 msgid "Filters"
 msgstr "필터"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 #, fuzzy
 msgid "First Half"
 msgstr "첫페이지"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 #, fuzzy
 msgid "First Quarter"
 msgstr "첫페이지"
@@ -1365,28 +1403,23 @@ msgstr "첫페이지"
 msgid "Food"
 msgstr ""
 
-#: lib/Application.php:215
-#, fuzzy
-msgid "Force"
-msgstr "참조"
-
 #: lib/Block/Metar.php:308
 #, fuzzy
 msgid "Forecast (TAF)"
 msgstr "화면 설정"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:89
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
 
-#: templates/login/login.inc:79
+#: templates/login/login.inc:84
 #, fuzzy
 msgid "Forgot your password?"
 msgstr "암호 확인"
 
-#: config/registry.php:342
+#: config/registry.php:343
 #, fuzzy
 msgid "Forms"
 msgstr "메일함"
@@ -1411,12 +1444,12 @@ msgstr "참조"
 msgid "Fortunes 2"
 msgstr "참조"
 
-#: config/registry.php:336
+#: config/registry.php:337
 #, fuzzy
 msgid "Forums"
 msgstr "메일함"
 
-#: services/facebook/index.php:188
+#: lib/Ajax/Application/FacebookHandler.php:62
 #, fuzzy
 msgid "Friend Requests:"
 msgstr "인터넷 일정 요청"
@@ -1426,22 +1459,21 @@ msgstr "인터넷 일정 요청"
 msgid "Friends enabled."
 msgstr "새 메일"
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:215
 #, fuzzy, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "%d / %d (메시지: %d)"
 
-#: lib/Block/Weather.php:318
+#: lib/Block/Weather.php:326
 #, fuzzy, php-format
 msgid "From the %s at %s %s"
 msgstr "%d / %d (메시지: %d)"
 
 #: templates/problem/problem.inc:27
-#, fuzzy
 msgid "Full Description"
-msgstr "전체 설명:"
+msgstr "상세 설명:"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 #, fuzzy
 msgid "Full Moon"
 msgstr "새 메일"
@@ -1459,7 +1491,7 @@ msgstr "메일 서버 정보사항"
 msgid "Generated Code"
 msgstr ""
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr ""
 
@@ -1500,7 +1532,7 @@ msgstr "그룹"
 msgid "Group was not created: %s."
 msgstr "메모장 \"%s\"이 생성됨."
 
-#: admin/groups.php:219 templates/shares/edit.inc:270
+#: admin/groups.php:221 templates/shares/edit.inc:270
 #, fuzzy
 msgid "Groups"
 msgstr "그룹"
@@ -1523,7 +1555,7 @@ msgstr ""
 msgid "Height"
 msgstr "높이"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr ""
 
@@ -1570,7 +1602,7 @@ msgstr "항목(열)의 수?"
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
 msgstr ""
 
@@ -1578,10 +1610,18 @@ msgstr ""
 msgid "Humorists"
 msgstr ""
 
-#: util/icon_browser.php:34
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr ""
+
+#: util/icon_browser.php:40
 #, fuzzy, php-format
 msgid "Icons for %s"
 msgstr "%s에게 소개"
+
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr ""
 
 #: config/prefs.php:283
 msgid "Identity's name:"
@@ -1589,9 +1629,9 @@ msgstr "계정 이름:"
 
 #: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
 #: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
-#, fuzzy, php-format
+#, php-format
 msgid "Import, Step %d"
-msgstr "가져오기, 단계 %s"
+msgstr "가져오기, %d 단계"
 
 #: templates/data/datemap.inc:18
 #, php-format
@@ -1614,6 +1654,9 @@ msgid ""
 "Then hit \"Add pair\" to mark them for the import. Once your are finished "
 "hit \"Next\"."
 msgstr ""
+"아래 목록에서, 왼쪽의 가져온 컬럼명과 오른쪽에 주소록의 컬럼명을 선택하고 "
+"\"페어(pair) 추가\"를 눌러 주십시오. 모든 항목이 매핑되었으면 \"다음\"을 눌"
+"러 진행하십시오."
 
 #: services/resetpassword.php:58
 #, fuzzy
@@ -1627,7 +1670,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr ""
 
-#: config/registry.php:241
+#: config/registry.php:242
 #, fuzzy
 msgid "Information"
 msgstr "정보"
@@ -1645,7 +1688,7 @@ msgstr "비밀번호 초기화를 받을 다른 메일주소를 넣으십시오:
 msgid "Insert the required answer to the security question:"
 msgstr "보안질문에 대한 답변을 넣으십시오:"
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr ""
 
@@ -1669,7 +1712,7 @@ msgstr "잘못된 이름."
 msgid "Invalid parent permission."
 msgstr "잘못된 주소록"
 
-#: config/registry.php:294
+#: config/registry.php:295
 msgid "Inventory"
 msgstr ""
 
@@ -1677,7 +1720,7 @@ msgstr ""
 msgid "Japanese (ISO-2022-JP)"
 msgstr "일본어 (ISO-2022-JP)"
 
-#: login.php:153
+#: login.php:154
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1700,7 +1743,7 @@ msgstr "키워드"
 msgid "Kids"
 msgstr ""
 
-#: config/registry.php:302
+#: config/registry.php:303
 msgid "Kolab"
 msgstr ""
 
@@ -1708,7 +1751,7 @@ msgstr ""
 msgid "Korean (EUC-KR)"
 msgstr "한국어 (EUC-KR)"
 
-#: login.php:343 templates/login/login.inc:52
+#: login.php:344 templates/login/login.inc:57
 msgid "Language"
 msgstr "언어"
 
@@ -1717,7 +1760,7 @@ msgstr "언어"
 msgid "Large"
 msgstr "언어"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 #, fuzzy
 msgid "Last Half"
 msgstr "마지막 페이지"
@@ -1727,12 +1770,13 @@ msgstr "마지막 페이지"
 msgid "Last Password Change"
 msgstr "암호"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 #, fuzzy
 msgid "Last Quarter"
 msgstr "마지막 페이지"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/activesync/device_table.html.php:5
+#: templates/prefs/activesync.html.php:29
 #, fuzzy
 msgid "Last Sync Time"
 msgstr "성"
@@ -1766,7 +1810,7 @@ msgstr "날짜"
 msgid "Law"
 msgstr "낮음"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:225
 #, fuzzy
 msgid "Like"
 msgstr "로그인"
@@ -1819,7 +1863,7 @@ msgstr "사용할 수 없는 사용자 목록."
 msgid "Literature"
 msgstr "서명:"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:167
 #, fuzzy, php-format
 msgid "Local time: %s %s"
 msgstr "실행"
@@ -1828,7 +1872,7 @@ msgstr "실행"
 msgid "Locale and Time"
 msgstr "언어와 시간대"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:75
 #, fuzzy
 msgid "Location"
 msgstr "실행"
@@ -1843,7 +1887,7 @@ msgstr "사용자명"
 msgid "Locks"
 msgstr "사용자명"
 
-#: login.php:270 templates/login/login.inc:61
+#: login.php:271 templates/login/login.inc:66
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "로그인"
@@ -1857,14 +1901,14 @@ msgstr "_L로그아웃"
 msgid "Logged in to Facebook"
 msgstr ""
 
-#: login.php:299
+#: login.php:300
 #, fuzzy
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "어떤 이유로 로그인이 실패했습니다. 대부분의 경우 사용자 이름 또는 암호가 잘"
 "못 입력된 경우 발생합니다."
 
-#: login.php:295
+#: login.php:296
 #, fuzzy
 msgid "Login failed."
 msgstr "삭제 실패"
@@ -1904,7 +1948,7 @@ msgstr "웹메일"
 msgid "Mail"
 msgstr "메일"
 
-#: config/registry.php:347
+#: config/registry.php:348
 #, fuzzy
 msgid "Mail Admin"
 msgstr "관리"
@@ -1915,7 +1959,7 @@ msgid ""
 "associated with those categories."
 msgstr "분류시 사용할 태그와 해당 분류에 표시할 색상을 설정합니다."
 
-#: config/prefs.php:740
+#: config/prefs.php:742
 #, fuzzy
 msgid "Manage your ActiveSync devices."
 msgstr "간편 편지함과 간편 분류를 관리합니다."
@@ -1953,7 +1997,7 @@ msgstr "첨부파일 최대 크기"
 msgid "Maximum number of devices"
 msgstr "최대 페이지수"
 
-#: lib/Block/FbStream.php:66
+#: lib/Block/FbStream.php:67
 #, fuzzy
 msgid "Maximum number of entries to display"
 msgstr "행의 수"
@@ -1982,7 +2026,7 @@ msgstr "규칙 정의"
 msgid "Metar Weather"
 msgstr "현재 스타일"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:84
 msgid "Metric"
 msgstr ""
 
@@ -2002,7 +2046,7 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: admin/config/index.php:217
+#: admin/config/index.php:222
 #, fuzzy
 msgid "Missing configuration."
 msgstr "메일 서버 정보사항"
@@ -2028,8 +2072,13 @@ msgstr ""
 msgid "Mode"
 msgstr "Horde"
 
-#: admin/config/index.php:165 admin/config/index.php:206
-#: admin/config/index.php:339 admin/config/index.php:365
+#: templates/admin/activesync.html.php:14
+#, fuzzy
+msgid "Model"
+msgstr "Horde"
+
+#: admin/config/index.php:167 admin/config/index.php:211
+#: admin/config/index.php:344 admin/config/index.php:370
 #, fuzzy
 msgid "Module is up-to-date."
 msgstr "일자 없슴."
@@ -2042,7 +2091,7 @@ msgstr "월요일"
 msgid "Moon Phases"
 msgstr ""
 
-#: config/registry.php:307
+#: config/registry.php:308
 msgid "My Account"
 msgstr "계정 관리"
 
@@ -2050,7 +2099,7 @@ msgstr "계정 관리"
 msgid "My Account Information"
 msgstr "내 계정 정보"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 #, fuzzy
 msgid "My Facebook Stream"
 msgstr "기타 정보"
@@ -2063,8 +2112,8 @@ msgstr ""
 msgid "My Portal Layout"
 msgstr ""
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:316 lib/Block/Weather.php:320
+#: lib/Block/Weather.php:336
 msgid "N/A"
 msgstr ""
 
@@ -2073,31 +2122,31 @@ msgstr ""
 msgid "NO, I Do NOT Agree"
 msgstr ""
 
-#: templates/prefs/activesync.html.php:60
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:68
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
 msgstr ""
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "이름"
 
-#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
-#: templates/portal/layout.inc:97
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "사용안함"
 
-#: templates/prefs/category.html.php:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "새 분류"
 
-#: services/facebook/index.php:185
+#: lib/Ajax/Application/FacebookHandler.php:59
 #, fuzzy
 msgid "New Messages:"
 msgstr "메시지"
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 #, fuzzy
 msgid "New Moon"
 msgstr "새 메일"
@@ -2117,7 +2166,7 @@ msgstr "암호"
 msgid "New passwords don't match."
 msgstr "암호가 일치하지 않습니다."
 
-#: config/registry.php:252 lib/Block/Fortune.php:59
+#: config/registry.php:253 lib/Block/Fortune.php:59
 #, fuzzy
 msgid "News"
 msgstr "새 메일"
@@ -2145,7 +2194,7 @@ msgstr ""
 msgid "No change."
 msgstr "변경사항 되돌리기"
 
-#: util/icon_browser.php:52
+#: util/icon_browser.php:70
 #, fuzzy
 msgid "No icons found."
 msgstr "연락처 없음"
@@ -2177,8 +2226,8 @@ msgstr ""
 msgid "No security question has been set. Please contact your administrator."
 msgstr "암호화 기능이 구성되지 않았습니다, 관리자에게 요청하시기 바랍니다."
 
-#: admin/config/index.php:159 admin/config/index.php:200
-#: admin/config/index.php:333 admin/config/index.php:359
+#: admin/config/index.php:161 admin/config/index.php:205
+#: admin/config/index.php:338 admin/config/index.php:364
 msgid "No stable version exists yet."
 msgstr ""
 
@@ -2187,31 +2236,33 @@ msgstr ""
 msgid "No username specified."
 msgstr "문자열 입력 오류"
 
-#: admin/config/index.php:223
+#: admin/config/index.php:228
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 
-#: admin/config/index.php:232
+#: admin/config/index.php:237
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 
-#: admin/config/index.php:284
+#: admin/config/index.php:289
 #, fuzzy
 msgid "NoSQL indices are ready."
 msgstr "%s에게 소개"
 
-#: admin/config/index.php:279
+#: admin/config/index.php:284
 #, fuzzy, php-format
 msgid "NoSQL indices for %s"
 msgstr "%s에게 소개"
 
-#: admin/config/index.php:281
+#: admin/config/index.php:286
 #, fuzzy
 msgid "NoSQL indices out of date."
 msgstr "%s에게 소개"
 
-#: templates/prefs/activesync.html.php:42
-#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:50
+#: templates/prefs/activesync.html.php:62 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "선택하지 않음"
 
@@ -2219,17 +2270,18 @@ msgstr "선택하지 않음"
 msgid "Nordic (ISO-8859-10)"
 msgstr ""
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 #, fuzzy
 msgid "Northern Hemisphere"
 msgstr "도움말"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 #, fuzzy
 msgid "Not Provisioned"
 msgstr "개인 메일"
 
-#: config/registry.php:167
+#: config/registry.php:168
 msgid "Notes"
 msgstr "메모"
 
@@ -2246,6 +2298,10 @@ msgstr "행의 수"
 msgid "Number of seconds to wait to refresh"
 msgstr ""
 
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr ""
+
 #: templates/services/obrowser.html.php:5
 #, fuzzy
 msgid "Object Browser"
@@ -2260,7 +2316,7 @@ msgstr "제목"
 msgid "Offense filter"
 msgstr ""
 
-#: config/registry.php:264
+#: config/registry.php:265
 #, fuzzy
 msgid "Office"
 msgstr "제목"
@@ -2284,7 +2340,7 @@ msgstr "암호"
 msgid "Only offensive fortunes"
 msgstr "연락처 없음"
 
-#: services/shares/edit.php:94
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2299,8 +2355,8 @@ msgstr ""
 msgid "Or enter a user name:"
 msgstr "메시지 작성"
 
-#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
-#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
+#: config/prefs.php:540 config/prefs.php:643 config/prefs.php:669
+#: config/prefs.php:695 config/prefs.php:721 config/prefs.php:740
 msgid "Other Information"
 msgstr "기타 정보"
 
@@ -2319,7 +2375,7 @@ msgstr ""
 "#-#-#-#-#  gollem.po (Gollem 0.0.1-cvs)  #-#-#-#-#\n"
 "다른 옵션"
 
-#: config/registry.php:178
+#: config/registry.php:179
 msgid "Others"
 msgstr "기타"
 
@@ -2358,8 +2414,8 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:190 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:325
+#: login.php:191 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:326
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "암호"
@@ -2420,7 +2476,12 @@ msgstr "개인 정보"
 msgid "Pets"
 msgstr "픽셀"
 
-#: config/registry.php:195
+#: templates/admin/activesync.html.php:19
+#, fuzzy
+msgid "Phone Number"
+msgstr "성"
+
+#: config/registry.php:196
 #, fuzzy
 msgid "Photos"
 msgstr "픽셀"
@@ -2429,12 +2490,12 @@ msgstr "픽셀"
 msgid "Platitudes"
 msgstr ""
 
-#: login.php:196
+#: login.php:197
 #, fuzzy
 msgid "Please enter a password."
 msgstr "올바른 검색 범주를 입력하세요."
 
-#: login.php:195
+#: login.php:196
 #, fuzzy
 msgid "Please enter a username."
 msgstr "올바른 검색 범주를 입력하세요."
@@ -2449,32 +2510,27 @@ msgid ""
 "system."
 msgstr ""
 
-#: services/facebook/index.php:187
+#: lib/Ajax/Application/FacebookHandler.php:61
 #, fuzzy
 msgid "Pokes:"
 msgstr "픽셀"
-
-#: admin/activesync.php:108
-#, fuzzy
-msgid "Policy Key"
-msgstr "전체 이름:"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr ""
 
-#: config/prefs.php:754
+#: config/prefs.php:761
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
 msgstr ""
 
-#: lib/Block/FbStream.php:142
+#: lib/Block/FbStream.php:143
 #, fuzzy
 msgid "Post"
 msgstr "붙이기"
 
-#: services/facebook/index.php:33
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, fuzzy, php-format
 msgid "Posted %s"
 msgstr "%d / %d (메시지: %d)"
@@ -2491,12 +2547,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Block/Weather.php:255
+#: lib/Block/Weather.php:263
 #, php-format
 msgid "Precipitation%schance"
 msgstr ""
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:200
 #, fuzzy
 msgid "Pressure"
 msgstr "암호"
@@ -2514,7 +2570,8 @@ msgstr ""
 msgid "Problem Description"
 msgstr "문제 설명"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 #, fuzzy
 msgid "Provisioned"
 msgstr "개인 메일"
@@ -2570,11 +2627,11 @@ msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
 
-#: config/prefs.php:621
+#: config/prefs.php:622
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "동적 메뉴의 갱신주기:"
 
-#: config/prefs.php:602
+#: config/prefs.php:603
 msgid "Refresh Portal View:"
 msgstr "포털화면 새로고침 주기:"
 
@@ -2582,10 +2639,6 @@ msgstr "포털화면 새로고침 주기:"
 #, fuzzy
 msgid "Refresh rate:"
 msgstr "메일함 새로 읽기:"
-
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr ""
 
 #: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
@@ -2601,10 +2654,10 @@ msgstr "편지 표시:"
 msgid "Remote Host"
 msgstr "선택된 메일 삭제"
 
-#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:41
+#: templates/activesync/device_table.html.php:37
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
-#: templates/prefs/activesync.html.php:39
+#: templates/prefs/activesync.html.php:47
 #, fuzzy
 msgid "Remove"
 msgstr "페어(pair) 삭제"
@@ -2613,7 +2666,7 @@ msgstr "페어(pair) 삭제"
 msgid "Remove pair"
 msgstr "페어(pair) 삭제"
 
-#: admin/config/index.php:416
+#: admin/config/index.php:433
 #, fuzzy
 msgid "Remove saved script from server's temporary directory."
 msgstr "Horde가 바르게 설정되지 않았습니다."
@@ -2632,11 +2685,6 @@ msgstr "페어(pair) 삭제"
 #, fuzzy
 msgid "Reply"
 msgstr "회신:"
-
-#: admin/activesync.php:140
-#, fuzzy
-msgid "Reprovision All Devices"
-msgstr "권한 없음"
 
 #: lib/Application.php:221
 msgid "Require PIN"
@@ -2662,10 +2710,9 @@ msgstr "입력 취소"
 msgid "Reset Password"
 msgstr "암호"
 
-#: templates/prefs/activesync.html.php:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
 msgstr ""
 
 #: services/resetpassword.php:27
@@ -2688,11 +2735,6 @@ msgstr "검색 결과"
 #, fuzzy, php-format
 msgid "Results for %s"
 msgstr "검색 결과"
-
-#: templates/prefs/end.html:8
-#, fuzzy
-msgid "Return to Main Screen"
-msgstr "옵션으로 돌아가기"
 
 #: templates/block/twitter_tweet.html.php:35
 #, fuzzy
@@ -2742,12 +2784,12 @@ msgstr "보안"
 msgid "SMS Text messages"
 msgstr "답장한 편지"
 
-#: admin/config/index.php:266 admin/config/index.php:319
+#: admin/config/index.php:271 admin/config/index.php:324
 #, fuzzy
 msgid "SQL DB schema is out of date."
 msgstr "%s에게 소개"
 
-#: admin/config/index.php:271 admin/config/index.php:324
+#: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
 msgstr ""
 
@@ -2773,7 +2815,7 @@ msgstr "다른이름으로 저장"
 msgid "Save and Finish"
 msgstr "PDF로 저장"
 
-#: admin/config/index.php:388
+#: admin/config/index.php:401
 #, fuzzy
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
@@ -2799,11 +2841,11 @@ msgid "Sea_rch"
 msgstr "검색"
 
 #: lib/View/Topbar.php:59 services/help/index.php:156
-#: templates/admin/user/list.inc:14
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "검색"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 #, fuzzy
 msgid "Search:"
 msgstr "검색"
@@ -2864,7 +2906,7 @@ msgstr "날자 구분표시 선택:"
 msgid "Select the time format:"
 msgstr "시간 형식 선택"
 
-#: config/prefs.php:588
+#: config/prefs.php:589
 msgid "Select your color scheme."
 msgstr "색상 테마 선택:"
 
@@ -2874,7 +2916,7 @@ msgstr "자주사용하는 언어를 선택하세요."
 
 #: templates/problem/problem.inc:36
 msgid "Send Problem Report"
-msgstr "문제발생 보고서 전송하기"
+msgstr "오류발생 보고서 보내기"
 
 #: lib/Block/Metar.php:290
 #, fuzzy
@@ -2906,11 +2948,11 @@ msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "비밀번호를 잊었을 때 비밀번호 초기화를 위한 설정을 합니다."
 
-#: config/prefs.php:643
+#: config/prefs.php:645
 msgid "Set up integration with your Facebook account."
 msgstr ""
 
-#: config/prefs.php:669
+#: config/prefs.php:671
 msgid "Set up integration with your Twitter account."
 msgstr ""
 
@@ -2925,19 +2967,22 @@ msgid ""
 msgstr ""
 "기본으로 시작할 애플리케이션, 색상 테마, 화면 갱신주기 등을 설정합니다."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:144
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr ""
 
 #: templates/problem/problem.inc:17
-#, fuzzy
 msgid "Short Summary"
-msgstr "간단한 요약:"
+msgstr "간단 요약:"
 
-#: config/prefs.php:627
+#: config/prefs.php:629
 msgid "Should access keys be defined for most links?"
 msgstr "단축키 기능 사용하기"
+
+#: config/prefs.php:756
+msgid "Should multiple collections be multiplexed?"
+msgstr ""
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
@@ -2954,7 +2999,12 @@ msgstr "보여주기"
 msgid "Show Advanced Preferences"
 msgstr "고급 설정 보이기"
 
-#: admin/config/index.php:378
+#: templates/prefs/end.html:8
+#, fuzzy
+msgid "Show All Preferences Groups"
+msgstr "고급 설정 보이기"
+
+#: admin/config/index.php:383
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2964,11 +3014,11 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr ""
 
-#: config/prefs.php:573
+#: config/prefs.php:574
 msgid "Show last login time when logging in?"
 msgstr "로그인시 마지막 로그인 시간 보여주기"
 
-#: lib/Block/FbStream.php:71
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
 msgstr ""
 
@@ -3000,12 +3050,12 @@ msgstr ""
 msgid "South European (ISO-8859-3)"
 msgstr ""
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 #, fuzzy
 msgid "Southern Hemisphere"
 msgstr "도움말"
 
-#: config/registry.php:104
+#: config/registry.php:105
 #, fuzzy
 msgid "Spam"
 msgstr "저장"
@@ -3029,17 +3079,18 @@ msgstr "시작 시간"
 msgid "Start Time"
 msgstr "시작 시간"
 
-#: templates/prefs/activesync.html.php:2
+#: templates/prefs/activesync.html.php:13
 #, fuzzy
 msgid "State Management"
 msgstr "파일 관리자"
 
-#: admin/activesync.php:115 templates/admin/config/index.html.php:36
-#: templates/prefs/activesync.html.php:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
+#: templates/prefs/activesync.html.php:30
 msgid "Status"
 msgstr ""
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:106
 #, fuzzy
 msgid "Status unable to be set."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
@@ -3056,7 +3107,7 @@ msgid ""
 "request has been approved."
 msgstr ""
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 
@@ -3118,7 +3169,7 @@ msgstr "제목"
 msgid "Sunday"
 msgstr "일요일"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:174 lib/Block/Weather.php:175
 #, fuzzy
 msgid "Sunrise"
 msgstr "제목"
@@ -3128,7 +3179,7 @@ msgstr "제목"
 msgid "Sunrise/Sunset"
 msgstr "제목"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:177 lib/Block/Weather.php:178
 #, fuzzy
 msgid "Sunset"
 msgstr "제목"
@@ -3138,7 +3189,7 @@ msgstr "제목"
 msgid "Sync all"
 msgstr "이메일"
 
-#: config/prefs.php:720
+#: config/prefs.php:722
 msgid "SyncML"
 msgstr ""
 
@@ -3150,7 +3201,7 @@ msgstr ""
 msgid "Tag Cloud"
 msgstr "태그 클라우드"
 
-#: config/registry.php:153
+#: config/registry.php:154
 msgid "Tasks"
 msgstr "작업"
 
@@ -3158,17 +3209,17 @@ msgstr "작업"
 msgid "Temp for last hour: "
 msgstr ""
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:184
 #, fuzzy
 msgid "Temperature"
 msgstr "서명:"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr ""
 
-#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 #, fuzzy
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "업로드 파일 임포트 오류"
@@ -3182,7 +3233,7 @@ msgstr "업로드 파일 임포트 오류"
 msgid "Thai (TIS-620)"
 msgstr ""
 
-#: lib/Prefs/Special/Activesync.php:83
+#: lib/Prefs/Special/Activesync.php:96
 #, fuzzy, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "식별자 \"%s\" 가 삭제되었습니다."
@@ -3213,28 +3264,28 @@ msgstr "이 계정에 연결된 기본 메일주소:"
 msgid "The lock has been removed."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
 msgstr ""
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
 msgstr ""
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 #, fuzzy
 msgid "The provided country code is invalid."
 msgstr "일정항목(iCal)이 없음."
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr ""
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr ""
 
@@ -3248,7 +3299,7 @@ msgstr "식별자 \"%s\" 가 저장되었습니다."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/Prefs/Special/Activesync.php:98
+#: lib/Prefs/Special/Activesync.php:111
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3266,7 +3317,7 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "\"%s\"는 이미 있습니다."
 
-#: services/shares/edit.php:96 services/shares/edit.php:181
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, fuzzy, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "식별자 \"%s\" 가 삭제되었습니다."
@@ -3291,7 +3342,7 @@ msgstr "'%s'를 시스템에서 삭제할 수 없습니다."
 msgid "There was a problem updating \"%s\": %s"
 msgstr "'%s'를 시스템에 추가할 수 없습니다."
 
-#: lib/Prefs/Special/Activesync.php:101
+#: lib/Prefs/Special/Activesync.php:114
 #, fuzzy, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "데이타 임포트 오류"
@@ -3308,13 +3359,13 @@ msgid ""
 "required field."
 msgstr "요청된 메시지 읽기 오류"
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
 #, fuzzy, php-format
 msgid "There was an error making the request: %s"
 msgstr "데이타 임포트 오류"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
@@ -3326,24 +3377,32 @@ msgid ""
 msgstr ""
 "\"%s\"의 자료를 지우는중 에러가 발생하였습니다. 세부내용은 로깅되었습니다."
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 #, fuzzy
 msgid "There was an error with the requested permissions"
 msgstr "데이타 임포트 오류"
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr ""
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr ""
 
-#: config/registry.php:224
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr ""
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr ""
+
+#: config/registry.php:225
 msgid "Tickets"
 msgstr ""
 
-#: config/registry.php:270
+#: config/registry.php:271
 msgid "Time Tracking"
 msgstr ""
 
@@ -3369,6 +3428,8 @@ msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
+"매핑항목중 빼고 싶거나 잘못된 것이 있으면, 선택하고 \"페어(pair) 삭제\"를 눌"
+"러주십시오."
 
 #: templates/prefs/addressbooks.html:8
 msgid ""
@@ -3376,17 +3437,17 @@ msgid ""
 "clicking."
 msgstr ""
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:288
 #, fuzzy
 msgid "Today"
 msgstr "본문"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:290
 #, fuzzy
 msgid "Tomorrow"
 msgstr " (내일)"
 
-#: config/prefs.php:755
+#: config/prefs.php:762
 msgid "Top"
 msgstr "상단"
 
@@ -3404,7 +3465,7 @@ msgstr ""
 msgid "Tweet"
 msgstr "문자열"
 
-#: config/prefs.php:668
+#: config/prefs.php:670
 #, fuzzy
 msgid "Twitter Integration"
 msgstr "기타 정보"
@@ -3419,6 +3480,11 @@ msgstr "%s 권한 수정"
 msgid "Twitter Timeline for %s"
 msgstr "%s 권한 수정"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+#, fuzzy
+msgid "Twitter not enabled."
+msgstr "새 메일"
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3428,13 +3494,17 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:138
 #, fuzzy
 msgid "Unable to set like."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
+msgstr ""
+
+#: templates/activesync/device_table.html.php:40
+msgid "Unblock"
 msgstr ""
 
 #: templates/prefs/end.html:5
@@ -3446,7 +3516,7 @@ msgstr "변경사항 되돌리기"
 msgid "Unfavorite"
 msgstr "참조"
 
-#: templates/prefs/category.html.php:19
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "미분류"
 
@@ -3454,7 +3524,7 @@ msgstr "미분류"
 msgid "Unicode (UTF-8)"
 msgstr ""
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:80
 msgid "Units"
 msgstr ""
 
@@ -3464,6 +3534,10 @@ msgstr "알수 없슴"
 
 #: admin/locks.php:43
 msgid "Unlock"
+msgstr ""
+
+#: lib/Api.php:728 lib/Api.php:789
+msgid "Unsupported action."
 msgstr ""
 
 #: templates/admin/user/list.inc:34
@@ -3476,7 +3550,7 @@ msgstr "일자"
 msgid "Update %s"
 msgstr "일자"
 
-#: admin/config/index.php:183 admin/config/index.php:298
+#: admin/config/index.php:185 admin/config/index.php:303
 #, fuzzy, php-format
 msgid "Update %s schema"
 msgstr "일자"
@@ -3496,7 +3570,7 @@ msgstr "메일 서버 정보사항"
 msgid "Update user"
 msgstr "사용자 추가"
 
-#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:244
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, fuzzy, php-format
 msgid "Updated \"%s\"."
 msgstr "사용자 추가"
@@ -3506,19 +3580,20 @@ msgstr "사용자 추가"
 msgid "Updated schema for %s."
 msgstr "사용자 추가"
 
-#: admin/config/index.php:395
+#: admin/config/index.php:412
 #, fuzzy
 msgid "Upload"
 msgstr "파일 올리기"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:420
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 
-#: config/prefs.php:695
+#: config/prefs.php:697
 msgid "Use if name/password is different for IMSP server."
 msgstr ""
 
+#: templates/activesync/device_table.html.php:3
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
 #: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 #, fuzzy
@@ -3529,6 +3604,11 @@ msgstr "사용자명"
 #, fuzzy
 msgid "User Administration"
 msgstr "Horde 사용자 관리"
+
+#: templates/admin/activesync.html.php:12
+#, fuzzy
+msgid "User Agent"
+msgstr "사용자명"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3559,9 +3639,9 @@ msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 msgid "User to add:"
 msgstr "문자열 선택:"
 
-#: login.php:185 admin/config/index.php:396 admin/user.php:36
+#: login.php:186 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:23
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "사용자명"
 
@@ -3582,17 +3662,22 @@ msgstr ""
 msgid "VAT identification number:"
 msgstr ""
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 #, fuzzy
 msgid "VAT number"
 msgstr "11월"
 
-#: templates/admin/config/index.html.php:43
+#: templates/admin/activesync.html.php:18
+#, fuzzy
+msgid "Version"
+msgstr "파일접근모드"
+
+#: templates/admin/config/index.html.php:37
 #, fuzzy
 msgid "Version Check"
 msgstr "개인 메일"
 
-#: config/registry.php:213
+#: config/registry.php:214
 #, fuzzy
 msgid "Version Control"
 msgstr "개인 메일"
@@ -3605,7 +3690,7 @@ msgstr ""
 msgid "View an external web page"
 msgstr ""
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:232
 msgid "Visibility"
 msgstr ""
 
@@ -3613,16 +3698,20 @@ msgstr ""
 msgid "Warning"
 msgstr "경고"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:39
+msgid "Warning: Your Caps Lock key is on!"
+msgstr ""
+
+#: lib/Block/Weather.php:62
 #, fuzzy
 msgid "Weather"
 msgstr "기타"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:348 lib/Block/Weather.php:356
 msgid "Weather data provided by"
 msgstr ""
 
-#: config/registry.php:330
+#: config/registry.php:331
 msgid "Web Site"
 msgstr ""
 
@@ -3673,7 +3762,7 @@ msgstr "한주의 시작으로 표시할 요일:"
 msgid "Which phases"
 msgstr ""
 
-#: config/prefs.php:608
+#: config/prefs.php:609
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "%s의 왼쪽에 표시할 메뉴의 너비:"
@@ -3682,11 +3771,11 @@ msgstr "%s의 왼쪽에 표시할 메뉴의 너비:"
 msgid "Wifi"
 msgstr ""
 
-#: config/registry.php:201
+#: config/registry.php:202
 msgid "Wiki"
 msgstr ""
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:271
 #, fuzzy
 msgid "Wind"
 msgstr "찾기"
@@ -3700,18 +3789,15 @@ msgstr ""
 msgid "Wind:"
 msgstr "찾기"
 
-#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
+#: templates/activesync/device_table.html.php:32
+#: templates/prefs/activesync.html.php:37
 msgid "Wipe"
 msgstr ""
 
-#: templates/prefs/activesync.html.php:32
+#: templates/activesync/device_table.html.php:12
+#: templates/prefs/activesync.html.php:40
 #, fuzzy
 msgid "Wipe Pending"
-msgstr "내림차순"
-
-#: admin/activesync.php:160
-#, fuzzy
-msgid "Wipe is pending"
 msgstr "내림차순"
 
 #: lib/Block/Fortune.php:71
@@ -3728,7 +3814,7 @@ msgstr ""
 msgid "Work"
 msgstr "또는"
 
-#: config/registry.php:236
+#: config/registry.php:237
 msgid "X-Ref"
 msgstr ""
 
@@ -3744,7 +3830,8 @@ msgstr "YY"
 msgid "Yes, I Agree"
 msgstr ""
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, fuzzy, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3806,15 +3893,15 @@ msgstr "SQL 서버에 접속할 수 없습니다."
 msgid "You are not allowed to list users of shares."
 msgstr "%d개 이상의 메모를 작성할 수 없습니다."
 
-#: lib/Block/FbStream.php:106
+#: lib/Block/FbStream.php:107
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
 "Facebook settings in your %s."
 msgstr ""
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr ""
@@ -3825,24 +3912,25 @@ msgid ""
 "to login."
 msgstr ""
 
-#: login.php:291
+#: login.php:292
 msgid "You have been logged out."
 msgstr "로그아웃 하였습니다."
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 #, fuzzy
 msgid "You have denied the requested permissions."
 msgstr "데이타 임포트 오류"
 
-#: lib/Block/TwitterTimeline.php:163
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 #, fuzzy
 msgid "You like this"
 msgstr "당신은 이 메모장을 볼 수 없습니다."
@@ -3878,7 +3966,7 @@ msgstr "이메일 주소:"
 msgid "Your Information"
 msgstr "정보"
 
-#: login.php:279
+#: login.php:280
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3906,13 +3994,13 @@ msgstr ""
 "당신의 인증클라이언트가 사용자 목록보기를 지원하지 않습니다. 또는 다른 이유"
 "로 사용자 목록보기를 사용할 수 없습니다."
 
-#: login.php:283
+#: login.php:284
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "브라우저가 이 기능을 지원하지 않습니다."
 
@@ -3924,7 +4012,7 @@ msgstr "현재 시간대:"
 msgid "Your full name:"
 msgstr "전체 이름:"
 
-#: login.php:303
+#: login.php:304
 #, fuzzy
 msgid "Your login has expired."
 msgstr "옵션이 저장되었습니다."
@@ -3964,17 +4052,17 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "옵션이 저장되었습니다."
 
-#: login.php:164
+#: login.php:165
 #, fuzzy
 msgid "Your password has expired."
 msgstr "옵션이 저장되었습니다."
 
-#: login.php:275
+#: login.php:276
 #, fuzzy
 msgid "Your session has expired. Please login again."
 msgstr "%s 세션이 만료되었습니다. 다시 로그인하세요."
 
-#: login.php:287
+#: login.php:288
 #, fuzzy
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
@@ -4026,7 +4114,7 @@ msgstr "사용자명"
 #: services/problem.php:59
 #, fuzzy
 msgid "attachment"
-msgstr "파일첨부"
+msgstr "파일첨부:"
 
 #: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, fuzzy, php-format
@@ -4038,7 +4126,7 @@ msgstr "취소"
 msgid "from the %s (%s) at %s %s"
 msgstr "%d / %d (메시지: %d)"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:221 lib/Block/Weather.php:331
 #, fuzzy
 msgid "gusting"
 msgstr "8월"
@@ -4048,9 +4136,9 @@ msgstr "8월"
 msgid "inline"
 msgstr "없음"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
 #, fuzzy
 msgid "preferences"
 msgstr "사용자 환경설정"
@@ -4069,7 +4157,7 @@ msgstr ""
 msgid "unified"
 msgstr "읽지 않은 메일"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 #, fuzzy
 msgid "weather"
 msgstr "기타"

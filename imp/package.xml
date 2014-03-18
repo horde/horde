@@ -33,7 +33,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] Abstracted maillog code.
 * [mms] Enable configuration of IMAP cache lifetime for Horde_Cache and Hashtable backends.
 * [mms] Only refresh quota information when switching to a mailbox the first time.
@@ -3542,6 +3541,7 @@
    <date>2014-03-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
    </notes>

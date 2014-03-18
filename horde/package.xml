@@ -3822,5 +3822,18 @@
 * [mms] Fix regression where AJAX actions were not correctly checking permissions and potential authentication expiration actions.
    </notes>
   </release>
+  <release>
+   <version>
+    <release>5.1.7</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+   </notes>
+  </release>
  </changelog>
 </package>
