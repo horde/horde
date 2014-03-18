@@ -62,7 +62,7 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
                 try {
                     foreach ($imp_compose->addAttachmentFromUpload('file_upload') as $val) {
                         if ($val instanceof IMP_Compose_Exception) {
-                            $notification->push($e, 'horde.error');
+                            $notification->push($val, 'horde.error');
                         } else {
                             $result->success = 1;
 
