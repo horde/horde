@@ -243,13 +243,15 @@ tr.kronolith-minical-nav, tr.kronolith-minical-nav th {
 .kronolith-minical .kronolith-other-month a {
     color: #6d6d6d;
 }
-.kronolith-minical .kronolith-selected {
+.kronolith-minical .kronolith-selected,
+#horde-sidebar .kronolith-minical .kronolith-selected a {
     background-color: #36525d;
     color: #fff;
 }
 .kronolith-minical .kronolith-today,
 .kronolith-minical .kronolith-today:hover,
-.kronolith-minical .kronolith-today a {
+.kronolith-minical .kronolith-today a,
+#horde-sidebar .kronolith-minical .kronolith-today a {
     background-color: #7eaa42;
     color: #fff;
 }

@@ -924,7 +924,7 @@ KronolithCore = {
                   date.getMonth() == day.getMonth()))) {
                 td.addClassName('kronolith-today');
             }
-            td.update(day.getDate());
+            td.insert(new Element('a').update(day.getDate()));
             tr.insert(td);
             day.next().day();
         }
@@ -1464,7 +1464,7 @@ KronolithCore = {
 
         var day = dates[0].clone(),
                   viewDates = this.viewDates(this.date, this.view),
-                  date, more, title, events, monthDay, busyHours;
+                  date, more, title, titles, events, monthDay, busyHours;
         while (!day.isAfter(dates[1])) {
             // Skip if somehow events slipped in though the view is gone.
             if (!day.between(viewDates[0], viewDates[1])) {
@@ -1503,7 +1503,7 @@ KronolithCore = {
                 break;
 
             case 'year':
-                title = '';
+                titles = [];
                 busyHours = 0;
             }
 
@@ -1633,6 +1633,7 @@ KronolithCore = {
                     break;
 
                 case 'year':
+                    title = '';
                     if (event.value.al) {
                         title += Kronolith.text.allday;
                     } else {
@@ -1645,7 +1646,7 @@ KronolithCore = {
                         event.value.x == Kronolith.conf.status.confirmed) {
                         busyHours += event.value.start.getElapsed(event.value.end) / 3600000;
                     }
-                    title += '<br />';
+                    titles.push(title);
                     return;
                 }
                 this.insertEvent(event, date, view, insertBefore);
@@ -1670,12 +1671,13 @@ KronolithCore = {
                 } else {
                     td.className = '';
                 }
-                if (title) {
+                if (titles.length) {
                     td.addClassName('kronolithHasEvents');
                     if (busyHours > 0) {
                         td.addClassName(this.getHeatmapClass(busyHours));
                         busyHours = 0;
                     }
+                    td.down('a').writeAttribute('nicetitle', Object.toJSON(titles));
                 }
             }
 

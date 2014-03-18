@@ -346,7 +346,7 @@ ul.horde-tags li:hover {
 #kronolithViewYear .kronolith-minical {
     float: left;
     margin: 10px 0 0 10px;
-    height: 200px;
+    height: 201px;
 }
 #kronolithViewYear .kronolithLoading {
     left: 10px;
@@ -359,23 +359,23 @@ ul.horde-tags li:hover {
 .kronolith-minical .kronolithIsBusy {
     background-color: #fff760;
 }
-.kronolith-minical .heat1 {
+.kronolith-minical .heat1, .kronolith-minical .heat1 a {
     background-color: #faf374;
 }
-.kronolith-minical .heat2 {
+.kronolith-minical .heat2, .kronolith-minical .heat2 a {
     background-color: #fad374;
 }
-.kronolith-minical .heat3 {
+.kronolith-minical .heat3, .kronolith-minical .heat3 a {
     background-color: #fab374
 }
-.kronolith-minical .heat4 {
+.kronolith-minical .heat4, .kronolith-minical .heat4 a {
     background-color: #fa9374;
 }
-.kronolith-minical .heat5 {
+.kronolith-minical .heat5, .kronolith-minical .heat5 a {
     background-color: #fa7347;
     color: #fff;
 }
-.kronolith-minical .heat6 {
+.kronolith-minical .heat6, .kronolith-minical .heat6 a {
     background-color: #fa5347;
     color: #fff;
 }
