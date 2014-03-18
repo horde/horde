@@ -24,18 +24,11 @@
 class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
 {
     /**
-     * Return private address books.
+     * The folder category.
      *
-     * @see listAddressBooks()
+     * @var string
      */
-    const ADDRESS_BOOK_PRIVATE = 'private';
-
-    /**
-     * Return private address books.
-     *
-     * @see listAddressBooks()
-     */
-    const ADDRESS_BOOK_PUBLIC = 'public';
+    protected $_folderType = 'contacts';
 
     /**
      * Column IDs mapped to column names.
@@ -148,90 +141,6 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
         614 => 'workAddress',
         615 => 'otherAddress',
     );
-
-    /**
-     * Returns a list of visible address books.
-     *
-     * @param string $type  An address book type, one of the ADDRESS_BOOK_*
-     *                      constants.
-     *
-     * @return array  List of address books with folder IDs as keys and
-     *                information hashes as values.
-     * @throws Horde_OpenXchange_Exception.
-     */
-    public function listAddressBooks($type = self::ADDRESS_BOOK_PRIVATE)
-    {
-        $this->_login();
-
-        $response = $this->_request(
-            'PUT',
-            'folders',
-            array(
-                'action' => 'allVisible',
-                'session' => $this->_session,
-                'content_type' => 'contacts',
-                'columns' => '1,300,306,308'
-            )
-        );
-
-        $abooks = $users = $groups = array();
-        foreach ($response['data'][$type] as $abook) {
-            $info = array(
-                'label' => $abook[1],
-                'default' => $abook[3],
-            );
-            foreach ($abook[2] as $perm) {
-                // http://oxpedia.org/wiki/index.php?title=HTTP_API#PermissionFlags
-                $permission = 0;
-                if ($perm['bits'] & 127) {
-                    $permission |= Horde_Perms::SHOW;
-                }
-                if ((($perm['bits'] >> 7) & 127) > 1) {
-                    $permission |= Horde_Perms::READ;
-                }
-                if ((($perm['bits'] >> 14) & 127) > 1) {
-                    $permission |= Horde_Perms::EDIT;
-                }
-                if ((($perm['bits'] >> 21) & 127) > 1) {
-                    $permission |= Horde_Perms::DELETE;
-                }
-                if ($perm['group']) {
-                    if (!isset($groups[$perm['entity']])) {
-                        $group = $this->_request(
-                            'GET',
-                            'group',
-                            array(
-                                'action' => 'get',
-                                'session' => $this->_session,
-                                'id' => $perm['entity'],
-                            )
-                        );
-                        $groups[$perm['entity']] = $group['name'];
-                    }
-                    $info['permission']['group'][$groups[$perm['entity']]] = $perm['bits'];
-                    $info['hordePermission']['group'][$groups[$perm['entity']]] = $permission;
-                } else {
-                    if (!isset($users[$perm['entity']])) {
-                        $user = $this->_request(
-                            'GET',
-                            'user',
-                            array(
-                                'action' => 'get',
-                                'session' => $this->_session,
-                                'id' => $perm['entity'],
-                            )
-                        );
-                        $users[$perm['entity']] = $user['data']['login_info'];
-                    }
-                    $info['permission']['user'][$users[$perm['entity']]] = $perm['bits'];
-                    $info['hordePermission']['user'][$users[$perm['entity']]] = $permission;
-                }
-            }
-            $abooks[$abook[0]] = $info;
-        }
-
-        return $abooks;
-    }
 
     /**
      * Returns a list contacts.

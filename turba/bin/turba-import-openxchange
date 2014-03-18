@@ -122,10 +122,10 @@ while ($row = fgetcsv($fp, 0, ' ')) {
 
     $count = 0;
     $groups = array();
-    $abooks = $ox->listAddressBooks(
+    $abooks = $ox->listResources(
         $admin
-            ? Horde_OpenXchange_Contacts::ADDRESS_BOOK_PUBLIC
-            : Horde_OpenXchange_Contacts::ADDRESS_BOOK_PRIVATE
+            ? Horde_OpenXchange_Contacts::RESOURCE_PUBLIC
+            : Horde_OpenXchange_Contacts::RESOURCE_PRIVATE
     );
 
     // Loop through all address books.
