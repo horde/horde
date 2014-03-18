@@ -348,7 +348,7 @@ class Horde_Cli
         $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
         $this->writeln($this->red($error));
         if ($details) {
-            $this->writeln($this->red($details));
+            $this->writeln($this->red(print_r($details, true)));
         }
         if ($location) {
             $this->writeln($this->red($location));
