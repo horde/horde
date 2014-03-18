@@ -1245,10 +1245,16 @@ class Kronolith
      */
     static public function addShare($info)
     {
-        $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+        global $calendar_manager, $injector, $prefs, $registry;
+
+        $kronolith_shares = $injector->getInstance('Kronolith_Shares');
 
         try {
-            $calendar = $kronolith_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
+            $calendar = $kronolith_shares->newShare(
+                $registry->getAuth(),
+                strval(new Horde_Support_Randomid()),
+                $info['name']
+            );
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1259,7 +1265,12 @@ class Kronolith
             $calendar->set('owner', null);
         }
         $tagger = self::getTagger();
-        $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), Kronolith_Tagger::TYPE_CALENDAR);
+        $tagger->tag(
+            $calendar->getName(),
+            $info['tags'],
+            $calendar->get('owner'),
+            Kronolith_Tagger::TYPE_CALENDAR
+        );
 
         try {
             $kronolith_shares->addShare($calendar);
@@ -1267,10 +1278,13 @@ class Kronolith
             throw new Kronolith_Exception($e);
         }
 
-        $display_cals = $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS);
+        $all_cals = $calendar_manager->get(Kronolith::ALL_CALENDARS);
+        $all_cals[$calendar->getName()] = new Kronolith_Calendar_Internal(array('share' => $calendar));
+        $calendar_manager->set(Kronolith::ALL_CALENDARS, $all_cals);
+        $display_cals = $calendar_manager->get(Kronolith::DISPLAY_CALENDARS);
         $display_cals[] = $calendar->getName();
-        $GLOBALS['calendar_manager']->set(Kronolith::DISPLAY_CALENDARS, $display_cals);
-        $GLOBALS['prefs']->setValue('display_cals', serialize($display_cals));
+        $calendar_manager->set(Kronolith::DISPLAY_CALENDARS, $display_cals);
+        $prefs->setValue('display_cals', serialize($display_cals));
 
         return $calendar;
     }
