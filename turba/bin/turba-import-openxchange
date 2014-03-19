@@ -115,10 +115,6 @@ while ($row = fgetcsv($fp, 0, ' ')) {
 
     // Reset sources for current user.
     list($cfgSources, $hasShares) = loadSources($sources, $admin);
-    if (!count($cfgSources)) {
-        $cli->message('No address book available for ' . $user, 'cli.error');
-        continue;
-    }
 
     $count = 0;
     $groups = array();
