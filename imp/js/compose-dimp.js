@@ -1267,18 +1267,6 @@ var DimpCompose = {
         }
     },
 
-    mouseupHandler: function(e)
-    {
-        switch (e.element().readAttribute('id')) {
-        case 'htmlcheckbox':
-            if (!ImpComposeBase.editor_on ||
-                window.confirm(DimpCore.text.toggle_html)) {
-                this.toggleHtmlEditor();
-            }
-            break;
-        }
-    },
-
     contextOnClick: function(e)
     {
         var id = e.memo.elt.identify();
@@ -1399,6 +1387,12 @@ var DimpCompose = {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
         $('compose').observe('submit', Event.stop);
+        $('htmlcheckbox').up('LABEL').observe('mouseup', function() {
+            if (!ImpComposeBase.editor_on ||
+                window.confirm(DimpCore.text.toggle_html)) {
+                this.toggleHtmlEditor();
+            }
+        }.bind(this));
 
         HordeCore.initHandler('click');
         HordeCore.handleSubmit($('compose'), {
@@ -1480,7 +1474,6 @@ var DimpCompose = {
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
 document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
 document.observe('keydown', DimpCompose.keydownHandler.bindAsEventListener(DimpCompose));
-document.observe('mouseup', DimpCompose.mouseupHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 
 /* Other UI event handlers. */
