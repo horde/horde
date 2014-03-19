@@ -141,6 +141,50 @@ abstract class Horde_OpenXchange_Base
     }
 
     /**
+     * Return information about a system user.
+     *
+     * @param integer $id  A user ID.
+     *
+     * @return array  User information hash.
+     * @throws Horde_OpenXchange_Exception.
+     */
+    public function getUser($id)
+    {
+        $user = $this->_request(
+            'GET',
+            'user',
+            array(
+                'action' => 'get',
+                'session' => $this->_session,
+                'id' => $id,
+            )
+        );
+        return $user['data'];
+    }
+
+    /**
+     * Return information about a system group.
+     *
+     * @param integer $id  A group ID.
+     *
+     * @return array  Group information hash.
+     * @throws Horde_OpenXchange_Exception.
+     */
+    public function getGroup($id)
+    {
+        $group = $this->_request(
+            'GET',
+            'group',
+            array(
+                'action' => 'get',
+                'session' => $this->_session,
+                'id' => $id,
+            )
+        );
+        return $group;
+    }
+
+    /**
      * Returns a list of visible groupware resources.
      *
      * @param string $type  An resource type, one of the RESOURCE_* constants.
@@ -187,31 +231,15 @@ abstract class Horde_OpenXchange_Base
                 }
                 if ($perm['group']) {
                     if (!isset($groups[$perm['entity']])) {
-                        $group = $this->_request(
-                            'GET',
-                            'group',
-                            array(
-                                'action' => 'get',
-                                'session' => $this->_session,
-                                'id' => $perm['entity'],
-                            )
-                        );
+                        $group = $this->getGroup($perm['entity']);
                         $groups[$perm['entity']] = $group['name'];
                     }
                     $info['permission']['group'][$groups[$perm['entity']]] = $perm['bits'];
                     $info['hordePermission']['group'][$groups[$perm['entity']]] = $permission;
                 } else {
                     if (!isset($users[$perm['entity']])) {
-                        $user = $this->_request(
-                            'GET',
-                            'user',
-                            array(
-                                'action' => 'get',
-                                'session' => $this->_session,
-                                'id' => $perm['entity'],
-                            )
-                        );
-                        $users[$perm['entity']] = $user['data']['login_info'];
+                        $user = $this->getUser($perm['entity']);
+                        $users[$perm['entity']] = $user['login_info'];
                     }
                     $info['permission']['user'][$users[$perm['entity']]] = $perm['bits'];
                     $info['hordePermission']['user'][$users[$perm['entity']]] = $permission;
