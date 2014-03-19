@@ -13,7 +13,7 @@ var DimpCompose = {
     //   atc_context, auto_save_interval, compose_cursor, disabled,
     //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
     //   hash_msgOrig, hash_sig, hash_sigOrig, is_popup, knl, last_identity,
-    //   onload_show, old_action, old_identity, rte, rte_loaded, sc_submit,
+    //   onload_show, old_action, old_identity, sc_submit,
     //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
 
     ajax_atc_id: 0,
@@ -254,7 +254,7 @@ var DimpCompose = {
         } else {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
-                this.rte.updateElement();
+                ImpComposeBase.rte.updateElement();
                 if (!Object.isUndefined(ImpComposeBase.rte)) {
                     ImpComposeBase.rte.updateElement();
                 }
@@ -408,7 +408,7 @@ var DimpCompose = {
 
             params.set('body', {
                 changed: changed,
-                text: this.rte.getData()
+                text: ImpComposeBase.rte.getData()
             });
 
             if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
@@ -491,7 +491,7 @@ var DimpCompose = {
             : null;
 
         if (ImpComposeBase.editor_on) {
-            this.rte.updateElement();
+            ImpComposeBase.rte.updateElement();
             this.RTELoading('show', true);
             $('composeMessage').next().hide();
         }
@@ -530,9 +530,9 @@ var DimpCompose = {
 
         this.rteInit(opts.rte);
 
-        if (this.rte_loaded && opts.rte) {
-            this.rte.setData(r.text.body);
-        } else if (!this.rte_loaded && !opts.rte) {
+        if (ImpComposeBase.rte_loaded && opts.rte) {
+            ImpComposeBase.rte.setData(r.text.body);
+        } else if (!ImpComposeBase.rte_loaded && !opts.rte) {
             ta.setValue(r.text.body);
         } else {
             this.setMessageText.bind(this, opts, r).delay(0.1);
@@ -554,12 +554,12 @@ var DimpCompose = {
 
     rteInit: function(rte)
     {
-        if (rte && !this.rte) {
-            if (Object.isUndefined(this.rte_loaded)) {
+        if (rte && !ImpComposeBase.rte) {
+            if (Object.isUndefined(ImpComposeBase.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
                     this.RTELoading('hide');
-                    this.rte.focus();
-                    this.rte_loaded = true;
+                    ImpComposeBase.rte.focus();
+                    ImpComposeBase.rte_loaded = true;
                     this.resizeMsgArea();
 
                     new CKEDITOR.dom.document(
@@ -570,12 +570,12 @@ var DimpCompose = {
                 }.bind(this));
                 CKEDITOR.on('instanceDestroyed', function(evt) {
                     this.RTELoading('hide');
-                    this.rte_loaded = false;
+                    ImpComposeBase.rte_loaded = false;
                 }.bind(this));
             }
 
-            this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
-            this.rte.on('getData', function(evt) {
+            ImpComposeBase.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+            ImpComposeBase.rte.on('getData', function(evt) {
                 var elt = new Element('SPAN').insert(evt.data.dataValue),
                     elts = elt.select('IMG[dropatc_id]');
                 if (elts.size()) {
@@ -584,9 +584,9 @@ var DimpCompose = {
                     evt.data.dataValue = elt.innerHTML;
                 }
             }.bind(this));
-        } else if (!rte && this.rte) {
-            this.rte.destroy(true);
-            delete this.rte;
+        } else if (!rte && ImpComposeBase.rte) {
+            ImpComposeBase.rte.destroy(true);
+            delete ImpComposeBase.rte;
         }
 
         ImpComposeBase.editor_on = rte;
@@ -675,7 +675,7 @@ var DimpCompose = {
 
     fillFormHash: function()
     {
-        if (ImpComposeBase.editor_on && !this.rte_loaded) {
+        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
             this.fillFormHash.bind(this).delay(0.1);
             return;
         }
@@ -735,14 +735,14 @@ var DimpCompose = {
     msgHash: function()
     {
         return IMP_JS.fnv_1a(
-            ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage')
+            ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('composeMessage')
         );
     },
 
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? this.rte.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
             : 0;
     },
 
@@ -765,7 +765,7 @@ var DimpCompose = {
     {
         if (ImpComposeBase.editor_on) {
             this.editor_wait = true;
-            this.rte.setData(ob.body, function() {
+            ImpComposeBase.rte.setData(ob.body, function() {
                 this.editor_wait = false;
             }.bind(this));
         } else {
@@ -805,8 +805,8 @@ var DimpCompose = {
 
     focusEditor: function()
     {
-        if (this.rte.focus) {
-            this.rte.focus();
+        if (ImpComposeBase.rte.focus) {
+            ImpComposeBase.rte.focus();
         } else {
             this.focusEditor.bind(this).delay(0.1);
         }
@@ -953,8 +953,8 @@ var DimpCompose = {
             mah -= sp.getHeight();
         }
 
-        if (this.rte_loaded) {
-            this.rte.resize('99%', mah - 1, false);
+        if (ImpComposeBase.rte_loaded) {
+            ImpComposeBase.rte.resize('99%', mah - 1, false);
         }
 
         $('composeMessage').setStyle({ height: mah + 'px' });
