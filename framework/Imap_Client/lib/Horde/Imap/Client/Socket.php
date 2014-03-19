@@ -3938,16 +3938,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } catch (Horde_Imap_Client_Exception $e) {
                 switch ($e->getCode()) {
                 case $e::DISCONNECT:
+                    /* Guaranteed to have no more data incoming, so we can
+                     * immediately logout. */
                     $this->_temp['logout'] = true;
-                    // Fall-through
-
-                case $e::SERVER_READERROR:
                     $this->logout();
                     throw $e;
                 }
 
-                // Catch and store exception; don't throw until all input
-                // is read. (For now, only store first exception.)
+                /* For all other issues, catch and store exception; don't
+                 * throw until all input is read since we need to clear
+                 * incoming queue. (For now, only store first exception.) */
                 if (is_null($exception)) {
                     $exception = $e;
                 }
