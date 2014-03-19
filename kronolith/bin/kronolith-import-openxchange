@@ -50,6 +50,7 @@ $endpoint = parse_url($argv[1]);
 $cli->message('Opening endpoint ' . $argv[1]);
 $ox = new Horde_OpenXchange_Events(array('endpoint' => $argv[1]));
 $kronolith_shares = $injector->getInstance('Kronolith_Shares');
+$users = array();
 
 // Prepare handle on user/password list.
 if ($admin) {
@@ -197,6 +198,7 @@ while ($row = fgetcsv($fp, 0, ' ')) {
 
             $newEvent = $driver->getEvent();
             $newEvent->fromHash($event);
+
             if ($event['recur_id'] && ($event['recur_id'] != $event['id'])) {
                 $base = $ox->getEvent($folderId, $event['recur_id']);
                 $baseStart = new Horde_Date($base['start_date'] / 1000, 'UTC');
@@ -230,6 +232,32 @@ while ($row = fgetcsv($fp, 0, ' ')) {
                 $newEvent->status = Kronolith::STATUS_FREE;
                 break;
             }
+            if ($event['attendees']) {
+                foreach ($event['users'] as $attendee) {
+                    if (!isset($users[$attendee['id']])) {
+                        $users[$attendee['id']] = $ox->getUser($attendee['id']);
+                    }
+                    if (count($event['attendees']) == 1 &&
+                        $users[$attendee['id']]['login_info'] == $user) {
+                        break;
+                    }
+                    $newEvent->addAttendee(
+                        $users[$attendee['id']]['email1'],
+                        Kronolith::PART_REQUIRED,
+                        $attendee['confirmation'] + 1,
+                        $users[$attendee['id']]['display_name']
+                    );
+                }
+                foreach ($event['confirmations'] as $attendee) {
+                    $newEvent->addAttendee(
+                        $attendee['mail'],
+                        Kronolith::PART_REQUIRED,
+                        $attendee['status'] + 1,
+                        $attendee['display_name']
+                    );
+                }
+            }
+
             try {
                 $newEvent->save();
                 $count++;
