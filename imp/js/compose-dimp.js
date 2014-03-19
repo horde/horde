@@ -384,6 +384,7 @@ var DimpCompose = {
     toggleHtmlEditor: function(noupdate)
     {
         var action, changed, sigChanged, sc, tmp,
+            active = ImpComposeBase.editor_on,
             identity = ImpComposeBase.identities[$F('identity')],
             params = $H();
 
@@ -402,7 +403,7 @@ var DimpCompose = {
 
         this.RTELoading('show');
 
-        if (ImpComposeBase.editor_on) {
+        if (active) {
             action = 'html2Text',
             changed = Number(this.msgHash() != this.hash_msgOrig);
 
@@ -449,21 +450,17 @@ var DimpCompose = {
                 ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, {
                     changed: changed,
-                    rte: !ImpComposeBase.editor_on
+                    rte: !active
                 })
             });
         } else {
-            this.rteInit(!ImpComposeBase.editor_on);
+            this.rteInit(!active);
         }
 
-        ImpComposeBase.editor_on = !ImpComposeBase.editor_on;
         if (!sigChanged) {
-            ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+            ImpComposeBase.setSignature(active, identity);
             this.updateSigHash();
         }
-
-        $('htmlcheckbox').setValue(ImpComposeBase.editor_on);
-        $('html').setValue(Number(ImpComposeBase.editor_on));
     },
 
     RTELoading: function(cmd, notxt)
@@ -599,6 +596,10 @@ var DimpCompose = {
             this.rte.destroy(true);
             delete this.rte;
         }
+
+        ImpComposeBase.editor_on = rte;
+        $('htmlcheckbox').setValue(rte);
+        $('html').setValue(Number(rte));
     },
 
     // ob = addr, body, format, identity, opts, subject, type
@@ -1151,12 +1152,7 @@ var DimpCompose = {
             break;
 
         case 'htmlcheckbox':
-            if (!ImpComposeBase.editor_on ||
-                window.confirm(DimpCore.text.toggle_html)) {
-                this.toggleHtmlEditor();
-            } else {
-                $('htmlcheckbox').setValue(true);
-            }
+            e.memo.stop();
             break;
 
         case 'redirect_sendto':
@@ -1284,6 +1280,18 @@ var DimpCompose = {
 
         case 'upload':
             this.uploadAttachment();
+            break;
+        }
+    },
+
+    mouseupHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'htmlcheckbox':
+            if (!ImpComposeBase.editor_on ||
+                window.confirm(DimpCore.text.toggle_html)) {
+                this.toggleHtmlEditor();
+            }
             break;
         }
     },
@@ -1487,8 +1495,9 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
-document.observe('keydown', DimpCompose.keydownHandler.bindAsEventListener(DimpCompose));
 document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
+document.observe('keydown', DimpCompose.keydownHandler.bindAsEventListener(DimpCompose));
+document.observe('mouseup', DimpCompose.mouseupHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 
 /* Other UI event handlers. */
