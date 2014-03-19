@@ -206,7 +206,7 @@
   <div id="signatureParent">
    <div class="label">
     <span id="signatureToggle" class="iconImg<?php if ($this->sigExpanded) echo ' signatureExpanded' ?>"></span>
-    <?php echo _("Signature")?>:
+    <?php echo _("Signature")?>
    </div>
    <div id="signatureBorder"<?php if (!$this->sigExpanded) echo ' style="display:none"' ?>>
     <textarea id="signature" name="signature" class="fixed"></textarea>

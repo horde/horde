@@ -692,7 +692,7 @@ div.dimpActionsMsg #windowclose {
     background-color: #eceff0;
     border-top: 1px solid #d0d0d0;
     cursor: default;
-    padding: 10px;
+    padding: 6px;
 }
 #signatureBorder {
     height: 4.4em;
@@ -701,6 +701,7 @@ div.dimpActionsMsg #windowclose {
 #signatureParent .label {
     white-space: nowrap;
     font-weight: bold;
+    line-height: 12px;
 }
 #signature {
     height: 100%;
