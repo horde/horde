@@ -354,6 +354,12 @@ class Horde_Smtp implements Serializable
                 throw $e2;
             }
 
+            $this->_debug->info(sprintf(
+                'Connection to: smtp://%s:%s',
+                $this->getParam('host'),
+                $this->getParam('port')
+            ));
+
             // Get initial line (RFC 5321 [3.1]).
             $this->_getResponse(220, 'logout');
         }
