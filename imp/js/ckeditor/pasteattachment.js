@@ -13,16 +13,17 @@ CKEDITOR.plugins.add('pasteattachment', {
     {
         function attachCallback(r)
         {
-            var iframe;
+            var iframe = editor.getThemeSpace('contents').$.down('IFRAME');
 
-            if (r.success) {
-                iframe = editor.getThemeSpace('contents').$.down('IFRAME');
-                Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
+            Prototype.Selector.select('[dropatc_id=' + r.file_id + ']', iframe.contentDocument || iframe.contentWindow.document).each(function(elt) {
+                if (r.success) {
                     elt.setAttribute(r.img.related[0], r.img.related[1]);
                     elt.setAttribute('height', elt.height);
                     elt.setAttribute('width', elt.width);
-                });
-            }
+                } else {
+                    elt.parentNode.removeChild(elt);
+                }
+            });
         };
 
         function uploadAtc(files)
