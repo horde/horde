@@ -215,6 +215,7 @@ while ($row = fgetcsv($fp, 0, ' ')) {
             );
             $count++;
             foreach ($group['members'] as $member) {
+                $found = false;
                 if (isset($member['id'])) {
                     if (!isset($member['folder_id'])) {
                         $member['folder_id'] = $group['folder_id'];
@@ -224,12 +225,14 @@ while ($row = fgetcsv($fp, 0, ' ')) {
                             $contactMap[$member['folder_id']][$member['id']][1],
                             $contactMap[$member['folder_id']][$member['id']][0]
                         );
+                        $found = true;
                     } catch (Horde_Exception_NotFound $e) {
                         // OX < 6.22 doesn't provide folder IDs with group
                         // members but still allows members from different
                         // folders.
                     }
-                } else {
+                }
+                if (!$found) {
                     try {
                         $result = $driver->add(array(
                             'name' => $member['display_name'],
