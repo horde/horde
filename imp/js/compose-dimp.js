@@ -52,7 +52,7 @@ var DimpCompose = {
             }
 
             DimpCore.doAction('cancelCompose', this.actionParams({
-                discard: Number(Boolean(discard))
+                discard: Number(!!discard)
             }));
             this.updateDraftsMailbox();
             return this.closeCompose();

@@ -1017,7 +1017,7 @@ var ViewPort = Class.create({
 
     bufferLoaded: function(view)
     {
-        return Boolean(this.views[view]);
+        return !!this.views[view];
     },
 
     currentOffset: function()
