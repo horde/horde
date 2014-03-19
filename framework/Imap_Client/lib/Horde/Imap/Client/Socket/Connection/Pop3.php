@@ -29,6 +29,10 @@ class Horde_Imap_Client_Socket_Connection_Pop3
 extends Horde_Imap_Client_Socket_Connection_Base
 {
     /**
+     */
+    protected $_protocol = 'pop3';
+
+    /**
      * Writes data to the POP3 output stream.
      *
      * @param string $data  String data.
