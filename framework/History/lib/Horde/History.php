@@ -179,6 +179,8 @@ abstract class Horde_History
      * Returns a Horde_History_Log corresponding to the named history entry,
      * with the data retrieved appropriately.
      *
+     * @todo Make protected.
+     *
      * @param string $guid  The name of the history entry to retrieve.
      *
      * @return Horde_History_Log  A Horde_History_Log object.
@@ -257,6 +259,8 @@ abstract class Horde_History
     /**
      * Finds history objects by timestamp, and optionally filter on other
      * fields as well.
+     *
+     * @todo Make protected.
      *
      * @param string  $cmp     The comparison operator (<, >, <=, >=, or =) to
      *                         check the timestamps with.
