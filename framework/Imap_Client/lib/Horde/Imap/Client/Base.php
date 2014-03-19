@@ -155,74 +155,71 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param array $params   Configuration parameters:
      * <pre>
-     *  - REQUIRED Parameters:
-     *    - password: (mixed) The IMAP user password. Either a string or
-     *                a Horde_Imap_Client_Base_Password object (since 2.14.0).
-     *    - username: (string) The IMAP username.
-     *
-     *  - Optional Parameters:
-     *    - cache: (array) If set, caches data from fetch(), search(), and
-     *             thread() calls. Requires the horde/Cache package to be
-     *             installed. The array can contain the following keys (see
-     *             Horde_Imap_Client_Cache for default values):
-     *      - backend: [REQUIRED (or cacheob)] (Horde_Imap_Client_Cache_Backend)
-     *                 Backend cache driver (as of 2.9.0).
-     *      - fetch_ignore: (array) A list of mailboxes to ignore when storing
-     *                      fetch data.
-     *      - fields: (array) The fetch criteria to cache. If not defined, all
-     *                cacheable data is cached. The following is a list of
-     *                criteria that can be cached:
-     *        - Horde_Imap_Client::FETCH_ENVELOPE
-     *        - Horde_Imap_Client::FETCH_FLAGS
-     *           Only if server supports CONDSTORE extension
-     *        - Horde_Imap_Client::FETCH_HEADERS
-     *           Only for queries that specifically request caching
-     *        - Horde_Imap_Client::FETCH_IMAPDATE
-     *        - Horde_Imap_Client::FETCH_SIZE
-     *        - Horde_Imap_Client::FETCH_STRUCTURE
-     *    - capability_ignore: (array) A list of IMAP capabilites to ignore,
-     *                         even if they are supported on the server.
-     *                         DEFAULT: No supported capabilities are ignored.
-     *    - comparator: (string) The search comparator to use instead of the
-     *                  default IMAP server comparator. See
-     *                  Horde_Imap_Client_Base#setComparator() for format.
-     *                  DEFAULT: Use the server default
-     *    - debug: (string) If set, will output debug information to the
-     *             stream provided. The value can be any PHP supported wrapper
-     *             that can be opened via fopen().
-     *             DEFAULT: No debug output
-     *    - hostspec: (string) The hostname or IP address of the server.
-     *                DEFAULT: 'localhost'
-     *    - id: (array) Send ID information to the IMAP server (only if server
-     *          supports the ID extension). An array with the keys as the
-     *          fields to send and the values being the associated values. See
-     *          RFC 2971 [3.3] for a list of defined standard field values.
-     *          DEFAULT: No info sent to server
-     *    - lang: (array) A list of languages (in priority order) to be used
-     *            to display human readable messages.
-     *            DEFAULT: Messages output in IMAP server default language
-     *    - port: (integer) The server port to which we will connect.
-     *            DEFAULT: 143 (imap or imap w/TLS) or 993 (imaps)
-     *    - secure: (string) Use SSL or TLS to connect. VALUES:
-     *      - false (No encryption)
-     *      - 'ssl' (Auto-detect SSL version)
-     *      - 'sslv2' (Force SSL version 3)
-     *      - 'sslv3' (Force SSL version 2)
-     *      - 'tls' (TLS; started via protocol-level negotation over
-     *        unencrypted channel; RECOMMENDED way of initiating secure
-     *        connection)
-     *      - 'tlsv1' (TLS direct version 1.x connection to server) [@since
-     *        2.16.0]
-     *      - true (TLS if available/necessary) [@since 2.15.0]
-     *      DEFAULT: false
-     *    - timeout: (integer)  Connection timeout, in seconds.
-     *               DEFAULT: 30 seconds
+     * - cache: (array) If set, caches data from fetch(), search(), and
+     *          thread() calls. Requires the horde/Cache package to be
+     *          installed. The array can contain the following keys (see
+     *          Horde_Imap_Client_Cache for default values):
+     *   - backend: [REQUIRED (or cacheob)] (Horde_Imap_Client_Cache_Backend)
+     *              Backend cache driver [@since 2.9.0].
+     *   - fetch_ignore: (array) A list of mailboxes to ignore when storing
+     *                   fetch data.
+     *   - fields: (array) The fetch criteria to cache. If not defined, all
+     *             cacheable data is cached. The following is a list of
+     *             criteria that can be cached:
+     *     - Horde_Imap_Client::FETCH_ENVELOPE
+     *     - Horde_Imap_Client::FETCH_FLAGS
+     *       Only if server supports CONDSTORE extension
+     *     - Horde_Imap_Client::FETCH_HEADERS
+     *       Only for queries that specifically request caching
+     *     - Horde_Imap_Client::FETCH_IMAPDATE
+     *     - Horde_Imap_Client::FETCH_SIZE
+     *     - Horde_Imap_Client::FETCH_STRUCTURE
+     * - capability_ignore: (array) A list of IMAP capabilites to ignore, even
+     *                      if they are supported on the server.
+     *                      DEFAULT: No supported capabilities are ignored.
+     * - comparator: (string) The search comparator to use instead of the
+     *               default server comparator. See setComparator() for
+     *               format.
+     *               DEFAULT: Use the server default
+     * - debug: (string) If set, will output debug information to the stream
+     *          provided. The value can be any PHP supported wrapper that can
+     *          be opened via PHP's fopen() function.
+     *          DEFAULT: No debug output
+     * - hostspec: (string) The hostname or IP address of the server.
+     *             DEFAULT: 'localhost'
+     * - id: (array) Send ID information to the server (only if server
+     *       supports the ID extension). An array with the keys as the fields
+     *       to send and the values being the associated values. See RFC 2971
+     *       [3.3] for a list of standard field values.
+     *       DEFAULT: No info sent to server
+     * - lang: (array) A list of languages (in priority order) to be used to
+     *         display human readable messages.
+     *         DEFAULT: Messages output in IMAP server default language
+     * - password: (mixed) The user password. Either a string or a
+     *             Horde_Imap_Client_Base_Password object [@since 2.14.0].
+     * - port: (integer) The server port to which we will connect.
+     *         DEFAULT: 143 (imap or imap w/TLS) or 993 (imaps)
+     * - secure: (string) Use SSL or TLS to connect. Values:
+     *   - false (No encryption)
+     *   - 'ssl' (Auto-detect SSL version)
+     *   - 'sslv2' (Force SSL version 3)
+     *   - 'sslv3' (Force SSL version 2)
+     *   - 'tls' (TLS; started via protocol-level negotation over
+     *     unencrypted channel; RECOMMENDED way of initiating secure
+     *     connection)
+     *   - 'tlsv1' (TLS direct version 1.x connection to server) [@since
+     *     2.16.0]
+     *   - true (TLS if available/necessary) [@since 2.15.0]
+     *     DEFAULT: false
+     * - timeout: (integer)  Connection timeout, in seconds.
+     *            DEFAULT: 30 seconds
+     * - username: (string) [REQUIRED] The username.
      * </pre>
      */
     public function __construct(array $params = array())
     {
-        if (!isset($params['username']) || !isset($params['password'])) {
-            throw new InvalidArgumentException('Horde_Imap_Client requires a username and password.');
+        if (!isset($params['username'])) {
+            throw new InvalidArgumentException('Horde_Imap_Client requires a username.');
         }
 
         $this->_setInit();

@@ -352,6 +352,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return $this->_loginTasks();
         }
 
+        /* Blank passwords are not allowed, so no need to even try
+         * authentication to determine this. */
+        if (is_null($this->getParam('password'))) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::r("No password provided."),
+                Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+            );
+        }
+
         $this->_connect();
 
         $first_login = empty($this->_init['authmethod']);
