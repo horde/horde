@@ -383,9 +383,8 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var action, changed, sigChanged, sc, tmp,
+        var action, changed, sc, tmp,
             active = ImpComposeBase.editor_on,
-            identity = ImpComposeBase.identities[$F('identity')],
             params = $H();
 
         if (!DimpCore.conf.rte_avail) {
@@ -394,7 +393,7 @@ var DimpCompose = {
 
         noupdate = noupdate || false;
         if ((sc = ImpComposeBase.getSpellChecker()) && sc.isActive()) {
-           sc.resume();
+            sc.resume();
         }
 
         if (this.editor_wait) {
@@ -413,7 +412,6 @@ var DimpCompose = {
             });
 
             if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
-                sigChanged = true;
                 params.set('sig', {
                     changed: 1,
                     text: ImpComposeBase.rte.getData()
@@ -434,7 +432,6 @@ var DimpCompose = {
             if ($('signature')) {
                 tmp = $F('signature');
                 if (!tmp.blank() && (this.sigHash() != this.hash_sigOrig)) {
-                    sigChanged = true;
                     params.set('sig', {
                         changed: 1,
                         text: tmp
@@ -455,11 +452,6 @@ var DimpCompose = {
             });
         } else {
             this.rteInit(!active);
-        }
-
-        if (!sigChanged) {
-            ImpComposeBase.setSignature(active, identity);
-            this.updateSigHash();
         }
     },
 
@@ -750,17 +742,8 @@ var DimpCompose = {
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? this.rte.getData() : $F('signature'))
             : 0;
-    },
-
-    updateSigHash: function()
-    {
-        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
-            this.updateSigHash.bind(this).delay(0.1);
-            return;
-        }
-        this.hash_sigOrig = this.sigHash();
     },
 
     fadeNotice: function(elt)
