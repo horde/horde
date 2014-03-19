@@ -216,6 +216,9 @@ while ($row = fgetcsv($fp, 0, ' ')) {
             $count++;
             foreach ($group['members'] as $member) {
                 if (isset($member['id'])) {
+                    if (!isset($member['folder_id'])) {
+                        $member['folder_id'] = $group['folder_id'];
+                    }
                     $object->addMember(
                         $contactMap[$member['folder_id']][$member['id']][1],
                         $contactMap[$member['folder_id']][$member['id']][0]

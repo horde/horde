@@ -37,6 +37,7 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
      */
     protected $_columns = array(
         1 => 'id',
+        20 => 'folder_id',
         100 => 'categories',
         223 => 'uid',
         500 => 'name',

@@ -30,6 +30,7 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
      */
     protected $_columns = array(
         1 => 'id',
+        20 => 'folder_id',
         100 => 'categories',
         101 => 'private',
         200 => 'title',
