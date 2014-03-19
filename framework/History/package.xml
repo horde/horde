@@ -10,7 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-05</date>
+ <date>2014-03-19</date>
  <version>
   <release>2.2.2</release>
   <api>2.2.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add composite driver.
 * [mms] Add Null driver.
 * [mms] Add MongoDB driver.
  </notes>
@@ -36,6 +37,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="History">
+      <file name="Composite.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Log.php" role="php" />
       <file name="Mock.php" role="php" />
@@ -137,6 +139,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/History/COPYING" />
    <install as="Horde/History.php" name="lib/Horde/History.php" />
+   <install as="Horde/History/Composite.php" name="lib/Horde/History/Composite.php" />
    <install as="Horde/History/Exception.php" name="lib/Horde/History/Exception.php" />
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
@@ -476,9 +479,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-05</date>
+   <date>2014-03-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add composite driver.
 * [mms] Add Null driver.
 * [mms] Add MongoDB driver.
    </notes>
