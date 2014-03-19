@@ -138,6 +138,7 @@ abstract class Horde_OpenXchange_Base
         );
 
         unset($this->_session);
+        $this->_cookies = array();
     }
 
     /**
