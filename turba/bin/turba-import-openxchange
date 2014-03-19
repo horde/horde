@@ -219,10 +219,16 @@ while ($row = fgetcsv($fp, 0, ' ')) {
                     if (!isset($member['folder_id'])) {
                         $member['folder_id'] = $group['folder_id'];
                     }
-                    $object->addMember(
-                        $contactMap[$member['folder_id']][$member['id']][1],
-                        $contactMap[$member['folder_id']][$member['id']][0]
-                    );
+                    try {
+                        $object->addMember(
+                            $contactMap[$member['folder_id']][$member['id']][1],
+                            $contactMap[$member['folder_id']][$member['id']][0]
+                        );
+                    } catch (Horde_Exception_NotFound $e) {
+                        // OX < 6.22 doesn't provide folder IDs with group
+                        // members but still allows members from different
+                        // folders.
+                    }
                 } else {
                     try {
                         $result = $driver->add(array(
