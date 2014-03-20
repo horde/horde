@@ -15,6 +15,13 @@ v3.2.0-git
 
 
 ------
+v3.1.5
+------
+
+[mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
+
+
+------
 v3.1.4
 ------
 

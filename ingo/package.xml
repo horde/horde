@@ -1377,5 +1377,18 @@
 * [mms] Fix sieve driver correctly identifying mailing lists when determining whether to send vacation messages (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>3.1.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
+   </notes>
+  </release>
  </changelog>
 </package>
