@@ -526,6 +526,9 @@ var DimpBase = {
 
                 r.VP_bg.push('vpRow');
 
+                r.status = r.status.innerHTML;
+                r.subjectdata = r.subjectdata.innerHTML;
+
                 switch (mode) {
                 case 'vert':
                     $('msglistHeaderHoriz').hide();
@@ -539,9 +542,6 @@ var DimpBase = {
                 $('msglistHeaderHoriz').show();
                 r.VP_bg.unshift('vpRowHoriz');
                 r.className = r.VP_bg.join(' ');
-
-                r.status = r.status.innerHTML;
-                r.subjectdata = r.subjectdata.innerHTML;
 
                 return this.template.horiz.evaluate(r);
             }.bind(this),
