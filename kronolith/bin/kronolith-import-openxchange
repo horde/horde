@@ -49,7 +49,6 @@ $admin = $argc == 4;
 $endpoint = parse_url($argv[1]);
 $cli->message('Opening endpoint ' . $argv[1]);
 $ox = new Horde_OpenXchange_Events(array('endpoint' => $argv[1]));
-$kronolith_shares = $injector->getInstance('Kronolith_Shares');
 $users = array();
 
 // Prepare handle on user/password list.
@@ -130,7 +129,6 @@ while ($row = fgetcsv($fp, 0, ' ')) {
             }
             $target = $share->getName();
         }
-        $groups[$target] = array();
 
         // Initiate driver.
         try {
