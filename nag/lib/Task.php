@@ -84,7 +84,7 @@ class Nag_Task
     public $recurrence;
 
     /**
-     * The task priority.
+     * The task priority from 1 = highest to 5 = lowest.
      *
      * @var integer
      */
@@ -140,7 +140,7 @@ class Nag_Task
     public $modifiedby;
 
     /**
-     * The task alarm threshold.
+     * The task alarm threshold in minutes.
      *
      * @var integer
      */
