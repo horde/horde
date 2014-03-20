@@ -104,6 +104,7 @@ abstract class Nag_Driver
      *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
      *
@@ -125,6 +126,7 @@ abstract class Nag_Driver
                   'private' => false,
                   'owner' => $GLOBALS['registry']->getAuth(),
                   'assignee' => null,
+                  'completed_date' => 0,
                   'recurrence' => null),
             $task
         );
