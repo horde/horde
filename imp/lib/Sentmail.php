@@ -118,7 +118,6 @@ abstract class IMP_Sentmail
      *                        returned. Null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
-     * @throws IMP_Exception
      */
     abstract public function favouriteRecipients($limit, $filter = null);
 
@@ -130,7 +129,6 @@ abstract class IMP_Sentmail
      *                        user?
      *
      * @return integer  The number of recipients in the given time period.
-     * @throws IMP_Exception
      */
     abstract public function numberOfRecipients($hours, $user = false);
 

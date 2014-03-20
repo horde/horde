@@ -83,9 +83,7 @@ class IMP_Perms
                         return true;
                     }
 
-                    try {
-                        $opts['value'] += $sentmail->numberOfRecipients($sentmail->limit_period, true);
-                    } catch (IMP_Exception $e) {}
+                    $opts['value'] += $sentmail->numberOfRecipients($sentmail->limit_period, true);
 
                     return (intval($allowed[0]) >= $opts['value']);
                 },

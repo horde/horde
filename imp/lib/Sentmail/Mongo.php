@@ -101,8 +101,9 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_
             $query[self::ACTION] = array('$in' => $filter);
         }
 
+        $out = array();
+
         try {
-            $out = array();
 
             $res = $this->_db->aggregate(array(
                 /* Match the query. */
@@ -134,11 +135,9 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_
                     $out[] = $val['_id'];
                 }
             }
+        } catch (MongoException $e) {}
 
-            return $out;
-        } catch (MongoException $e) {
-            throw new IMP_Exception($e);
-        }
+        return $out;
     }
 
     /**
@@ -158,7 +157,7 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_
         try {
             return $this->_db->count($query);
         } catch (MongoException $e) {
-            throw new IMP_Exception($e);
+            return 0;
         }
     }
 

@@ -94,7 +94,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
             $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
             return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {
-            throw new IMP_Exception($e);
+            return array();
         }
     }
 
@@ -113,7 +113,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         try {
             return $this->_db->selectValue($query, array(time() - $hours * 3600));
         } catch (Horde_Db_Exception $e) {
-            throw new IMP_Exception($e);
+            return 0;
         }
     }
 
