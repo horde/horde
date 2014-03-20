@@ -126,7 +126,6 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '  :0 Wh';
             $this->_action[] = '  * !^FROM_DAEMON';
             $this->_action[] = '  * !^X-Loop: $SENDER';
-            $this->_action[] = '  :0 eh';
             $this->_action[] = '  | (formail -rA"X-Loop: $SENDER" \\';
             $reason = $params['action-value'];
             if (Horde_Mime::is8bit($reason)) {
