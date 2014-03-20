@@ -41,8 +41,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         try {
             $pdo = @new PDO($dsn, $user, $pass);
         } catch (PDOException $e) {
-            $msg = "Could not instantiate PDO with DSN \"$dsn\".  PDOException: "
+            $msg = 'Could not instantiate PDO. PDOException: '
                 . $e->getMessage();
+            $this->_logError($msg);
             throw new Horde_Db_Exception($msg);
         }
 
