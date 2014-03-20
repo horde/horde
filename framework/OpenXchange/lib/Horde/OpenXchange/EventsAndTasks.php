@@ -48,9 +48,6 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
         221 => 'users',
         222 => 'recur_count',
         223 => 'uid',
-        224 => 'organizer',
-        225 => 'sequence',
-        226 => 'confirmations',
     );
 
     /**

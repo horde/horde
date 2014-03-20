@@ -12,7 +12,7 @@
  */
 
 /**
- * Horde_OpenXchange_Events is the interface class for the events storage
+ * Horde_OpenXchange_Tasks is the interface class for the tasks storage
  * of an Open-Xchange server.
  *
  * @author    Jan Schneider <jan@horde.org>
@@ -21,14 +21,54 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   OpenXchange
  */
-class Horde_OpenXchange_Events extends Horde_OpenXchange_EventsAndTasks
+class Horde_OpenXchange_Tasks extends Horde_OpenXchange_EventsAndTasks
 {
+    /**
+     * Status: not started.
+     */
+    const STATUS_NOT_STARTED = 1;
+
+    /**
+     * Status: in progress.
+     */
+    const STATUS_IN_PROGRESS = 2;
+
+    /**
+     * Status: done.
+     */
+    const STATUS_DONE = 3;
+
+    /**
+     * Status: waiting.
+     */
+    const STATUS_WAITING = 4;
+
+    /**
+     * Status: deferred.
+     */
+    const STATUS_DEFERRED = 5;
+
+    /**
+     * Priority: high.
+     */
+    const PRIORITY_LOW = 1;
+
+    /**
+     * Priority: high.
+     */
+    const PRIORITY_MEDIUM = 2;
+
+    /**
+     * Priority: high.
+     */
+    const PRIORITY_HIGH = 3;
+
     /**
      * The folder category.
      *
      * @var string
      */
-    protected $_folderType = 'calendar';
+    protected $_folderType = 'tasks';
 
     /**
      * Constructor.
@@ -44,46 +84,40 @@ class Horde_OpenXchange_Events extends Horde_OpenXchange_EventsAndTasks
     {
         parent::__construct($params);
         $this->_columns += array(
-            206 => 'recur_id',
-            207 => 'recur_position',
-            210 => 'recur_change_exceptions',
-            211 => 'recur_delete_exceptions',
-            224 => 'organizer',
-            225 => 'sequence',
-            226 => 'confirmations',
-            400 => 'location',
-            401 => 'allday',
-            402 => 'status',
-            408 => 'timezone',
+            300 => 'status',
+            301 => 'percent',
+            308 => 'duration',
+            309 => 'priority',
+            315 => 'completed',
         );
     }
 
     /**
-     * Returns a list events.
+     * Returns a list tasks.
      *
-     * @param integer $folder    A folder ID. If empty, returns events of all
-     *                           visible calendars.
+     * @param integer $folder    A folder ID. If empty, returns tasks of all
+     *                           visible task lists.
      * @param Horde_Date $start  Start date, defaults to epoch.
      * @param Horde_Date $end    End date, defaults to maximum date possible.
      *
-     * @return array  List of event hashes.
+     * @return array  List of task hashes.
      * @throws Horde_OpenXchange_Exception.
      */
-    public function listEvents($folder = null, $start = null, $end = null)
+    public function listTasks($folder = null, $start = null, $end = null)
     {
         return $this->_listObjects($folder, $start, $end);
     }
 
     /**
-     * Returns an event.
+     * Returns an task.
      *
      * @param integer $folder  A folder ID.
-     * @param integer $id      An event ID.
+     * @param integer $id      An task ID.
      *
-     * @return array  The event hash.
+     * @return array  The task hash.
      * @throws Horde_OpenXchange_Exception.
      */
-    public function getEvent($folder, $id)
+    public function getTask($folder, $id)
     {
         return $this->_getObject($folder, $id);
     }

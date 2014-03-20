@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-18</date>
+ <date>2014-03-20</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -33,6 +33,7 @@
       <file name="Events.php" role="php" />
       <file name="EventsAndTasks.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Tasks.php" role="php" />
      </dir> <!-- /lib/Horde/OpenXchange -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -83,6 +84,7 @@
    <install as="Horde/OpenXchange/Events.php" name="lib/Horde/OpenXchange/Events.php" />
    <install as="Horde/OpenXchange/EventsAndTasks.php" name="lib/Horde/OpenXchange/EventsAndTasks.php" />
    <install as="Horde/OpenXchange/Exception.php" name="lib/Horde/OpenXchange/Exception.php" />
+   <install as="Horde/OpenXchange/Tasks.php" name="lib/Horde/OpenXchange/Tasks.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -95,7 +97,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2014-03-18</date>
+   <date>2014-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

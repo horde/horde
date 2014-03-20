@@ -1,0 +1,253 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script imports Open-Xchange task lists into Nag.
+ *
+ * The first argument must be the API endpoint of an Open-Xchange servers,
+ * usually something like http://servername/ajax.
+ *
+ * If called with three arguments, the further arguments must be the user name
+ * (usually "Administrator") and password of an administrator user to import
+ * public task lists.
+ *
+ * If called with two arguments, the second argument must be a file with user
+ * names and cleartext passwords separated by spaces.
+ *
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+// Init application.
+if (file_exists(__DIR__ . '/../../nag/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/nag/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('nag', array('cli' => true, 'user_admin' => true));
+
+// Read command line parameters.
+if ($argc < 3 || $argc > 4) {
+    $cli->message('Too many or too few parameters.', 'cli.error');
+    $cli->writeln('Usage: nag-import-openxchange url [ file | user password ]');
+    $cli->writeln($cli->indent('url is the URL of an Open-Xchange AJAX endpoint'));
+    $cli->writeln($cli->indent('file is a file with space separated user names and passwords to import'));
+    $cli->writeln($cli->indent('personal task lists.'));
+    $cli->writeln($cli->indent('user and password are credentials of an administrator user to import public'));
+    $cli->writeln($cli->indent('task lists.'));
+    exit;
+}
+$admin = $argc == 4;
+
+// Basic objects and variables.
+$endpoint = parse_url($argv[1]);
+$cli->message('Opening endpoint ' . $argv[1]);
+$ox = new Horde_OpenXchange_Tasks(array('endpoint' => $argv[1]));
+$users = array();
+
+// Prepare handle on user/password list.
+if ($admin) {
+    $fp = fopen('php://temp', 'r+');
+    fwrite($fp, $argv[2] . ' ' . $argv[3]);
+    rewind($fp);
+} else {
+    if (!is_readable($argv[2]) || !filesize($argv[2])) {
+        $cli->message($argv[2] . ' is not readable or empty', 'cli.error');
+        exit(1);
+    }
+    $fp = fopen($argv[2], 'r');
+}
+if (!$fp) {
+    exit(1);
+}
+
+// Loop through all users.
+while ($row = fgetcsv($fp, 0, ' ')) {
+    $user = $row[0];
+    if (is_null($user)) {
+        continue;
+    }
+    $ox->logout();
+    $ox->login($user, $row[1]);
+
+    $registry->setAuth($user, array());
+    $cli->message('Importing ' . $user . '\'s task lists');
+
+    // Reset user prefs
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+        ->create('nag', array(
+            'cache' => false,
+            'user' => $user
+        )
+    );
+
+    // Load task lists for current user.
+    $targets = Nag::listTasklists(true, Horde_Perms::EDIT, false);
+
+    $count = 0;
+    $tasklists = $ox->listResources(
+        $admin
+            ? Horde_OpenXchange_Tasks::RESOURCE_PUBLIC
+            : Horde_OpenXchange_Tasks::RESOURCE_PRIVATE
+    );
+
+    // Loop through all task lists.
+    foreach ($tasklists as $folderId => $tasklist) {
+        // Track UIDs, OX doesn't provide any means to find recurring tasks.
+        $uids = array();
+        // Check if we already have an task list matching the name.
+        $target = null;
+        foreach ($targets as $id => $info) {
+            if ($tasklist['label'] == $info->get('name')) {
+                $target = $id;
+                break;
+            }
+        }
+        if ($target) {
+            $cli->message('Task List "' . $tasklist['label'] . '" found, updating...');
+        } else {
+            // Create new task list.
+            $cli->message('Task List "' . $tasklist['label'] . '" not found, creating...');
+            $params = array(
+                'name' => $tasklist['label'],
+                'color' => Nag::randomColor(),
+                'description' => '',
+                'system' => $admin,
+            );
+            $share = Nag::addTasklist($params);
+            foreach ($tasklist['hordePermission']['group'] as $group => $perm) {
+                $share->addGroupPermission($group, $perm);
+            }
+            foreach ($tasklist['hordePermission']['user'] as $user => $perm) {
+                $share->addUserPermission($user, $perm);
+            }
+            $target = $share->getName();
+        }
+
+        // Initiate driver.
+        try {
+            $driver = $injector
+                ->getInstance('Nag_Factory_Driver')
+                ->create($target);
+        } catch (Nag_Exception $e) {
+            $cli->message('  ' . sprintf(_("Connection failed: %s"), $e->getMessage()), 'cli.error');
+            continue;
+        }
+
+        $tasks = $ox->listTasks($folderId);
+
+        // Loop through all tasks.
+        foreach ($tasks as $task) {
+            $newTask = array(
+                'name' => $task['title'],
+                'desc' => $task['description'],
+                'estimate' => $task['duration'],
+                'tags' => $task['categories'],
+                'uid' => $task['uid'],
+                'private' => $task['private'],
+            );
+            if ($task['start']) {
+                $newTask['start'] = $task['start'] / 1000;
+            }
+            if ($task['end']) {
+                $due = new Horde_Date($task['end'] / 1000, 'UTC');
+                $due->hour = $due->min = $due->sec = 0;
+                $newTask['due'] = $due->timestamp();
+                if ($task['alarm']) {
+                    $newTask['alarm'] = ($task['end'] - $task['alarm']) / 60000;
+                }
+            }
+            switch ($task['priority']) {
+            case Horde_OpenXchange_Tasks::PRIORITY_HIGH:
+                $newTask['priority'] = 1;
+                break;
+            case Horde_OpenXchange_Tasks::PRIORITY_MEDIUM:
+                $newTask['priority'] = 3;
+                break;
+            case Horde_OpenXchange_Tasks::PRIORITY_LOW:
+                $newTask['priority'] = 5;
+                break;
+            }
+            if ($task['recur_type']) {
+                if (!isset($uids[$task['uid']])) {
+                    $recurrence = new Horde_Date_Recurrence(new Horde_Date($newTask['due']));
+                    switch ($task['recur_type']) {
+                    case 3:
+                        if ($task['day_in_month']) {
+                            $task['recur_type'] = Horde_Date_Recurrence::RECUR_MONTHLY_DATE;
+                        } else {
+                            $task['recur_type'] = Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
+                        }
+                        break;
+                    case 4:
+                        if ($task['day_in_month']) {
+                            $task['recur_type'] = Horde_Date_Recurrence::RECUR_YEARLY_DATE;
+                        } else {
+                            $task['recur_type'] = Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY;
+                        }
+                        break;
+                    }
+                    $recurrence->setRecurType($task['recur_type']);
+                    if (!empty($task['recur_count'])) {
+                        $recurrence->setRecurCount($task['recur_count']);
+                    } elseif ($task['recur_end']) {
+                        $end = new Horde_Date($task['recur_end'] / 1000, 'UTC');
+                        $end->mday++;
+                        $end->hour = $end->min = $end->sec = 0;
+                        $recurrence->setRecurEnd($end);
+                    }
+                    if (!empty($task['recur_interval'])) {
+                        $recurrence->setRecurInterval($task['recur_interval']);
+                    }
+                    if (!empty($task['recur_days'])) {
+                        $recurrence->setRecurOnDay($task['recur_days']);
+                    }
+                    $newTask['recurrence'] = $recurrence;
+                    $uids[$task['uid']] = $newTask;
+                }
+                if ($task['status'] == Horde_OpenXchange_Tasks::STATUS_DONE) {
+                    $due = new Horde_Date($task['end'] / 1000, 'UTC');
+                    $uids[$task['uid']]['recurrence']->addCompletion(
+                        $due->year, $due->month, $due->mday
+                    );
+                }
+                if ($task['end_date'] > $uids[$task['uid']]['end_date']) {
+                    if ($task['status'] == Horde_OpenXchange_Tasks::STATUS_DONE) {
+                        $uids[$task['uid']]['completed'] = true;
+                        $uids[$task['uid']]['completed_date'] = $task['completed'] / 1000;
+                    } else {
+                        $uids[$task['uid']]['completed'] = false;
+                        $uids[$task['uid']]['completed_date'] = null;
+                    }
+                }
+                continue;
+            }
+
+            try {
+                $driver->add($newTask);
+                $count++;
+            } catch (Nag_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
+            }
+        }
+
+        // Loop through all recurring tasks.
+        foreach ($uids as $task) {
+            try {
+                $driver->add($task);
+                $count++;
+            } catch (Nag_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
+            }
+        }
+    }
+
+    $cli->message('  Added ' . $count . ' tasks', 'cli.success');
+    $count = 0;
+}

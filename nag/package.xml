@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-12-04</date>
+ <date>2014-03-20</date>
  <version>
   <release>4.2.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add script to import tasks from Open-Xchange.
 * [jan] Add recurrence controls to basic view (Request #11545).
 * [mjr] Add button for creating sub-task from task view (Request #12309).
 * [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
@@ -57,6 +58,7 @@
     <file name="nag-create-missing-add-histories-sql" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="nag-import-openxchange" role="script" />
     <file name="nag-import-vtodos" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -409,6 +411,7 @@
     <file name="10_nag_upgrade_categoriestotags.php" role="horde" />
     <file name="11_nag_upgrade_smartlists.php" role="horde" />
     <file name="12_nag_fix_smartlists.php" role="horde" />
+    <file name="13_nag_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
@@ -762,6 +765,7 @@
    <install as="nag-convert-datatree-shares-to-sql" name="bin/nag-convert-datatree-shares-to-sql" />
    <install as="nag-convert-sql-shares-to-sqlng" name="bin/nag-convert-sql-shares-to-sqlng" />
    <install as="nag-create-missing-add-histories-sql" name="bin/nag-create-missing-add-histories-sql" />
+   <install as="nag-import-openxchange" name="bin/nag-import-openxchange" />
    <install as="nag-import-vtodos" name="bin/nag-import-vtodos" />
    <install as="nag/config/.htaccess" name="config/.htaccess" />
    <install as="nag/config/conf.xml" name="config/conf.xml" />
@@ -920,6 +924,7 @@
    <install as="nag/migration/10_nag_upgrade_categoriestotags.php" name="migration/10_nag_upgrade_categoriestotags.php" />
    <install as="nag/migration/11_nag_upgrade_smartlists.php" name="migration/11_nag_upgrade_smartlists.php" />
    <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
+   <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
@@ -1471,9 +1476,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-12-04</date>
+   <date>2014-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add script to import tasks from Open-Xchange.
 * [jan] Add recurrence controls to basic view (Request #11545).
 * [mjr] Add button for creating sub-task from task view (Request #12309).
 * [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
