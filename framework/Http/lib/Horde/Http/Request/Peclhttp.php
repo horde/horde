@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Http
  */
-class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
+class Horde_Http_Request_Peclhttp extends Horde_Http_Request_PeclhttpBase
 {
     /**
      * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
@@ -67,39 +67,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             }
         }
 
-        // Set options
-        $httpOptions = array('headers' => $this->headers,
-                             'redirect' => (int)$this->redirects,
-                             'ssl' => array('verifypeer' => $this->verifyPeer),
-                             'timeout' => $this->timeout,
-                             'useragent' => $this->userAgent);
-
-        // Proxy settings
-        if ($this->proxyServer) {
-            $httpOptions['proxyhost'] = $this->proxyServer;
-            if ($this->proxyPort) {
-                $httpOptions['proxyport'] = $this->proxyPort;
-            }
-            if ($this->proxyUsername && $this->proxyPassword) {
-                $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
-                $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
-            }
-            if ($this->proxyType == Horde_Http::PROXY_SOCKS4) {
-                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS4;
-            } else if ($this->proxyType == Horde_Http::PROXY_SOCKS5) {
-                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS5;
-            } else if ($this->proxyType != Horde_Http::PROXY_HTTP) {
-                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
-            }
-        }
-
-        // Authentication settings
-        if ($this->username) {
-            $httpOptions['httpauth'] = $this->username . ':' . $this->password;
-            $httpOptions['httpauthtype'] = $this->_httpAuthScheme($this->authenticationScheme);
-        }
-
-        $httpRequest->setOptions($httpOptions);
+        $httpRequest->setOptions($this->_httpOptions());
 
         try {
             $httpResponse = $httpRequest->send();
@@ -112,20 +80,5 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         }
 
         return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
-    }
-
-    /**
-     * Translate a Horde_Http::AUTH_* constant to HTTP_AUTH_*
-     *
-     * @param const
-     * @throws Horde_Http_Exception
-     * @return const
-     */
-    protected function _httpAuthScheme($httpAuthScheme)
-    {
-        if (!isset($this->_httpAuthSchemes[$httpAuthScheme])) {
-            throw new Horde_Http_Exception('Unsupported authentication scheme (' . $httpAuthScheme . ')');
-        }
-        return $this->_httpAuthSchemes[$httpAuthScheme];
     }
 }
