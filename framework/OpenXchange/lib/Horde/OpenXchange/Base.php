@@ -142,7 +142,7 @@ abstract class Horde_OpenXchange_Base
     }
 
     /**
-     * Return information about a system user.
+     * Returns information about a system user.
      *
      * @param integer $id  A user ID.
      *
@@ -164,7 +164,7 @@ abstract class Horde_OpenXchange_Base
     }
 
     /**
-     * Return information about a system group.
+     * Returns information about a system group.
      *
      * @param integer $id  A group ID.
      *
@@ -183,6 +183,24 @@ abstract class Horde_OpenXchange_Base
             )
         );
         return $group;
+    }
+
+    /**
+     * Returns user configuration.
+     *
+     * @param string $config  A configuration namespace.
+     *
+     * @return mixed  Configuration contents.
+     * @throws Horde_OpenXchange_Exception.
+     */
+    public function getConfig($config)
+    {
+        $content = $this->_request(
+            'GET',
+            'config/' . $config,
+            array('session' => $this->_session)
+        );
+        return $content['data'];
     }
 
     /**
