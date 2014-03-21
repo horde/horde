@@ -625,7 +625,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            this._removeMouseEvents(e.memo);
+            this._removeMouseEvents([ e.memo ]);
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
@@ -842,15 +842,17 @@ var DimpBase = {
 
     _removeMouseEvents: function(elt)
     {
-        var d, id = $(elt).readAttribute('id');
+        elt.each(function(a) {
+            var d, id = $(a).readAttribute('id');
 
-        if (id) {
-            if ((d = DragDrop.Drags.getDrag(id))) {
-                d.destroy();
+            if (id) {
+                if ((d = DragDrop.Drags.getDrag(id))) {
+                    d.destroy();
+                }
+
+                DimpCore.DMenu.removeElement(id);
             }
-
-            DimpCore.DMenu.removeElement(id);
-        }
+        });
     },
 
     contextOnClick: function(e)
@@ -1774,9 +1776,7 @@ var DimpBase = {
             pm = $('previewMsg'),
             r = this.ppcache[this._getPPId(uid, mbox)];
 
-        pm.select('.address').each(function(elt) {
-            DimpCore.DMenu.removeElement(elt.identify());
-        });
+        this._removeMouseEvents(pm.down('.msgHeaders').select('.address'));
 
         // Add subject. Subject was already html encoded on server (subject
         // may include links).
@@ -3688,7 +3688,7 @@ var DimpBase = {
             submbox.remove();
         }
         [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
-        this._removeMouseEvents(m_elt);
+        this._removeMouseEvents([ m_elt ]);
         if (this.viewport) {
             this.viewport.deleteView(m_elt.retrieve('mbox'));
         }
