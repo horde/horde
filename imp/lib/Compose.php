@@ -1780,10 +1780,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - subject: (string) Formatted subject.
      *   - type: (integer) The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
+     * @throws IMP_Exception
      */
     public function replyMessage($type, $contents, array $opts = array())
     {
         global $injector, $language, $prefs;
+
+        if (!($contents instanceof IMP_Contents)) {
+            throw new IMP_Exception(
+                _("Could not retrieve message data from the mail server.")
+            );
+        }
 
         $alist = new Horde_Mail_Rfc822_List();
         $addr = array(
@@ -2131,11 +2138,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - subject: (string) Formatted subject.
      *   - title: (string) Title to use on page.
      *   - type: (integer) - The compose type.
+     * @throws IMP_Exception
      */
     public function forwardMessage($type, $contents, $attach = true,
                                    array $opts = array())
     {
         global $prefs;
+
+        if (!($contents instanceof IMP_Contents)) {
+            throw new IMP_Exception(
+                _("Could not retrieve message data from the mail server.")
+            );
+        }
 
         if ($type == self::FORWARD_AUTO) {
             switch ($prefs->getValue('forward_default')) {

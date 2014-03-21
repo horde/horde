@@ -209,7 +209,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'mailto':
             try {
                 $contents = $this->_getContents();
-            } catch (IMP_Compose_Exception $e) {
+            } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
             }
@@ -289,7 +289,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'reply_list':
             try {
                 $contents = $this->_getContents();
-            } catch (IMP_Compose_Exception $e) {
+            } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
             }
@@ -353,17 +353,14 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
         case 'replyall_revert':
         case 'replylist_revert':
-            if ($contents = $imp_compose->getContentsOb()) {
+            try {
                 $reply_msg = $imp_compose->replyMessage(
                     IMP_Compose::REPLY_SENDER,
-                    $contents
+                    $imp_compose->getContentsOb()
                 );
                 $header = $this->_convertToHeader($reply_msg);
-            } else {
-                $notification->push(
-                    _("Could not retrieve message data from the mail server."),
-                    'horde.error'
-                );
+            } catch (IMP_Exception $e) {
+                $notification->push($e, 'horde.error');
             }
             break;
 
@@ -371,13 +368,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'forward_auto':
         case 'forward_body':
         case 'forward_both':
-            try {
-                $contents = $this->_getContents();
-            } catch (IMP_Compose_Exception $e) {
-                $notification->push($e, 'horde.error');
-                break;
-            }
-
             $fwd_map = array(
                 'forward_attach' => IMP_Compose::FORWARD_ATTACH,
                 'forward_auto' => IMP_Compose::FORWARD_AUTO,
@@ -385,7 +375,16 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 'forward_both' => IMP_Compose::FORWARD_BOTH
             );
 
-            $fwd_msg = $imp_compose->forwardMessage($fwd_map[$this->vars->actionID], $contents);
+            try {
+                $fwd_msg = $imp_compose->forwardMessage(
+                    $fwd_map[$this->vars->actionID],
+                    $this->_getContents()
+                );
+            } catch (IMP_Exception $e) {
+                $notification->push($e, 'horde.error');
+                break;
+            }
+
             $msg = $fwd_msg['body'];
             $header = $this->_convertToHeader($fwd_msg);
             $format = $fwd_msg['format'];
