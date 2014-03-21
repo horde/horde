@@ -131,30 +131,26 @@ class IMP_Auth
      */
     static protected function _log($status, $imap_ob)
     {
-        if ($status) {
-            $msg = 'Login success';
-            $level = 'NOTICE';
-        } else {
-            $msg = 'FAILED LOGIN';
-            $level = 'INFO';
-        }
-
+        $msg = $status
+            ? 'Login success'
+            : 'FAILED LOGIN';
         $user = $imap_ob->getParam('username');
-        if (($auth_id = $GLOBALS['registry']->getAuth()) !== false) {
+
+        if (($auth_id = $GLOBALS['registry']->getAuth()) &&
+            ($user != $auth_id)) {
             $user .= ' (Horde user ' . $auth_id . ')';
         }
 
-        $msg = sprintf(
-            $msg . ' for %s [%s]%s to {%s:%s%s}',
-            $user,
-            $_SERVER['REMOTE_ADDR'],
-            empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            $imap_ob->init ? $imap_ob->getParam('hostspec') : '',
-            $imap_ob->init ? $imap_ob->getParam('port') : '',
-            ' [' . ($imap_ob->isImap() ? 'imap' : 'pop') . ']'
+        Horde::log(
+            sprintf(
+                $msg . ' for %s (%s)%s to {%s}',
+                $user,
+                $_SERVER['REMOTE_ADDR'],
+                empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
+                $imap_ob->url
+            ),
+            $status ? 'NOTICE' : 'INFO'
         );
-
-        Horde::log($msg, $level);
     }
 
     /**
