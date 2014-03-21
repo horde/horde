@@ -79,9 +79,11 @@ var ContextSensitive = Class.create({
      */
     addElement: function(id, target, opts)
     {
-        var left = Boolean(opts.left);
+        // !!opts.left == Boolean(left)
+        var left = !!opts.left;
         if (id && !this.validElement(id, left)) {
-            this.elements.set(id + Number(left), new ContextSensitive.Element(id, target, opts));
+            // ~~left == Number(left)
+            this.elements.set(id + ~~left, new ContextSensitive.Element(id, target, opts));
         }
     },
 
@@ -142,7 +144,7 @@ var ContextSensitive = Class.create({
      */
     validElement: function(id, left)
     {
-        return this.elements.get(id + Number(Boolean(left)));
+        return this.elements.get(id + ~~(!!left));
     },
 
     /**
@@ -407,7 +409,7 @@ ContextSensitive.Element = Class.create({
         this.id = id;
         this.ctx = target;
         this.opts = opts;
-        this.opts.left = Boolean(opts.left);
+        this.opts.left = !!opts.left;
         this.disable = opts.disable;
     }
 
