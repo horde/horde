@@ -734,7 +734,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $body, $header, IMP_Prefs_Identity $identity, array $opts = array()
     )
     {
-        global $conf, $injector, $notification, $prefs, $registry;
+        global $conf, $injector, $notification, $prefs, $registry, $session;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -944,8 +944,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
-        Horde::log($entry, 'INFO');
+        Horde::log(
+            sprintf(
+                "Message sent to %s from %s (%s)",
+                $recipients,
+                $registry->getAuth(),
+                $session->get('horde', 'auth/remoteAddr')
+            ),
+            'INFO'
+        );
 
         /* Should we save this message in the sent mail mailbox? */
         if (!empty($opts['sent_mail']) &&
