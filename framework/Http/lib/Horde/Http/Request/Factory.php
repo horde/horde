@@ -24,7 +24,9 @@ class Horde_Http_Request_Factory
     public function create()
     {
         if (class_exists('HttpRequest', false)) {
-            return new Horde_Http_Request_Peclhttp();
+            return new Horde_Http_Request_PeclhttpV1();
+        } elseif (class_exists('\http\Client', false)) {
+            return new Horde_Http_Request_PeclhttpV2();
         } elseif (extension_loaded('curl')) {
             return new Horde_Http_Request_Curl();
         } elseif (ini_get('allow_url_fopen')) {
