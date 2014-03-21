@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix fatal error if using TNEF viewer and bcmath extension is not installed on the system.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -997,7 +997,7 @@
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix fatal error if using TNEF viewer and bcmath extension is not installed on the system.
    </notes>
   </release>
  </changelog>

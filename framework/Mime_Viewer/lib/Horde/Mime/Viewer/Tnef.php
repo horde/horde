@@ -66,11 +66,15 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
     protected function _getEmbeddedMimeParts()
     {
         /* Get the data from the attachment. */
-        if (!($tnef = $this->getConfigParam('tnef'))) {
-            $tnef = Horde_Compress::factory('Tnef');
-            $this->setConfigParam('tnef', $tnef);
+        try {
+            if (!($tnef = $this->getConfigParam('tnef'))) {
+                $tnef = Horde_Compress::factory('Tnef');
+                $this->setConfigParam('tnef', $tnef);
+            }
+            $tnefData = $tnef->decompress($this->_mimepart->getContents());
+        } catch (Horde_Compress_Exception $e) {
+            $tnefData = array();
         }
-        $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
         if (!count($tnefData)) {
             return null;
