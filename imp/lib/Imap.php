@@ -37,6 +37,7 @@
  *                                            a user can create.
  * @property-read string $server_key  Server key used to login.
  * @property-read string $thread_algo  The threading algorithm to use.
+ * @property-read Horde_Imap_Client_Url $url  A URL object.
  */
 class IMP_Imap implements Serializable
 {
@@ -165,6 +166,15 @@ class IMP_Imap implements Serializable
             $this->_changed = true;
 
             return $thread;
+
+        case 'url':
+            $url = new Horde_Imap_Client_Url();
+            if ($this->init) {
+                $url->hostspec = $this->getParam('hostspec');
+                $url->port = $this->getParam('port');
+                $url->protocol = $this->isImap() ? 'imap' : 'pop';
+            }
+            return $url;
         }
     }
 
