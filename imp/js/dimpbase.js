@@ -1797,6 +1797,12 @@ var DimpBase = {
             }
         }, this);
 
+        [ 'msgloglist', 'partlist' ].each(function(a) {
+            if ($(a + '_exp').visible()) {
+                $(a, a + '_col', a + '_exp').invoke('toggle');
+            }
+        });
+
         // Add attachment information
         if (r.atc_label) {
             $('msgAtc').show();
