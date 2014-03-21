@@ -152,7 +152,7 @@ var DimpCore = {
     {
         alist.each(function(o) {
             var tmp,
-                a = new Element('A', { className: 'horde-button' }).store({ email: o });
+                a = new Element('A', { className: 'horde-button address' }).store({ email: o });
 
             if (o.g) {
                 a.insert(o.g.escapeHTML() + ':').addClassName('addrgroup-name');
