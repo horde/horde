@@ -713,17 +713,11 @@ var ImpMobile = {
             tmp ? IMP.text.searchresults : cache.label
         );
 
-        if (!data.from) {
-            $('#imp-message-from').text(IMP.text.nofrom);
-        } else if (data.from.raw) {
-            $('#imp-message-from').text(data.from.raw);
-        } else if (data.from.addr[0].g) {
-            $('#imp-message-from').text(data.from.addr[0].g);
-        } else if (data.from.addr[0].p) {
-            $('#imp-message-from').text(data.from.addr[0].p);
-        } else {
-            $('#imp-message-from').text(data.from.addr[0].b);
-        }
+        $('#imp-message-from').text(
+            data.from
+                ? (data.from.raw || data.from.addr[0].g || data.from.addr[0].p || data.from.addr[0].b)
+                : IMP.text.nofrom
+        );
 
         if (data.atc_label) {
             $('#imp-message-atc').show();
