@@ -418,10 +418,18 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $attachment_data[0]['type'] = $value;
                 break;
             case self::MAPI_CREATION_TIME:
-                $attachment_data[0]['created'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                try {
+                    $attachment_data[0]['created'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 break;
             case self::MAPI_MODIFICATION_TIME:
-                $attachment_data[0]['modified'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                try {
+                    $attachment_data[0]['modified'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 break;
             }
         }
