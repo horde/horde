@@ -97,8 +97,14 @@ if ($logout_reason) {
         }
         $is_auth = null;
 
-        $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
-        Horde::log($entry, 'NOTICE');
+        Horde::log(
+            sprintf(
+                'User %s logged out of Horde (%s)',
+                $registry->getAuth(),
+                $_SERVER['REMOTE_ADDR']
+            ),
+            'NOTICE'
+        );
     }
 
     $registry->clearAuth();
@@ -147,8 +153,15 @@ if ($logout_reason) {
     } catch (Horde_Exception $e) {}
 
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
-        $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($vars->app && $is_auth) ? $vars->app : 'horde');
-        Horde::log($entry, 'NOTICE');
+        Horde::log(
+            sprintf(
+                'Login success for %s to %s (%s)',
+                $registry->getAuth(),
+                ($vars->app && $is_auth) ? $vars->app : 'horde',
+                $_SERVER['REMOTE_ADDR']
+            ),
+            'NOTICE'
+        );
 
         if (!$is_auth && $nojs) {
             $notification->push(_("JavaScript is either disabled or not available on your browser. You are restricted to the minimal view."));
@@ -174,9 +187,16 @@ if ($logout_reason) {
     }
 
     $logout_reason = $auth->getError();
-    $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
-                     $vars->horde_user, $_SERVER['REMOTE_ADDR']);
-    Horde::log($entry, 'ERR');
+
+    Horde::log(
+        sprintf(
+            'FAILED LOGIN for %s to %s (%s)',
+            $vars->horde_user,
+            ($vars->app && $is_auth) ? $vars->app : 'horde',
+            $_SERVER['REMOTE_ADDR']
+        ),
+        'ERR'
+    );
 }
 
 /* Build the list of necessary login parameters.
