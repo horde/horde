@@ -597,7 +597,7 @@ var ImpMobile = {
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '"></a>').html(val.data.subject)).append(
+                    $('<a href="' + url + '"></a>').text(val.data.subject)).append(
                     $('<div class="imp-mailbox-secondrow"></div>').append(
                         $('<span class="imp-mailbox-date"></span>').text(
                             val.data.date)).append(

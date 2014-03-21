@@ -509,7 +509,7 @@ var DimpBase = {
                         if (h == 'subject') {
                             /* This is an attribute, so we need to escape
                              * quotes only. */
-                            r.subjecttitle = r[h].gsub('"', '&quot;');
+                            r.subjecttitle = r[h].escapeHTML().gsub('"', '&quot;');
                         }
 
                         r[h] = r[h].escapeHTML();
