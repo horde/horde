@@ -52,7 +52,7 @@ var DimpCompose = {
             }
 
             DimpCore.doAction('cancelCompose', this.actionParams({
-                discard: Number(!!discard)
+                discard: ~~(!!discard)
             }));
             this.updateDraftsMailbox();
             return this.closeCompose();
@@ -404,7 +404,7 @@ var DimpCompose = {
 
         if (active) {
             action = 'html2Text',
-            changed = Number(this.msgHash() != this.hash_msgOrig);
+            changed = ~~(this.msgHash() != this.hash_msgOrig);
 
             params.set('body', {
                 changed: changed,
@@ -422,7 +422,7 @@ var DimpCompose = {
 
             tmp = $F('composeMessage');
             if (!tmp.blank()) {
-                changed = Number(this.msgHash() != this.hash_msgOrig);
+                changed = ~~(this.msgHash() != this.hash_msgOrig);
                 params.set('body', {
                     changed: changed,
                     text: tmp
@@ -591,7 +591,7 @@ var DimpCompose = {
 
         ImpComposeBase.editor_on = rte;
         $('htmlcheckbox').setValue(rte);
-        $('html').setValue(Number(rte));
+        $('html').setValue(~~(!!rte));
     },
 
     // ob = addr, body, format, identity, opts, subject, type
@@ -1281,7 +1281,8 @@ var DimpCompose = {
                 if (id.startsWith(pair.key + '_')) {
                     var t = pair.value.get(id.substring(pair.key.length + 1));
                     if (t) {
-                        $(t).setValue(Number(!Number($F(t))));
+                        // ~~!!! = Integer value of the inverse of t.
+                        $(t).setValue(~~(!!!$F(t)));
                     }
                 }
             });
@@ -1297,7 +1298,7 @@ var DimpCompose = {
             tmp.each(function(pair) {
                 var t = $(e.memo + '_' + pair.key);
                 if (t) {
-                    DimpCore.toggleCheck(t.down('SPAN'), Number($F(pair.value)));
+                    DimpCore.toggleCheck(t.down('SPAN'), ~~$F(pair.value));
                 }
             });
         }

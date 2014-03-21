@@ -106,7 +106,7 @@ var ImpMobile = {
         case 'compose-cancel':
         case 'compose-discard':
             HordeMobile.doAction('cancelCompose', {
-                discard: Number(view == 'compose-discard'),
+                discard: ~~(view == 'compose-discard'),
                 imp_compose: $('#imp-compose-cache').val()
             });
             ImpMobile.closeCompose();
@@ -945,7 +945,7 @@ var ImpMobile = {
                 view: ImpMobile.mailbox
             }), {
                 buid: buid,
-                spam: Number(action == 'spam')
+                spam: ~~(action == 'spam')
             })
         );
     },
@@ -1261,7 +1261,7 @@ var ImpMobile = {
             move ? 'moveMessages' : 'copyMessages',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
-                force: Number(move),
+                force: ~~(move),
                 view: source
             }), opts, {
                 buid: $('#imp-copymove-buid').val()

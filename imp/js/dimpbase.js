@@ -579,7 +579,7 @@ var DimpBase = {
                     } else if (this.search.flag) {
                         params.update({
                             qsearchflag: this.search.flag,
-                            qsearchflagnot: Number(this.search.not)
+                            qsearchflagnot: ~~(!!this.search.not)
                         });
                     } else {
                         params.set('qsearch', $F('horde-search-input'));
@@ -954,7 +954,7 @@ var DimpBase = {
         case 'ctx_mbox_flag_seen':
         case 'ctx_mbox_flag_unseen':
             DimpCore.doAction('flagAll', {
-                add: Number(id == 'ctx_mbox_flag_seen'),
+                add: ~~(id == 'ctx_mbox_flag_seen'),
                 flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
                 mbox: this.contextMbox(e).retrieve('mbox')
             });
@@ -1112,7 +1112,7 @@ var DimpBase = {
 
         case 'ctx_oa_hide_deleted':
         case 'ctx_oa_show_deleted':
-            this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
+            this.viewport.reload({ delhide: ~~(id == 'ctx_oa_hide_deleted') });
             break;
 
         case 'ctx_oa_clear_sort':
@@ -1988,7 +1988,7 @@ var DimpBase = {
     _toggleHeaders: function(elt, update)
     {
         if (update) {
-            DimpCore.setPref('toggle_hdrs', Number(!DimpCore.getPref('toggle_hdrs')));
+            DimpCore.setPref('toggle_hdrs', ~~(!DimpCore.getPref('toggle_hdrs')));
         }
         [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
@@ -3016,7 +3016,7 @@ var DimpBase = {
                 password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
                 password_base64: true,
                 remoteid: $F(elt.down('INPUT[name="remote_id"]')),
-                unsub: Number(this.showunsub)
+                unsub: ~~(!!this.showunsub)
             }, {
                 callback: function(r) {
                     if (r.success) {
@@ -3059,7 +3059,7 @@ var DimpBase = {
         case 'delete':
             this.viewaction = function(e) {
                 DimpCore.doAction('deleteMailbox', {
-                    container: Number(elt.hasClassName('imp-sidebar-container')),
+                    container: ~~elt.hasClassName('imp-sidebar-container'),
                     mbox: elt.retrieve('mbox'),
                     subfolders: e.element().down('[name=delete_subfolders]').getValue()
                 });
@@ -3383,9 +3383,9 @@ var DimpBase = {
                     );
                 }
                 this._listMboxes({
-                    all: Number(mode == 'expall'),
+                    all: ~~(mode == 'expall'),
                     base: base,
-                    expall: Number(mode == 'expall'),
+                    expall: ~~(mode == 'expall'),
                     mboxes: need
                 });
                 return;
@@ -3439,7 +3439,7 @@ var DimpBase = {
     _listMboxes: function(params)
     {
         params = params || {};
-        params.unsub = Number(this.showunsub);
+        params.unsub = ~~(!!this.showunsub);
         if (!Object.isArray(params.mboxes)) {
             params.mboxes = [ params.mboxes ];
         }
@@ -3770,7 +3770,7 @@ var DimpBase = {
         opts.loading = 'viewport';
         opts.vs = this._getSelection(opts);
 
-        if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
+        if (this._doMsgAction('reportSpam', opts, { spam: ~~(!!spam) })) {
             this.updateFlag(opts.vs, spam ? DimpCore.conf.FLAG_SPAM : DimpCore.conf.FLAG_INNOCENT, true);
         }
     },
@@ -3779,7 +3779,7 @@ var DimpBase = {
     // opts = 'mailbox', 'uid'
     blacklist: function(blacklist, opts)
     {
-        this._doMsgAction('blacklist', opts || {}, { blacklist: Number(blacklist) });
+        this._doMsgAction('blacklist', opts || {}, { blacklist: ~~(!!blacklist) });
     },
 
     // opts = 'mailbox', 'uid'
@@ -3813,7 +3813,7 @@ var DimpBase = {
 
         if (need) {
             DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
-                add: Number(add),
+                add: ~~(!!add),
                 flags: Object.toJSON([ flag ])
             })), {
                 uids: vs
@@ -3858,7 +3858,7 @@ var DimpBase = {
     modifyPoll: function(mbox, add)
     {
         DimpCore.doAction('modifyPoll', {
-            add: Number(add),
+            add: ~~(!!add),
             mbox: mbox
         }, {
             callback: this._modifyPollCallback.bind(this)

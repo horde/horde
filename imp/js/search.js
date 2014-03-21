@@ -454,13 +454,13 @@ var ImpSearch = {
             switch (this.data.types[this.criteria[c].t]) {
             case 'header':
             case 'text':
-                this.criteria[c].n = Number(!!$F($(c).down('INPUT[type=checkbox]')));
+                this.criteria[c].n = ~~(!!$F($(c).down('INPUT[type=checkbox]')));
                 this.criteria[c].v = $F($(c).down('INPUT[type=text]'));
                 data.push(this.criteria[c]);
                 break;
 
             case 'customhdr':
-                this.criteria[c].n = Number(!!$F($(c).down('INPUT[type=checkbox]')));
+                this.criteria[c].n = ~~(!!$F($(c).down('INPUT[type=checkbox]')));
                 this.criteria[c].v = { h: $F($(c).down('INPUT')), s: $F($(c).down('INPUT', 1)) };
                 data.push(this.criteria[c]);
                 break;
@@ -479,7 +479,7 @@ var ImpSearch = {
                     alert(this.text.need_date);
                     return;
                 }
-                this.criteria[c].n = Number(!!$F($(c).down('INPUT[type=checkbox]')));
+                this.criteria[c].n = ~~(!!$F($(c).down('INPUT[type=checkbox]')));
                 data.push(this.criteria[c]);
                 break;
 
@@ -489,12 +489,12 @@ var ImpSearch = {
                 break;
 
             case 'filter':
-                this.criteria[c].n = Number(!!$F($(c).down('INPUT[type=checkbox]')));
+                this.criteria[c].n = ~~(!!$F($(c).down('INPUT[type=checkbox]')));
                 data.push(this.criteria[c]);
                 break;
 
             case 'flag':
-                this.criteria[c].n = Number(!!$F($(c).down('INPUT[type=checkbox]')));
+                this.criteria[c].n = ~~(!!$F($(c).down('INPUT[type=checkbox]')));
                 data.push({
                     n: this.criteria[c].n,
                     t: 'flag',
