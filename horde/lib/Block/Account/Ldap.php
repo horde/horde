@@ -202,7 +202,7 @@ class Horde_Block_Account_Ldap extends Horde_Block_Account_Base
         try {
             $accountControl = $information->getValue('useraccountcontrol', 'single');
             $pwdlastset     = $information->getValue('pwdlastset', 'single');
-            $accountControl = $information[0]['useraccountcontrol'][0];
+            $accountControl = $information->getValue('useraccountcontrol', 'single');
             if (($accountControl & 65536) != 0) {
                 // ADS_UF_DONT_EXPIRE_PASSWD
                 return '';
