@@ -339,7 +339,7 @@ class Horde_PageOutput
             )));
         }
 
-        echo '<link type="image/x-icon" href="' . $img . '" rel="SHORTCUT ICON" />';
+        echo '<link type="image/x-icon" href="' . $img . '" rel="shortcut icon" />';
     }
 
     /**
