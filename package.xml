@@ -309,6 +309,7 @@ Bugs fixed:
     <api>beta</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2006-10-10</date>
    <notes>New Features:
 # Experimental new rendering method introduced that uses preg instead of char-by-char parsing
 ## Please test for both speed and memory usage
