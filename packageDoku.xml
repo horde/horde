@@ -1,109 +1,140 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageDoku.xml,v 1.4 2006-04-23 10:31:54 toggg Exp $ -->
-<package version="1.0">
-    <name>Text_Wiki_Doku</name>
-    <summary>Doku parser and renderer for Text_Wiki</summary>
-    <description>Parses DokuWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://wiki.splitbrain.org/wiki:syntax</description>
-    <maintainers>
-        <maintainer>
-            <user>justinpatrin</user>
-            <name>Justin Patrin</name>
-            <email>papercrane@reversefold.com</email>
-            <role>lead</role>
-        </maintainer>
-     </maintainers>
-    <release>
-        <version>0.0.1</version>
-        <date>2005-10-14</date>
-        <license>LGPL</license>
-        <state>alpha</state>
-        <notes>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_Doku</name>
+ <channel>pear.php.net</channel>
+ <summary>Doku parser and renderer for Text_Wiki</summary>
+ <description>Parses DokuWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://wiki.splitbrain.org/wiki:syntax
+ </description>
+ <lead>
+  <name>Justin Patrin</name>
+  <user>justinpatrin</user>
+  <email>papercrane@reversefold.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2014-03-22</date>
+ <time>10:20:06</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
 First released version of Text_Wiki_Doku.
-        </notes>
-        <filelist>
-            <file role="php" name="Text/Wiki/Doku.php" />
-            <file role="php" name="Text/Wiki/Render/Doku.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Wikilink.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Embed.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Code.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Tighten.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Heading.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Url.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Anchor.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Strong.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Image.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Tt.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Colortext.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Horiz.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Freelink.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Raw.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Superscript.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Bold.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Include.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Table.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Function.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Center.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Subscript.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Underline.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/List.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Deflist.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Break.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Newline.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Italic.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Toc.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Revise.php" />
-            <file role="php" name="Text/Wiki/Parse/Doku/Html.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Wikilink.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Embed.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Code.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Tighten.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Heading.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Url.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Anchor.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Strong.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Image.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Box.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Tt.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Colortext.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Horiz.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Freelink.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Raw.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Superscript.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Bold.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Include.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Table.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Function.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Center.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Subscript.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Underline.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/List.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Deflist.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Break.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Newline.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Italic.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Revise.php" />
-            <file role="php" name="Text/Wiki/Render/Doku/Html.php" />
-        </filelist>
-        <deps>
-            <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
-        </deps>
-    </release>
-  <changelog>
-  </changelog>
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="Doku">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Parse/Doku -->
+     </dir> <!-- //Text/Wiki/Parse -->
+     <dir name="Render">
+      <dir name="Doku">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Render/Doku -->
+      <file name="Doku.php" role="php" />
+     </dir> <!-- //Text/Wiki/Render -->
+     <file name="Doku.php" role="php" />
+    </dir> <!-- //Text/Wiki -->
+   </dir> <!-- //Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
 </package>
