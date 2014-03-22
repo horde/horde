@@ -282,7 +282,8 @@ var DimpBase = {
 
     setTitle: function(title, unread)
     {
-        document.title = (unread ? '(' + unread + ') ' : '') + DimpCore.conf.name + ' :: ' + title;
+        document.title = DimpCore.conf.name + ' :: ' + title;
+        Tinycon.setBubble(unread);
     },
 
     // id: (string) Either the ID of a sidebar element, or the name of a

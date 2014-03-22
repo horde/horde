@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Display unread message count in title via favicon bubbles, if browser
+      supports.
 [mms] Abstracted maillog code.
 [mms] Enable configuration of IMAP cache lifetime for Horde_Cache and
       Hashtable backends.
