@@ -93,10 +93,16 @@ This release has the following improvements:
  <phprelease />
  <changelog>
   <release>
-   <version>0.1.0</version>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
    <date>2006-04-10</date>
    <license>LGPL</license>
-   <state>alpha</state>
    <notes>
 Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
 It also takes advantage of the new Text_Wiki-1.1.0 engine.
