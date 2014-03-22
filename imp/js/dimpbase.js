@@ -1976,8 +1976,15 @@ var DimpBase = {
 
     clearPreviewPane: function()
     {
+        var pm = $('previewMsg');
+
+        if (pm.visible()) {
+            this._removeMouseEvents(
+                pm.hide().down('.msgHeaders').select('.address')
+            );
+        }
+
         this.loadingImg('msg', false);
-        $('previewMsg').hide();
         $('previewPane').scrollTop = 0;
 
         $('previewInfo').update(DimpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
