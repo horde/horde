@@ -714,11 +714,12 @@ class IMP_Imap implements Serializable
             break;
 
         case 'openMailbox':
-            if (IMP_Mailbox::get($params[0])->search) {
+            $mbox = IMP_Mailbox::get($params[0]);
+            if ($mbox->search) {
                 /* Can't open a search mailbox. */
                 return;
             }
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            $params[0] = $mbox->imap_mbox_ob;
             break;
 
         case 'search':
