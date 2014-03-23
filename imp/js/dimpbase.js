@@ -1524,8 +1524,8 @@ var DimpBase = {
         case 'ctx_flag':
         case 'ctx_flagunset':
             this.flags_o.each(function(f) {
-                if (this.flags[f].a) {
-                    this.contextAddFlag(f, this.flags[f], e.memo);
+                if (f.a) {
+                    this.contextAddFlag(f.id, f, e.memo);
                 }
             }, this);
 
@@ -1549,8 +1549,8 @@ var DimpBase = {
 
         case 'ctx_flag_search':
             this.flags_o.each(function(f) {
-                if (this.flags[f].s) {
-                    this.contextAddFlag(f, this.flags[f], e.memo);
+                if (f.s) {
+                    this.contextAddFlag(f.id, f, e.memo);
                 }
             }, this);
             break;
@@ -3296,11 +3296,10 @@ var DimpBase = {
     {
         $('ctx_flag', 'ctx_flagunset', 'ctx_flag_search').compact().invoke('remove');
         this.flags = {};
-        this.flags_o = [];
+        this.flags_o = r;
 
         r.each(function(f) {
             this.flags[f.id] = f;
-            this.flags_o.push(f.id);
         }, this);
     },
 
