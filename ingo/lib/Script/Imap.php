@@ -138,9 +138,11 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                     continue;
                 }
 
+                $addr = new Horde_Mail_Rfc822_List($addr);
+
                 $query = $this->_getQuery();
                 $or_ob = new Horde_Imap_Client_Search_Query();
-                foreach ($addr as $val) {
+                foreach ($addr->bare_addresses as $val) {
                     $ob = new Horde_Imap_Client_Search_Query();
                     $ob->headerText('from', $val);
                     $or_ob->orSearch(array($ob));
@@ -148,16 +150,24 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                 $query->andSearch(array($or_ob));
                 $indices = $api->search($query);
 
-                /* Remove any indices that got in there by way of partial
-                 * address match. */
                 if (!$msgs = $api->fetchEnvelope($indices)) {
                     continue;
                 }
 
+                /* Remove any indices that got in there by way of partial
+                 * address match. */
+                $remove = array();
                 foreach ($msgs as $v) {
-                    if (!$v->getEnvelope()->from->match($addr)) {
-                        $indices = array_diff($indices, array($v->getUid()));
+                    foreach ($v->getEnvelope()->from as $v2) {
+                        if (!$addr->contains($v2)) {
+                            $remove[] = $v->getUid();
+                            break;
+                        }
                     }
+                }
+
+                if ($remove) {
+                    $indices = array_diff($indices, $remove);
                 }
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
