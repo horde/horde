@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
 * [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
  </notes>
  <contents>
@@ -1344,6 +1345,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
 * [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
    </notes>
   </release>
