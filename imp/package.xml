@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-22</date>
+ <date>2014-03-23</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add mailbox size information retrieval to dynamic view (Request #12965).
 * [mms] Display unread message count in title via favicon bubbles, if browser supports.
 * [mms] Abstracted maillog code.
 * [mms] Enable configuration of IMAP cache lifetime for Horde_Cache and Hashtable backends.
@@ -408,6 +409,7 @@
      <file name="Generate.php" role="horde" />
      <file name="Import.php" role="horde" />
      <file name="Parse.php" role="horde" />
+     <file name="Size.php" role="horde" />
     </dir> <!-- /lib/Mbox -->
     <dir name="Message">
      <file name="Ui.php" role="horde" />
@@ -1788,6 +1790,7 @@
    <install as="imp/lib/Mbox/Generate.php" name="lib/Mbox/Generate.php" />
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
+   <install as="imp/lib/Mbox/Size.php" name="lib/Mbox/Size.php" />
    <install as="imp/lib/Message/Ui.php" name="lib/Message/Ui.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />

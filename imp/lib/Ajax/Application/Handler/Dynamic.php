@@ -1231,4 +1231,26 @@ extends Horde_Core_Ajax_Application_Handler
         return $out;
     }
 
+    /**
+     * AJAX action: Determine the size of a mailbox.
+     *
+     * Variables used:
+     *   - mbox: (string) The name of the mailbox to check (base64url
+     *           encoded).
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - size: (string) Formatted size string.
+     * </pre>
+     */
+    public function mailboxSize()
+    {
+        $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
+
+        $ret = new stdClass;
+        $ret->size = $mbox->size;
+
+        return $ret;
+    }
+
 }

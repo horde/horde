@@ -976,6 +976,21 @@ var DimpBase = {
             this._mailboxPromptCallback('unsubscribe', this.contextMbox(e));
             break;
 
+        case 'ctx_mbox_size':
+            tmp = this.contextMbox(e);
+            RedBox.loading();
+            DimpCore.doAction('mailboxSize', {
+                mbox: tmp.retrieve('mbox')
+            }, {
+                callback: function(r) {
+                    HordeDialog.display({
+                        noform: true,
+                        text: DimpCore.text.mboxsize.sub('%s', this.fullMboxDisplay(tmp)).sub('%s', r.size.escapeHTML())
+                    });
+                }.bind(this)
+            });
+            break;
+
         case 'ctx_mbox_acl':
             HordeCore.redirect(HordeCore.addURLParam(
                 DimpCore.conf.URI_PREFS_IMP,
