@@ -260,7 +260,7 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
      *
      * @param mixed $address  An e-mail address.
      *
-     * @return boolean  True of the e-mail address is contained in the list.
+     * @return boolean  True if the e-mail address is contained in the list.
      */
     public function contains($address)
     {
