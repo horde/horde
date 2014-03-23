@@ -610,9 +610,12 @@ $_prefs['compose_confirm'] = array(
 // See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
 // details on configuration
 $_prefs['ckeditor_buttons'] = array(
-    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
+    'value' => "[['Bold','Italic','Underline'],['Font','FontSize'],['TextColor','BGColor'],['Cut','Copy','Paste'],['Undo','Redo'],['Link','Unlink'],['Image','Table','Smiley','SpecialChar']]",
     // Use the following line for a very basic set of buttons:
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
+    // Use the following for a more advanced set of buttons (default for IMP
+    // < 6.2):
+    // 'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
 );
 
 $_prefs['signature_expanded'] = array(
