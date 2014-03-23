@@ -16,49 +16,44 @@
  * Application registry
  * --------------------
  * These settings are OPTIONAL:
+ *   - fileroot: (string) The base filesystem path for the module's files.
+ *               DEFAULT: Auto-determined based on this file's location.
+ *   - initial_page: (string) The initial page for the module.
+ *                   DEFAULT: index.php
+ *   - menu_parent: (string) The name of the 'heading' group that this app
+ *                  should show up under. Not-needed for top-level items.
+ *                  DEFAULT: null
+ *   - name: (string) The human-readable name used in menus and descriptions
+ *           for a module.
+ *           DEFAULT: None (any publicly viewable element SHOULD have this
+ *                    entry defined).
+ *   - status: (string) One of the following:
+ *     - active: [DEFAULT] Activate application.
+ *     - admin: Activate application, but only for admins.
+ *     - heading: Header label for application groups.
+ *     - hidden: Enable application, but hide.
+ *     - inactive: Disable application
+ *     - link: Add a link to an external url
+ *     - noadmin: Disable application for authenticated admins.
+ *     - topbar: Show in topbar only.
+ *   - webroot: (string) The base URI path for the module.
+ *              DEFAULT: Applications live one level below the base horde
+ *                       directory.
  *
- * fileroot: (string) The base filesystem path for the module's files.
- *           DEFAULT: Auto-determined based on this file's location.
- * initial_page: (string) The initial page for the module.
- *               DEFAULT: index.php
- * menu_parent: (string) The name of the 'heading' group that this app should
- *              show up under. Not-needed for top-level items.
- *              DEFAULT: null
- * name: (string) The human-readable name used in menus and descriptions for
- *       a module.
- *       DEFAULT: None (any publicly viewable element SHOULD have this entry
- *                defined).
- * status: (string) One of the following:
- *             active: Activate application.
- *             admin: Activate application, but only for admins.
- *             noadmin: Disable application for authenticated admins.
- *             heading: Header label for application groups.
- *             hidden: Enable application, but hide.
- *             inactive: Disable application
- *             link: Add a link to an external url
- *             notoolbar: TODO
- *             topbar: Show in topbar only.
- *         DEFAULT: 'active'
- * webroot: (string) The base URI path for the module.
- *          DEFAULT: Applications live one level below the base horde
- *          directory.
+ * These settings should not normally be changed from the defaults:
  *
- * These settings should not be changed from the defaults unless you *REALLY*
- * know what you are doing:
- *
- * icon: (string) The URI for an icon to show in menus for the module.
- *                Setting this will override the default theme-based logic in
- *                the code.
- * jsfs: (string) The base filesystem path for static javascript files.
- * jsuri: (string) The base URI for static javascript files.
- * provides: (mixed) Service types the module provides.
- * target: (string) The target frame for the link.
- * templates: (string) The filesystem path to the templates directory.
- * themesfs: (string) The base file system directory for the themes.
- * themesuri: (string) The base URI for the themes. This can be used to serve
- *            all icons and style sheets from a separate server.
- * url: (string) The URL of 'heading' entries.
- *
+ *   - icon: (string) The URI for an icon to show in menus for the module.
+ *           Setting this will override the default theme-based logic in the
+ *           code.
+ *   - jsfs: (string) The base filesystem path for static javascript files.
+ *   - jsuri: (string) The base URI for static javascript files.
+ *   - provides: (mixed) Service types the module provides.
+ *   - target: (string) The target frame for the link.
+ *   - templates: (string) The filesystem path to the templates directory.
+ *   - themesfs: (string) The base file system directory for the themes.
+ *   - themesuri: (string) The base URI for the themes. This can be used to
+ *                serve all icons and style sheets from a separate server.
+ *   - url: (string) The URL of 'heading' entries.
  */
 
 // By default, applications are assumed to live within the base Horde
