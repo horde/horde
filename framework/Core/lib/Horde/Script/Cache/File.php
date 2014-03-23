@@ -99,9 +99,9 @@ class Horde_Script_Cache_File extends Horde_Script_Cache
             json_encode($hashes) . $mtime
         );
 
-        $js_filename = '/static/' . $sig . '.js';
-        $js_path = $registry->get('fileroot', 'horde') . $js_filename;
-        $js_url = $registry->get('webroot', 'horde') . $js_filename;
+        $js_filename = $sig . '.js';
+        $js_path = $registry->get('staticfs', 'horde') . '/' . $js_filename;
+        $js_url = $registry->get('staticuri', 'horde') . '/' . $js_filename;
 
         $out = array($js_url);
 

@@ -42,8 +42,8 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
             (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
             json_encode($css) . $cacheid
         );
-        $filename = '/static/' . $sig . '.css';
-        $path = $registry->get('fileroot', 'horde') . $filename;
+        $filename = $sig . '.css';
+        $path = $registry->get('staticfs', 'horde') . '/' . $filename;
 
         if (!file_exists($path)) {
             $compress = new Horde_Themes_Css_Compress();
@@ -54,7 +54,7 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
         }
 
         return array(
-             Horde::url($registry->get('webroot', 'horde') . $filename, true, array('append_session' => -1))
+             Horde::url($registry->get('staticuri', 'horde') . '/' . $filename, true, array('append_session' => -1))
          );
     }
 
