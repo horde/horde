@@ -39,18 +39,21 @@ extends Horde_Core_Ajax_Application_Handler
      *   - mbox: (string) The name of the mailbox to check (base64url
      *           encoded).
      *
-     * @return boolean  True if submailboxes can be created.
+     * @return object  Object with the following properties:
+     *   - result: (boolean) True if submailboxes can be created.
      */
     public function createMailboxPrepare()
     {
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
+        $ret = new stdClass;
+        $ret->result = true;
 
-        if ($mbox->access_creatembox) {
-            return true;
+        if (!$mbox->access_creatembox) {
+            $GLOBALS['notification']->push(sprintf(_("You may not create child mailboxes in \"%s\"."), $mbox->display), 'horde.error');
+            $ret->result = false;
         }
 
-        $GLOBALS['notification']->push(sprintf(_("You may not create child mailboxes in \"%s\"."), $mbox->display), 'horde.error');
-        return false;
+        return $ret;
     }
 
     /**
@@ -96,14 +99,17 @@ extends Horde_Core_Ajax_Application_Handler
      *           encoded).
      *   - type: (string) Either 'delete' or 'rename'.
      *
-     * @return boolean  True if mailbox can be deleted/renamed.
+     * @return object  Object with the following properties:
+     *   - result: (boolean) True if mailbox can be deleted/renamed.
      */
     public function deleteMailboxPrepare()
     {
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
+        $ret = new stdClass;
 
         if ($mbox->access_deletembox) {
-            return true;
+            $ret->result = true;
+            return $ret;
         }
 
         switch ($this->vars->type) {
@@ -116,7 +122,8 @@ extends Horde_Core_Ajax_Application_Handler
             break;
         }
 
-        return false;
+        $ret->result = false;
+        return $ret;
     }
 
     /**
@@ -177,24 +184,25 @@ extends Horde_Core_Ajax_Application_Handler
      *   - mbox: (string) The name of the mailbox to check (base64url
      *           encoded).
      *
-     * @return integer  The number of messages to be deleted.
+     * @return object  Object with the following properties:
+     *   - result: (integer) The number of messages to be deleted.
      */
     public function emptyMailboxPrepare()
     {
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
+        $res = new stdClass;
+        $res->result = 0;
 
         if (!$mbox->access_empty) {
             $GLOBALS['notification']->push(sprintf(_("The mailbox \"%s\" may not be emptied."), $mbox->display), 'horde.error');
-            return 0;
+        } else {
+            $poll_info = $mbox->poll_info;
+            if (!($res->result = $poll_info->msgs)) {
+                $GLOBALS['notification']->push(sprintf(_("The mailbox \"%s\" is already empty."), $mbox->display), 'horde.message');
+            }
         }
 
-        $poll_info = $mbox->poll_info;
-        if (empty($poll_info->msgs)) {
-            $GLOBALS['notification']->push(sprintf(_("The mailbox \"%s\" is already empty."), $mbox->display), 'horde.message');
-            return 0;
-        }
-
-        return $poll_info->msgs;
+        return $res;
     }
 
     /**

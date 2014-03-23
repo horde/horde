@@ -868,6 +868,7 @@ var DimpBase = {
         case 'ctx_mbox_create':
         case 'ctx_remoteauth_create':
             tmp = this.contextMbox(e);
+            RedBox.loading();
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
@@ -878,6 +879,7 @@ var DimpBase = {
         case 'ctx_container_rename':
         case 'ctx_mbox_rename':
             tmp = this.contextMbox(e);
+            RedBox.loading();
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
                 type: 'rename'
@@ -888,6 +890,7 @@ var DimpBase = {
 
         case 'ctx_mbox_empty':
             tmp = this.contextMbox(e);
+            RedBox.loading();
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
@@ -902,6 +905,7 @@ var DimpBase = {
         case 'ctx_mbox_delete':
         case 'ctx_vfolder_delete':
             tmp = this.contextMbox(e);
+            RedBox.loading();
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
                 type: 'delete'
@@ -3076,43 +3080,59 @@ var DimpBase = {
     {
         switch (type) {
         case 'create':
-            this._createMboxForm(elt, 'createsub', DimpCore.text.createsub_prompt.sub('%s', this.fullMboxDisplay(elt)));
+            if (r.result) {
+                this._createMboxForm(elt, 'createsub', DimpCore.text.createsub_prompt.sub('%s', this.fullMboxDisplay(elt)));
+            } else {
+                RedBox.close();
+            }
             break;
 
         case 'delete':
-            this.viewaction = function(e) {
-                DimpCore.doAction('deleteMailbox', {
-                    container: ~~elt.hasClassName('imp-sidebar-container'),
-                    mbox: elt.retrieve('mbox'),
-                    subfolders: e.element().down('[name=delete_subfolders]').getValue()
+            if (r.result) {
+                this.viewaction = function(e) {
+                    DimpCore.doAction('deleteMailbox', {
+                        container: ~~elt.hasClassName('imp-sidebar-container'),
+                        mbox: elt.retrieve('mbox'),
+                        subfolders: e.element().down('[name=delete_subfolders]').getValue()
+                    });
+                };
+                HordeDialog.display({
+                    form: new Element('DIV').insert(
+                        new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
+                    ).insert(
+                        DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
+                    ),
+                    form_id: 'dimpbase_confirm',
+                    text: elt.hasClassName('imp-sidebar-container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(elt))
                 });
-            };
-            HordeDialog.display({
-                form: new Element('DIV').insert(
-                    new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
-                ).insert(
-                    DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
-                ),
-                form_id: 'dimpbase_confirm',
-                text: elt.hasClassName('imp-sidebar-container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(elt))
-            });
+            } else {
+                RedBox.close();
+            }
             break;
 
         case 'empty':
-            this.viewaction = function() {
-                DimpCore.doAction('emptyMailbox', {
-                    mbox: elt.retrieve('mbox')
+            if (r.result) {
+                this.viewaction = function() {
+                    DimpCore.doAction('emptyMailbox', {
+                        mbox: elt.retrieve('mbox')
+                    });
+                };
+                HordeDialog.display({
+                    form_id: 'dimpbase_confirm',
+                    noinput: true,
+                    text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(elt)).sub('%d', r)
                 });
-            };
-            HordeDialog.display({
-                form_id: 'dimpbase_confirm',
-                noinput: true,
-                text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(elt)).sub('%d', r)
-            });
+            } else {
+                RedBox.close();
+            }
             break;
 
         case 'rename':
-            this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', this.fullMboxDisplay(elt)), elt.retrieve('l').unescapeHTML());
+            if (r.result) {
+                this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', this.fullMboxDisplay(elt)), elt.retrieve('l').unescapeHTML());
+            } else {
+                RedBox.close();
+            }
             break;
 
         case 'subscribe':
@@ -4125,6 +4145,18 @@ var DimpBase = {
     onAjaxException: function()
     {
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
+    },
+
+    onAjaxFailure: function()
+    {
+        switch (e.memo[0].request.action) {
+        case 'createMailboxPrepare':
+        case 'deleteMailboxPrepare':
+        case 'emptyMailboxPrepare':
+        case 'mailboxSize':
+            RedBox.close();
+            break;
+        }
     }
 
 };
@@ -4202,6 +4234,7 @@ document.observe('HordeDialog:close', DimpBase.dialogCloseHandler.bind(DimpBase)
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
+document.observe('HordeCore:ajaxFailure', DimpBase.onAjaxFailure.bind(DimpBase));
 document.observe('HordeCore:runTasks', function(e) {
     DimpBase.tasksHandler(e.memo);
 });
