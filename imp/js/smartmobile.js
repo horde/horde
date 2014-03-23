@@ -518,17 +518,14 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        if (!ob) {
-            if (ImpMobile.mailbox) {
-                HordeMobile.doAction(
-                    'viewPort',
-                    ImpMobile.addViewportParams({
-                        checkcache: 1,
-                        view: ImpMobile.mailbox
-                    })
-                );
-            }
-            return;
+        if (!ob && (HordeMobile.currentPage() != 'folders')) {
+            HordeMobile.doAction(
+                'viewPort',
+                ImpMobile.addViewportParams({
+                    checkcache: 1,
+                    view: ImpMobile.mailbox
+                })
+            );
         }
 
         if (HordeMobile.currentPage() != 'mailbox') {
@@ -989,9 +986,6 @@ var ImpMobile = {
         ImpMobile.composeatc = [];
         ImpMobile.composetype = purl.params.type;
 
-        // Prevent mailbox refreshes.
-        delete ImpMobile.mailbox;
-
         switch (purl.params.type) {
         case 'reply':
         case 'reply_all':
@@ -1199,8 +1193,6 @@ var ImpMobile = {
             { all: ImpMobile.showAllFolders() },
             function(r) {
                 ImpMobile.foldersLoaded = true;
-                // Prevent mailbox refreshes.
-                delete ImpMobile.mailbox;
                 $('#imp-folders-list').html(r).listview('refresh');
             }
         );
