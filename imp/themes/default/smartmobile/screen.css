@@ -79,7 +79,7 @@
         display: inline-block;
         width: 78%;
     }
-    #imp-compose-to, #imp-compose-cc {
+    .imp-compose-addr-div div.ui-input-text {
         width: 100%;
     }
 }
