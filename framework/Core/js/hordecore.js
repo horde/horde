@@ -68,7 +68,8 @@ var HordeCore = {
         params = $H(params).clone();
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {}),
+            request;
 
         if (this.regenerate_sid) {
             ajaxopts.asynchronous = false;
@@ -86,7 +87,13 @@ var HordeCore = {
             this.doActionComplete(action, t, opts);
         }.bind(this);
 
-        return new Ajax.Request((opts.uri ? opts.uri : this.conf.URI_AJAX) + action, ajaxopts);
+        request = new Ajax.Request(
+            (opts.uri ? opts.uri : this.conf.URI_AJAX) + action,
+            ajaxopts
+        );
+        request.action = action;
+
+        return request;
     },
 
     // form: (Element) DOM Element (or DOM ID)
