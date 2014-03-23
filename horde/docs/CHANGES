@@ -2,6 +2,8 @@
 v5.2.0-git
 ----------
 
+[mms] The location of dynamically served static files is now configurable
+      (Request #13070).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>.
 [mms] Add a NoSQL driver for history storage.
 [mms] The history driver can now be configured via conf.php.

@@ -48,6 +48,10 @@
  *   - jsfs: (string) The base filesystem path for static javascript files.
  *   - jsuri: (string) The base URI for static javascript files.
  *   - provides: (mixed) Service types the module provides.
+ *   - staticfs: (string) The filesystem path for dynamically created files
+ *               to be statically served.
+ *   - staticuri: (string) The URI for the dynamically created files to be
+ *                statically served.
  *   - target: (string) The target frame for the link.
  *   - templates: (string) The filesystem path to the templates directory.
  *   - themesfs: (string) The base file system directory for the themes.
