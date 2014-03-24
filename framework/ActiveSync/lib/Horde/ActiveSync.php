@@ -324,7 +324,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    static protected $_version = 14.1;
+    static protected $_version;
 
     /**
      * Multipart support?
