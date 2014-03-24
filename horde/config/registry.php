@@ -35,6 +35,8 @@
  *     - inactive: Disable application
  *     - link: Add a link to an external url
  *     - noadmin: Disable application for authenticated admins.
+ *     - notoolbar: Activate application, but hide from menus and drop down
+ *                  lists
  *     - topbar: Show in topbar only.
  *   - webroot: (string) The base URI path for the module.
  *              DEFAULT: Applications live one level below the base horde
