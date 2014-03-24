@@ -216,13 +216,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     /**
      * Const'r
      *
-     * @param array $options  Configuration options for the message:
-     *   - logger: (Horde_Log_Logger)  A logger instance
-     *             DEFAULT: none (No logging).
-     *   - protocolversion: (float)  The version of EAS to support.
-     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
-     *
-     * @return Horde_ActiveSync_Message_Base
+     * @see Horde_ActiveSync_Message_Base::__construct()
      */
     public function __construct(array $options = array())
     {

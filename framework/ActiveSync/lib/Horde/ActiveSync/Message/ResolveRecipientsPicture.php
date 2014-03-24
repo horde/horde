@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_ActiveSync_Message_ResolveRecipients::
+ * Horde_ActiveSync_Message_ResolveRecipientsPicture::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -12,8 +12,8 @@
  * @package   ActiveSync
  */
 /**
- * Horde_ActiveSync_Message_ResolveRecipientsPicture:: Encapsulate the data to send in a
- * RESOLVERECIPIENTS response.
+ * Horde_ActiveSync_Message_ResolveRecipientsPicture:: Encapsulate the picture
+ * data to send in a RESOLVERECIPIENTS response.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -23,6 +23,9 @@
  * @copyright 2013-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property integer status       The status of the recipient's picture.
+ * @property string|stream  data  The picture data.
  *
  */
 class Horde_ActiveSync_Message_ResolveRecipientsPicture extends Horde_ActiveSync_Message_Base

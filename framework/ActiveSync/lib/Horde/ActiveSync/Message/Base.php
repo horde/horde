@@ -101,6 +101,7 @@ class Horde_ActiveSync_Message_Base
      * The device object
      *
      * @var Horde_ActiveSync_Device
+     * @since 2.9.2
      */
     protected $_device;
 
@@ -112,7 +113,7 @@ class Horde_ActiveSync_Message_Base
      *             DEFAULT: none (No logging).
      *   - protocolversion: (float)  The version of EAS to support.
      *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
-     *   - device: (Horde_ActiveSync_Device)  The device object. @since
+     *   - device: (Horde_ActiveSync_Device)  The device object. @since 2.9.2
      *
      * @return Horde_ActiveSync_Message_Base
      */

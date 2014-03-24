@@ -38,6 +38,16 @@
  * @copyright 2013-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string clientid      The client's temporary clientid for this item.
+ * @property boolean saveinsent   Flag to indicate whether to save in sent mail.
+ * @property boolean replacemime  Flag to indicate we are replacing the full
+ *                                MIME data (i.e., not a SMART item).
+ * @property string accountid     The accountid.
+ * @property Horde_ActiveSync_Message_SendMailSource source
+ *                                The email source.
+ * @property string|stream mime   The MIME contents of the message.
+ * @property string templateid    The templateid.
  */
 class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
 {
