@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression that broke synchronization in clients that don&apos;t support EAS 14.1 (Bug #13038).
 * [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
  </notes>
  <contents>
@@ -2028,6 +2029,7 @@
    <date>2014-03-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression that broke synchronization in clients that don&apos;t support EAS 14.1 (Bug #13038).
 * [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
    </notes>
   </release>
