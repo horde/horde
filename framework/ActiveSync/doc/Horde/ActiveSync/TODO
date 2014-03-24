@@ -45,3 +45,6 @@ BC BREAKING (i.e., Horde 6).
 
 - Refactor out the need for the various static ::_* properties in the main
   ActiveSync class.
+
+- Change the readable names of the WBXML tags to reflect what they are called
+  in the MS-AS* documents, and not what Z-Push's developers decided to call them.
