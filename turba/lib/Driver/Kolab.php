@@ -334,14 +334,16 @@ class Turba_Driver_Kolab extends Turba_Driver
 
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
-                $contact['photo'] = new Horde_Stream_Existing(array(
-                    'stream' => $this->_getData()
-                        ->getAttachment($backendId, $name)
-                ));
-                foreach ($contact['_attachments']['type'] as $type => $list) {
-                    if (array_search($name, $list) !== false) {
-                        $contact['phototype'] = $type;
-                        break;
+                $stream = $this->_getData()->getAttachment($backendId, $name);
+                if ($stream) {
+                    $contact['photo'] = new Horde_Stream_Existing(array(
+                        'stream' => $stream
+                    ));
+                    foreach ($contact['_attachments']['type'] as $type => $list) {
+                        if (array_search($name, $list) !== false) {
+                            $contact['phototype'] = $type;
+                            break;
+                        }
                     }
                 }
             }
