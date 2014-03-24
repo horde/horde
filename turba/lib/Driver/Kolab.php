@@ -829,11 +829,13 @@ class Turba_Driver_Kolab extends Turba_Driver
             $data = $this->_getListData();
         } else {
             if (isset($attributes['photo']) && isset($attributes['phototype'])) {
-                $attributes['_attachments']['photo.attachment'] = array(
+                $filename = 'photo.'
+                    . Horde_Mime_Magic::mimeToExt($attributes['phototype']);
+                $attributes['_attachments'][$filename] = array(
                     'type' => $attributes['phototype'],
                     'content' => Horde_Stream_Wrapper_String::getStream($attributes['photo'])
                 );
-                $attributes['picture'] = 'photo.attachment';
+                $attributes['picture'] = $filename;
                 unset($attributes['photo'], $attributes['phototype']);
             }
 

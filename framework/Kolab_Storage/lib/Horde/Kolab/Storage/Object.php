@@ -321,7 +321,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 $part = new Horde_Mime_Part();
                 $part->setType($attachment['type']);
                 $part->setContents($attachment['content']);
-                $part->setContentId($name);
+                $part->setName($name);
                 $envelope->addPart($part);
             }
         }
@@ -383,10 +383,10 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             $this->addParseError(self::ERROR_INVALID_KOLAB_PART, $result->getMessage());
         } else {
             foreach ($structure->getParts() as $part) {
-                if ($part->getMimeId() == $result[0] || !$part->getContentId()) {
+                if ($part->getMimeId() == $result[0] || !$part->getName()) {
                     continue;
                 }
-                $this->_data['_attachments'][$part->getContentId()] = array(
+                $this->_data['_attachments'][$part->getName()] = array(
                     'type' => $part->getType(),
                     'content' => $this->_getDriver()->fetchBodypart(
                             $this->_getFolder(),
@@ -440,7 +440,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 $part = new Horde_Mime_Part();
                 $part->setType($attachment['type']);
                 $part->setContents($attachment['content']);
-                $part->setContentId($name);
+                $part->setName($name);
                 $body->addPart($part);
             }
         }
