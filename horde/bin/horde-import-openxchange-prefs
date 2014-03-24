@@ -74,7 +74,7 @@ $prefsMap = array(
         'modules/mail/addresses' => function($v) {
             global $ox;
             $default = $ox->getConfig('mail/defaultaddress');
-            $signatures = $ox->getConfig('mail/signatures');
+            $signatures = $ox->getConfig('modules/mail/signatures');
             $identities = array();
             $id = 0;
             foreach ($v as $address) {
