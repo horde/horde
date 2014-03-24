@@ -366,7 +366,7 @@ class Horde_ActiveSync_SyncCache
             $this->_user,
             array('collections')
         );
-        $cache_collections = $syncCache['collections'];
+        $cache_collections = !is_array($syncCache['collections']) ? array() : $syncCache['collections'];
         foreach ($cache_collections as $id => $cache_collection) {
             if (!isset($cache_collection['lastsynckey'])) {
                 continue;
