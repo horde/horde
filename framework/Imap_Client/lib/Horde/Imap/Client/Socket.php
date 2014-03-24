@@ -347,8 +347,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _login()
     {
+        $secure = $this->getParam('secure');
+
         if (!empty($this->_temp['preauth'])) {
             unset($this->_temp['preauth']);
+
+            /* Don't allow PREAUTH if we are requring secure access, since
+             * PREAUTH cannot provide secure access. */
+            if (!$this->isSecureConnection() && ($secure !== false)) {
+                $this->logout();
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Could not open secure TLS connection to the IMAP server."),
+                    Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
+                );
+            }
+
             return $this->_loginTasks();
         }
 
@@ -364,7 +377,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_connect();
 
         $first_login = empty($this->_init['authmethod']);
-        $secure = $this->getParam('secure');
 
         // Switch to secure channel if using TLS.
         if (!$this->isSecureConnection() &&

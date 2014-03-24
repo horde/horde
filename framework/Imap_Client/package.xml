@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Don&apos;t allow PREAUTH on unencrypted connection if a secure connection (e.g. STARTTLS) is requested.
 * [mms] Password is no longer a necessary parameter.
  </notes>
  <contents>
@@ -2317,6 +2318,7 @@
    <date>2014-03-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Don&apos;t allow PREAUTH on unencrypted connection if a secure connection (e.g. STARTTLS) is requested.
 * [mms] Password is no longer a necessary parameter.
    </notes>
   </release>
