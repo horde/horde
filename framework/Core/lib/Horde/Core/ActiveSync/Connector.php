@@ -256,6 +256,7 @@ class Horde_Core_ActiveSync_Connector
      *                DEFAULT: none (No body prefs enforced).
      *   - truncation: (integer)  Truncate event body to this length
      *                 DEFAULT: none (No truncation).
+     *   - device: (Horde_ActiveSync_Device) The device object.
      *
      * @return Horde_ActiveSync_Message_Contact  The contact object.
      */

@@ -1200,7 +1200,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
                     'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
-                    'mimesupport' => $collection['mimesupport']));
+                    'mimesupport' => $collection['mimesupport'],
+                    'device' => $this->_device));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
