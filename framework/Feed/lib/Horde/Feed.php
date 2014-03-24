@@ -131,10 +131,10 @@ class Horde_Feed
         libxml_use_internal_errors(true);
         $doc = new DOMDocument;
         $doc->recover = true;
-        $filename = urlencode($filename);
-        $loaded = $doc->loadXML(file_get_contents($filename));
+        $contents = file_get_contents($filename);
+        $loaded = $doc->loadXML($contents);
         if (!$loaded) {
-            $loaded = $doc->loadHTMLFile($filename);
+            $loaded = $doc->loadHTML($contents);
             if (!$loaded) {
                 self::_exception('File could not be read or parsed', libxml_get_last_error());
             }
