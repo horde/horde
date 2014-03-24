@@ -2509,6 +2509,7 @@ class Turba_Driver implements Countable
      *                DEFAULT: none (No body prefs enforced).
      *   - truncation: (integer)  Truncate event body to this length
      *                 DEFAULT: none (No truncation).
+     *   - device: (Horde_ActiveSync_Device) The device object.
      *
      * @return Horde_ActiveSync_Message_Contact
      */
@@ -2519,7 +2520,7 @@ class Turba_Driver implements Countable
         $message = new Horde_ActiveSync_Message_Contact(array(
             'logger' => $injector->getInstance('Horde_Log_Logger'),
             'protocolversion' => $options['protocolversion'],
-            'device' => $options['device']
+            'device' => !empty($options['device']) ? $options['device'] : null
         ));
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
