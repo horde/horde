@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Http
  */
-class Horde_Http_Request_PeclhttpV2 extends Horde_Http_Request_PeclhttpBase
+class Horde_Http_Request_Peclhttp2 extends Horde_Http_Request_PeclhttpBase
 {
     /**
      * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
@@ -83,6 +83,6 @@ class Horde_Http_Request_PeclhttpV2 extends Horde_Http_Request_PeclhttpBase
             throw new Horde_Http_Exception($e);
         }
 
-        return new Horde_Http_Response_PeclhttpV2($this->uri, $httpResponse);
+        return new Horde_Http_Response_Peclhttp2($this->uri, $httpResponse);
     }
 }

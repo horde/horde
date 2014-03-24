@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Http
  */
-class Horde_Http_Request_PeclhttpV1 extends Horde_Http_Request_PeclhttpBase
+class Horde_Http_Request_Peclhttp extends Horde_Http_Request_PeclhttpBase
 {
     /**
      * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.

@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Http
  */
-class Horde_Http_Response_PeclhttpV2 extends Horde_Http_Response_Base
+class Horde_Http_Response_Peclhttp2 extends Horde_Http_Response_Base
 {
     /**
      * HttpMessage object.
