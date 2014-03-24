@@ -263,12 +263,7 @@ var DimpCompose = {
             DimpCore.doAction(
                 action,
                 ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
-                {
-                    ajaxopts: {
-                        onFailure: this.uniqueSubmitFailure.bind(this)
-                    },
-                    callback: this.uniqueSubmitCallback.bind(this)
-                }
+                { callback: this.uniqueSubmitCallback.bind(this) }
             );
 
             // Can't disable until we send the message - or else nothing
@@ -346,14 +341,6 @@ var DimpCompose = {
         }
 
         this.setDisabled(false);
-    },
-
-    uniqueSubmitFailure: function(t, o)
-    {
-        if (this.disabled) {
-            this.setDisabled(false);
-            HordeCore.onFailure(t, o);
-        }
     },
 
     setDisabled: function(disable)
@@ -1467,6 +1454,28 @@ var DimpCompose = {
         } else {
             this.resizeMsgArea();
         }
+    },
+
+    onAjaxFailure: function(e)
+    {
+        switch (e.memo[0].request.action) {
+        case 'redirectMessage':
+        case 'saveDraft':
+        case 'saveTemplate':
+        case 'sendMessage':
+            if (this.disabled) {
+                this.setDisabled(false);
+            }
+            break;
+        }
+
+        if (this.uploading) {
+            this.addAttachmentEnd();
+        }
+
+        if ($('rteloading') && $('rteloading').visible()) {
+            this.RTELoading('hide');
+        }
     }
 
 };
@@ -1500,12 +1509,4 @@ document.observe('HordeCore:runTasks', function(e) {
 });
 
 /* AJAX related events. */
-document.observe('HordeCore:ajaxFailure', function(e) {
-    if (DimpCompose.uploading) {
-        DimpCompose.addAttachmentEnd();
-    }
-
-    if ($('rteloading') && $('rteloading').visible()) {
-        this.RTELoading('hide');
-    }
-}.bindAsEventListener(DimpCompose));
+document.observe('HordeCore:ajaxFailure', DimpCompose.onAjaxFailure.bindAsEventListener(DimpCompose));
