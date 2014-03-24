@@ -428,13 +428,35 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 )
             );
         }
+
+        // Replace Kolab part.
         $original = $body->getPart($mime_id);
         $original->setContents(
-            $this->_getDriver()->fetchBodypart($this->_getFolder(), $this->getBackendId(), $mime_id)
+            $this->_getDriver()->fetchBodypart(
+                $this->_getFolder(),
+                $this->getBackendId(),
+                $mime_id
+            )
         );
         $this->_content = $original->getContents(array('stream' => true));
-
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
+
+        // Delete old attachments in reverse orde, because mime ids are
+        // refreshed after each removal..
+        $delete = array();
+        foreach ($body->getParts() as $part) {
+            if ($part->getMimeId() == $mime_id ||
+                $part->getMimeId() == 1 ||
+                !$part->getName()) {
+                continue;
+            }
+            $delete[] = $part->getMimeId();
+        }
+        foreach (array_reverse($delete) as $partId) {
+            $body->removePart($partId);
+        }
+
+        // Add new attachments.
         if (isset($this['_attachments'])) {
             foreach ($this['_attachments'] as $name => $attachment) {
                 $part = new Horde_Mime_Part();
@@ -444,11 +466,15 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 $body->addPart($part);
             }
         }
+
+        // Rebuild mime ids.
         $body->buildMimeIds();
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );
         $old_uid = $this->getBackendId();
+
+        // Save message.
         $result = $this->_appendMessage($body, $headers);
         $this->_getDriver()->deleteMessages($this->_getFolder(), array($old_uid));
         $this->_getDriver()->expunge($this->_getFolder());
