@@ -19,8 +19,6 @@
 
  - [LIST] Decide on private share annotation data.
 
- - [DATA] Handle attachments / VFS
-
  - [DATA] Change synchronization machinery so that it does not only
    synchronize one data type but all data types in a folder. While at
    the same time optimizing single data retrieval.
