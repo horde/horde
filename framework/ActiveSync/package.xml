@@ -12,7 +12,7 @@
  </lead>
  <date>2014-03-24</date>
  <version>
-  <release>2.13.3</release>
+  <release>2.13.4</release>
   <api>2.13.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix regression that broke synchronization in clients that don&apos;t support EAS 14.1 (Bug #13038).
-* [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2031,6 +2030,19 @@
    <notes>
 * [mjr] Fix regression that broke synchronization in clients that don&apos;t support EAS 14.1 (Bug #13038).
 * [jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug #13043).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.4</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-03-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
