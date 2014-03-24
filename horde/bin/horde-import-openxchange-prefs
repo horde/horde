@@ -97,10 +97,18 @@ $prefsMap = array(
             return array('use_trash' => !$v);
         },
         'modules/mail/emoticons' => 'emoticons',
-        'modules/mail/defaultFolder/drafts' => 'drafts_folder',
-        'modules/mail/defaultFolder/sent' => 'sent_mail_folder',
-        'modules/mail/defaultFolder/spam' => 'spam_folder',
-        'modules/mail/defaultFolder/trash' => 'trash_folder',
+        'modules/mail/defaultFolder/drafts' => function($v) {
+            return array('drafts_folder', str_replace('default0/', $v));
+        },
+        'modules/mail/defaultFolder/sent' => function($v) {
+            return array('sent_mail_folder', str_replace('default0/', $v));
+        },
+        'modules/mail/defaultFolder/spam' => function($v) {
+            return array('spam_folder',, str_replace('default0/', $v));
+        },
+        'modules/mail/defaultFolder/trash' => function($v) {
+            return array('trash_folder',, str_replace('default0/', $v));
+        },
         'modules/mail/forwardmessage' => function($v) {
             return array('forward_default' => $v ? 'attach' : 'body');
         },
@@ -149,16 +157,14 @@ while ($row = fgetcsv($fp, 0, ' ')) {
                     if (is_bool($value)) {
                         $value = (int)$value;
                     }
-                    $cli->writeln("$key: $value");
-                    //$prefs->setValue($key, $value);
+                    $prefs->setValue($key, $value);
                     $count++;
                 }
             } else {
                 if (is_bool($value)) {
                     $value = (int)$value;
                 }
-                $cli->writeln("$target: ". $value);
-                //$prefs->setValue($target, $ox->getConfig($name));
+                $prefs->setValue($target, $ox->getConfig($name));
                 $count++;
             }
         }
