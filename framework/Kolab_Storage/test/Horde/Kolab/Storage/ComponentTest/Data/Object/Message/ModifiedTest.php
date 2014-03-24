@@ -59,12 +59,27 @@ extends PHPUnit_Framework_TestCase
         );
         $object->save($writer);
         $result = $driver->messages['INBOX'][2];
-        $result = preg_replace('/Date: .*/', 'Date: ', $result);
-        $result = preg_replace('/boundary=".*"/', 'boundary=""', $result);
-        $result = preg_replace('/--=_.*/', '--=_', $result);
-        $result = preg_replace('/<creation-date>[^<]*/', '<creation-date>', $result);
-        $result = preg_replace('/<last-modification-date>[^<]*/', '<last-modification-date>', $result);
-        $result = preg_replace('/\r\n/', "\n", $result);
+        $result = preg_replace(
+            array(
+                '/=20/',
+                '/Date: .*/',
+                '/boundary=".*"/',
+                '/--=_.*/',
+                '/<creation-date>[^<]*/',
+                '/<last-modification-date>[^<]*/',
+                '/\r\n/',
+            ),
+            array(
+                ' ',
+                'Date: ',
+                'boundary=""',
+                '--=_',
+                '<creation-date>',
+                '<last-modification-date>',
+                "\n",
+            ),
+            $result
+        );
         $this->assertEquals(
             'From: user
 To: user
@@ -99,8 +114,8 @@ Content-Transfer-Encoding: quoted-printable
   <creation-date></creation-date>
   <last-modification-date></last-modification-date>
   <sensitivity>public</sensitivity>
-  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id=
->
+  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</=
+product-id>
   <summary>NEW</summary>
   <x-test>other client</x-test>
   <background-color>#000000</background-color>
