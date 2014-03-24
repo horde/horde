@@ -714,11 +714,12 @@ class IMP_Imap implements Serializable
             break;
 
         case 'openMailbox':
-            if (IMP_Mailbox::get($params[0])->search) {
+            $mbox = IMP_Mailbox::get($params[0]);
+            if ($mbox->search) {
                 /* Can't open a search mailbox. */
                 return;
             }
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            $params[0] = $mbox->imap_mbox_ob;
             break;
 
         case 'search':
@@ -729,7 +730,7 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
-            Horde::log($e->raw_msg, 'WARN');
+            Horde::log(sprintf('[%s] %s', $method, $e->raw_msg), 'WARN');
             $error = new IMP_Imap_Exception($e);
             throw ($auth_e = $error->authException(false))
                 ? $auth_e

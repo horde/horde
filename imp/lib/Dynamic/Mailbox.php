@@ -31,6 +31,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
+        $page_output->addScriptFile('external/tinycon.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
         $page_output->addScriptFile('form_ghost.js', 'horde');
         $page_output->addScriptFile('jstorage.js', 'horde');
@@ -368,10 +369,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             '_sep6' => null,
             'export' => _("Export"),
             'import' => _("Import"),
+            '_sep7' => null,
+            'size' => _("Mailbox Size"),
             '_sub2' => array(
-                '_sep7' => null,
+                '_sep8' => null,
                 'acl' => _("Edit ACL")
-            )
+            ),
         );
 
         if (!$subscribe) {
@@ -502,6 +505,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'message_0' => _("No messages"),
             'message_1' => _("1 message"),
             'message_2' => _("%d messages"),
+            'mboxsize' => _("Mailbox %s is %s."),
             'moveto' => _("Move %s to %s"),
             'newflag' => _("Create New Flag..."),
             'newflag_name' => _("Flag Name:"),

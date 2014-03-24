@@ -183,23 +183,26 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case 'r':
         case 'ra':
         case 'rl':
-            try {
-                $imp_contents = $this->_getContents();
-            } catch (IMP_Exception $e) {
-                $notification->push($e, 'horde.error');
-                break;
-            }
-
             $actions = array(
                 'r' => IMP_Compose::REPLY_SENDER,
                 'ra' => IMP_Compose::REPLY_ALL,
                 'rl' => IMP_Compose::REPLY_LIST
             );
 
-            $reply_msg = $imp_compose->replyMessage($actions[$this->vars->a], $imp_contents, array(
-                'format' => 'text',
-                'to' => $header['to']
-            ));
+            try {
+                $reply_msg = $imp_compose->replyMessage(
+                    $actions[$this->vars->a],
+                    $this->_getContents(),
+                    array(
+                        'format' => 'text',
+                        'to' => $header['to']
+                    )
+                );
+            } catch (IMP_Exception $e) {
+                $notification->push($e, 'horde.error');
+                break;
+            }
+
             $header = $this->_convertToHeader($reply_msg);
 
             $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
@@ -209,13 +212,16 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         // 'f' = forward
         case 'f':
             try {
-                $imp_contents = $this->_getContents();
+                $fwd_msg = $imp_compose->forwardMessage(
+                    IMP_Compose::FORWARD_ATTACH,
+                    $this->_getContents(),
+                    false
+                );
             } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
             }
 
-            $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
             $header = $this->_convertToHeader($fwd_msg);
 
             $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
@@ -264,16 +270,25 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
             switch ($imp_compose->replyType(true)) {
             case IMP_Compose::REPLY:
-                $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), array(
-                    'to' => $f_to
-                ));
-                $msg = $reply_msg['body'];
+                try {
+                    $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), array(
+                        'to' => $f_to
+                    ));
+                    $msg = $reply_msg['body'];
+                } catch (IMP_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                    $msg = '';
+                }
                 $message .= "\n" . $msg;
                 break;
 
             case IMP_Compose::FORWARD:
-                $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_compose->getContentsOb());
-                $msg = $fwd_msg['body'];
+                try {
+                    $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_compose->getContentsOb());
+                    $msg = $fwd_msg['body'];
+                } catch (IMP_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
                 $message .= "\n" . $msg;
                 break;
             }

@@ -84,15 +84,17 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'reply_auto':
         case 'reply_list':
             try {
-                $contents = $this->_getContents();
-            } catch (IMP_Compose_Exception $e) {
+                $result = $imp_compose->replyMessage(
+                    $compose_ajax->reply_map[$this->vars->type],
+                    $this->_getContents(),
+                    array(
+                        'to' => isset($addr['to']) ? $addr['to'] : null
+                    )
+                );
+            } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
             }
-
-            $result = $imp_compose->replyMessage($compose_ajax->reply_map[$this->vars->type], $contents, array(
-                'to' => isset($addr['to']) ? $addr['to'] : null
-            ));
 
             $onload = $compose_ajax->getResponse($result);
 
@@ -116,26 +118,22 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'forward_auto':
         case 'forward_body':
         case 'forward_both':
-            if (count($this->indices) > 1) {
-                if (!in_array($this->vars->type, array('forward_attach', 'forward_auto'))) {
-                    $notification->push(_("Multiple messages can only be forwarded as attachments."), 'horde.warning');
-                }
+            try {
+                if (count($this->indices) > 1) {
+                    if (!in_array($this->vars->type, array('forward_attach', 'forward_auto'))) {
+                        $notification->push(_("Multiple messages can only be forwarded as attachments."), 'horde.warning');
+                    }
 
-                try {
                     $result = $imp_compose->forwardMultipleMessages($this->indices);
-                } catch (IMP_Compose_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                    break;
+                } else {
+                    $result = $imp_compose->forwardMessage(
+                        $compose_ajax->forward_map[$this->vars->type],
+                        $this->_getContents()
+                    );
                 }
-            } else {
-                try {
-                    $contents = $this->_getContents();
-                } catch (IMP_Compose_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                    break;
-                }
-
-                $result = $imp_compose->forwardMessage($compose_ajax->forward_map[$this->vars->type], $contents);
+            } catch (IMP_Exception $e) {
+                $notification->push($e, 'horde.error');
+                break;
             }
 
             $onload = $compose_ajax->getResponse($result);

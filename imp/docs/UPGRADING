@@ -93,6 +93,10 @@ The following preferences have been removed::
    mimp_preview_msg
    pgp_scan_body
 
+The default value for the following preferences have been changed::
+
+   ckeditor_buttons
+
 
 API Changes
 -----------

@@ -17,6 +17,8 @@
  *     hidden: {},
  *     // Default value for the INPUT element
  *     input_val: '',
+ *     // Don't display as a form (no cancel either)
+ *     noform: false
  *     // Don't insert the default INPUT element
  *     noinput: false,
  *     // OK text.
@@ -60,7 +62,9 @@ var HordeDialog = {
             id: data.form_id || 'RB_confirm'
         }, data.form_opts || {});
 
-        var n = new Element('FORM', data.form_opts);
+        var n = data.noform
+            ? new Element('DIV')
+            : new Element('FORM', data.form_opts);
         if (data.header) {
             n.insert(new Element('H2').insert(data.header));
         }
@@ -70,12 +74,13 @@ var HordeDialog = {
 
         delete RedBox.onDisplay;
 
-        n.addClassName('RB_confirm');
         if (data.form) {
             n.insert(data.form);
-        } else if (!data.noinput) {
+        } else if (!data.noinput && !data.noform) {
             n.insert(new Element('INPUT', { id: 'dialog_input', name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
         }
+
+        n.addClassName('RB_confirm');
 
         if (data.hidden) {
             $H(data.hidden).each(function(pair) {
@@ -93,20 +98,27 @@ var HordeDialog = {
                 value: data.ok_text || this.ok_text
             })
         );
-        n.insert(
-            new Element('INPUT', {
-                className: 'horde-cancel',
-                type: 'button',
-                value: data.cancel_text || this.cancel_text
-            })
-        );
+
+        if (!data.noform) {
+            n.insert(
+                new Element('INPUT', {
+                    className: 'horde-cancel',
+                    type: 'button',
+                    value: data.cancel_text || this.cancel_text
+                })
+            );
+        }
 
         n.observe('click', function(e) {
             var elt = e.element();
             if (elt.hasClassName('horde-cancel')) {
                 this.close();
             } else if (elt.hasClassName('horde-default')) {
-                RedBox.getWindowContents().fire('HordeDialog:onClick', e);
+                if (data.noform) {
+                    this.close();
+                } else {
+                    RedBox.getWindowContents().fire('HordeDialog:onClick', e);
+                }
             }
         }.bindAsEventListener(this));
         n.observe('keydown', function(e) {

@@ -62,12 +62,13 @@ var RedBox = {
 
     loading: function()
     {
-        var rl = $('RB_loading');
-
         this.showOverlay();
+
+        var rl = $('RB_loading');
         if (rl) {
             rl.show();
         }
+
         this.setWindowPosition();
     },
 

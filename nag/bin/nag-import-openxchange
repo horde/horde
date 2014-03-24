@@ -96,6 +96,7 @@ while ($row = fgetcsv($fp, 0, ' ')) {
             ? Horde_OpenXchange_Tasks::RESOURCE_PUBLIC
             : Horde_OpenXchange_Tasks::RESOURCE_PRIVATE
     );
+    $default = $ox->getConfig('folder/tasks');
 
     // Loop through all task lists.
     foreach ($tasklists as $folderId => $tasklist) {
@@ -128,6 +129,10 @@ while ($row = fgetcsv($fp, 0, ' ')) {
                 $share->addUserPermission($user, $perm);
             }
             $target = $share->getName();
+        }
+
+        if ($folderId == $default) {
+            $prefs->setValue('default_tasklist', $target);
         }
 
         // Initiate driver.

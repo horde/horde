@@ -133,7 +133,7 @@ var DimpMessage = {
                     });
                 } else {
                     DimpCore.doAction('reportSpam', {
-                        spam: Number(e.element().identify() == 'button_spam'),
+                        spam: ~~(e.element().identify() == 'button_spam'),
                         view: this.mbox
                     }, {
                         uids: [ this.buid ],

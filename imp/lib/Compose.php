@@ -1780,10 +1780,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - subject: (string) Formatted subject.
      *   - type: (integer) The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
+     * @throws IMP_Exception
      */
     public function replyMessage($type, $contents, array $opts = array())
     {
         global $injector, $language, $prefs;
+
+        if (!($contents instanceof IMP_Contents)) {
+            throw new IMP_Exception(
+                _("Could not retrieve message data from the mail server.")
+            );
+        }
 
         $alist = new Horde_Mail_Rfc822_List();
         $addr = array(
@@ -2131,11 +2138,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - subject: (string) Formatted subject.
      *   - title: (string) Title to use on page.
      *   - type: (integer) - The compose type.
+     * @throws IMP_Exception
      */
     public function forwardMessage($type, $contents, $attach = true,
                                    array $opts = array())
     {
         global $prefs;
+
+        if (!($contents instanceof IMP_Contents)) {
+            throw new IMP_Exception(
+                _("Could not retrieve message data from the mail server.")
+            );
+        }
 
         if ($type == self::FORWARD_AUTO) {
             switch ($prefs->getValue('forward_default')) {
@@ -2591,6 +2605,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _cleanHtmlOutput(Horde_Domhtml $html)
     {
+        global $registry;
+
         $xpath = new DOMXPath($html->dom);
         foreach ($xpath->query('//*[@src]') as $node) {
             $src = $node->getAttribute('src');
@@ -2599,6 +2615,36 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * output. */
             if (Horde_Url_Data::isData($src)) {
                 $node->removeAttribute('src');
+            } elseif (strcasecmp($node->tagName, 'IMG') === 0) {
+                /* Check for smileys. They live in the JS directory, under
+                 * the base ckeditor directory, so search for that and replace
+                 * with the filesystem information if found (Request
+                 * #13051). Need to ignore other image links that may have
+                 * been explicitly added by the user. */
+                $js_path = strval(Horde::url($registry->get('jsuri', 'horde'), true));
+                if (stripos($src, $js_path . '/ckeditor') === 0) {
+                    $file = str_replace(
+                        $js_path,
+                        $registry->get('jsfs', 'horde'),
+                        $src
+                    );
+
+                    if (is_readable($file)) {
+                        $data_part = new Horde_Mime_Part();
+                        $data_part->setContents(file_get_contents($file));
+                        $data_part->setName(basename($file));
+
+                        try {
+                            $this->addRelatedAttachment(
+                                $this->addAttachmentFromPart($data_part),
+                                $node,
+                                'src'
+                            );
+                        } catch (IMP_Compose_Exception $e) {
+                            // Keep existing data on error.
+                        }
+                    }
+                }
             }
         }
     }

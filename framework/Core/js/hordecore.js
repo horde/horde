@@ -52,12 +52,14 @@ var HordeCore = {
     onException: function(r, e)
     {
         this.debug('onException', e);
+        this.endLoading(r.opts.loading);
         document.fire('HordeCore:ajaxException', [ r, e ]);
     },
 
     onFailure: function(t, o)
     {
         this.debug('onFailure', t);
+        this.endLoading(t.request.opts.loading);
         this.notify(this.text.ajax_error, 'horde.error');
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
@@ -68,7 +70,8 @@ var HordeCore = {
         params = $H(params).clone();
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {}),
+            request;
 
         if (this.regenerate_sid) {
             ajaxopts.asynchronous = false;
@@ -86,7 +89,14 @@ var HordeCore = {
             this.doActionComplete(action, t, opts);
         }.bind(this);
 
-        return new Ajax.Request((opts.uri ? opts.uri : this.conf.URI_AJAX) + action, ajaxopts);
+        request = new Ajax.Request(
+            (opts.uri ? opts.uri : this.conf.URI_AJAX) + action,
+            ajaxopts
+        );
+        request.action = action;
+        request.opts = opts;
+
+        return request;
     },
 
     // form: (Element) DOM Element (or DOM ID)

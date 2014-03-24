@@ -184,7 +184,7 @@ class Horde_Config
 
         /* Load the DOM object. */
         $dom = new DOMDocument();
-        $dom->load($path . '/conf.xml');
+        $dom->loadXML(file_get_contents($path . '/conf.xml'));
 
         /* Check if there is a CVS/Git version tag and store it. */
         $node = $dom->firstChild;

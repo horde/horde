@@ -371,8 +371,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'selectonlyone' => _("You must select only one message for this action."),
                 'spam_report' => _("Are you sure you wish to report this message as spam?"),
                 'submit' => _("You must select at least one message first."),
-                'target_mbox' => _("You must select a target mailbox first."),
-                'yes' => _("Yes")
+                'target_mbox' => _("You must select a target mailbox first.")
             ),
             'ImpMailbox.unread' => intval($unread)
         ));

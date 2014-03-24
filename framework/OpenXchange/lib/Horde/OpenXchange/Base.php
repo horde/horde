@@ -200,7 +200,16 @@ abstract class Horde_OpenXchange_Base
             'config/' . $config,
             array('session' => $this->_session)
         );
-        return $content['data'];
+        switch ($content['data']) {
+        case 'true':
+            return true;
+        case 'false':
+            return false;
+        case 'null':
+            return null;
+        default:
+            return $content['data'];
+        }
     }
 
     /**

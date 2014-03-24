@@ -18,6 +18,7 @@ v3.2.0-git
 v3.1.5
 ------
 
+[mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
 [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
 
 

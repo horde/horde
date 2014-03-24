@@ -988,6 +988,9 @@ span.logoutIcon {
 #ctx_mbox_rename span.iconImg, #ctx_container_rename span.iconImg, #ctx_vcontainer_edit span.iconImg, #ctx_vfolder_edit span.iconImg {
     background-image: url("../graphics/folders/edit.png");
 }
+#ctx_mbox_size span.iconImg {
+    background-image: url("../graphics/info_icon.png");
+}
 #ctx_mbox_acl span.iconImg {
     background-image: url("../graphics/edit.png");
 }

@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix loading of configuration screen with basedir restrictions or libxml entity loading disabled (Bug #13025).
+* [mms] The location of dynamically served static files is now configurable (Request #13070).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] Support new configuration options for history storage.
 * [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
@@ -3356,6 +3358,8 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix loading of configuration screen with basedir restrictions or libxml entity loading disabled (Bug #13025).
+* [mms] The location of dynamically served static files is now configurable (Request #13070).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [mms] Support new configuration options for history storage.
 * [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).

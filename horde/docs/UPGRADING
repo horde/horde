@@ -89,6 +89,14 @@ Read the comments at the top of the hooks.php file for descriptions of each
 hook.
 
 
+Registry Options (registry.php)
+-------------------------------
+
+The 'staticfs' and 'staticuri' configuration options were added to the 'horde'
+configuration.
+
+
+
 Upgrading Horde from 5.0.x to 5.1
 =================================
 

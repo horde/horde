@@ -83,7 +83,6 @@ $cli->message('Opening endpoint ' . $argv[1]);
 $ox = new Horde_OpenXchange_Contacts(array('endpoint' => $argv[1]));
 $turba_shares = $injector->getInstance('Turba_Shares');
 $sources = Turba::availableSources();
-$contactMap = array();
 
 // Prepare handle on user/password list.
 if ($admin) {
@@ -117,12 +116,13 @@ while ($row = fgetcsv($fp, 0, ' ')) {
     list($cfgSources, $hasShares) = loadSources($sources, $admin);
 
     $count = 0;
-    $groups = array();
+    $contactMap = $groups = array();
     $abooks = $ox->listResources(
         $admin
             ? Horde_OpenXchange_Contacts::RESOURCE_PUBLIC
             : Horde_OpenXchange_Contacts::RESOURCE_PRIVATE
     );
+    $default = $ox->getConfig('folder/contacts');
 
     // Loop through all address books.
     foreach ($abooks as $folderId => $abook) {
@@ -157,6 +157,10 @@ while ($row = fgetcsv($fp, 0, ' ')) {
             list($cfgSources, $hasShares) = loadSources($sources, $admin);
         }
         $groups[$target] = array();
+
+        if ($folderId == $default) {
+            $prefs->setValue('default_dir', $target);
+        }
 
         // Initiate driver.
         try {

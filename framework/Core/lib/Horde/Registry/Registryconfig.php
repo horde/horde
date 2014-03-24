@@ -103,6 +103,15 @@ class Horde_Registry_Registryconfig
             $app_webroot = $this->applications['horde']['webroot'];
         }
 
+        if (!isset($this->applications['horde']['staticfs'])) {
+            $this->applications['horde']['staticfs'] =
+                $this->applications['horde']['fileroot'] . '/static';
+        }
+        if (!isset($this->applications['horde']['staticuri'])) {
+            $this->applications['horde']['staticuri'] =
+                $this->applications['horde']['webroot'] . '/static';
+        }
+
         /* Scan for all APIs provided by each app, and set other common
          * defaults like templates and graphics. */
         foreach ($this->applications as $appName => &$app) {

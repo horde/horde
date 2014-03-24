@@ -106,7 +106,7 @@ var ImpMobile = {
         case 'compose-cancel':
         case 'compose-discard':
             HordeMobile.doAction('cancelCompose', {
-                discard: Number(view == 'compose-discard'),
+                discard: ~~(view == 'compose-discard'),
                 imp_compose: $('#imp-compose-cache').val()
             });
             ImpMobile.closeCompose();
@@ -189,7 +189,7 @@ var ImpMobile = {
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: ImpMobile.mailbox
             }), {
-                data: { norefresh: true }
+                data: { force: true }
             });
             e.preventDefault();
             break;
@@ -370,13 +370,6 @@ var ImpMobile = {
             // Need to do here since Exit Search does not trigger beforeShow.
             $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search'));
             $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit'));
-
-            if (IMP.conf.refresh_time) {
-                window.clearInterval(ImpMobile.refresh);
-                ImpMobile.refresh = window.setInterval(function() {
-                    ImpMobile.refreshMailbox();
-                }, IMP.conf.refresh_time * 1000);
-            }
             break;
 
         case 'message':
@@ -394,6 +387,7 @@ var ImpMobile = {
     {
         var purl = data.options.parsedUrl,
             mailbox = purl.params.mbox || ImpMobile.INBOX,
+            noajax = purl.params.noajax || (data.options.data && data.options.data.noajax),
             title = $('#imp-mailbox-' + mailbox).text(),
             params, ob;
 
@@ -431,10 +425,10 @@ var ImpMobile = {
 
         HordeMobile.changePage('mailbox', data);
 
-        if ((!data.options.data || !data.options.data.norefresh) &&
+        if ((!data.options.data || !data.options.data.force) &&
             (ob = ImpMobile.cache[mailbox])) {
             ImpMobile.refreshMailbox(ob);
-            if (data.options.data && data.options.data.noajax) {
+            if (noajax) {
                 return;
             }
             params.checkcache = 1;
@@ -512,20 +506,19 @@ var ImpMobile = {
             ob.disappear(r.disappear);
         }
 
+        ImpMobile.resetRefresh();
         ImpMobile.refreshMailbox(ob);
     },
 
     /**
+     * Refresh the current mailbox.
+     *
      * @param object ob  If ob is not present, triggers an AJAX refresh.
      *                   Otherwise, rebuilds mailbox using ob.
      */
     refreshMailbox: function(ob)
     {
-        if (HordeMobile.currentPage() != 'mailbox') {
-            return;
-        }
-
-        if (!ob) {
+        if (!ob && (HordeMobile.currentPage() != 'folders')) {
             HordeMobile.doAction(
                 'viewPort',
                 ImpMobile.addViewportParams({
@@ -533,6 +526,9 @@ var ImpMobile = {
                     view: ImpMobile.mailbox
                 })
             );
+        }
+
+        if (HordeMobile.currentPage() != 'mailbox') {
             return;
         }
 
@@ -612,6 +608,20 @@ var ImpMobile = {
         }
 
         list.listview('refresh');
+    },
+
+    /**
+     * Resets the current mailbox refresh interval.
+     */
+    resetRefresh: function()
+    {
+        if (IMP.conf.refresh_time) {
+            window.clearInterval(ImpMobile.refresh);
+            ImpMobile.refresh = window.setInterval(
+                ImpMobile.refreshMailbox,
+                IMP.conf.refresh_time * 1000
+            );
+        }
     },
 
     /**
@@ -707,23 +717,18 @@ var ImpMobile = {
         $('#message .smartmobile-back').attr(
             'href',
             HordeMobile.createUrl('mailbox', {
-                mbox: (tmp ? IMP.conf.qsearchid : ImpMobile.mailbox)
+                mbox: (tmp ? IMP.conf.qsearchid : ImpMobile.mailbox),
+                noajax: 1
             })
         ).find('.ui-btn-text').text(
             tmp ? IMP.text.searchresults : cache.label
         );
 
-        if (!data.from) {
-            $('#imp-message-from').text(IMP.text.nofrom);
-        } else if (data.from.raw) {
-            $('#imp-message-from').text(data.from.raw);
-        } else if (data.from.addr[0].g) {
-            $('#imp-message-from').text(data.from.addr[0].g);
-        } else if (data.from.addr[0].p) {
-            $('#imp-message-from').text(data.from.addr[0].p);
-        } else {
-            $('#imp-message-from').text(data.from.addr[0].b);
-        }
+        $('#imp-message-from').text(
+            data.from
+                ? (data.from.raw || data.from.addr[0].g || data.from.addr[0].p || data.from.addr[0].b)
+                : IMP.text.nofrom
+        );
 
         if (data.atc_label) {
             $('#imp-message-atc').show();
@@ -951,7 +956,7 @@ var ImpMobile = {
                 view: ImpMobile.mailbox
             }), {
                 buid: buid,
-                spam: Number(action == 'spam')
+                spam: ~~(action == 'spam')
             })
         );
     },
@@ -1267,7 +1272,7 @@ var ImpMobile = {
             move ? 'moveMessages' : 'copyMessages',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
-                force: Number(move),
+                force: ~~(move),
                 view: source
             }), opts, {
                 buid: $('#imp-copymove-buid').val()
@@ -1513,6 +1518,8 @@ var ImpMobile = {
             .listviewtaphold({ popupElt: $('#imp-mailbox-taphold') })
                 .on('listviewtaphold', 'li.imp-message', ImpMobile.mailboxTaphold);
 
+        ImpMobile.resetRefresh();
+
         $('#message').on('swipeleft', function() {
             $.mobile.changePage('#message-next');
         }).on('swiperight', function() {
@@ -1528,13 +1535,12 @@ var ImpMobile = {
                 break;
             }
         });
+        $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
+        $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         $('#compose').on('popupbeforeposition', function() {
             ImpMobile.composeMorePopup();
         });
-
-        $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
-        $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         if (!IMP.conf.disable_compose) {
             $('#imp-compose-upload-container a').on('click', function(e) {
