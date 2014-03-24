@@ -80,7 +80,10 @@ $prefsMap = array(
                 if ($address == $default) {
                     $id = count($identities);
                 }
-                $identities[] = array('from_addr' => $address);
+                $identities[] = array(
+                    'id' => $address,
+                    'from_addr' => $address
+                );
             }
             return array(
                 'identities' => serialize($identities),
