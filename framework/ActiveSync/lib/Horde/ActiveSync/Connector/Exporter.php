@@ -302,7 +302,7 @@ class Horde_ActiveSync_Connector_Exporter
         // prevent sending the same object twice in one request.
         if ($message->getClass() != $this->_currentCollection['class'] ||
             in_array($id, $this->_seenObjects)) {
-            $this->_logger->err(sprintf(
+            $this->_logger->notice(sprintf(
                 '[%s] IGNORING message %s since it looks like it was already sent or does not belong to this collection. Class: %s, CurrentClass: %s',
                 $this->_procid,
                 $id,
