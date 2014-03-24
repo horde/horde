@@ -89,7 +89,7 @@ abstract class IMP_Compose_Attachment_Storage
     public function read()
     {
         return (isset($this->_tmpfile) && is_readable($this->_tmpfile))
-            ? new Horde_Stream_Existing(array('stream' => fopen($this->_tmpfile)))
+            ? new Horde_Stream_Existing(array('stream' => fopen($this->_tmpfile, 'r')))
             : $this->_read();
     }
 
