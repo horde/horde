@@ -1018,17 +1018,16 @@ class Horde_ActiveSync
     /**
      * Obtain the ActiveSync protocol version requested by the client headers.
      *
-     * @return long
+     * @return string  The EAS version requested by the client.
      */
     public function getProtocolVersion()
     {
-        if (isset(self::$_version)) {
-            return self::$_version;
-        }
-        self::$_version = $this->_request->getHeader('MS-ASProtocolVersion');
-        if (empty(self::$_version)) {
-            $get = $this->getGetVars();
-            self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
+        if (!isset(self::$_version)) {
+            self::$_version = $this->_request->getHeader('MS-ASProtocolVersion');
+            if (empty(self::$_version)) {
+                $get = $this->getGetVars();
+                self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
+            }
         }
         return self::$_version;
     }
