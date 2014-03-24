@@ -132,7 +132,7 @@ class Horde_Feed
         $doc = new DOMDocument;
         $doc->recover = true;
         $filename = urlencode($filename);
-        $loaded = $doc->load($filename);
+        $loaded = $doc->loadXML(file_get_contents($filename));
         if (!$loaded) {
             $loaded = $doc->loadHTMLFile($filename);
             if (!$loaded) {
