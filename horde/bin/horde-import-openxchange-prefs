@@ -104,10 +104,10 @@ $prefsMap = array(
             return array('sent_mail_folder', str_replace('default0/', $v));
         },
         'modules/mail/defaultFolder/spam' => function($v) {
-            return array('spam_folder',, str_replace('default0/', $v));
+            return array('spam_folder', str_replace('default0/', $v));
         },
         'modules/mail/defaultFolder/trash' => function($v) {
-            return array('trash_folder',, str_replace('default0/', $v));
+            return array('trash_folder', str_replace('default0/', $v));
         },
         'modules/mail/forwardmessage' => function($v) {
             return array('forward_default' => $v ? 'attach' : 'body');
