@@ -227,6 +227,9 @@ class Horde_ActiveSync_Connector_Exporter
                                 '[%s] Unknown backend error skipping message: %s',
                                 $this->_procid,
                                 $e->getMessage()));
+                            $this->_as->state->updateState($change['type'], $change);
+                            $this->_step++;
+                            return $e;
                         }
                         break;
 
