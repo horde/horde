@@ -176,8 +176,14 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                     $this->_decoder->getElementEndTag();
 
-                    // Explicitly asked for a collection, make sure we have a key.
-                    $collections->addCollection($collection, true);
+                    try {
+                        // Explicitly asked for a collection, make sure we have a key.
+                        $collections->addCollection($collection, true);
+                    } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                        $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                        $this->_handleGlobalError();
+                        return true;
+                    }
                 }
 
                 // Since PING sends all or none (no PARTIAL) we update the
