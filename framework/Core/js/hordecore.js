@@ -52,12 +52,14 @@ var HordeCore = {
     onException: function(r, e)
     {
         this.debug('onException', e);
+        this.endLoading(r.opts.loading);
         document.fire('HordeCore:ajaxException', [ r, e ]);
     },
 
     onFailure: function(t, o)
     {
         this.debug('onFailure', t);
+        this.endLoading(t.request.opts.loading);
         this.notify(this.text.ajax_error, 'horde.error');
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
@@ -92,6 +94,7 @@ var HordeCore = {
             ajaxopts
         );
         request.action = action;
+        request.opts = opts;
 
         return request;
     },
