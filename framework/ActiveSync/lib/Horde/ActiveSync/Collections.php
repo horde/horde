@@ -279,6 +279,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     synckey could be found. Most likely a client error in
                     requesting a collection during PING before it has issued a
                     SYNC.', $this->_procid));
+                throw new Horde_ActiveSync_Exception_StateGone('Synckey required in Horde_ActiveSync_Collections::addCollection, but none was found.');
             }
 
             $this->_logger->info(sprintf(
@@ -291,7 +292,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if (empty($collection['class'])) {
             $collection['class'] = $this->getCollectionClass($collection['id']);
         }
-        $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
+
+        try {
+            $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_ActiveSync_Exception_StateGone($e->getMessage());
+        }
 
         $this->_collections[$collection['id']] = $collection;
         $this->_logger->info(sprintf(
