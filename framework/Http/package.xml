@@ -54,16 +54,16 @@
        <file name="Fopen.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="PeclhttpBase.php" role="php" />
-       <file name="PeclhttpV1.php" role="php" />
-       <file name="PeclhttpV2.php" role="php" />
+       <file name="Peclhttp.php" role="php" />
+       <file name="Peclhttp2.php" role="php" />
       </dir> <!-- /lib/Horde/Http/Request -->
       <dir name="Response">
        <file name="Base.php" role="php" />
        <file name="Curl.php" role="php" />
        <file name="Fopen.php" role="php" />
        <file name="Mock.php" role="php" />
-       <file name="PeclhttpV1.php" role="php" />
-       <file name="Peclhttpv2.php" role="php" />
+       <file name="Peclhttp.php" role="php" />
+       <file name="Peclhttp2.php" role="php" />
       </dir> <!-- /lib/Horde/Http/Response -->
       <file name="Client.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -144,14 +144,14 @@
    <install as="Horde/Http/Request/Fopen.php" name="lib/Horde/Http/Request/Fopen.php" />
    <install as="Horde/Http/Request/Mock.php" name="lib/Horde/Http/Request/Mock.php" />
    <install as="Horde/Http/Request/PeclhttpBase.php" name="lib/Horde/Http/Request/PeclhttpBase.php" />
-   <install as="Horde/Http/Request/PeclhttpV1.php" name="lib/Horde/Http/Request/PeclhttpV1.php" />
-   <install as="Horde/Http/Request/PeclhttpV2.php" name="lib/Horde/Http/Request/PeclhttpV2.php" />
+   <install as="Horde/Http/Request/Peclhttp.php" name="lib/Horde/Http/Request/Peclhttp.php" />
+   <install as="Horde/Http/Request/Peclhttp2.php" name="lib/Horde/Http/Request/Peclhttp2.php" />
    <install as="Horde/Http/Response/Base.php" name="lib/Horde/Http/Response/Base.php" />
    <install as="Horde/Http/Response/Curl.php" name="lib/Horde/Http/Response/Curl.php" />
    <install as="Horde/Http/Response/Fopen.php" name="lib/Horde/Http/Response/Fopen.php" />
    <install as="Horde/Http/Response/Mock.php" name="lib/Horde/Http/Response/Mock.php" />
-   <install as="Horde/Http/Response/PeclhttpV1.php" name="lib/Horde/Http/Response/PeclhttpV1.php" />
-   <install as="Horde/Http/Response/PeclhttpV2.php" name="lib/Horde/Http/Response/PeclhttpV2.php" />
+   <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
+   <install as="Horde/Http/Response/Peclhttp2.php" name="lib/Horde/Http/Response/Peclhttp2.php" />
    <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
    <install as="Horde/Http/bootstrap.php" name="test/Horde/Http/bootstrap.php" />
    <install as="Horde/Http/ClientTest.php" name="test/Horde/Http/ClientTest.php" />
