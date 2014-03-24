@@ -115,7 +115,7 @@ $prefsMap = array(
             return array('trash_folder', str_replace('default0/', $v));
         },
         'modules/mail/forwardmessage' => function($v) {
-            return array('forward_default' => $v ? 'attach' : 'body');
+            return array('forward_default' => $v == 'Inline' ? 'body' : 'attach');
         },
         'modules/mail/inlineattachments' => function($v) {
             return array('alternative_display' => $v ? 'html' : 'text');
