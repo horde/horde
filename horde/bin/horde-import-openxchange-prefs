@@ -74,6 +74,7 @@ $prefsMap = array(
         'modules/mail/addresses' => function($v) {
             global $ox;
             $default = $ox->getConfig('mail/defaultaddress');
+            $signatures = $ox->getConfig('mail/signatures');
             $identities = array();
             $id = 0;
             foreach ($v as $address) {
@@ -88,6 +89,7 @@ $prefsMap = array(
             return array(
                 'identities' => serialize($identities),
                 'default_identity' => $id,
+                'signature' => $signatures ? $signatures[0] : '',
             );
         },
     ),
