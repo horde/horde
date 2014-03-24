@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-27</date>
+ <date>2014-03-24</date>
  <version>
   <release>5.2.0</release>
   <api>5.2.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add script to import user preferences from Open-Xchange.
 * [mms] The location of dynamically served static files is now configurable (Request #13070).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;.
 * [mms] Add a NoSQL driver for history storage.
@@ -131,6 +132,7 @@
     <file name="horde-db-migrate" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="horde-import-openxchange-prefs" role="script" />
     <file name="horde-import-squirrelmail-prefs" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -1959,6 +1961,7 @@
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
+   <install as="horde-import-openxchange-prefs" name="bin/horde-import-openxchange-prefs" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
    <install as="horde-remove-user-data" name="bin/horde-remove-user-data" />

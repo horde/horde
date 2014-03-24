@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[jan] Add script to import user preferences from Open-Xchange.
 [mms] The location of dynamically served static files is now configurable
       (Request #13070).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>.
