@@ -2518,8 +2518,9 @@ class Turba_Driver implements Countable
 
         $message = new Horde_ActiveSync_Message_Contact(array(
             'logger' => $injector->getInstance('Horde_Log_Logger'),
-            'protocolversion' => $options['protocolversion'])
-        );
+            'protocolversion' => $options['protocolversion'],
+            'device' => $options['device']
+        ));
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
             $this->_guessName($hash);
