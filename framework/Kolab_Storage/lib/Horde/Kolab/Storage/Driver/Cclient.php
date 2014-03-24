@@ -663,7 +663,7 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param array  $uid    The message UID.
      * @param array  $id     The mime part ID.
      *
-     * @return resource|string The body part, as a stream resource or string.
+     * @return resource  The body part, as a stream resource.
      */
     public function fetchBodypart($folder, $uid, $id)
     {
@@ -685,7 +685,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 )
             );
         }
-        return $result;
+        return Horde_Stream_Wrapper_String::getStream($result);
     }
 
     /**

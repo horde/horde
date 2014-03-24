@@ -400,13 +400,15 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param array  $uid                 The message UID.
      * @param array  $id                  The mime part ID.
      *
-     * @return resource|string The body part, as a stream resource or string.
+     * @return resource  The body part, as a stream resource.
      */
     public function fetchBodypart($folder, $uid, $id)
     {
         $this->select($folder);
-        return Horde_Kolab_Storage_Exception_Pear::catchError(
-            $this->getBackend()->getBodyPart($uid, $id, true)
+        return Horde_Stream_Wrapper_String::getStream(
+            Horde_Kolab_Storage_Exception_Pear::catchError(
+                $this->getBackend()->getBodyPart($uid, $id, true)
+            )
         );
     }
 

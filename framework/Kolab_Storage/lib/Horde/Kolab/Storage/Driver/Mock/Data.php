@@ -337,7 +337,7 @@ implements ArrayAccess
      * @param array  $uid                 The message UID.
      * @param array  $id                  The mime part ID.
      *
-     * @return resource|string The body part, as a stream resource or string.
+     * @return resource  The body part, as a stream resource.
      */
     public function fetchBodypart($folder, $uid, $id)
     {
@@ -349,21 +349,22 @@ implements ArrayAccess
                     'r'
                 );
             }
-        } else if (isset($this->_selected['mails'][$uid]['stream'])) {
+        } elseif (isset($this->_selected['mails'][$uid]['stream'])) {
             rewind($this->_selected['mails'][$uid]['stream']);
             return Horde_Mime_Part::parseMessage(
                 stream_get_contents($this->_selected['mails'][$uid]['stream'])
-            )->getPart($id)->getContents();
-        } else {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf(
-                    'No such part %s for message uid %s in folder %s!',
-                    $id,
-                    $uid,
-                    $folder
-                )
-            );
+            )
+                ->getPart($id)
+                ->getContents(array('stream' => true));
         }
+        throw new Horde_Kolab_Storage_Exception(
+            sprintf(
+                'No such part %s for message uid %s in folder %s!',
+                $id,
+                $uid,
+                $folder
+            )
+        );
     }
 
     /**
