@@ -1553,7 +1553,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $flowed->setDelSp(true);
         $textBody->setContentTypeParameter('format', 'flowed');
         $textBody->setContentTypeParameter('DelSp', 'Yes');
-        $textBody->setContents($flowed->toFlowed());
+        $text_contents = $flowed->toFlowed();
+        $textBody->setContents($text_contents);
 
         /* Determine whether or not to send a multipart/alternative
          * message with an HTML part. */
@@ -1577,21 +1578,27 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $body_html_body->setAttribute('style', implode(';', $styles));
             }
 
-            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
-
-            $textpart = new Horde_Mime_Part();
-            $textpart->setType('multipart/alternative');
-            $textpart->addPart($textBody);
-            $textpart->setHeaderCharset($this->charset);
-
             if (empty($options['nofinal'])) {
                 $this->_cleanHtmlOutput($body_html);
             }
 
+            $to_add = $this->_convertToRelated($body_html, $htmlBody);
+
             /* Now, all parts referred to in the HTML data have been added
              * to the attachment list. Convert to multipart/related if
-             * this is the case. */
-            $textpart->addPart($this->_convertToRelated($body_html, $htmlBody));
+             * this is the case. Exception: if text representation is empty,
+             * just send HTML part. */
+            if (strlen(trim($text_contents))) {
+                $textpart = new Horde_Mime_Part();
+                $textpart->setType('multipart/alternative');
+                $textpart->addPart($textBody);
+                $textpart->addPart($to_add);
+                $textpart->setHeaderCharset($this->charset);
+
+                $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
+            } else {
+                $textpart = $to_add;
+            }
 
             $htmlBody->setContents(
                 $tfilter->filter(

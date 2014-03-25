@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Don't send as multipart/alternative if plaintext part is empty.
 [mms] Add smiley data to message when added via the HTML editor (Request
       #13051).
 [mms] Add mailbox size information retrieval to dynamic view (Request #12965).
