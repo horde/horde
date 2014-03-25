@@ -150,6 +150,8 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_storage->delete($val);
         }
 
+        $this->_cache = array();
+
         $this->_saveKeylist(array());
 
         return true;
