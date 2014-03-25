@@ -2497,7 +2497,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Determine the header information to display in the forward/reply.
      *
-     * @param Horde_Mime_Headers &$h  The headers object for the message.
+     * @param Horde_Mime_Headers $h  The headers object for the message.
      *
      * @return string  The header information for the original message.
      */
@@ -2529,11 +2529,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $tmp[_("Cc")] = $ob;
         }
 
-        $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
         $text = '';
 
-        foreach ($tmp as $key => $val) {
-            $text .= Horde_String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
+        if (!empty($tmp)) {
+            $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
+
+            foreach ($tmp as $key => $val) {
+                $text .= Horde_String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
+            }
         }
 
         return $text;
