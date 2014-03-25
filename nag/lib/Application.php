@@ -442,7 +442,7 @@ class Nag_Application extends Horde_Registry_Application
                 'id' => $id,
                 'uri' => $id,
                 '{' . CalDAV\Plugin::NS_CALENDARSERVER . '}shared-url' =>
-                    $calendar['caldav'],
+                    Nag::getUrl(Nag::DAV_CALDAV, $share),
                 'principaluri' => 'principals/' . $user,
                 '{http://sabredav.org/ns}owner-principal' =>
                     'principals/' . ($share->get('owner') ?: '-system-'),
