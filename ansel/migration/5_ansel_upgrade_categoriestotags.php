@@ -20,14 +20,6 @@ class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
-        $tableList = $this->tables();
-        if (!in_array('rampage_types')) {
-            // Migrations on a clean install may not have run the Content
-            // migration yet...and since it's a clean install, we won't have
-            // any data to migrate here anyway.
-            $this->announce('Skipping migration since the Content tables are not available.');
-            return;
-        }
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('gallery', 'image'));
         $this->_type_ids = array(

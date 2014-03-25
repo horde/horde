@@ -28,13 +28,7 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
-        $tableList = $this->tables();
-        if (!in_array('rampage_types')) {
-            // Migrations on a clean install may not have run the Content
-            // migration yet...and since it's a clean install, we won't have
-            // any data to migrate here anyway.
-            return false;
-        }
+
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('task'));
         $this->_type_ids = array('task' => (int)$types[0]);
@@ -43,15 +37,11 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('nag');
         } catch (Exception $e) {
         }
-        return true
     }
 
     public function up()
     {
-        if (!$this->_init()) {
-            $this->announce('Skipping migration since the Content tables are not available.');
-            return;
-        }
+        $this->_init();
         $sql = 'SELECT task_uid, task_category, task_creator, task_owner FROM nag_tasks';
         $this->announce('Migrating task categories to tags.');
         $rows = $this->select($sql);
@@ -86,10 +76,7 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
-        if (!$this->_init()) {
-            $this->announce('Skipping migration since the Content tables are not available.');
-            return;
-        }
+        $this->_init();
         $this->addColumn('nag_tasks', 'task_category', 'string', array('limit' => 80));
         $this->announce('Migrating task tags to categories.');
         $sql = 'UPDATE nag_tasks SET task_category = ? WHERE task_uid = ?';
