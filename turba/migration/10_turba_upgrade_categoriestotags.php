@@ -44,7 +44,13 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
-
+        $tableList = $this->tables();
+        if (!in_array('rampage_types')) {
+            // Migrations on a clean install may not have run the Content
+            // migration yet...and since it's a clean install, we won't have
+            // any data to migrate here anyway.
+            return false;
+        }
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('contact'));
         $this->_type_ids = array('contact' => (int)$types[0]);
@@ -55,11 +61,16 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                 ->create('turba');
         } catch (Exception $e) {
         }
+
+        return true;
     }
 
     public function up()
     {
-        $this->_init();
+        if (!$this->_init()) {
+            $this->announce('Skipping migration since the Content tables are not available.');
+            return;
+        }
         if ($this->_shares) {
             $sql = 'SELECT object_uid, object_category, owner_id FROM turba_objects';
             $this->announce('Migrating contact categories to tags.');
@@ -88,7 +99,10 @@ class TurbaUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
-        $this->_init();
+        if (!$this->_init()) {
+            $this->announce('Skipping migration since the Content tables are not available.');
+            return;
+        }
         $this->addColumn('turba_objects', 'object_category', 'string', array('limit' => 80));
         $this->announce('Migrating contact tags to categories.');
         $sql = 'UPDATE turba_objects SET object_category = ? WHERE object_uid = ?';

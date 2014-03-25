@@ -22,16 +22,27 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
+        $tableList = $this->tables();
+        if (!in_array('rampage_types')) {
+            // Migrations on a clean install may not have run the Content
+            // migration yet...and since it's a clean install, we won't have
+            // any data to migrate here anyway.
+            return false;
+        }
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('calendar', 'event'));
         $this->_type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
         $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
         $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('kronolith');
+        return true;
     }
 
     public function up()
     {
-        $this->_init();
+        if (!$this->_init()) {
+            $this->announce('Skipping migration since the Content tables are not available.');
+            return;
+        }
         $sql = 'SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events';
         $this->announce('Migrating event categories to tags.');
         $rows = $this->select($sql);
@@ -62,7 +73,10 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
-        $this->_init();
+        if (!$this->_init()) {
+            $this->announce('Skipping migration since the Content tables are not available.');
+            return;
+        }
         $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
         $this->announce('Migrating event tags to categories.');
         $sql = 'UPDATE kronolith_events SET event_category = ? WHERE event_uid = ?';
