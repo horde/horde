@@ -48,7 +48,7 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
      */
     public function create(array $apps = array(), $layout = 'portal_layout')
     {
-        global $registry, $session;
+        global $registry;
 
         $apps = empty($apps)
             ? $registry->listApps()
@@ -60,12 +60,8 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
         );
 
         if (!isset($this->_instances[$sig])) {
-            if (!($ob = $session->retrieve('horde', 'blocks/' . $sig))) {
-                $ob = new Horde_Core_Block_Collection($apps, $layout);
-                $session->set('horde', 'blocks/' . $sig, $ob);
-            }
-
-            $this->_instances[$sig] = $ob;
+            $this->_instances[$sig] =
+                new Horde_Core_Block_Collection($apps, $layout);
         }
 
         return $this->_instances[$sig];

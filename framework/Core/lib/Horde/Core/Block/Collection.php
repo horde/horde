@@ -17,12 +17,19 @@
 class Horde_Core_Block_Collection implements Serializable
 {
     /**
+     * List of apps to load blocks from.
+     *
+     * @var array
+     */
+    protected $_apps;
+
+    /**
      * A hash storing the information about all available blocks from
      * all applications.
      *
      * @var array
      */
-    protected $_blocks = array();
+    protected $_blocks;
 
     /**
      * Layout configuration preference name.
@@ -39,16 +46,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function __construct(array $apps, $layout)
     {
-        foreach ($apps as $app) {
-            $drivers = $GLOBALS['registry']->getAppDrivers($app, 'Block');
-            foreach ($drivers as $val) {
-                $tmp = new $val($app);
-                if ($tmp->enabled) {
-                    $this->_blocks[$app][$val]['name'] = $tmp->getName();
-                }
-            }
-        }
-
+        $this->_apps = $apps;
         $this->_layout = $layout;
     }
 
@@ -158,6 +156,8 @@ class Horde_Core_Block_Collection implements Serializable
     {
         $blocks = array();
 
+        $this->_loadBlocks();
+
         /* Get available blocks from all apps. */
         foreach ($this->_blocks as $app => $app_blocks) {
             $app_name = $GLOBALS['registry']->get('name', $app);
@@ -235,6 +235,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getOptionType($app, $block, $param_id)
     {
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         return $this->_blocks[$app][$block]['params'][$param_id]['type2'];
     }
@@ -250,6 +251,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getOptionRequired($app, $block, $param_id)
     {
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         return isset($this->_blocks[$app][$block]['params'][$param_id]['required'])
             ? $this->_blocks[$app][$block]['params'][$param_id]['required']
@@ -267,6 +269,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getOptionValues($app, $block, $param_id)
     {
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         return $this->_blocks[$app][$block]['params'][$param_id]['values'];
     }
@@ -285,6 +288,7 @@ class Horde_Core_Block_Collection implements Serializable
     {
         $widget = '';
 
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         $param = $this->_blocks[$app][$block]['params'][$param_id];
         if (!isset($param['default'])) {
@@ -387,6 +391,8 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getName($app, $block)
     {
+        $this->_loadBlocks();
+
         return isset($this->_blocks[$app][$block])
             ? $this->_blocks[$app][$block]['name']
             : sprintf(Horde_Core_Translation::t("Block \"%s\" of application \"%s\" not found."), $block, $app);
@@ -402,6 +408,8 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getParams($app, $block)
     {
+        $this->_loadBlocks();
+
         if (!isset($this->_blocks[$app][$block])) {
             return array();
         }
@@ -430,6 +438,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getParamName($app, $block, $param)
     {
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         return $this->_blocks[$app][$block]['params'][$param]['name'];
     }
@@ -445,6 +454,7 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function getDefaultValue($app, $block, $param)
     {
+        /* getParams() loads $_blocks */
         $this->getParams($app, $block);
         return isset($this->_blocks[$app][$block]['params'][$param]['default'])
             ? $this->_blocks[$app][$block]['params'][$param]['default']
@@ -465,11 +475,36 @@ class Horde_Core_Block_Collection implements Serializable
         return $block->updateable || $block->getParams();
     }
 
+    /**
+     * Loads the blocks from all applications.
+     */
+    public function _loadBlocks()
+    {
+        global $registry;
+
+        if (isset($this->_blocks)) {
+            return;
+        }
+
+        $this->_blocks = array();
+
+        foreach ($this->_apps as $app) {
+            $drivers = $registry->getAppDrivers($app, 'Block');
+            foreach ($drivers as $val) {
+                $tmp = new $val($app);
+                if ($tmp->enabled) {
+                    $this->_blocks[$app][$val]['name'] = $tmp->getName();
+                }
+            }
+        }
+    }
+
     /* Serializable methods. */
 
     public function serialize()
     {
         return json_encode(array(
+            $this->_apps,
             $this->_blocks,
             $this->_layout
         ));
@@ -477,7 +512,11 @@ class Horde_Core_Block_Collection implements Serializable
 
     public function unserialize($data)
     {
-        list($this->_blocks, $this->_layout) = json_decode($data, true);
+        list(
+            $this->_apps,
+            $this->_blocks,
+            $this->_layout
+        ) = json_decode($data, true);
     }
 
 }
