@@ -1162,7 +1162,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         $update = array();
         foreach ($dirty as $property => $value) {
-            if ($property == 'collections' && is_array($value)) {
+            if ($property == 'collections' && is_array($value) && !empty($cache['collections'])) {
                 foreach (array_keys($value) as $collection) {
                     $update['cache_data.collections.' . $collection] = $cache['collections'][$collection];
                 }
