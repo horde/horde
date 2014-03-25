@@ -379,10 +379,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         } catch (Exception $e) {
             // Might exist already if the last sync attempt failed.
             $this->_logger->notice(
-                sprintf('[%s] Error saving state for synckey %s: %s - removing previous sync state and trying again.',
+                sprintf('[%s] Previous request processing for synckey %s failed to be accepted by the client, removing previous state and trying again.',
                         $this->_procid,
-                        $this->_syncKey,
-                        $e->getMessage()));
+                        $this->_syncKey)
+                );
             try {
                 $this->_db->selectCollection(self::COLLECTION_STATE)->remove(array(self::MONGO_ID => $this->_syncKey));
                 $this->_db->selectCollection(self::COLLECTION_STATE)->insert($document);
