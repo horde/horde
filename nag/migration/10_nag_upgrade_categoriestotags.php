@@ -43,7 +43,7 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('nag');
         } catch (Exception $e) {
         }
-        return true;
+        return true
     }
 
     public function up()
