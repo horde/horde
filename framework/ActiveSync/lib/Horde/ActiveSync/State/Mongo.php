@@ -72,6 +72,44 @@
  */
 class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implements Horde_Mongo_Collection_Index
 {
+
+    /** Collection names **/
+    const COLLECTION_CACHE   = 'HAS_cache';
+    const COLLECTION_MAILMAP = 'HAS_mailmap';
+    const COLLECTION_MAP     = 'HAS_map';
+    const COLLECTION_DEVICE  = 'HAS_device';
+    const COLLECTION_STATE   = 'HAS_state';
+
+    /** Field names **/
+    const MONGO_ID               = '_id';
+    const CACHE_USER             = 'cache_user';
+    const CACHE_DEVID            = 'cache_devid';
+    const CACHE_DATA             = 'cache_data';
+    const MESSAGE_UID            = 'message_uid';
+    const SYNC_KEY               = 'sync_key';
+    const SYNC_DEVID             = 'sync_devid';
+    const SYNC_FOLDERID          = 'sync_folderid';
+    const SYNC_USER              = 'sync_user';
+    const SYNC_READ              = 'sync_read';
+    const SYNC_FLAGGED           = 'sync_flagged';
+    const SYNC_DELETED           = 'sync_deleted';
+    const SYNC_MODTIME           = 'sync_modtime';
+    const SYNC_CLIENTID          = 'sync_clientid';
+    const SYNC_DATA              = 'sync_data';
+    const SYNC_MOD               = 'sync_mod';
+    const SYNC_PENDING           = 'sync_pending';
+    const SYNC_TIMESTAMP         = 'sync_timestamp';
+    const DEVICE_ID              = 'device_id';
+    const DEVICE_TYPE            = 'device_type';
+    const DEVICE_AGENT           = 'device_agent';
+    const DEVICE_RWSTATUS        = 'device_rwstatus';
+    const DEVICE_SUPPORTED       = 'device_supported';
+    const DEVICE_PROPERTIES      = 'device_properties';
+    const DEVICE_USERS           = 'device_users';
+    const DEVICE_USERS_USER      = 'users.device_user';
+    const DEVICE_USERS_POLICYKEY = 'users.device_policykey';
+    const DEVICE_POLICYKEY       = 'device_policykey';
+
     /**
      * Mongo connection
      *
@@ -92,61 +130,61 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * @var array
      */
     protected $_indexes = array(
-        'HAS_device' => array(
+        self::COLLECTION_DEVICE => array(
             'index_id_user' => array(
-                '_id' => 1,
-                'users.device_user' => 1
+                self::MONGO_ID => 1,
+                self::DEVICE_USERS_USER => 1
             )
         ),
-        'HAS_state' => array(
+        self::COLLECTION_STATE => array(
             'index_devid_folderid' => array(
-                'sync_devid' => 1,
-                'sync_folderid' => 1
+                self::SYNC_DEVID => 1,
+                self::SYNC_FOLDERID => 1
             )
         ),
-        'HAS_map' => array(
+        self::COLLECTION_MAP => array(
             'index_folder_dev_uid_user' => array(
-                'sync_devid' => 1,
-                'sync_user' => 1,
-                'sync_folderid' => 1,
-                'message_uid' => 1
+                self::SYNC_DEVID => 1,
+                self::SYNC_USER => 1,
+                self::SYNC_FOLDERID => 1,
+                self::MESSAGE_UID => 1
             ),
             'index_dev_user_uid_key' => array(
-                'sync_devid' => 1,
-                'sync_user' => 1,
-                'message_uid' => 1,
-                'sync_key' => 1,
-                'sync_deleted' => 1,
+                self::SYNC_DEVID => 1,
+                self::SYNC_USER => 1,
+                self::MESSAGE_UID => 1,
+                self::SYNC_KEY => 1,
+                self::SYNC_DELETED => 1,
             ),
             'index_client_user_dev' => array(
-                'sync_clientid' => 1,
-                'sync_user' => 1,
-                'sync_devid' => 1
+                self::SYNC_CLIENTID => 1,
+                self::SYNC_USER => 1,
+                self::SYNC_DEVID => 1
             )
         ),
-        'HAS_mailmap' => array(
+        self::COLLECTION_MAILMAP => array(
             'index_folder_dev_uid_user' => array(
-                'sync_devid' => 1,
-                'sync_user' => 1,
-                'sync_folderid' => 1,
-                'message_uid' => 1
+                self::SYNC_DEVID => 1,
+                self::SYNC_USER => 1,
+                self::SYNC_FOLDERID => 1,
+                self::MESSAGE_UID => 1
             )
         ),
-        'HAS_cache' => array(
+        self::COLLECTION_CACHE => array(
             'index_dev_user' => array(
-                'cache_devid' => 1,
-                'cache_user' => 1
+                self::CACHE_DEVID => 1,
+                self::CACHE_USER => 1
             )
         )
     );
 
     protected $_propertyMap = array(
-        'deviceType' => 'device_type',
-        'userAgent'  => 'device_agent',
-        'rwstatus'   => 'device_rwstatus',
-        'supported'  => 'device_supported',
-        'properties' => 'device_properties',
-        'id'         => 'device_id'
+        'deviceType' => self::DEVICE_TYPE,
+        'userAgent'  => self::DEVICE_AGENT,
+        'rwstatus'   => self::DEVICE_RWSTATUS,
+        'supported'  => self::DEVICE_SUPPORTED,
+        'properties' => self::DEVICE_PROPERTIES,
+        'id'         => self::DEVICE_ID
     );
 
     /**
@@ -175,7 +213,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @param string $uid       The folder UID.
      * @param string $serverid  The new serverid for this uid.
-     * @since 2.4.0
+     *
+     * @throws  Horde_ActiveSync_Exception
+     *  @since 2.4.0
      */
     public function updateServerIdInState($uid, $serverid)
     {
@@ -186,13 +226,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $uid));
 
         $query = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_folderid' => $uid
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::SYNC_FOLDERID => $uid
         );
 
         try {
-            $cursor = $this->_db->HAS_state->find($query, array('sync_data'));
+            $cursor = $this->_db->selectCollection(self::COLLECTION_STATE)
+                ->find($query, array(self::SYNC_DATA));
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -203,13 +244,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         foreach ($cursor as $folder) {
-            $folder = unserialize($folder['sync_data']);
+            $folder = unserialize($folder[self::SYNC_DATA]);
             $folder->setServerId($serverid);
             $folder = serialize($folder);
             try {
-                $this->_db->HAS_state->update(
+                $this->_db->selectCollection(self::COLLECTION_STATE)->update(
                     $query,
-                    array('$set' => array('sync_data' => $folder)),
+                    array('$set' => array(self::SYNC_DATA => $folder)),
                     array('multiple' => true)
                 );
             } catch (Exception $e) {
@@ -226,18 +267,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type       The type of state a
-     *                           Horde_ActiveSync::REQUEST_TYPE constant.
+     * @param string $type  The type of state a
+     *                      Horde_ActiveSync::REQUEST_TYPE constant.
      *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
     protected function _loadState($type)
     {
-        // Load the previous syncState from storage
         try {
-            $results = $this->_db->HAS_state->findOne(
-                array('_id' => $this->_syncKey),
-                array('sync_data', 'sync_devid', 'sync_mod', 'sync_pending'));
+            $results = $this->_db->selectCollection(self::COLLECTION_STATE)->findOne(
+                array(self::MONGO_ID => $this->_syncKey),
+                array(self::SYNC_DATA, self::SYNC_DEVID, self::SYNC_MOD, self::SYNC_PENDING));
         } catch (Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -253,6 +293,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         $this->_loadStateFromResults($results, $type);
     }
+
     /**
      * Actually load the state data into the object from the query results.
      *
@@ -261,11 +302,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @throws Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
+    protected function _loadStateFromResults(array $results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
         // Load the last known sync time for this collection
-        $this->_lastSyncStamp = !empty($results['sync_mod'])
-            ? $results['sync_mod']
+        $this->_lastSyncStamp = !empty($results[self::SYNC_MOD])
+            ? $results[self::SYNC_MOD]
             : 0;
 
         // Pre-Populate the current sync timestamp in case this is only a
@@ -273,8 +314,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $this->_thisSyncStamp = $this->_lastSyncStamp;
 
         // Restore any state or pending changes
-        $data = unserialize($results['sync_data']);
-        $pending = $results['sync_pending'];
+        $data = unserialize($results[self::SYNC_DATA]);
+        $pending = $results[self::SYNC_PENDING];
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
@@ -316,23 +357,25 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         // If we are setting the first synckey iteration, do not save the
         // timestamp, otherwise we will never get the initial set of data.
         $document = array(
-            '_id' => $this->_syncKey,
-            'sync_key' => $this->_syncKey,
-            'sync_data' => $data,
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_mod' => (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
-            'sync_folderid' => (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_pending' => $pending,
-            'sync_timestamp' => time());
-
+            self::MONGO_ID => $this->_syncKey,
+            self::SYNC_KEY => $this->_syncKey,
+            self::SYNC_DATA => $data,
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_MOD => (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
+            self::SYNC_FOLDERID => (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::SYNC_PENDING => $pending,
+            self::SYNC_TIMESTAMP => time()
+        );
         $this->_logger->info(
             sprintf('[%s] Saving state for sync_key %s: %s',
                 $this->_procid,
                 $this->_syncKey,
-                serialize($document)));
+                serialize($document))
+        );
+
         try {
-            $this->_db->HAS_state->insert($document);
+            $this->_db->selectCollection(self::COLLECTION_STATE)->insert($document);
         } catch (Exception $e) {
             // Might exist already if the last sync attempt failed.
             $this->_logger->notice(
@@ -341,8 +384,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                         $this->_syncKey,
                         $e->getMessage()));
             try {
-                $this->_db->HAS_state->remove(array('_id' => $this->_syncKey));
-                $this->_db->HAS_state->insert($document);
+                $this->_db->selectCollection(self::COLLECTION_STATE)->remove(array(self::MONGO_ID => $this->_syncKey));
+                $this->_db->selectCollection(self::COLLECTION_STATE)->insert($document);
             } catch (Exception $e) {
                 throw new Horde_ActiveSync_Exception('Error saving state.');
             }
@@ -376,7 +419,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
-     * @param string $clientid  PIM clientid sent when adding a new message
+     * @param string $clientid  PIM clientid sent when adding a new message.
+     *
+     * @throws  Horde_ActiveSync_Exception
      */
     public function updateState(
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
@@ -423,23 +468,23 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                 }
                 $document = array(
-                    'message_uid' => $change['id'],
-                    'sync_key' => $syncKey,
-                    'sync_devid' => $this->_deviceInfo->id,
-                    'sync_folderid' => $change['serverid'],
-                    'sync_user' => $user
+                    self::MESSAGE_UID => $change['id'],
+                    self::SYNC_KEY => $syncKey,
+                    self::SYNC_DEVID => $this->_deviceInfo->id,
+                    self::SYNC_FOLDERID => $change['serverid'],
+                    self::SYNC_USER => $user
                 );
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
                     if (isset($change['flags']['read'])) {
-                        $document['sync_read'] = !empty($change['flags']['read']);
+                        $document[self::SYNC_READ] = !empty($change['flags']['read']);
                     } else {
-                        $document['sync_flagged'] = $flag_value = !empty($change['flags']['flagged']);
+                        $document[self::SYNC_FLAGGED] = $flag_value = !empty($change['flags']['flagged']);
                     }
                 } else {
-                    $document['sync_deleted'] = true;
+                    $document[self::SYNC_DELETED] = true;
                 }
                 try {
-                    $this->_db->HAS_mailmap->insert($document);
+                    $this->_db->selectCollection(self::COLLECTION_MAILMAP)->insert($document);
                 } catch (Exception $e) {
                     throw Horde_ActiveSync_Exception($e);
                 }
@@ -447,18 +492,18 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             default:
                 $document = array(
-                   'message_uid' => $change['id'],
-                   'sync_modtime' => $change['mod'],
-                   'sync_key' => $syncKey,
-                   'sync_devid' => $this->_deviceInfo->id,
-                   'sync_folderid' => $change['serverid'],
-                   'sync_user' => $user,
-                   'sync_clientid' => $clientid,
-                   'sync_deleted' => $type == Horde_ActiveSync::CHANGE_TYPE_DELETE
+                   self::MESSAGE_UID => $change['id'],
+                   self::SYNC_MODTIME => $change['mod'],
+                   self::SYNC_KEY => $syncKey,
+                   self::SYNC_DEVID => $this->_deviceInfo->id,
+                   self::SYNC_FOLDERID => $change['serverid'],
+                   self::SYNC_USER => $user,
+                   self::SYNC_CLIENTID => $clientid,
+                   self::SYNC_DELETED => $type == Horde_ActiveSync::CHANGE_TYPE_DELETE
                 );
 
                 try {
-                    $this->_db->HAS_map->insert($document);
+                    $this->_db->selectCollection(self::COLLECTION_MAP)->insert($document);
                 } catch (Exception $e) {
                     throw new Horde_ActiveSync_Exception($e);
                 }
@@ -515,16 +560,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         if (!empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
             !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
+
             return $this->_deviceInfo;
         }
 
-        $query = array('_id' => $devId);
+        $query = array(self::MONGO_ID => $devId);
         if (!empty($user)) {
-            $query['users.device_user'] = $user;
+            $query[self::DEVICE_USERS_USER] = $user;
         }
 
         try {
-            $device_data = $this->_db->HAS_device->findOne($query);
+            $device_data = $this->_db->selectCollection(self::COLLECTION_DEVICE)->findOne($query);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -542,8 +588,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $device['id'] = $devId;
         $device['user'] = $user;
         foreach ($device_data['users'] as $user_entry) {
-            if ($user_entry['device_user'] == $user) {
-                $device['policykey'] = $user_entry['device_policykey'];
+            if ($user_entry[self::DEVICE_USERS_USER] == $user) {
+                $device['policykey'] = $user_entry[self::DEVICE_POLICYKEY];
                 break;
             }
         }
@@ -576,8 +622,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             );
             if (count($device)) {
                 try {
-                    $this->_db->HAS_device->update(
-                        array('_id' => $data->id),
+                    $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                        array(self::MONGO_ID => $data->id),
                         array('$set' => $device),
                         array('upsert' => true)
                     );
@@ -589,17 +635,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             if (!empty($dirty['user']) || !empty($dirty['policykey'])) {
                 $user_data = array(
-                    'device_user' => $data->user,
-                    'device_policykey' => (string)$data->policykey
+                    self::DEVICE_USERS_USER => $data->user,
+                    self::DEVICE_POLICYKEY => (string)$data->policykey
                 );
 
                 try {
-                    $this->_db->HAS_device->update(
-                        array('_id' => $data->id),
-                        array('$pull' => array('users' => array('device_user' => $data->user)))
+                    $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                        array(self::MONGO_ID => $data->id),
+                        array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $data->user)))
                     );
-                    $this->_db->HAS_device->update(
-                        array('_id' => $data->id),
+                    $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                        array(self::MONGO_ID => $data->id),
                         array('$addToSet' => array('users' => $user_data))
                     );
                 } catch (Exception $e) {
@@ -622,14 +668,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function setDeviceProperties(array $data, $deviceId)
     {
-        $query = array('_id' => $deviceId);
+        $query = array(self::MONGO_ID => $deviceId);
         $update = array(
             '$set' => array(
-                'device_properties' => $data
+                self::DEVICE_PROPERTIES => $data
             )
         );
         try {
-            $this->_db->HAS_device->update($query, $update, array('upsert' => true));
+            $this->_db->selectCollection(self::COLLECTION_DEVICE)->update($query, $update, array('upsert' => true));
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -649,13 +695,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function deviceExists($devId, $user = null)
     {
-        $query = array('_id' => $devId);
+        $query = array(self::MONGO_ID => $devId);
         if (!empty($user)) {
-            $query['users.device_user'] = $user;
+            $query[self::DEVICE_USERS_USER] = $user;
         }
 
         try {
-            return $this->_db->HAS_device->find($query)->limit(1)->count();
+            return $this->_db->selectCollection(self::COLLECTION_DEVICE)->find($query)->limit(1)->count();
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -678,9 +724,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     {
         $query = array();
         if (!empty($user)) {
-            $query['users.device_user'] = $user;
+            $query[self::DEVICE_USERS_USER] = $user;
         }
-        $explicit_fields = array('device_id', 'device_type', 'device_agent', 'device_user');
+        $explicit_fields = array(self::DEVICE_ID, self::DEVICE_TYPE, self::DEVICE_AGENT, self::DEVICE_USERS_USER);
         foreach ($filter as $key => $value) {
             if (in_array($key, $explicit_fields)) {
                 $query[$key] = new MongoRegex("/^$value*/");
@@ -689,7 +735,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             }
         }
         try {
-            $cursor = $this->_db->HAS_device->find($query);
+            $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)->find($query);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -724,20 +770,20 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         // a very expensive operation in MongoDB with lots of devices.
         // See https://jira.mongodb.org/browse/SERVER-1243
         // try {
-        //     $this->_db->HAS_device->update(
+        //     $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
         //         array(),
-        //         array('$set' => array('users.device_policykey' => 0)),
+        //         array('$set' => array(self::DEVICE_USERS_POLICYKEY => 0)),
         //         array('multiple' => true)
         //     );
         // } catch (Exception $e) {
         //     $this->_logger->err($e->getMessage());
         //     throw new Horde_ActiveSync_Exception($e);
         // }
-        $cursor = $this->_db->HAS_device->find(array(), array('users'));
+        $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)->find(array(), array('users'));
         foreach ($cursor as $row) {
             foreach ($row['users'] as $user) {
-                $this->_db->HAS_device->update(
-                    array('users.device_user' => $user['device_user']),
+                $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                    array(self::DEVICE_USERS_USER => $user[self::DEVICE_USERS_USER]),
                     array('$set' => array('users.$.device_policykey' => 0)),
                     array('multiple' => true)
                 );
@@ -755,14 +801,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function setDeviceRWStatus($devId, $status)
     {
-        $query = array('_id' => $devId);
-        $new_data = array('device_rwstatus' => $status);
+        $query = array(self::MONGO_ID => $devId);
+        $new_data = array(self::DEVICE_RWSTATUS => $status);
         if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
-            $new_data['users.device_policykey'] = 0;
+            $new_data[self::DEVICE_USERS_POLICYKEY] = 0;
         }
         $update = array('$set' => $new_data);
         try {
-            $this->_db->HAS_device->update($query, $update);
+            $this->_db->selectCollection(self::COLLECTION_DEVICE)->update($query, $update);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -787,15 +833,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $id));
 
         $query = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_folderid' => $id,
-            'sync_user' => $this->_deviceInfo->user
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_FOLDERID => $id,
+            self::SYNC_USER => $this->_deviceInfo->user
         );
 
         try {
-            $this->_db->HAS_state->remove($query);
-            $this->_db->HAS_map->remove($query);
-            $this->_db->HAS_mailmap->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_STATE)->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_MAP)->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_MAILMAP)->remove($query);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -835,15 +881,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $id = empty($id) ? $this->_deviceInfo->id : $id;
         $user = empty($user) ? $this->_deviceInfo->user : $user;
 
-        $match = array('sync_devid' => $id);
+        $match = array(self::SYNC_DEVID => $id);
         if (!empty($user)) {
-            $match['sync_user'] = $user;
+            $match[self::SYNC_USER] = $user;
         }
 
         try {
-            $results = $this->_db->HAS_state->aggregate(
+            $results = $this->_db->selectCollection(self::COLLECTION_STATE)->aggregate(
                 array('$match' => $match),
-                array('$group' => array('_id' => '$sync_dev', 'max' => array('$max' => '$sync_timestamp')))
+                array('$group' => array(self::MONGO_ID => '$sync_dev', 'max' => array('$max' => '$sync_timestamp')))
             );
         } catch (Exception $e) {
             $this->_logger->err(sprintf(
@@ -911,11 +957,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         // time it connects.
         if (!empty($options['devId']) && !empty($options['user'])) {
             $query = array(
-                '_id' => $options['devId'],
-                '$or' => array(array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_PENDING), array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_WIPED))
+                self::MONGO_ID => $options['devId'],
+                '$or' => array(array(self::DEVICE_RWSTATUS => Horde_ActiveSync::RWSTATUS_PENDING), array(self::DEVICE_RWSTATUS => Horde_ActiveSync::RWSTATUS_WIPED))
             );
             try {
-                $results = $this->_db->HAS_device->findOne($query, array('_id'));
+                $results = $this->_db->selectCollection(self::COLLECTION_DEVICE)->findOne($query, array(self::MONGO_ID));
             } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -931,11 +977,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             // Query for state and map tables.
             $query = array(
-                'sync_devid' => $options['devId'],
-                'sync_user' => $options['user']
+                self::SYNC_DEVID => $options['devId'],
+                self::SYNC_USER => $options['user']
             );
             if (!empty($options['id'])) {
-                $query['sync_folderid'] = $options['id'];
+                $query[self::SYNC_FOLDERID] = $options['id'];
                 $this->_logger->info(sprintf(
                     '[%s] Removing device state for user %s and collection %s.',
                     $options['devId'],
@@ -954,9 +1000,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             // Remove device data for user
             try {
-                $this->_db->HAS_device->update(
-                    array('_id' => $options['devId'], 'users.device_user' => $options['user']),
-                    array('$pull' => array('users' => array('device_user' => $options['user'])))
+                $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                    array(self::MONGO_ID => $options['devId'], self::DEVICE_USERS_USER => $options['user']),
+                    array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $options['user'])))
                 );
             } catch (Exception $e) {
                 $this->_logger->err(sprintf(
@@ -968,7 +1014,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             }
         } elseif (!empty($options['devId'])) {
             // Query for state and map tables.
-            $query = array('sync_devid' => $options['devId']);
+            $query = array(self::SYNC_DEVID => $options['devId']);
             $this->_logger->info(sprintf(
                 '[%s] Removing all device state for device %s.',
                 $this->_procid,
@@ -978,7 +1024,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             // Remove device data.
             try {
-                $this->_db->HAS_device->remove(array('_id' => $options['devId']));
+                $this->_db->selectCollection(self::COLLECTION_DEVICE)->remove(array(self::MONGO_ID => $options['devId']));
             } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -989,7 +1035,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             }
         } elseif (!empty($options['user'])) {
             // Query for state and map tables.
-            $query = array('sync_user' => $options['user']);
+            $query = array(self::SYNC_USER => $options['user']);
             $this->_logger->info(sprintf(
                 '[%s] Removing all device state for user %s.',
                 $this->_procid,
@@ -999,16 +1045,16 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             // Delete all user's device info.
             try {
-                $this->_db->HAS_device->update(
-                    array('users.device_user'),
-                    array('$pull' => array('users' => array('device_user' => $options['user'])))
+                $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
+                    array(self::DEVICE_USERS_USER),
+                    array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $options['user'])))
                 );
             } catch (Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         } elseif (!empty($options['synckey'])) {
-            $query = array('sync_key' => $options['synckey']);
+            $query = array(self::SYNC_KEY => $options['synckey']);
             $this->_logger->info(sprintf(
                 '[%s] Removing device state for sync_key %s only.',
                 $this->_procid,
@@ -1020,10 +1066,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         // Do the state/map deletions and GC the device collection.
         try {
-            $this->_db->HAS_state->remove($query);
-            $this->_db->HAS_map->remove($query);
-            $this->_db->HAS_mailmap->remove($query);
-            $this->_db->HAS_device->remove(array('users' => array('$size' => 0)));
+            $this->_db->selectCollection(self::COLLECTION_STATE)->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_MAP)->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_MAILMAP)->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_DEVICE)->remove(array('users' => array('$size' => 0)));
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1048,15 +1094,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      public function isDuplicatePIMAddition($id)
      {
         $query = array(
-            'sync_clientid' => $id,
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_devid' => $this->_deviceInfo->id
+            self::SYNC_CLIENTID => $id,
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::SYNC_DEVID => $this->_deviceInfo->id
         );
 
         try {
-            $result = $this->_db->HAS_map->findOne(
+            $result = $this->_db->selectCollection(self::COLLECTION_MAP)->findOne(
                 $query,
-                array('message_uid')
+                array(self::MESSAGE_UID)
             );
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
@@ -1071,7 +1117,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             return null;
         }
 
-        return $result['message_uid'];
+        return $result[self::MESSAGE_UID];
      }
 
     /**
@@ -1093,8 +1139,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             serialize($fields)));
 
         $query = array(
-            'cache_devid' => $devid,
-            'cache_user' => $user
+            self::CACHE_DEVID => $devid,
+            self::CACHE_USER => $user
         );
         $projection = array();
         if (!is_null($fields)) {
@@ -1102,10 +1148,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 $projection[] = 'cache_data.' . $field;
             }
         } else {
-            $projection = array('cache_data');
+            $projection = array(self::CACHE_DATA);
         }
         try {
-            $data = $this->_db->HAS_cache->findOne(
+            $data = $this->_db->selectCollection(self::COLLECTION_CACHE)->findOne(
                 $query,
                 $projection
             );
@@ -1118,7 +1164,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        if (is_null($fields) && (empty($data) || empty($data['cache_data']))) {
+        if (is_null($fields) && (empty($data) || empty($data[self::CACHE_DATA]))) {
             return array(
                 'confirmed_synckeys' => array(),
                 'lasthbsyncstarted' => false,
@@ -1131,7 +1177,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 'collections' => array(),
                 'pingheartbeat' => false);
         } else {
-            return $data['cache_data'];
+            return $data[self::CACHE_DATA];
         }
     }
 
@@ -1153,8 +1199,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         $cache['timestamp'] = strval($cache['timestamp']);
         $query = array(
-            'cache_devid' => $devid,
-            'cache_user' => $user
+            self::CACHE_DEVID => $devid,
+            self::CACHE_USER => $user
         );
         $update = array();
 
@@ -1175,7 +1221,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         try {
-            $this->_db->HAS_cache->update(
+            $this->_db->selectCollection(self::COLLECTION_CACHE)->update(
                 $query,
                 array('$set' => $update),
                 array('upsert' => true)
@@ -1206,14 +1252,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         $params = array();
         if (!empty($devid)) {
-            $params['cache_devid'] = $devid;
+            $params[self::CACHE_DEVID] = $devid;
         }
         if (!empty($user)) {
-            $params['cache_user'] = $user;
+            $params[self::CACHE_USER] = $user;
         }
 
         try {
-            $this->_db->HAS_cache->remove($params);
+            $this->_db->selectCollection(self::COLLECTION_CACHE)->remove($params);
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1244,24 +1290,24 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $keys[] = $v;
         }
         $match = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_key' => array('$in' => $keys)
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::SYNC_KEY => array('$in' => $keys)
         );
         $uids = array();
         $match['$or'] = array();
         foreach ($changes as $change) {
             $match['$or'][] = array(
                 '$and' => array(
-                    array('message_uid' => $change['id']),
-                    array('sync_deleted' => $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE)
+                    array(self::MESSAGE_UID => $change['id']),
+                    array(self::SYNC_DELETED => $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE)
                 )
             );
         }
         try {
-            $rows = $this->_db->HAS_map->aggregate(
+            $rows = $this->_db->selectCollection(self::COLLECTION_MAP)->aggregate(
                 array('$match' => $match),
-                array('$group' => array('_id' => '$message_uid', 'max' => array('$max' => '$sync_modtime')))
+                array('$group' => array(self::MONGO_ID => '$message_uid', 'max' => array('$max' => '$sync_modtime')))
 
             );
         } catch (Exception $e) {
@@ -1279,7 +1325,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
         $results = array();
         foreach ($rows['result'] as $row) {
-            $results[$row['_id']] = $row['max'];
+            $results[$row[self::MONGO_ID]] = $row['max'];
         }
 
         return $results;
@@ -1303,16 +1349,16 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_procid, $this->_collection['serverid']));
 
         $c = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL ?
-            $this->_db->HAS_mailmap :
-            $this->_db->HAS_map;
+            $this->_db->selectCollection(self::COLLECTION_MAILMAP) :
+            $this->_db->selectCollection(self::COLLECTION_MAP);
 
         $query = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_user' => $this->_deviceInfo->user,
-            'sync_folderid' => $this->_collection['serverid']
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::SYNC_FOLDERID => $this->_collection['serverid']
         );
         try {
-            return (bool)$c->find($query, array('_id'))->count();
+            return (bool)$c->find($query, array(self::MONGO_ID))->count();
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1341,28 +1387,28 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $ids[] = strval($change['id']);
         }
         $query = array(
-            'sync_folderid' => $this->_collection['serverid'],
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_user' => $this->_deviceInfo->user,
-            'message_uid' => array('$in' => $ids)
+            self::SYNC_FOLDERID => $this->_collection['serverid'],
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_USER => $this->_deviceInfo->user,
+            self::MESSAGE_UID => array('$in' => $ids)
         );
-        $rows = $this->_db->HAS_mailmap->find(
+        $rows = $this->_db->selectCollection(self::COLLECTION_MAILMAP)->find(
             $query,
-            array('message_uid', 'sync_read', 'sync_flagged', 'sync_deleted')
+            array(self::MESSAGE_UID, self::SYNC_READ, self::SYNC_FLAGGED, self::SYNC_DELETED)
         );
 
         $results = array();
         foreach ($rows as $row) {
             foreach ($changes as $change) {
-                if ($change['id'] == $row['message_uid']) {
+                if ($change['id'] == $row[self::MESSAGE_UID]) {
                     if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
-                        $results[$row['message_uid']][$change['type']] =
-                            (!is_null($row['sync_read']) && $row['sync_read'] == $change['flags']['read']) ||
-                            (!is_null($row['sync_flagged'] && $row['sync_flagged'] == $change['flags']['flagged']));
+                        $results[$row[self::MESSAGE_UID]][$change['type']] =
+                            (!is_null($row[self::SYNC_READ]) && $row[self::SYNC_READ] == $change['flags']['read']) ||
+                            (!is_null($row[self::SYNC_FLAGGED] && $row[self::SYNC_FLAGGED] == $change['flags']['flagged']));
                         continue 2;
                     } elseif ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
-                        $results[$row['message_uid']][$change['type']] =
-                            !is_null($row['sync_deleted']) && $row['sync_deleted'] == true;
+                        $results[$row[self::MESSAGE_UID]][$change['type']] =
+                            !is_null($row[self::SYNC_DELETED]) && $row[self::SYNC_DELETED] == true;
                         continue 2;
                     }
                 }
@@ -1404,15 +1450,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 EOT;
         $query = array(
-            'sync_devid' => $this->_deviceInfo->id,
-            'sync_folderid' => !empty($this->_collection['id'])
+            self::SYNC_DEVID => $this->_deviceInfo->id,
+            self::SYNC_FOLDERID => !empty($this->_collection['id'])
                 ? $this->_collection['id']
                 : Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC,
             '$where' => $js
         );
 
         try {
-            $this->_db->HAS_state->remove($query);
+            $this->_db->selectCollection(self::COLLECTION_STATE)->remove($query);
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1436,10 +1482,10 @@ EOT;
             return false;
         }
 EOT;
-        foreach (array($this->_db->HAS_map, $this->_db->HAS_mailmap) as $c) {
+        foreach (array($this->_db->selectCollection(self::COLLECTION_MAP), $this->_db->selectCollection(self::COLLECTION_MAILMAP)) as $c) {
             $query = array(
-                'sync_devid' => $this->_deviceInfo->id,
-                'sync_user' => $this->_deviceInfo->user,
+                self::SYNC_DEVID => $this->_deviceInfo->id,
+                self::SYNC_USER => $this->_deviceInfo->user,
                 '$where' => $js
             );
             try {
