@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
 [jan] Add script to import events from Open-Xchange.
 [mjr] Fix various issues with alarms for recurring events.
 [jan] Add calendar legend to print output.

@@ -88,6 +88,21 @@ class Nag
     const VIEW_FUTURE_INCOMPLETE = 4;
 
     /**
+     * WebDAV task list.
+     */
+    const DAV_WEBDAV = 1;
+
+    /**
+     * CalDAV task list.
+     */
+    const DAV_CALDAV = 2;
+
+    /**
+     * CalDAV principal.
+     */
+    const DAV_ACCOUNT = 3;
+
+    /**
      *
      * @param integer $seconds
      *
@@ -660,6 +675,67 @@ class Nag
             $label .= ' [' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . ']';
         }
         return $label;
+    }
+
+    /**
+     * Returns a DAV URL to be used for a task list.
+     *
+     * @param integer $type       A Nag::DAV_* constant.
+     * @param Horde_Share_Object  A task list.
+     *
+     * @return string  The task list's URL.
+     * @throws Horde_Exception
+     */
+    public static function getUrl($type, $tasklist)
+    {
+        global $conf, $injector, $registry;
+
+        $url = $registry->get('webroot', 'horde');
+        $rewrite = isset($conf['urls']['pretty']) &&
+            $conf['urls']['pretty'] == 'rewrite';
+
+        switch ($type) {
+        case Nag::DAV_WEBDAV:
+            if ($rewrite) {
+                $url .= '/rpc/nag/';
+            } else {
+                $url .= '/rpc.php/nag/';
+            }
+            $url = Horde::url($url, true, -1)
+                . ($tasklist->get('owner')
+                   ? $tasklist->get('owner')
+                   : '-system-')
+                . '/' . $tasklist->getName() . '.ics';
+            break;
+
+        case Nag::DAV_CALDAV:
+            if ($rewrite) {
+                $url .= '/rpc/calendars/';
+            } else {
+                $url .= '/rpc.php/calendars/';
+            }
+            $url = Horde::url($url, true, -1)
+                . ($tasklist->get('owner')
+                   ? $tasklist->get('owner')
+                   : '-system-')
+                . '/'
+                . $injector->getInstance('Horde_Dav_Storage')
+                    ->getExternalCollectionId($tasklist->getName(), 'tasks')
+                . '/';
+            break;
+
+        case Nag::DAV_ACCOUNT:
+            if ($rewrite) {
+                $url .= '/rpc/';
+            } else {
+                $url .= '/rpc.php/';
+            }
+            $url = Horde::url($url, true, -1)
+                . 'principals/'. $registry->getAuth() . '/';
+            break;
+        }
+
+        return $url;
     }
 
     /**

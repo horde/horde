@@ -82,27 +82,9 @@ class Nag_Form_EditTaskList extends Horde_Form
         );
 
         /* Subscription URLs. */
-        $url = $GLOBALS['registry']->get('webroot', 'horde');
-        if (isset($GLOBALS['conf']['urls']['pretty']) &&
-            $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
-            $webdavUrl = $url . '/rpc/nag/';
-            $caldavUrl = $url . '/rpc/calendars/';
-            $accountUrl = $url . '/rpc/';
-        } else {
-            $webdavUrl = $url . '/rpc.php/nag/';
-            $caldavUrl = $url . '/rpc.php/calendars/';
-            $accountUrl = $url . '/rpc.php/';
-        }
         try {
-            $accountUrl = Horde::url($accountUrl, true, -1)
-                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
-            $caldavUrl = Horde::url($caldavUrl, true, -1)
-                . ($tasklist->get('owner')
-                   ? $tasklist->get('owner')
-                   : '-system-')
-                    . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($tasklist->getName(), 'tasks')
-                . '/';
+            $accountUrl = Nag::getUrl(Nag::DAV_ACCOUNT, $tasklist);
+            $caldavUrl = Nag::getUrl(Nag::DAV_CALDAV, $tasklist);
             $this->addVariable(
                  _("CalDAV Subscription URL"), '', 'link', false, false, null,
                  array(array(
@@ -123,11 +105,7 @@ class Nag_Form_EditTaskList extends Horde_Form
             );
         } catch (Horde_Exception $e) {
         }
-        $webdavUrl = Horde::url($webdavUrl, true, -1)
-            . ($tasklist->get('owner')
-               ? $tasklist->get('owner')
-               : '-system-')
-            . '/' . $tasklist->getName() . '.ics';
+        $webdavUrl = Nag::getUrl(Nag::DAV_WEBDAV, $tasklist);
         $this->addVariable(
              _("WebDAV/ICS Subscription URL"), '', 'link', false, false, null,
              array(array(

@@ -666,12 +666,9 @@ class Kronolith_Application extends Horde_Registry_Application
     public function davGetCollections($user)
     {
         $opts = array('perm' => Horde_Perms::SHOW);
-        if ($user != '-system-') {
-            $opts['attributes'] = $user;
-        }
         $shares = $GLOBALS['injector']
             ->getInstance('Kronolith_Shares')
-            ->listShares($GLOBALS['registry']->getAuth(), $opts);
+            ->listShares($user, $opts);
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
         $calendars = array();
@@ -679,6 +676,9 @@ class Kronolith_Application extends Horde_Registry_Application
             if ($user == '-system-' && $share->get('owner')) {
                 continue;
             }
+            $calendar = $GLOBALS['calendar_manager']
+                ->getEntry(Kronolith::ALL_CALENDARS, $id)
+                ->toHash();
             try {
                 $id = $dav->getExternalCollectionId($id, 'calendar');
             } catch (Horde_Dav_Exception $e) {
@@ -686,13 +686,18 @@ class Kronolith_Application extends Horde_Registry_Application
             $calendars[] = array(
                 'id' => $id,
                 'uri' => $id,
+                '{' . CalDAV\Plugin::NS_CALENDARSERVER . '}shared-url' =>
+                    $calendar['caldav'],
                 'principaluri' => 'principals/' . $user,
+                '{http://sabredav.org/ns}owner-principal' =>
+                    'principals/' . ($share->get('owner') ?: '-system-'),
                 '{DAV:}displayname' => Kronolith::getLabel($share),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $share->get('color'),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
+                '{http://sabredav.org/ns}read-only' => !$share->hasPermission($user, Horde_Perms::EDIT),
             );
         }
         return $calendars;
