@@ -77,6 +77,9 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const OOF_STATE_ENABLED                 = 1;
     const OOF_STATE_DISABLED                = 0;
 
+    /** 14.1 **/
+   const SETTINGS_PRIMARYSMTPADDRESS       = 'Settings:PrimarySmtpAddress';
+
     /**
      * Handle the request.
      *
@@ -299,6 +302,16 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                     $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
                 }
             }
+
+            // Send primarysmtp address if we need to
+            if (!empty($result['get']['userinformation']['primarysmtpaddress']) &&
+                $this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+
+                $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
+                $this->_encoder->content($result['get']['userinformation']['primarysmtpaddress']);
+                $this->_encoder->endTag();
+            }
+
             $this->_encoder->endTag(); // end self::SETTINGS_EMAILADDRESSES
             $this->_encoder->endTag(); // end self::SETTINGS_GET
             $this->_encoder->endTag(); // end self::SETTINGS_USERINFORMATION
