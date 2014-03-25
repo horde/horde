@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Fix search in Facebook driver.
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
@@ -1823,6 +1824,7 @@
    <date>2014-03-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix search in Facebook driver.
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.

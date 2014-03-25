@@ -82,63 +82,73 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        $results = array();
+        $key = implode('|', array(
+            'turba_fb_search',
+            $GLOBALS['registry']->getAuth(),
+            md5(json_encode($criteria) . '_' .
+                implode('.' , $fields) . '_' .
+                implode('.', $blobFields))
+        ));
 
-        $key = 'turba_fb_search|' . $GLOBALS['registry']->getAuth() . '|' . md5(implode('.', $criteria) . '_' . implode('.' , $fields) . '_' . implode('.', $blobFields));
         if ($values = $this->_cache->get($key, 3600)) {
             $values = json_decode($values, true);
             return $count_only ? count($values) : $values;
         }
 
+        $results = array();
         foreach ($this->_getAddressBook($fields) as $key => $contact) {
-            // No search criteria, return full list.
-            if (!count($criteria)) {
-                $results[$key] = $contact;
-                continue;
-            }
-            foreach ($criteria as $op => $vals) {
-                if ($op == 'AND') {
-                    if (!count($vals)) {
-                        $found = false;
-                    } else {
-                        $found = true;
-                        foreach ($vals as $val) {
-                            if (isset($contact[$val['field']])) {
-                                switch ($val['op']) {
-                                case 'LIKE':
-                                    if (stristr($contact[$val['field']], $val['test']) === false) {
-                                        $found = false;
-                                        break 2;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } elseif ($op == 'OR') {
-                    $found = false;
-                    foreach ($vals as $val) {
-                        if (isset($contact[$val['field']])) {
-                            switch ($val['op']) {
-                            case 'LIKE':
-                                if (empty($val['test']) ||
-                                    stristr($contact[$val['field']], $val['test']) !== false) {
-                                    $found = true;
-                                    break 2;
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    $found = false;
-                }
-            }
-            if ($found) {
+            // If no search criteria, return full list.
+            if (!count($criteria) ||
+                $this->_criteriaFound($criteria, $contact)) {
                 $results[$key] = $contact;
             }
         }
         $this->_cache->set($key, json_encode($results));
 
         return $count_only ? count($results) : $results;
+    }
+
+    /**
+     */
+    protected function _criteriaFound($criteria, $contact, $and = false)
+    {
+        foreach ($criteria as $key => $val) {
+            switch (strval($key)) {
+            case 'AND':
+                return count($val)
+                    ? $this->_criteriaFound($val, $contact, true)
+                    : false;
+
+            case 'OR':
+                return $this->_criteriaFound($val, $contact, false);
+
+            default:
+                if (!isset($val['field'])) {
+                    if ($this->_criteriaFound($val, $contact)) {
+                       if (!$and) {
+                           return true;
+                       }
+                    } elseif ($and) {
+                        return false;
+                    }
+                } elseif (isset($contact[$val['field']])) {
+                    switch ($val['op']) {
+                    case 'LIKE':
+                        if (stristr($contact[$val['field']], $val['test']) === false) {
+                            if ($and) {
+                                return false;
+                            }
+                        } elseif (!$and) {
+                            return true;
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        return $and;
     }
 
     /**
