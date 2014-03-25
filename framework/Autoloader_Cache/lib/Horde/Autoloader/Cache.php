@@ -12,6 +12,7 @@
  */
 
 require_once 'Horde/Autoloader/Default.php';
+require_once 'Horde/Autoloader/Cache/Bootstrap.php';
 
 /**
  * Decorator for Horde_Autoloader that implements caching of class-file-maps.
@@ -25,7 +26,7 @@ require_once 'Horde/Autoloader/Default.php';
  */
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
-    /* Cache types. */
+    /* Cache types. @todo: Remove (not used) */
     const APC = 1;
     const XCACHE = 2;
     const EACCELERATOR = 3;
@@ -49,14 +50,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      *
      * @var string
      */
-    protected $_cachekey = self::PREFIX;
-
-    /**
-     * The cache type.
-     *
-     * @var array
-     */
-    protected $_cachetype;
+    protected $_cachekey;
 
     /**
      * Has the cache changed since the last save?
@@ -73,72 +67,33 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     protected $_newkey = false;
 
     /**
-     * Cached value of the temporary directory.
-     *
-     * @var string
      */
-    protected $_tempdir;
+    protected $_storage;
 
     /**
      * Constructor.
-     *
-     * Tries all supported cache backends and tries to retrieve the cached
-     * class map.
      */
     public function __construct()
     {
         parent::__construct();
 
-        if (isset($_SERVER['SERVER_NAME'])) {
-            $this->_cachekey .= '|' . $_SERVER['SERVER_NAME'];
-        }
-        $this->_cachekey .= '|' . __FILE__;
+        $key = isset($_SERVER['SERVER_NAME'])
+            ? $_SERVER['SERVER_NAME']
+            : '';
+        $key .= '|' . __FILE__;
 
-        $data = null;
+        $this->_cachekey = self::PREFIX . '_' .
+            hash(PHP_MINOR_VERSION >= 4 ? 'fnv132' : 'sha1', $key);
+        $this->_storage = new Horde_Autoloader_Cache_Bootstrap();
 
-        if (extension_loaded('apc')) {
-            $data = apc_fetch($this->_cachekey);
-            $this->_cachetype = self::APC;
-        } elseif (extension_loaded('xcache')) {
-            $data = xcache_get($this->_cachekey);
-            $this->_cachetype = self::XCACHE;
-        } elseif (extension_loaded('eaccelerator')) {
-            $data = eaccelerator_get($this->_cachekey);
-            $this->_cachetype = self::EACCELERATOR;
-        } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
-            $this->_tempdir = $tempdir;
-            /* For files, add cachekey prefix for easy filesystem
-             * identification. */
-            $this->_cachekey = self::PREFIX . '_' .
-                hash(PHP_MINOR_VERSION >= 4 ? 'fnv164' : 'sha1', $this->_cachekey);
-            if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
-                unlink($tempdir . '/' . $this->_cachekey);
-            }
-            $this->_cachetype = self::TEMPFILE;
-        }
-
-        if ($this->_cachetype) {
-            register_shutdown_function(array($this, 'shutdown'));
-        }
-
-        if ($data) {
-            if (extension_loaded('horde_lz4')) {
-                $data = @horde_lz4_uncompress($data);
-            } elseif (extension_loaded('lzf')) {
-                $data = @lzf_decompress($data);
-            }
-
-            if ($data !== false) {
-                $data = extension_loaded('msgpack')
-                    ? msgpack_unpack($data)
-                    : @json_decode($data, true);
-                if (is_array($data)) {
-                    $this->_cache = $data;
-                }
-            }
-        } else {
+        $data = $this->_storage->get($this->_cachekey);
+        if ($data === false) {
             $this->_newkey = true;
+        } else {
+            $this->_cache = $data;
         }
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -152,33 +107,8 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             return;
         }
 
-        $data = extension_loaded('msgpack')
-            ? msgpack_pack($this->_cache)
-            : json_encode($this->_cache);
-        if (extension_loaded('horde_lz4')) {
-            $data = horde_lz4_compress($data);
-        } elseif (extension_loaded('lzf')) {
-            $data = lzf_compress($data);
-        }
-
-        switch ($this->_cachetype) {
-        case self::APC:
-            apc_store($this->_cachekey, $data);
-            break;
-
-        case self::XCACHE:
-            xcache_set($this->_cachekey, $data);
-            break;
-
-        case self::EACCELERATOR:
-            eaccelerator_put($this->_cachekey, $data);
-            break;
-
-        case self::TEMPFILE:
-            if (!file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data)) {
-                error_log('Cannot write Autoloader cache file to system temp directory: ' . $this->_tempdir, 4);
-            }
-            break;
+        if (!$this->_storage->set($this->_cachekey, $this->_cache)) {
+            error_log('Cannot write Autoloader cache to backend.', 4);
         }
 
         if ($this->_newkey) {
@@ -217,24 +147,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     public function prune()
     {
         foreach (array_unique(array_merge($this->_getKeylist(), array($this->_cachekey))) as $val) {
-            switch ($this->_cachetype) {
-            case self::APC:
-                apc_delete($val);
-                break;
-
-            case self::XCACHE:
-                xcache_unset($val);
-                break;
-
-            case self::EACCELERATOR:
-                /* Undocumented, unknown return value. */
-                eaccelerator_rm($val);
-                break;
-
-            case self::TEMPFILE:
-                @unlink($this->_tempdir . '/' . $val);
-                break;
-            }
+            $this->_storage->delete($val);
         }
 
         $this->_saveKeylist(array());
@@ -249,26 +162,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     protected function _getKeylist()
     {
-        switch ($this->_cachetype) {
-        case self::APC:
-            $keylist = apc_fetch(self::KEYLIST);
-            break;
-
-        case self::XCACHE:
-            $keylist = xcache_get(self::KEYLIST);
-            break;
-
-        case self::EACCELERATOR:
-            $keylist = eaccelerator_get(self::KEYLIST);
-            break;
-
-        case self::TEMPFILE:
-            $tmp = @file_get_contents($this->_tempdir . '/' . self::KEYLIST);
-            $keylist = extension_loaded('msgpack')
-                ? msgpack_unpack($tmp)
-                : @json_decode($tmp, true);
-            break;
-        }
+        $keylist = $this->_storage->get(self::KEYLIST);
 
         return empty($keylist)
             ? array()
@@ -282,23 +176,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     protected function _saveKeylist($keylist)
     {
-        switch ($this->_cachetype) {
-        case self::APC:
-            apc_store(self::KEYLIST, $keylist);
-            break;
-
-        case self::XCACHE:
-            xcache_set(self::KEYLIST, $keylist);
-            break;
-
-        case self::EACCELERATOR:
-            eaccelerator_put(self::KEYLIST, $keylist);
-            break;
-
-        case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . self::KEYLIST, extension_loaded('msgpack') ? msgpack_pack($keylist) : json_encode($keylist));
-            break;
-        }
+        $keylist = $this->_storage->set(self::KEYLIST, $keylist);
     }
 
 }
