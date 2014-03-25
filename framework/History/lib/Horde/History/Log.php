@@ -47,7 +47,7 @@ class Horde_History_Log implements IteratorAggregate, ArrayAccess, Countable
                 'modseq' => $row['history_modseq']
             );
 
-            if ($row['history_extra']) {
+            if (!empty($row['history_extra'])) {
                 $extra = @unserialize($row['history_extra']);
                 if ($extra) {
                     $history = array_merge($history, $extra);
