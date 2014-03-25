@@ -36,9 +36,12 @@ class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage_Base
             return $scope_ob;
         }
 
+        /* List of UI-only config options. */
+        $ui = array('link', 'prefslink', 'rawhtml', 'container', 'special');
+
         if (isset($pconf->config['_prefs'])) {
             foreach ($pconf->config['_prefs'] as $name => $pref) {
-                if (!isset($pref['value'])) {
+                if (!isset($pref['value']) || in_array($pref['type'], $ui)) {
                     continue;
                 }
 

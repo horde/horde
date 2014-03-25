@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Don&apos;t store preference UI elements in the session cache storage.
 * [mjr] Send the PRIMARYSMTPADDRESS to EAS clients, if appropriate (Request #13062).
 * [jan] Fix loading of configuration screen with basedir restrictions or libxml entity loading disabled (Bug #13025).
 * [mms] The location of dynamically served static files is now configurable (Request #13070).
@@ -3359,6 +3360,7 @@
    <date>2014-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Don&apos;t store preference UI elements in the session cache storage.
 * [mjr] Send the PRIMARYSMTPADDRESS to EAS clients, if appropriate (Request #13062).
 * [jan] Fix loading of configuration screen with basedir restrictions or libxml entity loading disabled (Bug #13025).
 * [mms] The location of dynamically served static files is now configurable (Request #13070).
