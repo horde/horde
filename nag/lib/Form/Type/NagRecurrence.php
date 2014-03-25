@@ -16,15 +16,9 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
         }
         $recurrence = new Horde_Date_Recurrence($this->_getDue($var, $vars));
         if ($vars->recur_end_type == 'date') {
-            $recur_enddate = $vars->recur_end;
-            $recurEnd = new Horde_Date(
-                array('hour' => 23,
-                      'min' => 59,
-                      'sec' => 59,
-                      'month' => $recur_enddate['month'],
-                      'mday' => $recur_enddate['day'],
-                      'year' => $recur_enddate['year']),
-                $timezone);
+            $recurEnd = Nag::parseDate($vars->recur_end, false);
+            $recurEnd->hour = 23;
+            $recurEnd->min = $recurEnd->sec = 59;
             $recurrence->setRecurEnd($recurEnd);
         } elseif ($vars->recur_end_type == 'count') {
             $recurrence->setRecurCount($vars->recur_count);
