@@ -36,7 +36,7 @@
  */
 class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 {
-
+    /** Wbxml constants **/
     const SETTINGS_SETTINGS                 = 'Settings:Settings';
     const SETTINGS_STATUS                   = 'Settings:Status';
     const SETTINGS_GET                      = 'Settings:Get';
@@ -66,24 +66,27 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const SETTINGS_SMTPADDRESS              = 'Settings:SmtpAddress';
     const SETTINGS_USERAGENT                = 'Settings:UserAgent';
 
-    // 14.0
+    /** EAS 14.0 **/
     const SETTINGS_ENABLEOUTBOUNDSMS        = 'Settings:EnableOutboundSMS';
     const SETTINGS_MOBILEOPERATOR           = 'Settings:MobileOperator';
 
+    /** EAS 14.1 **/
+    const SETTINGS_PRIMARYSMTPADDRESS       = 'Settings:PrimarySmtpAddress';
+
+    /** Status codes **/
     const STATUS_SUCCESS                    = 1;
     const STATUS_ERROR                      = 2;
     const STATUS_UNAVAILABLE                = 4;
 
+    /** Out of office constants **/
     const OOF_STATE_ENABLED                 = 1;
     const OOF_STATE_DISABLED                = 0;
 
-    /** 14.1 **/
-   const SETTINGS_PRIMARYSMTPADDRESS       = 'Settings:PrimarySmtpAddress';
 
     /**
      * Handle the request.
      *
-     * @return boolean
+     * @see Horde_ActiveSync_Request_Base::_handle()
      */
     protected function _handle()
     {
