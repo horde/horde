@@ -287,8 +287,8 @@ class IMP_Contents_View
 
             $css_list = $page_output->css->getStylesheets();
             foreach ($css_list as $val) {
-                $cache_list[] = $val;
-                $cache_list[] = filemtime($val);
+                $cache_list[] = $val['fs'];
+                $cache_list[] = filemtime($val['fs']);
             }
             $cache_id = 'imp_printcss_' . hash(
                 (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
