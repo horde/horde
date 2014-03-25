@@ -734,27 +734,25 @@ class Horde_Registry implements Horde_Shutdown_Task
     /**
      * Get the cache ID for the registry information.
      *
-     * @param string $sha1  If set, use this value as the SHA1 hash of the
-     *                      registry data. If false, uses session stored
-     *                      value.
+     * @param string $hash  If set, use this value as the hash of the registry
+     *                      data. If false, uses session stored value.
      */
-    protected function _cacheId($sha1 = null)
+    protected function _cacheId($hash = null)
     {
         global $session;
 
-        if (!is_null($sha1)) {
-            $session->set('horde', self::REGISTRY_CACHE, $sha1);
-        } elseif (!($sha1 = $session->get('horde', self::REGISTRY_CACHE))) {
+        if (!is_null($hash)) {
+            $session->set('horde', self::REGISTRY_CACHE, $hash);
+        } elseif (!($hash = $session->get('horde', self::REGISTRY_CACHE))) {
             return false;
         }
 
         /* Generate cache ID. */
         return implode('|', array(
-            'horde_registry_cache',
             gethostname() ?: php_uname(),
             __FILE__,
             $this->_regmtime,
-            $sha1
+            $hash
         ));
     }
 
