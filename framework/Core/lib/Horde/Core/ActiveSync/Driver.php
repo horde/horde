@@ -2283,6 +2283,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param stdClass $device  The device to obtain settings for.
      *
      * @return array  The requested settings.
+     * @todo H6: return information keyed by the common names given in wbxml
+     *           schema for the settings command (use constants).
      */
     public function getSettings(array $settings, $device)
     {
@@ -2312,8 +2314,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $ident = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($GLOBALS['registry']->getAuth());
+
+                $default_email = $ident->getValue('from_addr');
+                if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                    $email_addresses = array_keys(array_flip($ident->getAll('from_addr')));
+                } else {
+                    $email_addresses = array($default_email);
+                }
                 $res['userinformation'] = array(
-                    'emailaddresses' => array_keys(array_flip($ident->getAll('from_addr'))),
+                    'emailaddresses' => $email_addresses,
+                    'primarysmtpaddress' => $default_email,
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS
                 );
             }
