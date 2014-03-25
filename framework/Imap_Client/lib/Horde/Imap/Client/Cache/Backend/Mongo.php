@@ -247,7 +247,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
             }
 
             $this->deleteMailbox($mailbox);
-        } catch (Horde_Db_Exception $e) {}
+        } catch (MongoException $e) {}
 
         return array();
     }
