@@ -44,7 +44,10 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $msg = 'Could not instantiate PDO. PDOException: '
                 . $e->getMessage();
             $this->_logError($msg, '');
-            throw new Horde_Db_Exception($msg);
+
+            $e2 = new Horde_Db_Exception($msg);
+            $e2->logged = true;
+            throw $e2;
         }
 
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
