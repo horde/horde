@@ -1147,20 +1147,23 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function saveSyncCache(array $cache, $devid, $user, array $dirty = array())
     {
-        $cache['timestamp'] = strval($cache['timestamp']);
         $this->_logger->info(
             sprintf('[%s] Saving SYNC_CACHE entry fields %s for user %s and device %s.',
                 $this->_procid, serialize($dirty), $user, $devid));
 
+        $cache['timestamp'] = strval($cache['timestamp']);
         $query = array(
             'cache_devid' => $devid,
             'cache_user' => $user
         );
+        $update = array();
+
+        // Ensure the initial object is written for the collection data.
         if (empty($cache['collections'])) {
             $cache['collections'] = new stdClass();
+            $update['cache.data.collections'] = $cache['collections'];
         }
 
-        $update = array();
         foreach ($dirty as $property => $value) {
             if ($property == 'collections' && is_array($value) && !empty($cache['collections'])) {
                 foreach (array_keys($value) as $collection) {
