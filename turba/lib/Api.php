@@ -1574,7 +1574,7 @@ class Turba_Api extends Horde_Registry_Api
                                   array $fields = array(),
                                   $matchBegin = false)
     {
-        $abook = $GLOBALS['conf']['client']['addressbook'];
+        $abook = $this->getClientSource();
         return $this->search(
             $names,
             array('sources' => array($abook),
