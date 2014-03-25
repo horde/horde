@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Support sending PRIMARYSMTPADDRESS in EAS 14.1 (Request #13062).
 * [mjr] Change the order of WBXML tags for Horde_ActiveSync_Message_Exception to make some older clients happy.
 * [mjr] Fix some cases where removing a device&apos;s state could cause a PING and/or SYNC loop on some older clients.
  </notes>
@@ -2043,6 +2044,7 @@
    <date>2014-03-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Support sending PRIMARYSMTPADDRESS in EAS 14.1 (Request #13062).
 * [mjr] Change the order of WBXML tags for Horde_ActiveSync_Message_Exception to make some older clients happy.
 * [mjr] Fix some cases where removing a device&apos;s state could cause a PING and/or SYNC loop on some older clients.
    </notes>
