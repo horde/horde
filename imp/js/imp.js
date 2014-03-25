@@ -144,7 +144,8 @@ var IMP_JS = {
     printWindow: function(win)
     {
         win.print();
-        win.close();
+        // Bug #12833: Fixes closing print window in Chrome.
+        (function() { win.close(); }).defer();
     },
 
     resizeViewPopup: function(win)
