@@ -684,8 +684,16 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* First, try to load from cache. */
         if ($use_cache) {
+            if (Horde_Util::extensionExists('apc')) {
+                $cstorage = 'Horde_Cache_Storage_Apc';
+            } elseif (Horde_Util::extensionExists('xcache')) {
+                $cstorage = 'Horde_Cache_Storage_Xcache';
+            } else {
+                $cstorage = 'Horde_Cache_Storage_File';
+            }
+
             $cache = new Horde_Cache(
-                new Horde_Cache_Storage_File(array(
+                new $cstorage(array(
                     'no_gc' => true,
                     'prefix' => 'horde_registry_cache_'
                 )),
