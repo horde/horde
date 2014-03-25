@@ -680,10 +680,8 @@ class Horde_Registry implements Horde_Shutdown_Task
             return;
         }
 
-        $use_cache = (!isset($cli) && !$this->isTest());
-
         /* First, try to load from cache. */
-        if ($use_cache) {
+        if (!isset($cli) && !$this->isTest()) {
             if (Horde_Util::extensionExists('apc')) {
                 $cstorage = 'Horde_Cache_Storage_Apc';
             } elseif (Horde_Util::extensionExists('xcache')) {
@@ -702,14 +700,12 @@ class Horde_Registry implements Horde_Shutdown_Task
                     'logger' => $injector->getInstance('Horde_Log_Logger')
                 )
             );
-            $pack = $injector->getInstance('Horde_Pack');
 
             if (($cid = $this->_cacheId()) &&
                 ($cdata = $cache->get($cid, 0))) {
                 try {
-                    $cdata = $pack->unpack($cdata);
-                    $this->applications = $cdata[0];
-                    $this->_interfaces = $cdata[1];
+                    list($this->applications, $this->_interfaces) =
+                        $injector->getInstance('Horde_Pack')->unpack($cdata);
                     return;
                 } catch (Horde_Pack_Exception $e) {}
             }
@@ -719,37 +715,36 @@ class Horde_Registry implements Horde_Shutdown_Task
         $this->applications = $config->applications;
         $this->_interfaces = $config->interfaces;
 
-        if (!$use_cache) {
+        if (!isset($cache)) {
             return;
         }
 
         /* Need to determine hash of generated data, since it is possible that
          * there is dynamic data in the config files. This only needs to
          * be done once per session. */
-        $packed_data = $pack->pack(array(
+        $packed_data = $injector->getInstance('Horde_Pack')->pack(array(
             $this->applications,
             $this->_interfaces
         ));
-        $cache->set(
-            $this->_cacheId(hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                $packed_data
-            )),
-            $packed_data
-        );
+        $cid = $this->_cacheId($packed_data);
+
+        if (!$cache->exists($cid, 0)) {
+            $cache->set($cid, $packed_data);
+        }
     }
 
     /**
      * Get the cache ID for the registry information.
      *
-     * @param string $hash  If set, use this value as the hash of the registry
-     *                      data. If false, uses session stored value.
+     * @param string $hash  If set, hash this value and use as the hash of the
+     *                      registry. If false, uses session stored value.
      */
     protected function _cacheId($hash = null)
     {
         global $session;
 
         if (!is_null($hash)) {
+            $hash = hash((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1', $hash);
             $session->set('horde', self::REGISTRY_CACHE, $hash);
         } elseif (!($hash = $session->get('horde', self::REGISTRY_CACHE))) {
             return false;
