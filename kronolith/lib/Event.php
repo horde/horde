@@ -940,7 +940,10 @@ abstract class Kronolith_Event
                 $vAlarm = Horde_Icalendar::newComponent('valarm', $vEvent);
                 $vAlarm->setAttribute('ACTION', 'DISPLAY');
                 $vAlarm->setAttribute('DESCRIPTION', $this->getTitle());
-                $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
+                $vAlarm->setAttribute(
+                    'TRIGGER;VALUE=DURATION',
+                    ($this->alarm > 0 ? '-' : '') . 'PT' . abs($this->alarm) . 'M'
+                );
                 $vEvent->addComponent($vAlarm);
             }
             $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
