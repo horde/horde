@@ -79,7 +79,7 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
                         ? $srcConfig['params']['sql']['charset']
                         : 'UTF-8';
                 } catch (Horde_Db_Exception $e) {
-                    throw new Turba_Exception($e);
+                    throw new Turba_Exception(_("Server error when initializing database connection."));
                 }
                 break;
 

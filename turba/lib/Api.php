@@ -1908,9 +1908,9 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db[$key]->selectAssoc($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::log($e);
-                throw new Horde_Exception_Wrapped($e);
+                throw new Horde_Exception(_("Server error when performing search."));
             }
+
             foreach ($results as $id => $name) {
                 $groups[$key . ':' . $id] = $name;
             }
@@ -1939,8 +1939,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::log($e);
-                throw new Turba_Exception($e);
+                throw new Horde_Exception(_("Server error when performing search."));
             }
 
             foreach ($results as $row) {
@@ -2006,8 +2005,7 @@ class Turba_Api extends Horde_Registry_Api
             unset($ret['lname']);
             return $ret;
         } catch (Horde_Db_Exception $e) {
-            Horde::log($e);
-            throw new Turba_Exception($e);
+            throw new Horde_Exception(_("Server error when performing search."));
         }
     }
 
@@ -2088,8 +2086,7 @@ class Turba_Api extends Horde_Registry_Api
             try {
                 $results = $db[$newSource]->selectOne($sql);
             } catch (Horde_Db_Exception $e) {
-                Horde::log($e);
-                throw new Horde_Exception_Wrapped($e);
+                throw new Horde_Exception(_("Server error when performing search."));
             }
 
             // Sub-Lists are treated as sub groups the best that we can...

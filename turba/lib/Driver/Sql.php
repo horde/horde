@@ -156,20 +156,24 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Build up the full query. */
-        if ($count_only) {
-            $query = 'SELECT COUNT(*) FROM ' . $this->_params['table'] . $where;
-            try {
-                return $this->_db->selectValue($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Turba_Exception($e);
+        try {
+            if ($count_only) {
+                return $this->_db->selectValue(
+                    'SELECT COUNT(*) FROM ' . $this->_params['table'] . $where,
+                    $values
+                );
             }
-        } else {
-            $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where;
-            try {
-               return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
-            } catch (Horde_Db_Exception $e) {
-                throw new Turba_Exception($e);
-            }
+
+            return $this->_parseRead(
+                $blobFields,
+                $this->_db->selectAll(
+                    'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where,
+                    $query,
+                    $values
+                )
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception(_("Server error when performing search."));
         }
     }
 
@@ -316,7 +320,7 @@ class Turba_Driver_Sql extends Turba_Driver
             try {
                 $ids = $this->_db->selectValues($query, array($owner, $owner));
             } catch (Horde_Db_Exception $e) {
-                throw new Turba_Exception($e);
+                throw new Turba_Exception(_("Server error when performing search."));
             }
 
             $field = ($i == 0)
@@ -395,7 +399,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $dateFields);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when performing search."));
         }
     }
 
@@ -418,7 +422,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when adding data."));
         }
     }
 
@@ -464,7 +468,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when deleting data."));
         }
     }
 
@@ -494,7 +498,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             $ids = $this->_db->selectValues($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when deleting data."));
         }
 
         /* Do the deletion */
@@ -503,7 +507,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when deleting data."));
         }
 
         return $ids;
@@ -536,7 +540,7 @@ class Turba_Driver_Sql extends Turba_Driver
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+            throw new Turba_Exception(_("Server error when saving data."));
         }
 
         return $object_id;
