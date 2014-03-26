@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Fix approximate search operator (Leandro Damascena &lt;leandro.damascena@gmail.com&gt;, Bug #9094).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -402,7 +402,7 @@
    <date>2013-10-28</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Fix approximate search operator (Leandro Damascena &lt;leandro.damascena@gmail.com&gt;, Bug #9094).
    </notes>
   </release>
  </changelog>

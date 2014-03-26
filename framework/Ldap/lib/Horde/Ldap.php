@@ -1486,7 +1486,7 @@ class Horde_Ldap
                 return sprintf('(|(%s=%s*)(%s=* %s*))', $lhs, self::quote($rhs), $lhs, self::quote($rhs));
             }
             if (!empty($params['approximate'])) {
-                return sprintf('(%s=~%s)', $lhs, self::quote($rhs));
+                return sprintf('(%s~=%s)', $lhs, self::quote($rhs));
             }
             return sprintf('(%s=*%s*)', $lhs, self::quote($rhs));
 
