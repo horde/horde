@@ -4146,9 +4146,9 @@ var DimpBase = {
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
     },
 
-    onAjaxFailure: function()
+    onAjaxFailure: function(r)
     {
-        switch (e.memo[0].request.action) {
+        switch (r.request.action) {
         case 'createMailboxPrepare':
         case 'deleteMailboxPrepare':
         case 'emptyMailboxPrepare':
