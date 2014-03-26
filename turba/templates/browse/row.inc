@@ -53,7 +53,7 @@ if ($ob->hasValue('__key')) {
   <td class="turba-browse-icon"><?php echo $vcard_url ?></td>
 <?php endif; ?>
 <?php if ($this->showGroup): ?>
-  <td class="turba-browse-icon"><?php echo $ob->isGroup() ? '<span class="iconImg groupImg" title="' . htmlspecialchars(_("Group")) . '"></span>' : $own_icon ?></td>
+  <td class="turba-browse-icon"><?php echo $ob->isGroup() ? '<span class="iconImg groupImg" title="' . htmlspecialchars(_("Contact List")) . '"></span>' : $own_icon ?></td>
 <?php endif; ?>
   <td<?php if ($this->showSort && $this->isSortColumn(0)) echo ' class="linedRowSelectedCol"' ?>><?php
 echo $cell;
