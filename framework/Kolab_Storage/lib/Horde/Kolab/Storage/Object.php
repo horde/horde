@@ -440,35 +440,28 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         );
         $this->_content = $original->getContents(array('stream' => true));
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
+        $body->buildMimeIds();
 
-        // Delete old attachments in reverse orde, because mime ids are
-        // refreshed after each removal..
-        $delete = array();
-        foreach ($body->getParts() as $part) {
-            if ($part->getMimeId() == $mime_id ||
-                $part->getMimeId() == 1 ||
-                !$part->getName()) {
-                continue;
-            }
-            $delete[] = $part->getMimeId();
-        }
-        foreach (array_reverse($delete) as $partId) {
-            $body->removePart($partId);
-        }
-
-        // Add new attachments.
+        // Update attachments.
         if (isset($this['_attachments'])) {
             foreach ($this['_attachments'] as $name => $attachment) {
-                $part = new Horde_Mime_Part();
-                $part->setType($attachment['type']);
-                $part->setContents($attachment['content']);
-                $part->setName($name);
-                $body->addPart($part);
+                foreach ($body->getParts() as $part) {
+                    if ($part->getName() === $name) {
+                        $body->removePart($part->getMimeId());
+                        break;
+                    }
+                }
+                if (!is_null($attachment)) {
+                    $part = new Horde_Mime_Part();
+                    $part->setType($attachment['type']);
+                    $part->setContents($attachment['content']);
+                    $part->setName($name);
+                    $body->addPart($part);
+                }
+                $body->buildMimeIds();
             }
         }
 
-        // Rebuild mime ids.
-        $body->buildMimeIds();
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );

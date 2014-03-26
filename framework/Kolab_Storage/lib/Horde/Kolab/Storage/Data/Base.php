@@ -268,13 +268,40 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         } else {
             $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
         }
+
+        // Mark removed attachments as to-be-deleted.
+        $oldObject = $this->getObject($object['uid']);
+        $oldAttachments = isset($oldObject['inline-attachments'])
+            ? $oldObject['inline-attachments']
+            : array();
+        if ($oldObject['picture']) {
+            $oldAttachments[] = $oldObject['picture'];
+        }
+        $newAttachments = isset($object['inline-attachments'])
+            ? $object['inline-attachments']
+            : array();
+        if (isset($object['picture'])) {
+            $newAttachments[] = $object['picture'];
+        }
+        $attachments = isset($object['_attachments'])
+            ? $object['_attachments']
+            : array();
+        foreach (array_diff($oldAttachments, $newAttachments) as $attachment) {
+            $attachments[$attachment] = null;
+        }
+        $object['_attachments'] = $attachments;
+
         if (!$object instanceOf Horde_Kolab_Storage_Object) {
             $object_array = $object;
-            $object = $this->getObject($object_array['uid']);
+            $object = $oldObject;
             $object->setData($object_array);
         }
+
         $object->setDriver($this->_driver);
         $result = $object->save($writer);
+
+        // Filter out removed attachments so that they won't be synchronized.
+        $object['_attachments'] = array_filter($object['_attachments']);
 
         if ($result === true) {
             $params = array();
