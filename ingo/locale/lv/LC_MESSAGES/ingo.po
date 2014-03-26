@@ -7,92 +7,98 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-06-03 14:05+0300\n"
+"POT-Creation-Date: 2014-02-17 12:06+0200\n"
+"PO-Revision-Date: 2014-03-19 21:36+0200\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: lv_LV\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Poedit-Language: Latvian\n"
-"X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.7\n"
 
-# "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-#: lib/Ingo.php:441
+# "Plural-Forms: nplurals=2; plural=(n!=1);\n
+#: lib/Ingo.php:444
 msgid " and"
 msgstr " un"
 
-#: lib/Ingo.php:442
+#: lib/Ingo.php:445
 msgid " or"
 msgstr " vai"
 
-#: lib/Ingo.php:165
+#: lib/Transport/Ispconfig.php:141
+#, php-format
+msgid "%d users with login %s found, one expected."
+msgstr "viena vietā atrasti %d lietotāji ar lietotāja vārdu %s."
+
+#: lib/Ingo.php:194
 #, php-format
 msgid "%s The driver said: %s"
 msgstr "%s Dzinis paziņoja: %s"
 
+#: templates/basic/blacklist/blacklist.html.php:15
 #: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
 msgstr "Darbība Melnā saraksta adresēm:"
 
-#: templates/script/activate.inc:10
+#: templates/basic/script/script.html.php:12 templates/script/activate.inc:10
 msgid "Activate Script"
 msgstr "Aktivēt skriptu"
 
-#: lib/Transport/Ldap.php:226
+#: lib/Transport/Ldap.php:235
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "Aktivēt skriptu \"%s\" neizdevās: (%d) %s"
 
+#: templates/basic/filters/filters.html.php:93
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
 msgstr "Papildu iestatījumi"
 
-#: lib/Form/Forward.php:23
+#: lib/Form/Forward.php:30
 msgid "Address(es) to forward to:"
 msgstr "Adrese(s) pārsūtīšanai:"
 
-#: lib/Form/Vacation.php:47
+#: lib/Form/Vacation.php:68
 msgid "Addresses to not send responses to:"
 msgstr "Adreses, kurām nesūtīt atbildes:"
 
-#: lib/Form/Vacation.php:44
+#: lib/Form/Vacation.php:62
 msgid "Advanced Settings"
 msgstr "Paplašinātie iestatījumi"
 
-#: templates/rule/header.inc:37
+#: templates/basic/rule/rule.html.php:39 templates/rule/header.inc:37
 msgid "All of the following"
 msgstr "Visi sekojošie"
 
-#: lib/Application.php:166
+#: lib/Application.php:172
 msgid "Allow Rules"
 msgstr "Atļaut likumus"
 
-#: templates/rule/footer.inc:37
+#: templates/basic/rule/rule.html.php:166 templates/rule/footer.inc:37
 msgid "Answered"
 msgstr "Atbildēta"
 
-#: templates/rule/header.inc:38
+#: templates/basic/rule/rule.html.php:41 templates/rule/header.inc:38
 msgid "Any of the following"
 msgstr "Jebkurš no sekojošiem"
 
-#: templates/filters/footer.inc:5
+#: templates/basic/filters/filters.html.php:82 templates/filters/footer.inc:5
 msgid "Apply Filters"
 msgstr "Pielietot filtrus"
 
-#: filters.php:239
+#: filters.php:239 lib/Basic/Filters.php:258
 msgid "Are you sure you want to delete this rule?"
 msgstr "Vai tiešām vēlaties dzēst šo likumu?"
 
-#: config/prefs.php:28
+#: config/prefs.php:29
 msgid "Automatically activate the script after each change?"
 msgstr "Automātiski aktivēt skriptu pēc katras izmaiņas?"
 
-#: lib/Form/Vacation.php:35
+#: lib/Form/Vacation.php:42
 msgid "Basic Settings"
 msgstr "Pamatiestatījumi"
 
@@ -100,30 +106,31 @@ msgstr "Pamatiestatījumi"
 msgid "Bcc"
 msgstr "Bcc"
 
-#: lib/Storage.php:255
+#: lib/Storage.php:263
 msgid "Begins with"
 msgstr "Sākas ar"
 
-#: lib/Transport/Ldap.php:114
+#: lib/Transport/Ldap.php:123
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr "Neizdevās pieslēgties: (%s) %s"
 
-#: filters.php:189 lib/Block/Overview.php:94 lib/Smartmobile.php:78
+#: filters.php:189 lib/Basic/Filters.php:205 lib/Block/Overview.php:101
+#: lib/Smartmobile.php:85 templates/basic/blacklist/blacklist.html.php:5
 #: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr "Melnais saraksts"
 
-#: blacklist.php:95
+#: blacklist.php:95 lib/Basic/Blacklist.php:126
 msgid "Blacklist Edit"
 msgstr "Melnā saraksta labošana"
 
-#: blacklist.php:22
+#: blacklist.php:22 lib/Basic/Blacklist.php:34
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Melno sarakstu."
 
-#: lib/Script/Maildrop.php:200 lib/Script/Procmail.php:242
-#: lib/Script/Sieve.php:283
+#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
+#: lib/Script/Sieve.php:230
 msgid "Blacklisted Addresses"
 msgstr "Melnā saraksta adreses"
 
@@ -131,7 +138,7 @@ msgstr "Melnā saraksta adreses"
 msgid "Body"
 msgstr "Ķermenis"
 
-#: lib/Ingo.php:436 rule.php:347
+#: lib/Ingo.php:439 rule.php:343 templates/basic/rule/rule.html.php:110
 msgid "Case Sensitive"
 msgstr "Reģistrjutīgs"
 
@@ -139,75 +146,79 @@ msgstr "Reģistrjutīgs"
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:57 forward.php:47 rule.php:175 spam.php:83 vacation.php:55
-#: whitelist.php:37
+#: blacklist.php:57 forward.php:47 lib/Basic/Blacklist.php:71
+#: lib/Basic/Forward.php:59 lib/Basic/Rule.php:196 lib/Basic/Spam.php:72
+#: lib/Basic/Vacation.php:73 lib/Basic/Whitelist.php:50 rule.php:175
+#: spam.php:83 vacation.php:55 whitelist.php:37
 msgid "Changes saved."
 msgstr "Izmaiņas saglabātas."
 
-#: lib/Transport/Ldap.php:78
+#: lib/Transport/Ldap.php:87
 msgid "Connection failure"
 msgstr "Pieslēgšanās kļūme"
 
-#: lib/Storage.php:251
+#: lib/Storage.php:259
 msgid "Contains"
 msgstr "Satur"
 
-#: filters.php:249 filters.php:250
+#: filters.php:249 filters.php:250 lib/Basic/Filters.php:268
+#: lib/Basic/Filters.php:269
 #, php-format
 msgid "Copy %s"
 msgstr "Kopēt %s"
 
-#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:232
+#: lib/Storage/Filters.php:244 lib/Storage/Filters/Sql.php:240
 #, php-format
 msgid "Copy of %s"
 msgstr "%s kopija"
 
-#: lib/Ingo.php:108
+#: lib/Ingo.php:137
 msgid "Could not validate IMAP mailbox."
 msgstr "Nevar pārbaudīt IMAP pastkasti."
 
-#: lib/Ingo.php:61
+#: lib/Ingo.php:90
 msgid "Create new folder"
 msgstr "Izveidot jaunu mapi"
 
-#: lib/Script/Maildrop/Comment.php:37 lib/Script/Procmail/Comment.php:37
+#: lib/Script/Maildrop/Comment.php:43 lib/Script/Procmail/Comment.php:43
 msgid "DISABLED: "
 msgstr "IZSLĒGTS: "
 
-#: templates/script/activate.inc:17
+#: templates/basic/script/script.html.php:18 templates/script/activate.inc:17
 msgid "Deactivate Script"
 msgstr "Izslēgt skriptu"
 
-#: filters.php:239 filters.php:240
+#: filters.php:239 filters.php:240 lib/Basic/Filters.php:258
+#: lib/Basic/Filters.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Dzēst %s"
 
-#: templates/rule/filter.inc:33
+#: templates/basic/rule/rule.html.php:116 templates/rule/filter.inc:33
 msgid "Delete Condition"
 msgstr "Dzēšanas nosacījums"
 
-#: lib/Storage.php:201
+#: lib/Storage.php:209
 msgid "Delete message completely"
 msgstr "Dzēst vēstuli pavisam"
 
-#: templates/rule/footer.inc:40
+#: templates/basic/rule/rule.html.php:170 templates/rule/footer.inc:40
 msgid "Deleted"
 msgstr "Izdzēsta"
 
-#: lib/Storage.php:189
+#: lib/Storage.php:197
 msgid "Deliver into my Inbox"
 msgstr "Nogādāt INBOX-ā"
 
-#: lib/Storage.php:215
+#: lib/Storage.php:223
 msgid "Deliver into my Inbox and copy to..."
 msgstr "Nogādāt INBOX-ā un kopēt uz..."
 
-#: lib/Storage.php:210
+#: lib/Storage.php:218
 msgid "Deliver into my Inbox and redirect to..."
 msgstr "Nogādāt INBOX-ā un pāradresēt..."
 
-#: lib/Storage.php:195
+#: lib/Storage.php:203
 msgid "Deliver to folder..."
 msgstr "Nogādāt mapē..."
 
@@ -219,222 +230,239 @@ msgstr "Apraksts"
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Mērķis (To,Cc,Bcc, utt.)"
 
-#: filters.php:267 filters.php:268
+#: filters.php:267 filters.php:268 lib/Basic/Filters.php:286
+#: lib/Basic/Filters.php:287
 #, php-format
 msgid "Disable %s"
 msgstr "Izslēgt %s"
 
-#: forward.php:79 spam.php:120 templates/blacklist/blacklist.inc:9
-#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:9
-#: vacation.php:114
+#: forward.php:79 lib/Basic/Forward.php:91 lib/Basic/Spam.php:109
+#: lib/Basic/Vacation.php:132 spam.php:120
+#: templates/basic/blacklist/blacklist.html.php:8
+#: templates/basic/rule/rule.html.php:14
+#: templates/basic/whitelist/whitelist.html.php:8
+#: templates/blacklist/blacklist.inc:9 templates/rule/header.inc:14
+#: templates/whitelist/whitelist.inc:9 vacation.php:114
 msgid "Disabled"
 msgstr "Izslēgts"
 
+#: templates/basic/filters/filters.html.php:99
 #: templates/filters/settings.inc:14
 msgid "Display detailed notification when each filter is applied?"
 msgstr "Rādīt detalizētu atskaiti pēc katra filtra pielietošanas? "
 
-#: lib/Form/Vacation.php:49
+#: lib/Form/Vacation.php:72
 msgid "Do not send responses to bulk or list messages?"
 msgstr "Nesūtīt atbildi uz vairum- vai vēstkopu vēstulēm?"
 
-#: templates/rule/footer.inc:10
+#: templates/basic/rule/rule.html.php:132 templates/rule/footer.inc:10
 msgid "Do this:"
 msgstr "Darbība:"
 
-#: lib/Storage.php:256
+#: lib/Storage.php:264
 msgid "Doesn't begin with"
 msgstr "Nesākas ar"
 
-#: lib/Storage.php:252
+#: lib/Storage.php:260
 msgid "Doesn't contain"
 msgstr "Nesatur"
 
-#: lib/Storage.php:258
+#: lib/Storage.php:266
 msgid "Doesn't end with"
 msgstr "Nebeidzas ar"
 
-#: lib/Storage.php:260
+#: lib/Storage.php:268
 msgid "Doesn't exist"
 msgstr "Neeksistē"
 
-#: lib/Storage.php:263
+#: lib/Storage.php:271
 msgid "Doesn't match (with placeholders)"
 msgstr "Neatbilst (ar vietturiem)"
 
-#: lib/Block/Overview.php:56 lib/Block/Overview.php:67
-#: lib/Block/Overview.php:82 lib/Block/Overview.php:93
-#: lib/Block/Overview.php:104 templates/filters/header.inc:12
+#: lib/Block/Overview.php:63 lib/Block/Overview.php:74
+#: lib/Block/Overview.php:89 lib/Block/Overview.php:100
+#: lib/Block/Overview.php:111 templates/basic/filters/filters.html.php:12
+#: templates/filters/header.inc:12
 msgid "Edit"
 msgstr "Labot"
 
-#: filters.php:229 filters.php:231 filters.php:235
+#: filters.php:229 filters.php:231 filters.php:235 lib/Basic/Filters.php:248
+#: lib/Basic/Filters.php:250 lib/Basic/Filters.php:254
 #, php-format
 msgid "Edit %s"
 msgstr "Labot %s"
 
-#: filters.php:277 filters.php:278
+#: filters.php:277 filters.php:278 lib/Basic/Filters.php:295
+#: lib/Basic/Filters.php:296
 #, php-format
 msgid "Enable %s"
 msgstr "Ieslēgt %s"
 
-#: templates/filters/header.inc:14
+#: templates/basic/filters/filters.html.php:14 templates/filters/header.inc:14
 msgid "Enabled"
 msgstr "Ieslēgts"
 
-#: lib/Form/Vacation.php:38
+#: lib/Form/Vacation.php:47
 msgid "End of vacation:"
 msgstr "Brīvdienu beigas:"
 
-#: lib/Storage.php:257
+#: lib/Storage.php:265
 msgid "Ends with"
 msgstr "Beidzas ar"
 
-#: lib/Storage.php:268
+#: lib/Storage.php:276
 msgid "Equal to"
 msgstr "Vienāds ar"
 
-#: lib/Transport/Ldap.php:137 lib/Transport/Ldap.php:149
-#: lib/Transport/Ldap.php:158 lib/Transport/Ldap.php:168
+#: lib/Transport/Ldap.php:146 lib/Transport/Ldap.php:158
+#: lib/Transport/Ldap.php:167 lib/Transport/Ldap.php:177
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
 msgstr "Kļūda saņemot skriptu: (%d) %s"
 
-#: templates/filters/header.inc:6
+#: templates/basic/filters/filters.html.php:5 templates/filters/header.inc:6
 msgid "Existing Rules"
 msgstr "Filtrēšanas likumi"
 
-#: lib/Storage.php:259
+#: lib/Storage.php:267
 msgid "Exists"
 msgstr "Eksistē"
 
-#: lib/Transport/Ldap.php:143
+#: lib/Transport/Ldap.php:152
 #, php-format
 msgid "Expected 1 object, got %d."
 msgstr "Sagaidīts 1 objekts, saņemts %d"
 
-#: lib/Transport/Sivtest.php:147
+#: lib/Transport/Sivtest.php:155
 msgid "Failed to read from socket: "
 msgstr "Neizdevās nolasīt, kļūme sakaros:"
 
-#: lib/Transport/Sivtest.php:142
+#: lib/Transport/Sivtest.php:150
 msgid "Failed to write to socket: "
 msgstr "Neizdevās nodot datus, kļūme sakaros:"
 
-#: lib/Transport/Sivtest.php:137
+#: lib/Transport/Sivtest.php:145
 msgid "Failed to write to socket: (connection lost!)"
 msgstr "Neizdevās nodot datus: (zudis savienojums!)"
 
-#: templates/rule/filter.inc:10
+#: templates/basic/rule/rule.html.php:61 templates/rule/filter.inc:10
 msgid "Field"
 msgstr "Lauks"
 
+#: templates/basic/filters/filters.html.php:105
 #: templates/filters/settings.inc:20
 msgid "Filter All Messages"
 msgstr "Filtrēt visas vēstules"
 
+#: templates/basic/filters/filters.html.php:107
 #: templates/filters/settings.inc:22
 msgid "Filter Only Seen Messages"
 msgstr "Filtrēt tikai lasītās vēstules"
 
+#: templates/basic/filters/filters.html.php:106
 #: templates/filters/settings.inc:21
 msgid "Filter Only Unseen Messages"
 msgstr "Filtrēt tikai neskatītās vēstules"
 
+#: templates/basic/filters/filters.html.php:103
 #: templates/filters/settings.inc:18
 msgid "Filter Options"
 msgstr "Filtru opcijas"
 
-#: templates/rule/header.inc:13
+#: templates/basic/rule/rule.html.php:12 templates/rule/header.inc:13
 msgid "Filter Rule"
 msgstr "Filtrēšanas likums"
 
-#: filters.php:147
+#: filters.php:147 lib/Basic/Filters.php:320
 msgid "Filter Rules"
 msgstr "Filtrēšanas likumi"
 
-#: script.php:60
+#: lib/Basic/Script.php:108 script.php:60
 msgid "Filter Script Display"
 msgstr "Filtra skriptu ekrāns"
 
-#: lib/Application.php:181
+#: lib/Application.php:191
 msgid "Filter _Rules"
 msgstr "Filtrēšanas likumi"
 
-#: lib/Script/Imap.php:330
+#: lib/Script/Imap.php:321
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Filtrēšana: %s vēstule(s) nokopēta(s)uz mapi \"%s\"."
 
-#: lib/Script/Imap.php:308
+#: lib/Script/Imap.php:298
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Filtrēšana: izdzēsta(s) %s vēstule(s) ."
 
-#: lib/Script/Imap.php:283
+#: lib/Script/Imap.php:273
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Filtrēšana: %s vēstule(s) pārvietota(s)uz mapi \"%s\"."
 
-#: lib/Script/Imap.php:183
+#: lib/Script/Imap.php:171
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr "Filtrēšana: izdzēstas %s Melnajam sarakstam atbilstošā(s) vēstule(s)."
 
-#: lib/Script/Imap.php:323
+#: lib/Script/Imap.php:314
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr "Filtrēšana: Vēstule \"%s\" no \"%s\" nokopēta uz mapi \"%s\"."
 
-#: lib/Script/Imap.php:302
+#: lib/Script/Imap.php:292
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Filtrēšana: Vēstule \"%s\" no \"%s\" izdzēsta."
 
-#: lib/Script/Imap.php:276
+#: lib/Script/Imap.php:266
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr "Filtrēšana: Vēstule \"%s\" no \"%s\" pārvietota uz mapi \"%s\"."
 
-#: rule.php:214
+#: lib/Basic/Rule.php:235 rule.php:214
 msgid "Filter not found."
 msgstr "Filtrs nav atrodams"
+
+#: templates/basic/rule/rule.html.php:162
+msgid "Flagged"
+msgstr "Atzīmēts"
 
 #: templates/rule/footer.inc:34
 msgid "Flagged For Followup"
 msgstr "Atzīmēts papildu darbam"
 
-#: lib/Form/Spam.php:31
+#: lib/Form/Spam.php:38
 msgid "Folder to receive spam:"
 msgstr "Mape, kurā nogādāt mēstules:"
 
-#: templates/rule/header.inc:31
+#: templates/basic/rule/rule.html.php:32 templates/rule/header.inc:31
 msgid "For an incoming message that matches:"
 msgstr "Ienākošajai vēstulei, kas atbilst:"
 
-#: filters.php:207 forward.php:77 lib/Block/Overview.php:68
-#: lib/Smartmobile.php:93
+#: filters.php:207 forward.php:77 lib/Basic/Filters.php:223
+#: lib/Basic/Forward.php:89 lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "Pārsūtīt"
 
-#: lib/Script/Sieve.php:236
+#: lib/Script/Sieve.php:182
 msgid "Forward Keep Action"
 msgstr "Pāradresēt darbības saglabāšanu"
 
-#: forward.php:21
+#: forward.php:21 lib/Basic/Forward.php:34
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta pārsūtīšanu."
 
-#: lib/Script/Maildrop.php:249 lib/Script/Procmail.php:321
-#: lib/Script/Sieve.php:246
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
+#: lib/Script/Sieve.php:192
 msgid "Forwards"
 msgstr "Pārsūtīšanas"
 
-#: forward.php:86
+#: forward.php:86 lib/Basic/Forward.php:96
 msgid "Forwards Edit"
 msgstr "Labot Pārsūtīšanu"
 
@@ -442,43 +470,43 @@ msgstr "Labot Pārsūtīšanu"
 msgid "From"
 msgstr "Sūtītājs"
 
-#: lib/Script/Sieve/Action/Notify.php:43
+#: lib/Script/Sieve/Action/Notify.php:52
 msgid "From:"
 msgstr "Sūtītājs:"
 
-#: lib/Script/Sieve.php:133
+#: lib/Script/Sieve.php:467
 msgid "Generated by Ingo"
 msgstr "Ingo ģenerētais"
 
-#: lib/Storage.php:266
+#: lib/Storage.php:274
 msgid "Greater than"
 msgstr "Lielāks par"
 
-#: lib/Storage.php:267
+#: lib/Storage.php:275
 msgid "Greater than or equal to"
 msgstr "Lielāks vai vienāds ar"
 
-#: lib/Ajax/Application/Smartmobile.php:35 rule.php:37
+#: lib/Ajax/Application/Smartmobile.php:44 lib/Basic/Rule.php:49 rule.php:37
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta individuālus likumus."
 
-#: lib/Script/Sieve/Action/Fileinto.php:52
+#: lib/Script/Sieve/Action/Fileinto.php:61
 msgid "Inexistant mailbox specified for message delivery."
 msgstr "Norādīta neeksistējoša pastkastīte."
 
-#: lib/Storage.php:253
+#: lib/Storage.php:261
 msgid "Is"
 msgstr "Ir"
 
-#: lib/Storage.php:254
+#: lib/Storage.php:262
 msgid "Isn't"
 msgstr "Nav"
 
-#: lib/Form/Forward.php:21
+#: lib/Form/Forward.php:28
 msgid "Keep a copy of messages in this account?"
 msgstr "Saglabāt vēstuļu kopijas šajā kontā?"
 
-#: lib/Transport/Ldap.php:26
+#: lib/Transport/Ldap.php:35
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
@@ -489,11 +517,11 @@ msgstr ""
 msgid "Label"
 msgstr "Iezīme"
 
-#: lib/Storage.php:264
+#: lib/Storage.php:272
 msgid "Less than"
 msgstr "Mazāks par"
 
-#: lib/Storage.php:265
+#: lib/Storage.php:273
 msgid "Less than or equal to"
 msgstr "Mazāks vai vienāds ar"
 
@@ -501,27 +529,33 @@ msgstr "Mazāks vai vienāds ar"
 msgid "List-ID"
 msgstr "Saraksta ID"
 
+#: lib/Transport/Ispconfig.php:196
+#, php-format
+msgid "Login to %s failed."
+msgstr "Pieslēgties %s neizdevās."
+
+#: templates/basic/blacklist/blacklist.html.php:25
 #: templates/blacklist/blacklist.inc:23
 msgid "Mar_k message as deleted"
 msgstr "Atzīmēt vēstuli kā izdzēstu"
 
-#: templates/rule/footer.inc:26
+#: templates/basic/rule/rule.html.php:152 templates/rule/footer.inc:26
 msgid "Mark message as:"
 msgstr "Atzīmēt vēstuli kā:"
 
-#: templates/rule/filter.inc:23
+#: templates/basic/rule/rule.html.php:92 templates/rule/filter.inc:23
 msgid "Match type"
 msgstr "Atbilstības tips"
 
-#: lib/Storage.php:262
+#: lib/Storage.php:270
 msgid "Matches (with placeholders)"
 msgstr "Atbilst (ar vietturiem)"
 
-#: lib/Application.php:170
+#: lib/Application.php:176
 msgid "Maximum Number of Rules"
 msgstr "Maksimālais likumu skaits"
 
-#: lib/Storage/Blacklist.php:38
+#: lib/Storage/Blacklist.php:45
 #, php-format
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
@@ -530,7 +564,7 @@ msgstr ""
 "Adrešu skaits Melnajā sarakstā izsmelts (Adreses kopā: %s, maksimālais "
 "skaits: %s). Pievienot adreses Melnajam sarakstam vairs nav iespējams."
 
-#: lib/Storage/Whitelist.php:42
+#: lib/Storage/Whitelist.php:49
 #, php-format
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
@@ -539,7 +573,7 @@ msgstr ""
 "Adrešu skaits Baltajā sarakstā izsmelts (Adreses kopā: %s, maksimālais "
 "skaits: %s). Pievienot adreses Baltajam sarakstam vairs nav iespējams."
 
-#: lib/Form/Spam.php:28
+#: lib/Form/Spam.php:35
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
@@ -547,19 +581,19 @@ msgstr ""
 "Vēstules ar mēstulisma indeksu virs norādītās vērtības tiks apstrādātas kā "
 "mēstules."
 
-#: lib/Script/Sieve/Action/Notify.php:57
+#: lib/Script/Sieve/Action/Notify.php:66
 msgid "Missing address to notify"
 msgstr "Nav norādīta adrese, kurp nosūtīt paziņojumu"
 
-#: lib/Script/Sieve/Action/Redirect.php:46
+#: lib/Script/Sieve/Action/Redirect.php:55
 msgid "Missing address to redirect message to"
 msgstr "Nav norādīta adrese, kurp pāradresēt"
 
-#: lib/Script/Sieve/Action/Reject.php:48
+#: lib/Script/Sieve/Action/Reject.php:57
 msgid "Missing reason for reject"
 msgstr "Nav norādīts atteikuma iemesls"
 
-#: lib/Script/Sieve/Action/Vacation.php:141
+#: lib/Script/Sieve/Action/Vacation.php:150
 msgid "Missing reason in vacation."
 msgstr "Nav norādīts prombūtnes paskaidrojums"
 
@@ -567,51 +601,55 @@ msgstr "Nav norādīts prombūtnes paskaidrojums"
 msgid "Mobile"
 msgstr "Mobilais"
 
-#: templates/filters/header.inc:16
+#: templates/basic/filters/filters.html.php:16 templates/filters/header.inc:16
 msgid "Move"
 msgstr "Pārvietot"
 
-#: filters.php:171 filters.php:262
+#: filters.php:171 filters.php:262 lib/Basic/Filters.php:281
+#: templates/basic/filters/filters.html.php:64
 msgid "Move Rule Down"
 msgstr "Pārvietot lejup"
 
-#: filters.php:172 filters.php:259
+#: filters.php:172 filters.php:259 lib/Basic/Filters.php:278
+#: templates/basic/filters/filters.html.php:59
 msgid "Move Rule Up"
 msgstr "Pārvietot augšup"
 
-#: lib/Form/Vacation.php:45
+#: lib/Form/Vacation.php:64
 msgid "My email addresses:"
 msgstr "Jūsu e-pasta adreses:"
 
-#: lib/Application.php:234 lib/Storage/Filters.php:94
+#: lib/Application.php:271 lib/Storage/Filters.php:140
+#: templates/basic/filters/filters.html.php:24
 #: templates/filters/filter-none.inc:3
 msgid "New Rule"
 msgstr "Jauns likums"
 
-#: lib/Ingo.php:246
+#: lib/Ingo.php:273
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
 
-#: lib/Smartmobile.php:128
+#: lib/Smartmobile.php:135
 msgid "No Description"
 msgstr "Nav apraksta"
 
-#: lib/Ingo.php:239
+#: lib/Ingo.php:266
 msgid "No backend configured for this host"
 msgstr "Nav atrodams konfigurēts palīgmodulis"
 
-#: lib/Ingo.php:211
+#: lib/Ingo.php:238 lib/Ingo.php:306
 msgid "No backends configured in backends.php"
 msgstr "backends.php nav neviens konfigurēts palīgmodulis"
 
+#: templates/basic/filters/filters.html.php:24
 #: templates/filters/filter-none.inc:3
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "Filtru nav. Nospiediet \"%s\"  lai radītu jaunu filtru."
 
-#: lib/Script/Sieve/Test/Exists.php:40 lib/Script/Sieve/Test/Header.php:75
-#: lib/Script/Sieve/Test/Relational.php:97
+#: lib/Script/Sieve/Test/Exists.php:49 lib/Script/Sieve/Test/Header.php:84
+#: lib/Script/Sieve/Test/Relational.php:106
 msgid "No headers specified"
 msgstr "Nav norādīta neviena galvene"
 
@@ -619,27 +657,27 @@ msgstr "Nav norādīta neviena galvene"
 msgid "No rules"
 msgstr "Nav likumu"
 
-#: script.php:76
+#: script.php:76 templates/basic/script/script.html.php:43
 msgid "No script generated."
 msgstr "Nav ģenerēts neviens skripts."
 
-#: lib/Script/Sieve/Test/Body.php:71 lib/Script/Sieve/Test/Header.php:91
+#: lib/Script/Sieve/Test/Body.php:80 lib/Script/Sieve/Test/Header.php:100
 msgid "No strings specified"
 msgstr "Nav norādīts teksts"
 
-#: lib/Storage.php:269
+#: lib/Storage.php:277
 msgid "Not equal to"
 msgstr "Nav vienāds ar"
 
-#: lib/Storage.php:231
+#: lib/Storage.php:239
 msgid "Notify email address..."
 msgstr "E-pasta adrese paziņojumam..."
 
-#: lib/Form/Vacation.php:51
+#: lib/Form/Vacation.php:76
 msgid "Number of days between vacation replies:"
 msgstr "Dienu skaits starp brīvdienu atbildes nosūtīšanu:"
 
-#: lib/Storage.php:225
+#: lib/Storage.php:233
 msgid "Only flag the message"
 msgstr "Tikai atzīmēt vēstuli"
 
@@ -647,7 +685,7 @@ msgstr "Tikai atzīmēt vēstuli"
 msgid "Other Preferences"
 msgstr "Citi iestatījumi"
 
-#: lib/Block/Overview.php:23
+#: lib/Block/Overview.php:30
 msgid "Overview"
 msgstr "Pārskats"
 
@@ -657,11 +695,11 @@ msgstr "Dalībnieks (From,To, utt.)"
 
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/Storage/Sql.php:283
+#: lib/Storage/Sql.php:291
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
-#: lib/Ingo.php:76
+#: lib/Ingo.php:105
 msgid "Please enter the name of the new folder:"
 msgstr "Lūdzu ievadiet jaunās mapes nosaukumu:"
 
@@ -669,7 +707,7 @@ msgstr "Lūdzu ievadiet jaunās mapes nosaukumu:"
 msgid "Preferences about script updating."
 msgstr "Skriptu atjaunināšanas opcijas"
 
-#: lib/Form/Vacation.php:41
+#: lib/Form/Vacation.php:54
 msgid "Reason:"
 msgstr "Iemesls:"
 
@@ -677,19 +715,19 @@ msgstr "Iemesls:"
 msgid "Received"
 msgstr "Saņemta"
 
-#: lib/Storage.php:206
+#: lib/Storage.php:214
 msgid "Redirect to..."
 msgstr "Pāradresēt..."
 
-#: lib/Storage.php:261
+#: lib/Storage.php:269
 msgid "Regular expression"
 msgstr "Loģiskās izteiksmes"
 
-#: lib/Storage.php:221
+#: lib/Storage.php:229
 msgid "Reject with reason..."
 msgstr "Atteikt ar pamatojumu..."
 
-#: lib/Storage.php:311
+#: lib/Storage.php:319
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
@@ -704,57 +742,62 @@ msgstr "Pārsūtīts no"
 msgid "Resent-To"
 msgstr "Pārsūtīts"
 
-#: templates/rule/footer.inc:65
+#: templates/basic/rule/rule.html.php:196 templates/rule/footer.inc:65
 msgid "Return to Filters List"
 msgstr "Atgriezties pie filtru saraksta"
 
-#: forward.php:34 lib/Form/Base.php:30 spam.php:60
+#: forward.php:34 lib/Basic/Forward.php:38 lib/Basic/Spam.php:45
+#: lib/Basic/Vacation.php:46 lib/Form/Base.php:56 spam.php:60
+#: templates/basic/blacklist/blacklist.html.php:53
+#: templates/basic/whitelist/whitelist.html.php:29
 #: templates/blacklist/blacklist.inc:49 templates/whitelist/whitelist.inc:30
 #: vacation.php:34
 msgid "Return to Rules List"
 msgstr "Atgriezties pie likumu saraksta"
 
-#: templates/filters/header.inc:13
+#: templates/basic/filters/filters.html.php:13 templates/filters/header.inc:13
 msgid "Rule"
 msgstr "Likums"
 
-#: filters.php:83
+#: filters.php:83 lib/Basic/Filters.php:101
 #, php-format
 msgid "Rule \"%s\" copied."
 msgstr "Likums \"%s\" nokopēts."
 
-#: filters.php:60
+#: filters.php:60 lib/Basic/Filters.php:78
 #, php-format
 msgid "Rule \"%s\" deleted."
 msgstr "Likums \"%s\" izdzēsts."
 
-#: filters.php:99
+#: filters.php:99 lib/Basic/Filters.php:117
 #, php-format
 msgid "Rule \"%s\" disabled."
 msgstr "Likums \"%s\" izslēgts"
 
-#: filters.php:105
+#: filters.php:105 lib/Basic/Filters.php:123
 #, php-format
 msgid "Rule \"%s\" enabled."
 msgstr "Likums \"%s\" ieslēgts"
 
-#: forward.php:56 spam.php:92 vacation.php:64
+#: forward.php:56 lib/Basic/Forward.php:68 lib/Basic/Spam.php:81
+#: lib/Basic/Vacation.php:82 spam.php:92 vacation.php:64
 msgid "Rule Disabled"
 msgstr "Likums izslēgts"
 
-#: forward.php:51 spam.php:87 vacation.php:59
+#: forward.php:51 lib/Basic/Forward.php:63 lib/Basic/Spam.php:76
+#: lib/Basic/Vacation.php:77 spam.php:87 vacation.php:59
 msgid "Rule Enabled"
 msgstr "Likums ieslēgts"
 
-#: templates/rule/header.inc:21
+#: templates/basic/rule/rule.html.php:22 templates/rule/header.inc:21
 msgid "Rule Name:"
 msgstr "Likuma nosaukums:"
 
-#: lib/Ajax/Application/Smartmobile.php:41
+#: lib/Ajax/Application/Smartmobile.php:53
 msgid "Rule not found."
 msgstr "Likums nav atrodams."
 
-#: lib/Script/Sieve/Action/Notify.php:45
+#: lib/Script/Sieve/Action/Notify.php:54
 msgid "Rule:"
 msgstr "Likums:"
 
@@ -763,34 +806,44 @@ msgstr "Likums:"
 msgid "Rules"
 msgstr "Likumi"
 
-#: lib/Transport/Ldap.php:91
+#: lib/Application.php:282
+msgid "Ruleset"
+msgstr "Likumi kopa"
+
+#: lib/Transport/Ldap.php:100
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
 msgstr "STARTTLS kļūme: (%s) %s"
 
-#: lib/Application.php:199
+#: lib/Application.php:213
 msgid "S_pam"
 msgstr "Mēstules"
 
-#: lib/Form/Base.php:24 lib/Form/Forward.php:25 lib/Form/Spam.php:35
-#: lib/Form/Vacation.php:53 templates/blacklist/blacklist.inc:48
-#: templates/rule/footer.inc:64 templates/whitelist/whitelist.inc:29
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:42
+#: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:52
+#: templates/basic/rule/rule.html.php:195
+#: templates/basic/whitelist/whitelist.html.php:28
+#: templates/blacklist/blacklist.inc:48 templates/rule/footer.inc:64
+#: templates/whitelist/whitelist.inc:29
 msgid "Save"
 msgstr "Saglabāt"
 
+#: templates/basic/filters/filters.html.php:113
 #: templates/filters/settings.inc:28
 msgid "Save Settings"
 msgstr "Saglabāt iestatījumus"
 
-#: forward.php:53 lib/Form/Base.php:28 spam.php:89 vacation.php:61
+#: forward.php:53 lib/Basic/Forward.php:65 lib/Basic/Spam.php:78
+#: lib/Basic/Vacation.php:79 lib/Form/Base.php:54 spam.php:89 vacation.php:61
 msgid "Save and Disable"
 msgstr "Saglabāt un atspējot"
 
-#: forward.php:48 lib/Form/Base.php:26 spam.php:84 vacation.php:56
+#: forward.php:48 lib/Basic/Forward.php:60 lib/Basic/Spam.php:73
+#: lib/Basic/Vacation.php:74 lib/Form/Base.php:52 spam.php:84 vacation.php:56
 msgid "Save and Enable"
 msgstr "Saglabāt un iespējot"
 
-#: templates/script/header.inc:2
+#: templates/basic/script/script.html.php:1 templates/script/header.inc:2
 msgid "Script"
 msgstr "Skripts"
 
@@ -798,40 +851,50 @@ msgstr "Skripts"
 msgid "Script Updating"
 msgstr "Skripta atjaunināšana"
 
-#: lib/Ingo.php:191
+#: templates/basic/script/_script.html.php:1
+msgid "Script name:"
+msgstr "Skripta nosaukums:"
+
+#: lib/Ingo.php:217
 #, php-format
 msgid "Script not updated: %s"
 msgstr "Skripts nav atjaunināts: %s"
 
-#: lib/Ingo.php:170
+#: lib/Ingo.php:200
 msgid "Script successfully activated."
 msgstr "Skripts veiksmīgi aktivēts."
 
-#: lib/Ingo.php:169
+#: lib/Ingo.php:199
 msgid "Script successfully deactivated."
 msgstr "Skripts veiksmīgi deaktivēts."
 
-#: templates/rule/footer.inc:31
+#: templates/basic/rule/rule.html.php:158 templates/rule/footer.inc:31
 msgid "Seen"
 msgstr "Redzēta"
 
-#: rule.php:244
+#: rule.php:244 templates/basic/rule/rule.html.php:64
 msgid "Select a field"
 msgstr "Izvēlieties lauku"
+
+#: templates/basic/menu/menu.html.php:4 templates/basic/menu/menu.html.php:6
+msgid "Select ruleset to display"
+msgstr "Izvēlieties rādāmo likumu kopu"
 
 #: templates/menu/menu.html:5 templates/menu/menu.html:7
 msgid "Select ruleset to display:"
 msgstr "Izvēlieties rādāmo likumu kopumu:"
 
-#: rule.php:372 templates/blacklist/blacklist.inc:26
+#: lib/Basic/Rule.php:348 rule.php:368
+#: templates/basic/blacklist/blacklist.html.php:30
+#: templates/blacklist/blacklist.inc:26
 msgid "Select target folder"
 msgstr "izvēlēties mapi"
 
-#: lib/Ingo.php:57
+#: lib/Ingo.php:86
 msgid "Select target folder:"
 msgstr "izvēlēties mērķa mapi:"
 
-#: rule.php:281
+#: rule.php:281 templates/basic/rule/rule.html.php:80
 msgid "Self-Defined Header"
 msgstr "Pašdefinēta galvene"
 
@@ -839,19 +902,19 @@ msgstr "Pašdefinēta galvene"
 msgid "Sender"
 msgstr "Sūtītājs"
 
-#: filters.php:127
+#: filters.php:127 lib/Basic/Filters.php:145
 msgid "Settings successfully updated."
 msgstr "Iestatījumi veiksmīgi atjaunināti."
 
-#: templates/script/activate.inc:24
+#: templates/basic/script/script.html.php:24 templates/script/activate.inc:24
 msgid "Show Active Script"
 msgstr "Rādīt aktīvos skriptus"
 
-#: templates/script/activate.inc:31
+#: templates/basic/script/script.html.php:30 templates/script/activate.inc:31
 msgid "Show Current Script"
 msgstr "Rādīt pašreizējo skriptu"
 
-#: spam.php:48
+#: lib/Basic/Spam.php:34 spam.php:48
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Vienkāršā mēstuļu filtrēšana nav iespēja ar izmantoto filtrēšanas dzini."
@@ -864,24 +927,25 @@ msgstr "Izmērs"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Avots (From,Reply-to, utt.)"
 
-#: filters.php:213 lib/Block/Overview.php:105 lib/Script/Maildrop.php:308
-#: lib/Script/Sieve.php:444 lib/Smartmobile.php:98
+#: filters.php:213 lib/Basic/Filters.php:229 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:294 lib/Script/Sieve.php:394
+#: lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Mēstuļu filtrs"
 
-#: spam.php:118 spam.php:128
+#: lib/Basic/Spam.php:107 lib/Basic/Spam.php:114 spam.php:118 spam.php:128
 msgid "Spam Filtering"
 msgstr "Mēstuļu filtrēšana"
 
-#: lib/Form/Spam.php:28
+#: lib/Form/Spam.php:35
 msgid "Spam Level:"
 msgstr "Mēstulisma līmenis"
 
-#: lib/Form/Vacation.php:36
+#: lib/Form/Vacation.php:45
 msgid "Start of vacation:"
 msgstr "Brīvdienu sākums:"
 
-#: templates/rule/footer.inc:54
+#: templates/basic/rule/rule.html.php:185 templates/rule/footer.inc:54
 msgid "Stop checking if this rule matches?"
 msgstr "Pārtraukt pārbaudi, ja šis likums izpildās?"
 
@@ -889,29 +953,29 @@ msgstr "Pārtraukt pārbaudi, ja šis likums izpildās?"
 msgid "Subject"
 msgstr "Temats"
 
-#: lib/Form/Vacation.php:39
+#: lib/Form/Vacation.php:50
 msgid "Subject of vacation message:"
 msgstr "Brīvdienu paziņojuma temats:"
 
-#: lib/Script/Sieve/Action/Notify.php:44
+#: lib/Script/Sieve/Action/Notify.php:53
 msgid "Subject:"
 msgstr "Temats:"
 
-#: lib/Api.php:73
+#: lib/Api.php:96
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
 msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
 
-#: lib/Api.php:95
+#: lib/Api.php:118
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Adrese \"%s\" pievienota Baltajam sarakstam."
 
-#: lib/Ingo.php:164
+#: lib/Ingo.php:193
 msgid "There was an error activating the script."
 msgstr "Kļūda aktivējot skriptu."
 
-#: lib/Ingo.php:163
+#: lib/Ingo.php:192
 msgid "There was an error deactivating the script."
 msgstr "Kļūda deaktivējot skriptu."
 
@@ -919,52 +983,54 @@ msgstr "Kļūda deaktivējot skriptu."
 msgid "To"
 msgstr "Saņēmējs"
 
+#: templates/basic/filters/filters.html.php:69
 #: templates/filters/filter.html:29
 msgid "To:"
 msgstr "Saņēmējs:"
 
-#: lib/Factory/Script.php:72
+#: lib/Factory/Script.php:102
 #, php-format
 msgid "Unable to load the script driver \"%s\"."
 msgstr "Nav iespējams ielādēt skripta dzini \"%s\"."
 
-#: lib/Factory/Storage.php:74
+#: lib/Factory/Storage.php:70
 #, php-format
 msgid "Unable to load the storage driver \"%s\"."
 msgstr "Nav iespējams ielādēt datu glabātuves dzini \"%s\"."
 
-#: lib/Factory/Transport.php:76
+#: lib/Factory/Transport.php:66
 #, php-format
 msgid "Unable to load the transport driver \"%s\"."
 msgstr "Nav iespējams ielādēt transporta dzini \"%s\"."
 
-#: templates/rule/filter.inc:15
+#: templates/basic/rule/rule.html.php:84 templates/rule/filter.inc:15
 msgid "User header"
 msgstr "Lietotāja galvene"
 
-#: filters.php:201 lib/Block/Overview.php:57 lib/Script/Maildrop.php:280
-#: lib/Script/Procmail.php:301 lib/Script/Sieve.php:418 lib/Smartmobile.php:88
+#: filters.php:201 lib/Basic/Filters.php:217 lib/Basic/Vacation.php:130
+#: lib/Block/Overview.php:64 lib/Script/Maildrop.php:259
+#: lib/Script/Procmail.php:292 lib/Script/Sieve.php:367 lib/Smartmobile.php:95
 #: vacation.php:112
 msgid "Vacation"
 msgstr "Brīvdienas"
 
-#: vacation.php:125
+#: lib/Basic/Vacation.php:137 vacation.php:125
 msgid "Vacation Edit"
 msgstr "Labot Brīvdienu paziņojumu"
 
-#: lib/Form/Vacation.php:70
+#: lib/Form/Vacation.php:98
 msgid "Vacation end date is prior to start."
 msgstr "Brīvdienu beigu datums ir pirms to sākuma."
 
-#: lib/Form/Vacation.php:74
+#: lib/Form/Vacation.php:102
 msgid "Vacation end date is prior to today."
 msgstr "Brīvdienu beigu datums ir pirms šodienas."
 
-#: vacation.php:21
+#: lib/Basic/Vacation.php:34 vacation.php:21
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta brīvdienu paziņojumus."
 
-#: rule.php:378
+#: lib/Basic/Rule.php:354 rule.php:374
 msgid "Value"
 msgstr "Vērtība"
 
@@ -972,25 +1038,27 @@ msgstr "Vērtība"
 msgid "View Rule"
 msgstr "Skatīt likumu"
 
+#: templates/basic/whitelist/whitelist.html.php:15
 #: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
 msgstr "Baltā saraksta adreses"
 
-#: filters.php:195 lib/Block/Overview.php:83 lib/Smartmobile.php:83
+#: filters.php:195 lib/Basic/Filters.php:211 lib/Block/Overview.php:90
+#: lib/Smartmobile.php:90 templates/basic/whitelist/whitelist.html.php:5
 #: templates/whitelist/whitelist.inc:6
 msgid "Whitelist"
 msgstr "Baltais saraksts"
 
-#: whitelist.php:56
+#: lib/Basic/Whitelist.php:83 whitelist.php:56
 msgid "Whitelist Edit"
 msgstr "Labot Balto sarakstu"
 
-#: whitelist.php:25
+#: lib/Basic/Whitelist.php:35 whitelist.php:25
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Balto sarakstu."
 
-#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:269
-#: lib/Script/Sieve.php:343
+#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
+#: lib/Script/Sieve.php:291
 msgid "Whitelisted Addresses"
 msgstr "Baltā saraksta adreses"
 
@@ -1010,16 +1078,17 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:77 rule.php:163 rule.php:204
+#: filters.php:77 lib/Basic/Filters.php:95 lib/Basic/Rule.php:184
+#: lib/Basic/Rule.php:225 rule.php:163 rule.php:204
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Jūs nevarat izveidot vairāk kā %d likumus."
 
-#: filters.php:69 rule.php:26
+#: filters.php:69 lib/Basic/Filters.php:87 lib/Basic/Rule.php:38 rule.php:26
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Jūs nevarat izveidot vai mainīt specializētos likumus"
 
-#: lib/Form/Vacation.php:41
+#: lib/Form/Vacation.php:54
 msgid ""
 "You can use placeholders like %NAME% in the vacation message. See the online "
 "help for details."
@@ -1027,95 +1096,101 @@ msgstr ""
 "Brīvdienu paziņojumā ir iespējams izmantot vietturus, kā, piemēram,  %NAME%. "
 "Plašākam izklāstam skat. tiešsaistes palīdzībā."
 
-#: rule.php:90
+#: lib/Basic/Rule.php:108 rule.php:90
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "Tukšus nosacījumus nevar izveidot. Lūdzu, norādiet \"%s\" vērtību."
 
-#: filters.php:54
+#: filters.php:54 lib/Basic/Filters.php:72
 msgid "You do not have permission to delete filter rules."
 msgstr "Jums nav tiesību dzēst filtra likumus."
 
-#: filters.php:48 filters.php:122 filters.php:132 rule.php:148
+#: filters.php:48 filters.php:122 filters.php:132 lib/Basic/Filters.php:65
+#: lib/Basic/Filters.php:140 lib/Basic/Filters.php:150 lib/Basic/Rule.php:169
+#: rule.php:148
 msgid "You do not have permission to edit filter rules."
 msgstr "Jums nav tiesību labot filtru likumus."
 
-#: lib/Script/Sieve/Action/Notify.php:42
+#: lib/Script/Sieve/Action/Notify.php:51
 msgid "You have received a new message"
 msgstr "Jums ir pienākusi jauna vēstule."
 
-#: rule.php:153
+#: lib/Basic/Rule.php:174 rule.php:153
 msgid "You need to select at least one field to match."
 msgstr "Nepieciešams izvēlēties vismaz vienu atbilstības lauku."
 
-#: lib/Script/Imap.php:278 lib/Script/Imap.php:304 lib/Script/Imap.php:325
+#: lib/Script/Imap.php:268 lib/Script/Imap.php:294 lib/Script/Imap.php:316
 msgid "[No Sender]"
 msgstr "[Nav Sūtītāja]"
 
-#: lib/Script/Imap.php:277 lib/Script/Imap.php:303 lib/Script/Imap.php:324
+#: lib/Script/Imap.php:267 lib/Script/Imap.php:293 lib/Script/Imap.php:315
 msgid "[No Subject]"
 msgstr "[Bez temata]"
 
-#: lib/Application.php:183
+#: lib/Application.php:198
 msgid "_Blacklist"
 msgstr "Melnais saraksts"
 
+#: templates/basic/blacklist/blacklist.html.php:21
 #: templates/blacklist/blacklist.inc:21
 msgid "_Delete message completely"
 msgstr "Dzēst vēstuli"
 
+#: templates/basic/blacklist/blacklist.html.php:39
 #: templates/blacklist/blacklist.inc:35
 msgid "_Enter each address on a new line:"
 msgstr "Katru adresi ievadiet jaunā rindā:"
 
-#: lib/Application.php:195
+#: lib/Application.php:209
 msgid "_Forward"
 msgstr "Pārsūtīt"
 
+#: templates/basic/blacklist/blacklist.html.php:29
 #: templates/blacklist/blacklist.inc:25
 msgid "_Move message to folder:"
 msgstr "Pārvietot vēstules uz mapi:"
 
-#: lib/Application.php:210
+#: lib/Application.php:225
 msgid "_Permissions"
 msgstr "Tiesības"
 
-#: lib/Application.php:205
+#: lib/Application.php:219
 msgid "_Script"
 msgstr "Skripts"
 
-#: lib/Application.php:191
+#: lib/Application.php:205
 msgid "_Vacation"
 msgstr "Brīvdienas"
 
-#: lib/Application.php:182
+#: lib/Application.php:195
 msgid "_Whitelist"
 msgstr "Baltais saraksts"
 
-#: lib/Block/Overview.php:45
+#: lib/Block/Overview.php:52
 msgid "active"
 msgstr "aktīvs"
 
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55 templates/rule/filter.inc:4
 msgid "and"
 msgstr "un"
 
+#: templates/basic/filters/filters.html.php:49
 #: templates/filters/filter.html:16
 msgid "disabled - click to enable"
 msgstr "izslēgts - uzklikšķiniet lai ieslēgtu"
 
-#: lib/Block/Overview.php:43
+#: lib/Block/Overview.php:50
 msgid "inactive"
 msgstr "neaktīvs"
 
-#: lib/Script/Maildrop.php:135
+#: lib/Script/Maildrop.php:112
 msgid "maildrop script generated by Ingo"
 msgstr "Ingo ģenerēts maildrop skripts."
 
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55 templates/rule/filter.inc:4
 msgid "or"
 msgstr " vai"
 
-#: lib/Script/Procmail.php:161
+#: lib/Script/Procmail.php:136
 msgid "procmail script generated by Ingo"
 msgstr "Ingo ģenerēts procmail skripts."

@@ -7,19 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.1.2\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2013-01-02 16:24+0300\n"
+"POT-Creation-Date: 2013-10-29 10:14+0100\n"
+"PO-Revision-Date: 2014-02-17 12:27+0200\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: lv_LV\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Poedit-Language: Latvian\n"
-"X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.7\n"
 
 # "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 #: templates/memo/memo.inc:51
@@ -102,7 +101,7 @@ msgstr "Izveidot"
 msgid "Create Notepad"
 msgstr "Izveidot piezīmju grāmatu"
 
-#: lib/Application.php:109
+#: lib/Application.php:116
 msgid "Create a new Notepad"
 msgstr "Izveidot jaunu Piezīmju grāmatu"
 
@@ -243,7 +242,7 @@ msgstr "Kur:"
 msgid "Last Modified"
 msgstr "Pēdējās izmaiņas"
 
-#: lib/Application.php:56
+#: lib/Application.php:63
 msgid "Maximum Number of Notes"
 msgstr "Maksimālais piezīmju skaits"
 
@@ -262,12 +261,12 @@ msgstr "Pēdējo izmaiņu datums"
 msgid "More Options..."
 msgstr "Papildu iestatījumi..."
 
-#: lib/Api.php:367
+#: lib/Api.php:425
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Atrasti vairāki iCalendar komponenti; atbalstīts ir tikai viens vNote."
 
 #
-#: lib/Application.php:102
+#: lib/Application.php:109
 msgid "My Notepads"
 msgstr "Manas piezīmju grāmatas"
 
@@ -280,7 +279,7 @@ msgstr "Manas Piezīmes"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: lib/Application.php:162 memo.php:103 memo.php:151
+#: lib/Application.php:169 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr "Jauna piezīme"
 
@@ -288,7 +287,7 @@ msgstr "Jauna piezīme"
 msgid "Next"
 msgstr "Nākošā"
 
-#: lib/Api.php:208 lib/Api.php:360
+#: lib/Api.php:250 lib/Api.php:418
 msgid "No iCalendar data was found."
 msgstr "Nav atrasti iCalendar dati."
 
@@ -415,7 +414,7 @@ msgstr "Saglabāt"
 msgid "Save as PDF"
 msgstr "Saglabāt kā PDF"
 
-#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:193 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Meklēt"
@@ -445,7 +444,7 @@ msgid "Select the format of the source file:"
 msgstr "Izvēlieties izejas faila formātu:"
 
 #
-#: lib/Application.php:115
+#: lib/Application.php:122
 msgid "Shared Notepads"
 msgstr "Koplietotās Piezīmju grāmatas"
 
@@ -523,11 +522,11 @@ msgstr "Kļūda importējot datus: %s"
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: lib/Api.php:202 lib/Api.php:354
+#: lib/Api.php:244 lib/Api.php:412
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
-#: lib/Application.php:233
+#: lib/Application.php:240
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "Kļūda dzēšot %s piezīmes. Informācija par kļūmi ierakstīta žurnālā."
@@ -567,7 +566,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Šī piezīme ir šifrēta, lūdzu ievadiet paroli"
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Api.php:323 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Piezīme ir nošifrēta."
 
@@ -576,7 +575,7 @@ msgstr "Piezīme ir nošifrēta."
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
-#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
+#: lib/Api.php:289 lib/Api.php:351 lib/Api.php:449
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s"
@@ -657,17 +656,17 @@ msgstr "Meklēt:"
 
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/Application.php:75
+#: lib/Application.php:82
 msgid "_Import/Export"
 msgstr "Imports/Eksports"
 
 #
-#: lib/Application.php:68
+#: lib/Application.php:75
 msgid "_List Notes"
 msgstr "Piezīmju saraksts"
 
 #
-#: lib/Application.php:91
+#: lib/Application.php:98
 msgid "_New Note"
 msgstr "Jauna piezīme"
 
@@ -685,7 +684,7 @@ msgstr "Atkārtot:"
 
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/Application.php:71
+#: lib/Application.php:78
 msgid "_Search"
 msgstr "Meklēt"
 
@@ -702,12 +701,12 @@ msgstr "pēc %s"
 msgid "by me"
 msgstr "manis rakstītās"
 
-#: lib/Application.php:174
+#: lib/Application.php:181
 #, php-format
 msgid "in %s"
 msgstr "iekš %s"
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:277 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "piezīmes.csv"
 

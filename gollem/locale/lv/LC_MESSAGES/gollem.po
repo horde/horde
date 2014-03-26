@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2013-06-03 14:08+0300\n"
+"PO-Revision-Date: 2014-03-19 21:34+0200\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Poedit-Language: Latvian\n"
-"X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: manager.php:65
 #, php-format
@@ -115,7 +114,7 @@ msgstr "Nevar nokopēt objektu uz starpliktuvi."
 #: manager.php:224
 #, php-format
 msgid "Cannot create home directory: %s"
-msgstr "Nevar izveidot mājas mapi: %s"
+msgstr "Neizdevās izveidot mājas mapi: %s"
 
 #: manager.php:155
 msgid "Cannot cut items onto clipboard."
@@ -442,7 +441,7 @@ msgstr "Koplietot mapi"
 
 #: manager.php:420
 msgid "Shared Folder"
-msgstr "Koplietota mapes"
+msgstr "Koplietota mape"
 
 #: config/prefs.php:27
 msgid "Show dotfiles?"
@@ -454,7 +453,7 @@ msgstr "Izmērs"
 
 #: lib/Application.php:215
 msgid "Start Folder"
-msgstr "Sākuma mape"
+msgstr "Izejas mape"
 
 #: lib/Api.php:235
 msgid "The application folder can not be deleted."
@@ -494,7 +493,7 @@ msgid ""
 "next to the filename and click on &quot;Paste&quot;."
 msgstr ""
 "Lai ielīmētu objektus no starpliktuves atvērtajā mapē, ieķeksējiet rūtiņu "
-"blakus faila nosaukumam un uzklikšķiniet &quot;Ielīmēt&quot;."
+"blakus faila nosaukumam un uzklikšķiniet &quot;Ielīmet&quot;."
 
 #: manager.php:506
 msgid "Type"
@@ -542,7 +541,7 @@ msgstr "Jā"
 
 #: share.php:29
 msgid "You are not allowed to share this folder"
-msgstr "Jums nav atļauts koplietot šo mapi."
+msgstr "Jums nav atļauts koplietot šo mapi"
 
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."

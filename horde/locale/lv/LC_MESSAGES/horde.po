@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-06-03 14:39+0300\n"
+"POT-Creation-Date: 2014-02-17 12:06+0200\n"
+"PO-Revision-Date: 2014-03-25 09:05+0200\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Poedit-Language: Latvian\n"
-"X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -74,22 +73,22 @@ msgstr "%d līdz %d no %d"
 msgid "%d-day forecast"
 msgstr "%d-dienas prognoze"
 
-#: services/logintasks.php:89
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Piezīme"
 
-#: admin/config/config.php:28 admin/config/index.php:358
+#: admin/config/config.php:28 admin/config/index.php:437
 #, php-format
 msgid "%s Configuration"
 msgstr "%s konfigurācija"
 
-#: services/logintasks.php:69
+#: services/logintasks.php:71
 #, php-format
 msgid "%s Tasks - Confirmation"
 msgstr "%s uzdevumi - apstiprinājums"
 
-#: services/logintasks.php:79
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s Līguma nosacījumi"
@@ -100,7 +99,31 @@ msgstr "%s Līguma nosacījumi"
 msgid "%s at %s %s"
 msgstr "%s plkst. %s %s"
 
-#: services/logintasks.php:70
+#: templates/prefs/twitter.html.php:9
+#, php-format
+msgid "%s can interact with your Twitter account"
+msgstr "%s var mijiedarboties ar Jūsu Twitter kontu"
+
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr "%s nevar nolasīt informāciju par Jūsu Facebook draugiem."
+
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s nevar nolasīt Jūsu paziņojumu plūsmu un dažādus citus Facebook datus."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s nevar uzstādīt Jūsu statusa informāciju vai publicēt citu saturu Facebook."
+
+#: services/logintasks.php:72
 #, php-format
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
@@ -119,15 +142,15 @@ msgstr ", brāzmas %s %s"
 msgid ", variable from %s to %s"
 msgstr ", mainīgs no %s līdz %s"
 
-#: lib/Application.php:295
+#: lib/Application.php:325
 msgid "1 Day"
 msgstr "1 diena"
 
-#: lib/Application.php:299
+#: lib/Application.php:329
 msgid "1 Month"
 msgstr "1 mēnesis"
 
-#: lib/Application.php:297
+#: lib/Application.php:327
 msgid "1 Week"
 msgstr "1 nedēļa"
 
@@ -135,7 +158,7 @@ msgstr "1 nedēļa"
 msgid "12 Hour Format"
 msgstr "12 stundu formāts"
 
-#: lib/Application.php:298
+#: lib/Application.php:328
 msgid "2 Weeks"
 msgstr "2 nedēļas"
 
@@ -147,11 +170,11 @@ msgstr "24 stundu formāts"
 msgid "24 hours"
 msgstr "24 stundas"
 
-#: config/prefs.php:509 config/prefs.php:511
+#: config/prefs.php:492 config/prefs.php:494
 msgid "24-hour format"
 msgstr "24 stundu formāts"
 
-#: lib/Application.php:296
+#: lib/Application.php:326
 msgid "3 Days"
 msgstr "3 dienas"
 
@@ -187,12 +210,13 @@ msgstr ""
 "Pieprasīta datu iztīrīšana no iekārtas. Tas tiks izdarīts nākošās "
 "sinhronizēšanas laikā."
 
-#: admin/config/index.php:144 admin/config/index.php:185
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Pieejama jaunāka (%s) versija."
 
-#: lib/Prefs/Special/Activesync.php:107
+#: lib/Prefs/Special/Activesync.php:77
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -209,7 +233,7 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Konta informācija"
 
-#: config/prefs.php:341
+#: config/prefs.php:334
 msgid "Account Password"
 msgstr "Parole"
 
@@ -217,7 +241,7 @@ msgstr "Parole"
 msgid "Actions"
 msgstr "Darbības"
 
-#: config/prefs.php:758 lib/Application.php:175
+#: config/prefs.php:739 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
@@ -225,7 +249,7 @@ msgstr "ActiveSync"
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync Iekārtu administrēšana"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: admin/activesync.php:196 lib/Api.php:93
 msgid "ActiveSync Devices"
 msgstr "ActiveSync Iekārtas"
 
@@ -291,11 +315,11 @@ msgstr "Lietotāju pievienošana atslēgta."
 msgid "Address"
 msgstr "Adrese"
 
-#: config/registry.php:131
+#: config/registry.php:132
 msgid "Address Book"
 msgstr "Kontakti"
 
-#: lib/Application.php:52
+#: lib/Application.php:55
 msgid "Administration"
 msgstr "Lietotāju vadība"
 
@@ -319,15 +343,19 @@ msgstr "Brīdinājuma teksts"
 msgid "Alarm title"
 msgstr "Brīdinājuma nosaukums"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "Brīdinājumi"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Brīdinājumi ir atslēgti konfigurācijā"
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Visi"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Visi autentificētie lietotāji"
 
@@ -335,7 +363,7 @@ msgstr "Visi autentificētie lietotāji"
 msgid "All policy keys successfully reset."
 msgstr "Visas politikas atslēgas atjaunotas."
 
-#: lib/Prefs/Special/Activesync.php:120
+#: lib/Prefs/Special/Activesync.php:92
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -343,35 +371,35 @@ msgstr ""
 "Visu Jūsu ActiveSync iekārtu stāvokļi aizvākti. Tie tiks atkārtoti "
 "sinhronizēti, kad nākošo reizi pieslēgsies serverim."
 
-#: lib/Prefs/Special/Syncml.php:74
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
 msgstr "Visas sinhronizācijas sesijas dzēstas."
 
-#: lib/Application.php:186
+#: lib/Application.php:216
 msgid "Allow"
 msgstr "Atļaut"
 
-#: lib/Application.php:206
+#: lib/Application.php:236
 msgid "Allow alphanumeric"
 msgstr "Atļaut burtciparu"
 
-#: lib/Application.php:207
+#: lib/Application.php:237
 msgid "Allow any"
 msgstr "Atļaut visu"
 
-#: lib/Application.php:205
+#: lib/Application.php:235
 msgid "Allow only numeric"
 msgstr "Atļaut tikai skaitlisku"
 
-#: config/prefs.php:717
+#: config/prefs.php:694
 msgid "Alternate IMSP Login"
 msgstr "Alternatīvais IMSP lietotāja vārds"
 
-#: config/prefs.php:734
+#: config/prefs.php:711
 msgid "Alternate IMSP Password"
 msgstr "Alternatīvā IMSP parole"
 
-#: config/prefs.php:728
+#: config/prefs.php:705
 msgid "Alternate IMSP Username"
 msgstr "Alternatīvais IMSP lietotāja vārds"
 
@@ -383,7 +411,8 @@ msgstr "Alternatīvā e-pasta adrese"
 msgid "Answer"
 msgstr "Atbildēt"
 
-#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
+#: templates/admin/config/index.html:27
 msgid "Application"
 msgstr "Aplikācija"
 
@@ -391,17 +420,9 @@ msgstr "Aplikācija"
 msgid "Application Context"
 msgstr "Aplikācijas konteksts"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Aplikāciju saraksts"
-
-#: admin/config/index.php:225
+#: admin/config/index.php:245
 msgid "Application is ready."
 msgstr "Aplikācija gatava."
-
-#: admin/config/index.php:147 admin/config/index.php:188
-msgid "Application is up-to-date."
-msgstr "Aplikācijas versija ir aktuālā."
 
 #: templates/admin/user/approve.inc:34
 msgid "Approve"
@@ -411,7 +432,7 @@ msgstr "Apstiprināt"
 msgid "Arabic (Windows-1256)"
 msgstr "Arābu (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Vai tiešām vēlaties izdzēst '%s'?"
@@ -438,7 +459,7 @@ msgstr "Māksla"
 msgid "Ascii Art"
 msgstr "Ascii Art"
 
-#: lib/LoginTasks/Task/AdminCheck.php:65
+#: lib/LoginTasks/Task/AdminCheck.php:57
 msgid "At least one database schema is outdated."
 msgstr "Vismaz vienas datubāzes shēma ir novecojusi."
 
@@ -446,7 +467,7 @@ msgstr "Vismaz vienas datubāzes shēma ir novecojusi."
 msgid "Attachment"
 msgstr "Pielikums"
 
-#: lib/Application.php:229
+#: lib/Application.php:259
 msgid "Attachment Download"
 msgstr "Pielikuma lejupielāde"
 
@@ -458,31 +479,45 @@ msgstr "Mēģinājums dzēsts neesošu grupu."
 msgid "Attempt to delete a non-existent permission."
 msgstr "Mēģinājums dzēsts neesošas tiesības."
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "Mēģinājums mainīt neesošas tiesības."
 
-#: services/shares/edit.php:68
+#: services/shares/edit.php:73
 msgid "Attempt to edit a non-existent share."
 msgstr "Mēģinājums mainīt neeksistējošu koplietojumu."
 
-#: templates/admin/sessions.html.php:27
-msgid "Authenticated to"
-msgstr "Autentificēts"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "Autentificēta aplikācija"
+
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Apstiprināt"
+
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Apstipriniet pieeju draugu datiem"
 
 #: templates/prefs/facebook.html:42
 msgid "Authorize Access to Friends Data:"
 msgstr "Apstipriniet pieeju draugu datiem:"
 
-#: templates/prefs/facebook.html:18
+#: templates/prefs/facebook.html.php:21 templates/prefs/facebook.html:18
 msgid "Authorize Publish"
 msgstr "Apstiprināt publicēšanu"
+
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Apstiprināt lasīšanu"
 
 #: templates/prefs/facebook.html:30
 msgid "Authorize Read:"
 msgstr "Apstiprināt lasīšanu:"
 
-#: login.php:225
+#: templates/login/login.inc:19 templates/login/smartmobile.html.php:31
 msgid "Automatic"
 msgstr "Automātisks"
 
@@ -498,12 +533,7 @@ msgstr "BOFH attaisnojumi"
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltijas (ISO-8859-13)"
 
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "Noformējuma tēmu katalogs \"%s\" nav atrasts."
-
-#: login.php:230
+#: templates/login/login.inc:21 templates/login/smartmobile.html.php:33
 msgid "Basic"
 msgstr "Pamata"
 
@@ -515,11 +545,11 @@ msgstr "Bloka iestatījumi"
 msgid "Block Type"
 msgstr "Bloka tips"
 
-#: lib/Application.php:262
+#: lib/Application.php:292
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:182
+#: config/registry.php:183
 msgid "Bookmarks"
 msgstr "Grāmatzīmes"
 
@@ -527,19 +557,19 @@ msgstr "Grāmatzīmes"
 msgid "Both"
 msgstr "Abi"
 
-#: config/prefs.php:774
+#: config/prefs.php:755
 msgid "Bottom"
 msgstr "Apakša"
 
-#: templates/admin/sessions.html.php:19
+#: templates/admin/sessions.html.php:9
 msgid "Browser"
 msgstr "Pārlūks"
 
-#: config/registry.php:117
+#: config/registry.php:118
 msgid "Calendar"
 msgstr "Kalendārs"
 
-#: lib/Application.php:250
+#: lib/Application.php:280
 msgid "Camera"
 msgstr "Kamera"
 
@@ -552,7 +582,8 @@ msgstr "Atcelt"
 msgid "Cancel Problem Report"
 msgstr "Atcelt problēmas pieteikumu"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html:31
+#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
+#: templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
 msgstr "Atcelt tīrīšanu"
 
@@ -561,7 +592,7 @@ msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Paroli automātiski nomainīt nav iespējams. Sazinieties ar administratoru."
 
-#: config/prefs.php:534
+#: config/prefs.php:516
 msgid "Categories and Labels"
 msgstr "Kategorijas un iezīmes"
 
@@ -601,7 +632,7 @@ msgstr ""
 msgid "Check"
 msgstr "Ķeksis"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4 templates/admin/config/index.html:4
 msgid "Check for newer versions"
 msgstr "Pārbaudīt jauninājumus"
 
@@ -617,20 +648,20 @@ msgstr "Ķīniešu vienkāršotā (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "Ķīniešu tradicionālā (Big5)"
 
-#: services/obrowser/index.php:94
+#: services/obrowser/index.php:59
 #, php-format
 msgid "Choose %s"
 msgstr "Izvēlieties %s"
 
-#: config/prefs.php:500
+#: config/prefs.php:484
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Izvēlieties datumu attēlošanas veidu (saīsinātā formāta):"
 
-#: config/prefs.php:475
+#: config/prefs.php:460
 msgid "Choose how to display dates (full format):"
 msgstr "Izvēlieties datumu attēlošanas veidu (pilnā formāta):"
 
-#: config/prefs.php:514
+#: config/prefs.php:497
 msgid "Choose how to display times:"
 msgstr "Izvēlieties laika attēlošanas veidu:"
 
@@ -659,16 +690,18 @@ msgstr ""
 "Uzklikšķiniet vienai no Jūsu izvēlētajām adrešu grāmatām un atzīmējiet "
 "laukus, kuros meklēt."
 
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 #: templates/logintasks/logintasks.html:30
 #: templates/logintasks/smartmobile.html:34
 msgid "Click to Continue"
 msgstr "Uzklikšķiniet, lai turpinātu"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13 templates/prefs/syncml.html:13
 msgid "Client Anchor"
 msgstr "Klienta enkurs"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Aizvērt logu"
 
@@ -676,20 +709,20 @@ msgstr "Aizvērt logu"
 msgid "Clouds"
 msgstr "Mākoņi"
 
-#: lib/Application.php:222
+#: lib/Application.php:252
 msgid "Codeword frequency"
 msgstr "Koda vārdu biežums"
 
-#: lib/View/Sidebar.php:65 templates/admin/sessions.html.php:9
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "Savērst"
 
-#: lib/Prefs/Special/Category.php:44
+#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
+#: templates/prefs/category.html.php:36
 msgid "Color Picker"
 msgstr "Krāsu izvēlne"
 
-#: config/registry.php:246
+#: config/registry.php:247
 msgid "Comics"
 msgstr "Komiksi"
 
@@ -720,27 +753,29 @@ msgstr "Nosacījums"
 msgid "Conditions"
 msgstr "Nosacījumi"
 
-#: admin/config/config.php:59 templates/admin/config/config.html:9
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
+#: templates/admin/config/config.html:9
 msgid "Configuration"
 msgstr "Konfigurācija"
 
-#: admin/config/diff.php:88
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "konfigurācijas atšķirības"
 
-#: config/prefs.php:743
+#: config/prefs.php:721
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Sinhronizācijas konfigurācija PDA, viedtālruņiem un Outlook."
 
-#: admin/config/index.php:220
+#: admin/config/index.php:240
 msgid "Configuration is out of date."
 msgstr "Konfigurācija ir novecojusi"
 
+#: templates/admin/config/index.html.php:96
 #: templates/admin/config/index.html:89
 msgid "Configuration upgrade scripts available"
 msgstr "Pieejami konfigurācijas jauninājuma skripti"
 
-#: admin/config/index.php:162
+#: admin/config/index.php:180
 #, php-format
 msgid "Configure %s"
 msgstr "Konfigurēt %s"
@@ -762,7 +797,7 @@ msgstr "Kūciņa"
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Nav iespējams pieslēgties serverim \"%s\" izmantojot FTP: %s"
 
-#: admin/config/index.php:76
+#: admin/config/index.php:88
 msgid "Could not contact server. Try again later."
 msgstr "Nav iespējams pieslēgties serverim. Mēģiniet vēlāk."
 
@@ -770,6 +805,22 @@ msgstr "Nav iespējams pieslēgties serverim. Mēģiniet vēlāk."
 #, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "Nevar nodzēst konfigurācijas atsvaidzināšanas skriptu \"%s\"."
+
+#: templates/prefs/facebook.html.php:57
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr ""
+"Nevar atrasta autorizācijas informāciju %s, lai mijiedarbotos ar Jūsu "
+"Twitter kontu."
+
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr ""
+"Nevar atrasta autorizācijas informāciju %s, lai mijiedarbotos ar Jūsu "
+"Twitter kontu."
 
 #: templates/prefs/twitter.html:14
 msgid ""
@@ -779,7 +830,7 @@ msgstr ""
 "Nevar atrasta autorizācijas informāciju <tag:appname />, lai mijiedarbotos "
 "ar Jūsu Twitter kontu"
 
-#: services/resetpassword.php:100
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -803,7 +854,7 @@ msgstr "Nav iespējams saglabāt konfigurācijas rezerves kopiju: %s."
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Nevar saglabāt konfigurācijas atsvaidzināšanas skriptu : \"%s\"."
 
-#: admin/config/index.php:97
+#: admin/config/index.php:109
 #, php-format
 msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
@@ -834,7 +885,7 @@ msgstr "Valsts"
 msgid "Create"
 msgstr "Izveidot"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "Izveidot jaunu identitāti"
 
@@ -850,7 +901,7 @@ msgstr "Pašreizējie brīdinājumi"
 msgid "Current Locks"
 msgstr "Pašreiz bloķētie"
 
-#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "Aktuālās sesijas"
 
@@ -878,17 +929,9 @@ msgstr "Cyrillic (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillic/Ukrainian (KOI8-U)"
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:260 admin/config/index.php:312
 msgid "DB access is not configured."
 msgstr "DB pieeja nav konfigurēta."
-
-#: admin/config/index.php:244 admin/config/index.php:283
-msgid "DB schema is out of date."
-msgstr "Db shēma ir novecojusi."
-
-#: admin/config/index.php:249 admin/config/index.php:288
-msgid "DB schema is ready."
-msgstr "Db shēma gatava."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -901,6 +944,7 @@ msgstr "DD"
 msgid "Data"
 msgstr "Dati"
 
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 #: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Datubāze"
@@ -922,12 +966,12 @@ msgstr "Datums: %s; laiks: %s"
 msgid "Day"
 msgstr "Diena"
 
-#: config/prefs.php:399 config/prefs.php:421 config/prefs.php:435
-#: config/prefs.php:508 themes/default/info.php:2
+#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
+#: config/prefs.php:491 themes/default/info.php:2
 msgid "Default"
 msgstr "Noklusētie"
 
-#: lib/Prefs/Special/Category.php:59 lib/Prefs/Special/Category.php:89
+#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
 msgid "Default Color"
 msgstr "Noklusētās krāsas"
 
@@ -936,11 +980,11 @@ msgstr "Noklusētās krāsas"
 msgid "Default Shell"
 msgstr "Noklusētā čaula"
 
-#: config/prefs.php:424
+#: config/prefs.php:412
 msgid "Default charset for sending e-mail messages:"
 msgstr "Noklusētais nosūtāmo vēstuļu kodējums:"
 
-#: config/prefs.php:309
+#: config/prefs.php:305
 msgid "Default location to use for location-aware features."
 msgstr "Noklusētā atrašanās vieta dislokācijas jūtīgām funkcijām."
 
@@ -949,24 +993,25 @@ msgid "Definitions"
 msgstr "Definīcijas"
 
 #: admin/groups.php:52 templates/admin/groups/delete.inc:11
-#: templates/admin/user/list.inc:32 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
 msgstr "Dzēst"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:206
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Dzēst \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30 templates/prefs/syncml.html:30
 msgid "Delete All SyncML Data"
 msgstr "Dzēst visus SyncML datus"
 
@@ -979,7 +1024,7 @@ msgstr "Dzēst grupu"
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Konfigurācijas atsvaidzināšanas skripts \"%s\" izdzēsts."
 
-#: lib/Prefs/Special/Syncml.php:66
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr "Dzēsta sinhronizācijas sesija iekārtai \"%s\" un datu bāzei \"%s\"."
@@ -988,10 +1033,11 @@ msgstr "Dzēsta sinhronizācijas sesija iekārtai \"%s\" un datu bāzei \"%s\"."
 msgid "Describe the Problem"
 msgstr "Aprakstiet problēmu"
 
-#: config/registry.php:206
+#: config/registry.php:207
 msgid "Development"
 msgstr "Izstrāde"
 
+#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
 #: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
 msgid "Device"
 msgstr "Iekārta"
@@ -1000,19 +1046,23 @@ msgstr "Iekārta"
 msgid "Device ID"
 msgstr "Iekārtas ID"
 
-#: templates/prefs/activesync.html:11
+#: templates/prefs/activesync.html.php:23
+msgid "Device Information"
+msgstr "Iekārtas informācija"
+
+#: templates/prefs/activesync.html.php:11 templates/prefs/activesync.html:11
 msgid "Device Management"
 msgstr "Iekārtu vadība"
 
-#: lib/Application.php:282
+#: lib/Application.php:312
 msgid "Device encryption"
 msgstr "Ierīces šifrēšana"
 
-#: lib/Prefs/Special/Activesync.php:83
-msgid "Device id:"
-msgstr "Iekārtas ID:"
+#: templates/prefs/activesync.html.php:35
+msgid "Device is Wiped"
+msgstr "Iekārta izslaucīta"
 
-#: admin/activesync.php:168 lib/Prefs/Special/Activesync.php:71
+#: admin/activesync.php:165
 msgid "Device is wiped"
 msgstr "Iekārta izslaucīta"
 
@@ -1036,16 +1086,18 @@ msgstr "Rasas punkts pēdējā stundā:"
 msgid "Dew point"
 msgstr "Rasas punkts"
 
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 #: templates/prefs/facebook.html:13 templates/prefs/facebook.html:25
 #: templates/prefs/facebook.html:37 templates/prefs/twitter.html:10
 msgid "Disable"
 msgstr "Izslēgt"
 
-#: config/prefs.php:444
+#: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "Rādīt 24 h laiku?"
 
-#: config/prefs.php:561
+#: config/prefs.php:541
 msgid "Display Preferences"
 msgstr "Attēlošanas iestatījumi"
 
@@ -1061,16 +1113,17 @@ msgstr "Rādīt prognozi (TAF)"
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Vai pirmā rinda satur lauku nosaukumus? Ja jā, ieķeksējiet šo rūtiņu:"
 
-#: templates/login/login.inc:57
+#: templates/login/login.inc:72
 msgid "Don't have an account? Sign up."
 msgstr "Nav konta? Reģistrējieties."
 
-#: admin/config/index.php:144 admin/config/index.php:185
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "Download %s"
 msgstr "Lejupielādēt %s"
 
-#: admin/config/index.php:306
+#: admin/config/index.php:384
 msgid "Download generated configuration as PHP script."
 msgstr "Lejuplādēt ģenerēto konfigurāciju kā PHP skriptu."
 
@@ -1078,7 +1131,7 @@ msgstr "Lejuplādēt ģenerēto konfigurāciju kā PHP skriptu."
 msgid "Drugs"
 msgstr "Narkotikas"
 
-#: login.php:234
+#: templates/login/login.inc:22 templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "Dinamisks"
 
@@ -1094,13 +1147,13 @@ msgstr "ES PVN identifikācija"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Labot"
 
@@ -1113,11 +1166,11 @@ msgstr "Labot \"%s\""
 msgid "Edit Preferences for"
 msgstr "Mainīt iestatījumus"
 
-#: services/shares/edit.php:247
+#: services/shares/edit.php:252
 msgid "Edit permissions"
 msgstr "Labot pieejas tiesības"
 
-#: services/shares/edit.php:246 templates/shares/edit.inc:14
+#: services/shares/edit.php:251 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Labot pieejas tiesības \"%s\""
@@ -1142,7 +1195,7 @@ msgstr "Angļu"
 msgid "Enter a name for the new category:"
 msgstr "Ievadiet jaunās kategorijas nosaukumu:"
 
-#: config/prefs.php:359
+#: config/prefs.php:351
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1150,8 +1203,14 @@ msgstr ""
 "Ievadiet drošības jautājumu, kuru izmantot paroles maiņas nepieciešamības "
 "gadījumā, piemēram - 'kāds ir Jūsu mājdzīvnieka vārds?':"
 
-#: lib/Prefs/Special/Twitter.php:49 services/twitter/index.php:184
-#: services/twitter/index.php:207
+#: services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Kļūda pieslēdzoties Twitte. Sīkāka informācija fiksēta administratora "
+"žurnālā."
+
+#: lib/Prefs/Special/Twitter.php:54
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1160,15 +1219,15 @@ msgstr ""
 "Kļūda pieslēdzoties Twitte: %s. Sīkāka informācija fiksēta administratora "
 "žurnālā."
 
-#: lib/Prefs/Special/Syncml.php:68
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
 msgstr "Kļūda dzēšot sinhronizācijas sesiju:"
 
-#: lib/Prefs/Special/Syncml.php:76
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
 msgstr "Kļūda dzēšot sinhronizācijas sesijas:"
 
-#: services/changepassword.php:59
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Kļūda mainot paroli: %s"
@@ -1181,23 +1240,23 @@ msgstr "Etniskie"
 msgid "Event Invites:"
 msgstr "Uzaicinātie:"
 
-#: config/prefs.php:622 templates/portal/layout.inc:101
+#: config/prefs.php:599 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Ik 15 minūtes"
 
-#: config/prefs.php:641
+#: config/prefs.php:618
 msgid "Every 2 minutes"
 msgstr "Ik 2 minūtes"
 
-#: config/prefs.php:619 config/prefs.php:639 templates/portal/layout.inc:98
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Ik 30 sekundes"
 
-#: config/prefs.php:621 config/prefs.php:642 templates/portal/layout.inc:100
+#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Ik 5 minūtes"
 
-#: config/prefs.php:623 templates/portal/layout.inc:102
+#: config/prefs.php:600 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Ik pusstundu"
 
@@ -1205,7 +1264,7 @@ msgstr "Ik pusstundu"
 msgid "Every hour"
 msgstr "Ik stundu"
 
-#: config/prefs.php:620 config/prefs.php:640 templates/portal/layout.inc:99
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Katru minūti"
 
@@ -1218,8 +1277,7 @@ msgstr "Paraugvērtības"
 msgid "Execute"
 msgstr "Izpildīt"
 
-#: lib/View/Sidebar.php:66 templates/admin/sessions.html.php:8
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Izvērst"
 
@@ -1227,17 +1285,22 @@ msgstr "Izvērst"
 msgid "Extra Large"
 msgstr "Ārkārtīgi liels"
 
+#: templates/admin/config/index.html.php:110
 #: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
 msgstr "FTP konfigurācijas  augšuplietošana"
 
-#: config/prefs.php:666
+#: config/prefs.php:642
 msgid "Facebook Integration"
 msgstr "Facebook integrācija"
 
-#: lib/Application.php:217
+#: lib/Application.php:247
 msgid "Failed unlock attempts before device is wiped"
 msgstr "Neveiksmīgas atslēgšanas mēģinājumi pirms iekārtas iztīrīšanas"
+
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Biežāk lietotie"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
@@ -1255,7 +1318,7 @@ msgstr "Komforts"
 msgid "Fields to search"
 msgstr "Meklēt laukos:"
 
-#: config/registry.php:312
+#: config/registry.php:313
 msgid "File Manager"
 msgstr "Faili"
 
@@ -1263,7 +1326,7 @@ msgstr "Faili"
 msgid "Filter"
 msgstr "Filtrs"
 
-#: config/registry.php:88
+#: config/registry.php:89
 msgid "Filters"
 msgstr "Filtri"
 
@@ -1279,7 +1342,7 @@ msgstr "Pirmais ceturksnis"
 msgid "Food"
 msgstr "Pārtika"
 
-#: lib/Application.php:185
+#: lib/Application.php:215
 msgid "Force"
 msgstr "Piespiedu"
 
@@ -1295,11 +1358,11 @@ msgstr ""
 "Prognozes dienas (ņemiet vērā, ka prognozes satur gan dienas, gan nakts "
 "informāciju, liels dienu skaits var izvērsties par apjomīgu bloku)"
 
-#: templates/login/login.inc:64
+#: templates/login/login.inc:79
 msgid "Forgot your password?"
 msgstr "Aizmirsāt paroli?"
 
-#: config/registry.php:341
+#: config/registry.php:342
 msgid "Forms"
 msgstr "Formas"
 
@@ -1319,7 +1382,7 @@ msgstr "Aforismi"
 msgid "Fortunes 2"
 msgstr "Fortunes 2"
 
-#: config/registry.php:335
+#: config/registry.php:336
 msgid "Forums"
 msgstr "Forumi"
 
@@ -1330,6 +1393,10 @@ msgstr "Draugu pieprasījumi:"
 #: templates/prefs/facebook.html:36
 msgid "Friends enabled"
 msgstr "Draugi iespējoti"
+
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Draugi iespējoti."
 
 #: lib/Block/Weather.php:207
 #, php-format
@@ -1358,6 +1425,7 @@ msgstr "Pilns vārds"
 msgid "Generate %s Configuration"
 msgstr "Ģenerēt %s konfigurāciju"
 
+#: templates/admin/config/config.html.php:6
 #: templates/admin/config/config.html:6
 msgid "Generated Code"
 msgstr "Ģenerētais kods"
@@ -1399,15 +1467,15 @@ msgstr "Grupas nosaukums"
 msgid "Group was not created: %s."
 msgstr "Grupa nav izveidota: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:219 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Grupas"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Viesa pieejas tiesības"
 
-#: lib/Application.php:286
+#: lib/Application.php:316
 msgid "HTML Email"
 msgstr "HTML e-pasts"
 
@@ -1451,7 +1519,7 @@ msgstr "Slēpt rezultātus"
 msgid "Home Directory"
 msgstr "Mājas mape"
 
-#: config/registry.php:75
+#: config/registry.php:76
 msgid "Horde"
 msgstr "Horde"
 
@@ -1471,12 +1539,12 @@ msgstr "Gaisa mitrums"
 msgid "Humorists"
 msgstr "Humoristi"
 
-#: util/icon_browser.php:53
+#: util/icon_browser.php:34
 #, php-format
 msgid "Icons for %s"
 msgstr "Ikonas %s"
 
-#: config/prefs.php:284
+#: config/prefs.php:283
 msgid "Identity's name:"
 msgstr "Identitātes nosaukums:"
 
@@ -1495,7 +1563,7 @@ msgstr "Ielādētais lauks: %s"
 msgid "Imported fields:"
 msgstr "Ielādētie lauki:"
 
-#: lib/Block/TwitterTimeline.php:110
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
 msgstr "Atbildot uz:"
 
@@ -1519,11 +1587,11 @@ msgstr ""
 "Nepareizs lietotāja vārds vai alternatīvā adrese. Sazinieties ar Jūsu "
 "sistēmas administratoru, ja nepieciešama palīdzība."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Individuālie lietotāji"
 
-#: config/registry.php:240
+#: config/registry.php:241
 msgid "Information"
 msgstr "Informācija"
 
@@ -1531,11 +1599,11 @@ msgstr "Informācija"
 msgid "Inherited Members"
 msgstr "Atvasinātie locekļi"
 
-#: config/prefs.php:373
+#: config/prefs.php:363
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Norādiet e-pasta adresi, kur varat saņemt jauno paroli."
 
-#: config/prefs.php:366
+#: config/prefs.php:357
 msgid "Insert the required answer to the security question:"
 msgstr "Pareizā atbilde uz drošības jautājumu:"
 
@@ -1560,7 +1628,7 @@ msgstr "Nepareizs hash."
 msgid "Invalid parent permission."
 msgstr "Nederīgas augstākā līmeņa tiesības."
 
-#: config/registry.php:293
+#: config/registry.php:294
 msgid "Inventory"
 msgstr "Inventārs"
 
@@ -1568,7 +1636,15 @@ msgstr "Inventārs"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japanese (ISO-2022-JP)"
 
-#: lib/Block/TwitterTimeline.php:111
+#: login.php:168
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
+msgstr ""
+"Jūsu pārlūkam ir vai nu atslēgts JavaScript atbalsts vai nav pieejams, līdz "
+"ar to Jums ir pieejams tikai pamatskats."
+
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr "Tikai tagad..."
 
@@ -1584,7 +1660,7 @@ msgstr "Atslēgvārds"
 msgid "Kids"
 msgstr "Bērni"
 
-#: config/registry.php:301
+#: config/registry.php:302
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1592,7 +1668,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Korean (EUC-KR)"
 
-#: login.php:382 templates/login/login.inc:37
+#: login.php:358 templates/login/login.inc:52
 msgid "Language"
 msgstr "Valoda"
 
@@ -1612,7 +1688,8 @@ msgstr "Pēdēja paroles maiņa"
 msgid "Last Quarter"
 msgstr "Pēdējais ceturksnis"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html:21
+#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/prefs/activesync.html:21
 msgid "Last Sync Time"
 msgstr "Pēdējās sinhronizācijas laiks"
 
@@ -1620,17 +1697,17 @@ msgstr "Pēdējās sinhronizācijas laiks"
 msgid "Last Updated:"
 msgstr "Pēdējo reizi atjaunots:"
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Pēdējā pieslēgšanās: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Pēdējā pieslēgšanās: %s no %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Pēdējā pieslēgšanās: nekad"
 
@@ -1658,7 +1735,7 @@ msgstr "Linux kūciņa"
 msgid "List Tables"
 msgstr "Tabulu saraksts"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Kļūme veidojot brīdinājumu sarakstu: %s"
@@ -1668,10 +1745,19 @@ msgstr "Kļūme veidojot brīdinājumu sarakstu: %s"
 msgid "Listing locks failed: %s"
 msgstr "Kļūme veidojot bloķēto sarakstu: %s"
 
-#: templates/admin/sessions.html.php:37
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Kļūme veidojot sesiju sarakstu: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "Lietotāju saraksta aplūkošana neizdevās, kļūdas paziņojums: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "Lietotāju saraksta aplūkošana neizdevās."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -1686,7 +1772,7 @@ msgstr "Literatūra"
 msgid "Local time: %s %s"
 msgstr "Vietējais laiks: %s %s"
 
-#: config/prefs.php:382
+#: config/prefs.php:372
 msgid "Locale and Time"
 msgstr "Lokāle un laiks"
 
@@ -1702,36 +1788,47 @@ msgstr "Bloķēt lietotāju"
 msgid "Locks"
 msgstr "Bloķētie"
 
-#: login.php:310 templates/login/login.inc:46
+#: login.php:285 templates/login/login.inc:61
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Pieslēgties"
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr "Iziet"
 
-#: templates/prefs/facebook.html:8
+#: templates/prefs/facebook.html.php:8 templates/prefs/facebook.html:8
 msgid "Logged in to Facebook"
 msgstr "Savieno s ar Facebook"
 
-#: login.php:339
+#: login.php:314
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Pieslēgties neizdevās, jo ievadīts nepareizs lietotāja vārds vai parole."
 
-#: login.php:335
+#: login.php:310
 msgid "Login failed."
 msgstr "Pieslēgties neizdevās"
+
+#: templates/prefs/facebook.html.php:61
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Pieslēdzieties Facebook un autorizējiet %s"
 
 #: templates/prefs/facebook.html:49
 msgid "Login to Facebook and authorize <tag:app_name />"
 msgstr "Pieslēdzities Facebook un autorizējiet <tag:app_name />"
 
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Pieslēdzieties Twitter un autorizējiet %s"
+
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
 msgstr "Pieslēdzities Twitter un autorizējiet <tag:app_name /> aplikāciju"
 
-#: templates/prefs/facebook.html:9
+#: templates/prefs/facebook.html.php:10 templates/prefs/facebook.html:9
 msgid "Logout"
 msgstr "Iziet"
 
@@ -1750,22 +1847,22 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Magic"
 
-#: config/registry.php:80
+#: config/registry.php:81
 msgid "Mail"
 msgstr "Pasts"
 
-#: config/registry.php:346
+#: config/registry.php:347
 msgid "Mail Admin"
 msgstr "Pasta admins"
 
-#: config/prefs.php:535
+#: config/prefs.php:517
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
 "Jūsu objektu iezīmēšanai izmantojamo kategoriju un piešķirto krāsu saraksts."
 
-#: config/prefs.php:759
+#: config/prefs.php:740
 msgid "Manage your ActiveSync devices."
 msgstr "Vadīt Jūsu ActiveSync iekārtas."
 
@@ -1781,17 +1878,21 @@ msgstr "Maks. temp.  pēdējās 24 stundās:"
 msgid "Max temp last 6 hours: "
 msgstr "Maks. temp.  pēdējās 6 stundās:"
 
-#: lib/Application.php:290
+#: lib/Application.php:320
 msgid "Maximum Email age"
 msgstr "Maksimālais e-pasta vecums"
 
-#: lib/Application.php:48
+#: lib/Application.php:51
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maksimālais portāla bloku skaits"
 
-#: lib/Application.php:234
+#: lib/Application.php:264
 msgid "Maximum attachment size"
 msgstr "Maksimālais pielikuma lielums"
+
+#: lib/Application.php:205
+msgid "Maximum number of devices"
+msgstr "Maksimālais ierīču skaits"
 
 #: lib/Block/FbStream.php:66
 msgid "Maximum number of entries to display"
@@ -1829,39 +1930,44 @@ msgstr "Min. temp. pēdējās 24 stundās:"
 msgid "Min temp last 6 hours: "
 msgstr "Min. temp. pēdējās 6 stundās:"
 
-#: lib/Application.php:196
+#: lib/Application.php:226
 msgid "Minimum PIN length"
 msgstr "Minimālais PIN garums"
-
-#: lib/Application.php:212
-msgid "Minutes of inactivity before device should lock"
-msgstr "Minūtes bez aktivitātes pirms ierīces aizslēgšanās"
 
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Dažādi"
 
-#: admin/config/index.php:197
+#: admin/config/index.php:217
 msgid "Missing configuration."
 msgstr "Nav atrodama konfigurācija."
 
-#: login.php:242
+#: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
 msgstr "Mobilais pasts"
 
-#: login.php:238
-msgid "Mobile (Smartphone)"
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mobilais (bez JavaScript)"
+
+#: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
+msgid "Mobile (Smartphone/Tablet)"
 msgstr "Mobilais (viedtālrunis)"
 
-#: templates/portal/smartmobile.inc:11
+#: templates/portal/smartmobile.inc:12
 msgid "Mobile Optimized Apps"
 msgstr "Mobilai lietošanai optimizētas aplikācijas"
 
-#: login.php:221
+#: templates/login/login.inc:16 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "Mode"
 
-#: config/prefs.php:523
+#: admin/config/index.php:165 admin/config/index.php:206
+#: admin/config/index.php:339 admin/config/index.php:365
+msgid "Module is up-to-date."
+msgstr "Moduļa versija ir aktuālā."
+
+#: config/prefs.php:505
 msgid "Monday"
 msgstr "Pirmdiena"
 
@@ -1869,7 +1975,7 @@ msgstr "Pirmdiena"
 msgid "Moon Phases"
 msgstr "Mēness fāzes"
 
-#: config/registry.php:306
+#: config/registry.php:307
 msgid "My Account"
 msgstr "Man konts"
 
@@ -1894,12 +2000,14 @@ msgstr "Mans portāla izkārtojums"
 msgid "N/A"
 msgstr "Nav"
 
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 #: templates/logintasks/logintasks.html:27
 #: templates/logintasks/smartmobile.html:29
 msgid "NO, I Do NOT Agree"
 msgstr "Nē, es nepiekrītu"
 
-#: templates/prefs/activesync.html:48
+#: templates/prefs/activesync.html.php:60 templates/prefs/activesync.html:48
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1912,12 +2020,12 @@ msgstr ""
 msgid "Name"
 msgstr "Vārds"
 
-#: config/prefs.php:618 config/prefs.php:638 lib/Application.php:184
+#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
 #: templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nekad"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:3 templates/prefs/category.html:3
 msgid "New Category"
 msgstr "Jauna kategorija"
 
@@ -1933,15 +2041,15 @@ msgstr "Jauns Mēness"
 msgid "New Username (optional)"
 msgstr "Jauns lietotāja vārds (nav obligāts)"
 
-#: services/changepassword.php:32
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Jauna parole"
 
-#: services/changepassword.php:43
+#: services/changepassword.php:40
 msgid "New passwords don't match."
 msgstr "Jaunās paroles neatbilst."
 
-#: config/registry.php:251 lib/Block/Fortune.php:59
+#: config/registry.php:252 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Jaunumi"
 
@@ -1958,15 +2066,15 @@ msgstr "Nākošās 4 fāzes"
 msgid "No Sound"
 msgstr "Nav skaņas"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2 templates/admin/config/diff.html:9
 msgid "No available configuration data to show differences for."
 msgstr "Nav pieejami konfigurācijas dati, kuriem rādīt atšķirības."
 
-#: admin/config/diff.php:45
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Nav izmaiņu."
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:52
 msgid "No icons found."
 msgstr "Ikonas nav atrastas."
 
@@ -1986,7 +2094,7 @@ msgstr "Neaizskaroši dienas citāti"
 msgid "No pending signups."
 msgstr "Nav gaidošu pieteikumu."
 
-#: lib/Application.php:303
+#: lib/Application.php:333
 msgid "No push while roaming"
 msgstr "Neizmantot stumšanu (push) viesabonēšanas laikā"
 
@@ -1994,7 +2102,8 @@ msgstr "Neizmantot stumšanu (push) viesabonēšanas laikā"
 msgid "No security question has been set. Please contact your administrator."
 msgstr "Nav norādīts drošības jautājums. Sazinieties ar savu administratoru."
 
-#: admin/config/index.php:141 admin/config/index.php:182
+#: admin/config/index.php:159 admin/config/index.php:200
+#: admin/config/index.php:333 admin/config/index.php:359
 msgid "No stable version exists yet."
 msgstr "Stabila versija pagaidām nepastāv."
 
@@ -2002,19 +2111,33 @@ msgstr "Stabila versija pagaidām nepastāv."
 msgid "No username specified."
 msgstr "Nav norādīts lietotājs."
 
-#: admin/config/index.php:203
+#: admin/config/index.php:223
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Oriģinālajā konfigurācijā nav atrasta versijas informācija. Reģenerējam "
 "konfigurāciju."
 
-#: admin/config/index.php:212
+#: admin/config/index.php:232
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "Konfigurācijā nav atrasta versijas informācija. Reģenerējam konfigurāciju."
 
-#: lib/Prefs/Special/Activesync.php:62 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: admin/config/index.php:284
+msgid "NoSQL indices are ready."
+msgstr "NoSQL indeksi ir gatavi."
+
+#: admin/config/index.php:279
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "%s NoSQL indeksi"
+
+#: admin/config/index.php:281
+msgid "NoSQL indices out of date."
+msgstr "NoSQL indeksi ir novecojuši."
+
+#: templates/prefs/activesync.html.php:42
+#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
+#: templates/prefs/activesync.html:43 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "Neviens"
 
@@ -2026,15 +2149,15 @@ msgstr "Nordic (ISO-8859-10)"
 msgid "Northern Hemisphere"
 msgstr "Ziemeļu puslode"
 
-#: admin/activesync.php:172 lib/Prefs/Special/Activesync.php:77
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Not Provisioned"
 msgstr "Nav nodrošināts"
 
-#: config/registry.php:166
+#: config/registry.php:167
 msgid "Notes"
 msgstr "Piezīmes"
 
-#: services/obrowser/index.php:35
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "Nav ko pārlūkot, atgriezieties atpakaļ."
 
@@ -2046,7 +2169,11 @@ msgstr "Rādāmo rakstu skaits"
 msgid "Number of seconds to wait to refresh"
 msgstr "pēc cik sekundēm atsvaidzināt:"
 
-#: templates/shares/edit.inc:132
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Objektu pārlūks"
+
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Objektu redaktors"
 
@@ -2054,19 +2181,19 @@ msgstr "Objektu redaktors"
 msgid "Offense filter"
 msgstr "Apvainojumu filtrs"
 
-#: config/registry.php:263
+#: config/registry.php:264
 msgid "Office"
 msgstr "Birojs"
 
-#: services/changepassword.php:45
+#: services/changepassword.php:42
 msgid "Old and new passwords must be different."
 msgstr "Vecajai un jaunajai parolei ir jāatšķiras."
 
-#: services/changepassword.php:31
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Vecā parole"
 
-#: services/changepassword.php:41
+#: services/changepassword.php:38
 msgid "Old password is not correct."
 msgstr "Nepareiza vecā parole."
 
@@ -2074,7 +2201,7 @@ msgstr "Nepareiza vecā parole."
 msgid "Only offensive fortunes"
 msgstr "Tikai aizskaroši dienas citāti"
 
-#: services/shares/edit.php:89
+#: services/shares/edit.php:94
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2086,12 +2213,12 @@ msgstr ""
 msgid "Operating System"
 msgstr "Operētājsistēma"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Vai ievadiet lietotāja vārdu:"
 
-#: config/prefs.php:560 config/prefs.php:665 config/prefs.php:691
-#: config/prefs.php:716 config/prefs.php:741 config/prefs.php:757
+#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
+#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
 msgid "Other Information"
 msgstr "Cita informācija"
 
@@ -2099,15 +2226,15 @@ msgstr "Cita informācija"
 msgid "Other Options"
 msgstr "Citi iestatījumi"
 
-#: config/registry.php:177
+#: config/registry.php:178
 msgid "Others"
 msgstr "Citi"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Īpašnieks"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Īpašnieks:"
 
@@ -2123,7 +2250,7 @@ msgstr "PHP kods"
 msgid "PHP Shell"
 msgstr "PHP čaula"
 
-#: lib/Application.php:266
+#: lib/Application.php:296
 msgid "POP/IMAP Email accounts"
 msgstr "POP/IMAP e-pasta konti"
 
@@ -2131,21 +2258,21 @@ msgstr "POP/IMAP e-pasta konti"
 msgid "POSIX extension is missing"
 msgstr "POSIX paplašinājums nav atrodams"
 
-#: lib/Api.php:62
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "P_HP čaula"
 
-#: login.php:204 admin/config/index.php:319 admin/user.php:39
-#: admin/user.php:53 config/registry.php:324
+#: login.php:205 admin/config/index.php:397 admin/user.php:39
+#: admin/user.php:53 config/registry.php:325
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Parole"
 
-#: lib/Application.php:201
+#: lib/Application.php:231
 msgid "Password Complexity"
 msgstr "Paroles sarežģītība"
 
-#: services/changepassword.php:50
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "Parole veiksmīgi nomainīta."
 
@@ -2165,6 +2292,7 @@ msgstr "Gaidoši pieteikumi:"
 msgid "People"
 msgstr "Cilvēki"
 
+#: templates/logintasks/logintasks.html.php:24
 #: templates/logintasks/logintasks.html:22
 msgid "Perform Login Tasks"
 msgstr "Izpildīt pieslēgšanās uzdevumus"
@@ -2179,7 +2307,7 @@ msgid "Permissions"
 msgstr "Tiesības"
 
 #: admin/perms/addchild.php:58 admin/perms/delete.php:53
-#: admin/perms/edit.php:129 admin/perms/index.php:23
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "Tiesību vadība"
 
@@ -2191,7 +2319,7 @@ msgstr "Personīgā informācija"
 msgid "Pets"
 msgstr "Mājdzīvnieki"
 
-#: config/registry.php:194
+#: config/registry.php:195
 msgid "Photos"
 msgstr "Foto"
 
@@ -2199,11 +2327,11 @@ msgstr "Foto"
 msgid "Platitudes"
 msgstr "Banalitātes"
 
-#: login.php:210
+#: login.php:211
 msgid "Please enter a password."
 msgstr "Lūdzu ievadiet paroli."
 
-#: login.php:209
+#: login.php:210
 msgid "Please enter a username."
 msgstr "Lūdzu ievadiet lietotāja vārdu."
 
@@ -2211,7 +2339,7 @@ msgstr "Lūdzu ievadiet lietotāja vārdu."
 msgid "Please provide a summary of the problem."
 msgstr "Lūdzu norādiet problēmas anotāciju."
 
-#: services/logintasks.php:80
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2227,21 +2355,21 @@ msgstr "Belzieni:"
 msgid "Policy Key"
 msgstr "Politikas atslēga"
 
-#: lib/Prefs/Special/Activesync.php:83
-msgid "Policy Key:"
-msgstr "Policy Key:"
-
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: config/prefs.php:773
+#: config/prefs.php:754
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
 msgstr ""
 "Atbildes teksta novietojums, atbildot uz e-pastu no Jūsu ierīces. Ņemiet "
 "vērā, ka dažas ierīces citēto tekstu vienmēr pievieno atbildes beigās."
+
+#: lib/Block/FbStream.php:142
+msgid "Post"
+msgstr "Nosūtīt"
 
 #: services/facebook/index.php:33
 #, php-format
@@ -2287,7 +2415,7 @@ msgstr "Problēmas apraksts"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: admin/activesync.php:172 lib/Prefs/Special/Activesync.php:76
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Provisioned"
 msgstr "Nodrošināts"
 
@@ -2296,11 +2424,11 @@ msgstr "Nodrošināts"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/Application.php:180
+#: lib/Application.php:210
 msgid "Provisioning"
 msgstr "Nodrošināšana"
 
-#: templates/prefs/facebook.html:12
+#: templates/prefs/facebook.html.php:16 templates/prefs/facebook.html:12
 msgid "Publish enabled."
 msgstr "Publicēšana iespējota."
 
@@ -2316,19 +2444,23 @@ msgstr "Kvota"
 msgid "Random Fortune"
 msgstr "Gadījuma citāts"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Lasīt"
 
 #: templates/prefs/facebook.html:24
 msgid "Read enabled"
 msgstr "Lasīšana atļauta"
+
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Lasīšana atļauta."
 
 #: templates/admin/user/remove.inc:11
 #, php-format
@@ -2341,11 +2473,11 @@ msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr "Tiešām izdzēst lietotāja \"%s\" datus? Šī darbība ir neatgriezeniska."
 
-#: config/prefs.php:644
+#: config/prefs.php:621
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Atsvaidzināt dinamiskās izvēlnes elementus:"
 
-#: config/prefs.php:625
+#: config/prefs.php:602
 msgid "Refresh Portal View:"
 msgstr "Atsvaidzināt portāla skatījumu:"
 
@@ -2357,7 +2489,7 @@ msgstr "Atsvaidzināšanas biežums:"
 msgid "Registered User Devices"
 msgstr "Reģistrētās lietotāja iekārtas"
 
-#: templates/portal/smartmobile.inc:17
+#: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
 msgstr "Ierastās aplikācijas"
 
@@ -2365,13 +2497,14 @@ msgstr "Ierastās aplikācijas"
 msgid "Remarks"
 msgstr "Remarkas"
 
-#: templates/admin/sessions.html.php:23
+#: templates/admin/sessions.html.php:10
 msgid "Remote Host"
 msgstr "Attālinātā stacija"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
+#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
 #: templates/admin/user/approve.inc:41
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: templates/admin/user/removequeued.inc:13
+#: templates/prefs/activesync.html.php:39 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Aizvākt"
 
@@ -2379,7 +2512,7 @@ msgstr "Aizvākt"
 msgid "Remove pair"
 msgstr "Izdzēst pāri"
 
-#: admin/config/index.php:338
+#: admin/config/index.php:416
 msgid "Remove saved script from server's temporary directory."
 msgstr "Izdzēsiet saglabāto skriptu no servera pagaidu kataloga."
 
@@ -2405,20 +2538,20 @@ msgstr "Atbildēt"
 msgid "Reprovision All Devices"
 msgstr "Nodrošināt visas iekārtas"
 
-#: lib/Application.php:191
+#: lib/Application.php:221
 msgid "Require PIN"
 msgstr "Pieprasīt PIN"
 
-#: lib/Application.php:274
+#: lib/Application.php:304
 msgid "Require S/MIME Encryption"
 msgstr "Pieprasīt S/MIME šifrēšanu"
 
-#: lib/Application.php:278
+#: lib/Application.php:308
 msgid "Require S/MIME Signature"
 msgstr "Pieprasīt S/MIME parakstu"
 
 #: admin/user.php:27 templates/admin/user/update.inc:64
-#: templates/prefs/rpc.html:36
+#: templates/prefs/activesync.html:7 templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Sākt no jauna"
 
@@ -2426,7 +2559,7 @@ msgstr "Sākt no jauna"
 msgid "Reset Password"
 msgstr "Atjaunot paroli"
 
-#: templates/prefs/activesync.html:6
+#: templates/prefs/activesync.html.php:6 templates/prefs/activesync.html:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
@@ -2452,7 +2585,7 @@ msgstr "Rezultāti"
 msgid "Results for %s"
 msgstr "%s rezultāti "
 
-#: templates/prefs/end.html:7
+#: templates/prefs/end.html:8
 msgid "Return to Main Screen"
 msgstr "Atgriezties Galvenajā ekrānā"
 
@@ -2465,7 +2598,7 @@ msgstr "Pārčiepstēt"
 msgid "Retweeted by %s"
 msgstr "Pārčiepstējis %s"
 
-#: services/changepassword.php:33
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Atkārtojiet jauno paroli"
 
@@ -2481,27 +2614,36 @@ msgstr "Mīklas"
 msgid "Run"
 msgstr "Palaist"
 
+#: templates/logintasks/smartmobile.html.php:29
 #: templates/logintasks/smartmobile.html:22
 msgid "Run Login Tasks"
 msgstr "Izpildīt pieslēgšanās uzdevumus"
 
-#: lib/Application.php:246
+#: lib/Application.php:276
 msgid "SD card"
 msgstr "SD karte"
 
-#: lib/Application.php:239
+#: lib/Application.php:269
 msgid "SD card encryption"
 msgstr "SD kartes Šifrēšana"
 
-#: lib/Application.php:254
+#: lib/Application.php:284
 msgid "SMS Text messages"
 msgstr "SMS teksta ziņojumi"
+
+#: admin/config/index.php:266 admin/config/index.php:319
+msgid "SQL DB schema is out of date."
+msgstr "SQL DB shēma ir novecojusi."
+
+#: admin/config/index.php:271 admin/config/index.php:324
+msgid "SQL DB schema is ready."
+msgstr "SQL DB shēma gatava."
 
 #: admin/sqlshell.php:23
 msgid "SQL Shell"
 msgstr "SQl čaula"
 
-#: lib/Api.php:67
+#: lib/Api.php:80
 msgid "S_QL Shell"
 msgstr "S_Ql čaula"
 
@@ -2510,20 +2652,20 @@ msgstr "S_Ql čaula"
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:115 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Saglabāt \"%s\""
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Saglabāt un beigt"
 
-#: admin/config/index.php:310
+#: admin/config/index.php:388
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2547,7 +2689,7 @@ msgstr "Loks"
 msgid "Sea_rch"
 msgstr "Meklēt"
 
-#: lib/View/Topbar.php:58 services/help/index.php:156
+#: lib/View/Topbar.php:59 services/help/index.php:156
 #: templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Meklēt"
@@ -2556,11 +2698,15 @@ msgstr "Meklēt"
 msgid "Search:"
 msgstr "Meklēt:"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: lib/Application.php:242
+msgid "Seconds of inactivity before device should lock"
+msgstr "Minūtes bez aktivitātes pirms ierīces aizslēgšanās"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Izvēlieties pievienojamo grupu:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Izvēlieties jaunu īpašnieku:"
 
@@ -2568,7 +2714,7 @@ msgstr "Izvēlieties jaunu īpašnieku:"
 msgid "Select a server"
 msgstr "Izvēlieties serveri"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Izvēlieties pievienojamo lietotāju:"
 
@@ -2600,11 +2746,11 @@ msgstr "Izvēlieties laika atdalītāju:"
 msgid "Select the time format:"
 msgstr "Izvēlieties laika formātu:"
 
-#: config/prefs.php:611
+#: config/prefs.php:588
 msgid "Select your color scheme."
 msgstr "Izvēlieties krāsu shēmu."
 
-#: config/prefs.php:396
+#: config/prefs.php:385
 msgid "Select your preferred language:"
 msgstr "Izvēlieties valodu:"
 
@@ -2616,40 +2762,40 @@ msgstr "Nosūtīt problēmas pieteikumu"
 msgid "Sensor: "
 msgstr "Sensors:"
 
-#: templates/prefs/syncml.html:12
+#: templates/prefs/syncml.html.php:12 templates/prefs/syncml.html:12
 msgid "Server Time"
 msgstr "Servera laiks"
 
-#: admin/sessions.php:69
+#: admin/sessions.php:67
 msgid "Session Administration"
 msgstr "Sesiju vadība"
 
-#: templates/admin/sessions.html.php:15
+#: templates/admin/sessions.html.php:8
 msgid "Session Timestamp"
 msgstr "Sesijas laika zīmogs"
 
-#: lib/Api.php:57
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Sesijas"
 
-#: config/prefs.php:342
+#: config/prefs.php:335
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "Iestatiet iespēju atjaunot paroli gadījumam, ja sanāk to aizmirst."
 
-#: config/prefs.php:667
+#: config/prefs.php:643
 msgid "Set up integration with your Facebook account."
 msgstr "Iestatiet integrāciju ar Jūsu Facebook kontu."
 
-#: config/prefs.php:693
+#: config/prefs.php:669
 msgid "Set up integration with your Twitter account."
 msgstr "Iestatiet integrāciju ar Jūsu Twitter kontu."
 
-#: config/prefs.php:383
+#: config/prefs.php:373
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Iestaties vēlamo valodu, laika joslu un datuma formātu."
 
-#: config/prefs.php:562
+#: config/prefs.php:542
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2666,17 +2812,17 @@ msgstr "Šim parametram iespējamas vairākas atrašanās vietas: %s"
 msgid "Short Summary"
 msgstr "Īss kopsavilkums"
 
-#: config/prefs.php:651
+#: config/prefs.php:627
 msgid "Should access keys be defined for most links?"
 msgstr "Vai vairuma saišu definēt pieejas taustiņus?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Rādīt"
 
@@ -2684,7 +2830,7 @@ msgstr "Rādīt"
 msgid "Show Advanced Preferences"
 msgstr "Rādīt paplašinātos iestatījumus"
 
-#: admin/config/index.php:300
+#: admin/config/index.php:378
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2695,7 +2841,7 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Rādīt papildu informāciju?"
 
-#: config/prefs.php:595
+#: config/prefs.php:573
 msgid "Show last login time when logging in?"
 msgstr "Pieslēdzoties rādīt iepriekšējās pieslēgšanās laiku?"
 
@@ -2703,6 +2849,8 @@ msgstr "Pieslēdzoties rādīt iepriekšējās pieslēgšanās laiku?"
 msgid "Show notifications"
 msgstr "Rādīt paziņojumus"
 
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 #: templates/logintasks/logintasks.html:23
 #: templates/logintasks/smartmobile.html:23
 msgid "Skip Login Tasks"
@@ -2732,7 +2880,7 @@ msgstr "South European (ISO-8859-3)"
 msgid "Southern Hemisphere"
 msgstr "Dienvidu puslode"
 
-#: config/registry.php:103
+#: config/registry.php:104
 msgid "Spam"
 msgstr "Mēstules"
 
@@ -2752,11 +2900,12 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Sākuma laiks"
 
-#: templates/prefs/activesync.html:2
+#: templates/prefs/activesync.html.php:2 templates/prefs/activesync.html:2
 msgid "State Management"
 msgstr "Stāvokļa vadība"
 
-#: admin/activesync.php:115 templates/admin/config/index.html:39
+#: admin/activesync.php:115 templates/admin/config/index.html.php:36
+#: templates/prefs/activesync.html.php:22 templates/admin/config/index.html:39
 #: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Statuss"
@@ -2768,11 +2917,6 @@ msgstr "Nevar uzstādīt statusu."
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
 msgstr "Straume"
-
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Apakškatalogs \"%s\" nav atrasts."
 
 #: signup.php:55
 #, php-format
@@ -2838,7 +2982,7 @@ msgstr "Saule lec"
 msgid "Sun Set"
 msgstr "Saule riet"
 
-#: config/prefs.php:522
+#: config/prefs.php:504
 msgid "Sunday"
 msgstr "Svētdiena"
 
@@ -2854,11 +2998,11 @@ msgstr "Saullēkts/saulriets"
 msgid "Sunset"
 msgstr "Saulriets"
 
-#: lib/Application.php:294
+#: lib/Application.php:324
 msgid "Sync all"
 msgstr "Sinhronizēt visu"
 
-#: config/prefs.php:742
+#: config/prefs.php:720
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2870,7 +3014,7 @@ msgstr "Sindicētā plūsma"
 msgid "Tag Cloud"
 msgstr "Tag Cloud"
 
-#: config/registry.php:152
+#: config/registry.php:153
 msgid "Tasks"
 msgstr "Uzdevumi"
 
@@ -2887,7 +3031,7 @@ msgstr "Temperatūra"
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatūra%s(%sMaks%s/%sMin%s)"
 
-#: lib/Prefs/Special/Facebook.php:76 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "Nevar sazināties ar Facebook. Mēģiniet vēlāk."
 
@@ -2899,7 +3043,7 @@ msgstr "Nevar sazināties ar Twitter. Mēģiniet vēlāk."
 msgid "Thai (TIS-620)"
 msgstr "Thai (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:111
+#: lib/Prefs/Special/Activesync.php:83
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "Ierīces ar id %s attālinātā tīrīšana atcelta."
@@ -2912,7 +3056,7 @@ msgstr "Brīdinājums izdzēsts."
 msgid "The alarm has been saved."
 msgstr "Brīdinājums saglabāts."
 
-#: admin/config/index.php:100
+#: admin/config/index.php:112
 #, php-format
 msgid ""
 "The configuration for %s cannot be updated automatically. Please update the "
@@ -2920,7 +3064,7 @@ msgid ""
 msgstr ""
 "%s konfigurāciju nevar atsvaidzināt automātiski. Lūdzu veiciet to pašrocīgi."
 
-#: config/prefs.php:302
+#: config/prefs.php:299
 msgid "The default e-mail address to use with this identity:"
 msgstr "Noklusētā e-pasta adrese lietošanai ar šo identitāti:"
 
@@ -2966,7 +3110,7 @@ msgstr "\"%s\" pieteikums aizvākts."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Lietotāja \"%s\" pieteikums aizvākts."
 
-#: lib/Prefs/Special/Activesync.php:126
+#: lib/Prefs/Special/Activesync.php:98
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -2988,15 +3132,10 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "Lietotājs \"%s\" jau eksistē."
 
-#: services/shares/edit.php:91 services/shares/edit.php:176
+#: services/shares/edit.php:96 services/shares/edit.php:181
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Lietotājs \"%s\" neeksistē."
-
-#: util/icon_browser.php:28
-#, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "Noformējuma tēmu katalogs \"%s\" nav atrasts."
 
 #: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
@@ -3018,12 +3157,12 @@ msgstr "Kļūme dzēšot \"%s\" no sistēmas:"
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Kļūme atsvaidzinot \"%s\": %s"
 
-#: lib/Prefs/Special/Activesync.php:129
+#: lib/Prefs/Special/Activesync.php:101
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Kļūda sazinoties ar  ActiveSync serveri: %s"
 
-#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr "Kļūda sazinoties ar Twitter: %s"
@@ -3046,7 +3185,7 @@ msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr "Kļūda uzsākot Facebook sesiju. Mēģiniet vēlāk."
 
-#: lib/Application.php:166
+#: lib/Application.php:191
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3065,11 +3204,11 @@ msgstr "PVN maksātāja numurs nav derīgs."
 msgid "This VAT identification number is valid."
 msgstr "PVN maksātāja numurs ir derīgs."
 
-#: config/registry.php:223
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Biļetes"
 
-#: config/registry.php:269
+#: config/registry.php:270
 msgid "Time Tracking"
 msgstr "Laika uzskaite"
 
@@ -3081,7 +3220,7 @@ msgstr "Laika formāts"
 msgid "Timestamp or unknown"
 msgstr "Laika zīmogs vai nezināms"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2 templates/prefs/syncml.html:2
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Veiksmīgo sinhronizācijas sesiju laika zīmogi"
 
@@ -3114,7 +3253,7 @@ msgstr "Šodiena"
 msgid "Tomorrow"
 msgstr "Rītdiena"
 
-#: config/prefs.php:774
+#: config/prefs.php:755
 msgid "Top"
 msgstr "Augša"
 
@@ -3130,7 +3269,7 @@ msgstr "Turkish (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:692
+#: config/prefs.php:668
 msgid "Twitter Integration"
 msgstr "Twitter Integrācija"
 
@@ -3147,11 +3286,6 @@ msgstr "%s Twitter skrejošā rinda"
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter/index.php:80
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr "Nevar sazināties ar Twitter. Mēģiniet vēlreiz. Kļūdas paziņojums: %s"
-
 #: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
@@ -3165,11 +3299,15 @@ msgstr "Nevar uzstādīt patikšanu."
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "Nav iespējams apstiprināt pieprasījumu. Lūdzu, atkārtojiet to."
 
-#: templates/prefs/end.html:4
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Atcelt izmaiņas"
 
-#: lib/Prefs/Special/Category.php:73
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Retāk lietotie"
+
+#: templates/prefs/category.html.php:19
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
@@ -3189,7 +3327,7 @@ msgstr "Nezināms"
 msgid "Unlock"
 msgstr "Atbloķēt"
 
-#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Mainīt"
 
@@ -3198,15 +3336,17 @@ msgstr "Mainīt"
 msgid "Update %s"
 msgstr "Mainīt %s"
 
-#: admin/config/index.php:165 admin/config/index.php:263
+#: admin/config/index.php:183 admin/config/index.php:298
 #, php-format
 msgid "Update %s schema"
 msgstr "Atsvaidzināt %s shēmu"
 
+#: templates/admin/config/index.html.php:19
 #: templates/admin/config/index.html:19
 msgid "Update all DB schemas"
 msgstr "Atsvaidzināt visas DB shēmas"
 
+#: templates/admin/config/index.html.php:11
 #: templates/admin/config/index.html:11
 msgid "Update all configurations"
 msgstr "Atsvaidzināt visas konfigurācijas"
@@ -3215,40 +3355,36 @@ msgstr "Atsvaidzināt visas konfigurācijas"
 msgid "Update user"
 msgstr "Mainīt lietotāju"
 
-#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:244
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" mainīts."
 
-#: admin/config/index.php:115
+#: admin/config/index.php:127
 #, php-format
 msgid "Updated schema for %s."
 msgstr "%s shēma atsvaidzināta."
 
-#: admin/config/index.php:317
+#: admin/config/index.php:395
 msgid "Upload"
 msgstr "Augšupielādēt"
 
-#: admin/config/index.php:325
+#: admin/config/index.php:403
 msgid "Uploaded all application configuration files to the server."
 msgstr "Visas aplikāciju konfigurācijas augšupielādētas."
 
-#: config/prefs.php:718
+#: config/prefs.php:695
 msgid "Use if name/password is different for IMSP server."
 msgstr "Lietot, ja lietotāja vārds/parole IMSP serverim atšķiras."
 
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
-#: templates/admin/locks/list.html.php:12
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Lietotājs"
 
 #: admin/user.php:240
 msgid "User Administration"
 msgstr "Lietotāju vadība"
-
-#: lib/Prefs/Special/Activesync.php:83
-msgid "User Agent:"
-msgstr "Lietotāja aģents"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3270,11 +3406,11 @@ msgstr "Lietotāju reģistrācija nav korekti konfigurēta."
 msgid "User account not found"
 msgstr "Konts nav atrasts"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "Pievienojamais lietotājs:"
 
-#: login.php:199 admin/config/index.php:318 admin/user.php:36
+#: login.php:200 admin/config/index.php:396 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3300,11 +3436,12 @@ msgstr "PVN identifikācijas numurs:"
 msgid "VAT number"
 msgstr "PVN numurs"
 
+#: templates/admin/config/index.html.php:43
 #: templates/admin/config/index.html:46
 msgid "Version Check"
 msgstr "Versijas pārbaude"
 
-#: config/registry.php:212
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Versiju kontrole"
 
@@ -3332,11 +3469,11 @@ msgstr "Laika apstākļi"
 msgid "Weather data provided by"
 msgstr "Laika ziņu avots - "
 
-#: config/registry.php:329
+#: config/registry.php:330
 msgid "Web Site"
 msgstr "Vietne"
 
-#: lib/Application.php:270
+#: lib/Application.php:300
 msgid "Web browser"
 msgstr "Tīmekļa pārlūks"
 
@@ -3357,12 +3494,12 @@ msgstr "Western (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Western (ISO-8859-15)"
 
-#: config/prefs.php:575
+#: config/prefs.php:554
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Kuru aplikāciju %s jāatver pēc pieslēgšanās?"
 
-#: lib/Block/TwitterTimeline.php:107
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr "Pie kā Jūs šobrīd strādājat?"
 
@@ -3374,7 +3511,7 @@ msgstr "Kāds ir atdalītājsimbols?"
 msgid "What is the quote character?"
 msgstr "Kāds ir citēšanas simbols?"
 
-#: config/prefs.php:525
+#: config/prefs.php:507
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Kuru nedēļas dienu vēlaties noteikt kā pirmo nedēļā?"
 
@@ -3382,16 +3519,16 @@ msgstr "Kuru nedēļas dienu vēlaties noteikt kā pirmo nedēļā?"
 msgid "Which phases"
 msgstr "Kuras fāzes"
 
-#: config/prefs.php:631
+#: config/prefs.php:608
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Kreisās %s izvēlnes platums:"
 
-#: lib/Application.php:258
+#: lib/Application.php:288
 msgid "Wifi"
 msgstr "Wifi"
 
-#: config/registry.php:200
+#: config/registry.php:201
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3407,11 +3544,16 @@ msgstr "Vēja ātrums mezglos"
 msgid "Wind:"
 msgstr "Vējš:"
 
-#: admin/activesync.php:182 templates/prefs/activesync.html:28
+#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
+#: templates/prefs/activesync.html:28
 msgid "Wipe"
 msgstr "Slaucīt"
 
-#: admin/activesync.php:163 lib/Prefs/Special/Activesync.php:66
+#: templates/prefs/activesync.html.php:32
+msgid "Wipe Pending"
+msgstr "Gaida uz tīrīšanu"
+
+#: admin/activesync.php:160
 msgid "Wipe is pending"
 msgstr "Gaida uz tīrīšanu"
 
@@ -3427,7 +3569,7 @@ msgstr "Ar"
 msgid "Work"
 msgstr "Darbs"
 
-#: config/registry.php:235
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3438,6 +3580,8 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "GG"
 
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 #: templates/logintasks/logintasks.html:26
 #: templates/logintasks/smartmobile.html:28
 msgid "Yes, I Agree"
@@ -3451,48 +3595,48 @@ msgstr[0] "Jums un %d personām tas patīk"
 msgstr[1] "Jums un %d personai tas patīk"
 msgstr[2] "Jums un %d personām tas patīk"
 
-#: lib/Api.php:246
+#: lib/Api.php:255
 msgid "You are not allowed to add groups."
 msgstr "Jums nav atļauts pievienot grupas."
 
-#: lib/Api.php:363
+#: lib/Api.php:353
 msgid "You are not allowed to add shares."
 msgstr "Jums nav atļauts pievienot koplietojumus."
 
 #
-#: lib/Api.php:289 lib/Api.php:312
+#: lib/Api.php:290 lib/Api.php:309
 msgid "You are not allowed to change groups."
 msgstr "Jums nav atļauts mainīti grupas."
 
-#: lib/Api.php:444 lib/Api.php:481 lib/Api.php:515 lib/Api.php:540
+#: lib/Api.php:427 lib/Api.php:460 lib/Api.php:490 lib/Api.php:511
 msgid "You are not allowed to change shares."
 msgstr "Jums nav atļauts mainīt koplietojumus."
 
-#: lib/Api.php:268
+#: lib/Api.php:273
 msgid "You are not allowed to delete groups."
 msgstr "Jums nav atļauts dzēst grupas."
 
-#: lib/Api.php:388
+#: lib/Api.php:374
 msgid "You are not allowed to delete shares."
 msgstr "Jums nav atļauts dzēst koplietojumus."
 
-#: lib/Api.php:672
+#: lib/Api.php:642
 msgid "You are not allowed to list groups of shares."
 msgstr "Jums nav atļauts apskatīt koplietojumu grupas."
 
-#: lib/Api.php:566 lib/Api.php:604
+#: lib/Api.php:533 lib/Api.php:571
 msgid "You are not allowed to list share permissions."
 msgstr "Jums nav atļauts apskatīt koplietojumu pieejas tiesības."
 
-#: lib/Api.php:413
+#: lib/Api.php:395
 msgid "You are not allowed to list shares."
 msgstr "Jums nav atļauts apskatīt koplietojumus."
 
-#: lib/Api.php:335
+#: lib/Api.php:329
 msgid "You are not allowed to list users of groups."
 msgstr "Jums nav atļauts apskatīt grupu lietotājus."
 
-#: lib/Api.php:642
+#: lib/Api.php:610
 msgid "You are not allowed to list users of shares."
 msgstr "Jums nav ļauts apskatīt koplietojumu lietotājus."
 
@@ -3518,7 +3662,7 @@ msgid ""
 msgstr ""
 "Jūs nepiekritāt Lietošanas noteikumiem, tādēļ pieeja sistēmai Jums ir liegta."
 
-#: login.php:331
+#: login.php:306
 msgid "You have been logged out."
 msgstr "Jūs atslēdzāties no sistēmas."
 
@@ -3526,7 +3670,7 @@ msgstr "Jūs atslēdzāties no sistēmas."
 msgid "You have denied the requested permissions."
 msgstr "Jūsu tiesību pieprasījums noraidīts."
 
-#: lib/Block/TwitterTimeline.php:160
+#: lib/Block/TwitterTimeline.php:163
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3564,12 +3708,12 @@ msgstr "Jānorāda atsvaidzināmā lietotāja vārds."
 msgid "Your Email Address"
 msgstr "Jūsu e-pasta adrese"
 
-#: config/prefs.php:271 config/prefs.php:340 config/prefs.php:381
-#: config/prefs.php:533
+#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
+#: config/prefs.php:515
 msgid "Your Information"
 msgstr "Jūsu informācija"
 
-#: login.php:319
+#: login.php:294
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3599,7 +3743,7 @@ msgstr ""
 "Jūsu autentifikācijas mehānisms neuztur lietotāju saraksta attēlošanu vai "
 "arī šī funkcionalitāte ir ar nolūku atslēgta."
 
-#: login.php:323
+#: login.php:298
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3611,15 +3755,15 @@ msgstr ""
 msgid "Your browser does not support this feature."
 msgstr "Jūsu pārlūkprogramma neuztur šādu funkciju."
 
-#: config/prefs.php:432
+#: config/prefs.php:419
 msgid "Your current time zone:"
 msgstr "Jūsu pašreizējā laika zona:"
 
-#: config/prefs.php:293
+#: config/prefs.php:291
 msgid "Your full name:"
 msgstr "Jūsu pilnais vārds:"
 
-#: login.php:343
+#: login.php:318
 msgid "Your login has expired."
 msgstr "Jūsu pieejas tiesības izbeigušās."
 
@@ -3628,11 +3772,11 @@ msgstr "Jūsu pieejas tiesības izbeigušās."
 msgid "Your new password for %s is: %s"
 msgstr "Jūsu jaunā %s parole ir: %s"
 
-#: services/resetpassword.php:81
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr "Jūsu parole ir atjaunota"
 
-#: services/resetpassword.php:95
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
@@ -3640,7 +3784,7 @@ msgstr ""
 "Jūsu parole ir atjaunota, taču to nav iespējams nosūtīt. Sazinieties ar savu "
 "administratoru."
 
-#: services/resetpassword.php:90
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
@@ -3648,19 +3792,27 @@ msgstr ""
 "Jūsu parole ir atjaunota, pārbaudiet savu e-pastu un pieslēdzieties ar jauno "
 "paroli."
 
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Jūsu parole ir veiksmīgi nomainīta. Jums ir jāpieslēdzas sistēmai no jauna "
+"ar jauno paroli."
+
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Jūsu paroles derīguma termiņš ir beidzies"
 
-#: login.php:173
+#: login.php:179
 msgid "Your password has expired."
 msgstr "Jūsu paroles derīguma termiņš ir beidzies."
 
-#: login.php:315
+#: login.php:290
 msgid "Your session has expired. Please login again."
 msgstr "Jūsu sesija ir beigusies. Lūdzu pieslēdzieties atkārtoti."
 
-#: login.php:327
+#: login.php:302
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3674,31 +3826,31 @@ msgstr "Sparīgs"
 msgid "[Problem Report]"
 msgstr "[Problēmas ziņojums]"
 
-#: lib/Api.php:52
+#: lib/Api.php:65
 msgid "_Alarms"
 msgstr "Brīdinājumi"
 
-#: lib/Api.php:72
+#: lib/Api.php:85
 msgid "_CLI"
 msgstr "_CLI"
 
-#: lib/Api.php:27
+#: lib/Api.php:40
 msgid "_Configuration"
 msgstr "Konfigurācija"
 
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
 msgstr "Grupas"
 
-#: lib/Api.php:47
+#: lib/Api.php:60
 msgid "_Locks"
 msgstr "Bloķētie"
 
-#: lib/Api.php:42
+#: lib/Api.php:55
 msgid "_Permissions"
 msgstr "Tiesības"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
 msgstr "Lietotāji"
 
@@ -3720,17 +3872,17 @@ msgstr "no %s (%s) plkst. %s %s"
 msgid "gusting"
 msgstr "brāzmas"
 
-#: admin/config/diff.php:57 admin/config/diff.php:69
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "iekļautais"
 
 #: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
+#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
 #: services/facebook/index.php:192
 msgid "preferences"
 msgstr "iestatījumi"
 
-#: admin/config/config.php:72
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "rādīt atškirības"
 
@@ -3738,7 +3890,7 @@ msgstr "rādīt atškirības"
 msgid "type the password twice to confirm"
 msgstr "lai apstiprinātu, ievadiet paroli divreiz"
 
-#: admin/config/diff.php:57 admin/config/diff.php:69
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "vienots"
 
