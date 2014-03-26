@@ -193,7 +193,7 @@ abstract class IMP_Dynamic_Base
         /* Gettext strings used in core javascript files. */
         $this->js_text = array(
             'allparts_label' => _("Parts"),
-            'emailcopy' => _("Your browser security settings don't permit the editor to copy to the clipboard.") . "\n" . _("You need to manually use the keyboard instead (Crtl/Cmd + C)."),
+            'emailcopy' => _("Your browser security settings don't permit the editor to copy to the clipboard.") . "\n" . _("You need to manually use the keyboard instead (Ctrl/Cmd + C)."),
             'loading' => _("Loading..."),
             'strip_warn' => _("Are you sure you wish to PERMANENTLY delete this attachment?"),
             'verify' => _("Verifying...")
