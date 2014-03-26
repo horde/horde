@@ -81,11 +81,12 @@ class Horde_Alarm_Sql extends Horde_Alarm
             $values[] = (string)$user;
         }
 
-
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
 
         $alarms = array();
@@ -110,7 +111,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $result = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
 
         $alarms = array();
@@ -129,8 +132,11 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $columns = $this->_db->columns($this->_params['table']);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Prefs_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
+
         $alarm['alarm_params'] = $columns['alarm_params']->binaryToString($alarm['alarm_params']);
         $params = base64_decode($alarm['alarm_params']);
         if (!strlen($params) && strlen($alarm['alarm_params'])) {
@@ -168,7 +174,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $alarm = $this->_db->selectOne($query, array($id, $user));
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
 
         if (empty($alarm)) {
@@ -204,7 +212,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -237,7 +247,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -261,7 +273,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -289,7 +303,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             return ($this->_db->selectValue($query, $params) == 1);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -312,7 +328,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -335,7 +353,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             return $this->_db->selectValue($query, array($id, $user, $time->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT)));
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -357,7 +377,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
@@ -383,7 +405,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception($e);
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
         }
     }
 
