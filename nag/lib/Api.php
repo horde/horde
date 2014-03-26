@@ -335,7 +335,7 @@ class Nag_Api extends Horde_Registry_Api
             //
             $tasklist = substr($parts[1], 0, -4);
             if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-                throw new Nag_Exception(_("Invalid tasklist file requested."), 404);
+                throw new Nag_Exception(_("Invalid task list file requested."), 404);
             }
             $ical_data = $this->exportTasklist($tasklist, 'text/calendar');
             $result = array('data'          => $ical_data,
@@ -351,7 +351,7 @@ class Nag_Api extends Horde_Registry_Api
             // of items and represent them as files within the directory.
             //
             if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
-                throw new Nag_Exception(_("Invalid tasklist requested."), 404);
+                throw new Nag_Exception(_("Invalid task list requested."), 404);
             }
             $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
             try {
@@ -469,13 +469,13 @@ class Nag_Api extends Horde_Registry_Api
                     $content_type = 'text/calendar';
                 }
             } else {
-                throw new Nag_Exception(_("Invalid tasklist name supplied."), 403);
+                throw new Nag_Exception(_("Invalid task list name supplied."), 403);
             }
 
         if (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a tasklist based on the filename
             // in the case that the requested tasklist does not exist?
-            throw new Nag_Exception(_("Tasklist does not exist or no permission to edit"), 403);
+            throw new Nag_Exception(_("Task list does not exist or no permission to edit"), 403);
         }
 
         // Store all currently existings UIDs. Use this info to delete UIDs not
@@ -604,7 +604,7 @@ class Nag_Api extends Horde_Registry_Api
             // Allow users to delete tasklists but not create them via WebDAV will
             // be more confusing than helpful.  They are, however, still able to
             // delete individual task items within the tasklist folder.
-            throw Nag_Exception(_("Deleting entire tasklists is not supported."), 403);
+            throw Nag_Exception(_("Deleting entire task lists is not supported."), 403);
             // To re-enable the functionality just remove this if {} block.
         }
 
@@ -617,7 +617,7 @@ class Nag_Api extends Horde_Registry_Api
         if (!(count($parts) == 2 || count($parts) == 3) ||
             !Nag::hasPermission($tasklistID, Horde_Perms::DELETE)) {
 
-            throw new Nag_Exception(_("Tasklist does not exist or no permission to delete"), 403);
+            throw new Nag_Exception(_("Task list does not exist or no permission to delete"), 403);
         }
 
         /* Create a Nag storage instance. */
@@ -635,7 +635,7 @@ class Nag_Api extends Horde_Registry_Api
             try {
                 $storage->deleteAll();
             } catch (Nag_Exception $e) {
-                throw new Nag_Exception(sprintf(_("Unable to delete tasklist \"%s\": %s"), $tasklistID, $e->getMessage()), 500);
+                throw new Nag_Exception(sprintf(_("Unable to delete task list \"%s\": %s"), $tasklistID, $e->getMessage()), 500);
             }
 
             // Remove share and all groups/permissions.

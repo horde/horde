@@ -82,7 +82,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
             return $results;
         }
         if (!$this->vars->tasklist) {
-            $GLOBALS['notification']->push(_("Missing required tasklist"), 'horde.error');
+            $GLOBALS['notification']->push(_("Missing required task list"), 'horde.error');
             return $results;
         }
 

@@ -58,7 +58,7 @@ class Nag_Block_Summary extends Horde_Core_Block
             ),
             'show_tasklist' => array(
                 'type' => 'checkbox',
-                'name' => _("Show tasklist name?"),
+                'name' => _("Show task list name?"),
                 'default' => 1
             ),
             'show_alarms' => array(
@@ -78,7 +78,7 @@ class Nag_Block_Summary extends Horde_Core_Block
             ),
             'show_tasklists' => array(
                 'type' => 'multienum',
-                'name' => _("Show tasks from these tasklists"),
+                'name' => _("Show tasks from these task lists"),
                 'default' => array(),
                 'values' => $tasklists
             )

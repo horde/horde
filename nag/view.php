@@ -45,7 +45,7 @@ $task->loadChildren(false);
 /* Check permissions on $tasklist_id. */
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-    $notification->push(_("You do not have permission to view this tasklist."), 'horde.error');
+    $notification->push(_("You do not have permission to view this task list."), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
 

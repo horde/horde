@@ -18,7 +18,7 @@
 
 <?php if (!$prefs->isLocked('default_tasklist') && count($import_tasklists) > 1): ?>
  <p>
-  <?php echo Horde::label('tasklist_target', _("Which tasklist should the tasks be added to?")) ?><br />
+  <?php echo Horde::label('tasklist_target', _("Which task list should the tasks be added to?")) ?><br />
   <select id="tasklist_target" name="tasklist_target">
   <?php
   $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
