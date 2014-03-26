@@ -40,9 +40,9 @@ class IMP_Compose_View
             $e->logged = true;
             throw $e;
         }
-        $atc->setMimeId($id);
+        $mime->setMimeId($id);
 
-        $contents = new IMP_Contents($atc);
+        $contents = new IMP_Contents($mime);
         $render = $contents->renderMIMEPart($id, $contents::RENDER_RAW_FALLBACK, array(
             'autodetect' => $autodetect,
             'type' => $ctype
