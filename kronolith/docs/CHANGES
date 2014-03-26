@@ -2,6 +2,7 @@
 v4.1.6-git
 ----------
 
+[jan] Fix TRIGGER generation if alarm value is negative (Bug #13064).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>).
 
 
