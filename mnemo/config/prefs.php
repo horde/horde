@@ -158,7 +158,7 @@ $_prefs['sync_notepads'] = array(
 // For Mnemo 5 we should default to separate.
 $_prefs['activesync_no_multiplex'] = array(
     'type' => 'checkbox',
-    'desc' => _("Support separate collections?"),
+    'desc' => _("Support separate notepads?"),
     'value' => 0
 );
 

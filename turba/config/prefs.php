@@ -88,7 +88,7 @@ $_prefs['sync_books'] = array(
 // For Turba 5 we should default to separate.
 $_prefs['activesync_no_multiplex'] = array(
     'type' => 'checkbox',
-    'desc' => _("Support separate collections?"),
+    'desc' => _("Support separate address books?"),
     'value' => 0
 );
 

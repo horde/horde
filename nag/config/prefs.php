@@ -273,7 +273,7 @@ $_prefs['sync_lists'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
     'enum' => array(),
-    'desc' => _("Select the tasklists that, in addition to the default, should be used for synchronization with external devices:"),
+    'desc' => _("Select the task lists that, in addition to the default, should be used for synchronization with external devices:"),
     'on_init' => function($ui) {
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
@@ -325,6 +325,6 @@ $_prefs['sync_lists'] = array(
 // For Nag 5 we should default to separate.
 $_prefs['activesync_no_multiplex'] = array(
     'type' => 'checkbox',
-    'desc' => _("Support separate collections?"),
+    'desc' => _("Support separate task lists?"),
     'value' => 0
 );

@@ -322,7 +322,7 @@ $_prefs['sync_calendars'] = array(
 // For Kronolith 5 we should default to separate.
 $_prefs['activesync_no_multiplex'] = array(
     'type' => 'checkbox',
-    'desc' => _("Support separate collections?"),
+    'desc' => _("Support separate calendars?"),
     'value' => 0);
 
 // Which drivers are we supposed to use to examine holidays?
