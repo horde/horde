@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -47,7 +47,7 @@ msgstr "Der Kalender %s konnte nicht neu geladen werden: %s"
 msgid "Invalid authentication for user %s!"
 msgstr "Ungültige Authentifizierung für Benutzer %s!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:315
 #, php-format
 msgid "No such account %s!"
 msgstr "Kein Konto %s gefunden!"
@@ -83,12 +83,12 @@ msgstr "Der Kalender \"%s\" wurde erfolgreich neu erzeugt!"
 msgid "The requested URL %s was not found on this server."
 msgstr "Die gesuchte URL (%s) wurde auf diesem Server nicht gefunden."
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:193
 msgid "Unable to determine owner of the free/busy data!"
 msgstr ""
 "Der Eigentümer der Frei/Gebucht-Informationen konnte nicht bestimmt werden!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:390
 #, php-format
 msgid "Unable to read free/busy information from %s"
 msgstr "Fehler beim Auslesen der Frei/Gebucht-Informationen von %s"

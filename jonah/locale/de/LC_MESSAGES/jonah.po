@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -55,7 +55,7 @@ msgstr "4 Stunden"
 msgid "8 hours"
 msgstr "8 Stunden"
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "A link to the story"
 msgstr "Einen Link zum Beitrag"
 
@@ -202,7 +202,7 @@ msgid "Enter keywords to tag this story, separated by commas"
 msgstr "Kommagetrennte Stichwörter für diesen Beitrag"
 
 #: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
-#: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
+#: lib/View/StoryView.php:77 stories/share.php:70 stories/view.php:21
 #, php-format
 msgid "Error fetching story: %s"
 msgstr "Fehler beim Herunterladen des Beitrags: %s"
@@ -224,7 +224,7 @@ msgstr "Feeds"
 msgid "First Story"
 msgstr "Erster Beitrag"
 
-#: stories/share.php:84
+#: stories/share.php:82
 msgid "From"
 msgstr "Von"
 
@@ -251,7 +251,7 @@ msgstr ""
 "Klick auf den Beitrag direkt an diese URL weitergeleitet, anderenfalls wird "
 "die URL am Ende des Beitrags angezeigt."
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "Include"
 msgstr "Einfügen"
 
@@ -300,7 +300,7 @@ msgstr "Maximale Beiträge"
 msgid "Media"
 msgstr "Multimedia"
 
-#: stories/share.php:91
+#: stories/share.php:89
 msgid "Message"
 msgstr "Nachricht"
 
@@ -454,15 +454,15 @@ msgstr "Suche"
 msgid "Select a format:"
 msgstr "Wählen Sie ein Format:"
 
-#: stories/share.php:81
+#: stories/share.php:79
 msgid "Send"
 msgstr "Senden"
 
-#: stories/share.php:88
+#: stories/share.php:86
 msgid "Separate multiple email addresses with commas."
 msgstr "Trennen Sie mehrere Emailadressen durch Kommas."
 
-#: stories/share.php:79
+#: stories/share.php:77
 msgid "Share Story"
 msgstr "Beitrag weitergeben"
 
@@ -497,7 +497,7 @@ msgstr "Mit %s getaggte Beiträge in %s"
 msgid "Story"
 msgstr "Beitrag"
 
-#: stories/share.php:112
+#: stories/share.php:110
 msgid "Story Link"
 msgstr "Beitrags-URL"
 
@@ -536,7 +536,7 @@ msgstr "Der Beitrag wurde nicht gelöscht."
 msgid "Story id \"%s\" not found."
 msgstr "Beitrags-ID \"%s\" nicht gefunden."
 
-#: stories/share.php:89
+#: stories/share.php:87
 msgid "Subject"
 msgstr "Betreff"
 
@@ -569,7 +569,7 @@ msgstr "Text"
 msgid "The channel has been deleted."
 msgstr "Der Kanal wurde gelöscht."
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "The complete text of the story"
 msgstr "Den gesamten Nachrichtentext"
 
@@ -587,7 +587,7 @@ msgstr "Der Beitrag \"%s\" wurde gespeichert."
 msgid "The story has been deleted."
 msgstr "Der Beitrag wurde gelöscht."
 
-#: stories/share.php:123
+#: stories/share.php:121
 msgid "The story was sent successfully."
 msgstr "Der Beitrag wurde erfolgreich versendet."
 
@@ -611,7 +611,7 @@ msgstr "Beim Speichern des Feeds ist ein Fehler aufgetreten: %s"
 msgid "There was an error saving the story: %s"
 msgstr "Beim Speichern des Beitrags ist ein Fehler aufgetreten: %s"
 
-#: stories/share.php:88
+#: stories/share.php:86
 msgid "To"
 msgstr "An"
 
@@ -623,7 +623,7 @@ msgstr "Typ"
 msgid "Ultracompact"
 msgstr "Sehr kompakt"
 
-#: stories/share.php:121
+#: stories/share.php:119
 #, php-format
 msgid "Unable to send story: %s"
 msgstr "Der Beitrag konnte nicht versendet werden: %s"

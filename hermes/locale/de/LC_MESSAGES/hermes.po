@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:14+0100\n"
-"PO-Revision-Date: 2013-10-14 14:32+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-03-26 10:35+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Hermes.php:340
+#: lib/Hermes.php:352
 #, php-format
 msgid " (%0.2f hours)"
 msgstr " (%0.2f Stunden)"
 
-#: lib/Hermes.php:342
+#: lib/Hermes.php:354
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr " (%d%%, %0.2f von %0.2f Stunden)"
@@ -40,7 +40,7 @@ msgstr " (DEAKTIVIERT)"
 msgid "\"%s\" is not a defined table."
 msgstr "\"%s\" ist nicht als Tabelle definiert."
 
-#: lib/Api.php:521
+#: lib/Api.php:517
 #, php-format
 msgid "%d hours: %s"
 msgstr "%d Stunden: %s"
@@ -63,7 +63,7 @@ msgstr "- - Keiner - -"
 msgid "--- General Cost Objects ---"
 msgstr "--- Allgemeine Kostenstellen ---"
 
-#: lib/Hermes.php:318
+#: lib/Hermes.php:330
 msgid "--- No Cost Object ---"
 msgstr "--- Keine Kostenstelle ---"
 
@@ -166,27 +166,27 @@ msgstr "Budget"
 msgid "Budget hours"
 msgstr "Budgetstunden"
 
-#: lib/Hermes.php:362
+#: lib/Hermes.php:374
 msgid "By Client"
 msgstr "Nach Kunde"
 
-#: lib/Hermes.php:364
+#: lib/Hermes.php:376
 msgid "By Cost Object"
 msgstr "Nach Kostenstelle"
 
-#: lib/Hermes.php:360
+#: lib/Hermes.php:372
 msgid "By Date"
 msgstr "Nach Datum"
 
-#: lib/Hermes.php:361
+#: lib/Hermes.php:373
 msgid "By Employee"
 msgstr "Nach Mitarbeiter"
 
-#: lib/Hermes.php:363
+#: lib/Hermes.php:375
 msgid "By Job Type"
 msgstr "Nach Arbeitsart"
 
-#: templates/dynamic/timer.inc:13
+#: templates/dynamic/timer.inc:34 templates/dynamic/timer.inc:47
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -202,7 +202,7 @@ msgstr "Ergebnis kann nicht gelöscht werden; es existieren Zeiteinträge dafür
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
 #: lib/Slice.php:157 templates/dynamic/search.inc:29
 #: templates/dynamic/search.inc:93 templates/dynamic/slices.inc:29
-#: templates/dynamic/slices.inc:82
+#: templates/dynamic/slices.inc:82 templates/dynamic/timer.inc:13
 msgid "Client"
 msgstr "Kunde"
 
@@ -233,6 +233,7 @@ msgstr "Kommagetrennte Werte (.csv)"
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
 #: templates/dynamic/search.inc:33 templates/dynamic/search.inc:94
 #: templates/dynamic/slices.inc:33 templates/dynamic/slices.inc:83
+#: templates/dynamic/timer.inc:17
 msgid "Cost Object"
 msgstr "Kostenstelle"
 
@@ -274,6 +275,14 @@ msgstr "Arbeitsart löschen: Bestätigung"
 msgid "Delete This Deliverable"
 msgstr "Dieses Ergebnis löschen"
 
+#: templates/dynamic/slices.inc:107
+msgid "Delete Time"
+msgstr "Zeiteintrag löschen"
+
+#: templates/dynamic/slices.inc:116
+msgid "Delete the time slice?"
+msgstr "Den Zeitabschnitt löschen?"
+
 #: lib/Driver.php:64
 #, php-format
 msgid "Deliverable %d not found."
@@ -287,11 +296,11 @@ msgstr "Ergebnisdetail"
 msgid "Deliverable saved successfully."
 msgstr "Ergebnis erfolgreich gespeichert."
 
-#: lib/Ajax/Application/Handler.php:82
+#: lib/Ajax/Application/Handler.php:90
 msgid "Deliverable successfully added."
 msgstr "Ergebnis erfolgreich hinzugefügt."
 
-#: deliverables.php:41 lib/Ajax/Application/Handler.php:95
+#: deliverables.php:41 lib/Ajax/Application/Handler.php:105
 msgid "Deliverable successfully deleted."
 msgstr "Ergebnis erfolgreich gelöscht."
 
@@ -395,12 +404,16 @@ msgstr "Zeit eintragen"
 msgid "Enter a title for the new timer."
 msgstr "Geben Sie einen Namen für die neue Stoppuhr an."
 
+#: templates/dynamic/timer.inc:12
+msgid "Enter details about this timer."
+msgstr "Geben Sie Details für diese Stoppuhr an."
+
 #: deliverables.php:43
 #, php-format
 msgid "Error deleting deliverable: %s"
 msgstr "Fehler beim Löschen des Ergebnisses: %s"
 
-#: lib/Form/Search.php:116 lib/Hermes.php:286
+#: lib/Form/Search.php:116 lib/Hermes.php:298
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr "Fehler beim Lesen der Kostenstellen aus \"%s\": %s"
@@ -422,6 +435,15 @@ msgstr "Schätzung"
 #: lib/Form/Deliverable.php:26
 msgid "Estimated Hours"
 msgstr "Geschätzte Stunden"
+
+#: templates/dynamic/timer.inc:30
+msgid ""
+"Exclusive timers cannot run while other exclusive timers are running, but "
+"may run while other non-exclusive timers are running."
+msgstr ""
+"Exklusive Stoppuhren können nicht laufen, während andere exklusive "
+"Stoppuhren laufen. Aber sie können laufen während andere nicht-exklusive "
+"Stoppuhren laufen."
 
 #: lib/Form/Export.php:48 templates/dynamic/export.inc:27
 msgid "Export"
@@ -474,8 +496,8 @@ msgstr ""
 "Kunden-ID für das Exportieren, falls sie sich von dem oben angezeigten Namen "
 "unterscheidet."
 
-#: lib/Ajax/Application/Handler.php:322 lib/Ajax/Application/Handler.php:381
-#: lib/Ajax/Application/Handler.php:406
+#: lib/Ajax/Application/Handler.php:336 lib/Ajax/Application/Handler.php:386
+#: lib/Ajax/Application/Handler.php:417
 msgid "Invalid timer requested"
 msgstr "Ungültige Stoppuhr angefordert"
 
@@ -498,6 +520,7 @@ msgstr "Rechnungssystem ist nicht installiert."
 #: lib/Form/Time/Entry.php:60 lib/Slice.php:149
 #: templates/dynamic/search.inc:23 templates/dynamic/search.inc:95
 #: templates/dynamic/slices.inc:51 templates/dynamic/slices.inc:84
+#: templates/dynamic/timer.inc:21
 msgid "Job Type"
 msgstr "Arbeitsart"
 
@@ -506,15 +529,15 @@ msgstr "Arbeitsart"
 msgid "Job Types"
 msgstr "Arbeitsarten"
 
-#: lib/Ajax/Application/Handler.php:50
+#: lib/Ajax/Application/Handler.php:55
 msgid "Job type successfully added."
 msgstr "Arbeitsart erfolgreich hinzugefügt."
 
-#: lib/Ajax/Application/Handler.php:112
+#: lib/Ajax/Application/Handler.php:122
 msgid "Job type successfully deleted."
 msgstr "Arbeitsart erfolgreich gelöscht."
 
-#: lib/Ajax/Application/Handler.php:476
+#: lib/Ajax/Application/Handler.php:494
 msgid "Job type successfully updated."
 msgstr "Arbeitsart erfolgreich aktualisiert."
 
@@ -522,9 +545,17 @@ msgstr "Arbeitsart erfolgreich aktualisiert."
 msgid "JobType Name"
 msgstr "Arbeitsart-Bezeichnung"
 
+#: templates/dynamic/timer.inc:41
+msgid "Log Timer"
+msgstr "Stoppuhr festhalten"
+
 #: templates/dynamic/deliverabledetail.inc:10
 msgid "Logged"
 msgstr "Eingetragen"
+
+#: templates/dynamic/timer.inc:27
+msgid "Make this timer exclusive?"
+msgstr "Diese Stoppuhr exklusiv laufen lassen?"
 
 #: lib/Form/Export.php:42 templates/dynamic/export.inc:19
 msgid "Mark the time as exported?"
@@ -581,6 +612,7 @@ msgstr "Neues Hauptergebnis"
 #: lib/Form/Export.php:41 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
 #: templates/dynamic/export.inc:22 templates/dynamic/search.inc:55
 #: templates/dynamic/search.inc:63 templates/dynamic/search.inc:71
+#: templates/dynamic/slices.inc:119
 msgid "No"
 msgstr "Nein"
 
@@ -673,7 +705,7 @@ msgstr "Zurück zu Suchergebnissen"
 
 #: lib/Form/Time/Entry.php:33 templates/dynamic/deliverables.inc:20
 #: templates/dynamic/jobtypes.inc:23 templates/dynamic/slices.inc:65
-#: templates/dynamic/timer.inc:12
+#: templates/dynamic/timer.inc:33
 msgid "Save"
 msgstr "Speichern"
 
@@ -767,6 +799,14 @@ msgstr "Stoppuhr starten"
 msgid "Stop Watch"
 msgstr "Stoppuhr"
 
+#: templates/dynamic/timer.inc:46
+msgid "Stop and remove"
+msgstr "Anhalten und entfernen"
+
+#: templates/dynamic/timer.inc:45
+msgid "Stop and reset"
+msgstr "Anhalten und zurücksetzen"
+
 #: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr "Stoppuhr-Einstellungen"
@@ -799,7 +839,7 @@ msgstr "Abgeschickte Zeiteinträge"
 msgid "Submitted?"
 msgstr "Abgeschickt?"
 
-#: lib/Hermes.php:359
+#: lib/Hermes.php:371
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -832,7 +872,7 @@ msgstr "Die Arbeitsart wurde geändert."
 msgid "The job type was not deleted."
 msgstr "Die Arbeitsart wurde nicht gelöscht."
 
-#: lib/Hermes.php:449
+#: lib/Hermes.php:473
 msgid "The requested timer was not found."
 msgstr "Stoppuhr nicht gefunden."
 
@@ -845,7 +885,7 @@ msgstr ""
 "Die Stoppuhr \"%s\" wurde gestartet und erscheint nach der nächsten "
 "Aktualisierung im Menü."
 
-#: entry.php:32 lib/Ajax/Application/Handler.php:419
+#: entry.php:32 lib/Ajax/Application/Handler.php:429
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr "Die Stoppuhr \"%s\" wurde angehalten."
@@ -854,12 +894,12 @@ msgstr "Die Stoppuhr \"%s\" wurde angehalten."
 msgid "The time entry was successfully deleted."
 msgstr "Der Zeiteintrag wurde erfolgreich gelöscht."
 
-#: lib/Ajax/Application/Handler.php:167
+#: lib/Ajax/Application/Handler.php:181
 #, php-format
 msgid "The time was successfully entered for %s."
 msgstr "Ihr Zeiteintrag für %s wurde erfolgreich gespeichert."
 
-#: lib/Ajax/Application/Handler.php:496
+#: lib/Ajax/Application/Handler.php:514
 #, php-format
 msgid "The time was successfully updated and saved to the time sheet of %s."
 msgstr ""
@@ -917,7 +957,7 @@ msgstr "Beim Bearbeiten der Arbeitsart ist ein Fehler aufgetreten: %s."
 msgid "There was an error storing your timesheet: %s"
 msgstr "Beim Speichern Ihrer Zeiteinträge is ein Fehler aufgetreten: %s"
 
-#: lib/Ajax/Application/Handler.php:442 time.php:47
+#: lib/Ajax/Application/Handler.php:460 time.php:47
 #, php-format
 msgid "There was an error submitting your time: %s"
 msgstr "Beim Abschicken Ihres Zeiteintrags ist ein Fehler aufgetreten: %s"
@@ -975,7 +1015,7 @@ msgstr "Nicht abgeschickte Zeiteinträge"
 msgid "Update Time"
 msgstr "Zeiteintrag aktualisieren"
 
-#: lib/Ajax/Application/Handler.php:415
+#: lib/Ajax/Application/Handler.php:425
 #, php-format
 msgid "Using the \"%s\" stop watch from %s %s to %s %s"
 msgstr "Mit Stoppuhr \"%s\" von %s %s bis %s %s"
@@ -989,8 +1029,13 @@ msgstr "Mit Stoppuhr \"%s\" von %s bis %s"
 #: lib/Form/Export.php:40 lib/Form/Search.php:52 lib/Form/Time/Entry.php:69
 #: templates/dynamic/export.inc:21 templates/dynamic/search.inc:54
 #: templates/dynamic/search.inc:62 templates/dynamic/search.inc:70
+#: templates/dynamic/slices.inc:118
 msgid "Yes"
 msgstr "Ja"
+
+#: templates/dynamic/timer.inc:42
+msgid "You are logging the following timer:"
+msgstr "Sie halten die folgende Stoppuhr fest:"
 
 #: lib/Ajax.php:99
 msgid "You must select a client first."
@@ -1004,19 +1049,19 @@ msgstr ""
 "Sie haben ein unbekanntes Datumsformat \"%s\" benutzt. Bitte versuchen Sie "
 "etwas wie \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:133
+#: lib/Ajax/Application/Handler.php:147
 msgid "Your time entry was successfully deleted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gelöscht."
 
-#: entry.php:60 lib/Ajax/Application/Handler.php:162
+#: entry.php:60 lib/Ajax/Application/Handler.php:176
 msgid "Your time was successfully entered."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gespeichert."
 
-#: lib/Ajax/Application/Handler.php:446 time.php:44
+#: lib/Ajax/Application/Handler.php:464 time.php:44
 msgid "Your time was successfully submitted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich abgeschickt."
 
-#: entry.php:57 lib/Ajax/Application/Handler.php:494
+#: entry.php:57 lib/Ajax/Application/Handler.php:512
 msgid "Your time was successfully updated."
 msgstr "Ihr Zeiteintrag wurde erfolgreich aktualisiert."
 

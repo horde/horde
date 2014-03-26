@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-07-16 21:29+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-03-26 10:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -79,9 +79,17 @@ msgstr "Lesezeichen"
 msgid "Bookmarks Feed"
 msgstr "Lesezeichen-Feed"
 
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "Lesezeichen erfolgreich importiert"
+
 #: browse.php:31
 msgid "Browse"
 msgstr "Liste"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "Neues Lesezeichen konnte nicht erstellt werden."
 
 #: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
@@ -136,9 +144,21 @@ msgstr "Bearbeiten"
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "Firefox JSON"
+
 #: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Importieren"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Lesezeichen importieren"
 
 #: templates/add.html.php:63
 msgid "Internet Explorer"
@@ -230,6 +250,14 @@ msgstr "Suchergebnisse (%s)"
 msgid "See previously used tags"
 msgstr "Bisher verwendete Tags anzeigen"
 
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Wählen Sie die Datei, die importiert werden soll:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Wählen Sie das Format der importierten Datei:"
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr ""
@@ -248,13 +276,18 @@ msgstr "Sortieren nach"
 msgid "Sort direction:"
 msgstr "Sortierrichtung:"
 
-#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+#: lib/Application.php:100 templates/add.html.php:30
+#: templates/edit.html.php:39
 msgid "Tags"
 msgstr "Tags"
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr "Vorlage"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "Die Datei enthielt keine Lesezeichen."
 
 #: app/controllers/DeleteBookmark.php:16
 #, php-format
@@ -270,6 +303,11 @@ msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Meldung des Servers: %s"
 
 #: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
@@ -301,7 +339,11 @@ msgstr "Sie dürfen nicht mehr als %d Lesezeichen erstellen."
 msgid "_Browse"
 msgstr "_Liste"
 
-#: lib/Application.php:94
+#: lib/Application.php:85
+msgid "_Import"
+msgstr "_Importieren"
+
+#: lib/Application.php:95
 msgid "_New Bookmark"
 msgstr "_Neues Lesezeichen"
 
