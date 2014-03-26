@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Kolab_Resource \n"
+"Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Kolab/Resource.php:557
+#: lib/Horde/Kolab/Resource.php:542
 #, php-format
 msgid "%s has been cancelled"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
+#: lib/Horde/Kolab/Resource.php:523 lib/Horde/Kolab/Resource.php:528
 #, php-format
 msgid "Error processing \"%s\""
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:556
+#: lib/Horde/Kolab/Resource.php:541
 msgid "The following event has been successfully removed:"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:540
+#: lib/Horde/Kolab/Resource.php:527
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:535
+#: lib/Horde/Kolab/Resource.php:522
 #, php-format
 msgid "Unable to access %s's calendar:"
 msgstr ""

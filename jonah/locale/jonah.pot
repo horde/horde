@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Jonah H5 (1.0-git)\n"
+"Project-Id-Version: Jonah\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "8 hours"
 msgstr ""
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "A link to the story"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgid "Enter keywords to tag this story, separated by commas"
 msgstr ""
 
 #: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
-#: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
+#: lib/View/StoryView.php:77 stories/share.php:70 stories/view.php:21
 #, php-format
 msgid "Error fetching story: %s"
 msgstr ""
@@ -219,7 +219,7 @@ msgstr ""
 msgid "First Story"
 msgstr ""
 
-#: stories/share.php:84
+#: stories/share.php:82
 msgid "From"
 msgstr ""
 
@@ -243,7 +243,7 @@ msgid ""
 "of the full story."
 msgstr ""
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "Include"
 msgstr ""
 
@@ -292,7 +292,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: stories/share.php:91
+#: stories/share.php:89
 msgid "Message"
 msgstr ""
 
@@ -444,15 +444,15 @@ msgstr ""
 msgid "Select a format:"
 msgstr ""
 
-#: stories/share.php:81
+#: stories/share.php:79
 msgid "Send"
 msgstr ""
 
-#: stories/share.php:88
+#: stories/share.php:86
 msgid "Separate multiple email addresses with commas."
 msgstr ""
 
-#: stories/share.php:79
+#: stories/share.php:77
 msgid "Share Story"
 msgstr ""
 
@@ -485,7 +485,7 @@ msgstr ""
 msgid "Story"
 msgstr ""
 
-#: stories/share.php:112
+#: stories/share.php:110
 msgid "Story Link"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgstr ""
 msgid "Story id \"%s\" not found."
 msgstr ""
 
-#: stories/share.php:89
+#: stories/share.php:87
 msgid "Subject"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 msgid "The channel has been deleted."
 msgstr ""
 
-#: stories/share.php:90
+#: stories/share.php:88
 msgid "The complete text of the story"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "The story has been deleted."
 msgstr ""
 
-#: stories/share.php:123
+#: stories/share.php:121
 msgid "The story was sent successfully."
 msgstr ""
 
@@ -597,7 +597,7 @@ msgstr ""
 msgid "There was an error saving the story: %s"
 msgstr ""
 
-#: stories/share.php:88
+#: stories/share.php:86
 msgid "To"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "Ultracompact"
 msgstr ""
 
-#: stories/share.php:121
+#: stories/share.php:119
 #, php-format
 msgid "Unable to send story: %s"
 msgstr ""

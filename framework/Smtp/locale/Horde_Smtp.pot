@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Smtp \n"
+"Project-Id-Version: Horde_Smtp\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Smtp/Exception.php:106
+#: lib/Horde/Smtp/Exception.php:132
 msgid "Could not open secure TLS connection to the server."
 msgstr ""
 
-#: lib/Horde/Smtp.php:346
+#: lib/Horde/Smtp.php:350
 msgid "Error connecting to SMTP server."
 msgstr ""
 
@@ -29,31 +29,37 @@ msgstr ""
 msgid "Error when communicating with the server."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:101
+#: lib/Horde/Smtp/Exception.php:126
 msgid "Insufficient system storage."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:96
+#: lib/Horde/Smtp/Exception.php:120
 msgid "Mailbox unavailable."
+msgstr ""
+
+#: lib/Horde/Smtp/Exception.php:144
+msgid ""
+"Message could not be delivered - the address was not found, is unknown, or "
+"is not receiving messages."
 msgstr ""
 
 #: lib/Horde/Smtp/Connection.php:100
 msgid "Server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Smtp.php:424
+#: lib/Horde/Smtp.php:440
 msgid "Server denied authentication."
 msgstr ""
 
-#: lib/Horde/Smtp.php:627
+#: lib/Horde/Smtp.php:643
 msgid "Server does not support TLS connections."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:124
+#: lib/Horde/Smtp/Exception.php:158
 msgid "Server is not accepting SMTP connections."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:111
+#: lib/Horde/Smtp/Exception.php:138
 msgid "Server requires authentication."
 msgstr ""
 

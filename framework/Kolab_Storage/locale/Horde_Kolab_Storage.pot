@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Kolab_Storage \n"
+"Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:52+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,7 +110,7 @@ msgid "Failed fetching body part %s for message %s in folder %s."
 msgstr ""
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:607
-#: lib/Horde/Kolab/Storage/Driver/Imap.php:423
+#: lib/Horde/Kolab/Storage/Driver/Imap.php:420
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:522
 #, php-format
 msgid "Failed fetching message %s in folder %s."
@@ -159,8 +159,8 @@ msgstr ""
 msgid "Failed retrieving structure of message %s in folder %s."
 msgstr ""
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:844
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:850
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:841
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:847
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr ""
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Failed setting ACL on folder %s for user %s to %s."
 msgstr ""
 
-#: doc/Horde/Kolab/Storage/OLD/Trigger.php:228
+#: doc/Horde/Kolab/Storage/OLD/Trigger.php:225
 #, php-format
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr ""
@@ -201,12 +201,12 @@ msgstr ""
 msgid "Missing \"host\" parameter!"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Data/Old.php:241
+#: lib/Horde/Kolab/Storage/Data/Old.php:240
 #, php-format
 msgid "Old object %s does not exist."
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Data/Old.php:248
+#: lib/Horde/Kolab/Storage/Data/Old.php:247
 #, php-format
 msgid "Old object %s does not map to a uid."
 msgstr ""
@@ -251,7 +251,7 @@ msgid ""
 "from the backend. Original error: %s"
 msgstr ""
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:683
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:680
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -259,7 +259,7 @@ msgid ""
 "edits have been lost."
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Object.php:487
+#: lib/Horde/Kolab/Storage/Object.php:537
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
@@ -267,12 +267,12 @@ msgid ""
 "clients please visit %s"
 msgstr ""
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:366
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:365
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""
 
-#: doc/Horde/Kolab/Storage/OLD/Trigger.php:261
+#: doc/Horde/Kolab/Storage/OLD/Trigger.php:258
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
 msgstr ""

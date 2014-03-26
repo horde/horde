@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0.3-git)\n"
+"Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,8 +79,16 @@ msgstr ""
 msgid "Bookmarks Feed"
 msgstr ""
 
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr ""
+
 #: browse.php:31
 msgid "Browse"
+msgstr ""
+
+#: data.php:78
+msgid "Can't create a new bookmark."
 msgstr ""
 
 #: templates/add.html.php:53 templates/edit.html.php:63
@@ -132,8 +140,20 @@ msgstr ""
 msgid "Edit Bookmark"
 msgstr ""
 
+#: data.php:16
+msgid "Firefox JSON"
+msgstr ""
+
 #: templates/add.html.php:61
 msgid "Firefox/Mozilla"
+msgstr ""
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr ""
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
 msgstr ""
 
 #: templates/add.html.php:63
@@ -224,6 +244,14 @@ msgstr ""
 msgid "See previously used tags"
 msgstr ""
 
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr ""
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr ""
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr ""
@@ -240,12 +268,17 @@ msgstr ""
 msgid "Sort direction:"
 msgstr ""
 
-#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+#: lib/Application.php:100 templates/add.html.php:30
+#: templates/edit.html.php:39
 msgid "Tags"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
+msgstr ""
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
 msgstr ""
 
 #: app/controllers/DeleteBookmark.php:16
@@ -261,6 +294,11 @@ msgstr ""
 #: app/controllers/SaveBookmark.php:26
 #, php-format
 msgid "There was an error saving the bookmark: %s"
+msgstr ""
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
 msgstr ""
 
 #: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
@@ -291,7 +329,11 @@ msgstr ""
 msgid "_Browse"
 msgstr ""
 
-#: lib/Application.php:94
+#: lib/Application.php:85
+msgid "_Import"
+msgstr ""
+
+#: lib/Application.php:95
 msgid "_New Bookmark"
 msgstr ""
 
