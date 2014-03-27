@@ -168,7 +168,6 @@ class Turba_Driver_Sql extends Turba_Driver
                 $blobFields,
                 $this->_db->selectAll(
                     'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where,
-                    $query,
                     $values
                 )
             );
