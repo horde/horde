@@ -148,14 +148,14 @@ class WickedSingleRevisions extends Horde_Db_Migration_Base
     public function down()
     {
         /* Pages */
-        $this->addColumn('wicked_pages', 'page_majorversion', 'integer', array('null' => false));
-        $this->addColumn('wicked_pages', 'page_minorversion', 'integer', array('null' => false));
+        $this->addColumn('wicked_pages', 'page_majorversion', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_pages', 'page_minorversion', 'integer', array('null' => false, 'default' => 0));
         $this->update('UPDATE wicked_pages SET page_majorversion = page_version, page_minorversion = 0');
         $this->removeColumn('wicked_pages', 'page_version');
 
         $this->removePrimaryKey('wicked_history');
-        $this->addColumn('wicked_history', 'page_majorversion', 'integer', array('null' => false));
-        $this->addColumn('wicked_history', 'page_minorversion', 'integer', array('null' => false));
+        $this->addColumn('wicked_history', 'page_majorversion', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_history', 'page_minorversion', 'integer', array('null' => false, 'default' => 0));
         $this->update('UPDATE wicked_history SET page_majorversion = page_version, page_minorversion = 0');
         $this->removeColumn('wicked_history', 'page_version');
         $this->addPrimaryKey('wicked_history', array('page_id', 'page_majorversion', 'page_minorversion'));
@@ -182,14 +182,14 @@ class WickedSingleRevisions extends Horde_Db_Migration_Base
                 $attachment['attachment_version'] . '.0');
         }
 
-        $this->addColumn('wicked_attachments', 'attachment_majorversion', 'integer', array('null' => false));
-        $this->addColumn('wicked_attachments', 'attachment_minorversion', 'integer', array('null' => false));
+        $this->addColumn('wicked_attachments', 'attachment_majorversion', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_attachments', 'attachment_minorversion', 'integer', array('null' => false, 'default' => 0));
         $this->update('UPDATE wicked_attachments SET attachment_majorversion = attachment_version, attachment_minorversion = 0');
         $this->removeColumn('wicked_attachments', 'attachment_version');
 
         $this->removePrimaryKey('wicked_attachment_history');
-        $this->addColumn('wicked_attachment_history', 'attachment_majorversion', 'integer', array('null' => false));
-        $this->addColumn('wicked_attachment_history', 'attachment_minorversion', 'integer', array('null' => false));
+        $this->addColumn('wicked_attachment_history', 'attachment_majorversion', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_attachment_history', 'attachment_minorversion', 'integer', array('null' => false, 'default' => 0));
         $this->update('UPDATE wicked_attachment_history SET attachment_majorversion = attachment_version, attachment_minorversion = 0');
         $this->removeColumn('wicked_attachment_history', 'attachment_version');
         $this->addPrimaryKey('wicked_attachment_history', array('page_id', 'attachment_name', 'attachment_majorversion', 'attachment_minorversion'));
