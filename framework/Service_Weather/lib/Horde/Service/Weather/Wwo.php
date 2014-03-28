@@ -31,7 +31,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 
 
     /**
-     * Icon map for wunderground. Not some are returned as
+     * Icon map for wunderground. Note some are returned as
      * "sky" conditions and some as "condition" icons. Public
      * so it can be overridded in client code if desired.
      */
