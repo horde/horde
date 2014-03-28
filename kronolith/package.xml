@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-18</date>
+ <date>2014-03-28</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.2.0</api>
@@ -670,6 +670,7 @@
       <file name="ToIcalendarTest.php" role="test" />
      </dir> <!-- /test/Kronolith/Integration -->
      <dir name="Stub">
+      <file name="CalendarManager.php" role="test" />
       <file name="Driver.php" role="test" />
       <file name="Registry.php" role="test" />
       <file name="ShareFactory.php" role="test" />
@@ -1422,6 +1423,7 @@
    <install as="Kronolith/Integration/Kronolith/KolabTest.php" name="test/Kronolith/Integration/Kronolith/KolabTest.php" />
    <install as="Kronolith/Integration/Kronolith/Sql/Base.php" name="test/Kronolith/Integration/Kronolith/Sql/Base.php" />
    <install as="Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" />
+   <install as="Kronolith/Stub/CalendarManager.php" name="test/Kronolith/Stub/CalendarManager.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
@@ -2296,7 +2298,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2014-03-18</date>
+   <date>2014-03-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
