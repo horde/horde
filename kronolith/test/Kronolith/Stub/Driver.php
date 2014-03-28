@@ -1,6 +1,6 @@
 <?php
 
-class Kronolith_Stub_Driver extends Kronolith_Driver
+class Kronolith_Stub_Driver extends Kronolith_Driver_Sql
 {
     public $calendar = 'foo';
 
