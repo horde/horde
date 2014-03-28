@@ -514,7 +514,7 @@ class Hermes_Api extends Horde_Registry_Api
                 $cn = current($GLOBALS['registry']->clients->getClients(array($slice['client'])));
                 $co = $slice['_costobject_name'];
                 $tobj = array($slice['id'] => array(
-                    'title' => sprintf(_("%d hours: %s"),
+                    'title' => sprintf(_("%.2f hours: %s"),
                         $slice['hours'],
                         empty($cn['name']) ? (empty($co) ? $slice['description'] : $co) : $cn['name']),
                     'description' => $slice->toString(),
