@@ -307,7 +307,6 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         // matches, even if you pass an explicit identifier. We need to ignore
         // these, and hope for the best.
         if (!empty($response->search_api->result)) {
-            $results = array();
             return $this->_parseStation($response->search_api->result[0]);
         }
 
