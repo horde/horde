@@ -27,3 +27,4 @@ require_once __DIR__ . '/Stub/Registry.php';
 require_once __DIR__ . '/Stub/ShareFactory.php';
 require_once __DIR__ . '/Stub/Tagger.php';
 require_once __DIR__ . '/Stub/Types.php';
+require_once __DIR__ . '/Stub/CalendarManager.php';

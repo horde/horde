@@ -72,6 +72,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
         $GLOBALS['conf']['sql']['charset'] = 'utf-8';
         $GLOBALS['conf']['sql']['driverconfig'] = 'Horde';
+        $GLOBALS['calendar_manager'] = new Kronolith_Stub_CalendarManager();
     }
 
     static protected function createSqlShares(Horde_Test_Setup $setup)

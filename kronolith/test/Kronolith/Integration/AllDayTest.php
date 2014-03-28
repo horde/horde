@@ -29,6 +29,11 @@
  */
 class Kronolith_Integration_AllDayTest extends Kronolith_TestCase
 {
+    static public function setupBeforeClass()
+    {
+        $GLOBALS['calendar_manager'] = new Kronolith_Stub_CalendarManager();
+    }
+
     public function testAllDay()
     {
         $ical_event = $this->_getFixture(0);

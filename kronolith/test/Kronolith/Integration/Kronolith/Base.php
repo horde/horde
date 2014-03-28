@@ -81,7 +81,7 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
     {
         $GLOBALS['conf']['share']['auto_create'] = true;
         Kronolith::initialize();
-        $this->assertEquals(1, count($GLOBALS['display_calendars']));
+        $this->assertEquals(1, count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)));
     }
 
     public function testDefaultShareName()
@@ -100,7 +100,7 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
     {
         $GLOBALS['conf']['share']['auto_create'] = false;
         Kronolith::initialize();
-        $this->assertEquals(0, count($GLOBALS['display_calendars']));
+        $this->assertEquals(0, count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)));
     }
 
     public function testDefaultShareDeletePermission()
