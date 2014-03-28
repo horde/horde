@@ -220,7 +220,6 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     protected function _parseStation($station)
     {
         $properties = array(
-            // @TODO: can we parse cith/state from results?
             'name' => $station->areaName[0]->value . ', ' . $station->region[0]->value,
             'city' => $station->areaName[0]->value,
             'state' => $station->region[0]->value,
