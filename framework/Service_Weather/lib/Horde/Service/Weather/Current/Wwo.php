@@ -47,8 +47,12 @@
         case 'condition':
             return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
 
+        // Note that even though this is "localObsDateTime", the timezone set
+        // in the date object will be the server's default timezone since it's
+        // impossible to figure out the timezone from the information given by
+        // the API.
         case 'time':
-            return new Horde_Date($this->_properties->observation_time);
+            return new Horde_Date($this->_properties->localObsDateTime);
 
         case 'temp':
             if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {

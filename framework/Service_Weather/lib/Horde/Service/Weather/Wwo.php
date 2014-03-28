@@ -181,7 +181,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             'q' => $location,
             'num_of_days' => $length,
             'includeLocation' => 'yes',
-            'localObsTime' => 'yes'));
+            'extra' => 'localObsTime'));
 
         $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->data->nearest_area[0]);
