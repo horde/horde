@@ -346,7 +346,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         }
         $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
         if (!($results instanceof StdClass)) {
-            throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
+            throw new Horde_Service_Weather_Exception(sprintf(
+                'Error, unable to decode response: %s',
+                $results));
         }
 
         return $results;
