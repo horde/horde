@@ -181,12 +181,14 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             'q' => $location,
             'num_of_days' => $length,
             'includeLocation' => 'yes',
+            'timezone' => 'yes',
             'extra' => 'localObsTime'));
 
         $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->data->nearest_area[0]);
-
-        // Current conditions
+        // Wwo doesn't include the full station data in the forecast/conditions
+        // response. Request it.
+        $station = $this->searchLocations($station->lat . ',' . $station->lon);
         $this->_current = $this->_parseCurrent($results->data->current_condition);
 
         // Sunrise/Sunset
