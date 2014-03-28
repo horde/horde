@@ -61,14 +61,18 @@ class Horde_Service_Weather_Station
      */
     public function getOffset()
     {
-        if (!empty($this->tz) && is_string($this->tz)) {
-            $d = new Horde_Date(time(), 'UTC');
-            $d->setTimezone($this->tz);
-            return $d->tzOffset();
-        } elseif (!empty($this->tz)) {
-            // tz is provided as an offset already.
+        if (!empty($this->_properties['tz']) && is_numeric($this->_properties['tz'])) {
             return $this->tz;
+        } elseif (!empty($this->_properties['tz'])) {
+            try {
+                $d = new Horde_Date(time(), 'UTC');
+                $d->setTimezone($this->tz);
+                return $d->tzOffset();
+            } catch (Horde_Date_Exception $e) {
+            }
         }
+
+        return false;
     }
 
 }
