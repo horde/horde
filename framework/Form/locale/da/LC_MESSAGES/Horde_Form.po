@@ -1,677 +1,666 @@
-# Danish translations for Horde_Form module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Form module.
-# Automatically generated, 2010.
+# Danish translations for Horde_Form package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Form package.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"PO-Revision-Date: 2014-03-19 23:13+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Form/Type.php:2520
+#: lib/Horde/Form/Type.php:2601
 #, php-format
 msgid " (%s days ago)"
-msgstr " (%s dage siden)"
+msgstr "(%s dage siden)"
 
-#: Form/Type.php:2528
+#: lib/Horde/Form/Type.php:2609
 #, php-format
 msgid " (in %s days)"
-msgstr " (om %s dage)"
+msgstr " (i %s dage)"
 
-#: Form/Type.php:2524
+#: lib/Horde/Form/Type.php:2605
 msgid " (today)"
-msgstr " (i dag)"
+msgstr "(I dag)"
 
-#: Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2607
 msgid " (tomorrow)"
-msgstr " (i morgen)"
+msgstr "(I morgen)"
 
-#: Form/Type.php:2522
+#: lib/Horde/Form/Type.php:2603
 msgid " (yesterday)"
-msgstr " (i går)"
+msgstr "(i går)"
 
-#: Form/Type.php:1460
-#, fuzzy, php-format
+#: lib/Horde/Form/Type.php:1518
+#, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "Du indtastede ikke en gyldig e-post-adresse."
+msgstr "\"%s\" er ikke en gyldig email adresse."
 
-#: Form/Type.php:2475
+#: lib/Horde/Form/Type.php:2570
 #, php-format
 msgid "%s is required"
-msgstr "%s krævet"
+msgstr "%s er nødvendigt"
 
-#: Form/Type.php:2190 Form/Type.php:2253
+#: lib/Horde/Form/Type.php:2266 lib/Horde/Form/Type.php:2329
 msgid "-- select --"
 msgstr "-- vælg --"
 
-#: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
+#: lib/Horde/Form/Type.php:855 lib/Horde/Form/Type.php:898
 msgid "A temporary directory"
-msgstr "Kan ikke finde et midlertidigt katalog."
+msgstr "En midlertidig mappe"
 
-#: Form/Type.php:773
+#: lib/Horde/Form/Type.php:785
 msgid "Address"
 msgstr "Adresse"
 
-#: Form/Type.php:795
-#, fuzzy
+#: lib/Horde/Form/Type.php:807
 msgid "Address Link"
-msgstr "Adressekartotek"
+msgstr "Adresse link"
 
-#: Form/Type.php:1620
-#, fuzzy
+#: lib/Horde/Form/Type.php:1688
 msgid "Allow multiple addresses?"
-msgstr "Tillad multiple adresser"
+msgstr "Tillad flere adresser?"
 
-#: Form/Type.php:3473
+#: lib/Horde/Form/Type.php:3550
 msgid "Assignment columns"
-msgstr "Tildel kolonner"
+msgstr "Udpegede kolonner"
 
-#: Form/Type.php:3745
-#, fuzzy
+#: lib/Horde/Form/Type.php:3810
 msgid "Category"
-msgstr "Ny kategori"
+msgstr "Kategori"
 
-#: Form/Type.php:1632
-#, fuzzy
+#: lib/Horde/Form/Type.php:1700
 msgid "Character to split multiple addresses with"
-msgstr "Tillad multiple adresser"
+msgstr "Tegn til at adskille flere adresser med"
 
-#: Form/Type.php:3161
+#: lib/Horde/Form/Type.php:3238
 msgid "Colour selection"
-msgstr "Farvevalg"
+msgstr "Farve valg"
 
-#: Form/Type.php:2072
+#: lib/Horde/Form/Type.php:2143
 msgid "Column titles"
-msgstr "Kolonnetitler"
+msgstr "Kolonne titler"
 
-#: Form/Type.php:662
+#: lib/Horde/Form/Type.php:674
 msgid "Counted text"
-msgstr "Optalt tekst"
+msgstr "Talt tekst"
 
-#: Form/Type.php:909
-#, fuzzy
+#: lib/Horde/Form/Type.php:921
 msgid "Country drop down list"
-msgstr "Rullegardin-liste"
+msgstr "Lande drop down liste"
 
-#: Form/Type.php:3588
+#: lib/Horde/Form/Type.php:3665
 msgid "Credit card number"
-msgstr "Kreditkort-nummer"
+msgstr "Kredit kort nummer"
 
-#: Form/Type.php:3643
+#: lib/Horde/Form/Type.php:3708
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
-"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+"DSN (se http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
-#: Form/Type.php:3641
-#, fuzzy
+#: lib/Horde/Form/Type.php:3706
 msgid "Database lookup"
-msgstr "Database-opslag"
+msgstr "Database søgning"
 
-#: Form/Type.php:2549
+#: lib/Horde/Form/Type.php:2630
 msgid "Date"
 msgstr "Dato"
 
-#: Form/Type.php:3121
-#, fuzzy
+#: lib/Horde/Form/Type.php:3198
 msgid "Date and time selection"
-msgstr "Datovalg"
+msgstr "Dato og tids valg"
 
-#: Form/Type.php:2958
+#: lib/Horde/Form/Type.php:3035
 msgid "Date selection"
-msgstr "Datovalg"
+msgstr "Dato valg"
 
-#: Form/Type.php:132
+#: lib/Horde/Form/Type.php:112
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: Form/Type.php:2968 Form/Type.php:3131
+#: lib/Horde/Form/Type.php:3045 lib/Horde/Form/Type.php:3208
 msgid "Display format"
-msgstr "Visningsformat"
+msgstr "Visnings format"
 
-#: Form/Type.php:2233
+#: lib/Horde/Form/Type.php:2309
 msgid "Drop down list"
-msgstr "Rullegardin-liste"
+msgstr "Drop down liste"
 
-#: Form/Type.php:1617
+#: lib/Horde/Form/Type.php:1685
 msgid "Email"
-msgstr "eMail"
+msgstr "Email"
 
-#: Form/Type.php:2088
+#: lib/Horde/Form/Type.php:2159
 msgid "Email addresses must match."
-msgstr "E-mail-adresser skal passe."
+msgstr "Email adresser skal være ens."
 
-#: Form/Type.php:2115
+#: lib/Horde/Form/Type.php:2184
 msgid "Email with confirmation"
-msgstr "E-mail med bekræftelse"
+msgstr "Email med bekræftelse"
 
-#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+#: lib/Horde/Form/Type.php:2825 lib/Horde/Form/Type.php:3039
+#: lib/Horde/Form/Type.php:3202
 msgid "End year"
-msgstr "Slut-år"
+msgstr "Slut år"
 
-#: Form/Type.php:2070
+#: lib/Horde/Form/Type.php:2141
 msgid "Field matrix"
-msgstr "Feltmatrice"
+msgstr "Felt matrix"
 
-#: Form/Type.php:3696
+#: lib/Horde/Form/Type.php:3761
 msgid "Figlet CAPTCHA"
 msgstr "Figlet CAPTCHA"
 
-#: Form/Type.php:3700
+#: lib/Horde/Form/Type.php:3765
 msgid "Figlet font"
-msgstr "Figlet skriftstypografi"
+msgstr "Figlet skrifttype"
 
-#: Form/Type.php:3347
+#: lib/Horde/Form/Type.php:3424
 msgid "File selection"
-msgstr "Filvalg"
+msgstr "Valg af fil"
 
-#: Form/Type.php:952
+#: lib/Horde/Form/Type.php:964
 msgid "File upload"
-msgstr "Fillagring"
+msgstr "Fil upload"
 
-#: Form/Type.php:3719
+#: lib/Horde/Form/Type.php:3784
 msgid "Font"
-msgstr ""
+msgstr "Skrifttype"
 
-#: Form/Type.php:152
+#: lib/Horde/Form/Type.php:132
 msgid "HTML"
 msgstr "HTML"
 
-#: Form/Type.php:115 Form/Type.php:3285
+#: lib/Horde/Form/Type.php:95 lib/Horde/Form/Type.php:3362
 msgid "Header"
-msgstr "Toptekst"
+msgstr "Overskrift"
 
-#: Form/Type/tableset.php:58
+#: lib/Horde/Form/Type/tableset.php:55
 msgid "Headers"
 msgstr "Overskrifter"
 
-#: Form/Type.php:617
-#, fuzzy
+#: lib/Horde/Form/Type.php:629
 msgid "Helpers"
-msgstr "Hjælper"
+msgstr "Hjælpere"
 
-#: Form/Type.php:528
-#, fuzzy
+#: lib/Horde/Form/Type.php:540
 msgid "IP address"
-msgstr "IP-adresse"
+msgstr "IP adresse"
 
-#: Form/Type.php:558
-#, fuzzy
+#: lib/Horde/Form/Type.php:570
 msgid "IPv6 address"
-msgstr "IP-adresse"
+msgstr "IPv6 adresse"
 
-#: Form/Type.php:3349
+#: lib/Horde/Form/Type.php:3426
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
-#: Form/Type.php:3715
-#, fuzzy
+#: lib/Horde/Form/Type.php:3780
 msgid "Image CAPTCHA"
-msgstr "Figlet CAPTCHA"
+msgstr "Billed CAPTCHA"
 
-#: Form/Type.php:1292
+#: lib/Horde/Form/Type.php:1336
 msgid "Image upload"
-msgstr "Billed-oplægning"
+msgstr "Billed upload"
 
-#: Form/Type.php:263
+#: lib/Horde/Form/Type.php:246
 msgid "Integer"
 msgstr "Heltal"
 
-#: Form/Type.php:317
+#: lib/Horde/Form/Type.php:300
 msgid "Integer list"
-msgstr "Heltalsliste"
+msgstr "Heltals liste"
 
-#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
-#: Form/Type/tableset.php:34
+#: lib/Horde/Form/Type.php:2284 lib/Horde/Form/Type.php:2359
+#: lib/Horde/Form/Type.php:2442 lib/Horde/Form/Type.php:2530
+#: lib/Horde/Form/Type/tableset.php:31
 msgid "Invalid data submitted."
-msgstr "Ugyldige data afsendt."
+msgstr "De leverede data er ugyldige."
 
-#: Form/Type.php:3479
+#: lib/Horde/Form/Type.php:3556
 msgid "Left header"
-msgstr "Venstre toptekst"
+msgstr "Venstre header"
 
-#: Form/Type.php:3475
+#: lib/Horde/Form/Type.php:3552
 msgid "Left values"
 msgstr "Venstre værdier"
 
-#: Form/Type.php:1352
+#: lib/Horde/Form/Type.php:1396
 msgid "Link"
-msgstr "Henvisning"
+msgstr "Link"
 
-#: Form/Type.php:1355
-#, fuzzy
+#: lib/Horde/Form/Type.php:1417
+msgid "Link CSS class"
+msgstr "Link CSS class"
+
+#: lib/Horde/Form/Type.php:1399
 msgid "Link URL"
-msgstr "Henvisning"
+msgstr "Link URL"
 
-#: Form/Type.php:1370
-#, fuzzy
+#: lib/Horde/Form/Type.php:1414
 msgid "Link access key"
-msgstr " (Accesskey %s)"
+msgstr "Link genvejstast"
 
-#: Form/Type.php:3353
-#, fuzzy
+#: lib/Horde/Form/Type.php:3430
 msgid "Link style"
-msgstr "Henvisninger"
+msgstr "Link stil"
 
-#: Form/Type.php:1361
+#: lib/Horde/Form/Type.php:1405
 msgid "Link target"
-msgstr ""
+msgstr "Link mål"
 
-#: Form/Type.php:1358 Form/Type.php:3351
-#, fuzzy
+#: lib/Horde/Form/Type.php:1402 lib/Horde/Form/Type.php:3428
 msgid "Link text"
-msgstr "Lang tekst"
+msgstr "Link tekst"
 
-#: Form/Type.php:1626
-#, fuzzy
+#: lib/Horde/Form/Type.php:1694
 msgid "Link the email address to the compose page when displaying?"
-msgstr "Forbind e-mail-adressen med indskrivningssiden ved fremvisning"
+msgstr "Link email adressen til compose siden under visningen?"
 
-#: Form/Type.php:1367
+#: lib/Horde/Form/Type.php:1411
 msgid "Link title attribute"
-msgstr ""
+msgstr "Link titel attributten"
 
-#: Form/Type.php:611
+#: lib/Horde/Form/Type.php:623
 msgid "Long text"
 msgstr "Lang tekst"
 
-#: Form/Type.php:1298
-#, fuzzy
+#: lib/Horde/Form/Type.php:1342
 msgid "Maximum file size in bytes"
-msgstr "Maksimumlængde"
+msgstr "Maksimal fil størrelse i bytes"
 
-#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+#: lib/Horde/Form/Type.php:386 lib/Horde/Form/Type.php:406
+#: lib/Horde/Form/Type.php:432
 msgid "Maximum length"
-msgstr "Maksimumlængde"
+msgstr "Maksimal længde"
 
-#: Form/Type.php:487
-#, fuzzy
+#: lib/Horde/Form/Type.php:499
 msgid "Mobile phone number"
-msgstr "Telefonnummer"
+msgstr "Mobil telefon nr."
 
-#: Form/Type.php:2742
+#: lib/Horde/Form/Type.php:2821
 msgid "Month and year"
 msgstr "Måned og år"
 
-#: Form/Type.php:2309
+#: lib/Horde/Form/Type.php:2385
 msgid "Multi-level drop down lists"
-msgstr "Multi-niveau rullegardinslister"
+msgstr "Flertrins drop down liste"
 
-#: Form/Type.php:2366
+#: lib/Horde/Form/Type.php:2452
 msgid "Multiple selection"
-msgstr "Multiple valg"
+msgstr "Flere valg"
 
-#: Form/Type.php:236
+#: lib/Horde/Form/Type.php:2480
+msgid "Multiple selection, preserving keys"
+msgstr "Flere valg, sikre nøgler"
+
+#: lib/Horde/Form/Type.php:216
 msgid "Number"
-msgstr "Tal"
+msgstr "Nummer"
 
-#: Form/Type.php:668
+#: lib/Horde/Form/Type.php:680
 msgid "Number of characters"
 msgstr "Antal tegn"
 
-#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
-#: Form/Type.php:890
+#: lib/Horde/Form/Type.php:627 lib/Horde/Form/Type.php:678
+#: lib/Horde/Form/Type.php:789 lib/Horde/Form/Type.php:859
+#: lib/Horde/Form/Type.php:902
 msgid "Number of columns"
-msgstr "Antal kolonner"
+msgstr "antal kolonner"
 
-#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
-#: Form/Type.php:888
+#: lib/Horde/Form/Type.php:625 lib/Horde/Form/Type.php:676
+#: lib/Horde/Form/Type.php:787 lib/Horde/Form/Type.php:857
+#: lib/Horde/Form/Type.php:900
 msgid "Number of rows"
 msgstr "Antal rækker"
 
-#: Form/Type.php:290
+#: lib/Horde/Form/Type.php:273
 msgid "Octal"
 msgstr "Oktal"
 
-#: Form/Type.php:1364
-#, fuzzy
+#: lib/Horde/Form/Type.php:1408
 msgid "Onclick event"
-msgstr "klik her"
+msgstr "Onclick handling"
 
-#: Form/Type.php:2098
+#: lib/Horde/Form/Type.php:2174
 msgid "Only one email address allowed."
-msgstr "Kun én e-post-adresse tilladt."
+msgstr "Kun en email adresse er tilladt."
 
-#: Form/Type.php:1449
-#, fuzzy
+#: lib/Horde/Form/Type.php:1507
 msgid "Only one email address is allowed."
-msgstr "Kun én e-post-adresse tilladt."
+msgstr "Kun en email adresse er tilladt."
 
-#: Form/Type.php:839
-#, fuzzy
+#: lib/Horde/Form/Type.php:851
 msgid "PGP Key"
-msgstr "Offentlig PGP-nøgle"
+msgstr "PGP nøgle"
 
-#: Form/Type.php:2142
+#: lib/Horde/Form/Type.php:2211
 msgid "Password"
 msgstr "Kodeord"
 
-#: Form/Type.php:2175
+#: lib/Horde/Form/Type.php:2244
 msgid "Password with confirmation"
 msgstr "Kodeord med bekræftelse"
 
-#: Form/Type.php:2157
+#: lib/Horde/Form/Type.php:2226
 msgid "Passwords must match."
 msgstr "Kodeordene skal være ens."
 
-#: Form/Type.php:841
+#: lib/Horde/Form/Type.php:853
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "Sti til GnuPG eksekver fil"
 
-#: Form/Type.php:475
-#, fuzzy
+#: lib/Horde/Form/Type.php:482
 msgid "Phone number"
-msgstr "Telefonnummer"
+msgstr "Telefon nummer"
 
-#: Form/Type.php:3191
+#: lib/Horde/Form/Type.php:3268
 msgid "Please choose a sound."
-msgstr ""
+msgstr "Vælg en lyd."
 
-#: Form/Type.php:2720
+#: lib/Horde/Form/Type.php:2799
 msgid "Please enter a month and a year."
-msgstr "Indtast en måned og et årstal."
+msgstr "Skriv en måned og et år."
 
-#: Form/Type.php:513 Form/Type.php:543
+#: lib/Horde/Form/Type.php:525 lib/Horde/Form/Type.php:555
 msgid "Please enter a valid IP address."
-msgstr "Indtast en gyldig IP-adresse."
+msgstr "Indtast en gyldig IP adresse."
 
-#: Form/Type.php:2800
+#: lib/Horde/Form/Type.php:2879
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr "Indtast en gyldig dato, tjek antallet af dage i måneden."
+msgstr "Venligst skiv en gyldig dato, check antal dage i måneden."
 
-#: Form/Type.php:2598
+#: lib/Horde/Form/Type.php:2679
 msgid "Please enter a valid time."
 msgstr "Indtast en gyldig tidsangivelse."
 
-#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#: lib/Horde/Form/Type.php:923 lib/Horde/Form/Type.php:2313
+#: lib/Horde/Form/Type.php:2389 lib/Horde/Form/Type.php:3712
 msgid "Prompt text"
-msgstr "Stikordstekst"
+msgstr "Prompt tekst"
 
-#: Form/Type.php:1623
+#: lib/Horde/Form/Type.php:1691
 msgid "Protect address from spammers?"
-msgstr ""
+msgstr "Beskyt adressen mod spam?"
 
-#: Form/Type.php:2401
+#: lib/Horde/Form/Type.php:2496
 msgid "Radio selection"
-msgstr "Enkeltvis valg"
+msgstr "Radio valgfelt"
 
-#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#: lib/Horde/Form/Type.php:382 lib/Horde/Form/Type.php:402
+#: lib/Horde/Form/Type.php:428
 msgid "Regex"
-msgstr "Regulært udtryk"
+msgstr "Regex"
 
-#: Form/Type.php:3605
-#, fuzzy
+#: lib/Horde/Form/Type.php:3682
 msgid "Relationship browser"
-msgstr "Relationslæser"
+msgstr "Relations browser"
 
-#: Form/Renderer.php:344
+#: lib/Horde/Form/Renderer.php:327
 msgid "Required Field"
-msgstr "Krævet felt"
+msgstr "Nødvendigt felt"
 
-#: Form.php:632
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
-msgstr ""
+msgstr "Den krævede hemmelighed er forkert - Mulig fjentligt anmodning."
 
-#: Form.php:368 Form/Renderer.php:329
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr "Nulstil"
 
-#: Form/Type.php:3481
+#: lib/Horde/Form/Type.php:3558
 msgid "Right header"
-msgstr "Højre toptekst"
+msgstr "Højre header"
 
-#: Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3554
 msgid "Right values"
 msgstr "Højre værdier"
 
-#: Form/Type.php:884
+#: lib/Horde/Form/Type.php:896
 msgid "S/MIME Key"
-msgstr ""
+msgstr "S/MIME nøgle"
 
-#: Form/Type.php:3645
+#: lib/Horde/Form/Type.php:3710
 msgid "SQL statement for value lookups"
-msgstr "SQL-udtryk for opslag af værdier"
+msgstr "SQL statement for værdi søgning"
 
-#: Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3403
 msgid "Select Files"
 msgstr "Vælg filer"
 
-#: Form/Type.php:2803
+#: lib/Horde/Form/Type.php:2882
 msgid "Select all date components."
-msgstr "Vælg alle dato-komponenter."
+msgstr "Vælg alle dato komponenter."
 
-#: Form/Type.php:2450
+#: lib/Horde/Form/Type.php:2545
 msgid "Set"
-msgstr "Mængde"
+msgstr "Sæt"
 
-#: Form/Type.php:3355
-#, fuzzy
+#: lib/Horde/Form/Type.php:3432
 msgid "Show icon?"
-msgstr "Vis snupper"
+msgstr "Vis icon?"
 
-#: Form/Type.php:1296
-#, fuzzy
+#: lib/Horde/Form/Type.php:1340
 msgid "Show option to keep original?"
-msgstr "Vis mulighed for at beholde oprindelig"
+msgstr "Vis mulighed for at beholde original?"
 
-#: Form/Type.php:2964 Form/Type.php:3127
-#, fuzzy
+#: lib/Horde/Form/Type.php:3041 lib/Horde/Form/Type.php:3204
 msgid "Show picker?"
-msgstr "Vis snupper"
+msgstr "Vis vælger?"
 
-#: Form/Type.php:2688 Form/Type.php:3133
-#, fuzzy
+#: lib/Horde/Form/Type.php:2767 lib/Horde/Form/Type.php:3210
 msgid "Show seconds?"
-msgstr "Byger"
+msgstr "Vis sekunder?"
 
-#: Form/Type.php:1294
-#, fuzzy
+#: lib/Horde/Form/Type.php:1338
 msgid "Show upload?"
-msgstr "Vis afsendte"
+msgstr "Vis upload?"
 
-#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
-#: Form/Type.php:3283 Form/Type.php:3483
+#: lib/Horde/Form/Type.php:384 lib/Horde/Form/Type.php:404
+#: lib/Horde/Form/Type.php:430 lib/Horde/Form/Type.php:484
+#: lib/Horde/Form/Type.php:1703 lib/Horde/Form/Type.php:2456
+#: lib/Horde/Form/Type.php:3360 lib/Horde/Form/Type.php:3560
 msgid "Size"
 msgstr "Størrelse"
 
-#: Form/Type.php:3279
+#: lib/Horde/Form/Type.php:3356
 msgid "Sort order selection"
-msgstr "Sorteringsvalg"
+msgstr "Sorteringsretnings valg"
 
-#: Form/Type.php:3200
-#, fuzzy
+#: lib/Horde/Form/Type.php:3277
 msgid "Sound selection"
-msgstr "Farvevalg"
+msgstr "Lyd valg"
 
-#: Form/Type.php:98
+#: lib/Horde/Form/Type.php:78
 msgid "Spacer"
-msgstr "Mellemrumstanget"
+msgstr "Mellemrum"
 
-#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#: lib/Horde/Form/Type.php:2823 lib/Horde/Form/Type.php:3037
+#: lib/Horde/Form/Type.php:3200
 msgid "Start year"
-msgstr "Begyndelsesår"
+msgstr "Start år"
 
-#: Form/Type.php:2966 Form/Type.php:3129
+#: lib/Horde/Form/Type.php:3043 lib/Horde/Form/Type.php:3206
 msgid "Storage format"
-msgstr "Lagringsformat"
+msgstr "Lagrings format"
 
-#: Form/Type.php:414
+#: lib/Horde/Form/Type.php:400
 msgid "String list"
-msgstr "Liste af strenge"
+msgstr "Streng liste"
 
-#: Form/Type.php:440
+#: lib/Horde/Form/Type.php:426
 msgid "String list returning an array"
-msgstr ""
+msgstr "Streng liste der retunerer et array"
 
-#: Form.php:361 Form/Renderer.php:326
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr "Godkend"
 
-#: Form/Type/tableset.php:54
+#: lib/Horde/Form/Type/tableset.php:51
 msgid "Table Set"
-msgstr "Tabelmængde"
+msgstr "Tabel sæt"
 
-#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#: lib/Horde/Form/Type.php:380 lib/Horde/Form/Type.php:3763
+#: lib/Horde/Form/Type.php:3782
 msgid "Text"
 msgstr "Tekst"
 
-#: Form/Type.php:1056
+#: lib/Horde/Form/Type.php:1086
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
+"Billed filens størrelse kunne ikke bestemmes eller den er 0 byte. Uploaden "
+"kan være blevet forstyrret."
 
-#: Form/Type.php:1060
-#, fuzzy, php-format
+#: lib/Horde/Form/Type.php:1090
+#, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr ""
-"Der opstod et problem under filoverførslen: %s var større end den maksimalt "
-"tilladte størrelse (%d bytes)."
+"Billed filen er større end den maksimale tilladte størrelse (%d bytes)."
 
-#: Form/Type.php:1629
+#: lib/Horde/Form/Type.php:1697
 msgid "The name to use when linking to the compose page"
-msgstr "Navnet, der skal bruge, når der henvises til skrivesiden"
+msgstr "Navnet der skal bruges når der linkes til compose siden"
 
-#: Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3738
 msgid "The text you entered did not match the text on the screen."
-msgstr "Den tekst, som du indtastede, passer ikke til teksten på skærmen."
+msgstr "Den tekst du skrev passer ikke med teksten på skærmen."
 
-#: Form/Type.php:644
-#, fuzzy, php-format
+#: lib/Horde/Form/Type.php:656
+#, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
 msgid_plural ""
 "There are too many characters in this field. You have entered %d characters; "
-msgstr[0] ""
-"Der er for mange tegn i dette felt. Du har indtastet %s tegn; du skal "
-"indtaste mindre end %s."
-msgstr[1] ""
-"Der er for mange tegn i dette felt. Du har indtastet %s tegn; du skal "
-"indtaste mindre end %s."
+msgstr[0] "Der er for mange tegn i dette felt. Du skrev %d tegn;"
+msgstr[1] "Der er for mange tegn i dette felt. Du skrev %d tegn;"
 
-#: Form/Type.php:3504
+#: lib/Horde/Form/Type.php:3581
 msgid "This does not seem to be a valid card number."
-msgstr "Dette tyder ikke på at være et gyldigt kortnummer."
+msgstr "Dette synes ikke at være et gyldigt kort nummer."
 
-#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
-#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
-#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
-#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
-#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
-#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
-#: Form/Variable.php:471 Form/Variable.php:479
+#: lib/Horde/Form/Type.php:149 lib/Horde/Form/Type.php:229
+#: lib/Horde/Form/Type.php:256 lib/Horde/Form/Type.php:283
+#: lib/Horde/Form/Type.php:351 lib/Horde/Form/Type.php:460
+#: lib/Horde/Form/Type.php:529 lib/Horde/Form/Type.php:559
+#: lib/Horde/Form/Type.php:653 lib/Horde/Form/Type.php:1071
+#: lib/Horde/Form/Type.php:2154 lib/Horde/Form/Type.php:2199
+#: lib/Horde/Form/Type.php:2221 lib/Horde/Form/Type.php:2275
+#: lib/Horde/Form/Type.php:2350 lib/Horde/Form/Type.php:2431
+#: lib/Horde/Form/Type.php:2640 lib/Horde/Form/Type.php:2682
+#: lib/Horde/Form/Type.php:2874 lib/Horde/Form/Type.php:3221
+#: lib/Horde/Form/Type.php:3260 lib/Horde/Form/Type.php:3573
+#: lib/Horde/Form/Type.php:3733 lib/Horde/Form/Type.php:3816
+#: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
-msgstr "Dette felt er krævet."
+msgstr "Dette felt er nødvendigt."
 
-#: Form/Type.php:254
+#: lib/Horde/Form/Type.php:237
 msgid "This field may only contain integers."
 msgstr "Dette felt må kun indeholde heltal."
 
-#: Form/Type.php:2567
+#: lib/Horde/Form/Type.php:2648
 msgid "This field may only contain numbers and the colon."
-msgstr "Dette felt må kun indeholde numre og kolon."
+msgstr "Dette felt må kun indeholde tal og kolon."
 
-#: Form/Type.php:281
+#: lib/Horde/Form/Type.php:264
 msgid "This field may only contain octal values."
-msgstr "Dette felt må kun indeholde oktale værdier."
+msgstr "Dette felt må kun indeholde octal værdier."
 
-#: Form/Type.php:308
+#: lib/Horde/Form/Type.php:291
 msgid "This field must be a comma or space separated list of integers"
-msgstr ""
-"Dette felt skal være en komma- eller mellemrumsadskildt liste af heltal"
+msgstr "Dette felt skal være en komma separeret liste af heltal"
 
-#: Form/Type.php:180
+#: lib/Horde/Form/Type.php:160
 msgid "This field must be a valid number."
 msgstr "Dette felt skal være et gyldigt nummer."
 
-#: Form/Type.php:3152
+#: lib/Horde/Form/Type.php:3229
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
-msgstr "Dette felt skal indeholde en farvekode i RGB hex-format, fx '#1234af'."
+msgstr ""
+"Dette felt skal indeholde en farve kode i RGB hexadecimal format, som "
+"eksempel: '#1234af'."
 
-#: Form.php:629
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
-msgstr "Denne formular er allerede processeret."
+msgstr "Denne form er allerede eksekveret."
 
-#: Form/Type.php:2576
+#: lib/Horde/Form/Type.php:2657
 msgid "Time"
 msgstr "Tid"
 
-#: Form/Type.php:2686
+#: lib/Horde/Form/Type.php:2765
 msgid "Time selection"
 msgstr "Tidsvalg"
 
-#: Form/Type.php:1321
+#: lib/Horde/Form/Type.php:1365
 msgid "True or false"
 msgstr "Sand eller falsk"
 
-#: Form/Type.php:360
-#, fuzzy, php-format
+#: lib/Horde/Form/Type.php:346
+#, php-format
 msgid "Value is over the maximum length of %d."
-msgstr "Værdi er mere end den maksimale længde af %s."
+msgstr "Værdien er over maksimum længde af %d."
 
-#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
-#: Form/Type/tableset.php:56
+#: lib/Horde/Form/Type.php:2454 lib/Horde/Form/Type.php:2498
+#: lib/Horde/Form/Type.php:2547 lib/Horde/Form/Type.php:3358
+#: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr "Værdier"
 
-#: Form/Type.php:2235 Form/Type.php:2311
+#: lib/Horde/Form/Type.php:2311 lib/Horde/Form/Type.php:2387
 msgid "Values to select from"
-msgstr "Værdier, der kan vælges iblandt"
+msgstr "Værdier at vælge fra"
 
-#: Form/Type.php:3485
+#: lib/Horde/Form/Type.php:3562
 msgid "Width in CSS units"
-msgstr "Bredde i CSS-enheder"
+msgstr "Bredde i CSS enheder"
 
-#: Form/Type.php:2102
+#: lib/Horde/Form/Type.php:2167
 msgid "You did not enter a valid email address."
-msgstr "Du indtastede ikke en gyldig e-post-adresse."
+msgstr "Du indtastede ikke en gyldig email adresse."
 
-#: Form/Type.php:3028
-#, fuzzy
+#: lib/Horde/Form/Type.php:3105
 msgid "You must choose a date."
-msgstr "Du skal konfigurere end VFS-backend."
+msgstr "Du skal vælge en dato."
 
-#: Form/Type.php:3026
-#, fuzzy
+#: lib/Horde/Form/Type.php:3103
 msgid "You must choose a time."
-msgstr "Du skal konfigurere end VFS-backend."
+msgstr "Du skal vælge et tidspunkt"
 
-#: Form/Type.php:463
-#, fuzzy
+#: lib/Horde/Form/Type.php:464
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
-"Du skal indtaste et fungerende mobilnummer; kun cifre med et valgfri '+' for "
-"den international retningskode."
+"Du skal skrive et gyldigt telefon nummer, kun tal og måske et + som "
+"international prefix "
 
-#: Form/Type.php:371
-#, fuzzy
+#: lib/Horde/Form/Type.php:357
 msgid "You must enter a valid value."
 msgstr "Du skal indtaste en gyldig værdi."
 
-#: Form/Type.php:1470
-#, fuzzy
+#: lib/Horde/Form/Type.php:1528
 msgid "You must enter an email address."
-msgstr "Du indtastede ikke en gyldig e-post-adresse."
+msgstr "Du skal indtaste en email adresse."
 
-#: Form/Type.php:1468
-#, fuzzy
+#: lib/Horde/Form/Type.php:1526
 msgid "You must enter at least one email address."
-msgstr "Du indtastede ikke en gyldig e-post-adresse."
+msgstr "Du skal indtaste mindst en email adresse."
 
-#: Form/Type.php:645
+#: lib/Horde/Form/Type.php:657
 #, php-format
 msgid "you must enter less than %d."
-msgstr ""
+msgstr "Du skal indtaste mindre end %d."

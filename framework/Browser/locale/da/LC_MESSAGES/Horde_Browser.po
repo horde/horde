@@ -1,15 +1,15 @@
 # Danish translations for Horde_Browser package.
 # Copyright 2011-2014 Horde LLC
 # This file is distributed under the same license as the Horde_Browser package.
-# Automatically generated, 2011.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Browser \n"
+"Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2014-03-14 00:12+0100\n"
+"PO-Revision-Date: 2014-03-17 23:19+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -17,25 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1026
+#: lib/Horde/Browser.php:1124
 msgid "File uploads not supported."
-msgstr "Fillagring ikke understøttet."
+msgstr "Fil uploading er ikke understøttet."
 
-#: lib/Horde/Browser.php:1043
+#: lib/Horde/Browser.php:1141
 msgid "No file uploaded"
 msgstr "Ingen fil sendt"
 
-#: lib/Horde/Browser.php:1053
+#: lib/Horde/Browser.php:1151
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Den uploadede fil synes at være tom. Den findes måske ikke på din computer."
 
-#: lib/Horde/Browser.php:1050
+#: lib/Horde/Browser.php:1148
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr "Der opstod et problem under filoverførslen: Ingen %s blev overført."
 
-#: lib/Horde/Browser.php:1058
+#: lib/Horde/Browser.php:1156
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -44,7 +45,7 @@ msgstr ""
 "Der opstod et problem under filoverførslen: %s var større end den maksimalt "
 "tilladte størrelse (%d bytes)."
 
-#: lib/Horde/Browser.php:1060
+#: lib/Horde/Browser.php:1158
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."

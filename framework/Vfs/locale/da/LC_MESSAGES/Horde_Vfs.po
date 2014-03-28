@@ -1,29 +1,30 @@
-# Danish translations for Horde_VFS module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_VFS module.
-# Automatically generated, 2010.
+# Danish translations for Horde_Vfs package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Vfs package.
+# Erling Preben Hansen <erling@eph.dk>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_VFS\n"
+"Project-Id-Version: Horde_Vfs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2014-03-26 16:11+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/VFS/smb.php:573
+#: lib/Horde/Vfs/Smb.php:586
 msgid "No such file"
-msgstr "Ingen sådan fil"
+msgstr "Filen findes ikke"
 
-#: lib/VFS/smb.php:576
+#: lib/Horde/Vfs/Smb.php:589
 msgid "Permission Denied"
 msgstr "Tilladelse nægtet"
 
-#: lib/VFS/sql_file.php:264
+#: lib/Horde/Vfs/SqlFile.php:262
 msgid "Unable to rename VFS file."
-msgstr "Kan ikke omdøbe VFS-fil."
+msgstr "Kan ikke omdøbe VFS filen."

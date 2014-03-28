@@ -3,13 +3,14 @@
 # Copyright 2006-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Nag package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H5 (4.1.3)\n"
+"Project-Id-Version: Nag H5 (4.2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-01-16 14:18+0100\n"
-"PO-Revision-Date: 2014-01-18 00:40+0100\n"
+"POT-Creation-Date: 2014-03-18 15:59+0100\n"
+"PO-Revision-Date: 2014-03-18 18:27+0100\n"
 "Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/view/task.inc:52
+#: templates/view/task.inc:57
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr "(%s inklusiv underopgaver)"
@@ -63,7 +64,7 @@ msgstr "%d minut"
 msgid "%d minutes"
 msgstr "%d minutter"
 
-#: lib/Ui/VarRenderer/Nag.php:217
+#: lib/Ui/VarRenderer/Nag.php:380
 #, php-format
 msgid "%s %s days of %s"
 msgstr "%s %s dage af %s"
@@ -106,6 +107,10 @@ msgstr "(højeste)"
 msgid "(lowest)"
 msgstr "(lavest)"
 
+#: lib/Form/Type/NagRecurrence.php:133
+msgid "A due date is necessary to enable recurrences."
+msgstr "Der skal være en forfaldsdato for at kunne aktivere gentagelser."
+
 #: lib/Form/Type/NagAlarm.php:30
 msgid "A due date must be set to enable alarms."
 msgstr "Der skal være en forfaldsdato for at kunne bruge alarmer:"
@@ -114,7 +119,7 @@ msgstr "Der skal være en forfaldsdato for at kunne bruge alarmer:"
 msgid "Access denied completing this task."
 msgstr "Adgang nægtet ved færdiggørelse af opgave."
 
-#: app/controllers/SaveTask.php:30
+#: app/controllers/SaveTask.php:34
 msgid "Access denied deleting task"
 msgstr "Adgang nægtet ved sletning af opgave"
 
@@ -122,33 +127,33 @@ msgstr "Adgang nægtet ved sletning af opgave"
 msgid "Access denied deleting task."
 msgstr "Adgang nægtet ved sletning af opgave."
 
-#: app/controllers/SaveTask.php:26
+#: app/controllers/SaveTask.php:30
 #, php-format
 msgid "Access denied deleting task: %s"
 msgstr "Adgang nægtet ved sletning af opgave: %s."
 
-#: task.php:93 task.php:99
+#: task.php:96 task.php:102
 msgid "Access denied editing task."
 msgstr "Adgang nægtet ved Redigering af opgave."
 
-#: task.php:90
+#: task.php:93
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr "Adgang nægtet ved redigering af opgave: %s"
 
-#: lib/Driver.php:264
+#: lib/Driver.php:263
 msgid "Access denied moving the task to this task list."
 msgstr "Adgang nægtet ved flytning af opgaven til denne opgaveliste."
 
-#: lib/Driver.php:252
+#: lib/Driver.php:251
 msgid "Access denied removing task from this task list."
 msgstr "Adgang nægtet ved sletning af opgave fra denne opgaveliste."
 
-#: app/controllers/SaveTask.php:57
+#: app/controllers/SaveTask.php:61
 msgid "Access denied saving task to this task list."
 msgstr "Adgang nægtet ved lagring af opgave til denne opgaveliste."
 
-#: app/controllers/SaveTask.php:53
+#: app/controllers/SaveTask.php:57
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr "Adgang nægtet ved lagring af opgave: %s"
@@ -160,7 +165,7 @@ msgid_plural "Added %d tasks"
 msgstr[0] "Tilføjede %d opgave"
 msgstr[1] "Tilføjede %d opgaver"
 
-#: data.php:51 lib/Form/Task.php:121 templates/view/task.inc:43
+#: data.php:51 lib/Form/Task.php:121 templates/view/task.inc:48
 msgid "Alarm"
 msgstr "Alarm"
 
@@ -208,9 +213,9 @@ msgstr "Stigende"
 
 #: config/prefs.php:67 config/prefs.php:86 config/prefs.php:103 data.php:49
 #: lib/Form/Task.php:112 templates/list/task_headers.html.php:37
-#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:25
+#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:30
 msgid "Assignee"
-msgstr "Bestyrer"
+msgstr "Ansvarlig"
 
 #: lib/Block/Summary.php:41
 msgid "Block title"
@@ -228,7 +233,7 @@ msgstr "CalDAV konto URL"
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV abonnements URL"
 
-#: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
+#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:421
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -317,7 +322,7 @@ msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
 "Vælg hvorvidt du ønsker at blive informeret om ny, ændrede eller slettede "
-"opgaver via e-mail:"
+"opgaver via email:"
 
 #: config/prefs.php:49
 msgid "Choose if you want to be notified of task changes and task alarms."
@@ -374,8 +379,8 @@ msgstr "Udført hoved opgave, marker den som ikke udført først."
 msgid "Completed tasks"
 msgstr "Fuldførte opgaver  _C"
 
-#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:131
-#: templates/list/task_headers.html.php:4 templates/view/task.inc:55
+#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:132
+#: templates/list/task_headers.html.php:4 templates/view/task.inc:60
 msgid "Completed?"
 msgstr "Afsluttet?"
 
@@ -413,6 +418,10 @@ msgstr ""
 msgid "Create"
 msgstr "Opret"
 
+#: templates/view/task.inc:10
+msgid "Create Subtask"
+msgstr "Opret del-opgave"
+
 #: lib/Form/CreateTaskList.php:21
 msgid "Create Task List"
 msgstr "Opret opgaveliste"
@@ -421,11 +430,15 @@ msgstr "Opret opgaveliste"
 msgid "Create a new Task List"
 msgstr "Opret en ny opgaveliste"
 
-#: templates/view/task.inc:66
+#: templates/view/task.inc:71
 msgid "Created"
 msgstr "Oprettet"
 
-#: lib/Ui/VarRenderer/Nag.php:75 lib/Ui/VarRenderer/Nag.php:124
+#: lib/Ui/VarRenderer/Nag.php:207
+msgid "Daily: Recurs every"
+msgstr "Daglig: Gentages hver"
+
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:411
 msgid "Date"
 msgstr "Dato"
 
@@ -437,7 +450,7 @@ msgstr "Dato og tid"
 msgid "Date:"
 msgstr "Dato:"
 
-#: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:43
 msgid "Day(s)"
 msgstr "Dag(e)"
 
@@ -454,7 +467,7 @@ msgid "Delay Start Until"
 msgstr "Forsink starten indtil"
 
 #: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:163
-#: lib/Form/EditTaskList.php:178 lib/Form/Task.php:143
+#: lib/Form/EditTaskList.php:178 lib/Form/Task.php:144
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Slet"
@@ -490,7 +503,7 @@ msgid "Descending"
 msgstr "Faldende"
 
 #: data.php:48 lib/Form/CreateTaskList.php:31 lib/Form/EditTaskList.php:69
-#: lib/Form/Search.php:39 lib/Form/Task.php:139
+#: lib/Form/Search.php:39 lib/Form/Task.php:140
 #: templates/smartmobile/taskform.html.php:14
 msgid "Description"
 msgstr "Beskrivelse"
@@ -518,7 +531,7 @@ msgstr ""
 "Send ikke mig nogen påmindelse hvis jeg tilføjer, ændrer eller sletter denne "
 "opgave?"
 
-#: data.php:50 lib/Form/Task.php:117 templates/view/task.inc:39
+#: data.php:50 lib/Form/Task.php:117 templates/view/task.inc:44
 msgid "Due By"
 msgstr "Afsluttet den"
 
@@ -527,7 +540,7 @@ msgstr "Afsluttet den"
 msgid "Due Date"
 msgstr "Forfaldsdato"
 
-#: lib/Ui/VarRenderer/Nag.php:123
+#: lib/Ui/VarRenderer/Nag.php:110
 msgid "Due date specified."
 msgstr "Forfaldsdato er specificeret."
 
@@ -535,7 +548,7 @@ msgstr "Forfaldsdato er specificeret."
 msgid "Due date:"
 msgstr "Forfaldsdato"
 
-#: lib/Ui/VarRenderer/Nag.php:221
+#: lib/Ui/VarRenderer/Nag.php:384
 msgid "E.g., Is due within 2 days of today"
 msgstr "f.eks. har forfaldsdato inden for 2 dage fra idag"
 
@@ -557,7 +570,7 @@ msgstr "Redigér opgave"
 msgid "Edit criteria"
 msgstr "Redigér kriterie"
 
-#: app/controllers/SaveTask.php:12 task.php:106
+#: app/controllers/SaveTask.php:12 task.php:109
 #, php-format
 msgid "Edit: %s"
 msgstr "Redigér %s"
@@ -579,18 +592,18 @@ msgstr ""
 "\"rensetøj på Torsdag\". Mærkater kan tilføjes ved at starte dem med \"#\" "
 "tegnet."
 
-#: app/controllers/SaveTask.php:39 task.php:39
+#: app/controllers/SaveTask.php:43 task.php:39
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "Der opstod en fejl under sletningen af opgave: %s"
 
 #: templates/smartmobile/taskform.html.php:50
 msgid "Estimate"
-msgstr "Anslået tid"
+msgstr "Anslået"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
-#: lib/Form/Task.php:130 templates/list/task_headers.html.php:33
-#: templates/view/task.inc:51
+#: lib/Form/Task.php:131 templates/list/task_headers.html.php:33
+#: templates/view/task.inc:56
 msgid "Estimated Time"
 msgstr "Anslået tid"
 
@@ -606,6 +619,10 @@ msgstr "Eksportér opgaver"
 msgid "External Data"
 msgstr "Eksterne data"
 
+#: lib/Ui/VarRenderer/Nag.php:246
+msgid "Fr"
+msgstr "Fre"
+
 #: config/prefs.php:227 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "Fremtidige opgaver"
@@ -618,7 +635,7 @@ msgstr "Generelle Indstillinger"
 msgid "Highest"
 msgstr "Højest"
 
-#: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:42
 msgid "Hour(s)"
 msgstr "Time(r)"
 
@@ -631,7 +648,7 @@ msgstr "Importér opgaver, trin %d"
 msgid "Import/Export Tasks"
 msgstr "Importér/eksportér opgaver"
 
-#: lib/View/List.php:97
+#: lib/View/List.php:104
 msgid "Incom_plete tasks"
 msgstr "Uafsluttede o_pgaver"
 
@@ -659,11 +676,11 @@ msgstr "Ugyldigt opgaveliste navn."
 msgid "Invalid tasklist requested."
 msgstr "Ugyldig opgaveliste."
 
-#: lib/Ui/VarRenderer/Nag.php:218
+#: lib/Ui/VarRenderer/Nag.php:381
 msgid "Is due within"
 msgstr "Forfaldsdato om"
 
-#: templates/view/task.inc:73
+#: templates/view/task.inc:78
 msgid "Last Modified"
 msgstr "Sidst ændret"
 
@@ -672,7 +689,7 @@ msgstr "Sidst ændret"
 msgid "Lists"
 msgstr "Lister"
 
-#: lib/Ui/VarRenderer/Nag.php:205
+#: lib/Ui/VarRenderer/Nag.php:438
 msgid "Loading..."
 msgstr "Henter..."
 
@@ -689,7 +706,7 @@ msgstr "Marker \"%s\" som ikke fuldført"
 msgid "Maximum Number of Tasks"
 msgstr "Maksimalt antal opgaver"
 
-#: lib/Nag.php:791 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:791 lib/Ui/VarRenderer/Nag.php:42
 msgid "Minute(s)"
 msgstr "Minut(ter)"
 
@@ -705,11 +722,19 @@ msgstr "Mangler nødvendig opgaveliste"
 msgid "Missing valid search criteria"
 msgstr "Mangler gyldig søge kriterie"
 
+#: lib/Ui/VarRenderer/Nag.php:234
+msgid "Mo"
+msgstr "Man"
+
+#: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
+msgid "Monthly: Recurs every"
+msgstr "Månedlig: Gentages hver"
+
 #: templates/list/header.html.php:11
 msgid "More Options..."
 msgstr "Flere indstillinger"
 
-#: lib/Api.php:1195
+#: lib/Api.php:1203
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "Flere iCalendar komponenter fundet; der er kun understøttelse for én vTodo."
@@ -718,7 +743,7 @@ msgstr ""
 msgid "My Task Lists"
 msgstr "Mine Opgavelister"
 
-#: lib/View/List.php:67 smartmobile.php:21
+#: lib/View/List.php:74 smartmobile.php:21
 #: templates/smartmobile/main.html.php:2
 #: templates/smartmobile/taskform.html.php:2
 msgid "My Tasks"
@@ -742,7 +767,8 @@ msgid "New"
 msgstr "Ny"
 
 #: app/controllers/SaveTask.php:12 lib/Application.php:302
-#: lib/Smartmobile.php:122 task.php:81
+#: lib/Smartmobile.php:122 task.php:84 test/Nag/Unit/Form/Task/Base.php:72
+#: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
 msgstr "Ny opgave"
 
@@ -754,21 +780,29 @@ msgstr "Næste"
 msgid "No"
 msgstr "Nej"
 
-#: lib/Ui/VarRenderer/Nag.php:70
+#: lib/Ui/VarRenderer/Nag.php:408
 msgid "No delay"
 msgstr "Ingen forsinkelse"
 
-#: lib/Ui/VarRenderer/Nag.php:119
+#: lib/Ui/VarRenderer/Nag.php:108
 msgid "No due date."
 msgstr "Ingen afslutningsdato."
 
-#: lib/Api.php:866 lib/Api.php:895 lib/Api.php:1202
+#: lib/Ui/VarRenderer/Nag.php:346
+msgid "No end date"
+msgstr "Ingen slut dato"
+
+#: lib/Api.php:874 lib/Api.php:903 lib/Api.php:1210
 msgid "No iCalendar data was found."
 msgstr "Ingen iCalendar data fundet."
 
 #: lib/Form/Task.php:72
 msgid "No parent task"
 msgstr "Ingen hoved opgave"
+
+#: lib/Ui/VarRenderer/Nag.php:194
+msgid "No recurrence"
+msgstr "Ingen gentagelse."
 
 #: lib/Nag.php:931
 msgid "No task lists are available to guests."
@@ -786,7 +820,7 @@ msgstr "Ingen opgaver passede"
 msgid "No tasks to display"
 msgstr "Ingen opgaver at vise."
 
-#: lib/Form/Task.php:113 lib/Nag.php:795 lib/Ui/VarRenderer/Nag.php:179
+#: lib/Form/Task.php:113 lib/Nag.php:795 lib/Ui/VarRenderer/Nag.php:58
 msgid "None"
 msgstr "Ingen"
 
@@ -794,7 +828,7 @@ msgstr "Ingen"
 msgid "Not Completed"
 msgstr "Ikke afsluttet"
 
-#: templates/view/task.inc:31
+#: templates/view/task.inc:36
 msgid "Not Private"
 msgstr "Ikke privat"
 
@@ -836,19 +870,19 @@ msgstr "Hoved opgave"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
 #: lib/Form/Task.php:127 templates/smartmobile/taskform.html.php:39
-#: templates/view/task.inc:47
+#: templates/view/task.inc:52
 msgid "Priority"
 msgstr "Prioritet"
 
-#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:31
+#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:36
 msgid "Private"
 msgstr "Privat"
 
-#: data.php:54 lib/Task.php:745
+#: data.php:54 lib/Task.php:751
 msgid "Private Task"
 msgstr "Private opgave"
 
-#: lib/Form/Task.php:116 templates/view/task.inc:29
+#: lib/Form/Task.php:116 templates/view/task.inc:34
 msgid "Private?"
 msgstr "Privat?"
 
@@ -880,11 +914,19 @@ msgstr ""
 "Virkeligt slette opgavelisten \"%s\"? Dette kan ikke gøres om. Alle data vil "
 "blive fjernet permanent."
 
-#: templates/view/task.inc:12
+#: templates/view/task.inc:13
 msgid "Really delete this task?"
 msgstr "Slet denne opgave uigenkaldeligt?"
 
-#: lib/View/List.php:405
+#: lib/Ui/VarRenderer/Nag.php:344
+msgid "Recur Until"
+msgstr "Gentages til"
+
+#: lib/Form/Task.php:130
+msgid "Recurrence"
+msgstr "Gentagelse"
+
+#: lib/View/List.php:420
 msgid "Remove from search"
 msgstr "Fjern fra søgning"
 
@@ -892,8 +934,20 @@ msgstr "Fjern fra søgning"
 msgid "Reset"
 msgstr "Nulstil"
 
+#: lib/Form/Task.php:150
+msgid "Return to Search Results"
+msgstr "Returner til Resultat for søgning"
+
+#: templates/view/task.inc:16
+msgid "Return to search results"
+msgstr "Returner til Resultat for søgning"
+
+#: lib/Ui/VarRenderer/Nag.php:249
+msgid "Sa"
+msgstr "Lør"
+
 #: lib/Form/EditTaskList.php:162 lib/Form/EditTaskList.php:171
-#: lib/Form/Search.php:65 lib/Form/Task.php:141
+#: lib/Form/Search.php:65 lib/Form/Task.php:142
 msgid "Save"
 msgstr "Gem"
 
@@ -901,7 +955,7 @@ msgstr "Gem"
 msgid "Save Task"
 msgstr "Gem opgave"
 
-#: lib/Form/Task.php:146
+#: lib/Form/Task.php:147
 msgid "Save and New"
 msgstr "Gem og ny"
 
@@ -914,7 +968,7 @@ msgstr "Gem denne søgning som en smart liste?"
 msgid "Saved %s"
 msgstr "%s er gemt."
 
-#: app/controllers/SaveTask.php:90
+#: app/controllers/SaveTask.php:94
 #, php-format
 msgid "Saved %s."
 msgstr "%s er gemt."
@@ -936,7 +990,7 @@ msgstr "Søge Tekst:"
 msgid "Search:"
 msgstr "Søg:"
 
-#: lib/View/List.php:318
+#: lib/View/List.php:332
 #, php-format
 msgid "Search: Results for"
 msgstr "Resultat for søgning:"
@@ -972,6 +1026,10 @@ msgid ""
 msgstr ""
 "Vælg de opgavelister der, sammen med standard listen, skal synkroniseres med "
 "eksterne enheder:"
+
+#: lib/Ui/VarRenderer/Nag.php:357
+msgid "Set recurrence end date"
+msgstr "Sæt slut dato for gentagelse"
 
 #: lib/Application.php:152
 msgid "Shared Task Lists"
@@ -1017,7 +1075,7 @@ msgstr "Vis opgaver fra disse opgavelister"
 msgid "Smart List Name:"
 msgstr "Smart liste navn:"
 
-#: lib/View/List.php:362
+#: lib/View/List.php:377
 msgid "Smart List deleted successfully"
 msgstr "Smart listen er slettet"
 
@@ -1038,17 +1096,25 @@ msgid "Start"
 msgstr "Start"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
-#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:35
+#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:40
 msgid "Start Date"
 msgstr "Start dato"
 
-#: lib/Ui/VarRenderer/Nag.php:74
+#: lib/Ui/VarRenderer/Nag.php:410
 msgid "Start date specified."
 msgstr "Start dato er specificeret."
+
+#: lib/Ui/VarRenderer/Nag.php:252
+msgid "Su"
+msgstr "Søn"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:115
 msgid "Successfully deleted"
 msgstr "Slettede"
+
+#: config/prefs.php:328
+msgid "Support separate collections?"
+msgstr "Understøt adskilte samlinger?"
 
 #: config/prefs.php:41
 msgid "Synchronization Preferences"
@@ -1080,11 +1146,11 @@ msgstr "Mærkater"
 
 #: templates/list/_task.html.php:60
 msgid "Task Alarm"
-msgstr "Opgave-alarm"
+msgstr "Opgave alarm"
 
 #: templates/list/task_headers.html.php:22
 msgid "Task Alarm?"
-msgstr "Opgave-alarm?"
+msgstr "Opgave alarm?"
 
 #: config/prefs.php:27
 msgid "Task Defaults"
@@ -1133,11 +1199,15 @@ msgstr "Opgavelister af %s"
 msgid "Task modified:"
 msgstr "Opgave ændret:"
 
-#: task.php:97 view.php:38
+#: view.php:19 view.php:37
+msgid "Task not found"
+msgstr "Opgave ikke fundet."
+
+#: task.php:100
 msgid "Task not found."
 msgstr "Opgave ikke fundet."
 
-#: app/controllers/SaveTask.php:42
+#: app/controllers/SaveTask.php:46
 msgid "Task successfully deleted"
 msgstr "Opgaven er slettet"
 
@@ -1149,7 +1219,7 @@ msgstr "Opgaveliste findes ikke eller der er ingen tilladelser at slette"
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "Opgaveliste findes ikke eller der er ingen tilladelser at ændre"
 
-#: lib/Api.php:1283 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1293 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Opgaver"
 
@@ -1161,6 +1231,10 @@ msgstr "Opgave oversigt"
 #, php-format
 msgid "Tasks from %s"
 msgstr "Opgaver fra %s"
+
+#: lib/Ui/VarRenderer/Nag.php:243
+msgid "Th"
+msgstr "Tor"
 
 #: data.php:160
 #, php-format
@@ -1240,7 +1314,7 @@ msgstr "Der opstod en fejl under afslutning af %s: %s"
 msgid "There was a problem deleting %s: %s"
 msgstr "Der opstod en fejl under sletningen af %s: %s"
 
-#: app/controllers/SaveTask.php:85
+#: app/controllers/SaveTask.php:89
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "Der opstod en fejl under lagringen af opgaven: %s."
@@ -1255,7 +1329,7 @@ msgstr "Der opstod en fejl under kontakten med ActiveSync serveren: %s"
 msgid "There was an error importing the data: %s"
 msgstr "Der opstod en fejl under importen af data: %s"
 
-#: lib/Api.php:494 lib/Api.php:858 lib/Api.php:1187 lib/Application.php:551
+#: lib/Api.php:494 lib/Api.php:866 lib/Api.php:1195 lib/Application.php:551
 msgid "There was an error importing the iCalendar data."
 msgstr "Der opstod en fejl under importen af iCalendar data."
 
@@ -1270,7 +1344,7 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr "Dette filformat er ikke understøttet."
 
-#: lib/Ui/VarRenderer/Nag.php:139
+#: lib/Ui/VarRenderer/Nag.php:130
 msgid "Time"
 msgstr "Tid"
 
@@ -1281,6 +1355,10 @@ msgstr "Tid:"
 #: templates/smartmobile/taskform.html.php:9
 msgid "Title"
 msgstr "Titel"
+
+#: lib/Ui/VarRenderer/Nag.php:237
+msgid "Tu"
+msgstr "Tir"
 
 #: lib/Nag.php:1089
 msgid "Turned privacy off"
@@ -1309,19 +1387,23 @@ msgstr "Kan ikke gemme opgaveliste \"%s\": %s"
 msgid "Unique ID"
 msgstr "Unik ID"
 
-#: lib/Api.php:574 lib/Api.php:912 lib/Api.php:1036 lib/Api.php:1101
-#: lib/Api.php:1219
+#: lib/Api.php:574 lib/Api.php:920 lib/Api.php:1044 lib/Api.php:1109
+#: lib/Api.php:1227
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Ikke understøttet indholdstype: %s"
 
-#: lib/Ui/VarRenderer/Nag.php:41
+#: lib/Ui/VarRenderer/Nag.php:159
 msgid "Use custom notification method"
 msgstr "Brug tilrettet påmindelses metode"
 
-#: lib/Ui/VarRenderer/Nag.php:35
+#: lib/Ui/VarRenderer/Nag.php:151
 msgid "Use default notification method"
 msgstr "Brug standard påmindelses metode"
+
+#: lib/Ui/VarRenderer/Nag.php:240
+msgid "We"
+msgstr "Ons"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this due task."
@@ -1331,9 +1413,13 @@ msgstr "Vi vil lige minde dig om denne forfaldne opgave"
 msgid "WebDAV/ICS Subscription URL"
 msgstr "WebDAV/ICS abonnements URL"
 
-#: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:43
 msgid "Week(s)"
 msgstr "Uge(r)"
+
+#: lib/Ui/VarRenderer/Nag.php:231
+msgid "Weekly: Recurs every"
+msgstr "Ugentlig: Gentages hver"
 
 #: config/prefs.php:161
 msgid "What do you want to be the default due time for tasks?"
@@ -1355,6 +1441,11 @@ msgstr ""
 #: templates/data/import.inc:21
 msgid "Which tasklist should the tasks be added to?"
 msgstr "Hvilken opgaveliste skal opgaver føjes til?"
+
+#: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
+#: lib/Ui/VarRenderer/Nag.php:327
+msgid "Yearly: Recurs every"
+msgstr "Årlig: Gentages hver"
 
 #: lib/Nag.php:598
 msgid "You are not allowed to change this task list."
@@ -1424,7 +1515,7 @@ msgstr "Din standard opgaveliste:"
 msgid "[none]"
 msgstr "[ingen]"
 
-#: lib/View/List.php:96
+#: lib/View/List.php:103
 msgid "_All tasks"
 msgstr "_Alle opgaver"
 
@@ -1432,11 +1523,11 @@ msgstr "_Alle opgaver"
 msgid "_Complete"
 msgstr "Afsluttet  _C"
 
-#: lib/View/List.php:99
+#: lib/View/List.php:106
 msgid "_Completed tasks"
 msgstr "Afsluttede opgaver  _C"
 
-#: templates/view/task.inc:12
+#: templates/view/task.inc:13
 msgid "_Delete"
 msgstr "Slet   _D"
 
@@ -1448,7 +1539,7 @@ msgstr "Forfaldsdato   _D"
 msgid "_Edit"
 msgstr "Redigér   _E"
 
-#: lib/View/List.php:98
+#: lib/View/List.php:105
 msgid "_Future tasks"
 msgstr "_Fremtidige opgaver"
 
@@ -1484,16 +1575,16 @@ msgstr "Opgaveliste   _T"
 msgid "am"
 msgstr "am"
 
-#: lib/View/List.php:328 lib/View/List.php:337
+#: lib/View/List.php:342 lib/View/List.php:351
 msgid "and"
 msgstr "og"
 
-#: lib/View/List.php:341
+#: lib/View/List.php:355
 #, php-format
 msgid "and tagged with %s"
 msgstr "ogmærket med %s"
 
-#: lib/Ui/VarRenderer/Nag.php:138
+#: lib/Ui/VarRenderer/Nag.php:126
 msgid "at"
 msgstr "Kl."
 
@@ -1510,7 +1601,11 @@ msgstr "af mig"
 msgid "completed"
 msgstr "Fuldført"
 
-#: lib/View/List.php:333
+#: lib/Ui/VarRenderer/Nag.php:209
+msgid "day(s)"
+msgstr "dag(e)"
+
+#: lib/View/List.php:347
 #, php-format
 msgid "due date within %d days of %s"
 msgstr "Forfaldsdato inden for %d dage af %s"
@@ -1523,6 +1618,10 @@ msgstr "iCalendar (vTodo)"
 #, php-format
 msgid "in %s"
 msgstr "i %s"
+
+#: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
+msgid "month(s)"
+msgstr "måned(er) "
 
 #: lib/Nag.php:1094 lib/Nag.php:1095
 msgid "no due date"
@@ -1544,11 +1643,23 @@ msgstr "ingen tid"
 msgid "not completed"
 msgstr "Ikke fuldførte"
 
+#: lib/Ui/VarRenderer/Nag.php:269
+msgid "on the same date"
+msgstr "på samme dato"
+
+#: lib/Ui/VarRenderer/Nag.php:284
+msgid "on the same weekday"
+msgstr "på samme ugedag"
+
 #: config/prefs.php:169
 msgid "pm"
 msgstr "pm"
 
-#: lib/View/List.php:324
+#: lib/Ui/VarRenderer/Nag.php:368
+msgid "recurrences"
+msgstr "Gentagelser"
+
+#: lib/View/List.php:338
 msgid "tasks"
 msgstr "opgaver"
 
@@ -1560,6 +1671,22 @@ msgstr "tasks.csv"
 msgid "tasks.ics"
 msgstr "tasks.ics"
 
-#: lib/View/List.php:330 lib/View/List.php:339
+#: lib/Ui/VarRenderer/Nag.php:233
+msgid "week(s) on:"
+msgstr "uge(r) på:"
+
+#: lib/View/List.php:344 lib/View/List.php:353
 msgid "with"
 msgstr "med"
+
+#: lib/Ui/VarRenderer/Nag.php:299
+msgid "year(s) on the same date"
+msgstr "år på samme dato"
+
+#: lib/Ui/VarRenderer/Nag.php:314
+msgid "year(s) on the same day of the year"
+msgstr "år på samme dag i året"
+
+#: lib/Ui/VarRenderer/Nag.php:329
+msgid "year(s) on the same weekday and month of the year"
+msgstr "år på samme ugedag og måned i året"

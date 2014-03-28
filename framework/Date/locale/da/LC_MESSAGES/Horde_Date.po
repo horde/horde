@@ -1,75 +1,175 @@
-# Danish translations for Horde_Date module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Date module.
-# Automatically generated, 2010.
+# Danish translations for Horde_Date package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Date package.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2014-03-18 15:58+0100\n"
+"PO-Revision-Date: 2014-03-19 21:03+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Date/Utils.php:106
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:105
+#, php-format
 msgid "%d days ago"
-msgstr " (%s dage siden)"
+msgstr "%d dage siden"
 
-#: lib/Horde/Date/Utils.php:96
+#: lib/Horde/Date/Utils.php:95
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d time siden"
+msgstr[1] "%d timer siden"
 
-#: lib/Horde/Date/Utils.php:91
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:90
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%s minutter"
-msgstr[1] "%s minutter"
+msgstr[0] "%d minut siden"
+msgstr[1] "%d minuter siden"
 
-#: lib/Horde/Date/Utils.php:87
+#: lib/Horde/Date/Utils.php:85
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d sekund siden"
+msgstr[1] "%d sekunder siden"
 
-#: lib/Horde/Date/Utils.php:111
+#: lib/Horde/Date/Recurrence.php:1647
+#, php-format
+msgid "%d times"
+msgstr "%d gange"
+
+#: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uge siden"
+msgstr[1] "%d uger siden"
 
-#: lib/Horde/Date/Recurrence.php:216
+#: lib/Horde/Date/Recurrence.php:214
 msgid "Daily"
-msgstr "Daglig"
+msgstr "Dagligt"
+
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "Daily: Recurs every"
+msgstr "Daglig: Gentages hver"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "Ends after"
+msgstr "Ender efter"
+
+#: lib/Horde/Date/Recurrence.php:1649
+msgid "Exceptions on"
+msgstr "Undtagen på"
+
+#: lib/Horde/Date.php:368
+#, php-format
+msgid "Failed to parse time string (%s)"
+msgstr "Kunne ikke tilføje tids strengen (%s)"
+
+#: lib/Horde/Date/Recurrence.php:1631
+msgid "Friday"
+msgstr "Fredag"
+
+#: lib/Horde/Date/Recurrence.php:1627
+msgid "Monday"
+msgstr "Mandag"
 
 #: lib/Horde/Date/Recurrence.php:219
 msgid "Monthly"
 msgstr "Månedlig"
 
-#: lib/Horde/Date/Recurrence.php:215
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "Monthly: Recurs every"
+msgstr "Månedlig: Gentages hver"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "No end date"
+msgstr "Ingen slut dato"
+
+#: lib/Horde/Date/Recurrence.php:212
 msgid "No recurrence"
-msgstr ""
+msgstr "Ingen gentagelse."
 
-#: lib/Horde/Date/Recurrence.php:217
+#: lib/Horde/Date/Recurrence.php:1632
+msgid "Saturday"
+msgstr "Lørdag"
+
+#: lib/Horde/Date/Recurrence.php:1633
+msgid "Sunday"
+msgstr "Søndag"
+
+#: lib/Horde/Date/Recurrence.php:1630
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: lib/Horde/Date/Recurrence.php:1628
+msgid "Tuesday"
+msgstr "Tirsdag"
+
+#: lib/Horde/Date/Recurrence.php:1629
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: lib/Horde/Date/Recurrence.php:216
 msgid "Weekly"
-msgstr "Ugentlig"
+msgstr "Ugentligt"
 
-#: lib/Horde/Date/Recurrence.php:222
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "Weekly: Recurs every"
+msgstr "Ugentlig: Gentages hver"
+
+#: lib/Horde/Date/Recurrence.php:223
 msgid "Yearly"
 msgstr "Årlig"
 
-#: lib/Horde/Date/Utils.php:101
-#, fuzzy, php-format
+#: lib/Horde/Date/Recurrence.php:1640 lib/Horde/Date/Recurrence.php:1642
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "Yearly: Recurs every"
+msgstr "Årlig: Gentages hver"
+
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "day(s)"
+msgstr "dag(e)"
+
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "month(s)"
+msgstr "måned(er) "
+
+#: lib/Horde/Date/Recurrence.php:1636
+msgid "on the same date"
+msgstr "på samme dato"
+
+#: lib/Horde/Date/Recurrence.php:1638
+msgid "on the same weekday"
+msgstr "på samme ugedag"
+
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "week(s) on:"
+msgstr "uge(r) på:"
+
+#: lib/Horde/Date/Recurrence.php:1640
+msgid "year(s) on the same date"
+msgstr "år på samme dato"
+
+#: lib/Horde/Date/Recurrence.php:1642
+msgid "year(s) on the same day of the year"
+msgstr "år på samme dag i året"
+
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "year(s) on the same weekday and month of the year"
+msgstr "år på samme ugedag og måned i året"
+
+#: lib/Horde/Date/Utils.php:100
+#, php-format
 msgid "yesterday at %s"
-msgstr " (i går)"
+msgstr "i går kl. %s"

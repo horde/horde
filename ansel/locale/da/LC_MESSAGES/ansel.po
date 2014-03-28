@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel H5 (3.0.1-git)\n"
+"Project-Id-Version: Ansel H5 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
-"PO-Revision-Date: 2014-01-11 15:58+0100\n"
+"POT-Creation-Date: 2014-03-18 16:00+0100\n"
+"PO-Revision-Date: 2014-03-18 16:45+0100\n"
 "Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: da\n"
@@ -118,7 +118,7 @@ msgid "(c) %s %s"
 msgstr "(c) %s %s"
 
 #: config/styles.php:116
-msgid "A Lightbox inspireret Style (Drop Shadows, No Background)"
+msgid "A Lightbox Inspired Style (Drop Shadows, No Background)"
 msgstr "En lyskasse inspireret stil (Uden skygger og baggrund)"
 
 #: config/styles.php:105
@@ -307,7 +307,7 @@ msgstr "Tillad alle aldre"
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr "En fejl opstod under upload af billedet. Fejldata er skrevet i loggen."
 
-#: config/prefs.php:189 templates/gallery/properties.html.php:110
+#: config/prefs.php:183 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr "Alle"
 
@@ -325,13 +325,13 @@ msgstr "Stigende"
 
 #: perms.php:52
 msgid "Attempt to edit a non-existent share."
-msgstr "Forsøg på at ændre en ikke-eksisterende deling."
+msgstr "Forsøg på at ændre en ikke eksisterende deling."
 
-#: config/prefs.php:190 templates/gallery/properties.html.php:111
+#: config/prefs.php:185 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr "Godkendte (login) brugere"
 
-#: config/prefs.php:182
+#: config/prefs.php:176
 msgid "Automatically watermark photos?"
 msgstr "Skal Vandmærke tilføjes automatisk?"
 
@@ -357,7 +357,7 @@ msgstr "Forkert input."
 msgid "Basic Thumbnails"
 msgstr "Standard minibilled"
 
-#: config/prefs.php:161 lib/Form/Watermark.php:49
+#: config/prefs.php:155 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr "Bund"
 
@@ -417,7 +417,7 @@ msgstr "Billedtekst editor"
 msgid "Captions Saved."
 msgstr "Billedtekster gemt."
 
-#: config/prefs.php:149 config/prefs.php:160 lib/Form/Watermark.php:41
+#: config/prefs.php:143 config/prefs.php:154 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr "Midt"
@@ -554,7 +554,7 @@ msgstr ""
 "Din tekst som beskrivelse af dine albums. Dette vil blive vist i stedet for "
 "dit brugernavn når albums grupperes efter brugernavn."
 
-#: config/prefs.php:113 config/prefs.php:141
+#: config/prefs.php:135
 msgid "Custom watermark to use for photos"
 msgstr "Dit Vandmærke til brug i billeder."
 
@@ -613,7 +613,7 @@ msgstr "Visningstilstand"
 msgid "Display Preferences"
 msgstr "Visnings Indstillinger"
 
-#: config/prefs.php:248
+#: config/prefs.php:242
 msgid ""
 "Do not use the ajax-enabled uploader? Select this if your browser is having "
 "trouble uploading images with the ajax uploader."
@@ -826,6 +826,10 @@ msgstr "Find lignende"
 msgid "Flip"
 msgstr "Vend"
 
+#: config/prefs.php:170
+msgid "Font Size"
+msgstr "Bogstav størrelse"
+
 #: templates/tile/image.html.php:10
 msgid "From"
 msgstr "Fra"
@@ -941,9 +945,9 @@ msgstr "Album blev rapporteret."
 #: config/prefs.php:11 config/prefs.php:23 config/prefs.php:30
 #: config/prefs.php:40
 msgid "General Preferences"
-msgstr "Grundlæggende indstillinger"
+msgstr "Generelle Indstillinger"
 
-#: config/prefs.php:174 lib/Form/Watermark.php:35
+#: config/prefs.php:168 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr "Kæmpe"
 
@@ -972,7 +976,7 @@ msgstr "Grupper albums efter:"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Kort højde (Bredden justeres automatisk til blokken)"
 
-#: config/prefs.php:152 lib/Form/Watermark.php:43
+#: config/prefs.php:146 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Horisontal justering"
 
@@ -992,7 +996,7 @@ msgstr "Billedet har allerede eksisterende egenskaber."
 msgid "Image not found in gallery."
 msgstr "Billedet er ikke fundet i albummet"
 
-#: lib/Storage.php:706
+#: lib/Storage.php:704
 msgid "Images not found"
 msgstr "Billedet ikke fundet"
 
@@ -1013,7 +1017,7 @@ msgstr "Ugyldig indput %s"
 msgid "Landscape"
 msgstr "Landskab"
 
-#: config/prefs.php:173 lib/Form/Watermark.php:34
+#: config/prefs.php:167 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr "Stor"
 
@@ -1025,7 +1029,7 @@ msgstr "Sidst ændret"
 msgid "Learn how to publish photos directly from Windows."
 msgstr "Lær at offentliggøre billeder direkte fra Windovs."
 
-#: config/prefs.php:148 lib/Form/Watermark.php:40
+#: config/prefs.php:142 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr "Venstre"
 
@@ -1077,7 +1081,7 @@ msgstr "Gør dette til Standard billed for dette Album?"
 
 #: templates/image/crop_image.inc:135
 msgid "Manual"
-msgstr "Brugsanvisning"
+msgstr "Manuel"
 
 #: templates/widgets/imagefaces.html.php:5
 msgid "Manual face selection"
@@ -1112,7 +1116,7 @@ msgstr "Maksimal Billed størrelse"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Maksimal billed størrelse: %s; med en total på: %s"
 
-#: config/prefs.php:172 lib/Form/Watermark.php:33
+#: config/prefs.php:166 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr "Middel"
 
@@ -1244,13 +1248,13 @@ msgstr ""
 msgid "No location data present. You may add some %s."
 msgstr "Ingen location data tilstede. Du kan tilføje nogen %s."
 
-#: config/prefs.php:73 config/prefs.php:200 config/prefs.php:221
-#: config/prefs.php:240 templates/view/gallery.html.php:34
+#: config/prefs.php:73 config/prefs.php:194 config/prefs.php:215
+#: config/prefs.php:234 templates/view/gallery.html.php:34
 #: templates/view/results.html.php:26
 msgid "None"
 msgstr "Ingen"
 
-#: config/prefs.php:211
+#: config/prefs.php:205
 msgid "None (Owner only)"
 msgstr "Ingen (Kun Ejer)"
 
@@ -1278,11 +1282,11 @@ msgstr "Antal mærkater der skal vises"
 
 #: config/prefs.php:88
 msgid "Number of tiles per page"
-msgstr "Antallet af fliser per side"
+msgstr "Antallet af mini billeder per side"
 
 #: config/prefs.php:82
 msgid "Number of tiles per row"
-msgstr "Antallet af fliser per række"
+msgstr "Antallet af mini billeder per række"
 
 #: report.php:54
 msgid "Offensive content"
@@ -1368,7 +1372,7 @@ msgstr "Person i billedet"
 #: lib/View/GalleryRenderer/GalleryLightbox.php:92 templates/faces/face.inc:27
 #: templates/faces/gallery.inc:6
 msgid "Photo"
-msgstr "Billede"
+msgstr "Billed"
 
 #: lib/Block/MyGalleries.php:70
 msgid "Photo Count"
@@ -1476,7 +1480,7 @@ msgstr "forhåndsvis ændringer for %s :: %s"
 #: templates/smartmobile/image.html.php:9 templates/view/image.html.php:34
 #: templates/view/image.html.php:59 templates/view/slideshow.html.php:27
 msgid "Previous"
-msgstr "Foregående"
+msgstr "Forrige"
 
 #: templates/tile/image.html.php:19 templates/view/image.html.php:9
 #: templates/view/slideshow.html.php:9
@@ -1509,15 +1513,15 @@ msgstr "Tilfældig Album"
 msgid "Random photo"
 msgstr "Tilfældigt Billed"
 
-#: config/prefs.php:202 config/prefs.php:223
+#: config/prefs.php:196 config/prefs.php:217
 msgid "Read and write"
 msgstr "Læs og skriv"
 
-#: config/prefs.php:224
+#: config/prefs.php:218
 msgid "Read, write, and delete"
 msgstr "Læs, skriv, og slet"
 
-#: config/prefs.php:201 config/prefs.php:212 config/prefs.php:222
+#: config/prefs.php:195 config/prefs.php:206 config/prefs.php:216
 msgid "Read-only"
 msgstr "Læs kun"
 
@@ -1700,7 +1704,7 @@ msgstr "Ændr størrelse"
 msgid "Return to image view"
 msgstr "Returner til billed visning"
 
-#: config/prefs.php:150 lib/Form/Watermark.php:42
+#: config/prefs.php:144 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr "Højre"
 
@@ -1842,7 +1846,7 @@ msgstr "Sæt tilladelser"
 msgid "Shadowed Thumbnails (White Background)"
 msgstr "Minibilleder med skygger (Hvid Baggrund)"
 
-#: config/prefs.php:242
+#: config/prefs.php:236
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1882,7 +1886,7 @@ msgstr "\"Slug\" navne må kun bestå af bogstaver, tal, @, eller _(underscore).
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr "\"Slugs\" Muliggør adgang direkte til dette album ved at besøge:"
 
-#: config/prefs.php:171 lib/Form/Watermark.php:32
+#: config/prefs.php:165 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr "Lille"
 
@@ -2102,11 +2106,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr "Mini billed stil."
 
-#: config/prefs.php:170 lib/Form/Watermark.php:31
+#: config/prefs.php:164 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr "Lille"
 
-#: config/prefs.php:159 lib/Form/Watermark.php:47
+#: config/prefs.php:153 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr "Top"
 
@@ -2199,11 +2203,11 @@ msgstr "Brugernavn"
 msgid "Username or password are incorrect."
 msgstr "Brugernavn eller adgangskode er forkert."
 
-#: config/prefs.php:191 templates/gallery/properties.html.php:112
+#: config/prefs.php:184 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr "Brugere med redigerings tilladdelser"
 
-#: config/prefs.php:163 config/prefs.php:176 lib/Form/Watermark.php:50
+#: config/prefs.php:157 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr "Vertikal justering"
 
@@ -2254,7 +2258,7 @@ msgstr "Vandmærke font"
 msgid "Watermark Preferences"
 msgstr "Vandmærke Indstillinger"
 
-#: config/prefs.php:226
+#: config/prefs.php:220
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
@@ -2262,7 +2266,7 @@ msgstr ""
 "Når et nyt album oprettes, hvilken standard tilladelser skal der gives til "
 "grupper som brugeren er medlem af?"
 
-#: config/prefs.php:204
+#: config/prefs.php:198
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
@@ -2270,7 +2274,7 @@ msgstr ""
 "Når et nyt album oprettes, hvilken tilladelser skal der gives til Godkendte "
 "(Login) brugere som standard?"
 
-#: config/prefs.php:214
+#: config/prefs.php:208
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
@@ -2278,14 +2282,14 @@ msgstr ""
 "Når et nyt album oprettes, hvilken tilladelser skal der gives til Gæster "
 "(nologin) som standard?"
 
-#: config/prefs.php:233
+#: config/prefs.php:227
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
 msgstr ""
 "Hvilke metadata skal vi automatisk tilføje som billed mærkater under upload?"
 
-#: config/prefs.php:193
+#: config/prefs.php:187
 msgid "Who should be allowed to download original photos"
 msgstr "Hvem skal have lov til at hente originale billeder"
 

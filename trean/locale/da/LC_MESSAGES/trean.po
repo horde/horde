@@ -2,13 +2,14 @@
 # Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Trean package.
 # Automatically generated, 2014.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0.3-git)\n"
+"Project-Id-Version: Trean H5 (1.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2014-01-11 15:48+0100\n"
+"POT-Creation-Date: 2014-03-18 15:59+0100\n"
+"PO-Revision-Date: 2014-03-18 19:16+0100\n"
 "Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: da\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
 msgid "1 Line"
-msgstr "1. linje"
+msgstr "1 linje"
 
 #: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
 msgid "10 rows"
@@ -79,9 +80,17 @@ msgstr "Bogmærker"
 msgid "Bookmarks Feed"
 msgstr "Bogmærke Feed"
 
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "Bogmærkerne blev importeret"
+
 #: browse.php:31
 msgid "Browse"
 msgstr "Browse"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "Kan ikke oprette nyt bogmærke."
 
 #: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
@@ -134,9 +143,21 @@ msgstr "Rediger"
 msgid "Edit Bookmark"
 msgstr "Rediger Bogmærke"
 
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "Firefox JSON"
+
 #: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox / Mozilla"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Importér"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Importer Bogmærker"
 
 #: templates/add.html.php:63
 msgid "Internet Explorer"
@@ -197,7 +218,7 @@ msgstr ""
 
 #: config/prefs.php:46
 msgid "Open links in a new window?"
-msgstr "Åbn Links i et nyt vindue?"
+msgstr "Åbn Links i et nyt faneblad?"
 
 #: config/prefs.php:12
 msgid "Other Preferences"
@@ -228,6 +249,14 @@ msgstr "Resultat for søgning (%s)"
 msgid "See previously used tags"
 msgstr "Se Før andvendte mærkater"
 
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Vælg den fil, der skal importeres:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Vælg formatet af kildefilen:"
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr "Indstil Visning af bogmærke listen og hvordan links skal åbnes."
@@ -244,13 +273,18 @@ msgstr "Sortér efter"
 msgid "Sort direction:"
 msgstr "Sorteringsretning:"
 
-#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+#: lib/Application.php:100 templates/add.html.php:30
+#: templates/edit.html.php:39
 msgid "Tags"
 msgstr "Mærkater"
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr "Skabelon"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "Filen indeholder ikke nogen bogmærker."
 
 #: app/controllers/DeleteBookmark.php:16
 #, php-format
@@ -266,6 +300,11 @@ msgstr "Der opstod en fejl under tilføjelsen af bogmærke: %s"
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Der opstod en fejl under lagring af Bogmærke: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Serveren meldte: %s"
 
 #: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
@@ -286,7 +325,7 @@ msgid ""
 "your new \"Add to Bookmarks\" shortcut."
 msgstr ""
 "Mens du browser, kan du hurtigt bogmærke den side du er på, ved at klikke på "
-"dit nye \"Tilføj Bogmærke\" genvej."
+"din nye \"Tilføj Bogmærke\" genvej."
 
 #: add.php:25
 #, php-format
@@ -297,7 +336,11 @@ msgstr "Du har ikke tilladelse til at oprette mere en %d Bogmærker."
 msgid "_Browse"
 msgstr "_Browse"
 
-#: lib/Application.php:94
+#: lib/Application.php:85
+msgid "_Import"
+msgstr "_Importér"
+
+#: lib/Application.php:95
 msgid "_New Bookmark"
 msgstr "_Nyt Bogmærke"
 
