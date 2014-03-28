@@ -1,0 +1,111 @@
+# Danish translations for Horde_Auth package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Auth package.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Auth\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-03-18 15:59+0100\n"
+"PO-Revision-Date: 2014-03-19 20:32+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Auth.php:375
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr ""
+"Kodeordet er for langt: Kodeord må ikke være mere end %d karakterer langt!"
+
+#: lib/Horde/Auth.php:446 lib/Horde/Auth.php:456
+msgid "The password is too simple to guess."
+msgstr "Kodeordet er for nemt at gætte."
+
+#: lib/Horde/Auth.php:371
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Kodeordet skal være mindst %d karakterer langt!"
+
+#: lib/Horde/Auth.php:407
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d alfabetisk karakter."
+msgstr[1] "Kodeordet skal indeholde mindst %d alfabetiske karakterer."
+
+#: lib/Horde/Auth.php:410
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d tal."
+msgstr[1] "Kodeordet skal indeholde mindst %d tal."
+
+#: lib/Horde/Auth.php:416
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Kodeordet skal indeholde mindst %d forskellige typer af karakter. Typerne "
+"er: Små bogstaver, store bogstaver, tal og symboler."
+
+#: lib/Horde/Auth.php:401
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d lille bogstav."
+msgstr[1] "Kodeordet skal indeholde mindst %d små bogstaver."
+
+#: lib/Horde/Auth.php:404
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d tal."
+msgstr[1] "Kodeordet skal indeholde mindst %d tal."
+
+#: lib/Horde/Auth.php:413
+#, php-format
+msgid "The password must contain at least %d numeric or special character."
+msgid_plural ""
+"The password must contain at least %d numeric or special characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d tal eller special karakter."
+msgstr[1] "Kodeordet skal indeholde mindst %d tal eller karakterer."
+
+#: lib/Horde/Auth.php:425
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d symbol."
+msgstr[1] "Kodeordet skal indeholde mindst %d symboler."
+
+#: lib/Horde/Auth.php:398
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] "Kodeordet skal indeholde mindst %d stort bogstav."
+msgstr[1] "Kodeordet skal indeholde mindst %d store bogstaver."
+
+#: lib/Horde/Auth.php:420
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Kodeordet skal indeholde mindre end %d mellemrum."
+
+#: lib/Horde/Auth.php:422
+msgid "The password must not contain whitespace characters."
+msgstr "Kodeordet må ikke indeholde mellemrum."
+
+#: lib/Horde/Auth/Base.php:156
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Din konto er lås i %d minutter"
+
+#: lib/Horde/Auth/Base.php:154
+msgid "Your account has been permanently locked"
+msgstr "Din konto er permanent låst."

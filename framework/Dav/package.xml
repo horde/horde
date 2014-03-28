@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -740,7 +740,7 @@
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
    </notes>
   </release>
  </changelog>

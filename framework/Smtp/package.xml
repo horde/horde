@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] The mail submission port (587) should be default of this library.
 * [mms] Better exception message for a 550 error, since it is common and may be displayed to an end user (Request #12990).
  </notes>
@@ -339,6 +340,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] The mail submission port (587) should be default of this library.
 * [mms] Better exception message for a 550 error, since it is common and may be displayed to an end user (Request #12990).
    </notes>

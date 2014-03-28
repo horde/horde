@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -189,7 +189,7 @@
    <date>2013-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
    </notes>
   </release>
  </changelog>

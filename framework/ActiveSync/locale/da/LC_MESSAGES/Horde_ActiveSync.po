@@ -1,0 +1,115 @@
+# Danish translations for Horde_ActiveSync package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_ActiveSync package.
+# Erling Preben Hansen <erling@eph.dk>, 2013-2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_ActiveSync\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-03-18 15:58+0100\n"
+"PO-Revision-Date: 2014-03-19 19:41+0100\n"
+"Last-Translator: Erling Preben Hansen <erling@eph.dk>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:614
+#, php-format
+msgid "%s part"
+msgstr "%s del"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:593
+msgid "Audio part"
+msgstr "Lyd del"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:139
+msgid "Cc"
+msgstr "Cc"
+
+#: lib/Horde/ActiveSync/Device.php:295
+msgid "Common Name"
+msgstr "Almindelge navn"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:119
+msgid "Date"
+msgstr "Dato"
+
+#: lib/Horde/ActiveSync/Device.php:307
+msgid "EAS Version"
+msgstr "EAS Version"
+
+#: lib/Horde/ActiveSync/Device.php:310
+msgid "Forced Multiplexed Bitmask"
+msgstr "Tvungen Multiplexed Bitmask"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:123
+msgid "From"
+msgstr "Fra"
+
+#: lib/Horde/ActiveSync/Device.php:292
+msgid "IMEI"
+msgstr "IMEI"
+
+#: lib/Horde/ActiveSync/Device.php:283
+msgid "Id"
+msgstr "Id"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:596
+msgid "Image part"
+msgstr "Billed del"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:600
+msgid "Message part"
+msgstr "Besked del"
+
+#: lib/Horde/ActiveSync/Device.php:289
+msgid "Model"
+msgstr "Model"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:603
+msgid "Multipart part"
+msgstr "Multipart del"
+
+#: lib/Horde/ActiveSync/Device.php:298
+msgid "OS"
+msgstr "OS"
+
+#: lib/Horde/ActiveSync/Device.php:301
+msgid "OS Language"
+msgstr "OS Sprog"
+
+#: lib/Horde/ActiveSync/Device.php:304
+msgid "Phone Number"
+msgstr "Telefon nr."
+
+#: lib/Horde/ActiveSync/Device.php:284
+msgid "Policy Key"
+msgstr "Politik nøgle"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:127
+msgid "Reply-To"
+msgstr "Svar til"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:131
+msgid "Subject"
+msgstr "Emne"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:606
+msgid "Text part"
+msgstr "Tekst del"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:135
+msgid "To"
+msgstr "Til"
+
+#: lib/Horde/ActiveSync/Device.php:285
+msgid "User Agent"
+msgstr "Bruger agent"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:609
+msgid "Video part"
+msgstr "Video del"
