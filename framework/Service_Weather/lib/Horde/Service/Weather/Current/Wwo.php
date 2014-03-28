@@ -54,6 +54,9 @@
         case 'time':
             return new Horde_Date($this->_properties->localObsDateTime);
 
+        case 'time_utc':
+            return new Horde_Date($this->_properties->date . ' ' . $this->_properties->observation_time, 'UTC');
+
         case 'temp':
             if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->temp_F;
