@@ -362,19 +362,27 @@ class Horde_Date
                 date_default_timezone_set($oldtimezone);
             }
         } else {
-            try {
-                $parsed = new DateTime($date);
-            } catch (Exception $e) {
-                throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
+            if (!empty($timezone)) {
+                try {
+                    $parsed = new DateTime($date, new DateTimeZone($timezone));
+                } catch (Exception $e) {
+                    throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
+                }
+            } else {
+                try {
+                    $parsed = new DateTime($date);
+                } catch (Exception $e) {
+                    throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
+                }
+                $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
+                $this->_initializeTimezone(date_default_timezone_get());
             }
-            $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
             $this->_year  = (int)$parsed->format('Y');
             $this->_month = (int)$parsed->format('m');
             $this->_mday  = (int)$parsed->format('d');
             $this->_hour  = (int)$parsed->format('H');
             $this->_min   = (int)$parsed->format('i');
             $this->_sec   = (int)$parsed->format('s');
-            $this->_initializeTimezone(date_default_timezone_get());
         }
     }
 
