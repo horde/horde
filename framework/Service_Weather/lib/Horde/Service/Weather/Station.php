@@ -23,7 +23,8 @@
  * @property string state         The state.
  * @property string country       The country's iso3166 name (if available).
  * @property string country_name  The country's common name.
- * @property string tz            The timezone name (if available).
+ * @property mixed  tz            The timezone name, or offset from UTC
+ *                                depending on the API. @see self::getOffset()
  * @property string lat           The lattitude (if available).
  * @property string lon           The longitude (if available).
  * @property string zip           The postal code.
@@ -49,6 +50,25 @@ class Horde_Service_Weather_Station
     public function __set($property, $value)
     {
         $this->_properties[$property] = $value;
+    }
+
+    /**
+     * Return the CURRENT offset from UTC for this station as provided by the
+     * API.
+     *
+     * @return integer  The current offset from UTC.
+     * @since 1.2.0
+     */
+    public function getOffset()
+    {
+        if (!empty($this->tz) && is_string($this->tz)) {
+            $d = new Horde_Date(time(), 'UTC');
+            $d->setTimezone($this->tz);
+            return $d->tzOffset();
+        } elseif (!empty($this->tz)) {
+            // tz is provided as an offset already.
+            return $this->tz;
+        }
     }
 
 }
