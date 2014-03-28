@@ -62,7 +62,9 @@ class Horde_Service_Weather_Station
     public function getOffset()
     {
         if (!empty($this->_properties['tz']) && is_numeric($this->_properties['tz'])) {
-            return $this->tz;
+
+            return ($this->tz < 0 ? '-' : '') . gmdate('H:i', floor(abs($this->tz) * 60 * 60));
+
         } elseif (!empty($this->_properties['tz'])) {
             try {
                 $d = new Horde_Date(time(), 'UTC');
