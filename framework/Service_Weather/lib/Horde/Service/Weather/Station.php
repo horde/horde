@@ -17,6 +17,17 @@
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
+ *
+ * @property string name          The station's common name.
+ * @property string city          The city.
+ * @property string state         The state.
+ * @property string country       The country's iso3166 name (if available).
+ * @property string country_name  The country's common name.
+ * @property string tz            The timezone name (if available).
+ * @property string lat           The lattitude (if available).
+ * @property string lon           The longitude (if available).
+ * @property string zip           The postal code.
+ * @property string code          The internal identifier for the API.
  */
 class Horde_Service_Weather_Station
 {

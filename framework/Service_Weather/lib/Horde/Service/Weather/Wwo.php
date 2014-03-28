@@ -225,7 +225,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             'state' => $station->region[0]->value,
             'country' => $station->country[0]->value,
             'country_name' => '',
-            'tz' => '', // Not provided, can we assume it's the location's local?
+            // Only the *current* UTC offset is provided, with no indication
+            // if we are in DST or not, so this is pretty useless.
+            'tz' => '',
             'lat' => $station->latitude,
             'lon' => $station->longitude,
             'zip' => '',
