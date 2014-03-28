@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix setting timezone parameter when parsing certain string representations.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -968,7 +968,7 @@
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix setting timezone parameter when parsing certain string representations.
    </notes>
   </release>
  </changelog>
