@@ -1842,6 +1842,9 @@
    <package>
     <name>Services_Weather</name>
     <channel>pear.php.net</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_ActiveSync</name>
