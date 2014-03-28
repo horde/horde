@@ -226,8 +226,8 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             'country' => $station->country[0]->value,
             'country_name' => '',
             // Only the *current* UTC offset is provided, with no indication
-            // if we are in DST or not, so this is pretty useless.
-            'tz' => '',
+            // if we are in DST or not.
+            'tz' => $station->timezone[0]->offset,
             'lat' => $station->latitude,
             'lon' => $station->longitude,
             'zip' => '',
