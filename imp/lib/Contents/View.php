@@ -189,7 +189,7 @@ class IMP_Contents_View
                 'stream' => true
             )),
             'name' => _("Message Source"),
-            'type' => 'text/plain'
+            'type' => 'text/plain; charset=UTF-8'
         );
     }
 
