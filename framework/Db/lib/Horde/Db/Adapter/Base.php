@@ -381,7 +381,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     public function cacheRead($key)
     {
         $key = get_class($this) . hash('sha1', serialize($this->_config)) . $key;
-        return $this->_cache->get($key);
+        return $this->_cache->get($key, 0);
     }
 
 

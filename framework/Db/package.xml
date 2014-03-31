@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Fix regression preventing caching of any internal DB information.
 * [mms] SECURITY: Don&apos;t leak PDO DSN authentication/connection information in exception messages.
 * [jan] Fix columnCount() result of PDO result objects.
  </notes>
@@ -770,6 +771,7 @@
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Fix regression preventing caching of any internal DB information.
 * [mms] SECURITY: Don&apos;t leak PDO DSN authentication/connection information in exception messages.
 * [jan] Fix columnCount() result of PDO result objects.
    </notes>

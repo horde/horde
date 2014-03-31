@@ -751,24 +751,24 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     {
         // remove any current cache.
         $this->_conn->cacheWrite('tables/indexes/cache_table', '');
-        $this->assertEquals('', $this->_conn->cacheRead('tables/indexes/cache_table', 0));
+        $this->assertEquals('', $this->_conn->cacheRead('tables/indexes/cache_table'));
 
         $this->_createTestTable('cache_table');
         $idxs = $this->_conn->indexes('cache_table');
 
-        $this->assertNotEquals('', $this->_conn->cacheRead('tables/indexes/cache_table', 0));
+        $this->assertNotEquals('', $this->_conn->cacheRead('tables/indexes/cache_table'));
     }
 
     public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_conn->cacheWrite('tables/columns/cache_table', '');
-        $this->assertEquals('', $this->_conn->cacheRead('tables/columns/cache_table', 0));
+        $this->assertEquals('', $this->_conn->cacheRead('tables/columns/cache_table'));
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_conn->cacheRead('tables/columns/cache_table', 0));
+        $this->assertNotEquals('', $this->_conn->cacheRead('tables/columns/cache_table'));
     }
 
 
