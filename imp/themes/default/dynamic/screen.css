@@ -48,7 +48,7 @@ input {
 }
 
 /* Message List */
-.horde-buttonbar
+.horde-buttonbar,
 #msglistHeaderHoriz .msgDate,
 #msglistHeaderHoriz .msgSize {
     padding-right: 15px;
