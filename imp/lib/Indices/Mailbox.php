@@ -55,7 +55,7 @@ class IMP_Indices_Mailbox extends IMP_Indices
         switch (func_num_args()) {
         case 1:
             if ($args[0] instanceof Horde_Variables) {
-                if (isset($args[0]->mailbox)) {
+                if (isset($args[0]->mailbox) && strlen($args[0]->mailbox)) {
                     $this->mailbox = IMP_Mailbox::formFrom($args[0]->mailbox);
 
                     if (isset($args[0]->buid)) {
