@@ -82,7 +82,7 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        $key = implode('|', array(
+        $cid = implode('|', array(
             'turba_fb_search',
             $GLOBALS['registry']->getAuth(),
             md5(json_encode($criteria) . '_' .
@@ -90,7 +90,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 implode('.', $blobFields))
         ));
 
-        if ($values = $this->_cache->get($key, 3600)) {
+        if ($values = $this->_cache->get($cid, 3600)) {
             $values = json_decode($values, true);
             return $count_only ? count($values) : $values;
         }
@@ -103,7 +103,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 $results[$key] = $contact;
             }
         }
-        $this->_cache->set($key, json_encode($results));
+        $this->_cache->set($cid, json_encode($results));
 
         return $count_only ? count($results) : $results;
     }
