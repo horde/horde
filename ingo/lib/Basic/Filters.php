@@ -58,7 +58,10 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         switch ($actionID) {
         case 'mbox_search':
             if (isset($this->vars->searchfield)) {
-                $mbox_search = $this->vars->searchfield;
+                $mbox_search = array(
+                    'exact' => $this->vars->get('searchexact', 1),
+                    'query' => $this->vars->searchfield
+                );
             }
             break;
 
@@ -234,9 +237,14 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     break;
 
                 default:
-                    if (!is_null($mbox_search) &&
-                        (strcasecmp($filter['action-value'], $mbox_search) !== 0)) {
-                        continue 2;
+                    if (!is_null($mbox_search)) {
+                        if ($mbox_search['exact']) {
+                            if (strcasecmp($filter['action-value'], $mbox_search['query']) !== 0) {
+                                continue 2;
+                            }
+                        } elseif (stripos($filter['action-value'], $mbox_search['query']) === false) {
+                            continue 2;
+                        }
                     }
 
                     $editurl = $rule_url->copy()->add(array(
@@ -304,6 +312,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $topbar->searchLabel = _("Mailbox Search");
         $topbar->searchParameters = array(
             'actionID' => 'mbox_search',
+            'searchexact' => 0,
             'page' => 'filters'
         );
 
@@ -315,6 +324,8 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
      * @param array $opts  Additional options:
      * <pre>
      *   - mbox_search: (string) Filter results by this mailbox.
+     *   - mbox_search_substr: (boolean) If true, do substring search instead
+     *                         of exact match.
      * </pre>
      */
     static public function url(array $opts = array())
@@ -324,7 +335,8 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         if (isset($opts['mbox_search'])) {
             $url->add(array(
                 'actionID' => 'mbox_search',
-                'mbox_search' => strval($opts['mbox_search'])
+                'searchexact' => intval(empty($opts['mbox_search_substr'])),
+                'searchfield' => strval($opts['mbox_search'])
             ));
         }
 
