@@ -70,26 +70,30 @@ class Horde_Domhtml implements Iterator
         }
 
         $old_error = libxml_use_internal_errors(true);
-        $doc = new DOMDocument();
+        $this->dom = new DOMDocument();
 
         if (is_null($charset)) {
             /* If no charset given, charset is whatever libxml tells us the
              * encoding should be defaulting to 'iso-8859-1'. */
-            $doc->loadHTML($text);
-            $this->_origCharset = $doc->encoding
-                ? $doc->encoding
+            $this->_loadHTML($text);
+            $this->_origCharset = $this->dom->encoding
+                ? $this->dom->encoding
                 : 'iso-8859-1';
         } else {
             /* Convert/try with UTF-8 first. */
             $this->_origCharset = Horde_String::lower($charset);
             $this->_xmlencoding = '<?xml encoding="UTF-8"?>';
-            $doc->loadHTML($this->_xmlencoding . Horde_String::convertCharset($text, $charset, 'UTF-8'));
+            $this->_loadHTML(
+                $this->_xmlencoding . Horde_String::convertCharset($text, $charset, 'UTF-8')
+            );
 
-            if ($doc->encoding &&
-                (Horde_String::lower($doc->encoding) != 'utf-8')) {
+            if ($this->dom->encoding &&
+                (Horde_String::lower($this->dom->encoding) != 'utf-8')) {
                 /* Convert charset to what the HTML document says it SHOULD
                  * be. */
-                $doc->loadHTML(Horde_String::convertCharset($text, $charset, $doc->encoding));
+                $this->_loadHTML(
+                    Horde_String::convertCharset($text, $charset, $this->dom->encoding)
+                );
                 $this->_xmlencoding = '';
             }
         }
@@ -97,8 +101,6 @@ class Horde_Domhtml implements Iterator
         if ($old_error) {
             libxml_use_internal_errors(false);
         }
-
-        $this->dom = $doc;
 
         /* Sanity checking: make sure we have the documentElement object. */
         if (!$this->dom->documentElement) {
@@ -237,6 +239,26 @@ class Horde_Domhtml implements Iterator
         return $this->dom->encoding
             ? $this->dom->encoding
             : ($this->_xmlencoding ? 'UTF-8' : $this->_origCharset);
+    }
+
+    /**
+     * Loads the HTML data.
+     *
+     * @param string $html  HTML data.
+     */
+    protected function _loadHTML($html)
+    {
+        if (PHP_MINOR_VERSION >= 4) {
+            $mask = defined('LIBXML_PARSEHUGE')
+                ? LIBXML_PARSEHUGE
+                : 0;
+            $mask |= defined('LIBXML_COMPACT')
+                ? LIBXML_COMPACT
+                : 0;
+            $this->dom->loadHTML($html, $mask);
+        } else {
+            $this->dom->loadHTML($html);
+        }
     }
 
     /* Iterator methods. */

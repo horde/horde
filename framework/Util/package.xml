@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -643,7 +643,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
    </notes>
   </release>
  </changelog>
