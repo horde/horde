@@ -154,22 +154,6 @@
  *   - value: (mixed) The value of the preference. Will be used to
  *            auto-select the entry in the selection list.
  *
- * 'link'
- * ------
- * Provides a clickable link.
- *
- * This pref is a UI placeholder only and will not be stored in the preference
- * backend.
- *
- * ADDITIONAL KEYS:
- *   - desc: (string) The link text.
- *   - img: (string) An image file to display before the link.
- *          DEFAULT: no image displayed
- *   - url: (string) The URL to link to (unescaped). Only specify one of
- *          'url' or 'xurl'.
- *   - xurl: (string) The URL to link to (escaped). Only specify one of 'url'
- *           or 'xurl'.
- *
  * 'multienum'
  * -----------
  * Provides an enumeration list in the UI that allows for multiple entries
@@ -205,31 +189,6 @@
  *   - desc: (string) The description text to use on the preferences page.
  *   - value: (string) The preference value.
  *
- * 'prefslink'
- * -----------
- * Create a link to another preferences page.
- *
- * This pref is a UI placeholder only and will not be stored in the preference
- * backend.
- *
- * ADDITIONAL KEYS:
- *   - app: (string) The application to link to.
- *          DEFAULT: current application.
- *   - desc: (string) The link text.
- *   - group: (string) The preferences group to link to.
- *   - img: (string) An image file to display before the link.
- *          DEFAULT: no image displayed
- *
- * 'rawhtml'
- * ---------
- * Outputs the raw HTML string to the page.
- *
- * This pref is a UI placeholder only and will not be stored in the preference
- * backend.
- *
- * ADDITIONAL KEYS:
- *   - value: (string) The raw (already escaped) HTML to output to the page.
- *
  * 'text'
  * ------
  * Provides a single-line textbox.
@@ -248,13 +207,45 @@
  *            with the "\n" character.
  *
  *
- * Placeholder types - these prefs are UI placeholders only and will not
- * be stored in the preference backend.
+ * These types are for UI-purposes only and will not be stored in the
+ * preference backend.
  *
  * 'container'
  * -----------
  * Used to indicate a list of preferences that MUST appear on the same page
  * for UI purposes.
+ *
+ * 'link'
+ * ------
+ * Provides a clickable link.
+ *
+ * ADDITIONAL KEYS:
+ *   - desc: (string) The link text.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
+ *   - url: (string) The URL to link to (unescaped). Only specify one of
+ *          'url' or 'xurl'.
+ *   - xurl: (string) The URL to link to (escaped). Only specify one of 'url'
+ *           or 'xurl'.
+ *
+ * 'prefslink'
+ * -----------
+ * Create a link to another preferences page.
+ *
+ * ADDITIONAL KEYS:
+ *   - app: (string) The application to link to.
+ *          DEFAULT: current application.
+ *   - desc: (string) The link text.
+ *   - group: (string) The preferences group to link to.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
+ *
+ * 'rawhtml'
+ * ---------
+ * Outputs a raw HTML string to the page.
+ *
+ * ADDITIONAL KEYS:
+ *   - value: (string) The raw (already escaped) HTML to output to the page.
  *
  * 'special'
  * ---------
