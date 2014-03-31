@@ -22,11 +22,12 @@
 var IMP_PrettyAutocompleter = Class.create({
 
     // box,
+    // dimg,
     // elt,
     // input,
-    // lastinput,
 
     itemid: 0,
+    lastinput: '',
 
     initialize: function(elt, params)
     {
@@ -206,12 +207,7 @@ var IMP_PrettyAutocompleter = Class.create({
                         title: value
                     })
                     .insert(displayValue)
-                    .insert(
-                        new Element('IMG', {
-                            className: this.p.removeClass,
-                            src: this.p.deleteIcon
-                        })
-                    )
+                    .insert(this.deleteImg().clone(true).show())
                     .store('raw', value)
                     .store('itemid', ++this.itemid)
         });
@@ -278,6 +274,19 @@ var IMP_PrettyAutocompleter = Class.create({
         return ob;
     },
 
+    deleteImg: function()
+    {
+        if (!this.dimg) {
+            this.dimg = new Element('IMG', {
+                className: this.p.removeClass,
+                src: this.p.deleteIcon
+            }).hide();
+            this.box.insert(this.dimg);
+        }
+
+        return this.dimg;
+    },
+
     /* Event handlers. */
 
     clickHandler: function(e)
@@ -328,6 +337,8 @@ var IMP_PrettyAutocompleter = Class.create({
             this.input.setValue(this.processValue(input));
             this.lastinput = $F(this.input);
             this.resize();
+            // Pre-load the delete image now.
+            this.deleteImg();
         }
     }
 
