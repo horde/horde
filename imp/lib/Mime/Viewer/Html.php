@@ -151,24 +151,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $this->_imptmp = array();
         if ($inline && !$convert_text) {
             $this->_imptmp += array(
-                'blockimg' => null,
                 'cid' => null,
                 'cid_used' => array(),
                 'cssblock' => false,
                 'cssbroken' => false,
-                'img' => false,
                 'imgblock' => false,
                 'inline' => $inline,
                 'style' => array()
             );
-
-            if ($inline) {
-                /* Image filtering. */
-                if (!$injector->getInstance('IMP_Images')->showInlineImage($contents)) {
-                    $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
-                    $this->_imptmp['img'] = true;
-                }
-            }
         }
 
         /* Search for inlined data that we can display (multipart/related
@@ -353,7 +343,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 /* Block images.*/
-                if (!empty($this->_imptmp['img'])) {
+                if ($this->_imgBlock()) {
                     if (Horde_Url_Data::isData($val)) {
                         $url = new Horde_Url_Data($val);
                     } else {
@@ -361,7 +351,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $url->setScheme();
                     }
                     $node->setAttribute('htmlimgblocked', $url);
-                    $node->setAttribute('src', $this->_imptmp['blockimg']);
+                    $node->setAttribute('src', $this->_imgBlockImg());
                     $this->_imptmp['imgblock'] = true;
                 }
             }
@@ -381,7 +371,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                     if ($id = $this->_cidSearch($tmp, false)) {
                         $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
-                    } elseif (!empty($this->_imptmp['img'])) {
+                    } elseif ($this->_imgBlock()) {
                         $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
                         $node->removeAttribute('href');
                         $this->_imptmp['cssblock'] = true;
@@ -437,9 +427,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 /* Block images.*/
-                if (!empty($this->_imptmp['img'])) {
+                if ($this->_imgBlock()) {
                     $node->setAttribute('htmlimgblocked', $val);
-                    $node->setAttribute('background', $this->_imptmp['blockimg']);
+                    $node->setAttribute('background', $this->_imgBlockImg());
                     $this->_imptmp['imgblock'] = true;
                 }
             }
@@ -463,8 +453,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             if (strpos($node->getAttribute('style'), 'content:') !== false) {
                 // TODO: Figure out way to unblock?
                 $node->removeAttribute('style');
-            } elseif (!empty($this->_imptmp['img']) ||
-                      !empty($this->_imptmp['cid'])) {
+            } elseif (!empty($this->_imptmp['cid']) || $this->_imgBlock()) {
                 $this->_imptmp['node'] = $node;
                 $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
                 if ($matches) {
@@ -584,7 +573,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         } else {
             $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
             $this->_imptmp['imgblock'] = true;
-            $replace = $this->_imptmp['blockimg'];
+            $replace = $this->_imgBlockImg();
         }
         return $matches[1] . $replace . $matches[3];
     }
@@ -610,6 +599,40 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         return $id;
+    }
+
+    /**
+     * Are we blocking images?
+     *
+     * @return boolean  True if blocking images.
+     */
+    protected function _imgBlock()
+    {
+        global $injector;
+
+        /* Done on demand, since we potentially save a contacts API call if
+         * not needed/used in a message. */
+        if (!isset($this->_imptmp['img'])) {
+            $this->_imptmp['img'] =
+                ($this->_imptmp['inline'] &&
+                !$injector->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents')));
+        }
+
+        return $this->_imptmp['img'];
+    }
+
+    /**
+     * The HTML image source to use for blocked images.
+     *
+     * @return string  The HTML image source.
+     */
+    protected function _imgBlockImg()
+    {
+        if (!isset($this->_imptmp['blockimg'])) {
+            $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
+        }
+
+        return $this->_imptmp['blockimg'];
     }
 
 }

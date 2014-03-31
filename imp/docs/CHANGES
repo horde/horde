@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Potentially save a call to the contacts backend when viewing HTML
+      messages if no image data is present in the message.
 [mms] Improved styling of dynamic mailbox page, to fix issues when resizing the
       browser font size (Bug #13071).
 [mms] Don't send as multipart/alternative if plaintext part is empty.
