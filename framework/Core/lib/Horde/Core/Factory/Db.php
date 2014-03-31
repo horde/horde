@@ -129,7 +129,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         if (!empty($config['splitread'])) {
             $read_config = $config['read'];
             unset($config['read'], $config['splitread']);
-            return new Horde_Db_Adapter_SplitRead($this->createDb(array_merge($config, $read_config)), $this->createDb($config));
+            return new Horde_Db_Adapter_SplitRead(
+                $this->createDb(array_merge($config, $read_config)),
+                $this->createDb($config)
+            );
         }
 
         if (isset($config['adapter'])) {
