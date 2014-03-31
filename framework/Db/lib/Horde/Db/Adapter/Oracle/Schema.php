@@ -202,7 +202,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             array()
         );
 
-        $rows = @unserialize($this->cacheRead("tables/primarykeys/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/primarykeys/$tableName"));
 
         if (!$rows) {
             $constraint = $this->selectOne(
@@ -238,7 +238,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $rows = @unserialize($this->cacheRead("tables/indexes/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/indexes/$tableName"));
 
         if (!$rows) {
             $rows = $this->selectAll(
@@ -283,7 +283,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->cacheRead("tables/columns/$tableName", 0));
+        $rows = @unserialize($this->cacheRead("tables/columns/$tableName"));
 
         if (!$rows) {
             $rows = $this->selectAll(
