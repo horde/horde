@@ -152,7 +152,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $string = '';
         $values = $this->toJson();
         foreach ($fields as $field => $title) {
-            $string .= sprintf("%s: %s \n", $title, $values[$field]);
+            $string .= sprintf("%s: %s\n", $title, $values[$field]);
         }
         $string .= sprintf("%s: %s", _("Client"), $values['cn']['name']);
 
