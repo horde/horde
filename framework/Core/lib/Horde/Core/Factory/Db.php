@@ -137,6 +137,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         if (isset($config['adapter'])) {
             $class = $this->_getDriverName($config['adapter'], 'Horde_Db_Adapter');
+            unset($config['adapter']);
         } elseif (empty($config['phptype'])) {
             throw new Horde_Exception('The database configuration is missing.');
         } else {
