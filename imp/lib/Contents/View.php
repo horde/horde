@@ -184,12 +184,14 @@ class IMP_Contents_View
 
         $session->close();
 
+        $charset = $this->_contents->getMIMEMessage()->getCharset();
+
         return array(
             'data' => $this->_contents->fullMessageText(array(
                 'stream' => true
             )),
             'name' => _("Message Source"),
-            'type' => 'text/plain; charset=UTF-8'
+            'type' => 'text/plain; charset=' . (is_null($charset) ? 'UTF-8' : $charset)
         );
     }
 
