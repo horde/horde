@@ -984,7 +984,7 @@ var DimpCompose = {
             HordeCore.doAction('addAttachment', {}, {
                 ajaxopts: {
                     postBody: fd,
-                    requestHeaders: { "Content-type": '' }
+                    requestHeaders: { "Content-type": null }
                 },
                 callback: callback
             });
