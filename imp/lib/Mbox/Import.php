@@ -74,7 +74,7 @@ class IMP_Mbox_Import
      */
     protected function _import($fname, $type)
     {
-        if (!file_exists($fname)) {
+        if (!is_readable($fname)) {
             return false;
         }
 

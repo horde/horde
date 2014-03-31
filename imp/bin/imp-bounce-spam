@@ -45,7 +45,7 @@ $bounce_template = IMP_BASE . '/config/bounce.txt';
 /** End Configuration **/
 
 /* If there's no bounce template file then abort */
-if (!file_exists($bounce_template)) {
+if (!is_readable($bounce_template)) {
     $cli->fatal('Bounce template does not exist.');
 }
 
