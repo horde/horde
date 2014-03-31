@@ -1475,9 +1475,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!empty($options['signature'])) {
             if (is_string($options['signature'])) {
                 if (empty($options['html'])) {
-                    $body .= "\n" . $options['signature'];
+                    $body .= "\n\n" . trim($options['signature']);
                 } else {
-                    $html_sig = $options['signature'];
+                    $html_sig = trim($options['signature']);
                     $body .= "\n" . $tfilter->filter($html_sig, 'Html2text');
                 }
             } else {

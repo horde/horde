@@ -421,7 +421,7 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
                 $val = str_replace("\r\n", "\n", $val);
                 $val = ($this->getValue('sig_dashes', $ident))
                     ? "\n-- \n" . $val
-                    : "\n" . $val;
+                    : "\n\n" . $val;
             }
         }
 
