@@ -240,7 +240,7 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ cssFloat: 'left' });
+        this.opts.content = new Element('DIV', { className: opts.list_class });
         this.opts.list_container = new Element('DIV');
         if (this.opts.list_header) {
             this.opts.list_container.insert(this.opts.list_header);
@@ -500,12 +500,10 @@ var ViewPort = Class.create({
 
             h += lh * this.page_size;
             this.opts.list_container.setStyle({
-                height: h + 'px',
                 cssFloat: 'none',
-                overflow: 'hidden',
-                width: 'auto'
+                height: h + 'px'
             });
-            this.opts.content.setStyle({ width: '100%' });
+            this.opts.content.setStyle({ width: 'auto' });
             sp.currbar.show();
             this.opts.pane_data.show().setStyle({ height: Math.max(document.viewport.getHeight() - this.opts.pane_data.viewportOffset()[1], 0) + 'px' });
             break;
@@ -546,12 +544,8 @@ var ViewPort = Class.create({
             }
 
             this.opts.list_container.setStyle({
-                cssFloat: 'none',
-                height: (h + (lh * this.page_size)) + 'px',
-                overflow: 'hidden',
-                width: 'auto'
+                height: (h + (lh * this.page_size)) + 'px'
             });
-            this.opts.content.setStyle({ width: '100%' });
             break;
         }
 
@@ -1348,8 +1342,8 @@ ViewPort_Scroller = Class.create({
             mw = this.mousewheelHandler.bindAsEventListener(this);
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ cssFloat: 'left', overflow: 'hidden' }).hide();
-        c.insert({ after: this.scrollDiv });
+        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ cssFloat: 'right', overflow: 'hidden' }).hide();
+        c.insert({ before: this.scrollDiv });
 
         this.scrollDiv.observe('Slider2:change', function() {
             if (!this.noupdate) {
@@ -1415,16 +1409,10 @@ ViewPort_Scroller = Class.create({
         if (this.scrollbar.needScroll()) {
             switch (this.vp.pane_mode) {
             case 'vert':
-                this.scrollDiv.setStyle({ marginLeft: 0 });
                 if (!this.vertscroll) {
                     c.setStyle({ width: (c.clientWidth - this.scrollDiv.getWidth()) + 'px' });
                 }
                 vs = true;
-                break;
-
-            case 'horiz':
-            default:
-                this.scrollDiv.setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
             }
 

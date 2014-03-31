@@ -48,13 +48,12 @@ input {
 }
 
 /* Message List */
-.horde-buttonbar {
-    padding-right: 18px;
+.horde-buttonbar
+#msglistHeaderHoriz .msgDate,
+#msglistHeaderHoriz .msgSize {
+    padding-right: 15px;
 }
-#msglistHeaderHoriz {
-    padding-right: 14px;
-    margin-right: 0;
-}
+
 .horde-table-header .horde-split-left,
 .horde-table-header .horde-split-right {
     width: 2px;
@@ -89,14 +88,13 @@ div.msgSubject {
 }
 div.msgDate {
     text-align: right;
-    right: 85px;
+    right: 88px;
     width: 130px;
 }
 div.msgSize {
     text-align: right;
-    right: 0;
+    right: 18px;
     width: 50px;
-    padding-right: 25px;
 }
 
 #msglistHeaderContainer .horde-popdown {
@@ -126,21 +124,19 @@ span.vpEmpty {
 }
 
 /* Rows */
-div.vpRow, div.vpRow div {
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    height: 21px;
-    border-bottom: 1px solid #d0d0d0;
-}
 div.vpRow {
-    position: relative;
+    border-bottom: 1px solid #d0d0d0;
+    cursor: pointer;
+    height: 21px;
+    overflow: hidden;
 }
 div.vpRow div {
-    position: absolute;
+    overflow: hidden;
     padding-top: 4px;
+    position: absolute;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
 }
 div.vpRow div.iconImg {
     position: relative;
@@ -238,12 +234,12 @@ div.contextMenu .msCheck, div.contextMenu .msCheckOn {
 div.vpRowVert {
     height: auto;
     padding-top: 4px;
-    border-bottom: 1px solid #d0d0d0;
 }
 div.vpRowVert div {
-    position: relative;
-    padding-top: 0;
     border-bottom-width: 0;
+    height: 20px;
+    padding-top: 0;
+    position: relative;
 }
 div.vpRowVert div.msgStatus {
     float: left;
@@ -253,14 +249,13 @@ div.vpRowVert div.msgStatus {
     width: 15%;
 }
 div.vpRowVert div.msgFrom {
-    float: left;
     left: auto;
     width: auto;
 }
 div.vpRowVert div.msgDate {
     float: right;
     right: auto;
-    padding-right: 10px;
+    padding-right: 5px;
     text-indent: 2px;
     width: auto;
 }
@@ -268,7 +263,7 @@ div.vpRowVert div.msgSubject {
     left: auto;
     right: auto;
     color: gray;
-    padding-right: 10px;
+    padding-right: 5px;
     width: auto;
 }
 div.vpRowVert div.msgSubject span.flagUser {
@@ -277,7 +272,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 
 /* ViewPort - scroller */
 .vpScroll {
-    position: relative;
     background: url("../graphics/scroller_back.png") repeat-y;
 }
 .vpScrollCursor {
