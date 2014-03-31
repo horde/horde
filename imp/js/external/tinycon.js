@@ -41,6 +41,8 @@
 	var defaults = {
 		width: 7,
 		height: 9,
+		// XXX: Horde
+		offset: 0,
 		font: 10 * r + 'px arial',
 		colour: '#ffffff',
 		background: '#F03D25',
@@ -233,7 +235,9 @@
 		context.textBaseline = "top";
 
 		// unfortunately webkit/mozilla are a pixel different in text positioning
-		context.fillText(label, r === 2 ? 29 : 15, browser.mozilla ? 7*r : 6*r);
+		// XXX: Horde
+		// context.fillText(label, r === 2 ? 29 : 15, browser.mozilla ? 7*r : 6*r);
+		context.fillText(label, r === 2 ? 29 : 15, (browser.mozilla ? 7*r : 6*r) + options.offset);
 	};
 
 	var refreshFavicon = function(){

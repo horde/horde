@@ -282,7 +282,17 @@ var DimpBase = {
 
     setTitle: function(title, unread)
     {
+        var opts = {};
+
         document.title = DimpCore.conf.name + ' :: ' + title;
+
+        if (unread > 99 & unread < 1000) {
+            opts.font = '8px Arial';
+            opts.offset = 1;
+            opts.width = 1;
+        }
+
+        Tinycon.setOptions(opts);
         Tinycon.setBubble(unread);
     },
 
