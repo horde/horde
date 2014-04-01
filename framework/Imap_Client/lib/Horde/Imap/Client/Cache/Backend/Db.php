@@ -263,6 +263,10 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
      */
     public function deleteMsgs($mailbox, $uids)
     {
+        if (empty($uids)) {
+            return;
+        }
+
         $query = $this->_baseSql($mailbox);
         $query[0] = sprintf(
             'DELETE FROM %s WHERE messageid IN (SELECT messageid ' . $query[0] . ')',

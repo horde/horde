@@ -284,7 +284,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
      */
     public function deleteMsgs($mailbox, $uids)
     {
-        if ($uid = $this->_getUid($mailbox)) {
+        if (!empty($uids) && ($uid = $this->_getUid($mailbox))) {
             try {
                 $this->_db->selectCollection(self::MSG)->remove(array(
                     self::MSG_MSGUID => array('$in' => array_map('strval', $uids)),

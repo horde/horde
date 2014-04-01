@@ -217,6 +217,10 @@ extends Horde_Imap_Client_Cache_Backend
      */
     public function deleteMsgs($mailbox, $uids)
     {
+        if (empty($uids)) {
+            return;
+        }
+
         $this->_loadMailbox($mailbox);
 
         foreach ($uids as $val) {

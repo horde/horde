@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Prevent unnecessary cache writes when list of UIDs passed to deleteMsgs() is empty.
 * [mms] Fix stripping non-ASCII characters in Horde_Imap_Client_Data_Format_Atom#stripNonAtomCharacters().
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Don&apos;t allow PREAUTH on unencrypted connection if a secure connection (e.g. STARTTLS) is requested.
@@ -2320,6 +2321,7 @@
    <date>2014-03-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Prevent unnecessary cache writes when list of UIDs passed to deleteMsgs() is empty.
 * [mms] Fix stripping non-ASCII characters in Horde_Imap_Client_Data_Format_Atom#stripNonAtomCharacters().
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Don&apos;t allow PREAUTH on unencrypted connection if a secure connection (e.g. STARTTLS) is requested.
