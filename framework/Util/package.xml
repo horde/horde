@@ -23,11 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-27</date>
- <time>09:32:26</time>
+ <date>2014-04-01</date>
  <version>
-  <release>2.3.1</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_String_Normalize class.
 * [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
  </notes>
  <contents>
@@ -54,6 +54,9 @@
        <file name="Helper.php" role="php" />
       </dir> <!-- /lib/Horde/Array/Sort -->
      </dir> <!-- /lib/Horde/Array -->
+     <dir name="String">
+      <file name="Normalize.php" role="php" />
+     </dir> <!-- /lib/Horde/String -->
      <file name="Array.php" role="php" />
      <file name="Domhtml.php" role="php" />
      <file name="String.php" role="php" />
@@ -71,6 +74,7 @@
       <file name="ArrayTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="DomhtmlTest.php" role="test" />
+      <file name="NormalizeTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="StringTest.php" role="test" />
       <file name="UtilTest.php" role="test" />
@@ -137,10 +141,12 @@
    <install as="Horde/Util.php" name="lib/Horde/Util.php" />
    <install as="Horde/Variables.php" name="lib/Horde/Variables.php" />
    <install as="Horde/Array/Sort/Helper.php" name="lib/Horde/Array/Sort/Helper.php" />
+   <install as="Horde/String/Normalize.php" name="lib/Horde/String/Normalize.php" />
    <install as="Horde/Util/AllTests.php" name="test/Horde/Util/AllTests.php" />
    <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
    <install as="Horde/Util/bootstrap.php" name="test/Horde/Util/bootstrap.php" />
    <install as="Horde/Util/DomhtmlTest.php" name="test/Horde/Util/DomhtmlTest.php" />
+   <install as="Horde/Util/NormalizeTest.php" name="test/Horde/Util/NormalizeTest.php" />
    <install as="Horde/Util/phpunit.xml" name="test/Horde/Util/phpunit.xml" />
    <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
@@ -635,14 +641,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.3.1</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-27</date>
+   <date>2014-04-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_String_Normalize class.
 * [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
    </notes>
   </release>
