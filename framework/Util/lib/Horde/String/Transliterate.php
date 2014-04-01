@@ -15,6 +15,7 @@
  * Provides utility methods used to transliterate a string.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -31,6 +32,13 @@ class Horde_String_Transliterate
     static protected $_map;
 
     /**
+     * Transliterator instance.
+     *
+     * @var Transliterator
+     */
+    static protected $_transliterator;
+
+    /**
      * Transliterates an UTF-8 string to ASCII, replacing non-English
      * characters to their English equivalents.
      *
@@ -43,6 +51,39 @@ class Horde_String_Transliterate
      * @return string  Transliterated string (UTF-8).
      */
     static public function toAscii($str)
+    {
+        switch (true) {
+        case class_exists('Transliterator'):
+            return self::_intlToAscii($str);
+        case extension_loaded('iconv'):
+            return self::_iconvToAscii($str);
+        default:
+            return self::_fallbackToAscii($str);
+        }
+    }
+
+    /**
+     */
+    static protected function _intlToAscii($str)
+    {
+        if (!isset(self::$_transliterator)) {
+            self::$_transliterator = Transliterator::create(
+                'Any-Latin; Latin-ASCII'
+            );
+        }
+        return self::$_transliterator->transliterate($str);
+    }
+
+    /**
+     */
+    static protected function _iconvToAscii($str)
+    {
+        return iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+    }
+
+    /**
+     */
+    static protected function _fallbackToAscii($str)
     {
         if (!isset(self::$_map)) {
             self::$_map = array(
@@ -118,5 +159,4 @@ class Horde_String_Transliterate
 
         return strtr($str, self::$_map);
     }
-
 }

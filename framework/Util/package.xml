@@ -70,6 +70,9 @@
       <dir name="fixtures">
        <file name="domhtml_test.html" role="test" />
       </dir> <!-- /test/Horde/Util/fixtures -->
+      <dir name="Mock">
+       <file name="Transliterate.php" role="test" />
+      </dir> <!-- /test/Horde/Util/Mock -->
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -121,6 +124,9 @@
     <name>iconv</name>
    </extension>
    <extension>
+    <name>intl</name>
+   </extension>
+   <extension>
     <name>json</name>
    </extension>
    <extension>
@@ -152,6 +158,7 @@
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
    <install as="Horde/Util/VariablesTest.php" name="test/Horde/Util/VariablesTest.php" />
    <install as="Horde/Util/fixtures/domhtml_test.html" name="test/Horde/Util/fixtures/domhtml_test.html" />
+   <install as="Horde/Util/Mock/Transliterate.php" name="test/Horde/Util/Mock/Transliterate.php" />
    </filelist>
  </phprelease>
  <changelog>
