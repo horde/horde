@@ -31,6 +31,7 @@
  * @property-read string $fgcolor  The foreground (text) color.
  * @property-read string $form_set  Form value to use when setting flag.
  * @property-read string $form_unset  Form value to use when unsetting flag.
+ * @property-read string $hash  Unique hash of this flag.
  * @property-read string $id  Unique ID.
  * @property-read string $label  The query label.
  * @property-read string $span  Return SPAN HTML to output the icon for use in
@@ -125,6 +126,12 @@ abstract class IMP_Flag_Base implements Serializable
 
         case 'form_unset':
             return '0\\' . $this->id;
+
+        case 'hash':
+            return hash(
+                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                $this->id
+            );
 
         case 'id':
             return $this->_id;

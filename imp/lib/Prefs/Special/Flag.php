@@ -63,10 +63,7 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         $out = array();
         $flaglist = $injector->getInstance('IMP_Flags')->getList();
         foreach ($flaglist as $val) {
-            $hash = hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                $val->id
-            );
+            $hash = $val->hash;
             $bgid = 'bg_' . $hash;
             $color = $val->bgdefault ? '' : $val->bgcolor;
             $tmp = array();
@@ -110,10 +107,7 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         // actions.
         $update = false;
         foreach ($imp_flags->getList() as $val) {
-            $hash = hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                $val->id
-            );
+            $hash = $val->hash;
 
             switch ($ui->vars->flag_action) {
             case 'delete':
