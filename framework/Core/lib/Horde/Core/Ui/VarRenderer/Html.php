@@ -1169,7 +1169,7 @@ function obrowserCallback(name, oid)
             $img->add('f', $image['img']['file']);
         }
 
-        return Horde_Themes_Image::tag((string)$img);
+        return '<img src="' . $img . '" />';
     }
 
     protected function _renderVarDisplay_phone($form, &$var, &$vars)
