@@ -91,13 +91,4 @@ class IMP_Indices_Mailbox extends IMP_Indices
         }
     }
 
-    /**
-     */
-    public function joinIndices()
-    {
-        $ob = new IMP_Indices($this);
-        $ob->add($this->buids);
-        return $ob;
-    }
-
 }
