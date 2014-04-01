@@ -12,7 +12,7 @@
  */
 
 /**
- * Provides utility methods used to normalize a string.
+ * Provides utility methods used to transliterate a string.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -21,18 +21,18 @@
  * @package   Util
  * @since     2.4.0
  */
-class Horde_String_Normalize
+class Horde_String_Transliterate
 {
     /**
-     * Normalize mapping cache.
+     * Transliterate mapping cache.
      *
      * @var array
      */
     static protected $_map;
 
     /**
-     * Normalize a UTF-8 string to ASCII, replacing non-English characters to
-     * their English equivalents.
+     * Transliterates an UTF-8 string to ASCII, replacing non-English
+     * characters to their English equivalents.
      *
      * Note: there is no guarantee that the output string will be ASCII-only,
      * since any non-ASCII character not in the transliteration list will
@@ -40,9 +40,9 @@ class Horde_String_Normalize
      *
      * @param string $str  Input string (UTF-8).
      *
-     * @return string  Normalized string (UTF-8).
+     * @return string  Transliterated string (UTF-8).
      */
-    static public function normalizeToAscii($str)
+    static public function toAscii($str)
     {
         if (!isset(self::$_map)) {
             self::$_map = array(

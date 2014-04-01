@@ -66,8 +66,8 @@ class IMP_Flag_User extends IMP_Flag_Imap
             $atom = new Horde_Imap_Client_Data_Format_Atom(
                 /* 2: Convert whitespace to underscore. */
                 strtr(
-                    /* 1: Do UTF-8 -> ASCII normalization. */
-                    Horde_String_Normalize::normalizeToAscii($value),
+                    /* 1: Do UTF-8 -> ASCII transliteration. */
+                    Horde_String_Transliterate::toAscii($value),
                     ' ',
                     '_'
                 )
