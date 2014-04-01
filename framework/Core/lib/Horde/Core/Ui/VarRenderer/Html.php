@@ -214,6 +214,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
              * manipulation. */
             $html .= '<br />';
             $img = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/images/view.php');
+            $img->setRaw(true);
             if (isset($image['img']['vfs_id'])) {
                 /* Calling an image from VFS. */
                 $img->add(array(
@@ -276,6 +277,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             }
 
             /* The preview image element. */
+            $img->setRaw(false);
             $html .= '<br /><img src="' . $img . '" ' . $this->_genID('_p_' . $varname) . ">\n";
         }
 
