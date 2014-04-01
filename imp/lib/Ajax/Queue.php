@@ -462,7 +462,7 @@ class IMP_Ajax_Queue
             $msg->save_as = strval($msg->save_as);
 
             if ($indices instanceof IMP_Indices_Mailbox) {
-                $indices = $indices->joinIndices();
+                $indices = $indices->buids;
             }
 
             foreach ($indices as $val) {
