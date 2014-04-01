@@ -62,14 +62,31 @@ class IMP_Flag_User extends IMP_Flag_Imap
     {
         switch ($name) {
         case 'imapflag':
-            /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword).
-             * Convert whitespace to underscore. */
-            if (Horde_Mime::is8bit($value)) {
-                throw new IMP_Exception(_("Invalid characters in flag name."));
+            /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword). */
+            $atom = new Horde_Imap_Client_Data_Format_Atom(
+                /* 2: Convert whitespace to underscore. */
+                strtr(
+                    /* 1: Do UTF-8 -> ASCII normalization. */
+                    Horde_String_Normalize::normalizeToAscii($value),
+                    ' ',
+                    '_'
+                )
+            );
+
+            /* 3: Remove all non-atom characters. */
+            $imapflag = $atom->stripNonAtomCharacters();
+
+            /* 4: If string is empty (i.e. it contained all non-ASCII
+             * characters that could not be converted), save the hashed value
+             * of original string as flag. */
+            if (!strlen($imapflag)) {
+                $imapflag = hash(
+                    (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                    $value
+                );
             }
 
-            $atom = new Horde_Imap_Client_Data_Format_Atom(strtr($value, ' ', '_'));
-            $this->_imapflag = $atom->stripNonAtomCharacters();
+            $this->_imapflag = $imapflag;
             break;
 
         case 'label':
