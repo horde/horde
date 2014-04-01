@@ -527,6 +527,7 @@ class Turba_Application extends Horde_Registry_Application
             foreach ($sources as $source => $objectkeys) {
                 /* Create a Turba storage instance. */
                 $driver = $tfd->create($source);
+                $blobs = $driver->getBlobs();
 
                 /* Get the full, sorted contact list. */
                 try {
@@ -547,7 +548,8 @@ class Turba_Application extends Horde_Registry_Application
                     } else {
                         $row = array();
                         foreach ($fields as $field) {
-                            if (substr($field, 0, 2) == '__') {
+                            if (substr($field, 0, 2) == '__' ||
+                                isset($blobs[$field])) {
                                 continue;
                             }
                             $attribute = $ob->getValue($field);
