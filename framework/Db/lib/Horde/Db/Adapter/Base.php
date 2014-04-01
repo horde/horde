@@ -80,6 +80,13 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     protected $_cache;
 
     /**
+     * Cache prefix.
+     *
+     * @var string
+     */
+    protected $_cachePrefix;
+
+    /**
      * Log object.
      *
      * @var Horde_Log_Logger
@@ -362,8 +369,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function cacheWrite($key, $value)
     {
-        $key = get_class($this) . hash('sha1', serialize($this->_config)) . $key;
-        $this->_cache->set($key, $value);
+        $this->_cache->set($this->_cacheKey($key), $value);
     }
 
     /**
@@ -380,8 +386,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function cacheRead($key)
     {
-        $key = get_class($this) . hash('sha1', serialize($this->_config)) . $key;
-        return $this->_cache->get($key, 0);
+        return $this->_cache->get($this->_cacheKey($key), 0);
     }
 
 
@@ -781,4 +786,21 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     {
         return "SQL $message  \n\t" . wordwrap(preg_replace("/\s+/", ' ', $sql), 70, "\n\t  ", 1);
     }
+
+    /**
+     * Returns the prefixed cache key to use.
+     *
+     * @param string $key  A cache key.
+     *
+     * @return string  Prefixed cache key.
+     */
+    protected function _cacheKey($key)
+    {
+        if (!isset($this->_cachePrefix)) {
+            $this->_cachePrefix = get_class($this) . hash((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1', serialize($this->_config));
+        }
+
+        return $this->_cachePrefix . $key;
+    }
+
 }
