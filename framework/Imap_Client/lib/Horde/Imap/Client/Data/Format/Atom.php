@@ -47,7 +47,11 @@ class Horde_Imap_Client_Data_Format_Atom extends Horde_Imap_Client_Data_Format
      */
     public function stripNonAtomCharacters()
     {
-        return str_replace(array('(', ')', '{', ' ', '%', '*', '"', '\\', ']'), '', preg_replace('/[\x00-\x1f\x7f]/', '', $this->_data));
+        return str_replace(
+            array('(', ')', '{', ' ', '%', '*', '"', '\\', ']'),
+            '',
+            preg_replace('/[^\x20-\x7e]/', '', $this->_data)
+        );
     }
 
 }

@@ -106,4 +106,21 @@ extends PHPUnit_Framework_TestCase
         $this->ob4->verify();
     }
 
+    public function testStripNonAtomCharacters()
+    {
+        $str = 'ABC123abc';
+        $atom = new Horde_Imap_Client_Data_Format_Atom($str);
+        $this->assertEquals(
+            $atom->stripNonAtomCharacters(),
+            $str
+        );
+
+        $str = 'A[{À*"A';
+        $atom = new Horde_Imap_Client_Data_Format_Atom($str);
+        $this->assertEquals(
+            'A[A',
+            $atom->stripNonAtomCharacters()
+        );
+    }
+
 }
