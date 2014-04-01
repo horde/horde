@@ -144,7 +144,7 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
     {
         if (!$this->locked) {
             foreach (IMP_Mailbox::get($this->_data) as $val) {
-                if (!$val->mbox_ob->exists) {
+                if (!$val->exists) {
                     $this->removePollList($val);
                 }
             }
