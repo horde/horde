@@ -275,7 +275,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function grayscale()
     {
         try {
-            $this->_imagick->setImageColorSpace(Imagick::COLORSPACE_GRAY);
+            $this->_imagick->setImageType(Imagick::IMGTYPE_GRAYSCALE);
         } catch (ImageException $e) {
             throw new Horde_Image_Exception($e);
         }
