@@ -61,14 +61,14 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function get($key, $lifetime = 0)
     {
-        return $this->_hash->get($this->_params['prefix'] . $key);
+        return $this->_hash->get($this->_getKey($key));
     }
 
     /**
      */
     public function set($key, $data, $lifetime = 0)
     {
-        $this->_hash->set($this->_params['prefix'] . $key, $data, array_filter(array(
+        $this->_hash->set($this->_getKey($key), $data, array_filter(array(
             'expire' => $lifetime
         )));
     }
@@ -78,14 +78,14 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function exists($key, $lifetime = 0)
     {
-        return $this->_hash->exists($this->_params['prefix'] . $key);
+        return $this->_hash->exists($this->_getKey($key));
     }
 
     /**
      */
     public function expire($key)
     {
-        $this->_hash->delete($this->_params['prefix'] . $key);
+        $this->_hash->delete($this->_getKey($key));
     }
 
     /**
@@ -93,6 +93,18 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
     public function clear()
     {
         $this->_hash->clear();
+    }
+
+    /**
+     * Return the hashtable key.
+     *
+     * @param string $key  Object ID.
+     *
+     * @return string  Hashtable key ID.
+     */
+    protected function _getKey($key)
+    {
+        return $this->_params['prefix'] . $key;
     }
 
 }
