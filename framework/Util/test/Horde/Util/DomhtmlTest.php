@@ -89,7 +89,7 @@ EOT;
         $dom = new Horde_Domhtml($text, 'iso-8859-2');
         $this->assertEquals(
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-2'),
-            trim($dom->returnBody())
+            strtr(trim($dom->returnBody()), array("\n" => ''))
         );
 
         $this->assertEquals(
