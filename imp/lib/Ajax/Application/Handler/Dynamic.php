@@ -1080,7 +1080,7 @@ extends Horde_Core_Ajax_Application_Handler
         $imp_flags = $injector->getInstance('IMP_Flags');
 
         try {
-            $imp_flags->addFlag($this->vars->flagname);
+            $imapflag = $imp_flags->addFlag($this->vars->flagname);
         } catch (IMP_Exception $e) {
             $notification->push($e, 'horde.error');
             $ret->success = false;
@@ -1092,7 +1092,7 @@ extends Horde_Core_Ajax_Application_Handler
         }
 
         $this->vars->add = true;
-        $this->vars->flags = json_encode(array($this->vars->flagname));
+        $this->vars->flags = json_encode(array($imapflag));
         $this->flagMessages();
 
         $this->_base->queue->flagConfig();
