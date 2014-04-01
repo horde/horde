@@ -121,6 +121,14 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
                 return false;
             }
 
+            if (!empty($this->_params['logger'])) {
+                $this->_params['logger']->debug(sprintf(
+                    '%s: Deleted keys (%s)',
+                    get_class($this),
+                    implode(',', array_keys($to_delete))
+                ));
+            }
+
             $this->_noexist = array_merge($this->_noexist, array_fill_keys(array_values($todo), true));
         }
 
@@ -191,7 +199,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      */
     protected function _getExists($keys, $callback)
     {
-        $out = $todo = array();
+        $noexist = $out = $todo = array();
 
         if (!($ret_array = is_array($keys))) {
             $keys = array($keys);
@@ -200,6 +208,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
         foreach ($keys as $val) {
             if (isset($this->_noexist[$val])) {
                 $out[$val] = false;
+                $noexist[] = $val;
             } else {
                 $todo[$this->hkey($val)] = $val;
             }
@@ -209,8 +218,26 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
             foreach (call_user_func($callback, array_keys($todo)) as $key => $val) {
                 if ($val === false) {
                     $this->_noexist[$todo[$key]] = true;
+                    $noexist[] = $todo[$key];
                 }
                 $out[$todo[$key]] = $val;
+            }
+        }
+
+        if (!empty($this->_params['logger'])) {
+            if ($tmp = array_diff(array_keys($out), $noexist)) {
+                $this->_params['logger']->debug(sprintf(
+                    '%s: Retrieved keys (%s)',
+                    get_class($this),
+                    implode(',', $tmp)
+                ));
+            }
+            if (!empty($noexist)) {
+                $this->_params['logger']->debug(sprintf(
+                    '%s: Non-existent keys (%s)',
+                    get_class($this),
+                    implode(',', $noexist)
+                ));
             }
         }
 
@@ -248,10 +275,21 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
 
         if ($this->_set($this->hkey($key), $val, $opts)) {
             unset($this->_noexist[$key]);
-            return true;
+            $res = true;
+        } else {
+            $res = false;
         }
 
-        return false;
+        if (!empty($this->_params['logger'])) {
+            $this->_params['logger']->debug(sprintf(
+                '%s: Set key %s(%s)',
+                get_class($this),
+                $res ? '' : 'FAILED ',
+                $key
+            ));
+        }
+
+        return $res;
     }
 
     /**

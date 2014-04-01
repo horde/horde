@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Implement logging.
 * [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
  </notes>
  <contents>
@@ -77,6 +78,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Horde_Memcache</name>
     <channel>pear.horde.org</channel>
@@ -214,6 +222,7 @@
    <date>2014-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Implement logging.
 * [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
    </notes>
   </release>
