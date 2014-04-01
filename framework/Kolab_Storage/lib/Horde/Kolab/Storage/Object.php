@@ -383,7 +383,8 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             $this->addParseError(self::ERROR_INVALID_KOLAB_PART, $result->getMessage());
         } else {
             foreach ($structure->getParts() as $part) {
-                if ($part->getMimeId() == $result[0] || !$part->getName()) {
+                if ($part->getMimeId() == $this->_mime_part_id ||
+                    !$part->getName()) {
                     continue;
                 }
                 $this->_data['_attachments'][$part->getName()] = array(
