@@ -23,7 +23,6 @@ var DimpBase = {
     ppfifo: [],
     showunsub: 0,
     smboxes: {},
-    tcache: {},
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
     // of an average e-mail size is 10 KB (including headers), also make
@@ -408,7 +407,7 @@ var DimpBase = {
 
     _createViewPort: function()
     {
-        var container = $('msgSplitPane');
+        var container = $('msgSplitPane'), escapeAttr;
 
         this.template = {
             horiz: new Template(DimpCore.conf.msglist_template_horiz),
@@ -438,7 +437,6 @@ var DimpBase = {
             onContent: function(r, mode) {
                 var bg, u,
                     thread = $H(this.viewport.getMetaData('thread')),
-                    tmp = new Element('foo'),
                     tsort = this.isThreadSort();
 
                 /* HTML escape the date, from, and size entries. */
@@ -448,46 +446,37 @@ var DimpBase = {
                     }
                 });
 
+                r.status = r.subjectdata = '';
+
                 // Add thread graphics
-                r.subjectdata = tmp.clone();
                 if (tsort && mode != 'vert') {
                     u = thread.get(r.VP_id);
                     if (u) {
                         $R(0, u.length, true).each(function(i) {
-                            var c = u.charAt(i);
-                            if (!this.tcache[c]) {
-                                this.tcache[c] = new Element('SPAN', {
-                                    className: 'horde-tree-image horde-tree-image-' + c
-                                });
-                            }
-                            r.subjectdata.insert(this.tcache[c].clone(true));
-                        }, this);
+                            r.subjectdata += '<span class="horde-tree-image horde-tree-image-' + u.charAt(i) + '"></span>';
+                        });
                     }
                 }
 
-                /* Generate the status flags. */
-                r.status = tmp.clone();
+                /* Generate the subject/status flags. */
                 if (r.flag) {
+                    escapeAttr = function(s) {
+                        return s.escapeHTML().replace(/"/g, '&quot;');
+                    };
+
                     r.flag.each(function(a) {
                         var ptr = this.flags[a];
                         if (ptr.u) {
                             if (!ptr.elt) {
-                                ptr.elt = new Element('SPAN', { className: ptr.c })
-                                    .writeAttribute('title', ptr.l)
-                                    .writeAttribute('style', 'background:' + ((ptr.b) ? ptr.b : '') + ';color:' + ptr.f)
-                                    .insert(ptr.l.truncate(10).escapeHTML());
+                                ptr.elt = '<span class="' + escapeAttr(ptr.c) + '" title="' + escapeAttr(ptr.l) + '" style="' + ((ptr.b) ? ('background:' + escapeAttr(ptr.b) + ';') : '') + ';color:' + escapeAttr(ptr.f) + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
                             }
-                            r.subjectdata.insert(ptr.elt);
+                            r.subjectdata += ptr.elt;
                         } else {
                             if (ptr.c) {
                                 if (!ptr.elt) {
-                                    ptr.elt = new Element('DIV', {
-                                            className: 'iconImg msgflags ' + ptr.c
-                                        })
-                                        .writeAttribute('title', ptr.l);
+                                    ptr.elt = '<div class="iconImg msgflags ' + escapeAttr(ptr.c) + '" title="' + escapeAttr(ptr.l) + '"></div>';
                                 }
-                                r.status.insert(ptr.elt);
-
+                                r.status += ptr.elt;
                                 r.VP_bg.push(ptr.c);
                             }
 
@@ -536,9 +525,6 @@ var DimpBase = {
                 }, this);
 
                 r.VP_bg.push('vpRow');
-
-                r.status = r.status.innerHTML;
-                r.subjectdata = r.subjectdata.innerHTML;
 
                 switch (mode) {
                 case 'vert':
