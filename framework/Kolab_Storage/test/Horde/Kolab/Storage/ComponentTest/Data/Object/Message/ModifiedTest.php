@@ -114,8 +114,8 @@ Content-Transfer-Encoding: quoted-printable
   <creation-date></creation-date>
   <last-modification-date></last-modification-date>
   <sensitivity>public</sensitivity>
-  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</=
-product-id>
+  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id=
+>
   <summary>NEW</summary>
   <x-test>other client</x-test>
   <background-color>#000000</background-color>
