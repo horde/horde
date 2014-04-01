@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add optional dependency on imagick PECL extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -459,6 +459,14 @@
    <package>
     <name>XML_SVG</name>
     <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>imagick</name>
+    <channel>pecl.php.net</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+    <providesextension>imagick</providesextension>
    </package>
    <extension>
     <name>gd</name>
@@ -987,7 +995,7 @@ Initial release as a PEAR package
    <date>2013-07-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add optional dependency on imagick PECL extension.
    </notes>
   </release>
  </changelog>
