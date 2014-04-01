@@ -25,6 +25,18 @@ class Horde_Core_Auth_Signup_Null extends Horde_Core_Auth_Signup_Base
     }
 
     /**
+     * Checks if a user exists in the system.
+     *
+     * @param string $user  The user to check.
+     *
+     * @return boolean  True if the user exists.
+     * @throws Horde_Db_Exception
+     */
+    public function exists($user)
+    {
+        return false;
+    }
+    /**
      * Get a user's queued signup information.
      *
      * @param string $username  The username to retrieve the queued info for.

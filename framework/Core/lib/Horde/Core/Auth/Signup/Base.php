@@ -27,16 +27,20 @@ abstract class Horde_Core_Auth_Signup_Base
      */
     public function addSignup(&$info)
     {
+        /* @var $auth Horde_Auth_Base */
+        /* @var $injector Horde_Injector */
+        global $auth, $injector;
+
         // Perform any preprocessing if requested.
         $this->_preSignup($info);
 
         // Attempt to add the user to the system.
-        $GLOBALS['auth']->addUser($info['user_name'], array('password' => $info['password']));
+        $auth->addUser($info['user_name'], array('password' => $info['password']));
 
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+                $injector->getInstance('Horde_Core_Hooks')->callHook(
                     'signup_addextra',
                     'horde',
                     array(
@@ -60,7 +64,10 @@ abstract class Horde_Core_Auth_Signup_Base
      */
     public function queueSignup(&$info)
     {
-        global $conf;
+        /* @var $conf array */
+        /* @var $injector Horde_Injector */
+        /* @var $registry Horde_Registry */
+        global $conf, $injector, $registry;
 
         // Perform any preprocessing if requested.
         $this->_preSignup($info);
@@ -78,7 +85,7 @@ abstract class Horde_Core_Auth_Signup_Base
         $this->_queueSignup($signup);
 
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
                 'signup_queued',
                 'horde',
                 array(
@@ -89,7 +96,7 @@ abstract class Horde_Core_Auth_Signup_Base
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!empty($conf['signup']['email'])) {
-            $link = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/signup_confirm.php', true, -1)->setRaw(true)->add(array(
+            $link = Horde::url($registry->get('webroot', 'horde') . '/admin/signup_confirm.php', true, -1)->setRaw(true)->add(array(
                 'u' => $signup->getName(),
                 'h' => hash_hmac('sha1', $signup->getName(), $conf['secret_key'])
             ));
@@ -104,7 +111,7 @@ abstract class Horde_Core_Auth_Signup_Base
                 'Subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->getName()),
                 'To' => $conf['signup']['email'],
                 'From' => $conf['signup']['email']));
-            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+            $mail->send($injector->getInstance('Horde_Mail'));
         }
     }
 
@@ -117,8 +124,12 @@ abstract class Horde_Core_Auth_Signup_Base
      */
     protected function _preSignup(&$info)
     {
+        /* @var $auth Horde_Auth_Base */
+        /* @var $injector Horde_Injector */
+        global $auth, $injector;
+
         try {
-            $info = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
+            $info = $injector->getInstance('Horde_Core_Hooks')->callHook(
                 'signup_preprocess',
                 'horde',
                 array($info)
@@ -127,11 +138,21 @@ abstract class Horde_Core_Auth_Signup_Base
 
         // Check to see if the username already exists in the auth backend or
         // the signup queue.
-        if ($GLOBALS['auth']->exists($info['user_name']) ||
+        if ($auth->exists($info['user_name']) ||
             $this->exists($info['user_name'])) {
             throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $info['user_name']));
         }
     }
+
+    /**
+     * Checks if a user exists in the system.
+     *
+     * @param string $user  The user to check.
+     *
+     * @return boolean  True if the user exists.
+     * @throws Horde_Db_Exception
+     */
+    abstract public function exists($user);
 
     /**
      * Queues the user's submitted registration info for later admin approval.
