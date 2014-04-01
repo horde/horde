@@ -114,8 +114,8 @@ abstract class Horde_Service_Weather_Base
      * Constructor.
      *
      * @param array $params  Parameters:
-     *                       - 'cache': optional Horde_Cache object.
-     *                       - 'cache_lifetime': Lifetime of cached results.
+     *     - cache: (Horde_Cache)       Optional Horde_Cache object.
+     *     - cache_lifetime: (integer)  Lifetime of cached data, if caching..
      */
     public function __construct(array $params = array())
     {
@@ -149,8 +149,10 @@ abstract class Horde_Service_Weather_Base
      * Returns the forecast for the current location.
      *
      * @param string $location  The location code.
-     * @param integer $length   The forecast length.
-     * @param integer $type     The type of forecast to return.
+     * @param integer $length   The forecast length, a
+     *                          Horde_Service_Weather::FORECAST_* constant.
+     * @param integer $type     The type of forecast to return, a
+     *                          Horde_Service_Weather::FORECAST_TYPE_* constant
      *
      * @return Horde_Service_Weather_Forecast_Base
      */
@@ -163,7 +165,12 @@ abstract class Horde_Service_Weather_Base
      * Searches locations.
      *
      * @param string $location  The location string to search.
-     * @param integer $type     The type of search to perform.
+     * @param integer $type     The type of search to perform, a
+     *                          Horde_Service_Weather::SEARCHTYPE_* constant.
+     *
+     * @return string  The search location suitable to use directly in a
+     *                 weather request.
+     * @throws Horde_Service_Weather_Exception
      */
     abstract public function searchLocations(
         $location,
@@ -175,7 +182,8 @@ abstract class Horde_Service_Weather_Base
      * @param string $search  The text to search.
      *
      * @return array  An array of stdClass objects with 'name' and 'code'
-     *                properties
+     *                properties.
+     * @throws Horde_Service_Weather_Exception
      */
     public function autocompleteLocation($search)
     {
@@ -185,6 +193,10 @@ abstract class Horde_Service_Weather_Base
     /**
      * Returns a mapping of units for each UNIT type.
      *
+     * @param integer $type The units for measurement. A
+     *                      Horde_Service_Weather::UNITS_* constant.
+     *
+     * @return array  The mapping of measurements (as keys) and units (as values).
      */
     public function getUnits($type = null)
     {
@@ -214,9 +226,10 @@ abstract class Horde_Service_Weather_Base
     }
 
     /**
-     * Returns the station information.
+     * Returns the station information associated with the last request.
      *
      * @return Horde_Service_Weather_Station
+     * @throws Horde_Service_Weather_Exception if not request has yet been made.
      */
     public function getStation()
     {
@@ -230,9 +243,10 @@ abstract class Horde_Service_Weather_Base
      * Check if an IP address is a globally unique address and not in RFC1918 or
      * RFC3330 address space.
      *
-     * @param  string $ip  The IPv4 IP address to check.
+     * @param string $ip  The IPv4 IP address to check.
      *
-     * @return boolean  True if the IP address is globally unique.
+     * @return boolean  True if the IP address is globally unique, otherwise
+     *                  false.
      * @link http://tools.ietf.org/html/rfc3330
      * @link http://www.faqs.org/rfcs/rfc1918.html
      */

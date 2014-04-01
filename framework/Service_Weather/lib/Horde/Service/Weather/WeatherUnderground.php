@@ -314,7 +314,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _parseAstronomy($astronomy)
     {
         // For now, just cast to array and pass back, we need to normalize
-        // at least the moon data. (Given in percent illumindated and age -
+        // at least the moon data. (Given in percent illuminated and age -
         // need to parse that into phases.)
         return (array)$astronomy;
     }
