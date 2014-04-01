@@ -40,7 +40,6 @@ input {
 #msgSplitPane {
     border-bottom: 1px solid #d0d0d0;
     overflow: hidden;
-    width: auto;
 }
 .horde-splitbar-horiz {
     height: 7px;
