@@ -58,6 +58,9 @@ case 'tmp':
     if (empty($action) || ($action == 'resize')) {
         /* Use original if no action or if resizing. */
         $file_name = $tmpdir . '/' . $file;
+        if (file_exists($tmpdir . '/mod_' . $file)) {
+            unlink($tmpdir . '/mod_' . $file);
+        }
     } else {
         $file_name = $tmpdir . '/mod_' . $file;
         if (!file_exists($file_name)) {
