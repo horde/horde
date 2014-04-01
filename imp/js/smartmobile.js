@@ -518,14 +518,17 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        if (!ob && (HordeMobile.currentPage() != 'folders')) {
-            HordeMobile.doAction(
-                'viewPort',
-                ImpMobile.addViewportParams({
-                    checkcache: 1,
-                    view: ImpMobile.mailbox
-                })
-            );
+        if (!ob) {
+            if (HordeMobile.currentPage() != 'folders') {
+                HordeMobile.doAction(
+                    'viewPort',
+                    ImpMobile.addViewportParams({
+                        checkcache: 1,
+                        view: ImpMobile.mailbox
+                    })
+                );
+            }
+            return;
         }
 
         if (HordeMobile.currentPage() != 'mailbox') {
