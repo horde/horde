@@ -123,6 +123,9 @@ class IMP_Prefs_Special_SpecialMboxes
         }
 
         $special_use = array();
+        /* $val['attributes'] is normalized to lowercase. */
+        $use = Horde_String::lower($use);
+
         foreach ($this->_cache as $val) {
             if (in_array($use, $val['attributes'])) {
                 $mbox_ob = IMP_Mailbox::get($val['mailbox']);
