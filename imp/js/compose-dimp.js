@@ -1034,7 +1034,7 @@ var DimpCompose = {
             uri = HordeCore.addURLParam(uri, params);
         }
 
-        window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+        window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=800,height=350,left=100,top=100');
     },
 
     baseAvailable: function()

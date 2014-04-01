@@ -384,10 +384,10 @@ table.remotemanagement td.noneconfigured {
 
 /* Contacts styles. */
 #contactstable #search {
-    width: 150px;
+    width: 35%;
 }
 #contactstable #search_results, #contactstable #selected_addresses {
-    width: 200px;
+    width: 100%;
 }
 .contactsButtons {
     text-align: center;
