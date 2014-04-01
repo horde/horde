@@ -245,8 +245,8 @@
  *     - IMP_Mailbox::MBOX_TEMPLATES
  *     - IMP_Mailbox::MBOX_TRASH
  *
- *   It is also possible to define local-specifc special mailboxes. To do so,
- *   use the array key IMP_Mailbox::MBOX_USERSPECIAL and list the special
+ *   It is also possible to define localized special mailboxes. To do so, use
+ *   the array key IMP_Mailbox::MBOX_USERSPECIAL and list the local special
  *   mailboxes in an array, with keys as the IMAP mailbox name (in UTF-8) and
  *   values as the mailbox display label.
  *
