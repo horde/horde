@@ -57,35 +57,52 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
     }
 
     /**
-     * NOTE: This driver ignores the lifetime argument.
      */
     public function get($key, $lifetime = 0)
     {
-        return $this->_hash->get($this->_getKey($key));
+        $dkey = $this->_getKey($key);
+        $query = array($dkey);
+        if ($lifetime) {
+            $query[] = $lkey = $this->_getKey($key, true);
+        }
+
+        $res = $this->_hash->get($query);
+
+        if ($lifetime &&
+            (!$res[$lkey] || (($lifetime + $res[$lkey]) < time()))) {
+            return false;
+        }
+
+        return $res[$dkey];
     }
 
     /**
      */
     public function set($key, $data, $lifetime = 0)
     {
-        $this->_hash->set($this->_getKey($key), $data, array_filter(array(
+        $opts = array_filter(array(
             'expire' => $lifetime
-        )));
+        ));
+
+        $this->_hash->set($this->_getKey($key), $data, $opts);
+        $this->_hash->set($this->_getKey($key, true), time(), $opts);
     }
 
     /**
-     * NOTE: This driver ignores the lifetime argument.
      */
     public function exists($key, $lifetime = 0)
     {
-        return $this->_hash->exists($this->_getKey($key));
+        return ($this->get($key, $lifetime) !== false);
     }
 
     /**
      */
     public function expire($key)
     {
-        $this->_hash->delete($this->_getKey($key));
+        $this->_hash->delete(array(
+            $this->_getKey($key),
+            $this->_getKey($key, true)
+        ));
     }
 
     /**
@@ -99,12 +116,13 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      * Return the hashtable key.
      *
      * @param string $key  Object ID.
+     * @param boolean $ts  Return the timestamp key?
      *
      * @return string  Hashtable key ID.
      */
-    protected function _getKey($key)
+    protected function _getKey($key, $ts = false)
     {
-        return $this->_params['prefix'] . $key;
+        return $this->_params['prefix'] . $key . ($ts ? '_t' : '');
     }
 
 }
