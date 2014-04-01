@@ -22,6 +22,9 @@ var ImpMobile = {
     // /* The current compose type. */
     // composetype,
     //
+    // /* Flag information. */
+    // flags,
+    //
     // /* Has the folders list been loaded? */
     // foldersLoaded,
     //
@@ -434,12 +437,15 @@ var ImpMobile = {
             params.checkcache = 1;
         }
 
-        HordeMobile.doAction(
-            'viewPort',
-            ImpMobile.addViewportParams($.extend(params, {
-                view: mailbox
-            }))
-        );
+        params = ImpMobile.addViewportParams($.extend(params, {
+            view: mailbox
+        }));
+
+        if (!ImpMobile.flags) {
+            params.flag_config = 1;
+        }
+
+        HordeMobile.doAction('smartmobileViewport', params);
     },
 
     /**
@@ -521,7 +527,7 @@ var ImpMobile = {
         if (!ob) {
             if (HordeMobile.currentPage() != 'folders') {
                 HordeMobile.doAction(
-                    'viewPort',
+                    'smartmobileViewport',
                     ImpMobile.addViewportParams({
                         checkcache: 1,
                         view: ImpMobile.mailbox
@@ -567,6 +573,8 @@ var ImpMobile = {
         $.each(ob.rows(), function(key, val) {
             var c = $('<li class="imp-message"></li>')
                     .jqmData('buid', val.buid),
+                labels = [],
+                tmp,
                 url = HordeMobile.createUrl('message', {
                     buid: val.buid,
                     mbox: ImpMobile.mailbox
@@ -590,18 +598,43 @@ var ImpMobile = {
                     case IMP.conf.flags.seen:
                         c.addClass('imp-mailbox-seen');
                         break;
+
+                    default:
+                        /* All other flags are added as labels. */
+                        if (ImpMobile.flags[flag]) {
+                            tmp = ImpMobile.flags[flag];
+                            if (tmp.s) {
+                                labels.push(
+                                    $('<span></span>')
+                                        .addClass('imp-mailbox-label')
+                                        .css({
+                                            background: (tmp.b ? tmp.b : ''),
+                                            color: tmp.f
+                                        })
+                                        .text(tmp.l)
+                                );
+                            }
+                        }
+                        break;
                     }
                 });
             }
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '"></a>').text(val.data.subject)).append(
+                    $('<a href="' + url + '"></a>').text(val.data.subject)
+                ).append(
                     $('<div class="imp-mailbox-secondrow"></div>').append(
                         $('<span class="imp-mailbox-date"></span>').text(
-                            val.data.date)).append(
+                            val.data.date
+                        )
+                    ).append(
                         $('<span class="imp-mailbox-from"></span>').text(
-                            val.data.from))));
+                            val.data.from
+                        ).append(labels)
+                    )
+                )
+            );
         });
 
         if (ob.totalrows > ob.slice) {
@@ -1444,6 +1477,13 @@ var ImpMobile = {
             ImpMobile.updateFlags(v);
             // Force a viewport update.
             ImpMobile.mailboxCache = null;
+        }
+
+        if ((v = d['imp:flag-config'])) {
+            ImpMobile.flags = {};
+            $.each(v, function(undefined, value) {
+                ImpMobile.flags[value.id] = value;
+            });
         }
 
         if ((v = d['imp:message'])) {

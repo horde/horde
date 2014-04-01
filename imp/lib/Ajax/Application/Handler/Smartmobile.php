@@ -165,4 +165,21 @@ extends Horde_Core_Ajax_Application_Handler
         return $this->_base->callAction('sendMessage');
     }
 
+    /**
+     * AJAX action: Output ViewPort data.
+     *
+     * @see IMP_Ajax_Application_Handler_Common#viewPort()
+     *
+     * Additional variables used:
+     *   - flag_config: (boolean) True if flag information is needed.
+     */
+    public function smartmobileViewport()
+    {
+        if ($this->vars->flag_config) {
+            $this->_base->queue->flagConfig(Horde_Registry::VIEW_SMARTMOBILE);
+        }
+
+        return $this->_base->callAction('viewPort');
+    }
+
 }

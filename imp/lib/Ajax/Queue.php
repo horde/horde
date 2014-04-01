@@ -62,9 +62,9 @@ class IMP_Ajax_Queue
     /**
      * Add flag configuration to response.
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_flagconfig = false;
+    protected $_flagconfig = 0;
 
     /**
      * Mailbox options.
@@ -136,15 +136,16 @@ class IMP_Ajax_Queue
      *   - replace: (array) Replace the flag list with these flags.
      *
      * For flag configuration data (key: 'flag-config'), an array containing
-     * flag data:
+     * flag data. All flags returned in dynamic mode; only flags labeled below
+     * as [sm] are returned in smartmobile mode:
      *   - a: (boolean) Indicates a flag that can be *a*ltered.
-     *   - b: (string) Background color.
+     *   - b: (string) Background color [sm].
      *   - c: (string) CSS class.
-     *   - f: (string) Foreground color.
-     *   - i: (string) CSS icon.
+     *   - f: (string) Foreground color [sm].
+     *   - i: (string) CSS icon [sm].
      *   - id: (string) Flag ID (IMAP flag id).
-     *   - l: (string) Flag label.
-     *   - s: (boolean) Indicates a flag that can be *s*earched for.
+     *   - l: (string) Flag label [sm].
+     *   - s: (boolean) Indicates a flag that can be *s*earched for [sm].
      *   - u: (boolean) Indicates a *u*ser flag.
      *
      * For mailbox data (key: 'mailbox'), an array with these keys:
@@ -212,24 +213,32 @@ class IMP_Ajax_Queue
         }
 
         /* Add flag configuration. */
-        if ($this->_flagconfig) {
+        switch ($this->_flagconfig) {
+        case Horde_Registry::VIEW_DYNAMIC:
+        case Horde_Registry::VIEW_SMARTMOBILE:
             $flags = array();
-
             foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {
-                $flags[] = array_filter(array(
-                    'a' => $val->canset,
+                $tmp = array(
                     'b' => $val->bgdefault ? null : $val->bgcolor,
-                    'c' => $val->css,
                     'f' => $val->fgcolor,
-                    'i' => $val->css ? null : $val->cssicon,
                     'id' => $val->id,
                     'l' => $val->label,
-                    's' => intval($val instanceof IMP_Flag_Imap),
-                    'u' => intval($val instanceof IMP_Flag_User)
-                ));
-            }
+                    's' => intval($val instanceof IMP_Flag_Imap)
+                );
 
+                if ($this->_flagconfig === Horde_Registry::VIEW_DYNAMIC) {
+                    $tmp += array(
+                        'a' => $val->canset,
+                        'c' => $val->css,
+                        'i' => $val->css ? null : $val->cssicon,
+                        'u' => intval($val instanceof IMP_Flag_User)
+                    );
+                }
+
+                $flags[] = array_filter($tmp);
+            }
             $ajax->addTask('flag-config', $flags);
+            break;
         }
 
         /* Add folder tree information. */
@@ -453,10 +462,12 @@ class IMP_Ajax_Queue
 
     /**
      * Add flag configuration information to response queue.
+     *
+     * @param integer $view  The current view.
      */
-    public function flagConfig()
+    public function flagConfig($view)
     {
-        $this->_flagconfig = true;
+        $this->_flagconfig = $view;
     }
 
     /**

@@ -23,6 +23,12 @@
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
+.imp-mailbox-label {
+    font-size: 90%;
+    font-weight: normal;
+    margin-left: 4px;
+    padding: 1px;
+}
 
 .imp-mailbox-deleted a {
     text-decoration: line-through !important;

@@ -432,7 +432,7 @@ extends Horde_Core_Ajax_Application_Handler
         $this->vars->mboxes = json_encode(array($this->vars->mbox));
         $this->listMailboxes();
 
-        $this->_base->queue->flagConfig();
+        $this->_base->queue->flagConfig(Horde_Registry::VIEW_DYNAMIC);
 
         return true;
     }
@@ -1095,7 +1095,7 @@ extends Horde_Core_Ajax_Application_Handler
         $this->vars->flags = json_encode(array($imapflag));
         $this->flagMessages();
 
-        $this->_base->queue->flagConfig();
+        $this->_base->queue->flagConfig(Horde_Registry::VIEW_DYNAMIC);
 
         $name = 'imp:viewport';
         if ($this->_base->tasks->$name) {

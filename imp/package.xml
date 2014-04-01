@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Display flags on the smartmobile mailbox page (Request #12687).
 * [mms] Support non-ASCII characters in user-defined flag names (Request #12335).
 * [mms] Potentially save a call to the contacts backend when viewing HTML messages if no image data is present in the message.
 * [mms] Improved styling of dynamic mailbox page, to fix issues when resizing the browser font size (Bug #13071).
