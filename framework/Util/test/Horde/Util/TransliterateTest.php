@@ -19,13 +19,13 @@ class Horde_Util_TransliterateTest extends PHPUnit_Framework_TestCase
 
         // Non-ascii can all be transliterated
         $this->assertEquals(
-            'AABBEESSs',
+            'AABTHEESss',
             Horde_Util_Mock_Transliterate::testFallback('AÀBÞEÉSß')
         );
 
         // Some non-ascii cannot be transliterated
         $this->assertEquals(
-            'AA黾BB',
+            'AA黾BTH',
             Horde_Util_Mock_Transliterate::testFallback('AÀ黾BÞ')
         );
     }
