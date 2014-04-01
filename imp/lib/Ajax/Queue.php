@@ -111,7 +111,7 @@ class IMP_Ajax_Queue
      * For compose autocomplete address error data (key: 'compose-addr'), an
      * array with keys as the autocomplete DOM element and the values as
      * arrays. The value arrays have keys as the autocomplete address ID, and
-     * the * value is a space-separated list of classnames to add.
+     * the value is a space-separated list of classnames to add.
      *
      * For compose attachment data (key: 'compose-atc'), an array of objects
      * with these properties:
