@@ -547,17 +547,18 @@ class Turba_Application extends Horde_Registry_Application
                     } else {
                         $row = array();
                         foreach ($fields as $field) {
-                            if (substr($field, 0, 2) != '__') {
-                                $attribute = $ob->getValue($field);
-                                if ($attributes[$field]['type'] == 'date') {
-                                    $row[$field] = strftime('%Y-%m-%d', $attribute);
-                                } elseif ($attributes[$field]['type'] == 'time') {
-                                    $row[$field] = strftime('%R', $attribute);
-                                } elseif ($attributes[$field]['type'] == 'datetime') {
-                                    $row[$field] = strftime('%Y-%m-%d %R', $attribute);
-                                } else {
+                            if (substr($field, 0, 2) == '__') {
+                                continue;
+                            }
+                            $attribute = $ob->getValue($field);
+                            if ($attributes[$field]['type'] == 'date') {
+                                $row[$field] = strftime('%Y-%m-%d', $attribute);
+                            } elseif ($attributes[$field]['type'] == 'time') {
+                                $row[$field] = strftime('%R', $attribute);
+                            } elseif ($attributes[$field]['type'] == 'datetime') {
+                                $row[$field] = strftime('%Y-%m-%d %R', $attribute);
+                            } else {
                                 $row[$field] = Horde_String::convertCharset($attribute, 'UTF-8', $params['charset']);
-                                }
                             }
                         }
                         $data[] = $row;
