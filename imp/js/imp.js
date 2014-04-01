@@ -148,7 +148,7 @@ var IMP_JS = {
         (function() { win.close(); }).defer();
     },
 
-    resizeViewPopup: function(win)
+    resizePopup: function(win)
     {
         var b = win.document.body,
             h = 0,
