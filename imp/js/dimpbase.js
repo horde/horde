@@ -528,15 +528,11 @@ var DimpBase = {
 
                 switch (mode) {
                 case 'vert':
-                    $('msglistHeaderHoriz').hide();
-                    $('msglistHeaderVert').show();
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
                 }
 
-                $('msglistHeaderVert').hide();
-                $('msglistHeaderHoriz').show();
                 r.VP_bg.unshift('vpRowHoriz');
                 r.className = r.VP_bg.join(' ');
 
@@ -745,6 +741,21 @@ var DimpBase = {
                 this._expirePPCache([ this._getPPId(d.VP_id, d.VP_view) ]);
             }, this);
         }.bindAsEventListener(this));
+
+        container.observe('ViewPort:resize', function() {
+            switch (this.viewport.pane_mode) {
+            case 'vert':
+                $('msglistHeaderHoriz').hide();
+                $('msglistHeaderVert').show();
+                break;
+
+            case 'horiz':
+            default:
+                $('msglistHeaderVert').hide();
+                $('msglistHeaderHoriz').show();
+                break;
+            }
+        }.bind(this));
 
         container.observe('ViewPort:select', function(e) {
             var d = e.memo.vs.get('rownum');

@@ -107,6 +107,10 @@
  *   Fired when rows are removed from the buffer.
  *   params: (ViewPort_Selection) The removed rows.
  *
+ * ViewPort:resize
+ *   Fired when viewport is being resized.
+ *   params: NONE
+ *
  * ViewPort:select
  *   Fired when rows are selected.
  *   params: (object) opts = (object) Boolean options [right]
@@ -473,6 +477,8 @@ var ViewPort = Class.create({
     // size = (integer) The page size to use instead of auto-determining.
     _onResize: function(size)
     {
+        this.opts.container.fire('ViewPort:resize');
+
         var c_opts = {},
             h = this.opts.list_header ? this.opts.list_header.getHeight() : 0,
             lh = this._getLineHeight(),
