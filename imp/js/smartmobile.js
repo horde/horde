@@ -1224,12 +1224,14 @@ var ImpMobile = {
      */
     loadFolders: function()
     {
+        ImpMobile.foldersLoaded = false;
+
         HordeMobile.doAction(
             'smartmobileFolderTree',
             { all: ImpMobile.showAllFolders() },
             function(r) {
-                ImpMobile.foldersLoaded = true;
                 $('#imp-folders-list').html(r).listview('refresh');
+                ImpMobile.foldersLoaded = true;
             }
         );
     },
@@ -1369,10 +1371,10 @@ var ImpMobile = {
      */
     updateFolders: function(r)
     {
-        /* If directly loading the folders page, the poll task will be
-         * executed before this task. */
-        if ((HordeMobile.currentPage() == 'folders') &&
-            !$('#imp-folders-list').children().size()) {
+        /* If redrawing the folders via smartmobileFolderTree action, this
+         * task will be executed before the list is refreshed. */
+        if (!ImpMobile.foldersLoaded &&
+            (HordeMobile.currentPage() == 'folders')) {
             window.setTimeout(function() { ImpMobile.updateFolders(r); }, 100);
         }
 
