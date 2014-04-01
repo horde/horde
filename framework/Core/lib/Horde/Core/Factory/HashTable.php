@@ -30,9 +30,12 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
     {
         global $conf;
 
+        $logger = $injector->getInstance('Horde_Core_Log_Wrapper');
+
         // DEPRECATED: BC config
         if (!empty($conf['memcache']['enabled'])) {
             return new Horde_HashTable_Memcache(array(
+                'logger' => $logger,
                 'memcache' => $injector->getInstance('Horde_Memcache')
             ));
         }
@@ -47,8 +50,9 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
         switch ($lc_driver) {
         case 'memcache':
             return new Horde_HashTable_Memcache(array(
+                'logger' => $logger,
                 'memcache' => new Horde_Memcache(array_merge($params, array(
-                    'logger' => $injector->getInstance('Horde_Core_Log_Wrapper')
+                    'logger' => $logger
                 )))
             ));
 
@@ -76,12 +80,15 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
             }
 
             return new Horde_HashTable_Predis(array(
+                'logger' => $logger,
                 'predis' => new Predis\Client($redis_params)
             ));
 
         case 'memory':
         default:
-            return new Horde_HashTable_Memory();
+            return new Horde_HashTable_Memory(array(
+                'logger' => $logger
+            ));
         }
     }
 
