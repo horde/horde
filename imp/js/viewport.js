@@ -474,7 +474,7 @@ var ViewPort = Class.create({
     _onResize: function(size)
     {
         var c_opts = {},
-            h = this.opts.list_header ?  this.opts.list_header.getHeight() : 0,
+            h = this.opts.list_header ? this.opts.list_header.getHeight() : 0,
             lh = this._getLineHeight(),
             sp = this.split_pane;
 
@@ -505,7 +505,9 @@ var ViewPort = Class.create({
             });
             this.opts.content.setStyle({ width: 'auto' });
             sp.currbar.show();
-            this.opts.pane_data.show().setStyle({ height: Math.max(document.viewport.getHeight() - this.opts.pane_data.viewportOffset()[1], 0) + 'px' });
+            this.opts.pane_data.show().setStyle({
+                height: Math.max(document.viewport.getHeight() - this.opts.pane_data.viewportOffset()[1], 0) + 'px'
+            });
             break;
 
         case 'vert':
@@ -525,8 +527,12 @@ var ViewPort = Class.create({
                 height: h + 'px'
             });
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
-            sp.currbar.setStyle({ height: h - sp.currbar.getLayout().get('border-bottom') + 'px' }).show();
-            this.opts.pane_data.setStyle({ height: h - this.opts.pane_data.getLayout().get('border-bottom') + 'px' }).show();
+            sp.currbar.setStyle({
+                height: h - sp.currbar.getLayout().get('border-bottom') + 'px'
+            }).show();
+            this.opts.pane_data.setStyle({
+                height: h - this.opts.pane_data.getLayout().get('border-bottom') + 'px'
+            }).show();
             break;
 
         default:
