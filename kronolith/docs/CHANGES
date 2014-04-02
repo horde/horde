@@ -2,6 +2,9 @@
 v4.1.6-git
 ----------
 
+[mjr] Fix issue that could remove all events from shared calendars if a user
+      with Horde_Perms::EDIT on that calendar is removed via the RemoveUserData API
+      (Bug #12524).
 [jan] Fix TRIGGER generation if alarm value is negative (Bug #13064).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>).
 
