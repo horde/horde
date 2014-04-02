@@ -61,4 +61,44 @@ class Kronolith_Event_Resource_Sql extends Kronolith_Event_Sql
         /* Save */
         return $this->getDriver()->saveEvent($this);
     }
+
+    /**
+     * Returns the title of this event, considering private flags.
+     *
+     * @param string $user  The current user.
+     *
+     * @return string  The title of this event.
+     */
+    public function getTitle($user = null)
+    {
+        if (!$this->initialized) {
+            return '';
+        }
+        $reservee = sprintf(_("Reserved by: %s"), $this->getResourceReservee());
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+
+        return $this->isPrivate($user)
+            ? ($perms->hasAppPermission('resource_management') ? $reservee : _("busy"))
+            : (strlen($this->title) ? sprintf('%s %s', $this->title, $reservee) : sprintf(_("[Unnamed event] %s"), $reservee));
+    }
+
+    /**
+     * Return the name/email address or username of the reservee for this event.
+     *
+     * @return string  The email or username.
+     */
+    public function getResourceReservee()
+    {
+        $identity = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->creator);
+        $fullname = $identity->getDefaultFromAddress(true);
+        if (empty($fullname)) {
+            $fullname = $this->creator;
+        } else {
+            $fullname = $fullname->writeAddress();
+        }
+
+        return $fullname;
+    }
 }
