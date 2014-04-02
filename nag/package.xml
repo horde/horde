@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-20</date>
+ <date>2014-04-02</date>
  <version>
   <release>4.2.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Purge old tasks from versions &lt; 2.3 too.
 * [jan] Allow to synchronize shared task lists via CalDAV (Request #12380).
 * [jan] Add script to import tasks from Open-Xchange.
 * [jan] Add recurrence controls to basic view (Request #11545).
@@ -1477,9 +1478,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-20</date>
+   <date>2014-04-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Purge old tasks from versions &lt; 2.3 too.
 * [jan] Allow to synchronize shared task lists via CalDAV (Request #12380).
 * [jan] Add script to import tasks from Open-Xchange.
 * [jan] Add recurrence controls to basic view (Request #11545).

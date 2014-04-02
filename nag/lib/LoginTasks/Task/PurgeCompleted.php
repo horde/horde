@@ -38,21 +38,21 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
         global $injector, $prefs;
 
         /* Get the current UNIX timestamp minus the number of days specified
-         * in 'purge_completed_keep'.  If a message has a timestamp prior to
+         * in 'purge_completed_keep'.  If a task has a timestamp prior to
          * this value, it will be deleted. */
-        $del_time = new Horde_Date(time() - ($prefs->getValue('purge_completed_keep') * 86400));
+        $del_time = new Horde_Date($_SERVER['REQUEST_TIME'] - ($prefs->getValue('purge_completed_keep') * 86400));
         $del_time = $del_time->timestamp();
         $tasklists = Nag::listTasklists(true, Horde_Perms::DELETE, false);
         $tasks = Nag::listTasks(array(
             'completed' => Nag::VIEW_COMPLETE,
-            'tasklists' => array_keys($tasklists),
-            'include_history' => false)
+            'tasklists' => array_keys($tasklists))
         );
         $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
         $count = 0;
         $tasks->reset();
         while ($task = $tasks->each()) {
-            if (($task->completed_date) && $task->completed_date < $del_time) {
+            if (($task->completed_date && $task->completed_date < $del_time) ||
+                (!$task->completed_date && $task->modified && $task->modified->timestamp() < $del_time)) {
                 try {
                     $factory->create($task->tasklist)->delete($task->id);
                     ++$count;
