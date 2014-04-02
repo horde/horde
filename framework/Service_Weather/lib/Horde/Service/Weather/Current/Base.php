@@ -47,7 +47,8 @@
  class Horde_Service_Weather_Current_Base
  {
     /**
-     * Local properties cache.
+     * Local properties cache. Property names differ depending on the backend.
+     * Concrete classes map them to the available properties.
      *
      * @var array
      */

@@ -21,7 +21,6 @@
  */
  class Horde_Service_Weather_Forecast_Base implements IteratorAggregate
  {
-
     /**
      * The forecast properties as returned from the forecast request.
      *
