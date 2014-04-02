@@ -55,7 +55,9 @@ class IMP_Mailbox_Ui
      * @param Horde_Imap_Client_Data_Envelope $ob  An envelope object.
      *
      * @return array  An array of information:
-     *   - from: (string) The personal part(s) of the From address.
+     *   - from: (string) The label(s) of the From address (personal part;
+     *           fallback to address).
+     *   - from_addr: (string) The bare address(es) of the From address.
      *   - from_list: (Horde_Mail_Rfc822_List) From address list.
      *   - to: (boolean) True if this is who the message was sent to.
      */
@@ -95,14 +97,16 @@ class IMP_Mailbox_Ui
             }
         }
 
-        $parts = array();
+        $bare = $parts = array();
 
         $addrs->unique();
         foreach ($addrs->base_addresses as $val) {
+            $bare[] = $val->bare_address;
             $parts[] = $val->label;
         }
 
         $ret['from'] .= implode(', ', $parts);
+        $ret['from_addr'] = implode(', ', $bare);
         $ret['from_list'] = $addrs;
 
         return $ret;

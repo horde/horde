@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Add bare address information to title attribute in viewport on dynamic
+      mailbox page
 [mms] Display flags on the smartmobile mailbox page (Request #12687).
 [mms] Support non-ASCII characters in user-defined flag names (Request #12335).
 [mms] Potentially save a call to the contacts backend when viewing HTML

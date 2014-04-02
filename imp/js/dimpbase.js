@@ -506,10 +506,14 @@ var DimpBase = {
                             break;
                         }
                     } else if (!Object.isUndefined(r[h])) {
-                        if (h == 'subject') {
-                            /* This is an attribute, so we need to escape
-                             * quotes only. */
-                            r.subjecttitle = r[h].escapeHTML().gsub('"', '&quot;');
+                        switch (h) {
+                        case 'from':
+                            r.fromtitle = escapeAttr(r.fromaddr || r.from);
+                            break;
+
+                        case 'subject':
+                            r.subjecttitle = escapeAttr(r[h]);
+                            break;
                         }
 
                         r[h] = r[h].escapeHTML();

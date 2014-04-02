@@ -455,6 +455,9 @@ class IMP_Ajax_Application_ListMessages
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);
             $msg['from'] = $getfrom['from'];
+            if ($getfrom['from'] !== $getfrom['from_addr']) {
+                $msg['fromaddr'] = $getfrom['from_addr'];
+            }
 
             /* Format the Subject: Header. */
             $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject);
