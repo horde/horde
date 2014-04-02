@@ -57,49 +57,36 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
             ));
 
         case 'predis':
+            $params = array_merge(array(
+                'hostspec' => array(),
+                'password' => null,
+                'port' => array(),
+                'protocol' => 'tcp',
+            ), $params);
             $redis_params = array();
 
-            if (empty($params['protocol'])) {
-                $params['protocol'] = 'tcp';
-            }
+            $common = array_filter(array(
+                'password' => strlen($params['password']) ? $params['password'] : null,
+                'persistent' => !empty($params['persistent'])
+            ));
 
             switch ($params['protocol']) {
             case 'tcp':
-                if (isset($params['hostspec'])) {
-                    foreach ($params['hostspec'] as $val) {
-                        $redis_params[] = array_filter(array(
-                            'host' => trim($val),
-                            'scheme' => 'tcp'
-                        ));
-                    }
-
-                    if (isset($params['port'])) {
-                        foreach (array_map('trim', $params['port']) as $key => $val) {
-                            if ($val) {
-                                $redis_params[$key]['port'] = $val;
-                            }
-                        }
-                    }
+                foreach ($params['hostspec'] as $key => $val) {
+                    $redis_params[] = array_merge($common, array_filter(array(
+                        'host' => trim($val),
+                        'port' => isset($params['port']) ? trim($params['port']) : null,
+                        'scheme' => 'tcp'
+                    )));
                 }
                 break;
+
             case 'unix':
-                $redis_params[] = array(
-                    'scheme' => 'unix',
-                    'path' => trim($params['socket'])
-                );
+                $redis_params[] = array_merge($common, array(
+                    'path' => trim($params['socket']),
+                    'scheme' => 'unix'
+                ));
                 break;
-            }
-
-            if (!empty($params['password'])) {
-                foreach (array_keys($redis_params) as $key) {
-                    $redis_params[$key]['password'] = $params['password'];
-                }
-            }
-
-            if (!empty($params['persistent'])) {
-                foreach (array_keys($redis_params) as $key) {
-                    $redis_params[$key]['persistent'] = $params['persistent'];
-                }
             }
 
             /* No need to use complex clustering if not needed. */
