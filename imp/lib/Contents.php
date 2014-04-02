@@ -989,7 +989,12 @@ class IMP_Contents
             'params' => array()
         ), $options);
 
-        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], strval(new Horde_Support_Randomid())) . $text . '</a>';
+        return Horde::link(
+            $this->urlView($mime_part, $actionID, $options),
+            $options['jstext'],
+            $options['class'],
+            ($actionID == 'download_attach') ? null : strval(new Horde_Support_Randomid())
+        ) . $text . '</a>';
     }
 
     /**
