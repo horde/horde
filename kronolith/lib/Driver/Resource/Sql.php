@@ -225,10 +225,14 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * @param Kronolith_Resource_Base $resource
      *
      * @return Kronolith_Resource object
-     * @throws Kronolith_Exception
+     * @throws Kronolith_Exception, Horde_Exception_PermissionDenied
      */
     public function save(Kronolith_Resource_Base $resource)
     {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
         if ($resource->getId()) {
             $query = 'UPDATE ' . $this->_params['table'] . ' SET resource_name = ?, '
                 . 'resource_calendar = ? , resource_description = ?, '
@@ -279,10 +283,15 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      *
      * @param Kronolith_Resource_Base $resource  The kronolith resource to remove
      *
-     * @throws Kronolith_Exception
+     * @throws Kronolith_Exception, Horde_Exception_PermissionDenied
      */
     public function delete($resource)
     {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
         if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
         }

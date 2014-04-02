@@ -83,7 +83,7 @@
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
-          <?php if ($this->isAdmin): ?>
+          <?php if ($this->resourceAdmin): ?>
           <a href="#" id="kronolithAddresource" class="horde-add" title="<?php echo _("Add Resource") ?>">+</a>
           <?php endif; ?>
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resources") ?></span>
@@ -98,7 +98,7 @@
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
-          <?php if ($this->isAdmin): ?>
+          <?php if ($this->resourceAdmin): ?>
           <a href="#" id="kronolithAddresourcegroup" class="horde-add" title="<?php echo _("Add Resource Group") ?>">+</a>
           <?php endif; ?>
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resource Groups") ?></span>

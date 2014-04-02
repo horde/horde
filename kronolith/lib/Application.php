@@ -98,7 +98,10 @@ class Kronolith_Application extends Horde_Registry_Application
             'max_events' => array(
                 'title' => _("Maximum Number of Events"),
                 'type' => 'int'
-            )
+            ),
+            'resource_management' => array(
+                'title' => _("Resource Management"),
+                'type' => 'boolean')
         );
     }
 
@@ -250,55 +253,56 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
                 $sidebar->addRow($row, 'system');
             }
+        }
+        if (!empty($GLOBALS['conf']['resource']['driver']) &&
+            ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management'))) {
 
-            if (!empty($GLOBALS['conf']['resource']['driver'])) {
-                $sidebar->containers['groups'] = array(
-                    'header' => array(
-                        'id' => 'kronolith-toggle-groups',
-                        'label' => _("Resource Groups"),
-                        'collapsed' => true,
-                        'add' => array(
-                            'url' => Horde::url('resources/groups/create.php'),
-                            'label' => _("Create a new Resource Group"),
-                        ),
+            $sidebar->containers['groups'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-groups',
+                    'label' => _("Resource Groups"),
+                    'collapsed' => true,
+                    'add' => array(
+                        'url' => Horde::url('resources/groups/create.php'),
+                        'label' => _("Create a new Resource Group"),
                     ),
-                );
-                $editGroups = Horde::url('resources/groups/edit.php');
-                $sidebar->containers['resources'] = array(
-                    'header' => array(
-                        'id' => 'kronolith-toggle-resources',
-                        'label' => _("Resources"),
-                        'collapsed' => true,
-                        'add' => array(
-                            'url' => Horde::url('resources/create.php'),
-                            'label' => _("Create a new Resource"),
-                        ),
+                ),
+            );
+            $editGroups = Horde::url('resources/groups/edit.php');
+            $sidebar->containers['resources'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-resources',
+                    'label' => _("Resources"),
+                    'collapsed' => true,
+                    'add' => array(
+                        'url' => Horde::url('resources/create.php'),
+                        'label' => _("Create a new Resource"),
                     ),
-                );
-                $edit = Horde::url('resources/edit.php');
-                foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-                    if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
-                        $row = array(
-                            'label' => $resource->get('name'),
-                            'color' => '#dddddd',
-                            'edit' => $editGroups->add('c', $resource->getId()),
-                            'type' => 'radiobox',
-                        );
-                        $sidebar->addRow($row, 'groups');
-                    } else {
-                        $calendar = new Kronolith_Calendar_Resource(array(
-                            'resource' => $resource
-                        ));
-                        $row = array(
-                            'selected' => in_array($resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
-                            'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
-                            'label' => $calendar->name(),
-                            'color' => $calendar->background(),
-                            'edit' => $edit->add('c', $resource->getId()),
-                            'type' => 'checkbox',
-                        );
-                        $sidebar->addRow($row, 'resources');
-                    }
+                ),
+            );
+            $edit = Horde::url('resources/edit.php');
+            foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+                if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                    $row = array(
+                        'label' => $resource->get('name'),
+                        'color' => '#dddddd',
+                        'edit' => $editGroups->add('c', $resource->getId()),
+                        'type' => 'radiobox',
+                    );
+                    $sidebar->addRow($row, 'groups');
+                } else {
+                    $calendar = new Kronolith_Calendar_Resource(array(
+                        'resource' => $resource
+                    ));
+                    $row = array(
+                        'selected' => in_array($resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
+                        'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
+                        'label' => $calendar->name(),
+                        'color' => $calendar->background(),
+                        'edit' => $edit->add('c', $resource->getId()),
+                        'type' => 'checkbox',
+                    );
+                    $sidebar->addRow($row, 'resources');
                 }
             }
         }
