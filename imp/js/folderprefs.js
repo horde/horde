@@ -44,9 +44,19 @@ var ImpFolderPrefs = {
             }
             break;
         }
+    },
+
+    onDomLoad: function()
+    {
+        /* Disable selection of containers. */
+        $('prefs')
+            .down('SELECT.folderPrefSelect')
+            .select('OPTION[value=""]:not(.flistCreate)')
+            .invoke('writeAttribute', { disabled: true });
     }
 
 };
 
+document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
 document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));
 document.on('select', '.folderPrefSelect', ImpFolderPrefs.newMboxName.bind(ImpFolderPrefs));
