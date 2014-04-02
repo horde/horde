@@ -55,11 +55,11 @@
         case 'logo_url':
             return $this->_properties['image']->url;
         case 'time':
-            $time = new Horde_Date($this->_properties['observation_time_rfc822'], 'UTC');
-            $time->setTimezone($this->_properties['local_tz_long']);
-            return $time;
+            return new Horde_Date($this->_properties['observation_time_rfc822'], $this->_properties['local_tz_long']);
         case 'time_utc':
-            return new Horde_Date($this->_properties['observation_time_local'], $this->_properties['local_tz_long']);
+            $date = new Horde_Date($this->_properties['observation_time_rfc822'], $this->_properties['local_tz_long']);
+            $date->setTimezone('UTC');
+            return $date;
         case 'temp':
             if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return round($this->_properties['temp_f']);
