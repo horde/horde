@@ -11,15 +11,17 @@
  * @license    http://www.horde.org/licenses/bsd BSD
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
-class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
+class Horde_Service_Weather_WwoTest extends Horde_Test_Case
 {
+    protected $_mockUrls = array(
+        'http://api.worldweatheronline.com/free/v1/weather.ashx?q=boston%2Cma&num_of_days=5&includeLocation=yes&timezone=yes&extra=localObsTime&format=json&key=xxx' => 'boston_wwo.json',
+        'http://api.worldweatheronline.com/free/v1/search.ashx?timezone=yes&q=42.360%2C-71.060&num_of_results=10&format=json&key=xxx' => 'boston_location_wwo.json');
 
-    private $_unsupported = array(
-        'pressure_trend', 'logo_url', 'dewpoint', 'wind_gust');
+    protected $_unsupported = array('pressure_trend', 'logo_url', 'dewpoint', 'wind_gust');
 
     public function testCurrentConditions()
     {
-        $weather = $this->_getStub('boston_wwo.json');
+        $weather = $this->_getStub();
 
         // Note the location here doesn't matter, since we already
         // stubbed the http_client
@@ -48,8 +50,7 @@ class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
         // Wind
         $this->assertEquals('SSW', $conditions->wind_direction);
         $this->assertEquals(210, $conditions->wind_degrees);
-
-        //$this->assertEquals('2011-11-27 02:08:00', (string)$conditions->time);
+        $this->assertEquals('2014-04-01 18:34:00', (string)$conditions->time);
 
         // Test unsupported properties
         foreach ($this->_unsupported as $property) {
@@ -59,18 +60,19 @@ class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
 
     public function testGetStation()
     {
-        $weather = $this->_getStub('boston_wwo.json');
+        $weather = $this->_getStub();
         $weather->getCurrentConditions('boston,ma');
         $station = $weather->getStation();
 
         //$this->assertEquals('2011-11-27 06:49:57', (string)$station->sunrise);
         //$this->assertEquals('2011-11-27 16:14:09', (string)$station->sunset);
         $this->assertEquals('Boston, Massachusetts', $station->name);
+        $this->assertEquals('-04:00', $station->getOffset());
     }
 
     public function testForecast()
     {
-        $weather = $this->_getStub('boston_wwo.json');
+        $weather = $this->_getStub();
         $weather->units = Horde_Service_Weather::UNITS_STANDARD;
 
         $forecast = $weather->getForecast('boston,ma');
@@ -109,20 +111,43 @@ class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $dayOne->foobar);
     }
 
-    private function _getStub($fixture, $language = 'en')
+    protected function _getHttpClientStub()
     {
-        $body = fopen(__DIR__ . '/fixtures/' . $fixture, 'r');
-        $response = new Horde_Http_Response_Mock('', $body);
-        $response->code = 200;
-        $request = new Horde_Http_Request_Mock();
-        $request->setResponse($response);
+        $request = $this->getMockSkipConstructor('Horde_Http_Client');
+        $request->expects($this->any())
+            ->method('get')
+            ->will($this->returnCallback(array($this, 'mockHttpCallback')));
 
+        return $request;
+    }
+
+    protected function _getStub()
+    {
         return new Horde_Service_Weather_Wwo(
             array(
                 'apikey' => 'xxx',
-                'http_client' => new Horde_Http_Client(array('request' => $request))
+                'http_client' => $this->_getHttpClientStub()
             )
         );
+    }
+
+    public function mockHttpCallback($url)
+    {
+        switch ((string)$url) {
+        case 'http://api.worldweatheronline.com/free/v1/weather.ashx?q=boston%2Cma&num_of_days=5&includeLocation=yes&timezone=yes&extra=localObsTime&format=json&key=xxx':
+            $stream = fopen(__DIR__ . '/fixtures/boston_wwo.json', 'r');
+            break;
+
+        case 'http://api.worldweatheronline.com/free/v1/search.ashx?timezone=yes&q=42.358%2C-71.060&num_of_results=10&format=json&key=xxx':
+            $stream = fopen(__DIR__ . '/fixtures/boston_location_wwo.json', 'r');
+            break;
+        default:
+            throw Exception('Invalid Url');
+        }
+        $response = new Horde_Http_Response_Mock($url, $stream);
+        $response->code = 200;
+
+        return $response;
     }
 
 }

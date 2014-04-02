@@ -1,0 +1,195 @@
+{
+    "search_api": {
+        "result": [{
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "United States Of America"
+            }],
+            "latitude": "42.358",
+            "longitude": "-71.060",
+            "population": "571281",
+            "region": [{
+                "value": "Massachusetts"
+            }],
+            "timezone": [{
+                "offset": "-4.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Massachusetts\/US.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "United Kingdom"
+            }],
+            "latitude": "52.981",
+            "longitude": "-0.013",
+            "population": "35859",
+            "region": [{
+                "value": "Lincolnshire"
+            }],
+            "timezone": [{
+                "offset": "1.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Lincolnshire\/GB.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Philippines"
+            }],
+            "latitude": "7.871",
+            "longitude": "126.364",
+            "population": "2891",
+            "region": [{
+                "value": "Davao Oriental"
+            }],
+            "timezone": [{
+                "offset": "8.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Davao-Oriental\/PH.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Bolivia"
+            }],
+            "latitude": "-15.367",
+            "longitude": "-67.583",
+            "population": "0",
+            "region": [{
+                "value": "La Paz"
+            }],
+            "timezone": [{
+                "offset": "-4.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/La-Paz\/BO.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Colombia"
+            }],
+            "latitude": "10.417",
+            "longitude": "-75.517",
+            "population": "0",
+            "region": [{
+                "value": "Bolivar Department"
+            }],
+            "timezone": [{
+                "offset": "-5.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Bolivar-Department\/CO.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Colombia"
+            }],
+            "latitude": "9.300",
+            "longitude": "-75.383",
+            "population": "0",
+            "region": [{
+                "value": "Sucre"
+            }],
+            "timezone": [{
+                "offset": "-5.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Sucre\/CO.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Costa Rica"
+            }],
+            "latitude": "10.300",
+            "longitude": "-84.917",
+            "population": "0",
+            "region": [{
+                "value": "Guanacaste"
+            }],
+            "timezone": [{
+                "offset": "-6.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Guanacaste\/CR.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Costa Rica"
+            }],
+            "latitude": "10.017",
+            "longitude": "-83.250",
+            "population": "0",
+            "region": [{
+                "value": "Limon"
+            }],
+            "timezone": [{
+                "offset": "-6.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Limon\/CR.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "Cuba"
+            }],
+            "latitude": "21.700",
+            "longitude": "-77.683",
+            "population": "0",
+            "region": [{
+                "value": "Camaguey"
+            }],
+            "timezone": [{
+                "offset": "-4.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Camaguey\/CU.aspx"
+            }]
+        }, {
+            "areaName": [{
+                "value": "Boston"
+            }],
+            "country": [{
+                "value": "South Africa"
+            }],
+            "latitude": "-29.667",
+            "longitude": "29.967",
+            "population": "0",
+            "region": [{
+                "value": "Kwazulu-Natal"
+            }],
+            "timezone": [{
+                "offset": "2.0"
+            }],
+            "weatherUrl": [{
+                "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/KwaZulu-Natal\/ZA.aspx"
+            }]
+        }]
+    }
+}
