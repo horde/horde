@@ -201,10 +201,17 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             'extra' => 'localObsTime'));
 
         $results = $this->_makeRequest($url);
+
+        // Use the minimum station data provided by forecast request to
+        // fetch the full station data.
         $station = $this->_parseStation($results->data->nearest_area[0]);
-        // Wwo doesn't include the full station data in the forecast/conditions
-        // response. Request it.
         $station = $this->searchLocations($station->lat . ',' . $station->lon);
+
+        // Hack some data to allow UTC observation time to be returned.
+        $results->data->current_condition[0]->date = new Horde_Date($results->data->current_condition[0]->localObsDateTime);
+        $results->data->current_condition[0]->date->hour += -$station->getOffset();
+
+        // Parse it.
         $this->_current = $this->_parseCurrent($results->data->current_condition);
 
         // Sunrise/Sunset
