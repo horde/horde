@@ -2064,26 +2064,26 @@
     </case>
     <case name="Predis" desc="Redis Server">
      <configsection name="params">
-      <configswitch name="protocol" desc="What protocol will we use to connect
-      to the redis server">tcp
+      <configswitch name="protocol" desc="Protocol used to connect to the
+      Redis server?">tcp
        <case name="unix" desc="UNIX Sockets">
         <configstring name="socket" required="true" desc="Location of UNIX
         socket"/>
        </case>
        <case name="tcp" desc="TCP/IP">
-        <configlist name="hostspec" required="false" desc="What hostname(s) is
-        the redis server(s) running on, or what is the name of the system
-        DSN(s)? Specify multiple servers by separating with
+        <configlist name="hostspec" required="false" desc="Hostname(s) the
+        Redis server(s) are running on, or the name of the system DSN(s).
+        Specify multiple servers by separating with
         commas.">localhost</configlist>
-        <configlist name="port" required="false" desc="Port(s) the redis
+        <configlist name="port" required="false" desc="Port(s) the Redis
         server(s) are running on. If more than one host is used, specify ports
         for respective servers, separated by commas.">6379</configlist>
        </case>
       </configswitch>
-      <configstring name="password" required="false" desc="What password do we
-      authenticate to the redis server with?"/>
+      <configstring name="password" required="false" desc="Password to
+      authenticate to the Redis server with."/>
       <configboolean name="persistent" required="false" desc="Enable
-      persistent connections to server(s).">false</configboolean>
+      persistent connections to Redis server(s)?">false</configboolean>
      </configsection>
     </case>
    </configswitch>

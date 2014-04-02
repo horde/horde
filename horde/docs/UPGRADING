@@ -52,6 +52,10 @@ to the ActiveSync configuration section for more details.
 The History driver can now be explicitly defined in the configuration (and a
 new NoSQL driver has been added).
 
+Additional options are now available for the Predis HashTable driver:
+'password', 'persistent', and 'protocol'. Additionally, the 'hostspec' and
+'port' options now accept multiple values (separated by commas).
+
 The following options were added::
 
     $conf['activesync']['logging']['level']
