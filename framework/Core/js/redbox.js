@@ -123,9 +123,15 @@ var RedBox = {
     setWindowPosition: function()
     {
         var win = $('RB_window'),
-            d = win.getDimensions(),
-            v = document.viewport.getDimensions();
-        win.setStyle({ width: 'auto', height: 'auto', left: ((v.width - d.width) / 2) + 'px', top: ((v.height - d.height) / 2) + 'px' });
+            d = win.getDimensions();
+
+        win.setStyle({
+            left: '50%',
+            marginLeft: '-' + (d.width / 2) + 'px',
+            marginTop: '-' + (d.height / 2) + 'px',
+            position: 'absolute',
+            "top": '50%'
+        });
     },
 
     cloneWindowContents: function(id)

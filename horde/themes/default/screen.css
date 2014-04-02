@@ -1003,10 +1003,8 @@ ul.sound-list {
 #RB_window {
     z-index: 102;
     background-color: #fff;
-    display: block;
     text-align: left;
-    margin: 20px auto 0 auto;
-    position: absolute;
+    max-width: 50%;
 }
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;
