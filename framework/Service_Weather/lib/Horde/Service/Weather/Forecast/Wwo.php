@@ -21,9 +21,16 @@
  class Horde_Service_Weather_Forecast_Wwo extends Horde_Service_Weather_Forecast_Base
  {
 
-    public $fields = array(
-        Horde_Service_Weather::FORECAST_FIELD_WIND);
+    /**
+     * @see Horde_Service_Weather_Forecast_Base::$fields
+     */
+    public $fields = array(Horde_Service_Weather::FORECAST_FIELD_WIND);
 
+    /**
+     * Const'r
+     *
+     * @see Horde_Service_Weather_Forecast_Base::__construct()
+     */
     public function __construct(
         $properties,
         Horde_Service_Weather_Base $weather,
@@ -33,6 +40,13 @@
         $this->_parseStd();
     }
 
+    /**
+     * Return the forecast time. Note that Wwo doesn't provide the validity time
+     * for the forecast, so we use the last known station time. File this under
+     * the "good enough" file.
+     *
+     * @see Horde_Service_Weather_Forecast_Base::getForecastTime()
+     */
     public function getForecastTime()
     {
         return new Horde_Date($this->weather->getStation()->time);

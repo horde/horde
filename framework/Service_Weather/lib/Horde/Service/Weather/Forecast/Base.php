@@ -19,7 +19,7 @@
  * @category Horde
  * @package  Service_Weather
  */
- class Horde_Service_Weather_Forecast_Base implements IteratorAggregate
+ abstract class Horde_Service_Weather_Forecast_Base implements IteratorAggregate
  {
     /**
      * The forecast properties as returned from the forecast request.
@@ -36,13 +36,6 @@
     protected $_periods = array();
 
     /**
-     * Parent Weather driver.
-     *
-     * @var Horde_Service_Weather_Base
-     */
-    public $weather;
-
-    /**
      * Forecast type
      *
      * @var integer  A Horde_Service_Weather::FORECAST_TYPE_* constant.
@@ -55,6 +48,20 @@
      */
     protected $_maxDays = 20;
 
+    /**
+     * Parent Weather driver.
+     *
+     * @var Horde_Service_Weather_Base
+     */
+    public $weather;
+
+    /**
+     * Array of supported "detailed" forecast fields. To be populated by
+     * concrete classes.
+     *
+     * @var array
+     */
+    public $fields = array();
 
     /**
      * Advertise how detailed the forecast period is.
@@ -85,19 +92,16 @@
         $this->_type = $type;
     }
 
-    public function getIterator()
-    {
-        return new ArrayIterator(array_slice($this->_periods, 0, $this->_maxDays));
-    }
-
+    /**
+     * Return the forecast for the specified ordinal day.
+     *
+     * @param integer $day  The forecast day to return.
+     *
+     * @return Horde_Service_Weather_Period_Base
+     */
     public function getForecastDay($day)
     {
         return $this->_periods[$day];
-    }
-
-    public function getForecastTime()
-    {
-        return false;
     }
 
     /**
@@ -110,6 +114,23 @@
     public function limitLength($days)
     {
         $this->_maxDays = $days;
+    }
+
+    /**
+     * Return the time of the forecast.
+     *
+     * @return Horde_Date  The time of the forecast.
+     */
+    abstract public function getForecastTime();
+
+    /**
+     * Return an ArrayIterator
+     *
+     * @return ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator(array_slice($this->_periods, 0, $this->_maxDays));
     }
 
  }

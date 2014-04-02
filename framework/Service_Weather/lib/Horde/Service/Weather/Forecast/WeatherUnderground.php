@@ -20,12 +20,19 @@
  */
  class Horde_Service_Weather_Forecast_WeatherUnderground extends Horde_Service_Weather_Forecast_Base
  {
-
+    /**
+     * @see Horde_Service_Weather_Forecast_Base::$fields
+     */
     public $fields = array(
         Horde_Service_Weather::FORECAST_FIELD_WIND,
         Horde_Service_Weather::FORECAST_FIELD_HUMIDITY,
         Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION);
 
+    /**
+     * Const'r
+     *
+     * @see Horde_Service_Weather_Forecast_Base::__construct()
+     */
     public function __construct(
         $properties,
         Horde_Service_Weather_Base $weather,
@@ -41,13 +48,18 @@
         }
     }
 
+    /**
+     * Return the forecast time.
+     *
+     * @see Horde_Service_Weather_Forecast_Base::getForecastTime()
+     */
     public function getForecastTime()
     {
         return new Horde_Date($this->_properties['txt_forecast']->date);
     }
 
     /**
-     * [_parse description]
+     * Parse the Std forecast data
      *
      * @throws Horde_Service_Weather_Exception
      */
@@ -62,9 +74,10 @@
         }
     }
 
+    // @TODO: Use the hourly forecast to maybe get a "day"/"night"
     protected function _parseHourly()
     {
-        // @TODO: Use the hourly forecast to maybe get a "day"/"night"
+        throw Horde_Exception('Not currently implemented.');
     }
 
  }
