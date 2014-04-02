@@ -572,7 +572,7 @@ abstract class Kronolith_Event
         }
 
         /* Check for acceptance/denial of this event's resources. */
-        $add_events = array();
+        $accepted_resources = array();
         $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         $lock = array();
         // Don't waste time with resource acceptance if the status is cancelled,
@@ -609,7 +609,7 @@ abstract class Kronolith_Event
                 /* Remember accepted resources so we can add the event to their
                  * calendars. Otherwise, clear the lock. */
                 if ($response == Kronolith::RESPONSE_ACCEPTED) {
-                    $add_events[] = $resource;
+                    $accepted_resources[] = $resource;
                 } elseif ($haveLock) {
                     $locks->clearLock($lock[$resource->getId()]);
                 }
@@ -643,7 +643,7 @@ abstract class Kronolith_Event
          * until after it's saved. If we add the event to the resources
          * calendar before it is saved, they will have different GUIDs, and
          * hence no longer refer to the same event. */
-        foreach ($add_events as $resource) {
+        foreach ($accepted_resources as $resource) {
             $resource->addEvent($this);
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
                 $locks->clearLock($lock[$resource->getId()]);
