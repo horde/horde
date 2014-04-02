@@ -261,7 +261,11 @@ class Hermes
             }
         }
 
-        throw new Horde_Exception_NotFound();
+        throw new Horde_Exception_NotFound(sprintf(
+            '%s (%s)',
+            Horde_Exception_Translation::t("Not Found"),
+            $id
+        ));
     }
 
     /**
