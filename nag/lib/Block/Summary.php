@@ -91,19 +91,18 @@ class Nag_Block_Summary extends Horde_Core_Block
     {
         global $registry, $prefs;
 
-        $now = time();
         $html = '';
 
         if (!empty($this->_params['show_alarms'])) {
             $messages = array();
             try {
-                $alarmList = Nag::listAlarms($now);
+                $alarmList = Nag::listAlarms($_SERVER['REQUEST_TIME']);
             } catch (Nag_Exception $e) {
                 return '<em>' . htmlspecialchars($e->getMessage())
                     . '</em>';
             }
             foreach ($alarmList as $task) {
-                $differential = $task->getNextDue()->timestamp() - $now;
+                $differential = $task->getNextDue()->timestamp() - $_SERVER['REQUEST_TIME'];
                 $key = $differential;
                 while (isset($messages[$key])) {
                     $key++;
@@ -156,14 +155,14 @@ class Nag_Block_Summary extends Horde_Core_Block
             $due = $task->due ? $task->getNextDue() : null;
 
             // Only print tasks due in the past if the show_overdue flag is on.
-            if ($due && $due->before($now) &&
+            if ($due && $due->before($_SERVER['REQUEST_TIME']) &&
                 empty($this->_params['show_overdue'])) {
                 continue;
             }
 
             if ($task->completed) {
                 $style = 'closed';
-            } elseif ($due && $due->before($now)) {
+            } elseif ($due && $due->before($_SERVER['REQUEST_TIME'])) {
                 $style = 'overdue';
             } else {
                 $style = '';

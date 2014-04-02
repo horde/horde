@@ -1266,11 +1266,10 @@ class Nag_Api extends Horde_Registry_Api
         );
         $result = array();
         $tasks->reset();
-        $now = time();
-        $last_week = $now - 7 * 86400;
+        $last_week = $_SERVER['REQUEST_TIME'] - 7 * 86400;
         while ($task = $tasks->each()) {
             if (($task->completed && $task->completed_date < $last_week) ||
-                ($task->start && $task->start > $now)) {
+                ($task->start && $task->start > $_SERVER['REQUEST_TIME'])) {
                 continue;
             }
             $result[$task->id] = array(

@@ -391,7 +391,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $var->type->getInfo($vars, $var, $task_start);
         $start_dt = ($task_start == 0)
             // About a week from now
-            ? time() + 604800
+            ? $_SERVER['REQUEST_TIME'] + 604800
             : $task_start;
         $on = $task_start > 0;
 

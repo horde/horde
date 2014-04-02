@@ -410,7 +410,7 @@ class Nag_Driver_Sql extends Nag_Driver
         switch ($completed) {
         case Nag::VIEW_INCOMPLETE:
             $query .= ' AND task_completed = 0 AND (task_start IS NULL OR task_start = 0 OR task_start < ?)';
-            $values[] = time();
+            $values[] = $_SERVER['REQUEST_TIME'];
             break;
 
         case Nag::VIEW_COMPLETE:
@@ -419,7 +419,7 @@ class Nag_Driver_Sql extends Nag_Driver
 
         case Nag::VIEW_FUTURE:
             $query .= ' AND task_completed = 0 AND task_start > ?';
-            $values[] = time();
+            $values[] = $_SERVER['REQUEST_TIME'];
             break;
 
         case Nag::VIEW_FUTURE_INCOMPLETE:

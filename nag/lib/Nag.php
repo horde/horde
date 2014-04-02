@@ -967,12 +967,11 @@ class Nag
 
         if (empty($GLOBALS['conf']['alarms']['driver'])) {
             // Get any alarms in the next hour.
-            $now = time();
             try {
-                $alarmList = self::listAlarms($now);
+                $alarmList = self::listAlarms($_SERVER['REQUEST_TIME']);
                 $messages = array();
                 foreach ($alarmList as $task) {
-                    $differential = $task->due - $now;
+                    $differential = $task->due - $_SERVER['REQUEST_TIME'];
                     $key = $differential;
                     while (isset($messages[$key])) {
                         $key++;

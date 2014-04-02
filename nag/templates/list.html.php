@@ -38,7 +38,7 @@ function doPrefsUpdate(column, sortDown)
             $due = $task->due ? $task->getNextDue() : null;
             if (!empty($task->completed)) {
                 $style = 'linedRow closed';
-            } elseif ($due && $due->before(time())) {
+            } elseif ($due && $due->before($_SERVER['REQUEST_TIME'])) {
                 $style = 'linedRow overdue';
             } else {
                 $style = '';

@@ -1146,7 +1146,7 @@ class Nag_Task
 
         if ($this->completed) {
             $vTodo->setAttribute('STATUS', 'COMPLETED');
-            $vTodo->setAttribute('COMPLETED', $this->completed_date ? $this->completed_date : time());
+            $vTodo->setAttribute('COMPLETED', $this->completed_date ? $this->completed_date : $_SERVER['REQUEST_TIME']);
         } else {
             if ($v1) {
                 $vTodo->setAttribute('STATUS', 'NEEDS ACTION');

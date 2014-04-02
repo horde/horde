@@ -412,10 +412,10 @@ class Nag_Driver_Kolab extends Nag_Driver
                 $start = $t->start;
             }
 
-            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start > time())) ||
+            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start > $_SERVER['REQUEST_TIME'])) ||
                 ($completed == Nag::VIEW_COMPLETE && !$complete) ||
                 ($completed == Nag::VIEW_FUTURE &&
-                 ($complete || $start == 0 || $start < time())) ||
+                 ($complete || $start == 0 || $start < $_SERVER['REQUEST_TIME'])) ||
                 ($completed == Nag::VIEW_FUTURE_INCOMPLETE && $complete)) {
                 continue;
             }
