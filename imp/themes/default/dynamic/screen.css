@@ -62,7 +62,7 @@ div.msgStatus {
     width: 70px;
 }
 div.msgFrom {
-    left: 80px;
+    left: 85px;
     width: 150px;
 }
 div.msgSubject {
@@ -342,7 +342,7 @@ div.vpRowVert div.msgSubject {
     float: right;
 }
 .dimpOptions div {
-    padding-bottom: 1px;
+    padding-bottom: 2px;
 }
 .dimpOptions span {
     cursor: pointer;
