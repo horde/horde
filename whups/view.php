@@ -52,7 +52,10 @@ $mime_part->setName($filename);
 // We don't know better.
 $mime_part->setCharset('US-ASCII');
 
-$ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
+$ret = $injector
+    ->getInstance('Horde_Core_Factory_MimeViewer')
+    ->create($mime_part)
+    ->render('full');
 reset($ret);
 $key = key($ret);
 
@@ -65,6 +68,11 @@ if (empty($ret)) {
     echo $ret[$key]['data'];
     $page_output->footer();
 } else {
-    $browser->downloadHeaders($filename, $ret[$key]['type'], true, strlen($ret[$key]['data']));
+    $browser->downloadHeaders(
+        $filename,
+        $ret[$key]['type'],
+        true,
+        strlen($ret[$key]['data'])
+    );
     echo $ret[$key]['data'];
 }
