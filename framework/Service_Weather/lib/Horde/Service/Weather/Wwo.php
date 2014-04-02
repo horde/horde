@@ -19,21 +19,24 @@
  * @package  Service_Weather
  */
 class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
- {
-
-    const API_URL = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
+{
+    const API_URL    = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
     const SEARCH_URL = 'http://api.worldweatheronline.com/free/v1/search.ashx';
 
+    /**
+     * @see Horde_Service_Weather_Base::$title
+     * @var string
+     */
     public $title = 'World Weather Online';
-    public $link = 'http://worldweatheronline.com';
-
-    protected $_key;
-
 
     /**
-     * Icon map for wunderground. Note some are returned as
-     * "sky" conditions and some as "condition" icons. Public
-     * so it can be overridded in client code if desired.
+     * @see Horde_Service_Weather_Base::$link
+     * @var string
+     */
+    public $link = 'http://worldweatheronline.com';
+
+    /**
+     * @see Horde_Service_Weather::$iconMap
      */
     public $iconMap = array(
         'wsymbol_0001_sunny' => '32.png',
@@ -70,15 +73,22 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     );
 
     /**
-     * Constructor
+     * Wwo API key.
      *
-     * @param array $params                                  Parameters.
-     *<pre>
-     *  'http_client'  - Required http client object
-     *  'apikey'       - Required API key for wunderground.
-     *</pre>
+     * @var string
+     */
+    protected $_key;
+
+    /**
+     * Constructor.
      *
-     * @return Horde_Service_Weather_Base
+     * @param array $params  Parameters:
+     *     - cache: (Horde_Cache)             Optional Horde_Cache object.
+     *     - cache_lifetime: (integer)        Lifetime of cached data, if caching.
+     *     - http_client: (Horde_Http_Client) Required http client object.
+     *     - apikey: (string)                 Require api key for Wwo.
+     *
+     * @return Horde_Service_Weather_Wwo
      */
     public function __construct(array $params = array())
     {
@@ -94,7 +104,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     /**
      * Obtain the current observations.
      *
-     * @return Horde_Service_Weather_Current
+     * @see Horde_Service_Weather_Base::getCurrentConditions
+     *
+     * @return Horde_Service_Weather_Current_Wwo
      */
     public function getCurrentConditions($location)
     {
@@ -105,7 +117,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     /**
      * Obtain the forecast for the current location.
      *
-     * @see Horde_Service_Weather_Base#getForecast
+     * @see Horde_Service_Weather_Base::getForecast
      */
     public function getForecast(
         $location,
@@ -119,11 +131,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     /**
      * Search for a valid location code.
      *
-     * @param  string $location  A location search string like e.g., Boston,MA
-     * @param  integer $type     The type of search being performed.
-     *
-     * @return string  The search location suitable to use directly in a
-     *                 weather request.
+     * @see Horde_Service_Weather_Base::searchLocations
      */
     public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
@@ -134,7 +142,11 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         }
     }
 
-
+    /**
+     * Return an autocomplete request result.
+     *
+     * @see Horde_Service_Weather_Base::autocompleteLocation
+     */
     public function autocompleteLocation($search)
     {
         $url = new Horde_Url(self::SEARCH_URL);
@@ -147,9 +159,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     }
 
     /**
-     * Get array of supported forecast lengths.
+     * Return the supported forecast lengths.
      *
-     * @return array The array of supported lengths.
+     * @see Horde_Service_Weather_Base::getSupportedForecastLengths
      */
      public function getSupportedForecastLengths()
      {
@@ -160,10 +172,14 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      }
 
     /**
+     * Populates some common data used by forecasts and current conditions.
      * Weather Underground allows requesting multiple features per request,
      * and only counts it as a single request against your API key. So we trade
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
+     *
+     * @param string $location  The location identifier.
+     * @param integer $length   The forecast length.
      */
     protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_5DAY)
     {

@@ -33,9 +33,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected $_language = 'en';
 
     /**
-     * Icon map for wunderground. Not some are returned as
-     * "sky" conditions and some as "condition" icons. Public
-     * so it can be overridded in client code if desired.
+     * @see Horde_Service_Weather::$iconMap
      */
     public $iconMap = array(
         'chanceflurries' => '15.png',

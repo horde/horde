@@ -70,6 +70,14 @@ abstract class Horde_Service_Weather_Base
     public $title;
 
     /**
+     * Driver spcific icon map for condition icons. Made public so icons can
+     * be overridden in client code if desired.
+     *
+     * @var array
+     */
+    public $iconMap = array();
+
+    /**
      * The http client
      *
      * @var Horde_Http_Client
@@ -114,8 +122,9 @@ abstract class Horde_Service_Weather_Base
      * Constructor.
      *
      * @param array $params  Parameters:
-     *     - cache: (Horde_Cache)       Optional Horde_Cache object.
-     *     - cache_lifetime: (integer)  Lifetime of cached data, if caching..
+     *     - cache: (Horde_Cache)             Optional Horde_Cache object.
+     *     - cache_lifetime: (integer)        Lifetime of cached data, if caching.
+     *     - http_client: (Horde_Http_Client) Required http client object.
      */
     public function __construct(array $params = array())
     {
@@ -175,6 +184,13 @@ abstract class Horde_Service_Weather_Base
     abstract public function searchLocations(
         $location,
         $type = Horde_Service_Weather::SEARCHTYPE_STANDARD);
+
+    /**
+     * Get array of supported forecast lengths.
+     *
+     * @return array The array of supported lengths.
+     */
+     abstract public function getSupportedForecastLengths();
 
     /**
      * Searches for locations that begin with the text in $search.
