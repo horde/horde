@@ -58,19 +58,47 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
 
         case 'predis':
             $redis_params = array();
-            if (isset($params['hostspec'])) {
-                foreach ($params['hostspec'] as $val) {
-                    $redis_params[] = array_filter(array(
-                        'host' => trim($val)
-                    ));
-                }
 
-                if (isset($params['port'])) {
-                    foreach (array_map('trim', $params['port']) as $key => $val) {
-                        if ($val) {
-                            $redis_params[$key]['port'] = $val;
+            if (empty($params['protocol'])) {
+                $params['protocol'] = 'tcp';
+            }
+
+            switch ($params['protocol']) {
+            case 'tcp':
+                if (isset($params['hostspec'])) {
+                    foreach ($params['hostspec'] as $val) {
+                        $redis_params[] = array_filter(array(
+                            'host' => trim($val),
+                            'scheme' => 'tcp'
+                        ));
+                    }
+
+                    if (isset($params['port'])) {
+                        foreach (array_map('trim', $params['port']) as $key => $val) {
+                            if ($val) {
+                                $redis_params[$key]['port'] = $val;
+                            }
                         }
                     }
+                }
+                break;
+            case 'unix':
+                $redis_params[] = array(
+                    'scheme' => 'unix',
+                    'path' => trim($params['socket'])
+                );
+                break;
+            }
+
+            if (!empty($params['password'])) {
+                foreach (array_keys($redis_params) as $key) {
+                    $redis_params[$key]['password'] = $params['password'];
+                }
+            }
+
+            if (!empty($params['persistent'])) {
+                foreach (array_keys($redis_params) as $key) {
+                    $redis_params[$key]['persistent'] = $params['persistent'];
                 }
             }
 
