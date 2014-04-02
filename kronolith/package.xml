@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add resource_management permission (Request #13049).
 * [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
 * [jan] Add script to import events from Open-Xchange.
 * [mjr] Fix various issues with alarms for recurring events.
@@ -2301,6 +2302,7 @@
    <date>2014-03-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add resource_management permission (Request #13049).
 * [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
 * [jan] Add script to import events from Open-Xchange.
 * [mjr] Fix various issues with alarms for recurring events.
