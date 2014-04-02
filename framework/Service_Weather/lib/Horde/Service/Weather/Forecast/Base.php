@@ -117,7 +117,7 @@
     }
 
     /**
-     * Return the time of the forecast.
+     * Return the time of the forecast, in local (to station) time.
      *
      * @return Horde_Date  The time of the forecast.
      */
