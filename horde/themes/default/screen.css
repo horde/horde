@@ -1004,7 +1004,6 @@ ul.sound-list {
     z-index: 102;
     background-color: #fff;
     text-align: left;
-    max-width: 50%;
 }
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;

@@ -788,6 +788,9 @@ span.attachmentImg {
 }
 
 /* Redbox styles. */
+#RB_window {
+    max-width: 50%;
+}
 .RB_Form {
     width: 20em;
     padding: 6px;
