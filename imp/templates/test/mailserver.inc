@@ -44,7 +44,7 @@
   </td>
   <td>
    <select id="server_type" name="server_type">
-    <option value="imap">IMAP4rev1</option>
+    <option value="imap">IMAP</option>
     <option value="pop">POP3</option>
    </select>
   </td>
