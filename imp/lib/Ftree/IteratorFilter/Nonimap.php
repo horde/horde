@@ -26,7 +26,9 @@ class IMP_Ftree_IteratorFilter_Nonimap extends FilterIterator
      */
     public function accept()
     {
-        return !$this->current()->nonimap;
+        $curr = $this->current();
+
+        return (!$curr->nonimap || ($curr->namespace && $curr->children));
     }
 
 }
