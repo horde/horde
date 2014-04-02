@@ -168,8 +168,8 @@ var PrettyAutocompleter = Class.create({
 
     _onKeyDown: function(e)
     {
-        // Check for a comma
-        if (e.keyCode == 188 && !this.p.requireSelection) {
+        // Check for a comma or enter
+        if ((e.keyCode == 188 || e.keyCode == Event.KEY_RETURN) && !this.p.requireSelection) {
             this._processValue();
             e.stop();
         } else if (e.keyCode == 188) {
