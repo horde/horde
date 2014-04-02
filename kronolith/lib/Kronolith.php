@@ -3133,7 +3133,9 @@ class Kronolith
             }
             foreach ($uids as $uid) {
                 $event = $driver->getByUID($uid, array($calendar));
-                $driver->deleteEvent($event->id);
+                if ($event->creator == $user) {
+                    $driver->deleteEvent($event->id);
+                }
             }
         }
     }
