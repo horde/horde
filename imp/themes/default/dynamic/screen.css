@@ -6,7 +6,7 @@ html {
     overflow-y: scroll;
 }
 
-/* global */
+/* Global */
 input {
     vertical-align: middle;
 }
@@ -14,26 +14,18 @@ input {
     color: red;
 }
 
-/* Main container styles. */
-#horde-body {
-    bottom: 0;
-    top: 0;
-}
-
 /* SpellChecker styles. */
-.spellcheckChecking, .spellcheckIncorrect {
+.spellcheckChecking,
+.spellcheckIncorrect {
     color: red;
 }
 .spellcheckCorrected {
     color: #090;
 }
-.spellcheckIncorrect, .spellcheckCorrected {
+.spellcheckIncorrect,
+.spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
-}
-#spellcheck img {
-    padding-right: 2px;
-    vertical-align: top;
 }
 
 /* Splitbar styles. */
@@ -48,34 +40,26 @@ input {
 
 /* Message List */
 .horde-buttonbar,
-#msglistHeaderHoriz .msgDate,
 #msglistHeaderHoriz .msgSize {
-    padding-right: 15px;
+    padding-right: 12px;
+}
+#msglistHeaderHoriz {
+    border-bottom: 0;
+    margin-bottom: -1px;
 }
 
-.horde-table-header .horde-split-left,
-.horde-table-header .horde-split-right {
-    width: 2px;
-    height: 21px;
-    margin: 0 5px;
-    padding: 0;
-}
 .horde-table-header .horde-split-left {
-    position: absolute;
+    width: 2px;
+    height: 22px;
+    margin: 0 5px 0 -6px;
     top: 0;
-    margin-left: -6px;
-}
-.horde-table-header .horde-split-right {
-    float:right;
-    background-position: center left;
 }
 
 /* Columns */
 div.msgStatus {
-    padding-left: 10px;
+    margin-top: 1px;
+    padding-left: 8px;
     width: 70px;
-    text-decoration: none !important;
-    text-indent: 0 !important;
 }
 div.msgFrom {
     left: 80px;
@@ -95,22 +79,16 @@ div.msgSize {
     right: 18px;
     width: 50px;
 }
+div.msgSort {
+    float: right;
+    padding-top: 2px;
+}
 
 #msglistHeaderContainer .horde-popdown {
     display: inline-block;
     float: none;
     margin-bottom: -8px;
     margin-top: -4px;
-}
-
-/* Message List Header and Column Header */
-div.msgSort {
-    float: right;
-    padding-top: 4px;
-    margin-bottom: -4px;
-}
-div.msgSort span.iconImg {
-    margin-bottom: -2px;
 }
 
 /* Message ViewPort */
@@ -126,7 +104,7 @@ span.vpEmpty {
 div.vpRow {
     border-bottom: 1px solid #d0d0d0;
     cursor: pointer;
-    height: 21px;
+    height: 22px;
     overflow: hidden;
 }
 div.vpRow div {
@@ -152,11 +130,7 @@ div.vpRowSelected {
     color: #fff;
 }
 div.vpRowHoriz div.sep {
-    margin-left: 5px;
     padding-left: 5px;
-}
-div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
-    background-position: left center;
 }
 
 /* Rows: flags. */
@@ -219,14 +193,12 @@ div.vpRowSelected .msgflags.flagDeleted {
 .msCheck {
     background-image: url("../graphics/checkbox_off.png");
 }
-.msCheck:hover {
+div.vpRow .msCheck:hover {
     background-image: url("../graphics/checkbox_over.png") !important;
 }
-.msCheckOn, div.vpRowSelected div.msCheck {
+.msCheckOn,
+div.vpRowSelected .msCheck {
     background-image: url("../graphics/checkbox_on.png");
-}
-div.contextMenu .msCheck, div.contextMenu .msCheckOn {
-    margin-right: 2px;
 }
 
 /* Rows (vertical mode) */
@@ -235,7 +207,6 @@ div.vpRowVert {
     padding-top: 4px;
 }
 div.vpRowVert div {
-    border-bottom-width: 0;
     height: 20px;
     padding-top: 0;
     position: relative;
@@ -255,7 +226,6 @@ div.vpRowVert div.msgDate {
     float: right;
     right: auto;
     padding-right: 5px;
-    text-indent: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject {
@@ -263,10 +233,6 @@ div.vpRowVert div.msgSubject {
     right: auto;
     color: gray;
     padding-right: 5px;
-    width: auto;
-}
-div.vpRowVert div.msgSubject span.flagUser {
-    font-style: normal;
 }
 
 /* ViewPort - scroller */
@@ -311,13 +277,23 @@ div.vpRowVert div.msgSubject span.flagUser {
 #horde-sidebar .horde-info {
     display: none;
 }
-#ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
+#ctx_mbox_sub span.iconImg,
+#ctx_mbox_unsub span.iconImg,
+#ctx_folderopts_sub span.iconImg,
+#ctx_folderopts_unsub span.iconImg,
+.folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
-#horde-sidebar .col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_mbox_collapse span.iconImg {
+.horde-subnavi-icon.col,
+#ctx_folderopts_collapse span.iconImg,
+#ctx_container_collapse span.iconImg,
+#ctx_mbox_collapse span.iconImg {
     background-image: url("../graphics/folders/minus.png");
 }
-#horde-sidebar .exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_mbox_expand span.iconImg {
+.horde-subnavi-icon.exp,
+#ctx_folderopts_expand span.iconImg,
+#ctx_container_expand span.iconImg,
+#ctx_mbox_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
 #imp-normalmboxes {
@@ -330,27 +306,30 @@ div.vpRowVert div.msgSubject span.flagUser {
 .imp-sidebar-container:hover {
     background: none;
 }
-.imp-sidebar-container a,
-.imp-sidebar-mbox-loading {
-    color: #555 !important;
-}
 .imp-sidebar-container a:hover {
     cursor: default;
     text-decoration: none;
 }
-.horde-subnavi-icon.col, .horde-subnavi-icon.exp {
+.imp-sidebar-container a,
+.imp-sidebar-mbox-loading {
+    color: #555 !important;
+}
+.horde-subnavi-icon.col,
+.horde-subnavi-icon.exp {
     cursor: pointer;
 }
 
-#folderopts a, #dropbase a {
+#dropbase a {
     display: inline !important;
     padding-right: 1px;
 }
-#folderopts:hover, #dropbase:hover {
+#dropbase:hover {
     font-weight: normal !important;
 }
 
-#foldersSidebar .horde-popdown {
+#foldersSidebar .horde-popdown,
+.dimpOptions .horde-popdown,
+.atcrow .horde-popdown {
     display: inline-block;
     float: none;
     height: 16px;
@@ -363,8 +342,7 @@ div.vpRowVert div.msgSubject span.flagUser {
     float: right;
 }
 .dimpOptions div {
-    line-height: 16px;
-    padding-bottom: 2px;
+    padding-bottom: 1px;
 }
 .dimpOptions span {
     cursor: pointer;
@@ -372,42 +350,22 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions .iconImg {
     margin-right: 0;
 }
-.dimpOptions a, .dimpOptions a:visited {
+.dimpOptions a,
+.dimpOptions a:visited {
     text-decoration: none;
     color: #000;
 }
 .dimpOptions a:hover {
     text-decoration: underline;
 }
-.dimpOptions .horde-popdown, .atcrow .horde-popdown {
-    display: inline-block;
-    float: none;
-    height: 16px;
-    margin-top: -2px;
+.dimpOptions .horde-popdown,
+.atcrow .horde-popdown {
     padding-left: 4px;
-    width: 16px;
-}
-
-#encrypt_label, #priority_label, #sent_mail_label {
-    cursor: default;
-    font-weight: bold;
-}
-
-#save_sent_mail_load {
-    padding-left: 0;
 }
 
 /* Actions */
 #button_compose {
     display: none;
-}
-
-div.dimpActionsMsg {
-    border-bottom: 1px solid #999;
-}
-
-div.dimpActionsMsg #windowclose {
-    border: 0;
 }
 
 /* Preview pane styles. */
@@ -418,7 +376,7 @@ div.dimpActionsMsg #windowclose {
     background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
     color: #a0a0a0;
     line-height: 18px;
-    padding: 15px 80px 10px 35px;
+    padding: 15px 80px 10px 40px;
 }
 
 /* Headers styles. */
@@ -436,15 +394,8 @@ div.dimpActionsMsg #windowclose {
 .msgfullread .msgHeaders {
     cursor: default;
 }
-.msgfullread #msgloglist {
-    margin-top: 3px;
-}
 .msgfullread #partlist table {
     margin: 0 0 -3px 0;
-}
-
-.msgHeaders .dimpOptions {
-    padding: 0 0 5px 5px;
 }
 
 .msgHeaders table {
@@ -468,28 +419,17 @@ div.dimpActionsMsg #windowclose {
     padding-right: 2px;
 }
 
-#msgAtc td {
-    padding-bottom: 0;
-    padding-top: 1px;
-}
 .atcLabel, .msgLogLabel {
     font-weight: bold;
-}
-.atcLabel {
     padding-right: 5px;
 }
 
 #partlist table {
-    margin-top: 3px;
+    margin-top: 2px;
 }
 #partlist td {
-    padding-bottom: 2px;
     padding-right: 3px;
 }
-#partlist td.partlistempty {
-    display: none;
-}
-
 #partlist_toggle span.attachmentImg {
     margin-right: 0;
 }
@@ -501,27 +441,23 @@ div.dimpActionsMsg #windowclose {
     padding-top: 4px;
 }
 
-#msgloglist_toggle, #partlist_toggle {
+#msgloglist_toggle,
+#partlist_toggle {
     cursor: pointer;
 }
 
 #msgHeadersContent {
     overflow: hidden;
 }
-#msgHeadersContent p {
-    font-size: 140%;
+#msgHeadersContent p.subject {
+    font-size: 100%;
     font-weight: bold;
 }
-#msgHeadersContent p.subject {
-    margin-bottom: 10px;
-    font-size: 100%;
-}
 
-/* ini msg small header */
-#msgHeadersColl {
-    white-space: nowrap;
-}
-#msgHeadersColl span.date, #msgHeadersColl span.from, #msgHeadersColl span.subject {
+/* Preview small header */
+#msgHeadersColl span.date,
+#msgHeadersColl span.from,
+#msgHeadersColl span.subject {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -531,15 +467,12 @@ div.dimpActionsMsg #windowclose {
     text-align: right;
 }
 #msgHeadersColl span.subject {
-    float: left;
     font-weight: bold;
     max-width: 60%;
 }
 #msgHeadersColl span.fromcontainer {
-    float: left;
     padding-left: 5px;
 }
-/* end msg small header */
 
 /* Message body formatting. */
 .messageBody {
@@ -727,6 +660,17 @@ div.dimpActionsMsg #windowclose {
     position: absolute;
     background-color: #fff;
     z-index: 101;
+}
+
+#encrypt_label,
+#priority_label,
+#sent_mail_label {
+    cursor: default;
+    font-weight: bold;
+}
+
+#save_sent_mail_load {
+    padding-left: 0;
 }
 
 /* Attachment file list */
@@ -1124,7 +1068,6 @@ span.readonlyImg {
 
 @media print {
     /* Hide UI elements when printing message in popup window. */
-    div.dimpActionsMsg,
     div.msgfullread div.dimpOptions,
     div.msgfullread div.mimePartInfo a.iconImg {
         display: none;

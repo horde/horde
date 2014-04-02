@@ -8,13 +8,6 @@
     text-align: left;
 }
 
-.sortup {
-    background-image: url("graphics/arrow_up.png");
-}
-.sortdown {
-    background-image: url("graphics/arrow_down.png");
-}
-
 /* Attachment tree styling. */
 div.partsTreeDiv {
     min-height: 0;
