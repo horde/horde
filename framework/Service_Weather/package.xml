@@ -10,8 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-25</date>
- <time>13:55:17</time>
+ <date>2014-04-02</date>
  <version>
   <release>2.1.0</release>
   <api>1.2.0</api>
@@ -134,8 +133,7 @@
      <dir name="Service">
       <dir name="Weather">
        <dir name="fixtures">
-        <file name="boston_google.xml" role="test" />
-        <file name="boston_google_de.xml" role="test" />
+        <file name="boston_location_wwo.json" role="test" />
         <file name="boston_wunderground.json" role="test" />
         <file name="boston_wwo.json" role="test" />
        </dir> <!-- /test/Horde/Service/Weather/fixtures -->
@@ -359,8 +357,7 @@
    <install as="Horde/Service/Weather/phpunit.xml" name="test/Horde/Service/Weather/phpunit.xml" />
    <install as="Horde/Service/Weather/WundergroundTest.php" name="test/Horde/Service/Weather/WundergroundTest.php" />
    <install as="Horde/Service/Weather/WwoTest.php" name="test/Horde/Service/Weather/WwoTest.php" />
-   <install as="Horde/Service/Weather/fixtures/boston_google.xml" name="test/Horde/Service/Weather/fixtures/boston_google.xml" />
-   <install as="Horde/Service/Weather/fixtures/boston_google_de.xml" name="test/Horde/Service/Weather/fixtures/boston_google_de.xml" />
+   <install as="Horde/Service/Weather/fixtures/boston_location_wwo.json" name="test/Horde/Service/Weather/fixtures/boston_location_wwo.json" />
    <install as="Horde/Service/Weather/fixtures/boston_wunderground.json" name="test/Horde/Service/Weather/fixtures/boston_wunderground.json" />
    <install as="Horde/Service/Weather/fixtures/boston_wwo.json" name="test/Horde/Service/Weather/fixtures/boston_wwo.json" />
    <install as="themes/default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
@@ -721,7 +718,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-25</date>
+   <date>2014-04-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix fetching local observation time from Wwo (Bug #13083, maciej.uhlig@us.edu.pl).
