@@ -32,13 +32,30 @@
  */
 class Horde_Service_Weather_Station
 {
+    /**
+     * Local properties array.
+     *
+     * @var array
+     */
     protected $_properties = array();
 
+    /**
+     * Const'r
+     *
+     * @param array $properties  The properties for the station.
+     */
     public function __construct($properties = array())
     {
         $this->_properties = $properties;
     }
 
+    /**
+     * Accessor
+     *
+     * @param string $property  The property to return.
+     *
+     * @return mixed  The value of requested property.
+     */
     public function __get($property)
     {
         if (isset($this->_properties[$property])) {
@@ -47,6 +64,12 @@ class Horde_Service_Weather_Station
         return '';
     }
 
+    /**
+     * Setter.
+     *
+     * @param string $property  The property name.
+     * @param mixed $value      The value to set $property to.
+     */
     public function __set($property, $value)
     {
         $this->_properties[$property] = $value;

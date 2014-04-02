@@ -76,15 +76,15 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     );
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param array $params                                  Parameters.
-     *<pre>
-     *  'http_client'  - Required http client object
-     *  'apikey'       - Required API key for wunderground.
-     *</pre>
+     * @param array $params  Parameters:
+     *     - cache: (Horde_Cache)             Optional Horde_Cache object.
+     *     - cache_lifetime: (integer)        Lifetime of cached data, if caching.
+     *     - http_client: (Horde_Http_Client) Required http client object.
+     *     - apikey: (string)                 Require api key for Wwo.
      *
-     * @return Horde_Service_Weather_Base
+     * @return Horde_Service_Weather_WeatherUnderground
      */
     public function __construct(array $params = array())
     {
@@ -103,7 +103,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Obtain the current observations.
      *
-     * @return Horde_Service_Weather_Current
+     * @see Horde_Service_Weather_Current_Base::getCurrentConditions()
+     *
+     * @return Horde_Service_Weather_Current_WeatherUnderground.
      */
     public function getCurrentConditions($location)
     {
@@ -114,7 +116,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Obtain the forecast for the current location.
      *
-     * @see Horde_Service_Weather_Base#getForecast
+     * @see Horde_Service_Weather_Base::getForecast()
+     *
+     * @return Horde_Service_Weather_Forecast_WeatherUnderground
      */
     public function getForecast(
         $location,
@@ -128,12 +132,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Search for a valid location code.
      *
-     * @param  string $location  A location search string like e.g., Boston,MA
-     * @param  integer $type     The type of search being performed.
-     *
-     * @return string  The search location suitable to use directly in a
-     *                 weather request.
-     * @throws Horde_Service_Weather_Exception
+     * @see Horde_Service_Weather_Base::searchLocations()
      */
     public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
@@ -148,6 +147,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
     }
 
+    /**
+     * Return an autocomplete search response.
+     *
+     * @see Horde_Service_Weather_Base::autocompleteLocation()
+     */
     public function autocompleteLocation($search)
     {
         $url = new Horde_Url('http://autocomplete.wunderground.com/aq');
