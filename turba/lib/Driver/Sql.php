@@ -179,13 +179,15 @@ class Turba_Driver_Sql extends Turba_Driver
     protected function _parseRead($blobFields, $result, $dateFields = array())
     {
         $results = array();
-        $columns = $this->_db->columns($this->_params['table']);
 
         foreach ($result as $row) {
             $entry = array();
 
             foreach ($row as $field => $val) {
                 if (isset($blobFields[$field])) {
+                    if (!isset($columns)) {
+                        $columns = $this->_db->columns($this->_params['table']);
+                    }
                     $entry[$field] = $columns[$field]->binaryToString($val);
                 } elseif (isset($dateFields[$field]) && !empty($val)) {
                     $d = new Horde_Date($val);
