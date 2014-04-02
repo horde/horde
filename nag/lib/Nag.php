@@ -445,15 +445,9 @@ class Nag
     /**
      * Lists all task lists a user has access to.
      *
-     * This method takes the $conf['share']['hidden'] setting into account. If
-     * this setting is enabled, even if requesting permissions different than
-     * SHOW, it will only return calendars that the user owns or has SHOW
-     * permissions for. For checking individual calendar's permissions, use
-     * hasPermission() instead.
-     *
-     * @param boolean $owneronly  Only return tasklists that this user owns?
+     * @param boolean $owneronly  Only return task lists that this user owns?
      *                            Defaults to false.
-     * @param integer $permission The permission to filter tasklists by.
+     * @param integer $permission The permission to filter task lists by.
      * @param boolean $smart      Include SmartLists in the results.
      *
      * @return array  The task lists.
