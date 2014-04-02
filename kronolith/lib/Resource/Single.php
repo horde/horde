@@ -155,11 +155,20 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     private function _copyEvent(Kronolith_Event $from, Kronolith_Event &$to)
     {
+        $identity = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($from->creator);
+        $fullname = $identity->getDefaultFromAddress(true);
+        if (empty($fullname)) {
+            $fullname = $from->creator;
+        } else {
+            $fullname = $fullname->writeAddress();
+        }
         $to->uid = $from->uid;
         $to->title = $from->title;
         $to->location = $from->location;
         $to->status = $from->status == Kronolith::STATUS_CANCELLED ? $from->status : Kronolith::STATUS_CONFIRMED;
-        $to->description = $from->description;
+        $to->description = sprintf(_("Reserved by user %s.\n\r"), $fullname) . $from->description;
         $to->url = $from->url;
         $to->tags = $from->tags;
         $to->geoLocation = $from->geoLocation;
@@ -174,6 +183,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         }
         $to->initialized = true;
         $to->timezone = $from->timezone;
+        $to->creator = $from->creator;
     }
 
 }
