@@ -252,31 +252,47 @@ class Nag
         // Process all tasks.
         $tasks->process();
 
-        if ($options['external']) {
-            // We look for registered apis that support listAs(taskHash).
-            $apps = @unserialize($prefs->getValue('show_external'));
-            if (is_array($apps)) {
-                foreach ($apps as $app) {
-                    if ($app != 'nag' &&
-                        $registry->hasMethod('getListTypes', $app)) {
-                        try {
-                            $types = $registry->callByPackage($app, 'getListTypes');
-                        } catch (Horde_Exception $e) {
+        if ($options['external'] &&
+            ($apps = @unserialize($prefs->getValue('show_external'))) &&
+            is_array($apps)) {
+            foreach ($apps as $app) {
+                // We look for registered apis that support listAs(taskHash).
+                if ($app == 'nag' ||
+                    !$registry->hasMethod('getListTypes', $app)) {
+                    continue;
+                }
+                try {
+                    $types = $registry->callByPackage($app, 'getListTypes');
+                } catch (Horde_Exception $e) {
+                    continue;
+                }
+                if (empty($types['taskHash'])) {
+                    continue;
+                }
+
+                try {
+                    $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
+                    foreach ($newtasks as $task) {
+                        $task['tasklist_id'] = '**EXTERNAL**';
+                        $task['tasklist_name'] = $registry->get('name', $app);
+                        $task = new Nag_Task(null, $task);
+                        if (($options['completed'] == Nag::VIEW_INCOMPLETE &&
+                             ($task->completed ||
+                              $task->start > $_SERVER['REQUEST_TIME'])) ||
+                            ($options['completed'] == Nag::VIEW_COMPLETE &&
+                             !$task->completed) ||
+                            ($options['completed'] == Nag::VIEW_FUTURE &&
+                             ($task->completed ||
+                              !$task->start ||
+                              $task->start < $_SERVER['REQUEST_TIME'])) ||
+                            ($options['completed'] == Nag::VIEW_FUTURE_INCOMPLETE &&
+                             $task->completed)) {
                             continue;
                         }
-                        if (!empty($types['taskHash'])) {
-                            try {
-                                $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
-                                 foreach ($newtasks as $task) {
-                                    $task['tasklist_id'] = '**EXTERNAL**';
-                                    $task['tasklist_name'] = $registry->get('name', $app);
-                                    $tasks->add(new Nag_Task(null, $task));
-                                }
-                            } catch (Horde_Exception $e) {
-                                Horde::log($newtasks, 'ERR');
-                            }
-                        }
+                        $tasks->add($task);
                     }
+                } catch (Horde_Exception $e) {
+                    Horde::log($e);
                 }
             }
         }

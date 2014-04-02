@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Show external tasks in the correct task type.
 * [jan] Purge old tasks from versions &lt; 2.3 too.
 * [jan] Allow to synchronize shared task lists via CalDAV (Request #12380).
 * [jan] Add script to import tasks from Open-Xchange.
@@ -1481,6 +1482,7 @@
    <date>2014-04-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Show external tasks in the correct task type.
 * [jan] Purge old tasks from versions &lt; 2.3 too.
 * [jan] Allow to synchronize shared task lists via CalDAV (Request #12380).
 * [jan] Add script to import tasks from Open-Xchange.
