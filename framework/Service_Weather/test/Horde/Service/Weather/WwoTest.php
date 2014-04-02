@@ -76,7 +76,7 @@ class Horde_Service_Weather_WwoTest extends Horde_Test_Case
         $weather->units = Horde_Service_Weather::UNITS_STANDARD;
 
         $forecast = $weather->getForecast('boston,ma');
-        //$this->assertEquals('2011-11-27 02:08:00', (string)$forecast->getForecastTime());
+        $this->assertEquals('2014-04-01 18:34:00', (string)$forecast->getForecastTime());
 
         $dayOne = $forecast->getForecastDay(0);
         $this->assertInstanceOf('Horde_Service_Weather_Period_Base', $dayOne);
