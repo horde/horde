@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-03</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.2.0</release>
   <api>1.2.0</api>
@@ -317,6 +317,7 @@
     <dir name="Horde">
      <dir name="Alarm">
       <file name="1_horde_alarms_table.php" role="data" />
+      <file name="2_horde_alarms_add_instanceid.php" role="data" />
      </dir> <!-- /migration/Horde/Alarm -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -526,6 +527,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Alarm.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Alarm.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" name="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" />
    <install as="migration/1_horde_alarms_table.php" name="migration/Horde/Alarm/1_horde_alarms_table.php" />
+   <install as="migration/2_horde_alarms_add_instanceid.php" name="migration/Horde/Alarm/2_horde_alarms_add_instanceid.php" />
    <install as="Horde/Alarm/AllTests.php" name="test/Horde/Alarm/AllTests.php" />
    <install as="Horde/Alarm/bootstrap.php" name="test/Horde/Alarm/bootstrap.php" />
    <install as="Horde/Alarm/conf.php.dist" name="test/Horde/Alarm/conf.php.dist" />
@@ -872,7 +874,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add support for multiple instances of the same alarm, such as for a recurring event.
