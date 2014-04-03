@@ -19,7 +19,7 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix printing of structured fatal error details.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -740,6 +740,19 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix printing of structured fatal error details.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
