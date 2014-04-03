@@ -22,8 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-08</date>
- <time>11:46:56</time>
+ <date>2014-04-03</date>
  <version>
   <release>1.1.0alpha1</release>
   <api>1.1.0</api>
@@ -80,6 +79,12 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Data">
+     <file name="Json.php" role="horde" />
+    </dir> <!-- /lib/Data -->
+    <dir name="Factory">
+     <file name="TagBrowser.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="Queue">
      <dir name="Task">
       <file name="Crawl.php" role="horde" />
@@ -100,6 +105,12 @@
     <file name="Url.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="trean.mo" role="horde" />
@@ -201,6 +212,9 @@
      <file name="2line.inc" role="horde" />
      <file name="standard.inc" role="horde" />
     </dir> <!-- /templates/block -->
+    <dir name="data">
+     <file name="import.inc" role="horde" />
+    </dir> <!-- /templates/data -->
     <file name="add.html.php" role="horde" />
     <file name="bookmarklet.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
@@ -452,11 +466,15 @@
    <install as="trean/lib/Ajax/Imple/TopTags.php" name="lib/Ajax/Imple/TopTags.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Data/Json.php" name="lib/Data/Json.php" />
+   <install as="trean/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
    <install as="trean/lib/Queue/Task/Favicon.php" name="lib/Queue/Task/Favicon.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
+   <install as="trean/locale/da/LC_MESSAGES/trean.mo" name="locale/da/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/da/LC_MESSAGES/trean.po" name="locale/da/LC_MESSAGES/trean.po" />
    <install as="trean/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="trean/locale/de/LC_MESSAGES/trean.mo" name="locale/de/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/de/LC_MESSAGES/trean.po" name="locale/de/LC_MESSAGES/trean.po" />
@@ -500,6 +518,7 @@
    <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
    <install as="trean/templates/block/2line.inc" name="templates/block/2line.inc" />
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
+   <install as="trean/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
