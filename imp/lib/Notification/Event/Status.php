@@ -46,7 +46,7 @@ class IMP_Notification_Event_Status extends Horde_Core_Notification_Event_Status
         return Horde_Themes_Image::tag(
             Horde_Themes::img($img, 'imp'),
             array('alt' => $label)
-        ) . parent::__toString();
+        ) . '<div class="noticetext">' . parent::__toString() . '</div>';
     }
 
 }
