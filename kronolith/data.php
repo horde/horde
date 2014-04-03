@@ -218,7 +218,6 @@ if (is_array($next_step)) {
 }
 
 if (Horde_Util::getFormData('import_ajax')) {
-    new Horde_Core_Ajax_Response_Notifications();
     $page_output->addInlineScript('window.parent.$(window.name).remove();');
     $page_output->outputInlineScript();
     exit;
