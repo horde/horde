@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-03</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.1.3</release>
   <api>2.1.0</api>
@@ -82,6 +82,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
@@ -306,6 +312,8 @@
    <install as="Horde/Auth/X509.php" name="lib/Horde/Auth/X509.php" />
    <install as="Horde/Auth/Http/Remote.php" name="lib/Horde/Auth/Http/Remote.php" />
    <install as="locale/Horde_Auth.pot" name="locale/Horde_Auth.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_Auth.mo" name="locale/da/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Auth.po" name="locale/da/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.mo" name="locale/de/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.po" name="locale/de/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Auth.mo" name="locale/es/LC_MESSAGES/Horde_Auth.mo" />
@@ -916,7 +924,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
