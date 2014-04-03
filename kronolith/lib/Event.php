@@ -1386,6 +1386,7 @@ abstract class Kronolith_Event
      * Handle parsing recurrence related fields.
      *
      * @param Horde_Icalendar $vEvent
+     * @throws Kronolith_Exception
      */
     protected function _handlevEventRecurrence($vEvent)
     {
@@ -1440,11 +1441,15 @@ abstract class Kronolith_Event
             $this->exceptionoriginaldate = $originaldt;
             $this->baseid = $this->uid;
             $this->uid = null;
-            $originalEvent = $kronolith_driver->getByUID($this->baseid);
-            $originalEvent->recurrence->addException($originaldt->format('Y'),
-                $originaldt->format('m'),
-                $originaldt->format('d'));
-            $originalEvent->save();
+            try {
+                $originalEvent = $kronolith_driver->getByUID($this->baseid);
+                $originalEvent->recurrence->addException($originaldt->format('Y'),
+                    $originaldt->format('m'),
+                    $originaldt->format('d'));
+                $originalEvent->save();
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Kronolith_Exception('Unable to locate original event series.');
+            }
         } catch (Horde_Icalendar_Exception $e) {}
     }
 
