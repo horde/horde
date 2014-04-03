@@ -213,6 +213,7 @@ class Turba_View_List implements Countable
                 'page_limit' => $maxpage,
                 'perpage' => $perpage
             ));
+            $pager->preserve('search', $vars->get('search'));
             $pagerHeader = 'numPager.inc';
         } else {
             if (count($this) > $prefs->getValue('perpage')) {
