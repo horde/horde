@@ -12,7 +12,7 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>2.13.4</release>
+  <release>2.13.5</release>
   <api>2.13.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
-* [mjr] Support sending PRIMARYSMTPADDRESS in EAS 14.1 (Request #13062).
-* [mjr] Change the order of WBXML tags for Horde_ActiveSync_Message_Exception to make some older clients happy.
-* [mjr] Fix some cases where removing a device&apos;s state could cause a PING and/or SYNC loop on some older clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2057,6 +2054,19 @@
 * [mjr] Support sending PRIMARYSMTPADDRESS in EAS 14.1 (Request #13062).
 * [mjr] Change the order of WBXML tags for Horde_ActiveSync_Message_Exception to make some older clients happy.
 * [mjr] Fix some cases where removing a device&apos;s state could cause a PING and/or SYNC loop on some older clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.5</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
