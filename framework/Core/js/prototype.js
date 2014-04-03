@@ -564,6 +564,11 @@ Object.extend(String.prototype, (function() {
     return function(match) { return template.evaluate(match) };
   }
 
+  function isNonEmptyRegExp(regexp) {
+    return regexp.source && regexp.source !== '(?:)';
+  }
+
+
   function gsub(pattern, replacement) {
     var result = '', source = this, match;
     replacement = prepareReplacement(replacement);
@@ -571,7 +576,7 @@ Object.extend(String.prototype, (function() {
     if (Object.isString(pattern))
       pattern = RegExp.escape(pattern);
 
-    if (!(pattern.length || pattern.source)) {
+    if (!(pattern.length || isNonEmptyRegExp(pattern))) {
       replacement = replacement('');
       return replacement + source.split('').join(replacement) + replacement;
     }
@@ -2807,13 +2812,33 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
     return element;
   }
 
+  var PROBLEMATIC_HAS_ATTRIBUTE_WITH_CHECKBOXES = (function () {
+    if (!HAS_EXTENDED_CREATE_ELEMENT_SYNTAX) {
+      return false;
+    }
+    var checkbox = document.createElement('<input type="checkbox">');
+    checkbox.checked = true;
+    var node = checkbox.getAttributeNode('checked');
+    var buggy = !node.specified;
+    return !node.specified;
+  })();
+
   function hasAttribute(element, attribute) {
     attribute = ATTRIBUTE_TRANSLATIONS.has[attribute] || attribute;
     var node = $(element).getAttributeNode(attribute);
     return !!(node && node.specified);
   }
 
-  GLOBAL.Element.Methods.Simulated.hasAttribute = hasAttribute;
+  function hasAttribute_IE(element, attribute) {
+    if (attribute === 'checked') {
+      return element.checked;
+    }
+    return hasAttribute(element, attribute);
+  }
+
+  GLOBAL.Element.Methods.Simulated.hasAttribute =
+   PROBLEMATIC_HAS_ATTRIBUTE_WITH_CHECKBOXES ?
+   hasAttribute_IE : hasAttribute;
 
   function classNames(element) {
     return new Element.ClassNames(element);
@@ -4077,9 +4102,16 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   function cumulativeScrollOffset(element) {
     var valueT = 0, valueL = 0;
     do {
-      valueT += element.scrollTop  || 0;
-      valueL += element.scrollLeft || 0;
-      element = element.parentNode;
+      if (element === document.body) {
+        var bodyScrollNode = document.documentElement || document.body.parentNode || document.body;
+        valueT += !Object.isUndefined(window.pageYOffset) ? window.pageYOffset : bodyScrollNode.scrollTop || 0;
+        valueL += !Object.isUndefined(window.pageXOffset) ? window.pageXOffset : bodyScrollNode.scrollLeft || 0;
+        break;
+      } else {
+        valueT += element.scrollTop  || 0;
+        valueL += element.scrollLeft || 0;
+        element = element.parentNode;
+      }
     } while (element);
     return new Element.Offset(valueL, valueT);
   }
