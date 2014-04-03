@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-06</date>
+ <date>2014-04-03</date>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -164,7 +164,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-11-05</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Due to issues with igbinary 1.1.1, disable the igbinary driver.
