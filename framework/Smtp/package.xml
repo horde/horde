@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-11</date>
+ <date>2014-04-03</date>
  <version>
   <release>1.4.1</release>
   <api>1.4.0</api>
@@ -56,6 +56,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Smtp.mo" role="data" />
+      <file name="Horde_Smtp.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <file name="Horde_Smtp.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -154,6 +160,8 @@
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
    <install as="Horde/Smtp/Password/Xoauth2.php" name="lib/Horde/Smtp/Password/Xoauth2.php" />
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_Smtp.mo" name="locale/da/LC_MESSAGES/Horde_Smtp.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Smtp.po" name="locale/da/LC_MESSAGES/Horde_Smtp.po" />
    <install as="Horde/Smtp/AllTests.php" name="test/Horde/Smtp/AllTests.php" />
    <install as="Horde/Smtp/bootstrap.php" name="test/Horde/Smtp/bootstrap.php" />
    <install as="Horde/Smtp/conf.php.dist" name="test/Horde/Smtp/conf.php.dist" />
@@ -337,7 +345,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-11</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
