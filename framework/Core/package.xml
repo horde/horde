@@ -30,12 +30,12 @@
  </developer>
  <date>2014-04-08</date>
  <version>
-  <release>2.12.0</release>
+  <release>2.12.0alpha1</release>
   <api>2.12.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -3366,12 +3366,12 @@
   </release>
   <release>
    <version>
-    <release>2.12.0</release>
+    <release>2.12.0alpha1</release>
     <api>2.12.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2014-04-08</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Core_Cache_Session.
