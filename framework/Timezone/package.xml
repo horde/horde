@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2014-04-03</date>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -226,7 +226,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Use passive FTP for downloading the timezone database (arjen+horde@de-korte.org, Request #13024).
