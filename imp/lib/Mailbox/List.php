@@ -466,7 +466,7 @@ implements ArrayAccess, Countable, Iterator, Serializable
         } elseif ($count) {
             try {
                 $status_res = $imp_imap->status($this->_mailbox, Horde_Imap_Client::STATUS_UNSEEN);
-                return $status_res[Horde_Imap_Client::STATUS_UNSEEN];
+                return $status_res['unseen'];
             } catch (IMP_Imap_Exception $e) {
                 return 0;
             }
