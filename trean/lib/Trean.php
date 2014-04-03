@@ -80,4 +80,5 @@ class Trean
         $view->image = Horde::img('add.png');
         return $view->render('bookmarklet');
     }
+
 }
