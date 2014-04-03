@@ -28,12 +28,12 @@
     <option value="" disabled="disabled">- - - - - - - -</option>
     <option class="actionsSelectSection" value=""><?php echo _("Mark as:") ?></option>
 <?php foreach ($this->flaglist_set as $v): ?>
-    <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
+    <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $this->escape($v['l']) ?></option>
 <?php endforeach; ?>
     <option value="" disabled="disabled">- - - - - - - -</option>
     <option class="actionsSelectSection" value=""><?php echo _("Unmark as:") ?></option>
 <?php foreach ($this->flaglist_unset as $v): ?>
-    <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
+    <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $this->escape($v['l']) ?></option>
 <?php endforeach; ?>
    </select>
   </li>
