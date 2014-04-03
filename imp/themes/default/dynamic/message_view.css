@@ -1,0 +1,86 @@
+/* Headers styles. */
+.msgHeaders {
+    padding: 10px 6px 10px 4px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.msgHeaders a {
+    color: #000;
+}
+.msgHeaders table {
+    margin-top: -2px;
+}
+.msgHeaders table thead td.label {
+    display: block;
+    font-weight: bold;
+    padding-right: 4px;
+    text-align: right;
+    white-space: nowrap;
+}
+.msgHeaders table thead td.subject {
+    font-weight: bold;
+}
+
+#partlist table {
+    margin-top: 2px;
+}
+#partlist td {
+    padding-right: 3px;
+}
+
+#msgloglist ul {
+    list-style-type: none;
+}
+#msgloglist li {
+    padding-top: 4px;
+}
+
+#msgHeadersContent {
+    overflow: hidden;
+}
+#msgHeadersContent p.subject {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+/* Message body formatting. */
+.messageBody {
+    padding: 10px;
+}
+
+/* Email Addresses. */
+.msgHeaders .horde-button {
+    padding: 1px 3px;
+    margin: -1px 1px 2px 0;
+}
+.msgHeaders a.addrgroup-name {
+    font-weight: bold;
+}
+.msgHeaders div.addrgroup-div {
+    background-color: #aaa;
+    display: inline-block;
+    margin: 1px;
+    padding: 4px 2px 3px;
+}
+
+/* Images */
+span.iconImg {
+    margin-right: 4px;
+}
+
+/* Dimp action images. */
+.dimpactionReply {
+    background-image: url("../graphics/reply.png");
+}
+.dimpactionSpam {
+    background-image: url("../graphics/spam.png");
+}
+.dimpactionInnocent {
+    background-image: url("../graphics/innocent.png");
+}
+.dimpactionDelete {
+    background-image: url("../graphics/delete.png");
+}

@@ -50,6 +50,8 @@ class IMP_Dynamic_Compose_Common
             $page_output->addScriptFile('passphrase.js');
         }
 
+        $page_output->addThemeStylesheet('compose.css');
+
         $this->_addComposeVars($base);
 
         $view = $base->getEmptyView();

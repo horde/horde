@@ -51,6 +51,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             $page_output->addScriptFile('external/base64.js');
         }
 
+        $page_output->addThemeStylesheet('mailbox.css');
+        $page_output->addThemeStylesheet('message_view.css');
+
         $this->_addMailboxVars();
 
         $this->view->show_innocent = !empty($imp_imap->config->innocent_params);

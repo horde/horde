@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-23</date>
+ <date>2014-04-03</date>
  <version>
   <release>6.2.0</release>
   <api>6.2.0</api>
@@ -1078,6 +1078,10 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
+      <file name="compose.css" role="horde" />
+      <file name="mailbox.css" role="horde" />
+      <file name="message.css" role="horde" />
+      <file name="message_view.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -2136,6 +2140,10 @@
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/basic/screen.css" name="themes/default/basic/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
+   <install as="imp/themes/default/dynamic/compose.css" name="themes/default/dynamic/compose.css" />
+   <install as="imp/themes/default/dynamic/mailbox.css" name="themes/default/dynamic/mailbox.css" />
+   <install as="imp/themes/default/dynamic/message.css" name="themes/default/dynamic/message.css" />
+   <install as="imp/themes/default/dynamic/message_view.css" name="themes/default/dynamic/message_view.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
