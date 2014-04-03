@@ -1057,6 +1057,17 @@ span.readonlyImg {
     margin: -1px 0 0 3px;
 }
 
+/* Growler notification styles. */
+.imp-reply {
+    background-image: url("../graphics/answered.png");
+}
+.imp-reply_all, .imp-reply_list {
+    background-image: url("../graphics/replyall.png");
+}
+.imp-forward, .imp-redirect {
+    background-image: url("../graphics/forwarded.png");
+}
+
 /* Dialog */
 #dimpbase_confirm select {
     display: block;
