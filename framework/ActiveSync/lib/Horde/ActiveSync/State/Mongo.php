@@ -106,6 +106,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     const DEVICE_SUPPORTED       = 'device_supported';
     const DEVICE_PROPERTIES      = 'device_properties';
     const DEVICE_USERS           = 'device_users';
+    const DEVICE_USER            = 'device_user';
     const DEVICE_USERS_USER      = 'users.device_user';
     const DEVICE_USERS_POLICYKEY = 'users.device_policykey';
     const DEVICE_POLICYKEY       = 'device_policykey';
@@ -588,7 +589,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $device['id'] = $devId;
         $device['user'] = $user;
         foreach ($device_data['users'] as $user_entry) {
-            if ($user_entry[self::DEVICE_USERS_USER] == $user) {
+            if ($user_entry[self::DEVICE_USER] == $user) {
                 $device['policykey'] = $user_entry[self::DEVICE_POLICYKEY];
                 break;
             }
@@ -635,14 +636,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             if (!empty($dirty['user']) || !empty($dirty['policykey'])) {
                 $user_data = array(
-                    self::DEVICE_USERS_USER => $data->user,
+                    self::DEVICE_USER => $data->user,
                     self::DEVICE_POLICYKEY => (string)$data->policykey
                 );
 
                 try {
                     $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
                         array(self::MONGO_ID => $data->id),
-                        array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $data->user)))
+                        array('$pull' => array('users' => array(self::DEVICE_USER => $data->user)))
                     );
                     $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
                         array(self::MONGO_ID => $data->id),
@@ -726,7 +727,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         if (!empty($user)) {
             $query[self::DEVICE_USERS_USER] = $user;
         }
-        $explicit_fields = array(self::DEVICE_ID, self::DEVICE_TYPE, self::DEVICE_AGENT, self::DEVICE_USERS_USER);
+        $explicit_fields = array(self::DEVICE_ID, self::DEVICE_TYPE, self::DEVICE_AGENT, self::DEVICE_USER);
         foreach ($filter as $key => $value) {
             if (in_array($key, $explicit_fields)) {
                 $query[$key] = new MongoRegex("/^$value*/");
@@ -783,7 +784,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         foreach ($cursor as $row) {
             foreach ($row['users'] as $user) {
                 $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
-                    array(self::DEVICE_USERS_USER => $user[self::DEVICE_USERS_USER]),
+                    array(self::DEVICE_USERS_USER => $user[self::DEVICE_USER]),
                     array('$set' => array('users.$.device_policykey' => 0)),
                     array('multiple' => true)
                 );
@@ -1002,7 +1003,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             try {
                 $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
                     array(self::MONGO_ID => $options['devId'], self::DEVICE_USERS_USER => $options['user']),
-                    array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $options['user'])))
+                    array('$pull' => array('users' => array(self::DEVICE_USER=> $options['user'])))
                 );
             } catch (Exception $e) {
                 $this->_logger->err(sprintf(
@@ -1047,7 +1048,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             try {
                 $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
                     array(self::DEVICE_USERS_USER),
-                    array('$pull' => array('users' => array(self::DEVICE_USERS_USER => $options['user'])))
+                    array('$pull' => array('users' => array(self::DEVICE_USER => $options['user'])))
                 );
             } catch (Exception $e) {
                 $this->_logger->err($e->getMessage());
