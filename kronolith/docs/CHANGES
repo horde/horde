@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[mjr] Gracefully handle import errors in dynamic interface (Bug #11127).
 [mjr] Show reservee of a resource in resource's event description (Request
       #13037).
 [mjr] Add resource_management permission (Request #13049).

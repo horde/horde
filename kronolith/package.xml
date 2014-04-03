@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Gracefully handle import errors in dynamic interface (Bug #11127).
 * [mjr] Show reservee of a resource in resource&apos;s event description (Request #13037).
 * [mjr] Add resource_management permission (Request #13049).
 * [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
@@ -2303,6 +2304,7 @@
    <date>2014-03-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Gracefully handle import errors in dynamic interface (Bug #11127).
 * [mjr] Show reservee of a resource in resource&apos;s event description (Request #13037).
 * [mjr] Add resource_management permission (Request #13049).
 * [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
