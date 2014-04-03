@@ -120,20 +120,18 @@ var IMP_JS = {
         }
 
         if (id = $(id)) {
-            body = id.contentWindow.document.body;
+            body = (id.contentDocument || id.contentWindow.document).body;
             html = body.parentNode;
 
             Element.setStyle(body, { height: null });
 
             h = Math.max(
                 body.offsetHeight,
-                body.scrollHeight,
                 html.offsetHeight,
                 html.scrollHeight
             );
 
-            if (body.scrollHeight != body.clientHeight ||
-                html.scrollHeight != html.clientHeight) {
+            if (html.scrollHeight != html.clientHeight) {
                 h += 25;
             }
 
