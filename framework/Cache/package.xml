@@ -18,7 +18,7 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>2.4.2</release>
+  <release>2.4.3</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Hashtable driver now respects lifetime parameter in the get() and exists() methods (Bug #13085).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -560,6 +560,19 @@ Initial packaging.
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Hashtable driver now respects lifetime parameter in the get() and exists() methods (Bug #13085).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.3</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
