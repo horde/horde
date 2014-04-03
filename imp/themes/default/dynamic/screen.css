@@ -48,6 +48,18 @@ input {
     margin-bottom: -1px;
 }
 
+#msglistHeaderContainer .horde-popdown {
+    display: inline-block;
+    float: none;
+    margin-bottom: -8px;
+    margin-top: -4px;
+}
+#msglistHeaderContainer .sortup,
+#msglistHeaderContainer .sortdown {
+    margin-top: 3px;
+    padding-top: 0;
+}
+
 .horde-table-header .horde-split-left {
     width: 2px;
     height: 22px;
@@ -82,13 +94,6 @@ div.msgSize {
 div.msgSort {
     float: right;
     padding-top: 2px;
-}
-
-#msglistHeaderContainer .horde-popdown {
-    display: inline-block;
-    float: none;
-    margin-bottom: -8px;
-    margin-top: -4px;
 }
 
 /* Message ViewPort */
