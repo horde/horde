@@ -10,8 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-28</date>
- <time>13:51:30</time>
+ <date>2014-04-03</date>
  <version>
   <release>2.0.6</release>
   <api>1.0.0</api>
@@ -994,7 +993,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-28</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix fatal error if using TNEF viewer and bcmath extension is not installed on the system.
