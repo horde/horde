@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-03-25</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -322,7 +322,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-25</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Abstract caching logic into Horde_Autoloader_Cache_Bootstrap class.
