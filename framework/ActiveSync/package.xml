@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-24</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.13.4</release>
   <api>2.13.0</api>
@@ -147,6 +147,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="Horde_ActiveSync.mo" role="data" />
@@ -462,6 +468,8 @@
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
    <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/da/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_ActiveSync.po" name="locale/da/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/es/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/es/LC_MESSAGES/Horde_ActiveSync.mo" />
@@ -2042,7 +2050,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-24</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
