@@ -196,8 +196,8 @@ if (is_array($next_step)) {
     // Any RECURRENCE-ID entries?
     foreach ($recurrences as $recurrence) {
         $event = $kronolith_driver->getEvent();
-        $event->fromiCalendar($recurrence);
         try {
+            $event->fromiCalendar($recurrence);
             $event->save();
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
