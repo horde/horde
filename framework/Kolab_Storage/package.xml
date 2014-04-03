@@ -11,7 +11,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2014-02-20</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -1330,7 +1330,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-20</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Consistently return a stream from the getBodypart() methods.
