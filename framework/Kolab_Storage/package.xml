@@ -13,7 +13,7 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Consistently return a stream from the getBodypart() methods.
-* [jan] Add Horde_Kolab_Storage_Object#getBackendId().
-* [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
-* [mms] Fix grabbing annotation list from IMAP server.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1337,6 +1334,19 @@
 * [jan] Add Horde_Kolab_Storage_Object#getBackendId().
 * [jan] Implement saving and loading of attachments to Kolab objects (backward compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
 * [mms] Fix grabbing annotation list from IMAP server.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
