@@ -91,7 +91,7 @@ var IMP_JS = {
 
         id.onload = function(e) {
             this.iframeResize(e, id);
-            id.setStyle({ overflowY: null });
+            id.setStyle({ overflowY: '' });
         }.bind(this);
 
         d.open();

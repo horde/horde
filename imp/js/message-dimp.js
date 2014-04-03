@@ -303,6 +303,13 @@ var DimpMessage = {
 document.observe('dom:loaded', function() {
     if (Prototype.Browser.IE && !document.addEventListener) {
         // IE 8
+        IMP_JS.iframeResize = IMP_JS.iframeResize.wrap(function(parentfunc, e, id) {
+            if ($('msgData').visible()) {
+                (function() { parentfunc(e, id); }).defer();
+            } else {
+                IMP_JS.iframeResize.bind(IMP_JS, e, id).defer();
+            }
+        });
         DimpMessage.onDomLoad.bind(DimpMessage).delay(0.1);
     } else {
         DimpMessage.onDomLoad();
