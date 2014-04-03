@@ -209,10 +209,10 @@ if (is_array($next_step)) {
     if (!$error) {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$storage->get('format')]), 'horde.success');
-        if (Horde_Util::getFormData('import_ajax')) {
-            $page_output->includeScriptFiles();
-            $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
-        }
+    }
+    if (Horde_Util::getFormData('import_ajax')) {
+        $page_output->includeScriptFiles();
+        $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
     }
     $next_step = $data->cleanup();
 }
