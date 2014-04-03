@@ -54,6 +54,8 @@ class Trean_Application extends Horde_Registry_Application
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
 
+        $GLOBALS['injector']->bindFactory('Trean_TagBrowser', 'Trean_Factory_TagBrowser', 'create');
+
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();
 

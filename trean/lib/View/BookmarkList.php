@@ -63,8 +63,7 @@ class Trean_View_BookmarkList
         if ($browser) {
             $this->_browser = $browser;
         } else {
-            $this->_browser = new Trean_TagBrowser(
-                $GLOBALS['injector']->getInstance('Trean_Tagger'));
+            $this->_browser = $GLOBALS['injector']->getInstance('Trean_TagBrowser');
         }
 
         $action = Horde_Util::getFormData('actionID', '');
@@ -190,7 +189,7 @@ class Trean_View_BookmarkList
                 . Horde::img('tags.png') . ' <ul class="horde-tags">';
             foreach ($rtags as $id => $taginfo) {
                 $html .= '<li>'
-                    . $this->_linkAddTag($taginfo['tag_name'])->link()
+                    . $GLOBALS['injector']->getInstance('Trean_TagBrowser')->addTagLink($taginfo['tag_name'])->link()
                     . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
             }
             return $html . '</ul></div>';
@@ -233,15 +232,4 @@ class Trean_View_BookmarkList
             ->add(array('actionID' => 'remove', 'tag' => $tag));
     }
 
-    /**
-     * Get HTML for a link to add a new tag to the current search.
-     *
-     * @param string $tag  The tag we want to add.
-     *
-     * @return string
-     */
-    protected function _linkAddTag($tag)
-    {
-        return Horde::url('browse.php')->add(array('tag' => $tag));
-    }
 }

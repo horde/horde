@@ -54,4 +54,17 @@ class Trean_TagBrowser extends Horde_Core_TagBrowser
 
         return $bookmarks;
     }
+
+    /**
+     * Return a URL to add a new tag to the current search.
+     *
+     * @param string $tag  The tag we want to add.
+     *
+     * @return string
+     */
+    public function addTagLink($tag)
+    {
+        return Horde::url('browse.php')->add(array('tag' => $tag));
+    }
+
 }
