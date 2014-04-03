@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-28</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.0.4</release>
   <api>1.1.0</api>
@@ -399,7 +399,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-28</date>
+   <date>2014-04-03</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Fix approximate search operator (Leandro Damascena &lt;leandro.damascena@gmail.com&gt;, Bug #9094).
