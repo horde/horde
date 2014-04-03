@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-16</date>
+ <date>2014-04-03</date>
  <version>
   <release>2.19.2</release>
   <api>2.19.0</api>
@@ -165,6 +165,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="Horde_Imap_Client.mo" role="data" />
@@ -506,6 +512,8 @@
    <install as="Horde/Imap/Client/Socket/Connection/Pop3.php" name="lib/Horde/Imap/Client/Socket/Connection/Pop3.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Socket.php" name="lib/Horde/Imap/Client/Socket/Connection/Socket.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/da/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Imap_Client.po" name="locale/da/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
@@ -2318,7 +2326,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-16</date>
+   <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Prevent unnecessary cache writes when list of UIDs passed to deleteMsgs() is empty.
