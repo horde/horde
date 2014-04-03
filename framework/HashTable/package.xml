@@ -12,7 +12,7 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Implement logging.
-* [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -224,6 +223,19 @@
    <notes>
 * [mms] Implement logging.
 * [mms] Fix inconsistent usage of &apos;expire&apos; and &apos;timeout&apos; options (standardize on &apos;expire&apos;, which is more semantically correct).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
