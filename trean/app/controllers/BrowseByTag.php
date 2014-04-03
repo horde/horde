@@ -20,7 +20,7 @@ class Trean_BrowseByTag_Controller extends Horde_Controller_Base
         }
 
         Trean::addFeedLink();
-        $title = sprintf(_("tagged %s"), $tag);
+        $title = sprintf(_("Tagged with %s"), urldecode($tag));
         $page_output->header(array(
             'title' => $title
         ));
