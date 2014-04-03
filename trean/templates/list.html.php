@@ -39,8 +39,10 @@ if ($bookmark->http_status == 'error') {
       <?php endif ?>
     </small>
     <ul class="horde-tags">
-     <?php foreach ($bookmark->tags as $tag): ?>
-     <li><a href="<?php echo Horde::selfUrl()->add('tag', $tag) ?>"><?php echo $this->h($tag) ?></a></li>
+     <?php foreach ($bookmark->tags as $tag):
+            $url = $GLOBALS['injector']->getInstance('Trean_TagBrowser')->addTagLink($tag);
+     ?>
+     <li><a href="<?php echo $url ?>"><?php echo $this->h($tag) ?></a></li>
      <?php endforeach ?>
     </ul>
    </div>
