@@ -19,9 +19,22 @@ Upgrading IMP is as easy as running::
 
    pear upgrade -a -B horde/imp
 
-If you want to upgrade from an IMP version prior to 5.0, please follow
-the instructions in INSTALL_ to install the most recent IMP version
-using the PEAR installer.
+If you want to upgrade IMP with all binary dependencies, you need to remove
+the ``-B`` flag. Please note that this might also try to install PHP extensions
+through PECL that might need further configuration or activation in your PHP
+configuration::
+
+   pear upgrade -a horde/imp
+
+If you want to upgrade to an alpha or beta version of IMP, you need to tell
+the PEAR installer to prefer non-stable package versions. Please note that this
+might also install pre-release 3rd-party PEAR packages::
+
+   pear -d preferred_state=alpha upgrade -a horde/imp
+
+If you want to upgrade from an IMP version prior to 5.0, please follow the
+instructions in INSTALL_ to install the most recent IMP version using the PEAR
+installer.
 
 After updating to a newer IMP version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
