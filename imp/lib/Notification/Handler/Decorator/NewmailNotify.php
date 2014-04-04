@@ -102,7 +102,28 @@ extends Horde_Core_Notification_Handler_Decorator_Base
             break;
         }
 
-        $handler->push(sprintf(ngettext("You have %d new mail message in %s.", "You have %d new mail messages in %s.", $recent_sum), $recent_sum, $mbox_list), 'horde.message');
+        $text = sprintf(
+            ngettext(
+                "You have %d new mail message in %s.",
+                "You have %d new mail messages in %s.",
+                $recent_sum
+            ),
+            $recent_sum,
+            $mbox_list
+        );
+
+        /* Status notification. */
+        $handler->push($text, 'horde.message');
+
+        /* Web notifications. */
+        $handler->attach('webnotification', null, 'Horde_Core_Notification_Listener_Webnotification');
+        $handler->push(
+            Horde_Core_Notification_Event_Webnotification::createEvent(
+                $text,
+                array('icon' => strval(Horde_Themes::img('forwarded.png')))
+            ),
+            'webnotification'
+        );
 
         if ($audio = $prefs->getValue('newmail_audio')) {
             $handler->attach('audio');
