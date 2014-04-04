@@ -65,6 +65,7 @@ class IMP_Mailbox_Ui
     {
         $ret = array(
             'from' => '',
+            'from_addr' => '',
             'to' => false
         );
 
