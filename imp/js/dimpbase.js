@@ -439,13 +439,6 @@ var DimpBase = {
                     thread = $H(this.viewport.getMetaData('thread')),
                     tsort = this.isThreadSort();
 
-                /* HTML escape the date, from, and size entries. */
-                [ 'date', 'from', 'size' ].each(function(i) {
-                    if (r[i]) {
-                        r[i] = r[i].escapeHTML();
-                    }
-                });
-
                 r.status = r.subjectdata = '';
 
                 // Add thread graphics
@@ -492,7 +485,7 @@ var DimpBase = {
                     r.style = 'background:' + bg;
                 }
 
-                [ 'from', 'subject' ].each(function(h) {
+                [ 'date', 'from', 'size', 'subject' ].each(function(h) {
                     if (r[h] === null) {
                         // If these fields are null, invalid string was
                         // scrubbed by JSON encode.
