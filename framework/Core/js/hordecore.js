@@ -475,7 +475,7 @@ var HordeCore = {
                         parameters: ajax_params,
                         onSuccess: function() {
                             new window.Notification(msg.title, {
-                                body: HordeCore.text['dismised'],
+                                body: HordeCore.text['dismissed'],
                                 icon: msg.icon
                             });
                             if (msg.url) {
