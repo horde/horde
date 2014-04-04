@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
@@ -3367,6 +3368,7 @@
    <date>2014-04-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).

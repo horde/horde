@@ -47,6 +47,7 @@ class Horde_Session
 
     const NONCE_ID = 'session_nonce'; /* @since 2.11.0 */
     const TOKEN_ID = 'session_token';
+    const UNIQUE_ID = 'unique_id'; /* @since 2.12.0 */
 
     /**
      * Maximum size of the pruneable data store.
@@ -579,6 +580,24 @@ class Horde_Session
         $this->set('horde', self::NONCE_ID, array_values($nonces));
     }
 
+    /* Unique ID. */
+
+    /**
+     * Return a unique identifier for this session.
+     *
+     * @since 2.12.0
+     *
+     * @return string  Unique ID.
+     */
+    public function getUniqueId()
+    {
+        if (($id = $this->get('horde', self::UNIQUE_ID)) === null) {
+            $id = strval(new Horde_Support_Randomid());
+            $this->set('horde', self::UNIQUE_ID, $id);
+        }
+
+        return $id;
+    }
 
     /* Session object storage. */
 
