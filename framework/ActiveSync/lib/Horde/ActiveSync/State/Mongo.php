@@ -216,7 +216,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * @param string $serverid  The new serverid for this uid.
      *
      * @throws  Horde_ActiveSync_Exception
-     *  @since 2.4.0
+     * @since 2.4.0
      */
     public function updateServerIdInState($uid, $serverid)
     {

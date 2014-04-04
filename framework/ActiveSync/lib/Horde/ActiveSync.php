@@ -24,16 +24,16 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property Horde_ActiveSync_Wbxml_Encoder encoder The Wbxml encoder.
- * @property Horde_ActiveSync_Wbxml_Decoder decoder The Wbxml decoder.
- * @property Horde_ActiveSync_State_Base state      The state object.
- * @property Horde_Controller_Reqeust_Http request  The HTTP request object.
- * @property Horde_ActiveSync_Driver_Base driver
- * @property boolean provisioning
- * @property boolean multipart
- * @property string certPath
- * @property Horde_ActiveSync_Device device
- * @property Horde_Log_Logger logger
+ * @property-read Horde_ActiveSync_Wbxml_Encoder $encoder The Wbxml encoder.
+ * @property-read Horde_ActiveSync_Wbxml_Decoder $decoder The Wbxml decoder.
+ * @property-read Horde_ActiveSync_State_Base $state      The state object.
+ * @property-read Horde_Controller_Reqeust_Http $request  The HTTP request object.
+ * @property-read Horde_ActiveSync_Driver_Base $driver    The backend driver object.
+ * @property-read boolean|string $provisioning Provisioning support: True, False, or 'loose'
+ * @property-read boolean $multipart Indicate this is a multipart request.
+ * @property-read string $certPath Local path to the certificate bundle.
+ * @property-read Horde_ActiveSync_Device $device  The current device object.
+ * @property-read Horde_Log_Logger $logger   The logger object.
  */
 class Horde_ActiveSync
 {
@@ -308,7 +308,7 @@ class Horde_ActiveSync
     /**
      * Provisioning support
      *
-     * @var string (TODO _constant this)
+     * @var string
      */
     protected $_provisioning;
 

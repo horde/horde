@@ -33,6 +33,7 @@
  * @copyright 2009-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @internal
  */
 class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 {

@@ -34,11 +34,11 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer type  The content type of the body.
- *                         A Horde_ActiveSync::BODYPREF_TYPE_* constant.
- * @property integer estimateddatasize  The estimated size of the untruncated body.
- * @property integer truncated    The truncated flag. 0 == not truncated, 1 == truncated
- * @property mixed string|stream  The body data.
+ * @property integer   $type  The content type of the body.
+ *     A Horde_ActiveSync::BODYPREF_TYPE_* constant.
+ * @property integer   $estimateddatasize  The estimated size of the untruncated body.
+ * @property integer   $truncated  The truncated flag. 0 == not truncated, 1 == truncated
+ * @property mixed   $string|stream  $data  The body data.
  */
 class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_Base
 {

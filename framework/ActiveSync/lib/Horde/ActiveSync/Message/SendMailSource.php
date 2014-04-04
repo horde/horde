@@ -39,10 +39,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string folderid    The item's folderid.
- * @property string itemid      The item's itemid.
- * @property string longid      The item's longid.
- * @property string instanceid  The item's instanceid.
+ * @property string   $folderid    The item's folderid.
+ * @property string   $itemid      The item's itemid.
+ * @property string   $longid      The item's longid.
+ * @property string   $instanceid  The item's instanceid.
  */
 class Horde_ActiveSync_Message_SendMailSource extends Horde_ActiveSync_Message_Base
 {

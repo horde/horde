@@ -34,23 +34,23 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property mixed string|Horde_Date timezone
- * @property Horde_Date              dtstamp
- * @property Horde_Date              starttime
- * @property string                  subject
- * @property string                  organizername
- * @property string                  organizeremail
- * @property string                  location
- * @property Horde_Date              endtime
- * @property integer                 sensitivity
- * @property integer                 busystatus
- * @property integer                 alldayevent
- * @property integer                 reminder
- * @property integer                 meetingstatus
- * @property Horde_Date              exceptionstarttime
- * @property integer                 deleted
- * @property array                   attendees
- * @property array                   categories
+ * @property mixed   $string|Horde_Date timezone
+ * @property Horde_Date   $dtstamp
+ * @property Horde_Date   $starttime
+ * @property string   $subject
+ * @property string   $organizername
+ * @property string   $organizeremail
+ * @property string   $location
+ * @property Horde_Date   $endtime
+ * @property integer   $sensitivity
+ * @property integer   $busystatus
+ * @property integer   $alldayevent
+ * @property integer   $reminder
+ * @property integer   $meetingstatus
+ * @property Horde_Date   $exceptionstarttime
+ * @property integer   $deleted
+ * @property array   $attendees
+ * @property array   $categories
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {

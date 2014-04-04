@@ -24,7 +24,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer status       The status of the recipient's picture.
+ * @property integer   $status       The status of the recipient's picture.
  * @property string|stream  data  The picture data.
  *
  */

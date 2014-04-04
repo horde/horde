@@ -34,36 +34,36 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string     to
- * @property string     cc
- * @property string     from
- * @property string     subject
- * @property string     threadtopic
- * @property Horde_Date datereceived
- * @property string     displayto
- * @property integer    importance
- * @property integer    mimetruncated
- * @property string     mimedata
- * @property integer    mimesize
- * @property integer    messageclass
- * @property Horde_ActiveSync_Message_MeetingRequest  meetingrequest
- * @property string     reply_to
- * @property integer    read
- * @property cpid       integer  The codepage id.
- * @property Horde_ActiveSync_Message_Attachments attachments (EAS 2.5 only).
- * @property integer    bodytruncated (EAS 2.5 only)
- * @property integer    bodysize (EAS 2.5 only)
- * @property mixed stream|string  body (EAS 2.5 only)
- * @property integer    airsyncbasenativebodytype (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_AirSyncBaseBody airsyncbasebody (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_AirSyncBaseAttachments airsyncbaseattachments (EAS > 2.5 only).
- * @property integer contentclass (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_Flag flag (EAS > 2.5 only).
+ * @property string   $to
+ * @property string   $cc
+ * @property string   $from
+ * @property string   $subject
+ * @property string   $threadtopic
+ * @property Horde_Date   $datereceived
+ * @property string   $displayto
+ * @property integer   $importance
+ * @property integer   $mimetruncated
+ * @property string   $mimedata
+ * @property integer   $mimesize
+ * @property integer   $messageclass
+ * @property Horde_ActiveSync_Message_MeetingRequest   $meetingrequest
+ * @property string   $reply_to
+ * @property integer   $read
+ * @property cpid   $integer  The codepage id.
+ * @property Horde_ActiveSync_Message_Attachments   $attachments (EAS 2.5 only).
+ * @property integer   $bodytruncated (EAS 2.5 only)
+ * @property integer   $bodysize (EAS 2.5 only)
+ * @property mixed   $stream|string  body (EAS 2.5 only)
+ * @property integer   $airsyncbasenativebodytype (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody   $airsyncbasebody (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseAttachments   $airsyncbaseattachments (EAS > 2.5 only).
+ * @property integer   $contentclass (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_Flag   $flag (EAS > 2.5 only).
  *
  * // Internal properties. Not streamed to device.
- * @property string messageid @since 2.4.0
- * @property boolean answered @since 2.4.0
- * @property boolean forwarded @since 2.4.0
+ * @property string   $messageid @since 2.4.0
+ * @property boolean   $answered @since 2.4.0
+ * @property boolean   $forwarded @since 2.4.0
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {

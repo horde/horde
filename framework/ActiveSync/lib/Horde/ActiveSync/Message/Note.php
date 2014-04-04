@@ -23,11 +23,11 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string subject  The note's subject.
- * @property Horde_ActiveSync_Message_AirSyncBaseBody body  The note's body.
- * @property string messageclass  The note's message class.
- * @property array categories  The note's categories.
- * @property Horde_Date lastmodified  The note's last modification date.
+ * @property string   $subject  The note's subject.
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody   $body  The note's body.
+ * @property string   $messageclass  The note's message class.
+ * @property array   $categories  The note's categories.
+ * @property Horde_Date   $lastmodified  The note's last modification date.
  */
 class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
 {

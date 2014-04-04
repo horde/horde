@@ -45,19 +45,19 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer     flagstatus
- * @property integer     flagtype
- * @property Horde_Date  startdate
- * @property Horde_Date  utcstartdate
- * @property Horde_Date  duedate
- * @property Horde_Date  utcduedate
- * @property Horde_Date  datecompleted
- * @property integer     reminderset
- * @property integer     remindertime
- * @property string      subject
- * @property Horde_Date  ordinaldate
- * @property Horde_Date  subordinaldate
- * @property integer     completetime
+ * @property integer   $flagstatus
+ * @property integer   $flagtype
+ * @property Horde_Date   $startdate
+ * @property Horde_Date   $utcstartdate
+ * @property Horde_Date   $duedate
+ * @property Horde_Date   $utcduedate
+ * @property Horde_Date   $datecompleted
+ * @property integer   $reminderset
+ * @property integer   $remindertime
+ * @property string   $subject
+ * @property Horde_Date   $ordinaldate
+ * @property Horde_Date   $subordinaldate
+ * @property integer   $completetime
  */
 class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
 {

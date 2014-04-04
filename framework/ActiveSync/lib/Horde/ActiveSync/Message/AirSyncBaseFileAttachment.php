@@ -34,10 +34,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string contenttype   The content type of the attachment.
- * @property mixed string|stream  The attachment data.
- * @property integer total        The total size of the attachment.
- * @property integer range        @todo
+ * @property string   $contenttype  The content type of the attachment.
+ * @property mixed   $string|stream $data  The attachment data.
+ * @property integer   $total  The total size of the attachment.
+ * @property string   $range   The range string being returned.
  */
 class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSync_Message_Base
 {

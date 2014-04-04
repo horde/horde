@@ -34,12 +34,12 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string attmethod    The attachment method.
- * @property integer attsize     The attachment size.
- * @property string displayname  The attachment's display name.
- * @property string attname      The attachment's name.
- * @property string attoid       The ObjectID of the attachment.
- * @property integer attremoved  @todo
+ * @property string   $attmethod    The attachment method.
+ * @property integer   $attsize     The attachment size.
+ * @property string   $displayname  The attachment's display name.
+ * @property string   $attname      The attachment's name.
+ * @property string   $attoid       The ObjectID of the attachment.
+ * @property integer   $attremoved  @todo
  */
 class Horde_ActiveSync_Message_Attachment extends Horde_ActiveSync_Message_Base
 {

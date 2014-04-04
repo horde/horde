@@ -34,10 +34,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string email    The attendee's email address.
- * @property string name     The attendee's name.
- * @property integer status  The attendee's status (a STATUS_* constant).
- * @property integer type    The attendee type (a TYPE_* constant)
+ * @property string   $email    The attendee's email address.
+ * @property string   $name     The attendee's name.
+ * @property integer   $status  The attendee's status (a STATUS_* constant).
+ * @property integer   $type    The attendee type (a TYPE_* constant)
  */
 class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
 {

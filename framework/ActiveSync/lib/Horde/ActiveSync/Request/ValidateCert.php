@@ -34,6 +34,7 @@
  * @copyright 2012-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @internal
  */
 class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Base
 {

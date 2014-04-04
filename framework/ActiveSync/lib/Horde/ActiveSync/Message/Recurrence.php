@@ -34,14 +34,14 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer    type
- * @property Horde_Date until
- * @property string     occurrences
- * @property integer    interval
- * @property integer    dayofweek
- * @property integer    dayofmonth
- * @property integer    weekofmonth
- * @property integer    monthofyear
+ * @property integer   $type
+ * @property Horde_Date   $until
+ * @property string   $occurrences
+ * @property integer   $interval
+ * @property integer   $dayofweek
+ * @property integer   $dayofmonth
+ * @property integer   $weekofmonth
+ * @property integer   $monthofyear
  */
 class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
 {

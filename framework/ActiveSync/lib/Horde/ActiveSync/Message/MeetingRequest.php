@@ -33,19 +33,19 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer    alldayevent
- * @property Horde_Date starttime
- * @property Horde_Date dtstamp
- * @property Horde_Date endtime
- * @property integer instancetype
- * @property string location
- * @property string organizer
- * @property string recurrenceid
- * @property integer reminder
- * @property integer responserequested
- * @property Horde_ActiveSync_Message_Recurrence recurrences (Not currently supported).
- * @property integer sensitivity
- * @property integer busystatus
+ * @property integer   $alldayevent
+ * @property Horde_Date   $starttime
+ * @property Horde_Date   $dtstamp
+ * @property Horde_Date   $endtime
+ * @property integer   $instancetype
+ * @property string   $location
+ * @property string   $organizer
+ * @property string   $recurrenceid
+ * @property integer   $reminder
+ * @property integer   $responserequested
+ * @property Horde_ActiveSync_Message_Recurrence   $recurrences (Not currently supported).
+ * @property integer   $sensitivity
+ * @property integer   $busystatus
  * @property string|Horde_Date timezone
  * @proprety string globalobjid
  */

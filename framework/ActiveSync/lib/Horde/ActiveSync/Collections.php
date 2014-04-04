@@ -23,6 +23,7 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @internal  Not intended for use outside of the ActiveSync library.
  */
 class Horde_ActiveSync_Collections implements IteratorAggregate
 {

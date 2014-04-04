@@ -34,19 +34,19 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property boolean complete           Completion flag
- * @property Horde_Date datecompleted   The date the task was completed, in UTC.
- * @property Horde_Date utcduedate      The date this task is due, in UTC.
- * @property integer importance         The importance flag.
- * @property Horde_ActiveSync_Message_TaskRecurrence recurrence
+ * @property boolean   $complete           Completion flag
+ * @property Horde_Date   $datecompleted   The date the task was completed, in UTC.
+ * @property Horde_Date   $utcduedate      The date this task is due, in UTC.
+ * @property integer   $importance         The importance flag.
+ * @property Horde_ActiveSync_Message_TaskRecurrence   $recurrence
  *                                      The recurrence object.
- * @property integer sensitivity        The sensitivity flag.
- * @property Horde_Date utcstartdate    The date this task starts, in UTC.
- * @property string subject             The task subject.
- * @property array categories           An array of categories.
- * @property string body                The task body (EAS Version < 12.0)
- * @property boolean bodytruncated      Truncation flag (EAS Version < 12.0)
- * @property Horde_ActiveSync_Message_AirSyncBaseBody  airsyncbasebody
+ * @property integer   $sensitivity        The sensitivity flag.
+ * @property Horde_Date   $utcstartdate    The date this task starts, in UTC.
+ * @property string   $subject             The task subject.
+ * @property array   $categories           An array of categories.
+ * @property string   $body                The task body (EAS Version < 12.0)
+ * @property boolean   $bodytruncated      Truncation flag (EAS Version < 12.0)
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody   $airsyncbasebody
  *                                      The task body (EAS Version >= 12.0)
  */
 class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base

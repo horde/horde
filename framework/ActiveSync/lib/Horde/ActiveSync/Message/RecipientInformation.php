@@ -23,10 +23,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string     email1address
- * @property string     fileas
- * @property string     alias (EAS >= 14.0 only)
- * @property string     weightedrank (EAS >= 14.0 only)
+ * @property string   $email1address
+ * @property string   $fileas
+ * @property string   $alias (EAS >= 14.0 only)
+ * @property string   $weightedrank (EAS >= 14.0 only)
  */
 class Horde_ActiveSync_Message_RecipientInformation extends Horde_ActiveSync_Message_Base
 {

@@ -34,19 +34,17 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string attmethod    The attachment method.
- * @property integer attsize     The attachment size.
- * @property string displayname  The attachment's display name.
- * @property string attname      The attachment's name.
- * @property boolean attremoved  @todo
- * @property contentid           The Content-Id of the mime part.
- * @property contentlocation     @todo
- * @property isinline            Indicates that this part is to be displayed
- *                               inline.
+ * @property string   $attmethod    The attachment method.
+ * @property integer   $attsize     The attachment size.
+ * @property string   $displayname  The attachment's display name.
+ * @property string   $attname      The attachment's name.
+ * @property boolean   $attremoved  @todo
+ * @property string   $contentid  The Content-Id of the mime part.
+ * @property string   $contentlocation  @todo
+ * @property boolean   $isinline Indicates that this part is to be displayed inline.
  */
 class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Message_Base
 {
-
     /* Attachement types */
     const ATT_TYPE_NORMAL   = 1;
     const ATT_TYPE_EMBEDDED = 5;

@@ -23,20 +23,21 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @internal  Not intended for use outside of the Horde_ActiveSync library.
  *
- * @property array folders              The folders cache.
- * @property integer hbinterval         The heartbeat interval (in seconds).
- * @property integer wait               The wait interval (in minutes).
- * @property integer pingheartbeat      The heartbeat used in PING requests.
- * @property string hierarchy           The hierarchy synckey.
- * @property array confirmed_synckeys   Array of synckeys being confirmed during
- *                                      a looping sync.
- * @property integer lastuntil          Timestamp representing the last planned
- *                                      looping sync end time.
- * @property integer lasthbsyncstarted  Timestamp of the start of the last
- *                                      looping sync.
- * @property integer lastsyncendnormal  Timestamp of the last looping sync that
- *                                      ended normally.
+ * @property array   $folders              The folders cache.
+ * @property integer   $hbinterval         The heartbeat interval (in seconds).
+ * @property integer   $wait               The wait interval (in minutes).
+ * @property integer   $pingheartbeat      The heartbeat used in PING requests.
+ * @property string   $hierarchy           The hierarchy synckey.
+ * @property array   $confirmed_synckeys   Array of synckeys being confirmed during
+ *                                       a looping sync.
+ * @property integer   $lastuntil          Timestamp representing the last planned
+ *                                       looping sync end time.
+ * @property integer   $lasthbsyncstarted  Timestamp of the start of the last
+ *                                       looping sync.
+ * @property integer   $lastsyncendnormal  Timestamp of the last looping sync that
+ *                                       ended normally.
  */
 class Horde_ActiveSync_SyncCache
 {
