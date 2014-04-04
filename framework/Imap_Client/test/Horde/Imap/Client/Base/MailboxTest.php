@@ -40,6 +40,40 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider provider
+     */
+    public function testBasicIntegerStatusProperties($property)
+    {
+        $this->assertNull(
+            $this->ob->getStatus($property)
+        );
+
+        $this->ob->setStatus($property, 1);
+
+        $this->assertSame(
+            1,
+            $this->ob->getStatus($property)
+        );
+
+        $this->ob->setStatus($property, "1");
+
+        $this->assertSame(
+            1,
+            $this->ob->getStatus($property)
+        );
+    }
+
+    public function provider()
+    {
+        return array(
+            array(Horde_Imap_Client::STATUS_HIGHESTMODSEQ),
+            array(Horde_Imap_Client::STATUS_MESSAGES),
+            array(Horde_Imap_Client::STATUS_UIDNEXT),
+            array(Horde_Imap_Client::STATUS_UIDVALIDITY)
+        );
+    }
+
     public function testFirstUnseen()
     {
         $this->assertFalse(
@@ -54,7 +88,14 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
 
         $this->ob->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, 1);
 
-        $this->assertEquals(
+        $this->assertSame(
+            1,
+            $this->ob->getStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN)
+        );
+
+        $this->ob->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, "1");
+
+        $this->assertSame(
             1,
             $this->ob->getStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN)
         );
@@ -82,7 +123,14 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
 
         $this->ob->setStatus(Horde_Imap_Client::STATUS_UNSEEN, 1);
 
-        $this->assertEquals(
+        $this->assertSame(
+            1,
+            $this->ob->getStatus(Horde_Imap_Client::STATUS_UNSEEN)
+        );
+
+        $this->ob->setStatus(Horde_Imap_Client::STATUS_UNSEEN, "1");
+
+        $this->assertSame(
             1,
             $this->ob->getStatus(Horde_Imap_Client::STATUS_UNSEEN)
         );
@@ -98,14 +146,21 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
             3,
             $this->ob->getStatus(Horde_Imap_Client::STATUS_RECENT_TOTAL)
         );
+
+        $this->ob->setStatus(Horde_Imap_Client::STATUS_RECENT, "1");
+
+        $this->assertEquals(
+            4,
+            $this->ob->getStatus(Horde_Imap_Client::STATUS_RECENT_TOTAL)
+        );
     }
 
     public function testSyncModseqIsOnlySetOnce()
     {
-        $this->ob->setStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ, 1);
+        $this->ob->setStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ, "1");
         $this->ob->setStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ, 2);
 
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $this->ob->getStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ)
         );

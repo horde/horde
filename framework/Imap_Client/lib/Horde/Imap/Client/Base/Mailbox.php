@@ -128,11 +128,20 @@ class Horde_Imap_Client_Base_Mailbox
     public function setStatus($entry, $value)
     {
         switch ($entry) {
+        case Horde_Imap_Client::STATUS_FIRSTUNSEEN:
+        case Horde_Imap_Client::STATUS_HIGHESTMODSEQ:
+        case Horde_Imap_Client::STATUS_MESSAGES:
+        case Horde_Imap_Client::STATUS_UNSEEN:
+        case Horde_Imap_Client::STATUS_UIDNEXT:
+        case Horde_Imap_Client::STATUS_UIDVALIDITY:
+            $value = intval($value);
+            break;
+
         case Horde_Imap_Client::STATUS_RECENT:
             /* Keep track of RECENT_TOTAL information. */
             $this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL] = isset($this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL])
                 ? ($this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL] + $value)
-                : $value;
+                : intval($value);
             break;
 
         case Horde_Imap_Client::STATUS_SYNCMODSEQ:
@@ -140,6 +149,7 @@ class Horde_Imap_Client_Base_Mailbox
             if (isset($this->_status[$entry])) {
                 return;
             }
+            $value = intval($value);
             break;
 
         case Horde_Imap_Client::STATUS_SYNCFLAGUIDS:
