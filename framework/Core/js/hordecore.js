@@ -323,7 +323,7 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
-            var alarm, growl, message, subtitle, select;
+            var alarm, growl, message, select;
 
             if (!Object.isString(m.message)) {
                 return;
@@ -353,16 +353,43 @@ var HordeCore = {
                 }
 
                 this.alarms.push(alarm.id);
-                message = alarm.title.escapeHTML();
-                if (alarm.params && alarm.params.desktop) {
-                    if (alarm.params.desktop.subtitle === undefined) {
-                        subtitle = '';
-                    } else {
-                        subtitle = alarm.params.desktop.subtitle;
-                    }
-                    this.desktopNotify({ title: message, text: subtitle, icon: alarm.params.desktop.icon, id: alarm.id, url: alarm.params.desktop.url });
+
+                if (!alarm.params) {
+                    break;
                 }
-                if (alarm.params && alarm.params.notify) {
+
+                message = alarm.title.escapeHTML();
+
+                if (alarm.params.desktop) {
+                    this.desktopNotify({
+                        icon: alarm.params.desktop.icon,
+                        text: Object.isUndefined(alarm.params.desktop.subtitle) ? '' : alarm.params.desktop.subtitle,
+                        title: message,
+                        url: alarm.params.desktop.url,
+                        onclick: function() {
+                            var ajax_params = $H({
+                                alarm: alarm.id,
+                                snooze: -1
+                            });
+                            this.addRequestParams(ajax_params);
+                            new Ajax.Request(this.conf.URI_SNOOZE, {
+                                parameters: ajax_params,
+                                onSuccess: function() {
+                                    this._desktopNotify({
+                                        icon: alarms.params.desktop.icon,
+                                        title: message,
+                                        text: HordeCore.text['dismissed']
+                                    });
+                                    if (alarms.params.desktop.url) {
+                                        window.open(alarms.params.desktop.url, '__blank');
+                                    }
+                                }.bind(this)
+                            });
+                        }.bind(this)
+                    });
+                }
+
+                if (alarm.params.notify) {
                     if (alarm.params.notify.url) {
                         message = new Element('A', { href: alarm.params.notify.url }).insert(message);
                     }
@@ -449,42 +476,27 @@ var HordeCore = {
         } ]);
     },
 
+    // msg: icon, onclick, text, title, url
     desktopNotify: function(msg)
     {
-        var f;
-        if (window.Notification && window.Notification.permission != 'granted') {
-            f = function() {
-                window.Notification.requestPermission(
-                    function() {
-                        if (window.Notification.permission == 'granted') {
-                            new window.Notification(msg.title, {body: msg.text, icon: msg.icon });
-                        }
-                    }
-                );
-            }.delay(1);
-        } else if (window.Notification) {
-            f = function() {
-                var n = new window.Notification(msg.title, { body: msg.text, icon: msg.icon });
-                n.onclick = function() {
-                    var ajax_params = $H({
-                        alarm: msg.id,
-                        snooze: -1
-                    });
-                    this.addRequestParams(ajax_params);
-                    new Ajax.Request(this.conf.URI_SNOOZE, {
-                        parameters: ajax_params,
-                        onSuccess: function() {
-                            new window.Notification(msg.title, {
-                                body: HordeCore.text['dismissed'],
-                                icon: msg.icon
-                            });
-                            if (msg.url) {
-                                window.open(msg.url, '__blank');
-                            }
-                        }
-                    });
-                }.bind(this);
-            }.bind(this).delay(1);
+        if (window.Notification) {
+            if (window.Notification.permission != 'granted') {
+                window.Notification.requestPermission(this._desktopNotify.bind(this, msg).delay(1));
+            } else {
+                this._desktopNotify.bind(this, msg).delay(1);
+            }
+        }
+    },
+
+    _desktopNotify: function(msg)
+    {
+        var n = new window.Notification(msg.title, {
+            body: msg.text,
+            icon: msg.icon,
+            url: msg.url
+        });
+        if (msg.onclick) {
+            n.onclick = msg.onclick;
         }
     },
 
