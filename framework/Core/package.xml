@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-02-13</date>
+ <date>2014-04-04</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
 * [mms] Don&apos;t store preference UI elements in the session cache storage.
@@ -549,6 +550,7 @@
       <dir name="Notification">
        <dir name="Event">
         <file name="Status.php" role="php" />
+        <file name="Webnotification.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Notification/Event -->
        <dir name="Handler">
         <dir name="Decorator">
@@ -559,6 +561,7 @@
        <dir name="Listener">
         <file name="DynamicStatus.php" role="php" />
         <file name="SmartmobileStatus.php" role="php" />
+        <file name="Webnotification.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Notification/Listener -->
        <dir name="Storage">
         <file name="Session.php" role="php" />
@@ -1907,10 +1910,12 @@
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
    <install as="Horde/Core/Notification/Event/Status.php" name="lib/Horde/Core/Notification/Event/Status.php" />
+   <install as="Horde/Core/Notification/Event/Webnotification.php" name="lib/Horde/Core/Notification/Event/Webnotification.php" />
    <install as="Horde/Core/Notification/Handler/Decorator/Base.php" name="lib/Horde/Core/Notification/Handler/Decorator/Base.php" />
    <install as="Horde/Core/Notification/Handler/Decorator/Hordelog.php" name="lib/Horde/Core/Notification/Handler/Decorator/Hordelog.php" />
    <install as="Horde/Core/Notification/Listener/DynamicStatus.php" name="lib/Horde/Core/Notification/Listener/DynamicStatus.php" />
    <install as="Horde/Core/Notification/Listener/SmartmobileStatus.php" name="lib/Horde/Core/Notification/Listener/SmartmobileStatus.php" />
+   <install as="Horde/Core/Notification/Listener/Webnotification.php" name="lib/Horde/Core/Notification/Listener/Webnotification.php" />
    <install as="Horde/Core/Notification/Storage/Session.php" name="lib/Horde/Core/Notification/Storage/Session.php" />
    <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />
@@ -3359,9 +3364,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-13</date>
+   <date>2014-04-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
 * [mms] Don&apos;t store preference UI elements in the session cache storage.

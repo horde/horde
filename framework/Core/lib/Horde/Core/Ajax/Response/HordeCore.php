@@ -83,7 +83,8 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
         $ob->response = $this->data;
 
         $stack = $notification->notify(array(
-            'listeners' => array('status', 'audio'),
+            // @todo: Make this configurable for H6
+            'listeners' => array('status', 'audio', 'webnotification'),
             'raw' => true
         ));
 

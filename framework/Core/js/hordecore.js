@@ -462,6 +462,14 @@ var HordeCore = {
                     }
                 );
                 break;
+
+            case 'webnotification':
+                this.desktopNotify({
+                    icon: m.webnotify.icon,
+                    text: m.webnotify.text,
+                    title: m.message
+                });
+                break;
             }
 
             document.fire('HordeCore:showNotifications', m);
