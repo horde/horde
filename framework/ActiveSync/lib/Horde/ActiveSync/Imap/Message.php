@@ -812,6 +812,7 @@ class Horde_ActiveSync_Imap_Message
             }
             return false;
         case 'application/pkcs7-signature':
+        case 'application/x-pkcs7-signature':
             return false;
         }
 
