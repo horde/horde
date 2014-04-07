@@ -69,12 +69,14 @@ $accountUrl = Horde::url($accountUrl, true, -1)
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkTags"><?php echo _("Tags") ?></a></li>
   </ul>
+  <?php if (empty($GLOBALS['conf']['share']['no_sharing'])):?>
   <span>
     <span class="kronolithSeparator">|</span>
     <ul>
       <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Sharing") ?></a></li>
     </ul>
   </span>
+  <?php endif;?>
   <span>
     <span class="kronolithSeparator">|</span>
     <ul>
