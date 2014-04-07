@@ -105,7 +105,15 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             }
         }
 
-        return new Horde_Cache($storage, $params);
+        return new Horde_Cache(
+            new Horde_Cache_Storage_Stack(array(
+                'stack' => array(
+                    new Horde_Cache_Storage_Memory(),
+                    $storage
+                )
+            )),
+            $params
+        );
     }
 
     /**
