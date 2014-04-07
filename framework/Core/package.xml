@@ -41,7 +41,7 @@
  <notes>
 * [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
-* [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
+* [mms] Upgrade prototype.js to most recent git version (3523295165460a1a371f248454bc311103294f13).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
 * [mms] Don&apos;t store preference UI elements in the session cache storage.
 * [mjr] Send the PRIMARYSMTPADDRESS to EAS clients, if appropriate (Request #13062).
@@ -3370,7 +3370,7 @@
    <notes>
 * [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
-* [mms] Upgrade prototype.js to most recent git version (0df1298f807818471209b7e7971c3480e36a4f71).
+* [mms] Upgrade prototype.js to most recent git version (3523295165460a1a371f248454bc311103294f13).
 * [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
 * [mms] Don&apos;t store preference UI elements in the session cache storage.
 * [mjr] Send the PRIMARYSMTPADDRESS to EAS clients, if appropriate (Request #13062).

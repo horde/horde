@@ -1117,7 +1117,7 @@ Array.from = $A;
 (function() {
   var arrayProto = Array.prototype,
       slice = arrayProto.slice,
-      _each = Prototype.Browser.IE ? null : arrayProto.forEach; // use native browser JS 1.6 implementation if available (HORDE EDIT)
+      _each = arrayProto.forEach; // use native browser JS 1.6 implementation if available
 
   function each(iterator, context) {
     for (var i = 0, length = this.length >>> 0; i < length; i++) {
@@ -3287,6 +3287,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
   function checkElementPrototypeDeficiency(tagName) {
     if (typeof window.Element === 'undefined') return false;
+    if (!HAS_EXTENDED_CREATE_ELEMENT_SYNTAX) return false;
     var proto = window.Element.prototype;
     if (proto) {
       var id = '_' + (Math.random() + '').slice(2),
