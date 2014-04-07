@@ -2514,7 +2514,9 @@ var DimpBase = {
             e = new Event(e);
             e.preventDefault();
             noelt = true;
-            $$('IFRAME').invoke('blur');
+            if (!(kc === 17 || kc === 67)) { //CTRL + C
+                $$('IFRAME').invoke('blur');
+            }
         } else if (e.findElement('FORM')) {
             // Inside form, so ignore.
             return;
