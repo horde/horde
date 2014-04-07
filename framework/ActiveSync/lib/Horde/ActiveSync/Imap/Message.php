@@ -884,7 +884,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($message)) {
             $message = $this->_message;
         }
-        if ($message->getType() == 'application/pkcs7-mime') {
+        if ($message->getType() == 'application/pkcs7-mime' ||
+            $message->getType() == 'application/x-pkcs7-mime') {
             return true;
         }
 
