@@ -209,8 +209,7 @@ Object.extend(Date.prototype, {
 
 });
 
-/*
- * IE 11 fix:
+/* IE 11 fix:
  * https://prototype.lighthouseapp.com/projects/8886/tickets/3508-ie11-support
  */
 Prototype.Browser = (function(res) {
@@ -220,3 +219,13 @@ Prototype.Browser = (function(res) {
     }
     return res;
 })(Prototype.Browser);
+
+/* IE fix for Array.each() behavior. */
+if (Prototype.Browser.IE &&
+    Array.prototype._each == Array.prototype.forEach) {
+    Array.prototype._each = function each(iterator, context) {
+        for (var i = 0, length = this.length >>> 0; i < length; i++) {
+            if (i in this) iterator.call(context, this[i], i, this);
+        }
+    };
+}
