@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Update maximum allowed version for the PECL Imagick extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -463,8 +463,8 @@
     <name>imagick</name>
     <channel>pecl.php.net</channel>
     <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <max>4.0.0alpha1</max>
+    <exclude>4.0.0alpha1</exclude>
     <providesextension>imagick</providesextension>
    </package>
    <extension>
@@ -1008,7 +1008,7 @@ Initial release as a PEAR package
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Update maximum allowed version for the PECL Imagick extension.
    </notes>
   </release>
  </changelog>
