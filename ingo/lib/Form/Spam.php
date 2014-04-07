@@ -38,6 +38,7 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         $this->folder_var = $this->addVariable(_("Folder to receive spam:"), 'folder', 'ingo_folders', false);
         $this->folder_var->setHelp('spam-folder');
         $this->addHidden('', 'actionID', 'text', false);
+        $this->addHidden('', 'folder_new', 'text', false);
 
         $this->setButtons(_("Save"));
     }
