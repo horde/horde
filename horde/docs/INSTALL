@@ -733,7 +733,7 @@ Configuring Horde
       to, and then making them readable only to owner and group.  For example,
       if your webserver runs as ``www.www``, do as follows::
 
-         chown root.www config/*
+         chown -R root.www config/*
          find config/ -type f -exec chmod 0440 '{}' \;
 
    b. Sessions
