@@ -98,7 +98,11 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
             $this->_saveStored();
             $session->remove($this->_params['app'], $key);
         } else {
-            $session->set($this->_params['app'], $this->_getCid($key, true));
+            $session->set(
+                $this->_params['app'],
+                $this->_getCid($key, true),
+                $data
+            );
             if (isset($this->_stored[$key])) {
                 unset($this->_stored[$key]);
                 $this->_saveStored();
