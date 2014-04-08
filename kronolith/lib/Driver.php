@@ -383,7 +383,7 @@ class Kronolith_Driver
      */
     public function exists($uid, $calendar_id = null)
     {
-        throw new Kronolith_Exception('Not supported');
+        throw new BadMethodCallException('Not supported');
     }
 
     /**
@@ -419,7 +419,7 @@ class Kronolith_Driver
      */
     protected function _move($eventId, $newCalendar)
     {
-        throw new Kronolith_Exception('Not supported');
+        throw new BadMethodCallException('Not supported');
     }
 
     /**
@@ -429,7 +429,7 @@ class Kronolith_Driver
      */
     public function delete($calendar)
     {
-        throw new Kronolith_Exception('Not supported');
+        throw new BadMethodCallException('Not supported');
     }
 
     /**
@@ -545,7 +545,7 @@ class Kronolith_Driver
      */
     public function filterEventsByCalendar($uids, $calendar)
     {
-        throw new Kronolith_Exception('Not supported');
+        throw new BadMethodCallException('Not supported');
     }
 
     /**
@@ -557,7 +557,7 @@ class Kronolith_Driver
      */
     public function removeUserData($user)
     {
-        throw new Kronolith_Exception('Deprecated.');
+        throw new BadMethodCallException('Deprecated.');
     }
 
     /**

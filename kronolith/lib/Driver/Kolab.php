@@ -188,8 +188,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         // Log error if someone uses this function in an unsupported way
         if ($calendar_id != $this->calendar) {
-            Horde::log(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), 'ERR');
-            throw new Kronolith_Exception(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
+            throw new BadMethodCallException(sprintf('Kolab::exists called for calendar %s. Currently active is %s.', $calendar_id, $this->calendar));
         }
 
         $this->synchronize();

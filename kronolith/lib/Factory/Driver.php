@@ -103,7 +103,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             break;
 
         default:
-            throw new Kronolith_Exception('No calendar driver specified');
+            throw new InvalidArgumentException('No calendar driver specified');
             break;
         }
 

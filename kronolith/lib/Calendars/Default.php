@@ -27,7 +27,7 @@ class Kronolith_Calendars_Default extends Kronolith_Calendars_Base
     public function __construct($shares, $user, $params)
     {
         if (!isset($params['identity'])) {
-            throw new Kronolith_Exception('This calendars handler needs an "identity" parameter!');
+            throw new BadMethodCallException('This calendars handler needs an "identity" parameter!');
         } else {
             $this->_identity = $params['identity'];
             unset($params['identity']);

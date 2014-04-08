@@ -158,7 +158,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         if (!empty($this->_selectedResource)) {
             $this->_selectedResource->addEvent($event);
         } else {
-            throw new Kronolith_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+            throw new LogicException('Events should be added to the Single resource object, not directly to the Group object.');
         }
     }
 
@@ -171,7 +171,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function removeEvent(Kronolith_Event $event)
     {
-        throw new Kronolith_Exception('Unsupported');
+        throw new BadMethodCallException('Unsupported');
     }
 
     /**
@@ -181,7 +181,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false)
     {
-        throw new Kronolith_Exception('Unsupported');
+        throw new BadMethodCallException('Unsupported');
     }
 
     /**
@@ -196,7 +196,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         if (empty($this->_id)) {
             $this->_id = $id;
         } else {
-            throw new Kronolith_Exception('Resource already exists. Cannot change the id.');
+            throw new LogicException('Resource already exists. Cannot change the id.');
         }
     }
 

@@ -18,7 +18,7 @@ if (Kronolith::showAjaxView()) {
 
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {
-    throw new Horde_Exception('Permission denied.');
+    throw new Horde_Exception_PermissionDenied();
 }
 
 $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
@@ -51,7 +51,7 @@ case 'edit':
         (isset($share) &&
          !$registry->isAdmin() &&
          ($registry->getAuth() != $share->get('owner')))) {
-        throw new Horde_Exception('Permission denied.');
+        throw new Horde_Exception_PermissionDenied();
     }
     break;
 
@@ -71,7 +71,7 @@ case 'editform':
     if (!$registry->getAuth() ||
         (!$registry->isAdmin() &&
          ($registry->getAuth() != $share->get('owner')))) {
-        throw new Horde_Exception('Permission denied.');
+        throw new Horde_Exception_PermissionDenied();
     }
 
     try {

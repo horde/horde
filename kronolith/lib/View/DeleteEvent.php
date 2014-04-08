@@ -28,7 +28,7 @@ class Kronolith_View_DeleteEvent
         case 'event':
             return $this->_event;
         default:
-            throw new Kronolith_Exception('Property does not exist.');
+            throw new LogicException('Property does not exist.');
         }
     }
 

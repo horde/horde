@@ -535,7 +535,7 @@ abstract class Kronolith_Event
         if ($GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar) !== false) {
             return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->share();
         }
-        throw new Kronolith_Exception('Share not found');
+        throw new LogicException('Share not found');
     }
 
     /**
@@ -568,7 +568,7 @@ abstract class Kronolith_Event
     public function save()
     {
         if (!$this->initialized) {
-            throw new Kronolith_Exception('Event not yet initialized');
+            throw new LogicException('Event not yet initialized');
         }
 
         /* Check for acceptance/denial of this event's resources. */
