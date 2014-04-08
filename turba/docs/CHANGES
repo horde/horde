@@ -11,7 +11,6 @@ v4.2.0-git
 [mms] Allow tagging system to be disabled via configuration option.
 [mjr] Fix importing certain vCards to sources only using the 'email' attribute
       (Bug #12955).
-[mjr] Do not export empty property names in CardDav responses (Bug #12782).
 [jan] Make shares table compatible with Oracle.
 [jan] Export free/busy URL to vCard (Request #12915).
 [mjr] Fix listTimeObjects API when format_in attribute parameter is changed
