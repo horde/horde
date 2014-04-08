@@ -471,6 +471,25 @@
      </configsection>
     </case>
 
+    <case name="shibboleth" desc="Shibboleth Authentication">
+     <configsection name="params">
+      <configstring name="username_header" desc="The HTTP header holding the
+      username">REMOTE_USER</configstring>
+      <configswitch name="password_holder" desc="Where should we get the
+      password for hordeauth from?">
+       <case name="none" desc="No passwords"/>
+       <case name="header" desc="HTTP Header">
+        <configstring name="password_header" desc="The HTTP header holding the
+        password" required="false"></configstring>
+       </case>
+       <case name="preferences" desc="Horde Preferences">
+        <configstring name="password_preference" desc="The Horde preference
+        that contains the password" required="false"></configstring>
+       </case>
+      </configswitch>
+     </configsection>
+    </case>
+
     <case name="smb" desc="SMB (smbauth extension) authentication">
      <configsection name="params">
       <configstring name="hostspec" desc="IP, DNS Name, or NetBios Name of the
@@ -692,24 +711,6 @@
      </configsection>
     </case>
 
-    <case name="shibboleth" desc="Shibboleth Authentication">
-     <configsection name="params">
-      <configstring name="username_header" desc="The HTTP header holding the
-      username">REMOTE_USER</configstring>
-      <configswitch name="password_holder" desc="Where should we get the
-      password for hordeauth from?">
-       <case name="none" desc="No passwords"/>
-       <case name="header" desc="HTTP Header">
-        <configstring name="password_header" desc="The HTTP header holding the
-        password" required="false"></configstring>
-       </case>
-       <case name="preferences" desc="Horde Preferences">
-        <configstring name="password_preference" desc="The Horde preference
-        that contains the password" required="false"></configstring>
-       </case>
-      </configswitch>
-     </configsection>
-    </case>
     <case name="x509" desc="X509 Client Certificates">
       <configsection name="params">
         <configstring name="username_field" desc="The X509 field containing the username">
