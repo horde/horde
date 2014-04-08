@@ -16,12 +16,13 @@
  * A memory overlay for a cache backend. Caches results in PHP memory for the
  * current access so the underlying cache backend is not continually hit.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2013-2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Cache
- * @package   Cache
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2013-2014 Horde LLC
+ * @deprecated Use Mock driver as initial backen in stack driver instead.
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link       http://pear.horde.org/index.php?package=Cache
+ * @package    Cache
  */
 class Horde_Cache_Storage_Memoryoverlay extends Horde_Cache_Storage_Base
 {
