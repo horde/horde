@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.1.6).
+The Horde Team is pleased to announce the first alpha release of the Internet
+Mail Program (IMP) version H5 (6.2.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -24,19 +24,40 @@ minimal interfaces with a rich range of features normally found only in desktop
 email clients. For more information on IMP, visit
 http://www.horde.org/apps/imp.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 For upgrading instructions, please see
 http://www.horde.org/apps/imp/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
-The major changes compared to IMP version H5 (6.1.5) are:
-    * Fixed regressions in permissions, deleting drafts, and applying ACLs.
+The major changes compared to IMP H5 (6.1) versions are:
+    * Added access to remote email accounts.
+    * Added signatures to compose view.
+    * Added ability to create filter rules from messages.
+    * Improved contact information menu.
+    * Display web notifications for new mail.
+    * Display unread message count in browser icon.
+    * Display message flags in smartphone view.
+    * Display recurrencies in iTip messages.
+    * Added body size limit for sending messages.
+    * Many performance, memory usage, and other improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed regressions in permissions, deleting drafts, and applying ACLs.
+Added access to remote email accounts.
+Added signatures to compose view.
+Added ability to create filter rules from messages.
+Improved contact information menu.
+Display web notifications for new mail.
+Display unread message count in browser icon.
+Display message flags in smartphone view.
+Display recurrencies in iTip messages.
+Added body size limit for sending messages.
+Many performance, memory usage, and other improvements.
 FM;
 
 $this->notes['name'] = 'IMP';

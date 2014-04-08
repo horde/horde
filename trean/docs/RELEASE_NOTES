@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Trean Bookmarks
-Manager version H5 (1.0.3).
+The Horde Team is pleased to announce the first alpha release of the Trean
+Bookmarks Manager version H5 (1.1.0).
 
 Trean is a web-based bookmarks application that provides management of browser
 bookmarks, including support for tagging, link checking, and searching
@@ -28,13 +28,15 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/trean/docs/INSTALL
 
-Major changes compared to Trean version H5 (1.0.2) are:
-    * Show recently used tags on-demand.
+Major changes compared to Trean H5 (1.0) versions are:
+    * Added support for importing bookmarks from Mozilla's JSON format.
+    * Added Danish translation.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Show recently used tags on-demand.
+Added support for importing bookmarks from Mozilla's JSON format.
+Added Danish translation.
 FM;
 
 $this->notes['name'] = 'Trean';

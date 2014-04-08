@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.1.4).
+The Horde Team is pleased to announce the first alpha release of the Kronolith
+Calendar Application version H5 (4.2.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -25,23 +25,36 @@ management, alarms, recurring events, and a sophisticated day/week view which
 handles arbitrary numbers of overlapping events. For more information on
 Kronolith, visit http://www.horde.org/apps/kronolith.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 For upgrading instructions, please see
 http://www.horde.org/apps/kronolith/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to the Kronolith version H5 (4.1.3) are:
-    * Fixed XSS and CSRF vulnerabilities.
-    * Fixed some issues with recurring events.
-    * Small bugfixes and improvements.
+The major changes compared to the Kronolith H5 (4.1) versions are:
+    * Added script to import from Open-Xchange.
+    * Synchronize multiple calendars via ActiveSync.
+    * Synchronize shared calendars via CalDAV.
+    * Improved free/busy display.
+    * Improved sorting of events in month view.
+    * Improved task interfaces.
+    * Added Oracle support.
+    * Further improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS and CSRF vulnerabilities.
-Fixed some issues with recurring events.
-Small bugfixes and improvements.
+Added script to import from Open-Xchange.
+Synchronize multiple calendars via ActiveSync.
+Synchronize shared calendars via CalDAV.
+Improved free/busy display.
+Improved sorting of events in month view.
+Improved task interfaces.
+Added Oracle support.
+Further improvements.
 FM;
 
 $this->notes['name'] = 'Kronolith';
