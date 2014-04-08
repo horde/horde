@@ -65,7 +65,7 @@
 * [mms] Support uploading multiple attachments at once in dynamic view.
 * [mms] Better reporting of e-mail address errors when composing.
 * [mms] Add list information display to dynamic view.
-* [jan] Add signatures display to compose view.
+* [jan] Add signatures to compose view.
 * [mms] Add keyboard shortcuts to allow a more granular scroll of the dynamic preview pane (Request #12750).
 * [mms] Add country flag graphic to contact image information in dynamic view.
 * [mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
