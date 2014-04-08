@@ -56,7 +56,7 @@ class IMP_Compose_LinkedAttachment
     {
         global $conf, $injector;
 
-        /* Sanity checking. */
+        /* Sanity checking - no gettext needed. */
         if (empty($conf['compose']['link_attachments'])) {
             throw new IMP_Exception('Linked attachments are forbidden.');
         }

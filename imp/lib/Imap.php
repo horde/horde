@@ -667,7 +667,10 @@ class IMP_Imap implements Serializable
                 return $ob;
             }
 
-            throw new Horde_Exception_AuthenticationFailure('IMP is marked as authenticated, but no credentials can be found in the session.', Horde_Auth::REASON_SESSION);
+            throw new Horde_Exception_AuthenticationFailure(
+                'IMP is marked as authenticated, but no credentials can be found in the session.',
+                Horde_Auth::REASON_SESSION
+            );
         }
 
         if (!method_exists($this->_ob, $method)) {
@@ -759,9 +762,17 @@ class IMP_Imap implements Serializable
             if (!$this->_ob->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
                 if ($this->isPop3() && !$this->queryCapability('UIDL')) {
-                    $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
-                    Horde::log($error);
-                    throw $error;
+                    Horde::log(
+                        sprintf(
+                            'The POP3 server does not support the REQUIRED UIDL capability. [server key: %s]',
+                            $this->server_key
+                        ),
+                        'CRIT'
+                    );
+                    throw new Horde_Exception_AuthenticationFailure(
+                        _("The mail server is not currently avaliable."),
+                        Horde_Auth::REASON_MESSAGE
+                    );
                 }
 
                 $this->_ob->setParam('imp:login', true);
