@@ -163,7 +163,7 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
 
         return implode('|', array(
             $this->_params['app'],
-            $session->getUniqueId(),
+            $session->getToken(),
             $key
         ));
     }
