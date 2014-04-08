@@ -47,10 +47,10 @@ class Horde_Core_Alarm_Handler_Desktop extends Horde_Alarm_Handler
     {
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC) {
             if (!isset($params['js_notify'])) {
-                throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
+                throw new BadMethodCallException('Parameter \'js_notify\' missing.');
             }
             if (!is_callable($params['js_notify'])) {
-                throw new Horde_Alarm_Exception('Parameter \'js_notify\' is not a valid callback.');
+                throw new InvalidArgumentException('Parameter \'js_notify\' is not a valid callback.');
             }
             $this->_jsNotify = $params['js_notify'];
         }

@@ -46,7 +46,7 @@ class Mnemo_Notepads_Default extends Mnemo_Notepads_Base
     public function __construct($shares, $user, $params)
     {
         if (!isset($params['identity'])) {
-            throw new Mnemo_Exception('This notepad handler needs an "identity" parameter!');
+            throw new BadMethodCallException('This notepad handler needs an "identity" parameter!');
         } else {
             $this->_identity = $params['identity'];
             unset($params['identity']);

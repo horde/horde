@@ -59,7 +59,7 @@ class Horde_Core_Ui_VarRenderer
 
         $class = __CLASS__ . '_' . $driver;
         if (!class_exists($class)) {
-            throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+            throw new LogicException('Class definition of ' . $class . ' not found.');
         }
 
         return new $class($params);

@@ -96,7 +96,7 @@ class Nag_Driver_Sql extends Nag_Driver
             throw new Nag_Exception($e);
         }
         if (!$rows) {
-            throw new Horde_Exception_NotFound("Tasks not found");
+            throw new Horde_Exception_NotFound(_("Tasks not found"));
         }
 
         if (!is_array($taskIds)) {

@@ -586,7 +586,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 default:
-                    throw new Horde_Exception(sprintf('Missing or invalid type option for the %s preference.', $pref));
+                    throw new LogicException(sprintf('Missing or invalid type option for the %s preference.', $pref));
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');

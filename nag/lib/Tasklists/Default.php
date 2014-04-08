@@ -27,7 +27,7 @@ class Nag_Tasklists_Default extends Nag_Tasklists_Base
     public function __construct($shares, $user, $params)
     {
         if (!isset($params['identity'])) {
-            throw new Nag_Exception('This tasklist handler needs an "identity" parameter!');
+            throw new BadMethodCallException('This tasklist handler needs an "identity" parameter!');
         } else {
             $this->_identity = $params['identity'];
             unset($params['identity']);

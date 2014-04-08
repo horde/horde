@@ -635,7 +635,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function __clone()
     {
-        throw new Horde_Exception('Registry objects should never be cloned.');
+        throw new LogicException('Registry objects should never be cloned.');
     }
 
     /**
@@ -645,7 +645,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function __sleep()
     {
-        throw new Horde_Exception('Registry objects should never be serialized.');
+        throw new LogicException('Registry objects should never be serialized.');
     }
 
     /**

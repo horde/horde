@@ -61,7 +61,7 @@ class Mnemo_Api extends Horde_Registry_Api
         global $conf;
 
         if (!isset($conf['storage']['driver'])) {
-            throw new Mnemo_Exception('Not configured');
+            throw new RuntimeException('Not configured');
         }
 
         // Make sure we have a valid notepad.

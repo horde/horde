@@ -256,7 +256,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _getData()
     {
         if (empty($this->_notepad)) {
-            throw new Mnemo_Exception(
+            throw new LogicException(
                 'The notepad has been left undefined but is required!'
             );
         }
@@ -283,7 +283,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception(
                 sprintf(
-                    'Failed retrieving Kolab data for notepad %s: %s',
+                    _("Failed retrieving Kolab data for notepad %s: %s"),
                     $notepad,
                     $e->getMessage()
                 )

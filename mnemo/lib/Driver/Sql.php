@@ -109,7 +109,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         if (!count($row)) {
-            throw new Horde_Exception_NotFound(_("Not Found"));
+            throw new Horde_Exception_NotFound();
         }
 
         return $this->_buildNote($row, $passphrase);

@@ -46,7 +46,7 @@ class Horde_Core_Factory_Ajax extends Horde_Core_Factory_Base
             return new $class($app, $vars, $action, $token);
         }
 
-        throw new Horde_Exception('Ajax configuration for ' . $app . ' not found.');
+        throw new LogicException('Ajax configuration for ' . $app . ' not found.');
     }
 
 }
