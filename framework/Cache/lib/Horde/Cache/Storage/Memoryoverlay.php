@@ -19,7 +19,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @copyright  2013-2014 Horde LLC
- * @deprecated Use Mock driver as initial backen in stack driver instead.
+ * @deprecated Use Memory driver as first backend in stack driver instead.
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Cache
  * @package    Cache
