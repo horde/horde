@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-04-04</date>
+ <date>2014-04-08</date>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Core_Cache_Session.
 * [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (3523295165460a1a371f248454bc311103294f13).
@@ -429,6 +430,9 @@
        <file name="Layout.php" role="php" />
        <file name="Upgrade.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Block -->
+      <dir name="Cache">
+       <file name="Session.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Cache -->
       <dir name="Controller">
        <file name="NotFound.php" role="php" />
        <file name="RequestConfiguration.php" role="php" />
@@ -1819,6 +1823,7 @@
    <install as="Horde/Core/Block/Upgrade.php" name="lib/Horde/Core/Block/Upgrade.php" />
    <install as="Horde/Core/Block/Layout/Manager.php" name="lib/Horde/Core/Block/Layout/Manager.php" />
    <install as="Horde/Core/Block/Layout/View.php" name="lib/Horde/Core/Block/Layout/View.php" />
+   <install as="Horde/Core/Cache/Session.php" name="lib/Horde/Core/Cache/Session.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
@@ -3365,9 +3370,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-04</date>
+   <date>2014-04-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Core_Cache_Session.
 * [mms] Add Horde_Session#getUniqueId().
 * [mms] Add abstracted web notifications interface to the Horde_Notification system.
 * [mms] Upgrade prototype.js to most recent git version (3523295165460a1a371f248454bc311103294f13).
