@@ -8,7 +8,6 @@ v4.2.0-git
 [jan] Don't remove missing contacts from distributions lists in Kolab backends
       (Bug #12861).
 [jan] Support binary fields (photos) in Kolab backends.
-[mms] Allow tagging system to be disabled via configuration option.
 [mjr] Fix importing certain vCards to sources only using the 'email' attribute
       (Bug #12955).
 [jan] Make shares table compatible with Oracle.
