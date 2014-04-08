@@ -54,7 +54,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      */
     protected function _initOb()
     {
-        $this->_stack = $this->_params['stack'];
+        $this->_stack = array_values($this->_params['stack']);
     }
 
     /**
@@ -62,8 +62,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
     public function get($key, $lifetime = 0)
     {
         foreach ($this->_stack as $val) {
-            $result = $val->get($key, $lifetime);
-            if ($result !== false) {
+            if (($result = $val->get($key, $lifetime)) !== false) {
                 return $result;
             }
         }
@@ -75,21 +74,17 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      */
     public function set($key, $data, $lifetime = 0)
     {
-        /* Do writes in *reverse* order - it is OK if a write to one of the
-         * non-master backends fails. */
-        $master = true;
-
-        foreach (array_reverse($this->_stack) as $val) {
-            $result = $val->set($key, $data, $lifetime);
-            if ($result === false) {
-                if ($master) {
+        /* Do writes in *reverse* order, since a failure on the master should
+         * not allow writes on the other backends. */
+        foreach (array_reverse($this->_stack) as $k => $v) {
+            if (($result = $v->set($key, $data, $lifetime)) === false) {
+                if ($k === 0) {
                     return;
                 }
 
-                /* Attempt to invalidate cache if write failed. */
-                $val->expire($key);
+                /* Invalidate cache if write failed. */
+                $val->expire($k);
             }
-            $master = false;
         }
     }
 
@@ -98,8 +93,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
     public function exists($key, $lifetime = 0)
     {
         foreach ($this->_stack as $val) {
-            $result = $val->exists($key, $lifetime);
-            if ($result === true) {
+            if (($result = $val->exists($key, $lifetime)) === true) {
                 break;
             }
         }
@@ -111,17 +105,11 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      */
     public function expire($key)
     {
-        /* Only report success from master. */
-        $master = $success = true;
-
-        foreach (array_reverse($this->_stack) as $val) {
-            $result = $val->expire($key);
-            if ($master && ($result === false)) {
-                $success = false;
-            }
-            $master = false;
+        foreach ($this->_stack as $val) {
+            $success = $val->expire($key);
         }
 
+        /* Success is reported from last (master) expire() call. */
         return $success;
     }
 
@@ -129,23 +117,17 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      */
     public function clear()
     {
-        /* Only report errors from master. */
-        $exception = null;
-        $master = true;
-
-        foreach (array_reverse($this->_stack) as $val) {
+        foreach ($this->_stack as $val) {
             try {
                 $val->clear();
+                $ex = null;
             } catch (Horde_Cache_Exception $e) {
-                if ($master) {
-                    $exception = $e;
-                }
+                $ex = $e;
             }
-            $master = false;
         }
 
-        if ($exception) {
-            throw $exception;
+        if ($ex) {
+            throw $ex;
         }
     }
 
