@@ -49,6 +49,6 @@ class Horde_Http_Response_Peclhttp2 extends Horde_Http_Response_Base
 
     public function getBody()
     {
-        return $this->_response->getBody();
+        return $this->_response->getBody()->toString();
     }
 }
