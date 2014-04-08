@@ -282,14 +282,14 @@ class Kronolith_Api extends Horde_Registry_Api
                 $content_type = 'text/calendar';
             }
         } else {
-            throw new Kronolith_Exception("Invalid calendar data supplied.");
+            throw new Kronolith_Exception(_("Invalid calendar data supplied."));
         }
 
         if (!Kronolith::hasPermission($calendar, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a calendar based on the
             // filename in the case that the requested calendar does not
             // exist?
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
         // Store all currently existings UIDs. Use this info to delete UIDs not
@@ -402,7 +402,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
             !Kronolith::hasPermission($calendarId, Horde_Perms::DELETE)) {
-                throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
+                throw new Kronolith_Exception(_("Calendar does not exist or no permission to delete"));
             }
 
         if (count($parts) == 3) {

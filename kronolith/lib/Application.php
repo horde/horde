@@ -716,7 +716,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
         if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $internal);
@@ -757,7 +757,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
         if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $internal);
@@ -803,7 +803,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
         if (!Kronolith::hasPermission($internal, Horde_Perms::EDIT)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
         $ical = new Horde_Icalendar();
@@ -867,7 +867,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
         if (!Kronolith::hasPermission($internal, Horde_Perms::DELETE)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to delete"));
         }
 
         try {

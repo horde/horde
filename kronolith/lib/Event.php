@@ -1448,7 +1448,7 @@ abstract class Kronolith_Event
                     $originaldt->format('d'));
                 $originalEvent->save();
             } catch (Horde_Exception_NotFound $e) {
-                throw new Kronolith_Exception('Unable to locate original event series.');
+                throw new Kronolith_Exception(_("Unable to locate original event series."));
             }
         } catch (Horde_Icalendar_Exception $e) {}
     }

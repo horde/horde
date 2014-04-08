@@ -519,7 +519,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         if (!count($events)) {
-            throw new Horde_Exception_NotFound($uid . ' not found');
+            throw new Horde_Exception_NotFound(sprintf(_("%s not found"), $uid));
         }
 
         $eventArray = array();
