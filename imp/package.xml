@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Ensure that viewing large mailboxes does not overload the session storage size.
 * [mms] Implement web notifications for new mail alerts.
 * [mms] Add bare address information to title attribute in viewport on dynamic mailbox page
 * [mms] Display flags on the smartmobile mailbox page (Request #12687).

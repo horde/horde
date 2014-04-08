@@ -20,10 +20,19 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
+class IMP_Factory_MailboxList
+extends Horde_Core_Factory_Base
+implements Horde_Shutdown_Task
 {
-    /* Session storage key for list objects. */
-    const STORAGE_KEY = 'mboxlist/';
+    /* Storage key for list data. */
+    const STORAGE_KEY = 'mboxlist';
+
+    /**
+     * Cache instance.
+     *
+     * @var Horde_Core_Cache_Session
+     */
+    private $_cacheOb;
 
     /**
      * Instances.
@@ -38,6 +47,12 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_S
     {
         parent::__construct($injector);
 
+        $this->_cacheOb = new Horde_Core_Cache_Session(array(
+            'app' => 'imp',
+            'cache' => $injector->getInstance('Horde_Cache'),
+            'storage_key' => self::STORAGE_KEY
+        ));
+
         Horde_Shutdown::add($this);
     }
 
@@ -51,18 +66,14 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_S
      */
     public function create($mailbox)
     {
-        global $session;
-
         $key = strval($mailbox);
 
         if (!isset($this->_instances[$key])) {
-            try {
-                $ob = $session->get('imp', self::STORAGE_KEY . $key);
-            } catch (Exception $e) {
-                $ob = null;
+            if ($ob = $this->_cacheOb->get($key)) {
+                $ob = @unserialize($ob);
             }
 
-            if (is_null($ob)) {
+            if (!$ob) {
                 $mailbox = IMP_Mailbox::get($mailbox);
                 if ($mailbox->search) {
                     $ob = new IMP_Mailbox_List_Virtual($mailbox);
@@ -86,7 +97,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_S
     {
         foreach ($this->_instances as $key => $val) {
             if ($val->changed) {
-                $GLOBALS['session']->set('imp', self::STORAGE_KEY . $key, $val);
+                $this->_cacheOb->set($key, serialize($val));
             }
         }
     }
@@ -96,7 +107,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_S
      */
     public function expireAll()
     {
-        $GLOBALS['session']->remove('imp', self::STORAGE_KEY);
+        $this->_cacheOb->clear();
         $this->_instances = array();
     }
 

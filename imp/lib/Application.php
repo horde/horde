@@ -162,20 +162,26 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function logout()
     {
+        global $injector, $session;
+
         /* Clean up dangling IMP_Compose objects. */
-        foreach (array_keys($GLOBALS['session']->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY)) as $key) {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($key)->destroy('cancel');
+        foreach (array_keys($session->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY)) as $key) {
+            $injector->getInstance('IMP_Factory_Compose')->create($key)->destroy('cancel');
         }
 
         /* No need to keep Tree object in cache - it will be recreated next
          * login. */
-        if ($treeob = $GLOBALS['session']->get('imp', 'treeob')) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->expire($treeob);
+        if ($treeob = $session->get('imp', 'treeob')) {
+            $injector->getInstance('Horde_Cache')->expire($treeob);
         }
+
+        /* Destroy any IMP_Mailbox_List cached entries, since they will not
+         * be used in the next session. */
+        $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
 
         /* Grab the current server from the session to correctly populate
          * login form. */
-        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->server_key;
+        $this->_oldserver = $injector->getInstance('IMP_Factory_Imap')->create()->server_key;
     }
 
     /**
