@@ -489,7 +489,9 @@ var HordeCore = {
     {
         if (window.Notification) {
             if (window.Notification.permission != 'granted') {
-                window.Notification.requestPermission(this._desktopNotify.bind(this, msg).delay(1));
+                window.Notification.requestPermission(function() {
+                    this._desktopNotify.bind(this, msg).delay(1);
+                }.bind(this));
             } else {
                 this._desktopNotify.bind(this, msg).delay(1);
             }
