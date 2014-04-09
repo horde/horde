@@ -14,15 +14,11 @@
 /**
  * Login system task for automated garbage collection tasks.
  *
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL-2). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl LGPL-2
- * @package  Horde
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 class Horde_LoginTasks_SystemTask_GarbageCollection
 extends Horde_LoginTasks_SystemTask
