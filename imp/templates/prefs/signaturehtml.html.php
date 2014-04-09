@@ -1,5 +1,5 @@
 <div>
- <?php echo _("Your signature to use when composing with the HTML editor (if empty, the text signature will be used)") ?>:
+ <?php echo _("Your signature to use when composing with the HTML editor (if empty, the text signature will be used)") . ($this->img_limit ? ' (' . sprintf(_("maximum total image size is %s)"), IMP::sizeFormat($this->img_limit)) : '') ?>:
 </div>
 
 <div class="fixed">

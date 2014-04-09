@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Add support for storing image data within HTML signatures.
 [mms] Ensure that viewing large mailboxes does not overload the session
       storage size.
 [mms] Implement web notifications for new mail alerts.

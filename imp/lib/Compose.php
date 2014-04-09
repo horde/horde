@@ -44,6 +44,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
 
+    /* Signature data attribute name. */
+    const HTMLSIG_ATTR = 'imp_htmlsig';
+
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -1489,13 +1492,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     if (!strlen($html_sig) && strlen($sig)) {
                         $html_sig = $this->text2html($sig);
                     }
-
                 }
             }
+
             if (!empty($options['html'])) {
                 $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
                 foreach ($sig_dom->getBody()->childNodes as $child) {
-                    $body_html_body->appendChild($body_html->dom->importNode($child, true));
+                    $node = $body_html->dom->importNode($child, true);
+                    $node->setAttribute(self::HTMLSIG_ATTR, '1');
+                    $body_html_body->appendChild($node);
                 }
             }
         }
@@ -2618,12 +2623,35 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $registry;
 
         $xpath = new DOMXPath($html->dom);
+
         foreach ($xpath->query('//*[@src]') as $node) {
             $src = $node->getAttribute('src');
 
             /* Check for attempts to sneak data URL information into the
              * output. */
             if (Horde_Url_Data::isData($src)) {
+                if ((strcasecmp($node->tagName, 'IMG') === 0) &&
+                    ($xpath->query('ancestor-or-self::node()[@' . self::HTMLSIG_ATTR . ']', $node)->length)) {
+                    /* This is HTML signature image data. Convert to an
+                     * attachment. */
+                    $sig_img = new Horde_Url_Data($src);
+                    if ($sig_img->data) {
+                        $data_part = new Horde_Mime_Part();
+                        $data_part->setContents($sig_img->data);
+                        $data_part->setType($sig_img->type);
+
+                        try {
+                            $this->addRelatedAttachment(
+                                $this->addAttachmentFromPart($data_part),
+                                $node,
+                                'src'
+                            );
+                        } catch (IMP_Compose_Exception $e) {
+                            // Remove image on error.
+                        }
+                    }
+                }
+
                 $node->removeAttribute('src');
             } elseif (strcasecmp($node->tagName, 'IMG') === 0) {
                 /* Check for smileys. They live in the JS directory, under
@@ -2656,6 +2684,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     }
                 }
             }
+        }
+
+        /* Remove HTML sig identifiers. */
+        foreach ($xpath->query('//*[@' . self::HTMLSIG_ATTR . ']') as $node) {
+            $node->removeAttribute(self::HTMLSIG_ATTR);
         }
     }
 

@@ -59,6 +59,7 @@ Configuration Options (conf.php)
 
 The following options have been added::
 
+   $conf['compose']['htmlsig_img_size']
    $conf['compose']['link_attach_size_hard']
    $conf['contactsimage']['backends']
    $conf['maillog']['driver']

@@ -64,6 +64,11 @@
    <configinteger name="ac_threshold" desc="When autocompleting addresses on
    the compose screen, the minimum number of characters required before the
    the addressbook is searched.">3</configinteger>
+
+   <configheader>HTML Signature</configheader>
+   <configinteger name="htmlsig_img_size" desc="The maximum cumulative size of
+   image data that can be contained within the signature. 0 will disable
+   this limit (NOT RECOMMENDED).">30000</configinteger>
   </configsection>
  </configtab>
 
