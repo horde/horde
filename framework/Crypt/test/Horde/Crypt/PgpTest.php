@@ -129,7 +129,7 @@ The quick brown fox jumps over the lazy dog.
 
         $this->assertStringMatchesFormat(
 '-----BEGIN PGP MESSAGE-----
-Version: GnuPG v%d.%d.%d (%s)
+Version: GnuPG %s
 
 %s
 %s
@@ -159,7 +159,7 @@ Version: GnuPG v%d.%d.%d (%s)
 
         $this->assertStringMatchesFormat(
 '-----BEGIN PGP MESSAGE-----
-Version: GnuPG v%d.%d.%d (%s)
+Version: GnuPG %s
 
 %s
 %s
@@ -371,7 +371,7 @@ Key Fingerprint:  966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7
 
         $this->assertEquals(
 '-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v%d.%d.%d (GNU/Linux)
+Version: GnuPG %s
 
 mQGiBETcWvARBADNitbvsWy5/hhV+WcU2ttmtXkAj2DqJVgJdGS2RH8msO0roG5j
 CQK/e0iMJki5lfdgxvxxWgStYMnfF5ftgWA7JV+BZUzJt12Lobm0zdENv2TqL2vc
@@ -411,7 +411,7 @@ umO5uT5yDcir3zwqUAxzBAkE4ACcCtGfb6usaTKnNXo+ZuLoHiOwIE4=
 
         $this->assertStringMatchesFormat(
 '-----BEGIN PGP SIGNATURE-----
-Version: GnuPG v%d.%d.%d (%s)
+Version: GnuPG %s
 
 %s
 %s
@@ -447,7 +447,7 @@ The quick brown fox jumps over the lazy dog.
 0123456789012345678901234567890123456789
 !"$§%&()=?^´°`+#-.,*\'_:;<>|~\{[]}
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v%d.%d.%d (%s)
+Version: GnuPG %s
 
 %s
 %s
