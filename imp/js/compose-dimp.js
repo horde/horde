@@ -439,6 +439,7 @@ var DimpCompose = {
             });
         } else {
             this.rteInit(!active);
+            ImpComposeBase.setSignature(!active, ImpComposeBase.identities[$F('identity')]);
         }
     },
 
@@ -526,9 +527,7 @@ var DimpCompose = {
             return;
         }
 
-        if (r.text.sig) {
-            ImpComposeBase.setSignature(opts.rte, r.text.sig)
-        }
+        ImpComposeBase.setSignature(opts.rte, r.text.sig ? r.text.sig : ImpComposeBase.identities[$F('identity')]);
 
         this.resizeMsgArea();
 
