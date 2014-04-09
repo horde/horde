@@ -47,6 +47,9 @@ extends Horde_LoginTasks_SystemTask
             /* Javascript files. */
             $injector->getInstance('Horde_Core_JavascriptCache')->gc();
         }
+
+        /* GC on identity prefs. */
+        $injector->getInstance('Horde_Core_Factory_Identity')->create()->prefsGc();
     }
 
 }

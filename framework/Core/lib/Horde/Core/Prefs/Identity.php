@@ -24,11 +24,18 @@
  */
 class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 {
+    /** Identity entry containing the expiration time. */
+    const EXPIRE = 'confirm_expire';
+
+    /** Expiration (in seconds) of a confirmation request. */
+    const EXPIRE_SECS = 86400;
+
     /**
      * Sends a message to an email address supposed to be added to the
      * identity.
-     * A message is send to this address containing a link to confirm that the
-     * address really belongs to that user.
+     *
+     * A message is send to this address containing a time-sensitive link to
+     * confirm that the address really belongs to that user.
      *
      * @param integer $id       The identity's ID.
      * @param string $old_addr  The old From: address.
@@ -41,11 +48,11 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 
         $hash = strval(new Horde_Support_Randomid());
 
-        if (!($pref = @unserialize($this->_prefs->getValue('confirm_email')))) {
-            $pref = array();
-        }
+        $pref = $this->_confirmEmail();
         $pref[$hash] = $this->get($id);
-        $this->_prefs->setValue('confirm_email', serialize($pref));
+        $pref[$hash][self::EXPIRE] = time() + self::EXPIRE_SECS;
+
+        $this->_confirmEmail($pref);
 
         $new_addr = $this->getValue($this->_prefnames['from_addr'], $id);
         $confirm = Horde::url(
@@ -96,7 +103,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
     {
         global $notification;
 
-        $confirm = @unserialize($this->_prefs->getValue('confirm_email'));
+        $confirm = $this->_confirmEmail();
         if (empty($confirm) || !isset($confirm[$hash])) {
             $notification->push(
                 Horde_Core_Translation::t("Email address to confirm not found."),
@@ -106,6 +113,8 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         }
 
         $identity = $confirm[$hash];
+        unset($identity[self::EXPIRE]);
+
         $id = array_search(
             $identity['id'],
             $this->getAll($this->_prefnames['id'])
@@ -126,9 +135,10 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
                 $this->setValue($key, $value, $id);
             }
         }
+
         $this->save();
         unset($confirm[$hash]);
-        $this->_prefs->setValue('confirm_email', serialize($confirm));
+        $this->_confirmEmail($confirm);
 
         $notification->push(
             sprintf(
@@ -137,6 +147,27 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
             ),
             'horde.success'
         );
+    }
+
+    /**
+     * Perform garbage collection on preferences used by identities.
+     */
+    public function prefsGc()
+    {
+        /* Clean out expired confirm_email entries. */
+        $confirm = $this->_confirmEmail();
+        $changed = false;
+
+        foreach ($confirm as $key => $val) {
+            if (!isset($val[self::EXPIRE]) || ($val[self::EXPIRE] < time())) {
+                unset($confirm[$key]);
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
+            $this->_confirmEmail($confirm);
+        }
     }
 
     /**
@@ -172,6 +203,25 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
     public function getMatchingIdentity($addresses, $search_own = true)
     {
         return null;
+    }
+
+    /**
+     * Manage the storage of the confirm_email preference.
+     *
+     * @param array $confirm  If set, save this in the pref backend.
+     *
+     * @return array  Confirm email array.
+     */
+    protected function _confirmEmail($confirm = null)
+    {
+        if (is_null($confirm)) {
+            return ($pref = @unserialize($this->_prefs->getValue('confirm_email')))
+                ? $pref
+                : array();
+        }
+
+        $this->_prefs->setValue('confirm_email', serialize($confirm));
+        return $confirm;
     }
 
 }
