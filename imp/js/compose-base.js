@@ -8,7 +8,7 @@
 
 var ImpComposeBase = {
 
-    // Vars defaulting to null: editor_on, identities, rte, rte_loaded
+    // Vars defaulting to null: editor_on, identities, rte, rte_sig, rte_loaded, rte_sig_loaded
 
     getSpellChecker: function()
     {
@@ -68,28 +68,28 @@ var ImpComposeBase = {
         if (rte) {
             s.setValue(Object.isString(identity) ? identity : identity.hsig);
 
-            if (Object.isUndefined(this.rte_loaded)) {
+            if (Object.isUndefined(this.rte_sig_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
-                    this.rte_loaded = true;
+                    this.rte_sig_loaded = true;
                 }.bind(this));
                 CKEDITOR.on('instanceDestroyed', function(evt) {
-                    this.rte_loaded = false;
+                    this.rte_sig_loaded = false;
                 }.bind(this));
             }
 
-            if (this.rte) {
-                this.rte.setData($F('signature'));
+            if (this.rte_sig) {
+                this.rte_sig.setData($F('signature'));
             } else {
                 config = Object.clone(IMP.ckeditor_config);
                 config.removePlugins = 'toolbar,elementspath';
                 config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
                 config.height = ($('signatureBorder') ? $('signatureBorder') : $('signature')).getLayout().get('height');
-                this.rte = CKEDITOR.replace('signature', config);
+                this.rte_sig = CKEDITOR.replace('signature', config);
             }
         } else {
-            if (this.rte) {
-                this.rte.destroy(true);
-                delete this.rte;
+            if (this.rte_sig) {
+                this.rte_sig.destroy(true);
+                delete this.rte_sig;
             }
             s.setValue(Object.isString(identity) ? identity : identity.sig);
         }
