@@ -2,6 +2,7 @@
 v4.1.6-git
 ----------
 
+Support timezone aliases when importing events (Bug #13100).
 [mjr] Honor the no_sharing configuration option in dynamic view (Bug #13002).
 [mjr] Fix issue that could remove all events from shared calendars if a user
       with Horde_Perms::EDIT on that calendar is removed via the RemoveUserData API
