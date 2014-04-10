@@ -26,7 +26,7 @@ function showPassphrase($memo)
 
     if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE) {
         if ($secure_check) {
-            $notification->push(_("This note has been encrypted, please provide the password below"), 'horde.message');
+            $notification->push(_("This note has been encrypted, please provide the password."), 'horde.message');
             return true;
         }
         $notification->push(_("This note has been encrypted, and cannot be decrypted without a secure web connection"), 'horde.error');
