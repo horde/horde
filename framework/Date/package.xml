@@ -956,7 +956,7 @@
 * [jan] Fix date calculation if providing both a timestamp and a timezone (Bug #12843).
 * [mjr] Add ability to return human readable description of recurrence rules.
 * [mjr] Fix issue that could cause incorrect month values when populating an empty date object.
-* [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug # 12869).
+* [mjr] Fix handling of RRULE with full datetime UNTIL values (Bug #12869).
 * [rla] Add aliases for Windows and Lotus timezone identifiers (Bug #11688).
    </notes>
   </release>
