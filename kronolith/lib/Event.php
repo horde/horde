@@ -1151,27 +1151,30 @@ abstract class Kronolith_Event
         try {
             $start = $vEvent->getAttribute('DTSTART');
             $startParams = $vEvent->getAttribute('DTSTART', true);
-            // We don't support different timezones for different attributes,
-            // so use the DTSTART timezone for the complete event.
-            if (isset($startParams[0]['TZID'])) {
-                try {
-                    // Check if the timezone name is supported by PHP natively.
-                    new DateTimeZone($startParams[0]['TZID']);
-                    $tzid = $startParams[0]['TZID'];
-                    $this->timezone = $tzid;
-                } catch (Exception $e) {
-                }
-            }
             if (!is_array($start)) {
                 // Date-Time field
-                $this->start = new Horde_Date($start, $tzid);
+                $this->start = new Horde_Date($start);
             } else {
                 // Date field
                 $this->start = new Horde_Date(
                     array('year'  => (int)$start['year'],
                           'month' => (int)$start['month'],
-                          'mday'  => (int)$start['mday']),
-                    $tzid);
+                          'mday'  => (int)$start['mday'])
+                );
+            }
+            // We don't support different timezones for different attributes,
+            // so use the DTSTART timezone for the complete event.
+            if (isset($startParams[0]['TZID'])) {
+                // Horde_Date supports timezone aliases, so try that first.
+                $this->start->timezone = $startParams[0]['TZID'];
+                try {
+                    // Check if the timezone name is supported by PHP natively.
+                    new DateTimeZone($this->start->timezone);
+                    $this->timezone = $tzid = $this->start->timezone;
+                } catch (Exception $e) {
+                    // Reset to default timezone.
+                    $this->start->timezone = null;
+                }
             }
         } catch (Horde_Icalendar_Exception $e) {
             throw new Kronolith_Exception($e);
