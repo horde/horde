@@ -53,6 +53,10 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
         $this->output = $view->render('listinfo');
         $this->title = _("Mailing List Information");
 
+        $page_output->addInlineScript(array(
+            'window.resizeBy(0, window.document.body.scrollHeight - window.innerHeight + 20)'
+        ), true);
+
         $page_output->topbar = $page_output->sidebar = false;
     }
 
