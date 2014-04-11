@@ -482,7 +482,7 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return an array of mime parts for each messages attachment.
+     * Return an array of mime parts for each message attachment.
      *
      * @return array An array of Horde_Mime_Part objects.
      */
