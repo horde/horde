@@ -47,7 +47,9 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if (!$params) {
                 $params = $this->getConfig($scope);
             }
-
+            if (empty($params['type'])) {
+                $params['type'] = 'Null';
+            }
             $class = $this->_getDriverName($params['type'], 'Horde_Vfs');
             $this->_instances[$scope] = new $class($params['params']);
         }
