@@ -259,7 +259,7 @@ var ImpCompose = {
             break;
 
         case 'rte_toggle':
-            $('rtemode').setValue(~~(!!ImpComposeBase.editor_on));
+            $('rtemode').setValue(!ImpComposeBase.editor_on);
             this.uniqSubmit('toggle_editor');
             break;
 

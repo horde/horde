@@ -577,7 +577,7 @@ var DimpCompose = {
 
         ImpComposeBase.editor_on = rte;
         $('htmlcheckbox').setValue(rte);
-        $('html').setValue(~~(!!rte));
+        $('html').setValue(rte);
     },
 
     // ob = addr, body, format, identity, opts, subject, type
@@ -1267,8 +1267,7 @@ var DimpCompose = {
                 if (id.startsWith(pair.key + '_')) {
                     var t = pair.value.get(id.substring(pair.key.length + 1));
                     if (t) {
-                        // ~~!! = Integer value of the inverse of t.
-                        $(t).setValue(~~(!!$F(t)));
+                        $(t).setValue(!$F(t));
                     }
                 }
             });
