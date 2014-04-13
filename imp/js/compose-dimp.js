@@ -1267,8 +1267,8 @@ var DimpCompose = {
                 if (id.startsWith(pair.key + '_')) {
                     var t = pair.value.get(id.substring(pair.key.length + 1));
                     if (t) {
-                        // ~~!!! = Integer value of the inverse of t.
-                        $(t).setValue(~~(!!!$F(t)));
+                        // ~~!! = Integer value of the inverse of t.
+                        $(t).setValue(~~(!!$F(t)));
                     }
                 }
             });
