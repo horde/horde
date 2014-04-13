@@ -104,8 +104,6 @@ class Horde_Prefs implements ArrayAccess
         $this->_storage = $storage;
 
         register_shutdown_function(array($this, 'store'), false);
-
-        $this->retrieve($scope);
     }
 
     /**
@@ -333,11 +331,15 @@ class Horde_Prefs implements ArrayAccess
      */
     protected function _getScope($pref)
     {
+        $this->_loadScope($this->_scope);
+
         if ($this->_scopes[$this->_scope]->exists($pref)) {
             return $this->_scope;
-        } elseif (($this->_scope != self::DEFAULT_SCOPE) &&
-            ($this->_scopes[self::DEFAULT_SCOPE]->exists($pref))) {
-            return self::DEFAULT_SCOPE;
+        } elseif ($this->_scope != self::DEFAULT_SCOPE) {
+            $this->_loadScope(self::DEFAULT_SCOPE);
+            if ($this->_scopes[self::DEFAULT_SCOPE]->exists($pref)) {
+                return self::DEFAULT_SCOPE;
+            }
         }
 
         return null;
@@ -351,16 +353,23 @@ class Horde_Prefs implements ArrayAccess
      */
     public function retrieve($scope = null)
     {
-        if (is_null($scope)) {
-            $scope = $this->getScope();
-        } else {
-            $this->_scope = $scope;
+        if (!is_null($scope)) {
+            $this->changeScope($scope);
         }
-
         $this->_loadScope(self::DEFAULT_SCOPE);
-        if ($scope != self::DEFAULT_SCOPE) {
-            $this->_loadScope($scope);
-        }
+        $this->_loadScope($this->getScope());
+    }
+
+    /**
+     * Changes the current preference scope.
+     *
+     * @since 2.6.0
+     *
+     * @param string $scope  Scope specifier.
+     */
+    public function changeScope($scope)
+    {
+        $this->_scope = $scope;
     }
 
     /**
