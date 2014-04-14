@@ -33,13 +33,19 @@ class Horde_Core_Alarm_Handler_Notify extends Horde_Alarm_Handler
     {
         global $notification;
 
-        $notification->push($alarm['title'], 'horde.alarm', array(
-            'alarm' => $alarm
-        ));
+        $notification->push(
+            $alarm['title'],
+            'horde.alarm',
+            array('alarm' => $alarm)
+        );
         if (!empty($alarm['params']['notify']['sound']) &&
             !isset($this->_soundPlayed[$alarm['params']['notify']['sound']])) {
             $notification->attach('audio');
-            $notification->push($alarm['params']['notify']['sound'], 'audio');
+            $notification->push(
+                $alarm['params']['notify']['sound'],
+                'audio',
+                array('id' => $alarm['id'])
+            );
             $this->_soundPlayed[$alarm['params']['notify']['sound']] = true;
         }
     }

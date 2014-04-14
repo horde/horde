@@ -24,6 +24,7 @@ var HordeCore = {
     //   submit_frame, text
 
     alarms: [],
+    audios: [],
     base: null,
     handlers: {},
     jsfiles: [],
@@ -331,6 +332,12 @@ var HordeCore = {
 
             switch (m.type) {
             case 'audio':
+                // Only play one instance of an alarm sound.
+                if (this.audios.include(m.flags.id)) {
+                    break;
+                }
+                this.audios.push(m.flags.id);
+
                 if (!this.audio) {
                     this.audio = new Element('AUDIO');
                     $(document.body).insert(this.audio);
