@@ -8,7 +8,8 @@
 
 var ImpComposeBase = {
 
-    // Vars defaulting to null: editor_on, identities, rte, rte_sig, rte_loaded, rte_sig_loaded
+    // Vars defaulting to null: editor_on, identities, rte, rte_loaded,
+    //   rte_sig, rte_sig_loaded
 
     getSpellChecker: function()
     {
