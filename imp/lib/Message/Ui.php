@@ -150,8 +150,12 @@ class IMP_Message_Ui
      *
      * @return string  The local formatted time string.
      */
-    public function getLocalTime(Horde_Imap_Client_DateTime $date)
+    public function getLocalTime(Horde_Imap_Client_DateTime $date = null)
     {
+        if (is_null($date)) {
+            return '';
+        }
+
         $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), strval($date));
         $tz = strftime('%Z');
 
