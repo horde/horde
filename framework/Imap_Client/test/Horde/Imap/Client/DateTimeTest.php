@@ -25,39 +25,32 @@
  */
 class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
 {
-    public function testBug5717()
+    public function provider()
     {
-        $date = '12 Sep 2007 15:49:12 UT';
-        $ob = new Horde_Imap_Client_DateTime($date);
-
-        $this->assertEquals(
-            1189612152,
-            intval(strval($ob))
+        return array(
+            // Bug #5715
+            array('12 Sep 2007 15:49:12 UT', 1189612152),
+            // Bug #9847
+            array('Fri, 06 Oct 2006 12:15:13 +0100 (GMT+01:00)', 1160133313),
+            // Bug #13114; This should resolve to 4/13 8:04:48pm UTC of the
+            // current year.
+            array('Apr 13 20:4:48', gmmktime(20, 4, 48, 4, 13)),
+            // Bad date input
+            array('This is a bad date', 0)
         );
     }
 
-    public function testBug9847()
+    /**
+     * @dataProvider provider
+     */
+    public function testDateTimeParsing($date, $expected)
     {
-        $date = 'Fri, 06 Oct 2006 12:15:13 +0100 (GMT+01:00)';
         $ob = new Horde_Imap_Client_DateTime($date);
 
         $this->assertEquals(
-            1160133313,
+            $expected,
             intval(strval($ob))
         );
-    }
-
-    public function testBadDate()
-    {
-        $date = 'This is a bad date';
-        $ob = new Horde_Imap_Client_DateTime($date);
-
-        $this->assertEquals(
-            0,
-            intval(strval($ob))
-        );
-
-        $this->assertTrue($ob->error());
     }
 
 }
