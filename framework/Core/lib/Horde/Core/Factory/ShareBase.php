@@ -47,13 +47,14 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
      */
     public function create($app = null, $driver = null)
     {
-        global $conf, $registry, $session;
+        global $conf, $session;
+        $registry = $this->_injector->getInstance('Horde_Registry');
 
         if (empty($driver)) {
             $driver = $conf['share']['driver'];
         }
         if (empty($app)) {
-            $app = $this->_injector->getInstance('Horde_Registry')->getApp();
+            $app = $registry->getApp();
         }
 
         $sig = $app . '_' . $driver;
