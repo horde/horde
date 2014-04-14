@@ -333,10 +333,12 @@ var HordeCore = {
             switch (m.type) {
             case 'audio':
                 // Only play one instance of an alarm sound.
-                if (this.audios.include(m.flags.id)) {
-                    break;
+                if (m.flags.id) {
+                    if (this.audios.include(m.flags.id)) {
+                        break;
+                    }
+                    this.audios.push(m.flags.id);
                 }
-                this.audios.push(m.flags.id);
 
                 if (!this.audio) {
                     this.audio = new Element('AUDIO');
