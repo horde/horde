@@ -255,8 +255,8 @@ var DimpCompose = {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
                 ImpComposeBase.rte.updateElement();
-                if (!Object.isUndefined(ImpComposeBase.rte)) {
-                    ImpComposeBase.rte.updateElement();
+                if (!Object.isUndefined(ImpComposeBase.rte_sig)) {
+                    ImpComposeBase.rte_sig.updateElement();
                 }
             }
 
@@ -401,7 +401,7 @@ var DimpCompose = {
             if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
                 params.set('sig', {
                     changed: 1,
-                    text: ImpComposeBase.rte.getData()
+                    text: ImpComposeBase.rte_sig.getData()
                 });
             }
         } else if (!noupdate) {
@@ -728,7 +728,7 @@ var DimpCompose = {
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte_sig.getData() : $F('signature'))
             : 0;
     },
 
