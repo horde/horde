@@ -21,6 +21,9 @@
  */
 class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
 {
+    /** Session storage key. */
+    const STORAGE_KEY = 'horde_share/';
+
     /**
      * Local cache of created share instances.
      *
@@ -29,11 +32,11 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
     protected $_instances = array();
 
     /**
-     * Cache of session share entries.
+     * Cache of share entries.
      *
      * @var array
      */
-    protected $_sessionCache = array();
+    protected $_toCache = array();
 
     /**
      * Returns the share driver instance.
@@ -69,15 +72,15 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
         $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
 
         if (!empty($conf['share']['cache'])) {
-            $cache_sig = 'horde_share/' . $app . '/' . $driver;
-            $listCache = $session->retrieve($cache_sig);
+            $cache_sig = self::STORAGE_KEY . $driver;
+            $listCache = $session->get($app, $cache_sig);
             $ob->setListCache($listCache);
 
-            if (empty($this->_sessionCache)) {
+            if (empty($this->_toCache)) {
                 register_shutdown_function(array($this, 'shutdown'));
             }
 
-            $this->_sessionCache[$sig] = $cache_sig;
+            $this->_toCache[$sig] = array($app, $cache_sig);
         }
 
         $this->_instances[$sig] = $ob;
@@ -92,8 +95,8 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
     {
         global $session;
 
-        foreach ($this->_sessionCache as $sig => $cache_sig) {
-            $session->store($this->_instances[$sig]->getListCache(), false, $cache_sig);
+        foreach ($this->_toCache as $sig => $val) {
+            $session->set($val[0], $val[1], $this->_instances[$sig]->getListCache());
         }
     }
 
