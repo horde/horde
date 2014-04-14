@@ -124,6 +124,10 @@ class IMP_Mailbox_Ui
     public function getDate($date, $format = 0)
     {
         if (!is_object($date)) {
+            if (is_null($date)) {
+                return _("Unknown Date");
+            }
+
             $date = new Horde_Imap_Client_DateTime($date);
         }
 

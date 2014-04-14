@@ -2,6 +2,8 @@
 v6.1.8-git
 ----------
 
+[mms] Better handling of malformed message dates in mailbox listing (Bug
+      #13114).
 [mms] SECURITY: Fix XSS in displaying user-defined flags in basic mailbox and
       message view.
 [mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox
