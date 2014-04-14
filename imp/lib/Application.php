@@ -169,12 +169,6 @@ class IMP_Application extends Horde_Registry_Application
             $injector->getInstance('IMP_Factory_Compose')->create($key)->destroy('cancel');
         }
 
-        /* No need to keep Tree object in cache - it will be recreated next
-         * login. */
-        if ($treeob = $session->get('imp', 'treeob')) {
-            $injector->getInstance('Horde_Cache')->expire($treeob);
-        }
-
         /* Destroy any IMP_Mailbox_List cached entries, since they will not
          * be used in the next session. */
         $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
