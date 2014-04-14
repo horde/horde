@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-04-08</date>
+ <date>2014-04-14</date>
  <version>
   <release>2.12.0alpha1</release>
   <api>2.12.0</api>
@@ -431,6 +431,7 @@
       </dir> <!-- /lib/Horde/Core/Block -->
       <dir name="Cache">
        <file name="Session.php" role="php" />
+       <file name="SessionObjects.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Cache -->
       <dir name="Controller">
        <file name="NotFound.php" role="php" />
@@ -1825,6 +1826,7 @@
    <install as="Horde/Core/Block/Layout/Manager.php" name="lib/Horde/Core/Block/Layout/Manager.php" />
    <install as="Horde/Core/Block/Layout/View.php" name="lib/Horde/Core/Block/Layout/View.php" />
    <install as="Horde/Core/Cache/Session.php" name="lib/Horde/Core/Cache/Session.php" />
+   <install as="Horde/Core/Cache/SessionObjects.php" name="lib/Horde/Core/Cache/SessionObjects.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
@@ -3371,7 +3373,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-04-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Core_Cache_Session.

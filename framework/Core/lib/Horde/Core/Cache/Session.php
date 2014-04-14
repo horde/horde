@@ -32,7 +32,7 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
      *
      * @var array
      */
-    protected $_stored;
+    protected $_stored = array();
 
     /**
      * @param array $params  Configuration parameters:
@@ -54,7 +54,7 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
             array(
                 'app' => 'horde',
                 'maxsize' => 5000,
-                'storage_key' => 'sess_obj'
+                'storage_key' => 'sess_cache'
             ),
             $params
         ));
