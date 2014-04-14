@@ -69,6 +69,10 @@ The following options have been removed::
    $conf['compose']['convert_to_related']
    $conf['maillog']['use_maillog']
 
+The default value for the following options have been changed:
+
+   $conf['pgp']['keylength']
+
 
 Hooks (hooks.php)
 -----------------
