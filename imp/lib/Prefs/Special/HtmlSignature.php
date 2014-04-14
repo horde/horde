@@ -63,46 +63,18 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $conf, $injector, $notification;
+        global $notification;
 
-        $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
-
-        /* Scrub HTML. */
-        $html = $filter->filter(
-            $ui->vars->signature_html,
-            'Xss',
-            array(
-                'charset' => 'UTF-8',
-                'return_dom' => true,
-                'strip_style_attributes' => false
-            )
-        );
-
-        if ($img_limit = intval($conf['compose']['htmlsig_img_size'])) {
-            $xpath = new DOMXPath($html->dom);
-            foreach ($xpath->query('//*[@src]') as $node) {
-                $src = $node->getAttribute('src');
-                if (Horde_Url_Data::isData($src)) {
-                    if (strcasecmp($node->tagName, 'IMG') === 0) {
-                        $data_url = new Horde_Url_Data($src);
-                        if (($img_limit -= strlen($data_url->data)) < 0) {
-                            $notification->push(
-                                _("The total size of your HTML signature image data has exceeded the maximum allowed."),
-                                'horde.error'
-                            );
-                            return false;
-                        }
-                    } else {
-                        /* Don't allow any other non-image data URLs. */
-                        $node->removeAttribute('src');
-                    }
-                }
-            }
+        try {
+            new IMP_Compose_HtmlSignature($ui->vars->signature_html);
+        } catch (IMP_Exception $e) {
+            $notification->push($e, 'horde.error');
+            return false;
         }
 
         return $injector->getInstance('IMP_Identity')->setValue(
             'signature_html',
-            $html->returnHtml(array('charset' => 'UTF-8'))
+            $ui->vars->signature_html
         );
     }
 

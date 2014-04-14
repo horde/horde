@@ -44,9 +44,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
 
-    /* Signature data attribute name. */
-    const HTMLSIG_ATTR = 'imp_htmlsig';
-
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -1496,11 +1493,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             if (!empty($options['html'])) {
-                $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
-                foreach ($sig_dom->getBody()->childNodes as $child) {
-                    $node = $body_html->dom->importNode($child, true);
-                    $node->setAttribute(self::HTMLSIG_ATTR, '1');
-                    $body_html_body->appendChild($node);
+                try {
+                    $sig_ob = new IMP_Compose_HtmlSignature($html_sig);
+                } catch (IMP_Exception $e) {
+                    throw new IMP_Compose_Exception($e);
+                }
+
+                foreach ($sig_ob->dom->getBody()->childNodes as $child) {
+                    $body_html_body->appendChild(
+                        $body_html->dom->importNode($child, true)
+                    );
                 }
             }
         }
@@ -2630,8 +2632,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Check for attempts to sneak data URL information into the
              * output. */
             if (Horde_Url_Data::isData($src)) {
-                if ((strcasecmp($node->tagName, 'IMG') === 0) &&
-                    ($xpath->query('ancestor-or-self::node()[@' . self::HTMLSIG_ATTR . ']', $node)->length)) {
+                if (IMP_Compose_HtmlSignature::isSigImage($node, true)) {
                     /* This is HTML signature image data. Convert to an
                      * attachment. */
                     $sig_img = new Horde_Url_Data($src);
@@ -2684,11 +2685,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     }
                 }
             }
-        }
-
-        /* Remove HTML sig identifiers. */
-        foreach ($xpath->query('//*[@' . self::HTMLSIG_ATTR . ']') as $node) {
-            $node->removeAttribute(self::HTMLSIG_ATTR);
         }
     }
 
