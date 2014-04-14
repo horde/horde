@@ -31,8 +31,17 @@ class Horde_Core_Alarm_Handler_Notify extends Horde_Alarm_Handler
      */
     public function notify(array $alarm)
     {
-        global $notification;
+        global $notification, $registry;
 
+        if (isset($alarm['params']['notify']['show']) &&
+            !isset($alarm['params']['notify']['url'])) {
+            $params = $alarm['params']['notify']['show'];
+            $app = $alarm['params']['notify']['show']['__app'];
+            unset($params['__app']);
+            $alarm['params']['notify']['url'] = $registry->linkByPackage(
+                $app, 'show', $params
+            );
+        }
         $notification->push(
             $alarm['title'],
             'horde.alarm',
