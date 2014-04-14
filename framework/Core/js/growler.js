@@ -111,8 +111,8 @@
                 padding: '10px',
                 zIndex: 50000
             }).hide();
-            this.growler.on('click', 'DIV.GrowlerNoticeExit', function(e, elt) {
-                removeNotice(elt.up('DIV.GrowlerNotice'));
+            this.growler.on('click', 'DIV.GrowlerNotice', function(e, elt) {
+                removeNotice(elt);
             });
 
             if (this.opts.log) {
