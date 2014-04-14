@@ -51,7 +51,6 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
             $page_output->addInlineScript(array(
                 'if (window.CKEDITOR) { CKEDITOR.on("loaded", function(e) {' .
                   'CKEDITOR.plugins.addExternal("' . $plugin . '", "' . $js->url->url . '", "");' .
-                  'CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("' . $plugin . '").join(",");' .
                   'CKEDITOR.config.filebrowserImageUploadUrl = "' . $upload_url . '";' .
                 '}); };'
             ), true);

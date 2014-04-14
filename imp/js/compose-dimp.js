@@ -540,6 +540,8 @@ var DimpCompose = {
 
     rteInit: function(rte)
     {
+        var config;
+
         if (rte && !ImpComposeBase.rte) {
             if (Object.isUndefined(ImpComposeBase.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
@@ -560,7 +562,10 @@ var DimpCompose = {
                 }.bind(this));
             }
 
-            ImpComposeBase.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
+            config = Object.clone(IMP.ckeditor_config);
+            config.extraPlugins = 'pasteattachment';
+            ImpComposeBase.rte = CKEDITOR.replace('composeMessage', config);
+
             ImpComposeBase.rte.on('getData', function(evt) {
                 var elt = new Element('SPAN').insert(evt.data.dataValue),
                     elts = elt.select('IMG[dropatc_id]');
