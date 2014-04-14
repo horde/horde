@@ -63,9 +63,10 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $notification;
+        global $injector, $notification;
 
         try {
+            /* Throws exception if over image size limit. */
             new IMP_Compose_HtmlSignature($ui->vars->signature_html);
         } catch (IMP_Exception $e) {
             $notification->push($e, 'horde.error');
