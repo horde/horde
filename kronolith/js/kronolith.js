@@ -2795,6 +2795,25 @@ KronolithCore = {
         this.setTitle(task.n);
         this.redBoxLoading = true;
         RedBox.showHtml($('kronolithTaskDialog').show());
+
+        /* Hide alarm message for this task. */
+        if (r.msgs) {
+            r.msgs = r.msgs.reject(function(msg) {
+                if (msg.type != 'horde.alarm') {
+                    return false;
+                }
+                var alarm = msg.flags.alarm;
+                if (alarm.params && alarm.params.notify &&
+                    alarm.params.notify.show &&
+                    alarm.params.notify.show.tasklist &&
+                    alarm.params.notify.show.task &&
+                    alarm.params.notify.show.tasklist == task.l &&
+                    alarm.params.notify.show.task == task.id) {
+                    return true;
+                }
+                return false;
+            });
+        }
     },
 
     /**
