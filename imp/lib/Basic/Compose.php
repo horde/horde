@@ -1064,7 +1064,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         }
 
         if ($rtemode && !$redirect) {
-            $injector->getInstance('IMP_Editor')->init();
+            $page_output->addScriptPackage('IMP_Script_Package_Editor');
         }
     }
 

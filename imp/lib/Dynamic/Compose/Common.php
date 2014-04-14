@@ -78,7 +78,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _compose($base, $view, $args)
     {
-        global $injector, $registry, $prefs, $session;
+        global $injector, $registry, $page_output, $prefs, $session;
 
         $view->title = $args['title'];
 
@@ -93,7 +93,7 @@ class IMP_Dynamic_Compose_Common
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
 
-            $injector->getInstance('IMP_Editor')->init();
+            $page_output->addScriptPackage('IMP_Script_Package_Editor');
         }
 
         /* Create list for sent-mail selection. */

@@ -1,42 +1,38 @@
 <?php
 /**
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2014 Horde LLC
+ * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 
 /**
- * Common code relating to IMP's setup and configuration of the browser HTML
- * editor.
+ * This class identifies the javascript necessary to initialize CKEditor on
+ * the browser.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2014 Horde LLC
+ * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Editor
+class IMP_Script_Package_Editor extends Horde_Script_Package
 {
     /**
-     * Initialize the Rich Text Editor (RTE).
-     *
-     * @param string $id  The DOM ID to load. If null, won't start editor on
-     *                    page load.
+     * Constructor.
      */
-    public function init($id = null)
+    public function __construct()
     {
         global $injector, $page_output, $language, $prefs;
 
         $injector->getInstance('Horde_Editor')->initialize(array(
             'basic' => true,
-            'config' => 'IMP.ckeditor_config',
-            'id' => $id
+            'config' => 'IMP.ckeditor_config'
         ));
 
         $font_family = $prefs->getValue('compose_html_font_family');

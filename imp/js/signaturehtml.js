@@ -27,6 +27,7 @@ var ImpHtmlSignaturePrefs = {
         CKEDITOR.on('instanceReady', function(e) {
             this.ready = true;
         }.bind(this));
+        CKEDITOR.replace('signature_html', Object.clone(IMP.ckeditor_config));
     }
 
 };

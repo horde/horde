@@ -521,6 +521,7 @@
     <dir name="Script">
      <dir name="Package">
       <file name="ComposeBase.php" role="horde" />
+      <file name="Editor.php" role="horde" />
       <file name="Imp.php" role="horde" />
      </dir> <!-- /lib/Script/Package -->
     </dir> <!-- /lib/Script -->
@@ -589,7 +590,6 @@
     <file name="Compose.php" role="horde" />
     <file name="Contacts.php" role="horde" />
     <file name="Contents.php" role="horde" />
-    <file name="Editor.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
@@ -1605,7 +1605,6 @@
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
    <install as="imp/lib/Contacts.php" name="lib/Contacts.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
-   <install as="imp/lib/Editor.php" name="lib/Editor.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
@@ -1874,6 +1873,7 @@
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Remote/Account.php" name="lib/Remote/Account.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
+   <install as="imp/lib/Script/Package/Editor.php" name="lib/Script/Package/Editor.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
