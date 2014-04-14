@@ -425,6 +425,7 @@ var HordeCore = {
                         sticky: true
                     });
                     growl.store('alarm', alarm.id);
+                    m.flags.growl = growl;
 
                     if (alarm.user) {
                         message.down('select').observe('change', function(e) {

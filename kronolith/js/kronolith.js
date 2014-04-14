@@ -4158,6 +4158,29 @@ KronolithCore = {
         HordeTopbar.searchGhost.reset();
     },
 
+    /**
+     * Event handler for HordeCore:showNotifications events.
+     */
+    showNotification: function(e)
+    {
+        if (!e.memo.flags ||
+            !e.memo.flags.alarm ||
+            !e.memo.flags.growl ||
+            !e.memo.flags.alarm.params.notify.ajax) {
+            return;
+        }
+
+        var growl = e.memo.flags.growl, link = growl.down('A');
+
+        if (link) {
+            link.observe('click', function(ee) {
+                ee.stop();
+                HordeCore.Growler.ungrowl(growl);
+                this.go(e.memo.flags.alarm.params.notify.ajax);
+            }.bind(this));
+        }
+    },
+
     /* Keydown event handler */
     keydownHandler: function(e)
     {
@@ -6935,6 +6958,7 @@ document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListene
 document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
 document.observe('FormGhost:reset', KronolithCore.searchReset.bindAsEventListener(KronolithCore));
 document.observe('FormGhost:submit', KronolithCore.searchSubmit.bindAsEventListener(KronolithCore));
+document.observe('HordeCore:showNotifications', KronolithCore.showNotification.bindAsEventListener(KronolithCore));
 if (Prototype.Browser.IE) {
     $('kronolithBody').observe('selectstart', Event.stop);
 }
