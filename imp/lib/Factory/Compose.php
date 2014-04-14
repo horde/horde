@@ -20,8 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Compose extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
+class IMP_Factory_Compose
+extends Horde_Core_Factory_Base
+implements Horde_Shutdown_Task
 {
+    /** Storage key for compose objects. */
+    const STORAGE_KEY = 'compose_ob/';
+
     /**
      * Instances.
      *
@@ -48,10 +53,12 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base implements Horde_Shutd
      */
     public function create($cacheid = null)
     {
+        global $session;
+
         if (empty($cacheid)) {
             $cacheid = strval(new Horde_Support_Randomid());
         } elseif (!isset($this->_instances[$cacheid])) {
-            $this->_instances[$cacheid] = $GLOBALS['session']->retrieve($cacheid);
+            $this->_instances[$cacheid] = $session->get('imp', self::STORAGE_KEY . $cacheid);
         }
 
         if (empty($this->_instances[$cacheid])) {
@@ -68,28 +75,29 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base implements Horde_Shutd
     {
         global $session;
 
-        $cache = $session->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY);
-        $changed = false;
-
         foreach ($this->_instances as $key => $val) {
             switch ($val->changed) {
             case 'changed':
-                $session->store($val, false, $key);
-                $cache[$key] = 1;
-                $changed = true;
+                $session->set('imp', self::STORAGE_KEY . $key, $val);
                 break;
 
             case 'deleted':
-                unset($cache[$key]);
-                $session->purge($key);
-                $changed = true;
+                $session->remove('imp', self::STORAGE_KEY . $key);
                 break;
             }
         }
+    }
 
-        if ($changed) {
-            $session->set('imp', 'compose_cache', $cache);
-        }
+    /**
+     * Return a list of all compose objects currently stored in the session.
+     *
+     * @return array  List of IMP_Compose objects.
+     */
+    public function getAllObs()
+    {
+        global $session;
+
+        return $session->get('imp', self::STORAGE_KEY, $session::TYPE_ARRAY);
     }
 
 }

@@ -162,11 +162,11 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function logout()
     {
-        global $injector, $session;
+        global $injector;
 
         /* Clean up dangling IMP_Compose objects. */
-        foreach (array_keys($session->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY)) as $key) {
-            $injector->getInstance('IMP_Factory_Compose')->create($key)->destroy('cancel');
+        foreach ($injector->getInstance('IMP_Factory_Compose')->getAllObs() as $val) {
+            $val->destroy('cancel');
         }
 
         /* Destroy any IMP_Mailbox_List cached entries, since they will not

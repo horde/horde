@@ -25,7 +25,7 @@ extends Horde_Core_Factory_Injector
 implements Horde_Shutdown_Task
 {
     /* Storage key in session. */
-    const STORAGE_KEY = 'imp_ftree';
+    const STORAGE_KEY = 'ftree';
 
     /**
      * @var IMP_Ftree
@@ -41,7 +41,7 @@ implements Horde_Shutdown_Task
     {
         global $registry, $session;
 
-        $this->_instance = $session->retrieve(self::STORAGE_KEY);
+        $this->_instance = $session->get('imp', self::STORAGE_KEY);
 
         if (!($this->_instance instanceof IMP_Ftree)) {
             $this->_instance = new IMP_Ftree();
@@ -68,7 +68,7 @@ implements Horde_Shutdown_Task
 
         /* Only need to store the object if the tree has changed. */
         if ($this->_instance->changed) {
-            $session->store($this->_instance, true, self::STORAGE_KEY);
+            $session->set('imp', self::STORAGE_KEY, $this->_instance);
         }
     }
 

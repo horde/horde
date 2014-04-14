@@ -174,14 +174,9 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
      */
     protected function _reloadWindow()
     {
-        global $session;
-
-        $href = $session->retrieve($this->vars->reload);
-        $session->purge($this->vars->reload);
-
         echo Horde::wrapInlineScript(array(
             'opener.focus();'.
-            'opener.location.href="' . $href . '";',
+            'opener.location.href="' . base64_decode($this->vars->reload) . '";',
             'window.close();'
         ));
         exit;

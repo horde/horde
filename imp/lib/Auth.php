@@ -15,8 +15,7 @@
  * This class provides authentication for IMP.
  *
  * The following is the list of IMP session variables:
- *   - compose_cache: (array) List of compose objects that have not yet been
- *                    garbage collected.
+ *   - compose_ob: (array) Active compose objects.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
  *   - imap_ob: (IMP_Imap) The IMAP client object.
