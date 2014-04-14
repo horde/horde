@@ -277,6 +277,11 @@ $backends['sieve'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'sieve',
             'params' => array(
+                // If true, use the deprecated 'imapflags' extension to set
+                // flag status instead of the newer, standardized
+                // 'imap4flags'.
+                // 'imapflags' => true,
+
                 // If using Dovecot or any other Sieve implementation that
                 // requires folder names to be UTF-8 encoded, set this
                 // parameter to true.

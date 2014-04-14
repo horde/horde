@@ -86,7 +86,7 @@ stop;
 
         $this->storage->store($bl);
 
-        $this->_assertScript('require "imapflags";
+        $this->_assertScript('require "imap4flags";
 if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
 addflag "\\\\Deleted";
 keep;

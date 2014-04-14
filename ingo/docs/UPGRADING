@@ -52,6 +52,14 @@ Added the 'newEmailFilter' API link.  Takes one argument: 'email', the
 e-mail address to pre-populate into a new rule.
 
 
+Backend Configuration (backends.php)
+------------------------------------
+
+The Sieve driver now uses 'imap4flags' by default to set flags. If using an
+old version of Sieve that supports the deprecated 'imapflags' setting, set
+'imapflags' to true in the sieve script parameters (see backends.php).
+
+
 Configuration Options (conf.php)
 --------------------------------
 

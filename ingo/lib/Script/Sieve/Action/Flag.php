@@ -14,6 +14,8 @@
 
 /**
  * The Ingo_Script_Sieve_Action_Flag class is the base class for flag actions.
+ * It supports both imap4flags (RFC 5232) and the older, deprecated imapflags
+ * (draft-melnikov-sieve-imapflags-03) capabilities.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Jan Schneider <jan@horde.org>
@@ -26,58 +28,55 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @params array $vars  Required parameters:
+     *   - flags: (integer) The mask of flags to set.
+     *   - imapflags: (boolean) If set, use imapflags instead of imap4flags.
      */
     public function __construct($vars = array())
     {
+        $this->_vars['flags'] = array();
+
         if (isset($vars['flags'])) {
-            if ($vars['flags'] & Ingo_Storage::FLAG_ANSWERED) {
-                $this->_vars['flags'][] = '\Answered';
+            $flag_map = array(
+                Ingo_Storage::FLAG_ANSWERED => '\Answered',
+                Ingo_Storage::FLAG_DELETED => '\Deleted',
+                Ingo_Storage::FLAG_FLAGGED => '\Flagged',
+                Ingo_Storage::FLAG_SEEN => '\Seen'
+            );
+
+            foreach ($flag_map as $key => $val) {
+                if ($vars['flags'] & $key) {
+                    $this->_vars['flags'][] = $val;
+                }
             }
-            if ($vars['flags'] & Ingo_Storage::FLAG_DELETED) {
-                $this->_vars['flags'][] = '\Deleted';
-            }
-            if ($vars['flags'] & Ingo_Storage::FLAG_FLAGGED) {
-                $this->_vars['flags'][] = '\Flagged';
-            }
-            if ($vars['flags'] & Ingo_Storage::FLAG_SEEN) {
-                $this->_vars['flags'][] = '\Seen';
-            }
-        } else {
-            $this->_vars['flags'] = '';
         }
+
+        $this->_vars['imapflags'] = !empty($vars['imapflags']);
     }
 
     /**
      * Returns a script snippet representing this rule and any sub-rules.
      *
-     * @param string $mode  The sieve flag command to use. Either 'removeflag'
-     *                      or 'addflag'.
+     * @param string $mode  The sieve flag command to use. Either:
+     *  - addflag
+     *  - removeflag
      *
      * @return string  A Sieve script snippet.
      */
     protected function _generate($mode)
     {
-        $code  = '';
-
-        if (is_array($this->_vars['flags']) && !empty($this->_vars['flags'])) {
-            $code .= $mode . ' ';
-            if (count($this->_vars['flags']) > 1) {
-                $stringlist = '';
-                foreach ($this->_vars['flags'] as $flag) {
-                    $flag = trim($flag);
-                    if (!empty($flag)) {
-                        $stringlist .= empty($stringlist) ? '"' : ', "';
-                        $stringlist .= Ingo_Script_Sieve::escapeString($flag) . '"';
-                    }
-                }
-                $stringlist = '[' . $stringlist . ']';
-                $code .= $stringlist . ';';
-            } else {
-                $code .= '"' . Ingo_Script_Sieve::escapeString($this->_vars['flags'][0]) . '";';
-            }
+        if (empty($this->_vars['flags'])) {
+            return '';
         }
-        return $code;
+
+        $flist = array();
+        foreach ($this->_vars['flags'] as $flag) {
+            $flist[] = '"' . Ingo_Script_Sieve::escapeString($flag) . '"';
+        }
+
+        /* Use string list since it is supported by both imap4flags and
+         * imapflags. */
+        return $mode . ' [' . implode(', ', $flist) . '];';
     }
 
     /**
@@ -99,6 +98,9 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
      */
     public function requires()
     {
-        return array('imapflags');
+        return $this->_vars['imapflags']
+            ? array('imapflags')
+            : array('imap4flags');
     }
+
 }
