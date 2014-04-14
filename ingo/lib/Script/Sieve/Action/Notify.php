@@ -15,6 +15,9 @@
 /**
  * The Ingo_Script_Sieve_Action_Notify class represents a notify action.
  *
+ * It supports both enotify (RFC 5435) and the older, deprecated notify
+ * (draft-martin-sieve-notify-01) capabilities.
+ *
  * @author   Paul Wolstenholme <wolstena@sfu.ca>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -26,7 +29,11 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
     /**
      * Constructor.
      *
-     * @param array $vars  Any required parameters.
+     * @param array $vars  Required parameters:
+     *   - address: (string) Address.
+     *   - name: (string) Name.
+     *   - notify: (boolean) If set, use notify instead of enotify.
+     *
      */
     public function __construct($vars = array())
     {
@@ -36,6 +43,7 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
         $this->_vars['name'] = isset($vars['name'])
             ? $vars['name']
             : '';
+        $this->_vars['notify'] = !empty($vars['notify']);
     }
 
     /**
@@ -45,13 +53,15 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
      */
     public function generate()
     {
-        return 'notify :method "mailto" :options "' .
-            Ingo_Script_Sieve::escapeString($this->_vars['address']) .
-            '" :message "' .
-            _("You have received a new message") . "\n" .
+        $addr = Ingo_Script_Sieve::escapeString($this->_vars['address']);
+        $msg = _("You have received a new message") . "\n" .
             _("From:") . " \$from\$ \n" .
             _("Subject:") . " \$subject\$ \n" .
-            _("Rule:") . ' ' . $this->_vars['name'] . '";';
+            _("Rule:") . ' ' . $this->_vars['name'];
+
+        return $this->_vars['notify']
+            ? 'notify :method "mailto" :options "' . $addr . '" :message "' . $msg . '";'
+            : 'notify :message "' . $msg . '" "mailto:' . $addr . '";';
     }
 
     /**
@@ -75,6 +85,8 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
      */
     public function requires()
     {
-        return array('notify');
+        return $this->_vars['notify']
+            ? array('notify')
+            : array('enotify');
     }
 }

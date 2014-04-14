@@ -2,6 +2,8 @@
 v3.2.0-git
 ----------
 
+[mms] Use standardized 'enotify' sieve extension (RFC 5435) by default instead
+      of deprecated 'notify' extension (Request #8784).
 [mms] Use standardized 'imap4flags' sieve extension (RFC 5232) by default
       instead of deprecated 'imapflags' extension (Request #8784).
 [mms] Add ability to filter rules by mailbox.

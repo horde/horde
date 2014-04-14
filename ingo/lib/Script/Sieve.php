@@ -593,7 +593,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 break;
 
             case Ingo_Storage::ACTION_NOTIFY:
-                $action[] = new Ingo_Script_Sieve_Action_Notify(array('address' => $filter['action-value'], 'name' => $filter['name']));
+                $action[] = new Ingo_Script_Sieve_Action_Notify(array(
+                    'address' => $filter['action-value'],
+                    'name' => $filter['name'],
+                    'notify' => !empty($this->_params['notify'])
+                ));
                 break;
 
             case Ingo_Storage::ACTION_WHITELIST:
