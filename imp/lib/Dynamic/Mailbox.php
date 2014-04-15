@@ -254,7 +254,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'subject' => _("Subject"),
                 'thread' => _("Thread"),
                 'date' => _("Date"),
-                'size' => ("Size"),
+                'size' => _("Size"),
                 '_sep1' => null,
                 'sequence' => _("No Sort")
             ),
