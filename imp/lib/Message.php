@@ -160,9 +160,9 @@ class IMP_Message
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $maillog = $injector->getInstance('IMP_Maillog');
-
-        $maillog_update = empty($opts['keeplog']);
+        $maillog = empty($opts['keeplog'])
+            ? $injector->getInstance('IMP_Maillog')
+            : null;
         $return_value = 0;
 
         /* Check for Trash mailbox. */
@@ -250,13 +250,15 @@ class IMP_Message
                  * an error occurs. But 1) the user has already indicated they
                  * don't care about this data and 2) message IDs (used by some
                  * maillog backends) won't be available after deletion. */
-                $delete_ids = array();
-                foreach ($ids_ob as $val) {
-                    $delete_ids[] = new IMP_Maillog_Message(
-                        new IMP_Indices($ob->mbox, $val)
-                    );
+                if ($maillog) {
+                    $delete_ids = array();
+                    foreach ($ids_ob as $val) {
+                        $delete_ids[] = new IMP_Maillog_Message(
+                            new IMP_Indices($ob->mbox, $val)
+                        );
+                    }
+                    $maillog->deleteLog($delete_ids);
                 }
-                $maillog->deleteLog($delete_ids);
 
                 /* Delete the messages. */
                 $expunge_now = false;
