@@ -101,9 +101,7 @@
        </tr>
       </thead>
      </table>
-     <div id="msgloglist" style="display:none">
-      <ul></ul>
-     </div>
+     <ul id="msgloglist" style="display:none"></ul>
     </div>
    </div>
   </div>

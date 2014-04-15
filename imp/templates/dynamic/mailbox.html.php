@@ -164,9 +164,7 @@
            <div>
             <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
            </div>
-           <div id="msgloglist" style="display:none">
-            <ul></ul>
-           </div>
+           <ul id="msgloglist" style="display:none"></ul>
           </td>
          </tr>
         </thead>

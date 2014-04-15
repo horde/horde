@@ -178,7 +178,7 @@ var DimpCore = {
     updateMsgLog: function(log)
     {
         var df = document.createDocumentFragment(),
-            tmp = $('msgloglist').down('UL');
+            tmp = $('msgloglist');
 
         log.each(function(entry) {
             df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m.escapeHTML()));
