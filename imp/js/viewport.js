@@ -479,7 +479,7 @@ var ViewPort = Class.create({
     {
         this.opts.container.fire('ViewPort:resize');
 
-        var c_opts = {},
+        var c_opts = {}, w,
             h = this.opts.list_header ? this.opts.list_header.getHeight() : 0,
             lh = this._getLineHeight(),
             sp = this.split_pane;
@@ -507,7 +507,8 @@ var ViewPort = Class.create({
             h += lh * this.page_size;
             this.opts.list_container.setStyle({
                 cssFloat: 'none',
-                height: h + 'px'
+                height: h + 'px',
+                width: 'auto'
             });
             this.opts.content.setStyle({ width: 'auto' });
             sp.currbar.show();
@@ -523,14 +524,18 @@ var ViewPort = Class.create({
                 this.page_size = this.getPageSize('max');
             }
 
-            if (!sp.vert.width) {
-                sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
-            }
+            w = this.opts.container.getWidth();
+
+            /* Adapt splitbar width to current screen size. */
+            sp.vert.width = sp.vert.width
+                ? Math.min(sp.vert.width, Math.max(0, w - 10))
+                : parseInt(w * 0.35, 10);
 
             h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
                 cssFloat: 'left',
-                height: h + 'px'
+                height: h + 'px',
+                width: sp.vert.width + 'px'
             });
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             sp.currbar.setStyle({
@@ -1206,7 +1211,7 @@ var ViewPort = Class.create({
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
             sp.vert.width = drag.lastCoord[0] - this.opts.list_container.viewportOffset()[0];
-            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
+            this.onResize(true);
             change = drag.wasDragged;
             break;
         }

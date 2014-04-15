@@ -48,6 +48,10 @@ input {
     margin-bottom: -1px;
 }
 
+#msglistHeaderVert {
+    white-space: nowrap;
+}
+
 #msglistHeaderContainer .horde-popdown {
     display: inline-block;
     float: none;
