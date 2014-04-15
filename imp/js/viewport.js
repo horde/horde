@@ -277,7 +277,7 @@ var ViewPort = Class.create({
         // Init empty string now.
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
-        Event.observe(window, 'resize', this.onResize.bind(this));
+        Event.observe(window, 'resize', function() { this.onResize(); }.bind(this));
         document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
         document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
         document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
