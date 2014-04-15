@@ -1273,7 +1273,7 @@ var DimpCompose = {
                 if (id.startsWith(pair.key + '_')) {
                     var t = pair.value.get(id.substring(pair.key.length + 1));
                     if (t) {
-                        $(t).setValue(1 - $F(t));
+                        $(t).setValue(~~(!(~~$F(t))));
                     }
                 }
             });
