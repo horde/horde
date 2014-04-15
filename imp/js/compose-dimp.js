@@ -545,11 +545,6 @@ var DimpCompose = {
         if (rte && !ImpComposeBase.rte) {
             if (Object.isUndefined(ImpComposeBase.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
-                    this.RTELoading('hide');
-                    ImpComposeBase.rte.focus();
-                    ImpComposeBase.rte_loaded = true;
-                    this.resizeMsgArea();
-
                     new CKEDITOR.dom.document(
                         evt.editor.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
                     .on('keydown', function(evt) {
@@ -566,6 +561,12 @@ var DimpCompose = {
             config.extraPlugins = 'pasteattachment';
             ImpComposeBase.rte = CKEDITOR.replace('composeMessage', config);
 
+            ImpComposeBase.rte.on('dataReady', function(evt) {
+                this.RTELoading('hide');
+                evt.editor.focus();
+                ImpComposeBase.rte_loaded = true;
+                this.resizeMsgArea();
+            }.bind(this));
             ImpComposeBase.rte.on('getData', function(evt) {
                 var elt = new Element('SPAN').insert(evt.data.dataValue),
                     elts = elt.select('IMG[dropatc_id]');
