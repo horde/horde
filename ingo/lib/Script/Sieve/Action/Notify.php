@@ -54,14 +54,18 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
     public function generate()
     {
         $addr = Ingo_Script_Sieve::escapeString($this->_vars['address']);
-        $msg = _("You have received a new message") . "\n" .
-            _("From:") . " \$from\$ \n" .
-            _("Subject:") . " \$subject\$ \n" .
-            _("Rule:") . ' ' . $this->_vars['name'];
 
-        return $this->_vars['notify']
-            ? 'notify :method "mailto" :options "' . $addr . '" :message "' . $msg . '";'
-            : 'notify :message "' . $msg . '" "mailto:' . $addr . '";';
+        if ($this->_vars['notify']) {
+            return 'notify :method "mailto" :options "' . $addr .
+                '" :message "' ._("You have received a new message") . "\n" .
+                    _("From:") . " \$from\$ \n" .
+                    _("Subject:") . " \$subject\$ \n" .
+                    _("Rule:") . ' ' . $this->_vars['name'] . '";';
+        }
+
+        // RFC 5436 defines mailto: behavior. Use the default
+        // server-defined notification message.
+        return 'notify "mailto:' . $addr . '";';
     }
 
     /**
