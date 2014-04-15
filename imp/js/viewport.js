@@ -529,7 +529,7 @@ var ViewPort = Class.create({
             /* Adapt splitbar width to current screen size. */
             sp.vert.width = sp.vert.width
                 ? Math.min(sp.vert.width, Math.max(0, w - 10))
-                : parseInt(w * 0.35, 10);
+                : parseInt(w * 0.45, 10);
 
             h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
@@ -1236,21 +1236,22 @@ var ViewPort = Class.create({
             return;
         }
 
-        var change, old_size = this.page_size;
+        var old_size;
 
         switch (this.pane_mode) {
         case 'horiz':
+            old_size = this.page_size;
             this.onResize(true, this.getPageSize('default'));
-            change = (old_size != this.page_size);
+            if (old_size != this.page_size) {
+                this.opts.container.fire('ViewPort:splitBarChange', 'horiz');
+            }
             break;
 
         case 'vert':
-            this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
-            change = true;
-        }
-
-        if (change) {
-            this.opts.container.fire('ViewPort:splitBarChange', this.pane_mode);
+            delete this.split_pane.vert.width;
+            this.onResize(true);
+            this.opts.container.fire('ViewPort:splitBarChange', 'vert');
+            break;
         }
     },
 
