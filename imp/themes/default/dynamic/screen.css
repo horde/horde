@@ -420,7 +420,15 @@ div.vpRowVert div.msgSubject {
 
 .atcLabel, .msgLogLabel {
     font-weight: bold;
+    line-height: 20px;
     padding-right: 5px;
+}
+
+#partlist {
+    padding-top: 2px;
+}
+#partlist .horde-tree-image {
+    padding-right: 1px;
 }
 
 #partlist_toggle span.attachmentImg {
@@ -1010,15 +1018,15 @@ div.msgSubject span.horde-tree-image {
 #th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
-    margin: 2px 0 -2px;
+    margin: 3px 0 -3px;
 }
 #th_collapse, #partlist_exp, #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
-    margin: 2px 0 -2px;
+    margin: 3px 0 -3px;
 }
 #th_collapse {
-    margin-top: 4px;
+    margin: 4px 0 -2px;
 }
 
 span.readonlyImg {
