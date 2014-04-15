@@ -582,7 +582,7 @@ var DimpCompose = {
 
         ImpComposeBase.editor_on = rte;
         $('htmlcheckbox').setValue(rte);
-        $('html').setValue(rte);
+        $('html').setValue(~~rte);
     },
 
     // ob = addr, body, format, identity, opts, subject, type
