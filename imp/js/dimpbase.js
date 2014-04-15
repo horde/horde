@@ -3126,7 +3126,7 @@ var DimpBase = {
                 HordeDialog.display({
                     form_id: 'dimpbase_confirm',
                     noinput: true,
-                    text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(elt)).sub('%d', r)
+                    text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(elt)).sub('%d', r.result)
                 });
             } else {
                 RedBox.close();
