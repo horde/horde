@@ -1412,9 +1412,8 @@ var DimpBase = {
             elts = $(ctx_id).select('a span.iconImg');
             tmp = this.viewport.getMetaData('sortby');
 
-            elts.each(function(e) {
-                e.removeClassName('sortdown').removeClassName('sortup');
-            });
+            elts.invoke('removeClassName', 'sortdown')
+                .invoke('removeClassName', 'sortup');
 
             DimpCore.conf.sort.detect(function(s) {
                 if (s.value.v == tmp) {
