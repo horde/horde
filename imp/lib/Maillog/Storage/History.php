@@ -100,7 +100,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
             return $out;
         }
 
-        foreach ($history as $key => $val) {
+        foreach ($history as $val) {
             if (!in_array($val['action'], $filter)) {
                 switch ($val['action']) {
                 case 'forward':

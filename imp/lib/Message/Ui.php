@@ -83,7 +83,7 @@ class IMP_Message_Ui
         $maillog = $injector->getInstance('IMP_Maillog');
         $pref_val = $prefs->getValue('send_mdn');
 
-        list($mbox, $uid) = $indices->getSingle();
+        list($mbox, ) = $indices->getSingle();
 
         if (!$pref_val || $mbox->readonly) {
             return false;

@@ -72,8 +72,6 @@ class IMP_Maillog_Message
      */
     public function __get($name)
     {
-        global $injector;
-
         switch ($name) {
         case 'indices':
             return $this->_indices;

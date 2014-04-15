@@ -43,7 +43,7 @@ class IMP_Prefs_Special_Sourceselect implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $prefs, $session;
+        global $prefs;
 
         $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
         $updated = false;
