@@ -210,11 +210,11 @@
   </div>
  </div>
  <div class="horde-table-header" id="msglistHeaderVert" style="display:none">
-  <div class="iconImg msgStatus">
-   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
-  </div>
   <div class="msgSort">
    <a class="widget" id="vertical_sort"><?php echo _("Sort") ?></a>
+  </div>
+  <div class="iconImg msgStatus">
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
  </div>
 </div>
