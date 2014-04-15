@@ -1147,6 +1147,8 @@ var DimpBase = {
 
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
+        case 'ctx_sortopts_msgarrival':
+        case 'ctx_sortopts_msgdate':
         case 'ctx_sortopts_to':
         case 'ctx_sortopts_sequence':
         case 'ctx_sortopts_size':
