@@ -65,7 +65,7 @@ class Ingo_Perms
             )
         );
 
-        foreach (Ingo::loadBackends() as $key => $val) {
+        foreach (array_keys(Ingo::loadBackends()) as $key) {
             $bkey = 'backends:' . $key;
 
             $perms[$bkey] = array(
