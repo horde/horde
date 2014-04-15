@@ -399,9 +399,6 @@ div.vpRowVert div.msgSubject {
 .msgfullread .msgHeaders {
     cursor: default;
 }
-.msgfullread #partlist table {
-    margin: 0 0 -3px 0;
-}
 
 .msgHeaders table thead td.label {
     display: block;
@@ -426,12 +423,6 @@ div.vpRowVert div.msgSubject {
     padding-right: 5px;
 }
 
-#partlist table {
-    margin-top: 2px;
-}
-#partlist td {
-    padding-right: 3px;
-}
 #partlist_toggle span.attachmentImg {
     margin-right: 0;
 }
