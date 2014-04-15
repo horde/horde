@@ -1940,7 +1940,7 @@ var DimpBase = {
 
     updateHeader: function(hdr, data, limit)
     {
-        (hdr == 'from' ? $('previewMsg').select('.' + hdr) : [ $('msgHeadersContent').down('THEAD').down('.' + hdr) ]).each(function(elt) {
+        (hdr == 'from' ? $('previewMsg').select('.' + hdr) : [ $('msgHeaders').down('THEAD').down('.' + hdr) ]).each(function(elt) {
             elt.replace(DimpCore.buildAddressLinks(data, elt.clone(false), limit));
         });
     },

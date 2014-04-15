@@ -403,9 +403,6 @@ div.vpRowVert div.msgSubject {
     margin: 0 0 -3px 0;
 }
 
-.msgHeaders table {
-    margin-top: -2px;
-}
 .msgHeaders table thead td.label {
     display: block;
     font-weight: bold;
@@ -416,7 +413,7 @@ div.vpRowVert div.msgSubject {
 .msgfullread .msgHeaders table thead td.label {
     padding-left: 3px;
 }
-.msgHeaders table thead td.subject {
+.msgHeaders .subject {
     font-weight: bold;
 }
 #msgHeaderAtc td.label a {
@@ -451,32 +448,21 @@ div.vpRowVert div.msgSubject {
     cursor: pointer;
 }
 
-#msgHeadersContent {
-    overflow: hidden;
-}
-#msgHeadersContent p.subject {
-    font-size: 100%;
-    font-weight: bold;
-}
-
 /* Preview small header */
-#msgHeadersColl span.date,
-#msgHeadersColl span.from,
-#msgHeadersColl span.subject {
+#msgHeadersColl {
+    line-height: 20px;
+}
+#msgHeadersColl ul {
+    list-style: none;
     overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+    white-space: nowrap;
 }
-#msgHeadersColl span.date {
-    float: right;
-    text-align: right;
+#msgHeadersColl li {
+    float: left;
 }
-#msgHeadersColl span.subject {
-    font-weight: bold;
-    max-width: 60%;
-}
-#msgHeadersColl span.fromcontainer {
-    padding-left: 5px;
+#msgHeadersColl .from .horde-button {
+    line-height: 16px !important;
+    margin: 0;
 }
 
 /* Message body formatting. */
@@ -492,7 +478,7 @@ div.vpRowVert div.msgSubject {
     max-height: 50px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
 }
 
 /* Message Composition. */
@@ -771,10 +757,6 @@ span.attachmentImg {
     text-decoration: underline;
 }
 
-#filter {
-    float: right;
-}
-
 #searchbar {
     background-color: #ffa;
     padding: 8px 10px;
@@ -1032,8 +1014,7 @@ div.msgSubject span.horde-tree-image {
 #preview_other span.iconImg {
     background-image: url("../graphics/plus.png");
     cursor: pointer;
-    float: right;
-    margin: -2px 0 0 4px;
+    margin: 0 0 0 4px;
 }
 #th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
@@ -1045,11 +1026,8 @@ div.msgSubject span.horde-tree-image {
     cursor: pointer;
     margin: 2px 0 -2px;
 }
-
-#th_collapse, #th_expand {
-    float: left;
-    margin-bottom: -2px;
-    margin-top: 2px;
+#th_collapse {
+    margin-top: 4px;
 }
 
 span.readonlyImg {

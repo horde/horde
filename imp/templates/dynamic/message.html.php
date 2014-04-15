@@ -67,7 +67,7 @@
      </div>
 <?php endif; ?>
     </div>
-    <div id="msgHeadersContent">
+    <div>
      <div class="subject allowTextSelection"><?php echo $this->subject ?></div>
      <table>
       <thead>

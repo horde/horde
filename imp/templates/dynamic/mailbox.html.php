@@ -12,14 +12,14 @@
    <div id="dimpmain_folder_top">
     <div class="horde-buttonbar">
     <ul class="rightFloat">
+     <li class="horde-nobutton">
+      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
+     </li>
 <?php if ($this->show_search): ?>
      <li class="horde-nobutton" id="filter">
       <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
      </li>
 <?php endif; ?>
-     <li class="horde-nobutton">
-      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
-     </li>
     </ul>
     <ul>
      <li class="horde-icon">
@@ -72,13 +72,24 @@
     <div id="previewMsg" style="display:none">
      <div class="msgHeaders">
       <div id="msgHeadersColl">
-       <a id="preview_other"><span class="iconImg" title="<?php echo _("Other Options") ?>"></span></a>
-       <span class="date"></span>
-       <span class="iconImg" id="th_expand"></span>
-       <span class="subject allowTextSelection" title="<?php echo _("Expand Headers") ?>"></span>
-       <span class="fromcontainer"><?php echo _("from") ?>
-        <span class="from allowTextSelection"></span>
-       </span>
+       <ul class="rightFloat">
+        <li>
+         <div class="date"></div>
+        </li>
+        <li>
+         <a id="preview_other">
+          <span class="iconImg" title="<?php echo _("Other Options") ?>"></span>
+         </a>
+        </li>
+       </ul>
+       <ul>
+        <li>
+         <div class="iconImg" id="th_expand" title="<?php echo _("Expand Headers") ?>"></div>
+         <span class="subject allowTextSelection"></span>
+         <?php echo _("from") ?>
+         <span class="from"></span>
+        </li>
+       </ul>
       </div>
       <div id="msgHeaders" style="display:none">
        <div class="dimpOptions">
@@ -107,59 +118,59 @@
         </span>
         </div>
        </div>
-       <div id="msgHeadersContent">
-        <span class="iconImg" id="th_collapse"></span>
-        <p class="subject allowTextSelection" title="<?php echo _("Collapse Headers") ?>"></p>
-        <table>
-         <thead>
-          <tr id="msgHeaderFrom">
-           <td class="label"><?php echo _("From") ?>:</td>
-           <td class="from allowTextSelection"></td>
-          </tr>
-          <tr id="msgHeaderDate">
-           <td class="label"><?php echo _("Date") ?>:</td>
-           <td class="date allowTextSelection"></td>
-          </tr>
-          <tr id="msgHeaderTo">
-           <td class="label"><?php echo _("To") ?>:</td>
-           <td class="to allowTextSelection"></td>
-          </tr>
-          <tr id="msgHeaderCc">
-           <td class="label"><?php echo _("Cc") ?>:</td>
-           <td class="cc allowTextSelection"></td>
-          </tr>
-          <tr id="msgHeaderBcc">
-           <td class="label"><?php echo _("Bcc") ?>:</td>
-           <td class="bcc allowTextSelection"></td>
-          </tr>
-          <tr id="msgAtc" style="display:none">
-           <td class="label" id="partlist_toggle">
-            <span class="iconImg attachmentImg attachmentImage"></span>
-            <span class="iconImg" id="partlist_col"></span>
-            <span class="iconImg" id="partlist_exp" style="display:none"></span>
-           </td>
-           <td>
-            <div></div>
-            <div id="partlist" style="display:none"></div>
-           </td>
-          </tr>
-          <tr id="msgLogInfo" style="display:none">
-           <td class="label" id="msgloglist_toggle">
-            <span class="iconImg" id="msgloglist_col"></span>
-            <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
-           </td>
-           <td>
-            <div>
-             <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
-            </div>
-            <div id="msgloglist" style="display:none">
-             <ul></ul>
-            </div>
-           </td>
-          </tr>
-         </thead>
-        </table>
+       <div>
+        <span class="iconImg" id="th_collapse" title="<?php echo _("Collapse Headers") ?>"></span>
+        <span class="subject allowTextSelection"></span>
        </div>
+       <table>
+        <thead>
+         <tr id="msgHeaderFrom">
+          <td class="label"><?php echo _("From") ?>:</td>
+          <td class="from allowTextSelection"></td>
+         </tr>
+         <tr id="msgHeaderDate">
+          <td class="label"><?php echo _("Date") ?>:</td>
+          <td class="date allowTextSelection"></td>
+         </tr>
+         <tr id="msgHeaderTo">
+          <td class="label"><?php echo _("To") ?>:</td>
+          <td class="to allowTextSelection"></td>
+         </tr>
+         <tr id="msgHeaderCc">
+          <td class="label"><?php echo _("Cc") ?>:</td>
+          <td class="cc allowTextSelection"></td>
+         </tr>
+         <tr id="msgHeaderBcc">
+          <td class="label"><?php echo _("Bcc") ?>:</td>
+          <td class="bcc allowTextSelection"></td>
+         </tr>
+         <tr id="msgAtc" style="display:none">
+          <td class="label" id="partlist_toggle">
+           <span class="iconImg attachmentImg attachmentImage"></span>
+           <span class="iconImg" id="partlist_col"></span>
+           <span class="iconImg" id="partlist_exp" style="display:none"></span>
+          </td>
+          <td>
+           <div></div>
+           <div id="partlist" style="display:none"></div>
+          </td>
+         </tr>
+         <tr id="msgLogInfo" style="display:none">
+          <td class="label" id="msgloglist_toggle">
+           <span class="iconImg" id="msgloglist_col"></span>
+           <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
+          </td>
+          <td>
+           <div>
+            <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
+           </div>
+           <div id="msgloglist" style="display:none">
+            <ul></ul>
+           </div>
+          </td>
+         </tr>
+        </thead>
+       </table>
       </div>
      </div>
      <div id="messageBody" class="messageBody allowTextSelection"></div>
