@@ -135,7 +135,7 @@ class Horde_Core_Prefs_Ui
      */
     public function getChangeablePrefs($group = null)
     {
-        global $prefs;
+        global $prefs, $session;
 
         if (is_null($group)) {
             if (!$this->group) {
@@ -163,10 +163,10 @@ class Horde_Core_Prefs_Ui
              *   4. Not an implicit pref
              *   5. All required prefs are non-zero
              *   6. All required_nolock prefs are not locked */
-            if (!$GLOBALS['prefs']->isLocked($pref) &&
+            if (!$prefs->isLocked($pref) &&
                 !in_array($pref, $this->suppress) &&
                 (empty($p['advanced']) ||
-                 $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
+                 $session->get('horde', 'prefs_advanced')) &&
                 ((!empty($p['type']) && ($p['type'] != 'implicit')))) {
                 if (!empty($p['suppress']) &&
                     (!is_callable($p['suppress']) || $p['suppress']())) {
