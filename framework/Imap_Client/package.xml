@@ -12,7 +12,7 @@
  </lead>
  <date>2014-04-16</date>
  <version>
-  <release>2.19.3</release>
+  <release>2.19.4</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix parsing a reply/forward subject with no blob content.
-* [mms] Ensure integer value returns from Horde_Imap_Client_Base#status() are truly integers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2347,6 +2346,19 @@
    <notes>
 * [mms] Fix parsing a reply/forward subject with no blob content.
 * [mms] Ensure integer value returns from Horde_Imap_Client_Base#status() are truly integers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.4</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
