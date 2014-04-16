@@ -2436,16 +2436,13 @@ var DimpBase = {
             d = DragDrop.Drags.getDrag(id);
 
         if (elt.hasClassName('vpRow')) {
-            args = { right: e.memo.isRightClick() };
-            d.selectIfNoDrag = false;
-
             if (DimpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
-                DimpCore.compose('new_to', {
-                    buid: this.viewport.createSelection('div', elt).get('uid').toViewportUidString(),
-                    mailbox: this.view
-                });
+                d.fromClick = true;
                 return;
             }
+
+            args = { right: e.memo.isRightClick() };
+            d.selectIfNoDrag = false;
 
             // Handle selection first.
             if (DimpCore.DMenu.operaCheck(e)) {
@@ -2507,9 +2504,16 @@ var DimpBase = {
         var elt = e.element(),
             id = elt.identify();
 
-        if (elt.hasClassName('vpRow') &&
-            DragDrop.Drags.getDrag(id).selectIfNoDrag) {
-            this.msgSelect(id, { right: e.memo.isRightClick() });
+        if (elt.hasClassName('vpRow')) {
+            d = DragDrop.Drags.getDrag(id);
+            if (d.fromClick) {
+                DimpCore.compose('new_to', {
+                    buid: this.viewport.createSelection('div', elt).get('uid').toViewportUidString(),
+                    mailbox: this.view
+                });
+            } else if (d.selectIfNoDrag) {
+                this.msgSelect(id, { right: e.memo.isRightClick() });
+            }
         }
     },
 
