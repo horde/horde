@@ -615,7 +615,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Log the modification of this item in the history log. */
         if ($event->uid) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, $history, false);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, $history, true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -626,7 +626,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
          * change. */
         if ($event->baseid) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, $history, false);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, $history, true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
