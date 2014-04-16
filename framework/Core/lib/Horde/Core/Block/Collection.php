@@ -486,10 +486,12 @@ class Horde_Core_Block_Collection implements Serializable
             return;
         }
 
+        $currentApp = $registry->getApp();
         $this->_blocks = array();
 
         foreach ($this->_apps as $app) {
             $drivers = $registry->getAppDrivers($app, 'Block');
+            $registry->setLanguageEnvironment(null, $app);
             foreach ($drivers as $val) {
                 $tmp = new $val($app);
                 if ($tmp->enabled) {
@@ -497,6 +499,8 @@ class Horde_Core_Block_Collection implements Serializable
                 }
             }
         }
+
+        $registry->setLanguageEnvironment(null, $currentApp);
     }
 
     /* Serializable methods. */
