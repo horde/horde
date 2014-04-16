@@ -577,6 +577,9 @@ class IMP_Contents
         $mime_part = empty($options['mime_part'])
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
+        if (!$mime_part) {
+            return array($mime_id = null);
+        }
 
         if (!empty($options['autodetect']) &&
             ($tempfile = Horde::getTempFile()) &&
