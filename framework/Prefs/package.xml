@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Prefs#getCache().
 * [mms] Add Horde_Cache based cache driver.
 * [mms] Pref scopes are now loaded on-demand.
 * [mms] Add Horde_Prefs#changeScope().
@@ -1109,6 +1110,7 @@ Initial release as a PEAR package
    <date>2014-04-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Prefs#getCache().
 * [mms] Add Horde_Cache based cache driver.
 * [mms] Pref scopes are now loaded on-demand.
 * [mms] Add Horde_Prefs#changeScope().

@@ -107,6 +107,18 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
+     * Return the cache object.
+     *
+     * @since 2.6.0
+     *
+     * @return Horde_Prefs_Cache_Base  Cache object.
+     */
+    public function getCache()
+    {
+        return $this->_cache;
+    }
+
+    /**
      * Return the user who owns these preferences.
      *
      * @return string  The user these preferences are for.
