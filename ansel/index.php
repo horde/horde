@@ -11,11 +11,27 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-
-/* Load mobile? */
-if (in_array($registry->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
+/* Determine View */
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_MINIMAL:
+case Horde_Registry::VIEW_SMARTMOBILE:
     include ANSEL_BASE . '/smartmobile.php';
+    exit;
+
+case Horde_Registry::VIEW_BASIC:
+case Horde_Registry::VIEW_DYNAMIC:
+    if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC &&
+        $prefs->getValue('dynamic_view')) {
+        break;
+    }
+    Ansel::getUrlFor('default_view', array())->redirect();
     exit;
 }
 
-Ansel::getUrlFor('default_view', array())->redirect();
+/** Load Ajax interface **/
+$topbar = $injector->getInstance('Horde_View_Topbar');
+//$topbar->search = true;
+$injector->getInstance('Ansel_Ajax')->init();
+require ANSEL_TEMPLATES . '/dynamic/index.inc';
+echo $injector->getInstance('Ansel_View_Sidebar');
+$page_output->footer();

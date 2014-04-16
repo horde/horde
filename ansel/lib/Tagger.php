@@ -111,4 +111,24 @@ class Ansel_Tagger extends Horde_Core_Tagger
         }
         return $results;
     }
+
+    /**
+     * Returns tags on images belonging to the current user.
+     *
+     * @return A tag_id => tag_name hash
+     * @throws Horde_Exception
+     */
+    public function listImageTags()
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('Content_Tagger')
+                ->getTags(array(
+                    'typeId' => $this->_type_ids['image'],
+                    'userId' => $GLOBALS['registry']->getAuth())
+                );
+        } catch (Content_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+    }
+
 }

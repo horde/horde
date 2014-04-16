@@ -34,7 +34,8 @@ class Ansel_Application extends Horde_Registry_Application
     /**
      */
     public $features = array(
-        'smartmobileView' => true
+        'smartmobileView' => true,
+        'dynamicView' => true
     );
 
     /**

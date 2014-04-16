@@ -12,7 +12,7 @@ $prefGroups['display'] = array(
     'label' => _("Display Preferences"),
     'desc' => _("Change display preferences such as which view to display by default, how many photos to display on a page, and the default gallery style to use."),
     'members' => array(
-        'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
+        'dynamic_view', 'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
         'facesperpage', 'groupby', 'groupsperpage',
         'default_gallerystyle_select',
         'force_old_uploader'
@@ -240,4 +240,11 @@ $_prefs['force_old_uploader'] = array(
     'value' => false,
     'type' => 'checkbox',
     'desc' => _("Do not use the ajax-enabled uploader? Select this if your browser is having trouble uploading images with the ajax uploader.")
+);
+
+// Show dynamic view?
+$_prefs['dynamic_view'] = array(
+   'value' => 1,
+   'type' => 'checkbox',
+   'desc' => _("Show the dynamic view by default, if the browser supports it?")
 );

@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-24</date>
+ <date>2014-04-12</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -247,6 +247,7 @@
      <file name="Image.php" role="horde" />
      <file name="List.php" role="horde" />
      <file name="Results.php" role="horde" />
+     <file name="Sidebar.php" role="horde" />
      <file name="Slideshow.php" role="horde" />
      <file name="Upload.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -400,6 +401,10 @@
     <dir name="captions">
      <file name="captions.inc" role="horde" />
     </dir> <!-- /templates/captions -->
+    <dir name="dynamic">
+     <file name="index.inc" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+    </dir> <!-- /templates/dynamic -->
     <dir name="faces">
      <file name="custom.inc" role="horde" />
      <file name="define.inc" role="horde" />
@@ -510,6 +515,9 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
       <dir name="carousel">
        <file name="left-disabled.gif" role="horde" />
@@ -974,6 +982,7 @@
    <install as="ansel/lib/View/Image.php" name="lib/View/Image.php" />
    <install as="ansel/lib/View/List.php" name="lib/View/List.php" />
    <install as="ansel/lib/View/Results.php" name="lib/View/Results.php" />
+   <install as="ansel/lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
    <install as="ansel/lib/View/Slideshow.php" name="lib/View/Slideshow.php" />
    <install as="ansel/lib/View/Upload.php" name="lib/View/Upload.php" />
    <install as="ansel/lib/View/EmbeddedRenderer/GalleryLink.php" name="lib/View/EmbeddedRenderer/GalleryLink.php" />
@@ -1045,6 +1054,8 @@
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
+   <install as="ansel/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
+   <install as="ansel/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
    <install as="ansel/templates/faces/define.inc" name="templates/faces/define.inc" />
    <install as="ansel/templates/faces/face.inc" name="templates/faces/face.inc" />
@@ -1111,6 +1122,7 @@
    <install as="ansel/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="ansel/themes/default/lightbox.css" name="themes/default/lightbox.css" />
    <install as="ansel/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ansel/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="ansel/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="ansel/themes/default/graphics/allgalleries.png" name="themes/default/graphics/allgalleries.png" />
    <install as="ansel/themes/default/graphics/ansel.png" name="themes/default/graphics/ansel.png" />
@@ -1346,7 +1358,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-24</date>
+   <date>2014-04-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Keep original file names when PUTing images via WebDAV.

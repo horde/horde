@@ -1,0 +1,30 @@
+/* Main Area */
+#anselMain {
+    clear: both;
+    height: 100%;
+}
+
+/* Left menu column */
+#anselMenu {
+    position: absolute;
+   /* top: 280px;*/
+    /*bottom: 0;*/
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 2px;
+}
+
+/* Sidebar tags */
+.ansel-sidebar-tag {
+    margin-left: 20px;
+    padding-left: 20px;
+    background: transparent url("../graphics/tag.png") no-repeat left center;
+}
+/* Main links */
+#anselNavBrowse {
+    cursor: pointer;
+}
+#anselNavBrowse a.icon {
+    background-image: url("../graphics/browse.png");
+}
