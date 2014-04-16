@@ -387,6 +387,10 @@ abstract class Kronolith_Event
                     break;
 
                 case 'modify':
+                    if ($this->modified &&
+                        $this->modified->timestamp() >= $entry['ts']) {
+                        break;
+                    }
                     $this->modified = new Horde_Date($entry['ts']);
                     if ($userId != $entry['who']) {
                         $this->modifiedby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
