@@ -22,7 +22,8 @@ class Horde_ActiveSync_Rfc822Test extends Horde_Test_Case
           'Date' => 'Tue, 1 Jan 2013 18:10:37 -0500',
           'To' => 'Michael Rubinsky <mike@theupstairsroom.com>',
           'Content-Transfer-Encoding' => '7bit',
-          'Mime-Version' => '1.0 (1.0)');
+          'Mime-Version' => '1.0 (1.0)',
+          'User-Agent' => 'Horde Application Framework 5');
 
         $this->assertEquals($expected, $rfc822->getHeaders()->toArray());
       }
@@ -41,7 +42,8 @@ class Horde_ActiveSync_Rfc822Test extends Horde_Test_Case
           'Date' => 'Tue, 1 Jan 2013 18:10:37 -0500',
           'To' => 'Michael Rubinsky <mike@theupstairsroom.com>',
           'Content-Transfer-Encoding' => '7bit',
-          'Mime-Version' => '1.0 (1.0)');
+          'Mime-Version' => '1.0 (1.0)',
+          'User-Agent' => 'Horde Application Framework 5');
 
         $this->assertEquals($expected, $rfc822->getHeaders()->toArray());
         fclose($fixture);
