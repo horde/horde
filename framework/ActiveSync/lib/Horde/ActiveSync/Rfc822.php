@@ -65,10 +65,13 @@ class Horde_ActiveSync_Rfc822
     /**
      * Constructor.
      *
-     * @param mixed $rfc822  The incoming message. Either a string or a
-     *                       stream resource.
+     * @param mixed $rfc822              The incoming message. Either a string
+     *                                   or a stream resource.
+     * @param boolean $auto_add_headers  Automatically add the standard
+     *                                   Message-ID and User-Agent headers?
+     *                                   @since 2.14.0
      */
-    public function __construct($rfc822)
+    public function __construct($rfc822, $auto_add_headers = true)
     {
         if (is_resource($rfc822)) {
             $this->_stream = new Horde_Stream_Existing(array('stream' => $rfc822));
@@ -78,6 +81,9 @@ class Horde_ActiveSync_Rfc822
             $this->_stream->add($rfc822, true);
         }
         list($this->_hdr_pos, $this->_eol) = $this->_findHeader();
+        if ($auto_add_headers) {
+            $this->addStandardHeaders();
+        }
     }
 
     /**

@@ -1853,8 +1853,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
             $replacemime = false;
         }
-
-        $raw_message->addStandardHeaders();
         $headers = $raw_message->getHeaders();
 
         // Always add From: since we allow selecting the identity.

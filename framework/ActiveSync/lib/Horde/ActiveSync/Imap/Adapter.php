@@ -979,7 +979,7 @@ class Horde_ActiveSync_Imap_Adapter
                     $airsync_body->estimateddatasize = $base->getBytes();
                 } else {
                     // Signed/Encrypted message - can't mess with it at all.
-                    $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true));
+                    $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
                     $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
