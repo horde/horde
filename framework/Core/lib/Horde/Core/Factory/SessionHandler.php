@@ -144,8 +144,8 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $GLOBALS['session']->session_data = $_SESSION;
         }
 
-        $data = $GLOBALS['session']->get('horde', 'auth/');
-        $apps = $GLOBALS['session']->get('horde', 'auth_app/');
+        $data = $GLOBALS['registry']->getAuthInfo();
+        $apps = $GLOBALS['registry']->getAuthApps();
 
         if ($new_sess) {
             session_destroy();
@@ -156,7 +156,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 
         return isset($data['userId'])
             ? array(
-                'apps' => array_keys($apps),
+                'apps' => $apps,
                 'browser' => $data['browser'],
                 'remoteAddr' => $data['remoteAddr'],
                 'timestamp' => $data['timestamp'],

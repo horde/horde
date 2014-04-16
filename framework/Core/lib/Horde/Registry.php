@@ -1998,7 +1998,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         global $session;
 
         /* Do logout tasks. */
-        foreach (array_keys($session->get('horde', 'auth_app/', Horde_Session::TYPE_ARRAY)) as $app) {
+        foreach ($this->getAuthApps() as $app) {
             try {
                 $this->callAppMethod($app, 'logout');
             } catch (Horde_Exception $e) {}
@@ -2367,6 +2367,10 @@ class Horde_Registry implements Horde_Shutdown_Task
             $app = $base_app;
         }
 
+        /* The auth_app key contains application-specific authentication.
+         * Session subkeys are the app names, values are an array containing
+         * credentials. If the value is true, application does not require any
+         * specific credentials. */
         $session->set('horde', 'auth_app/' . $app, $entry, $session::ENCRYPT);
         $session->set('horde', 'auth_app_init/' . $app, true);
 
@@ -2411,23 +2415,6 @@ class Horde_Registry implements Horde_Shutdown_Task
      *
      * If a user name hook was defined in the configuration, it gets applied
      * to the $userId at this point.
-     *
-     * Horde authentication data is stored in the session in the 'auth' and
-     * 'auth_app' array keys.  The 'auth' key has the following members:
-     *   - authId: (string) The username used during the original auth.
-     *   - browser: (string) The remote browser string.
-     *   - change: (boolean) Is a password change requested?
-     *   - credentials: (string) The 'auth_app' entry that contains the Horde
-     *                 credentials.
-     *   - remoteAddr: (string) The remote IP address of the user.
-     *   - timestamp: (integer) The login time.
-     *                @deprecated: Use session begin value instead
-     *   - userId: (string) The unique Horde username.
-     *
-     * The auth_app key contains application-specific authentication.
-     * Session subkeys are the app names, values are an array containing
-     * credentials. If the value is true, application does not require any
-     * specific credentials.
      *
      * @param string $authId      The userId that has been authorized.
      * @param array $credentials  The credentials of the user.
@@ -2599,6 +2586,45 @@ class Horde_Registry implements Horde_Shutdown_Task
         if (count($errApps)) {
             throw new Horde_Exception(sprintf(Horde_Core_Translation::t("The following applications encountered errors removing user data: %s"), implode(', ', array_unique($errApps))));
         }
+    }
+
+    /**
+     * Returns authentication metadata information.
+     *
+     * @since 2.12.0
+     *
+     * @return array  Authentication metadata:
+     *   - authId: (string) The username used during the original auth.
+     *   - browser: (string) The remote browser string.
+     *   - change: (boolean) Is a password change requested?
+     *   - credentials: (string) The 'auth_app' entry that contains the Horde
+     *                 credentials.
+     *   - remoteAddr: (string) The remote IP address of the user.
+     *   - timestamp: (integer) The login time.
+     *                @deprecated: Use session begin value instead
+     *   - userId: (string) The unique Horde username.
+     */
+    public function getAuthInfo()
+    {
+        global $session;
+
+        return $session->get('horde', 'auth/', $session::TYPE_ARRAY);
+    }
+
+    /**
+     * Returns the list of applications currently authenticated to.
+     *
+     * @since 2.12.0
+     *
+     * @return array  List of authenticated applications.
+     */
+    public function getAuthApps()
+    {
+        global $session;
+
+        return array_keys(
+            $session->get('horde', 'auth_app/', $session::TYPE_ARRAY)
+        );
     }
 
     /* NLS functions. */
