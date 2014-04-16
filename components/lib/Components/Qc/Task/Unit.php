@@ -48,7 +48,8 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHPUnit_TextUI_TestRunner')) {
+        if (!class_exists('Horde_Test_AllTests') ||
+            !class_exists('PHPUnit_TextUI_TestRunner')) {
             return array('PHPUnit is not available!');
         }
     }
