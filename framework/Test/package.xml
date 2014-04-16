@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix loading PHPUnit from PHAR file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -498,7 +498,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix loading PHPUnit from PHAR file.
    </notes>
   </release>
  </changelog>

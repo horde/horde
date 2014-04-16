@@ -12,7 +12,15 @@
  * @link     http://www.horde.org/components/Horde_Test
  */
 
-require_once 'PHPUnit/Autoload.php';
+if (!@include_once 'PHPUnit/Autoload.php') {
+    /* Try to load PHAR-based phpunit. */
+    set_include_path(get_include_path() . PATH_SEPARATOR . getenv('PATH'));
+    $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+    ob_start();
+    @include_once 'phpunit';
+    ob_end_clean();
+    restore_include_path();
+}
 
 /**
  * Horde base test suite
