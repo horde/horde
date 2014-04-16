@@ -12,8 +12,8 @@
  </lead>
  <date>2014-04-03</date>
  <version>
-  <release>2.13.5</release>
-  <api>2.13.0</api>
+  <release>2.14.0</release>
+  <api>2.14.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Add Horde_ActiveSync_Rfc822::addStandardHeaders().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2068,7 +2068,7 @@
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
