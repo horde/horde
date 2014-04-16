@@ -2,6 +2,8 @@
 v4.1.6-git
 ----------
 
+[jan] Fix history not always returning the last modification time of an event
+      (Bug #13113).
 Support timezone aliases when importing events (Bug #13100).
 [mjr] Honor the no_sharing configuration option in dynamic view (Bug #13002).
 [mjr] Fix issue that could remove all events from shared calendars if a user
