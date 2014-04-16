@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-04-16</date>
  <version>
   <release>2.19.3</release>
   <api>2.19.0</api>
@@ -2342,7 +2342,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-02</date>
+   <date>2014-04-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing a reply/forward subject with no blob content.
