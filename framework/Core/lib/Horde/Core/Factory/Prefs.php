@@ -58,7 +58,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
      */
     public function create($scope = 'horde', array $opts = array())
     {
-        global $conf, $injector, $registry;
+        global $conf, $registry;
 
         if (array_key_exists('driver', $opts)) {
             $driver = $opts['driver'];
@@ -72,7 +72,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             $driver = $conf['prefs']['driver'];
             switch (Horde_String::lower($driver)) {
             case 'nosql':
-                $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'prefs');
+                $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'prefs');
                 if ($nosql instanceof Horde_Mongo_Client) {
                     $driver = 'mongo';
                 }
