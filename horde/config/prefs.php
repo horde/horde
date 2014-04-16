@@ -128,7 +128,7 @@
  * Provides a checkbox (yes/no) entry.
  *
  * ADDITIONAL KEYS:
- *   - jdesc: (string) The description text to use on the preferences page.
+ *   - desc: (string) The description text to use on the preferences page.
  *   - value: (integer) 0 (or false) for unchecked, 1 (or true) for checked.
  *
  * 'enum'
