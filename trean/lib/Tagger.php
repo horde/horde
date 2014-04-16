@@ -44,8 +44,6 @@ class Trean_Tagger extends Horde_Core_Tagger
     /**
      * Returns tags on bookmarks belonging to the current user.
      *
-     * @param string $token  The token to match the start of the tag with.
-     *
      * @return A tag_id => tag_name hash
      * @throws Horde_Exception
      */
