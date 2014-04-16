@@ -93,7 +93,7 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         'templateid'  => false,
     );
 
-    public function __get($property)
+    public function &__get($property)
     {
         // The saveinsent is an empty tag, and is considered true if it is
         // present.
@@ -101,7 +101,8 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         switch ($property) {
         case 'saveinsent':
         case 'replacemime':
-            return $this->_properties[$property] !== false;
+            $return = $this->_properties[$property] !== false;
+            return $return;
         }
 
         return parent::__get($property);
