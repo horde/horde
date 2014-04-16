@@ -582,13 +582,6 @@
         </para>
     </entry>
 
-    <entry id="prefs-mailbox_start">
-        <title>Mailbox: Preferences: Start Page</title>
-        <para>
-            Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-        </para>
-    </entry>
-
     <entry id="prefs-save_attachments">
         <title>Compose: Sent Mail: Preferences: Save Attachments on Sent Messages</title>
         <para>

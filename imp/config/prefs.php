@@ -1485,8 +1485,7 @@ $_prefs['mailbox_start'] = array(
         IMP::MAILBOX_START_FIRSTPAGE => _("First Page"),
         IMP::MAILBOX_START_LASTPAGE => _("Last Page")
     ),
-    'desc' => _("When opening a mailbox for the first time, where do you want to start?"),
-    'help' => 'prefs-mailbox_start'
+    'desc' => _("When opening a mailbox for the first time, where do you want to start?")
 );
 
 $_prefs['sortby'] = array(
