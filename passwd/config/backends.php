@@ -56,7 +56,7 @@
  *
  *   For example: a password of 'p@ssw0rd' satisfies three classes ('number',
  *   'lower', and 'symbol'), while 'passw0rd' only satisfies two classes
- *   ('lower'and 'symbols').
+ *   ('lower' and 'number').
  *
  * logout: (boolean) If true, this backend changes the password associated
  *         with at least one Horde application. On a successful password

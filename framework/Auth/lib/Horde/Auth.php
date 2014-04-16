@@ -356,7 +356,7 @@ class Horde_Auth
      *     'upper', 'lower', 'number', and 'symbol'.  For example: A
      *     password of 'p@ssw0rd' satisfies three classes ('number',
      *     'lower', and 'symbol'), while 'passw0rd' only satisfies two
-     *     classes ('lower' and 'symbols').
+     *     classes ('lower' and 'number').
      *
      *   - minClasses:  Minimum number (0 through 4) of character
      *                  classes.
