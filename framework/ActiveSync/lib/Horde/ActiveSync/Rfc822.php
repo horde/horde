@@ -56,6 +56,13 @@ class Horde_ActiveSync_Rfc822
     protected $_stream;
 
     /**
+     * The header text.
+     *
+     * @var string
+     */
+    protected $_header_text;
+
+    /**
      * Constructor.
      *
      * @param mixed $rfc822  The incoming message. Either a string or a
@@ -94,8 +101,12 @@ class Horde_ActiveSync_Rfc822
      */
     public function getString()
     {
-        $this->_stream->rewind();
-        return $this->_stream->stream;
+        if (!empty($this->_header_text)) {
+            return Horde_Stream_Wrapper_Combine::getStream(array($this->_header_text, $this->getMessage()->stream));
+        } else {
+            $this->_stream->rewind();
+            return $this->_stream->stream;
+        }
     }
 
     /**
@@ -105,9 +116,36 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
-        $this->_stream->rewind();
-        $hdr_text = $this->_stream->substring(0, $this->_hdr_pos);
+        if (!empty($this->_header_text)) {
+            $hdr_text = $this->_header_text;
+        } else {
+            $this->_stream->rewind();
+            $hdr_text = $this->_stream->substring(0, $this->_hdr_pos);
+        }
         return Horde_Mime_Headers::parseHeaders($hdr_text);
+    }
+
+    /**
+     * Check for and add standard headers if needed.
+     *
+     * @since 2.14.0
+     */
+    public function addStandardHeaders()
+    {
+        $headers = $this->getHeaders();
+        $updated = false;
+        // Check for required headers.
+        if (!$headers->getValue('Message-ID')) {
+            $headers->addMessageIdHeader();
+            $updated = true;
+        }
+        if (!$headers->getValue('User-Agent')) {
+            $headers->addUserAgentHeader();
+            $updated = true;
+        }
+        if ($updated) {
+            $this->_header_text = $headers->toString();
+        }
     }
 
     /**
