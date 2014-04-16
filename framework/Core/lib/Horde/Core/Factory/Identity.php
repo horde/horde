@@ -83,7 +83,6 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
                     'cache' => false,
                     'user' => $user
                 ));
-                $params['prefs']->retrieve();
             }
 
             $this->_instances[$key] = new $class($params);

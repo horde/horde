@@ -1717,7 +1717,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $user = $this->getAuth();
         if ($user) {
             if (isset($prefs) && ($prefs->getUser() == $user)) {
-                $prefs->retrieve($app);
+                $prefs->changeScope($app);
                 return;
             }
 

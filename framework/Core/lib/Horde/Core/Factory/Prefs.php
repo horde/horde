@@ -114,7 +114,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         );
 
         if (isset($this->_instances[$sig])) {
-            $this->_instances[$sig]->retrieve($scope);
+            $this->_instances[$sig]->changeScope($scope);
             return $this->_instances[$sig];
         }
 
