@@ -2643,6 +2643,11 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function preferredLang($lang = null)
     {
+        /* Check if we have a language set in the session */
+        if ($GLOBALS['session']->exists('horde', 'language')) {
+            return basename($GLOBALS['session']->get('horde', 'language'));
+        }
+
         /* If language pref exists, we should use that. */
         if (isset($GLOBALS['prefs']) &&
             ($language = $GLOBALS['prefs']->getValue('language'))) {
@@ -2652,11 +2657,6 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Check if the user selected a language from the login screen */
         if (!empty($lang) && $this->nlsconfig->validLang($lang)) {
             return basename($lang);
-        }
-
-        /* Check if we have a language set in the session */
-        if ($GLOBALS['session']->exists('horde', 'language')) {
-            return basename($GLOBALS['session']->get('horde', 'language'));
         }
 
         /* Try browser-accepted languages. */
