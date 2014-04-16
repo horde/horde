@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix parsing a reply/forward subject with no blob content.
 * [mms] Ensure integer value returns from Horde_Imap_Client_Base#status() are truly integers.
  </notes>
  <contents>
@@ -2344,6 +2345,7 @@
    <date>2014-04-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix parsing a reply/forward subject with no blob content.
 * [mms] Ensure integer value returns from Horde_Imap_Client_Base#status() are truly integers.
    </notes>
   </release>

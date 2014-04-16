@@ -54,10 +54,6 @@ class Horde_Imap_Client_Data_BaseSubject
         // Rule 1b: Remove superfluous whitespace.
         $str = preg_replace("/[\t\r\n ]+/", ' ', $str);
 
-        if (!strlen($str)) {
-            $this->_subject = '';
-        }
-
         do {
             /* (2) Remove all trailing text of the subject that matches the
              * the subj-trailer ABNF, repeat until no more matches are
@@ -82,7 +78,7 @@ class Horde_Imap_Client_Data_BaseSubject
              * subj-fwd-trl and repeat from step (2). */
         } while ($this->_removeSubjFwdHdr($str));
 
-        $this->_subject = $str;
+        $this->_subject = strval($str);
     }
 
     /**

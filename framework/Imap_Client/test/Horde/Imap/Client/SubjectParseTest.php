@@ -38,7 +38,11 @@ class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
             array('Fwd: Re: Test (fwd)', 'Test'),
             array('  re    :   Test  (fwd)', 'Test'),
             array('  re :   [foo]Test(Fwd)', 'Test'),
-            array("re \t: \tTest", 'Test')
+            array("re \t: \tTest", 'Test'),
+            array('Re:', ''),
+            array(' RE :  ', ''),
+            array('Fwd:', ''),
+            array('  FWD  :   ', '')
         );
     }
 
