@@ -922,7 +922,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
             // Check for verb status from the Maillog.
             if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
-                $last = $this->_getLastVerb($msg->messageid);
+                $last = null;
+                if (!empty($msg->messageid)) {
+                    $last = $this->_getLastVerb($msg->messageid);
+                }
                 if (!empty($last)) {
                     switch ($last['action']) {
                     case 'reply':
