@@ -25,28 +25,36 @@
  */
 class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
 {
-    public function testSubjectParse()
+    public function provider()
     {
-        $subjects = array(
-            'Test',
-            'Re: Test',
-            're: Test',
-            'Fwd: Test',
-            'fwd: Test',
-            'Fwd: Re: Test',
-            'Fwd: Re: Test (fwd)',
-            '  re    :   Test  (fwd)',
-            '  re :   [foo]Test(Fwd)',
-            "re \t: \tTest"
+        // Format: Test string, Expected parse result
+        return array(
+            array('Test', 'Test'),
+            array('Re: Test', 'Test'),
+            array('re: Test', 'Test'),
+            array('Fwd: Test', 'Test'),
+            array('fwd: Test', 'Test'),
+            array('Fwd: Re: Test', 'Test'),
+            array('Fwd: Re: Test (fwd)', 'Test'),
+            array('  re    :   Test  (fwd)', 'Test'),
+            array('  re :   [foo]Test(Fwd)', 'Test'),
+            array("re \t: \tTest", 'Test')
         );
+    }
 
-        foreach ($subjects as $val) {
-            $this->assertEquals(
-                'Test',
-                strval(new Horde_Imap_Client_Data_BaseSubject($val))
-            );
-        }
+    /**
+     * @dataProvider provider
+     */
+    public function testSubjectParse($subject, $expected)
+    {
+        $this->assertEquals(
+            $expected,
+            strval(new Horde_Imap_Client_Data_BaseSubject($subject))
+        );
+    }
 
+    public function testUndefinedIndexError()
+    {
         // This used to throw an undefined index error.
         $this->assertEquals(
             'fwd',
