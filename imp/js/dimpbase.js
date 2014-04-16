@@ -502,14 +502,21 @@ var DimpBase = {
                         switch (h) {
                         case 'from':
                             r.fromtitle = escapeAttr(r.fromaddr || r.from);
+                            r.from = r.from.escapeHTML();
+                            if (DimpCore.conf.from_link) {
+                                r.from = '<a>' + r.from + '</a>';
+                            }
                             break;
 
                         case 'subject':
                             r.subjecttitle = escapeAttr(r[h]);
+                            r.subject = r.subject.escapeHTML();
+                            break;
+
+                        default:
+                            r[h] = r[h].escapeHTML();
                             break;
                         }
-
-                        r[h] = r[h].escapeHTML();
 
                         if (this.isQSearch() &&
                             DimpCore.getPref('qsearch_field') == h) {
@@ -2431,6 +2438,14 @@ var DimpBase = {
         if (elt.hasClassName('vpRow')) {
             args = { right: e.memo.isRightClick() };
             d.selectIfNoDrag = false;
+
+            if (DimpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
+                DimpCore.compose('new_to', {
+                    buid: this.viewport.createSelection('div', elt).get('uid').toViewportUidString(),
+                    mailbox: this.view
+                });
+                return;
+            }
 
             // Handle selection first.
             if (DimpCore.DMenu.operaCheck(e)) {

@@ -33,7 +33,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
      *   - subject: Subject to use.
      *   - type: redirect, reply, reply_auto, reply_all, reply_list,
      *           forward_attach, forward_auto, forward_body, forward_both,
-     *           forward_redirect, resume, new, editasnew, template,
+     *           forward_redirect, resume, new, new_to, editasnew, template,
      *           template_edit, template_new
      *   - to: Addresses to send to.
      *   - to_json: JSON encoded addresses to send to. Overwrites 'to'.
@@ -186,6 +186,11 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $notification->push($e);
             }
             break;
+
+        case 'new_to':
+            $h = $this->_getContents()->getHeader();
+            $addr['to'] = $h->getOb('reply-to') ?: $h->getOb('from');
+            // Fall-through
 
         case 'new':
         case 'template_new':

@@ -948,7 +948,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 }
                 break;
 
-            case 1:
+            default:
                 $from_uri = $mailbox->url('message', $msg['buid']);
                 $msg['from'] = Horde::link($from_uri) . $msg['from'] . '</a>';
                 break;

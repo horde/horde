@@ -1547,10 +1547,9 @@ $_prefs['from_link'] = array(
     'type' => 'enum',
     'enum' => array(
         0 => _("Clicking on the address will compose a new message to the sender"),
-        1 => _("Clicking on the address will open the message to be read"),
-        2 => _("Do not generate a link in the From: column")
+        1 => _("Clicking on the address will open the message to be read")
     ),
-    'desc' => _("The From: column of the message should be linked:") . ' (<em>' . _("Basic view only") . '</em>)'
+    'desc' => _("The From: column of the message should be linked:")
 );
 
 $_prefs['atc_flag'] = array(

@@ -81,6 +81,9 @@ div.msgFrom {
     left: 85px;
     width: 150px;
 }
+div.msgFrom a {
+    color: inherit;
+}
 div.msgSubject {
     left: 240px;
     right: 225px;
