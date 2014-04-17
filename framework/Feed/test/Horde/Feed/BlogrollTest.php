@@ -27,13 +27,13 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Horde_Feed_Entry_Blogroll', $entry);
         $this->assertGreaterThan(0, strlen($entry->text));
-        $this->assertGreaterThan(0, strlen($entry->xmlurl));
+        $this->assertGreaterThan(0, strlen($entry->xmlUrl));
 
         $this->assertEquals($entry->text, $entry['text']);
         $this->assertEquals($entry->description, $entry['description']);
         $this->assertEquals($entry->title, $entry['title']);
-        $this->assertEquals($entry->htmlurl, $entry['htmlurl']);
-        $this->assertEquals($entry->xmlurl, $entry['xmlurl']);
+        $this->assertEquals($entry->htmlUrl, $entry['htmlUrl']);
+        $this->assertEquals($entry->xmlUrl, $entry['xmlUrl']);
     }
 
     public function testGroupedBlogrolls()

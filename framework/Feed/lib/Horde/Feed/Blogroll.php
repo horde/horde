@@ -48,7 +48,7 @@ class Horde_Feed_Blogroll extends Horde_Feed_Base
     {
         $entries = array();
         foreach ($this->_element->getElementsByTagName('outline') as $child) {
-            if ($child->attributes->getNamedItem('xmlurl')) {
+            if ($child->attributes->getNamedItem('xmlUrl')) {
                 $entries[] = $child;
             }
         }
