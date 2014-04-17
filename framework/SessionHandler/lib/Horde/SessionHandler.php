@@ -168,9 +168,9 @@ class Horde_SessionHandler
     public function read($id)
     {
         if (($result = $this->_storage->read($id)) == '') {
-            $this->_logger->log('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
+            $this->_logger->log('Error retrieving session data (' . $id . ')', 'DEBUG');
         } else {
-            $this->_logger->log('Read session data (id = ' . $id . ')', 'DEBUG');
+            $this->_logger->log('Read session data (' . $id . ')', 'DEBUG');
         }
 
         if (empty($this->_params['no_md5'])) {
@@ -196,10 +196,10 @@ class Horde_SessionHandler
             (empty($this->_params['no_md5']) &&
              ($this->_sig != md5($session_data)))) {
             if (!$this->_storage->write($id, $session_data)) {
-                $this->_logger->log('Failed to write session data (id = ' . $id . ')', 'DEBUG');
+                $this->_logger->log('Failed to write session data (' . $id . ')', 'DEBUG');
                 return false;
             }
-            $this->_logger->log('Wrote session data (id = ' . $id . ')', 'DEBUG');
+            $this->_logger->log('Wrote session data (' . $id . ')', 'DEBUG');
         }
 
         return true;
@@ -217,11 +217,11 @@ class Horde_SessionHandler
     public function destroy($id)
     {
         if ($this->_storage->destroy($id)) {
-            $this->_logger->log('Session data destroyed (id = ' . $id . ')', 'DEBUG');
+            $this->_logger->log('Session data destroyed (' . $id . ')', 'DEBUG');
             return true;
         }
 
-        $this->_logger->log('Failed to destroy session data (id = ' . $id . ')', 'DEBUG');
+        $this->_logger->log('Failed to destroy session data (' . $id . ')', 'DEBUG');
         return false;
     }
 
