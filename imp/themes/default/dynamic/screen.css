@@ -466,6 +466,9 @@ div.vpRowVert div.msgSubject {
 #msgHeadersColl li {
     float: left;
 }
+#msgHeadersColl .date {
+    margin-left: 5px;
+}
 #msgHeadersColl .from .horde-button {
     line-height: 16px !important;
     margin: 0;
