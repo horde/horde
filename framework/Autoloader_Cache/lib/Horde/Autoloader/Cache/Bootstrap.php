@@ -114,10 +114,12 @@ class Horde_Autoloader_Cache_Bootstrap
             return false;
         }
 
-        if ($this->_mask & self::LZ4) {
-            $data = @horde_lz4_uncompress($data);
-        } elseif ($this->_mask & self::LZF) {
-            $data = @lzf_decompress($data);
+        if ($data) {
+            if ($this->_mask & self::LZ4) {
+                $data = @horde_lz4_uncompress($data);
+            } elseif ($this->_mask & self::LZF) {
+                $data = @lzf_decompress($data);
+            }
         }
 
         return ($data === false)
