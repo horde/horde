@@ -23,6 +23,7 @@ class Ansel_Ajax
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('ansel.js');
+        $page_output->addScriptFile('layout.js');
         $page_output->addInlineJsVars(array(
             'var Ansel' => $this->_addBaseVars()
         ), array('top' => true));

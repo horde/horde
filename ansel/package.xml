@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-12</date>
+ <date>2014-04-17</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -127,12 +127,14 @@
      <file name="geotag.js" role="horde" />
      <file name="tagactions.js" role="horde" />
     </dir> <!-- /js/widgets -->
+    <file name="ansel.js" role="horde" />
     <file name="block.js" role="horde" />
     <file name="carousel.js" role="horde" />
     <file name="cropper.js" role="horde" />
     <file name="editfaces.js" role="horde" />
     <file name="embed.js" role="horde" />
     <file name="imagefaces.js" role="horde" />
+    <file name="layout.js" role="horde" />
     <file name="lightbox.js" role="horde" />
     <file name="map.js" role="horde" />
     <file name="map_edit.js" role="horde" />
@@ -264,6 +266,7 @@
      <file name="Tags.php" role="horde" />
     </dir> <!-- /lib/Widget -->
     <file name="ActionHandler.php" role="horde" />
+    <file name="Ajax.php" role="horde" />
     <file name="Ansel.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -539,6 +542,7 @@
       <file name="arrow_switch.png" role="horde" />
       <file name="bookmark.png" role="horde" />
       <file name="browse.png" role="horde" />
+      <file name="date.png" role="horde" />
       <file name="down.png" role="horde" />
       <file name="embed.png" role="horde" />
       <file name="faces.png" role="horde" />
@@ -546,10 +550,12 @@
       <file name="galleries.png" role="horde" />
       <file name="gallery-locked-mini.png" role="horde" />
       <file name="gallery-locked.png" role="horde" />
+      <file name="map.png" role="horde" />
       <file name="marqueeHoriz.gif" role="horde" />
       <file name="marqueeVert.gif" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="mygalleries.png" role="horde" />
+      <file name="photo.png" role="horde" />
       <file name="photomarker-shadow.png" role="horde" />
       <file name="photomarker.png" role="horde" />
       <file name="plus.png" role="horde" />
@@ -565,6 +571,7 @@
       <file name="slideshow_pause.png" role="horde" />
       <file name="slideshow_play.png" role="horde" />
       <file name="slideshow_prev.png" role="horde" />
+      <file name="tag.png" role="horde" />
       <file name="text.png" role="horde" />
       <file name="thumb-error.png" role="horde" />
       <file name="up.png" role="horde" />
@@ -886,12 +893,14 @@
    <install as="ansel/img/thumb.php" name="img/thumb.php" />
    <install as="ansel/img/upload.php" name="img/upload.php" />
    <install as="ansel/img/upload_preview.php" name="img/upload_preview.php" />
+   <install as="ansel/js/ansel.js" name="js/ansel.js" />
    <install as="ansel/js/block.js" name="js/block.js" />
    <install as="ansel/js/carousel.js" name="js/carousel.js" />
    <install as="ansel/js/cropper.js" name="js/cropper.js" />
    <install as="ansel/js/editfaces.js" name="js/editfaces.js" />
    <install as="ansel/js/embed.js" name="js/embed.js" />
    <install as="ansel/js/imagefaces.js" name="js/imagefaces.js" />
+   <install as="ansel/js/layout.js" name="js/layout.js" />
    <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
    <install as="ansel/js/map.js" name="js/map.js" />
    <install as="ansel/js/map_edit.js" name="js/map_edit.js" />
@@ -908,6 +917,7 @@
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
    <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
+   <install as="ansel/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
    <install as="ansel/lib/Application.php" name="lib/Application.php" />
@@ -1129,6 +1139,7 @@
    <install as="ansel/themes/default/graphics/arrow_switch.png" name="themes/default/graphics/arrow_switch.png" />
    <install as="ansel/themes/default/graphics/bookmark.png" name="themes/default/graphics/bookmark.png" />
    <install as="ansel/themes/default/graphics/browse.png" name="themes/default/graphics/browse.png" />
+   <install as="ansel/themes/default/graphics/date.png" name="themes/default/graphics/date.png" />
    <install as="ansel/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
    <install as="ansel/themes/default/graphics/embed.png" name="themes/default/graphics/embed.png" />
    <install as="ansel/themes/default/graphics/faces.png" name="themes/default/graphics/faces.png" />
@@ -1136,10 +1147,12 @@
    <install as="ansel/themes/default/graphics/galleries.png" name="themes/default/graphics/galleries.png" />
    <install as="ansel/themes/default/graphics/gallery-locked-mini.png" name="themes/default/graphics/gallery-locked-mini.png" />
    <install as="ansel/themes/default/graphics/gallery-locked.png" name="themes/default/graphics/gallery-locked.png" />
+   <install as="ansel/themes/default/graphics/map.png" name="themes/default/graphics/map.png" />
    <install as="ansel/themes/default/graphics/marqueeHoriz.gif" name="themes/default/graphics/marqueeHoriz.gif" />
    <install as="ansel/themes/default/graphics/marqueeVert.gif" name="themes/default/graphics/marqueeVert.gif" />
    <install as="ansel/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="ansel/themes/default/graphics/mygalleries.png" name="themes/default/graphics/mygalleries.png" />
+   <install as="ansel/themes/default/graphics/photo.png" name="themes/default/graphics/photo.png" />
    <install as="ansel/themes/default/graphics/photomarker-shadow.png" name="themes/default/graphics/photomarker-shadow.png" />
    <install as="ansel/themes/default/graphics/photomarker.png" name="themes/default/graphics/photomarker.png" />
    <install as="ansel/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
@@ -1155,6 +1168,7 @@
    <install as="ansel/themes/default/graphics/slideshow_pause.png" name="themes/default/graphics/slideshow_pause.png" />
    <install as="ansel/themes/default/graphics/slideshow_play.png" name="themes/default/graphics/slideshow_play.png" />
    <install as="ansel/themes/default/graphics/slideshow_prev.png" name="themes/default/graphics/slideshow_prev.png" />
+   <install as="ansel/themes/default/graphics/tag.png" name="themes/default/graphics/tag.png" />
    <install as="ansel/themes/default/graphics/text.png" name="themes/default/graphics/text.png" />
    <install as="ansel/themes/default/graphics/thumb-error.png" name="themes/default/graphics/thumb-error.png" />
    <install as="ansel/themes/default/graphics/up.png" name="themes/default/graphics/up.png" />
@@ -1358,7 +1372,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-12</date>
+   <date>2014-04-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Keep original file names when PUTing images via WebDAV.

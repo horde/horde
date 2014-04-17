@@ -2,26 +2,27 @@
 
 <!-- begin header -->
 <div id="anselHeader">
-
-<!-- begin top bar -->
-<div class="horde-buttonbar">
- <ul>
-   <li>
-     <a id="anselMyGalleries" title="<?php echo _("My Galleries")?>"><?php echo _("My Galleries")?></a></li>
-   </li>
-   <li>
-     <a id="anselMyStream" title="<?php echo _("My Stream")?>"><?php echo _("My Stream")?></a>
-   </li>
-   <li>
-     <a id="anselGroups" title="<?php echo _("Group Galleries")?>"><?php echo _("Groups")?></a>
-   </li>
-   <li>
-     <a id="anselFollowing" title="<?php echo _("Following")?>"><?php echo _("Following")?></a>
-   </li>
- </ul>
-</div>
-<!-- end top bar -->
-
+    <!-- begin top bar -->
+    <div class="horde-buttonbar">
+     <ul>
+       <li class="horde-icon">
+         <a id="anselMenuImages" title="<?php echo _("Photos")?>"><?php echo _("Photos")?></a>
+       </li>
+       <li class="horde-icon">
+         <a id="anselMenuGalleries" title="<?php echo _("Galleries")?>"><?php echo _("Galleries")?></a></li>
+       </li>
+       <li class="horde-icon">
+         <a id="anselMenuMap" title="<?php echo _("Map")?>"><?php echo _("Map")?></a></li>
+       </li>
+       <li class="horde-icon">
+         <a id="anselMenuDate" title="<?php echo _("Date")?>"><?php echo _("Date")?></a></li>
+       </li>
+       <li class="horde-icon">
+         <a id="anselMenuTags" title="<?php echo _("Tags")?>"><?php echo _("Tags")?></a></li>
+       </li>
+     </ul>
+    </div>
+    <!-- end top bar -->
 </div>
 <!-- end header -->
 
@@ -30,11 +31,31 @@
 
 <!-- begin body -->
 <div id="anselBody">
-<div id="anselLoading" style="display:none"></div>
-<?php
-// require __DIR__ .
-?>
-</div>
+  <div id="anselLoading" style="display:none"></div>
+    <div id="anselSizer">&nbsp;</div>
+    <!-- Images -->
+    <div id="anselViewImages" style="display;none;">
+        <div id="anselImagesMain">
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+        </div>
+    </div>
+    <!-- End Images -->
+
+    <!-- Galleries -->
+    <div id="anselViewGalleries" style="display;none;">
+        <div id="anselGalleriesMain">
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+          <div class="anselRow"></div>
+        </div>
+    </div>
+    <!-- End Images -->
+
+  </div>
 <!-- end body -->
 
 </div>

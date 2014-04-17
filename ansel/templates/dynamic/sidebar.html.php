@@ -1,11 +1,23 @@
 
 <div class="horde-sidebar-split"></div>
 <div id="anselMenu">
-  <div id="anselNavBrowse" class="horde-subnavi">
+  <div id="anselNavMe" class="horde-subnavi">
     <div class="horde-subnavi-icon">
       <a class="icon"></a>
     </div>
-    <div class="horde-subnavi-point"><?php echo _("Browse") ?></div>
+    <div class="horde-subnavi-point"><?php echo _("Me") ?></div>
+  </div>
+  <div id="anselNavGroups" class="horde-subnavi">
+    <div class="horde-subnavi-icon">
+      <a class="icon"></a>
+    </div>
+    <div class="horde-subnavi-point"><?php echo _("My Groups") ?></div>
+  </div>
+  <div id="anselNavSubscribed" class="horde-subnavi">
+    <div class="horde-subnavi-icon">
+      <a class="icon"></a>
+    </div>
+    <div class="horde-subnavi-point"><?php echo _("Subscribed") ?></div>
   </div>
   <div class="horde-sidebar-split"></div>
     <div>

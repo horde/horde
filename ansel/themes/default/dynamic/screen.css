@@ -4,11 +4,9 @@
     height: 100%;
 }
 
-/* Left menu column */
+/* Sidebar column */
 #anselMenu {
     position: absolute;
-   /* top: 280px;*/
-    /*bottom: 0;*/
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -21,10 +19,53 @@
     padding-left: 20px;
     background: transparent url("../graphics/tag.png") no-repeat left center;
 }
+
 /* Main links */
-#anselNavBrowse {
+#anselNavMe, #anselNavGroups, #anselNavSubscribed {
     cursor: pointer;
 }
-#anselNavBrowse a.icon {
-    background-image: url("../graphics/browse.png");
+
+/* Top Menu Bar */
+#anselMenuGalleries {
+  background-image: url('../graphics/galleries.png');
+}
+#anselMenuImages {
+  background-image: url('../graphics/photo.png');
+}
+#anselMenuTags {
+  background-image: url('../graphics/tag.png');
+}
+#anselMenuMap {
+  background-image: url('../graphics/map.png');
+}
+#anselMenuDate {
+  background-image: url('../graphics/date.png');
+}
+
+/* Main content area */
+#anselBody {
+    position: absolute;
+    top: 30px;
+    left: 7px;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+/*#anselSizer {
+    display: none;
+}*/
+
+/* A row of photo containers */
+.anselRow {
+    border: 0px solid #000;
+}
+
+/* Photo containers */
+.ansel-photo {
+    background-color: #dddddd;
 }

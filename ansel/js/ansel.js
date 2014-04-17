@@ -11,19 +11,14 @@
 
 /* Ansel object. */
 AnselCore = {
-    // Vars used and defaulting to null/false:
-
     view: '',
     viewLoading: [],
     redBoxLoading: false,
     knl: {},
-    wrongFormat: $H(),
     mapMarker: null,
     map: null,
     mapInitialized: false,
-    freeBusy: $H(),
     effectDur: 0.4,
-    macos: navigator.appVersion.indexOf('Mac') != -1,
 
     /**
      * The location that was open before the current location.
@@ -48,8 +43,6 @@ AnselCore = {
      * @var string
      */
     currentLocation: '',
-
-    anselBody: $('anselBody'),
 
     onException: function(parentfunc, r, e)
     {
@@ -82,23 +75,50 @@ AnselCore = {
         }
     },
 
+    // Navigate to a view or subview
+    // fullloc - the main view (me, groups, etc...)
+    // data    - the subview (images, galleries etc...) If omitted, images
+    //           is assumed (for now - should maybe be galleries?)
     go: function(fullloc, data)
     {
+        var subview;
+
+        console.log(['go', fullloc, this.openLocation, data, this.subview]);
+        if (!data) {
+            data = 'images';
+        }
+        // All the "normal-ish" views can be displayed using the same
+        // main layout container, but rememer what we are actually requesting.
+        switch (data) {
+        case 'images':
+        case 'tags':
+            subview = 'images';
+            break;
+        default:
+            subview = data;
+        }
         if (!this.initialized) {
             this.go.bind(this, fullloc, data).defer();
             return;
         }
 
         if (this.viewLoading.size()) {
-            this.viewLoading.push([ fullloc, data ]);
+            this.viewLoading.push([ fullloc, subview ]);
             return;
         }
 
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
-        if (this.openLocation == fullloc) {
-            return;
+        // Same location, and subview - exit.
+        if (this.openLocation && this.openLocation == fullloc) {
+            if (this.subview && data == this.subview) {
+                return;
+            } else {
+                this.closeView(loc, subview);
+            }
+        } else if (this.openLocation) {
+            this.closeView(loc, subview);
         }
 
         this.viewLoading.push([ fullloc, data ]);
@@ -108,33 +128,43 @@ AnselCore = {
         // }
 
         switch (loc) {
-        case 'browse':
-            this.closeView(loc);
+        case 'me':
+        case 'groups':
+        case 'subscribed':
             var locCap = loc.capitalize();
-            $('anselNav' + locCap).up().addClassName('horde-active');
-
+            $('anselNav' + locCap).addClassName('horde-subnavi-active');
+            $('anselMenu' + data.capitalize()).up().addClassName('horde-active');
             switch (loc) {
-            case 'browse':
+            case 'me':
                 this.addHistory(fullloc);
                 this.view = loc;
-                this.updateView(loc);
-                $('anselView' + locCap).appear({
-                        duration: this.effectDur,
-                        queue: 'end',
-                        afterFinish: function() {
-                            this.loadNextView();
-                        }.bind(this)
-                });
-                $('anselLoading' + loc).insert($('anselLoading').remove());
+                this.subview = data;
+                // @TODO. Really want an appear effect, but I need to figure out
+                // how to calculate all the needed widths in AnselLayout.process
+                // when the parent element is hidden. Disconnecting/reconnecting
+                // from the DOM doesn't seem to work, as the widths are all
+                // wrong. For now, jush unhide the element.
+                $('anselView' + subview.capitalize()).show();
+                this.updateView(loc, subview);
+                this.loadNextView();
+                // $('anselView' + subview.capitalize()).appear({
+                //         duration: this.effectDur,
+                //         queue: 'end',
+                //         afterFinish: function() {
+                //             this.updateView(loc, subview);
+                //             this.loadNextView();
+                //         }.bind(this)
+                // });
+                //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
 
             default:
-                if (!$('kronolithView' + locCap)) {
+                if (!$('anselView' + locCap)) {
                     break;
                 }
                 this.addHistory(fullloc);
                 this.view = loc;
-                $('kronolithView' + locCap).appear({
+                $('anselView' + locCap).appear({
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
@@ -177,7 +207,18 @@ AnselCore = {
     updateView: function(view, data)
     {
         switch (view) {
-        case 'browse':
+        case 'me':
+            switch (data) {
+            case 'images':
+                // HACK = @TODO check for gallery id, requery if needed. etc..
+                AnselLayout.images = Ansel.conf.galleries[1].imgs;
+                break;
+            case 'galleries':
+                // HACK = @TODO, query and generate proper gallery tiles.
+                AnselLayout.images = [];//Ansel.conf.galleries[1].imgs;
+            }
+            AnselLayout.container = 'ansel' + data.capitalize() + 'Main';
+            AnselLayout.resize();
             break;
         }
     },
@@ -190,79 +231,46 @@ AnselCore = {
      */
     setViewTitle: function(view, data)
     {
-        // switch (view) {
-        // case 'day':
-        //     return this.setTitle(date.toString('D'));
-
-        // case 'week':
-        // case 'workweek':
-        //     var dates = this.viewDates(date, view);
-        //     return this.setTitle(dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
-
-        // case 'month':
-        //     return this.setTitle(date.toString('MMMM yyyy'));
-
-        // case 'year':
-        //     return this.setTitle(date.toString('yyyy'));
-
-        // case 'agenda':
-        //     var dates = this.viewDates(date, view);
-        //     return this.setTitle(dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
-
-        // case 'search':
-        //     return this.setTitle(Kronolith.text.searching.interpolate({ term: data })).escapeHTML();
-        // }
+        switch (view) {
+        case 'me':
+            return this.setTitle('test');
+        }
     },
 
     /**
      * Closes the currently active view.
+     *
+     * loc - the *current* location
+     * subview - the *currently selected* subview.
      */
-    closeView: function(loc)
+    closeView: function(loc, subview)
     {
-        $w('Browse').each(function(a) {
+        console.log(['closeView', loc, subview]);
+        $w('Me Groups Subscribed').each(function(a) {
             a = $('anselNav' + a);
+            if (a) {
+                a.up().removeClassName('horde-subnavi-active');
+            }
+        });
+        $w('Images Galleries Map Date Tags').each(function(a) {
+            a = $('anselMenu' + a);
             if (a) {
                 a.up().removeClassName('horde-active');
             }
-        });
-        if (this.view && this.view != loc) {
-            $('anselView' + this.view.capitalize()).fade({
-                duration: this.effectDur,
-                queue: 'end'
-            });
-            this.view = null;
-        }
+        })
+
+        //if (this.view && this.view != loc) {
+            if (this.subview && this.subview != subview) {
+                $('anselView' + this.subview.capitalize()).fade({
+                    duration: this.effectDur,
+                    queue: 'end'
+                });
+                AnselLayout.reset();
+            }
+            // this.view = null;
+            // this.subview = null;
+        //}
     },
-
-    equalRowHeights: function(tbody)
-    {
-        var children = tbody.childElements();
-        children.invoke('setStyle', { height: (100 / (children.size() - 1)) + '%' });
-    },
-
-    /**
-     * Calculates some dimensions for the day and week view.
-     *
-     * @param string storage  Property name where the dimensions are stored.
-     * @param string view     DOM node ID of the view.
-     */
-    // calculateRowSizes: function(storage, view)
-    // {
-    //     if (!Object.isUndefined(this[storage])) {
-    //         return;
-    //     }
-
-    //     var td = $(view).down('.kronolithViewBody tr td').next('td'),
-    //         layout = td.getLayout(),
-    //         spacing = td.up('table').getStyle('borderSpacing');
-
-    //     // FIXME: spacing is hardcoded for IE 7 because it doesn't know about
-    //     // border-spacing, but still uses it. WTF?
-    //     spacing = spacing ? parseInt($w(spacing)[1], 10) : 2;
-    //     this[storage] = {};
-    //     this[storage].height = layout.get('margin-box-height') + spacing;
-    //     this[storage].spacing = this[storage].height - layout.get('padding-box-height') - layout.get('border-bottom');
-    // },
 
     /**
      * Inserts a gallery entry in the sidebar menu.
@@ -354,7 +362,7 @@ AnselCore = {
 
 
     /**
-     * Finally removes events from the DOM and the cache.
+     * Finally removes events from the DOM.
      *
      * @param string gallery   A gallery id.
      * @param string image     An image id. If empty, all images from the
@@ -362,7 +370,7 @@ AnselCore = {
      */
     removeImage: function(gallery, image)
     {
-        //this.deleteCache(gallery, image);
+
     },
 
     /**
@@ -509,27 +517,32 @@ AnselCore = {
             orig = e.element(),
             id, tmp, calendar;
 
-        // while (Object.isElement(elt)) {
-        //     id = elt.readAttribute('id');
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
 
-        //     switch (id) {
-        //     //return
-        //     }
+            switch (id) {
+            case 'anselMenuImages':
+                this.go(this.view, 'images');
+                return;
+            case 'anselMenuGalleries':
+                this.go(this.view, 'galleries');
+                return;
+            }
 
-        //     // Caution, this only works if the element has definitely only a
-        //     // single CSS class.
-        //     switch (elt.className) {
-        //     //return
-        //     }
+            // Caution, this only works if the element has definitely only a
+            // single CSS class.
+            switch (elt.className) {
+            //return
+            }
 
-        //     if (elt.hasClassName()) {
-        //     //return
-        //     } else if () {
-        //     //return
-        //     }
+            // if (elt.hasClassName()) {
+            // //return
+            // } else if () {
+            // //return
+            // }
 
-        //     elt = elt.up();
-        // }
+            elt = elt.up();
+        }
         // Workaround Firebug bug.
         Prototype.emptyFunction();
     },
@@ -751,7 +764,6 @@ AnselCore = {
             this.updateView(this.date, Ansel.conf.login_view);
            // $('anselView' + Ansel.conf.login_view.capitalize()).show();
         }
-        //HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) })
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -762,30 +774,37 @@ AnselCore = {
         document.observe('keyup', AnselCore.keyupHandler.bindAsEventListener(AnselCore));
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
+        HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) })
     },
 
     initialize: function(location, r)
     {
-        Ansel.conf.galleries = r.galleries;
-        this.updateGalleryList();
-        //$('anselLoadingGalleries').hide();
+        Ansel.conf.galleries = r;
+        //TEMP HACK
+        AnselLayout.images = r[1].imgs;
+        //this.updateGalleryList();
+
+        // //$('anselLoadingGalleries').hide();
         this.initialized = true;
 
-        /* Initialize the starting page. */
-        if (!location.empty()) {
-            this.go(decodeURIComponent(location));
-        } else {
-            this.go(Ansel.conf.login_view);
-        }
 
-        /* Start polling. */
-        new PeriodicalExecuter(function()
-            {
-                HordeCore.doAction('poll');
-            },
-            60
-        );
-        console.log("foo");
+        /* TEMP HACK */
+        this.go('me', 'images');
+        Element.observe(window, 'resize', AnselLayout.onResize);
+        // /* Initialize the starting page. */
+        // if (!location.empty()) {
+        //     this.go(decodeURIComponent(location));
+        // } else {
+        //     this.go(Ansel.conf.login_view);
+        // }
+
+        // /* Start polling. */
+        // new PeriodicalExecuter(function()
+        //     {
+        //         HordeCore.doAction('poll');
+        //     },
+        //     60
+        // );
     }
 
 };
