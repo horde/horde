@@ -1080,6 +1080,8 @@ class IMP_Contents
      */
     protected function _buildMessage($parts = null)
     {
+        global $injector;
+
         if (is_null($parts)) {
             if ($this->_build) {
                 return;
@@ -1094,6 +1096,8 @@ class IMP_Contents
         $last_id = null;
         $to_process = array();
 
+        $mv_factory = $injector->getInstance('IMP_Factory_MimeViewer');
+
         foreach ($parts as $id) {
             if (!is_null($last_id) &&
                 (strpos($id, $last_id) === 0)) {
@@ -1103,7 +1107,7 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this));
+            $viewer = $mv_factory->create($mime_part, array('contents' => $this));
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
