@@ -189,14 +189,6 @@ inario(i) possono seguire il "filo".
     </para>
 </entry>
 
-    <entry id="pgp-option-scan-body" state="new">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found.  Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>
-
     <entry id="pgp-option-reply-pubkey" state="new">
     <title>PGP: Validate PGP Public Keys When Replying</title>
     <heading>Validate PGP Public Keys When Replying</heading>
@@ -363,14 +355,6 @@ inario(i) possono seguire il "filo".
     <heading>E-mail Address</heading>
     <para>
     The e-mail address you want associated with your personal keys. A required field.
-    </para>
-</entry>
-
-    <entry id="pgp-personalkey-create-keylength" state="new">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bytes, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bytes is the default - this value provides excellent protection.
     </para>
 </entry>
 
@@ -612,13 +596,6 @@ inario(i) possono seguire il "filo".
             For messages displayed inline (i.e. on the message view page), should all image tags be blocked until you specifically decide to view those images? Note that, if explicitly viewing the attachment, images will always be displayed.
         </para>
     </entry>
-
-    <entry id="prefs-mailbox_start" state="new">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the 'unseen' message options do not work with the 'Thread' sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>
 
     <entry id="prefs-save_attachments" state="new">
     <title>Preferences: Save Attachments on Sent Messages</title>

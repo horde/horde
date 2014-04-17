@@ -207,7 +207,7 @@
     </para>
   </entry>
 
-    <entry id="filter-on-display" state="uptodate" md5="9c6208b9b6f9df77c60778c565f897a7">
+    <entry id="filter-on-display" state="uptodate" md5="08c26328ea17a4c811ad577d3ef70ac1">
     <title>Filterregeln: Filtern beim Aktualisieren</title>
     <para>
       Markieren Sie dieses Kästchen, falls die Filterregeln immer angewendet
@@ -243,20 +243,6 @@
     </para>
   </entry>
 
-    <entry id="pgp-option-scan-body" state="uptodate" md5="2ea8b36f6d77ea92258afd8e1950b839">
-    <title>PGP: Im Nachrichteninhalt Suchen</title>
-    <para>
-      Wenn diese Einstellung aktiviert ist, werden die Texte aller Nachrichten
-      nach PGP-Daten durchsucht, und diese gegebenenfalls angezeigt. Beachten
-      Sie, dass dies zu einer Verlangsamung des System führen kann, weil jede
-      einzelne Nachricht komplett nach den PGP-Daten durchsucht werden
-      muss. Hierbeit handelt es sich um ein veraltetes Format zum Versenden von
-      PGP-Nachrichten - die meisten E-Mail-Programme verwenden mittlerweile ein
-      modernes Format, mit dem es nicht mehr nötig ist, den gesamten
-      Nachrichtentext zu durchsuchen.
-    </para>
-  </entry>
-
     <entry id="pgp-option-reply-pubkey" state="uptodate" md5="758623ecc4eabd8f0e0a9057e2b3a71e">
     <title>PGP: Öffentliche Schlüssel Beim Beantworten Überprüfen</title>
     <para>
@@ -270,7 +256,7 @@
     </para>
   </entry>
 
-    <entry id="compose-options-encrypt" state="uptodate" md5="9ded3c9c3d1d0e938ea6f649c68065d3">
+    <entry id="compose-options-encrypt" state="uptodate" md5="9a36c004d88bbee23c6952dd24cb72b5">
     <title>Neue Nachricht: Verschlüsselungseinstellungen</title>
     <heading>Keine Verschlüsselung</heading>
     <para>
@@ -512,16 +498,6 @@
     </para>
   </entry>
 
-    <entry id="pgp-personalkey-create-keylength" state="uptodate" md5="de4811dcbcab2ccc900bcf311b62ccee">
-    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Schlüssellänge</title>
-    <para>
-      Die Schlüssellänge Ihres zu erstellenden Schlüssel in Bit. Je größer der
-      Wert, desto stärker ist Ihr Schlüssel geschützt, aber desto länger dauert
-      auch die Schlüsselerstellung. 1024 Bit bieten einen ausreichenden Schutz
-      für die meisten Benutzer.
-    </para>
-  </entry>
-
     <entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="47522ad328d8e1a0a1e68291780e4bd9">
     <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Passwort</title>
     <para>
@@ -533,26 +509,26 @@
     </para>
   </entry>
 
-    <entry id="pgp-personalkey-create-actions" state="uptodate" md5="4c03caeab8a56878399334062df1b543">
+    <entry id="pgp-personalkey-create-actions" state="uptodate" md5="0a7b4143400bc648f235cd841b611143">
     <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Aktionen</title>
     <heading>Schlüssel erstellen</heading>
     <para>
-      Erzeugt und speichert Ihr persönliches Schlüsselpaar.
+      Erzeugt und speichert Ihren persönlichen Schlüssel.
     </para>
-    <heading>Schlüsselpaar importieren</heading>
+    <heading>Schlüssel importieren</heading>
     <para>
-      Importiert ein persönliches Schlüsselpaar. Dieser Knopf öffnet ein
-      Fenster, in dem Sie ein bereits vorhandenes persönliches Schlüsselpaar
-      importieren können. Die Schlüssel können entweder in ein Textfeld
-      importiert oder hochgeladen werden, falls diese als Datei auf Ihrem
-      lokalen Computer vorliegen. Wenn es sich um gültige Schlüssel handelt,
-      werden diese in Ihren Einstellungen gespeichert und das Fenster
-      geschlossen. Anderenfalls wird eine Fehlermeldung angezeigt, die
-      erläutert, warum der Import fehlgeschlagen ist.
+      Dieser Knopf öffnet ein Fenster, in dem Sie einen bereits vorhandenen
+      persönlichen PGP-Schlüssel importieren können. Der Schlüssel kann
+      entweder in ein Textfeld eingefügt oder hochgeladen werden, falls dieser
+      als Datei auf Ihrem lokalen Computer vorliegt. Wenn es sich um einen
+      gültigen Schlüssel handelt, wird dieser in Ihren Einstellungen
+      gespeichert und das Fenster geschlossen. Anderenfalls wird eine
+      Fehlermeldung angezeigt, die erläutert, warum der Import fehlgeschlagen
+      ist.
     </para>
   </entry>
 
-    <entry id="smime-overview" state="uptodate" md5="06bc9544a439ca416ebed22df8e6102a">
+    <entry id="smime-overview" state="uptodate" md5="3cab2af4d9b0041580b5c6a996b83796">
     <title>S/MIME: Überblick</title>
     <heading>Was ist S/MIME?</heading>
     <para>
@@ -608,7 +584,7 @@
     </para>
   </entry>
 
-    <entry id="smime-manage-pubkey" state="uptodate" md5="263a47e866aae1e361c1b9cf0b29f62e">
+    <entry id="smime-manage-pubkey" state="uptodate" md5="0aff8be5d92d7d4ffbfca1333607a9fb">
     <title>S/MIME: Einstellungen: Verwaltung öffentlicher Schlüssel</title>
     <para>
       Hiermit können Sie Ihre Liste öffentlicher S/MIME-Schlüssel
@@ -800,7 +776,7 @@
     </para>
   </entry>
 
-    <entry id="prefs-delete_spam_after_report" state="uptodate" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1">
+    <entry id="prefs-delete_spam_after_report" state="uptodate" md5="5e2523414b34ddc1bc9454c8a1b5053c">
     <title>Nachricht: Einstellungen: Löschen von Spam</title>
     <para>
       Sie können eine von drei Aktionen auswählen, die ausgeführt werden soll,
@@ -844,14 +820,6 @@
       ausdrücklich das Nachladen dieser Bilder bestätigen? Bitte beachten Sie,
       dass Bilder immer anzeigt werden, wenn Sie ausdrücklich einen Anhang
       öffnen.
-    </para>
-  </entry>
-
-    <entry id="prefs-mailbox_start" state="uptodate" md5="4eb9c594c460e83c1cd413b2c46c718b">
-    <title>Nachrichtenliste: Einstellungen: Startseite</title>
-    <para>
-      Legt fest, welche Seite in der Nachrichtenliste angezeigt wird, wenn Sie
-      einen Ordner öffnen.
     </para>
   </entry>
 
@@ -1228,7 +1196,7 @@
       </para>
     </entry>
 
-        <entry id="mailbox-keyboard" state="uptodate" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
+        <entry id="mailbox-keyboard" state="uptodate" md5="6aa100450de5b2b9bd82627a7af64103">
       <title>Nachrichtenliste: Tastaturbelegung</title>
       <para>
         Die folgenden Tastenkombinationen stehen zur Verfügung:
@@ -1241,7 +1209,7 @@
         ↓</css>: Eine Seite in der Nachrichtenliste auf- und abbewegen.
       </para>
       <para>
-        <css class="kbd">Alt</css> + <css class="kbd">Bild ↑</css> / <css class="kbd">Bild ↓</css>: In der Nachrichtenvorschau auf- und
+        <css class="kbd">Alt</css> + (<css class="kbd">Bild ↑</css> / <css class="kbd">Bild ↓</css> / <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/>): In der Nachrichtenvorschau auf- und
         abbewegen.
       </para>
       <para>

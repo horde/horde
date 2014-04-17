@@ -132,12 +132,18 @@
     </para>
   </entry>
 
-    <entry id="filter-on-display" md5="9c6208b9b6f9df77c60778c565f897a7" state="uptodate">
+    <entry id="filter-on-display" md5="9c6208b9b6f9df77c60778c565f897a7" state="changed">
     <title>Filtros: Opciones: Filtrar al actualizar</title>
     <para>
     Active esta opción para aplicar los filtros siempre que vea la carpeta de Entrada.
     </para>
-  </entry>
+  <!-- English entry (2014-04-17):
+<entry id="filter-on-display">
+        <title>Filters: Preferences: Filter on Refresh</title>
+        <para>
+            Check this option to always apply filters whenever you view the Inbox.
+        </para>
+    </entry>--></entry>
 
     <entry id="filter-any-mailbox" md5="c89004a1ef14f8a875ebf02f25727934" state="uptodate">
     <title>Filtros: Opciones: Filtrar cualquier buzón</title>
@@ -156,13 +162,6 @@
     </para>
   </entry>
 
-    <entry id="pgp-option-scan-body" md5="2ea8b36f6d77ea92258afd8e1950b839" state="uptodate">
-    <title>PGP: Opciones: Analizar texto del cuerpo</title>
-    <para>
-    Si se selecciona, IMP buscará datos PGP en el cuerpo de los mensajes de texto. Observe que ésto puede ralentizar el sistema ya que cada mensaje tiene que comprobarse en su totalidad. Éste era el formato antiguo de envío de mensajes PGP - la mayoría de los clientes de correo actuales usan el formato moderno para enviar estos mensajes, lo que no precisa de ninguna búsqueda adicional.
-    </para>
-  </entry>
-
     <entry id="pgp-option-reply-pubkey" state="uptodate" md5="758623ecc4eabd8f0e0a9057e2b3a71e">
     <title>PGP: Opciones: Comprobar validez de las claves públicas PGP al responder</title>
     <para>
@@ -170,7 +169,7 @@
     </para>
   </entry>
 
-    <entry id="compose-options-encrypt" md5="9ded3c9c3d1d0e938ea6f649c68065d3" state="uptodate">
+    <entry id="compose-options-encrypt" md5="9ded3c9c3d1d0e938ea6f649c68065d3" state="changed">
     <title>Redacción: Opciones de cifrado</title>
     <heading>Sin cifrar</heading>
     <para>
@@ -208,7 +207,46 @@
     <para>
     Esta opción firmará digitalmente el mensaje en primer lugar y luego cifrará el resultado. Consulte los apartados "Mensaje cifrado en S/MIME" y "Mensaje con firma S/MIME" para más información.
     </para>
-  </entry>
+  <!-- English entry (2014-04-17):
+<entry id="compose-options-encrypt">
+        <title>Compose: Encryption Options</title>
+        <heading>No Encryption</heading>
+        <para>
+            Send the message with no encryption (cleartext).
+        </para>
+        <heading>PGP Encrypt Message</heading>
+        <para>
+            This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>PGP Sign Message</heading>
+        <para>
+            This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
+        </para>
+        <heading>PGP Sign/Encrypt Message</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
+        </para>
+        <heading>PGP Encrypt Message with passphrase</heading>
+        <para>
+            This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel (e.g. personal conversation, phone). The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>PGP Sign/Encrypt Message with passphrase</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
+        </para>
+        <heading>S/MIME Encrypt Message</heading>
+        <para>
+            This option will encrypt the current message, using S/MIME and the recipient's certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>S/MIME Sign Message</heading>
+        <para>
+            This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
+        </para>
+        <heading>S/MIME Sign/Encrypt Message</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
+        </para>
+    </entry>--></entry>
 
     <entry id="pgp-overview" md5="70c98866d308d4eb29ac844d04262b92" state="uptodate">
     <title>PGP: Introducción</title>
@@ -354,7 +392,7 @@
     </para>
   </entry>
 
-    <entry id="smime-overview" md5="06bc9544a439ca416ebed22df8e6102a" state="uptodate">
+    <entry id="smime-overview" md5="06bc9544a439ca416ebed22df8e6102a" state="changed">
     <title>S/MIME: Introducción</title>
     <heading>¿Qué es S/MIME?</heading>
     <para>
@@ -364,7 +402,18 @@
     <para>
     Si se selecciona esta opción, podrá importar sus claves personales S/MIME, leer correo cifrado, comprobar correo firmado digitalmente y cifrar/firmar el correo que envíe.
     </para>
-  </entry>
+  <!-- English entry (2014-04-17):
+<entry id="smime-overview">
+        <title>S/MIME: Overview</title>
+        <heading>What is S/MIME?</heading>
+        <para>
+            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in an open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
+        </para>
+        <heading>Enable S/MIME functionality?</heading>
+        <para>
+            If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
+        </para>
+    </entry>--></entry>
 
     <entry id="smime-overview-personalkey" md5="f396c6349cd59218a9f0408878ced995" state="uptodate">
     <title>S/MIME: Opciones: Certificados personales</title>
@@ -387,7 +436,7 @@
     </para>
   </entry>
 
-    <entry id="smime-manage-pubkey" md5="263a47e866aae1e361c1b9cf0b29f62e" state="uptodate">
+    <entry id="smime-manage-pubkey" md5="263a47e866aae1e361c1b9cf0b29f62e" state="changed">
     <title>S/MIME: Opciones: Gestionar claves públicas</title>
     <para>
     Gestiona su listado de claves S/MIME públicas.
@@ -404,7 +453,25 @@
     <para>
     Elimina del almacenamiento la clave pública seleccionada. Eliminar la clave pública de un usuario le impedirá enviarle mensajes cifrados a dicho usuario.
     </para>
-  </entry>
+  <!-- English entry (2014-04-17):
+<entry id="smime-manage-pubkey">
+        <title>S/MIME: Preferences: Manage Public Keys</title>
+        <para>
+            Manage your S/MIME public key list.
+        </para>
+        <heading>View</heading>
+        <para>
+            View the raw text of the public key.
+        </para>
+        <heading>Details</heading>
+        <para>
+            View technical details of the public key.
+        </para>
+        <heading>Delete</heading>
+        <para>
+            Deletes the selected public key from storage.  Deleting a public key for a user will prevent you from encrypting a message to that user.
+        </para>
+    </entry>--></entry>
 
     <entry id="printing" md5="8f38316f520b5c60c0311c97f9472144" state="uptodate">
     <title>Mensaje: Impresión</title>
@@ -530,7 +597,7 @@
     </para>
   </entry>
 
-    <entry id="prefs-delete_spam_after_report" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1" state="uptodate">
+    <entry id="prefs-delete_spam_after_report" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1" state="changed">
     <title>Mensaje: Opciones: Eliminar Spam tras notificarlo</title>
     <para>
     Puede optar por hacer un de estas tres cosas tras notificar un mensaje como spam.
@@ -544,7 +611,22 @@
     <para>
     3. Tras notificar un mensaje como spam el mensaje se eliminará del buzón actual y se trasladará al buzón de spam.
     </para>
-  </entry>
+  <!-- English entry (2014-04-17):
+<entry id="prefs-delete_spam_after_report">
+        <title>Message: Preferences: Delete Spam After Reporting</title>
+        <para>
+            You may elect to do one of three items after reporting a message as spam.
+        </para>
+        <para>
+            1. Do nothing. The message will be reported as spam but will otherwise remain unchanged in your mailbox.
+        </para>
+        <para>
+            2. If reporting a message as spam, the message will be immediately deleted.
+        </para>
+        <para>
+            3. After reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
+        </para>
+    </entry>--></entry>
 
     <entry id="prefs-move_innocent_after_report" state="uptodate" md5="99a33858f784fa3ad393b735f91941d0">
     <title>Mensaje: Opciones: Trasladar Spam tras notificarlo como inofensivo</title>
@@ -563,13 +645,6 @@
     <title>Mensaje: Opciones: Sustitución de imágenes</title>
     <para>
     En mensajes mostrados en línea (p.e. en la página de visualización del mensaje), ¿se deberían bloquear las etiquetas de imágenes a menos que específicamente indique que quiere verlas? Observe que si está visualizando el adjunto, las imágenes se mostrarán siempre.
-    </para>
-  </entry>
-
-    <entry id="prefs-mailbox_start" md5="4eb9c594c460e83c1cd413b2c46c718b" state="uptodate">
-    <title>Buzón: Opciones: Página de inicio</title>
-    <para>
-    Decide qué página del listado del buzón se mostrará cuando acceda a un buzón por primera vez.
     </para>
   </entry>
 
@@ -836,7 +911,7 @@
     </para>
     </entry>
 
-        <entry id="mailbox-keyboard" state="uptodate" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
+        <entry id="mailbox-keyboard" state="changed" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
     <title>Buzón: Atajos de teclado</title>
     <para>
       Se dispone de los siguientes atajos de teclado:
@@ -865,6 +940,36 @@
     <para>
       <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : Selecciona todos los mensajes del buzón actual.
     </para>
-    </entry>
+    <!-- English entry (2014-04-17):
+<entry id="mailbox-keyboard">
+            <title>Mailbox: Keyboard Shortcuts</title>
+            <para>
+                The following keyboard shortcuts are available:
+            </para>
+            <para>
+                <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/> : Move up/down through the message list.
+            </para>
+            <para>
+                <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Move one page up/down through the message list.
+            </para>
+            <para>
+                <css class="kbd">Alt</css> + (<css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> / <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/>): Scroll up/down through the display of the previewed message.
+            </para>
+            <para>
+                <css class="kbd">Home</css> / <css class="kbd">End</css> : Move to the beginning/end of the message list.
+            </para>
+            <para>
+                <css class="kbd">Del</css> : Delete the currently selected message(s). <css class="kbd">Shift</css> + <css class="kbd">Del</css> will delete the current message and move to the next message if a single message is selected.
+            </para>
+            <para>
+                <css class="kbd">Shift</css> + <css class="kbd">N</css> : Move to the next unseen message (non-search mailboxes only).
+            </para>
+            <para>
+                <css class="kbd">Enter</css> : Open message in a popup window.
+            </para>
+            <para>
+                <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : Select all messages in the current mailbox.
+            </para>
+        </entry>--></entry>
     </view>
 </help>

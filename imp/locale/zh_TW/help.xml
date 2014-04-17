@@ -202,6 +202,15 @@
         <warn>
             Do NOT separate e-mail addresses with semicolons (;).
         </warn>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-to">
+        <title>Compose: To</title>
+        <para>
+            Enter the correct e-mail address for the recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
     </entry>--></entry>
 
     <entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
@@ -457,6 +466,18 @@
         <para>
             Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the e-mail. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-cc">
+        <title>Compose: Cc</title>
+        <para>
+            Enter the correct e-mail address for the carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
+        <para>
+            Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the e-mail. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
+        </para>
     </entry>--></entry>
 
     <entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
@@ -701,6 +722,18 @@
     Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the email. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the email. Only you the sender and the "Bcc" recipients will know that they received a copy.
     </para>
 </entry>--><!-- English entry (2012-10-24):
+<entry id="compose-bcc">
+        <title>Compose: Bcc</title>
+        <para>
+            Enter the correct e-mail address for the blind carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
+        <para>
+            Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the e-mail. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the e-mail. Only you (as the sender) and the "Bcc" recipients will know that they received a copy.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="compose-bcc">
         <title>Compose: Bcc</title>
         <para>
@@ -971,6 +1004,18 @@
         <tip>
             If a replied or forwarded message contains new ideas, you may want to alter the "Subject" line so that recipients can follow the progression of the "thread" and to indicate that the content of the thread has deviated from the initial topic.
         </tip>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-subject">
+        <title>Compose: Subject</title>
+        <para>
+            Enter the subject of your message. It is best to keep the subject short, simple and descriptive. The subject line is the easiest way for you and your correspondents to remember what was in the e-mail, and is generally used as the basis for quickly scanning e-mails in a mailbox.
+        </para>
+        <para>
+            When you "Reply" or "Forward" an e-mail, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an e-mail conversation.
+        </para>
+        <tip>
+            If a replied or forwarded message contains new ideas, you may want to alter the "Subject" line so that recipients can follow the progression of the "thread" and to indicate that the content of the thread has deviated from the initial topic.
+        </tip>
     </entry>--></entry>
 
     <entry id="compose-spellcheck" state="new">
@@ -1014,6 +1059,12 @@
         <para>
             This sets the message priority on your outgoing message. The priority tag is a pseudo-standard that most major e-mail clients can handle. Mail clients that do not handle this header will ignore it.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-priority">
+        <title>Compose: Priority</title>
+        <para>
+            This sets the message priority on your outgoing message. The priority tag is a pseudo-standard that most major e-mail clients can handle. Mail clients that do not handle this header will ignore it.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-edit-rules" state="changed" md5="5baa5708ac9449e797f967313a9e1a27">
@@ -1028,6 +1079,12 @@
         <para>
             Click "Edit your filter rules" to access the page where you can add, delete, and edit the currently active set of filter rules.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-edit-rules">
+        <title>Filters: Preferences: Edit Filter Rules</title>
+        <para>
+            Click "Edit your filter rules" to access the page where you can add, delete, and edit the currently active set of filter rules.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-edit-blacklist" state="changed" md5="80ff7803c66599c7035f7f8811d218cc">
@@ -1037,6 +1094,12 @@
     點選"編輯你的黑名單"讓你新增，刪除以及編輯一份你永遠不想收信的電子郵件名單。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="filter-edit-blacklist">
+        <title>Filters: Preferences: Edit Blacklist</title>
+        <para>
+            Click on "Edit your blacklist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS refuse mail from.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="filter-edit-blacklist">
         <title>Filters: Preferences: Edit Blacklist</title>
         <para>
@@ -1058,6 +1121,12 @@
         <para>
             Click on "Edit your whitelist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS accept mail from.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-edit-whitelist">
+        <title>Filters: Preferences: Edit Whitelist</title>
+        <para>
+            Click on "Edit your whitelist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS accept mail from.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-on-login" state="changed" md5="37d9297d1cca46435e36b6e38e45dcdb">
@@ -1067,6 +1136,12 @@
     勾選這個選項，以便日後每次登入網路郵局時，套用所有規則。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="filter-on-login">
+        <title>Filters: Preferences: Filter on Login</title>
+        <para>
+            Check this option to always apply filters when first logging on.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="filter-on-login">
         <title>Filters: Preferences: Filter on Login</title>
         <para>
@@ -1085,6 +1160,12 @@
         <title>Filters: Preferences: Filter on Refresh</title>
         <para>
             Check this option to always apply filters whenever your view the Inbox.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-on-display">
+        <title>Filters: Preferences: Filter on Refresh</title>
+        <para>
+            Check this option to always apply filters whenever you view the Inbox.
         </para>
     </entry>--></entry>
 
@@ -1261,6 +1342,15 @@
     Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your INBOX. If this option is checked, an icon will appear on all mailbox pagges that will allow you to apply filter rules to the messages in the current mailbox. NOTE: Filtering in mailboxes other than INBOX may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
     </para>
 </entry>--><!-- English entry (2012-10-24):
+<entry id="filter-any-mailbox">
+        <title>Filters: Preferences: Filter any Mailbox</title>
+        <para>
+            Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your Inbox. If this option is checked, an icon will appear on all mailbox pages that will allow you to apply filter rules to the messages in the current mailbox.
+        </para>
+        <tip>
+            Filtering in mailboxes other than Inbox may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
+        </tip>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="filter-any-mailbox">
         <title>Filters: Preferences: Filter any Mailbox</title>
         <para>
@@ -1446,182 +1536,11 @@
         <para>
             If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Preferences screen.
         </para>
-    </entry>--></entry>
-
-    <entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
-    <title>PGP: 掃描郵件內容</title>
-    <heading>掃描郵件內容</heading>
-    <para>
-    如果勾選此一項目，網路郵局將自動在每一封純文字格式郵件中掃描 PGP 資料，
-    如果有掃描到 PGP 資料則顯示該資料。請注意，由於每一封純文字格式郵件
-    都被掃描以尋找 PGP 資料，因此這項功能將導致系統速度變慢。
-    </para>
-  <!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry (2010-08-16):
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--><!-- English entry (2012-10-24):
-<entry id="pgp-option-scan-body">
-        <title>PGP: Preferences: Scan Text Bodies</title>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-compose-attach-pubkey">
+        <title>PGP: Preferences: Attach Public Key</title>
         <para>
-            If selected, all plaintext messages will be scanned for PGP data. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data. This was the old format for sending PGP messages - most mail clients now use the modern format for sending these messages, which does not require any additional scanning.
+            If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Preferences screen.
         </para>
     </entry>--></entry>
 
@@ -2489,6 +2408,45 @@
         <para>
             This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-options-encrypt">
+        <title>Compose: Encryption Options</title>
+        <heading>No Encryption</heading>
+        <para>
+            Send the message with no encryption (cleartext).
+        </para>
+        <heading>PGP Encrypt Message</heading>
+        <para>
+            This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>PGP Sign Message</heading>
+        <para>
+            This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
+        </para>
+        <heading>PGP Sign/Encrypt Message</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
+        </para>
+        <heading>PGP Encrypt Message with passphrase</heading>
+        <para>
+            This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel (e.g. personal conversation, phone). The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>PGP Sign/Encrypt Message with passphrase</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
+        </para>
+        <heading>S/MIME Encrypt Message</heading>
+        <para>
+            This option will encrypt the current message, using S/MIME and the recipient's certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
+        </para>
+        <heading>S/MIME Sign Message</heading>
+        <para>
+            This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
+        </para>
+        <heading>S/MIME Sign/Encrypt Message</heading>
+        <para>
+            This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="changed">
@@ -2516,6 +2474,17 @@
         <para>
             If this option is selected, you will be able to create/view your personal PGP keys, add/delete public keys from other individuals, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-overview">
+        <title>PGP: Overview</title>
+        <heading>What is PGP?</heading>
+        <para>
+            PGP is a tool for secure communication and data storage, especially for use with e-mail. It can be used to encrypt data and to create digital signatures. GnuPG (GNU Privacy Guard) is used to provide this functionality.
+        </para>
+        <heading>Enable PGP functionality?</heading>
+        <para>
+            If this option is selected, you will be able to create/view your personal PGP keys, add/delete public keys from other individuals, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="changed">
@@ -2526,6 +2495,12 @@
     你的 PGP 公開金鑰。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="pgp-option-attach-pubkey">
+        <title>PGP: Preferences: Attach Public Key</title>
+        <para>
+            If selected then a copy of your PGP public key, if it exists, will be attached to all outgoing messages.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="pgp-option-attach-pubkey">
         <title>PGP: Preferences: Attach Public Key</title>
         <para>
@@ -2554,6 +2529,25 @@
     自你的通訊錄中刪除此一公開金鑰。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="pgp-manage-pubkey">
+        <title>PGP: Preferences: Manage Public Keys</title>
+        <heading>Overview</heading>
+        <para>
+            This section lists all of the current users in your addressbook that have PGP public keys. These users are the ONLY users that you can either 1) send an encrypted message to -OR- 2) verify a digital signature.
+        </para>
+        <heading>View</heading>
+        <para>
+            Opens a window to view the PGP public key.
+        </para>
+        <heading>Details</heading>
+        <para>
+            Displays some details about the PGP public key.
+        </para>
+        <heading>Delete</heading>
+        <para>
+            Deletes the public key from your addressbook.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="pgp-manage-pubkey">
         <title>PGP: Preferences: Manage Public Keys</title>
         <heading>Overview</heading>
@@ -2750,6 +2744,12 @@
         <para>
             This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-import-pubkey">
+        <title>PGP: Preferences: Manage Public Keys: Import</title>
+        <para>
+            This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="changed">
@@ -2792,6 +2792,21 @@
         <para>
             Your private key is necessary to decrypt any message encrypted using your public key. Additionally, your private key is needed if you want to digitally sign a message. Your private key will be protected via a passphrase created when the keys are generated. Thus, to perform any activity that requires your private key, you will be prompted for your passphrase. Entry of your passphrase is only needed once per session.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-overview-personalkey">
+        <title>PGP: Preferences: Manage Personal Keys</title>
+        <heading>Overview</heading>
+        <para>
+            If you want to digitally sign messages or enable others to send you encrypted messages, you must have your own personal public/private PGP keypair.
+        </para>
+        <heading>Your Public Key</heading>
+        <para>
+            Your public key should be made available to any person that you want to be able to send you encrypted messages that only YOU can decrypt (using your private key). Additionally, your public key needs to be made available to anybody you send a digitally signed message to - a public key is required to verify the digital signature.
+        </para>
+        <heading>Your Private Key</heading>
+        <para>
+            Your private key is necessary to decrypt any message encrypted using your public key. Additionally, your private key is needed if you want to digitally sign a message. Your private key will be protected via a passphrase created when the keys are generated. Thus, to perform any activity that requires your private key, you will be prompted for your passphrase. Entry of your passphrase is only needed once per session.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="changed">
@@ -2805,6 +2820,17 @@
     顯示關於此 PGP 公開金鑰的部分細節。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="pgp-personalkey-public">
+        <title>PGP: Preferences: Manage Personal Keys: Public Key</title>
+        <heading>View</heading>
+        <para>
+            Opens a window to view the PGP public key.
+        </para>
+        <heading>Details</heading>
+        <para>
+            Displays some details about the PGP public key.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="pgp-personalkey-public">
         <title>PGP: Preferences: Manage Personal Keys: Public Key</title>
         <heading>View</heading>
@@ -2858,6 +2884,25 @@
         <para>
             Displays some technical details about the PGP private key.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-personalkey-private">
+        <title>PGP: Preferences: Manage Personal Keys: Private Key</title>
+        <heading>Enter Passphrase</heading>
+        <para>
+            Opens the passphrase dialog window. The passphrase entered, if correct, will be stored until your session ends.
+        </para>
+        <heading>Unload Passphrase</heading>
+        <para>
+            Removes the stored passphrase. Any additional usage of the private key will require you to re-enter the passphrase.
+        </para>
+        <heading>View</heading>
+        <para>
+            Opens a window to view the PGP private key. DO NOT SEND THIS KEY TO ANYONE. This option exists only so that you can export your personal private key for use in another program.
+        </para>
+        <heading>Details</heading>
+        <para>
+            Displays some technical details about the PGP private key.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="changed">
@@ -2875,6 +2920,12 @@
         <para>
             This button will delete your personal public/private keypair.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-personalkey-delete">
+        <title>PGP: Preferences: Manage Personal Keys: Delete</title>
+        <para>
+            This button will delete your personal public/private keypair.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="changed">
@@ -2884,6 +2935,12 @@
     這個名稱將嵌入到你的個人金鑰中。這是必須欄位。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="pgp-personalkey-create-name">
+        <title>PGP: Preferences: Create Personal Key: Name</title>
+        <para>
+            The name you want embedded in your personal keys. A required field.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="pgp-personalkey-create-name">
         <title>PGP: Preferences: Create Personal Key: Name</title>
         <para>
@@ -2904,6 +2961,12 @@
         <para>
         A comment string you want embedded in your personal keys. An optional field.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-personalkey-create-comment">
+        <title>PGP: Preferences: Create Personal Key: Comment</title>
+        <para>
+        A comment string you want embedded in your personal keys. An optional field.
+        </para>
     </entry>--></entry>
 
     <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="changed">
@@ -2918,161 +2981,11 @@
         <para>
             The e-mail address you want associated with your personal keys. A required field.
         </para>
-    </entry>--></entry>
-
-    <entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
-    <title>PGP: 建立個人金鑰 - 金鑰長度</title>
-    <heading>金鑰長度</heading>
-    <para>
-    你所產生的金鑰，其長度是以位元組為單位。長度越長，保護性越佳 (相對的，較長
-    的金鑰需要較多的時間來產生，以及加密)。1024 位元組是預設長度 - 這個長度
-    提供絕佳的保護性。
-    </para>
-  <!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry (2010-08-16):
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
-    </para>
-</entry>--><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-keylength">
-        <title>PGP: Preferences: Create Personal Key: Keylength</title>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-personalkey-create-email">
+        <title>PGP: Preferences: Create Personal Key: E-mail Address</title>
         <para>
-            The keylength, in bits, of your generated key. The greater the value, the greater the protection (but will take significantly longer to generate). 1024 bits should be sufficient for most users.
+            The e-mail address you want associated with your personal keys. A required field.
         </para>
     </entry>--></entry>
 
@@ -3086,6 +2999,12 @@
     你必須輸入二次密碼，以確保你沒有誤設。這是必須欄位。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="pgp-personalkey-create-passphrase">
+        <title>PGP: Preferences: Create Personal Key: Passphrase</title>
+        <para>
+            The passphrase used to protect/encrypt your personal private key. This should be AT LEAST 6 characters, should NOT be the same as your login password, should NOT be based on a dictionary word, and should include both numbers and letters. You must enter this passphrase twice for verification purposes. A required field.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="pgp-personalkey-create-passphrase">
         <title>PGP: Preferences: Create Personal Key: Passphrase</title>
         <para>
@@ -3371,6 +3290,20 @@
         <para>
             Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="pgp-personalkey-create-actions">
+        <title>PGP: Preferences: Create Personal Key: Actions</title>
+        <heading>Create Key</heading>
+        <para>
+            Create and store your personal key.
+        </para>
+        <heading>Import Key</heading>
+        <para>
+            This button opens a window where you can manually import your existing PGP personal key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, can be uploaded. If the key is valid it will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
+        </para>
+        <para>
+            Only the private portion of your key is needed; the public key will be automatically generated from the private key.
+        </para>
     </entry>--></entry>
 
     <entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
@@ -3655,6 +3588,17 @@
         <para>
             If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="smime-overview">
+        <title>S/MIME: Overview</title>
+        <heading>What is S/MIME?</heading>
+        <para>
+            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in an open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
+        </para>
+        <heading>Enable S/MIME functionality?</heading>
+        <para>
+            If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
+        </para>
     </entry>--></entry>
 
     <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="changed">
@@ -3665,6 +3609,12 @@
     自己的公開/私密S/MIME金鑰對。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="smime-overview-personalkey">
+        <title>S/MIME: Preferences: Personal Certificates</title>
+        <para>
+            If you want to digitally sign or encrypt messages you must have your own personal public/private S/MIME certificates.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="smime-overview-personalkey">
         <title>S/MIME: Preferences: Personal Certificates</title>
         <para>
@@ -3879,6 +3829,12 @@
     To print a message you are viewing, click on the "Print" link at either the top or bottom of the message. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
     </para>
 </entry>--><!-- English entry (2012-10-24):
+<entry id="printing">
+        <title>Message: Printing</title>
+        <para>
+            To print a message you are viewing, click on the "Print" icon located next to the part of the message you want to print. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="printing">
         <title>Message: Printing</title>
         <para>
@@ -4162,6 +4118,17 @@
         <para>
             The subject field can be sorted either alphabeticaly or by threading - messages that are all related to each other.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="sorting">
+        <title>Mailbox: Sorting and Threading</title>
+        <heading>Sorting Entries</heading>
+        <para>
+            When viewing a list of messages, you can sort the messages by any column by clicking on the appropriate column heading. To switch columns between ascending and descending order, click on the arrow icon in the column heading.
+        </para>
+        <heading>Threading</heading>
+        <para>
+            The subject field can be sorted either alphabeticaly or by threading - messages that are all related to each other.
+        </para>
     </entry>--></entry>
 
     <entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
@@ -4315,6 +4282,12 @@
         <para>
             Turn this preference on if you would like to rename your sent mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent mail folder will be created.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="prefs-rename_sentmail_monthly">
+        <title>Compose: Sent Mail: Preferences: Rename Sent Mail Folder Monthly</title>
+        <para>
+            Turn this preference on if you would like to rename your sent mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent mail folder will be created.
+        </para>
     </entry>--></entry>
 
     <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="changed">
@@ -4324,6 +4297,12 @@
     保留月份數值。保留月份數值之前所有舊的寄件備份閘將一律刪除。
     </para>
   <!-- English entry (2012-10-24):
+<entry id="prefs-delete_sentmail_monthly_keep">
+        <title>Compose: Sent Mail: Preferences: Delete Sent Mail Folder Monthly</title>
+        <para>
+            This option will purge old sent mail folders after a given number of months.  Any folders older than this value will be deleted.  This may be useful if you have a quota, for example.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="prefs-delete_sentmail_monthly_keep">
         <title>Compose: Sent Mail: Preferences: Delete Sent Mail Folder Monthly</title>
         <para>
@@ -4357,6 +4336,12 @@
         <para>
             If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="prefs-delete_attachments_monthly_keep">
+        <title>Compose: Preferences: Delete Linked Attachments Monthly</title>
+        <para>
+            If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
+        </para>
     </entry>--></entry>
 
     <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="changed">
@@ -4365,6 +4350,12 @@
     如果你已勾選 "清除垃圾箱中的舊郵件" 這個選項的話，你希望多久清除一次？
     </para>
   <!-- English entry (2012-10-24):
+<entry id="prefs-purge_trash_interval">
+        <title>Login Tasks: Preferences: Purge Trash</title>
+        <para>
+            How often should your trash folder be purged?
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="prefs-purge_trash_interval">
         <title>Login Tasks: Preferences: Purge Trash</title>
         <para>
@@ -4379,6 +4370,12 @@
     以前的郵件？
     </para>
   <!-- English entry (2012-10-24):
+<entry id="prefs-purge_trash_keep">
+        <title>Login Tasks: Preferences: Purge Trash Keep</title>
+        <para>
+            If you are purging your trash folder, message older than how many days should be purged?
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="prefs-purge_trash_keep">
         <title>Login Tasks: Preferences: Purge Trash Keep</title>
         <para>
@@ -4423,6 +4420,48 @@
      <para> %% : '%' 字元</para>
 
   <!-- English entry (2012-10-24):
+<entry id="prefs-attrib_text">
+        <title>Compose: Preferences: Attribution Text</title>
+        <para>
+            Here you can enter the phrase that you wish to appear before any quoted text in a reply that you send.
+        </para>
+        <para>
+            You can include one or more special placeholders to insert information about the message to which you are replying. Placeholders consist of a '%' followed by a single letter. The following placeholders are available:
+        </para>
+        <raw>
+            %f : The sender's name and email address
+        </raw>
+        <raw>
+            %a : The sender's email address
+        </raw>
+        <raw>
+            %p : The sender's name
+        </raw>
+        <raw>
+            %r : The full RFC 822/2822/5322 style date and time zone
+        </raw>
+        <raw>
+            %d : The date as www, dd mmm YYYY
+        </raw>
+        <raw>
+            %x : The date in the locale's default
+        </raw>
+        <raw>
+            %c : The date and time in the locale's default
+        </raw>
+        <raw>
+            %m : The Message-ID
+        </raw>
+        <raw>
+            %s : The subject
+        </raw>
+         <raw>
+            %n : A new line
+        </raw>
+        <raw>
+            %% : The '%' character
+        </raw>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="prefs-attrib_text">
         <title>Compose: Preferences: Attribution Text</title>
         <para>
@@ -4523,158 +4562,6 @@
         </para>
     </entry>
 
-    <entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
-    <title>偏好設定: 郵箱起始頁面</title>
-    <para>
-    當一個郵箱第一次被存取時，決定其檢視畫面要先顯示哪一個頁面。備註：未看過
-    信件選項在關聯排序中無法作用，並且將以信箱的"最後一頁代替"。
-    </para>
-  <!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the "unseen" message options do not work with the "Thread" sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry:
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry (2010-08-16):
-<entry id="prefs-mailbox_start">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-    </para>
-</entry>--><!-- English entry (2012-10-24):
-<entry id="prefs-mailbox_start">
-        <title>Mailbox: Preferences: Start Page</title>
-        <para>
-            Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-        </para>
-    </entry>--></entry>
-
     <entry id="prefs-save_attachments" state="changed" md5="35b46334cdcc7fa416b9f9fca5874e80">
     <title>偏好設定: 附件隨寄件一起備份</title>
     <para>
@@ -4690,6 +4577,12 @@
     <para>* "永不儲存附加檔案" - 在郵件編寫畫面中永遠不要提示儲存附加檔案；
      而且附加檔案永遠不會隨著信件一起備分。</para>
   <!-- English entry (2012-10-24):
+<entry id="prefs-save_attachments">
+        <title>Compose: Sent Mail: Preferences: Save Attachments on Sent Messages</title>
+        <para>
+            If saving a composed message in a sent mail folder, determine if attachment data is saved by default.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="prefs-save_attachments">
         <title>Compose: Sent Mail: Preferences: Save Attachments on Sent Messages</title>
         <para>

@@ -39,6 +39,15 @@
         <warn>
             Do NOT separate e-mail addresses with semicolons (;).
         </warn>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-to">
+        <title>Compose: To</title>
+        <para>
+            Enter the correct e-mail address for the recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
     </entry>--></entry>
 
     <entry id="compose-cc" state="changed" md5="97571433ab037ef9c4d101a56bf74e25">
@@ -51,6 +60,18 @@
 Vēstules kopijas parasti tiek nosūtītas adresātiem, kuri nav tiešie vēstules saņēmēji, taču kuriem ir jābūt informētiem par vēstules nosūtīšanu. Visi "To:" un "Cc:" laukos uzskaitītie saņēmēji redz vēstules adresātu uzskaitījumu.
     </para>
 <!-- English entry (2012-10-24):
+<entry id="compose-cc">
+        <title>Compose: Cc</title>
+        <para>
+            Enter the correct e-mail address for the carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
+        <para>
+            Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the e-mail. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="compose-cc">
         <title>Compose: Cc</title>
         <para>
@@ -85,6 +106,18 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
         <para>
             Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the e-mail. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the e-mail. Only you (as the sender) and the "Bcc" recipients will know that they received a copy.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-bcc">
+        <title>Compose: Bcc</title>
+        <para>
+            Enter the correct e-mail address for the blind carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
+        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
+        <para>
+            Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the e-mail. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the e-mail. Only you (as the sender) and the "Bcc" recipients will know that they received a copy.
+        </para>
     </entry>--></entry>
 
     <entry id="compose-subject" state="changed" md5="0639a8790e306acc9e19b4d1ce342d53">
@@ -97,6 +130,18 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     Pie tam, ja pārsūtat vēstuli ar "Atbildēt" vai "Pārsūtīt", temata rinda tiek kopēta uz jauno vēstuli un tādējādi ir ļoti parocīgi izmantojama, lai noteiktu, kuras vēstules ir saistītas, veidojot sarakstes pavedienu. Vienlaikus, ja atbilde vai pārsūtījums satur jaunas idejas, Jūs varat labot temata rindu, tādējādi informējot saņēmēju(s) par sarakstes pavediena attīstību.
     </para>
 <!-- English entry (2012-10-24):
+<entry id="compose-subject">
+        <title>Compose: Subject</title>
+        <para>
+            Enter the subject of your message. It is best to keep the subject short, simple and descriptive. The subject line is the easiest way for you and your correspondents to remember what was in the e-mail, and is generally used as the basis for quickly scanning e-mails in a mailbox.
+        </para>
+        <para>
+            When you "Reply" or "Forward" an e-mail, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an e-mail conversation.
+        </para>
+        <tip>
+            If a replied or forwarded message contains new ideas, you may want to alter the "Subject" line so that recipients can follow the progression of the "thread" and to indicate that the content of the thread has deviated from the initial topic.
+        </tip>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="compose-subject">
         <title>Compose: Subject</title>
         <para>
@@ -148,6 +193,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
         <para>
             This sets the message priority on your outgoing message. The priority tag is a pseudo-standard that most major e-mail clients can handle. Mail clients that do not handle this header will ignore it.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="compose-priority">
+        <title>Compose: Priority</title>
+        <para>
+            This sets the message priority on your outgoing message. The priority tag is a pseudo-standard that most major e-mail clients can handle. Mail clients that do not handle this header will ignore it.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-edit-rules" state="changed" md5="5baa5708ac9449e797f967313a9e1a27">
@@ -157,6 +208,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     Uzklikšķiniet "Labot filtru likumus" lai pievienotu, labotu vai dzēstu definētos filtru likumus.
     </para>
 <!-- English entry (2012-10-24):
+<entry id="filter-edit-rules">
+        <title>Filters: Preferences: Edit Filter Rules</title>
+        <para>
+            Click "Edit your filter rules" to access the page where you can add, delete, and edit the currently active set of filter rules.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="filter-edit-rules">
         <title>Filters: Preferences: Edit Filter Rules</title>
         <para>
@@ -176,6 +233,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
         <para>
             Click on "Edit your blacklist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS refuse mail from.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-edit-blacklist">
+        <title>Filters: Preferences: Edit Blacklist</title>
+        <para>
+            Click on "Edit your blacklist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS refuse mail from.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-edit-whitelist" state="changed" md5="330c3a8fad198c7afe855c101c63cd0f">
@@ -185,6 +248,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     Uzklikšķiniet "Labot balto sarakstu" lai pievienotu, labotu vai dzēstu e-pasta adreses, no kurām vēstules vēlaties saņemt VIENMĒR.
     </para>
 <!-- English entry (2012-10-24):
+<entry id="filter-edit-whitelist">
+        <title>Filters: Preferences: Edit Whitelist</title>
+        <para>
+            Click on "Edit your whitelist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS accept mail from.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
 <entry id="filter-edit-whitelist">
         <title>Filters: Preferences: Edit Whitelist</title>
         <para>
@@ -204,6 +273,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
         <para>
             Check this option to always apply filters when first logging on.
         </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-on-login">
+        <title>Filters: Preferences: Filter on Login</title>
+        <para>
+            Check this option to always apply filters when first logging on.
+        </para>
     </entry>--></entry>
 
     <entry id="filter-on-display" state="changed" md5="f5afc305402ef52bad108933f3f33291">
@@ -217,6 +292,12 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
         <title>Filters: Preferences: Filter on Refresh</title>
         <para>
             Check this option to always apply filters whenever your view the Inbox.
+        </para>
+    </entry>--><!-- English entry (2014-04-17):
+<entry id="filter-on-display">
+        <title>Filters: Preferences: Filter on Refresh</title>
+        <para>
+            Check this option to always apply filters whenever you view the Inbox.
         </para>
     </entry>--></entry>
 
@@ -233,14 +314,6 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     <heading>Pievienot publisko atslēgu</heading>
     <para>
      Ja atzīmēts šis iestatījums, tad izejošajām vēstulēm tiks pievienots Jūsu PGP Publiskās atslēgas kopija (ja tāda eksistē). Noklusēto darbību varat iestatīt PGP iestatījumu lapā. 
-    </para>
-</entry>
-
-    <entry id="pgp-option-scan-body" state="uptodate">
-    <title>PGP: Pārbaudīt vēstules tekstu</title>
-    <heading>Pārbaudīt vēstules tekstu</heading>
-    <para>
-    Ja atzīmēts šis iestatījums, IMP meklēs PGP datus visu vēstuļu tekstos un parādīs datus, ja tādi tiks atrasti. Ņemiet vērā, ka tas var būtiski palēnināt darbību, jo ikviena vēstules tiks skanēta PGP datu meklējumos.
     </para>
 </entry>
 
@@ -417,14 +490,6 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     <heading>e-pasta adrese</heading>
     <para>
     E-pasta adrese, kas tiks saistīta ar personīgajām atslēgām.Obligāti aizpildāmais lauks.
-    </para>
-</entry>
-
-    <entry id="pgp-personalkey-create-keylength" state="uptodate">
-    <title>PGP: Izveidot Personīgo atslēgu - Atslēgas garums</title>
-    <heading>Atslēgas garums</heading>
-    <para>
-    Ģenerētās atslēgas garums bitos. Jo lielāka vērtība, jo lielāka drošība (vienlaikus arī ilgāks atslēgas ģenerēšanas un šifrēšanas laiks). Noklusētais lielums - 1024 biti - nodrošina pietiekamu drošības līmeni. Ja vēlaties palielināt atslēgas garumu, ieteicams to darīt ar 1024 bitu soli.
     </para>
 </entry>
 
@@ -665,13 +730,6 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     <title>Iestatījumi: Attēlu aizvietošana</title>
     <para>
     Apskatot vēstules iekļautā veidā, bloķēt visus attēlus līdz brīdim, kad pieprasīsiet to attēlošanu? Ņemiet vērā, ja izvēlēts režīms Rādīt kā pielikumu, attēli tiks rādīti vienmēr.
-    </para>
-</entry>
-
-    <entry id="prefs-mailbox_start" state="uptodate">
-    <title>Iestatījumi: Pastkastes pirmā lapa</title>
-    <para>
-    Nosaka, kura pastkastes lapa tiks atvērta pieslēdzoties pastkastei.
     </para>
 </entry>
 

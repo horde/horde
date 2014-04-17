@@ -188,21 +188,6 @@
     </para>
 </entry>--></entry>
 
-    <entry id="pgp-option-scan-body" state="unknown">
-    <title>PGP: Vyhledávání v Textu Zprávy</title>
-    <heading>Vyhledávání v Textu Zprávy</heading>
-    <para>
-	Pokud je tato volba vybrána, IMP bude vyhledávat PGP data v textu zprávy a budou zobrazeny v případě nálezu. Tento proces může zpomalit celý systém, protože každá zpráva bude kompletně prohledána, zdali obsahule PGP data.
-    </para>
-<!-- English entry:
-<entry id="pgp-option-scan-body">
-    <title>PGP: Scan Text Bodies</title>
-    <heading>Scan Text Bodies</heading>
-    <para>
-    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found.  Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
-    </para>
-</entry>--></entry>
-
     <entry id="pgp-option-reply-pubkey" state="new">
     <title>PGP: Validate PGP Public Keys When Replying</title>
     <heading>Validate PGP Public Keys When Replying</heading>
@@ -486,21 +471,6 @@
     <heading>E-mail Address</heading>
     <para>
     The e-mail address you want associated with your personal keys. A required field.
-    </para>
-</entry>--></entry>
-
-    <entry id="pgp-personalkey-create-keylength" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Délka Klíče</title>
-    <heading>Délka Klíče</heading>
-    <para>
-	Zadejte délku Vašeho klíče v Bytech. Čím větší hodnota, tím větší ochrana (také delší čas generování a kódování). Implicitní hodnota je 1024 bytů, tato hodnota poskytuje výbornou ochranu.
-    </para>
-<!-- English entry:
-<entry id="pgp-personalkey-create-keylength">
-    <title>PGP: Create Personal Key - Keylength</title>
-    <heading>Keylength</heading>
-    <para>
-    The keylength, in bytes, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bytes is the default - this value provides excellent protection.
     </para>
 </entry>--></entry>
 
@@ -796,13 +766,6 @@
             For messages displayed inline (i.e. on the message view page), should all image tags be blocked until you specifically decide to view those images? Note that, if explicitly viewing the attachment, images will always be displayed.
         </para>
     </entry>
-
-    <entry id="prefs-mailbox_start" state="new">
-    <title>Preferences: Mailbox Start Page</title>
-    <para>
-    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time. Note that the 'unseen' message options do not work with the 'Thread' sorting option - instead, you will be sent to the last page.
-    </para>
-</entry>
 
     <entry id="prefs-save_attachments" state="new">
     <title>Preferences: Save Attachments on Sent Messages</title>
