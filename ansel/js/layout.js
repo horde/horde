@@ -23,8 +23,8 @@
 AnselLayout = {
 
     // Wrapper element that contains the gallery display:
+    // <div id="anselSizer"></div>
     // <div id="anselLayoutMain">
-    //   <div class="anselSizer"></div>
     //   <div class="anselRow"</div>
     //   <div class="anselRow"></div>
     // </div>
@@ -69,7 +69,7 @@ AnselLayout = {
     {
         var rows = $(AnselLayout.container).select(AnselLayout.rowSelector),
             rowWidth = $(AnselLayout.hiddenDiv).getWidth(), scaledWidths = [], baseLine = 0,
-            rowNum = 0;
+            rowNum = 0, newRow;
 
         if (!AnselLayout.images.length) {
             return;
@@ -116,8 +116,8 @@ AnselLayout = {
 
             // Fill the row with the images we know can fit.
             while (imgNumber < imgCntRow) {
-                var photo = AnselLayout.images[baseLine + imgNumber],
-                    newwt = Math.floor(scaledWidths[baseLine + imgNumber] * ratio);
+                var photo = AnselLayout.images[baseLine + imgNumber], newwt;
+                newwt = Math.floor(scaledWidths[baseLine + imgNumber] * ratio);
 
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt + AnselLayout.border * 2;
@@ -131,6 +131,15 @@ AnselLayout = {
                             width: newwt,
                             height: newht
                         }).setStyle({margin: AnselLayout.border + "px"});
+
+                    // When ratio >= 1, we didn't have enough images to finish
+                    // out the row. Set the height to the maximum we can and
+                    // let the browser do the width scale.
+                    if (ratio >= 1) {
+                        img.style.width = 'auto';
+                        img.style.height = Math.min(AnselLayout.maxHeight, photo.height_s) + 'px';
+                    }
+
                     d_row.insert(img);
                 })();
                 imgNumber++;
@@ -161,6 +170,12 @@ AnselLayout = {
             // set row height to actual height + margins
             d_row.height = newht + AnselLayout.border * 2;
             baseLine += imgCntRow;
+
+            if (rowNum == rows.length && baseLine < AnselLayout.images.length) {
+                newRow = d_row.clone();
+                $(AnselLayout.container).insert(newRow);
+                rows.push(newRow);
+            }
         }
     },
 

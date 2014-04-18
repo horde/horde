@@ -37,9 +37,6 @@
     <div id="anselViewImages" style="display;none;">
         <div id="anselImagesMain">
           <div class="anselRow"></div>
-          <div class="anselRow"></div>
-          <div class="anselRow"></div>
-          <div class="anselRow"></div>
         </div>
     </div>
     <!-- End Images -->
