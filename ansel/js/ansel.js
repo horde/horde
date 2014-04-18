@@ -83,7 +83,6 @@ AnselCore = {
     {
         var subview;
 
-        console.log(['go', fullloc, this.openLocation, data, this.subview]);
         if (!data) {
             data = 'images';
         }
@@ -245,7 +244,6 @@ AnselCore = {
      */
     closeView: function(loc, subview)
     {
-        console.log(['closeView', loc, subview]);
         $w('Me Groups Subscribed').each(function(a) {
             a = $('anselNav' + a);
             if (a) {
