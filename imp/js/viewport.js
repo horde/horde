@@ -562,7 +562,8 @@ var ViewPort = Class.create({
 
             this.opts.list_container.setStyle({
                 cssFloat: 'none',
-                height: (h + (lh * this.page_size)) + 'px'
+                height: (h + (lh * this.page_size)) + 'px',
+                width: 'auto'
             });
             this.opts.content.setStyle({ width: 'auto' });
             break;
