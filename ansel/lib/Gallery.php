@@ -740,6 +740,8 @@ class Ansel_Gallery implements Serializable
      */
     public function getKeyImage(Ansel_Style $style = null)
     {
+        global $injector;
+
         if (is_null($style)) {
             $style = $this->getStyle();
         }
@@ -760,7 +762,8 @@ class Ansel_Gallery implements Serializable
             }
 
             // Don't already have one, must generate it.
-            $params = array('gallery' => $this, 'style' => $style);
+            $default = $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
+            $params = array('gallery' => $this, 'style' => $style, 'image' => $injector->getInstance('Ansel_Storage')->getImage($default));
             try {
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
