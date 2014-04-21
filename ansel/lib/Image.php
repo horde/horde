@@ -399,7 +399,7 @@ class Ansel_Image Implements Iterator
         if (empty($style)) {
             $style = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery)
+                ->getGallery(abs($this->gallery))
                 ->getStyle();
         }
 
