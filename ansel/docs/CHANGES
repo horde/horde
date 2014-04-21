@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[mjr] Fix displaying of ECard link in image view (Bug #13128).
 [jan] Fix watermark font size preference.
 
 
