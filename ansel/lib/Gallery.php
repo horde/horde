@@ -783,7 +783,7 @@ class Ansel_Gallery implements Serializable
             } catch (Ansel_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
-                Horde::log($e->getMessage(), 'DEBUG');
+                Horde::log($e->getMessage(), 'ERR');
                 if ($style->keyimage_type != 'plain') {
                     return $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
                 }
