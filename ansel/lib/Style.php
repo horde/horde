@@ -79,8 +79,10 @@ class Ansel_Style
     {
         if ($property == 'keyimage_type') {
             // Force the same type of effect for key image/stacks if available
-            $class = $this->_properties['thumbstyle'] . 'Stack';
-            if (!class_exists('Ansel_ImageGenerator_' . $class)) {
+            $class = (!empty($this->_properties['thumbstyle']) ? $this->_properties['thumbstyle'] : '') . 'Stack';
+            if (!empty($this->_properties['thumbstyle']) && !class_exists('Ansel_ImageGenerator_' . $class)) {
+                $class = $this->_properties['thumbstyle'];
+            } elseif (!class_exists('Ansel_ImageGenerator_' . $class)) {
                 $class = 'Thumb';
             }
 
