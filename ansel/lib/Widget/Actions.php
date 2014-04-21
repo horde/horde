@@ -63,10 +63,11 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             } else {
                 // Get any date info the gallery has
                 $date = $this->_view->gallery->getDate();
+                $imgs = $this->_view->gallery->listImages(0, 1);
                 $view->slideshow_url = Horde::url('view.php')
                     ->add(array_merge(
                         array('gallery' => $id,
-                              'image' => array_pop($this->_view->gallery->listImages(0, 1)),
+                              'image' => array_pop($imgs),
                               'view' => 'Slideshow'),
                         $date));
             }
