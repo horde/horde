@@ -63,16 +63,20 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
             $i = 0;
             foreach ($results as $result) {
                 $img = $result['image'];
-                $rGal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($img->gallery);
-                if ($rGal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ))
-                $html .= Ansel::getUrlFor(
-                        'view',
-                         array('image' => $img->id,
-                               'view' => 'Image',
-                               'gallery' => $img->gallery,
-                               'slug' => $rGal->get('slug')),
-                         true)->link(array('title' =>  sprintf(_("%s from %s"), $img->filename, $rGal->get('name'))))
-                    . '<img src="'. Ansel::getImageUrl($img->id, 'mini', true) . '" alt="' . htmlspecialchars($img->filename) . '" /></a>';
+                try {
+                    $rGal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($img->gallery);
+                    if ($rGal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ))
+                    $html .= Ansel::getUrlFor(
+                            'view',
+                             array('image' => $img->id,
+                                   'view' => 'Image',
+                                   'gallery' => abs($img->gallery),
+                                   'slug' => $rGal->get('slug')),
+                             true)->link(array('title' =>  sprintf(_("%s from %s"), $img->filename, $rGal->get('name'))))
+                        . '<img src="'. Ansel::getImageUrl($img->id, 'mini', true) . '" alt="' . htmlspecialchars($img->filename) . '" /></a>';
+                } catch (Ansel_Exception $e) {
+                    Horde::log($e->getMessage(), 'ERR');
+                }
                 $i++;
             }
         }
