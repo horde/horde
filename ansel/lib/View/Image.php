@@ -207,6 +207,8 @@ class Ansel_View_Image extends Ansel_View_Ansel
      */
     protected function _prepare()
     {
+        global $conf;
+
         $this->_page = isset($this->_params['page']) ? $this->_params['page'] : 0;
         $this->_slug = $this->gallery->get('slug');
         $this->_date = $this->gallery->getDate();
@@ -254,13 +256,15 @@ class Ansel_View_Image extends Ansel_View_Ansel
             if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $this->_urls['delete'] = $imageActionUrl->copy()->add('actionID', 'delete');
             }
-            if (!empty($conf['ecard']['enable']) && !empty($this->_urls['ecard'])) {
+
+            if (!empty($conf['ecard']['enable'])) {
                 $this->_urls['ecard'] = Horde::url('img/ecard.php')->add(
                     array_merge(array('gallery' => $this->gallery->id,
                                       'image' => $this->resource->id),
                                 $this->_date)
                 );
             }
+
             if ($this->gallery->canDownload()) {
                 $this->_urls['download'] = Horde::url('img/download.php', true)->add('image', $this->resource->id);
             }
