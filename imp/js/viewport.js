@@ -1071,7 +1071,7 @@ var ViewPort = Class.create({
     // return: (integer) Number of rows in current view.
     getPageSize: function(type)
     {
-        var h;
+        var h, lh;
 
         switch (type) {
         case 'current':
@@ -1084,10 +1084,11 @@ var ViewPort = Class.create({
 
         case 'max':
             h = document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
+            lh = this._getLineHeight();
             if (this.split_pane.currbar && this.pane_mode == 'horiz') {
-                h -= this.split_pane.currbar.getHeight() + 2;
+                h -= this.split_pane.currbar.getHeight() + lh;
             }
-            return parseInt(h / this._getLineHeight(), 10);
+            return parseInt(h / lh, 10);
 
         default:
             return this.page_size;
