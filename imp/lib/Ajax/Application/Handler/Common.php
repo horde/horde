@@ -455,6 +455,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
 
             $result = $compose->ajax->getResponse($resume);
+            $this->_base->queue->attachment($compose->compose, $this->vars->type);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $this->_base->checkUidvalidity();
