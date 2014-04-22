@@ -78,6 +78,8 @@ v6.1.8
       view (João Machado <geral@jpaulo.eu>).
 [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view
       (João Machado <geral@jpaulo.eu>).
+[mms] Fix scrolling through large search mailboxes in dynamic view (Bug
+      #13138).
 [mms] Better handling of malformed message dates in mailbox listing (Bug
       #13114).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>).
