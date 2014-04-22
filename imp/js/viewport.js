@@ -528,7 +528,7 @@ var ViewPort = Class.create({
 
             /* Adapt splitbar width to current screen size. */
             sp.vert.width = sp.vert.width
-                ? Math.min(sp.vert.width, Math.max(0, w - 10))
+                ? Math.max(15, Math.min(w - 15, sp.vert.width))
                 : parseInt(w * 0.45, 10);
 
             h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
