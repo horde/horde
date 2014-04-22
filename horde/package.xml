@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
 * [jan] Fix fatal error in LDAP account portal block (Bug #12910).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
  </notes>
@@ -3811,6 +3812,7 @@
    <date>2014-03-07</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
 * [jan] Fix fatal error in LDAP account portal block (Bug #12910).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
    </notes>

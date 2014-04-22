@@ -2,6 +2,7 @@
 v5.1.7-git
 ----------
 
+[jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
 [jan] Fix fatal error in LDAP account portal block (Bug #12910).
 [jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>).
 
