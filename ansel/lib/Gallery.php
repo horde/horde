@@ -1,7 +1,17 @@
 <?php
 /**
- * Class to encapsulate a single gallery. Implemented as an extension of
- * the Horde_Share_Object class.
+ * Copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
+ * @package Ansel
+ */
+/**
+ * Class to encapsulate a single gallery.
  *
  * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
  *
@@ -9,6 +19,9 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
  * @package Ansel
  */
 class Ansel_Gallery implements Serializable

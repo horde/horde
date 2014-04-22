@@ -7,8 +7,19 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
+ * @category Horde
+ * @copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
+ * @package Ansel
+ */
+/**
+ * Class to describe a single Ansel image.
+ *
  * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
  * @package Ansel
  */
 class Ansel_Image Implements Iterator

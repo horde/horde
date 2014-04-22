@@ -768,7 +768,6 @@ class Ansel_Storage
      *                          with Horde_Perms::SHOW.
      * @param integer $limit    The maximum number of images to return
      * @param string $slugs     An array of gallery slugs.
-     * @param string $where     Additional where clause
      *
      * @return array An array of Ansel_Image objects
      * @throws Ansel_Exception
