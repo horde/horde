@@ -87,6 +87,10 @@ var DimpCore = {
             ins = {};
         p = $(p);
 
+        if (!p) {
+            return;
+        }
+
         ins[o.insert ? o.insert : 'after'] = elt;
         p.insert(ins);
 

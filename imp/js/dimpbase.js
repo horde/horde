@@ -4130,7 +4130,9 @@ var DimpBase = {
             DimpCore.addPopdown('button_forward', 'forward');
         }
 
-        new Drop('dropbase', this._mboxDropConfig);
+        if ($('dropbase')) {
+            new Drop('dropbase', this._mboxDropConfig);
+        }
 
         // See: http://www.thecssninja.com/javascript/gmail-dragout
         $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
