@@ -67,17 +67,19 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
 
         $expected = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body background="2">
+<html>
+ <body background="2">
   <div>
    Foo.
-   <img src="3"></div>
- </body></html>
-
+   <img src="3">
+  </div>
+ </body>
+</html>
 EOT;
 
         $this->assertEquals(
-            $expected,
-            $ob->returnHtml()
+            str_replace("\n", '', $expected),
+            str_replace("\n", '', $ob->returnHtml())
         );
     }
 
