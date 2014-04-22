@@ -1195,7 +1195,9 @@ class Ansel_Gallery implements Serializable
         if ($vMode != 'Normal') {
             $this->_setModeHelper('Normal');
         }
-        $style = Ansel::getStyleDefinition('ansel_mobile');
+        $horde_view = $GLOBALS['registry']->getView();
+
+        $style = Ansel::getStyleDefinition($horde_view == Horde_Registry::VIEW_DYNAMIC ? 'ansel_dynamic' : 'ansel_mobile');
 
         $json = new StdClass();
         $json->id = $this->id;
@@ -1204,6 +1206,7 @@ class Ansel_Gallery implements Serializable
         $json->dm = $this->get('last_modified');
         $json->d = $this->get('desc');
         $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
+        $json->kid = $this->getKeyImage($style);
         $json->imgs = array();
 
         // Parent

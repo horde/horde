@@ -40,6 +40,9 @@ AnselLayout = {
     // [{id: xx, width_s: xx, height_s: xx }]
     images: [],
 
+    // An array of galleries to display.
+    galleries: [],
+
     // Used internally to calculate viewport size changes.
     lastWidth: 0,
 
@@ -68,12 +71,18 @@ AnselLayout = {
     process: function()
     {
         var rows = $(AnselLayout.container).select(AnselLayout.rowSelector),
-            rowWidth = $(AnselLayout.hiddenDiv).getWidth(), scaledWidths = [], baseLine = 0,
-            rowNum = 0, newRow;
+            rowWidth = $(AnselLayout.hiddenDiv).getWidth(), scaledWidths = [],
+            baseLine = 0, imgBaseLine = 0, rowNum = 0, newRow;
 
-        if (!AnselLayout.images.length) {
+        if (!AnselLayout.images.length && !AnselLayout.galleries.size()) {
             return;
         }
+
+        // Gallery key images are always the same size, make sure
+        // we account for any we want to display.
+        AnselLayout.galleries.each(function(pair) {
+            scaledWidths.push(Ansel.conf.style['gallery-width']);
+        });
 
         // Calculate scaled image heights
         // @TODO, request newly sized images for certain size thresholds.
@@ -87,22 +96,26 @@ AnselLayout = {
         });
 
         while (rowNum++ < rows.length) {
-            // imgCntRow = number of images in this row
-            // imgNumber = the current image we are working on
-            // totalWidth = the total width of the current row
-            // ratio = the scale ratio
-            // newht = the new height of the scaled row
-            var d_row = rows[rowNum - 1], imgCntRow = 0, imgNumber = 0,
-                totalWidth = 0, ratio, newht;
+            // imgCntRow =   Number of images in this row.
+            // totalCntRow = Number of tiles in the current row.
+            // imgNumber =   The current image we are handling for the current
+            //               row.
+            // totalNumber = The current tile (image OR gallery) we are handling
+            //               for the current row.
+            // totalWidth =  The total width of the current row.
+            // ratio =       The scale ratio.
+            // newht =       The new height of the scaled row.
+            var d_row = rows[rowNum - 1], imgCntRow = 0, totalCntRow = 0,
+                imgNumber = 0, totalWidth = 0, totalNumber = 0, ratio, newht;
 
             d_row.update();
 
             // calculate width of images and number of images to view in this row.
             while (totalWidth * 1.1 < rowWidth) {
-                if (baseLine + imgCntRow >= scaledWidths.length) {
+                if (baseLine + totalCntRow >= scaledWidths.length) {
                     break;
                 }
-                totalWidth += scaledWidths[baseLine + imgCntRow++] + AnselLayout.border * 2;
+                totalWidth += scaledWidths[baseLine + totalCntRow++] + AnselLayout.border * 2;
             }
 
             // Ratio of actual width of row to total width of images to be used.
@@ -114,10 +127,39 @@ AnselLayout = {
             // new height
             newht = Math.floor(AnselLayout.maxHeight * ratio);
 
-            // Fill the row with the images we know can fit.
-            while (imgNumber < imgCntRow) {
-                var photo = AnselLayout.images[baseLine + imgNumber], newwt;
-                newwt = Math.floor(scaledWidths[baseLine + imgNumber] * ratio);
+            // Fill the row with the images we know can fit. Start with any
+            // gallery tiles we decided to show.
+            while (totalNumber < totalCntRow && (totalNumber + baseLine) < AnselLayout.galleries.size()) {
+                var keyImage = AnselLayout.galleries.get(totalNumber + 1).ki,
+                    newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
+
+                totalWidth += newwt + AnselLayout.border * 2;
+                // Create and insert image into current row.
+                (function() {
+                    var img = new Element('img',
+                        {
+                            class: 'ansel-photo',
+                            src: keyImage,
+                            width: newwt,
+                            height: newht
+                        }).setStyle({margin: AnselLayout.border + "px"});
+
+                    // When ratio >= 1, we didn't have enough images to finish
+                    // out the row. Set the height to the maximum we can and
+                    // let the browser do the width scale.
+                    if (ratio >= 1) {
+                        img.style.width = 'auto';
+                        img.style.height = Math.min(AnselLayout.maxHeight, Ansel.conf.style['gallery-width']) + 'px';
+                    }
+                    d_row.insert(img);
+                })();
+                totalNumber++;
+            }
+
+            // Move on to images?
+            while (totalNumber < totalCntRow && (imgNumber + imgBaseLine) <= AnselLayout.images.length) {
+                var photo = AnselLayout.images[imgBaseLine + imgNumber],
+                    newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt + AnselLayout.border * 2;
@@ -143,35 +185,44 @@ AnselLayout = {
                     d_row.insert(img);
                 })();
                 imgNumber++;
+                totalNumber++;
+                imgCntRow++;
             }
 
             // if total width is slightly smaller than
             // actual div width then add 1 to each
             // photo width till they match
-            imgNumber = 0;
+            totalNumber = 0;
             while (totalWidth < rowWidth) {
-                var imgs = d_row.select('img:nth-child(' + (imgNumber + 1) + ')');
+                var imgs = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
+                if (!imgs[0]) {
+                    break;
+                }
                 imgs[0].width = imgs[0].getWidth() + 1;
-                imgNumber = (imgNumber + 1) % imgCntRow;
+                totalNumber = (totalNumber + 1) % totalCntRow;
                 totalWidth++;
             }
 
             // if total width is slightly bigger than
             // actual div width then subtract 1 from each
             // photo width till they match
-            imgNumber = 0;
+            totalNumber = 0;
             while (totalWidth > rowWidth) {
-                var imgs = d_row.select('img:nth-child(' + (imgNumber + 1) + ')');
+                var imgs = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
+                if (!imgs[0]) {
+                    break;
+                }
                 imgs[0].width = imgs[0].getWidth() - 1;
-                imgNumber = (imgNumber + 1) % imgCntRow;
+                totalNumber = (totalNumber + 1) % totalCntRow;
                 totalWidth--;
             }
 
             // set row height to actual height + margins
             d_row.height = newht + AnselLayout.border * 2;
-            baseLine += imgCntRow;
+            baseLine += totalCntRow;
+            imgBaseLine += imgCntRow;
 
-            if (rowNum == rows.length && baseLine < AnselLayout.images.length) {
+            if (rowNum == rows.length && baseLine < (AnselLayout.images.length + AnselLayout.galleries.size())) {
                 newRow = d_row.clone();
                 $(AnselLayout.container).insert(newRow);
                 rows.push(newRow);

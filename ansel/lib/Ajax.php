@@ -50,6 +50,7 @@ class Ansel_Ajax
                 $app_urls[$app] = strval(Horde::url($registry->getInitialPage($app), true));
             }
         }
+        $style = Ansel::getStyleDefinition('ansel_dynamic');
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array_filter(array(
@@ -73,6 +74,9 @@ class Ansel_Ajax
                 'read' => Horde_Perms::READ,
                 'edit' => Horde_Perms::EDIT,
                 'delete' => Horde_Perms::DELETE
+            ),
+            'style' => array(
+                'gallery-width' => $style->width
             )
         ));
 

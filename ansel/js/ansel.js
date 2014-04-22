@@ -19,6 +19,7 @@ AnselCore = {
     map: null,
     mapInitialized: false,
     effectDur: 0.4,
+    galleries: null,
 
     /**
      * The location that was open before the current location.
@@ -141,7 +142,7 @@ AnselCore = {
                 // @TODO. Really want an appear effect, but I need to figure out
                 // how to calculate all the needed widths in AnselLayout.process
                 // when the parent element is hidden. Disconnecting/reconnecting
-                // from the DOM doesn't seem to work, as the widths are all
+                // from the DOM doesn't seem to work, as the widths are still
                 // wrong. For now, jush unhide the element.
                 $('anselView' + subview.capitalize()).show();
                 this.updateView(loc, subview);
@@ -210,11 +211,14 @@ AnselCore = {
             switch (data) {
             case 'images':
                 // HACK = @TODO check for gallery id, requery if needed. etc..
-                AnselLayout.images = Ansel.conf.galleries[1].imgs;
+                AnselLayout.images = Ansel.galleries[1].imgs;
+                AnselLayout.galleries = $H();
                 break;
             case 'galleries':
-                // HACK = @TODO, query and generate proper gallery tiles.
-                AnselLayout.images = [];//Ansel.conf.galleries[1].imgs;
+               AnselLayout.galleries = $H(Ansel.galleries);
+               // @TODO - only clear this on top level gallery display.
+               // need to populate this as we drill down in "gallery view".
+               AnselLayout.images = [];
             }
             AnselLayout.container = 'ansel' + data.capitalize() + 'Main';
             AnselLayout.resize();
@@ -777,7 +781,7 @@ AnselCore = {
 
     initialize: function(location, r)
     {
-        Ansel.conf.galleries = r;
+        Ansel.galleries = r;
         //TEMP HACK
         AnselLayout.images = r[1].imgs;
         //this.updateGalleryList();
@@ -787,7 +791,7 @@ AnselCore = {
 
 
         /* TEMP HACK */
-        this.go('me', 'images');
+        this.go('me', 'galleries');
         Element.observe(window, 'resize', AnselLayout.onResize);
         // /* Initialize the starting page. */
         // if (!location.empty()) {

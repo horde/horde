@@ -173,3 +173,12 @@ $styles['ansel_mobile'] = array(
     'width' => 75,
     'height' => 75,
 );
+
+$styles['ansel_dynamic'] = array(
+    'name' => 'ansel_dynamic',
+    'title' => '',
+    'thumbstyle' => 'SquareThumb',
+    'background' => 'none',
+    'width' => 300,
+    'height' => 300
+);
