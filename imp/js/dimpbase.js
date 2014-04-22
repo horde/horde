@@ -435,10 +435,13 @@ var DimpBase = {
             }.bind(this),
             container: container,
             onContent: function(r, mode) {
-                var bg, u,
+                var bg, escapeAttr, u,
                     thread = $H(this.viewport.getMetaData('thread')),
                     tsort = this.isThreadSort();
 
+                escapeAttr = function(s) {
+                    return s.escapeHTML().replace(/"/g, '&quot;');
+                };
                 r.status = r.subjectdata = '';
 
                 // Add thread graphics
@@ -452,11 +455,7 @@ var DimpBase = {
                 }
 
                 /* Generate the subject/status flags. */
-                if (r.flag) {
-                    escapeAttr = function(s) {
-                        return s.escapeHTML().replace(/"/g, '&quot;');
-                    };
-
+                if (r.flag && this.flags_o.size()) {
                     r.flag.each(function(a) {
                         var ptr = this.flags[a];
                         if (ptr.u) {
