@@ -2442,7 +2442,7 @@ var DimpBase = {
             }
 
             args = { right: e.memo.isRightClick() };
-            d.selectIfNoDrag = false;
+            d.fromClick = d.selectIfNoDrag = false;
 
             // Handle selection first.
             if (DimpCore.DMenu.operaCheck(e)) {
