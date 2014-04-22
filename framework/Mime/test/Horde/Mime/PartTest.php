@@ -362,6 +362,26 @@ C
         $this->assertTrue(isset($part['2']));
     }
 
+    public function testBug13117()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/bug13117.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertTrue(isset($part['2']));
+        $this->assertTrue(isset($part['2.0']));
+        $this->assertTrue(isset($part['2.1']));
+        $this->assertFalse(isset($part['2.2']));
+
+        $multipart = $part['2.0'];
+        $multipart->addPart(new Horde_Mime_Part());
+        $multipart->buildMimeIds('2.0');
+
+        $this->assertTrue(isset($part['2']));
+        $this->assertTrue(isset($part['2.0']));
+        $this->assertTrue(isset($part['2.1']));
+        $this->assertTrue(isset($part['2.2']));
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

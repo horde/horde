@@ -1584,7 +1584,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         } else {
             $this->setMimeId($id);
             $id = $id
-                ? $id . '.'
+                ? ((substr($id, -2) === '.0') ? substr($id, 0, -1) : ($id . '.'))
                 : '';
 
             if ($this->getType() == 'message/rfc822') {

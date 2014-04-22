@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-16</date>
+ <date>2014-04-22</date>
  <version>
   <release>2.3.1</release>
   <api>2.3.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix Horde_Mime_Part#buildMimeIds() when called on the base embedded object of a parent part (Bug #13117).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -328,6 +328,7 @@
        <file name="bug12536.txt" role="test" />
        <file name="bug12842_a.txt" role="test" />
        <file name="bug12842_b.txt" role="test" />
+       <file name="bug13117.txt" role="test" />
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
@@ -573,6 +574,7 @@
    <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
    <install as="Horde/Mime/fixtures/bug12842_a.txt" name="test/Horde/Mime/fixtures/bug12842_a.txt" />
    <install as="Horde/Mime/fixtures/bug12842_b.txt" name="test/Horde/Mime/fixtures/bug12842_b.txt" />
+   <install as="Horde/Mime/fixtures/bug13117.txt" name="test/Horde/Mime/fixtures/bug13117.txt" />
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
@@ -1279,10 +1281,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-16</date>
+   <date>2014-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix Horde_Mime_Part#buildMimeIds() when called on the base embedded object of a parent part (Bug #13117).
    </notes>
   </release>
  </changelog>
