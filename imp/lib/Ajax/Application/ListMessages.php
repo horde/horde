@@ -131,10 +131,13 @@ class IMP_Ajax_Application_ListMessages
 
         if ($is_search) {
             /* For search mailboxes, we need to invalidate all browser data
-             * and repopulate, since BUIDs may have changed. */
-             $args['cache'] = array();
-             $args['change'] = true;
-             $result->data_reset = $result->rowlist_reset = true;
+             * and repopulate on force update, since BUIDs may have
+             * changed (TODO: only do this if search mailbox has changed?). */
+            if (!empty($args['change'])) {
+                 $args['cache'] = array();
+                 $args['change'] = true;
+                 $result->data_reset = $result->rowlist_reset = true;
+            }
         } elseif (!$args['initial'] && $args['cacheid'] && $args['cache']) {
             /* Check for UIDVALIDITY expiration. If it has changed, we need to
              * purge the cached items on the browser. */
