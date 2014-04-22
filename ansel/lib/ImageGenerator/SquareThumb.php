@@ -15,6 +15,7 @@ class Ansel_ImageGenerator_SquareThumb extends Ansel_ImageGenerator
     public function __construct($params)
     {
         parent::__construct($params);
+
         $this->title = _("Square Thumbnails");
         if (empty($this->_params['width'])) {
             $this->_params['width'] = $this->_style->width;
@@ -36,6 +37,9 @@ class Ansel_ImageGenerator_SquareThumb extends Ansel_ImageGenerator
         } else {
             $size = min($this->_params['width'], $this->_params['height']);
         }
+
+        // Ensure the full image is loaded.
+        $this->_image->load();
 
         // Use smartcrop algorithm if we have it, otherwise a plain center crop.
         if (Ansel::isAvailable('SmartCrop') && $GLOBALS['conf']['image']['smartcrop']) {
