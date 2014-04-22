@@ -42,7 +42,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $cache_control = 'private';
     $no_notification = true;
 } elseif (!empty($_SERVER['PATH_INFO']) ||
-          in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
+          in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS', 'REPORT'))) {
     $serverType = 'Webdav';
 } elseif (!empty($_SERVER['CONTENT_TYPE'])) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
