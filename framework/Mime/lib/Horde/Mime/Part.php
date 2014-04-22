@@ -2018,8 +2018,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (!$opts['forcemime'] && !$hdrs->getValue('mime-version')) {
             $ob->setType('text/plain');
 
-            if (!$opts['no_body'] && !empty($body)) {
-                $ob->setContents($body);
+            if ($len = strlen($body)) {
+                if ($opts['no_body']) {
+                    $ob->setBytes($len);
+                } else {
+                    $ob->setContents($body);
+                }
             }
 
             return $ob;
@@ -2065,10 +2069,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $ob->setContentId($tmp);
         }
 
-        if (!$opts['no_body'] &&
-            !empty($body) &&
-            ($ob->getPrimaryType() != 'multipart')) {
-            $ob->setContents($body);
+        if (($len = strlen($body)) && ($ob->getPrimaryType() != 'multipart')) {
+            if ($opts['no_body']) {
+                $ob->setBytes($len);
+            } else {
+                $ob->setContents($body);
+            }
         }
 
         if (++$opts['level'] >= self::NESTING_LIMIT) {

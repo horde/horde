@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Correctly set size of part when using Horde_Mime_Part::parseMessage() and the &apos;no_body&apos; option.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1294,10 +1294,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-21</date>
+   <date>2014-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Correctly set size of part when using Horde_Mime_Part::parseMessage() and the &apos;no_body&apos; option.
    </notes>
   </release>
  </changelog>
