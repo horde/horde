@@ -60,9 +60,8 @@ class IMP_Contents_View
 
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
-            $mime = $this->_contents->getMIMEPart($val);
-            $name = $mime->getName(true);
-            if (!$name) {
+            $mime = $this->_getRawDownloadPart($val);
+            if (!($name = $mime->getName(true))) {
                 $name = sprintf(_("part %s"), $val);
             }
             $tosave[] = array(
@@ -92,15 +91,7 @@ class IMP_Contents_View
 
         $session->close();
 
-        $mime = $this->_contents->getMIMEPart($id);
-        if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
-            $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
-            $part = reset($render);
-            $mime->setContents($part['data'], array(
-                'encoding' => 'binary'
-            ));
-        }
-
+        $mime = $this->_getRawDownloadPart($id);
         $name = $this->_contents->getPartName($mime);
 
         /* Compress output? */
@@ -400,6 +391,30 @@ class IMP_Contents_View
         $params[self::VIEW_TOKEN_PARAM] = $session->getToken();
 
         return $params;
+    }
+
+    /* Internal methods. */
+
+    /**
+     * Get a MIME Part for use in creating download.
+     *
+     * @param string $id  MIME ID.
+     *
+     * @return Horde_Mime_Part  MIME part.
+     */
+    protected function _getRawDownloadPart($id)
+    {
+        $mime = $this->_contents->getMIMEPart($id);
+
+        if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
+            $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
+            $part = reset($render);
+            $mime->setContents($part['data'], array(
+                'encoding' => 'binary'
+            ));
+        }
+
+        return $mime;
     }
 
 }
