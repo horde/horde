@@ -53,6 +53,8 @@ The 'format' quota option has been removed.
 The 'cache_lifetime' option is now honored for the 'cache' and 'hashtable'
 caching backends.
 
+The 'interval' parameter has been added to the quota configuration.
+
 
 Configuration Options (conf.php)
 --------------------------------

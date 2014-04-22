@@ -22,25 +22,47 @@
  */
 class IMP_Quota_Ui
 {
+    /** Session key for interval data. */
+    const SESSION_INTERVAL_KEY = 'quota_interval';
+
     /**
      * Returns data needed to output quota.
      *
      * @param string $mailbox  Mailbox to query.
+     * @param boolean $force   If true, ignore 'interval' config option and
+     *                         force quota display.
      *
-     * @return array  Array with these keys: class, message, percent.
+     * @return array|boolean  Array with these keys: class, message, percent.
+     *                        Returns false if no updated quota information.
      */
-    public function quota($mailbox = null)
+    public function quota($mailbox = null, $force = true)
     {
-        global $injector;
+        global $injector, $session;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->config->quota) {
+        $qconfig = $injector->getInstance('IMP_Factory_Imap')->create()->config->quota;
+        if (!$qconfig) {
             return false;
         }
+
+        $qlist = array();
 
         if (!is_null($mailbox)) {
             $mailbox = IMP_Mailbox::get($mailbox);
             if ($mailbox->nonimap) {
                 return false;
+            }
+
+            if (!$force) {
+                $qlist = $session->get(
+                    'imp',
+                    self::SESSION_INTERVAL_KEY,
+                    $session::TYPE_ARRAY
+                );
+
+                if (isset($qlist[strval($mailbox)]) &&
+                    (time() < $qlist[strval($mailbox)])) {
+                    return false;
+                }
             }
         }
 
@@ -51,6 +73,9 @@ class IMP_Quota_Ui
             Horde::log($e, 'ERR');
             return false;
         }
+
+        $qlist[strval($mailbox)] = $qconfig['params']['interval'] + time();
+        $session->store('imp', self::SESSION_INTERVAL_KEY, $qlist);
 
         if (empty($quota)) {
             return false;

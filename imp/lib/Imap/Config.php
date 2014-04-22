@@ -145,6 +145,12 @@ class IMP_Imap_Config implements Serializable
 
         /* Normalize values. */
         switch ($name) {
+        case 'quota':
+            $value['params']['interval'] = isset($value['params']['interval'])
+                ? intval($value['params']['interval'])
+                : 900; // DEFAULT: 15 minutes
+            break;
+
         case 'preferred':
             if (!is_array($value)) {
                 $value = array($value);

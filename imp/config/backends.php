@@ -120,6 +120,8 @@
  *     - hide_when_unlimited: (boolean) True if you want to hide quota
  *                            output when the server reports an unlimited
  *                            quota.
+ *     - interval: (integer) Update quota information in the UI at this
+ *                 interval (in seconds). Defaults to 15 minutes.
  *     - unit: (string) What storage unit the quota messages should be
  *             displayed in.  One of:
  *               - GB

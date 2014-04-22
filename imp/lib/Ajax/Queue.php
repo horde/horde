@@ -99,9 +99,10 @@ class IMP_Ajax_Queue
     /**
      * Add quota information to response?
      *
+     * Array w/2 keys: mailbox, force
      * If null, never sends quota information.
      *
-     * @var string
+     * @var mixed
      */
     protected $_quota = false;
 
@@ -281,7 +282,7 @@ class IMP_Ajax_Queue
 
         /* Add quota information. */
         if ($this->_quota &&
-            ($quotadata = $injector->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
+            ($quotadata = $injector->getInstance('IMP_Quota_Ui')->quota($this->_quota[0], $this->_quota[1]))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),
@@ -535,11 +536,15 @@ class IMP_Ajax_Queue
      *
      * @param string|null $mailbox  Mailbox to query for quota. If null,
      *                              disables quota output.
+     * @param boolean $force        If true, force output. If false, output
+     *                              based on configured quota interval.
      */
-    public function quota($mailbox)
+    public function quota($mailbox, $force = true)
     {
         if (!is_null($this->_quota)) {
-            $this->_quota = $mailbox;
+            $this->_quota = is_null($mailbox)
+                ? null
+                : array($mailbox, $force);
         }
     }
 
