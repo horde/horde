@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-17 16:48+0900\n"
-"PO-Revision-Date: 2014-03-17 16:00+0900\n"
+"PO-Revision-Date: 2014-04-21 16:20+0900\n"
 "Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -1204,7 +1204,7 @@ msgstr "소유자"
 
 #: config/attributes.php:478 config/attributes.php:485
 msgid "PGP Public Key"
-msgstr "PHP 공개키"
+msgstr "PGP 공개키"
 
 #: config/attributes.php:618
 msgid "PTT"
