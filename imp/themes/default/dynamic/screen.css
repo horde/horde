@@ -420,6 +420,9 @@ div.vpRowVert div.msgSubject {
 .msgHeaders .subject {
     font-weight: bold;
 }
+#msgHeaderAtc td.label {
+    display: table-cell;
+}
 #msgHeaderAtc td.label a {
     font-weight: normal;
     padding-right: 2px;
