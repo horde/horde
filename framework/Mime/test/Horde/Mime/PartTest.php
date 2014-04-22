@@ -348,8 +348,8 @@ C
         $msg = file_get_contents(__DIR__ . '/fixtures/bug12536.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
-        $this->assertNotEmpty($part->getPart(0));
-        $this->assertEmpty($part->getPart(1));
+        $this->assertTrue(isset($part['0']));
+        $this->assertFalse(isset($part['1']));
     }
 
     public function testBug12842()
