@@ -12,12 +12,14 @@
    <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
    <input type="hidden" name="user" value="<?php echo $this->h($this->user) ?>" />
    <div data-role="fieldcontain">
+<?php if (count($this->identities) > 1): ?>
     <label for="imp-compose-identity"><?php echo _("From:") ?></label>
     <select id="imp-compose-identity" name="identity">
 <?php foreach ($this->identities as $identity): ?>
      <option value="<?php echo $this->h($identity['val']) ?>"<?php if ($identity['sel']) echo ' selected="selected"' ?>><?php echo $this->h($identity['label']) ?></option>
 <?php endforeach ?>
     </select>
+<?php endif; ?>
 
     <label for="imp-compose-to"><?php echo _("To:") ?></label>
     <div class="imp-compose-addr-div">

@@ -94,16 +94,20 @@
    </div>
 
    <table>
+<?php if (count($this->from_list) === 1): ?>
+    <?php echo $this->hiddenFieldTag('identity', $this->from_list[0]['val']) ?>
+<?php else: ?>
     <tr>
      <td class="label"><?php echo _("From") ?>:</td>
      <td>
       <select id="identity" name="identity">
-<?php foreach ($this->select_list as $v): ?>
+<?php foreach ($this->from_list as $v): ?>
        <?php echo $this->optionTag($v['val'], $this->h($v['label']), $v['sel']) ?>
 <?php endforeach; ?>
       </select>
-    </td>
+     </td>
     </tr>
+<?php endif; ?>
     <tr id="sendto">
      <td class="label">
       <span><?php echo _("To") ?>:</span>

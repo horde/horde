@@ -137,15 +137,15 @@ class IMP_Dynamic_Compose_Common
             $view->encrypt = $prefs->getValue('default_encrypt');
         }
 
-        $select_list = array();
+        $from_list = array();
         foreach ($identity->getSelectList() as $id => $from) {
-            $select_list[] = array(
+            $from_list[] = array(
                 'label' => $from,
                 'sel' => ($id == $selected_identity),
                 'val' => $id
             );
         }
-        $view->select_list = $select_list;
+        $view->from_list = $from_list;
 
         $view->signature = $identity->hasSignature(true);
         $view->sigExpanded = $prefs->getValue('signature_expanded');

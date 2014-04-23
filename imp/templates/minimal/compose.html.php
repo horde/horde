@@ -2,6 +2,7 @@
  <input type="hidden" name="composeCache" value="<?php echo $this->h($this->cacheid) ?>" />
  <input type="hidden" name="user" value="<?php echo $this->h($this->user) ?>" />
 
+<?php if (count($this->identities) > 1): ?>
  <p>
   <label for="identity">
    <?php echo _("From:") ?>
@@ -12,6 +13,7 @@
    </select>
   </label>
  </p>
+<?php endif; ?>
 
 <?php foreach ($this->hdrs as $val): ?>
  <p>
