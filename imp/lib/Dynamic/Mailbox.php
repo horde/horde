@@ -380,7 +380,34 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         );
 
         if (!$subscribe) {
-            unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
+            unset(
+                $context['ctx_mbox']['sub'],
+                $context['ctx_mbox']['unsub']
+            );
+        }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_IMPORT)) {
+            unset($context['ctx_mbox']['import']);
+        }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            unset(
+                $context['ctx_mbox']['_sep2'],
+                $context['ctx_mbox']['setflag'],
+                $context['ctx_mbox']['_sep3'],
+                $context['ctx_mbox']['poll'],
+                $context['ctx_mbox']['nopoll']
+            );
+        }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+            unset(
+                $context['ctx_mbox']['_sep7'],
+                $context['ctx_mbox']['size']
+            );
+        }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            unset(
+                $context['ctx_mbox']['_sep4'],
+                $context['ctx_mbox']['search']
+            );
         }
 
         /* Other Actions context menu. */

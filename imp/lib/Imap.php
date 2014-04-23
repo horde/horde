@@ -55,6 +55,7 @@ class IMP_Imap implements Serializable
     const ACCESS_ACL = 10;
     const ACCESS_DRAFTS = 11;
     const ACCESS_REMOTE = 12;
+    const ACCESS_IMPORT = 14;
 
     /* Default namespace. */
     const NS_DEFAULT = "\0default";
@@ -399,6 +400,7 @@ class IMP_Imap implements Serializable
 
         case self::ACCESS_DRAFTS:
         case self::ACCESS_FLAGS:
+        case self::ACCESS_IMPORT:
         case self::ACCESS_SEARCH:
         case self::ACCESS_UNSEEN:
             return $this->isImap();

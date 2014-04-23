@@ -1325,10 +1325,10 @@ var DimpBase = {
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
             if (DimpCore.conf.poll_alter) {
-                [ $('ctx_mbox_poll') ].invoke(tmp ? 'show' : 'hide');
-                [ $('ctx_mbox_nopoll') ].invoke(tmp ? 'hide' : 'show');
+                [ $('ctx_mbox_poll') ].compact().invoke(tmp ? 'show' : 'hide');
+                [ $('ctx_mbox_nopoll') ].compact().invoke(tmp ? 'hide' : 'show');
             } else {
-                $('ctx_mbox_poll', 'ctx_mbox_nopoll').invoke('hide');
+                $('ctx_mbox_poll', 'ctx_mbox_nopoll').compact().invoke('hide');
             }
 
             [ $('ctx_mbox_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
