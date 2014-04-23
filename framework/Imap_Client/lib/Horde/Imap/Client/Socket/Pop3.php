@@ -260,7 +260,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {
-                if (!empty($this->_init['authmethod'])) {
+                if (!empty($this->_init['authmethod']) &&
+                    ($e->getCode() != $e::LOGIN_UNAVAILABLE) &&
+                    ($e->getCode() != $e::POP3_TEMP_ERROR)) {
                     $this->_setInit();
                     return $this->login();
                 }
@@ -269,7 +271,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         throw new Horde_Imap_Client_Exception(
             Horde_Imap_Client_Translation::r("POP3 server denied authentication."),
-            $e->getCode() ? $e->getCode() : Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+            $e->getCode() ?: $e::LOGIN_AUTHENTICATIONFAILED
         );
     }
 
