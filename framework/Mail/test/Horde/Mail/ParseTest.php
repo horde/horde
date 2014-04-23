@@ -61,66 +61,60 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /* Test case for PEAR Mail:: bug #9137 */
-    public function testParseBug9137()
+    /**
+     * Test case for PEAR Mail:: bug #9137
+     *
+     * @dataProvider parseBug9137Provider
+     * */
+    public function testParseBug9137($name, $email)
     {
-        $addresses = array(
-            array('name' => 'John Doe', 'email' => 'test@example.com'),
-            array('name' => 'John Doe\\', 'email' => 'test@example.com'),
-            array('name' => 'John "Doe', 'email' => 'test@example.com'),
-            array('name' => 'John "Doe\\', 'email' => 'test@example.com'),
+        /* Throws Exception on error. */
+        $this->rfc822->parseAddressList(
+            '"' . addslashes($name) . '" <' . $email . '>'
         );
+    }
 
-        foreach ($addresses as $val) {
-            $address =
-                '"' . addslashes($val['name']) . '" <' . $val['email'] . '>';
+    public function parseBug9137Provider()
+    {
+        return array(
+            array('John Doe', 'test@example.com'),
+            array('John Doe\\', 'test@example.com'),
+            array('John "Doe', 'test@example.com'),
+            array('John "Doe\\', 'test@example.com')
+        );
+    }
 
-            /* Throws Exception on error. */
-            $this->rfc822->parseAddressList($address);
+    /**
+     * Test case for PEAR Mail:: bug #9137, take 2
+     *
+     * @dataProvider parseBug9137Take2Provider
+     */
+    public function testParseBug9137Take2($raw, $fail)
+    {
+        try {
+            $this->rfc822->parseAddressList($raw, array(
+                'validate' => true
+            ));
+            if ($fail) {
+                $this->fail('An expected exception was not raised.');
+            }
+        } catch (Horde_Mail_Exception $e) {
+            if (!$fail) {
+                $this->fail('An unexpected exception was raised.');
+            }
         }
     }
 
-    /* Test case for PEAR Mail:: bug #9137, take 2 */
-    public function testParseBug9137Take2()
+    public function parseBug9137Take2Provider()
     {
-        $addresses = array(
-            array(
-                'raw' => '"John Doe" <test@example.com>'
-            ),
-            array(
-                'raw' => '"John Doe' . chr(92) . '" <test@example.com>',
-                'fail' => true
-            ),
-            array(
-                'raw' => '"John Doe' . chr(92) . chr(92) . '" <test@example.com>'
-            ),
-            array(
-                'raw' => '"John Doe' . chr(92) . chr(92) . chr(92) . '" <test@example.com>',
-                'fail' => true
-            ),
-            array(
-                'raw' => '"John Doe' . chr(92) . chr(92) . chr(92) . chr(92) . '" <test@example.com>'
-            ),
-            array(
-                'raw' => '"John Doe <test@example.com>',
-                'fail' => true
-            )
+        return array(
+            array('"John Doe" <test@example.com>', false),
+            array('"John Doe' . chr(92) . '" <test@example.com>', true),
+            array('"John Doe' . chr(92) . chr(92) . '" <test@example.com>', false),
+            array('"John Doe' . chr(92) . chr(92) . chr(92) . '" <test@example.com>', true),
+            array('"John Doe' . chr(92) . chr(92) . chr(92) . chr(92) . '" <test@example.com>', false),
+            array('"John Doe <test@example.com>', true)
         );
-
-        foreach ($addresses as $val) {
-            try {
-                $this->rfc822->parseAddressList($val['raw'], array(
-                    'validate' => true
-                ));
-                if (!empty($val['fail'])) {
-                    $this->fail('An expected exception was not raised.');
-                }
-            } catch (Horde_Mail_Exception $e) {
-                if (empty($val['fail'])) {
-                    $this->fail('An unexpected exception was raised.');
-                }
-            }
-        }
     }
 
     public function testGeneralParsing()
@@ -554,36 +548,42 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBareMailboxWithoutDefaultDomainWithoutValidating()
+    /**
+     * @dataProvider bareMailboxWithoutDefaultDomainProvider
+     */
+    public function testBareMailboxWithoutDefaultDomainWithoutValidating($addr)
     {
-        $addresses = array('foo', 'foo@');
+        $res = $this->rfc822->parseAddressList($addr, array(
+            'default_domain' => null
+        ));
 
-        foreach ($addresses as $val) {
-            $res = $this->rfc822->parseAddressList($val, array(
-                'default_domain' => null
-            ));
-
-            $this->assertEquals(
-                'foo',
-                $res[0]->mailbox
-            );
-            $this->assertNull($res[0]->host);
-        }
+        $this->assertEquals(
+             'foo',
+            $res[0]->mailbox
+        );
+        $this->assertNull($res[0]->host);
     }
 
-    public function testBareMailboxWithoutDefaultDomainWhenValidating()
+    /**
+     * @dataProvider bareMailboxWithoutDefaultDomainProvider
+     */
+    public function testBareMailboxWithoutDefaultDomainWhenValidating($addr)
     {
-        $addresses = array('foo', 'foo@');
+        try {
+            $this->rfc822->parseAddressList($addr, array(
+                'default_domain' => null,
+                'validate' => true
+            ));
+            $this->fail('An expected exception was not raised.');
+        } catch (Horde_Mail_Exception $e) {}
+    }
 
-        foreach ($addresses as $val) {
-            try {
-                $this->rfc822->parseAddressList($val, array(
-                    'default_domain' => null,
-                    'validate' => true
-                ));
-                $this->fail('An expected exception was not raised.');
-            } catch (Horde_Mail_Exception $e) {}
-        }
+    public function bareMailboxWithoutDefaultDomainProvider()
+    {
+        return array(
+            array('foo'),
+            array('foo@')
+        );
     }
 
 }

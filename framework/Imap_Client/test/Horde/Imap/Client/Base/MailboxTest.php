@@ -166,22 +166,26 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testStatusEntriesAreAdditive()
+    /**
+     * @dataProvider statusEntriesAreAdditiveProvider
+     */
+    public function testStatusEntriesAreAdditive($val)
     {
-        $testing = array(
-            Horde_Imap_Client::STATUS_SYNCFLAGUIDS,
-            Horde_Imap_Client::STATUS_SYNCVANISHED
+        $this->ob->setStatus($val, array(1));
+        $this->ob->setStatus($val, array(2));
+
+        $this->assertEquals(
+            array(1, 2),
+            $this->ob->getStatus($val)
         );
+    }
 
-        foreach ($testing as $val) {
-            $this->ob->setStatus($val, array(1));
-            $this->ob->setStatus($val, array(2));
-
-            $this->assertEquals(
-                array(1, 2),
-                $this->ob->getStatus($val)
-            );
-        }
+    public function statusEntriesAreAdditiveProvider()
+    {
+        return array(
+            array(Horde_Imap_Client::STATUS_SYNCFLAGUIDS),
+            array(Horde_Imap_Client::STATUS_SYNCVANISHED)
+        );
     }
 
     public function testReset()

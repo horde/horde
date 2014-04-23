@@ -11,43 +11,55 @@
 
 class Horde_Text_Filter_Space2htmlTest extends PHPUnit_Framework_TestCase
 {
-    public function testSpace2html()
+    /**
+     * @dataProvider space2htmlProvider
+     */
+    public function testSpace2html($spaces, $results, $results_encode_all)
     {
-        $spaces = array(
-            'x x',
-            'x  x',
-            'x   x',
-            'x	x',
-            'x		x'
-        );
-
-        $results = array(
-            'x x',
-            'x&nbsp; x',
-            'x&nbsp; &nbsp;x',
-            'x&nbsp; &nbsp; &nbsp; &nbsp; x',
-            'x&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; x',
-        );
-
-        $results_encode_all = array(
-            'x&nbsp;x',
-            'x&nbsp;&nbsp;x',
-            'x&nbsp;&nbsp;&nbsp;x',
-            'x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x',
-            'x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x'
-        );
-
-        foreach ($spaces as $key => $val) {
-            $filter = Horde_Text_Filter::filter($val, 'space2html', array(
+        $this->assertEquals(
+            $results,
+            Horde_Text_Filter::filter($spaces, 'space2html', array(
                 'encode_all' => false
-            ));
-            $this->assertEquals($results[$key], $filter);
+            ))
+        );
 
-            $filter = Horde_Text_Filter::filter($val, 'space2html', array(
+        $this->assertEquals(
+            $results_encode_all,
+            Horde_Text_Filter::filter($spaces, 'space2html', array(
                 'encode_all' => true
-            ));
-            $this->assertEquals($results_encode_all[$key], $filter);
-        }
+            ))
+        );
+    }
+
+    public function space2htmlProvider()
+    {
+        return array(
+            array(
+                'x x',
+                'x x',
+                'x&nbsp;x'
+            ),
+            array(
+                'x  x',
+                'x&nbsp; x',
+                'x&nbsp;&nbsp;x'
+            ),
+            array(
+                'x   x',
+                'x&nbsp; &nbsp;x',
+                'x&nbsp;&nbsp;&nbsp;x'
+            ),
+            array(
+                'x	x',
+                'x&nbsp; &nbsp; &nbsp; &nbsp; x',
+                'x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x'
+            ),
+            array(
+                'x		x',
+                'x&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; x',
+                'x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x'
+            )
+        );
     }
 
 }

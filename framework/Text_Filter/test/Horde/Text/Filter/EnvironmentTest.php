@@ -11,25 +11,34 @@
 
 class Horde_Text_Filter_EnvironmentTest extends PHPUnit_Framework_TestCase
 {
-    public function testEnvironment()
+    public function setUp()
     {
-        $tests = array(
-            'Simple line' => 'Simple line',
-            'Inline %FOO% variable' => 'Inline bar variable',
-            '%FOO% at start' => 'bar at start',
-            'at end %FOO%' => 'at end bar',
-            '# %COMMENT% line' => '',
-            'Variable %FOO% with # comment %COMMENT%' => 'Variable bar with ',
-            'Simple line' => 'Simple line'
-        );
-
         putenv('COMMENT=comment');
         putenv('FOO=bar');
+    }
 
-        foreach ($tests as $key => $val) {
-            $filter = Horde_Text_Filter::filter($key, 'environment');
-            $this->assertEquals($val, $filter);
-        }
+    /**
+     * @dataProvider environmentProvider
+     */
+    public function testEnvironment($input, $expected)
+    {
+        $this->assertEquals(
+            $expected,
+            Horde_Text_Filter::filter($input, 'environment')
+        );
+    }
+
+    public function environmentProvider()
+    {
+        return array(
+            array('Simple line', 'Simple line'),
+            array('Inline %FOO% variable', 'Inline bar variable'),
+            array('%FOO% at start', 'bar at start'),
+            array('at end %FOO%', 'at end bar'),
+            array('# %COMMENT% line', ''),
+            array('Variable %FOO% with # comment %COMMENT%', 'Variable bar with '),
+            array('Simple line', 'Simple line')
+        );
     }
 
 }

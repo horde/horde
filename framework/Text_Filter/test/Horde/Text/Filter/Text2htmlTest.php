@@ -11,7 +11,20 @@
 
 class Horde_Text_Filter_Text2htmlTest extends PHPUnit_Framework_TestCase
 {
-    public function testText2html()
+    /**
+     * @dataProvider text2htmlProvider
+     */
+    public function testText2html($input, $level, $expected)
+    {
+        $this->assertEquals(
+            $expected,
+            Horde_Text_Filter::filter($input, 'text2html', array(
+                'parselevel' => $level
+            ))
+        );
+    }
+
+    public function text2htmlProvider()
     {
         $tests = array(
             'http://www.horde.org/foo/',
@@ -94,14 +107,14 @@ class Horde_Text_Filter_Text2htmlTest extends PHPUnit_Framework_TestCase
             )
         );
 
+        $out = array();
         foreach ($levels as $level => $results) {
             foreach ($tests as $key => $val) {
-                $filter = Horde_Text_Filter::filter($val, 'text2html', array(
-                    'parselevel' => $level
-                ));
-                $this->assertEquals($results[$key], $filter);
+                $out[] = array($val, $level, $results[$key]);
             }
         }
+
+        return $out;
     }
 
     public function testBug12253()
