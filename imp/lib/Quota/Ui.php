@@ -75,7 +75,7 @@ class IMP_Quota_Ui
         }
 
         $qlist[strval($mailbox)] = $qconfig['params']['interval'] + time();
-        $session->store('imp', self::SESSION_INTERVAL_KEY, $qlist);
+        $session->set('imp', self::SESSION_INTERVAL_KEY, $qlist);
 
         if (empty($quota)) {
             return false;
