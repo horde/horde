@@ -185,7 +185,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     case 'ul':
                     case 'dl':
                         ++$this->_indent;
-                        $out .= "\n\n" . $this->_node($doc, $child) . "\n\n";
+                        $out .= "\n" . $this->_node($doc, $child) . "\n";
                         --$this->_indent;
                         break;
 

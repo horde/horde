@@ -11,19 +11,84 @@
 
 class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
 {
-    public function testHtml2textVarious()
+    /**
+     * @dataProvider html2textProvider
+     */
+    public function testHtml2text($input, $expected)
     {
+        $filter = Horde_Text_Filter::filter($input, 'Html2text', array(
+            'width' => 70
+        ));
+        $this->assertEquals($expected, $filter);
+    }
+
+    public function html2textProvider()
+    {
+        $data = array(
+            array(
+                '<h1>Level 1 Header</h1>',
+                'LEVEL 1 HEADER'
+            ),
+            array(
+                '<h2>Level 2 Header</h2>',
+                'LEVEL 2 HEADER'
+            ),
+            array(
+                '<h3>Level 3 Header</h3>',
+                'LEVEL 3 HEADER'
+            ),
+            array(
+                '<h4>Level 4 Header</h4>',
+                'Level 4 Header'
+            ),
+            array(
+                '<h5>Level 5 Header</h5>',
+                'Level 5 Header'
+            ),
+            array(
+                '<h6>Level 6 Header</h6>',
+                'Level 6 Header'
+            ),
+            array(
+                '    Some text with leading and trailing whitespace  ',
+                'Some text with leading and trailing whitespace'
+            ),
+            array(
+                "A<br />B",
+                "A\nB"
+            ),
+            array(
+                "A\n<br />B\n",
+                "A\nB"
+            ),
+            array(
+                "\n\n<br />\n\n",
+                ""
+            ),
+            array(
+                '<hr />',
+                '-------------------------'
+            ),
+            array(
+                "<p>You can make various levels of heading by putting equals-signs before and\nafter the text (all on its own line):</p>",
+                "You can make various levels of heading by putting equals-signs before\nand after the text (all on its own line):"
+            ),
+            array(
+                '<ul><li>Bullet one<ul><li>Sub-bullet</li></ul></li></ul>',
+                "  * Bullet one\n\n    * Sub-bullet"
+            ),
+            array(
+                '<ol><li>Numero uno</li><li>Number two<ol><li>Sub-item</li></ol></li></ol>',
+                "  * Numero uno\n  * Number two\n\n    * Sub-item"
+            ),
+            array(
+                '&auml; &eacute; &copy; &trade; &#x0110;',
+                'ä é © ™ Đ'
+            )
+        );
+
+        // Table
         $html = <<<EOT
-<h2>Inline Formatting</h2>
-
-    Some text with leading and trailing whitespace  
-
-<br />
-
-<hr />
-
-<h2>Table</h2>
-
 <table class="table">
     <tr>
         <th>Type</th>
@@ -54,57 +119,41 @@ class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
         <td class="table-cell"><u>underline text</u></td>
     </tr>
 </table>
+EOT;
+        $expected = <<<EOT
+          TYPE 	REPRESENTATION
+          emphasis text 	/emphasis text/
+          strong text 	STRONG TEXT
+          italic text 	/italic text/
+          bold text 	BOLD TEXT
+          emphasis and strong 	/EMPHASIS AND STRONG/
+          underline text 	_underline text_
+EOT;
+        $data[] = array($html, $expected);
 
-<hr />
-
-
-<h2>Links</h2>
+        // Links
+        $html = <<<EOT
 <a href="http://www.horde.org">Horde Homepage</a><br />
 <a href="mailto:test@example.com">Test User</a><br />
 Some inline <a href="http://www.horde.org">link</a>.<br />
 <a href="http://www.example.com">http://www.example.com</a><br />
-
-<hr />
-
-
-<h2>Headings</h2>
-<p>You can make various levels of heading by putting equals-signs before and
-after the text (all on its own line):</p>
-
-<h3>level 3 heading</h3>
-<h4>level 4 heading</h4>
-
-<h5>level 5 heading</h5>
-<h6>level 6 heading</h6>
-
-<hr />
+EOT;
+        $expected = <<<EOT
+Horde Homepage[1]
+Test User[2]
+Some inline link[1].
+http://www.example.com
 
 
-<h3>Bullet Lists</h3>
-<p>You can create bullet lists by starting a paragraph with one or more
-asterisks.</p>
+Links:
+------
+[1] http://www.horde.org
+[2] mailto:test@example.com
+EOT;
+        $data[] = array($html, $expected);
 
-<ul>
-    <li>Bullet one<ul>
-        <li>Sub-bullet</li>
-    </ul></li>
-</ul>
-
-<h3>Numbered Lists</h3>
-<p>Similarly, you can create numbered lists by starting a paragraph with one
-or more hashes.</p>
-
-<ol>
-    <li>Numero uno</li>
-    <li>Number two<ol>
-        <li>Sub-item</li>
-    </ol></li>
-
-</ol>
-
-<h3>Mixing Bullet and Number List Items</h3>
-<p>You can mix and match bullet and number lists:</p>
-
+        // Mixed lists
+        $html = <<<EOT
 <ol>
     <li>Number one<ul>
         <li>Bullet</li>
@@ -124,34 +173,66 @@ or more hashes.</p>
         <li>Bullet</li>
     </ul></li>
 </ol>
+EOT;
+        $expected = <<<EOT
+  * Number one
 
+    * Bullet
+    * Bullet
 
-<h2>Block quoting</h2>
+  * Number two
+
+    * Bullet
+    * Bullet
+
+      * Sub-bullet
+
+        * Sub-sub-number
+        * Sub-sub-number
+
+  * Number three
+
+    * Bullet
+    * Bullet
+EOT;
+        $data[] = array($html, $expected);
+
+        // Blockquote
+        $html = <<<EOT
 <blockquote type="cite">
 <a href="http://www.horde.org">Horde Homepage</a><br />
 Some inline <a href="http://www.horde.org">link</a>.<br />
 </blockquote>
+EOT;
+        $expected = <<<EOT
+> Horde Homepage[1]
+> Some inline link[1].
 
-Line inbetween.
-<br />
 
+
+Links:
+------
+[1] http://www.horde.org
+EOT;
+        $data[] = array($html, $expected);
+
+        $html = <<<EOT
 <blockquote type="cite">
 <h2>Heading inside quoting</h2>
 <p>This is a paragraph inside a block quoting. The result should be several
 lines prefixed with the &gt; character.</p>
 </blockquote>
+EOT;
+        $expected = <<<EOT
+> HEADING INSIDE QUOTING
+>
+> This is a paragraph inside a block quoting. The result should be
+> several lines prefixed with the > character.
+EOT;
+        $data[] = array($html, $expected);
 
-
-<h2>Special Characters</h2>
-
-<div>
-&auml;
-&eacute;
-&copy;
-&trade;
-&#x0110;
-</div>
-
+        // Complex examples
+        $html = <<<EOT
 <p>Zitat von John Doe &lt;john.doe@example.com&gt;:</p>
   <blockquote type="cite"> 
     <div class="Section1"> 
@@ -165,7 +246,25 @@ lines prefixed with the &gt; character.</p>
   <p> </p>
   <p class="imp-signature"><!--begin_signature-->-- <br />
 Some signature<br /><a target="_blank" href="http://www.example.com">http://www.example.com</a><!--end_signature--></p>
+EOT;
+        $expected = <<<EOT
+Zitat von John Doe <john.doe@example.com>:
 
+> Hallo lieber John,
+>
+>
+>
+> Blah, blah.'
+
+
+
+--
+Some signature
+http://www.example.com
+EOT;
+        $data[] = array($html, $expected);
+
+        $html = <<<EOT
 <p>Zitat von Jane Doe &lt;jane.doe@example.com&gt;:</p>
   <blockquote type="cite">
 Jan Schneider a écrit&nbsp;:<br/>
@@ -192,126 +291,12 @@ want user can create their external_cal<br />
 -- <br />
 Do you need professional PHP or Horde consulting?<br /> <a target="_blank" href="http://horde.org/consulting/">http://horde.org/consulting/</a><!--end_signature--></p>
 EOT;
-
-        $text = <<<EOT
-INLINE FORMATTING
-
-Some text with leading and trailing whitespace
-
--------------------------
-
-TABLE
-
-  TYPE 	REPRESENTATION
-  emphasis text 	/emphasis text/
-  strong text 	STRONG TEXT
-  italic text 	/italic text/
-  bold text 	BOLD TEXT
-  emphasis and strong 	/EMPHASIS AND STRONG/
-  underline text 	_underline text_
-
--------------------------
-
-LINKS
-
-Horde Homepage[1]
-Test User[2]
-Some inline link[1].
-http://www.example.com
-
--------------------------
-
-HEADINGS
-
-You can make various levels of heading by putting equals-signs before
-and after the text (all on its own line):
-
-LEVEL 3 HEADING
-
-Level 4 Heading
-
-Level 5 Heading
-
-Level 6 Heading
-
--------------------------
-
-BULLET LISTS
-
-You can create bullet lists by starting a paragraph with one or more
-asterisks.
-
-  * Bullet one
-
-    * Sub-bullet
-
-NUMBERED LISTS
-
-Similarly, you can create numbered lists by starting a paragraph with
-one or more hashes.
-
-  * Numero uno
-  * Number two
-
-    * Sub-item
-
-MIXING BULLET AND NUMBER LIST ITEMS
-
-You can mix and match bullet and number lists:
-
-  * Number one
-
-    * Bullet
-    * Bullet
-
-  * Number two
-
-    * Bullet
-    * Bullet
-
-      * Sub-bullet
-
-        * Sub-sub-number
-        * Sub-sub-number
-
-  * Number three
-
-    * Bullet
-    * Bullet
-
-BLOCK QUOTING
-
-> Horde Homepage[1]
-> Some inline link[1].
-
-Line inbetween.
-
-> HEADING INSIDE QUOTING
->
-> This is a paragraph inside a block quoting. The result should be
-> several lines prefixed with the > character.
-
-SPECIAL CHARACTERS
-
-ä é © ™ Đ
-
-Zitat von John Doe <john.doe@example.com>:
-
-> Hallo lieber John,
->
-> Blah, blah.'
-
-
-
---
-Some signature
-http://www.example.com
-
+        $expected = <<<EOT
 Zitat von Jane Doe <jane.doe@example.com>:
 
 > Jan Schneider a écrit :
 >
->> Zitat von Jane Doe <jane.doe@example.com>[3]:
+>> Zitat von Jane Doe <jane.doe@example.com>[1]:
 >>
 >>> Hi,
 >>>
@@ -336,14 +321,70 @@ http://horde.org/consulting/
 
 Links:
 ------
-[1] http://www.horde.org
-[2] mailto:test@example.com
-[3] mailto:jane.doe@example.com
+[1] mailto:jane.doe@example.com
+EOT;
+        $data[] = array($html, $expected);
+
+        $html = <<<EOT
+<p>Zitat von Roberto Maurizzi &lt;foo@example.com&gt;:</p>
+  <blockquote type="cite">
+    <div class="gmail_quote">
+      <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">
+        <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote"> 
+          <div class="Ih2E3d">
+            <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">4) In Turba, I can select a VFS driver to use. Currently it is set to<br />
+
+None and turba seems to be working fine. What does Turba use the VFS<br />
+for?<br /> </blockquote> 
+          </div>
+        </blockquote><br />
+You can attach files to contacts with that.<br /> <br />
+Jan.<br /><font color="#888888"> </font>
+      </blockquote>
+      <div><br /></div>
+    </div>Anything similar for Kronolith, maybe in the new version?<br />I've googled a little and only found a discussion in 2004 about having attachment (or links) from VFS in Kronolith.<br />
+I'd really like to be able to attach all my taxes forms to the day I have to pay them ;-) and more in general all the extra documentation regarding an appointment.<br /><br />Ciao,<br />&nbsp; Roberto<br /><br /> 
+  </blockquote> 
+  <p>Some unquoted line with single ' quotes.</p>
+  <p class="imp-signature"><!--begin_signature-->Jan.<br /> <br />
+-- <br />
+Do you need professional PHP or Horde consulting?<br /> <a target="_blank" href="http://horde.org/consulting/">http://horde.org/consulting/</a><!--end_signature--></p>
 EOT;
 
-        $filter = Horde_Text_Filter::filter($html, 'Html2text', array('width' => 70));
+        $expected = <<<EOT
+Zitat von Roberto Maurizzi <foo@example.com>:
 
-        $this->assertEquals($text, $filter);
+>>>> 4) In Turba, I can select a VFS driver to use. Currently it is
+>>>> set to
+>>>> None and turba seems to be working fine. What does Turba use the
+>>>> VFS
+>>>> for?
+>>
+>> You can attach files to contacts with that.
+>>
+>> Jan.
+>
+> Anything similar for Kronolith, maybe in the new version?
+> I've googled a little and only found a discussion in 2004 about
+> having attachment (or links) from VFS in Kronolith.
+> I'd really like to be able to attach all my taxes forms to the day
+> I have to pay them ;-) and more in general all the extra
+> documentation regarding an appointment.
+>
+> Ciao,
+>   Roberto
+
+Some unquoted line with single ' quotes.
+
+Jan.
+
+--
+Do you need professional PHP or Horde consulting?
+http://horde.org/consulting/
+EOT;
+        $data[] = array($html, $expected);
+
+        return $data;
     }
 
     public function testHtml2textLinks()
@@ -382,72 +423,6 @@ EOT;
             'width' => 0
         ));
         $this->assertEquals($text_nowrap, $filter);
-    }
-
-    public function testHtml2textQuoting()
-    {
-        $html = <<<EOT
-<p>Zitat von Roberto Maurizzi &lt;foo@example.com&gt;:</p>
-  <blockquote type="cite">
-    <div class="gmail_quote">
-      <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">
-        <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote"> 
-          <div class="Ih2E3d">
-            <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">4) In Turba, I can select a VFS driver to use. Currently it is set to<br />
-
-None and turba seems to be working fine. What does Turba use the VFS<br />
-for?<br /> </blockquote> 
-          </div>
-        </blockquote><br />
-You can attach files to contacts with that.<br /> <br />
-Jan.<br /><font color="#888888"> </font>
-      </blockquote>
-      <div><br /></div>
-    </div>Anything similar for Kronolith, maybe in the new version?<br />I've googled a little and only found a discussion in 2004 about having attachment (or links) from VFS in Kronolith.<br />
-I'd really like to be able to attach all my taxes forms to the day I have to pay them ;-) and more in general all the extra documentation regarding an appointment.<br /><br />Ciao,<br />&nbsp; Roberto<br /><br /> 
-  </blockquote> 
-  <p>Some unquoted line with single ' quotes.</p>
-  <p class="imp-signature"><!--begin_signature-->Jan.<br /> <br />
--- <br />
-Do you need professional PHP or Horde consulting?<br /> <a target="_blank" href="http://horde.org/consulting/">http://horde.org/consulting/</a><!--end_signature--></p>
-EOT;
-
-        $text = <<<EOT
-Zitat von Roberto Maurizzi <foo@example.com>:
-
->>>> 4) In Turba, I can select a VFS driver to use. Currently it is
->>>> set to
->>>> None and turba seems to be working fine. What does Turba use the
->>>> VFS
->>>> for?
->>
->> You can attach files to contacts with that.
->>
->> Jan.
->
-> Anything similar for Kronolith, maybe in the new version?
-> I've googled a little and only found a discussion in 2004 about
-> having attachment (or links) from VFS in Kronolith.
-> I'd really like to be able to attach all my taxes forms to the day
-> I have to pay them ;-) and more in general all the extra
-> documentation regarding an appointment.
->
-> Ciao,
->   Roberto
-
-Some unquoted line with single ' quotes.
-
-Jan.
-
---
-Do you need professional PHP or Horde consulting?
-http://horde.org/consulting/
-EOT;
-
-        $filter = Horde_Text_Filter::filter($html, 'Html2text', array(
-            'width' => 70
-        ));
-        $this->assertEquals($text, $filter);
     }
 
     public function testHtml2TextSpacing()
