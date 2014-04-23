@@ -12,7 +12,7 @@
  </lead>
  <date>2014-04-23</date>
  <version>
-  <release>2.19.4</release>
+  <release>2.19.5</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Handle IN-USE, LOGIN-DELAY, and SYS/TEMP error codes when authenticating to POP3 servers.
-* [mms] Fix TLS negotiation with POP3 servers.
-* [mms] Fix throwing authentication exception when using Digest-MD5.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2363,6 +2361,19 @@
 * [mms] Handle IN-USE, LOGIN-DELAY, and SYS/TEMP error codes when authenticating to POP3 servers.
 * [mms] Fix TLS negotiation with POP3 servers.
 * [mms] Fix throwing authentication exception when using Digest-MD5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.5</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
