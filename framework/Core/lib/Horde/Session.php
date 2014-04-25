@@ -420,10 +420,11 @@ class Horde_Session
         if (($mask & self::ENCRYPT) ||
             is_object($value) || ($mask & self::TYPE_OBJECT) ||
             is_array($value) || ($mask & self::TYPE_ARRAY)) {
-            $value = $injector->getInstance('Horde_Pack')->pack($value, array(
-                'compress' => 0,
-                'phpob' => (is_object($value) || ($mask & self::TYPE_OBJECT))
-            ));
+            $opts = array('compress' => 0);
+            if (is_object($value) || ($mask & self::TYPE_OBJECT)) {
+                $opts['phpob'] = true;
+            }
+            $value = $injector->getInstance('Horde_Pack')->pack($value, $opts);
 
             if ($mask & self::ENCRYPT) {
                 $secret = $injector->getInstance('Horde_Secret');
