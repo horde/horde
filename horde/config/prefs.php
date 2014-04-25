@@ -758,7 +758,7 @@ $_prefs['activesync_replyposition'] = array(
 );
 // Handled by the special.
 $_prefs['activesync_identity'] = array(
-    'value' => 0
+    'value' => $GLOBALS['prefs']->getValue('default_identity')
 );
 
 
