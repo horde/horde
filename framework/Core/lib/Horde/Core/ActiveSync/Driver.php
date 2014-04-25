@@ -1179,7 +1179,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw new Horde_ActiveSync_Exception($e->getMessage());
             }
-            if (is_array($recipients)) {
+            if (is_array($recipients) && count($recipients)) {
                 $row = array_pop(array_pop($recipients));
                 if (!count($row)) {
                     $row = array();
