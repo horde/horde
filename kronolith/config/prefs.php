@@ -32,7 +32,7 @@ $prefGroups['sync'] = array(
     'column' => _("Calendars"),
     'label' => _("Synchronization Preferences"),
     'desc' => _("Choose the calendars to use for synchronization with external devices."),
-    'members' => array('sync_calendars', 'activesync_no_multiplex'),
+    'members' => array('sync_calendars', 'activesync_no_multiplex', 'activesync_identity'),
 );
 
 $prefGroups['event_options'] = array(
@@ -518,3 +518,12 @@ $_prefs['purge_events_keep'] = array(
 );
 
 // End Login Tasks preferences
+
+$_prefs['activesync_identity'] = array(
+    'value' => $GLOBALS['prefs']->getValue('default_identity'),
+    'type' => 'enum',
+    'enum' => $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create($registry->getAuth())->getAll('id'),
+    'desc' => _("Choose the identity to use for ActiveSync. This determines the email address used as the ORGANIZER for events you create.")
+);
