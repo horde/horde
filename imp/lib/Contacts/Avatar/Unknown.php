@@ -26,7 +26,11 @@ class IMP_Contacts_Avatar_Unknown implements IMP_Contacts_Avatar_Backend
      */
     public function avatarImg($email)
     {
-        return Horde_Themes::img('unknown_contact.jpg');
+        $img = Horde_Themes::img('unknown_contact.jpg');
+        return array(
+            'desc' => '',
+            'url' => $img->uri
+        );
     }
 
 }
