@@ -1856,10 +1856,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $headers = $raw_message->getHeaders();
 
         // Always add From: since we allow selecting the identity.
-        if (!$headers->getValue('From') || !is_null($GLOBALS['prefs']->getValue('activesync_identity'))) {
-            $headers->removeHeader('From');
-            $headers->addHeader('From', $this->_getIdentityFromAddress());
-        }
+        $headers->removeHeader('From');
+        $headers->addHeader('From', $this->_getIdentityFromAddress());
 
         // Use the raw base part parsed from the rfc822 message if we don't
         // need a smart reply or smart forward. We MUST use the raw message body
@@ -3410,12 +3408,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     protected function _getIdentityFromAddress()
     {
+        global $prefs;
+
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($this->_user);
 
-        $name = $ident->getValue('fullname', $GLOBALS['prefs']->getValue('activesync_identity'));
-        $from_addr = $ident->getValue('from_addr', $GLOBALS['prefs']->getValue('activesync_identity'));
+        $as_ident = $prefs->getValue('activesync_identity');
+        $name = $ident->getValue('fullname', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
+        $from_addr = $ident->getValue('from_addr', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
 
         return $name . ' <' . $from_addr . '>';
     }

@@ -757,8 +757,10 @@ $_prefs['activesync_replyposition'] = array(
     }
 );
 // Handled by the special.
+// 'horde' = The horde configured default identity.
+// integer - The identity identifier.
 $_prefs['activesync_identity'] = array(
-    'value' => $GLOBALS['prefs']->getValue('default_identity')
+    'value' => 'horde'
 );
 
 

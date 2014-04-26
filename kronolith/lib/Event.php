@@ -1699,12 +1699,16 @@ abstract class Kronolith_Event
         // Organizer
         if (count($this->attendees)) {
             if ($this->creator == $registry->getAuth()) {
+                $as_ident = $prefs->getValue('activesync_identity') == 'horde'
+                    ? $prefs->getValue('default_identity')
+                    : $prefs->getValue('activesync_identity');
+
                 $name = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Identity')
-                    ->create($this->creator)->getValue('fullname', $prefs->getValue('activesync_identity'));
+                    ->create($this->creator)->getValue('fullname', $as_ident);
                 $email = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Identity')
-                    ->create($this->creator)->getValue('from_addr', $prefs->getValue('activesync_identity'));
+                    ->create($this->creator)->getValue('from_addr', $as_ident);
             } else {
                 $name = Kronolith::getUserName($this->creator);
                 $email = Kronolith::getUserEmail($this->creator);

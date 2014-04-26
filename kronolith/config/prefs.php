@@ -520,10 +520,10 @@ $_prefs['purge_events_keep'] = array(
 // End Login Tasks preferences
 
 $_prefs['activesync_identity'] = array(
-    'value' => $GLOBALS['prefs']->getValue('default_identity'),
+    'value' => 'horde',
     'type' => 'enum',
-    'enum' => $GLOBALS['injector']
+    'enum' => array_merge($GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Identity')
-                ->create($registry->getAuth())->getAll('id'),
+                ->create($registry->getAuth())->getAll('id'), array('horde' => _("Configured Horde Default"))),
     'desc' => _("Choose the identity to use for ActiveSync. This determines the email address used as the ORGANIZER for events you create.")
 );
