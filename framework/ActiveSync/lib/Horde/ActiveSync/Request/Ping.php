@@ -178,12 +178,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_decoder->getElementEndTag();
 
                     try {
-                        // Explicitly asked for a collection, make sure we have a key.
+                        // Explicitly asked for a collection, make sure we have
+                        // a key, but silently ignore the collection if we don't
+                        // Otherwise, this can set up a PING loop in broken
+                        // iOS clients that request collections in PING before
+                        // they issue an initial SYNC for them.
                         $collections->addCollection($collection, true);
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                        $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
-                        $this->_handleGlobalError();
-                        return true;
                     }
                 }
 
