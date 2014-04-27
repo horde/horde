@@ -12,7 +12,7 @@
  </lead>
  <date>2014-04-27</date>
  <version>
-  <release>2.14.1</release>
+  <release>2.14.2</release>
   <api>2.14.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve detection of Android devices for the purposes of determining support for non-multiplexed collections.
-* [mjr] Prevent possible PING loop due to PING requests incorrectly containing collections that haven&apos;t had a SYNC issued yet.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2084,6 +2083,19 @@
    <notes>
 * [mjr] Improve detection of Android devices for the purposes of determining support for non-multiplexed collections.
 * [mjr] Prevent possible PING loop due to PING requests incorrectly containing collections that haven&apos;t had a SYNC issued yet.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.14.2</release>
+    <api>2.14.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-04-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
