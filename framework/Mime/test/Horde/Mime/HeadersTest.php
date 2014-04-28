@@ -212,4 +212,35 @@ To: recipient2@example.com"
         $this->assertNotEmpty($hdrs->getValue('To'));
     }
 
+    public function testMultiplePriorityHeaders()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+            "Importance: High\n" .
+            "Importance: Low\n"
+        );
+
+        $this->assertInternalType(
+            'string',
+            $hdrs->getValue('importance', Horde_Mime_Headers::VALUE_BASE)
+        );
+        $this->assertEquals(
+            'High',
+            $hdrs->getValue('importance')
+        );
+
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+            "X-Priority: 1\n" .
+            "X-priority: 5\n"
+        );
+
+        $this->assertInternalType(
+            'string',
+            $hdrs->getValue('x-priority', Horde_Mime_Headers::VALUE_BASE)
+        );
+        $this->assertEquals(
+            '1',
+            $hdrs->getValue('x-priority')
+        );
+    }
+
 }

@@ -69,7 +69,7 @@ class Horde_Mime_Headers implements Serializable
     protected $_singleFields = array(
         // Mail: RFC 5322
         'to', 'from', 'cc', 'bcc', 'date', 'sender', 'reply-to',
-        'message-id', 'in-reply-to', 'references', 'subject', 'x-priority',
+        'message-id', 'in-reply-to', 'references', 'subject',
         // MIME: RFC 1864
         'content-md5',
         // MIME: RFC 2045
@@ -88,7 +88,12 @@ class Horde_Mime_Headers implements Serializable
         // MIME: RFC 3282
         'content-language',
         // MIME: RFC 3297
-        'content-alternative'
+        'content-alternative',
+        // Importance: See, e.g., RFC 4356 [2.1.3.3.1]
+        'importance',
+        // OTHER: X-Priority
+        // See: http://kb.mozillazine.org/Emulate_Microsoft_email_clients
+        'x-priority'
     );
 
     /**
