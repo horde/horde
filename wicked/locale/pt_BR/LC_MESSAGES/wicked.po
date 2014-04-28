@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: 2013-11-21 22:54-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -249,12 +249,12 @@ msgstr "Diferenciar Para"
 msgid "Diff for %s between %s and %s"
 msgstr "Diferenciar para %s entre %s e %s"
 
-#: lib/Page.php:590
+#: lib/Page.php:592
 #, php-format
 msgid "Display %s"
 msgstr "Exibir %s"
 
-#: lib/Page.php:596 lib/Page/StandardPage.php:386
+#: lib/Page.php:598 lib/Page/StandardPage.php:386
 #, php-format
 msgid "Display Version %s"
 msgstr "Exibir Versão %s"
@@ -638,7 +638,7 @@ msgstr "\"%s\" excluido com sucesso."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Versão %s de \"%s\" de \"%s\" apagada com sucesso."
 
-#: lib/Page.php:520
+#: lib/Page.php:522
 msgid "Table of Contents"
 msgstr "Índice"
 
@@ -683,9 +683,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
 
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
-#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:436 lib/Page.php:570
-#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
-#: lib/Page.php:664
+#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:438 lib/Page.php:572
+#: lib/Page.php:611 lib/Page.php:616 lib/Page.php:621 lib/Page.php:626
+#: lib/Page.php:666
 msgid "Unsupported"
 msgstr "Não suportado"
 

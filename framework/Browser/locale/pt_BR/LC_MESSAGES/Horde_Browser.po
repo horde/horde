@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2011-06-11 20:16-0300\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-04-26 18:26-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: pt_BR\n"
@@ -17,27 +17,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Browser.php:1123
+#: lib/Horde/Browser.php:1124
 msgid "File uploads not supported."
 msgstr "Envio de arquivos não é suportado."
 
-#: lib/Horde/Browser.php:1140
+#: lib/Horde/Browser.php:1141
 msgid "No file uploaded"
 msgstr "Nenhum arquivo enviado"
 
-#: lib/Horde/Browser.php:1150
+#: lib/Horde/Browser.php:1163
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "O arquivo enviado aparenta estar vazio. Ele pode não existir no seu "
 "computador."
 
-#: lib/Horde/Browser.php:1147
+#: lib/Horde/Browser.php:1185
+msgid ""
+"There was a problem with the file upload: Can't write the uploaded data to "
+"the server."
+msgstr ""
+"Houve um problema com o envio do arquivo: Impossível gravar a informação "
+"enviada no servidor."
+
+#: lib/Horde/Browser.php:1159
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr "Houve um problema com o envio do arquivo: Nenhum %s foi enviado."
 
-#: lib/Horde/Browser.php:1155
+#: lib/Horde/Browser.php:1170
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -46,9 +54,17 @@ msgstr ""
 "Houve um problema com o envio do arquivo. O %s era maior que o tamanho "
 "máximo permitido (%d bytes)."
 
-#: lib/Horde/Browser.php:1157
+#: lib/Horde/Browser.php:1173
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
 "Houve um problema com o envio do arquivo. O %s foi enviado parcialmente."
+
+#: lib/Horde/Browser.php:1177
+msgid ""
+"There was a problem with the file upload: The temporary folder used to store "
+"the upload data is missing."
+msgstr ""
+"Houve um problema com o envio do arquivo: A pasta temporária usada para "
+"armazenar a informação enviada não está presente."

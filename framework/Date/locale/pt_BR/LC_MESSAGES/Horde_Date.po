@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
-"PO-Revision-Date: 2011-06-11 20:34-0300\n"
+"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"PO-Revision-Date: 2014-04-26 18:28-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -43,6 +43,11 @@ msgid_plural "%d seconds ago"
 msgstr[0] "%d segundo atrás"
 msgstr[1] "%d segundos atrás"
 
+#: lib/Horde/Date/Recurrence.php:1647
+#, php-format
+msgid "%d times"
+msgstr "%d vezes"
+
 #: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
@@ -54,26 +59,115 @@ msgstr[1] "%d semanas atrás"
 msgid "Daily"
 msgstr "Diariamente"
 
-#: lib/Horde/Date.php:361
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "Daily: Recurs every"
+msgstr "Diariamente: Repete toda"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "Ends after"
+msgstr "Termina após"
+
+#: lib/Horde/Date/Recurrence.php:1649
+msgid "Exceptions on"
+msgstr "Exceções em"
+
+#: lib/Horde/Date.php:369 lib/Horde/Date.php:375
 #, php-format
 msgid "Failed to parse time string (%s)"
 msgstr "Falhou ao processar os cracteres de tempo (%s)"
+
+#: lib/Horde/Date/Recurrence.php:1631
+msgid "Friday"
+msgstr "Sexta-feira"
+
+#: lib/Horde/Date/Recurrence.php:1627
+msgid "Monday"
+msgstr "Segunda-feira"
 
 #: lib/Horde/Date/Recurrence.php:219
 msgid "Monthly"
 msgstr "Mensalmente"
 
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "Monthly: Recurs every"
+msgstr "Mensalmente: Repete a cada"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "No end date"
+msgstr "Nenhum data de término"
+
 #: lib/Horde/Date/Recurrence.php:212
 msgid "No recurrence"
 msgstr "Sem repetição"
+
+#: lib/Horde/Date/Recurrence.php:1632
+msgid "Saturday"
+msgstr "Sábado"
+
+#: lib/Horde/Date/Recurrence.php:1633
+msgid "Sunday"
+msgstr "Domingo"
+
+#: lib/Horde/Date/Recurrence.php:1630
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+#: lib/Horde/Date/Recurrence.php:1628
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+#: lib/Horde/Date/Recurrence.php:1629
+msgid "Wednesday"
+msgstr "Quarta-feira"
 
 #: lib/Horde/Date/Recurrence.php:216
 msgid "Weekly"
 msgstr "Semanalmente"
 
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "Weekly: Recurs every"
+msgstr "Semanalmente: Repete a cada"
+
 #: lib/Horde/Date/Recurrence.php:223
 msgid "Yearly"
 msgstr "Anualmente"
+
+#: lib/Horde/Date/Recurrence.php:1640 lib/Horde/Date/Recurrence.php:1642
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "Yearly: Recurs every"
+msgstr "Anualmente: Repete a cada"
+
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "day(s)"
+msgstr "dia(s)"
+
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "month(s)"
+msgstr "mês(es)"
+
+#: lib/Horde/Date/Recurrence.php:1636
+msgid "on the same date"
+msgstr "na mesma data"
+
+#: lib/Horde/Date/Recurrence.php:1638
+msgid "on the same weekday"
+msgstr "no mesmo dia da semana"
+
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "week(s) on:"
+msgstr "semana(s) em:"
+
+#: lib/Horde/Date/Recurrence.php:1640
+msgid "year(s) on the same date"
+msgstr "ano(s) na mesma data"
+
+#: lib/Horde/Date/Recurrence.php:1642
+msgid "year(s) on the same day of the year"
+msgstr "ano(s) no mesmo dia do ano"
+
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "year(s) on the same weekday and month of the year"
+msgstr "ano(s) no mesmo dia da semana e mês do ano"
 
 #: lib/Horde/Date/Utils.php:100
 #, php-format

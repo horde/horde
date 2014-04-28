@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-11-21 00:58-0200\n"
-"PO-Revision-Date: 2013-11-21 01:05-0300\n"
+"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"PO-Revision-Date: 2014-04-26 18:40-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -40,7 +40,7 @@ msgstr "\"%s\" não foi criado: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB usado de %.2fMB permitido (%.2f%%)"
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:206
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s e %s"
@@ -55,7 +55,7 @@ msgstr "%d dias até sua senha expirar."
 msgid "%d minutes"
 msgstr "%d minutos"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -67,7 +67,7 @@ msgstr[1] "%d pessoas gostam disso"
 msgid "%d to %d of %d"
 msgstr "%d a %d de %d"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:246
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-previsão do dia"
@@ -77,7 +77,7 @@ msgstr "%d-previsão do dia"
 msgid "%s - Notice"
 msgstr "%s - Nota"
 
-#: admin/config/config.php:28 admin/config/index.php:437
+#: admin/config/config.php:28 admin/config/index.php:458
 #, php-format
 msgid "%s Configuration"
 msgstr "%s Configuração"
@@ -171,7 +171,7 @@ msgstr "Formato 24 Horas"
 msgid "24 hours"
 msgstr "24 horas"
 
-#: config/prefs.php:492 config/prefs.php:494
+#: config/prefs.php:483 config/prefs.php:485
 msgid "24-hour format"
 msgstr "Formato 24-horas"
 
@@ -187,13 +187,13 @@ msgstr ""
 "Uma limpeza de dispositivo foi solicitada. O dispositivo será apagado na "
 "próxima tentariva de sincronização."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Uma nova verão (%s) existe."
 
-#: lib/Prefs/Special/Activesync.php:77
+#: lib/Prefs/Special/Activesync.php:90
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -210,27 +210,28 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Informação da Conta"
 
-#: config/prefs.php:334
+#: config/prefs.php:325
 msgid "Account Password"
 msgstr "Senha da Conta"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "Ações"
 
-#: config/prefs.php:739 lib/Application.php:200
+#: config/prefs.php:732 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:74
-msgid "ActiveSync Device Administration"
-msgstr "Administração de Dispositivos ActiveSync"
+#: admin/activesync.php:94
+msgid "ActiveSync Administration"
+msgstr "Administração de ActiveSync"
 
-#: admin/activesync.php:196 lib/Api.php:93
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
 msgstr "Dispositivos ActiveSync"
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:22 lib/Api.php:725 lib/Api.php:786
+#: lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
 msgstr "ActiveSync não ativado."
 
@@ -288,11 +289,11 @@ msgstr "\"%s\" adicionado ao sistema. Você pode entrar agora."
 msgid "Adding users is disabled."
 msgstr "Adicionar usuários desativado."
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Endereço"
 
-#: config/registry.php:132
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Contatos"
 
@@ -340,7 +341,7 @@ msgstr "Todos os usuários autenticados"
 msgid "All policy keys successfully reset."
 msgstr "Todas as chaves de política foram zeradas com sucesso."
 
-#: lib/Prefs/Special/Activesync.php:92
+#: lib/Prefs/Special/Activesync.php:105
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -352,10 +353,6 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr "Todas as sessões sincronizadas apagadas."
 
-#: lib/Application.php:216
-msgid "Allow"
-msgstr "Permitir"
-
 #: lib/Application.php:236
 msgid "Allow alphanumeric"
 msgstr "Permitir alfanumérico"
@@ -364,19 +361,23 @@ msgstr "Permitir alfanumérico"
 msgid "Allow any"
 msgstr "Permitir qualquer"
 
+#: lib/Application.php:215
+msgid "Allow non-provisionable devices"
+msgstr "Permitir dispositivos não-provisionáveis"
+
 #: lib/Application.php:235
 msgid "Allow only numeric"
 msgstr "Permitir somente número"
 
-#: config/prefs.php:694
+#: config/prefs.php:687
 msgid "Alternate IMSP Login"
 msgstr "Login IMSP alternativo"
 
-#: config/prefs.php:711
+#: config/prefs.php:704
 msgid "Alternate IMSP Password"
 msgstr "Senha IMSP alternativa"
 
-#: config/prefs.php:705
+#: config/prefs.php:698
 msgid "Alternate IMSP Username"
 msgstr "Nome de usuário IMSP alternativo"
 
@@ -396,7 +397,7 @@ msgstr "Aplicação"
 msgid "Application Context"
 msgstr "Contexto da Aplicação:"
 
-#: admin/config/index.php:245
+#: admin/config/index.php:250
 msgid "Application is ready."
 msgstr "Aplicação está pronta."
 
@@ -459,7 +460,7 @@ msgstr "Tentar apagar uma permissão não existente."
 msgid "Attempt to edit a non-existent permission."
 msgstr "Tentar editar uma permissão não existente."
 
-#: services/shares/edit.php:73
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "Tentar editar um compartilhamento não existente."
 
@@ -505,6 +506,10 @@ msgstr "Baltic (ISO-8859-13)"
 msgid "Basic"
 msgstr "Básico"
 
+#: templates/activesync/device_table.html.php:42
+msgid "Block"
+msgstr "Bloquear"
+
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
 msgstr "Ajustes de Bloco"
@@ -517,7 +522,7 @@ msgstr "Tipo de Bloco"
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:183
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Favoritos"
 
@@ -525,7 +530,7 @@ msgstr "Favoritos"
 msgid "Both"
 msgstr "Ambos"
 
-#: config/prefs.php:755
+#: config/prefs.php:753
 msgid "Bottom"
 msgstr "No fim"
 
@@ -533,7 +538,7 @@ msgstr "No fim"
 msgid "Browser"
 msgstr "Navegador"
 
-#: config/registry.php:118
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "Calendário"
 
@@ -550,7 +555,8 @@ msgstr "Cancelar"
 msgid "Cancel Problem Report"
 msgstr "Cancelar Relatório do Problema"
 
-#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
+#: templates/activesync/device_table.html.php:35
+#: templates/prefs/activesync.html.php:41
 msgid "Cancel Wipe"
 msgstr "Cancelar Limpeza"
 
@@ -560,7 +566,7 @@ msgstr ""
 "Impossível limpar automaticamente a senha, entre em contato com o seu "
 "administrador."
 
-#: config/prefs.php:516
+#: config/prefs.php:507
 msgid "Categories and Labels"
 msgstr "Categorias e Nomenclaturas"
 
@@ -576,7 +582,7 @@ msgstr "Central European (ISO-8859-2)"
 msgid "Change"
 msgstr "Alterar"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:128
 msgid "Change Location"
 msgstr "Alterar Localização"
 
@@ -584,7 +590,7 @@ msgstr "Alterar Localização"
 msgid "Change Your Password"
 msgstr "Mudar Sua Senha"
 
-#: config/prefs.php:273
+#: config/prefs.php:264
 msgid "Change your personal information."
 msgstr "Alterar suas informações pessoais."
 
@@ -604,7 +610,7 @@ msgstr "Verificar"
 msgid "Check for newer versions"
 msgstr "Procurar novas versões"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "Verificando"
 
@@ -616,20 +622,20 @@ msgstr "Chinese Simplified (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "Chinese Traditional (Big5)"
 
-#: services/obrowser/index.php:59
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "Escolher %s"
 
-#: config/prefs.php:484
+#: config/prefs.php:475
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Escolher como mostrar datas (formato abreviado):"
 
-#: config/prefs.php:460
+#: config/prefs.php:451
 msgid "Choose how to display dates (full format):"
 msgstr "Escolher como mostrar datas (formato cheio):"
 
-#: config/prefs.php:497
+#: config/prefs.php:488
 msgid "Choose how to display times:"
 msgstr "Escolher como mostrar horários:"
 
@@ -683,12 +689,12 @@ msgstr "Frequência de código de palavra"
 msgid "Collapse"
 msgstr "Contrair"
 
-#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
-#: templates/prefs/category.html.php:36
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Palheta de Cor"
 
-#: config/registry.php:247
+#: config/registry.php:249
 msgid "Comics"
 msgstr "Quadrinhos"
 
@@ -700,16 +706,20 @@ msgstr "Comando"
 msgid "Command Shell"
 msgstr "Comando de Shell"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:182
 #, php-format
 msgid "Comments: %d"
 msgstr "Comentários: %d"
+
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "Nome Comum"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Computadores"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:259
 msgid "Condition"
 msgstr "Condição"
 
@@ -725,19 +735,19 @@ msgstr "Configuração"
 msgid "Configuration Differences"
 msgstr "Diferenças de Configuração"
 
-#: config/prefs.php:721
+#: config/prefs.php:714
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Configuração para sincronizar PDAs, Smartphones e Outlook."
 
-#: admin/config/index.php:240
+#: admin/config/index.php:245
 msgid "Configuration is out of date."
 msgstr "Configuração está desatualizada."
 
-#: templates/admin/config/index.html.php:96
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "Scripts de atualização de configuração disponíveis"
 
-#: admin/config/index.php:180
+#: admin/config/index.php:182
 #, php-format
 msgid "Configure %s"
 msgstr "Configurar %s"
@@ -830,7 +840,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Não foi possível gravar configuração para \"%s\": %s"
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "País"
 
@@ -866,7 +876,7 @@ msgstr "Horário Atual"
 msgid "Current Weather"
 msgstr "Clima Atual"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:238
 msgid "Current condition"
 msgstr "Condição atual"
 
@@ -882,7 +892,7 @@ msgstr "Cyrillic (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillic/Ukrainian (KOI8-U)"
 
-#: admin/config/index.php:260 admin/config/index.php:312
+#: admin/config/index.php:265 admin/config/index.php:317
 msgid "DB access is not configured."
 msgstr "Acesso ao Banco de Dados não está configurado."
 
@@ -901,7 +911,7 @@ msgstr "Dados"
 msgid "Database"
 msgstr "Banco de Dados"
 
-#: lib/Block/Vatid.php:85
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Data"
 
@@ -914,16 +924,16 @@ msgstr "Data de Recebimento"
 msgid "Date: %s; time: %s"
 msgstr "Data: %s; hora: %s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:254
 msgid "Day"
 msgstr "Dia"
 
-#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
-#: config/prefs.php:491 themes/default/info.php:2
+#: config/prefs.php:379 config/prefs.php:400 config/prefs.php:413
+#: config/prefs.php:482 themes/default/info.php:2
 msgid "Default"
 msgstr "Padrão"
 
-#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "Cor Padrão"
 
@@ -931,11 +941,11 @@ msgstr "Cor Padrão"
 msgid "Default Shell"
 msgstr "Shell padrão"
 
-#: config/prefs.php:412
+#: config/prefs.php:403
 msgid "Default charset for sending e-mail messages:"
 msgstr "Caracteres padrão para mandar mensagens de e-mail:"
 
-#: config/prefs.php:305
+#: config/prefs.php:296
 msgid "Default location to use for location-aware features."
 msgstr ""
 "Localização padrão a usar para utilidades capazes de reconher localização."
@@ -957,7 +967,7 @@ msgstr "Definições"
 msgid "Delete"
 msgstr "Excluir"
 
-#: admin/alarms.php:133 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:208
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Excluir \"%s\""
@@ -966,7 +976,7 @@ msgstr "Excluir \"%s\""
 msgid "Delete All SyncML Data"
 msgstr "Exclui todos os dados SyncML"
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "Excluir Grupo"
 
@@ -986,37 +996,49 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Descreva o problema"
 
-#: config/registry.php:207
+#: config/registry.php:209
 msgid "Development"
 msgstr "Desenvolvimento"
 
-#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/activesync.html.php:28 templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "Aparelho"
 
-#: admin/activesync.php:122
-msgid "Device ID"
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
 msgstr "ID do Dispositivo"
 
-#: templates/prefs/activesync.html.php:23
+#: templates/activesync/device_table.html.php:7
+#: templates/prefs/activesync.html.php:31
 msgid "Device Information"
 msgstr "Informação do Dispositivo"
 
-#: templates/prefs/activesync.html.php:11
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
 msgstr "Gerenciador de Dispositivos"
+
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Tipo do Dispositivo"
 
 #: lib/Application.php:312
 msgid "Device encryption"
 msgstr "Cripografia de Dispositivo"
 
-#: templates/prefs/activesync.html.php:35
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "Dispositivo está Bloqueado."
+
+#: templates/prefs/activesync.html.php:43
 msgid "Device is Wiped"
 msgstr "Dispositivo está Limpo"
 
-#: admin/activesync.php:165
-msgid "Device is wiped"
-msgstr "Dispositivo está limpo"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
+"Dispositivo foi Limpo. Remova o estado do dispositivo para permitir "
+"reconexão dele."
 
 #: admin/activesync.php:46
 msgid "Device successfully removed."
@@ -1034,7 +1056,7 @@ msgstr "Ponto de Orvalho"
 msgid "Dew Point for last hour: "
 msgstr "Ponto de Orvalho para a última hora: "
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:189
 msgid "Dew point"
 msgstr "Temperatura de condensação"
 
@@ -1043,15 +1065,19 @@ msgstr "Temperatura de condensação"
 msgid "Disable"
 msgstr "Desabilitar"
 
-#: config/prefs.php:430
+#: lib/Application.php:216
+msgid "Disable (not recommended)"
+msgstr "Desabilitar (não recomendado)"
+
+#: config/prefs.php:421
 msgid "Display 24-hour times?"
 msgstr "Exibir em formato 24 horas?"
 
-#: config/prefs.php:541
+#: config/prefs.php:532
 msgid "Display Preferences"
 msgstr "Mostrar Preferências"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:95
 msgid "Display detailed forecast"
 msgstr "Exibir previsão detalhada"
 
@@ -1064,17 +1090,17 @@ msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
 "A primeira linha contém os nomes dos campos? Se sim, clique nesta caixa:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:77
 msgid "Don't have an account? Sign up."
 msgstr "Não tem uma conta? Inscreva-se."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "Download %s"
 msgstr "Baixar %s"
 
-#: admin/config/index.php:384
+#: admin/config/index.php:393
 msgid "Download generated configuration as PHP script."
 msgstr "Baixar a configuração gerada como um script PHP."
 
@@ -1109,11 +1135,11 @@ msgstr "Editar \"%s\""
 msgid "Edit Preferences for"
 msgstr "Editar Preferências para"
 
-#: services/shares/edit.php:252
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "Editar permissões"
 
-#: services/shares/edit.php:251 templates/shares/edit.inc:15
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Editar permissões para \"%s\""
@@ -1126,11 +1152,15 @@ msgstr "Educação"
 msgid "Email Address"
 msgstr "Endereço de E-Mail"
 
+#: lib/Application.php:214
+msgid "Enable"
+msgstr "Ativar"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Hora de Término"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:83
 msgid "English"
 msgstr "Inglês"
 
@@ -1138,7 +1168,7 @@ msgstr "Inglês"
 msgid "Enter a name for the new category:"
 msgstr "Insira um nome para a nova categoria:"
 
-#: config/prefs.php:351
+#: config/prefs.php:342
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1146,7 +1176,14 @@ msgstr ""
 "Forneça uma pergunta de segurança a qual você será perguntado se você "
 "necessitar gerar uma nova senha, ex. 'qual o nome do seu cachorro?':"
 
-#: services/twitter/index.php:27
+#: lib/Ajax/Application/FacebookHandler.php:264
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Erro ao conectar ao Facebook. Detalhes foram registrados no log para o "
+"administrador."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
 msgid ""
 "Error connecting to Twitter. Details have been logged for the administrator."
 msgstr ""
@@ -1179,27 +1216,27 @@ msgstr "Erro ao atualizar a senha: %s"
 msgid "Ethnic"
 msgstr "Étnico"
 
-#: services/facebook/index.php:189
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
 msgstr "Convites de Eventos:"
 
-#: config/prefs.php:599 templates/portal/layout.inc:101
+#: config/prefs.php:591 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Cada 15 minutos"
 
-#: config/prefs.php:618
+#: config/prefs.php:610
 msgid "Every 2 minutes"
 msgstr "Cada 2 minutos"
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
+#: config/prefs.php:588 config/prefs.php:608 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Cada 30 segundos"
 
-#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
+#: config/prefs.php:590 config/prefs.php:611 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Cada 5 minutos"
 
-#: config/prefs.php:600 templates/portal/layout.inc:102
+#: config/prefs.php:592 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Cada meia hora"
 
@@ -1207,7 +1244,7 @@ msgstr "Cada meia hora"
 msgid "Every hour"
 msgstr "De hora em hora"
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
+#: config/prefs.php:589 config/prefs.php:609 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Cada minuto"
 
@@ -1228,11 +1265,11 @@ msgstr "Expandir"
 msgid "Extra Large"
 msgstr "Muito grande"
 
-#: templates/admin/config/index.html.php:110
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
 msgstr "Upload de configuração FTP"
 
-#: config/prefs.php:642
+#: config/prefs.php:635
 msgid "Facebook Integration"
 msgstr "Integração Facebook"
 
@@ -1261,23 +1298,23 @@ msgstr "Sensação térmica"
 msgid "Fields to search"
 msgstr "Campos para procurar"
 
-#: config/registry.php:313
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Arquivos"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "Filtro"
 
-#: config/registry.php:89
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Filtros"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "Primeira Metade"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "Primeiro Quarto"
 
@@ -1285,15 +1322,11 @@ msgstr "Primeiro Quarto"
 msgid "Food"
 msgstr "Comida"
 
-#: lib/Application.php:215
-msgid "Force"
-msgstr "Forçar"
-
 #: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Previsão (TAF)"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:89
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1301,11 +1334,11 @@ msgstr ""
 "Dias Previstos (Note que a previsão retornada exibe ambos dia e noite; um "
 "número muito alto aqui pode resultar em um bloco extenso)"
 
-#: templates/login/login.inc:79
+#: templates/login/login.inc:84
 msgid "Forgot your password?"
 msgstr "Esqueceu a senha?"
 
-#: config/registry.php:342
+#: config/registry.php:344
 msgid "Forms"
 msgstr "Formulários"
 
@@ -1325,11 +1358,11 @@ msgstr "Sortes"
 msgid "Fortunes 2"
 msgstr "Sortes 2"
 
-#: config/registry.php:336
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Fóruns"
 
-#: services/facebook/index.php:188
+#: lib/Ajax/Application/FacebookHandler.php:62
 msgid "Friend Requests:"
 msgstr "Solicitações de Amigos:"
 
@@ -1337,12 +1370,12 @@ msgstr "Solicitações de Amigos:"
 msgid "Friends enabled."
 msgstr "Amigos habilitados."
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:215
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "A partir de %s (%s &deg;) em %s %s"
 
-#: lib/Block/Weather.php:318
+#: lib/Block/Weather.php:326
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "A partir de %s em %s %s"
@@ -1351,7 +1384,7 @@ msgstr "A partir de %s em %s %s"
 msgid "Full Description"
 msgstr "Descrição Completa"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Lua Cheia"
 
@@ -1368,7 +1401,7 @@ msgstr "Gerar a Configuração de %s"
 msgid "Generated Code"
 msgstr "Código Gerado"
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Obtenha Mais"
 
@@ -1405,7 +1438,7 @@ msgstr "Nome do grupo"
 msgid "Group was not created: %s."
 msgstr "Grupo não foi criado: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:270
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Grupos"
 
@@ -1425,7 +1458,7 @@ msgstr "Hebreu (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Altura"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr ""
 "Altura do conteúdo de fluxo (largura ajusta-se automaticamente ao bloco)"
@@ -1458,7 +1491,7 @@ msgstr "Esconder resultados"
 msgid "Home Directory"
 msgstr "Diretório principal"
 
-#: config/registry.php:76
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
@@ -1470,7 +1503,7 @@ msgstr "Quantos campos (colunas) existem?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Quantos segundos antes de buscar novos artigos?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
 msgstr "Umidade"
 
@@ -1478,12 +1511,20 @@ msgstr "Umidade"
 msgid "Humorists"
 msgstr "Humoristas"
 
-#: util/icon_browser.php:34
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
+
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "Ícones para %s"
 
-#: config/prefs.php:283
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "Identidade para usar ao enviar email por ActiveSync."
+
+#: config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Nome da identidade:"
 
@@ -1530,7 +1571,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Usuários individuais"
 
-#: config/registry.php:241
+#: config/registry.php:243
 msgid "Information"
 msgstr "Informação"
 
@@ -1538,15 +1579,15 @@ msgstr "Informação"
 msgid "Inherited Members"
 msgstr "Membros herdados"
 
-#: config/prefs.php:363
+#: config/prefs.php:354
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Forneça um endereço de e-mail no qual você pode receber a nova senha:"
 
-#: config/prefs.php:357
+#: config/prefs.php:348
 msgid "Insert the required answer to the security question:"
 msgstr "Forneça a resposta obrigatória para a pergunta de segurança:"
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "Formato do número de identificação VAT é inválido."
 
@@ -1567,7 +1608,7 @@ msgstr "Hash inválido."
 msgid "Invalid parent permission."
 msgstr "Permissões do pai são inválidas."
 
-#: config/registry.php:294
+#: config/registry.php:296
 msgid "Inventory"
 msgstr "Inventário"
 
@@ -1575,7 +1616,7 @@ msgstr "Inventário"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonês (ISO-2022-JP)"
 
-#: login.php:153
+#: login.php:167
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1599,7 +1640,7 @@ msgstr "Palavra-chave"
 msgid "Kids"
 msgstr "Crianças"
 
-#: config/registry.php:302
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1607,7 +1648,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Coreano (EUC-KR)"
 
-#: login.php:343 templates/login/login.inc:52
+#: login.php:364 templates/login/login.inc:57
 msgid "Language"
 msgstr "Idioma"
 
@@ -1615,7 +1656,7 @@ msgstr "Idioma"
 msgid "Large"
 msgstr "Grande"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Última Metade"
 
@@ -1623,11 +1664,12 @@ msgstr "Última Metade"
 msgid "Last Password Change"
 msgstr "Última troca de Senha"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Último Quarto"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/activesync/device_table.html.php:5
+#: templates/prefs/activesync.html.php:29
 msgid "Last Sync Time"
 msgstr "Última hora de sincronização"
 
@@ -1657,7 +1699,7 @@ msgstr "Último"
 msgid "Law"
 msgstr "Lei"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:225
 msgid "Like"
 msgstr "Gostar"
 
@@ -1705,16 +1747,16 @@ msgstr "Listagem de usuários está desabilitada."
 msgid "Literature"
 msgstr "Literatura"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:167
 #, php-format
-msgid "Local time: %s %s"
-msgstr "Hora local: %s %s"
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Hora local: %s %s (UTC %s)"
 
-#: config/prefs.php:372
+#: config/prefs.php:363
 msgid "Locale and Time"
 msgstr "Localidade e Hora"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:75
 msgid "Location"
 msgstr "Localidade"
 
@@ -1726,7 +1768,7 @@ msgstr "Bloquear Usuário"
 msgid "Locks"
 msgstr "Bloqueios"
 
-#: login.php:270 templates/login/login.inc:61
+#: login.php:291 templates/login/login.inc:66
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Conectar"
@@ -1739,11 +1781,11 @@ msgstr "Sair"
 msgid "Logged in to Facebook"
 msgstr "Entrou no Facebook"
 
-#: login.php:299
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "A conexão falhou porque seu usuário ou senha estava incorreta."
 
-#: login.php:295
+#: login.php:316
 msgid "Login failed."
 msgstr "Falha de Conexão."
 
@@ -1776,21 +1818,21 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Mágico"
 
-#: config/registry.php:81
+#: config/registry.php:82
 msgid "Mail"
 msgstr "Correio"
 
-#: config/registry.php:347
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Administrador do Correio"
 
-#: config/prefs.php:517
+#: config/prefs.php:508
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr "Gerencia a lista de categorias e as cores associadas a elas."
 
-#: config/prefs.php:740
+#: config/prefs.php:733
 msgid "Manage your ActiveSync devices."
 msgstr "Gerenciar seus dispositivos ActiveSync."
 
@@ -1822,7 +1864,7 @@ msgstr "Tamanho máximo de anexo"
 msgid "Maximum number of devices"
 msgstr "Número máximo de dispositivos"
 
-#: lib/Block/FbStream.php:66
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "Número máximo de registros para mostrar"
 
@@ -1846,7 +1888,7 @@ msgstr "Menções"
 msgid "Metar Weather"
 msgstr "Clima Metar"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:84
 msgid "Metric"
 msgstr "Métrica"
 
@@ -1866,7 +1908,7 @@ msgstr "Tamanho mínimo de PIN"
 msgid "Miscellaneous"
 msgstr "Diversos"
 
-#: admin/config/index.php:217
+#: admin/config/index.php:222
 msgid "Missing configuration."
 msgstr "Faltando configuração."
 
@@ -1890,12 +1932,16 @@ msgstr "Aplicativos Otimizados para dispositivos Móveis"
 msgid "Mode"
 msgstr "Modo"
 
-#: admin/config/index.php:165 admin/config/index.php:206
-#: admin/config/index.php:339 admin/config/index.php:365
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "Modelo"
+
+#: admin/config/index.php:167 admin/config/index.php:211
+#: admin/config/index.php:344 admin/config/index.php:370
 msgid "Module is up-to-date."
 msgstr "Módulo está atualizado."
 
-#: config/prefs.php:505
+#: config/prefs.php:496
 msgid "Monday"
 msgstr "Segunda-Feira"
 
@@ -1903,7 +1949,7 @@ msgstr "Segunda-Feira"
 msgid "Moon Phases"
 msgstr "Fases da Lua"
 
-#: config/registry.php:307
+#: config/registry.php:309
 msgid "My Account"
 msgstr "Minha Conta"
 
@@ -1911,7 +1957,7 @@ msgstr "Minha Conta"
 msgid "My Account Information"
 msgstr "Informações da minha conta"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
 msgstr "Meu Fluxo Facebook"
 
@@ -1923,8 +1969,8 @@ msgstr "Meu Portal"
 msgid "My Portal Layout"
 msgstr "Meu Layout de Portal"
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:316 lib/Block/Weather.php:320
+#: lib/Block/Weather.php:336
 msgid "N/A"
 msgstr "N/A"
 
@@ -1933,7 +1979,8 @@ msgstr "N/A"
 msgid "NO, I Do NOT Agree"
 msgstr "NÃO, Eu NÃO Concordo"
 
-#: templates/prefs/activesync.html.php:60
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:68
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1942,24 +1989,23 @@ msgstr ""
 "FÁBRICA. POR FAVOR TENHA CERTEZA QUE REALMENTE DESEJA FAZER ISSO ANTES DE "
 "SOLICITAR A LIMPEZA"
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Nome"
 
-#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
-#: templates/portal/layout.inc:97
+#: config/prefs.php:587 config/prefs.php:607 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nunca"
 
-#: templates/prefs/category.html.php:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Nova Categoria"
 
-#: services/facebook/index.php:185
+#: lib/Ajax/Application/FacebookHandler.php:59
 msgid "New Messages:"
 msgstr "Novas Mensagens:"
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Lua Nova"
 
@@ -1975,7 +2021,7 @@ msgstr "Nova senha"
 msgid "New passwords don't match."
 msgstr "As novas senhas não são iguais."
 
-#: config/registry.php:252 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Notícias"
 
@@ -2000,7 +2046,7 @@ msgstr "Nenhum dado de configuração disponível para exibir as diferenças."
 msgid "No change."
 msgstr "Nenhuma alteração."
 
-#: util/icon_browser.php:52
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "Nenhum ícone encontrado."
 
@@ -2030,8 +2076,8 @@ msgstr ""
 "Nenhuma pergunta de sergurança foi definida. Por favor contate seu "
 "administrador."
 
-#: admin/config/index.php:159 admin/config/index.php:200
-#: admin/config/index.php:333 admin/config/index.php:359
+#: admin/config/index.php:161 admin/config/index.php:205
+#: admin/config/index.php:338 admin/config/index.php:364
 msgid "No stable version exists yet."
 msgstr "Versão estável ainda não existe."
 
@@ -2039,32 +2085,34 @@ msgstr "Versão estável ainda não existe."
 msgid "No username specified."
 msgstr "Nenhum nome de usuário especificado."
 
-#: admin/config/index.php:223
+#: admin/config/index.php:228
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Nenhum versão encontrada na configuração original. Gere novamente a "
 "configuração."
 
-#: admin/config/index.php:232
+#: admin/config/index.php:237
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "Nenhuma versão encontrada na sua configuração. Gere novamente a configuração."
 
-#: admin/config/index.php:284
+#: admin/config/index.php:289
 msgid "NoSQL indices are ready."
 msgstr "Índices NoSQL estão prontos."
 
-#: admin/config/index.php:279
+#: admin/config/index.php:284
 #, php-format
 msgid "NoSQL indices for %s"
 msgstr "Índices NoSQL para %s"
 
-#: admin/config/index.php:281
+#: admin/config/index.php:286
 msgid "NoSQL indices out of date."
 msgstr "Índices NoSQL desatualizados."
 
-#: templates/prefs/activesync.html.php:42
-#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:50
+#: templates/prefs/activesync.html.php:62 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Nenhuma"
 
@@ -2072,15 +2120,16 @@ msgstr "Nenhuma"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nórdico (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Hemisfério Norte"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Not Provisioned"
 msgstr "Não Provisionado"
 
-#: config/registry.php:167
+#: config/registry.php:169
 msgid "Notes"
 msgstr "Anotações"
 
@@ -2096,6 +2145,10 @@ msgstr "Quantidade de artigos a mostrar"
 msgid "Number of seconds to wait to refresh"
 msgstr "Número de segundos a esperar para atualizar"
 
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "OS"
+
 #: templates/services/obrowser.html.php:5
 msgid "Object Browser"
 msgstr "Objeto Navegador"
@@ -2108,7 +2161,7 @@ msgstr "Criador do Objeto"
 msgid "Offense filter"
 msgstr "Filtrar ofensivos"
 
-#: config/registry.php:264
+#: config/registry.php:266
 msgid "Office"
 msgstr "Escritório"
 
@@ -2128,7 +2181,7 @@ msgstr "Senha antiga não está correta."
 msgid "Only offensive fortunes"
 msgstr "Somente sortes ofensivas"
 
-#: services/shares/edit.php:94
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2144,8 +2197,8 @@ msgstr "Sistema Operacional"
 msgid "Or enter a user name:"
 msgstr "Ou insira um nome de usuário:"
 
-#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
-#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
+#: config/prefs.php:531 config/prefs.php:634 config/prefs.php:660
+#: config/prefs.php:686 config/prefs.php:712 config/prefs.php:731
 msgid "Other Information"
 msgstr "Outras Informações"
 
@@ -2153,7 +2206,7 @@ msgstr "Outras Informações"
 msgid "Other Options"
 msgstr "Outras Opções"
 
-#: config/registry.php:178
+#: config/registry.php:180
 msgid "Others"
 msgstr "Outros"
 
@@ -2189,8 +2242,8 @@ msgstr "Extensão POSIX inválida"
 msgid "P_HP Shell"
 msgstr "P_HP Shell"
 
-#: login.php:190 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:325
+#: login.php:211 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Senha"
@@ -2237,7 +2290,7 @@ msgstr "Permissões"
 msgid "Permissions Administration"
 msgstr "Administração de Permissões"
 
-#: config/prefs.php:272
+#: config/prefs.php:263
 msgid "Personal Information"
 msgstr "Informações Pessoais"
 
@@ -2245,7 +2298,11 @@ msgstr "Informações Pessoais"
 msgid "Pets"
 msgstr "Animais de Estimação"
 
-#: config/registry.php:195
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Número de Telefone"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Fotos"
 
@@ -2253,11 +2310,11 @@ msgstr "Fotos"
 msgid "Platitudes"
 msgstr "Cliché"
 
-#: login.php:196
+#: login.php:217
 msgid "Please enter a password."
 msgstr "Por favor insira uma senha."
 
-#: login.php:195
+#: login.php:216
 msgid "Please enter a username."
 msgstr "Por favor insira um nome de usuário."
 
@@ -2273,19 +2330,15 @@ msgstr ""
 "Por favor leia o texto a seguir. Você DEVE concordar com os termos de uso do "
 "sistema."
 
-#: services/facebook/index.php:187
+#: lib/Ajax/Application/FacebookHandler.php:61
 msgid "Pokes:"
 msgstr "Empurrões:"
-
-#: admin/activesync.php:108
-msgid "Policy Key"
-msgstr "Chave de Política"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Política"
 
-#: config/prefs.php:754
+#: config/prefs.php:752
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2294,11 +2347,11 @@ msgstr ""
 "que alguns dispositivos vão sempre enviar citações ao final do texto de "
 "resposta."
 
-#: lib/Block/FbStream.php:142
+#: lib/Block/FbStream.php:143
 msgid "Post"
 msgstr "Postar"
 
-#: services/facebook/index.php:33
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, php-format
 msgid "Posted %s"
 msgstr "Postado %s"
@@ -2315,12 +2368,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Precipitação para a última %d hora: "
 msgstr[1] "Precipitação para a últimas %d horas: "
 
-#: lib/Block/Weather.php:255
+#: lib/Block/Weather.php:263
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Chance%sprecipitação"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:200
 msgid "Pressure"
 msgstr "Pressão"
 
@@ -2336,7 +2389,8 @@ msgstr "Principal"
 msgid "Problem Description"
 msgstr "Descrição do Problema"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Provisioned"
 msgstr "Provisionado"
 
@@ -2387,21 +2441,17 @@ msgstr ""
 "Remover realmente os dados do usuário \"%s\"? Esta operação não pode ser "
 "desfeita."
 
-#: config/prefs.php:621
+#: config/prefs.php:613
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Atualizar Menu de Elementos Dinâmicos:"
 
-#: config/prefs.php:602
+#: config/prefs.php:594
 msgid "Refresh Portal View:"
 msgstr "Atualizar Exibição do Portal:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "Taxa de atualização:"
-
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr "Dispositivos de Usuários Cadastrados"
 
 #: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
@@ -2415,10 +2465,10 @@ msgstr "Observações"
 msgid "Remote Host"
 msgstr "Servidor Remoto"
 
-#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:41
+#: templates/activesync/device_table.html.php:37
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
-#: templates/prefs/activesync.html.php:39
+#: templates/prefs/activesync.html.php:47
 msgid "Remove"
 msgstr "Remover"
 
@@ -2426,7 +2476,7 @@ msgstr "Remover"
 msgid "Remove pair"
 msgstr "Remover par"
 
-#: admin/config/index.php:416
+#: admin/config/index.php:433
 msgid "Remove saved script from server's temporary directory."
 msgstr "Remover script gravado no diretório temporário do servidor."
 
@@ -2442,10 +2492,6 @@ msgstr "Remover usuário: %s"
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
 msgstr "Responder"
-
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr "Reprovisionar Todos os Dispositivos"
 
 #: lib/Application.php:221
 msgid "Require PIN"
@@ -2468,13 +2514,10 @@ msgstr "Limpar"
 msgid "Reset Password"
 msgstr "Gerar Nova Senha"
 
-#: templates/prefs/activesync.html.php:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
-"Zerar o estado de todos os dispositivos. Isso pode fazer com que seus "
-"dispositivos resincronizem todos os itens."
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
+msgstr "Redefinir estado de todos dispositivos"
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
@@ -2493,10 +2536,6 @@ msgstr "Resultados"
 #, php-format
 msgid "Results for %s"
 msgstr "Resultados para %s"
-
-#: templates/prefs/end.html:8
-msgid "Return to Main Screen"
-msgstr "Retornar à Tela Principal"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -2539,11 +2578,11 @@ msgstr "Criptografia cartão SD"
 msgid "SMS Text messages"
 msgstr "Mensagens de texto SMS"
 
-#: admin/config/index.php:266 admin/config/index.php:319
+#: admin/config/index.php:271 admin/config/index.php:324
 msgid "SQL DB schema is out of date."
 msgstr "Esquema SQL DB desatualizado."
 
-#: admin/config/index.php:271 admin/config/index.php:324
+#: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
 msgstr "Esquema SQL DB está pronto."
 
@@ -2568,7 +2607,7 @@ msgstr "Gravar \"%s\""
 msgid "Save and Finish"
 msgstr "Gravar e Finalizar"
 
-#: admin/config/index.php:388
+#: admin/config/index.php:401
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2594,11 +2633,11 @@ msgid "Sea_rch"
 msgstr "_Pesquisar"
 
 #: lib/View/Topbar.php:59 services/help/index.php:156
-#: templates/admin/user/list.inc:14
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Pesquisar"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Pesquisar:"
 
@@ -2650,11 +2689,11 @@ msgstr "Selecione um delimitador de hora:"
 msgid "Select the time format:"
 msgstr "Selecione o formato de hora:"
 
-#: config/prefs.php:588
+#: config/prefs.php:580
 msgid "Select your color scheme."
 msgstr "Selecione seu esquema de cores."
 
-#: config/prefs.php:385
+#: config/prefs.php:376
 msgid "Select your preferred language:"
 msgstr "Selecione seu idioma preferido:"
 
@@ -2682,26 +2721,26 @@ msgstr "Carimbo de data da Sessão"
 msgid "Sessions"
 msgstr "Sessões"
 
-#: config/prefs.php:335
+#: config/prefs.php:326
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
 "Ajustar preferências para permitir que você redefina sua senha caso venha a "
 "esquecê-la."
 
-#: config/prefs.php:643
+#: config/prefs.php:636
 msgid "Set up integration with your Facebook account."
 msgstr "Ajustar integração com sua conta do Facebook."
 
-#: config/prefs.php:669
+#: config/prefs.php:662
 msgid "Set up integration with your Twitter account."
 msgstr "Ajustar integração com sua conta do Twitter."
 
-#: config/prefs.php:373
+#: config/prefs.php:364
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Ajusar sua língua preferida, zona de horários e preferências de data."
 
-#: config/prefs.php:542
+#: config/prefs.php:533
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2709,7 +2748,7 @@ msgstr ""
 "Configurar sua aplicação inicial, esquema de cores, atualização de páginas e "
 "outras opções de exibição."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:144
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Diversas localizações possíveis com o parâmetro: %s"
@@ -2718,9 +2757,13 @@ msgstr "Diversas localizações possíveis com o parâmetro: %s"
 msgid "Short Summary"
 msgstr "Resumo"
 
-#: config/prefs.php:627
+#: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
 msgstr "Teclas de atalho deverâo ser definidas para a maioria dos links?"
+
+#: config/prefs.php:747
+msgid "Should multiple collections be multiplexed?"
+msgstr "Devem as múltiplas coleções ser multiplexadas?"
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
@@ -2736,7 +2779,11 @@ msgstr "Exibir"
 msgid "Show Advanced Preferences"
 msgstr "Mostrar Preferências Avançadas"
 
-#: admin/config/index.php:378
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Mostrar Todos os Grupos de Preferências"
+
+#: admin/config/index.php:383
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2746,11 +2793,11 @@ msgstr "Exibir as diferenças entre a configuração atual e a nova gerada."
 msgid "Show extra detail?"
 msgstr "Mostrar detalhes extras?"
 
-#: config/prefs.php:573
+#: config/prefs.php:565
 msgid "Show last login time when logging in?"
 msgstr "Exibir data e hora da última conexão ao se conectar?"
 
-#: lib/Block/FbStream.php:71
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
 msgstr "Mostrar notificações"
 
@@ -2779,11 +2826,11 @@ msgstr "Canções e Poemas"
 msgid "South European (ISO-8859-3)"
 msgstr "Sul Europeu (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Hemisfério Sul"
 
-#: config/registry.php:104
+#: config/registry.php:106
 msgid "Spam"
 msgstr "Spam"
 
@@ -2803,16 +2850,17 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Horáro de Início"
 
-#: templates/prefs/activesync.html.php:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "Gerenciamento de Estado"
 
-#: admin/activesync.php:115 templates/admin/config/index.html.php:36
-#: templates/prefs/activesync.html.php:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
+#: templates/prefs/activesync.html.php:30
 msgid "Status"
 msgstr "Situação"
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:106
 msgid "Status unable to be set."
 msgstr "Impossível de ajustar status."
 
@@ -2829,7 +2877,7 @@ msgstr ""
 "Enviada a solicitação para adicionar \"%s\" ao sistema. Você não pode "
 "conectar-se até que sua solicitação seja aprovada."
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Conectado com sucesso à sua conta do Facebook ou atualizadas permissões."
@@ -2884,11 +2932,11 @@ msgstr "Amanhecer"
 msgid "Sun Set"
 msgstr "Pôr-do-Sol"
 
-#: config/prefs.php:504
+#: config/prefs.php:495
 msgid "Sunday"
 msgstr "Domingo"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:174 lib/Block/Weather.php:175
 msgid "Sunrise"
 msgstr "Amanhecer"
 
@@ -2896,7 +2944,7 @@ msgstr "Amanhecer"
 msgid "Sunrise/Sunset"
 msgstr "Amanhecer/Pôr-do-Sol"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:177 lib/Block/Weather.php:178
 msgid "Sunset"
 msgstr "Pôr-do-Sol"
 
@@ -2904,7 +2952,7 @@ msgstr "Pôr-do-Sol"
 msgid "Sync all"
 msgstr "Sincronizar tudo"
 
-#: config/prefs.php:720
+#: config/prefs.php:713
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2916,7 +2964,7 @@ msgstr "Subscrição de notícias"
 msgid "Tag Cloud"
 msgstr "Dia Nublado"
 
-#: config/registry.php:153
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Tarefas"
 
@@ -2924,16 +2972,16 @@ msgstr "Tarefas"
 msgid "Temp for last hour: "
 msgstr "Temperatura para a última hora: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:184
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatura%s(%sAlta%s/%sBaixa%s)"
 
-#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr ""
 "Temporariamente impossível de conectar com o Facebook, Por favor tente de "
@@ -2949,7 +2997,7 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Tailandês (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:83
+#: lib/Prefs/Special/Activesync.php:96
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "A Limpeza Remota para o id de dispositivo %s foi cancelada."
@@ -2971,7 +3019,7 @@ msgstr ""
 "A configuração para %s não pode ser atualizada automaticamente. Por favor "
 "atualize a configuração manualmente."
 
-#: config/prefs.php:299
+#: config/prefs.php:290
 msgid "The default e-mail address to use with this identity:"
 msgstr "O endereço de e-mail padrão para usar com essa identidade:"
 
@@ -2979,7 +3027,7 @@ msgstr "O endereço de e-mail padrão para usar com essa identidade:"
 msgid "The lock has been removed."
 msgstr "O bloqueio foi removido."
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2987,7 +3035,7 @@ msgstr ""
 "O serviço member state não pôde ser contactado a tempo. Tente novamente mais "
 "tarde ou com um member state diferente."
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2995,15 +3043,15 @@ msgstr ""
 "O serviço member state não está disponível neste momento. Tente novamente "
 "mais tarde ou com um member state diferente."
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "O código de país fornecido é inválido."
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "O serviço não está disponível. Tente novamente mais tarde."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "O serviço está muito ocupado no momento. Tente novamente mais tarde."
 
@@ -3017,7 +3065,7 @@ msgstr "A solicitação de registro de \"%s\" foi excluída."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "A solicitação de assinatura para o usuário \"%s\" foi removida."
 
-#: lib/Prefs/Special/Activesync.php:98
+#: lib/Prefs/Special/Activesync.php:111
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3039,7 +3087,7 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "O usuário \"%s\" já existe."
 
-#: services/shares/edit.php:96 services/shares/edit.php:181
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "O usuário \"%s\" não existe."
@@ -3064,7 +3112,7 @@ msgstr "Houve um problema ao excluir \"%s\" do sistema: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Houve um problema ao atualizar \"%s\":%s"
 
-#: lib/Prefs/Special/Activesync.php:101
+#: lib/Prefs/Special/Activesync.php:114
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Houve um erro ao comunicar com o servidor ActiveSync: %s"
@@ -3082,13 +3130,13 @@ msgstr ""
 "Houve um erro no formulário de configuração. Talvez você deixou um campo "
 "obrigatório em branco."
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Houve um erro ao fazer a solicitação: %s"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
@@ -3103,23 +3151,33 @@ msgstr ""
 "Houve um erro ao remover dados globais para %s. Detalhes foram registrados "
 "no log."
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
 msgstr "Houve um erro com as permissões solicitadas."
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr "O número de identificação VATé inválido."
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr "Este número de identificação VAT é válido."
 
-#: config/registry.php:224
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr ""
+"Isso causará a resincronização de todos os itens em todos os dispositivos."
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr ""
+"Isso causará a resincronização de todos os itens nos seus dispositivos."
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Bilhetes"
 
-#: config/registry.php:270
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Acompanhamento de Horário"
 
@@ -3156,15 +3214,15 @@ msgstr ""
 "Para selecionar campos múltiplos, segure a tecla Ctrl (PC) ou Command (Mac) "
 "quando clicar."
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:288
 msgid "Today"
 msgstr "Hoje"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:290
 msgid "Tomorrow"
 msgstr "Amanhã"
 
-#: config/prefs.php:755
+#: config/prefs.php:753
 msgid "Top"
 msgstr "No topo"
 
@@ -3180,7 +3238,7 @@ msgstr "Turco (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:668
+#: config/prefs.php:661
 msgid "Twitter Integration"
 msgstr "Integração Twitter"
 
@@ -3193,6 +3251,10 @@ msgstr "Linha de Tempo do Twitter"
 msgid "Twitter Timeline for %s"
 msgstr "Linha do tempo do Twitter para %s"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "Twitter não habilitado."
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3202,15 +3264,19 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s."
 msgstr "Impossível excluir \"%s\": %s."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:138
 msgid "Unable to set like."
 msgstr "Impossível ajudar gosto."
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
 msgstr ""
 "Impossível validar o token solicitado. Por favor tente novamente sua "
 "solicitação."
+
+#: templates/activesync/device_table.html.php:40
+msgid "Unblock"
+msgstr "Desbloquear"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
@@ -3220,7 +3286,7 @@ msgstr "Desfazer Alterações"
 msgid "Unfavorite"
 msgstr "Não favorito"
 
-#: templates/prefs/category.html.php:19
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Normal"
 
@@ -3228,7 +3294,7 @@ msgstr "Normal"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:80
 msgid "Units"
 msgstr "Unidades"
 
@@ -3240,6 +3306,10 @@ msgstr "Desconhecido"
 msgid "Unlock"
 msgstr "Desbloquear"
 
+#: lib/Api.php:728 lib/Api.php:789
+msgid "Unsupported action."
+msgstr "Ação não suportada."
+
 #: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Atualizar"
@@ -3249,7 +3319,7 @@ msgstr "Atualizar"
 msgid "Update %s"
 msgstr "%s atualizado"
 
-#: admin/config/index.php:183 admin/config/index.php:298
+#: admin/config/index.php:185 admin/config/index.php:303
 #, php-format
 msgid "Update %s schema"
 msgstr "Atualizar esquema %s"
@@ -3266,7 +3336,7 @@ msgstr "Atualizar todas as configurações"
 msgid "Update user"
 msgstr "Atualizar usuário"
 
-#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:244
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Atualizado: \"%s\"."
@@ -3276,19 +3346,20 @@ msgstr "Atualizado: \"%s\"."
 msgid "Updated schema for %s."
 msgstr "Atualizar esquema para %s."
 
-#: admin/config/index.php:395
+#: admin/config/index.php:412
 msgid "Upload"
 msgstr "Enviar"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:420
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 "Enviados todos os arquivos de configuração de aplicação para o servidor."
 
-#: config/prefs.php:695
+#: config/prefs.php:688
 msgid "Use if name/password is different for IMSP server."
 msgstr "Usar se o nome/senha é diferente no servidor IMSP."
 
+#: templates/activesync/device_table.html.php:3
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
 #: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
@@ -3297,6 +3368,10 @@ msgstr "Usuário"
 #: admin/user.php:240
 msgid "User Administration"
 msgstr "Administração de Usuários"
+
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "Agente do Usuário"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3322,9 +3397,9 @@ msgstr "Conta de usuário não encontrada"
 msgid "User to add:"
 msgstr "Usuário a adicionar:"
 
-#: login.php:185 admin/config/index.php:396 admin/user.php:36
+#: login.php:206 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:23
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Nome do usuário"
 
@@ -3344,15 +3419,19 @@ msgstr "Verificação do número VAT id"
 msgid "VAT identification number:"
 msgstr "Número de identificação VAT:"
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
 msgstr "Número VAT"
 
-#: templates/admin/config/index.html.php:43
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Versão"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "Verificar Versão"
 
-#: config/registry.php:213
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Controle de Versão"
 
@@ -3364,7 +3443,7 @@ msgstr "Vietnamita (VISCII)"
 msgid "View an external web page"
 msgstr "Visualizar uma página web externa"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:232
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -3372,15 +3451,19 @@ msgstr "Visibilidade"
 msgid "Warning"
 msgstr "Atenção"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:39
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "Aviso: Sua tecla Caps Lock está ligada!"
+
+#: lib/Block/Weather.php:62
 msgid "Weather"
 msgstr "Clima"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:348 lib/Block/Weather.php:356
 msgid "Weather data provided by"
 msgstr "Dados do Clima fornecido por"
 
-#: config/registry.php:330
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Web"
 
@@ -3405,7 +3488,7 @@ msgstr "Ocidental (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Ocidental (ISO-8859-15)"
 
-#: config/prefs.php:554
+#: config/prefs.php:545
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Qual aplicação o %s deve exibir após a conexão?"
@@ -3422,7 +3505,7 @@ msgstr "Qual o caractere delimitador?"
 msgid "What is the quote character?"
 msgstr "Qual o caractere de citação?"
 
-#: config/prefs.php:507
+#: config/prefs.php:498
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr ""
 "Qual dia você gostaria que fosse mostrado como o primeiro dia da semana?"
@@ -3431,7 +3514,7 @@ msgstr ""
 msgid "Which phases"
 msgstr "Quais fases"
 
-#: config/prefs.php:608
+#: config/prefs.php:600
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Largura do Menu %s à esquerda:"
@@ -3440,11 +3523,11 @@ msgstr "Largura do Menu %s à esquerda:"
 msgid "Wifi"
 msgstr "Wifi"
 
-#: config/registry.php:201
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:271
 msgid "Wind"
 msgstr "Vento"
 
@@ -3456,17 +3539,15 @@ msgstr "Velocidade do vento em nós"
 msgid "Wind:"
 msgstr "Vento:"
 
-#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
+#: templates/activesync/device_table.html.php:32
+#: templates/prefs/activesync.html.php:37
 msgid "Wipe"
 msgstr "Limpar"
 
-#: templates/prefs/activesync.html.php:32
+#: templates/activesync/device_table.html.php:12
+#: templates/prefs/activesync.html.php:40
 msgid "Wipe Pending"
 msgstr "Limpeza Pendente"
-
-#: admin/activesync.php:160
-msgid "Wipe is pending"
-msgstr "Limpeza está pendente"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"
@@ -3480,7 +3561,7 @@ msgstr "Com"
 msgid "Work"
 msgstr "Trabalho"
 
-#: config/registry.php:236
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3496,7 +3577,8 @@ msgstr "AA"
 msgid "Yes, I Agree"
 msgstr "Sim, Eu Concordo"
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3547,7 +3629,7 @@ msgstr "Você não está autorizado a listar usuários de grupos."
 msgid "You are not allowed to list users of shares."
 msgstr "Você não está autorizado a listar usuários de compartilhamentos."
 
-#: lib/Block/FbStream.php:106
+#: lib/Block/FbStream.php:107
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
@@ -3556,8 +3638,8 @@ msgstr ""
 "Você não está conectado à sua conta do Facebook. Você deve verificar suas "
 "configurações do Facebook em %s."
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Você também pode verificar suas configurações do Facebook no seu %s."
@@ -3570,15 +3652,15 @@ msgstr ""
 "Você não concordou com o acordo de Termos de Serviço, então você não foi "
 "autorizado a entrar."
 
-#: login.php:291
+#: login.php:312
 msgid "You have been logged out."
 msgstr "Você foi desconectado."
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "Você negou as permissões solicitadas."
 
-#: lib/Block/TwitterTimeline.php:163
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3587,8 +3669,9 @@ msgstr ""
 "Você não conectou de forma apropriada sua conta do Twitter com o Horde. Você "
 "deve verificar suas configurações do Twitter no seu %s."
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 msgid "You like this"
 msgstr "Você gosta disso"
 
@@ -3617,12 +3700,12 @@ msgstr "Você deve especificar um usuário para atualizar."
 msgid "Your Email Address"
 msgstr "Seu Endereço de E-mail"
 
-#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
-#: config/prefs.php:515
+#: config/prefs.php:262 config/prefs.php:324 config/prefs.php:362
+#: config/prefs.php:506
 msgid "Your Information"
 msgstr "Suas Informações"
 
-#: login.php:279
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3652,7 +3735,7 @@ msgstr ""
 "Sua estrutura de autenticação não suporta listagem de usuários, ou a função "
 "foi desabilitada por alguma outra razão."
 
-#: login.php:283
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3660,19 +3743,19 @@ msgstr ""
 "Aparentemente seu navegador mudou desde o começo da sua sessão. Para "
 "proteger sua segurança, você deve entrar novamente."
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "Seu navegador não suporta esta função."
 
-#: config/prefs.php:419
+#: config/prefs.php:410
 msgid "Your current time zone:"
 msgstr "Seu fuso horário atual:"
 
-#: config/prefs.php:291
+#: config/prefs.php:282
 msgid "Your full name:"
 msgstr "Seu nome completo:"
 
-#: login.php:303
+#: login.php:324
 msgid "Your login has expired."
 msgstr "Sua conexão expirou."
 
@@ -3713,15 +3796,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "Sua senha expirou"
 
-#: login.php:164
+#: login.php:178
 msgid "Your password has expired."
 msgstr "Sua senha expirou."
 
-#: login.php:275
+#: login.php:296
 msgid "Your session has expired. Please login again."
 msgstr "Sua sessão expirou. Por favor entre novamente."
 
-#: login.php:287
+#: login.php:308
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3779,7 +3862,7 @@ msgstr "calmo"
 msgid "from the %s (%s) at %s %s"
 msgstr "a partir de %s (%s) em %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:221 lib/Block/Weather.php:331
 msgid "gusting"
 msgstr "ventando"
 
@@ -3787,9 +3870,9 @@ msgstr "ventando"
 msgid "inline"
 msgstr "incorporado"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "preferências"
 
@@ -3805,6 +3888,6 @@ msgstr "preencha sua senha duas vezes para confirmar"
 msgid "unified"
 msgstr "unificado"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "clima"

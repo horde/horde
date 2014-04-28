@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2011-06-11 20:15-0300\n"
+"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"PO-Revision-Date: 2014-04-26 18:24-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,22 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:79
+#: lib/Horde/Alarm/Handler/Desktop.php:85
 msgid "Desktop notification (with certain browsers)"
 msgstr "Notificação no Desktop (com alguns navegadores)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:129
+#: lib/Horde/Alarm/Handler/Mail.php:135
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
-#: lib/Horde/Alarm/Handler/Mail.php:149
+#: lib/Horde/Alarm/Handler/Mail.php:155
 msgid "Email address (optional)"
-msgstr "Endereço de e-mail (opcional)"
+msgstr "Endereço de email (opcional)"
 
-#: lib/Horde/Alarm/Handler/Notify.php:79
+#: lib/Horde/Alarm/Handler/Notify.php:85
 msgid "Inline"
 msgstr "Em linha"
 
-#: lib/Horde/Alarm/Handler/Notify.php:99
+#: lib/Horde/Alarm/Handler/Notify.php:105
 msgid "Play a sound?"
 msgstr "Tocar um som?"
+
+#: lib/Horde/Alarm/Sql.php:88 lib/Horde/Alarm/Sql.php:115
+#: lib/Horde/Alarm/Sql.php:136 lib/Horde/Alarm/Sql.php:178
+#: lib/Horde/Alarm/Sql.php:216 lib/Horde/Alarm/Sql.php:251
+#: lib/Horde/Alarm/Sql.php:277 lib/Horde/Alarm/Sql.php:307
+#: lib/Horde/Alarm/Sql.php:332 lib/Horde/Alarm/Sql.php:357
+#: lib/Horde/Alarm/Sql.php:381 lib/Horde/Alarm/Sql.php:409
+msgid "Server error when querying database."
+msgstr "Erro no servidor ao consultar banco de dados."

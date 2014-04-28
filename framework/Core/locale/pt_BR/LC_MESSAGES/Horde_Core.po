@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-11-21 22:56-0200\n"
-"PO-Revision-Date: 2013-05-14 20:47-0300\n"
+"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"PO-Revision-Date: 2014-04-26 18:27-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde.php:1070
+#: lib/Horde.php:935
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Tecla de Atalho %s)"
 
-#: lib/Horde/Registry.php:1337 lib/Horde/Registry.php:2011
+#: lib/Horde/Registry.php:1294 lib/Horde/Registry.php:1986
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" não está configurado no Registro do Horde."
@@ -43,32 +43,32 @@ msgstr[0] "%d dia até sua senha expirar."
 msgstr[1] "%d dias até sua senha expirar."
 
 #: lib/Horde/Core/Perms/Ui.php:352 lib/Horde/Core/Perms/Ui.php:412
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:827
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:845
 msgid "-- select --"
 msgstr "-- selecione --"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:759
+#: lib/Horde/PageOutput.php:654
 msgid "1 day"
 msgstr "1 dia"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:757
+#: lib/Horde/PageOutput.php:652
 msgid "1 hour"
 msgstr "1 hora"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:756
+#: lib/Horde/PageOutput.php:651
 msgid "15 minutes"
 msgstr "15 minutos"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:755
+#: lib/Horde/PageOutput.php:650
 msgid "5 minutes"
 msgstr "5 minutos"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:758
+#: lib/Horde/PageOutput.php:653
 msgid "6 hours"
 msgstr "6 horas"
 
@@ -76,11 +76,11 @@ msgstr "6 horas"
 msgid "<Previous"
 msgstr "<Anterior"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:101
 msgid "A fatal error has occurred"
 msgstr "Um erro fatal ocorreu"
 
-#: lib/Horde/Core/Prefs/Identity.php:63
+#: lib/Horde/Core/Prefs/Identity.php:89
 #, php-format
 msgid ""
 "A message has been sent to \"%s\" to verify that this is really your "
@@ -91,7 +91,7 @@ msgstr ""
 "seu endereço. O novo endereço de e-mail será ativado assim que você "
 "confirmar esta mensagem."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:96
+#: lib/Horde/Core/Auth/Signup/Base.php:103
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -106,12 +106,12 @@ msgstr ""
 "Uma janela popup não pôde ser aberta. Seu nabegador deve estar bloqueando "
 "popups."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:104
+#: lib/Horde/Core/Auth/Signup/Base.php:111
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Inscrição de conta solicitada para \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:201 lib/Horde/Core/Ui/VarRenderer/Html.php:627
+#: lib/Horde/Core/Perms/Ui.php:201 lib/Horde/Core/Ui/VarRenderer/Html.php:645
 msgid "Add"
 msgstr "Adicionar"
 
@@ -153,18 +153,18 @@ msgstr "Endereço"
 msgid "Address Book"
 msgstr "Contatos"
 
-#: lib/Horde/Registry.php:340
+#: lib/Horde/Registry.php:358
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
 "Autenticação de administrador requisitada, mas nenhum administrador definido "
 "na configuração."
 
-#: lib/Horde/Core/Topbar.php:116
+#: lib/Horde/Core/Topbar.php:123
 msgid "Administration"
 msgstr "Administração"
 
-#: lib/Horde/Core/Notification/Event/Status.php:89
+#: lib/Horde/Core/Notification/Event/Status.php:92
 msgid "Alarm"
 msgstr "Alarme"
 
@@ -188,19 +188,19 @@ msgstr "Uma valor ilegal foi especificado."
 msgid "Applications"
 msgstr "Aplicações"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:98
+#: lib/Horde/Core/Auth/Signup/Base.php:105
 msgid "Approve the account:"
 msgstr "Aprovar a conta:"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:488
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:451
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
 msgid "April"
 msgstr "Abril"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:135
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:442
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:492
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:455
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:511
 msgid "August"
 msgstr "Agosto"
 
@@ -208,7 +208,7 @@ msgstr "Agosto"
 msgid "Available address books:"
 msgstr "Contatos disponíveis:"
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:690
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:583
 msgid "Back"
 msgstr "Voltar"
 
@@ -216,13 +216,13 @@ msgstr "Voltar"
 msgid "Birthday"
 msgstr "Aniversário"
 
-#: lib/Horde/Core/Block/Collection.php:392
+#: lib/Horde/Core/Block/Collection.php:398
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Bloco \"%s\" da aplicação \"%s\" não encontrado."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:134
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
+#: lib/Horde/Core/ActiveSync/Driver.php:155
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Calendar"
 msgstr "Calendário"
 
@@ -249,16 +249,20 @@ msgstr "Escolha um nome de usuário"
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr "Escolha a ordem de contatos para procurar ao expandir endereços."
 
+#: lib/Horde/PageOutput.php:660
+msgid "Clear All"
+msgstr "Limpar Tudo"
+
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
 msgid "Click to add caption..."
 msgstr "Clique para adicionar texto..."
 
-#: lib/Horde/PageOutput.php:691
+#: lib/Horde/PageOutput.php:584
 msgid "Close"
 msgstr "Fechar"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:577
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:579
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:595
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:597
 msgid "Color Picker"
 msgstr "Palheta de Cor"
 
@@ -266,11 +270,11 @@ msgstr "Palheta de Cor"
 msgid "Company"
 msgstr "Empresa"
 
-#: lib/Horde/Core/Prefs/Identity.php:54
+#: lib/Horde/Core/Prefs/Identity.php:74
 msgid "Confirm new email address"
 msgstr "Confirmar novos endereços de e-mail"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:135
+#: lib/Horde/Core/ActiveSync/Driver.php:156
 msgid "Contacts"
 msgstr "Contatos"
 
@@ -283,13 +287,13 @@ msgstr "Não foi possível gravar o arquivo de configuração de backup %s."
 msgid "Creator Permissions"
 msgstr "Criador de Permissões"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:518
 msgid "DD"
 msgstr "DD"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:139
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:446
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:496
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:515
 msgid "December"
 msgstr "Dezembro"
 
@@ -311,7 +315,7 @@ msgstr "Excluir permissões para \"%s\""
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Excluir permissões para \"%s\" e qualquer outra sub-permissão?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:100
+#: lib/Horde/Core/Auth/Signup/Base.php:107
 msgid "Deny the account:"
 msgstr "Recusar a conta:"
 
@@ -319,15 +323,19 @@ msgstr "Recusar a conta:"
 msgid "Department"
 msgstr "Departamento"
 
-#: lib/Horde/ErrorHandler.php:115
+#: lib/Horde/Core/Alarm/Handler/Desktop.php:94
+msgid "Desktop notification (with certain browsers)"
+msgstr "Notificação no Desktop (com alguns navegadores)"
+
+#: lib/Horde/ErrorHandler.php:117
 msgid "Details"
 msgstr "Detalhes"
 
-#: lib/Horde/ErrorHandler.php:122
+#: lib/Horde/ErrorHandler.php:124
 msgid "Details have been logged for the administrator."
 msgstr "Os detalhes foram gravados em log para o administrador."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1168
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1186
 #, php-format
 msgid "Dial %s"
 msgstr "discar %s"
@@ -362,29 +370,29 @@ msgstr "Editar permissões para \"%s\""
 msgid "Email"
 msgstr "E-mail"
 
-#: lib/Horde/Core/Prefs/Identity.php:87
-msgid "Email addresses to confirm not found."
-msgstr "Endereços de e-mail para confirmação não encontrados."
+#: lib/Horde/Core/Prefs/Identity.php:109
+msgid "Email address to confirm not found."
+msgstr "Endereço de email para confirmação não encontrado."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:316
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:329
 msgid "Emoticons"
 msgstr "Emoticons"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1630
+#: lib/Horde/Core/ActiveSync/Driver.php:2104
 msgid "End forwarded message"
 msgstr "Final da mensagem encaminhada"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:974
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:981
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:992
 msgid "Enter the letters below:"
 msgstr "Digite as letras abaixo:"
 
-#: lib/Horde/Core/Block/Layout/View.php:124
-#: lib/Horde/Core/Notification/Event/Status.php:94
+#: lib/Horde/Core/Block/Layout/View.php:119
+#: lib/Horde/Core/Notification/Event/Status.php:97
 msgid "Error"
 msgstr "Erro"
 
-#: lib/Horde/PageOutput.php:749
+#: lib/Horde/PageOutput.php:644
 msgid "Error when communicating with the server."
 msgstr "Erro ao comunicar com o servidor."
 
@@ -397,24 +405,24 @@ msgid "Fax"
 msgstr "Fax"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:129
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:486
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:449
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
 msgid "February"
 msgstr "Fevereiro"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:256
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:268
 msgid "Fix ratio"
 msgstr "Taxa fixa"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:243
 msgid "Flip"
 msgstr "Girar"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1628
+#: lib/Horde/Core/ActiveSync/Driver.php:2102
 msgid "Forwarded message"
 msgstr "Mensagem encaminhada"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1628
+#: lib/Horde/Core/ActiveSync/Driver.php:2102
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Mensagem encaminhada de %s"
@@ -427,15 +435,15 @@ msgstr "Sex"
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: lib/Horde/Core/Prefs/Ui.php:675 lib/Horde/Core/Topbar.php:147
+#: lib/Horde/Core/Prefs/Ui.php:675 lib/Horde/Core/Topbar.php:154
 msgid "Global Preferences"
 msgstr "Preferências Globais"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1329
 msgid "Google Maps"
 msgstr "Google Maps"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
 msgid "Grayscale"
 msgstr "Escala de Cinzas"
 
@@ -447,7 +455,7 @@ msgstr "Grupos"
 msgid "Guest Permissions"
 msgstr "Pesmissões de Convidado"
 
-#: lib/Horde/Core/Topbar.php:193 lib/Horde/Help.php:253 lib/Horde/Help.php:254
+#: lib/Horde/Core/Topbar.php:200 lib/Horde/Help.php:253 lib/Horde/Help.php:254
 msgid "Help"
 msgstr "Ajuda"
 
@@ -464,7 +472,7 @@ msgstr "Endereço Residencial"
 msgid "Home Phone"
 msgstr "Fone Residencial"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2563
+#: lib/Horde/Core/ActiveSync/Driver.php:3063
 msgid "Inbox"
 msgstr "Entrada"
 
@@ -472,7 +480,7 @@ msgstr "Entrada"
 msgid "Individual Users"
 msgstr "Usuários individuais"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:54
+#: lib/Horde/Core/Alarm/Handler/Notify.php:69
 msgid "Inline"
 msgstr "Em linha"
 
@@ -481,30 +489,30 @@ msgstr "Em linha"
 msgid "International Address"
 msgstr "Endereço Internacional"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:752
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:770
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
 msgstr "Inverter a seleção"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:128
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:448
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
 msgid "January"
 msgstr "Janeiro"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:134
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:441
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:491
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:454
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
 msgid "July"
 msgstr "Julho"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:133
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:440
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:490
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:453
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
 msgid "June"
 msgstr "Junho"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:276
 msgid "Keep original?"
 msgstr "Manter o original?"
 
@@ -512,33 +520,33 @@ msgstr "Manter o original?"
 msgid "Log out"
 msgstr "Sair"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1255
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1304
 msgid "MapQuest map"
 msgstr "MapQuest map"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:130
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:487
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:450
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
 msgid "March"
 msgstr "Março"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:132
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:452
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
 msgid "May"
 msgstr "Maio"
 
-#: lib/Horde/Core/Notification/Event/Status.php:99
+#: lib/Horde/Core/Notification/Event/Status.php:102
 msgid "Message"
 msgstr "Mensagem"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:246
 msgid "Mirror"
 msgstr "Espelho"
 
@@ -567,17 +575,17 @@ msgid "Move Up"
 msgstr "Mover para Cima"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:101
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 msgid "Move down"
 msgstr "Abaixo"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:100
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:604
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 msgid "Move up"
 msgstr "Acima"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1224
 msgid "Multimap UK map"
 msgstr "Mapas Ingleses Multimap"
 
@@ -589,11 +597,11 @@ msgstr "Nome"
 msgid "Next>"
 msgstr "Próxima>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "No"
 msgstr "Não"
 
-#: lib/Horde/PageOutput.php:765
+#: lib/Horde/PageOutput.php:662
 msgid "No Alerts"
 msgstr "Nenhum alerta"
 
@@ -601,7 +609,7 @@ msgstr "Nenhum alerta"
 msgid "No OAuth Key or Secret found for the Twitter API"
 msgstr "Nenhuma chave OAuth ou Secret encontrado para a API Twitter"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:548
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:566
 msgid "No Sound"
 msgstr "Sem som"
 
@@ -613,12 +621,12 @@ msgstr "Nenhuma lista de contatos selecionada."
 msgid "No children can be added to this permission."
 msgstr "Nenhum subordinado pode ser adicionado a esta permissão."
 
-#: lib/Horde.php:490
+#: lib/Horde.php:352
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Nenhuma informação de configuração especificada para %s."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1658
+#: lib/Horde/Core/ActiveSync/Driver.php:2132
 msgid "No message body text"
 msgstr "Nenhum texto no corpo de mensagem"
 
@@ -626,26 +634,26 @@ msgstr "Nenhum texto no corpo de mensagem"
 msgid "No valid email address found"
 msgstr "Nenhum endereço de e-mail válido encontrado"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1064
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1085
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1102
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1119
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1082
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1092
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1103
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1120
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1137
 msgid "No values"
 msgstr "Sem valores"
 
-#: lib/Horde/Registry.php:293
+#: lib/Horde/Registry.php:302
 msgid "Not an admin"
 msgstr "Não administrador"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:137
+#: lib/Horde/Core/ActiveSync/Driver.php:158
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr "Anotações"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:445
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:495
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:458
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
 msgid "November"
 msgstr "Novembro"
 
@@ -653,13 +661,13 @@ msgstr "Novembro"
 msgid "OK"
 msgstr "OK"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Object"
 msgstr "Objeto"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:494
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:457
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:513
 msgid "October"
 msgstr "Outubro"
 
@@ -667,7 +675,7 @@ msgstr "Outubro"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Horde/Core/ActiveSync/Connector.php:682
+#: lib/Horde/Core/ActiveSync/Connector.php:839
 msgid "Out Of Office"
 msgstr "Fora Do Escritório"
 
@@ -680,7 +688,7 @@ msgstr "Endereço Parcel"
 msgid "Permission"
 msgstr "Permissão"
 
-#: lib/Horde/Registry.php:351
+#: lib/Horde/Registry.php:369
 msgid "Permission denied."
 msgstr "Permissão negada."
 
@@ -698,7 +706,7 @@ msgstr "Telefone"
 msgid "Photo"
 msgstr "Foto"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:74
+#: lib/Horde/Core/Alarm/Handler/Notify.php:89
 msgid "Play a sound?"
 msgstr "Tocar um som?"
 
@@ -707,7 +715,7 @@ msgstr "Tocar um som?"
 msgid "Postal Address"
 msgstr "Endereço Postal"
 
-#: lib/Horde/Core/Topbar.php:135
+#: lib/Horde/Core/Topbar.php:142
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -721,19 +729,19 @@ msgstr "Preferências para %s"
 msgid "Preferred Address"
 msgstr "Endereços Preferidos"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1535
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1554
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: lib/Horde/Core/Topbar.php:181
+#: lib/Horde/Core/Topbar.php:188
 msgid "Problem"
 msgstr "Problema"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1651
+#: lib/Horde/Core/ActiveSync/Driver.php:2125
 msgid "Quoted"
 msgstr "Citado"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1651
+#: lib/Horde/Core/ActiveSync/Driver.php:2125
 #, php-format
 msgid "Quoting %s"
 msgstr "Citando %s"
@@ -743,8 +751,8 @@ msgid "Really delete this block?"
 msgstr "Realmente apagar este bloco?"
 
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:201
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:630
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:212
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:648
 msgid "Remove"
 msgstr "Remover"
 
@@ -752,12 +760,12 @@ msgstr "Remover"
 msgid "Remove source"
 msgstr "Remover fonte"
 
-#: lib/Horde.php:499
+#: lib/Horde.php:361
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "\"%s\" obrigatório não foi especificado na configuração %s."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:219
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
 msgid "Reset"
 msgstr "Limpar"
 
@@ -765,15 +773,15 @@ msgstr "Limpar"
 msgid "Role"
 msgstr "Função"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:225
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
 msgid "Rotate 180"
 msgstr "Girar 180 graus"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:222
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
 msgid "Rotate Left"
 msgstr "Girar para a Esquerda"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:228
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:240
 msgid "Rotate Right"
 msgstr "Girar para a Direita"
 
@@ -785,33 +793,33 @@ msgstr "Sab"
 msgid "Saturday"
 msgstr "Sábado"
 
-#: lib/Horde/Registry.php:237
+#: lib/Horde/Registry.php:245
 msgid "Script must be run from the command line"
 msgstr "Script deve ser executado a partir da linha de comando"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Select a date"
 msgstr "Selecione uma data"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:750
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:768
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
 msgstr "Selecionar todas"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Select an object"
 msgstr "Selecione um objeto"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:751
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:769
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
 msgstr "Anular seleção"
 
-#: lib/Horde/Core/Prefs/Ui.php:848
+#: lib/Horde/Core/Prefs/Ui.php:860
 msgid "Select the identity you want to change:"
 msgstr "Selecione a identidade que você quer alterar:"
 
-#: lib/Horde/PageOutput.php:754
+#: lib/Horde/PageOutput.php:649
 msgid "Select..."
 msgstr "Selecionar..."
 
@@ -819,17 +827,17 @@ msgstr "Selecionar..."
 msgid "Selected address books:"
 msgstr "Lista de endereços selecionada:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1184
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
 msgid "Send SMS"
 msgstr "Enviar SMS"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2558
+#: lib/Horde/Core/ActiveSync/Driver.php:3058
 msgid "Sent"
 msgstr "Enviado"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:443
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:493
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:456
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:512
 msgid "September"
 msgstr "Setembro"
 
@@ -845,7 +853,7 @@ msgstr "Registrar"
 msgid "Sign up for an account"
 msgstr "Inscrever para uma conta"
 
-#: lib/Horde/Core/Notification/Event/Status.php:76
+#: lib/Horde/Core/Notification/Event/Status.php:79
 msgid "Snooze..."
 msgstr "Tocar..."
 
@@ -853,7 +861,7 @@ msgstr "Tocar..."
 msgid "Su"
 msgstr "Dom"
 
-#: lib/Horde/Core/Notification/Event/Status.php:104
+#: lib/Horde/Core/Notification/Event/Status.php:107
 msgid "Success"
 msgstr "Sucesso"
 
@@ -871,7 +879,7 @@ msgstr "%s gravado com sucesso"
 msgid "Sunday"
 msgstr "Domingo"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:136
+#: lib/Horde/Core/ActiveSync/Driver.php:157
 msgid "Tasks"
 msgstr "Tarefas"
 
@@ -879,15 +887,15 @@ msgstr "Tarefas"
 msgid "Th"
 msgstr "Qui"
 
-#: lib/Horde/Core/Factory/History.php:12
-msgid "The History system is disabled."
-msgstr "O sistema de Histórico está desabilitado."
+#: lib/Horde/PageOutput.php:656
+msgid "The alarm was dismissed."
+msgstr "O alarme foi dispensado."
 
-#: lib/Horde/PageOutput.php:750
+#: lib/Horde/PageOutput.php:645
 msgid "The connection to the server has been restored."
 msgstr "A conexão com o servidor foi restaurada."
 
-#: lib/Horde/Core/Prefs/Identity.php:112
+#: lib/Horde/Core/Prefs/Identity.php:145
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
@@ -900,22 +908,22 @@ msgstr ""
 msgid "The encryption features require a secure web connection."
 msgstr "As funções de criptografia requerem uma conexão web segura."
 
-#: lib/Horde.php:500
+#: lib/Horde.php:362
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "O arquivo %s deveria conter uma configuração de %s."
 
-#: lib/Horde.php:491
+#: lib/Horde.php:353
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "O arquivo %s deveria conter algumas configurações de %s."
 
-#: lib/Horde/Registry.php:2665
+#: lib/Horde/Registry.php:2587
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A aplicação a seguir encontrou erros ao remover dados do usuários: %s"
 
-#: lib/Horde/ErrorHandler.php:116
+#: lib/Horde/ErrorHandler.php:118
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -924,17 +932,17 @@ msgstr ""
 "para administradores. Usuários não administrativos não verão detalhes do "
 "erro."
 
-#: lib/Horde/Core/Prefs/Ui.php:935
+#: lib/Horde/Core/Prefs/Ui.php:947
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "A identidade \"%s\" foi excluída."
 
-#: lib/Horde/Core/Prefs/Ui.php:984
+#: lib/Horde/Core/Prefs/Ui.php:996
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
 "O novo enderêço DE não pode ser verificado, tente novamente mais tarde: "
 
-#: lib/Horde/Core/Factory/Prefs.php:227
+#: lib/Horde/Core/Factory/Prefs.php:230
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -943,7 +951,7 @@ msgstr ""
 "A preferência \"%s\" não pôde ser gravada porque seu tamanho excede o máximo "
 "permitido"
 
-#: lib/Horde/Core/Factory/Prefs.php:199
+#: lib/Horde/Core/Factory/Prefs.php:202
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -951,15 +959,11 @@ msgstr ""
 "A estrutura de preferências está indisponível e suas preferências não foram "
 "carregadas. Você pode continuar a usar o sistema com as preferências padrão."
 
-#: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
-msgid "There are no email addresses to confirm."
-msgstr "Não existem endereços de e-mail a confirmar."
-
 #: lib/Horde/Core/Prefs/Ui.php:466
 msgid "There are no preferences available for this application."
 msgstr "Não existem opções disponíveis para esta aplicação."
 
-#: lib/Horde/PageOutput.php:751
+#: lib/Horde/PageOutput.php:646
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -982,11 +986,11 @@ msgstr "Houve um erro ao ler os dados do contato."
 msgid "There were errors encountered while updating your preferences."
 msgstr "Foram encontrados erros ao atualizar suas preferências."
 
-#: lib/Horde/PageOutput.php:764
+#: lib/Horde/PageOutput.php:661
 msgid "This is the notification log."
 msgstr "Este é o histórico de notificações."
 
-#: lib/Horde/Registry.php:537
+#: lib/Horde/Registry.php:554
 msgid "This system is currently deactivated."
 msgstr "Este sistema está atualmente desativado."
 
@@ -1006,7 +1010,7 @@ msgstr "Quinta-feira"
 msgid "Title"
 msgstr "Título"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:723
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:741
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -1014,11 +1018,11 @@ msgstr ""
 "Para selecionar múltiplos itens, segure a tecla Control (PC) ou Command "
 "(Mac) ao clicar."
 
-#: lib/Horde/Core/Topbar.php:170
+#: lib/Horde/Core/Topbar.php:177
 msgid "Toggle Alerts Log"
 msgstr "Escolher Log de Alertas"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2553
+#: lib/Horde/Core/ActiveSync/Driver.php:3053
 msgid "Trash"
 msgstr "Lixeira"
 
@@ -1043,7 +1047,7 @@ msgstr "URL"
 msgid "Update"
 msgstr "Atualizar"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:193
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:204
 msgid "Upload"
 msgstr "Enviar"
 
@@ -1056,12 +1060,12 @@ msgstr "Usuário \"%s\" não existe."
 msgid "User Preferences"
 msgstr "Preferências de Usuário"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:132
+#: lib/Horde/Core/Auth/Signup/Base.php:143
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "Usuário \"%s\" já existe."
 
-#: lib/Horde/Core/Notification/Event/Status.php:109
+#: lib/Horde/Core/Notification/Event/Status.php:112
 msgid "Warning"
 msgstr "Atenção"
 
@@ -1077,7 +1081,7 @@ msgstr "Suporte a clima não configurado."
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1231
 msgid "Whereis Australia map"
 msgstr "Mapa Australiano Whereis"
 
@@ -1090,16 +1094,16 @@ msgstr "Endereço Comercial"
 msgid "Work Phone"
 msgstr "Fone Comercial"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "YYYY"
 msgstr "AAAA"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1275
 msgid "Yahoo! map"
 msgstr "Mapa Yahoo!"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "Yes"
 msgstr "Sim"
 
@@ -1110,7 +1114,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Você não pode criar mais do que %d bloco."
 msgstr[1] "Você não pode criar mais do que %d blocos."
 
-#: lib/Horde/Registry.php:2632
+#: lib/Horde/Registry.php:2554
 msgid "You are not allowed to remove user data."
 msgstr "Você não está autorizado a remover dados de usuário."
 
@@ -1125,12 +1129,12 @@ msgstr ""
 "IE8 ou maior, desabilite a Exibição de Compatibilidade. Modo Mínimo será "
 "usado até que você atualize seu navegador."
 
-#: lib/Horde/PageOutput.php:752
+#: lib/Horde/PageOutput.php:647
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "Você pode adiá-lo por %s ou %s dispensá-lo %s inteiramente"
 
-#: lib/Horde/Core/Prefs/Identity.php:44
+#: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
 msgid ""
 "You have requested to add the email address \"%s\" to the list of your "
@@ -1149,7 +1153,7 @@ msgstr ""
 "\n"
 "Se você não sabe o que esta mensagem significa, pode excluí-la."
 
-#: lib/Horde/Core/Factory/Vfs.php:72
+#: lib/Horde/Core/Factory/Vfs.php:74
 msgid "You must configure a VFS backend."
 msgstr "Você deve configurar uma estrutura de VFS."
 
@@ -1173,11 +1177,11 @@ msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr "Seu navegador não suporta o modo dinâmico. Usando o modo mínimo."
 
-#: lib/Horde/Core/Prefs/Ui.php:951
+#: lib/Horde/Core/Prefs/Ui.php:963
 msgid "Your default identity has been changed."
 msgstr "Sua identidade padrão foi alterada."
 
-#: lib/Horde/Core/Prefs/Ui.php:847
+#: lib/Horde/Core/Prefs/Ui.php:859
 msgid "Your default identity:"
 msgstr "Sua identidade padrão:"
 
@@ -1203,23 +1207,23 @@ msgstr "[Sem Nome]"
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[Mostrar Texto Citado - %d linhas]"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:261
 msgid "h:"
 msgstr "h:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:391
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:404
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/PageOutput.php:692
+#: lib/Horde/PageOutput.php:585
 msgid "loading"
 msgstr "carregando"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:402
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:415
 msgid "mm"
 msgstr "mm"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:419
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
 msgid "ss"
 msgstr "ss"
 
@@ -1227,6 +1231,6 @@ msgstr "ss"
 msgid "vCard"
 msgstr "vCard"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:241
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:253
 msgid "w:"
 msgstr "w:"

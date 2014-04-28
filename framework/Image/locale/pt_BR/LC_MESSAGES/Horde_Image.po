@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: 2012-03-27 21:56-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -57,7 +57,6 @@ msgid "/10s"
 msgstr "/10s"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:85
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 msgid "1-area-focusing"
 msgstr "1-area-focusing"
 
@@ -65,7 +64,7 @@ msgstr "1-area-focusing"
 msgid "1-area-focusing (High speed)"
 msgstr "1-area-focusing (High speed)"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:426
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:423
 msgid "10s"
 msgstr "10s"
 
@@ -77,7 +76,7 @@ msgstr "1st curtain sync"
 msgid "2nd(rear)-curtain sync used"
 msgstr "2nd(rear)-curtain sync used"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:429
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:426
 msgid "2s"
 msgstr "2s"
 
@@ -137,7 +136,7 @@ msgstr "Ação"
 msgid "Aperture"
 msgstr "Diafragma"
 
-#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:266
+#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:263
 msgid "Aperture Priority"
 msgstr "Aperture Priority"
 
@@ -158,8 +157,8 @@ msgstr "Artist"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:179
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:197
 #: lib/Horde/Image/Exif/Parser/Nikon.php:196
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:161
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:194
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:158
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:191
 msgid "Auto"
 msgstr "Automático"
 
@@ -183,11 +182,11 @@ msgstr "Auto bracket"
 msgid "Auto exposure"
 msgstr "Auto exposure"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:203
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:200
 msgid "Auto, Continuous"
 msgstr "Automático, Contínuo"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:200
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:197
 msgid "Auto, Focus button"
 msgstr "Auto, Focus button"
 
@@ -203,7 +202,7 @@ msgstr "Av"
 msgid "Average"
 msgstr "Média"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:299
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:296
 msgid "Baby"
 msgstr "Bebê"
 
@@ -211,8 +210,8 @@ msgstr "Bebê"
 msgid "Black & White"
 msgstr "Preto & Branco"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:179
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:354
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:176
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:351
 msgid "Black and White"
 msgstr "Preto e Branco"
 
@@ -287,7 +286,7 @@ msgstr "Close-up (Macro)"
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
 #: lib/Horde/Image/Exif/Parser/Nikon.php:201
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:167
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:164
 msgid "Cloudy"
 msgstr "Nebuloso"
 
@@ -352,7 +351,7 @@ msgstr "Contraste+"
 msgid "Contrast-"
 msgstr "Contraste-"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:351
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:348
 msgid "Cool"
 msgstr "Frio"
 
@@ -406,7 +405,7 @@ msgstr "Frio com florescência"
 
 #: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:164
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 msgid "Daylight"
 msgstr "Luz do dia"
 
@@ -503,7 +502,7 @@ msgstr "Ótimo"
 msgid "Fine weather"
 msgstr "Clima bom"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:284
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:281
 msgid "Fireworks"
 msgstr ""
 
@@ -513,7 +512,7 @@ msgstr ""
 
 #: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:176
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:173
 msgid "Flash"
 msgstr "Flash"
 
@@ -572,7 +571,7 @@ msgstr "Lente de Foco"
 msgid "Focal Length (35mm equiv)"
 msgstr "Lente de Foco"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:296
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:293
 msgid "Food"
 msgstr "Comida"
 
@@ -580,7 +579,7 @@ msgstr "Comida"
 msgid "Full Auto"
 msgstr "Automático por Inteiro"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:170
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:167
 msgid "Halogen"
 msgstr ""
 
@@ -596,18 +595,18 @@ msgstr "Altura"
 #: lib/Horde/Image/Exif/Parser/Canon.php:199
 #: lib/Horde/Image/Exif/Parser/Canon.php:207
 #: lib/Horde/Image/Exif/Parser/Canon.php:215
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:140
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:393
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:411
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:137
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:390
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:408
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:102
 msgid "High"
 msgstr "Alta"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:302
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:299
 msgid "High Sensitivity"
 msgstr "Alta Sensibilidade"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:441
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:438
 msgid "Horizontal (normal)"
 msgstr "Horizontal (normal)"
 
@@ -656,7 +655,7 @@ msgstr ""
 msgid "Inch"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:375
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:372
 msgid "Infinite"
 msgstr ""
 
@@ -703,17 +702,17 @@ msgstr "Longitude"
 #: lib/Horde/Image/Exif/Parser/Canon.php:200
 #: lib/Horde/Image/Exif/Parser/Canon.php:208
 #: lib/Horde/Image/Exif/Parser/Canon.php:216
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:390
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:408
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:387
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:405
 msgid "Low"
 msgstr "Baixa"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:372
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:369
 msgid "Low/High Quality"
 msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:105
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:272
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:269
 msgid "Macro"
 msgstr ""
 
@@ -727,10 +726,10 @@ msgstr ""
 #: lib/Horde/Image/Exif/Parser/Canon.php:280
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:180
 #: lib/Horde/Image/Exif/Parser/Nikon.php:257
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:173
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:182
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:197
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:275
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:170
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:179
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:194
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:272
 msgid "Manual"
 msgstr "Manual"
 
@@ -763,11 +762,11 @@ msgstr ""
 msgid "Mirrored"
 msgstr "Espelhado"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:215
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:212
 msgid "Mode 1"
 msgstr "Modo 1"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:221
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:218
 msgid "Mode 2"
 msgstr "Modo 2"
 
@@ -783,7 +782,7 @@ msgstr ""
 msgid "Multi-Spot"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:462
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:459
 msgid "Natural"
 msgstr "Natural"
 
@@ -792,7 +791,7 @@ msgstr "Natural"
 msgid "Night"
 msgstr "Noite"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:260
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:257
 #, fuzzy
 msgid "Night Portrait"
 msgstr "Retrato"
@@ -801,11 +800,11 @@ msgstr "Retrato"
 msgid "Night Scene"
 msgstr "Cena Noturna"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:293
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:290
 msgid "Night Scenery"
 msgstr "Cenário Noturno"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:323
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:320
 msgid "No"
 msgstr "Não"
 
@@ -830,8 +829,8 @@ msgstr "Nenhuma"
 #: lib/Horde/Image/Exif/Parser/Canon.php:214
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:114
 #: lib/Horde/Image/Exif/Parser/Nikon.php:173
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:248
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:459
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:245
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:456
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:98
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:106
 msgid "Normal"
@@ -857,11 +856,11 @@ msgstr "Não definido"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:170
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:188
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:213
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:218
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:236
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:345
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:369
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:423
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:215
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:233
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:342
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:366
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:420
 msgid "Off"
 msgstr "Desligado"
 
@@ -870,7 +869,7 @@ msgstr "Desligado"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:171
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:189
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:214
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:233
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:230
 msgid "On"
 msgstr "Ligado"
 
@@ -911,7 +910,7 @@ msgstr "Exposição"
 msgid "Pan Focus"
 msgstr "AI Focus"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:278
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:275
 #, fuzzy
 msgid "Panning"
 msgstr ""
@@ -929,12 +928,12 @@ msgstr ""
 msgid "Partial"
 msgstr "Parcial"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:287
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:284
 #, fuzzy
 msgid "Party"
 msgstr "Partes"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:308
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:305
 msgid "Pet"
 msgstr "Animail de Estimação"
 
@@ -954,7 +953,7 @@ msgstr "%d pixels"
 #: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:251
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:248
 msgid "Portrait"
 msgstr "Retrato"
 
@@ -963,7 +962,7 @@ msgid "Preset"
 msgstr "Pré-definição"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:277
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:263
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:260
 msgid "Program"
 msgstr ""
 
@@ -971,7 +970,7 @@ msgstr ""
 msgid "Program AE"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:149
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:146
 msgid "RAW"
 msgstr "PURO"
 
@@ -1032,11 +1031,11 @@ msgstr "Direito"
 msgid "Rights"
 msgstr "Direitos"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:447
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:444
 msgid "Rotate 270 CW"
 msgstr "Girar 270 SH"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:444
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:441
 msgid "Rotate 90 CW"
 msgstr "Girar 90 SH"
 
@@ -1059,7 +1058,7 @@ msgstr "VGA Normal"
 msgid "Scene Type"
 msgstr "Tipo de Cena"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:254
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:251
 #, fuzzy
 msgid "Scenery"
 msgstr "Tipo de Cena"
@@ -1069,7 +1068,7 @@ msgid "Sensing Method"
 msgstr "Métido de Sensibilidade"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:179
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:357
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:354
 msgid "Sepia"
 msgstr "Sepia"
 
@@ -1078,7 +1077,7 @@ msgid "Shade"
 msgstr "Sombra"
 
 #: lib/Horde/Image/Exif.php:260 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:269
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Shutter Priority"
 msgstr "Prioridade de Fechamento"
 
@@ -1086,7 +1085,7 @@ msgstr "Prioridade de Fechamento"
 msgid "Shutter Speed"
 msgstr "Velocidade do Obturador"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:281
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:278
 msgid "Simple"
 msgstr "Simples"
 
@@ -1111,7 +1110,7 @@ msgstr "Synchro Devagar"
 msgid "Small"
 msgstr "pequeno"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:290
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Snow"
 msgstr "Neve"
 
@@ -1133,7 +1132,7 @@ msgid "Sport"
 msgstr "Esporte"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:200
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:257
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Sports"
 msgstr "Esportes"
 
@@ -1141,14 +1140,14 @@ msgstr "Esportes"
 msgid "Spot"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:97
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 #, fuzzy
 msgid "Spot-focusing"
 msgstr "1-area-focusing"
 
-#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:387
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:405
+#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:140
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:384
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:402
 msgid "Standard"
 msgstr "Padrão"
 
@@ -1201,7 +1200,7 @@ msgstr ""
 msgid "Uncalibrated"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:305
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:302
 #, fuzzy
 msgid "Underwater"
 msgstr "Restaurar"
@@ -1249,25 +1248,25 @@ msgstr "Restaurar"
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:100
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:152
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:326
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:360
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:378
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:396
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:414
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:432
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:450
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:465
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:97
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:149
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:323
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:357
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:375
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:393
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:411
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:429
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:447
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:462
 #, php-format
 msgid "Unknown (%s)"
 msgstr "Desconhecido (%s)"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:185
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:206
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:224
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:239
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:311
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:182
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:203
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:221
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:236
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:308
 #, php-format
 msgid "Unknown(%s)"
 msgstr "Desconhecido(%s)"
@@ -1324,11 +1323,11 @@ msgstr "VGA Ótimo"
 msgid "VGA Normal"
 msgstr "VGA Normal"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:146
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:143
 msgid "Very High"
 msgstr "Muito Alta"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:348
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:345
 msgid "Warm"
 msgstr "Quente"
 
@@ -1362,7 +1361,7 @@ msgstr "Resolução X"
 msgid "Y Resolution"
 msgstr "Resolução Y"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:320
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:317
 msgid "Yes"
 msgstr "Sim"
 
