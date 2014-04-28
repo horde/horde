@@ -54,7 +54,7 @@
  *           - filter: (string) Filter your result based on certain condition
  *                     in SQL and LDAP backends. A filter can be specified to
  *                     avoid some unwanted data. For example, if the source is
- *                     an external SQQL database, to select records with the
+ *                     an external SQL database, to select records with the
  *                     delete flag = 0: 'filter' => 'deleted=0'.
  *                     Don't enclose 'filter' in brackets - this will done
  *                     automatically. Also keep in mind that a full filter
