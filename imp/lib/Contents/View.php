@@ -237,6 +237,7 @@ class IMP_Contents_View
             if ($hdr_val = $headerob->getValue($key)) {
                 /* Format date string. */
                 if ($key == 'date') {
+                    $registry->setTimeZone();
                     $hdr_val = $imp_ui_mbox->getDate($hdr_val, $imp_ui_mbox::DATE_FORCE | $imp_ui_mbox::DATE_FULL);
                 }
 
