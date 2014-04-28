@@ -407,7 +407,7 @@ var DimpBase = {
 
     _createViewPort: function()
     {
-        var container = $('msgSplitPane'), escapeAttr;
+        var container = $('msgSplitPane');
 
         this.template = {
             horiz: new Template(DimpCore.conf.msglist_template_horiz),
