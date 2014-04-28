@@ -166,11 +166,13 @@ extends Horde_Core_Ajax_Application_Handler
             ? IMP_Mailbox::formFrom($this->vars->new_parent)
             : IMP_Mailbox::get($old_name->parent);
 
-        $new_name = $parent->createMailboxName($this->vars->new_name);
+        if ($parent) {
+            $new_name = $parent->createMailboxName($this->vars->new_name);
 
-        if (($old_name != $new_name) && $old_name->rename($new_name)) {
-            $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
-            return true;
+            if (($old_name != $new_name) && $old_name->rename($new_name)) {
+                $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
+                return true;
+            }
         }
 
         return false;
