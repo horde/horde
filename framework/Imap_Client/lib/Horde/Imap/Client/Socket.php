@@ -2574,11 +2574,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $pipeline = $this->_pipeline();
         $pipeline->data['fetch_lookup'] = array();
+        $pipeline->data['fetch_followup'] = array();
 
         foreach ($queries as $options) {
             $this->_fetchCmd($pipeline, $options);
             $sequence = $options['ids']->sequence;
         }
+
+        $followup = array();
 
         try {
             $resp = $this->_sendCmd($pipeline);
@@ -2591,6 +2594,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             foreach ($resp->fetch as $k => $v) {
                 $results->get($sequence ? $k : $v->getUid())->merge($v);
             }
+
+            $followup = array_merge($followup, $pipeline->data['fetch_followup']);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most
             // likely means that messages were expunged. RFC 2180 [4.1]
@@ -2602,6 +2607,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // For any other error, ignore the Exception - fetch() is nice in
             // that the return value explicitly handles missing data for any
             // given message.
+        }
+
+        if (!empty($followup)) {
+            $this->_fetch($results, $followup);
         }
     }
 
@@ -2698,6 +2707,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if (!empty($val['decode']) &&
                             $this->queryCapability('BINARY')) {
                             $main_cmd = 'BINARY';
+                            $pipeline->data['binaryquery'] = $val;
                         }
                         break;
 
@@ -2969,7 +2979,33 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Remove the beginning 'BINARY[' and the trailing bracket
                     // and octet start info
                     $tag = substr($tag, 7, strrpos($tag, ']') - 7);
-                    $ob->setBodyPart($tag, $data->next(), empty($this->_temp['literal8']) ? '8bit' : 'binary');
+                    $body = $data->next();
+
+                    if (is_null($body)) {
+                        /* Dovecot bug (as of 2.2.12): binary fetch of body
+                         * part may fail with NIL return if decoding failed on
+                         * server. Try again with non-decoded body. */
+                        $bq = $pipeline->data['binaryquery'];
+                        unset($bq['decode']);
+
+                        $query = new Horde_Imap_Client_Fetch_Query();
+                        $query->bodyPart($tag, $bq);
+
+                        $qids = ($quid = $ob->getUid())
+                            ? new Horde_Imap_Client_Ids($quid)
+                            : new Horde_Imap_Client_Ids($id, true);
+
+                        $pipeline->data['fetch_followup'][] = array(
+                            '_query' => $query,
+                            'ids' => $qids
+                        );
+                    } else {
+                        $ob->setBodyPart(
+                            $tag,
+                            $body,
+                            empty($this->_temp['literal8']) ? '8bit' : 'binary'
+                        );
+                    }
                 } elseif (strpos($tag, 'BINARY.SIZE[') === 0) {
                     // Catch BINARY.SIZE[*] responses
                     // Remove the beginning 'BINARY.SIZE[' and the trailing
