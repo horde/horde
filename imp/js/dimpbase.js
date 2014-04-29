@@ -2435,13 +2435,13 @@ var DimpBase = {
             d = DragDrop.Drags.getDrag(id);
 
         if (elt.hasClassName('vpRow')) {
-            if (DimpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
-                d.fromClick = true;
-                return;
-            }
-
             args = { right: e.memo.isRightClick() };
             d.fromClick = d.selectIfNoDrag = false;
+
+            if (DimpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
+                d.fromClick = !args.right;
+                return;
+            }
 
             // Handle selection first.
             if (DimpCore.DMenu.operaCheck(e)) {
