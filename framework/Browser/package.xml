@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Correctly identify MSIE 11.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -825,7 +825,7 @@ Initial packaging
    <date>2014-03-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Correctly identify MSIE 11.
    </notes>
   </release>
  </changelog>

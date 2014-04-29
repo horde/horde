@@ -359,11 +359,17 @@ class Horde_Browser
             $this->setQuirk('avoid_popup_windows');
             $this->setMobile(true);
         } elseif ((preg_match('|MSIE ([0-9.]+)|', $agent, $version)) ||
-                  (preg_match('|Internet Explorer/([0-9.]+)|', $agent, $version))) {
+                  (preg_match('|Internet Explorer/([0-9.]+)|', $agent, $version)) ||
+                  (strpos($lowerAgent, 'trident/') !== false)) {
             $this->setBrowser('msie');
             $this->setQuirk('cache_ssl_downloads');
             $this->setQuirk('cache_same_url');
             $this->setQuirk('break_disposition_filename');
+
+            if (empty($version)) {
+                // IE 11
+                preg_match('|rv:(\d+)|', $lowerAgent, $version);
+            }
 
             if (strpos($version[1], '.') !== false) {
                 list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
