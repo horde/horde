@@ -305,7 +305,7 @@ var IMP_PrettyAutocompleter = Class.create({
     {
         var elt = e.findElement('LI');
 
-        if (elt.hasClassName(this.p.listClassItem)) {
+        if (elt && elt.hasClassName(this.p.listClassItem)) {
             this.addNewItem($F(this.input));
             this.updateInput(elt);
         } else {
