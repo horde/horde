@@ -870,13 +870,23 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->sendMessage($val['recipients'], $headers, $val['base']);
 
                 /* Store history information. */
-                $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
+                $sentmail->log(
+                    $senttype,
+                    $this->_normalizeMessageId($headers),
+                    $val['recipients'],
+                    true
+                );
             } catch (IMP_Compose_Exception_Address $e) {
                 throw $e;
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 if ($e->log()) {
-                    $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], false);
+                    $sentmail->log(
+                        $senttype,
+                        $this->_normalizeMessageId($headers),
+                        $val['recipients'],
+                        false
+                    );
                 }
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
@@ -1820,9 +1830,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!$this->_replytype) {
             $this->_setMetadata('indices', $contents->getIndicesOb());
 
-            /* Set the message-id related headers. */
-            if (($msg_id = $h->getValue('message-id'))) {
-                $this->_setMetadata('in_reply_to', chop($msg_id));
+            /* Set the Message-ID related headers. */
+            if ($msg_id = $this->_normalizeMessageId($h)) {
+                $this->_setMetadata('in_reply_to', $msg_id);
 
                 if ($refs = $h->getValue('references')) {
                     $ref_ob = new IMP_Compose_References();
@@ -2403,13 +2413,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if ($log) {
                     /* Store history information. */
                     $injector->getInstance('IMP_Maillog')->log(
-                        new IMP_Maillog_Message($headers->getValue('message-id')),
+                        new IMP_Maillog_Message($this->_normalizeMessageId($headers)),
                         new IMP_Maillog_Log_Redirect($recipients)
                     );
 
                     $injector->getInstance('IMP_Sentmail')->log(
                         IMP_Sentmail::REDIRECT,
-                        $headers->getValue('message-id'),
+                        $this->_normalizeMessageId($headers),
                         $recipients
                     );
                 }
@@ -3317,6 +3327,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         default:
             return null;
         }
+    }
+
+    /* Internal utility methods. */
+
+    /**
+     * Normalizes the Message-ID.
+     *
+     * @param Horde_Mime_Headers $headers  Mime headers object.
+     *
+     * @return string  Normalized Message-ID.
+     */
+    protected function _normalizeMessageId(Horde_Mime_Headers $headers)
+    {
+        if (($msg_id = trim($headers->getValue('message-id'))) &&
+            ($msg_id[0] !== '<')) {
+            $msg_id = '<' . rtrim($msg_id, '>') . '>';
+        }
+
+        return $msg_id;
     }
 
     /* Static methods. */
