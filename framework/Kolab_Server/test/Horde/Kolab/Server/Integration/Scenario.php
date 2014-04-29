@@ -25,9 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Share
  */
-class Horde_Kolab_Server_Integration_Scenario
-//extends PHPUnit_Extensions_Story_TestCase
-extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_TestCase
 {
     /** The mock environment */
     const ENVIRONMENT_MOCK = 'mock';

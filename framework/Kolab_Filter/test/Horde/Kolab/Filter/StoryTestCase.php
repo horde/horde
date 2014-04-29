@@ -28,8 +28,7 @@
  * @link       http://pear.horde.org/index.php?package=Kolab_Filter
  */
 class Horde_Kolab_Filter_StoryTestCase
-//extends PHPUnit_Extensions_Story_TestCase
-extends PHPUnit_Framework_TestCase
+extends PHPUnit_Extensions_Story_TestCase
 {
     public function setUp()
     {

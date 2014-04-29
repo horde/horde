@@ -31,14 +31,6 @@ class Horde_Kolab_Config_Integration_ConfigTest
 extends Horde_Kolab_Config_ConfigStoryTestCase
 {
     /**
-     */
-    public function setUp()
-    {
-        // Horde_Kolab_Config_ConfigStoryTestCase doesn't work
-        $this->markTestSkipped();
-    }
-
-    /**
      * @scenario
      */
     public function aMissingGlobalConfigurationFileThrowsAnException()

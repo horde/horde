@@ -28,8 +28,7 @@
  * @link       http://pear.horde.org/index.php?package=Kolab_Config
  */
 class Horde_Kolab_Config_ConfigStoryTestCase
-//extends PHPUnit_Extensions_Story_TestCase
-extends PHPUnit_Framework_TestCase
+extends PHPUnit_Extensions_Story_TestCase
 {
     /**
      * Handle a "given" step.
