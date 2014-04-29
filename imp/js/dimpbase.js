@@ -4175,13 +4175,15 @@ var DimpBase = {
 
     onAjaxFailure: function(r)
     {
-        switch (r.request.action) {
-        case 'createMailboxPrepare':
-        case 'deleteMailboxPrepare':
-        case 'emptyMailboxPrepare':
-        case 'mailboxSize':
-            RedBox.close();
-            break;
+        if (r.request) {
+            switch (r.request.action) {
+            case 'createMailboxPrepare':
+            case 'deleteMailboxPrepare':
+            case 'emptyMailboxPrepare':
+            case 'mailboxSize':
+                RedBox.close();
+                break;
+            }
         }
     }
 
