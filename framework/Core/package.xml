@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow CKeditor 3 to work with IE 11.
 * [jan] Fix translation of portal block names (Bug #13116).
 * [mms] Add Horde_Registry#getAuthInfo() and Horde_Registry#getAuthApps().
 * [mms] Add Horde_Core_Cache_Session.
@@ -3378,6 +3379,7 @@
    <date>2014-04-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow CKeditor 3 to work with IE 11.
 * [jan] Fix translation of portal block names (Bug #13116).
 * [mms] Add Horde_Registry#getAuthInfo() and Horde_Registry#getAuthApps().
 * [mms] Add Horde_Core_Cache_Session.

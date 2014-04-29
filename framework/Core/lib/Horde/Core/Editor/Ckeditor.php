@@ -22,6 +22,9 @@ class Horde_Core_Editor_Ckeditor extends Horde_Editor_Ckeditor
 
         parent::initialize($params);
 
+        /* CKeditor 3 doesn't support IE 11(+?) well. Fallback to IE10. */
+        $page_output->addMetaTag('X-UA-Compatible', 'IE=EmulateIE10', true);
+
         if (!empty($this->_js)) {
             $ck_path = $registry->get('jsuri', 'horde');
 
