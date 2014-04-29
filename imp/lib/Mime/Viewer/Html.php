@@ -301,6 +301,21 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         $tag = Horde_String::lower($node->tagName);
 
+        /* Remove 'height' styles from HTML messages, because it can break
+         * sizing of IFRAME. */
+        foreach ($node->attributes as $key => $val) {
+            if ($key == 'style') {
+                /* Do simplistic style parsing here. */
+                $parts = array_filter(explode(';', $val->value));
+                foreach ($parts as $k2 => $v2) {
+                    if (preg_match("/^\s*height:\s*/i", $v2)) {
+                        unset($parts[$k2]);
+                    }
+                }
+                $val->value = implode(';', $parts);
+            }
+        }
+
         switch ($tag) {
         case 'a':
         case 'area':
