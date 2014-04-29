@@ -824,12 +824,15 @@ var DimpCompose = {
 
         if (opts.icon) {
             canvas = new Element('CANVAS', { height: '16px', width: '16px' });
-            li.insert(canvas);
-            img = new Image();
-            img.onload = function() {
-                canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
-            };
-            img.src = opts.icon;
+            // IE8 doesn't support canvas
+            if (canvas.getContext) {
+                li.insert(canvas);
+                img = new Image();
+                img.onload = function() {
+                    canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
+                };
+                img.src = opts.icon;
+            }
         }
 
         li.insert(span);
