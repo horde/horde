@@ -1835,16 +1835,31 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!$this->_replytype) {
             $this->_setMetadata('indices', $contents->getIndicesOb());
 
-            /* Set the Message-ID related headers. */
+            /* Set the Message-ID related headers (RFC 5322 [3.6.4]). */
             $msg_id = new Horde_Mail_Rfc822_Identification(
                 $h->getValue('message-id')
             );
             if (count($msg_id->ids)) {
-                $ref_ob = new Horde_Mail_Rfc822_Identification(
-                    $h->getValue('references')
-                );
                 $this->_setMetadata('in_reply_to', reset($msg_id->ids));
-                $this->_setMetadata('references', array_merge($ref_ob->ids, $msg_id->ids));
+            }
+
+            $ref_ob = new Horde_Mail_Rfc822_Identification(
+                $h->getValue('references')
+            );
+            if (!count($ref_ob->ids)) {
+                $ref_ob = new Horde_Mail_Rfc822_Identification(
+                    $h->getValue('in-reply-to')
+                );
+                if (count($ref_ob->ids) > 1) {
+                    $ref_ob->ids = array();
+                }
+            }
+
+            if (count($ref_ob->ids)) {
+                $this->_setMetadata(
+                    'references',
+                    array_merge($ref_ob->ids, array(reset($msg_id->ids)))
+                );
             }
         }
 
