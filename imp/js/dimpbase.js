@@ -2077,12 +2077,10 @@ var DimpBase = {
 
     setMessageListTitle: function()
     {
-        var range,
-            rows = this.viewport.getMetaData('total_rows'),
+        var rows = this.viewport.getMetaData('total_rows'),
             text = this.viewport.getMetaData('label');
 
         if (rows) {
-            range = this.viewport.currentViewableRange();
             text += ' (' + this.messageCountText(rows) + ')';
         }
 
