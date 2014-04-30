@@ -1,5 +1,5 @@
 /*
- * $Id: base64.js,v 2.12 2013/05/06 07:54:20 dankogai Exp dankogai $
+ * $Id: base64.js,v 2.15 2014/04/05 12:58:57 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *    http://opensource.org/licenses/mit-license
@@ -10,8 +10,9 @@
 
 (function(global) {
     'use strict';
-    if (global.Base64) return;
-    var version = "2.1.2";
+    // existing version for noConflict()
+    var _Base64 = global.Base64;
+    var version = "2.1.5";
     // if node.js, we use Buffer
     var buffer;
     if (typeof module !== 'undefined' && module.exports) {
@@ -63,7 +64,9 @@
         ];
         return chars.join('');
     };
-    var btoa = global.btoa || function(b) {
+    var btoa = global.btoa ? function(b) {
+        return global.btoa(b);
+    } : function(b) {
         return b.replace(/[\s\S]{1,3}/g, cb_encode);
     };
     var _encode = buffer
@@ -126,7 +129,7 @@
         return chars.join('');
     };
     var atob = global.atob ? function(a) {
-       return global.atob(a);
+        return global.atob(a);
     } : function(a){
         return a.replace(/[\s\S]{1,4}/g, cb_decode);
     };
@@ -139,6 +142,11 @@
                 .replace(/[^A-Za-z0-9\+\/]/g, '')
         );
     };
+    var noConflict = function() {
+        var Base64 = global.Base64;
+        global.Base64 = _Base64;
+        return Base64;
+    };
     // export Base64
     global.Base64 = {
         VERSION: version,
@@ -150,7 +158,8 @@
         encode: encode,
         encodeURI: encodeURI,
         btou: btou,
-        decode: decode
+        decode: decode,
+        noConflict: noConflict
     };
     // if ES5 is available, make Base64.extendString() available
     if (typeof Object.defineProperty === 'function') {
@@ -174,3 +183,7 @@
     }
     // that's it!
 })(this);
+
+if (this['Meteor']) {
+    Base64 = global.Base64; // for normal export in Meteor.js
+}
