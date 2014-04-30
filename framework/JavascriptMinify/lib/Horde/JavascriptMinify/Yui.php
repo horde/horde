@@ -64,7 +64,8 @@ class Horde_JavascriptMinify_Yui extends Horde_JavascriptMinify_Null
         }
 
         $cmdline = new Horde_JavascriptMinify_Util_Cmdline();
-        return $cmdline->runCmd($js, trim($cmd), $this->_opts['logger']);
+        return $cmdline->runCmd($js, trim($cmd), $this->_opts['logger']) .
+            $this->_sourceUrls();
     }
 
 }

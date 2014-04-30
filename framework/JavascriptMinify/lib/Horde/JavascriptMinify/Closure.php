@@ -82,7 +82,8 @@ class Horde_JavascriptMinify_Closure extends Horde_JavascriptMinify_Null
         }
 
         $cmdline = new Horde_JavascriptMinify_Util_Cmdline();
-        return $cmdline->runCmd($js, $cmd, $this->_opts['logger']) . $suffix;
+        return $cmdline->runCmd($js, $cmd, $this->_opts['logger']) . $suffix
+            . $this->_sourceUrls();
     }
 
 }

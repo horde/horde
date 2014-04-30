@@ -130,4 +130,29 @@ abstract class Horde_JavascriptMinify
         return json_encode($sourcemap);
     }
 
+    /**
+     * Creates a list of source comments linking to the original URLs of the
+     * source files.
+     *
+     * Needed in minification files to ensure that all license terms of the
+     * minified code (which may have been removed during the minification
+     * process) are accessible.
+     *
+     * @since 1.1.0
+     *
+     * @return string  Source URL data.
+     */
+    protected function _sourceUrls()
+    {
+        $out = '';
+
+        if (is_array($this->_data)) {
+            foreach (array_keys($this->_data) as $val) {
+                $out .= "\n// @source: " . $val;
+            }
+        }
+
+        return $out;
+    }
+
 }

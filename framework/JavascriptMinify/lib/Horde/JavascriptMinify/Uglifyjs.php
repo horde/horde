@@ -75,7 +75,7 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
             $js,
             trim($cmd . ' ' . $this->_opts['cmdline']),
             $this->_opts['logger']
-        );
+        ) . $this->_sourceUrls();
     }
 
 }
