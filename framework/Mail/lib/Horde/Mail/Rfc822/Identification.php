@@ -89,16 +89,27 @@ class Horde_Mail_Rfc822_Identification extends Horde_Mail_Rfc822
      */
     private function _parseMessageId()
     {
-        if ($this->_curr(true) == '<') {
-            $str = '<';
+        $bracket = ($this->_curr(true) === '<');
+        $str = '<';
 
-            while (($chr = $this->_curr(true)) !== false) {
+        while (($chr = $this->_curr(true)) !== false) {
+            if ($bracket) {
                 $str .= $chr;
                 if ($chr == '>') {
                     $this->_rfc822SkipLwsp();
                     return $str;
                 }
+            } else {
+                if (!strcspn($chr, " \n\r\t,")) {
+                    $this->_rfc822SkipLwsp();
+                    return $str;
+                }
+                $str .= $chr;
             }
+        }
+
+        if (!$bracket) {
+            return $str;
         }
 
         throw new Horde_Mail_Exception('Invalid Message-ID.');

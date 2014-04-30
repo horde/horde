@@ -61,6 +61,19 @@ class Horde_Mail_IdentificationTest extends PHPUnit_Framework_TestCase
             array(
                 '<foo@example@example.com>',
                 1
+            ),
+            // Parse non-compliant IDs
+            array(
+                'foo@example.com',
+                1
+            ),
+            array(
+                'foo@example.com  <foo2@example.com>',
+                2
+            ),
+            array(
+                'foo@example.com, <foo2@example.com>',
+                2
             )
         );
     }
