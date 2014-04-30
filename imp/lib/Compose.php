@@ -869,9 +869,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->sendMessage($val['recipients'], $headers, $val['base']);
 
                 /* Store history information. */
+                $msg_id = new Horde_Mail_Rfc822_Identification(
+                    $headers->getValue('message-id')
+                );
                 $sentmail->log(
                     $senttype,
-                    $this->_normalizeMessageId($headers),
+                    reset($msg_id->ids),
                     $val['recipients'],
                     true
                 );
@@ -880,9 +883,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 if ($e->log()) {
+                    $msg_id = new Horde_Mail_Rfc822_Identification(
+                        $headers->getValue('message-id')
+                    );
                     $sentmail->log(
                         $senttype,
-                        $this->_normalizeMessageId($headers),
+                        reset($msg_id->ids),
                         $val['recipients'],
                         false
                     );
@@ -1830,17 +1836,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->_setMetadata('indices', $contents->getIndicesOb());
 
             /* Set the Message-ID related headers. */
-            if ($msg_id = $this->_normalizeMessageId($h)) {
-                $this->_setMetadata('in_reply_to', $msg_id);
-
-                if ($refs = $h->getValue('references')) {
-                    $ref_ob = new Horde_Mail_Rfc822_Identification($refs);
-                    $refs = $ref_ob->ids;
-                } else {
-                    $refs = array();
-                }
-                $refs[] = $this->getMetadata('in_reply_to');
-                $this->_setMetadata('references', $refs);
+            $msg_id = new Horde_Mail_Rfc822_Identification(
+                $h->getValue('message-id')
+            );
+            if (count($msg_id->ids)) {
+                $ref_ob = new Horde_Mail_Rfc822_Identification(
+                    $h->getValue('references')
+                );
+                $this->_setMetadata('in_reply_to', reset($msg_id->ids));
+                $this->_setMetadata('references', array_merge($ref_ob->ids, $msg_id->ids));
             }
         }
 
@@ -2410,14 +2414,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 if ($log) {
                     /* Store history information. */
+                    $msg_id = new Horde_Mail_Rfc822_Identification(
+                        $headers->getValue('message-id')
+                    );
+
                     $injector->getInstance('IMP_Maillog')->log(
-                        new IMP_Maillog_Message($this->_normalizeMessageId($headers)),
+                        new IMP_Maillog_Message(reset($msg_id->ids)),
                         new IMP_Maillog_Log_Redirect($recipients)
                     );
 
                     $injector->getInstance('IMP_Sentmail')->log(
                         IMP_Sentmail::REDIRECT,
-                        $this->_normalizeMessageId($headers),
+                        reset($msg_id->ids),
                         $recipients
                     );
                 }
@@ -3325,25 +3333,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         default:
             return null;
         }
-    }
-
-    /* Internal utility methods. */
-
-    /**
-     * Normalizes the Message-ID.
-     *
-     * @param Horde_Mime_Headers $headers  Mime headers object.
-     *
-     * @return string  Normalized Message-ID.
-     */
-    protected function _normalizeMessageId(Horde_Mime_Headers $headers)
-    {
-        if (($msg_id = trim($headers->getValue('message-id'))) &&
-            ($msg_id[0] !== '<')) {
-            $msg_id = '<' . rtrim($msg_id, '>') . '>';
-        }
-
-        return $msg_id;
     }
 
     /* Static methods. */
