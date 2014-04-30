@@ -121,13 +121,13 @@ class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
 </table>
 EOT;
         $expected = <<<EOT
-          TYPE 	REPRESENTATION
-          emphasis text 	/emphasis text/
-          strong text 	STRONG TEXT
-          italic text 	/italic text/
-          bold text 	BOLD TEXT
-          emphasis and strong 	/EMPHASIS AND STRONG/
-          underline text 	_underline text_
+  TYPE  REPRESENTATION
+  emphasis text 	/emphasis text/
+  strong text 	STRONG TEXT
+  italic text 	/italic text/
+  bold text 	BOLD TEXT
+  emphasis and strong 	/EMPHASIS AND STRONG/
+  underline text 	_underline text_
 EOT;
         $data[] = array($html, $expected);
 
@@ -251,8 +251,6 @@ EOT;
 Zitat von John Doe <john.doe@example.com>:
 
 > Hallo lieber John,
->
->
 >
 > Blah, blah.'
 

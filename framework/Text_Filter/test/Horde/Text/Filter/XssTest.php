@@ -122,7 +122,7 @@ EOT;
             array("<XML ID=I><X><C><![CDATA[<IMG SRC=\"javas]]><![CDATA[cript:alert('XSS');\">]]>\n</C></X></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>", '<span datasrc="#I" datafld="C" dataformatas="HTML"/>'),
             array("<XML ID=\"xss\"><I><B>&lt;IMG SRC=\"javas<!-- -->cript:alert('XSS')\"&gt;</B></I></XML>\n<SPAN DATASRC=\"#xss\" DATAFLD=\"B\" DATAFORMATAS=\"HTML\"></SPAN>", '<span datasrc="#xss" datafld="B" dataformatas="HTML"/>'),
             array("<XML SRC=\"xsstest.xml\" ID=I></XML>\n<SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>", '<span datasrc="#I" datafld="C" dataformatas="HTML"/>'),
-            array("<HTML><BODY><?xml:namespace prefix=\"t\" ns=\"urn:schemas-microsoft-com:time\">\n<?import namespace=\"t\" implementation=\"#default#time2\">\n<t:set attributeName=\"innerHTML\" to=\"XSS&lt;SCRIPT DEFER&gt;alert(&quot;XSS&quot;)&lt;/SCRIPT&gt;\">\n</BODY></HTML>", "<?xml:namespace prefix=\"t\" ns=\"urn:schemas-microsoft-com:time\"?>\n<?import namespace=\"t\" implementation=\"#default#time2\"?>"),
+            array("<HTML><BODY><?xml:namespace prefix=\"t\" ns=\"urn:schemas-microsoft-com:time\">\n<?import namespace=\"t\" implementation=\"#default#time2\">\n<t:set attributeName=\"innerHTML\" to=\"XSS&lt;SCRIPT DEFER&gt;alert(&quot;XSS&quot;)&lt;/SCRIPT&gt;\">\n</BODY></HTML>", "<?xml:namespace prefix=\"t\" ns=\"urn:schemas-microsoft-com:time\"?><?import namespace=\"t\" implementation=\"#default#time2\"?>"),
             array('<SCRIPT SRC="http://ha.ckers.org/xss.jpg"><SCRIPT>', ''),
             array('<IMG SRC="javascript:alert(\'XSS\')"', '<img/>'),
             array('<SCRIPT a=">" SRC="http://xss.com/a.js"></SCRIPT>', ''),
