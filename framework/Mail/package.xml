@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-04-30</date>
  <version>
-  <release>2.1.7</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Add Horde_Mail_Rfc822_Identification class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -40,6 +40,7 @@
        <file name="Address.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="GroupList.php" role="php" />
+       <file name="Identification.php" role="php" />
        <file name="List.php" role="php" />
        <file name="Object.php" role="php" />
       </dir> <!-- /lib/Horde/Mail/Rfc822 -->
@@ -65,6 +66,7 @@
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="GroupTest.php" role="test" />
+      <file name="IdentificationTest.php" role="test" />
       <file name="ListTest.php" role="test" />
       <file name="MatchTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
@@ -151,6 +153,7 @@
    <install as="Horde/Mail/Rfc822/Address.php" name="lib/Horde/Mail/Rfc822/Address.php" />
    <install as="Horde/Mail/Rfc822/Group.php" name="lib/Horde/Mail/Rfc822/Group.php" />
    <install as="Horde/Mail/Rfc822/GroupList.php" name="lib/Horde/Mail/Rfc822/GroupList.php" />
+   <install as="Horde/Mail/Rfc822/Identification.php" name="lib/Horde/Mail/Rfc822/Identification.php" />
    <install as="Horde/Mail/Rfc822/List.php" name="lib/Horde/Mail/Rfc822/List.php" />
    <install as="Horde/Mail/Rfc822/Object.php" name="lib/Horde/Mail/Rfc822/Object.php" />
    <install as="Horde/Mail/Transport/Mail.php" name="lib/Horde/Mail/Transport/Mail.php" />
@@ -164,6 +167,7 @@
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/bootstrap.php" name="test/Horde/Mail/bootstrap.php" />
    <install as="Horde/Mail/GroupTest.php" name="test/Horde/Mail/GroupTest.php" />
+   <install as="Horde/Mail/IdentificationTest.php" name="test/Horde/Mail/IdentificationTest.php" />
    <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
    <install as="Horde/Mail/MatchTest.php" name="test/Horde/Mail/MatchTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
@@ -569,15 +573,15 @@
   </release>
   <release>
    <version>
-    <release>2.1.7</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-04-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Add Horde_Mail_Rfc822_Identification class.
    </notes>
   </release>
  </changelog>
