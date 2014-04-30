@@ -16,19 +16,22 @@
  */
 abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     /**
-     * Map of HTTP authentication schemes from Horde_Http constants to implementation specific constants
+     * Map of HTTP authentication schemes from Horde_Http constants to
+     * implementation specific constants.
+     *
      * @var array
      */
     protected $_httpAuthSchemes = array();
 
     /**
      * Map of proxy types from Horde_Http to implementation specific constants.
+     *
      * @var array
      */
     protected $_proxyTypes = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @throws Horde_Http_Exception
      */
@@ -38,7 +41,8 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     }
 
     /**
-     * Translate a Horde_Http::AUTH_* constant to implementation specific constants.
+     * Translates a Horde_Http::AUTH_* constant to implementation specific
+     * constants.
      *
      * @return const
      * @throws Horde_Http_Exception
@@ -53,12 +57,13 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     }
 
     /**
-     * Translate a Horde_Http::PROXY_* constant to implementation specific constants.
+     * Translates a Horde_Http::PROXY_* constant to implementation specific
+     * constants.
      *
      * @return const
      * @throws Horde_Http_Exception
      */
-    private function _proxyType()
+    protected function _proxyType()
     {
         $proxyType = $this->proxyType;
         if (!isset($this->_proxyTypes[$proxyType])) {
@@ -68,7 +73,7 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     }
 
     /**
-     * Generate the http options for the request.
+     * Generates the HTTP options for the request.
      *
      * @return array array with options
      * @throws Horde_Http_Exception
