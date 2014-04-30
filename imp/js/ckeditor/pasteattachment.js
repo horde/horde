@@ -83,7 +83,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                 /* Only support images for now. */
                 if (span && span.match('IMG')) {
                     data = span.readAttribute('src').split(',', 2);
-                    data[1] = atob(data[1]);
+                    data[1] = Base64.atob(data[1]);
                     a.length = data[1].length;
 
                     for (i = 0; i < a.length; ++i) {

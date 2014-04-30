@@ -94,6 +94,7 @@ class IMP_Dynamic_Compose_Common
             $view->rte = true;
 
             $page_output->addScriptPackage('IMP_Script_Package_Editor');
+            $page_output->addScriptFile('external/base64.js');
         }
 
         /* Create list for sent-mail selection. */
