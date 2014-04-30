@@ -26,7 +26,7 @@ class Horde_JavascriptMinify_Jsmin extends Horde_JavascriptMinify_Null
     public function minify()
     {
         $jsmin = new Horde_JavascriptMinify_Jsmin_Minifier(parent::minify());
-        return $jsmin->minify();
+        return $jsmin->minify() . $this->_sourceUrls();
     }
 
 }
