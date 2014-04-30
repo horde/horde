@@ -578,7 +578,7 @@ class IMP_Contents
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
         if (!$mime_part) {
-            return array($mime_id = null);
+            return array($mime_id => null);
         }
 
         if (!empty($options['autodetect']) &&
