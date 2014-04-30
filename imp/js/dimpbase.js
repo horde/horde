@@ -1606,8 +1606,8 @@ var DimpBase = {
         var elt, unseen,
             label = this.viewport.getMetaData('label');
 
-        // 'label' will not be set if there has been an error
-        // retrieving data from the server.
+        // 'label' will not be set if there has been an error retrieving data
+        // from the server.
         if (!label || !$('dimpmain_folder').visible()) {
             return;
         }
@@ -2080,11 +2080,15 @@ var DimpBase = {
         var rows = this.viewport.getMetaData('total_rows'),
             text = this.viewport.getMetaData('label');
 
-        if (rows) {
-            text += ' (' + this.messageCountText(rows) + ')';
-        }
+        // 'label' will not be set if there has been an error retrieving data
+        // from the server.
+        if (text) {
+            if (rows) {
+                text += ' (' + this.messageCountText(rows) + ')';
+            }
 
-        $('mailboxName').update(text.escapeHTML());
+            $('mailboxName').update(text.escapeHTML());
+        }
     },
 
     // m = (string|Element) Mailbox element.
