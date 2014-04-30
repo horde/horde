@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Fix HTTP authentication with PECL HTTP drivers.
 * [jan] Always cast reponse body to string with pecl_http 2.0 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
  </notes>
  <contents>
@@ -463,6 +464,7 @@
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Fix HTTP authentication with PECL HTTP drivers.
 * [jan] Always cast reponse body to string with pecl_http 2.0 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
    </notes>
   </release>

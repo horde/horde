@@ -44,12 +44,13 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
      * Translates a Horde_Http::AUTH_* constant to implementation specific
      * constants.
      *
-     * @return const
+     * @param string $httpAuthScheme  A Horde_Http::AUTH_* constant.
+     *
+     * @return const An implementation specific authentication scheme constant.
      * @throws Horde_Http_Exception
      */
-    private function _httpAuthScheme()
+    protected function _httpAuthScheme($httpAuthScheme)
     {
-        $httpAuthScheme = $this->proxyAuthenticationScheme;
         if (!isset($this->_httpAuthSchemes[$httpAuthScheme])) {
             throw new Horde_Http_Exception('Unsupported authentication scheme (' . $httpAuthScheme . ')');
         }
@@ -95,7 +96,7 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
             }
             if ($this->proxyUsername && $this->proxyPassword) {
                 $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
-                $httpOptions['proxyauthtype'] = $this->_httpAuthScheme();
+                $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
             }
             if ($this->proxyType == Horde_Http::PROXY_SOCKS4 || $this->proxyType == Horde_Http::PROXY_SOCKS5) {
                 $httpOptions['proxytype'] = $this->_proxyType();
