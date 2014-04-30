@@ -2146,16 +2146,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ((!$esearch || !empty($options['partial'])) &&
                 ($cap = $this->queryCapability('CONTEXT')) &&
                 in_array('SORT', $cap)) {
-                /* RFC 5267 indicates RFC 4466 ESEARCH support,
-                 * notwithstanding RFC 4731 support. */
+                /* RFC 5267 indicates RFC 4466 ESEARCH-like support,
+                 * notwithstanding "real" RFC 4731 support. */
                 $esearch = true;
 
                 if (!empty($options['partial'])) {
                     /* Can't have both ALL and PARTIAL returns. */
                     $results = array_diff($results, array('ALL'));
 
+                    $pids = $this->getIdsOb($options['partial'])->range_string;
+                    if (strpos($pids, ':') === false) {
+                        $pids .= ':' . $pids;
+                    }
+
                     $results[] = 'PARTIAL';
-                    $results[] = strval($this->getIdsOb($options['partial']));
+                    $results[] = $pids;
                 }
             }
 
@@ -2197,16 +2202,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ((!$esearch || !empty($options['partial'])) &&
                 ($cap = $this->queryCapability('CONTEXT')) &&
                 in_array('SEARCH', $cap)) {
-                /* RFC 5267 indicates RFC 4466 ESEARCH support,
-                 * notwithstanding RFC 4731 support. */
+                /* RFC 5267 indicates RFC 4466 ESEARCH-like support,
+                 * notwithstanding "real" RFC 4731 support. */
                 $esearch = true;
 
                 if (!empty($options['partial'])) {
                     // Can't have both ALL and PARTIAL returns.
                     $results = array_diff($results, array('ALL'));
 
+                    $pids = $this->getIdsOb($options['partial'])->range_string;
+                    if (strpos($pids, ':') === false) {
+                        $pids .= ':' . $pids;
+                    }
+
                     $results[] = 'PARTIAL';
-                    $results[] = strval($this->getIdsOb($options['partial']));
+                    $results[] = $pids;
                 }
             }
 
