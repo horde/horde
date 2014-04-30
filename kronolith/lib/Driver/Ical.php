@@ -761,20 +761,21 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     protected function _getClient($uri)
     {
-        $options = array('request.timeout' => isset($this->_params['timeout'])
-                                              ? $this->_params['timeout']
-                                              : 5);
+        $hordeOptions = array(
+            'request.timeout' => isset($this->_params['timeout'])
+                ? $this->_params['timeout']
+                : 5
+        );
+        $sabreOptions = array('baseUri' => $uri);
         if (!empty($this->_params['user'])) {
-            $options['request.username'] = $this->_params['user'];
-            $options['request.password'] = $this->_params['password'];
+            $hordeOptions['request.username'] = $sabreOptions['userName'] = $this->_params['user'];
+            $hordeOptions['request.password'] = $sabreOptions['password'] = $this->_params['password'];
         }
+        $sabreOptions['client'] = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_HttpClient')
+            ->create($hordeOptions);
 
-        $this->_client = new Horde_Dav_Client(array(
-            'client' => $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_HttpClient')
-                ->create($options),
-            'baseUri' => $uri
-        ));
+        $this->_client = new Horde_Dav_Client($sabreOptions);
 
         return $this->_client;
     }
