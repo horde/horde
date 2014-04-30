@@ -83,7 +83,13 @@ CKEDITOR.plugins.add('pasteattachment', {
                 /* Only support images for now. */
                 if (span && span.match('IMG')) {
                     data = span.readAttribute('src').split(',', 2);
-                    data[1] = Base64.atob(data[1]);
+                    try {
+                        data[1] = Base64.atob(data[1]);
+                    } catch (e) {
+                        HordeCore.notify(DimpCore.text.paste_error, 'horde.error');
+                        ev.data.html = '';
+                        return;
+                    }
                     a.length = data[1].length;
 
                     for (i = 0; i < a.length; ++i) {
