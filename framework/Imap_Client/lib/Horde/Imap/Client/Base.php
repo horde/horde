@@ -1928,7 +1928,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - nocache: (boolean) Don't cache the results.
      *              DEFAULT: false (results cached, if possible)
      *   - partial: (mixed) The range of results to return (message sequence
-     *              numbers).
+     *              numbers) Only a single range is supported (represented by
+     *              the minimum and maximum values contained in the range
+     *              given).
      *              DEFAULT: All messages are returned.
      *   - results: (array) The data to return. Consists of zero or more of
      *              the following flags:
