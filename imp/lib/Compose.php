@@ -580,9 +580,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             if ($val = $headers->getValue('references')) {
-                $ref_ob = new IMP_Compose_References();
-                $ref_ob->parse($val);
-                $this->_setMetadata('references', $ref_ob->references);
+                $ref_ob = new Horde_Mail_Rfc822_Identification($val);
+                $this->_setMetadata('references', $ref_ob->ids);
 
                 if ($val = $headers->getValue('in-reply-to')) {
                     $this->_setMetadata('in_reply_to', $val);
@@ -1835,9 +1834,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->_setMetadata('in_reply_to', $msg_id);
 
                 if ($refs = $h->getValue('references')) {
-                    $ref_ob = new IMP_Compose_References();
-                    $ref_ob->parse($refs);
-                    $refs = $ref_ob->references;
+                    $ref_ob = new Horde_Mail_Rfc822_Identification($refs);
+                    $refs = $ref_ob->ids;
                 } else {
                     $refs = array();
                 }
