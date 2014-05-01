@@ -35,8 +35,7 @@
     <div id="anselSizer">&nbsp;</div>
     <!-- Images -->
     <div id="anselViewImages" style="display;none;">
-        <div id="anselImagesMain">
-        </div>
+        <div id="anselImagesMain"></div>
     </div>
     <!-- End Images -->
 
