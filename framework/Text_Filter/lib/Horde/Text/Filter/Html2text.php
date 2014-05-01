@@ -106,7 +106,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
         /* Bring down number of empty lines to 2 max, and remove trailing
          * ws. */
-        $text = preg_replace(array("/\s*\n{3,}/", "/ +\n/"), array("\n\n", "\n"), $text);
+        $text = preg_replace(
+            array("/\s*\n{3,}/", "/ +\n/"),
+            array("\n\n", "\n"),
+            $text
+        );
 
         /* Wrap the text to a readable format. */
         if ($this->_params['width']) {
