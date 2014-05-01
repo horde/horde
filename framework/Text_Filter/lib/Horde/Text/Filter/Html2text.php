@@ -198,7 +198,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                             if (!strspn(substr($out, -2), "\n")) {
                                 $out .= "\n";
                             }
-                            $out .= $tmp . "\n";
+
+                            if (strlen(trim($tmp))) {
+                                $out .= $tmp . "\n";
+                            }
                         }
                         break;
 
@@ -209,7 +212,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'tr':
-                        $out .= "\n  " . rtrim($this->_node($doc, $child));
+                        $out .= "\n  " . trim($this->_node($doc, $child));
                         break;
 
                     case 'th':

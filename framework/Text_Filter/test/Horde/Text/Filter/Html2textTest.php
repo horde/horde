@@ -121,7 +121,7 @@ class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
 </table>
 EOT;
         $expected = <<<EOT
-  TYPE  REPRESENTATION
+  TYPE 	REPRESENTATION
   emphasis text 	/emphasis text/
   strong text 	STRONG TEXT
   italic text 	/italic text/
@@ -253,8 +253,6 @@ Zitat von John Doe <john.doe@example.com>:
 > Hallo lieber John,
 >
 > Blah, blah.'
-
-
 
 --
 Some signature
