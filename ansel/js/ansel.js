@@ -21,9 +21,7 @@ AnselCore =
     mapInitialized: false,
     effectDur: 0.4,
     inScrollHandler: false,
-    // Needs to be high enough to ensure we can scroll to trigger the next
-    // page.
-    perPage: 15,
+    perPage: 10,
 
     /**
      * The location that was open before the current location.
@@ -224,7 +222,7 @@ AnselCore =
                 this.galleryLayout = this.galleryLayout || new AnselLayout({
                     container: 'anselViewGalleries'
                 });
-                this.galleryLayout.galleries = $H(Ansel.galleries);
+                this.galleryLayout.galleries = $H(Ansel.galleries).values();
                 this.galleryLayout.resize();
             }
             break;
@@ -253,8 +251,7 @@ AnselCore =
         this.imageLayout = this.imageLayout || new AnselLayout({
             container: 'anselViewImages'
         });
-        this.imageLayout.images = this.imageLayout.images.concat(r);
-        this.imageLayout.resize();
+        this.imageLayout.addImages(r);
         this.inScrollHandler = false;
     },
 

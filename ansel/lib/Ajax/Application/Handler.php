@@ -66,6 +66,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $registry;
 
+        $return = array();
         switch ($this->vars->view) {
         case Ansel_Ajax::VIEW_ME:
             // Only want current user's images, don't check perms.

@@ -15,16 +15,13 @@
  * Usage: var view = new AnselLayout({ container: 'myContainer' });
  *
  * Required Options:
- *     - container:     The container element id. Contains the following DOM
- *                      structure:
- *        <div>
- *          <div class="anselRow"></div>
- *        </div>
+ *     - container:     The container element id.
  *
  * Optional Options:
  *     - sizer:         The DOM id of an element to get the row width from.
  *                      Defaults to 'anselSizer'.
- *     - rowSelector:   CSS selector for individual rows  Defaults to ".anselRow"
+ *     - rowSelector:   CSS selector for individual rows.
+ *                      Defaults to ".anselRow"
  *     - maxHeight:     The maximum height, in pixels, to allow for thumbnails.
  *                      Defaults to 300.
  *     - border:        Size, in pixels of the TOTAL spacing between images.
@@ -33,6 +30,8 @@
  *                      in the container element. Defaults to 12.
  *     - galleryWidth:  The width, in pixes, of gallery thumbnails.
  *                      Defaults to 300.
+ *     - perPage:       Number of tiles to load at a time.
+ *                      Defaults to 10.
  *
  * Custom Events:  Fired on the opts.container element passed into the
  *                 constructor.
@@ -61,11 +60,16 @@ AnselLayout = Class.create({
     // [{id: xx, width_s: xx, height_s: xx }]
     images: [],
 
+    // The last image that was displayed on the screen.
+    lastImage: null,
+
     // An array of galleries to display.
     galleries: [],
 
     // Used internally to calculate viewport size changes.
     lastWidth: 0,
+
+    moreAvailable: true,
 
     initialize: function(opts)
     {
@@ -75,7 +79,8 @@ AnselLayout = Class.create({
             maxHeight: 300,
             border: 8,
             padding: 12,
-            galleryWidth: 300
+            galleryWidth: 300,
+            perPage: 10,
         }, opts);
 
         // Container is the image row container.
@@ -93,22 +98,73 @@ AnselLayout = Class.create({
         }.bind(this));
     },
 
+    // Prepare an array of images by calculating the initial scaled width.
+    scaleImages: function(imgs)
+    {
+        var scaled = [];
+
+        imgs.each(function(im) {
+            var wt = parseInt(im.width_s, 10),
+                ht = parseInt(im.height_s, 10);
+            if (ht != this.opts.maxHeight) {
+                wt = Math.floor(wt *  (this.opts.maxHeight / ht));
+            }
+            scaled.push(wt);
+        }.bind(this));
+
+        return scaled;
+    },
+
     resize: function()
     {
-        this.lastWidth = $(this.opts.sizer).getWidth();
+        // Only resize if width changes.
+        if (this.lastWidth && this.lastWidth == $(this.opts.sizer).getLayout().get('padding-box-width')) {
+            return;
+        }
+        this.lastWidth = $(this.opts.sizer).getLayout().get('padding-box-width');
         $(this.opts.container).select(this.opts.rowSelector).each(function(r) {
             r.width = this.lastWidth;
         }.bind(this));
         this.process();
     },
 
-    process: function()
+    // Insert new images in new rows.
+    addImages: function(imgs)
+    {
+        // If we are receiving less than opts.perPage then we must be out
+        // of images. Set the flag so we know not to prune the last row if
+        // it doesn't contain the full width.
+        if (imgs.length < this.opts.perPage) {
+            this.moreAvailable = false;
+        }
+
+        if (imgs.length) {
+            // If we don't already have lastWidth, this is the first.
+            if (!this.lastWidth) {
+                this.images = this.images.concat(imgs);
+                this.resize();
+                return;
+            }
+            this.process(imgs);
+        }
+    },
+
+    process: function(imgs)
     {
         var rows = $(this.opts.container).select(this.opts.rowSelector),
             rowWidth = $(this.opts.sizer).getLayout().get('padding-box-width'), scaledWidths = [],
-            baseLine = 0, imgBaseLine = 0, rowNum = 0, newRow;
+            baseLine = 0, imgBaseLine = 0, rowNum = 0, newRow, noResize = false;
 
-        if (!this.images.length && !this.galleries.size()) {
+        // If imgs is present, we are explictly adding only new images,
+        // not resizing.
+        if (imgs) {
+            noResize = true;
+            rowNum = rows.length - 1;
+            this.images = this.images.concat(imgs);
+            imgBaseLine = baseLine = this.lastImage;
+        }
+        imgs = this.images;
+        if (!imgs.length && !this.galleries.length) {
             return;
         }
 
@@ -120,20 +176,14 @@ AnselLayout = Class.create({
 
         // Gallery key images are always the same size, make sure
         // we account for any we want to display.
-        this.galleries.each(function(pair) {
-            scaledWidths.push(this.opts.galleryWidth);
-        }.bind(this));
+        if (!noResize) {
+            this.galleries.each(function(g) {
+                scaledWidths.push(this.opts.galleryWidth);
+            }.bind(this));
+        }
 
         // Calculate scaled image heights
-        // @TODO, request newly sized images for certain size thresholds.
-        this.images.each(function(im) {
-            var wt = parseInt(im.width_s, 10),
-                ht = parseInt(im.height_s, 10);
-            if (ht != this.opts.maxHeight) {
-                wt = Math.floor(wt *  (this.opts.maxHeight / ht));
-            }
-            scaledWidths.push(wt);
-        }.bind(this));
+        scaledWidths = scaledWidths.concat(this.scaleImages(imgs));
 
         while (rowNum++ < rows.length) {
             // imgCntRow =   Number of images in this row.
@@ -148,6 +198,8 @@ AnselLayout = Class.create({
             var d_row = rows[rowNum - 1], imgCntRow = 0, totalCntRow = 0,
                 imgNumber = 0, totalWidth = 0, totalNumber = 0, ratio, newht;
 
+            // We need to clear the entire row, since the images in each row
+            // are going to change.
             d_row.update();
 
             // Calculate width of images and the number of images to view in
@@ -175,8 +227,8 @@ AnselLayout = Class.create({
 
             // Fill the row with the images we know can fit. Start with any
             // gallery tiles we decided to show.
-            while (totalNumber < totalCntRow && (totalNumber + baseLine) < this.galleries.size()) {
-                var keyImage = this.galleries.get(totalNumber + 1).ki,
+            while (totalNumber < totalCntRow && (totalNumber + baseLine) < this.galleries.length) {
+                var keyImage = this.galleries[totalNumber].ki,
                     newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
                 totalWidth += newwt;
@@ -206,10 +258,13 @@ AnselLayout = Class.create({
             }
 
             // Move on to images?
-            while (totalNumber < totalCntRow && (imgNumber + imgBaseLine) <= this.images.length) {
-                var photo = this.images[imgBaseLine + imgNumber],
+            while (totalNumber < totalCntRow && (imgNumber + imgBaseLine) < imgs.length) {
+                var photo = imgs[imgBaseLine + imgNumber],
                     newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
+            if (ratio >= 1 && this.moreAvailable) {
+                break;
+            }
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt;
 
@@ -238,16 +293,17 @@ AnselLayout = Class.create({
                 totalNumber++;
                 imgCntRow++;
             }
+            this.lastImage = imgNumber + imgBaseLine;
 
             // Fine tune the totalWidth if it is slightly smaller than rowWidth.
             // Add 1px to each image until we have enough width.
             totalNumber = 0;
             while (totalWidth < rowWidth) {
-                var imgs = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
-                if (!imgs[0]) {
+                var images = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
+                if (!images[0]) {
                     break;
                 }
-                imgs[0].setStyle({ width: imgs[0].getWidth() + 1 });
+                images[0].setStyle({ width: images[0].getWidth() + 1 });
                 totalNumber = (totalNumber + 1) % totalCntRow;
                 totalWidth++;
             }
@@ -256,11 +312,11 @@ AnselLayout = Class.create({
             // Subtract 1px to each image until we have enough width.
             totalNumber = 0;
             while (totalWidth > rowWidth) {
-                var imgs = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
-                if (!imgs[0]) {
+                var images = d_row.select('img:nth-child(' + (totalNumber + 1) + ')');
+                if (!images[0]) {
                     break;
                 }
-                imgs[0].setStyle({ width: imgs[0].getWidth() - 1 });
+                images[0].setStyle({ width: images[0].getWidth() - 1 });
                 totalNumber = (totalNumber + 1) % totalCntRow;
                 totalWidth--;
             }
@@ -268,7 +324,7 @@ AnselLayout = Class.create({
             imgBaseLine += imgCntRow;
 
             // Add a new, empty row if we still have images.
-            if (rowNum == rows.length && baseLine < (this.images.length + this.galleries.size())) {
+            if (rowNum == rows.length && baseLine < (imgs.length + this.galleries.length)) {
                 newRow = d_row.clone();
                 $(this.opts.container).insert(newRow.update());
                 rows.push(newRow);
@@ -283,11 +339,13 @@ AnselLayout = Class.create({
         this.resize();
     },
 
+    // Catch the scroll event on the container, fire the custom AnselLayout:scroll
+    // event if we have more content and we have scrolled enough.
     onScroll: function(e)
     {
         var el = e.element();
-        if (el.scrollTop >= (el.scrollHeight - (el.clientHeight + 200))) {
-            $(this.opts.container).fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.size() });
+        if (this.moreAvailable && el.scrollTop >= (el.scrollHeight - (el.clientHeight + 200))) {
+            $(this.opts.container).fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
         }
     }
 
