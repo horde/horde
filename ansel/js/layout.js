@@ -330,10 +330,14 @@ AnselLayout = Class.create({
                 rows.push(newRow);
             }
         }
+
+        // Request more?
+        if (this.moreAvailable && this.opts.parent.scrollHeight - (this.opts.parent.clientHeight + 100) <=0) {
+            this.opts.parent.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
+        }
     },
 
-    // Handlers
-    // Trigger a resize when the screen changes by 10%
+    //
     onResize: function()
     {
         this.resize();
