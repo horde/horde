@@ -809,10 +809,6 @@ AnselCore =
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
 
-        // Custom Events
-        $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
-        $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
-
         HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) });
     },
 
