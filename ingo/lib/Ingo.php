@@ -200,11 +200,9 @@ class Ingo
         switch ($registry->getView()) {
         case $registry::VIEW_SMARTMOBILE:
             return Horde::url('smartmobile.php');
-            break;
 
         default:
             return Ingo_Basic_Filters::url();
-            break;
         }
     }
 
