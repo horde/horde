@@ -86,6 +86,7 @@ AnselLayout = Class.create({
         // Container is the image row container.
         this.opts.container = $(opts.container).down();
         this.opts.parent = $(opts.container);
+        this.opts.sizer = $(this.opts.sizer);
 
         Element.observe(window, 'resize', this.onResize.bindAsEventListener(this));
         this.opts.parent.observe('scroll', this.onScroll.bindAsEventListener(this));
@@ -93,7 +94,7 @@ AnselLayout = Class.create({
 
     reset: function()
     {
-        $(this.opts.container).select(this.opts.rowSelector).each(function(r) {
+        this.opts.container.select(this.opts.rowSelector).each(function(r) {
             r.update();
         }.bind(this));
     },
@@ -118,11 +119,11 @@ AnselLayout = Class.create({
     resize: function()
     {
         // Only resize if width changes.
-        if (this.lastWidth && this.lastWidth == $(this.opts.sizer).getLayout().get('padding-box-width')) {
+        if (this.lastWidth && this.lastWidth == this.opts.sizer.getLayout().get('padding-box-width')) {
             return;
         }
-        this.lastWidth = $(this.opts.sizer).getLayout().get('padding-box-width');
-        $(this.opts.container).select(this.opts.rowSelector).each(function(r) {
+        this.lastWidth = this.opts.sizer.getLayout().get('padding-box-width');
+        this.opts.container.select(this.opts.rowSelector).each(function(r) {
             r.width = this.lastWidth;
         }.bind(this));
         this.process();
@@ -151,8 +152,8 @@ AnselLayout = Class.create({
 
     process: function(imgs)
     {
-        var rows = $(this.opts.container).select(this.opts.rowSelector),
-            rowWidth = $(this.opts.sizer).getLayout().get('padding-box-width'), scaledWidths = [],
+        var rows = this.opts.container.select(this.opts.rowSelector),
+            rowWidth = this.opts.sizer.getLayout().get('padding-box-width'), scaledWidths = [],
             baseLine = 0, imgBaseLine = 0, rowNum = 0, newRow, noResize = false;
 
         // If imgs is present, we are explictly adding only new images,
@@ -170,7 +171,7 @@ AnselLayout = Class.create({
 
         if (!rows.length) {
             newRow = new Element('div', { class: 'anselRow' });
-            $(this.opts.container).insert(newRow);
+            this.opts.container.insert(newRow);
             rows.push(newRow);
         }
 
@@ -326,7 +327,7 @@ AnselLayout = Class.create({
             // Add a new, empty row if we still have images.
             if (rowNum == rows.length && baseLine < (imgs.length + this.galleries.length)) {
                 newRow = d_row.clone();
-                $(this.opts.container).insert(newRow.update());
+                this.opts.container.insert(newRow.update());
                 rows.push(newRow);
             }
         }
@@ -345,7 +346,7 @@ AnselLayout = Class.create({
     {
         var el = e.element();
         if (this.moreAvailable && el.scrollTop >= (el.scrollHeight - (el.clientHeight + 200))) {
-            $(this.opts.container).fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
+            this.opts.container.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
         }
     }
 
