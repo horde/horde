@@ -6,7 +6,7 @@
     <div class="horde-buttonbar">
      <ul>
        <li class="horde-icon">
-         <a id="anselMenuImages" title="<?php echo _("Photos")?>"><?php echo _("Photos")?></a>
+         <a id="anselMenuImages" title="<?php echo _("Photo Stream")?>"><?php echo _("All Photos")?></a>
        </li>
        <li class="horde-icon">
          <a id="anselMenuGalleries" title="<?php echo _("Galleries")?>"><?php echo _("Galleries")?></a></li>
