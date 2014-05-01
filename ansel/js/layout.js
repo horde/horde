@@ -112,6 +112,12 @@ AnselLayout = Class.create({
             return;
         }
 
+        if (!rows.length) {
+            newRow = new Element('div', { class: 'anselRow' });
+            $(this.opts.container).insert(newRow);
+            rows.push(newRow);
+        }
+
         // Gallery key images are always the same size, make sure
         // we account for any we want to display.
         this.galleries.each(function(pair) {
@@ -258,15 +264,13 @@ AnselLayout = Class.create({
                 totalNumber = (totalNumber + 1) % totalCntRow;
                 totalWidth--;
             }
-
-            // set row height to actual height + margins
-            //d_row.height = newht + this.opts.border;
             baseLine += totalCntRow;
             imgBaseLine += imgCntRow;
 
+            // Add a new, empty row if we still have images.
             if (rowNum == rows.length && baseLine < (this.images.length + this.galleries.size())) {
                 newRow = d_row.clone();
-                $(this.opts.container).insert(newRow);
+                $(this.opts.container).insert(newRow.update());
                 rows.push(newRow);
             }
         }
