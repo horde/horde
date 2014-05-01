@@ -205,7 +205,7 @@ AnselCore =
             switch (data) {
             case 'images':
                 $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
-                $('anselViewGalleries').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                $('anselViewGalleries').stopObserving('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
                 // @TODO. Sniff out if the view/subview has changed or not.
                 if (!this.imageLayout) {
                     HordeCore.doAction(
@@ -218,7 +218,7 @@ AnselCore =
 
             case 'galleries':
                 $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
-                $('anselViewGalleries').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
                 this.galleryLayout = this.galleryLayout || new AnselLayout({
                     container: 'anselViewGalleries',
                     perPage: this.perPage
