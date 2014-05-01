@@ -116,10 +116,21 @@ AnselLayout = Class.create({
         return scaled;
     },
 
+    // Check for empty vertical space and fire AnselLayout:scroll if we
+    // have more space available to fill.
+    checkVerticalSpace: function()
+    {
+        if (this.moreAvailable && this.opts.parent.scrollHeight - (this.opts.parent.clientHeight + 100) <=0) {
+            this.opts.parent.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
+        }
+    },
+
     resize: function()
     {
-        // Only resize if width changes.
+        // Only resize if width changes, but check if more vertical space
+        // became available to fill with images.
         if (this.lastWidth && this.lastWidth == this.opts.sizer.getLayout().get('padding-box-width')) {
+            this.checkVerticalSpace();
             return;
         }
         this.lastWidth = this.opts.sizer.getLayout().get('padding-box-width');
@@ -330,11 +341,7 @@ AnselLayout = Class.create({
                 rows.push(newRow);
             }
         }
-
-        // Request more?
-        if (this.moreAvailable && this.opts.parent.scrollHeight - (this.opts.parent.clientHeight + 100) <=0) {
-            this.opts.parent.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
-        }
+        this.checkVerticalSpace();
     },
 
     //
