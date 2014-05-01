@@ -158,6 +158,11 @@ AnselLayout = Class.create({
 
         // If imgs is present, we are explictly adding only new images,
         // not resizing.
+        if (imgs || !rows.length) {
+            newRow = new Element('div', { class: 'anselRow' });
+            this.opts.container.insert(newRow);
+            rows.push(newRow);
+        }
         if (imgs) {
             noResize = true;
             rowNum = rows.length - 1;
@@ -167,12 +172,6 @@ AnselLayout = Class.create({
         imgs = this.images;
         if (!imgs.length && !this.galleries.length) {
             return;
-        }
-
-        if (!rows.length) {
-            newRow = new Element('div', { class: 'anselRow' });
-            this.opts.container.insert(newRow);
-            rows.push(newRow);
         }
 
         // Gallery key images are always the same size, make sure
