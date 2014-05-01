@@ -343,9 +343,9 @@ AnselLayout = Class.create({
     // event if we have more content and we have scrolled enough.
     onScroll: function(e)
     {
-        var el = e.element();
+        var el = this.opts.parent;
         if (this.moreAvailable && el.scrollTop >= (el.scrollHeight - (el.clientHeight + 200))) {
-            this.opts.container.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
+            this.opts.parent.fire('AnselLayout:scroll', { image: this.images.length, gallery: this.galleries.length });
         }
     }
 
