@@ -220,7 +220,8 @@ AnselCore =
                 $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 $('anselViewGalleries').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 this.galleryLayout = this.galleryLayout || new AnselLayout({
-                    container: 'anselViewGalleries'
+                    container: 'anselViewGalleries',
+                    perPage: this.perPage
                 });
                 this.galleryLayout.galleries = $H(Ansel.galleries).values();
                 this.galleryLayout.resize();
@@ -249,7 +250,8 @@ AnselCore =
     listImagesCallback: function(r)
     {
         this.imageLayout = this.imageLayout || new AnselLayout({
-            container: 'anselViewImages'
+            container: 'anselViewImages',
+            perPage: this.perPage
         });
         this.imageLayout.addImages(r);
         this.inScrollHandler = false;
