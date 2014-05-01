@@ -46,26 +46,49 @@
 #anselBody {
     position: absolute;
     top: 30px;
-    left: 7px;
+    left: 0px;
     right: 0;
     bottom: 0;
-    overflow: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-right: 4px;
+    padding-top: 8px;
     padding-left: 4px;
+    margin-right: 4px;
+    margin-left: 8px;
+}
+#anselViewImages {
+    height: 100%;
+    position: relative;
+    float: none;
+    overflow: auto;
+    display: inline-block;
+}
+#anselViewGalleries {
+    height: 100%;
+    position: relative;
+    float: none;
+    display: inline-block;
+    overflow: auto;
 }
 
-/*#anselSizer {
+#anselSizer {
     display: none;
-}*/
+}
 
 /* A row of photo containers */
 .anselRow {
-    border: 0px solid #000;
+    border: none;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+}
+
+.ansel-photo-wrap {
+    border-right: 8px solid white;
+    position: relative;
+    float: none;
+    display: inline-block;
 }
 
 /* Photo containers */
 .ansel-photo {
     background-color: #dddddd;
+    border: none;
 }

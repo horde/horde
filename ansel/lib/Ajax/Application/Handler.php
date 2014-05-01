@@ -1,5 +1,16 @@
 <?php
 /**
+ * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
+ * @package Ansel
+ */
+/**
  * Defines the AJAX actions used in Ansel.
  *
  * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
@@ -9,13 +20,13 @@
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Ansel
+ * @copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/gpl GPL
+ * @package Ansel
  */
 class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
     protected $_external = array('embed');
-
 
     /**
      * Return an array of gallery objects, matching the requested paramters.
@@ -39,6 +50,32 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         return $return;
+    }
+
+    /**
+     * Return an array of image objects matching the requested parameters.
+     * Expects the following in $this->vars:
+     *   - view:  The current view (VIEW_ME)
+     *   - start: The image to start listing at.
+     *   - count: The number of images to return.
+     *
+     * @return array An array of image objects.
+     * @see Ansel_Image::toJson() for the data available in the image object.
+     */
+    public function listImages()
+    {
+        global $injector, $registry;
+
+        switch ($this->vars->view) {
+        case Ansel_Ajax::VIEW_ME:
+            // Only want current user's images, don't check perms.
+            $imgs = $injector->getInstance('Ansel_Storage')->getUserImages(
+                $registry->getAuth(), $this->vars->start, $this->vars->count);
+            foreach ($imgs as $img) {
+                $return[] = $img->toJson();
+            }
+            return $return;
+        }
     }
 
     /**

@@ -14,6 +14,8 @@
  */
 class Ansel_Ajax
 {
+    const VIEW_ME = 'me';
+
     /**
      */
     public function init()

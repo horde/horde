@@ -1246,19 +1246,9 @@ class Ansel_Gallery implements Serializable
                     $json->sg[] = $g->toJson();
                 }
             }
-
             $images = $this->getImages();
             foreach ($images as $img) {
-                $i = new StdClass();
-                $i->id = $img->id;
-                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, $style)->toString(true);
-                $i->screen = Ansel::getImageUrl($img->id, 'screen', $json->tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
-                $i->fn = $img->filename;
-                $json->imgs[] = $i;
-                // @TODO implement more granular view names.
-                $dim = $img->getDimensions('screen');
-                $i->width_s = $dim['width'];
-                $i->height_s = $dim['height'];
+                $json->imgs[] = $img->toJson($style);
             }
         }
 

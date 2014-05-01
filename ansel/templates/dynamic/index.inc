@@ -48,8 +48,7 @@
         </div>
     </div>
     <!-- End Images -->
-
-  </div>
+</div>
 <!-- end body -->
 
 </div>

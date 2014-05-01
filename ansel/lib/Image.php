@@ -1394,6 +1394,37 @@ class Ansel_Image Implements Iterator
     }
 
     /**
+     * Return this image representated in JSON.
+     *
+     * @param Ansel_Style $style  The style definition
+     *
+     * @return stdClass  The image object.
+     */
+    public function toJson($style = null)
+    {
+        global $injector, $conf, $registry;
+
+        $gallery = $injector->getInstance('Ansel_Storage')
+            ->getGallery($this->gallery);
+
+        // @TODO Deprecate tiny
+        $tiny = $conf['image']['tiny'] &&
+                ($conf['vfs']['src'] == 'direct' || $gallery->hasPermission($registry->getAuth(), Horde_Perms::READ));
+
+        $i = new StdClass();
+        $i->id = $this->id;
+        $i->url = Ansel::getImageUrl($this->id, 'thumb', false, $style)->toString(true);
+        $i->screen = Ansel::getImageUrl($this->id, 'screen', $tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
+        $i->fn = $this->filename;
+        // @TODO implement more granular view names.
+        $dim = $this->getDimensions('screen');
+        $i->width_s = $dim['width'];
+        $i->height_s = $dim['height'];
+
+        return $i;
+    }
+
+    /**
      * Reset the iterator to the first image in the set.
      *
      * @return void

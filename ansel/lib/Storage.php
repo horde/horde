@@ -733,6 +733,33 @@ class Ansel_Storage
         return $return;
     }
 
+    public function getUserImages($user, $from = 0, $count = 20)
+    {
+        global $registry;
+
+        $shares = $this->_shares->listShares(
+            $registry->getAuth(),
+            array('attributes' => $user)
+        );
+
+        $galleries = array();
+        foreach ($shares as $g) {
+            $galleries[] = $g->getId();
+        }
+
+        $image_ids = $this->listImages(array(
+            'gallery_id' => $galleries,
+            'offset' => $from,
+            'limit' => $count));
+
+        if (empty($image_ids)) {
+            // Reached the end of available images?
+            //$GLOBALS['notification']->push('No more images');
+            return array();
+        }
+        return $this->getImages(array('ids' => $image_ids));
+    }
+
     /**
      * Get the total number of comments for an image.
      *
@@ -1119,6 +1146,7 @@ class Ansel_Storage
                 'limit' => $params->get('limit', 0),
                 'offset' => $params->get('offset', 0))
         );
+
         try {
             if ($field_count > 1) {
                 $results = $this->_db->selectAll($sql);

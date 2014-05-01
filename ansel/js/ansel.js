@@ -10,7 +10,8 @@
  */
 
 /* Ansel object. */
-AnselCore = {
+AnselCore =
+{
     view: '',
     viewLoading: [],
     redBoxLoading: false,
@@ -19,7 +20,10 @@ AnselCore = {
     map: null,
     mapInitialized: false,
     effectDur: 0.4,
-    galleries: null,
+    inScrollHandler: false,
+    // Needs to be high enough to ensure we can scroll to trigger the next
+    // page.
+    perPage: 15,
 
     /**
      * The location that was open before the current location.
@@ -139,22 +143,14 @@ AnselCore = {
                 this.addHistory(fullloc);
                 this.view = loc;
                 this.subview = data;
-                // @TODO. Really want an appear effect, but I need to figure out
-                // how to calculate all the needed widths in AnselLayout.process
-                // when the parent element is hidden. Disconnecting/reconnecting
-                // from the DOM doesn't seem to work, as the widths are still
-                // wrong. For now, jush unhide the element.
-                $('anselView' + subview.capitalize()).show();
-                this.updateView(loc, subview);
-                this.loadNextView();
-                // $('anselView' + subview.capitalize()).appear({
-                //         duration: this.effectDur,
-                //         queue: 'end',
-                //         afterFinish: function() {
-                //             this.updateView(loc, subview);
-                //             this.loadNextView();
-                //         }.bind(this)
-                // });
+                $('anselView' + subview.capitalize()).appear({
+                        duration: this.effectDur,
+                        queue: 'end',
+                        afterFinish: function() {
+                            this.updateView(loc, subview);
+                            this.loadNextView();
+                        }.bind(this)
+                });
                 //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
 
@@ -210,20 +206,56 @@ AnselCore = {
         case 'me':
             switch (data) {
             case 'images':
-                // HACK = @TODO check for gallery id, requery if needed. etc..
-                AnselLayout.images = Ansel.galleries[1].imgs;
-                AnselLayout.galleries = $H();
+                $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                $('anselViewGalleries').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                // @TODO. Sniff out if the view/subview has changed or not.
+                if (!this.imageLayout) {
+                    HordeCore.doAction(
+                        'listImages',
+                        { view: 'me', start: 0, count: this.perPage },
+                        { callback: this.listImagesCallback.bind(this) }
+                    );
+                }
                 break;
+
             case 'galleries':
-               AnselLayout.galleries = $H(Ansel.galleries);
-               // @TODO - only clear this on top level gallery display.
-               // need to populate this as we drill down in "gallery view".
-               AnselLayout.images = [];
+                $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                $('anselViewGalleries').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                this.galleryLayout = this.galleryLayout || new AnselLayout({
+                    container: 'anselViewGalleries'
+                });
+                this.galleryLayout.galleries = $H(Ansel.galleries);
+                this.galleryLayout.resize();
             }
-            AnselLayout.container = 'ansel' + data.capitalize() + 'Main';
-            AnselLayout.resize();
             break;
         }
+    },
+
+    onImageScroll: function(e)
+    {
+        if (!this.inScrollHandler) {
+            this.inScrollHandler = true;
+            HordeCore.doAction(
+                'listImages',
+                { view: 'me', start: e.memo.image, count: this.perPage },
+                { callback: this.listImagesCallback.bind(this) }
+            );
+        }
+    },
+
+    onGalleryScroll: function(e)
+    {
+        console.log(e.memo);
+    },
+
+    listImagesCallback: function(r)
+    {
+        this.imageLayout = this.imageLayout || new AnselLayout({
+            container: 'anselViewImages'
+        });
+        this.imageLayout.images = this.imageLayout.images.concat(r);
+        this.imageLayout.resize();
+        this.inScrollHandler = false;
     },
 
     /**
@@ -267,7 +299,7 @@ AnselCore = {
                     duration: this.effectDur,
                     queue: 'end'
                 });
-                AnselLayout.reset();
+               // AnselLayout.reset();
             }
             // this.view = null;
             // this.subview = null;
@@ -772,27 +804,31 @@ AnselCore = {
         }.bind(this);
         RedBox.duration = this.effectDur;
 
+        // Event handlers
         document.observe('keydown', AnselCore.keydownHandler.bindAsEventListener(AnselCore));
         document.observe('keyup', AnselCore.keyupHandler.bindAsEventListener(AnselCore));
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
-        HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) })
+
+        // Custom Events
+        $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+        $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
+
+        HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) });
     },
 
     initialize: function(location, r)
     {
         Ansel.galleries = r;
-        //TEMP HACK
-        AnselLayout.images = r[1].imgs;
-        //this.updateGalleryList();
 
         // //$('anselLoadingGalleries').hide();
         this.initialized = true;
 
-
         /* TEMP HACK */
         this.go('me', 'galleries');
-        Element.observe(window, 'resize', AnselLayout.onResize);
+        //Element.observe(window, 'resize', AnselLayout.onResize);
+
+
         // /* Initialize the starting page. */
         // if (!location.empty()) {
         //     this.go(decodeURIComponent(location));
@@ -813,6 +849,7 @@ AnselCore = {
 
 /* Initialize global event handlers. */
 document.observe('dom:loaded', AnselCore.onDomLoad.bind(AnselCore));
+
 // document.observe('FormGhost:reset', AnselCore.searchReset.bindAsEventListener(AnselCore));
 // document.observe('FormGhost:submit', AnselCore.searchSubmit.bindAsEventListener(AnselCore));
 document.observe('HordeCore:showNotifications', AnselCore.showNotification.bindAsEventListener(AnselCore));
