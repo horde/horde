@@ -306,11 +306,12 @@ var DimpCore = {
         switch (e.memo) {
         case 'ctx_contacts':
             tmp = $(e.memo).down('DIV');
+            tmp2 = e.element().retrieve('email');
             tmp.hide().childElements().invoke('remove');
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (tmp2 = e.element().retrieve('email')) {
+            if (tmp2) {
                 this.doAction('getContactsImage', {
                     addr: tmp2.b
                 }, {

@@ -24,4 +24,4 @@ var HordeBlocks = {
             }
         );
     }
-}
+};

@@ -654,7 +654,7 @@ Drag = Class.create({
         }
 
         delta = document.viewport.getScrollOffsets();
-        p = s.viewportOffset(),
+        p = s.viewportOffset();
         speed = [ 0, 0 ];
         vp = document.viewport.getDimensions();
 

@@ -233,12 +233,12 @@ var ColorPicker = Class.create({
         }
 
         if (o == 'color-picker-resize') {
-            oX = -(e.pointerX()),
-            oY = -(e.pointerY()),
+            oX = -(e.pointerX());
+            oY = -(e.pointerY());
             oH = parseInt($('color-picker-sphere').getStyle('height'), 10);
         } else {
-            oX = parseInt($(o).getStyle('left'), 10) - e.pointerX(),
-            oY = parseInt($(o).getStyle('top'), 10) - e.pointerY(),
+            oX = parseInt($(o).getStyle('left'), 10) - e.pointerX();
+            oY = parseInt($(o).getStyle('top'), 10) - e.pointerY();
             oH = null;
         }
 

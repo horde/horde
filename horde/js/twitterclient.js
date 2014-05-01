@@ -251,7 +251,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.c;
         if (response.o) {
             this.oldestId = response.o;
-            h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight;
             $(this.opts.content).insert(content);
             $(this.opts.content).scrollTop = h;
         }
@@ -268,7 +268,7 @@ var Horde_Twitter = Class.create({
         // If no more available, the oldest id will be null
         if (response.o) {
             this.oldestMention = response.o;
-            h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight;
             $(this.opts.mentions).insert(content);
             $(this.opts.mentions).scrollTop = h;
         }

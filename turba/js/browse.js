@@ -25,14 +25,14 @@ function Add(select)
     }
 
     key = select[select.selectedIndex].value;
-    if (key == '') {
+    if (key === '') {
         window.alert(TurbaBrowse.contact2);
         return false;
     }
 
     if (key.indexOf(':') == -1 || key.lastIndexOf(':') == key.length - 1) {
         var newList = window.prompt(TurbaBrowse.contact3, '');
-        if (newList != null && newList != '') {
+        if (newList !== null && newList !== '') {
             if (key.lastIndexOf(':') == key.length - 1) {
                 key = key.substr(0, key.length - 1);
             }
@@ -57,7 +57,7 @@ function CopyMove(action, select)
     }
 
     key = select[select.selectedIndex].value;
-    if (key == '') {
+    if (key === '') {
         window.alert(TurbaBrowse.copymove);
         return false;
     }

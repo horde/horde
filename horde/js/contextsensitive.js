@@ -313,7 +313,7 @@ var ContextSensitive = Class.create({
 
         // Get window/element dimensions
         elt.setStyle({ visibility: 'hidden' }).show();
-        eltL = elt.getLayout(),
+        eltL = elt.getLayout();
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
         elt.hide().setStyle({ visibility: 'visible' });

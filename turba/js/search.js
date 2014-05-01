@@ -9,7 +9,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-TurbaSearch = {
+var TurbaSearch = {
 
     // Vars set by calling code: advanced
 
@@ -30,7 +30,7 @@ TurbaSearch = {
         });
 
         if ($('vbook-form')) {
-            if (this.shareSources[$F(source_elt)] == true) {
+            if (this.shareSources[$F(source_elt)] === true) {
                 $('vbook-form').show();
             } else {
                 $('vbook-form').hide();
@@ -53,6 +53,6 @@ TurbaSearch = {
         this.updateCriteria();
     }
 
-}
+};
 
 document.observe('dom:loaded', TurbaSearch.onDomLoad.bind(TurbaSearch));

@@ -965,8 +965,8 @@ var DimpCompose = {
         this.uniqueSubmit('addAttachment');
         u.up().hide();
         $('upload_wait').update(DimpCore.text.uploading + ' (' +
-            ((u.files && u.files.length > 1) ? DimpCore.text.multiple_atc.sub('%d', u.files.length) : $F(u).escapeHTML())
-            + ')').show();
+            ((u.files && u.files.length > 1) ? DimpCore.text.multiple_atc.sub('%d', u.files.length) : $F(u).escapeHTML()) +
+            ')').show();
     },
 
     uploadAttachmentAjax: function(data, params, callback)
@@ -1029,8 +1029,8 @@ var DimpCompose = {
             input: 'save_sent_mail_mbox',
             label: 'sent_mail_label'
         });
-        this.knl['sm'].knl.setSelected($F('save_sent_mail_mbox'));
-        this.knl['sm'].knl.show();
+        this.knl.sm.knl.setSelected($F('save_sent_mail_mbox'));
+        this.knl.sm.knl.show();
     },
 
     /* Open the addressbook window. */

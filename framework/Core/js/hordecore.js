@@ -387,7 +387,7 @@ var HordeCore = {
                                     this._desktopNotify({
                                         icon: alarms.params.desktop.icon,
                                         title: message,
-                                        text: HordeCore.text['dismissed']
+                                        text: HordeCore.text.dismissed
                                     });
                                     if (alarms.params.desktop.url) {
                                         window.open(alarms.params.desktop.url, '__blank');

@@ -2165,7 +2165,7 @@ KronolithCore = {
         var calendar = event.calendar.split('|'),
             span = new Element('span'),
             time;
-        opts = Object.extend({ time: false }, opts || {}),
+        opts = Object.extend({ time: false }, opts || {});
 
         div.update();
         if (event.ic) {
@@ -3194,7 +3194,7 @@ KronolithCore = {
                 $('kronolithCalendarremotePassword').setValue(info.password);
                 break;
             case 'resourcegroup':
-                $('kronolithCalendarresourcegroupDescription').setValue(info.desc)
+                $('kronolithCalendarresourcegroupDescription').setValue(info.desc);
                 $('kronolithCalendarresourcegroupmembers').setValue(info.members);
                 break;
             case 'resource':
@@ -4493,8 +4493,8 @@ KronolithCore = {
                 break;
             case 'kronolithEventConflictNo':
                 $('kronolithConflictDiv').hide();
-                $('kronolithEventDiv').show()
-                e.stop()
+                $('kronolithEventDiv').show();
+                e.stop();
                 break;
             case 'kronolithEventSaveAsNew':
                 if (!elt.disabled) {
@@ -5900,7 +5900,7 @@ KronolithCore = {
         if (!Object.isUndefined(ev.rs)) {
             var rs = $H(ev.rs);
             HordeImple.AutoCompleter.kronolithEventResources.reset(rs.values().pluck('name'));
-            rs.each(function(r) { this.addResource(r.value, r.key) }.bind(this));
+            rs.each(function(r) { this.addResource(r.value, r.key); }.bind(this));
             if (this.fbLoading) {
                 $('kronolithResourceFBLoading').show();
             }
@@ -6887,7 +6887,7 @@ KronolithCore = {
             this.updateView(this.date, Kronolith.conf.login_view);
             $('kronolithView' + Kronolith.conf.login_view.capitalize()).show();
         }
-        HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this, tmp) })
+        HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this, tmp) });
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

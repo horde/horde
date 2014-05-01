@@ -11,7 +11,7 @@ var ImpRemotePrefs = {
 
     _sendData: function(a, d, c)
     {
-        $('remote_action').setValue(a)
+        $('remote_action').setValue(a);
         $('remote_data').setValue(d);
         if (c) {
             $('prefs').getInputs('hidden', 'actionID').first().clear();

@@ -155,7 +155,7 @@ var KronolithMobile = {
     insertEvents: function(dates, view, cal)
     {
         var key = dates[0].dateString() + dates[1].dateString() + view + cal,
-        d = [dates[0].clone(), dates[1].clone()], date, events, list, key, day;
+        d = [dates[0].clone(), dates[1].clone()], date, events, list, day;
 
         // Make sure all calendars are loaded before rendering the view.
         // @TODO: Implement LIFO queue as in kronolith.js
@@ -473,7 +473,7 @@ var KronolithMobile = {
         } else if (today.clone().addDays(1).dateString() == d.dateString()) {
           text = Kronolith.text.tomorrow;
         } else {
-          text = d.toString('ddd') + ' ' + d.toString('d')
+          text = d.toString('ddd') + ' ' + d.toString('d');
         }
         $('#kronolithDayDetailHeader h3').text(text);
         $('.kronolith-selected').removeClass('kronolith-selected');

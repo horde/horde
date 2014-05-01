@@ -1298,7 +1298,7 @@ var ImpMobile = {
 
         if (cmlist.find(':selected').hasClass('flistCreate')) {
             opts.newmbox = $.trim($('#imp-copymove-new').val());
-            if (opts.newmbox == "") {
+            if (opts.newmbox === "") {
                 window.alert(IMP.text.move_nombox);
                 return;
             }

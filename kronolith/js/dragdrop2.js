@@ -328,8 +328,8 @@ Drag = Class.create({
                     .addClassName(this.options.classname)
                     .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
 
-                var p = this.element.viewportOffset();
-                var delta = document.body.viewportOffset();
+                p = this.element.viewportOffset();
+                delta = document.body.viewportOffset();
                 delta[0] -= document.body.offsetLeft;
                 delta[1] -= document.body.offsetTop;
                 this.ghost.style.left = (p[0] - delta[0]) + 'px';
@@ -343,7 +343,7 @@ Drag = Class.create({
                 this.dim = {
                     width: layout.get('margin-box-width'),
                     height: layout.get('margin-box-height')
-                }
+                };
 
                 if (this.options.ghosting) {
                     var z = parseInt(this.element.getStyle('zIndex'), 10);
@@ -436,7 +436,7 @@ Drag = Class.create({
             }
             try {
                 this.ghost.remove();
-            } catch (e) {}
+            } catch (ex) {}
             this.ghost = null;
         }
 
@@ -601,7 +601,7 @@ Drag = Class.create({
         }
 
         delta = document.viewport.getScrollOffsets();
-        p = s.viewportOffset(),
+        p = s.viewportOffset();
         speed = [ 0, 0 ];
         vp = document.viewport.getDimensions();
 

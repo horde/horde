@@ -1449,7 +1449,7 @@ var DimpBase = {
 
             if (this.viewport.getMetaData('drafts') ||
                 this.viewport.getMetaData('templates')) {
-                $('ctx_message_innocent', 'ctx_message_spam').compact().invoke('hide')
+                $('ctx_message_innocent', 'ctx_message_spam').compact().invoke('hide');
             } else {
                 [ $('ctx_message_innocent') ].compact().invoke(this.viewport.getMetaData('innocent_show') ? 'show' : 'hide');
                 [ $('ctx_message_spam') ].compact().invoke(this.viewport.getMetaData('spam_show') ? 'show' : 'hide');
@@ -4165,7 +4165,7 @@ var DimpBase = {
         if ($('dimpmain_iframe').visible()) {
             $('dimpmain_iframe').down('IFRAME').setStyle({
                 height: $('horde-page').getHeight() + 'px'
-            })
+            });
         }
     },
 

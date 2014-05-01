@@ -352,7 +352,7 @@ var ImpCompose = {
             if (ImpComposeBase.editor_on) {
                 config = Object.clone(IMP.ckeditor_config);
                 config.extraPlugins = 'pasteignore';
-                CKEDITOR.replace('composeMessage', config)
+                CKEDITOR.replace('composeMessage', config);
 
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));

@@ -2,7 +2,7 @@ var eventTabs = null;
 
 function ShowTab(tab)
 {
-    if (eventTabs == null) {
+    if (eventTabs === null) {
         eventTabs = $('page').select('.tabset ul li');
     }
 

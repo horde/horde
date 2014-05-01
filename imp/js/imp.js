@@ -119,7 +119,8 @@ var IMP_JS = {
             delete Event.element(e).onload;
         }
 
-        if (id = $(id)) {
+        id = $(id);
+        if (id) {
             body = (id.contentDocument || id.contentWindow.document).body;
             html = body.parentNode;
 

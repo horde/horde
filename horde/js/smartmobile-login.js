@@ -7,10 +7,10 @@
 
 $(document).bind("pageinit", function() {
     $("#login form").on('submit', function() {
-        if ($("#horde_user").val() == "") {
+        if ($("#horde_user").val() === "") {
             window.alert(HordeLogin.user_error);
             $("#horde_user").focus();
-        } else if ($("#horde_pass").val() == "") {
+        } else if ($("#horde_pass").val() === "") {
             window.alert(HordeLogin.pass_error);
             $("#horde_pass").focus();
         } else {

@@ -135,7 +135,7 @@ InPlaceEditor = Class.create(
     },
 
     checkEmpty: function() {
-        if (this.element.innerHTML.length == 0) {
+        if (this.element.innerHTML === 0) {
             emptyNode = new Element('span', {className: this.options.emptyClassName}).update(this.options.emptyText);
             this.element.appendChild(emptyNode);
         }
@@ -176,8 +176,7 @@ InPlaceEditor = Class.create(
 
     createEditField: function()
     {
-        var text = (this.options.loadTextURL ? this.options.loadingText : this.getText());
-        var fld;
+        var text = (this.options.loadTextURL ? this.options.loadingText : this.getText()), fld, w;
         if (this.options.rows <= 1 && !/\r|\n/.test(this.getText())) {
             fld = new Element('input', { type: 'text' });
             var size = this.options.size || this.options.cols || 0;
@@ -192,9 +191,9 @@ InPlaceEditor = Class.create(
         fld.value = text; // No HTML breaks conversion anymore
         fld.className = 'editor_field';
         if (this.options.width) {
-            var w = this.options.width + 'px';
+            w = this.options.width + 'px';
         } else if (this.options.autoWidth) {
-            var w = this.element.up().getWidth() + 'px';
+            w = this.element.up().getWidth() + 'px';
         }
         fld.setStyle({ width: w });
         if (this.options.submitOnBlur) {
@@ -215,7 +214,7 @@ InPlaceEditor = Class.create(
             var text = ipe.options['text' + mode + 'Controls'];
             if (!text || condition === false) return;
             ipe._form.appendChild(text);
-        };
+        }
 
         this._form = new Element('form', { id: this.options.formId, className: this.options.formClassName });
         this._form.observe('submit', this._boundSubmitHandler);

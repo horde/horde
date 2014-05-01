@@ -418,10 +418,10 @@ var KronolithEdit =
         $('end_month').selectedIndex = endDate.getMonth();
         $('end_day').selectedIndex = endDate.getDate() - 1;
 
-        endHour = endDate.getHours()
+        endHour = endDate.getHours();
         if (!KronolithVar.twentyFour) {
             if (endHour < 12) {
-                if (endHour == 0) {
+                if (endHour === 0) {
                     endHour = 12;
                 }
                 $('eam').setValue(1);

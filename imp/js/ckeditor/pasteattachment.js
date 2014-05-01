@@ -24,7 +24,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     elt.parentNode.removeChild(elt);
                 }
             });
-        };
+        }
 
         function uploadAtc(files)
         {
@@ -44,7 +44,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                 };
                 fr.readAsDataURL(file.value);
             });
-        };
+        }
 
         function fireEventInParent(type)
         {
@@ -57,7 +57,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                 evt.initEvent(type, true, true);
             }
             editor.getThemeSpace('contents').$.dispatchEvent(evt);
-        };
+        }
 
         editor.on('contentDom', function(e1) {
             editor.document.on('drop', function(e2) {
