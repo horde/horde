@@ -7,10 +7,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Eric Garrido <ekg2002@columbia.edu>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Eric Garrido <ekg2002@columbia.edu>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
 require_once __DIR__ . '/lib/Application.php';
