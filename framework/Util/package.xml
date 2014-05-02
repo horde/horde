@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-04-01</date>
+ <date>2014-05-02</date>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -655,7 +655,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-01</date>
+   <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_String_Transliterate class.
