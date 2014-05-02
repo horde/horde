@@ -1765,6 +1765,11 @@ var IMP_JS = {
             }
         });
 
+        $.each(doc.find('[htmlimgblocked_srcset]'), function(k, v) {
+            v = $(v);
+            v.attr('srcset', v.attr('htmlimgblocked_srcset'));
+        });
+
         $.each(doc.find('[htmlcssblocked]'), function(k, v) {
             v = $(v);
             v.attr('href', v.attr('htmlcssblocked'));

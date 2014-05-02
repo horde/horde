@@ -70,6 +70,10 @@ var IMP_JS = {
             }
         }, this);
 
+        Prototype.Selector.select('[htmlimgblocked_srcset]', doc).each(function(img) {
+            img.setAttribute('srcset', img.getAttribute('htmlimgblocked_srcset'));
+        });
+
         Prototype.Selector.select('[htmlcssblocked]', doc).each(function(link) {
             link.setAttribute('href', link.getAttribute('htmlcssblocked'));
         });

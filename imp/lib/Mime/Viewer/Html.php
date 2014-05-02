@@ -24,8 +24,13 @@
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
-    /* CSS background regex. */
+    /** CSS background regex. */
     const CSS_BG_PREG = '/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i';
+
+    /** Blocked attributes. */
+    const CSSBLOCK = 'htmlcssblocked';
+    const IMGBLOCK = 'htmlimgblocked';
+    const SRCSETBLOCK = 'htmlimgblocked_srcset';
 
     /**
      * Temp array for storing data when parsing the HTML document.
@@ -365,10 +370,19 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $url = new Horde_Url($val);
                         $url->setScheme();
                     }
-                    $node->setAttribute('htmlimgblocked', $url);
+                    $node->setAttribute(self::IMGBLOCK, $url);
                     $node->setAttribute('src', $this->_imgBlockImg());
                     $this->_imptmp['imgblock'] = true;
                 }
+            }
+
+            /* IMG only */
+            if (($tag == 'img') &&
+                $this->_imgBlock() &&
+                $node->hasAttribute('srcset')) {
+                $node->setAttribute(self::SRCSETBLOCK, $node->getAttribute('srcset'));
+                $node->setAttribute('srcset', '');
+                $this->_imptmp['imgblock'] = true;
             }
             break;
 
@@ -387,7 +401,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     if ($id = $this->_cidSearch($tmp, false)) {
                         $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
                     } elseif ($this->_imgBlock()) {
-                        $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                        $node->setAttribute(self::CSSBLOCK, $node->getAttribute('href'));
                         $node->removeAttribute('href');
                         $this->_imptmp['cssblock'] = true;
                         $delete_link = false;
@@ -443,7 +457,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                 /* Block images.*/
                 if ($this->_imgBlock()) {
-                    $node->setAttribute('htmlimgblocked', $val);
+                    $node->setAttribute(self::IMGBLOCK, $val);
                     $node->setAttribute('background', $this->_imgBlockImg());
                     $this->_imptmp['imgblock'] = true;
                 }
@@ -586,7 +600,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'imp_img_view' => 'data'
             )));
         } else {
-            $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
+            $this->_imptmp['node']->setAttribute(self::IMGBLOCK, $matches[2]);
             $this->_imptmp['imgblock'] = true;
             $replace = $this->_imgBlockImg();
         }
