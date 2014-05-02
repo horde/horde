@@ -239,10 +239,11 @@ AnselLayout = Class.create({
             // Fill the row with the images we know can fit. Start with any
             // gallery tiles we decided to show.
             while (totalNumber < totalCntRow && (totalNumber + baseLine) < this.galleries.length) {
-                var keyImage = this.galleries[totalNumber].ki,
+                var keyImage = this.galleries[baseLine + totalNumber].ki,
                     newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
                 totalWidth += newwt;
+
                 // Create and insert image into current row.
                 (function() {
                     var wrap = new Element('span', {
