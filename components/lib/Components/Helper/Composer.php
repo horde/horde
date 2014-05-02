@@ -37,6 +37,7 @@ class Components_Helper_Composer
         $converter->setRepositories(array(
             array('pear', 'http://pear.horde.org')
         ));
+        $converter->output_file = dirname($package) . '/composer.json';
         $converter->convert();
 
         if (isset($options['logger'])) {
