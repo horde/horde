@@ -1,10 +1,9 @@
 /**
  * Add image upload capability to the image plugin.
  *
- * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2013-2014 Horde LLC
+ * @license    GPLv2 (http://www.horde.org/licenses/gpl)
  */
 
 document.observe('dom:loaded', function() {
