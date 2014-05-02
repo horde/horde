@@ -2591,8 +2591,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $sequence = $options['ids']->sequence;
         }
 
-        $followup = array();
-
         try {
             $resp = $this->_sendCmd($pipeline);
 
@@ -2604,8 +2602,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             foreach ($resp->fetch as $k => $v) {
                 $results->get($sequence ? $k : $v->getUid())->merge($v);
             }
-
-            $followup = array_merge($followup, $pipeline->data['fetch_followup']);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most
             // likely means that messages were expunged. RFC 2180 [4.1]
@@ -2619,8 +2615,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // given message.
         }
 
-        if (!empty($followup)) {
-            $this->_fetch($results, $followup);
+        if (!empty($pipeline->data['fetch_followup'])) {
+            $this->_fetch($results, $pipeline->data['fetch_followup']);
         }
     }
 
