@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-04-14</date>
+ <date>2014-05-02</date>
  <version>
   <release>2.12.0alpha1</release>
   <api>2.12.0</api>
@@ -3376,7 +3376,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-04-14</date>
+   <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Allow CKeditor 3 to work with IE 11.
