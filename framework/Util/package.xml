@@ -25,7 +25,7 @@
  </developer>
  <date>2014-05-02</date>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_String_Transliterate class.
-* [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -660,6 +659,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [mms] Add Horde_String_Transliterate class.
 * [mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml 2.7.0+) (Bug #13086).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
