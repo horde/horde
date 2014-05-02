@@ -342,6 +342,11 @@ AnselLayout = Class.create({
                 rows.push(newRow);
             }
         }
+        rows.each(function(row) {
+            if (row.empty()) {
+                row.remove();
+            }
+        });
         this.checkVerticalSpace();
     },
 
