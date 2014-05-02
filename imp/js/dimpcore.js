@@ -1,10 +1,9 @@
 /**
- * dimpcore.js - Dimp UI application logic.
+ * Core dynamic view logic.
  *
- * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2005-2014 Horde LLC
+ * @license    GPLv2 (http://www.horde.org/licenses/gpl)
  */
 
 /* DimpCore object. */

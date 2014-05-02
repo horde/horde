@@ -1,14 +1,9 @@
 /**
- * Provides the javascript for the basic view message page.
+ * Basic view message page.
  *
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  IMP
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2010-2014 Horde LLC
+ * @license    GPLv2 (http://www.horde.org/licenses/gpl)
  */
 
 var ImpMessage = {

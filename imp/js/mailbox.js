@@ -1,8 +1,9 @@
 /**
- * Provides the javascript for the basic view mailbox page.
+ * Basic view mailbox page.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    GPLv2 (http://www.horde.org/licenses/gpl)
  */
 
 var ImpMailbox = {

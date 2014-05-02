@@ -1,10 +1,9 @@
 /**
- * viewport_utils.js - Utility methods used by viewport.js.
+ * Utility methods used by viewport.js.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2012-2014 Horde LLC
+ * @license    GPLv2 (http://www.horde.org/licenses/gpl)
  */
 
 Object.extend(Array.prototype, {
