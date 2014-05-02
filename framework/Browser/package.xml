@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-03-18</date>
+ <date>2014-05-02</date>
  <version>
   <release>2.0.7</release>
   <api>1.0.0</api>
@@ -822,7 +822,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-17</date>
+   <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correctly identify MSIE 11.
