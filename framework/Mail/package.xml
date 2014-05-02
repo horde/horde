@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-30</date>
+ <date>2014-05-02</date>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -579,7 +579,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-30</date>
+   <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Be more lenient in parsing RFC 5322 identification field values.
