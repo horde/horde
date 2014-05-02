@@ -77,9 +77,7 @@ extends Components_Qc_Task_Base
         $_SERVER['argv'] = $argv;
         $_SERVER['argc'] = $argc;
 
-        $reporting = new PHP_CodeSniffer_Reporting();
-        $filesViolations = $phpcs->getFilesErrors();
         chdir($old_dir);
-        return $reporting->printReport('emacs', $filesViolations, false, null);
+        return $phpcs->reporting->printReport('emacs', false, null);
     }
 }

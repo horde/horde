@@ -48,6 +48,7 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
+        return array('PHPCPD has changed interfaces, QC task needs updating.');
         if (!class_exists('SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
             return array('PHP CPD is not available!');
         }
