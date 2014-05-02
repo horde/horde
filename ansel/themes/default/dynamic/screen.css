@@ -57,15 +57,14 @@
 #anselViewImages {
     height: 100%;
     position: relative;
-    float: none;
+    float: left;
     overflow: auto;
     display: inline-block;
 }
 
 #anselViewGalleries {
-    height: 100%;
     position: relative;
-    float: none;
+    float: left;
     display: inline-block;
     overflow: auto;
 }
