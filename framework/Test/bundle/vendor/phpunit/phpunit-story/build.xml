@@ -1,0 +1,13 @@
+<project name="phpunit-selenium" default="phpab" basedir=".">
+ <target name="phpab">
+  <exec executable="phpab">
+   <arg value="--output" />
+   <arg path="PHPUnit/Extensions/Story/Autoload.php" />
+   <arg value="--template" />
+   <arg path="PHPUnit/Extensions/Story/Autoload.php.in" />
+   <arg value="--indent" />
+   <arg value="            " />
+   <arg path="PHPUnit" />
+  </exec>
+ </target>
+</project>

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpunit/phpunit": "~4",
+        "phpunit/phpunit-story": "~1.0"
+    }
+}
