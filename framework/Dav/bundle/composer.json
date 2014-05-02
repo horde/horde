@@ -1,5 +1,5 @@
 {
     "require": {
-        "sabre/dav": "1.8.*"
+        "sabre/dav": "~1.8"
     }
 }
