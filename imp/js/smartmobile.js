@@ -1750,6 +1750,7 @@ var IMP_JS = {
         $.each(doc.find('[htmlimgblocked]'), function(k, v) {
             v = $(v);
             var src = v.attr('htmlimgblocked');
+            v.removeAttr('htmlimgblocked');
 
             if (v.attr('src')) {
                 v.one('load', function() { IMP_JS.iframeResize(iframe); });
@@ -1768,11 +1769,13 @@ var IMP_JS = {
         $.each(doc.find('[htmlimgblocked_srcset]'), function(k, v) {
             v = $(v);
             v.attr('srcset', v.attr('htmlimgblocked_srcset'));
+            v.removeAttr('htmlimgblocked_srcset');
         });
 
         $.each(doc.find('[htmlcssblocked]'), function(k, v) {
             v = $(v);
             v.attr('href', v.attr('htmlcssblocked'));
+            v.removeAttr('htmlcssblocked');
         });
 
         doc.find('STYLE[type="text/x-imp-cssblocked"]')
