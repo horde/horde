@@ -332,7 +332,6 @@
          <file name="classInScopedNamespace.php" role="php" />
          <file name="closure.php" role="php" />
          <file name="issue19.php" role="php" />
-         <file name="issue30.php" role="php" />
          <file name="multipleNamespacesWithOneClassUsingBraces.php" role="php" />
          <file name="multipleNamespacesWithOneClassUsingNonBraceSyntax.php" role="php" />
          <file name="source.php" role="php" />
@@ -1478,7 +1477,6 @@
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/classInScopedNamespace.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/classInScopedNamespace.php" />
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/closure.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/closure.php" />
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/issue19.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/issue19.php" />
-   <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/issue30.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/issue30.php" />
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/multipleNamespacesWithOneClassUsingBraces.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/multipleNamespacesWithOneClassUsingBraces.php" />
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/multipleNamespacesWithOneClassUsingNonBraceSyntax.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/multipleNamespacesWithOneClassUsingNonBraceSyntax.php" />
    <install as="Horde/Test/vendor/phpunit/php-token-stream/Tests/_files/source.php" name="bundle/vendor/phpunit/php-token-stream/Tests/_files/source.php" />
