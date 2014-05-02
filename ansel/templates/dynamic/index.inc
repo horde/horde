@@ -41,9 +41,7 @@
 
     <!-- Galleries -->
     <div id="anselViewGalleries" style="display;none;">
-        <div id="anselGalleriesMain">
-          <div class="anselRow"></div>
-        </div>
+        <div id="anselGalleriesMain"></div>
     </div>
     <!-- End Images -->
 </div>

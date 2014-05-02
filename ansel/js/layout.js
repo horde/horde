@@ -274,9 +274,9 @@ AnselLayout = Class.create({
                 var photo = imgs[imgBaseLine + imgNumber],
                     newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
-            if (ratio >= 1 && this.moreAvailable) {
-                break;
-            }
+                if (ratio >= 1 && this.moreAvailable) {
+                    break;
+                }
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt;
 
