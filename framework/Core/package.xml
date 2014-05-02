@@ -30,7 +30,7 @@
  </developer>
  <date>2014-05-02</date>
  <version>
-  <release>2.12.0alpha1</release>
+  <release>2.12.0alpha2</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -39,50 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Allow CKeditor 3 to work with IE 11.
-* [jan] Fix translation of portal block names (Bug #13116).
-* [mms] Add Horde_Registry#getAuthInfo() and Horde_Registry#getAuthApps().
-* [mms] Add Horde_Core_Cache_Session.
-* [mms] Add abstracted web notifications interface to the Horde_Notification system.
-* [mms] Upgrade prototype.js to most recent git version (3523295165460a1a371f248454bc311103294f13).
-* [mjr] Fix issue that causes enter to submit the form when inside the pretty autocompleter (Bug #12923).
-* [mms] Don&apos;t store preference UI elements in the session cache storage.
-* [mjr] Send the PRIMARYSMTPADDRESS to EAS clients, if appropriate (Request #13062).
-* [jan] Fix loading of configuration screen with basedir restrictions or libxml entity loading disabled (Bug #13025).
-* [mms] The location of dynamically served static files is now configurable (Request #13070).
-* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
-* [mms] Support new configuration options for history storage.
-* [mms] Fix for prototype.js to correctly recognize IE 11 as IE, not Gecko (Bug #12875).
-* [mjr] Added the nonotificationinit parameter to Horde_Registry::appInit().
-* [mjr] Fix issue authenticating to certain applications when accessed via RPC.
-* [mms] Move CSS minification to the Horde_CssMinify package.
-* [mjr] Work around parsing broken incoming ActiveSync SMARTREPLY requests with incorrect character sets (Bug #12969).
-* [mms] Add null driver for the content tagger.
-* [jan] Add database configuration for Oracle.
-* [mms] Add Horde_Registry_Application#getInitialPage().
-* [mms] Add Horde_Core_Script_Package_Sortable.
-* [mms] Abstract Horde configuration parsing into Horde_Registry_Hordeconfig class.
-* [mms] Abstract CSS caching/compressions into Horde_Themes_Css framework.
-* [mms] Abstract javascript caching/compression into Horde_Script_Cache framework.
-* [mms] Allow jQuery Mobile script to be packaged in same file as other jquery code.
-* [mms] Move configuration loading code to Horde_Registry_Loadconfig class.
-* [mjr] Fix saving S/MIME signed emails sent via ActiveSync to sent folder (Bug #12936).
-* [mms] Store registry cache on the local filesystem.
-* [mms] Refactor alarm code to prevent the need from accessing the themes cache on every server access.
-* [mms] Prevent avalanche effect from occurring when re-creating cached JS files.
-* [mms] Use Horde_JavascriptMinify package to compress javascript.
-* [mms] Combine all javascript to compress into a single string.
-* [mjr] Improve ActiveSync searches by no longer limiting available searched fields (Request #12917).
-* [mms] Support UglifyJS for compressing javascript.
-* [mjr] Add support for DocumentLibrary via the files API.
-* [mjr] Cache ActiveSync mailbox search results for improved performance during paging.
-* [mms] Predis client should only use clustering if necessary.
-* [jan] Fix retrieving value lists from Horde_Session.
-* [mjr] Use webnotifications.js to normalize various browsers to the standard Notification API.
-* [mjr] Fix desktop style notifications in Ajax applications (Bug #12835).
-* [mms] Fix jquerymobile icons (Bug #12876).
-* [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
-* [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3423,6 +3380,19 @@
 * [mms] Fix jquerymobile icons (Bug #12876).
 * [mms] Don&apos;t add 2 entries to history when opening a jquery mobile dialog (Bug #12877).
 * [jan] Fix padding of drop down lists with scrollbars (Bug #11971).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.0alpha2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-05-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
