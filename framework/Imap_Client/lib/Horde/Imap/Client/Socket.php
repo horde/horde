@@ -2118,6 +2118,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        if (!empty($options['partial'])) {
+            $pids = $this->getIdsOb($options['partial'], true)->range_string;
+            if (!strlen($pids)) {
+                throw new InvalidArgumentException('Cannot specify empty sequence range for a PARTIAL search.');
+            }
+            if (strpos($pids, ':') === false) {
+                $pids .= ':' . $pids;
+            }
+        }
+
         $charset = is_null($options['_query']['charset'])
             ? 'US-ASCII'
             : $options['_query']['charset'];
@@ -2153,11 +2163,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!empty($options['partial'])) {
                     /* Can't have both ALL and PARTIAL returns. */
                     $results = array_diff($results, array('ALL'));
-
-                    $pids = $this->getIdsOb($options['partial'], true)->range_string;
-                    if (strpos($pids, ':') === false) {
-                        $pids .= ':' . $pids;
-                    }
 
                     $results[] = 'PARTIAL';
                     $results[] = $pids;
@@ -2209,11 +2214,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!empty($options['partial'])) {
                     // Can't have both ALL and PARTIAL returns.
                     $results = array_diff($results, array('ALL'));
-
-                    $pids = $this->getIdsOb($options['partial'], true)->range_string;
-                    if (strpos($pids, ':') === false) {
-                        $pids .= ':' . $pids;
-                    }
 
                     $results[] = 'PARTIAL';
                     $results[] = $pids;
