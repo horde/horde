@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-03</date>
  <version>
-  <release>2.19.5</release>
+  <release>2.19.6</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Correctly handle partial search limiting for a single ID (Bug #13153).
-* [mms] Workaround bug in Dovecot where improperly encoded body part returns NIL data when using the BINARY extension.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2376,6 +2375,19 @@
    <notes>
 * [mms] Correctly handle partial search limiting for a single ID (Bug #13153).
 * [mms] Workaround bug in Dovecot where improperly encoded body part returns NIL data when using the BINARY extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.6</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
