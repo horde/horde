@@ -2076,6 +2076,20 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new InvalidArgumentException('Cannot specify RELEVANCY results if not doing a FUZZY search.');
         }
 
+        /* Check for partial matching. */
+        if (!empty($options['partial'])) {
+            $pids = $this->getIdsOb($options['partial'], true)->range_string;
+            if (!strlen($pids)) {
+                throw new InvalidArgumentException('Cannot specify empty sequence range for a PARTIAL search.');
+            }
+
+            if (strpos($pids, ':') === false) {
+                $pids .= ':' . $pids;
+            }
+
+            $options['partial'] = $pids;
+        }
+
         /* Optimization - if query is just for a count of either RECENT or
          * ALL messages, we can send status information instead. Can't
          * optimize with unseen queries because we may cause an infinite loop

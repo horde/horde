@@ -2118,16 +2118,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (!empty($options['partial'])) {
-            $pids = $this->getIdsOb($options['partial'], true)->range_string;
-            if (!strlen($pids)) {
-                throw new InvalidArgumentException('Cannot specify empty sequence range for a PARTIAL search.');
-            }
-            if (strpos($pids, ':') === false) {
-                $pids .= ':' . $pids;
-            }
-        }
-
         $charset = is_null($options['_query']['charset'])
             ? 'US-ASCII'
             : $options['_query']['charset'];
@@ -2165,7 +2155,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $results = array_diff($results, array('ALL'));
 
                     $results[] = 'PARTIAL';
-                    $results[] = $pids;
+                    $results[] = $options['partial'];
                 }
             }
 
@@ -2216,7 +2206,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $results = array_diff($results, array('ALL'));
 
                     $results[] = 'PARTIAL';
-                    $results[] = $pids;
+                    $results[] = $options['partial'];
                 }
             }
 
