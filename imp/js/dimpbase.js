@@ -2531,6 +2531,12 @@ var DimpBase = {
 
         if (!Object.isFunction(e.element)) {
             // Inside IFRAME. Wrap in prototypejs Event object.
+
+            // Ignore if IE 8
+            if (Prototype.Browser.IE && !document.addEventListener) {
+                return;
+            }
+
             e = new Event(e);
             e.preventDefault();
             noelt = true;
