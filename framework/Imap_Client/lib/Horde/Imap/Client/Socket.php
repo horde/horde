@@ -2154,7 +2154,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* Can't have both ALL and PARTIAL returns. */
                     $results = array_diff($results, array('ALL'));
 
-                    $pids = $this->getIdsOb($options['partial'])->range_string;
+                    $pids = $this->getIdsOb($options['partial'], true)->range_string;
                     if (strpos($pids, ':') === false) {
                         $pids .= ':' . $pids;
                     }
@@ -2210,7 +2210,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Can't have both ALL and PARTIAL returns.
                     $results = array_diff($results, array('ALL'));
 
-                    $pids = $this->getIdsOb($options['partial'])->range_string;
+                    $pids = $this->getIdsOb($options['partial'], true)->range_string;
                     if (strpos($pids, ':') === false) {
                         $pids .= ':' . $pids;
                     }
