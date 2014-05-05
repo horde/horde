@@ -33,6 +33,15 @@
   <dir baseinstalldir="/" name="/">
    <dir name="bundle">
     <dir name="vendor">
+     <dir name="composer">
+      <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_namespaces.php" role="php" />
+      <file name="autoload_psr4.php" role="php" />
+      <file name="autoload_real.php" role="php" />
+      <file name="ClassLoader.php" role="php" />
+      <file name="include_paths.php" role="php" />
+      <file name="installed.json" role="php" />
+     </dir> <!-- /bundle/vendor/composer -->
      <dir name="phpunit">
       <dir name="php-code-coverage">
        <dir name="build">
@@ -1283,6 +1292,13 @@
  <phprelease>
   <filelist>
    <install as="Horde/Test/vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="Horde/Test/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Test/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="Horde/Test/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="Horde/Test/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Test/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="Horde/Test/vendor/composer/include_paths.php" name="bundle/vendor/composer/include_paths.php" />
+   <install as="Horde/Test/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.gitattributes" name="bundle/vendor/phpunit/php-code-coverage/.gitattributes" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.gitignore" name="bundle/vendor/phpunit/php-code-coverage/.gitignore" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.travis.yml" name="bundle/vendor/phpunit/php-code-coverage/.travis.yml" />
