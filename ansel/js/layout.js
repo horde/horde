@@ -146,6 +146,12 @@ AnselLayout = Class.create({
         // If we are receiving less than opts.perPage then we must be out
         // of images. Set the flag so we know not to prune the last row if
         // it doesn't contain the full width.
+        // @TODO: We need to work around the edge case where the server returns
+        //        exactly perPage images, and these just happen to be the last
+        //        images available to return. I.e., We should be setting
+        //        moreAvailable = false, but we don't know that we don't have
+        //        anymore images until the next request. The can cause the last
+        //        few images to be hidden until the container is resized manually.
         if (imgs.length < this.opts.perPage) {
             this.moreAvailable = false;
         }
