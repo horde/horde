@@ -18,7 +18,7 @@
  </lead>
  <date>2014-05-05</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,10 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Update to changed Facebook events API.
-* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
-* [jan] Fix returning Facebook event URLs.
-* [mjr] Cache Facebook queries.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -518,6 +515,19 @@
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [jan] Fix returning Facebook event URLs.
 * [mjr] Cache Facebook queries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
