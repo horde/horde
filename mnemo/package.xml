@@ -5,25 +5,25 @@
  <summary>A web based notes manager</summary>
  <description>The Mnemo Note Manager is the Horde notes/memos application. It allows users to keep web-based notes and freeform text. Notes may be shared with other users via shared notepads. It requires the Horde Application Framework and an SQL database or Kolab server for backend storage.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2014-05-05</date>
  <version>
-  <release>4.2.0</release>
+  <release>4.2.0alpha1</release>
   <api>4.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
-  <api>stable</api>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
@@ -194,6 +194,12 @@
       <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
       <file name="mnemo.mo" role="horde" />
@@ -309,6 +315,7 @@
     <file name="4_mnemo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
+    <file name="7_mnemo_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -662,6 +669,8 @@
    <install as="mnemo/locale/it/LC_MESSAGES/mnemo.po" name="locale/it/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/ja/LC_MESSAGES/mnemo.mo" name="locale/ja/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/ja/LC_MESSAGES/mnemo.po" name="locale/ja/LC_MESSAGES/mnemo.po" />
+   <install as="mnemo/locale/ko/LC_MESSAGES/mnemo.mo" name="locale/ko/LC_MESSAGES/mnemo.mo" />
+   <install as="mnemo/locale/ko/LC_MESSAGES/mnemo.po" name="locale/ko/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/lt/LC_MESSAGES/mnemo.mo" name="locale/lt/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/lt/LC_MESSAGES/mnemo.po" name="locale/lt/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/lv/help.xml" name="locale/lv/help.xml" />
@@ -705,6 +714,7 @@
    <install as="mnemo/migration/4_mnemo_upgrade_sqlhierarchical.php" name="migration/4_mnemo_upgrade_sqlhierarchical.php" />
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
    <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
+   <install as="mnemo/migration/7_mnemo_upgrade_parents.php" name="migration/7_mnemo_upgrade_parents.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -1134,12 +1144,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0</release>
+    <release>4.2.0alpha1</release>
     <api>4.0.0</api></version>
    <stability>
     <release>alpha</release>
-    <api>stable</api></stability>
-   <date>2013-08-14</date>
+    <api>alpha</api></stability>
+   <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Make SQL backend compatible with Oracle.

@@ -5,12 +5,6 @@
  <summary>Horde Application Framework</summary>
  <description>The Horde Application Framework is a flexible, modular, general-purpose web application framework written in PHP. It provides an extensive array of components that are targeted at the common problems and tasks involved in developing modern web applications. It is the basis for a large number of production-level web applications, notably the Horde Groupware suites. For more information on Horde or the Horde Groupware suites, visit http://www.horde.org.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -28,14 +22,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-24</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2014-05-05</date>
  <version>
-  <release>5.2.0</release>
+  <release>5.2.0alpha1</release>
   <api>5.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
@@ -3849,6 +3849,38 @@
 * [jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
 * [jan] Fix fatal error in LDAP account portal block (Bug #12910).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+   </notes>
+  </release>
+  <release>
+   <date>2014-05-05</date>
+   <version>
+    <release>5.2.0alpha1</release>
+    <api>5.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [mms] Add more advanced configuration options for the Redis HashTable driver (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+* [jan] Add script to import user preferences from Open-Xchange.
+* [mms] The location of dynamically served static files is now configurable (Request #13070).
+* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;.
+* [mms] Add a NoSQL driver for history storage.
+* [mms] The history driver can now be configured via conf.php.
+* [jan] Add mysql encryption option for SQL backends (Request #12962).
+* [rla] Add joomla-md5 encryption option for SQL backends (Request #12889).
+* [mms] By default, enforce maximum storage size on preferences values.
+* [mms] Support UglifyJS for compressing javascript.
+* [mjr] Add improved ActiveSync device administration page.
+* [mms] Display indication that Caps Lock key is on when entering password on login page (Request #7178).
+* [mjr] Add support for configuring a NoSQL driver for ActiveSync state storage.
+* [mms] Added &apos;filemtime&apos; configuration option for CSS caching.
+* [mjr] Add support for X509 authentication support.
+* [mjr] Improve logging options for ActiveSync logging configuration.
+* [mjr] Add support for managing ActiveSync devices through the API.
+* [mjr] Add prefs for selecting From address when sending email via ActiveSync.
    </notes>
   </release>
  </changelog>

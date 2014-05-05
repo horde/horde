@@ -20,16 +20,16 @@
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2014-02-09</date>
+ <date>2014-05-05</date>
  <version>
-  <release>3.2.0</release>
+  <release>3.2.0alpha1</release>
   <api>3.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
@@ -1393,6 +1393,30 @@
    <notes>
 * [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
 * [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
+   </notes>
+  </release>
+  <release>
+   <date>2014-05-05</date>
+   <version>
+    <release>3.2.0alpha1</release>
+    <api>3.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Use standardized &apos;enotify&apos; sieve extension (RFC 5435) by default instead of deprecated &apos;notify&apos; extension (Request #8784).
+* [mms] Use standardized &apos;imap4flags&apos; sieve extension (RFC 5232) by default instead of deprecated &apos;imapflags&apos; extension (Request #8784).
+* [mms] Add ability to filter rules by mailbox.
+* [mms] Add &apos;max_forward&apos; permission (Request #10332).
+* [mms] Permissions can now be applied per backend, rather than globally.
+* [mms] Replace max blacklist/whitelist configuration parameters with equivalent permissions options.
+* [mms] Sorting of rules now done via drag/drop javascript (Request #1993).
+* [jan] Make shares table compatible with Oracle.
+* [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
+* [mms] Add &apos;newEmailFilter&apos; API link.
    </notes>
   </release>
  </changelog>

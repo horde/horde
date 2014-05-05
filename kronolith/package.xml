@@ -11,25 +11,25 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-28</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2014-05-05</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
-  <api>stable</api>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -2309,8 +2309,8 @@
     <api>4.2.0</api></version>
    <stability>
     <release>alpha</release>
-    <api>stable</api></stability>
-   <date>2014-03-28</date>
+    <api>alpha</api></stability>
+   <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Gracefully handle import errors in dynamic interface (Bug #11127).

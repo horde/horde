@@ -11,12 +11,6 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -28,7 +22,13 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-03-14</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2014-05-05</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.0.0</api>
@@ -1822,7 +1822,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2014-03-14</date>
+   <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Don&apos;t extport binary fields to CSV/TSV.
@@ -1830,9 +1830,7 @@
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
 * [jan] Support binary fields (photos) in Kolab backends.
-* [mms] Allow tagging system to be disabled via configuration option.
 * [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
-* [mjr] Do not export empty property names in CardDav responses (Bug #12782).
 * [jan] Make shares table compatible with Oracle.
 * [jan] Export free/busy URL to vCard (Request #12915).
 * [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).

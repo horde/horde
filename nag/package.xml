@@ -5,12 +5,6 @@
  <summary>A web based task list manager</summary>
  <description>Nag is a web-based application built upon the Horde Application Framework which provides a simple, clean interface for managing online task lists (i.e., todo lists). It also includes strong integration with the other Horde applications and allows users to share task lists or enable light-weight project management.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -22,14 +16,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-02</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>false</active>
+ </lead>
+ <date>2014-05-05</date>
  <version>
-  <release>4.2.0</release>
+  <release>4.2.0alpha1</release>
   <api>4.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -1483,12 +1483,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0</release>
+    <release>4.2.0alpha1</release>
     <api>4.2.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2014-04-02</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Show external tasks in the correct task type.
