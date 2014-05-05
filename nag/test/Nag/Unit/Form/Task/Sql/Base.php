@@ -31,6 +31,8 @@ abstract class Nag_Unit_Form_Task_Sql_Base extends Nag_Unit_Form_Task_Base
 {
     static public function setUpBeforeClass()
     {
+        return;
+
         parent::setUpBeforeClass();
         static::getDb();
         self::createSqlShares(self::$setup);

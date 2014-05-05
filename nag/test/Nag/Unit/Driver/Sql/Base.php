@@ -33,6 +33,8 @@ class Nag_Unit_Driver_Sql_Base extends Nag_Unit_Driver_Base
 
     static public function setUpBeforeClass()
     {
+        return;
+
         parent::setUpBeforeClass();
         self::getDb();
         self::createSqlShares(self::$setup);

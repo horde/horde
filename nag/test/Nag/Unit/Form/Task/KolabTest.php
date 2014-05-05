@@ -33,6 +33,8 @@ class Nag_Unit_Form_Task_KolabTest extends Nag_Unit_Form_Task_Base
 
     public static function setUpBeforeClass()
     {
+        return;
+
         parent::setUpBeforeClass();
         self::createKolabShares(self::$setup);
         list($share, $other_share) = self::_createDefaultShares();

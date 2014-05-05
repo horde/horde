@@ -31,6 +31,7 @@ class Nag_Unit_Factory_TasklistsTest extends Nag_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $setup = self::createKolabSetup();
         $error = $setup->getError();
         if (!empty($error)) {

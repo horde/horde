@@ -30,6 +30,11 @@
 class Nag_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete('Needs some love');
+    }
+
     static protected function getInjector()
     {
         return new Horde_Injector(new Horde_Injector_TopLevel());
@@ -37,6 +42,8 @@ extends PHPUnit_Framework_TestCase
 
     static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
     {
+        return;
+
         $setup->setup(
             array(
                 'Horde_Db_Adapter' => array(
@@ -81,6 +88,8 @@ extends PHPUnit_Framework_TestCase
 
     static protected function createSqlShares(Horde_Test_Setup $setup)
     {
+        return;
+
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Db',
             new Horde_Test_Stub_Factory(

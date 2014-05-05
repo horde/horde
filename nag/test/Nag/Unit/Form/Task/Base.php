@@ -47,6 +47,8 @@ class Nag_Unit_Form_Task_Base extends Nag_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $error = self::$setup->getError();
         if (!empty($error)) {
             $this->markTestSkipped($error);
@@ -54,8 +56,6 @@ class Nag_Unit_Form_Task_Base extends Nag_TestCase
 
         $this->_old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
         error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
-
-        parent::setUp();
     }
 
     public function tearDown()

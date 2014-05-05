@@ -61,6 +61,7 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
 
     public function setUp()
     {
+        parent::setUp();
         $error = self::$setup->getError();
         if (!empty($error)) {
             $this->markTestSkipped($error);

@@ -51,6 +51,7 @@ class Mnemo_Unit_Mnemo_Base extends Mnemo_TestCase
 
     public function setUp()
     {
+        parent::setUp();
         $error = self::$setup->getError();
         if (!empty($error)) {
             $this->markTestSkipped($error);
