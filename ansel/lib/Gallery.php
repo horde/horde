@@ -660,6 +660,9 @@ class Ansel_Gallery implements Serializable
             $perm, $galleries_only, $noauto);
     }
 
+    /**
+     * @see Horde_Share_Base::countChildren
+     */
     public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
         return $this->_share->CountChildren($user, $perm, $allLevels);
