@@ -1,6 +1,6 @@
-----------
-v4.2.0-git
-----------
+------------
+v4.2.0alpha1
+------------
 
 [jan] Make SQL backend compatible with Oracle.
 [jan] Make shares table compatible with Oracle.
