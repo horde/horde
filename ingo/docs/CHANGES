@@ -1,6 +1,6 @@
-----------
-v3.2.0-git
-----------
+------------
+v3.2.0alpha1
+------------
 
 [mms] Use standardized 'enotify' sieve extension (RFC 5435) by default instead
       of deprecated 'notify' extension (Request #8784).
