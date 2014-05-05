@@ -24,7 +24,7 @@
  </lead>
  <date>2014-05-05</date>
  <version>
-  <release>4.2.0alpha1</release>
+  <release>4.2.0alpha2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,15 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Show external tasks in the correct task type.
-* [jan] Purge old tasks from versions &lt; 2.3 too.
-* [jan] Allow to synchronize shared task lists via CalDAV (Request #12380).
-* [jan] Add script to import tasks from Open-Xchange.
-* [jan] Add recurrence controls to basic view (Request #11545).
-* [mjr] Add button for creating sub-task from task view (Request #12309).
-* [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
-* [jan] Make shares table compatible with Oracle.
-* [mjr] Add API support for multiple tasklists via ActiveSync.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1500,6 +1492,19 @@
 * [mjr] Add ability to return to existing search results after navigating to a task (Request #12879).
 * [jan] Make shares table compatible with Oracle.
 * [mjr] Add API support for multiple tasklists via ActiveSync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-05-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
