@@ -30,7 +30,7 @@
  </lead>
  <date>2014-05-05</date>
  <version>
-  <release>4.2.0alpha1</release>
+  <release>4.2.0alpha2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,18 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Don&apos;t extport binary fields to CSV/TSV.
-* [mms] Fix search in Facebook driver.
-* [jan] Add script to import contacts from Open-Xchange.
-* [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
-* [jan] Support binary fields (photos) in Kolab backends.
-* [mjr] Fix importing certain vCards to sources only using the &apos;email&apos; attribute (Bug #12955).
-* [jan] Make shares table compatible with Oracle.
-* [jan] Export free/busy URL to vCard (Request #12915).
-* [mjr] Fix listTimeObjects API when format_in attribute parameter is changed from default (Bug #11891).
-* [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
-* [jan] Remember currently open tab when switching or saving contact views (Request #12609).
-* [jan] Replace categories with tags (Request #9544).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1837,6 +1826,19 @@
 * [mjr] Add API support for supporting multiple addressbooks via ActiveSync.
 * [jan] Remember currently open tab when switching or saving contact views (Request #12609).
 * [jan] Replace categories with tags (Request #9544).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2014-05-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
