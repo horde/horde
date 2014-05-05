@@ -80,13 +80,38 @@
     margin-bottom: 4px;
 }
 
-.ansel-photo-wrap {
+.ansel-tile-target {
     border-right: 8px solid white;
     position: relative;
     float: none;
     display: inline-block;
 }
 
+.ansel-tile-meta {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 0 10px 8px;
+    visibility: hidden;
+}
+
+.ansel-tile-target:hover .ansel-tile-meta {
+    visibility: visible;
+}
+
+.ansel-tile-title {
+    width: 100%;
+    font-size: 11px;
+    font-weight: bold;
+}
+.ansel-photo-wrapper {
+    position: relative;
+    display: inline-block;
+
+}
 /* Photo containers */
 .ansel-photo {
     background-color: #dddddd;

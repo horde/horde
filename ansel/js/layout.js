@@ -167,6 +167,40 @@ AnselLayout = Class.create({
         }
     },
 
+    // Build a single image tile.
+    buildImageTile: function(photo, ratio, w, h)
+    {
+        var target, wrap, img, meta;
+
+        target = new Element('span', {
+            class: 'ansel-tile-target'
+        });
+
+        //@TODO Escape filename
+        meta = new Element('div', {
+            class: 'ansel-tile-meta'
+        }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.fn));
+
+        img = new Element('img', {
+            class: 'ansel-photo',
+            src: photo.screen,
+            width: w,
+            height: h
+        });
+
+        // When ratio >= 1, we didn't have enough images to finish
+        // out the row. Set the height to the maximum we can and
+        // let the browser do the width scale.
+        if (ratio > 1) {
+            img.style.width = 'auto';
+            img.style.height = Math.min(this.opts.maxHeight, photo.height_s) + 'px';
+        }
+        wrap = new Element('span', { class: 'ansel-photo-wrapper' }).update(img);
+
+        target.insert(wrap).insert(meta);
+        return target;
+    },
+
     process: function(imgs)
     {
         var rows = this.opts.container.select(this.opts.rowSelector),
@@ -278,7 +312,8 @@ AnselLayout = Class.create({
             // Move on to images?
             while (totalNumber < totalCntRow && (imgNumber + imgBaseLine) < imgs.length) {
                 var photo = imgs[imgBaseLine + imgNumber],
-                    newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
+                    newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio),
+                    tile;
 
                 if (ratio >= 1 && this.moreAvailable) {
                     break;
@@ -286,27 +321,8 @@ AnselLayout = Class.create({
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt;
 
-                // Create and insert image into current row.
-                (function() {
-                    var wrap = new Element('span', {
-                        class: 'ansel-photo-wrap'
-                    });
-                    var img = new Element('img', {
-                        class: 'ansel-photo',
-                        src: photo.screen,
-                        width: newwt,
-                        height: newht
-                    });
-
-                    // When ratio >= 1, we didn't have enough images to finish
-                    // out the row. Set the height to the maximum we can and
-                    // let the browser do the width scale.
-                    if (ratio > 1) {
-                        img.style.width = 'auto';
-                        img.style.height = Math.min(this.opts.maxHeight, photo.height_s) + 'px';
-                    }
-                    d_row.insert(wrap.update(img));
-                }.bind(this))();
+                tile = this.buildImageTile(photo, ratio, newwt, newht);
+                d_row.insert(tile);
                 imgNumber++;
                 totalNumber++;
                 imgCntRow++;
