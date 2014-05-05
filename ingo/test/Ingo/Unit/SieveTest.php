@@ -88,9 +88,9 @@ stop;
 
         $this->_assertScript('require "imap4flags";
 if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
-addflag "\\\\Deleted";
+addflag ["\\\\Deleted"];
 keep;
-removeflag "\\\\Deleted";
+removeflag ["\\\\Deleted"];
 stop;
 }');
     }
@@ -132,7 +132,7 @@ stop;
         $this->_enableRule(Ingo_Storage::ACTION_VACATION);
 
         $this->_assertScript('require ["vacation", "regex"];
-if allof ( not exists ["list-help", "list-unsubscribe", "list-subscribe", "list-owner", "list-post", "list-archive", "list-id", "Mailing-List"], not header :comparator "i;ascii-casemap" :is "Precedence" ["list", "bulk", "junk"], not header :comparator "i;ascii-casemap" :matches "To" "Multiple recipients of*" ) {
+if allof ( not exists "list-help", not exists "list-unsubscribe", not exists "list-subscribe", not exists "list-owner", not exists "list-post", not exists "list-archive", not exists "list-id", not exists "Mailing-List", not header :comparator "i;ascii-casemap" :is "Precedence" ["list", "bulk", "junk"], not header :comparator "i;ascii-casemap" :matches "To" "Multiple recipients of*" ) {
 vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don\'t like working!";
 }');
     }
