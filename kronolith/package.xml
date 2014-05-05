@@ -24,7 +24,7 @@
  </lead>
  <date>2014-05-05</date>
  <version>
-  <release>4.2.0alpha1</release>
+  <release>4.2.0alpha2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,24 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Gracefully handle import errors in dynamic interface (Bug #11127).
-* [mjr] Show reservee of a resource in resource&apos;s event description (Request #13037).
-* [mjr] Add resource_management permission (Request #13049).
-* [jan] Allow to synchronize shared calendars via CalDAV (Request #12380).
-* [jan] Add script to import events from Open-Xchange.
-* [mjr] Fix various issues with alarms for recurring events.
-* [jan] Add calendar legend to print output.
-* [jan] Make SQL backend compatible with Oracle.
-* [mjr] Allow for exporting of resource calendars (Request #12372).
-* [mjr] Make event url property a true hyperlink in dynamic view (Request #12920).
-* [jan] Support task assignees.
-* [jan] Support parent tasks.
-* [jan] Indent sub tasks.
-* [jan] Make shares table compatible with Oracle.
-* [mjr] Improve display of Free/Busy information and add pagination (Requests #12899, #12676).
-* [mjr] Add ability to export event to a timeslice (Request #11307).
-* [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
-* [jan] Improve sort order of events in month view (Request #11155).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2331,6 +2314,19 @@
 * [mjr] Add ability to export event to a timeslice (Request #11307).
 * [mjr] Add API support for supporting multiple calendar sync via ActiveSync.
 * [jan] Improve sort order of events in month view (Request #11155).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-05-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
