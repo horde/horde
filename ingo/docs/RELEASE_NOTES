@@ -35,6 +35,7 @@ The major changes compared to Ingo H5 (3.1) versions are:
     * Sorting of rules via drag & drop.
     * Allow searching of rules by folder name.
     * Improved permission settings.
+    * Added enotify and imap4flags Sieve extensions.
     * Added Oracle support.
     * Further improvements.
 ML;
@@ -44,6 +45,8 @@ $this->notes['fm']['changes'] = <<<FM
 Sorting of rules via drag & drop.
 Allow searching of rules by folder name.
 Improved permission settings.
+Added enotify and imap4flags Sieve extensions.
+Added Oracle support.
 Further improvements.
 FM;
 
