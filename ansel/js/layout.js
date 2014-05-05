@@ -197,8 +197,46 @@ AnselLayout = Class.create({
             img.style.height = Math.min(this.opts.maxHeight, photo.height_s) + 'px';
         }
         wrap = new Element('span', { class: 'ansel-photo-wrapper' }).update(img);
-
         target.insert(wrap).insert(meta);
+
+        return target;
+    },
+
+    // Build a single image tile.
+    buildGalleryTile: function(g, ratio, w, h)
+    {
+        var target, wrap, img, meta, sub;
+
+        target = new Element('span', {
+            class: 'ansel-tile-target'
+        });
+
+        //@TODO Escape filename
+        sub = g.ct + " " + Ansel.text['images'] + " " + g.cs + " " + Ansel.text['subgalleries'];
+
+        meta = new Element('div', {
+            class: 'ansel-tile-meta'
+        }).insert(new Element('div', { class: 'ansel-tile-title' }).update(g.n))
+            .insert(new Element('div', { class: 'ansel-tile-stats' }).update(sub));
+
+        img = new Element('img', {
+            class: 'ansel-photo',
+            src: g.ki,
+            width: w,
+            height: h
+        });
+
+        // When ratio >= 1, we didn't have enough images to finish
+        // out the row. Set the height to the maximum we can and
+        // let the browser do the width scale.
+        // @TODO, inject the gallery-width parameter.
+        if (ratio > 1) {
+            img.style.width = 'auto';
+            img.style.height = Math.min(this.opts.maxHeight, Ansel.conf.style['gallery-width']) + 'px';
+        }
+        wrap = new Element('span', { class: 'ansel-photo-wrapper' }).update(img);
+        target.insert(wrap).insert(meta);
+
         return target;
     },
 
@@ -280,33 +318,33 @@ AnselLayout = Class.create({
             // Fill the row with the images we know can fit. Start with any
             // gallery tiles we decided to show.
             while (totalNumber < totalCntRow && (totalNumber + baseLine) < this.galleries.length) {
-                var keyImage = this.galleries[baseLine + totalNumber].ki,
-                    newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
+                var newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
 
                 totalWidth += newwt;
+                tile = this.buildGalleryTile(this.galleries[baseLine + totalNumber], ratio, newht, newwt);
+                // // Create and insert image into current row.
+                // (function() {
+                //     var wrap = new Element('span', {
+                //         class: 'ansel-photo-wrap'
+                //     });
 
-                // Create and insert image into current row.
-                (function() {
-                    var wrap = new Element('span', {
-                        class: 'ansel-photo-wrap'
-                    });
+                //     var img = new Element('img', {
+                //         class: 'ansel-photo',
+                //         src: keyImage,
+                //         width: newwt,
+                //         height: newht
+                //     });
 
-                    var img = new Element('img', {
-                        class: 'ansel-photo',
-                        src: keyImage,
-                        width: newwt,
-                        height: newht
-                    });
-
-                    // When ratio >= 1, we didn't have enough images to finish
-                    // out the row. Set the height to the maximum we can and
-                    // let the browser do the width scale.
-                    if (ratio >= 1) {
-                        img.style.width = 'auto';
-                        img.style.height = Math.min(this.opts.maxHeight, Ansel.conf.style['gallery-width']) + 'px';
-                    }
-                    d_row.insert(wrap.update(img));
-                }.bind(this))();
+                //     // When ratio >= 1, we didn't have enough images to finish
+                //     // out the row. Set the height to the maximum we can and
+                //     // let the browser do the width scale.
+                //     if (ratio >= 1) {
+                //         img.style.width = 'auto';
+                //         img.style.height = Math.min(this.opts.maxHeight, Ansel.conf.style['gallery-width']) + 'px';
+                //     }
+                //     d_row.insert(wrap.update(img));
+                // }.bind(this))();
+                d_row.insert(tile);
                 totalNumber++;
             }
 

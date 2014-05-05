@@ -1189,7 +1189,9 @@ class Ansel_Gallery implements Serializable
      * 'dm' - date modified
      * 'd'  - description
      * 'ki' - key image
-     * 'sg' - an object with the following properties:
+     * 'ct' - Image count (includes sub galleries);
+     * 'c'  - Count of subgalleries
+     * 'sg' - an array of subgallery objects with the following properties:
      *      'n'  - gallery name
      *      'dc' - date created
      *      'dm' - date modified
@@ -1221,6 +1223,8 @@ class Ansel_Gallery implements Serializable
         $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
         $json->kid = $this->getKeyImage($style);
         $json->imgs = array();
+        $json->ct = $this->countImages(true);
+        $json->cs = $this->countChildren($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, false);
 
         // Parent
         $parents = $this->getParents();

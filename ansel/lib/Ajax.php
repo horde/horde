@@ -91,7 +91,9 @@ class Ansel_Ajax
             'more' => _("more..."),
             'no_gallery_title' => _("The gallery title must not be empty."),
             'prefs' => _("Preferences"),
-            'searching' => sprintf(_("Images matching \"%s\""), '#{term}')
+            'searching' => sprintf(_("Images matching \"%s\""), '#{term}'),
+            'images' => _("Images"),
+            'subgalleries' => _("Sub-galleries")
         );
 
         // Maps
