@@ -50,6 +50,8 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $GLOBALS['registry'] = $registry;
 
+        $GLOBALS['session'] = $this->getMock('Horde_Session');
+
         if (!defined('INGO_BASE')) {
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
         }
@@ -87,6 +89,11 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
                 ->will($this->returnValue($identity));
 
             return $factory;
+
+        case 'Horde_Core_Perms':
+            $perms = $this->getMock('Horde_Core_Perms', array(), array(), '', false);
+            $perms->method('hasAppPermission')->will($this->returnValue(true));
+            return $perms;
         }
     }
 
