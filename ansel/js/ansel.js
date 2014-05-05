@@ -244,7 +244,6 @@ AnselCore =
 
     onGalleryScroll: function(e)
     {
-        console.log(e.memo);
     },
 
     listImagesCallback: function(r)
