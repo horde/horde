@@ -98,8 +98,6 @@ class Horde_Serialize_JsonTest extends PHPUnit_Framework_TestCase
     // JSON encode/decode tests (invalid UTF-8 input).
     public function testJsonInvalidUTF8Input()
     {
-        $data = file_get_contents(__DIR__ . '/fixtures/badutf8.txt');
-        var_dump(json_encode($data),json_last_error(),$data,Horde_String::convertCharset($data, null, 'UTF-8', true));
         $old_error_reporting = error_reporting(E_ALL & ~E_WARNING);
         $this->assertEquals(
             '"Note: To play video messages sent to email, QuickTime\u00ae 6.5 or higher is required.\n"',
