@@ -36,6 +36,7 @@ http://www.horde.org/apps/imp/docs/INSTALL
 The major changes compared to IMP H5 (6.1) versions are:
     * Added access to remote email accounts.
     * Added signatures to compose view.
+    * Added images to HTML signatures.
     * Added ability to create filter rules from messages.
     * Improved contact information menu.
     * Display web notifications for new mail.
@@ -51,6 +52,7 @@ $this->notes['fm']['changes'] = <<<FM
 Added access to remote email accounts.
 Added signatures to compose view.
 Added ability to create filter rules from messages.
+Added images to HTML signatures.
 Improved contact information menu.
 Display web notifications for new mail.
 Display unread message count in browser icon.
