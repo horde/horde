@@ -1,6 +1,6 @@
-----------
-v6.2.0-git
-----------
+------------
+v6.2.0alpha1
+------------
 
 [mms] Don't set References header in reply message if equal to In-Reply-To
       header (RFC 5322 [3.6.4]).
