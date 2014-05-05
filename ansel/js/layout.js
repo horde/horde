@@ -322,28 +322,6 @@ AnselLayout = Class.create({
 
                 totalWidth += newwt;
                 tile = this.buildGalleryTile(this.galleries[baseLine + totalNumber], ratio, newht, newwt);
-                // // Create and insert image into current row.
-                // (function() {
-                //     var wrap = new Element('span', {
-                //         class: 'ansel-photo-wrap'
-                //     });
-
-                //     var img = new Element('img', {
-                //         class: 'ansel-photo',
-                //         src: keyImage,
-                //         width: newwt,
-                //         height: newht
-                //     });
-
-                //     // When ratio >= 1, we didn't have enough images to finish
-                //     // out the row. Set the height to the maximum we can and
-                //     // let the browser do the width scale.
-                //     if (ratio >= 1) {
-                //         img.style.width = 'auto';
-                //         img.style.height = Math.min(this.opts.maxHeight, Ansel.conf.style['gallery-width']) + 'px';
-                //     }
-                //     d_row.insert(wrap.update(img));
-                // }.bind(this))();
                 d_row.insert(tile);
                 totalNumber++;
             }
