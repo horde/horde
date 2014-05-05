@@ -22,6 +22,7 @@ AnselCore =
     effectDur: 0.4,
     inScrollHandler: false,
     perPage: 10,
+    galleries: null,
 
     /**
      * The location that was open before the current location.
@@ -223,7 +224,7 @@ AnselCore =
                     container: 'anselViewGalleries',
                     perPage: this.perPage
                 });
-                this.galleryLayout.galleries = $H(Ansel.galleries).values();
+                this.galleryLayout.galleries = this.galleries.values();
                 this.galleryLayout.resize();
             }
             break;
@@ -244,6 +245,11 @@ AnselCore =
 
     onGalleryScroll: function(e)
     {
+    },
+
+    onGalleryClick: function(e)
+    {
+        this.loadGallery(e.memo.gid);
     },
 
     listImagesCallback: function(r)
@@ -339,6 +345,17 @@ AnselCore =
      */
     loadGallery: function(gallery)
     {
+        HordeCore.doAction('getGallery',
+            { id: gallery },
+            { callback: this.getGalleryCallback.bind(this) }
+        );
+    },
+
+    getGalleryCallback: function(r)
+    {
+        console.log(r);
+        this.galleryLayout.reset();
+        this.galleryLayout.addImages(r.imgs);
     },
 
     /**
@@ -545,9 +562,7 @@ AnselCore =
             return;
         }
 
-        var elt = e.element(),
-            orig = e.element(),
-            id, tmp, calendar;
+        var elt = e.element(), id;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -567,11 +582,9 @@ AnselCore =
             //return
             }
 
-            // if (elt.hasClassName()) {
-            // //return
-            // } else if () {
-            // //return
-            // }
+            if (elt.hasClassName('ansel-tile-gallery')) {
+                this.loadGallery();
+            }
 
             elt = elt.up();
         }
@@ -807,13 +820,16 @@ AnselCore =
         document.observe('keyup', AnselCore.keyupHandler.bindAsEventListener(AnselCore));
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
+        // Custom events
+        $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
 
+        // For now, start by loading the current user's galleris.
         HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) });
     },
 
     initialize: function(location, r)
     {
-        Ansel.galleries = r;
+        this.galleries = $H(r);
 
         // //$('anselLoadingGalleries').hide();
         this.initialized = true;

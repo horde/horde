@@ -44,6 +44,12 @@
  *                           the current length of the images array and y is
  *                           the current size of the galleries hash.
  *
+ *      - AnselLayout:galleryClick  Fired when a gallery tile is clicked on.
+ *                                  Memo contains an object with the gallery id
+ *                                  in the 'gid' property.
+ *
+ *
+ *
  *
  * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
@@ -90,13 +96,40 @@ AnselLayout = Class.create({
 
         Element.observe(window, 'resize', this.onResize.bindAsEventListener(this));
         this.opts.parent.observe('scroll', this.onScroll.bindAsEventListener(this));
+        this.opts.parent.observe('click', this.clickHandler.bindAsEventListener(this));
+    },
+
+    clickHandler: function(e)
+    {
+        if (e.isRightClick() || typeof e.element != 'function') {
+            return;
+        }
+
+        var elt = e.element(), id;
+        while (Object.isElement(elt)) {
+            // Caution, this only works if the element has definitely only a
+            // single CSS class.
+            switch (elt.className) {
+            //return
+            }
+
+            if (elt.hasClassName('ansel-tile-gallery')) {
+                this.opts.parent.fire('AnselLayout:galleryClick', { gid: elt.retrieve('gid') });
+                e.stop();
+                return;
+            }
+
+            elt = elt.up();
+        }
+
     },
 
     reset: function()
     {
         this.opts.container.select(this.opts.rowSelector).each(function(r) {
-            r.update();
+            r.remove();
         }.bind(this));
+        this.images = this.galleries = [];
     },
 
     // Prepare an array of images by calculating the initial scaled width.
@@ -209,7 +242,7 @@ AnselLayout = Class.create({
 
         target = new Element('span', {
             class: 'ansel-tile-target ansel-tile-gallery'
-        });
+        }).store({ gid: g.id });
 
         //@TODO Escape filename
         sub = g.ct + " " + Ansel.text['images'] + " " + g.cs + " " + Ansel.text['subgalleries'];

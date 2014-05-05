@@ -63,6 +63,7 @@
 }
 
 #anselViewGalleries {
+    height: 100%;
     position: relative;
     float: left;
     display: inline-block;
