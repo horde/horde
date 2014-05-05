@@ -348,6 +348,7 @@ AnselLayout = Class.create({
                 rows.push(newRow);
             }
         }
+        // Remove rows that are now empty due to resizing.
         rows.each(function(row) {
             if (row.empty()) {
                 row.remove();
