@@ -6,13 +6,18 @@
     "license": "LGPL-2.1",
     "authors": [
         {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        },
+        {
             "name": "Gunnar Wrobel",
             "email": "p@rdus.de",
             "role": "lead"
         }
     ],
     "version": "1.0.0alpha1",
-    "time": "2012-11-19",
+    "time": "2014-05-05",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +25,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/Horde_Http": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Url": ">=2.0.0,<=3.0.0alpha1"
     },
