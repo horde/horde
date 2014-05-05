@@ -301,7 +301,7 @@ AnselLayout = Class.create({
                     // When ratio >= 1, we didn't have enough images to finish
                     // out the row. Set the height to the maximum we can and
                     // let the browser do the width scale.
-                    if (ratio >= 1) {
+                    if (ratio > 1) {
                         img.style.width = 'auto';
                         img.style.height = Math.min(this.opts.maxHeight, photo.height_s) + 'px';
                     }
