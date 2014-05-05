@@ -41,7 +41,9 @@ class Horde_Test_Autoload
             return;
         }
 
-        require __DIR__ . '/../../../bundle/vendor/autoload.php';
+        if (file_exists(__DIR__ . '/../../../bundle/vendor/autoload.php')) {
+            require __DIR__ . '/../../../bundle/vendor/autoload.php';
+        }
 
         spl_autoload_register(
             function($class) {
