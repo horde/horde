@@ -16,8 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-19</date>
- <time>11:37:25</time>
+ <date>2014-05-05</date>
  <version>
   <release>2.1.0</release>
   <api>2.0.0</api>
@@ -58,6 +57,12 @@
     <file name="Exception.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -217,6 +222,8 @@
    <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
    <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
+   <install as="timeobjects/locale/da/LC_MESSAGES/timeobjects.mo" name="locale/da/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/da/LC_MESSAGES/timeobjects.po" name="locale/da/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/es/LC_MESSAGES/timeobjects.mo" name="locale/es/LC_MESSAGES/timeobjects.mo" />
@@ -504,7 +511,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-19</date>
+   <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update to changed Facebook events API.
