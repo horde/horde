@@ -97,7 +97,9 @@
     padding: 5px 0 10px 8px;
     visibility: hidden;
 }
-
+.ansel-tile-gallery .ansel-tile-meta {
+    visibility: visible;
+}
 .ansel-tile-target:hover .ansel-tile-meta {
     visibility: visible;
 }

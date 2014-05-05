@@ -208,7 +208,7 @@ AnselLayout = Class.create({
         var target, wrap, img, meta, sub;
 
         target = new Element('span', {
-            class: 'ansel-tile-target'
+            class: 'ansel-tile-target ansel-tile-gallery'
         });
 
         //@TODO Escape filename
