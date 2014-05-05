@@ -341,7 +341,7 @@ class Horde_Xml_Element implements ArrayAccess
             if ($nodes[0] instanceof Horde_Xml_Element) {
                 return $nodes;
             }
-            return array_map(create_function('$e', 'return new Horde_Xml_Element($e);'), $nodes);
+            return array_map(function($e) { return new Horde_Xml_Element($e); }, $nodes);
         } else {
             // When creating anonymous nodes for __set chaining, don't
             // call appendChild() on them. Instead we pass the current
