@@ -16,7 +16,6 @@ before_script:
   - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - pear install channel://pear.horde.org/Horde_Role
-  - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
   - psql -c 'create database test;' -U postgres
 script: ./framework/bin/test_framework
