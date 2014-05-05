@@ -25,7 +25,7 @@ class Horde_Kolab_Server_Constraint_Searchcn extends PHPUnit_Framework_Constrain
         }
     }
 
-    public function fail($other, $description, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL)
+    public function fail($other, $description, \SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = NULL)
     {
         throw new PHPUnit_Framework_ExpectationFailedException(
           sprintf(
