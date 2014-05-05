@@ -46,7 +46,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
-            $return[$gallery->id] = $gallery->toJson(true);
+            $return[$gallery->id] = $gallery->toJson();
         }
 
         return $return;
