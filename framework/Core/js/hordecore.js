@@ -545,6 +545,9 @@ var HordeCore = {
         }
     },
 
+    /**
+     * TODO: Remove for H6.
+     */
     closePopup: function()
     {
         // Mozilla bug/feature: it will not close a browser window
