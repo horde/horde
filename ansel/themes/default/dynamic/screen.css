@@ -86,6 +86,7 @@
     position: relative;
     float: none;
     display: inline-block;
+    cursor: pointer;
 }
 
 .ansel-tile-meta {
