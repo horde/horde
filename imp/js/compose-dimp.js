@@ -46,7 +46,7 @@ var DimpCompose = {
     {
         if (window.confirm(DimpCore.text.compose_cancel)) {
             if (!DimpCore.conf.qreply &&
-                this.baseAvailable()) {
+                DimpCore.baseAvailable()) {
                 HordeCore.base.focus();
             }
 
@@ -60,7 +60,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (this.baseAvailable() &&
+        if (DimpCore.baseAvailable() &&
             HordeCore.base.DimpBase.view == DimpCore.conf.drafts_mbox) {
             HordeCore.base.DimpBase.poll();
         }
@@ -288,7 +288,7 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (!DimpCore.conf.qreply && this.baseAvailable()) {
+                    if (!DimpCore.conf.qreply && DimpCore.baseAvailable()) {
                         HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                     if (DimpCore.conf.close_draft) {
@@ -299,14 +299,14 @@ var DimpCompose = {
                 break;
 
             case 'saveTemplate':
-                if (this.baseAvailable() &&
+                if (DimpCore.baseAvailable() &&
                     HordeCore.base.DimpBase.view == DimpCore.conf.templates_mbox) {
                     HordeCore.base.DimpBase.poll();
                 }
                 return this.closeCompose();
 
             case 'sendMessage':
-                if (this.baseAvailable()) {
+                if (DimpCore.baseAvailable()) {
                     if (d.draft_delete) {
                         HordeCore.base.DimpBase.poll();
                     }
@@ -320,7 +320,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.baseAvailable() && !DimpCore.conf.qreply) {
+                if (DimpCore.baseAvailable() && !DimpCore.conf.qreply) {
                     HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                 }
 
@@ -1050,13 +1050,6 @@ var DimpCompose = {
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=800,height=350,left=100,top=100');
     },
 
-    baseAvailable: function()
-    {
-        return (HordeCore.base &&
-                !Object.isUndefined(HordeCore.base.DimpBase) &&
-                !HordeCore.base.closed);
-    },
-
     /* Click observe handler. */
     clickHandler: function(e)
     {
@@ -1341,7 +1334,7 @@ var DimpCompose = {
             t['imp:compose-atc'].each(this.addAttach.bind(this));
         }
 
-        if (this.baseAvailable()) {
+        if (DimpCore.baseAvailable()) {
             if (t['imp:flag']) {
                 HordeCore.base.DimpBase.flagCallback(t['imp:flag']);
             }

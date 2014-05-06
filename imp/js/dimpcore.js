@@ -242,6 +242,13 @@ var DimpCore = {
         elt.removeClassName(r).addClassName(a).show();
     },
 
+    baseAvailable: function()
+    {
+        return (HordeCore.base &&
+                !Object.isUndefined(HordeCore.base.DimpBase) &&
+                !HordeCore.base.closed);
+    },
+
     /* Mouse click handler. */
     clickHandler: function(e)
     {
