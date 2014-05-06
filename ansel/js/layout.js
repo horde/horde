@@ -77,6 +77,8 @@ AnselLayout = Class.create({
 
     moreAvailable: true,
 
+    baseView: null,
+
     initialize: function(opts)
     {
         this.opts = Object.extend({
@@ -107,21 +109,13 @@ AnselLayout = Class.create({
 
         var elt = e.element(), id;
         while (Object.isElement(elt)) {
-            // Caution, this only works if the element has definitely only a
-            // single CSS class.
-            switch (elt.className) {
-            //return
-            }
-
             if (elt.hasClassName('ansel-tile-gallery')) {
                 this.opts.parent.fire('AnselLayout:galleryClick', { gid: elt.retrieve('gid') });
                 e.stop();
                 return;
             }
-
             elt = elt.up();
         }
-
     },
 
     reset: function()
@@ -130,6 +124,7 @@ AnselLayout = Class.create({
             r.remove();
         }.bind(this));
         this.images = this.galleries = [];
+        this.lastWidth = null;
     },
 
     // Prepare an array of images by calculating the initial scaled width.
@@ -209,11 +204,10 @@ AnselLayout = Class.create({
             class: 'ansel-tile-target'
         });
 
-        // @TODO Escape filename
         // @TODO: Probably need to generalize the photo.screen to a url.
         meta = new Element('div', {
             class: 'ansel-tile-meta'
-        }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.fn));
+        }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.fn.escapeHTML()));
 
         img = new Element('img', {
             class: 'ansel-photo',
@@ -244,12 +238,10 @@ AnselLayout = Class.create({
             class: 'ansel-tile-target ansel-tile-gallery'
         }).store({ gid: g.id });
 
-        //@TODO Escape filename
         sub = g.ct + " " + Ansel.text['images'] + " " + g.cs + " " + Ansel.text['subgalleries'];
-
         meta = new Element('div', {
             class: 'ansel-tile-meta'
-        }).insert(new Element('div', { class: 'ansel-tile-title' }).update(g.n))
+        }).insert(new Element('div', { class: 'ansel-tile-title' }).update(g.n.escapeHTML()))
             .insert(new Element('div', { class: 'ansel-tile-stats' }).update(sub));
 
         img = new Element('img', {
@@ -352,7 +344,6 @@ AnselLayout = Class.create({
             // gallery tiles we decided to show.
             while (totalNumber < totalCntRow && (totalNumber + baseLine) < this.galleries.length) {
                 var newwt = Math.floor(scaledWidths[baseLine + totalNumber] * ratio);
-
                 totalWidth += newwt;
                 tile = this.buildGalleryTile(this.galleries[baseLine + totalNumber], ratio, newht, newwt);
                 d_row.insert(tile);

@@ -22,7 +22,6 @@ AnselCore =
     effectDur: 0.4,
     inScrollHandler: false,
     perPage: 10,
-    galleries: null,
 
     /**
      * The location that was open before the current location.
@@ -81,41 +80,33 @@ AnselCore =
 
     // Navigate to a view or subview
     // fullloc - the main view (me, groups, etc...)
-    // data    - the subview (images, galleries etc...) If omitted, images
-    //           is assumed (for now - should maybe be galleries?)
+    // data    - An object containing additional data used:
+    //      - subview
+    //      - gid
+    //
+    //
     go: function(fullloc, data)
     {
-        var subview;
-
-        if (!data) {
-            data = 'images';
-        }
-        // All the "normal-ish" views can be displayed using the same
-        // main layout container, but rememer what we are actually requesting.
-        switch (data) {
-        case 'images':
-        case 'tags':
-            subview = 'images';
-            break;
-        default:
-            subview = data;
-        }
         if (!this.initialized) {
             this.go.bind(this, fullloc, data).defer();
             return;
         }
 
+        var locParts = fullloc.split(':');
+        var loc = locParts.shift();
+        var subview = locParts.shift();
+
+        if (!data) {
+            data = locParts.shift();
+        }
         if (this.viewLoading.size()) {
             this.viewLoading.push([ fullloc, subview ]);
             return;
         }
 
-        var locParts = fullloc.split(':');
-        var loc = locParts.shift();
-
         // Same location, and subview - exit.
         if (this.openLocation && this.openLocation == fullloc) {
-            if (this.subview && data == this.subview) {
+            if (this.subview && !data && subview == this.subview) {
                 return;
             } else {
                 this.closeView(loc, subview);
@@ -136,17 +127,16 @@ AnselCore =
         case 'subscribed':
             var locCap = loc.capitalize();
             $('anselNav' + locCap).addClassName('horde-subnavi-active');
-            $('anselMenu' + data.capitalize()).up().addClassName('horde-active');
+            $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
             switch (loc) {
             case 'me':
-                this.addHistory(fullloc);
                 this.view = loc;
-                this.subview = data;
+                this.subview = subview;
                 $('anselView' + subview.capitalize()).appear({
                         duration: this.effectDur,
                         queue: 'end',
                         afterFinish: function() {
-                            this.updateView(loc, subview);
+                            this.updateView(loc, subview, data);
                             this.loadNextView();
                         }.bind(this)
                 });
@@ -199,33 +189,32 @@ AnselCore =
      * @param string view  The view that's rebuilt.
      * @param mixed data   Any additional data that might be required.
      */
-    updateView: function(view, data)
+    updateView: function(view, subview, data)
     {
         switch (view) {
         case 'me':
-            switch (data) {
+            switch (subview) {
             case 'images':
                 $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 $('anselViewGalleries').stopObserving('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
-                // @TODO. Sniff out if the view/subview has changed or not.
-                if (!this.imageLayout) {
-                    HordeCore.doAction(
-                        'listImages',
-                        { view: 'me', start: 0, count: this.perPage },
-                        { callback: this.listImagesCallback.bind(this) }
-                    );
-                }
+                this.addHistory(view + ':' + subview);
+                HordeCore.doAction(
+                    'listImages',
+                    { view: 'me', start: 0, count: this.perPage },
+                    { callback: this.listImagesCallback.bind(this) }
+                );
                 break;
 
             case 'galleries':
                 $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
-                this.galleryLayout = this.galleryLayout || new AnselLayout({
-                    container: 'anselViewGalleries',
-                    perPage: this.perPage
-                });
-                this.galleryLayout.galleries = this.galleries.values();
-                this.galleryLayout.resize();
+                if (data) {
+                    this.addHistory(view + ':' + subview + ':' + data);
+                    this.loadGallery(data);
+                } else {
+                    this.addHistory(view + ':' + subview );
+                    HordeCore.doAction('listGalleries', {}, { callback: this.listGalleriesCallback.bind(this) });
+                }
             }
             break;
         }
@@ -249,17 +238,19 @@ AnselCore =
 
     onGalleryClick: function(e)
     {
-        this.loadGallery(e.memo.gid);
+        this.go(this.view + ':' + this.subview, e.memo.gid);
     },
 
     listImagesCallback: function(r)
     {
-        this.imageLayout = this.imageLayout || new AnselLayout({
-            container: 'anselViewImages',
-            perPage: this.perPage
-        });
         this.imageLayout.addImages(r);
         this.inScrollHandler = false;
+    },
+
+    listGalleriesCallback: function(r)
+    {
+        this.galleryLayout.galleries = $H(r).values();
+        this.galleryLayout.resize();
     },
 
     /**
@@ -295,19 +286,19 @@ AnselCore =
             if (a) {
                 a.up().removeClassName('horde-active');
             }
-        })
+        });
 
-        //if (this.view && this.view != loc) {
-            if (this.subview && this.subview != subview) {
-                $('anselView' + this.subview.capitalize()).fade({
-                    duration: this.effectDur,
-                    queue: 'end'
-                });
-               // AnselLayout.reset();
-            }
-            // this.view = null;
-            // this.subview = null;
-        //}
+        $('anselView' + this.subview.capitalize()).fade({
+            duration: this.effectDur,
+            queue: 'end',
+            afterFinish: function() {
+                if (subview == 'galleries') {
+                    this.galleryLayout.reset();
+                } else if (subview == 'images') {
+                    this.imageLayout.reset();
+                }
+            }.bind(this)
+        });
     },
 
     /**
@@ -424,10 +415,10 @@ AnselCore =
 
             switch (id) {
             case 'anselMenuImages':
-                this.go(this.view, 'images');
+                this.go(this.view + ':images');
                 return;
             case 'anselMenuGalleries':
-                this.go(this.view, 'galleries');
+                this.go(this.view + ':galleries');
                 return;
             }
 
@@ -435,10 +426,6 @@ AnselCore =
             // single CSS class.
             switch (elt.className) {
             //return
-            }
-
-            if (elt.hasClassName('ansel-tile-gallery')) {
-                this.loadGallery();
             }
 
             elt = elt.up();
@@ -660,10 +647,6 @@ AnselCore =
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
         }
-        if (tmp.empty()) {
-            this.updateView(this.date, Ansel.conf.login_view);
-           // $('anselView' + Ansel.conf.login_view.capitalize()).show();
-        }
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -675,39 +658,39 @@ AnselCore =
         document.observe('keyup', AnselCore.keyupHandler.bindAsEventListener(AnselCore));
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
-        // Custom events
         $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
 
-        // For now, start by loading the current user's galleris.
-        HordeCore.doAction('listGalleries', {}, { callback: this.initialize.bind(this, tmp) });
+        this.initialize(tmp);
     },
 
-    initialize: function(location, r)
+    initialize: function(location)
     {
-        this.galleries = $H(r);
+        this.imageLayout = new AnselLayout({
+            container: 'anselViewImages',
+            perPage: this.perPage
+        });
 
-        // //$('anselLoadingGalleries').hide();
+        this.galleryLayout = new AnselLayout({
+            container: 'anselViewGalleries',
+            perPage: this.perPage
+        });
+
         this.initialized = true;
 
-        /* TEMP HACK */
-        this.go('me', 'galleries');
-        //Element.observe(window, 'resize', AnselLayout.onResize);
+        /* Initialize the starting page. */
+        if (!location.empty()) {
+            this.go(decodeURIComponent(location));
+        } else {
+            this.go('me:galleries');
+        }
 
-
-        // /* Initialize the starting page. */
-        // if (!location.empty()) {
-        //     this.go(decodeURIComponent(location));
-        // } else {
-        //     this.go(Ansel.conf.login_view);
-        // }
-
-        // /* Start polling. */
-        // new PeriodicalExecuter(function()
-        //     {
-        //         HordeCore.doAction('poll');
-        //     },
-        //     60
-        // );
+        /* Start polling. */
+        new PeriodicalExecuter(function()
+            {
+                HordeCore.doAction('poll');
+            },
+            60
+        );
     }
 
 };
