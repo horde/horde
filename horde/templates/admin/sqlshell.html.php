@@ -30,6 +30,7 @@
 <?php endforeach; ?>
   </table>
 <?php endif; ?>
+<?php endif; ?>
 
 <?php if (count($this->q_cache)): ?>
   <p>
@@ -42,7 +43,6 @@
    <input type="button" value="<?php echo _("Paste") ?>" onclick="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value;">
    <input type="button" value="<?php echo _("Run") ?>" onclick="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value; document.sqlshell.submit();">
   </p>
-<?php endif; ?>
 <?php endif; ?>
 
   <p>
