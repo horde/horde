@@ -158,7 +158,7 @@ class Horde_Ldap_Filter
             $filter = '(' . $attribute . '>' . $value . ')';
             break;
         case 'less':
-        case '>':
+        case '<':
             $filter = '(' . $attribute . '<' . $value . ')';
             break;
         case 'greaterorequal':

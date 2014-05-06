@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Fix creating filters with the less (&lt;) operator (Bug #13154).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -417,7 +417,7 @@
    <date>2014-04-03</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Fix creating filters with the less (&lt;) operator (Bug #13154).
    </notes>
   </release>
  </changelog>
