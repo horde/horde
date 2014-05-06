@@ -4184,8 +4184,8 @@ var DimpBase = {
 
     onAjaxFailure: function(r)
     {
-        if (r.request) {
-            switch (r.request.action) {
+        if (r.memo[0].request) {
+            switch (r.memo[0].request.action) {
             case 'createMailboxPrepare':
             case 'deleteMailboxPrepare':
             case 'emptyMailboxPrepare':
