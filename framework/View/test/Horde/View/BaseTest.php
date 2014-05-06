@@ -230,7 +230,7 @@ class Horde_View_BaseTest extends Horde_Test_Case
 
         // add text helper
         $this->_view->addHelper(new Horde_View_Helper_Text($this->_view));
-        $expected = 'The quick brown fox... tomorrow morning.';
+        $expected = 'The quick brown fox...tomorrow morning.';
         $this->assertEquals($expected, $this->_view->truncateMiddle($str, 40));
     }
 

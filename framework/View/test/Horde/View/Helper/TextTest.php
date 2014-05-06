@@ -50,7 +50,7 @@ class Horde_View_Helper_TextTest extends Horde_Test_Case
     public function testTruncateMiddle()
     {
         $str = 'The quick brown fox jumps over the lazy dog tomorrow morning.';
-        $expected = 'The quick brown fox... tomorrow morning.';
+        $expected = 'The quick brown fox...tomorrow morning.';
         $this->assertEquals($expected, $this->view->truncateMiddle($str, 40));
     }
 

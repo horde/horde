@@ -193,9 +193,8 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
         if (empty($text)) {
             return $text;
         }
-        $l = $length - strlen($truncateString);
-        return strlen($text) > $length
-            ? substr($text, 0, $l) . $truncateString
+        return Horde_String::length($text) > $length
+            ? rtrim(Horde_String::substr($text, 0, $length - Horde_String::length($truncateString))) . $truncateString
             : $text;
     }
 
@@ -222,18 +221,18 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      */
     public function truncateMiddle($str, $maxLength = 80, $joiner = '...')
     {
-        if (strlen($str) <= $maxLength) {
+        if (Horde_String::length($str) <= $maxLength) {
             return $str;
         }
-        $maxLength = $maxLength - strlen($joiner);
+        $maxLength = $maxLength - Horde_String::length($joiner);
         if ($maxLength <= 0) {
             return $str;
         }
         $startPieceLength = (int) ceil($maxLength / 2);
         $endPieceLength = (int) floor($maxLength / 2);
-        $trimmedString = substr($str, 0, $startPieceLength) . $joiner;
+        $trimmedString = rtrim(Horde_String::substr($str, 0, $startPieceLength)) . $joiner;
         if ($endPieceLength > 0) {
-            $trimmedString .= substr($str, (-1 * $endPieceLength));
+            $trimmedString .= ltrim(Horde_String::substr($str, (-1 * $endPieceLength)));
         }
         return $trimmedString;
     }
