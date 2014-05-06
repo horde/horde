@@ -4163,14 +4163,16 @@ var DimpBase = {
 
     _onResize: function()
     {
-        this._sizeFolderlist();
-        this.splitbar.setStyle({
-            height: document.viewport.getHeight() + 'px'
-        });
-        if ($('dimpmain_iframe').visible()) {
-            $('dimpmain_iframe').down('IFRAME').setStyle({
-                height: $('horde-page').getHeight() + 'px'
+        if (!$('dimpLoading').visible()) {
+            this._sizeFolderlist();
+            this.splitbar.setStyle({
+                height: document.viewport.getHeight() + 'px'
             });
+            if ($('dimpmain_iframe').visible()) {
+                $('dimpmain_iframe').down('IFRAME').setStyle({
+                    height: $('horde-page').getHeight() + 'px'
+                });
+            }
         }
     },
 
