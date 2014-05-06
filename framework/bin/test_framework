@@ -38,7 +38,8 @@ if (!function_exists('textdomain')) {
     {}
 }
 
-require_once 'Horde/Test/AllTests.php';
+require_once 'Horde/Test/Autoload.php';
+Horde_Test_Autoload::init();
 
 $_SERVER['argv'][] = 'Horde_Test_Runner';
 $_SERVER['argv'][] = __FILE__;
