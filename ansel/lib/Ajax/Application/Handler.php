@@ -398,6 +398,14 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * Just polls for alarm messages and keeps session fresh for now.
+     */
+    public function poll()
+    {
+        return false;
+    }
+
+    /**
      */
     private function _getTagHtml($tags, $hasEdit)
     {
