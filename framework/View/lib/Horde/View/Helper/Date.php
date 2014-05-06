@@ -31,8 +31,8 @@ class Horde_View_Helper_Date extends Horde_View_Helper_Base
     public function distanceOfTimeInWords($fromTime, $toTime = 0,
                                           $includeSeconds = false)
     {
-        $distanceInMinutes = round(abs($toTime - $fromTime) / 60);
-        $distanceInSeconds = round(abs($toTime - $fromTime));
+        $distanceInMinutes = floor(abs($toTime - $fromTime) / 60);
+        $distanceInSeconds = floor(abs($toTime - $fromTime));
 
         if ($distanceInMinutes >= 0 && $distanceInMinutes <= 1) {
             if (!$includeSeconds) {

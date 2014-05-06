@@ -64,57 +64,57 @@ class Horde_View_Helper_DateTest extends Horde_Test_Case
                             $this->helper->distanceOfTimeInWords($from, $from + 0));
         $this->assertEquals('less than a minute',
                             $this->helper->distanceOfTimeInWords($from, $from + 29));
-        $this->assertEquals('1 minute',
+        $this->assertEquals('less than a minute',
                             $this->helper->distanceOfTimeInWords($from, $from + 30));
         $this->assertEquals('1 minute',
                             $this->helper->distanceOfTimeInWords($from, $from + (1*60) + 29));
 
         // 2..44
         $this->assertEquals('2 minutes',
-                            $this->helper->distanceOfTimeInWords($from, $from + (1*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (2*60) + 30));
         $this->assertEquals('44 minutes',
                             $this->helper->distanceOfTimeInWords($from, $from + (44*60) + 29));
 
         // 45..89
         $this->assertEquals('about 1 hour',
-                            $this->helper->distanceOfTimeInWords($from, $from + (44*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (45*60)));
         $this->assertEquals('about 1 hour',
                             $this->helper->distanceOfTimeInWords($from, $from + (89*60) + 29));
 
         // 90..1439
         $this->assertEquals('about 2 hours',
-                            $this->helper->distanceOfTimeInWords($from, $from + (89*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (90*60)));
         $this->assertEquals('about 24 hours',
                             $this->helper->distanceOfTimeInWords($from, $from + (23*3600) + (59*60) + 29));
 
         // 2880..43199
         $this->assertEquals('2 days',
-                            $this->helper->distanceOfTimeInWords($from, $from + (47*3600) + (59*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (47*3600) + (60*60)));
         $this->assertEquals('29 days',
                             $this->helper->distanceOfTimeInWords($from, $from + (29*86400) + (23*3600) + (59*60) + 29));
 
         // 43200..86399
         $this->assertEquals('about 1 month',
-                            $this->helper->distanceOfTimeInWords($from, $from + (29*86400) + (23*3600) + (59*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (29*86400) + (23*3600) + (60*60)));
         $this->assertEquals('about 1 month',
                             $this->helper->distanceOfTimeInWords($from, $from + (59*86400) + (23*3600) + (59*60) + 29));
 
         // 86400..525599
         $this->assertEquals('2 months',
-                            $this->helper->distanceOfTimeInWords($from, $from + (59*86400) + (23*3600) + (59*60) + 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (59*86400) + (23*3600) + (60*60)));
 
         $this->assertEquals('12 months',
                             $this->helper->distanceOfTimeInWords($from, $from + (1*31557600) - 31));
 
         // 525960..1051919
         $this->assertEquals('about 1 year',
-                            $this->helper->distanceOfTimeInWords($from, $from + (1*31557600) - 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (1*31557600)));
         $this->assertEquals('about 1 year',
                             $this->helper->distanceOfTimeInWords($from, $from + (2*31557600) - 31));
 
         // > 1051920
         $this->assertEquals('over 2 years',
-                            $this->helper->distanceOfTimeInWords($from, $from + (2*31557600) - 30));
+                            $this->helper->distanceOfTimeInWords($from, $from + (2*31557600)));
         $this->assertEquals('over 10 years',
                             $this->helper->distanceOfTimeInWords($from, $from + (10*31557600)));
 
@@ -127,11 +127,7 @@ class Horde_View_Helper_DateTest extends Horde_Test_Case
 
     public function testDistanceInWordsWithIntegers()
     {
-        $this->markTestIncomplete('not yet passing');
-
-        $from = mktime(21, 45, 0, 6, 6, 2004);
-
-        // test with integers (not yet passing)
+        // test with integers
         $this->assertEquals('less than a minute',
                             $this->helper->distanceOfTimeInWords(59));
         $this->assertEquals('about 1 hour',
