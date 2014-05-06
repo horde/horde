@@ -18,7 +18,7 @@
  </lead>
  <date>2014-05-06</date>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Memory driver.
-* [mms] Deprecate Memoryoverlay and Mock drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -575,6 +574,19 @@ Initial packaging.
    <notes>
 * [mms] Add Memory driver.
 * [mms] Deprecate Memoryoverlay and Mock drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
