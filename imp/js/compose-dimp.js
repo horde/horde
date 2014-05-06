@@ -11,7 +11,7 @@ var DimpCompose = {
     // Variables defaulting to empty/false:
     //   atc_context, auto_save_interval, compose_cursor, disabled,
     //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
-    //   hash_msgOrig, hash_sig, hash_sigOrig, is_popup, knl, last_identity,
+    //   hash_msgOrig, hash_sig, hash_sigOrig, knl, last_identity,
     //   onload_show, old_action, old_identity, sc_submit,
     //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
 
@@ -70,10 +70,16 @@ var DimpCompose = {
     {
         if (DimpCore.conf.qreply) {
             this.closeQReply();
-        } else if (this.is_popup) {
-            HordeCore.closePopup();
+        } else if (HordeCore.base) {
+            // Want HordeCore.base directly here, since we are only checking
+            // whether window.close can be done, not the current status
+            // of the opening window.
+            window.close();
         } else {
-            HordeCore.redirect(DimpCore.conf.URI_MAILBOX);
+            // Sanity checking: if popup cannot be manually closed, output
+            // information message without allowing further actions on the
+            // page.
+            $$('body')[0].update(DimpCore.text.compose_close);
         }
     },
 
@@ -1046,8 +1052,7 @@ var DimpCompose = {
 
     baseAvailable: function()
     {
-        return (this.is_popup &&
-                HordeCore.base &&
+        return (HordeCore.base &&
                 !Object.isUndefined(HordeCore.base.DimpBase) &&
                 !HordeCore.base.closed);
     },
@@ -1353,8 +1358,6 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
-        this.is_popup = !Object.isUndefined(HordeCore.base);
-
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);

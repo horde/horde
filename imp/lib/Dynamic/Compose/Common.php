@@ -193,8 +193,6 @@ class IMP_Dynamic_Compose_Common
         $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
-            'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
-
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
@@ -251,6 +249,7 @@ class IMP_Dynamic_Compose_Common
         $base->js_text += array(
             'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
+            'compose_close' => _("Compose action completed. You may now safely close this window."),
             'multiple_atc' => _("%d Attachments"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'paste_error' => _("Could not paste image as the clipboard data is invalid."),
