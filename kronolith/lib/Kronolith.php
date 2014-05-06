@@ -2067,12 +2067,13 @@ class Kronolith
             throw new Kronolith_Exception($e);
         }
 
-        $senderIdentity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
-
         $owner = $share->get('owner');
         if ($owner) {
             $recipients[$owner] = self::_notificationPref($owner, 'owner');
         }
+
+        $senderIdentity = $injector->getInstance('Horde_Core_Factory_Identity')
+            ->create($event->creator ?: $owner);
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (!isset($recipients[$user])) {

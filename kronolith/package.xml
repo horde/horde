@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2326,7 +2326,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
    </notes>
   </release>
  </changelog>
