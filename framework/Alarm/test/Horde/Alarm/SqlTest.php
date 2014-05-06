@@ -27,11 +27,35 @@ class Horde_Alarm_SqlTest extends Horde_Test_Case
             return;
         }
 
-        $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($conf['alarm']['test']['horde']['adapter']))));
+        $migrationDir = __DIR__ . '/../../../migration/Horde/Alarm';
+        if (!is_dir($migrationDir)) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+            $migrationDir = PEAR_Config::singleton()
+                ->get('data_dir', null, 'pear.horde.org')
+                . '/Horde_Alarm/migration';
+            error_reporting(E_ALL | E_STRICT);
+        }
+
+        $adapter = str_replace(
+            ' ',
+            '_' ,
+            ucwords(str_replace(
+                '_',
+                ' ',
+                basename($conf['alarm']['test']['horde']['adapter'])
+            ))
+        );
         $class = 'Horde_Db_Adapter_' . $adapter;
         self::$db = new $class($conf['alarm']['test']['horde']);
 
-        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(dirname(dirname(__DIR__))) . '/migration/Horde/Alarm'));
+        self::$migrator = new Horde_Db_Migration_Migrator(
+            self::$db,
+            null,
+            array(
+                'migrationsPath' => $migrationDir,
+                'schemaTableName' => 'horde_alarm_schema'
+            )
+        );
         self::$migrator->up();
     }
 
