@@ -216,9 +216,8 @@ var DimpCore = {
     },
 
     // Abstract: define in any pages that need reloadMessage().
-    reloadMessage: function(params)
-    {
-    },
+    // One argument: params
+    reloadMessage: Prototype.emptyFunction,
 
     toggleCheck: function(elt, on)
     {
