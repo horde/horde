@@ -2150,7 +2150,7 @@
        <configswitch name="type" desc="Select the authentication methods that
        should be supported.">basic
          <case name="basic" desc="HTTP Basic"/>
-         <case name="cert" desc="Cient Certificates">
+         <case name="cert" desc="Client Certificates">
            <configsection name="params">
              <configstring name="username_field" desc="The X509 field containing the username">
              SSL_CLIENT_S_DN_CN</configstring>
