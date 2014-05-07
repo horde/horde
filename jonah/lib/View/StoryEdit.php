@@ -72,7 +72,6 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
 
         /* Needed javascript. */
         global $page_output;
-        $page_output->addScriptFile('open_calendar.js', 'horde');
         $page_output->header(array(
             'title' => $form->getTitle()
         ));
