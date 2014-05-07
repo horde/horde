@@ -24,7 +24,7 @@
  </lead>
  <date>2014-05-07</date>
  <version>
-  <release>4.2.0alpha2</release>
+  <release>4.2.0alpha3</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix dependency on Nag (Bug #13166).
-* [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2329,6 +2328,19 @@
    <notes>
 * [jan] Fix dependency on Nag (Bug #13166).
 * [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha3</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2014-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
