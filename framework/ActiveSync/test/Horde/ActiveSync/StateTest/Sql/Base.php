@@ -201,7 +201,7 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
                 self::$db,
                 self::$logger->getLogger(),
                 array('migrationsPath' => $dir,
-                      'schemaTableName' => 'horde_activesync_test_schema'));
+                      'schemaTableName' => 'horde_activesync_schema'));
             self::$migrator->up();
         }
     }

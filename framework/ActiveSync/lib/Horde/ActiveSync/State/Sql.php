@@ -533,6 +533,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if (!$device = $this->_db->selectOne($query, array($devId))) {
                 throw new Horde_ActiveSync_Exception('Device not found.');
             }
+            $columns = $this->_db->columns($this->_syncDeviceTable);
+            $device['device_properties'] = $columns['device_properties']
+                ->binaryToString($device['device_properties']);
+            $device['device_supported'] = $columns['device_supported']
+                ->binaryToString($device['device_supported']);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1004,8 +1009,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $sql = 'SELECT cache_data FROM ' . $this->_syncCacheTable
             . ' WHERE cache_devid = ? AND cache_user = ?';
         try {
-            $data = $this->_db->selectValue(
-                $sql, array($devid, $user));
+            $data = $this->_db->selectValue($sql, array($devid, $user));
+            $columns = $this->_db->columns($this->_syncCacheTable);
+            $data = $columns['cache_data']->binaryToString($data);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-27</date>
+ <date>2014-05-07</date>
  <version>
   <release>2.14.2</release>
   <api>2.14.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Make SQL state backend compatible with Oracle.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -240,6 +240,7 @@
         <file name="Base.php" role="test" />
         <file name="MysqliTest.php" role="test" />
         <file name="MysqlTest.php" role="test" />
+        <file name="Oci8Test.php" role="test" />
        </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql -->
        <file name="Base.php" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/StateTest -->
@@ -530,6 +531,7 @@
    <install as="Horde/ActiveSync/StateTest/Sql/Base.php" name="test/Horde/ActiveSync/StateTest/Sql/Base.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/MysqliTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqliTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqlTest.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Oci8Test.php" name="test/Horde/ActiveSync/StateTest/Sql/Oci8Test.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" />
   </filelist>
@@ -2092,10 +2094,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-27</date>
+   <date>2014-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Make SQL state backend compatible with Oracle.
    </notes>
   </release>
  </changelog>
