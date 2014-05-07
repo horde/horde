@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix dependency on Nag (Bug #13166).
 * [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
  </notes>
  <contents>
@@ -1029,7 +1030,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.0</min>
+    <min>4.2.0alpha1</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -2326,6 +2327,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix dependency on Nag (Bug #13166).
 * [jan] Use the event&apos;s or calendar&apos;s owner identity when sending notifications (Bug #13158).
    </notes>
   </release>
