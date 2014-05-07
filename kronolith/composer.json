@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "4.2.0alpha1",
-    "time": "2014-05-05",
+    "version": "4.2.0alpha2",
+    "time": "2014-05-07",
     "repositories": [
         {
             "type": "pear",
@@ -68,7 +68,7 @@
         "ext-SimpleXML": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/nag": ">=4.2.0,<=5.0.0alpha1",
+        "pear-pear.horde.org/nag": ">=4.2.0alpha1,<=5.0.0alpha1",
         "pear-pear.horde.org/timeobjects": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_ActiveSync": ">=2.4.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Db": ">=2.0.0,<=3.0.0alpha1",

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2014-05-07</date>
  <version>
   <release>4.2.0alpha2</release>
   <api>4.2.0</api>
@@ -2324,7 +2324,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-05-05</date>
+   <date>2014-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix dependency on Nag (Bug #13166).

@@ -1,6 +1,6 @@
-----------
-v4.2.0-git
-----------
+------------
+v4.2.0alpha2
+------------
 
 [jan] Fix dependency on Nag (Bug #13166).
 [jan] Use the event's or calendar's owner identity when sending notifications
