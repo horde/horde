@@ -6,34 +6,11 @@
  * @package    Alarm
  * @subpackage UnitTests
  */
-
-class Horde_Alarm_NullTest extends PHPUnit_Framework_TestCase
+class Horde_Alarm_Storage_NullTest extends Horde_Alarm_Storage_Base
 {
-    protected static $alarm;
-    protected static $date;
-    protected static $end;
-
     public function testFactory()
     {
         self::$alarm = new Horde_Alarm_Null();
-    }
-
-    /**
-     * @depends testFactory
-     */
-    public function testSet()
-    {
-        $now = time();
-        self::$date = new Horde_Date($now);
-        self::$end = new Horde_Date($now + 3600);
-        $hash = array('id' => 'personalalarm',
-                      'user' => 'john',
-                      'start' => self::$date,
-                      'end' => self::$end,
-                      'methods' => array(),
-                      'params' => array(),
-                      'title' => 'This is a personal alarm.');
-        self::$alarm->set($hash);
     }
 
     /**
@@ -56,15 +33,22 @@ class Horde_Alarm_NullTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testFactory
      */
+    public function testUpdate($alarm)
+    {
+    }
+
+    /**
+     * @depends testFactory
+     */
     public function testListAlarms()
     {
+        self::$date->min--;
         self::$alarm->set(array('id' => 'publicalarm',
                                 'start' => self::$date,
                                 'end' => self::$end,
                                 'methods' => array(),
                                 'params' => array(),
                                 'title' => 'This is a public alarm.'));
-        self::$date->min--;
         $list = self::$alarm->listAlarms('john');
         $this->assertEquals(0, count($list));
     }
@@ -77,15 +61,6 @@ class Horde_Alarm_NullTest extends PHPUnit_Framework_TestCase
         self::$alarm->delete('publicalarm', '');
         $list = self::$alarm->listAlarms('john');
         $this->assertEquals(0, count($list));
-    }
-
-    /**
-     * @depends testFactory
-     * @expectedException Horde_Alarm_Exception
-     */
-    public function testSnoozeException()
-    {
-        self::$alarm->snooze('personalalarm', 'jane', 30);
     }
 
     /**
@@ -109,14 +84,5 @@ class Horde_Alarm_NullTest extends PHPUnit_Framework_TestCase
                                 'title' => 'This is an alarm without end.'));
         $list = self::$alarm->listAlarms('john', self::$end);
         $this->assertEquals(0, count($list));
-    }
-
-    /**
-     * @depends testFactory
-     */
-    public function testCleanUp()
-    {
-        self::$alarm->delete('noend', 'john');
-        self::$alarm->delete('personalalarm', 'john');
     }
 }

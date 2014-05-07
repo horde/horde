@@ -6,26 +6,26 @@
  * @package    Alarm
  * @subpackage UnitTests
  */
-
-class Horde_Alarm_ObjectTest extends PHPUnit_Framework_TestCase
+abstract class Horde_Alarm_Storage_Base extends Horde_Test_Case
 {
     protected static $alarm;
     protected static $date;
     protected static $end;
 
-    public function testFactory()
+    public static function setUpBeforeClass()
     {
-        self::$alarm = new Horde_Alarm_Object();
+        $now = time();
+        self::$date = new Horde_Date($now);
+        self::$end = new Horde_Date($now + 3600);
     }
+
+    abstract public function testFactory();
 
     /**
      * @depends testFactory
      */
     public function testSet()
     {
-        $now = time();
-        self::$date = new Horde_Date($now);
-        self::$end = new Horde_Date($now + 3600);
         $hash = array('id' => 'personalalarm',
                       'user' => 'john',
                       'start' => self::$date,
@@ -79,13 +79,13 @@ class Horde_Alarm_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testListAlarms()
     {
+        self::$date->min--;
         self::$alarm->set(array('id' => 'publicalarm',
                                 'start' => self::$date,
                                 'end' => self::$end,
                                 'methods' => array(),
                                 'params' => array(),
                                 'title' => 'This is a public alarm.'));
-        self::$date->min--;
         $list = self::$alarm->listAlarms('john');
         $this->assertEquals(2, count($list));
         $this->assertEquals('publicalarm', $list[0]['id']);
