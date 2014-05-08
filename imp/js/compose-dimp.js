@@ -1416,9 +1416,7 @@ var DimpCompose = {
 
         if ($H(DimpCore.context.ctx_atc).size()) {
             $('atcdrop').observe('DragHandler:drop', function(e) {
-                if (e.memo.dataTransfer) {
-                    this.uploadAttachmentAjax(e.memo.dataTransfer.files);
-                }
+                this.uploadAttachmentAjax(e.memo);
             }.bindAsEventListener(this));
             DragHandler.dropelt = $('atcdrop');
             DragHandler.droptarget = $('atcdiv');
