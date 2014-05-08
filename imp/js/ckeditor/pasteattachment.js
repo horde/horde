@@ -60,12 +60,31 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         editor.on('contentDom', function(e1) {
             editor.document.on('drop', function(e2) {
-                /* Only support images for now. */
-                if (e2.data.$.dataTransfer.files[0].type.startsWith('image/')) {
-                    uploadAtc(e2.data.$.dataTransfer.files);
-                    e2.data.preventDefault();
-                }
+                var error = 0,
+                    upload = [];
+
                 fireEventInParent('drop');
+                e2.data.preventDefault();
+
+                /* Only support images for now. */
+                $A(e2.data.$.dataTransfer.files).each(function(f) {
+                    if (f.type.startsWith('image/')) {
+                        upload.push(f);
+                    } else {
+                        ++error;
+                    }
+                });
+
+                if (upload.size()) {
+                    uploadAtc(upload);
+                }
+
+                if (error) {
+                    HordeCore.notify(
+                        DimpCore.text.dragdropimg_error.sub('%d', error),
+                        'horde.error'
+                    );
+                }
             });
             editor.document.on('dragover', function(e) {
                 e.data.preventDefault();
