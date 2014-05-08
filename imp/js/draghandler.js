@@ -10,7 +10,6 @@ var DragHandler = {
 
     // dropelt,
     // droptarget,
-    // droptargetsize,
     // hoverclass,
     // leave
 
@@ -45,7 +44,7 @@ var DragHandler = {
     handleOver: function(e)
     {
         if (!this.dropelt.visible()) {
-            this.dropelt.clonePosition(this.droptargetsize).show();
+            this.dropelt.clonePosition(this.droptarget).show();
             this.droptarget.hide();
         }
 
