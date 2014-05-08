@@ -738,7 +738,7 @@ var DimpCompose = {
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a( ImpComposeBase.rte_sig ? ImpComposeBase.rte_sig.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(ImpComposeBase.rte_sig ? ImpComposeBase.rte_sig.getData() : $F('signature'))
             : 0;
     },
 
