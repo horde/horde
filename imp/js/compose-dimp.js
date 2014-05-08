@@ -914,8 +914,12 @@ var DimpCompose = {
 
     addAttachmentEnd: function()
     {
-        $('upload_wait').hide();
-        this.initAttachList();
+        var u = $('upload_wait');
+
+        if (u.visible()) {
+            u.hide();
+            this.initAttachList();
+        }
     },
 
     resizeMsgArea: function(e)
@@ -1492,9 +1496,7 @@ var DimpCompose = {
             break;
         }
 
-        if ($('upload_wait').visible()) {
-            this.addAttachmentEnd();
-        }
+        this.addAttachmentEnd();
 
         if ($('rteloading') && $('rteloading').visible()) {
             this.RTELoading('hide');
