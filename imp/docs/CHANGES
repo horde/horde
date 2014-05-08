@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Provide visual UI info to user that file is uploading when drag/drop
+      attachments in dynamic view.
 
 
 ------------

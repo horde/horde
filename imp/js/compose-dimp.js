@@ -13,7 +13,7 @@ var DimpCompose = {
     //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
     //   hash_msgOrig, hash_sig, hash_sigOrig, knl, last_identity,
     //   onload_show, old_action, old_identity, sc_submit,
-    //   skip_spellcheck, spellcheck, tasks, uploading, upload_limit
+    //   skip_spellcheck, spellcheck, tasks, upload_limit
 
     ajax_atc_id: 0,
     checkbox_context: $H({
@@ -238,7 +238,7 @@ var DimpCompose = {
         case 'saveDraft':
         case 'saveTemplate':
             // Don't send/save until uploading is completed.
-            if (this.uploading) {
+            if ($('upload_wait').visible()) {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
@@ -254,7 +254,6 @@ var DimpCompose = {
         if (action == 'addAttachment') {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
-            this.uploading = true;
             HordeCore.submit(c);
         } else {
             // Move HTML text to textarea field for submission.
@@ -915,7 +914,6 @@ var DimpCompose = {
 
     addAttachmentEnd: function()
     {
-        this.uploading = false;
         $('upload_wait').hide();
         this.initAttachList();
     },
@@ -964,14 +962,29 @@ var DimpCompose = {
         }
     },
 
-    uploadAttachment: function()
+    uploadAttachmentWait: function(f)
     {
-        var u = $('upload');
-        this.uniqueSubmit('addAttachment');
-        u.up().hide();
-        $('upload_wait').update(DimpCore.text.uploading + ' (' +
-            ((u.files && u.files.length > 1) ? DimpCore.text.multiple_atc.sub('%d', u.files.length) : $F(u).escapeHTML()) +
-            ')').show();
+        var t;
+
+        $('upload').up().hide();
+
+        if (Object.isElement(f)) {
+            if (f.files) {
+                f = f.files;
+            } else {
+                f = null;
+                t = $F(f).escapeHTML();
+            }
+        }
+
+        if (f) {
+            t = (f.length > 1)
+                ? DimpCore.text.multiple_atc.sub('%d', f.length)
+                : f[0].name.escapeHTML();
+        }
+
+        $('upload_wait').update(DimpCore.text.uploading + ' (' + t + ')')
+            .show();
     },
 
     uploadAttachmentAjax: function(data, params, callback)
@@ -983,6 +996,8 @@ var DimpCompose = {
             json_return: 1
         });
         HordeCore.addRequestParams(params);
+
+        this.uploadAttachmentWait(data);
 
         $A($R(0, data.length - 1)).each(function(i) {
             var fd = new FormData();
@@ -999,7 +1014,12 @@ var DimpCompose = {
                     postBody: fd,
                     requestHeaders: { "Content-type": null }
                 },
-                callback: callback
+                callback: function(r) {
+                    if (callback) {
+                        callback(r);
+                    }
+                    this.addAttachmentEnd();
+                }.bind(this)
             });
 
             out.set(this.ajax_atc_id, data[i]);
@@ -1254,7 +1274,8 @@ var DimpCompose = {
             break;
 
         case 'upload':
-            this.uploadAttachment();
+            this.uniqueSubmit('addAttachment');
+            this.uploadAttachmentWait($('upload'));
             break;
         }
     },
@@ -1471,7 +1492,7 @@ var DimpCompose = {
             break;
         }
 
-        if (this.uploading) {
+        if ($('upload_wait').visible()) {
             this.addAttachmentEnd();
         }
 
