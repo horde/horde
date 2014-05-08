@@ -588,6 +588,9 @@ div.vpRowVert div.msgSubject {
     padding-left: 0;
 }
 
+.atcrow td {
+    border-collapse: collapse;
+}
 #atcdrop {
     border: 1px dashed #999;
     display: table-cell;
