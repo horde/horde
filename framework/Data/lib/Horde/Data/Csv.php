@@ -201,14 +201,13 @@ class Horde_Data_Csv extends Horde_Data_Base
 
             /* Move uploaded file so that we can read it again in the next
                step after the user gave some format details. */
-            $file_name = Horde_Util::getTempFile('import', false);
-            if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
+            $file_name = $_FILES['import_file']['tmp_name'];
+            if (($file_data = file_get_contents($file_name)) === false) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
 
             /* Do charset checking now, if requested. */
             if (isset($param['check_charset'])) {
-                $file_data = file_get_contents($file_name);
                 $charset = isset($this->_vars->charset)
                     ? Horde_String::lower($this->_vars->charset)
                     : 'utf-8';
@@ -231,7 +230,7 @@ class Horde_Data_Csv extends Horde_Data_Base
             }
 
             $this->storage->set('charset', $this->_vars->charset);
-            $this->storage->set('file_name', $file_name);
+            $this->storage->set('file_data', $file_data);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -265,8 +264,12 @@ class Horde_Data_Csv extends Horde_Data_Base
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
+
+            $file_name = Horde_Util::getTempFile('import');
+            file_put_contents($file_name, $this->storage->get('file_data'));
+
             $this->storage->set('data', $this->importFile(
-                $this->storage->get('file_name'),
+                $file_name,
                 $this->_vars->header,
                 $this->_vars->sep,
                 $this->_vars->quote,

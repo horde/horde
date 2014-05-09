@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Store CSV and TSV data in storage object, instead of temporary file, to ensure import can work across a PHP cluster.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -945,7 +945,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Store CSV and TSV data in storage object, instead of temporary file, to ensure import can work across a PHP cluster.
    </notes>
   </release>
  </changelog>

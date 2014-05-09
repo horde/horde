@@ -210,18 +210,19 @@ class Horde_Data_Tsv extends Horde_Data_Base
                 return $this->nextStep(Horde_Data::IMPORT_DATA, $param);
             }
 
-            /* Move uploaded file so that we can read it again in the next step
-               after the user gave some format details. */
+            /* Store uploaded file data so that we can read it again in the
+             * next step after the user gives some format details. */
             try {
                 $this->_browser->wasFileUploaded('import_file', Horde_Data_Translation::t("TSV file"));
             } catch (Horde_Browser_Exception $e) {
                 throw new Horde_Data_Exception($e);
             }
-            $file_name = Horde_Util::getTempFile('import', false);
-            if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
+
+            $file_name = $_FILES['import_file']['tmp_name'];
+            if (($file_data = file_get_contents($file_name)) === false) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $this->storage->set('file_name', $file_name);
+            $this->storage->set('file_data', $file_data);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -237,8 +238,11 @@ class Horde_Data_Tsv extends Horde_Data_Base
             return Horde_Data::IMPORT_TSV;
 
         case Horde_Data::IMPORT_TSV:
+            $file_name = Horde_Util::getTempFile('import');
+            file_put_contents($file_name, $this->storage->get('file_data'));
+
             $this->storage->set('header', $this->_vars->header);
-            $this->storage->set('data', $this->importFile($this->storage->get('file_name'), $this->storage->get('header')));
+            $this->storage->set('data', $this->importFile($file_name, $this->storage->get('header')));
             $this->storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
         }
