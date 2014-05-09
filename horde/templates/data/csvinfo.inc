@@ -8,7 +8,7 @@
 </h1>
 <div class="horde-content">
     <?php echo _("Here is the beginning of the file:") ?><br />
-    <pre><?php echo htmlspecialchars($storage->get('first_lines')) ?></pre><br />
+    <pre><?php echo htmlspecialchars($data->storage->get('first_lines')) ?></pre><br />
     <?php echo Horde::label('header', _("Does the first row contain the field names? If yes, check this box:")) ?>
     <input id="header" type="checkbox" name="header" value="1" checked="checked" /><br />
     <?php echo Horde::label('sep', _("What is the delimiter character?")) ?>
@@ -16,7 +16,7 @@
     <?php echo Horde::label('quote', _("What is the quote character?")) ?>
     <input type="text" id="quote" name="quote" size="1" value="&quot;" /><br />
     <?php echo Horde::label('fields', _("How many fields (columns) are there?")) ?>
-    <input type="text" id="fields" name="fields" size="2" value="<?php echo htmlspecialchars($storage->get('fields')) ?>" /><br />
+    <input type="text" id="fields" name="fields" size="2" value="<?php echo htmlspecialchars($data->storage->get('fields')) ?>" /><br />
 </div>
 
 <div class="horde-form-buttons">

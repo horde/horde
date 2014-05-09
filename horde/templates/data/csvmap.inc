@@ -59,11 +59,11 @@ function removePair()
   <?php echo Horde::label('select1', _("Imported fields:")) ?> <br />
   <select id="select1" name="select1" size="10">
    <?php
-   $data = $storage->get('data');
-   foreach ($data[0] as $key => $value):
+   $tmp = $data->storage->get('data');
+   foreach ($tmp[0] as $key => $value):
    if (!isset($app_fields[$key])):
    ?>
-   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($data->storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
    <?php endif; endforeach; ?>
   </select>
  </div>
@@ -72,16 +72,16 @@ function removePair()
   <select id="select2" name="select2" size="10">
    <?php
    foreach ($app_fields as $key => $value):
-   if (!isset($data[0][$key])):
+   if (!isset($tmp[0][$key])):
    if (($key == 'alarm_time') || ($key == 'alarm_date')):
-   if (!isset($data[0]['alarm'])):
+   if (!isset($tmp[0]['alarm'])):
    ?>
    <option value="<?php echo htmlspecialchars($key) ?>"><?php echo htmlspecialchars($value) ?></option>
    <?php
    endif;
    elseif ($key == 'alarm'):
-   if (!(isset($data[0]['alarm_time']) &&
-         isset($data[0]['alarm_date']))):
+   if (!(isset($tmp[0]['alarm_time']) &&
+         isset($tmp[0]['alarm_date']))):
    ?>
    <option value="<?php echo htmlspecialchars($key) ?>"><?php echo htmlspecialchars($value) ?></option>
    <?php endif; else: ?>
@@ -103,11 +103,11 @@ function removePair()
  <select id="selectData" name="selectData" size="10" onchange="document.mapform.selectApp[this.selectedIndex].selected=true">
   <?php
   $matching = array();
-  foreach ($data[0] as $key => $value):
+  foreach ($tmp[0] as $key => $value):
   if (isset($app_fields[$key])):
   $matching[] = array($key, $app_fields[$key]);
   ?>
-  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($data->storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
   <?php endif; endforeach; ?>
  </select>
  <label for="selectApp" class="hidden"><?php echo _("Application") ?></label>
