@@ -38,10 +38,7 @@ class Ansel
      */
     public static function selectGalleries($params = array())
     {
-        $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listGalleries($params);
-
+        $galleries = $GLOBALS['storage']->listGalleries($params);
         $params = new Horde_Support_Array($params);
 
         $tree = $GLOBALS['injector']
@@ -102,7 +99,7 @@ class Ansel
      */
     public static function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
-        global $prefs;
+        global $prefs, $storage;
 
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
                    $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
@@ -149,12 +146,8 @@ class Ansel
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = $GLOBALS['injector']
-                            ->getInstance('Ansel_Storage')
-                            ->getImage($data['image']);
-                        $g = $GLOBALS['injector']
-                            ->getInstance('Ansel_Storage')
-                            ->getGallery($data['gallery']);
+                        $i = $storage->getImage($data['image']);
+                        $g = $storage->getGallery($data['gallery']);
                         if ($g->get('view_mode') == 'Date') {
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
@@ -358,9 +351,7 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->getImage($imageId);
+                $image = $GLOBALS['storage']->getImage($imageId);
             } catch (Exception $e) {
                 Horde::log($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
@@ -501,9 +492,8 @@ class Ansel
      */
     public static function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
     {
-        global $prefs;
+        global $prefs, $storage;
 
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         $groupby = Horde_Util::getFormData('groupby', $prefs->getValue('groupby'));
         $owner = Horde_Util::getFormData('owner');
         $image_id = (int)Horde_Util::getFormData('image');
@@ -516,9 +506,9 @@ class Ansel
             $gallery_slug = Horde_Util::getFormData('slug');
             try {
                 if (!empty($gallery_slug)) {
-                    $gallery = $ansel_storage->getGalleryBySlug($gallery_slug);
+                    $gallery = $storage->getGalleryBySlug($gallery_slug);
                 } elseif (!empty($gallery_id)) {
-                    $gallery = $ansel_storage->getGallery($gallery_id);
+                    $gallery = $storage->getGallery($gallery_id);
                 }
             } catch (Ansel_Exception $e) {}
         }
@@ -528,9 +518,9 @@ class Ansel
         }
 
         if (!empty($image_id) && empty($actionID)) {
-            $image = $ansel_storage->getImage($image_id);
+            $image = $storage->getImage($image_id);
             if (empty($gallery)) {
-                $gallery = $ansel_storage->getGallery($image->gallery);
+                $gallery = $storage->getGallery($image->gallery);
             }
         }
         if (isset($gallery)) {
@@ -779,16 +769,11 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImage($id);
-
+            $image = $GLOBALS['storage']->getImage($id);
             // If we didn't select an entire gallery, check the download
             // size for each image.
             if (!isset($view)) {
-                $g = $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->getGallery($image->gallery);
+                $g = $GLOBALS['storage']->getGallery($image->gallery);
                 $v = $g->canDownload() ? 'full' : 'screen';
             } else {
                 $v = $view;

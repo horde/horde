@@ -30,7 +30,7 @@ class Ansel_Tile_Image
     public static function getTile(
         Ansel_Image $image, Ansel_Style $style = null, $mini = false, array $params = array())
     {
-        global $conf, $registry, $injector;
+        global $conf, $registry, $injector, $storage;
 
         $page = isset($params['page']) ? $params['page'] : 0;
         $view_type = isset($params['view']) ? $params['view'] : 'Gallery';
@@ -40,9 +40,7 @@ class Ansel_Tile_Image
         $view->image = $image;
         $view->view_type = $view_type;
         try {
-            $view->parent = $injector
-                ->getInstance('Ansel_Storage')
-                ->getGallery($image->gallery);
+            $view->parent = $storage->getGallery($image->gallery);
         } catch (Ansel_Exception $e) {
             // @TODO: Short circuit here and return a generic error tile.
         } catch (Horde_Exception_NotFound $e) {

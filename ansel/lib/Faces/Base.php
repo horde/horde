@@ -139,10 +139,7 @@ class Ansel_Faces_Base
      */
     protected function _fetchFaces(array $info, $from = 0, $count = 0)
     {
-        $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listGalleries(array('perm' => Horde_Perms::READ));
-
+        $galleries = $GLOBALS['storage']->listGalleries(array('perm' => Horde_Perms::READ));
         $ids = array();
         foreach ($galleries as $gallery) {
             $ids[] = $gallery->id;
@@ -171,10 +168,7 @@ class Ansel_Faces_Base
      */
     protected function _countFaces(array $info)
     {
-        $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listGalleries(array('perm' => Horde_Perms::READ));
-
+        $galleries = $GLOBALS['storage']->listGalleries(array('perm' => Horde_Perms::READ));
         $ids = array();
         foreach ($galleries as $gallery) {
             $ids[] = $gallery->id;
@@ -322,10 +316,7 @@ class Ansel_Faces_Base
                 return false;
             }
             $data = $this->getFaceById($face_id, true);
-            $image = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImage($image_id);
-
+            $image = $GLOBALS['storage']->getImage($image_id);
             try {
                 // Actually create the image.
                 $this->createView(
@@ -424,12 +415,8 @@ class Ansel_Faces_Base
     public function saveCustomFace(
         $face_id, $image_id, $x1, $y1, $x2, $y2, $name = '')
     {
-        $image = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImage($image_id);
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery($image->gallery);
+        $image = $GLOBALS['storage']->getImage($image_id);
+        $gallery = $GLOBALS['storage']->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied editing the photo."));
         }
@@ -511,13 +498,8 @@ class Ansel_Faces_Base
     {
         // get image if ID is passed
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImage($image);
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($image->gallery);
-
+            $image = $GLOBALS['storage']->getImage($image);
+            $gallery = $GLOBALS['storage']->getGallery($image->gallery);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 throw new Horde_Exception_PermissionDenied(_("Access denied editing the photo."));
             }
@@ -704,9 +686,7 @@ class Ansel_Faces_Base
      */
     public function getFromGallery($gallery_id, $create = false, $force = false)
     {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery($gallery_id);
+        $gallery = $GLOBALS['storage']->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied editing this gallery."));
         }

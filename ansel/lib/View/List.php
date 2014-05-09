@@ -63,11 +63,9 @@ class Ansel_View_List extends Ansel_View_Ansel
      */
     public function __construct(array $params = array())
     {
-        global $prefs, $notification, $registry;
+        global $prefs, $notification, $registry, $storage;
 
         parent::__construct($params);
-
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // View
         $this->_view = $GLOBALS['injector']->createInstance('Horde_View');
@@ -123,7 +121,7 @@ class Ansel_View_List extends Ansel_View_Ansel
                     $this->_params['gallery_ids'],
                     $this->_view->start,
                     $this->_view->gPerPage);
-                $this->_view->galleryList = $ansel_storage->getGalleries($getThese);
+                $this->_view->galleryList = $storage->getGalleries($getThese);
             } else {
                 $this->_view->galleryList = array();
             }
@@ -134,7 +132,7 @@ class Ansel_View_List extends Ansel_View_Ansel
                 $filter['owner'] = $this->_owner;
             }
 
-            $this->_view->numGalleries = $ansel_storage->countGalleries(
+            $this->_view->numGalleries = $storage->countGalleries(
                 $registry->getAuth(),
                 array('attributes' => $filter,
                       'all_levels' => false,
@@ -150,7 +148,7 @@ class Ansel_View_List extends Ansel_View_Ansel
                 $notification->push(_("There are no photo galleries available."), 'horde.message');
                 $this->_view->galleryList = array();
             } else {
-                $this->_view->galleryList = $ansel_storage->listGalleries(
+                $this->_view->galleryList = $storage->listGalleries(
                     array('attributes' => $filter,
                           'all_levels' => false,
                           'from' => $this->_page * $this->_view->gPerPage,

@@ -19,6 +19,8 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
      */
     public function html()
     {
+        global $storage;
+
         // Required
         $node = $this->_params['container'];
         if (empty($node)) {
@@ -69,16 +71,12 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
         } elseif (!empty($this->_params['user'])) {
             // User's most recent images.
             $galleries = array();
-            $gs = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries(array('attributes' => $this->_params['user']));
+            $gs = $storage->listGalleries(array('attributes' => $this->_params['user']));
             foreach ($gs as $gallery) {
                 $galleries[] = $gallery->id;
             }
             $images = array();
-            $is = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getRecentImages($galleries, $count);
+            $is = $storage->getRecentImages($galleries, $count);
             foreach ($is as $i) {
                 $images[] = $i->id;
             }
@@ -122,13 +120,9 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
                 $style = null;
             }
 
-            $json = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImageJson($images, $style, true, $thumbsize, true);
+            $json = $storage->getImageJson($images, $style, true, $thumbsize, true);
 
-            $json_full = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImageJson($images, $style, true, 'screen', true);
+            $json_full = $storage->getImageJson($images, $style, true, 'screen', true);
         }
 
         global $page_output;

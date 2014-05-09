@@ -24,6 +24,8 @@ class Ansel_Faces
      */
     public static function delete(Ansel_Image $image, $face = null)
     {
+        global $storage;
+
         if ($image->facesCount == 0) {
             return true;
         }
@@ -55,9 +57,7 @@ class Ansel_Faces
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($image->gallery);
+            $gallery = $storage->getGallery($image->gallery);
             $gallery->set('faces', $gallery->get('faces') - count($faces), true);
         } else {
             try {
@@ -75,9 +75,7 @@ class Ansel_Faces
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($image->gallery);
+            $gallery = $storage->getGallery($image->gallery);
             $gallery->set('faces', $gallery->get('faces') - 1, true);
         }
     }

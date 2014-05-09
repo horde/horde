@@ -41,25 +41,21 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $page_output, $registry, $injector, $prefs;
+        global $page_output, $registry, $prefs, $storage;
 
         Horde::initMap();
         $page_output->addScriptFile('map.js');
         $page_output->addScriptFile('blocks/geotag.js');
 
         try {
-            $images = $injector
-                ->getInstance('Ansel_Storage')
-                ->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
+            $images = $storage->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
             $id = $image['image_id'];
-            $gallery = $injector
-                ->getInstance('Ansel_Storage')
-                ->getGallery($image['gallery_id']);
+            $gallery = $storage->getGallery($image['gallery_id']);
 
             // Don't show locked galleries in the block.
             if (!$gallery->isOldEnough() || $gallery->hasPasswd()) {

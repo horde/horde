@@ -18,7 +18,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
      */
     protected function _getAutoCompleter()
     {
-        global $injector, $session;
+        global $session, $storage;
 
         $opts = array(
             'onSelect' => 'function (v) {' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v]; return v;}',
@@ -28,7 +28,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
         /* Use ajax? */
         if (!$session->exists('ansel', 'ajax_locationac')) {
             try {
-                $results = $injector->getInstance('Ansel_Storage')->searchLocations();
+                $results = $storage->searchLocations();
                 $session->set('ansel', 'ajax_locationac', (count($results) > 50));
             } catch (Ansel_Exception $e) {
                 Horde::log($e, 'ERR');
@@ -40,7 +40,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
         }
 
         if (empty($results)) {
-            $results = $injector->getInstance('Ansel_Storage')->searchLocations();
+            $results = $storage->searchLocations();
         }
 
         return new Horde_Core_Ajax_Imple_AutoCompleter_Local($results, $opts);
@@ -53,7 +53,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
         $locs = array();
 
         try {
-            $locs = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations($input);
+            $locs = $GLOBALS['storage']->searchLocations($input);
         } catch (Ansel_Exception $e) {
             Horde::log($e, 'ERR');
         }

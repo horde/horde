@@ -13,9 +13,10 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple_InPlaceEditor
      */
     protected function _handleEdit(Horde_Variables $vars)
     {
-        $as = $GLOBALS['injector']->getInstance('Ansel_Storage');
+        global $storage;
+
         try {
-            $image = $as->getImage($vars->id);
+            $image = $storage->getImage($vars->id);
         } catch (Ansel_Exception $e) {
             Horde::log($e->message());
             return '';
@@ -26,7 +27,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple_InPlaceEditor
             return $image->caption;
         }
 
-        $g = $as->getGallery($image->gallery);
+        $g = $storage->getGallery($image->gallery);
         if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $image->caption = $vars->{$vars->input};
             try {

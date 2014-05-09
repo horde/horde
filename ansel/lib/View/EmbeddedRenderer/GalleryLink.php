@@ -68,7 +68,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Base
             $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition($gallery_style));
 
         }
-        $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
+        $json = $GLOBALS['storage']->getImageJson($images, null, true, $thumbsize, true);
 
         global $page_output;
         $page_output->addThemeStylesheet('jsembed.css');

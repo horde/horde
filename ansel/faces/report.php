@@ -15,7 +15,7 @@ Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
 
-$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
+$faces = $injector->getInstance('Ansel_Faces');
 try {
     $face = $faces->getFaceById($face_id);
 } catch (Ansel_Exception $e) {
@@ -39,7 +39,7 @@ if ($form->validate()) {
     } else {
         require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($face['gallery_id']);
+        $gallery = $storage->getGallery($face['gallery_id']);
 
         $face_link = Horde::url('faces/face.php', true)->add(
                 array('name' => $vars->get('person'),

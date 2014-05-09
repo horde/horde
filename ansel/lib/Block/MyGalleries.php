@@ -53,8 +53,7 @@ class Ansel_Block_MyGalleries extends Horde_Core_Block
 
         /* Get the top level galleries */
         try {
-            $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
+            $galleries = $GLOBALS['storage']
                 ->listGalleries(
                   array(
                     'perm' => Horde_Perms::EDIT,

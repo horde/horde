@@ -46,9 +46,12 @@ class Ansel_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $ansel_db - TODO  remove this global. Only place left that uses it
      *               are the face objects.
+     *   $storage  - The storage driver.
      */
     protected function _init()
     {
+        global $injector, $registry;
+
         if (!$GLOBALS['conf']['image']['driver']) {
             throw new Ansel_Exception('You must configure a Horde_Image driver to use Ansel');
         }
@@ -56,12 +59,10 @@ class Ansel_Application extends Horde_Registry_Application
         // For now, autoloading the Content_* classes depend on there being a
         // registry entry for the 'content' application that contains at least
         // the fileroot entry
-        $GLOBALS['injector']
-          ->getInstance('Horde_Autoloader')
-          ->addClassPathMapper(
+        $injector->getInstance('Horde_Autoloader')->addClassPathMapper(
             new Horde_Autoloader_ClassPathMapper_Prefix(
               '/^Content_/',
-              $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+              $registry->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
             throw new Ansel_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
@@ -72,15 +73,15 @@ class Ansel_Application extends Horde_Registry_Application
             'Ansel_Storage' => 'Ansel_Factory_Storage',
         );
         foreach ($factories as $interface => $v) {
-            $GLOBALS['injector']->bindFactory($interface, $v, 'create');
+            $injector->bindFactory($interface, $v, 'create');
         }
 
-        // Create db, share, and vfs instances.
-        // @TODO: This only place that uses the global now are the face methods.
-        $GLOBALS['ansel_db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
+        // Global storage.
+        $GLOBALS['storage'] = $injector->getInstance('Ansel_Storage');
+        $GLOBALS['ansel_db'] = $injector->getInstance('Horde_Db_Adapter');
 
-        /* Set up a default config */
-        $GLOBALS['injector']->bindImplementation('Ansel_Config', 'Ansel_Config');
+        // Set up a default config
+        $injector->bindImplementation('Ansel_Config', 'Ansel_Config');
     }
 
     /**

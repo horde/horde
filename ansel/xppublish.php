@@ -82,11 +82,11 @@ if ($cmd == 'list') {
 
 // Check if a gallery was selected from the list.
 if ($cmd == 'select') {
-    if (!$galleryId || !$GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($galleryId)) {
+    if (!$galleryId || !$storage->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+            $gallery = $storage->getGallery($galleryId);
             $error = false;
         } catch (Ansel_Exception $e) {
             $error = _("There was an error accessing the gallery");
@@ -117,7 +117,7 @@ if ($cmd == 'new') {
     if ($create) {
         /* Creating a new gallery. */
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery(
+            $gallery = $storage->createGallery(
                     array('name' => $gallery_name, 'desc' => $gallery_desc));
             $galleryId = $gallery->id;
             $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
@@ -169,11 +169,11 @@ if ($cmd == 'add') {
     $galleryId = Horde_Util::getFormData('gallery');
     $name = isset($_FILES['imagefile']['name']) ? Horde_Util::dispelMagicQuotes($_FILES['imagefile']['name']) : null;
     $file = isset($_FILES['imagefile']['tmp_name']) ? $_FILES['imagefile']['tmp_name'] : null;
-    if (!$galleryId || !$GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($galleryId)) {
+    if (!$galleryId || !$storage->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+            $gallery = $storage->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $error = _("Access denied adding photos to this gallery.");
             } else {
@@ -194,7 +194,7 @@ if ($cmd == 'add') {
                 $error = $e->getMessage();
             }
 
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+            $gallery = $storage->getGallery($galleryId);
             try {
                 $image_id = $gallery->addImage($image);
                 $error = false;

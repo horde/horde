@@ -63,9 +63,8 @@ class Ansel_View_Results extends Ansel_View_Ansel
      */
     public function __construct(array $params = array())
     {
-        global $prefs, $conf, $injector, $notification;
+        global $prefs, $conf, $injector, $notification, $storage;
 
-        $ansel_storage = $injector->getInstance('Ansel_Storage');
         $this->_owner = Horde_Util::getFormData('owner', '');
         $this->_browser = new Ansel_TagBrowser(
             $injector->getInstance('Ansel_Tagger'), null, $this->_owner);
@@ -132,14 +131,11 @@ class Ansel_View_Results extends Ansel_View_Ansel
      */
     public function html()
     {
-        global $conf, $prefs;
+        global $conf, $prefs, $storage;
 
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
         $view->perPage = $this->_perPage;
-
-        // Ansel Storage
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get the slice of galleries/images to view on this page.
         try {
@@ -162,7 +158,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
             $view->taglinks = Ansel::getTagLinks($view->rtags, 'add');
         }
         $vars = Horde_Variables::getDefaultVariables();
-        $option_move = $option_copy = $ansel_storage->countGalleries(
+        $option_move = $option_copy = $storage->countGalleries(
             $GLOBALS['registry']->getAuth(),
             array('perm' => Horde_Perms::EDIT));
 

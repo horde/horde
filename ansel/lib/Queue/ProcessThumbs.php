@@ -40,9 +40,7 @@
 
          foreach ($this->_images as $id) {
             try {
-                $image = $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->getImage($id);
+                $image = $GLOBALS['storage']->getImage($id);
                 $image->createView('screen', null, $prefs->getValue('watermark_auto') ? $prefs->getValue('watermark_text', '') : '');                $image->createView('thumb');
                 $image->createView('mini');
             } catch (Ansel_Exception $e) {

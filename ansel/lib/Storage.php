@@ -1026,7 +1026,7 @@ class Ansel_Storage
             $image = $this->getImage($id);
             $gallery_id = abs($image->gallery);
             if (empty($galleries[$gallery_id])) {
-                $galleries[$gallery_id]['gallery'] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
+                $galleries[$gallery_id]['gallery'] = $GLOBALS['storage']->getGallery($gallery_id);
             }
 
             // Any authentication that needs to take place for any of the
@@ -1063,7 +1063,6 @@ class Ansel_Storage
 
                 $json[] = $data;
             }
-
         }
 
         return Horde_Serialize::serialize($json, Horde_Serialize::JSON);

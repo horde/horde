@@ -176,7 +176,7 @@ class Ansel_View_GalleryProperties
         // permissions to add to it.
         $parentId = $this->_params['gallery'];
         try {
-            $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($parentId);
+            $parent = $GLOBALS['storage']->getGallery($parentId);
         } catch (Ansel_Exception $e) {
             $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
@@ -208,7 +208,7 @@ class Ansel_View_GalleryProperties
         }
 
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->_params['gallery']);
+            $gallery = $GLOBALS['storage']->getGallery($this->_params['gallery']);
             $parent = $gallery->getParent();
             $this->_properties = array(
                 'name' => $gallery->get('name'),
@@ -238,10 +238,12 @@ class Ansel_View_GalleryProperties
      */
     private function _runSave()
     {
+        global $storage, $registry, $injector;
+
         // Check general permissions.
-        if (!$GLOBALS['registry']->isAdmin() &&
-            ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') &&
-             !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))) {
+        if (!$registry->isAdmin() &&
+            ($injector->getInstance('Horde_Perms')->exists('ansel') &&
+             !$injector->getInstance('Horde_Perms')->hasPermission('ansel', $registry->getAuth(), Horde_Perms::EDIT))) {
 
             $GLOBALS['notification']->push(_("Access denied editing galleries."), 'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
@@ -282,11 +284,11 @@ class Ansel_View_GalleryProperties
         }
 
         if ($galleryId &&
-            ($exists = ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($galleryId)) === true)) {
+            ($exists = ($storage->galleryExists($galleryId)) === true)) {
 
             // Modifying an existing gallery.
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
-            if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $gallery = $storage->getGallery($galleryId);
+            if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                 $GLOBALS['notification']->push(_("Access denied saving this gallery."), 'horde.error');
             } else {
                 // Don't allow the display name to be nulled out.
@@ -300,8 +302,8 @@ class Ansel_View_GalleryProperties
                 $gallery->set('age', $gallery_age);
                 $gallery->set('download', $gallery_download);
                 $gallery->set('view_mode', $gallery_mode);
-                if ($GLOBALS['registry']->getAuth() &&
-                    $gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
+                if ($registry->getAuth() &&
+                    $gallery->get('owner') == $registry->getAuth()) {
                     $gallery->set('passwd', $gallery_passwd);
                 }
 
@@ -314,7 +316,7 @@ class Ansel_View_GalleryProperties
                 }
                 if ($gallery_parent != $old_parent_id) {
                     if (!is_null($gallery_parent)) {
-                        $new_parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_parent);
+                        $new_parent = $storage->getGallery($gallery_parent);
                     } else {
                         $new_parent = null;
                     }
@@ -337,13 +339,13 @@ class Ansel_View_GalleryProperties
             // Is this a new subgallery?
             if ($gallery_parent) {
                 try {
-                    $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_parent);
+                    $parent = $storage->getGallery($gallery_parent);
                 } catch (Ansel_Exception $e) {
                     $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                     exit;
                 }
-                if (!$parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                if (!$parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                     $GLOBALS['notification']->push(
                         _("You do not have permission to add sub galleries to this gallery."),
                         'horde.error');
@@ -366,7 +368,7 @@ class Ansel_View_GalleryProperties
             $perm = (!empty($parent)) ? $parent->getPermission() : null;
 
             try {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery(
+                $gallery = $storage->createGallery(
                         array('name' => $gallery_name,
                               'desc' => $gallery_desc,
                               'tags' => explode(',', $gallery_tags),

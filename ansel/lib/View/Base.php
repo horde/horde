@@ -118,6 +118,8 @@ abstract class Ansel_View_Base
      */
     protected function _getGallery($galleryId = null, $slug = '')
     {
+        global $storage;
+
         if (is_null($galleryId) && empty($slug)) {
             $galleryId = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id'] : null;
             $slug = !empty($this->_params['gallery_slug']) ? $this->_params['gallery_slug'] : null;
@@ -130,9 +132,9 @@ abstract class Ansel_View_Base
         // If we have a slug, use it.
         try {
             if (!empty($slug)) {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryBySlug($slug);
+                $gallery = $storage->getGalleryBySlug($slug);
             } else {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+                $gallery = $storage->getGallery($galleryId);
             }
         } catch (Ansel_Exception $e) {
             throw new Horde_Exception_NotFound($e->getmessage());

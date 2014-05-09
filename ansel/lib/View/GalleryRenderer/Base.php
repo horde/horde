@@ -229,7 +229,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      */
     protected function _getHordeView()
     {
-        global $registry, $injector, $prefs;
+        global $registry, $injector, $prefs, $storage;
 
         $view = $injector->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES .  '/view' . (!empty($this->view->api) ? '/api' : ''));
@@ -253,16 +253,9 @@ abstract class Ansel_View_GalleryRenderer_Base
             $view->option_edit = $this->view->gallery->hasPermission(
                 $registry->getAuth(), Horde_Perms::EDIT);
 
-            $view->option_select = $view->option_delete = $this->view->gallery->hasPermission(
-                $registry->getAuth(), Horde_Perms::DELETE);
-
-            $view->option_move = ($view->option_delete && $injector
-                ->getInstance('Ansel_Storage')
-                ->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
-
-            $view->option_copy = ($view->option_edit && $injector
-                ->getInstance('Ansel_Storage')
-                ->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
+            $view->option_select = $view->option_delete = $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE);
+            $view->option_move = ($view->option_delete && $storage->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
+            $view->option_copy = ($view->option_edit && $storage->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
 
             // See if we requested a show_actions change (fallback for non-js)
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {

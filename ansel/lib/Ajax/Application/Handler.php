@@ -41,9 +41,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             'attributes' => $GLOBALS['registry']->getAuth(),
             'all_levels' => false
         );
-        $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listGalleries($params);
+        $galleries = $GLOBALS['storage']->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
             $return[$gallery->id] = $gallery->toJson();
@@ -64,14 +62,13 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function listImages()
     {
-        global $injector, $registry;
+        global $storage, $registry;
 
         $return = array();
         switch ($this->vars->view) {
         case Ansel_Ajax::VIEW_ME:
             // Only want current user's images, don't check perms.
-            $imgs = $injector->getInstance('Ansel_Storage')->getUserImages(
-                $registry->getAuth(), $this->vars->start, $this->vars->count);
+            $imgs = $storage->getUserImages($registry->getAuth(), $this->vars->start, $this->vars->count);
             foreach ($imgs as $img) {
                 $return[] = $img->toJson();
             }
@@ -90,8 +87,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         $id = $this->vars->id;
         try {
-            return $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
+            return $GLOBALS['storage']
                 ->getGallery($id)
                 ->toJson(true);
         } catch (Exception $e) {
@@ -106,7 +102,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         global $conf, $injector, $prefs, $registry;
 
-        $gallery = $injector->getInstance('Ansel_Storage')->getGallery($this->vars->g);
+        $gallery = $GLOBALS['storage']->getGallery($this->vars->g);
 
         switch ($this->vars->s) {
         case 'twitter':
@@ -161,7 +157,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         return preg_match('/^[a-zA-Z0-9_-]*$/', $slug)
-            ? (bool)$GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists(null, $slug)
+            ? (bool)$GLOBALS['storage']->galleryExists(null, $slug)
             : false;
     }
 
@@ -174,7 +170,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function imageSaveGeotag()
     {
-        global $injector, $registry;
+        global $injector, $registry, $storage;
 
         $type = $this->vars->action;
         $location = $this->vars->location;
@@ -194,9 +190,8 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 
         // Get the image and gallery to check perms
         try {
-            $ansel_storage = $injector->getInstance('Ansel_Storage');
-            $image = $ansel_storage->getImage((int)$img);
-            $gallery = $ansel_storage->getGallery($image->gallery);
+            $image = $storage->getImage((int)$img);
+            $gallery = $storage->getGallery($image->gallery);
         } catch (Ansel_Exception $e) {
             return new Horde_Core_Ajax_Response_Prototypejs($result);
         }
@@ -226,7 +221,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             $addLink = $addurl->link(array(
                 'onclick' => Horde::popupJs(Horde::url('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'
             ));
-            $imgs = $ansel_storage->getRecentImagesGeodata($registry->getAuth());
+            $imgs = $storage->getRecentImagesGeodata($registry->getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';
                 foreach ($imgs as $id => $data) {
@@ -257,11 +252,10 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function deleteFaces()
     {
-        global $injector, $registry;
+        global $storage, $registry;
 
         $face_id = intval($this->vars->face_id);
         $image_id = intval($this->vars->image_id);
-        $storage = $injector->getInstance('Ansel_Storage');
 
         $image = $storage->getImage($image_id);
         $gallery = $storage->getGallery($image->gallery);
@@ -279,13 +273,11 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function setFaceName()
     {
-        global $injector, $registry;
+        global $injector, $registry, $storage;
 
         $face_id = intval($this->vars->face_id);
         $image_id = intval($this->vars->image_id);
         $name = $this->vars->face_name;
-        $storage = $injector->getInstance('Ansel_Storage');
-
         $image = $storage->getImage($image_id);
         $gallery = $storage->getGallery($image->gallery);
 
@@ -307,7 +299,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function addTag()
     {
-        global $injector, $registry;
+        global $injector, $registry, $storage;
 
         $gallery = $this->vars->gallery;
         $tags = $this->vars->tags;
@@ -325,7 +317,6 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         // Get the resource owner
-        $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
             $parent = $resource;
@@ -356,7 +347,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      */
     public function removeTag()
     {
-        global $injector, $registry;
+        global $injector, $registry, $storage;
 
         $gallery = $this->vars->gallery;
         $tags = $this->vars->tags;
@@ -372,7 +363,6 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         if (!is_numeric($id)) {
             throw new Ansel_Exception(_("Invalid input %s"), $id);
         }
-        $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
             $parent = $resource;

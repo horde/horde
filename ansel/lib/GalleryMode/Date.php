@@ -161,6 +161,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     public function getGalleryChildren(
         $perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
+        global $storage;
+
         // Cache the results
         static $children = array();
 
@@ -171,8 +173,6 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         } elseif (!empty($children[$fullkey])) {
             return $this->_getArraySlice($children[$fullkey], $from, $to, true);
         }
-
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get a list of all the subgalleries
         $this->_loadSubGalleries();
@@ -191,7 +191,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         // See how specific the date is
         if (!count($this->_date) || empty($this->_date['year'])) {
             // All available images - grouped by year
-            $images = $ansel_storage->listImages($params);
+            $images = $storage->listImages($params);
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('Y', $image['image_original_date'])][] = $key;
@@ -239,7 +239,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                     'value' => (int)$start->timestamp()
                 )
             );
-            $images= $ansel_storage->listImages($params);
+            $images= $storage->listImages($params);
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('n', $image['image_original_date'])][] = $key;
@@ -285,7 +285,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                     'value' => (int)$start->timestamp()
                 )
             );
-            $images= $ansel_storage->listImages($params);
+            $images= $storage->listImages($params);
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('d', $image['image_original_date'])][] = $key;
@@ -336,9 +336,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             unset($params['fields']);
 
             // Get the image list
-            $images = $ansel_storage->listImages($params);
+            $images = $storage->listImages($params);
             if ($images) {
-                $results = $ansel_storage->getImages(
+                $results = $storage->getImages(
                     array('ids' => $images, 'preserve' => true));
             } else {
                 $results = array();
@@ -453,6 +453,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      */
     public function moveImagesTo($images, $gallery)
     {
+        global $storage;
+
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied moving photos to this gallery."));
         } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
@@ -474,7 +476,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
          */
         if ($this->_gallery->get('has_subgalleries')) {
             $gallery_ids = array();
-            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $ids));
+            $images = $storage->getImages(array('ids' => $ids));
             foreach ($images as $image) {
                 if (empty($gallery_ids[$image->gallery])) {
                     $gallery_ids[$image->gallery] = 1;
@@ -485,14 +487,12 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
 
         /* Bulk update the images to their new gallery_id */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->setImagesGallery($ids, $gallery->id);
+        $storage->setImagesGallery($ids, $gallery->id);
 
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
             foreach ($gallery_ids as $id => $count) {
-                $GLOBALS['injector']->getInstance('Ansel_Storage')
-                    ->getGallery($id)
-                    ->updateImageCount($count, false);
+                $storage->getGallery($id)->updateImageCount($count, false);
             }
         } else {
             $this->_gallery->updateImageCount(count($ids), false);
@@ -521,11 +521,11 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      */
     public function removeImage($image, $isStack)
     {
+        global $storage;
+
         // Make sure $image is an Ansel_Image; if not, try loading it.
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImage($image);
+            $image = $storage->getImage($image);
         }
 
         // If image is a stack image, $gallery will be negative.
@@ -555,12 +555,10 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         } catch (Horde_Vfs_Exception $e) {}
 
         /* Delete from storage */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->removeImage($image->id);
+        $storage->removeImage($image->id);
 
         if (!$isStack) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')
-                    ->getGallery($image_gallery)
-                    ->updateImageCount(1, false);
+            $storage->getGallery($image_gallery)->updateImageCount(1, false);
         }
 
         /* Update the modified flag if we are not a stack image */
@@ -668,9 +666,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         // subgalleries (and thus _subGalleries would be an empty array).
         if (!is_array($this->_subGalleries)) {
             $this->_subGalleries = array();
-            $subs = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $this->_gallery->id));
+            $subs = $GLOBALS['storage']->listGalleries(array('parent' => $this->_gallery->id));
             foreach ($subs as $sub) {
                 $this->_subGalleries[] = $sub->id;
             }

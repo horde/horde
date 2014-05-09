@@ -17,9 +17,7 @@ if (!$galleryId) {
     exit;
 }
 try {
-    $gallery = $GLOBALS['injector']
-        ->getInstance('Ansel_Storage')
-        ->getGallery($galleryId);
+    $gallery = $storage->getGallery($galleryId);
 } catch (Ansel_Exception $e) {
     $notification->push(
         sprintf(_("Error accessing %s: %s"), $galleryId, $e->getMessage()),

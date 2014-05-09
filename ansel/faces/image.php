@@ -23,15 +23,13 @@ $results = $faces->getImageFacesData($image_id);
 // Attempt to get faces from the picture if we don't already have results,
 // or if we were asked to explicitly try again.
 if (($reload || empty($results))) {
-    $image = $GLOBALS['injector']
-        ->getInstance('Ansel_Storage')
-        ->getImage($image_id);
+    $image = $storage->getImage($image_id);
     try {
         $image->createView(
             'screen',
             null,
-            ($GLOBALS['prefs']->getValue('watermark_auto') ?
-                $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+            ($prefs->getValue('watermark_auto') ?
+                $prefs->getValue('watermark_text', '') : '')
             );
         $results = $faces->getFromPicture($image_id, true);
     } catch (Ansel_Exception $e) {

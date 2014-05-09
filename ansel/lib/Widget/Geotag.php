@@ -51,15 +51,13 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     public function html()
     {
-        global $page_output;
+        global $page_output, $storage;
 
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
         $view->title = _("Location");
         $view->background = $this->_style->background;
-
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
+        $geodata = $storage->getImagesGeodata($this->_params['images']);
         $viewType = $this->_view->viewType();
 
         // Exit early?
@@ -154,7 +152,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                     array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
                 . 'return false;'));
 
-            $view->imgs = $ansel_storage
+            $view->imgs = $storage
                 ->getRecentImagesGeodata($GLOBALS['registry']
                 ->getAuth());
 
@@ -214,9 +212,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     protected function _getGalleryImagesWithGeodata()
     {
-        return $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImagesGeodata(array(), $this->_view->gallery->id);
+        return $GLOBALS['storage']->getImagesGeodata(array(), $this->_view->gallery->id);
     }
 
 }

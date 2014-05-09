@@ -224,18 +224,16 @@ abstract class Ansel_Cli_Helper_Base
      */
     public function emptyGalleryCheck(Ansel_Gallery $gallery)
     {
+        global $storage;
+
         if ($gallery->hasSubGalleries()) {
-            $children = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $gallery->id));
+            $children = $storage->listGalleries(array('parent' => $gallery->id));
             foreach ($children as $child) {
                 // First check all children to see if they are empty...
                 $this->emptyGalleryCheck($child);
                 if (!$child->countImages() && !$child->hasSubGalleries()) {
                     try {
-                        $GLOBALS['injector']
-                            ->getInstance('Ansel_Storage')
-                            ->removeGallery($child);
+                        $storage->removeGallery($child);
                     } catch (Ansel_Exception $e) {
                         throw new Exception($e->getMessage());
                     }
@@ -246,16 +244,12 @@ abstract class Ansel_Cli_Helper_Base
                 }
 
                 // Refresh the gallery values since we mucked around a bit with it
-                $gallery = $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->getGallery($gallery->id);
+                $gallery = $storage->getGallery($gallery->id);
 
                 // Now that any empty children are removed, see if we are empty
                 if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
                     try {
-                        $GLOBALS['injector']
-                            ->getInstance('Ansel_Storage')
-                            ->removeGallery($gallery);
+                        $storage->removeGallery($gallery);
                     } catch (Ansel_Exception $e) {
                         throw new Exception($e->getMessage());
                     }
@@ -576,12 +570,10 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
         if (!$gallery = $this->_getGallery($gallery_id, $slug)) {
             $name = basename($dir);
             $this->_cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->createGallery(
-                    array('name' => $name),
-                    null,
-                    $parent);
+            $gallery = $GLOBALS['storage']->createGallery(
+                array('name' => $name),
+                null,
+                $parent);
             $this->_cli->message(
                 sprintf(_("The gallery \"%s\" was created successfully."), $name),
                 'cli.success');
@@ -646,22 +638,22 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
 
     public function listObjects($gallery = null, $slug = null)
     {
+        global $storage;
+
         if ($gallery = $this->_getGallery($gallery, $slug)) {
             $images = $gallery->listImages();
             $this->_cli->message(
                 sprintf(_("Listing photos in %s"), $gallery->get('name')), 'cli.success');
             foreach ($images as $id) {
                 try {
-                    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
+                    $image = $storage->getImage($id);
                     $this->_cli->writeln(str_pad($image->filename, 30) . $image->getVFSPath() . '/' . $id);
                 } catch (Exception $e) {
                     $this->_cli->message($e->getMessage(), 'cli.error');
                 }
             }
         } else {
-            $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries();
+            $galleries = $storage->listGalleries();
             $this->_cli->message(_("Listing Gallery/Name"), 'cli.success');
             $this->_cli->writeln();
             foreach ($galleries as $gallery) {
@@ -688,9 +680,7 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
             'desc' => $desc,
             'owner' => $GLOBALS['registry']->getAuth());
         try {
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->createGallery($attributes, null, $parent_id);
+            $gallery = $GLOBALS['storage']->createGallery($attributes, null, $parent_id);
             $msg = sprintf(
                 _("The gallery \"%s\" was created successfully."),
                 $name);
@@ -729,6 +719,8 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
      */
     public function reset($type = null)
     {
+        global $storage;
+
         if ($type && $type != 'thumbs' && $type != 'stacks') {
             $this->_cli->message('Invalid image type. Must be either \"stacks\" or \"thumbs\"', 'cli.error');
             return;
@@ -740,9 +732,7 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
         }
         $this->_cli->message('Resetting thumbnails: ', 'cli.info');
         try {
-            $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listAllGalleries();
+            $galleries = $storage->listAllGalleries();
         } catch (Ansel_Exception $e) {
             $this->_cli->fatal($e->getMessage());
         }
@@ -766,10 +756,7 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
 
     public function exif($gallery)
     {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery($gallery);
-
+        $gallery = $GLOBALS['storage']->getGallery($gallery);
         foreach ($gallery->getImages() as $image) {
             $this->_cli->message(sprintf(_("Extracting EXIF for image %d"), $image->id));
             $image->getEXIF(true);
@@ -783,16 +770,14 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
      */
     protected function _getGallery($gallery_id = null, $slug = null)
     {
+        global $storage;
+
         $gallery = false;
         // Create a gallery or use an existing one?
         if (!empty($gallery_id)) {
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($gallery_id);
+            $gallery = $storage->getGallery($gallery_id);
         } elseif (!empty($slug)) {
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGalleryBySlug($slug);
+            $gallery = $storage->getGalleryBySlug($slug);
         }
 
         return $gallery;

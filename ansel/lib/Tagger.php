@@ -85,7 +85,7 @@ class Ansel_Tagger extends Horde_Core_Tagger
     {
         $args = array('typeId' => 'image', 'limit' => 10);
         if ($ownerOnly) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
+            $gallery = $GLOBALS['storage']->getGallery($image->gallery);
             $args['userId'] = $gallery->get('owner');
         }
 
@@ -100,7 +100,7 @@ class Ansel_Tagger extends Horde_Core_Tagger
         }
 
         try {
-            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => array_keys($ids)));
+            $images = $GLOBALS['storage']->getImages(array('ids' => array_keys($ids)));
         } catch (Horde_Exception_NotFound $e) {
             $images = array();
         }

@@ -25,7 +25,7 @@ $page_output->topbar = $page_output->sidebar = false;
 // Check basic image actions.
 if (Ansel_ActionHandler::imageActions($actionID)) {
     $gallery_id = Horde_Util::getFormData('gallery');
-    $gallery = $injector->getInstance('Ansel_Storage')->getGallery($gallery_id);
+    $gallery = $storage->getGallery($gallery_id);
     $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
     $perpage = min(
         $prefs->getValue('tilesperpage'),

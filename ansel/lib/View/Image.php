@@ -101,9 +101,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         parent::__construct($params);
 
         // Get the Ansel_Image
-        $this->resource = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImage($params['image_id']);
+        $this->resource = $GLOBALS['storage']->getImage($params['image_id']);
 
         // Get the Ansel_Gallery
         $this->gallery = $this->_getGallery();

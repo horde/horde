@@ -29,7 +29,7 @@ class Ansel_Tile_Gallery
     public static function getTile(
         Ansel_Gallery $gallery, Ansel_Style $style = null, $mini = false, array $params = array())
     {
-        global $prefs, $registry, $injector;
+        global $prefs, $registry, $injector, $storage;
 
         // Create view
         $view = $injector->createInstance('Horde_View');
@@ -58,10 +58,11 @@ class Ansel_Tile_Gallery
             !$gallery->countImages() && $gallery->hasSubGalleries()) {
 
             try {
-                $galleries = $injector
-                    ->getInstance('Ansel_Storage')
-                    ->listGalleries(array('parent' => $gallery->id, 'all_levels' => false, 'perm' => Horde_Perms::READ));
-
+                $galleries = $storage->listGalleries(array(
+                    'parent' => $gallery->id,
+                    'all_levels' => false,
+                    'perm' => Horde_Perms::READ)
+                );
                 foreach ($galleries as $sgallery) {
                     if ($default_img = $sgallery->getKeyImage($style)) {
                         $view->gallery_image = Ansel::getImageUrl(

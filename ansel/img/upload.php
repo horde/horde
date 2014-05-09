@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
@@ -13,9 +13,7 @@ Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
 try {
-    $gallery = $GLOBALS['injector']
-        ->getInstance('Ansel_Storage')
-        ->getGallery($gallery_id);
+    $gallery = $storage->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(
         sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');

@@ -27,9 +27,7 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery(Horde_Util::getFormData('cid', 0));
+        $gallery = $storage->getGallery(Horde_Util::getFormData('cid', 0));
         $share = $gallery->getShare();
         $form = 'edit.inc';
         $perm = $share->getPermission();
@@ -44,9 +42,7 @@ case 'edit':
 
 case 'editform':
     try {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery(Horde_Util::getFormData('cid'));
+        $gallery = $storage->getGallery(Horde_Util::getFormData('cid'));
         $share = $gallery->getShare();
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
@@ -253,10 +249,10 @@ case 'editform':
 if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
-    $children = $GLOBALS['injector']
-        ->getInstance('Ansel_Storage')
-        ->listGalleries(array('perm' => Horde_Perms::READ,
-                              'parent' => $gallery->id));
+    $children = $storage->listGalleries(array(
+        'perm' => Horde_Perms::READ,
+        'parent' => $gallery->id)
+    );
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 

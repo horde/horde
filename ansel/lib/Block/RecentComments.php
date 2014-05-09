@@ -35,6 +35,8 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
      */
     protected function _params()
     {
+        global $storage;
+
         $params = array(
             'gallery' => array(
                 'name' => _("Gallery"),
@@ -43,7 +45,6 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
                 'values' => array('all' => 'All')
             )
         );
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
             ($storage->countGalleries(
                 $GLOBALS['registry']->getAuth(),
@@ -123,7 +124,7 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
 
         foreach ($results as $comment) {
             try {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($comment['image_id']);
+                $image = $GLOBALS['storage']->getImage($comment['image_id']);
                 $url = Ansel::getUrlFor('view',
                                         array('view' => 'Image',
                                               'gallery' => abs($image->gallery),
@@ -154,8 +155,10 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
      * @throws Horde_Exception_NotFound
      * @throws Horde_Exception_PermissionDenied
      */
-    private function _getGallery()
+    protected function _getGallery()
     {
+        global $storage;
+
         // Make sure we haven't already selected a gallery.
         if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;
@@ -164,9 +167,9 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
         // Get the gallery object and cache it.
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->_params['gallery']);
+            $this->_gallery = $storage->getGallery($this->_params['gallery']);
         } else {
-            $this->_gallery =$GLOBALS['injector']->getInstance('Ansel_Storage')->getRandomGallery();
+            $this->_gallery =$storage->getRandomGallery();
         }
 
         if (empty($this->_gallery)) {
@@ -189,7 +192,7 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
      * @param string $index      The index that contains the numerical value
      *                           to sort by.
      */
-    private function _asortbyindex ($sortarray, $index)
+    protected function _asortbyindex ($sortarray, $index)
     {
         $lastindex = count ($sortarray) - 1;
         for ($subindex = 0; $subindex < $lastindex; $subindex++) {

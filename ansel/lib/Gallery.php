@@ -102,9 +102,7 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParents();
         if (!empty($p)) {
-            return $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->buildGalleries($this->_share->getParents());
+            return $GLOBALS['storage']->buildGalleries($this->_share->getParents());
         } else {
             return array();
         }
@@ -118,9 +116,7 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParent();
         if (!empty($p)) {
-            return $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->buildGallery($this->_share->getParent());
+            return $GLOBALS['storage']->buildGallery($this->_share->getParent());
         } else {
             return null;
         }
@@ -228,7 +224,7 @@ class Ansel_Gallery implements Serializable
 
         // Check for slug uniqueness
         if (!empty($this->_oldSlug) && $slug != $this->_oldSlug) {
-            if ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists(null, $slug)) {
+            if ($GLOBALS['storage']->galleryExists(null, $slug)) {
                 throw InvalidArgumentException(
                     sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
                             $slug));
@@ -358,8 +354,8 @@ class Ansel_Gallery implements Serializable
         if ($image->isMultiPage() === true) {
             $params['name'] = $image->getImagePageCount() . ' page image: '
                 . $image->filename;
-            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->createGallery($params, $this->_share->getPermission(), $this);
+            $mGallery = $GLOBALS['storage']->createGallery(
+                $params, $this->_share->getPermission(), $this);
             $i = 1;
             foreach ($image as $page) {
                 $page->caption = sprintf(_("Page %d"), $i++);
@@ -501,11 +497,12 @@ class Ansel_Gallery implements Serializable
             $img = $this->getImage($imageId);
             // Note that we don't pass the tags when adding the image..see below
             $newId = $gallery->addImage(array(
-                               'image_caption' => $img->caption,
-                               'data' => $img->raw(),
-                               'image_filename' => $img->filename,
-                               'image_type' => $img->getType(),
-                               'image_uploaded_date' => $img->uploaded));
+               'image_caption' => $img->caption,
+               'data' => $img->raw(),
+               'image_filename' => $img->filename,
+               'image_type' => $img->getType(),
+               'image_uploaded_date' => $img->uploaded)
+            );
             /* Copy any tags */
             $tags = $img->getTags();
             $GLOBALS['injector']->getInstance('Ansel_Tagger')
@@ -513,25 +510,17 @@ class Ansel_Gallery implements Serializable
 
             // Check that new image_id doesn't have existing attributes,
             // throw exception if it does.
-            $newAttributes = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImageAttributes($newId);
+            $newAttributes = $GLOBALS['storage']->getImageAttributes($newId);
             if (count($newAttributes)) {
                 throw new Ansel_Exception(_("Image already has existing attributes."));
             }
 
-            $exif = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getImageAttributes($imageId);
-
+            $exif = $GLOBALS['storage']->getImageAttributes($imageId);
             if (is_array($exif) && count($exif) > 0) {
                 foreach ($exif as $name => $value){
-                    $GLOBALS['injector']
-                        ->getInstance('Ansel_Storage')
-                        ->saveImageAttribute($newId, $name, $value);
+                    $GLOBALS['storage']->saveImageAttribute($newId, $name, $value);
                 }
             }
-
             ++$imgCnt;
         }
 
@@ -548,9 +537,7 @@ class Ansel_Gallery implements Serializable
      */
     public function setImageOrder($imageId, $pos)
     {
-        $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->setImageSortOrder($imageId, $pos);
+        $GLOBALS['storage']->setImageSortOrder($imageId, $pos);
     }
 
     /**
@@ -616,9 +603,8 @@ class Ansel_Gallery implements Serializable
     public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
         try {
-            return $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->buildGalleries($this->_share->getChildren($user, $perm, $allLevels));
+            return $GLOBALS['storage']->buildGalleries(
+                $this->_share->getChildren($user, $perm, $allLevels));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -703,8 +689,7 @@ class Ansel_Gallery implements Serializable
      */
     public function getRecentImages($limit = 10)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->getRecentImages(array($this->id), $limit);
+        return $GLOBALS['storage']->getRecentImages(array($this->id), $limit);
     }
 
     /**
@@ -716,7 +701,7 @@ class Ansel_Gallery implements Serializable
      */
     public function &getImage($id)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
+        return $GLOBALS['storage']->getImage($id);
     }
 
     /**
@@ -756,7 +741,7 @@ class Ansel_Gallery implements Serializable
      */
     public function getKeyImage(Ansel_Style $style = null)
     {
-        global $injector;
+        global $storage;
 
         if (is_null($style)) {
             $style = $this->getStyle();
@@ -779,7 +764,7 @@ class Ansel_Gallery implements Serializable
 
             // Don't already have one, must generate it.
             $default = $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
-            $params = array('gallery' => $this, 'style' => $style, 'image' => $injector->getInstance('Ansel_Storage')->getImage($default));
+            $params = array('gallery' => $this, 'style' => $style, 'image' => $storage->getImage($default));
             try {
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
@@ -799,9 +784,7 @@ class Ansel_Gallery implements Serializable
 
                 // Make sure the hash is saved since it might be different then
                 // the gallery's
-                $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->ensureHash($styleHash);
+                $storage->ensureHash($styleHash);
 
                 return $newImg->id;
             } catch (Ansel_Exception $e) {
@@ -828,10 +811,10 @@ class Ansel_Gallery implements Serializable
             if ($this->hasSubGalleries()) {
                 // Fall through to a key image of a sub gallery.
                 try {
-                    $galleries = $GLOBALS['injector']
-                        ->getInstance('Ansel_Storage')
-                        ->listGalleries(array('parent' => $this->id, 'all_levels' => false));
-
+                    $galleries = $storage->listGalleries(array(
+                        'parent' => $this->id,
+                        'all_levels' => false)
+                    );
                     foreach ($galleries as $gallery) {
                         if ($default_img = $gallery->getKeyImage($style)) {
                             return $default_img;
@@ -1053,9 +1036,7 @@ class Ansel_Gallery implements Serializable
     {
         /* Make sure we have a gallery object */
         if (!is_null($parent) && !($parent instanceof Ansel_Gallery)) {
-            $parent = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($parent);
+            $parent = $GLOBALS['storage']->getGallery($parent);
         }
 
         /* Check this now since we don't know if we are updating the DB or not */
@@ -1248,7 +1229,7 @@ class Ansel_Gallery implements Serializable
                 $sgs = $this->getChildren(
                     $GLOBALS['registry']->getAuth(),
                     Horde_Perms::READ,
-                    false);//GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->id, 'all_levels' => false));
+                    false);
                 foreach ($sgs as $g) {
                     $json->sg[] = $g->toJson();
                 }

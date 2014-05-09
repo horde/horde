@@ -77,7 +77,7 @@ class Ansel_TagBrowser extends Horde_Core_TagBrowser
      */
     public function getSlice($page = 0, $perpage = null)
     {
-        global $injector, $conf;
+        global $storage, $conf;
 
         // Refresh the search
         $this->runSearch();
@@ -86,13 +86,10 @@ class Ansel_TagBrowser extends Horde_Core_TagBrowser
         // Galleries first.
         $gstart = $page * $perpage;
         $gresults = array_slice($this->_results['galleries'], $gstart, $perpage);
-
         $galleries = array();
         foreach ($gresults as $gid) {
             try {
-                $galleries[] = $injector
-                    ->getInstance('Ansel_Storage')
-                    ->getGallery($gid);
+                $galleries[] = $storage->getGallery($gid);
             } catch (Ansel_Exception $e) {
                 Horde::log('Gallery not found: ' . $gid, 'ERR');
             }
@@ -104,7 +101,7 @@ class Ansel_TagBrowser extends Horde_Core_TagBrowser
         if ($count > 0) {
             $iresults = array_slice($this->_results['images'], $istart, $count);
             try {
-                $images = count($iresults) ? array_values($injector->getInstance('Ansel_Storage')->getImages(array('ids' => $iresults))) : array();
+                $images = count($iresults) ? array_values($storage->getImages(array('ids' => $iresults))) : array();
             } catch (Horde_Exception_NotFound $e) {
                 throw new Ansel_Exception($e);
             }

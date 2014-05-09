@@ -19,7 +19,7 @@ if (!isset($galleryId)) {
     exit;
 }
 try {
-    $gallery = $injector->getInstance('Ansel_Storage')->getGallery($galleryId);
+    $gallery = $storage->getGallery($galleryId);
 } catch (Ansel_Excception $e) {
     $notification->push(_("There was an error accessing the gallery."), 'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
@@ -57,8 +57,10 @@ case 'Sort':
     exit;
 case 'Reset':
     // Reset the sort order by date.
-    $images = $injector->getInstance('Ansel_Storage')
-          ->listImages(array('gallery_id' => $galleryId, 'sort' => 'image_original_date'));
+    $images = $storage->listImages(array(
+      'gallery_id' => $galleryId,
+      'sort' => 'image_original_date')
+    );
     $pos = 0;
     foreach ($images as $id) {
         $gallery->setImageOrder($id, $pos++);

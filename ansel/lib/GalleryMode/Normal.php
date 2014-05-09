@@ -34,10 +34,11 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
     {
+        global $storage;
+
         $galleries = array();
         $num_galleries = 0;
         if ($this->hasSubGalleries()) {
-            $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
             $num_galleries = $storage->countGalleries(
@@ -112,13 +113,12 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             return $this->_gallery->get('images');
         }
 
-        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->countGalleries(
-                    $GLOBALS['registry']->getAuth(),
-                    array('perm' => $perm,
-                          'parent' => $this->_gallery,
-                          'all_levels' => false));
-
+        $gCnt = $GLOBALS['storage']->countGalleries(
+            $GLOBALS['registry']->getAuth(),
+            array('perm' => $perm,
+                  'parent' => $this->_gallery,
+                  'all_levels' => false)
+        );
         if (!$galleries_only) {
             $iCnt = $this->countImages(false);
         } else {
@@ -138,12 +138,11 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listImages(array(
-                'gallery_id' => $this->_gallery->id,
-                'offset' => $from,
-                'limit' => $count));
+        return $GLOBALS['storage'] ->listImages(array(
+            'gallery_id' => $this->_gallery->id,
+            'offset' => $from,
+            'limit' => $count)
+        );
     }
 
     /**
@@ -173,7 +172,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             }
         }
 
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->setImagesGallery($ids, $gallery->id);
+        $GLOBALS['storage']->setImagesGallery($ids, $gallery->id);
         $this->_gallery->updateImageCount(count($ids), false);
         $gallery->updateImageCount(count($ids), true);
 
@@ -222,7 +221,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         } catch (Horde_Vfs_Exception $e) {}
 
         /* Delete from storage */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->removeImage($image->id);
+        $GLOBALS['storage']->removeImage($image->id);
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
         }
@@ -268,10 +267,11 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function getImages($from = 0, $count = 0)
     {
-        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->getImages(array('gallery_id' => $this->_gallery->id,
-                              'count' => $count,
-                              'from' => $from));
+        $images = $GLOBALS['storage']->getImages(array(
+            'gallery_id' => $this->_gallery->id,
+            'count' => $count,
+            'from' => $from)
+        );
 
         return array_values($images);
     }
@@ -299,10 +299,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
     {
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
-            $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $this->_gallery->id));
-
+            $galleries = $GLOBALS['storage']->listGalleries(array('parent' => $this->_gallery->id));
             foreach ($galleries as $galleryId => $gallery) {
                 $count += $gallery->countImages();
             }
@@ -312,4 +309,5 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
 
         return $this->_gallery->get('images');
     }
+
 }

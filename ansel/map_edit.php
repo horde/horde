@@ -26,9 +26,7 @@ if (empty($image_id)) {
         _("An error has occured retrieving the image. Details have been logged."));
 }
 
-$image = $injector
-    ->getInstance('Ansel_Storage')
-    ->getImage($image_id);
+$image = $storage->getImage($image_id);
 $gallery = $injector->
     getInstance('Ansel_Storage')
     ->getGallery($image->gallery);
@@ -74,10 +72,7 @@ $gtUrl = $registry->getServiceLink('ajax', 'ansel')->setRaw(true);
 $gtUrl->url .= 'imageSaveGeotag';
 
 // Obtain other geotagged images to possibly locate this image at
-$view->imgs = $injector
-    ->getInstance('Ansel_Storage')
-    ->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
-
+$view->imgs = $storage->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
 if (count($view->imgs) > 0) {
     $js = array();
     foreach ($view->imgs as $id => $data) {

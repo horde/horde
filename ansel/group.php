@@ -29,8 +29,8 @@ $groups_perpage = $prefs->getValue('groupsperpage');
 switch ($groupby) {
 case 'owner':
     try {
-        if ($num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->countOwners(Horde_Perms::SHOW, null, false)) {
-            $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->listOwners(
+        if ($num_groups = $storage->shares->countOwners(Horde_Perms::SHOW, null, false)) {
+            $groups = $storage->shares->listOwners(
                 Horde_Perms::SHOW,
                 null,
                 false,

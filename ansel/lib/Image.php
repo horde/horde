@@ -408,10 +408,7 @@ class Ansel_Image Implements Iterator
     {
         // Default to the gallery's style
         if (empty($style)) {
-            $style = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery(abs($this->gallery))
-                ->getStyle();
+            $style = $GLOBALS['storage']->getGallery(abs($this->gallery))->getStyle();
         }
 
         // Get the VFS info.
@@ -585,15 +582,15 @@ class Ansel_Image Implements Iterator
      */
     public function save()
     {
+        global $storage;
+
         // Existing image, just save and exit
         if ($this->id) {
-            return $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->saveImage($this);
+            return $storage->saveImage($this);
         }
 
         // New image, need to save the image files
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->saveImage($this);
+        $storage->saveImage($this);
 
         // The EXIF functions require a stream, need to save before we read
         $this->_writeData();
@@ -622,7 +619,7 @@ class Ansel_Image Implements Iterator
 
         // Save again if EXIF changed any values
         if (!empty($needUpdate)) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')->saveImage($this);
+            $storage->saveImage($this);
         }
 
         return $this->id;
@@ -643,9 +640,7 @@ class Ansel_Image Implements Iterator
         $this->reset();
 
         // Remove attributes
-        $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->clearImageAttributes($this->id);
+        $GLOBALS['storage']->clearImageAttributes($this->id);
 
         // Load the new image data
         $this->getEXIF();
@@ -752,16 +747,12 @@ class Ansel_Image Implements Iterator
 
         // Save attributes.
         if ($replacing) {
-            $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->clearImageAttributes($this->id);
+            $GLOBALS['storage']->clearImageAttributes($this->id);
         }
 
         foreach ($exif_fields as $name => $value) {
             if (!empty($value)) {
-                $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->saveImageAttribute($this->id, $name, $value);
+                $GLOBALS['storage']->saveImageAttribute($this->id, $name, $value);
                 $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
             }
         }
@@ -859,9 +850,7 @@ class Ansel_Image Implements Iterator
             } catch (Horde_Vfs_Exception $e) {}
         }
         if ($view == 'all' || $view == 'thumb') {
-            $hashes = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getHashes();
+            $hashes = $GLOBALS['storage']->getHashes();
             foreach ($hashes as $hash) {
                 try {
                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
@@ -924,9 +913,7 @@ class Ansel_Image Implements Iterator
     {
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
-            $gallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery);
+            $gallery = $GLOBALS['storage']->getGallery($this->gallery);
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
                     _("Access denied downloading photos from this gallery."));
@@ -1191,8 +1178,7 @@ class Ansel_Image Implements Iterator
         if (count($this->_tags)) {
             return $this->_tags;
         }
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->getGallery($this->gallery);
+        $gallery = $GLOBALS['storage']->getGallery($this->gallery);
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return $GLOBALS['injector']->getInstance('Ansel_Tagger')
                 ->getTags($this->id, 'image');
@@ -1212,9 +1198,7 @@ class Ansel_Image Implements Iterator
      */
     public function setTags(array $tags, $replace = true)
     {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery(abs($this->gallery));
+        $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $this->_tags = array();
 
@@ -1247,9 +1231,7 @@ class Ansel_Image Implements Iterator
      */
     public function removeTag($tag)
     {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery(abs($this->gallery));
+        $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $GLOBALS['injector']
                 ->getInstance('Ansel_Tagger')
@@ -1314,8 +1296,7 @@ class Ansel_Image Implements Iterator
         }
 
         if (is_null($style)) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getGallery(abs($this->gallery));
+            $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
         }
 
@@ -1329,10 +1310,7 @@ class Ansel_Image Implements Iterator
      */
     public function getAttributes()
     {
-        $attributes = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImageAttributes($this->id);
-
+        $attributes = $GLOBALS['storage']->getImageAttributes($this->id);
         $params = !empty($GLOBALS['conf']['exif']['params']) ?
                 $GLOBALS['conf']['exif']['params'] :
                 array();
@@ -1402,11 +1380,9 @@ class Ansel_Image Implements Iterator
      */
     public function toJson($style = null)
     {
-        global $injector, $conf, $registry;
+        global $conf, $registry;
 
-        $gallery = $injector->getInstance('Ansel_Storage')
-            ->getGallery($this->gallery);
-
+        $gallery = $GLOBALS['storage']->getGallery($this->gallery);
         // @TODO Deprecate tiny
         $tiny = $conf['image']['tiny'] &&
                 ($conf['vfs']['src'] == 'direct' || $gallery->hasPermission($registry->getAuth(), Horde_Perms::READ));

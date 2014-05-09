@@ -77,9 +77,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             ->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
-            $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->listGalleries(array('attributes' => $owner));
+            $galleries = $GLOBALS['storage']->listGalleries(array('attributes' => $owner));
         } catch (Ansel_Exception $e) {
             Horde::log($e, 'ERR');
             return;
