@@ -559,12 +559,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $identity_id = null;
-        if (($fromaddr = $headers->getValue('from'))) {
-            $identity = $injector->getInstance('IMP_Identity');
-            $identity_id = $identity->getMatchingIdentity($fromaddr);
-        }
-
         $alist = new Horde_Mail_Rfc822_List();
         $addr = array(
             'to' => clone $alist,
@@ -624,7 +618,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'addr' => $addr,
             'body' => $body,
             'format' => $format,
-            'identity' => $identity_id,
+            'identity' => $this->_getMatchingIdentity($headers, array('from')),
             'priority' => $injector->getInstance('IMP_Mime_Headers')->getPriority($headers),
             'readreceipt' => $readreceipt,
             'subject' => $headers->getValue('subject'),
@@ -2462,21 +2456,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * Get "tieto" identity information.
      *
      * @param Horde_Mime_Headers $h  The headers object for the message.
+     * @param array $only            Only use these headers.
      *
      * @return integer  The matching identity. If no exact match, returns the
      *                  default identity.
      */
-    protected function _getMatchingIdentity($h)
+    protected function _getMatchingIdentity($h, array $only = array())
     {
         global $injector;
 
         $identity = $injector->getInstance('IMP_Identity');
         $msgAddresses = array();
+        if (empty($only)) {
+            /* Bug #9271: Check 'from' address first; if replying to a message
+             * originally sent by user, this should be the identity used for
+             * the reply also. */
+            $only = array('from', 'to', 'cc', 'bcc');
+        }
 
-        /* Bug #9271: Check 'from' address first; if replying to a message
-         * originally sent by user, this should be the identity used for the
-         * reply also. */
-        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
+        foreach ($only as $val) {
             $msgAddresses[] = $h->getValue($val);
         }
 
