@@ -2463,10 +2463,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param Horde_Mime_Headers $h  The headers object for the message.
      *
-     * @return mixed  See IMP_Prefs_Identity::getMatchingIdentity().
+     * @return integer  The matching identity. If no exact match, returns the
+     *                  default identity.
      */
     protected function _getMatchingIdentity($h)
     {
+        global $injector;
+
+        $identity = $injector->getInstance('IMP_Identity');
         $msgAddresses = array();
 
         /* Bug #9271: Check 'from' address first; if replying to a message
@@ -2476,7 +2480,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $msgAddresses[] = $h->getValue($val);
         }
 
-        return $GLOBALS['injector']->getInstance('IMP_Identity')->getMatchingIdentity($msgAddresses);
+        $match = $identity->getMatchingIdentity($msgAddresses);
+
+        return is_null($match)
+            ? $identity->getDefault()
+            : $match;
     }
 
     /**

@@ -272,8 +272,6 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 
     public function testOrQueries()
     {
-        $ob = new Horde_Imap_Client_Search_Query();
-
         $ob2 = new Horde_Imap_Client_Search_Query();
         $ob2->flag('\\deleted', false);
         $ob2->headerText('from', 'ABC');
@@ -282,11 +280,24 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         $ob3->flag('\\deleted', true);
         $ob3->headerText('from', 'DEF');
 
+        $ob = new Horde_Imap_Client_Search_Query();
         $ob->orSearch(array($ob2, $ob3));
 
         $this->assertEquals(
             'OR (DELETED FROM DEF) (UNDELETED FROM ABC)',
             strval($ob)
+        );
+
+        $ob4 = new Horde_Imap_Client_Search_Query();
+        $ob4->flag('\\flagged', true);
+        $ob4->headerText('from', 'GHI');
+
+        $ob5 = new Horde_Imap_Client_Search_Query();
+        $ob5->orSearch(array($ob2, $ob3, $ob4));
+
+        $this->assertEquals(
+            'OR (FLAGGED FROM GHI) (OR (DELETED FROM DEF) (UNDELETED FROM ABC))',
+            strval($ob5)
         );
     }
 

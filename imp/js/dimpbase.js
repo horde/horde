@@ -3,7 +3,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @copyright  2005-2014 Horde LLC
- * @license    GPLv2 (http://www.horde.org/licenses/gpl)
+ * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
 var DimpBase = {
@@ -4184,8 +4184,8 @@ var DimpBase = {
 
     onAjaxFailure: function(r)
     {
-        if (r.request) {
-            switch (r.request.action) {
+        if (r.memo[0].request) {
+            switch (r.memo[0].request.action) {
             case 'createMailboxPrepare':
             case 'deleteMailboxPrepare':
             case 'emptyMailboxPrepare':

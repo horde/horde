@@ -1,25 +1,51 @@
 /**
- * DragHandler library for use with prototypejs.
+ * DragHandler library (files support only) for use with prototypejs.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @copyright  2013-2014 Horde LLC
- * @license    GPLv2 (http://www.horde.org/licenses/gpl)
+ * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
 var DragHandler = {
 
     // dropelt,
     // droptarget,
-    // droptargetsize,
     // hoverclass,
     // leave
 
     to: -1,
 
+    handleObserve: function(e)
+    {
+        if (this.dropelt) {
+            if (Prototype.Browser.IE &&
+                !(("onpropertychange" in document) && (!!window.matchMedia))) {
+                // IE 9 supports drag/drop, but not dataTransfer.files
+                e.stop();
+            } else {
+                switch (e.type) {
+                case 'dragleave':
+                    this.handleLeave(e);
+                    break;
+
+                case 'dragover':
+                    this.handleOver(e);
+                    break;
+
+                case 'drop':
+                    this.handleDrop(e);
+                    break;
+                }
+            }
+        }
+    },
+
     handleDrop: function(e)
     {
-        if (this.dropelt.hasClassName(this.hoverclass)) {
-            this.dropelt.fire('DragHandler:drop', e);
+        if (this.dropelt.hasClassName(this.hoverclass) &&
+            e.dataTransfer &&
+            e.dataTransfer.files) {
+            this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
         }
         this.leave = true;
         this.hide();
@@ -45,7 +71,7 @@ var DragHandler = {
     handleOver: function(e)
     {
         if (!this.dropelt.visible()) {
-            this.dropelt.clonePosition(this.droptargetsize).show();
+            this.dropelt.clonePosition(this.droptarget).show();
             this.droptarget.hide();
         }
 
@@ -62,6 +88,6 @@ var DragHandler = {
 
 };
 
-document.observe('dragleave', DragHandler.handleLeave.bindAsEventListener(DragHandler));
-document.observe('dragover', DragHandler.handleOver.bindAsEventListener(DragHandler));
-document.observe('drop', DragHandler.handleDrop.bindAsEventListener(DragHandler));
+document.observe('dragleave', DragHandler.handleObserve.bindAsEventListener(DragHandler));
+document.observe('dragover', DragHandler.handleObserve.bindAsEventListener(DragHandler));
+document.observe('drop', DragHandler.handleObserve.bindAsEventListener(DragHandler));

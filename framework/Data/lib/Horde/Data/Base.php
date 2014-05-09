@@ -376,9 +376,6 @@ abstract class Horde_Data_Base
      */
     public function cleanup()
     {
-        if ($filename = $this->storage->get('file_name')) {
-            @unlink($filename);
-        }
         $this->storage->clear();
 
         if ($this->_cleanupCallback) {

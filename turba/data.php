@@ -131,7 +131,34 @@ if ($vars->actionID != 'select') {
     array_unshift($templates[Horde_Data::IMPORT_FILE], TURBA_TEMPLATES . '/data/import.inc');
 }
 
-$storage = $injector->getInstance('Horde_Core_Data_Storage');
+$data = null;
+if ($vars->import_format) {
+    switch ($vars->import_format) {
+    case 'ldif':
+        $driver = 'Turba_Data_Ldif';
+        break;
+
+    case 'csv':
+        $param['check_charset'] = true;
+        // Fall-through
+
+    default:
+        $driver = $vars->import_format;
+        break;
+    }
+
+    try {
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create(
+            $driver,
+            array(
+                'cleanup' => array($app_ob, 'cleanupData')
+            )
+        );
+    } catch (Horde_Exception $e) {
+        $notification->push(_("This file format is not supported."), 'horde.error');
+        $next_step = Horde_Data::IMPORT_FILE;
+    }
+}
 
 /* Loop through the action handlers. */
 switch ($vars->actionID) {
@@ -154,14 +181,14 @@ case Horde_Data::IMPORT_FILE:
         );
         $error = true;
     } else {
-        $storage->set('target', $vars->dest);
-        $storage->set('purge', $vars->purge);
+        $data->storage->set('target', $vars->dest);
+        $data->storage->set('purge', $vars->purge);
     }
     break;
 
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
-    foreach ($cfgSources[$storage->get('target')]['map'] as $field => $null) {
+    foreach ($cfgSources[$data->storage->get('target')]['map'] as $field => $null) {
         if (substr($field, 0, 2) != '__' && !is_array($null)) {
             switch ($attributes[$field]['type']) {
             case 'monthyear':
@@ -179,77 +206,45 @@ case Horde_Data::IMPORT_DATETIME:
     break;
 }
 
-if (!$error && $vars->import_format) {
-    // TODO
+if (!$error && $data) {
     try {
-        switch ($vars->import_format) {
-        case 'ldif':
-            $data = new Turba_Data_Ldif(
-                $injector->getInstance('Horde_Core_Data_Storage'),
-                array(
-                    'browser' => $injector->getInstance('Horde_Browser'),
-                    'cleanup' => array($app_ob, 'cleanupData'),
-                    'vars' => $vars
-                )
-            );
-            break;
-
-        case 'csv':
-            $param['check_charset'] = true;
-            // Fall-through
-
-        default:
-            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($vars->import_format, array(
-                'cleanup' => array($app_ob, 'cleanupData'),
-            ));
-            break;
-        }
-    } catch (Horde_Exception $e) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $data = null;
-        $next_step = Horde_Data::IMPORT_FILE;
-    }
-
-    if ($data) {
         try {
-            try {
-                $next_step = $data->nextStep($vars->actionID, $param);
+            $next_step = $data->nextStep($vars->actionID, $param);
 
-                /* Raise warnings if some exist. */
-                if (method_exists($data, 'warnings')) {
-                    $warnings = $data->warnings();
-                    if (count($warnings)) {
-                        foreach ($warnings as $warning) {
-                            $notification->push($warning, 'horde.warning');
-                        }
-                        $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
+            /* Raise warnings if some exist. */
+            if (method_exists($data, 'warnings')) {
+                $warnings = $data->warnings();
+                if (count($warnings)) {
+                    foreach ($warnings as $warning) {
+                        $notification->push($warning, 'horde.warning');
                     }
-                }
-            } catch (Horde_Data_Exception_Charset $e) {
-                if ($e->badCharset != 'UTF-8') {
-                    $bad_charset[] = $e->badCharset;
-                    throw $e;
-                }
-
-                $param['charset'] = 'windows-1252';
-                try {
-                    $next_step = $data->nextStep($vars->actionID, $param);
-                } catch (Horde_Data_Exception_Charset $e) {
-                    $bad_charset = array('UTF-8', 'windows-1252');
-                    throw $e;
+                    $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
                 }
             }
-        } catch (Horde_Data_Exception $e) {
-            $notification->push($e, 'horde.error');
-            $next_step = $data->cleanup();
+        } catch (Horde_Data_Exception_Charset $e) {
+            if ($e->badCharset != 'UTF-8') {
+                $bad_charset[] = $e->badCharset;
+                throw $e;
+            }
+
+            $param['charset'] = 'windows-1252';
+            try {
+                $next_step = $data->nextStep($vars->actionID, $param);
+            } catch (Horde_Data_Exception_Charset $e) {
+                $bad_charset = array('UTF-8', 'windows-1252');
+                throw $e;
+            }
         }
+    } catch (Horde_Data_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $next_step = $data->cleanup();
     }
 }
 
 /* We have a final result set. */
 if (is_array($next_step)) {
     /* Create a Turba storage instance. */
-    $dest = $storage->get('target');
+    $dest = $data->storage->get('target');
     try {
         $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
     } catch (Horde_Exception $e) {
@@ -258,10 +253,10 @@ if (is_array($next_step)) {
     }
 
     if (!count($next_step)) {
-        $notification->push(sprintf(_("The %s file didn't contain any contacts."), $file_types[$storage->get('format')]), 'horde.error');
+        $notification->push(sprintf(_("The %s file didn't contain any contacts."), $file_types[$data->storage->get('format')]), 'horde.error');
     } elseif ($driver) {
         /* Purge old address book if requested. */
-        if ($storage->get('purge')) {
+        if ($data->storage->get('purge')) {
             try {
                 $driver->deleteAll();
                 $notification->push(_("Address book successfully purged."), 'horde.success');
@@ -322,7 +317,7 @@ if (is_array($next_step)) {
         }
         if (!$error && $imported) {
             $notification->push(sprintf(_("%s file successfully imported."),
-                                        $file_types[$storage->get('format')]), 'horde.success');
+                                        $file_types[$data->storage->get('format')]), 'horde.success');
         }
     }
     $next_step = $data->cleanup();
@@ -331,7 +326,7 @@ if (is_array($next_step)) {
 switch ($next_step) {
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
-    foreach ($cfgSources[$storage->get('target')]['map'] as $field => $null) {
+    foreach ($cfgSources[$data->storage->get('target')]['map'] as $field => $null) {
         if (substr($field, 0, 2) != '__' && !is_array($null)) {
             $app_fields[$field] = $attributes[$field]['label'];
         }

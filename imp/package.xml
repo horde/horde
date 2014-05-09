@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Provide visual UI info to user that file is uploading when drag/drop attachments in dynamic view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3593,7 +3593,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Provide visual UI info to user that file is uploading when drag/drop attachments in dynamic view.
    </notes>
   </release>
  </changelog>

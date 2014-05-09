@@ -1179,15 +1179,20 @@ class Turba_Api extends Horde_Registry_Api
                     }
                 }
 
-                $search = $sdriver->search(
-                    $criteria,
-                    Turba::getPreferredSortOrder(),
-                    'OR',
-                    $opts['returnFields'],
-                    $opts['customStrict'],
-                    $opts['matchBegin'],
-                    $opts['count_only']
-                );
+                try {
+                    $search = $sdriver->search(
+                        $criteria,
+                        Turba::getPreferredSortOrder(),
+                        'OR',
+                        $opts['returnFields'],
+                        $opts['customStrict'],
+                        $opts['matchBegin'],
+                        $opts['count_only']
+                    );
+                } catch (Exception $e) {
+                    continue;
+                }
+
                 if ($opts['count_only']) {
                     $results += $search;
 
