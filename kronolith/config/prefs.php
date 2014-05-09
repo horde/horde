@@ -524,6 +524,6 @@ $_prefs['activesync_identity'] = array(
     'type' => 'enum',
     'enum' => array_merge($GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Identity')
-                ->create($registry->getAuth())->getAll('id'), array('horde' => _("Configured Horde Default"))),
+                ->create($GLOBALS['registry']->getAuth())->getAll('id'), array('horde' => _("Configured Horde Default"))),
     'desc' => _("Choose the identity to use for ActiveSync. This determines the email address used as the ORGANIZER for events you create.")
 );
