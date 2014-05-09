@@ -1,79 +1,77 @@
 # Hungarian translations for Horde_Argv module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Argv module.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Argv\n"
+"Project-Id-Version: Horde_Argv \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"PO-Revision-Date: 2014-04-30 02:14+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Argv/Parser.php:507
+#: lib/Horde/Argv/Parser.php:478
 #, php-format
 msgid "%s option does not take a value"
-msgstr ""
+msgstr "A %s paraméterhez nem kell érték"
 
-#: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
+#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
 #, php-format
 msgid "%s option requires %d arguments"
-msgstr ""
+msgstr "A %s paraméterhez %d argumentum szükséges"
 
-#: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
+#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
 #, php-format
 msgid "%s option requires an argument"
-msgstr ""
+msgstr "A %s paraméterhez egy argumentum szükséges"
 
-#: lib/Horde/Argv/Parser.php:672
+#: lib/Horde/Argv/Parser.php:643
 msgid "Options"
 msgstr "Opciók"
 
 #: lib/Horde/Argv/TitledHelpFormatter.php:29
-#, fuzzy
 msgid "Usage"
-msgstr "A kulcs használata"
+msgstr "Használat"
 
 #: lib/Horde/Argv/IndentedHelpFormatter.php:29
-#, fuzzy
 msgid "Usage:"
-msgstr "A kulcs használata"
+msgstr "Használat:"
 
-#: lib/Horde/Argv/Parser.php:199
-#, fuzzy
+#: lib/Horde/Argv/Parser.php:169
 msgid "[options]"
-msgstr "Opciók"
+msgstr "[opciók]"
 
-#: lib/Horde/Argv/Option.php:129
+#: lib/Horde/Argv/Option.php:122
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
-msgstr ""
+msgstr "%s opció: érvénytelen választás: '%s' (lehetséges: %s)"
 
-#: lib/Horde/Argv/Option.php:111
+#: lib/Horde/Argv/Option.php:104
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
-msgstr ""
+msgstr "%s opció: érvénytelen lebegőpontos érték: '%s'"
 
-#: lib/Horde/Argv/Option.php:101
+#: lib/Horde/Argv/Option.php:94
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
-msgstr ""
+msgstr "%s opció: érvénytelen egész érték: '%s'"
 
-#: lib/Horde/Argv/Option.php:102
+#: lib/Horde/Argv/Option.php:95
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
-msgstr ""
+msgstr "%s opció: érvénytelen hosszú egész érték: '%s'"
 
-#: lib/Horde/Argv/Parser.php:171
+#: lib/Horde/Argv/Parser.php:141
 msgid "show program's version number and exit"
-msgstr ""
+msgstr " program verziószámának megjelenítése és kilépés"
 
-#: lib/Horde/Argv/Parser.php:165
+#: lib/Horde/Argv/Parser.php:135
 msgid "show this help message and exit"
-msgstr ""
+msgstr "Ennek az üzenetnem a megjelenítése és kilépés"

@@ -1,15 +1,14 @@
 # Hungarian translations for Horde_Browser package.
-# Copyright 2011-2014 Horde LLC
+# Copyright 2011-2013 Horde LLC
 # This file is distributed under the same license as the Horde_Browser package.
-# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
+"PO-Revision-Date: 2014-04-30 10:23+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -17,38 +16,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1026
+#: lib/Horde/Browser.php:1123
 msgid "File uploads not supported."
 msgstr "Fájlok feltöltése nem lehetséges."
 
-#: lib/Horde/Browser.php:1043
+#: lib/Horde/Browser.php:1140
 msgid "No file uploaded"
-msgstr "A szerverre nem töltődött fel semmilyen állomány"
+msgstr "A feltöltés sikertelen"
 
-#: lib/Horde/Browser.php:1053
+#: lib/Horde/Browser.php:1150
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
-msgstr ""
+msgstr "A feltöltött fájl üres."
 
-#: lib/Horde/Browser.php:1050
+#: lib/Horde/Browser.php:1147
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr ""
-"Az állományt nem sikerült a szerverre feltölteni. %s nem töltődött fel."
+msgstr "A %s fájl nem töltődött föl a szerverre."
 
-#: lib/Horde/Browser.php:1058
+#: lib/Horde/Browser.php:1155
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Az állományt nem sikerült a szerverre feltölteni. %s nagyobb, mint a "
-"maximálisan megengedett méret (%d bájt)."
+"A %s fájl nem töltődött föl a szerverre, mert nagyobb, mint a maximálisan "
+"megengedett %d bájt."
 
-#: lib/Horde/Browser.php:1060
+#: lib/Horde/Browser.php:1157
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
-msgstr ""
-"Az állományt nem sikerült a szerverre feltölteni. A(z) %s fájlnak csak egy "
-"része töltődött föl."
+msgstr "A %s fájl csak egy része töltődött föl a szerverre."

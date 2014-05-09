@@ -1,28 +1,44 @@
 # Hungarian translations for Horde_Token module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Token module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Token\n"
+"Project-Id-Version: Horde_Token \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-12-01 10:19+0100\n"
-"PO-Revision-Date: 2010-12-01 10:19+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2014-05-09 15:01+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Token/Base.php:196
-msgid "This token has been used before!"
+#: lib/Horde/Token/Base.php:167
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
 msgstr ""
+"A token lejárt. A hivatkozás, amire kattintott, vagy a form, amit kitöltött, "
+"%s percig volt csak érvényes. Kérjük, próbálja újra."
 
-#: lib/Horde/Token/Base.php:172
+#: lib/Horde/Token/Base.php:191
+msgid "This token has been used before!"
+msgstr "Ez a token korábban már volt használva!"
+
+#: lib/Horde/Token/Base.php:187
+msgid "This token is invalid!"
+msgstr "Ez a token érvénytelen!"
+
+#: lib/Horde/Token/Base.php:161
 msgid ""
 "We cannot verify that this request was really sent by you. It could be a "
 "malicious request. If you intended to perform this action, you can retry it "
 "now."
 msgstr ""
+"Nem ellenőrizhető, hogy ez a kérés valóban Öntől érkezett. Lehetséges, hogy "
+"ez egy rosszindulatú kérés. Ha valóban Ön kezdeményezte ezt a kérést, most "
+"újrapróbálhatja."

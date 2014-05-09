@@ -1,507 +1,520 @@
 # Hungarian translations for Horde_Form module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Form module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Form\n"
+"Project-Id-Version: Horde_Form \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
+"PO-Revision-Date: 2014-04-30 11:34+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Form/Type.php:2520
+#: lib/Horde/Form/Type.php:2601
 #, php-format
 msgid " (%s days ago)"
 msgstr " (%s nappal ezelőtt)"
 
-#: Form/Type.php:2528
+#: lib/Horde/Form/Type.php:2609
 #, php-format
 msgid " (in %s days)"
 msgstr " (%s napon belül)"
 
-#: Form/Type.php:2524
+#: lib/Horde/Form/Type.php:2605
 msgid " (today)"
 msgstr " (ma)"
 
-#: Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2607
 msgid " (tomorrow)"
 msgstr " (holnap)"
 
-#: Form/Type.php:2522
+#: lib/Horde/Form/Type.php:2603
 msgid " (yesterday)"
 msgstr " (tegnap)"
 
-#: Form/Type.php:1460
+#: lib/Horde/Form/Type.php:1518
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" nem érvényes email cím."
 
-#: Form/Type.php:2475
+#: lib/Horde/Form/Type.php:2570
 #, php-format
 msgid "%s is required"
 msgstr "%s kitöltése szükséges"
 
-#: Form/Type.php:2190 Form/Type.php:2253
+#: lib/Horde/Form/Type.php:2266 lib/Horde/Form/Type.php:2329
 msgid "-- select --"
 msgstr "-- válasszon --"
 
-#: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
+#: lib/Horde/Form/Type.php:855 lib/Horde/Form/Type.php:898
 msgid "A temporary directory"
-msgstr "Nem található az ideiglenes állományokat tartalmazó alkönyvtár."
+msgstr "Egy ideiglenes mappa."
 
-#: Form/Type.php:773
+#: lib/Horde/Form/Type.php:785
 msgid "Address"
 msgstr "Cím"
 
-#: Form/Type.php:795
-#, fuzzy
+#: lib/Horde/Form/Type.php:807
 msgid "Address Link"
-msgstr "Címjegyzék"
+msgstr "Cím hivatkozás"
 
-#: Form/Type.php:1620
+#: lib/Horde/Form/Type.php:1688
 msgid "Allow multiple addresses?"
-msgstr "Több címet is megengedjünk?"
+msgstr "Több cím is lehetséges?"
 
-#: Form/Type.php:3473
+#: lib/Horde/Form/Type.php:3550
 msgid "Assignment columns"
 msgstr "Hozzárendelési oszlopok"
 
-#: Form/Type.php:3745
+#: lib/Horde/Form/Type.php:3810
 msgid "Category"
 msgstr "Kategória"
 
-#: Form/Type.php:1632
+#: lib/Horde/Form/Type.php:1700
 msgid "Character to split multiple addresses with"
 msgstr "A címeket elválasztó karakter"
 
-#: Form/Type.php:3161
+#: lib/Horde/Form/Type.php:3238
 msgid "Colour selection"
 msgstr "Színválasztás"
 
-#: Form/Type.php:2072
+#: lib/Horde/Form/Type.php:2143
 msgid "Column titles"
 msgstr "Az oszlopok címei"
 
-#: Form/Type.php:662
+#: lib/Horde/Form/Type.php:674
 msgid "Counted text"
 msgstr "Korlátos szöveg"
 
-#: Form/Type.php:909
+#: lib/Horde/Form/Type.php:921
 msgid "Country drop down list"
-msgstr "Az országok legördülő listája"
+msgstr "Országlista"
 
-#: Form/Type.php:3588
+#: lib/Horde/Form/Type.php:3665
 msgid "Credit card number"
 msgstr "Hitelkártyaszám"
 
-#: Form/Type.php:3643
+#: lib/Horde/Form/Type.php:3708
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 "DSN (adatforrásleíró - lásd http://pear.php.net/manual/en/package.database."
 "db.intro-dsn.php)"
 
-#: Form/Type.php:3641
+#: lib/Horde/Form/Type.php:3706
 msgid "Database lookup"
 msgstr "Adatbázisban való keresés"
 
-#: Form/Type.php:2549
+#: lib/Horde/Form/Type.php:2630
 msgid "Date"
 msgstr "Dátum"
 
-#: Form/Type.php:3121
+#: lib/Horde/Form/Type.php:3198
 msgid "Date and time selection"
 msgstr "Dátum és idő kiválasztása"
 
-#: Form/Type.php:2958
+#: lib/Horde/Form/Type.php:3035
 msgid "Date selection"
 msgstr "Dátum kiválasztása"
 
-#: Form/Type.php:132
+#: lib/Horde/Form/Type.php:112
 msgid "Description"
 msgstr "Leírás"
 
-#: Form/Type.php:2968 Form/Type.php:3131
+#: lib/Horde/Form/Type.php:3045 lib/Horde/Form/Type.php:3208
 msgid "Display format"
 msgstr "Megjelenítési formátum"
 
-#: Form/Type.php:2233
+#: lib/Horde/Form/Type.php:2309
 msgid "Drop down list"
 msgstr "Legördülő lista"
 
-#: Form/Type.php:1617
+#: lib/Horde/Form/Type.php:1685
 msgid "Email"
 msgstr "Email"
 
-#: Form/Type.php:2088
+#: lib/Horde/Form/Type.php:2159
 msgid "Email addresses must match."
 msgstr "Az email címeknek egyezniük kell."
 
-#: Form/Type.php:2115
+#: lib/Horde/Form/Type.php:2184
 msgid "Email with confirmation"
 msgstr "Email visszaigazolással"
 
-#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+#: lib/Horde/Form/Type.php:2825 lib/Horde/Form/Type.php:3039
+#: lib/Horde/Form/Type.php:3202
 msgid "End year"
 msgstr "A befejezés éve"
 
-#: Form/Type.php:2070
+#: lib/Horde/Form/Type.php:2141
 msgid "Field matrix"
 msgstr "Mező mátrix"
 
-#: Form/Type.php:3696
+#: lib/Horde/Form/Type.php:3761
 msgid "Figlet CAPTCHA"
 msgstr "Figlet CAPTCHA (betűkirakó humánteszt)"
 
-#: Form/Type.php:3700
+#: lib/Horde/Form/Type.php:3765
 msgid "Figlet font"
-msgstr "FIGlet font"
+msgstr "Figlet betűtípus"
 
-#: Form/Type.php:3347
+#: lib/Horde/Form/Type.php:3424
 msgid "File selection"
 msgstr "Fájl kijelölés"
 
-#: Form/Type.php:952
+#: lib/Horde/Form/Type.php:964
 msgid "File upload"
 msgstr "Fájl feltöltése"
 
-#: Form/Type.php:3719
+#: lib/Horde/Form/Type.php:3784
 msgid "Font"
 msgstr "Betűtípus"
 
-#: Form/Type.php:152
+#: lib/Horde/Form/Type.php:132
 msgid "HTML"
 msgstr "HTML"
 
-#: Form/Type.php:115 Form/Type.php:3285
+#: lib/Horde/Form/Type.php:95 lib/Horde/Form/Type.php:3362
 msgid "Header"
 msgstr "Fejléc"
 
-#: Form/Type/tableset.php:58
+#: lib/Horde/Form/Type/tableset.php:55
 msgid "Headers"
 msgstr "Fejléc"
 
-#: Form/Type.php:617
-#, fuzzy
+#: lib/Horde/Form/Type.php:629
 msgid "Helpers"
-msgstr "Segítség?"
+msgstr "Segítségek"
 
-#: Form/Type.php:528
+#: lib/Horde/Form/Type.php:540
 msgid "IP address"
 msgstr "IP cím"
 
-#: Form/Type.php:558
-#, fuzzy
+#: lib/Horde/Form/Type.php:570
 msgid "IPv6 address"
-msgstr "IP cím"
+msgstr "IPv6 cím"
 
-#: Form/Type.php:3349
+#: lib/Horde/Form/Type.php:3426
 msgid "Id"
-msgstr ""
+msgstr "Azonosító"
 
-#: Form/Type.php:3715
+#: lib/Horde/Form/Type.php:3780
 msgid "Image CAPTCHA"
 msgstr "Kép CAPTCHA (betűfelismerő humánteszt)"
 
-#: Form/Type.php:1292
+#: lib/Horde/Form/Type.php:1336
 msgid "Image upload"
 msgstr "Kép feltöltése"
 
-#: Form/Type.php:263
+#: lib/Horde/Form/Type.php:246
 msgid "Integer"
 msgstr "Egész"
 
-#: Form/Type.php:317
+#: lib/Horde/Form/Type.php:300
 msgid "Integer list"
 msgstr "Egész számok listája"
 
-#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
-#: Form/Type/tableset.php:34
+#: lib/Horde/Form/Type.php:2284 lib/Horde/Form/Type.php:2359
+#: lib/Horde/Form/Type.php:2442 lib/Horde/Form/Type.php:2530
+#: lib/Horde/Form/Type/tableset.php:31
 msgid "Invalid data submitted."
-msgstr "A küldött adat hibás/elfogadhatatlan."
+msgstr "Hibás a küldött adat."
 
-#: Form/Type.php:3479
+#: lib/Horde/Form/Type.php:3556
 msgid "Left header"
 msgstr "Bal oldali fejléc"
 
-#: Form/Type.php:3475
+#: lib/Horde/Form/Type.php:3552
 msgid "Left values"
 msgstr "Bal oldali értékek"
 
-#: Form/Type.php:1352
+#: lib/Horde/Form/Type.php:1396
 msgid "Link"
-msgstr "Link (utalás)"
+msgstr "Hivatkozás"
 
-#: Form/Type.php:1355
+#: lib/Horde/Form/Type.php:1417
+msgid "Link CSS class"
+msgstr "CSS osztály hivatkozás"
+
+#: lib/Horde/Form/Type.php:1399
 msgid "Link URL"
-msgstr "Link URL (utalás címe)"
+msgstr "Hivatkozás URL"
 
-#: Form/Type.php:1370
+#: lib/Horde/Form/Type.php:1414
 msgid "Link access key"
-msgstr "Link billentyűkombináció"
+msgstr "Hivatkozás billentyűkombináció"
 
-#: Form/Type.php:3353
+#: lib/Horde/Form/Type.php:3430
 msgid "Link style"
-msgstr "Link (utalás) stílus"
+msgstr "Hivatkozás stílus"
 
-#: Form/Type.php:1361
+#: lib/Horde/Form/Type.php:1405
 msgid "Link target"
-msgstr "Link (utalás) célpont"
+msgstr "Hivatkozás célpont"
 
-#: Form/Type.php:1358 Form/Type.php:3351
+#: lib/Horde/Form/Type.php:1402 lib/Horde/Form/Type.php:3428
 msgid "Link text"
-msgstr "Link (utalás) szöveg"
+msgstr "Hivatkozás szöveg"
 
-#: Form/Type.php:1626
+#: lib/Horde/Form/Type.php:1694
 msgid "Link the email address to the compose page when displaying?"
-msgstr "Megjelenítéskor mutasson egy link a levélcímről a levélíró ablakhoz?"
+msgstr "Emailcím megjelenítésekor hivatkozás új levél írására"
 
-#: Form/Type.php:1367
+#: lib/Horde/Form/Type.php:1411
 msgid "Link title attribute"
-msgstr "Link (utalás) címének tulajdonságai"
+msgstr "Hivatkozás címének tulajdonságai"
 
-#: Form/Type.php:611
+#: lib/Horde/Form/Type.php:623
 msgid "Long text"
 msgstr "Hosszú szöveg"
 
-#: Form/Type.php:1298
+#: lib/Horde/Form/Type.php:1342
 msgid "Maximum file size in bytes"
 msgstr "Maximális állományméret bájtban"
 
-#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+#: lib/Horde/Form/Type.php:386 lib/Horde/Form/Type.php:406
+#: lib/Horde/Form/Type.php:432
 msgid "Maximum length"
 msgstr "Maximális hossz"
 
-#: Form/Type.php:487
+#: lib/Horde/Form/Type.php:499
 msgid "Mobile phone number"
 msgstr "Mobiltelefon-szám"
 
-#: Form/Type.php:2742
+#: lib/Horde/Form/Type.php:2821
 msgid "Month and year"
 msgstr "Hónap és év"
 
-#: Form/Type.php:2309
+#: lib/Horde/Form/Type.php:2385
 msgid "Multi-level drop down lists"
 msgstr "Többszintű legördülő listák"
 
-#: Form/Type.php:2366
+#: lib/Horde/Form/Type.php:2452
 msgid "Multiple selection"
 msgstr "Többszörös választás"
 
-#: Form/Type.php:236
+#: lib/Horde/Form/Type.php:2480
+msgid "Multiple selection, preserving keys"
+msgstr "Többszörös választás megőrzéssel"
+
+#: lib/Horde/Form/Type.php:216
 msgid "Number"
 msgstr "Szám"
 
-#: Form/Type.php:668
+#: lib/Horde/Form/Type.php:680
 msgid "Number of characters"
 msgstr "Karakterek száma"
 
-#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
-#: Form/Type.php:890
+#: lib/Horde/Form/Type.php:627 lib/Horde/Form/Type.php:678
+#: lib/Horde/Form/Type.php:789 lib/Horde/Form/Type.php:859
+#: lib/Horde/Form/Type.php:902
 msgid "Number of columns"
 msgstr "Oszlopok száma"
 
-#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
-#: Form/Type.php:888
+#: lib/Horde/Form/Type.php:625 lib/Horde/Form/Type.php:676
+#: lib/Horde/Form/Type.php:787 lib/Horde/Form/Type.php:857
+#: lib/Horde/Form/Type.php:900
 msgid "Number of rows"
 msgstr "Sorok száma"
 
-#: Form/Type.php:290
+#: lib/Horde/Form/Type.php:273
 msgid "Octal"
 msgstr "Oktális szám"
 
-#: Form/Type.php:1364
+#: lib/Horde/Form/Type.php:1408
 msgid "Onclick event"
 msgstr "Kattintáskori esemény"
 
-#: Form/Type.php:2098
+#: lib/Horde/Form/Type.php:2174
 msgid "Only one email address allowed."
 msgstr "Csak egy email cím adható meg."
 
-#: Form/Type.php:1449
+#: lib/Horde/Form/Type.php:1507
 msgid "Only one email address is allowed."
 msgstr "Csak egy email cím adható meg."
 
-#: Form/Type.php:839
-#, fuzzy
+#: lib/Horde/Form/Type.php:851
 msgid "PGP Key"
-msgstr "PGP nyilvános kulcs"
+msgstr "PGP kulcs"
 
-#: Form/Type.php:2142
+#: lib/Horde/Form/Type.php:2211
 msgid "Password"
 msgstr "Jelszó"
 
-#: Form/Type.php:2175
+#: lib/Horde/Form/Type.php:2244
 msgid "Password with confirmation"
 msgstr "Jelszó megerősítéssel"
 
-#: Form/Type.php:2157
+#: lib/Horde/Form/Type.php:2226
 msgid "Passwords must match."
 msgstr "A jelszavaknak egyezniük kell."
 
-#: Form/Type.php:841
+#: lib/Horde/Form/Type.php:853
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "A GnuPG program elérési útvonala"
 
-#: Form/Type.php:475
+#: lib/Horde/Form/Type.php:482
 msgid "Phone number"
 msgstr "Telefonszám"
 
-#: Form/Type.php:3191
+#: lib/Horde/Form/Type.php:3268
 msgid "Please choose a sound."
 msgstr "Kérem válasszon hangot."
 
-#: Form/Type.php:2720
+#: lib/Horde/Form/Type.php:2799
 msgid "Please enter a month and a year."
 msgstr "Kérem adjon meg egy hónapot és egy évet."
 
-#: Form/Type.php:513 Form/Type.php:543
+#: lib/Horde/Form/Type.php:525 lib/Horde/Form/Type.php:555
 msgid "Please enter a valid IP address."
 msgstr "Kérem valós IP címet adjon meg."
 
-#: Form/Type.php:2800
+#: lib/Horde/Form/Type.php:2879
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr "Kérem valós dátumot adjon meg, ellenőrizze a hónap napjait."
 
-#: Form/Type.php:2598
+#: lib/Horde/Form/Type.php:2679
 msgid "Please enter a valid time."
 msgstr "Kérem valós dátumot adjon meg."
 
-#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#: lib/Horde/Form/Type.php:923 lib/Horde/Form/Type.php:2313
+#: lib/Horde/Form/Type.php:2389 lib/Horde/Form/Type.php:3712
 msgid "Prompt text"
 msgstr "A prompt szövege"
 
-#: Form/Type.php:1623
+#: lib/Horde/Form/Type.php:1691
 msgid "Protect address from spammers?"
 msgstr "Legyen a cím védve a spammerektől?"
 
-#: Form/Type.php:2401
+#: lib/Horde/Form/Type.php:2496
 msgid "Radio selection"
 msgstr "Rádiógombos választás"
 
-#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#: lib/Horde/Form/Type.php:382 lib/Horde/Form/Type.php:402
+#: lib/Horde/Form/Type.php:428
 msgid "Regex"
-msgstr ""
+msgstr "Reguláris kifejezés"
 
-#: Form/Type.php:3605
+#: lib/Horde/Form/Type.php:3682
 msgid "Relationship browser"
 msgstr "Kapcsolat böngésző"
 
-#: Form/Renderer.php:344
+#: lib/Horde/Form/Renderer.php:327
 msgid "Required Field"
-msgstr "Kötelezően megadandó mező"
+msgstr "Kötelező mező"
 
-#: Form.php:632
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr "Hibás az adatcsomag titkos kódja - lehet, hogy rosszindulatú a kérés."
 
-#: Form.php:368 Form/Renderer.php:329
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
-msgstr "Reset"
+msgstr "Újrakezdés"
 
-#: Form/Type.php:3481
+#: lib/Horde/Form/Type.php:3558
 msgid "Right header"
 msgstr "Jobb oldali fejléc"
 
-#: Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3554
 msgid "Right values"
 msgstr "Jobb oldali értékek"
 
-#: Form/Type.php:884
+#: lib/Horde/Form/Type.php:896
 msgid "S/MIME Key"
-msgstr ""
+msgstr "S/Mime kulcs"
 
-#: Form/Type.php:3645
+#: lib/Horde/Form/Type.php:3710
 msgid "SQL statement for value lookups"
 msgstr "SQL parancs a kereséshez"
 
-#: Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3403
 msgid "Select Files"
-msgstr "Állományok kiválasztása"
+msgstr "Fájlok kiválasztása"
 
-#: Form/Type.php:2803
+#: lib/Horde/Form/Type.php:2882
 msgid "Select all date components."
 msgstr "Válassza ki az összes dátumösszetevőt."
 
-#: Form/Type.php:2450
+#: lib/Horde/Form/Type.php:2545
 msgid "Set"
 msgstr "Halmaz"
 
-#: Form/Type.php:3355
+#: lib/Horde/Form/Type.php:3432
 msgid "Show icon?"
-msgstr "Mutassunk ikont?"
+msgstr "Ikon megjelenítése"
 
-#: Form/Type.php:1296
+#: lib/Horde/Form/Type.php:1340
 msgid "Show option to keep original?"
-msgstr "Választható legyen az eredeti megtartása?"
+msgstr "Az eredeti megtartása lehetőség megjelenítése"
 
-#: Form/Type.php:2964 Form/Type.php:3127
+#: lib/Horde/Form/Type.php:3041 lib/Horde/Form/Type.php:3204
 msgid "Show picker?"
-msgstr "Legyen dátumválasztó?"
+msgstr "Dátumválasztó megjelenítése"
 
-#: Form/Type.php:2688 Form/Type.php:3133
+#: lib/Horde/Form/Type.php:2767 lib/Horde/Form/Type.php:3210
 msgid "Show seconds?"
-msgstr "Mutassuk a másodperceket?"
+msgstr "Másodpercek megjelenítése"
 
-#: Form/Type.php:1294
+#: lib/Horde/Form/Type.php:1338
 msgid "Show upload?"
-msgstr "Mutassuk a feltöltést?"
+msgstr "Feltöltés megjelenítése"
 
-#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
-#: Form/Type.php:3283 Form/Type.php:3483
+#: lib/Horde/Form/Type.php:384 lib/Horde/Form/Type.php:404
+#: lib/Horde/Form/Type.php:430 lib/Horde/Form/Type.php:484
+#: lib/Horde/Form/Type.php:1703 lib/Horde/Form/Type.php:2456
+#: lib/Horde/Form/Type.php:3360 lib/Horde/Form/Type.php:3560
 msgid "Size"
 msgstr "Méret"
 
-#: Form/Type.php:3279
+#: lib/Horde/Form/Type.php:3356
 msgid "Sort order selection"
 msgstr "A sorbarendezés irányának kiválasztása"
 
-#: Form/Type.php:3200
-#, fuzzy
+#: lib/Horde/Form/Type.php:3277
 msgid "Sound selection"
-msgstr "Színválasztás"
+msgstr "Hang kiválasztása"
 
-#: Form/Type.php:98
+#: lib/Horde/Form/Type.php:78
 msgid "Spacer"
 msgstr "Helykitöltő"
 
-#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#: lib/Horde/Form/Type.php:2823 lib/Horde/Form/Type.php:3037
+#: lib/Horde/Form/Type.php:3200
 msgid "Start year"
 msgstr "Kezdési év"
 
-#: Form/Type.php:2966 Form/Type.php:3129
+#: lib/Horde/Form/Type.php:3043 lib/Horde/Form/Type.php:3206
 msgid "Storage format"
 msgstr "Mentési formátum"
 
-#: Form/Type.php:414
+#: lib/Horde/Form/Type.php:400
 msgid "String list"
-msgstr "String lista"
+msgstr "Szöveg lista"
 
-#: Form/Type.php:440
+#: lib/Horde/Form/Type.php:426
 msgid "String list returning an array"
-msgstr ""
+msgstr "Szöveglista, mely tömböt ad vissza"
 
-#: Form.php:361 Form/Renderer.php:326
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
-msgstr "Küldjük el"
+msgstr "Elküldés"
 
-#: Form/Type/tableset.php:54
+#: lib/Horde/Form/Type/tableset.php:51
 msgid "Table Set"
 msgstr "Táblázategyüttes"
 
-#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#: lib/Horde/Form/Type.php:380 lib/Horde/Form/Type.php:3763
+#: lib/Horde/Form/Type.php:3782
 msgid "Text"
 msgstr "Szöveg"
 
-#: Form/Type.php:1056
+#: lib/Horde/Form/Type.php:1086
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
@@ -509,20 +522,20 @@ msgstr ""
 "A kép mérete vagy nem volt meghatározható, vagy 0 bájt volt. Lehet, hogy a "
 "feltöltés megszakadt."
 
-#: Form/Type.php:1060
+#: lib/Horde/Form/Type.php:1090
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "Az kép mérete meghaladta a maximálisan megengedett értéket (%d bájt)."
 
-#: Form/Type.php:1629
+#: lib/Horde/Form/Type.php:1697
 msgid "The name to use when linking to the compose page"
-msgstr "Mi legyen a levélíró ablakhoz mutató link elnevezése"
+msgstr "A levélírásra mutató link elnevezése"
 
-#: Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3738
 msgid "The text you entered did not match the text on the screen."
 msgstr "Az Ön által beírt szöveg nem felel meg a képernyőn megjelentnek."
 
-#: Form/Type.php:644
+#: lib/Horde/Form/Type.php:656
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
@@ -531,115 +544,122 @@ msgid_plural ""
 msgstr[0] "Túl sok karakter van ebben a mezőben. Ön %d karaktert írt be; "
 msgstr[1] "Túl sok karakter van ebben a mezőben. Ön %d karaktert írt be; "
 
-#: Form/Type.php:3504
+#: lib/Horde/Form/Type.php:3581
 msgid "This does not seem to be a valid card number."
 msgstr "Ez nem tűnik érvényes kártyaszámnak."
 
-#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
-#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
-#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
-#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
-#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
-#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
-#: Form/Variable.php:471 Form/Variable.php:479
+#: lib/Horde/Form/Type.php:149 lib/Horde/Form/Type.php:229
+#: lib/Horde/Form/Type.php:256 lib/Horde/Form/Type.php:283
+#: lib/Horde/Form/Type.php:351 lib/Horde/Form/Type.php:460
+#: lib/Horde/Form/Type.php:529 lib/Horde/Form/Type.php:559
+#: lib/Horde/Form/Type.php:653 lib/Horde/Form/Type.php:1071
+#: lib/Horde/Form/Type.php:2154 lib/Horde/Form/Type.php:2199
+#: lib/Horde/Form/Type.php:2221 lib/Horde/Form/Type.php:2275
+#: lib/Horde/Form/Type.php:2350 lib/Horde/Form/Type.php:2431
+#: lib/Horde/Form/Type.php:2640 lib/Horde/Form/Type.php:2682
+#: lib/Horde/Form/Type.php:2874 lib/Horde/Form/Type.php:3221
+#: lib/Horde/Form/Type.php:3260 lib/Horde/Form/Type.php:3573
+#: lib/Horde/Form/Type.php:3733 lib/Horde/Form/Type.php:3816
+#: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
 msgstr "Ez a mező nem maradhat üres."
 
-#: Form/Type.php:254
+#: lib/Horde/Form/Type.php:237
 msgid "This field may only contain integers."
 msgstr "Ebben a mezőben csak egész számok állhatnak."
 
-#: Form/Type.php:2567
+#: lib/Horde/Form/Type.php:2648
 msgid "This field may only contain numbers and the colon."
 msgstr "Ebben a mezőben csak egész számok és kettőspont lehet."
 
-#: Form/Type.php:281
+#: lib/Horde/Form/Type.php:264
 msgid "This field may only contain octal values."
 msgstr "Ebben a mezőben csak oktális számok állhatnak."
 
-#: Form/Type.php:308
+#: lib/Horde/Form/Type.php:291
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
 "Ez a mező csak vesszővel vagy szóközzel elválasztott egész számokat "
 "tartalmazhat"
 
-#: Form/Type.php:180
+#: lib/Horde/Form/Type.php:160
 msgid "This field must be a valid number."
 msgstr "Ez az érték csak szám lehet."
 
-#: Form/Type.php:3152
+#: lib/Horde/Form/Type.php:3229
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr "Ebben a mezőben hexadecimális RGB színkód állhat, pl. '#1234af'."
 
-#: Form.php:629
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
 msgstr "Ezen adatokkal kapcsolatos feladatokat a szerver már elvégezte."
 
-#: Form/Type.php:2576
+#: lib/Horde/Form/Type.php:2657
 msgid "Time"
 msgstr "Idő"
 
-#: Form/Type.php:2686
+#: lib/Horde/Form/Type.php:2765
 msgid "Time selection"
 msgstr "Idő választás"
 
-#: Form/Type.php:1321
+#: lib/Horde/Form/Type.php:1365
 msgid "True or false"
 msgstr "Igaz vagy hamis"
 
-#: Form/Type.php:360
+#: lib/Horde/Form/Type.php:346
 #, php-format
 msgid "Value is over the maximum length of %d."
 msgstr "Az érték nagyobb, mint a megengedett legnagyobb hosszúság: %d."
 
-#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
-#: Form/Type/tableset.php:56
+#: lib/Horde/Form/Type.php:2454 lib/Horde/Form/Type.php:2498
+#: lib/Horde/Form/Type.php:2547 lib/Horde/Form/Type.php:3358
+#: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr "Értékek"
 
-#: Form/Type.php:2235 Form/Type.php:2311
+#: lib/Horde/Form/Type.php:2311 lib/Horde/Form/Type.php:2387
 msgid "Values to select from"
 msgstr "Választható értékek"
 
-#: Form/Type.php:3485
+#: lib/Horde/Form/Type.php:3562
 msgid "Width in CSS units"
 msgstr "Szélesség CSS egységben"
 
-#: Form/Type.php:2102
+#: lib/Horde/Form/Type.php:2167
 msgid "You did not enter a valid email address."
 msgstr "Nem adott meg érvényes email címet."
 
-#: Form/Type.php:3028
+#: lib/Horde/Form/Type.php:3105
 msgid "You must choose a date."
 msgstr "Meg kell megadnia egy dátumot."
 
-#: Form/Type.php:3026
+#: lib/Horde/Form/Type.php:3103
 msgid "You must choose a time."
 msgstr "Meg kell adnia egy időpontot."
 
-#: Form/Type.php:463
+#: lib/Horde/Form/Type.php:464
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
 "Érvényes telefonszámot kell megadnia, mely csak számjegyeket tartalmaz, "
-"esetleg '+'-t a nemzetközi hívás számjegyei helyett"
+"esetleg '+'-t a nemzetközi híváshoz"
 
-#: Form/Type.php:371
+#: lib/Horde/Form/Type.php:357
 msgid "You must enter a valid value."
 msgstr "Elfogadható értéket kell megadnia."
 
-#: Form/Type.php:1470
+#: lib/Horde/Form/Type.php:1528
 msgid "You must enter an email address."
-msgstr "Nem adott meg érvényes email címet."
+msgstr "Nem adott meg érvényes emailcímet."
 
-#: Form/Type.php:1468
+#: lib/Horde/Form/Type.php:1526
 msgid "You must enter at least one email address."
-msgstr "Legalább egy email címet meg kell adnia."
+msgstr "Legalább egy emailcímet meg kell adnia."
 
-#: Form/Type.php:645
+#: lib/Horde/Form/Type.php:657
 #, php-format
 msgid "you must enter less than %d."
-msgstr "kevesebb, mint %d karaktert írhat csak be."
+msgstr "Kevesebb, mint %d karakter adható meg."

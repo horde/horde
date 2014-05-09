@@ -1,25 +1,51 @@
 # Hungarian translations for Horde_Data module.
-# Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Data module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Data\n"
+"Project-Id-Version: Horde_Data \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2014-04-30 10:40+0200\n"
+"PO-Revision-Date: 2014-04-30 11:15+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Data/Tsv.php:203
-msgid "TSV file"
-msgstr "TSV (TAB-bal elválasztott értékek) állomány"
+#: lib/Horde/Data/Csv.php:70
+msgid "Cannot open file."
+msgstr "A fájl nem nyitható meg."
 
-#: lib/Horde/Data/Base.php:286
+#: lib/Horde/Data/Csv.php:227
+msgid "Incorrect charset given for the data."
+msgstr "Érvénytelen karakterkódolás"
+
+#: lib/Horde/Data/Tsv.php:216
+msgid "TSV file"
+msgstr "TSV (TAB-bal elválasztott adatokat tartalmazó) állomány"
+
+#: lib/Horde/Data/Base.php:282
 msgid "The file contained no data."
-msgstr "A fájlban nem volt adat."
+msgstr "A fájl üres."
+
+#: lib/Horde/Data/Base.php:343
+msgid "The uploaded data was lost since the previous step."
+msgstr "A feltöltött adatok az előző lépés óta elvesztek."
+
+#: lib/Horde/Data/Tsv.php:222 lib/Horde/Data/Csv.php:206
+msgid "The uploaded file could not be saved."
+msgstr "A feltöltött fájl mentése nem sikerült."
+
+#: lib/Horde/Data/Imc.php:32
+msgid "There was an error importing the iCalendar data."
+msgstr "Az iCalendar adatok importálása nem sikerült."
+
+#: lib/Horde/Data/Base.php:289
+msgid ""
+"You didn\\'t map any fields from the imported file to the corresponding "
+"fields."
+msgstr "Nem adott meg párosításokat az importált fájl mezőihez."
