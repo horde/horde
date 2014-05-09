@@ -19,7 +19,7 @@
  </lead>
  <date>2014-05-09</date>
  <version>
-  <release>2.3.4</release>
+  <release>2.3.5</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in part size calculation for parts that contain the raw contents.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1324,6 +1324,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in part size calculation for parts that contain the raw contents.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.5</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
