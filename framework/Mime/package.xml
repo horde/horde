@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-02</date>
+ <date>2014-05-09</date>
  <version>
   <release>2.3.4</release>
   <api>2.3.0</api>
@@ -1320,7 +1320,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-02</date>
+   <date>2014-05-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in part size calculation for parts that contain the raw contents.
