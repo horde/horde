@@ -210,7 +210,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         if ($registry->hasMethod('contacts/search')) {
-            $base->js_conf['URI_ABOOK'] = strval(IMP_Basic_Contacts::url(array('full' => true)));
+            $base->js_conf['URI_ABOOK'] = strval(IMP_Basic_Contacts::url()->setRaw(true));
         }
 
         if ($prefs->getValue('set_priority')) {
