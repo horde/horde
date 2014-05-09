@@ -1,0 +1,866 @@
+# Hungarian translations for Horde_Service_Weather package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Service_Weather package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Service_Weather \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2014-05-09 14:53+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:44
+msgid "Blizzard"
+msgstr "Hóvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:31
+msgid "Blowing Sand"
+msgstr "Homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:29
+msgid "Blowing Snow"
+msgstr "Hófúvás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:30
+msgid "Blowing Widespread Dust"
+msgstr "Porvihar"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:45
+msgid "Blowing snow"
+msgstr "Hófúvás"
+
+#: lib/Horde/Service/Weather/Base.php:207
+msgid "C"
+msgstr "C"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:132
+msgid "Chance of Flurries"
+msgstr "Széllökések lehetségesek"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:134
+msgid "Chance of Freezing Rain"
+msgstr "Ónos eső lehetséges"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:133
+msgid "Chance of Rain"
+msgstr "Eső lehetséges"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:135
+msgid "Chance of Sleet"
+msgstr "havaseső lehetséges"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:136
+msgid "Chance of Snow"
+msgstr "Hóesés lehetséges"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:137
+msgid "Chance of Thunderstorms"
+msgstr "Zivatarok lehetségesek"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:138
+msgid "Chance of a Thunderstorm"
+msgstr "Vihar lehetséges"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:127
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:139
+#: lib/Horde/Service/Weather/Wwo_Strings.php:55
+msgid "Clear"
+msgstr "Tiszta"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:140
+#: lib/Horde/Service/Weather/Wwo_Strings.php:53
+msgid "Cloudy"
+msgstr "Felhős"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:9
+msgid "Drizzle"
+msgstr "Szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:24
+msgid "Dust Whirls"
+msgstr "Portubák"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:162
+msgid "ENE"
+msgstr "ENE"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:164
+msgid "ESE"
+msgstr "ESE"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
+msgid "East"
+msgstr "Kelet"
+
+#: lib/Horde/Service/Weather/Base.php:197
+msgid "F"
+msgstr "F"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:141
+msgid "Flurries"
+msgstr "Széllökések"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:17
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:142
+#: lib/Horde/Service/Weather/Wwo_Strings.php:43
+msgid "Fog"
+msgstr "Köd"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:44
+msgid "Freezing Drizzle"
+msgstr "Ónos szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:46
+msgid "Freezing Fog"
+msgstr "Zúzmara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:45
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:148
+msgid "Freezing Rain"
+msgstr "Ónos eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:39
+msgid "Freezing drizzle"
+msgstr "Ónos szitálás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:42
+msgid "Freezing fog"
+msgstr "Zúzmara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:15
+msgid "Hail"
+msgstr "Jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:36
+msgid "Hail Showers"
+msgstr "Heves jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:22
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:143
+msgid "Haze"
+msgstr "Párásodás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:109
+msgid "Heavy Blowing Sand"
+msgstr "Sűrű hóvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:107
+msgid "Heavy Blowing Snow"
+msgstr "Sűrű hóvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:108
+msgid "Heavy Blowing Widespread Dust"
+msgstr "Erősen fújó por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:87
+msgid "Heavy Drizzle"
+msgstr "Sűrű szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:102
+msgid "Heavy Dust Whirls"
+msgstr "Gyakori portubák"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:95
+msgid "Heavy Fog"
+msgstr "Sűrű köd"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:122
+msgid "Heavy Freezing Drizzle"
+msgstr "Sűrű ködszitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:124
+msgid "Heavy Freezing Fog"
+msgstr "Sűrű ködszitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:123
+msgid "Heavy Freezing Rain"
+msgstr "Sűrű ónos eső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:93
+msgid "Heavy Hail"
+msgstr "Heves jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:114
+msgid "Heavy Hail Showers"
+msgstr "Jobb oldali értékek"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:100
+msgid "Heavy Haze"
+msgstr "Erős párásodás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:91
+msgid "Heavy Ice Crystals"
+msgstr "Erős jégkritályosodás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:113
+msgid "Heavy Ice Pellet Showers"
+msgstr "Sűrű jégdara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:92
+msgid "Heavy Ice Pellets"
+msgstr "Sűrű jégdara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:106
+msgid "Heavy Low Drifting Sand"
+msgstr "Sűrű, alacsonyan sodródó homok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:104
+msgid "Heavy Low Drifting Snow"
+msgstr "Sűrű, alacsonyan sodródó hó"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:105
+msgid "Heavy Low Drifting Widespread Dust"
+msgstr "Sűrű, alacsonyan sodródó por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:94
+msgid "Heavy Mist"
+msgstr "Sűrű köd"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:88
+msgid "Heavy Rain"
+msgstr "Heves esőzés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:110
+msgid "Heavy Rain Mist"
+msgstr "Heves szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:111
+msgid "Heavy Rain Showers"
+msgstr "Heves zivatarok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:99
+msgid "Heavy Sand"
+msgstr "Sűrű homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:103
+msgid "Heavy Sandstorm"
+msgstr "Erős homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:115
+msgid "Heavy Small Hail Showers"
+msgstr "Heves jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:96
+msgid "Heavy Smoke"
+msgstr "Erős füst"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:89
+msgid "Heavy Snow"
+msgstr "Erős havazás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:90
+msgid "Heavy Snow Grains"
+msgstr "Erős havazás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:112
+msgid "Heavy Snow Showers"
+msgstr "Heves hózáporok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:101
+msgid "Heavy Spray"
+msgstr "Erős szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:116
+msgid "Heavy Thunderstorm"
+msgstr "Heves vihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:119
+msgid "Heavy Thunderstorms and Ice Pellets"
+msgstr "Heves vihar és jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:117
+msgid "Heavy Thunderstorms and Rain"
+msgstr "Heves zápor, zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:118
+msgid "Heavy Thunderstorms and Snow"
+msgstr "Heves vihar és hóesés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:120
+msgid "Heavy Thunderstorms with Hail"
+msgstr "Heves vihar és jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:121
+msgid "Heavy Thunderstorms with Small Hail"
+msgstr "Heves vihar és némi jég"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:97
+msgid "Heavy Volcanic Ash"
+msgstr "Sűrű vulkáni hamu"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:98
+msgid "Heavy Widespread Dust"
+msgstr "Sűrű homokvihar"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:38
+msgid "Heavy freezing drizzle"
+msgstr "Erős ónos szitálás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:32
+msgid "Heavy rain"
+msgstr "Záporeső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:33
+msgid "Heavy rain at times"
+msgstr "Néhol heves esőzés"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:22
+msgid "Heavy snow"
+msgstr "Sűrű hóesés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:13
+msgid "Ice Crystals"
+msgstr "Jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:35
+msgid "Ice Pellet Showers"
+msgstr "Sűrű jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:14
+msgid "Ice Pellets"
+msgstr "Jégeső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:21
+msgid "Ice pellets"
+msgstr "Jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:70
+msgid "Light Blowing Sand"
+msgstr "Gyenge homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:68
+msgid "Light Blowing Snow"
+msgstr "Gyenge hóvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:69
+msgid "Light Blowing Widespread Dust"
+msgstr "Gyenge homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:48
+msgid "Light Drizzle"
+msgstr "Gyenge szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:63
+msgid "Light Dust Whirls"
+msgstr "Kevés portuba"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:56
+msgid "Light Fog"
+msgstr "Ködfoltok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:83
+msgid "Light Freezing Drizzle"
+msgstr "Némi ónos szitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:85
+msgid "Light Freezing Fog"
+msgstr "Enyhe zúzmaraképződés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:84
+msgid "Light Freezing Rain"
+msgstr "Némi ónoseső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:54
+msgid "Light Hail"
+msgstr "Némi jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:75
+msgid "Light Hail Showers"
+msgstr "Némi jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:61
+msgid "Light Haze"
+msgstr "Enyhe párásodás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:52
+msgid "Light Ice Crystals"
+msgstr "Némi jégképződés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:74
+msgid "Light Ice Pellet Showers"
+msgstr "Enyhe jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:53
+msgid "Light Ice Pellets"
+msgstr "Enyhe jégdara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:67
+msgid "Light Low Drifting Sand"
+msgstr "Könnyű por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:65
+msgid "Light Low Drifting Snow"
+msgstr "Alacsonyan sodródó sor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:66
+msgid "Light Low Drifting Widespread Dust"
+msgstr "Némi alacsonyan sodródó por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:55
+msgid "Light Mist"
+msgstr "Enyhe ködképződés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:49
+msgid "Light Rain"
+msgstr "Enyhe eső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:71
+msgid "Light Rain Mist"
+msgstr "Gyenge köd"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:72
+msgid "Light Rain Showers"
+msgstr "Enyhe zápor, zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:60
+msgid "Light Sand"
+msgstr "Némi por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:64
+msgid "Light Sandstorm"
+msgstr "Gyenge porvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:76
+msgid "Light Small Hail Showers"
+msgstr "Könnyű jégzápor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:50
+msgid "Light Snow"
+msgstr "Enyhe havazás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:51
+msgid "Light Snow Grains"
+msgstr "Enyhe hódara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:73
+msgid "Light Snow Showers"
+msgstr "Enyhe hózápor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:62
+msgid "Light Spray"
+msgstr "Szitáló eső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:77
+msgid "Light Thunderstorm"
+msgstr "Enyhe zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:80
+msgid "Light Thunderstorms and Ice Pellets"
+msgstr "Enyhe zápor, zivatar, jégdara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:78
+msgid "Light Thunderstorms and Rain"
+msgstr "Enyhe zápor, zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:79
+msgid "Light Thunderstorms and Snow"
+msgstr "Enyhe hózápor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:81
+msgid "Light Thunderstorms with Hail"
+msgstr "Enyhe zápor jégesővel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:82
+msgid "Light Thunderstorms with Small Hail"
+msgstr "Enyhe zápor jégdarával"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:58
+msgid "Light Volcanic Ash"
+msgstr "Némi vulkáni hamu"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:59
+msgid "Light Widespread Dust"
+msgstr "Könnyű por"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:40
+msgid "Light drizzle"
+msgstr "Némi szitálás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:31
+msgid "Light freezing rain"
+msgstr "Némi ónos eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:36
+msgid "Light rain"
+msgstr "Könnyű eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:20
+msgid "Light rain shower"
+msgstr "Enyhe zápor"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:13
+msgid "Light showers of ice pellets"
+msgstr "Enyhe jégdara"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:29
+msgid "Light sleet"
+msgstr "Enyhe havaseső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:17
+msgid "Light sleet showers"
+msgstr "Enyhe havaseső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:26
+msgid "Light snow"
+msgstr "Gyenge havazás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:15
+msgid "Light snow showers"
+msgstr "Gyenge hózápor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:28
+msgid "Low Drifting Sand"
+msgstr "Alacsonyan sodródó por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:26
+msgid "Low Drifting Snow"
+msgstr "Hószállingózás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:27
+msgid "Low Drifting Widespread Dust"
+msgstr "Alacsonyan sodródó por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:16
+#: lib/Horde/Service/Weather/Wwo_Strings.php:51
+msgid "Mist"
+msgstr "Párásodás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:30
+msgid "Moderate or Heavy freezing rain"
+msgstr "Közepes, vagy erős ónos eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:10
+msgid "Moderate or heavy rain in area with thunder"
+msgstr "Közepes, vagy erős esőzés, vihar"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:19
+msgid "Moderate or heavy rain shower"
+msgstr "Közepes, vagy erős zápor"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:12
+msgid "Moderate or heavy showers of ice pellets"
+msgstr "Közepes, vagy erős jégdara"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:28
+msgid "Moderate or heavy sleet"
+msgstr "Közepes, vagy erős havas eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:16
+msgid "Moderate or heavy sleet showers"
+msgstr "Közepes, vagy erős havas eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:8
+msgid "Moderate or heavy snow in area with thunder"
+msgstr "Közepes, vagy erős havazás, villámlással"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:14
+msgid "Moderate or heavy snow showers"
+msgstr "Közepes, vagy erős hózápor"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:34
+msgid "Moderate rain"
+msgstr "Nyugodt eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:35
+msgid "Moderate rain at times"
+msgstr "Néha nyugodt eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:24
+msgid "Moderate snow"
+msgstr "Nyugodt havazás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:129
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:144
+#: test/Horde/Service/Weather/WundergroundTest.php:25
+msgid "Mostly Cloudy"
+msgstr "Leginkább felhős"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:145
+msgid "Mostly Sunny"
+msgstr "Leginkább napos"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:127
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:73
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:81
+msgid "N/A"
+msgstr "N/A"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:161
+msgid "NE"
+msgstr "ÉK"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:160
+msgid "NNE"
+msgstr "ÉÉK"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:174
+msgid "NNW"
+msgstr "ÉÉNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:173
+msgid "NW"
+msgstr "ÉNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
+msgid "North"
+msgstr "Észak"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
+#: lib/Horde/Service/Weather/Wwo_Strings.php:52
+msgid "Overcast"
+msgstr "Felhős"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
+#: lib/Horde/Service/Weather/Wwo_Strings.php:54
+#: test/Horde/Service/Weather/WundergroundTest.php:74
+#: test/Horde/Service/Weather/WwoTest.php:29
+msgid "Partly Cloudy"
+msgstr "Részben felhős"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:147
+msgid "Partly Sunny"
+msgstr "Részben napos"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:47
+msgid "Patchy freezing drizzle nearby"
+msgstr "Helyenként zúzmaraképződés"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:23
+msgid "Patchy heavy snow"
+msgstr "Helyenként erős havazás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:41
+msgid "Patchy light drizzle"
+msgstr "Helyenként könnyű szitálás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:37
+msgid "Patchy light rain"
+msgstr "Helyenként könnyű eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:11
+msgid "Patchy light rain in area with thunder"
+msgstr "Helyenként könnyű eső villámlással"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:27
+msgid "Patchy light snow"
+msgstr "Helyenként mémi havazás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:9
+msgid "Patchy light snow in area with thunder"
+msgstr "Helyenként némi havazás villámlással"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:25
+msgid "Patchy moderate snow"
+msgstr "Helyenként enyhe havazás"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:50
+msgid "Patchy rain nearby"
+msgstr "Helyenként eső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:48
+msgid "Patchy sleet nearby"
+msgstr "Helyenként havaseső"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:49
+msgid "Patchy snow nearby"
+msgstr "Helyenként havazás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:10
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:149
+msgid "Rain"
+msgstr "Eső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:32
+msgid "Rain Mist"
+msgstr "Ködszitálás"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:33
+msgid "Rain Showers"
+msgstr "Zápor"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:165
+msgid "SE"
+msgstr "DK"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:166
+msgid "SSE"
+msgstr "DDK"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:168
+msgid "SSW"
+msgstr "DDNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:169
+msgid "SW"
+msgstr "DNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:21
+msgid "Sand"
+msgstr "Por"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:25
+msgid "Sandstorm"
+msgstr "Homokvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:130
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:157
+msgid "Scattered Clouds"
+msgstr "elszórt felhőt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:150
+msgid "Sleet"
+msgstr "Havase ső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:37
+msgid "Small Hail Showers"
+msgstr "Némi jégeső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:18
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:57
+msgid "Smoke"
+msgstr "Füst"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:11
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:151
+msgid "Snow"
+msgstr "Hóesés"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:12
+msgid "Snow Grains"
+msgstr "Hódara"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:34
+msgid "Snow Showers"
+msgstr "Hózáporok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
+msgid "South"
+msgstr "Dél"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
+msgid "Spray"
+msgstr "Permetező eső"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:152
+#: lib/Horde/Service/Weather/Wwo_Strings.php:56
+#: test/Horde/Service/Weather/WwoTest.php:81
+#: test/Horde/Service/Weather/WwoTest.php:96
+msgid "Sunny"
+msgstr "Napos"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:154
+msgid "Thunderstorm"
+msgstr "Vihar, zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:153
+msgid "Thunderstorms"
+msgstr "Viharok, zivatarok"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:41
+msgid "Thunderstorms and Ice Pellets"
+msgstr "Vihar jégdarával"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:39
+msgid "Thunderstorms and Rain"
+msgstr "Zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:40
+msgid "Thunderstorms and Snow"
+msgstr "Hóvihar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:42
+msgid "Thunderstorms with Hail"
+msgstr "Zivatar jégesővel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:43
+msgid "Thunderstorms with Small Hail"
+msgstr "Zivatar jégesővel"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:46
+msgid "Thundery outbreaks nearby"
+msgstr "Viharos kitörések a közelben"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:18
+msgid "Torrential rain shower"
+msgstr "Erős zivatar"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:155
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:19
+msgid "Volcanic Ash"
+msgstr "Vulkáni hamu"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:172
+msgid "WNW"
+msgstr "NyÉNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:170
+msgid "WSW"
+msgstr "NyDNy"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
+msgid "West"
+msgstr "Nyugat"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
+msgid "Widespread Dust"
+msgstr "Por"
+
+#: lib/Horde/Service/Weather/Base.php:212
+msgid "centimeters"
+msgstr "centiméter"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:115
+#: test/Horde/Service/Weather/WundergroundTest.php:50
+msgid "falling"
+msgstr "eső"
+
+#: lib/Horde/Service/Weather/Base.php:199
+#: lib/Horde/Service/Weather/Base.php:201
+#: lib/Horde/Service/Weather/Base.php:202
+msgid "inches"
+msgstr "hüvelyk"
+
+#: lib/Horde/Service/Weather/Base.php:210
+msgid "km"
+msgstr "km"
+
+#: lib/Horde/Service/Weather/Base.php:208
+msgid "kph"
+msgstr "km/h"
+
+#: lib/Horde/Service/Weather/Base.php:200
+msgid "miles"
+msgstr "mérföld"
+
+#: lib/Horde/Service/Weather/Base.php:209
+msgid "millibars"
+msgstr "millibar"
+
+#: lib/Horde/Service/Weather/Base.php:211
+msgid "millimeters"
+msgstr "milliméter"
+
+#: lib/Horde/Service/Weather/Base.php:198
+msgid "mph"
+msgstr "mérföld/h"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:113
+msgid "rising"
+msgstr "emelkedő"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:111
+msgid "steady"
+msgstr "egyenletes"

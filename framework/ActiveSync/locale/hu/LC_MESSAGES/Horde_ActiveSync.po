@@ -1,0 +1,114 @@
+# Hungarian translations for Horde_ActiveSync module.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_ActiveSync package.
+# Andras Galos <galosa@netinform.hu>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_ActiveSync \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-03-07 12:17+0100\n"
+"PO-Revision-Date: 2014-04-30 00:06+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:607
+#, php-format
+msgid "%s part"
+msgstr "Üzenetrész: %s"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:586
+msgid "Audio part"
+msgstr "Audió üzenetrész"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:139
+msgid "Cc"
+msgstr "Másolat"
+
+#: lib/Horde/ActiveSync/Device.php:270
+msgid "Common Name"
+msgstr "Általános név"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:119
+msgid "Date"
+msgstr "Dátum"
+
+#: lib/Horde/ActiveSync/Device.php:282
+msgid "EAS Version"
+msgstr "EAS verzió"
+
+#: lib/Horde/ActiveSync/Device.php:285
+msgid "Forced Multiplexed Bitmask"
+msgstr "Forced Multiplexed Bitmask"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:123
+msgid "From"
+msgstr "Feladó"
+
+#: lib/Horde/ActiveSync/Device.php:267
+msgid "IMEI"
+msgstr "IMEI"
+
+#: lib/Horde/ActiveSync/Device.php:258
+msgid "Id"
+msgstr "Azonosító"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:589
+msgid "Image part"
+msgstr "Kép üzenetrész"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:593
+msgid "Message part"
+msgstr "Üzenetszöveg"
+
+#: lib/Horde/ActiveSync/Device.php:264
+msgid "Model"
+msgstr "Model"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:596
+msgid "Multipart part"
+msgstr "Többrészes üzenetrész"
+
+#: lib/Horde/ActiveSync/Device.php:273
+msgid "OS"
+msgstr "OS"
+
+#: lib/Horde/ActiveSync/Device.php:276
+msgid "OS Language"
+msgstr "OS nyelv"
+
+#: lib/Horde/ActiveSync/Device.php:279
+msgid "Phone Number"
+msgstr "Telefonszám"
+
+#: lib/Horde/ActiveSync/Device.php:259
+msgid "Policy Key"
+msgstr "Szabálykulcs"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:127
+msgid "Reply-To"
+msgstr "Viszontválasz"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:131
+msgid "Subject"
+msgstr "Tárgy"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:599
+msgid "Text part"
+msgstr "Szöveges üzenetrész"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:135
+msgid "To"
+msgstr "Címzett"
+
+#: lib/Horde/ActiveSync/Device.php:260
+msgid "User Agent"
+msgstr "User Agent"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:602
+msgid "Video part"
+msgstr "Videó üzenetrész"
