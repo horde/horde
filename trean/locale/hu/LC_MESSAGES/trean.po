@@ -1,0 +1,318 @@
+# Hungarian translations for Trean package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Trean package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  H5 (1.0.4-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-04-29 19:08+0200\n"
+"PO-Revision-Date: 2014-05-09 15:58+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Block/Mostclicked.php:44 lib/Block/Bookmarks.php:53
+msgid "1 Line"
+msgstr "1 sor"
+
+#: lib/Block/Mostclicked.php:32 lib/Block/Bookmarks.php:41
+msgid "10 rows"
+msgstr "10 sor"
+
+#: lib/Block/Mostclicked.php:33 lib/Block/Bookmarks.php:42
+msgid "15 rows"
+msgstr "15 sor"
+
+#: lib/Block/Mostclicked.php:43 lib/Block/Bookmarks.php:52
+msgid "2 Line"
+msgstr "2 sor"
+
+#: lib/Block/Mostclicked.php:34 lib/Block/Bookmarks.php:43
+msgid "25 rows"
+msgstr "25 sor"
+
+#: lib/Block/Mostclicked.php:42 lib/Block/Bookmarks.php:51
+msgid "3 Line"
+msgstr "3 sor"
+
+#: templates/add.html.php:52
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: templates/bookmarklet.html.php:1
+msgid "Add to Bookmarks"
+msgstr "Hozzáadás a könyvjelzőkhöz"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "Hozzáadva"
+
+#: config/prefs.php:36
+msgid "Ascending (A to Z or oldest to newest)"
+msgstr "Növekvő"
+
+#: add.php:47
+msgid "Bookmark Added"
+msgstr "Könyvjelző felvéve"
+
+#: edit.php:19
+#, php-format
+msgid "Bookmark not found: %s."
+msgstr "Könyvjelző nem található: %s."
+
+#: config/prefs.php:26
+msgid "Bookmarked on"
+msgstr "Könyvjelzők itt:"
+
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
+#: lib/View/BookmarkList.php:120
+msgid "Bookmarks"
+msgstr "Könyvjelzők"
+
+#: lib/Trean.php:71
+msgid "Bookmarks Feed"
+msgstr "Könyvjelző hírcsatornak"
+
+#: browse.php:31
+msgid "Browse"
+msgstr "Böngészés"
+
+#: templates/add.html.php:53 templates/edit.html.php:63
+msgid "Cancel"
+msgstr "Mégse"
+
+#: templates/list.html.php:14
+msgid "Clicks"
+msgstr "Kattintások"
+
+#: lib/Api.php:130
+msgid "Close"
+msgstr "Bezárás"
+
+#: app/controllers/DeleteBookmark.php:13
+msgid "Deleted bookmark: "
+msgstr "A könyvjelző törölve: "
+
+#: config/prefs.php:37
+msgid "Descending (9 to 1 or newest to oldest)"
+msgstr "Csökkenő"
+
+#: templates/add.html.php:25 templates/edit.html.php:34
+msgid "Description"
+msgstr "Leírás"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Megjelenítés"
+
+#: lib/Block/Bookmarks.php:37
+msgid "Display Rows"
+msgstr "Sorok megjelenítése"
+
+#: templates/add.html.php:64
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Húzza egerével az alábbi \"Hozzáadás a könyvjelzőkhöz\" feliratot a "
+"böngészőprogram Könyvjelzők eszköztárára"
+
+#: templates/add.html.php:62
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Húzza egerével az alábbi \"Hozzáadás a könyvjelzőkhöz\" feliratot a "
+"böngészőprogram Kedvencek sávjára"
+
+#: templates/list.html.php:55
+msgid "Edit"
+msgstr "Módosítás"
+
+#: edit.php:42
+msgid "Edit Bookmark"
+msgstr "Könyvjelzők módosítása"
+
+#: templates/add.html.php:61
+msgid "Firefox/Mozilla"
+msgstr "Firefox/Mozilla esetén:"
+
+#: templates/add.html.php:63
+msgid "Internet Explorer"
+msgstr "Internet Explorer esetén:"
+
+#: templates/add.html.php:38 templates/edit.html.php:47
+msgid "Loading..."
+msgstr "Betötés..."
+
+#: lib/Application.php:74
+msgid "Maximum Number of Bookmarks"
+msgstr "A könyvjelzők maximális száma"
+
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
+msgid "Most Clicked"
+msgstr "Leginkább kattintott"
+
+#: lib/Block/Mostclicked.php:19
+msgid "Most-clicked Bookmarks"
+msgstr "Leginkább kattintott könyvjelzők"
+
+#: add.php:78 templates/add.html.php:9
+msgid "New Bookmark"
+msgstr "Új könyvjelző"
+
+#: search.php:43
+msgid "No bookmarks found"
+msgstr "Nem találtunk egy könyvjelzőt sem"
+
+#: lib/Block/Mostclicked.php:72 lib/Block/Bookmarks.php:91
+msgid "No bookmarks to display"
+msgstr "Nincs megjeleníthető könyvjelző"
+
+#: browse.php:18
+msgid "No bookmarks yet."
+msgstr "Nincs még könyvjelző."
+
+#: search.php:50
+msgid "No search"
+msgstr "Nincs keresés"
+
+#: templates/add.html.php:67
+msgid "Note:"
+msgstr "Megjegyzés:"
+
+#: lib/Block/Mostclicked.php:28
+msgid "Number of bookmarks to show"
+msgstr "A megjelenítendő könyvjelzők száma"
+
+#: templates/add.html.php:68
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"Az Internet Explorer újabb verziói esetén lehetséges, hogy hozzá kell adnia "
+"ezt a Megbízható helyek zónákhoz: %s://%s"
+
+#: config/prefs.php:46
+msgid "Open links in a new window?"
+msgstr "Megnyitás új ablakban"
+
+#: config/prefs.php:12
+msgid "Other Preferences"
+msgstr "Egyéb"
+
+#: templates/add.html.php:43 templates/edit.html.php:52
+msgid "Previously used tags"
+msgstr "Előzőleg használt címkék"
+
+#: lib/View/BookmarkList.php:214
+msgid "Remove from search"
+msgstr "Eltávolítás a keresésből"
+
+#: templates/edit.html.php:62
+msgid "Save"
+msgstr "Mentés"
+
+#: search.php:36
+msgid "Search"
+msgstr "Keresés"
+
+#: search.php:47
+#, php-format
+msgid "Search results (%s)"
+msgstr "A keresés eredménye (%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Előzőleg használt címkék"
+
+#: config/prefs.php:14
+msgid "Set how to display bookmark listings and how to open links."
+msgstr "Könyvjelzők megjelenítése és megnyitása"
+
+#: config/prefs.php:28
+msgid "Sort bookmarks by:"
+msgstr "A sorbarendezés szempontja:"
+
+#: lib/Block/Bookmarks.php:28
+msgid "Sort by"
+msgstr "Rendezési szempont:"
+
+#: config/prefs.php:38
+msgid "Sort direction:"
+msgstr "A sorbarendezési irány:"
+
+#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+msgid "Tags"
+msgstr "Címkék"
+
+#: lib/Block/Mostclicked.php:38 lib/Block/Bookmarks.php:47
+msgid "Template"
+msgstr "Sablon"
+
+#: app/controllers/DeleteBookmark.php:16
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "A \"%s\" könyvjelző törlése során hiba lépett fel."
+
+#: add.php:41
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "A könyvjelző hozzáadása során hiba történt: %s"
+
+#: app/controllers/SaveBookmark.php:26
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Hiba történt a könyvjelző elmentése során: %s"
+
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/list.html.php:12
+#: templates/add.html.php:20 templates/edit.html.php:29
+msgid "Title"
+msgstr "Elnevezés"
+
+#: templates/add.html.php:60
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Könyvjelzők gyors hozzáadásához:"
+
+#: templates/add.html.php:15 templates/edit.html.php:24
+msgid "URL"
+msgstr "URL"
+
+#: templates/add.html.php:65
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Böngészés közben a \"Hozzáadás a könyvjelzőkhöz\" ikonra kattintva "
+"rögzítheti az aktuális oldalt a könyvjelzők között."
+
+#: add.php:25
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Ön legfeljebb %d könyvjelzőt hozhat létre."
+
+#: lib/Application.php:84
+msgid "_Browse"
+msgstr "_Böngészés"
+
+#: lib/Application.php:94
+msgid "_New Bookmark"
+msgstr "Ú_j könyvjelző"
+
+#: templates/block/standard.inc:22 templates/block/1line.inc:21
+#: templates/block/2line.inc:24
+msgid "click"
+msgstr "kattintás"
+
+#: templates/block/standard.inc:22 templates/block/1line.inc:21
+#: templates/block/2line.inc:24
+msgid "clicks"
+msgstr "Kattintás"
+
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "tagged %s"
+msgstr "Könyvjelzők %s címkével"

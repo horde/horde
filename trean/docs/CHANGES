@@ -2,6 +2,7 @@
 v1.1.0-git
 ----------
 
+[jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
 [jan] Add Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mjr] Add support for importing bookmarks from Mozilla's JSON format.
 
@@ -12,6 +13,7 @@ v1.0.3
 
 [mjr] Fix some minor issues with crawling bookmarks.
 [mjr] Show recently used tags on-demand (Bug #11712).
+
 
 ------
 v1.0.2
