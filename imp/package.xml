@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2014-05-09</date>
  <version>
   <release>6.2.0alpha2</release>
   <api>6.2.0</api>
@@ -1138,6 +1138,7 @@
       <file name="forward.png" role="horde" />
       <file name="forwarded.png" role="horde" />
       <file name="gallery.png" role="horde" />
+      <file name="group.png" role="horde" />
       <file name="ico_message_off.png" role="horde" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
@@ -2133,6 +2134,7 @@
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/forwarded.png" name="themes/default/graphics/forwarded.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
+   <install as="imp/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
@@ -3593,7 +3595,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-05-05</date>
+   <date>2014-05-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.

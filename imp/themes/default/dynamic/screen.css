@@ -988,7 +988,7 @@ span.logoutIcon {
 }
 #ctx_preview_listinfo span.iconImg,
 #msg_listinfo span.iconImg {
-    background-image: url("../graphics/flags/group.png");
+    background-image: url("../graphics/group.png");
 }
 
 #ctx_contacts img.contactimg, #ctx_contacts div.flagimg {
