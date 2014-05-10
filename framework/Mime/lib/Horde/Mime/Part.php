@@ -1461,7 +1461,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $bytes *= 0.75;
         }
 
-        return $bytes;
+        return intval($bytes);
     }
 
     /**
