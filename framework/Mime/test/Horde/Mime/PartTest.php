@@ -382,6 +382,36 @@ C
         $this->assertTrue(isset($part['2.2']));
     }
 
+    public function testSettingBytes()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setBytes(10);
+        $part->setTransferEncoding('base64');
+
+        $this->assertEquals(
+            10,
+            $part->getBytes()
+        );
+        $this->assertEquals(
+            7,
+            $part->getBytes(true)
+        );
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setBytes(10);
+        $part2->setTransferEncoding('base64');
+        $part2->setContents('TestTes', array('encoding' => '7bit'));
+
+        $this->assertEquals(
+            7,
+            $part2->getBytes()
+        );
+        $this->assertEquals(
+            7,
+            $part2->getBytes(true)
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
