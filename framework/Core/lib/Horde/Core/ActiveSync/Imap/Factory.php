@@ -64,10 +64,19 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      */
     public function getMailboxes($force = false)
     {
+        global $registry;
+
         if (empty($this->_mailboxlist) || $force) {
+            $subscriptions = $registry->horde->getPreference(
+                $registry->hasInterface('mail'),
+                'subscribe'
+            );
             try {
-                foreach ($GLOBALS['registry']->mail->mailboxList() as $mbox) {
-                    if ($mbox['a'] & self::MASK_SUBSCRIBED && strpos($mbox['ob']->utf8, "impsearch\000") === false) {
+                foreach ($registry->mail->mailboxList() as $mbox) {
+                    // @HACK. Don't like having to check for imp specific
+                    //        mailbox strings here but don't see anyway around it.
+                    if (strpos($mbox['ob']->utf8, "impsearch\000") === false &&
+                        (!$subscriptions  || ($mbox['a'] & self::MASK_SUBSCRIBED))) {
                         $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
                     }
                 }
