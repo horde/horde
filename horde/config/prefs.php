@@ -731,7 +731,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesync_replyposition', 'activesync_multiplex', 'activesyncmanagement'),
+    'members' => array('activesync_replyposition', 'activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }
@@ -741,11 +741,6 @@ $_prefs['activesyncmanagement'] = array(
     'type' => 'special',
     'handler' => 'Horde_Prefs_Special_Activesync'
 );
-
-$_prefs['activesync_multiplex'] = array(
-    'type' => 'checkbox',
-    'desc' => _("Should multiple collections be multiplexed?"),
-    'value' => 1);
 
 $_prefs['activesync_replyposition'] = array(
     'type' => 'enum',
