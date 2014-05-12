@@ -600,9 +600,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Change a folder on the server.
      *
-     * @param string $id           The server's folder id
+     * @param string $id           The IMAP server's existing folder id.
      * @param string $displayname  The new display name.
-     * @param string $parent       The folder's parent, if needed.
+     * @param string $parent       The folder's parent IMAP server id, if needed.
      * @param string $uid          The existing folder uid, if this is an edit.
      *                             @since 2.5.0 (@todo Look at this for H6. It's
      *                             here now to save an extra DB lookup for data
