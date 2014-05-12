@@ -37,7 +37,6 @@
  */
 class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 {
-
     const ADD     = 'FolderHierarchy:Add';
     const REMOVE  = 'FolderHierarchy:Remove';
     const UPDATE  = 'FolderHierarchy:Update';
