@@ -167,7 +167,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         $this->_encoder->startWBXML();
         if ($create) {
             if ($status == self::STATUS_SUCCESS) {
-                $collections->updateFolderInHierarchy($folder);
+                $collections->updateFolderInHierarchy($folder, true);
                 $collections->save();
             }
 
