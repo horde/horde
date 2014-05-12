@@ -100,7 +100,8 @@ class IMP_Api extends Horde_Registry_Api
         );
         $iterator->add(array(
             $iterator::CONTAINERS,
-            $iterator::REMOTE
+            $iterator::REMOTE,
+            $iterator::VFOLDER
         ));
         $mboxes = array();
 
