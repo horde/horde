@@ -1086,6 +1086,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $this->_procid,
                         $e->getMessage())
                     );
+                    // If we are missing a folder, we should clear the PING
+                    // cache also, to be sure it picks up any hierarchy changes
+                    // since most clients don't seem smart enough to figure this
+                    // out on their own.
+                    $this->resetPingCache();
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
 
                 } catch (Horde_ActiveSync_Exception $e) {
@@ -1170,6 +1175,23 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $id));
                 $this->_cache->removePingableCollection($id);
             }
+        }
+    }
+
+    /**
+     * Force reset all collection's PINGABLE flag. Used to force client
+     * to issue a non-empty PING request.
+     *
+     */
+    public function resetPingCache()
+    {
+        $collections = $this->_cache->getCollections(false);
+        foreach ($collections as $id => $collection) {
+            $this->_logger->info(sprintf(
+                'UNSETTING collection %s (%s) PINGABLE flag.',
+                $collection['serverid'],
+                $id));
+            $this->_cache->removePingableCollection($id);
         }
     }
 
