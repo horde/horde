@@ -376,9 +376,14 @@ abstract class Horde_ActiveSync_Driver_Base
      * serverid before, return the previously created uid, otherwise return
      * a new one.
      *
-     * @param string $id    The server's folder name E.g., INBOX
-     * @param string $type  The folder type, a Horde_ActiveSync::FOLDER_TYPE_*
-     *                      constant. If empty, assumes FOLDER_TYPE_USER_MAIL
+     * @param string $id      The server's current folder name E.g., INBOX
+     * @param string $type    The folder type, a Horde_ActiveSync::FOLDER_TYPE_*
+     *                        constant. If empty, assumes FOLDER_TYPE_USER_MAIL
+     * @param string $old_id  The previous folder name for this folder, if the
+     *                        folder is being renamed. @since 2.14.2
+     *                        @todo This is tempoarary until 3.0 (H6) when we
+     *                        will have the collection manager take care of ALL
+     *                        of the folder name <-> UID mapping management.
      *
      * @return string  A unique identifier for the specified backend folder id.
      *                 The first character indicates the foldertype as such:
@@ -389,13 +394,19 @@ abstract class Horde_ActiveSync_Driver_Base
      *                 'N' - Note
      * @since 2.4.0
      */
-    protected function _getFolderUidForBackendId($id, $type = null)
+    protected function _getFolderUidForBackendId($id, $type = null, $old_id = null)
     {
         // Always use 'RI' for Recipient cache.
         if ($id == 'RI') {
             return 'RI';
         }
         $map = $this->_state->getFolderUidToBackendIdMap();
+
+        // Rename?
+        if (!empty($old_id) && !empty($map[$old_id])) {
+            $this->_tempMap[$id] = $map[$old_id];
+        }
+
         if (!empty($map[$id])) {
             return $map[$id];
         } elseif (!empty($this->_tempMap[$id])) {

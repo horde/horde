@@ -642,13 +642,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                     throw $e;
                 }
-                $uid = $this->_getFolderUidForBackendId($displayname);
             } else {
                 try {
                     $serverid = $this->_imap->renameMailbox($id, $displayname, $parent);
-                    if (empty($uid)) {
-                        $uid = $this->_getFolderUidForBackendId($id);
-                    }
+                    $uid = $this->_getFolderUidForBackendId($displayname, Horde_ActiveSync::FOLDER_TYPE_USER_MAIL, $id);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw $e;
