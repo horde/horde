@@ -164,7 +164,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         try {
             $results = $this->_db->selectValues($sql,
-                array($this->_deviceInfo->id, $this->_devInfo->user, $uid));
+                array($this->_deviceInfo->id, $this->_deviceInfo->user, $uid));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] %s',
@@ -175,13 +175,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         $update = 'UPDATE ' . $this->_syncStateTable . ' SET sync_data = ? WHERE '
             . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
+
         foreach ($results as $folder) {
             $folder = unserialize($folder);
             $folder->setServerId($serverid);
             $folder = serialize($folder);
             try {
                 $this->_db->update($update,
-                    array($folder, $this->_deviceInfo->id, $this->_devInfo->user, $uid));
+                    array($folder, $this->_deviceInfo->id, $this->_deviceInfo->user, $uid));
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
