@@ -320,7 +320,7 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $parent       The parent folder id.
      * @param integer $type        The EAS Folder type. @since 2.9.0
      *
-     * @return Horde_ActiveSync_Message_Folder The new serverid if successful.
+     * @return Horde_ActiveSync_Message_Folder The new folder object.
      */
     public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT, $type = null)
     {
