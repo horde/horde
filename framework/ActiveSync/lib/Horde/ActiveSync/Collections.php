@@ -605,7 +605,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         Horde_ActiveSync_Message_Folder $folder, $update = false)
     {
         $this->_cache->updateFolder($folder);
-
+        $cols = $this->_cache->getCollections(false);
+        $cols[$folder->serverid]['serverid'] = $folder->_serverid;
+        $this->_cache->updateCollection($cols[$folder->serverid]);
         if ($update) {
             $this->_as->state->updateServerIdInState($folder->serverid, $folder->_serverid);
         }
