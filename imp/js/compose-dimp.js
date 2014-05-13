@@ -933,7 +933,7 @@ var DimpCompose = {
         $('composeMessage').setStyle({ height: mah + 'px' });
 
         if ($('rteloading') && $('rteloading').visible()) {
-            this.RTELoading(false);
+            this.RTELoading(true);
         }
     },
 
