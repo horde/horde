@@ -16,8 +16,8 @@ $prefGroups['identities'] = array(
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'sig_dashes', 'signature_html_select', 'signature_show_compose',
-        'save_sent_mail', 'sent_mail_folder', 'sentmailselect'
+        'sig_dashes', 'signature_html_select', 'save_sent_mail',
+        'sent_mail_folder', 'sentmailselect'
     ),
     'type' => 'identities'
 );
