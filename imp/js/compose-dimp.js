@@ -565,7 +565,7 @@ var DimpCompose = {
                     elts.invoke('writeAttribute', 'src', null);
                     evt.data.dataValue = elt.innerHTML;
                 }
-            }.bind(this));
+            });
         } else if (!rte && this.rte) {
             this.rte.destroy();
             delete this.rte;
