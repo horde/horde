@@ -367,6 +367,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         }
 
         $this->view->cacheid = $imp_compose->getCacheId();
+        $this->view->hmac = $imp_compose->getHmac();
         $this->view->menu = $this->getMenu('compose');
         $this->view->url = self::url();
         $this->view->user = $registry->getAuth();

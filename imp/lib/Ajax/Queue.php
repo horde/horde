@@ -202,6 +202,7 @@ class IMP_Ajax_Queue
                 $compose->atclimit = 1;
             }
             $compose->cacheid = $this->_compose->getCacheId();
+            $compose->hmac = $this->_compose->getHmac();
 
             $ajax->addTask('compose', $compose);
             $this->_compose = null;

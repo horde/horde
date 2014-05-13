@@ -1323,6 +1323,9 @@ var DimpCompose = {
 
         if (t['imp:compose']) {
             this.getCacheElt().setValue(t['imp:compose'].cacheid);
+            if ($('composeCache')) {
+                $('composeHmac').setValue(t['imp:compose'].hmac);
+            }
             this.upload_limit = t['imp:compose'].atclimit;
         }
 

@@ -2623,6 +2623,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Generate HMAC hash used to validate data on a session expiration. Uses
+     * the unique compose cache ID of the expired message combined with the
+     * secret key of the server to generate a reproducible value that can be
+     * validated if session data doesn't exist.
+     *
+     * @param string $cacheid  The cache ID to use. If null, uses cache ID of
+     *                         the compose object.
+     *
+     * @return string  The HMAC hash string.
+     */
+    public function getHmac($cacheid = null)
+    {
+        return hash_hmac(
+            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            is_null($cacheid) ? $this->getCacheId() : $cacheid,
+            $GLOBALS['conf']['secret_key']
+        );
+    }
+
+    /**
      * How many more attachments are allowed?
      *
      * @return mixed  Returns true if no attachment limit.
@@ -3260,7 +3280,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $conf, $injector;
 
         if (empty($conf['compose']['use_vfs']) ||
-            !isset($vars->composeCache)) {
+            !isset($vars->composeCache) ||
+            ($this->getHmac($vars->composeCache) != $vars->composeHmac)) {
             return;
         }
 

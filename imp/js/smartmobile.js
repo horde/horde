@@ -93,7 +93,7 @@ var ImpMobile = {
         case 'compose':
             $('#imp-compose-to-addr,#imp-compose-cc-addr').empty();
             if (!IMP.conf.disable_compose) {
-                $('#imp-compose-cache').val('');
+                $('#imp-compose-cache,#imp-compose-hmac').val('');
                 ImpMobile.compose(data);
             }
             e.preventDefault();
@@ -1461,7 +1461,12 @@ var ImpMobile = {
         if ((v = d['imp:compose'])) {
             $.fn[v.atclimit ? 'hide' : 'show'].call($('#imp-compose-attach-form'));
             if (v.cacheid) {
-                $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
+                if ($('#imp-redirect-form:visible').length) {
+                    $('#imp-redirect-cache').val(v.cacheid);
+                } else {
+                    $('#imp-compose-cache').val(v.cacheid);
+                    $('#imp-compose-hmac').val(v.hmac);
+                }
             }
         }
 

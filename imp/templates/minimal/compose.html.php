@@ -1,5 +1,6 @@
 <form action="<?php echo $this->url ?>" method="post" <?php if (!$this->attach_name): ?>enctype="multipart/form-data" <?php endif; ?>>
  <input type="hidden" name="composeCache" value="<?php echo $this->h($this->cacheid) ?>" />
+ <input type="hidden" name="composeHmac" value="<?php echo $this->h($this->hmac) ?>" />
  <input type="hidden" name="user" value="<?php echo $this->h($this->user) ?>" />
 
 <?php if (count($this->identities) > 1): ?>
