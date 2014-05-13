@@ -387,11 +387,11 @@ var DimpCompose = {
             sc.resume();
         }
 
+        this.RTELoading(true);
+
         if (this.rte && this.rte.busy()) {
             return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
-
-        this.RTELoading(true);
 
         if (active) {
             action = 'html2Text',
@@ -534,6 +534,8 @@ var DimpCompose = {
         } else {
             ta.setValue(r.text.body);
         }
+
+        this.RTELoading(false);
 
         ImpComposeBase.setSignature(opts.rte, r.text.sig ? r.text.sig : ImpComposeBase.identities[$F('identity')]);
 
