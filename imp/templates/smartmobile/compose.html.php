@@ -9,7 +9,7 @@
   </form>
 
   <form id="imp-compose-form">
-   <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
+   <input type="hidden" id="imp-compose-cache" name="composeCache" />
    <input type="hidden" name="user" value="<?php echo $this->h($this->user) ?>" />
    <div data-role="fieldcontain">
 <?php if (count($this->identities) > 1): ?>

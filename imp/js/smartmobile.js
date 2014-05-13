@@ -1004,7 +1004,7 @@ var ImpMobile = {
      */
     compose: function(data)
     {
-        var cache, func,
+        var func,
             params = {},
             purl = data.options.parsedUrl;
 
@@ -1027,13 +1027,11 @@ var ImpMobile = {
         case 'reply_auto':
         case 'reply_list':
             func = 'getReplyData';
-            cache = '#imp-compose-cache';
             params.format = 'text';
             break;
 
         case 'forward_auto':
             func = 'smartmobileGetForwardData';
-            cache = '#imp-compose-cache';
             params.format = 'text';
             break;
 
@@ -1041,13 +1039,11 @@ var ImpMobile = {
             $('#imp-compose-form').hide();
             $('#imp-redirect-form').show();
             func = 'getRedirectData';
-            cache = '#imp-redirect-cache';
             break;
 
         case 'resume':
         case 'template':
             func = 'getResumeData';
-            cache = '#imp-compose-cache';
             params.format = 'text';
             break;
 
@@ -1060,7 +1056,6 @@ var ImpMobile = {
             func,
             $.extend(params, {
                 buid: purl.params.buid,
-                imp_compose: $(cache).val(),
                 type: purl.params.type,
                 view: purl.params.mbox
             }),

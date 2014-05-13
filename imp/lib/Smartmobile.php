@@ -127,7 +127,6 @@ class IMP_Smartmobile
                 );
             }
 
-            $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
             $this->view->user = $registry->getAuth();
 
             $this->view->draft =
