@@ -3530,7 +3530,7 @@ var DimpBase = {
     // If mboxopts.expand is set, expand folder list on initial display.
     createMbox: function(ob)
     {
-        var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
+        var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
             cname = 'imp-sidebar-container',
             label = ob.l || ob.m,
             title = ob.t || ob.m;
@@ -3621,9 +3621,10 @@ var DimpBase = {
         }
 
         /* Insert into correct place in level. */
+        parent_c = parent_e.childElements();
         if (!ob.ns) {
             ll = label.toLowerCase();
-            f_node = parent_e.childElements().find(function(node) {
+            f_node = parent_c.find(function(node) {
                 if (node.retrieve('fs')) {
                     return false;
                 }
@@ -3633,25 +3634,28 @@ var DimpBase = {
             });
         }
 
-        if (f_node) {
-            tmp2 = f_node.previous();
-            if (tmp2 &&
-                tmp2.hasClassName('horde-subnavi-sub') &&
-                tmp2.retrieve('m') == ob.m) {
-                f_node = tmp2;
-            }
+        tmp2 = f_node
+            ? f_node.previous()
+            : parent_c.last();
+        if (tmp2 &&
+            tmp2.hasClassName('horde-subnavi-sub') &&
+            tmp2.retrieve('m') == ob.m) {
+            tmp2.insert({ before: li });
+        } else if (f_node) {
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
-            if (this.mboxopts.expand &&
-                parent_e.id != 'imp-specialmboxes' &&
-                parent_e.id != 'imp-normalmboxes') {
-                tmp2 = parent_e.previous();
-                if (!Object.isElement(this.mboxopts.expand) ||
-                    this.mboxopts.expand != tmp2) {
-                    tmp2.next().show();
-                    tmp2.down().removeClassName('exp').addClassName('col');
-                }
+        }
+
+        if (!f_node &&
+            this.mboxopts.expand &&
+            parent_e.id != 'imp-specialmboxes' &&
+            parent_e.id != 'imp-normalmboxes') {
+            tmp2 = parent_e.previous();
+            if (!Object.isElement(this.mboxopts.expand) ||
+                this.mboxopts.expand != tmp2) {
+                tmp2.next().show();
+                tmp2.down().removeClassName('exp').addClassName('col');
             }
         }
 
