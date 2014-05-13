@@ -27,8 +27,10 @@ var IMP_Editor = Class.create({
             document.fire('IMP_Editor:ready', evt.editor);
         }.bind(this));
         this.editor.on('dataReady', function(evt) {
-            this.dready = true;
-            document.fire('IMP_Editor:dataReady', evt.editor);
+            if (!this.dready) {
+                document.fire('IMP_Editor:dataReady', evt.editor);
+                this.dready = true;
+            }
         }.bind(this));
         this.editor.on('instanceDestroyed', function(evt) {
             this.dready = this.iready = this.editor = false;
