@@ -150,7 +150,7 @@ extends Horde_Core_Ajax_Application_Handler
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
      *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
-     *                 If not set, uses old parent.
+     *                 If not present, uses old parent.
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return boolean  True on success, false on failure.
@@ -162,9 +162,13 @@ extends Horde_Core_Ajax_Application_Handler
         }
 
         $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
-        $parent = isset($this->vars->new_parent)
-            ? IMP_Mailbox::formFrom($this->vars->new_parent)
-            : IMP_Mailbox::get($old_name->parent);
+        if (isset($this->vars->new_parent)) {
+            $parent = strlen($this->vars->new_parent)
+                ? IMP_Mailbox::formFrom($this->vars->new_parent)
+                : IMP_Mailbox::get(IMP_Ftree::BASE_ELT);
+        } else {
+            $parent = IMP_Mailbox::get($old_name->parent);
+        }
 
         if ($parent) {
             $new_name = $parent->createMailboxName($this->vars->new_name);
