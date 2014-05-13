@@ -908,7 +908,9 @@ var DimpBase = {
             break;
 
         case 'ctx_container_delete':
-            this._mailboxPromptCallback('delete', this.contextMbox(e));
+            this._mailboxPromptCallback('delete', this.contextMbox(e), {
+                result: true
+            });
             break;
 
         case 'ctx_mbox_delete':
