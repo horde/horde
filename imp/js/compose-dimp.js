@@ -896,11 +896,12 @@ var DimpCompose = {
 
     resizeMsgArea: function(e)
     {
-        if (!document.loaded ||
-            $('dimpLoading').visible() ||
-            // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug
-            // #10075)
-            (e && Prototype.Browser.IE && !document.addEventListener)) {
+        if (!document.loaded || $('dimpLoading').visible()) {
+            return;
+        }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE && !document.addEventListener) {
             this.resizeMsgArea.bind(this).delay(0.1);
             return;
         }
