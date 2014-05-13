@@ -137,6 +137,8 @@ var IMP_JS = {
 
             h = Math.max(
                 body.offsetHeight,
+                // IE 8 only
+                (Prototype.Browser.IE && !document.addEventListener) ? body.scrollHeight : 0,
                 html.offsetHeight,
                 html.scrollHeight
             );
