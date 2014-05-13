@@ -2624,21 +2624,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Generate HMAC hash used to validate data on a session expiration. Uses
-     * the unique compose cache ID of the expired message combined with the
-     * secret key of the server to generate a reproducible value that can be
-     * validated if session data doesn't exist.
+     * the unique compose cache ID of the expired message, the username, and
+     * the secret key of the server to generate a reproducible value that can
+     * be validated if session data doesn't exist.
      *
      * @param string $cacheid  The cache ID to use. If null, uses cache ID of
      *                         the compose object.
+     * @param string $user     The user ID to use. If null, uses the current
+     *                         authenticated username.
      *
      * @return string  The HMAC hash string.
      */
-    public function getHmac($cacheid = null)
+    public function getHmac($cacheid = null, $user = null)
     {
+        global $conf, $registry;
+
         return hash_hmac(
             (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            is_null($cacheid) ? $this->getCacheId() : $cacheid,
-            $GLOBALS['conf']['secret_key']
+            (is_null($cacheid) ? $this->getCacheId() : $cacheid) . '|' .
+                (is_null($user) ? $registry->getAuth() : $user),
+            $conf['secret_key']
         );
     }
 
@@ -3281,7 +3286,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if (empty($conf['compose']['use_vfs']) ||
             !isset($vars->composeCache) ||
-            ($this->getHmac($vars->composeCache) != $vars->composeHmac)) {
+            !isset($vars->composeHmac) ||
+            !isset($vars->user) ||
+            ($this->getHmac($vars->composeCache, $vars->user) != $vars->composeHmac)) {
             return;
         }
 
