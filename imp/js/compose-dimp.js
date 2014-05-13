@@ -10,7 +10,7 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   atc_context, auto_save_interval, compose_cursor, disabled,
-    //   drafts_mbox, editor_wait, fwdattach, hash_hdrs, hash_msg,
+    //   drafts_mbox, fwdattach, hash_hdrs, hash_msg,
     //   hash_msgOrig, hash_sig, hash_sigOrig, knl, last_identity,
     //   onload_show, old_action, old_identity, sc_submit,
     //   skip_spellcheck, spellcheck, tasks, upload_limit
@@ -214,7 +214,7 @@ var DimpCompose = {
             this.skip_spellcheck = true;
         }
 
-        if (this.editor_wait) {
+        if (this.rte && this.rte.busy()) {
             return this.uniqueSubmit.bind(this, action).delay(0.1);
         }
 
@@ -258,8 +258,8 @@ var DimpCompose = {
         } else {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
-                ImpComposeBase.rte.updateElement();
-                if (!Object.isUndefined(ImpComposeBase.rte_sig)) {
+                this.rte.updateElement();
+                if (ImpComposeBase.rte_sig) {
                     ImpComposeBase.rte_sig.updateElement();
                 }
             }
@@ -387,7 +387,7 @@ var DimpCompose = {
             sc.resume();
         }
 
-        if (this.editor_wait) {
+        if (this.rte && this.rte.busy()) {
             return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
 
@@ -399,7 +399,7 @@ var DimpCompose = {
 
             params.set('body', {
                 changed: changed,
-                text: ImpComposeBase.rte.getData()
+                text: this.rte.getData()
             });
 
             if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
@@ -483,7 +483,7 @@ var DimpCompose = {
             : null;
 
         if (ImpComposeBase.editor_on) {
-            ImpComposeBase.rte.updateElement();
+            this.rte.updateElement();
             this.RTELoading('show', true);
             $('composeMessage').next().hide();
         }
@@ -522,13 +522,13 @@ var DimpCompose = {
 
         this.rteInit(opts.rte);
 
-        if (ImpComposeBase.rte_loaded && opts.rte) {
-            ImpComposeBase.rte.setData(r.text.body);
-        } else if (!ImpComposeBase.rte_loaded && !opts.rte) {
-            ta.setValue(r.text.body);
+        if (this.rte && opts.rte) {
+            if (this.rte.busy()) {
+                this.setMessageText.bind(this, opts, r).delay(0.1);
+            }
+            this.rte.setData(r.text.body);
         } else {
-            this.setMessageText.bind(this, opts, r).delay(0.1);
-            return;
+            ta.setValue(r.text.body);
         }
 
         ImpComposeBase.setSignature(opts.rte, r.text.sig ? r.text.sig : ImpComposeBase.identities[$F('identity')]);
@@ -546,32 +546,12 @@ var DimpCompose = {
     {
         var config;
 
-        if (rte && !ImpComposeBase.rte) {
-            if (Object.isUndefined(ImpComposeBase.rte_loaded)) {
-                CKEDITOR.on('instanceReady', function(evt) {
-                    new CKEDITOR.dom.document(
-                        evt.editor.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
-                    .on('keydown', function(evt) {
-                        this.keydownHandler(Event.extend(evt.data.$), true);
-                    }.bind(this));
-                }.bind(this));
-                CKEDITOR.on('instanceDestroyed', function(evt) {
-                    this.RTELoading('hide');
-                    ImpComposeBase.rte_loaded = false;
-                }.bind(this));
-            }
-
+        if (rte && !this.rte) {
             config = Object.clone(IMP.ckeditor_config);
             config.extraPlugins = 'pasteattachment';
-            ImpComposeBase.rte = CKEDITOR.replace('composeMessage', config);
+            this.rte = new IMP_Editor('composeMessage', config);
 
-            ImpComposeBase.rte.on('dataReady', function(evt) {
-                this.RTELoading('hide');
-                evt.editor.focus();
-                ImpComposeBase.rte_loaded = true;
-                this.resizeMsgArea();
-            }.bind(this));
-            ImpComposeBase.rte.on('getData', function(evt) {
+            this.rte.editor.on('getData', function(evt) {
                 var elt = new Element('SPAN').insert(evt.data.dataValue),
                     elts = elt.select('IMG[dropatc_id]');
                 if (elts.size()) {
@@ -580,9 +560,9 @@ var DimpCompose = {
                     evt.data.dataValue = elt.innerHTML;
                 }
             }.bind(this));
-        } else if (!rte && ImpComposeBase.rte) {
-            ImpComposeBase.rte.destroy(true);
-            delete ImpComposeBase.rte;
+        } else if (!rte && this.rte) {
+            this.rte.destroy();
+            delete this.rte;
         }
 
         ImpComposeBase.editor_on = rte;
@@ -671,7 +651,7 @@ var DimpCompose = {
 
     fillFormHash: function()
     {
-        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+        if (this.rte && this.rte.busy()) {
             this.fillFormHash.bind(this).delay(0.1);
             return;
         }
@@ -731,7 +711,7 @@ var DimpCompose = {
     msgHash: function()
     {
         return IMP_JS.fnv_1a(
-            ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('composeMessage')
+            ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage')
         );
     },
 
@@ -759,11 +739,8 @@ var DimpCompose = {
 
     setBodyText: function(ob)
     {
-        if (ImpComposeBase.editor_on) {
-            this.editor_wait = true;
-            ImpComposeBase.rte.setData(ob.body, function() {
-                this.editor_wait = false;
-            }.bind(this));
+        if (this.rte) {
+            this.rte.setData(ob.body);
         } else {
             $('composeMessage').setValue(ob.body);
             ImpComposeBase.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
@@ -776,7 +753,7 @@ var DimpCompose = {
             if (ob.opts &&
                 ob.opts.focus &&
                 (ob.opts.focus == 'composeMessage')) {
-                this.focusEditor();
+                this.rte.focus();
             }
         }
     },
@@ -797,15 +774,6 @@ var DimpCompose = {
             }, this);
         }
         $('to_loading_img').hide();
-    },
-
-    focusEditor: function()
-    {
-        if (ImpComposeBase.rte.focus) {
-            ImpComposeBase.rte.focus();
-        } else {
-            this.focusEditor.bind(this).delay(0.1);
-        }
     },
 
     // opts = (Object)
@@ -924,13 +892,11 @@ var DimpCompose = {
 
     resizeMsgArea: function(e)
     {
-        if (!document.loaded || $('dimpLoading').visible()) {
-            this.resizeMsgArea.bind(this).delay(0.1);
-            return;
-        }
-
-        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
-        if (e && Prototype.Browser.IE && !document.addEventListener) {
+        if (!document.loaded ||
+            $('dimpLoading').visible() ||
+            // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug
+            // #10075)
+            (e && Prototype.Browser.IE && !document.addEventListener)) {
             this.resizeMsgArea.bind(this).delay(0.1);
             return;
         }
@@ -955,8 +921,8 @@ var DimpCompose = {
             mah -= sp.getHeight();
         }
 
-        if (ImpComposeBase.rte_loaded) {
-            ImpComposeBase.rte.resize('99%', mah - 1, false);
+        if (this.rte) {
+            this.rte.resize('99%', mah - 1);
         }
 
         $('composeMessage').setStyle({ height: mah + 'px' });
@@ -1533,3 +1499,21 @@ document.observe('HordeCore:runTasks', function(e) {
 
 /* AJAX related events. */
 document.observe('HordeCore:ajaxFailure', DimpCompose.onAjaxFailure.bindAsEventListener(DimpCompose));
+
+/* IMP Editor events. */
+document.observe('IMP_Editor:ready', function(e) {
+    if (e.memo.name == 'composeMessage') {
+        new CKEDITOR.dom.document(
+            e.memo.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
+        .on('keydown', function(evt) {
+            this.keydownHandler(Event.extend(evt.data.$), true);
+        }.bind(this));
+    }
+}.bindAsEventListener(DimpCompose));
+document.observe('IMP_Editor:dataReady', function(e) {
+    if (e.memo.name == 'composeMessage') {
+        this.RTELoading('hide');
+        e.memo.focus();
+        this.resizeMsgArea();
+    }
+}.bindAsEventListener(DimpCompose));

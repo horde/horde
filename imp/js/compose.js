@@ -9,8 +9,8 @@
 var ImpCompose = {
 
     // Variables defined in PHP code:
-    //   cancel_url, cursor_pos, discard_url, editor_wait, last_identity,
-    //   last_msg, last_sig, max_attachments, popup, redirect, reloaded,
+    //   cancel_url, cursor_pos, discard_url, last_identity,
+    //   last_msg, last_sig, max_attachments, popup, redirect, reloaded, rte,
     //   sc_submit, sm_check, skip_spellcheck, spellcheck, text
 
     display_unload_warning: true,
@@ -141,10 +141,8 @@ var ImpCompose = {
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (ImpComposeBase.editor_on &&
-                ImpComposeBase.rte_loaded &&
-                CKEDITOR.instances.composeMessage) {
-                CKEDITOR.instances.composeMessage.updateElement();
+            if (this.rte) {
+                this.rte.updateElement();
             }
 
             cur_msg = IMP_JS.fnv_1a(
@@ -170,7 +168,7 @@ var ImpCompose = {
 
         $(document).fire('AutoComplete:update');
 
-        if (this.editor_wait && ImpComposeBase.editor_on) {
+        if (this.rte && this.rte.busy()) {
             return this.uniqSubmit.bind(this, actionID, e).delay(0.1);
         }
 
@@ -231,17 +229,17 @@ var ImpCompose = {
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a(ImpComposeBase.editor_on ? ImpComposeBase.rte.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(this.rte ? this.rte.getData() : $F('signature'))
             : 0;
     },
 
     updateSigHash: function()
     {
-        if (ImpComposeBase.editor_on && !ImpComposeBase.rte_loaded) {
+        if (this.rte && this.rte.busy()) {
             this.updateSigHash.bind(this).delay(0.1);
-            return;
+        } else {
+            this.last_sig = this.sigHash();
         }
-        this.last_sig = this.sigHash();
     },
 
     clickHandler: function(e)
@@ -353,7 +351,7 @@ var ImpCompose = {
             if (ImpComposeBase.editor_on) {
                 config = Object.clone(IMP.ckeditor_config);
                 config.extraPlugins = 'pasteignore';
-                CKEDITOR.replace('composeMessage', config);
+                this.rte = new IMP_Editor('composeMessage', config);
 
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
@@ -362,7 +360,7 @@ var ImpCompose = {
             if ($('to') && !$F('to')) {
                 ImpComposeBase.focus('to');
             } else if (!$F('subject')) {
-                ImpComposeBase.focus(ImpComposeBase.editor_on ? 'subject' : 'composeMessage');
+                ImpComposeBase.focus(this.rte ? 'subject' : 'composeMessage');
             }
 
             document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
@@ -386,8 +384,7 @@ var ImpCompose = {
 
     _onAfterSpellCheck: function()
     {
-        this.editor_wait = true;
-        CKEDITOR.instances.composeMessage.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
+        this.rte.setData($F('composeMessage'));
         $('composeMessage').next().show();
         delete this.sc_submit;
     },
@@ -396,7 +393,7 @@ var ImpCompose = {
     {
         ImpComposeBase.getSpellChecker().htmlAreaParent = 'composeMessageParent';
         $('composeMessage').next().hide();
-        CKEDITOR.instances.composeMessage.updateElement();
+        this.rte.updateElement();
     },
 
     _onNoErrorSpellCheck: function()
