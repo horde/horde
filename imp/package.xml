@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Improved handling for multiple expand/collapse actions in the dynamic folder list (Bug #13170).
 * [mms] Provide visual UI info to user that file is uploading when drag/drop attachments in dynamic view.
  </notes>
  <contents>
@@ -3593,6 +3594,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Improved handling for multiple expand/collapse actions in the dynamic folder list (Bug #13170).
 * [mms] Provide visual UI info to user that file is uploading when drag/drop attachments in dynamic view.
    </notes>
   </release>

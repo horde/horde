@@ -3417,7 +3417,8 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect, noexpand)
     {
-        var collapse = [], expand = [], need = [], subs = [];
+        var collapse = [], expand = [], subs = [],
+            need = $H();
 
         if (mode == 'expall' || mode == 'colall') {
             if (base.hasClassName('horde-subnavi-sub')) {
@@ -3437,36 +3438,26 @@ var DimpBase = {
             subs = [ base.next('.horde-subnavi-sub') ];
         }
 
+        subs = subs.compact();
         if (!subs) {
             return;
         }
 
         if (mode == 'tog' || mode == 'expall') {
-            subs.compact().each(function(s) {
+            subs.each(function(s) {
                 if (!s.visible() && !s.childElements().size()) {
-                    need.push(s.previous().retrieve('mbox'));
+                    need.set(s.previous().retrieve('mbox'), 1);
                 }
             });
 
-            if (need.size()) {
-                if (mode == 'tog') {
-                    base.down('A').update(
-                        new Element('SPAN')
-                            .addClassName('imp-sidebar-mbox-loading')
-                            .update('[' + DimpCore.text.loading + ']')
-                    );
-                }
+            if (need.size() && mode == 'expall') {
                 this._listMboxes({
-                    all: ~~(mode == 'expall'),
+                    all: 1,
                     base: base,
-                    expall: ~~(mode == 'expall'),
-                    mboxes: need
+                    expall: 1,
+                    mboxes: need.keys()
                 });
                 return;
-            } else if (mode == 'tog') {
-                // Need to pass element here, since we might be working
-                // with 'special' mailboxes.
-                this.setMboxLabel(base);
             }
         }
 
@@ -3474,30 +3465,49 @@ var DimpBase = {
             if (mode == 'tog' ||
                 ((mode == 'exp' || mode == 'expall') && !s.visible()) ||
                 ((mode == 'col' || mode == 'colall') && s.visible())) {
-                s.previous().down().toggleClassName('exp').toggleClassName('col');
+                var mbox = s.previous().retrieve('mbox');
 
                 if (mode == 'col' ||
                     ((mode == 'tog') && s.visible())) {
-                    collapse.push(s.previous().retrieve('mbox'));
+                    collapse.push(mbox);
                 } else if (!noexpand &&
                            (mode == 'exp' ||
                             ((mode == 'tog') && !s.visible()))) {
-                    expand.push(s.previous().retrieve('mbox'));
+                    expand.push(mbox);
                 }
 
-                if (noeffect) {
-                    s.toggle();
-                } else {
-                    Effect.toggle(s, 'blind', {
-                        duration: 0.2,
-                        queue: {
-                            position: 'end',
-                            scope: 'subfolder'
+                Effect.toggle(s, 'blind', {
+                    beforeStart: function(e) {
+                        if (need.get(mbox)) {
+                            this.getMboxElt(mbox).down('A').update(
+                                new Element('SPAN')
+                                    .addClassName('imp-sidebar-mbox-loading')
+                                    .update('[' + DimpCore.text.loading + ']')
+                            );
+
+                            this._listMboxes({
+                                base: base,
+                                mboxes: [ mbox ]
+                            }, true);
+
+                            e.element = this.getSubMboxElt(mbox);
+
+                            // Need to pass element here, since we might be
+                            // working with 'special' mailboxes.
+                            this.setMboxLabel(this.getMboxElt(mbox));
                         }
-                    });
-                }
+                    }.bindAsEventListener(this),
+                    afterFinish: function() {
+                        this.getMboxElt(mbox).down().toggleClassName('exp').toggleClassName('col');
+                    }.bind(this),
+                    duration: noeffect ? 0 : 0.2,
+                    queue: {
+                        limit: 1,
+                        scope: 'subfolder' + mbox
+                    }
+                });
             }
-        });
+        }, this);
 
         if (DimpCore.conf.mbox_expand) {
             if (collapse.size()) {
@@ -3510,7 +3520,7 @@ var DimpBase = {
         }
     },
 
-    _listMboxes: function(params)
+    _listMboxes: function(params, sync)
     {
         params = params || {};
         params.unsub = ~~(!!this.showunsub);
@@ -3522,7 +3532,9 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params);
+        DimpCore.doAction('listMailboxes', params, {
+            ajaxopts: { asynchronous: !sync }
+        });
     },
 
     // For format of the ob object, see

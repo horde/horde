@@ -396,7 +396,6 @@ extends Horde_Core_Ajax_Application_Handler
                 }
             }
         } else {
-            $this->_base->queue->setMailboxOpt('expand', 1);
             $filter->add($filter::EXPANDED);
 
             foreach (IMP_Mailbox::formFrom(json_decode($this->vars->mboxes)) as $val) {

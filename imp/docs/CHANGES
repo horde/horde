@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Improved handling for multiple expand/collapse actions in the dynamic
+      folder list (Bug #13170).
 [mms] Provide visual UI info to user that file is uploading when drag/drop
       attachments in dynamic view.
 
