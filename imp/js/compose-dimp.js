@@ -365,7 +365,7 @@ var DimpCompose = {
                 sc.disable(disable);
             }
             if (ImpComposeBase.editor_on) {
-                this.RTELoading(disable ? 'show' : 'hide', true);
+                this.RTELoading(disable, true);
             }
 
             $('compose').setStyle({ cursor: disable ? 'wait' : null });
@@ -391,7 +391,7 @@ var DimpCompose = {
             return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
 
-        this.RTELoading('show');
+        this.RTELoading(true);
 
         if (active) {
             action = 'html2Text',
@@ -447,22 +447,26 @@ var DimpCompose = {
         }
     },
 
-    RTELoading: function(cmd, notxt)
+    RTELoading: function(show, notxt)
     {
         var o;
 
         if (!$('rteloading')) {
-            $(document.body).insert(new Element('DIV', { id: 'rteloading' }).hide()).insert(new Element('SPAN', { id: 'rteloadingtxt' }).hide().insert(DimpCore.text.loading));
+            $(document.body).insert(
+                new Element('DIV', { id: 'rteloading' }).hide()
+            ).insert(
+                new Element('SPAN', { id: 'rteloadingtxt' }).hide().insert(DimpCore.text.loading)
+            );
         }
 
-        if (cmd == 'hide') {
-            $('rteloading', 'rteloadingtxt').invoke('hide');
-        } else {
+        if (show) {
             $('rteloading').clonePosition('composeMessageParent').show();
             if (!notxt) {
                 o = $('rteloading').viewportOffset();
                 $('rteloadingtxt').setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).show();
             }
+        } else {
+            $('rteloading', 'rteloadingtxt').invoke('hide');
         }
     },
 
@@ -471,7 +475,7 @@ var DimpCompose = {
         if (ImpComposeBase.editor_on) {
             this.setBodyText({ body: $F('composeMessage') });
             $('composeMessage').next().show();
-            this.RTELoading('hide');
+            this.RTELoading(false);
         }
         this.sc_submit = false;
     },
@@ -484,7 +488,7 @@ var DimpCompose = {
 
         if (ImpComposeBase.editor_on) {
             this.rte.updateElement();
-            this.RTELoading('show', true);
+            this.RTELoading(true, true);
             $('composeMessage').next().hide();
         }
     },
@@ -492,7 +496,7 @@ var DimpCompose = {
     _onSpellCheckError: function()
     {
         if (ImpComposeBase.editor_on) {
-            this.RTELoading('hide');
+            this.RTELoading(false);
         }
     },
 
@@ -928,7 +932,7 @@ var DimpCompose = {
         $('composeMessage').setStyle({ height: mah + 'px' });
 
         if ($('rteloading') && $('rteloading').visible()) {
-            this.RTELoading('hide');
+            this.RTELoading(false);
         }
     },
 
@@ -1461,10 +1465,7 @@ var DimpCompose = {
         }
 
         this.addAttachmentEnd();
-
-        if ($('rteloading') && $('rteloading').visible()) {
-            this.RTELoading('hide');
-        }
+        this.RTELoading(false);
     }
 
 };
@@ -1512,7 +1513,7 @@ document.observe('IMP_Editor:ready', function(e) {
 }.bindAsEventListener(DimpCompose));
 document.observe('IMP_Editor:dataReady', function(e) {
     if (e.memo.name == 'composeMessage') {
-        this.RTELoading('hide');
+        this.RTELoading(false);
         e.memo.focus();
         this.resizeMsgArea();
     }
