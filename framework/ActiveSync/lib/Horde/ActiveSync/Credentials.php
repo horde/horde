@@ -29,7 +29,6 @@
  */
 class Horde_ActiveSync_Credentials
 {
-
     /**
      * The server object.
      *
