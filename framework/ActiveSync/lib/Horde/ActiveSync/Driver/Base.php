@@ -380,7 +380,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $type    The folder type, a Horde_ActiveSync::FOLDER_TYPE_*
      *                        constant. If empty, assumes FOLDER_TYPE_USER_MAIL
      * @param string $old_id  The previous folder name for this folder, if the
-     *                        folder is being renamed. @since 2.14.2
+     *                        folder is being renamed. @since 2.15.0
      *                        @todo This is tempoarary until 3.0 (H6) when we
      *                        will have the collection manager take care of ALL
      *                        of the folder name <-> UID mapping management.
