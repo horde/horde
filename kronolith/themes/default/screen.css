@@ -486,4 +486,8 @@ li.panel-tags {
     .kronolith-all-day td {
         height: auto;
     }
+
+    .kronolith-today {
+        background-color: inherit;
+    }
 }
