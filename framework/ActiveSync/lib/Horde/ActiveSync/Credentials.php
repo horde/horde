@@ -43,7 +43,7 @@ class Horde_ActiveSync_Credentials
      *
      * @var array
      */
-    protected $_credentials;
+    protected $_credentials = array();
 
     /**
      * Const'r
@@ -70,7 +70,7 @@ class Horde_ActiveSync_Credentials
     {
         switch ($property) {
         case 'username':
-            $this->_username = $value;
+            $this->_credentials[0] = $value;
             break;
         default:
             throw new InvalidArgumentException(sprintf('%s is not a valid property.', $property));
