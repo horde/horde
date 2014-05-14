@@ -1044,6 +1044,9 @@ class Horde_Registry implements Horde_Shutdown_Task
      *
      * @param string $func  The API function to call to get the list of
      *                      elements to search. Either 'methods' or 'links'.
+     *
+     * @return mixed  The application implementing $method, false if it
+     *                doesn't exist;
      */
     protected function _doHasSearch($method, $app, $func)
     {
@@ -1060,10 +1063,10 @@ class Horde_Registry implements Horde_Shutdown_Task
             switch ($func) {
             case 'links':
                 $links = $api_ob->links();
-                return isset($links[$call]);
+                return isset($links[$call]) ? $app : false;
 
             case 'methods':
-                return in_array($call, $api_ob->methods());
+                return in_array($call, $api_ob->methods()) ? $app : false;
             }
         }
 
