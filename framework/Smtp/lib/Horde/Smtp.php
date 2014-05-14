@@ -102,7 +102,7 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   port: (string) The SMTP port.
-     *         DEFAULT: 587
+     *         DEFAULT: 587 (See RFC 6409/STD 72)
      *  </li>
      *  <li>
      *   secure: (string) Use SSL or TLS to connect.
