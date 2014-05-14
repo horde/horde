@@ -22,7 +22,7 @@
         }
     ],
     "version": "2.0.8",
-    "time": "2013-07-16",
+    "time": "2014-05-14",
     "repositories": [
         {
             "type": "pear",
@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",

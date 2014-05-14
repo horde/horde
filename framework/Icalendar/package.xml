@@ -23,8 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-07-16</date>
- <time>19:27:35</time>
+ <date>2014-05-14</date>
  <version>
   <release>2.0.8</release>
   <api>1.1.0</api>
@@ -1121,7 +1120,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Export VTIMEZONE components only once per TZID (Bug #12988).
