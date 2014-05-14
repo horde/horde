@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-03</date>
+ <date>2014-05-14</date>
  <version>
   <release>2.19.6</release>
   <api>2.19.0</api>
@@ -198,6 +198,12 @@
       <file name="Horde_Imap_Client.po" role="data" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Imap_Client.mo" role="data" />
@@ -523,6 +529,8 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/fr/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fr/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/hu/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Imap_Client.po" name="locale/hu/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" />
@@ -2385,7 +2393,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-03</date>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround broken MIME parts that cannot be binary decoded on the server.
