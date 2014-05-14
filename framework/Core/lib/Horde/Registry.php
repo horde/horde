@@ -1018,14 +1018,10 @@ class Horde_Registry implements Horde_Shutdown_Task
     public function hasMethod($method, $app = null)
     {
         if (is_null($app)) {
-            list($interface, $call) = explode('/', $method, 2);
-            if (!empty($this->_interfaces[$method])) {
-                $app = $this->_interfaces[$method];
-            } elseif (!empty($this->_interfaces[$interface])) {
-                $app = $this->_interfaces[$interface];
-            } else {
+            if (($lookup = $this->_methodLookup($method)) === false) {
                 return false;
             }
+            list($app, $call) = $lookup;
         } else {
             $call = $method;
         }
@@ -1050,17 +1046,11 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function call($method, $args = array())
     {
-        list($interface, $call) = explode('/', $method, 2);
-
-        if (!empty($this->_interfaces[$method])) {
-            $app = $this->_interfaces[$method];
-        } elseif (!empty($this->_interfaces[$interface])) {
-            $app = $this->_interfaces[$interface];
-        } else {
+        if (($lookup = $this->_methodLookup($method)) === false) {
             throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
 
-        return $this->callByPackage($app, $call, $args);
+        return $this->callByPackage($lookup[0], $lookup[1], $args);
     }
 
     /**
@@ -1200,17 +1190,11 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function link($method, $args = array(), $extra = '')
     {
-        list($interface, $call) = explode('/', $method, 2);
-
-        if (!empty($this->_interfaces[$method])) {
-            $app = $this->_interfaces[$method];
-        } elseif (!empty($this->_interfaces[$interface])) {
-            $app = $this->_interfaces[$interface];
-        } else {
-            throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
+        if (($lookup = $this->_methodLookup($method)) === false) {
+            throw new Horde_Exception('The link "' . $method . '" is not defined in the Horde Registry.');
         }
 
-        return $this->linkByPackage($app, $call, $args, $extra);
+        return $this->linkByPackage($lookup[0], $lookup[1], $args, $extra);
     }
 
     /**
@@ -1272,6 +1256,26 @@ class Horde_Registry implements Horde_Shutdown_Task
         $link = preg_replace('|\|.+\||U', '', $link);
 
         return $link;
+    }
+
+    /**
+     * Do a lookup of method name -> app call.
+     *
+     * @param string $method  The method name.
+     *
+     * @return mixed  An array containing the app and method call, or false
+     *                if not found.
+     */
+    protected function _methodLookup($method)
+    {
+        list($interface, $call) = explode('/', $method, 2);
+        if (!empty($this->_interfaces[$method])) {
+            return array($this->_interfaces[$method], $call);
+        } elseif (!empty($this->_interfaces[$interface])) {
+            return array($this->_interfaces[$interface], $call);
+        }
+
+        return false;
     }
 
     /**
