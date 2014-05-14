@@ -202,18 +202,6 @@ abstract class IMP_Flag_Base implements Serializable
     }
 
     /**
-     * Determine if the message should be deselected after changing.
-     *
-     * @param boolean $set  Was the flag set?
-     *
-     * @return boolean  True if messages should be deselected.
-     */
-    public function deselect($set)
-    {
-        return false;
-    }
-
-    /**
      * Return the flag label.
      * Necessary evil as gettext strings can not be set directly to object
      * properties.

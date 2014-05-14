@@ -3364,10 +3364,6 @@ var DimpBase = {
                         this.updateFlag(s, f, false);
                     }, this);
                 }
-
-                if (entry.deselect) {
-                    this.viewport.deselect(s);
-                }
             }, this);
         }, this);
     },

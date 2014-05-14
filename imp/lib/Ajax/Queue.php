@@ -132,7 +132,6 @@ class IMP_Ajax_Queue
      *   - add: (array) The list of flags that were added.
      *   - buids: (string) Indices of the messages that have changed (IMAP
      *            sequence string; mboxes are base64url encoded).
-     *   - deselect: (boolean) If true, deselect the uids.
      *   - remove: (array) The list of flags that were removed.
      *   - replace: (array) Replace the flag list with these flags.
      *
@@ -379,21 +378,9 @@ class IMP_Ajax_Queue
         $result = new stdClass;
         if (!empty($changed['add'])) {
             $result->add = array_map('strval', $changed['add']);
-            foreach ($changed['add'] as $val) {
-                if ($val->deselect(true)) {
-                    $result->deselect = true;
-                    break;
-                }
-            }
         }
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
-            foreach ($changed['remove'] as $val) {
-                if ($val->deselect(false)) {
-                    $result->deselect = true;
-                    break;
-                }
-            }
         }
 
         $result->buids = $indices->toArray();
