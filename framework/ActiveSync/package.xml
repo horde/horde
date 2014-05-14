@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-07</date>
+ <date>2014-05-14</date>
  <version>
   <release>2.14.2</release>
   <api>2.14.0</api>
@@ -126,6 +126,7 @@
        <file name="Encoder.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Wbxml -->
       <file name="Collections.php" role="php" />
+      <file name="Credentials.php" role="php" />
       <file name="Device.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Policies.php" role="php" />
@@ -175,6 +176,12 @@
       <file name="Horde_ActiveSync.po" role="data" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_ActiveSync.mo" role="data" />
@@ -390,6 +397,7 @@
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
    <install as="Horde/ActiveSync/Collections.php" name="lib/Horde/ActiveSync/Collections.php" />
+   <install as="Horde/ActiveSync/Credentials.php" name="lib/Horde/ActiveSync/Credentials.php" />
    <install as="Horde/ActiveSync/Device.php" name="lib/Horde/ActiveSync/Device.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
@@ -479,6 +487,8 @@
    <install as="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" name="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/fr/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_ActiveSync.po" name="locale/fr/LC_MESSAGES/Horde_ActiveSync.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/hu/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_ActiveSync.po" name="locale/hu/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" />
@@ -2095,7 +2105,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-07</date>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).

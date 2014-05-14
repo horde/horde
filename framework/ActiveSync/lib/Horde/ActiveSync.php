@@ -513,31 +513,14 @@ class Horde_ActiveSync
     /**
      * Authenticate to the backend.
      *
+     * @param Horde_ActiveSync_Credentials $credentials  The credentials object.
+     *
      * @return boolean  True on successful authentication to the backend.
      * @throws Horde_ActiveSync_Exception
      */
-    public function authenticate($username = '')
+    public function authenticate(Horde_ActiveSync_Credentials $credentials)
     {
-        // Get credentials
-        $serverVars = $this->_request->getServerVars();
-        $user = $pass = '';
-        if (!empty($serverVars['PHP_AUTH_PW'])) {
-            $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
-            $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) || !empty($serverVars['Authorization'])) {
-            // Some clients use the non-standard 'Authorization' header.
-            $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
-                ? $serverVars['HTTP_AUTHORIZATION']
-                : $serverVars['Authorization'];
-            $hash = base64_decode(str_replace('Basic ', '', $authorization));
-            if (strpos($hash, ':') !== false) {
-                list($user, $pass) = explode(':', $hash, 2);
-            }
-            $user = !empty($username) ? $username : $user;
-        } elseif (!empty($username)) {
-            // Might not need a password, could be using X509 cert.
-            $user = $username;
-        } else {
+        if (!$credentials->username) {
             // No provided username or Authorization header.
             self::$_logger->notice(sprintf(
                 '[%s] Client did not provide authentication data.',
@@ -545,7 +528,8 @@ class Horde_ActiveSync
             );
             return false;
         }
-        $user = $this->_driver->getUsernameFromEmail($user);
+
+        $user = $this->_driver->getUsernameFromEmail($credentials->username);
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
@@ -555,7 +539,7 @@ class Horde_ActiveSync
         }
 
         // Authenticate
-        if ($result = $this->_driver->authenticate($user, $pass, $domain)) {
+        if ($result = $this->_driver->authenticate($user, $credentials->password, $domain)) {
             if ($result === self::AUTH_REASON_USER_DENIED) {
                 $this->_globalError = Horde_ActiveSync_Status::SYNC_NOT_ALLOWED;
             } elseif ($result === self::AUTH_REASON_DEVICE_DENIED) {
@@ -716,8 +700,7 @@ class Horde_ActiveSync
             $this->_driver->clearAuthentication();
             return $result;
         }
-
-        if (!$this->authenticate(!empty($get['User']) ? $get['User'] : '')) {
+        if (!$this->authenticate(new Horde_ActiveSync_Credentials($this))) {
             $this->activeSyncHeader();
             $this->versionHeader();
             $this->commandsHeader();
