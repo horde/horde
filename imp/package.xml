@@ -22,14 +22,14 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-09</date>
+ <date>2014-05-14</date>
  <version>
-  <release>6.2.0alpha2</release>
+  <release>6.2.0beta1</release>
   <api>6.2.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -94,6 +94,7 @@
     <file name="dimpbase.js" role="horde" />
     <file name="dimpcore.js" role="horde" />
     <file name="draghandler.js" role="horde" />
+    <file name="editor.js" role="horde" />
     <file name="flagprefs.js" role="horde" />
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
@@ -1530,6 +1531,7 @@
    <install as="imp/js/dimpbase.js" name="js/dimpbase.js" />
    <install as="imp/js/dimpcore.js" name="js/dimpcore.js" />
    <install as="imp/js/draghandler.js" name="js/draghandler.js" />
+   <install as="imp/js/editor.js" name="js/editor.js" />
    <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
@@ -3590,12 +3592,12 @@
   </release>
   <release>
    <version>
-    <release>6.2.0alpha2</release>
+    <release>6.2.0beta1</release>
     <api>6.2.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2014-05-09</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.

@@ -28,19 +28,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-05-02</date>
+ <date>2014-05-14</date>
  <version>
-  <release>2.12.0alpha2</release>
+  <release>2.12.0beta1</release>
   <api>2.12.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3385,16 +3386,17 @@
   </release>
   <release>
    <version>
-    <release>2.12.0alpha2</release>
+    <release>2.12.0beta1</release>
     <api>2.12.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2014-05-02</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
    </notes>
   </release>
  </changelog>
