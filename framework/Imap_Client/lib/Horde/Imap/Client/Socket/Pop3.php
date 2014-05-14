@@ -625,6 +625,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $res = $tmp;
         }
 
+        if (!empty($options['partial'])) {
+            $partial = $this->getIdsOb($options['partial'], true);
+            $min = $partial->min - 1;
+            $res = array_slice($res, $min, $partial->max - $min);
+        }
+
         $ret = array();
         foreach ($options['results'] as $val) {
             switch ($val) {

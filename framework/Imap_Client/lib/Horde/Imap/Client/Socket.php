@@ -2121,6 +2121,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $charset = is_null($options['_query']['charset'])
             ? 'US-ASCII'
             : $options['_query']['charset'];
+        $partial = false;
 
         if ($server_sort) {
             $cmd = $this->_command(
@@ -2156,6 +2157,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     $results[] = 'PARTIAL';
                     $results[] = $options['partial'];
+                    $partial = true;
                 }
             }
 
@@ -2207,6 +2209,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     $results[] = 'PARTIAL';
                     $results[] = $options['partial'];
+                    $partial = true;
                 }
             }
 
@@ -2301,11 +2304,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        if (!$partial && !empty($options['partial'])) {
+            $partial = $this->getIdsOb($options['partial'], true);
+            $min = $partial->min - 1;
+
+            $sr->sort();
+            $sr = $this->getIdsOb(
+                array_slice($sr->ids(), $min, $partial->max - $min),
+                !empty($options['sequence'])
+            );
+        }
+
         $ret = array();
         foreach ($options['results'] as $val) {
             switch ($val) {
             case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
-                $ret['count'] = $esearch ? $er['count'] : count($sr);
+                $ret['count'] = ($esearch && !$partial)
+                    ? $er['count']
+                    : count($sr);
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
@@ -2314,13 +2330,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::SEARCH_RESULTS_MAX:
                 $ret['max'] = $esearch
-                    ? (isset($er['max']) ? $er['max'] : null)
+                    ? (!$partial && isset($er['max']) ? $er['max'] : null)
                     : (count($sr) ? max($sr->ids) : null);
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MIN:
                 $ret['min'] = $esearch
-                    ? (isset($er['min']) ? $er['min'] : null)
+                    ? (!$partial && isset($er['min']) ? $er['min'] : null)
                     : (count($sr) ? min($sr->ids) : null);
                 break;
 
