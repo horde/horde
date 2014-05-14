@@ -48,7 +48,12 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
         }
 
         if (strcasecmp($transport, 'smtp') === 0) {
-            $transport = 'Smtphorde';
+            if (empty($params['lmtp'])) {
+                $transport = 'Smtphorde';
+            } else {
+                unset($params['lmtp']);
+                $transport = 'Lmtphorde';
+            }
         }
 
         if (empty($params['auth'])) {

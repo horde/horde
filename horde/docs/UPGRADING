@@ -59,6 +59,8 @@ It is now possible to use X509 certificates either in addition to, or in place
 of traditional HTTP Basic authentication for ActiveSync. Refer to the
 ActiveSync configuration section for more details.
 
+An additional option is now available for the SMTP Mailer driver: 'lmtp'.
+
 A new NoSQL driver is now available for storing ActiveSync device state. Refer
 to the ActiveSync configuration section for more details.
 

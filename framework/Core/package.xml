@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support LMTP servers when sending mail.
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
 * [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
@@ -1190,13 +1191,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Smtp</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1383,7 +1377,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3394,6 +3388,7 @@
    <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support LMTP servers when sending mail.
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
 * [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).

@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Support LMTP servers when sending mail.
 [mms] Fix regression where creating a mailbox that is currently a container
       would not subscribe to that mailbox.
 [mms] Add checks to ensure that saved session expiration message was created by

@@ -39,11 +39,13 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
 The major changes compared to IMP version H5 (6.2.0alpha1) are:
+    * LMTP servers are now supported for sending mail.
     * Small improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+LMTP servers are now supported for sending mail.
 Small improvements.
 FM;
 

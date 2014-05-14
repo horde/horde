@@ -1363,7 +1363,7 @@
    <configswitch name="type" desc="What method should we use for sending
    mail?">sendmail
     <case name="null" desc="Disable mailing" />
-    <case name="sendmail" desc="Use the local sendmail binary">
+    <case name="sendmail" desc="Local sendmail binary">
      <configsection name="params">
       <configstring name="sendmail_path" required="false" desc="The location
       of the sendmail binary on the filesystem
@@ -1378,7 +1378,7 @@
       blank, the system default is used)."></configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server (HIGHLY RECOMMENDED)">
+    <case name="smtp" desc="SMTP server (HIGHLY RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
@@ -1397,6 +1397,8 @@
       for SMTP auth. If empty, uses the Horde authentication username."/>
       <configstring name="password" required="false" desc="The password to use
       for SMTP auth. If empty, uses the Horde authentication password."/>
+      <configboolean name="lmtp" required="false" desc="Is this an LMTP
+      (Local Mail Transfer Protocol) server?">false</configboolean>
      </configsection>
     </case>
    </configswitch>

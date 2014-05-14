@@ -94,6 +94,7 @@ SMTP
 The following SMTP extensions/features are supported
 
 :STD 10/RFC 1870: Message Size Declaration
+:RFC 2033:        Local Mail Transfer Protocol (LMTP)
 :RFC 2034:        Enhanced-Status-Codes
 :RFC 2195:        CRAM-MD5 (SASL Authentication)
 :RFC 2595/4616:   TLS & PLAIN (SASL Authentication)
