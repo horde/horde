@@ -38,7 +38,7 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
      *                                         Horde_Notification_Handler for
      *                                         details).
      */
-    final public function push(Horde_Notification_Event $event, $options)
+    public function push(Horde_Notification_Event $event, $options)
     {
         global $registry;
 
@@ -78,7 +78,7 @@ class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_
      *
      * @throws Horde_Notification_Exception
      */
-    final public function notify(
+    public function notify(
         Horde_Notification_Handler $handler,
         Horde_Notification_Listener $listener
     )
