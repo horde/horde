@@ -481,6 +481,7 @@ class Horde_Icalendar
         $this->_attributes = $this->_components = array();
     }
 
+    public function toString() { return $this->exportvCalendar(); }
     /**
      * Export as vCalendar format.
      *
@@ -1130,8 +1131,15 @@ class Horde_Icalendar
             }
         }
 
+        $tzs = array();
         foreach ($this->_components as $component) {
-            $result .= $component->exportvCalendar();
+            if (!($component instanceof Horde_Icalendar_Vtimezone) ||
+                !isset($tzs[$component->getAttribute('TZID')])) {
+                $result .= $component->exportvCalendar();
+                if ($component instanceof Horde_Icalendar_Vtimezone) {
+                    $tzs[$component->getAttribute('TZID')] = true;
+                }
+            }
         }
 
         return $result . 'END:' . $base . $this->_newline;

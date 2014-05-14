@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Export VTIMEZONE components only once per TZID (Bug #12988).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1124,7 +1124,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Export VTIMEZONE components only once per TZID (Bug #12988).
    </notes>
   </release>
  </changelog>

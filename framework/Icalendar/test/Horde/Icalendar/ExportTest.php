@@ -211,5 +211,110 @@ END:VCALENDAR
 ',
             $ical->exportVCalendar()
         );
+
+        $ical = new Horde_Icalendar();
+        $tz = $ical->parsevCalendar(
+            'BEGIN:VCALENDAR
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19800406T010000
+RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU;UNTIL=19800406T00000Z
+TZNAME:CEST
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19800928T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=9;UNTIL=19950923T23000Z
+TZNAME:CE-T
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19810329T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3
+TZNAME:CEST
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19961027T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
+TZNAME:CE-T
+END:STANDARD
+END:VTIMEZONE
+END:VCALENDAR
+'
+        );
+        $tz = $ical->getComponent(0);
+        $ical = new Horde_Icalendar();
+        $ical->addComponent($tz);
+        $event = Horde_Icalendar::newComponent('vevent', $ical);
+        $event->setAttribute('UID', 'uid');
+        $event->setAttribute('DTSTAMP', $date);
+        $date->setTimezone('Europe/Berlin');
+        $event->setAttribute('DTSTART', $date, array('TZID' => 'Europe/Berlin'));
+        $ical->addComponent($event);
+        $ical->addComponent($tz);
+        $event = Horde_Icalendar::newComponent('vevent', $ical);
+        $event->setAttribute('UID', 'uid2');
+        $event->setAttribute('DTSTAMP', $date);
+        $date->setTimezone('Europe/Berlin');
+        $start = clone $date;
+        $start->mday++;
+        $event->setAttribute('DTSTART', $start, array('TZID' => 'Europe/Berlin'));
+        $ical->addComponent($event);
+        $this->assertEquals(
+            'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19800406T010000
+RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU;UNTIL=19800406T00000Z
+TZNAME:CEST
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19800928T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=9;UNTIL=19950923T23000Z
+TZNAME:CE-T
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19810329T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3
+TZNAME:CEST
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19961027T010000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
+TZNAME:CE-T
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:uid
+DTSTAMP:20100101T010000Z
+DTSTART;TZID=Europe/Berlin:20100101T020000
+END:VEVENT
+BEGIN:VEVENT
+UID:uid2
+DTSTAMP:20100101T010000Z
+DTSTART;TZID=Europe/Berlin:20100102T020000
+END:VEVENT
+END:VCALENDAR
+',
+            $ical->exportVCalendar()
+        );
     }
 }
