@@ -1033,6 +1033,11 @@ var ViewPort = Class.create({
         return !!this.views[view];
     },
 
+    bufferCount: function()
+    {
+        return Object.keys(this.views).size();
+    },
+
     currentOffset: function()
     {
         return this.scroller.currentOffset();

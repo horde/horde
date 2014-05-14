@@ -662,8 +662,6 @@ var DimpBase = {
             this.updateTitle();
 
             if (this.viewswitch) {
-                this.viewswitch = false;
-
                 if (this.selectedCount()) {
                     if (DimpCore.getPref('preview')) {
                         this.initPreviewPane();
@@ -703,6 +701,11 @@ var DimpBase = {
                 if ((tmp = $('button_delete'))) {
                     [ tmp.up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 }
+
+                // Reset variable at end of block, since other code may be
+                // conditional depending on whether we just switched to the
+                // mailbox.
+                this.viewswitch = false;
             } else if (this.filtertoggle && this.isThreadSort()) {
                 ssc = DimpCore.conf.sort.get('date').v;
             }
@@ -1720,7 +1723,7 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, last, p, rows, pp_uid,
+        var curr, last, p, peek, pp_uid, rows,
             msgload = {};
 
         if (!DimpCore.getPref('preview')) {
@@ -1754,6 +1757,8 @@ var DimpBase = {
             }
         }
 
+        peek = this.viewswitch && (this.viewport.bufferCount() > 1);
+
         if (!params) {
             if (!data ||
                 (this.pp &&
@@ -1768,11 +1773,13 @@ var DimpBase = {
             pp_uid = this._getPPId(data.VP_id, data.VP_view);
 
             if (this.ppfifo.indexOf(pp_uid) !== -1) {
-                this.flag(DimpCore.conf.FLAG_SEEN, true, {
-                    buid: data.VP_id,
-                    mailbox: data.VP_view,
-                    params: msgload
-                });
+                if (!peek) {
+                    this.flag(DimpCore.conf.FLAG_SEEN, true, {
+                        buid: data.VP_id,
+                        mailbox: data.VP_view,
+                        params: msgload
+                    });
+                }
                 return this._loadPreview(data.VP_id, data.VP_view);
             }
 
@@ -1780,6 +1787,9 @@ var DimpBase = {
         }
 
         params = Object.extend(params, msgload);
+        if (peek) {
+            params.peek = 1;
+        }
         params.preview = 1;
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
