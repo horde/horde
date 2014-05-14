@@ -63,6 +63,10 @@ class Horde_Smtp_Exception extends Horde_Exception
     // Requires authentication.
     const LOGIN_REQUIREAUTHENTICATION = 102;
 
+    // Server does not support necessary extension(s).
+    // @since 1.5.0
+    const LOGIN_MISSINGEXTENSION = 103;
+
 
     /**
      * Raw error message (in English).

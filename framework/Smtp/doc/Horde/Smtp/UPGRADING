@@ -11,6 +11,25 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.5.0
+==================
+
+  - Horde_Smtp
+
+    - send()
+
+      Now returns an array of information on successful send to at least one
+      receipient.
+
+  - Horde_Smtp_Exception
+
+    Added the LOGIN_MISSINGEXTENSION error code.
+
+  - Horde_Smtp_Lmtp
+
+    Added the LMTP driver (RFC 2033).
+
+
 Upgrading to 1.4.0
 ==================
 

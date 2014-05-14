@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-05-14</date>
  <version>
   <release>1.4.2</release>
   <api>1.4.0</api>
@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Smtp#send() now returns recipient status information if at least one recipient was successfully accepted.
+* [mms] Added an LMTP (RFC 2033) driver.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
  </notes>
  <contents>
@@ -45,6 +47,7 @@
       <file name="Connection.php" role="php" />
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Lmtp.php" role="php" />
       <file name="Password.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -60,6 +63,12 @@
       <file name="Horde_Smtp.po" role="data" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Smtp.mo" role="data" />
+      <file name="Horde_Smtp.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <file name="Horde_Smtp.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -155,6 +164,7 @@
    <install as="Horde/Smtp/Connection.php" name="lib/Horde/Smtp/Connection.php" />
    <install as="Horde/Smtp/Debug.php" name="lib/Horde/Smtp/Debug.php" />
    <install as="Horde/Smtp/Exception.php" name="lib/Horde/Smtp/Exception.php" />
+   <install as="Horde/Smtp/Lmtp.php" name="lib/Horde/Smtp/Lmtp.php" />
    <install as="Horde/Smtp/Password.php" name="lib/Horde/Smtp/Password.php" />
    <install as="Horde/Smtp/Translation.php" name="lib/Horde/Smtp/Translation.php" />
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
@@ -162,6 +172,8 @@
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
    <install as="locale/da/LC_MESSAGES/Horde_Smtp.mo" name="locale/da/LC_MESSAGES/Horde_Smtp.mo" />
    <install as="locale/da/LC_MESSAGES/Horde_Smtp.po" name="locale/da/LC_MESSAGES/Horde_Smtp.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Smtp.mo" name="locale/hu/LC_MESSAGES/Horde_Smtp.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Smtp.po" name="locale/hu/LC_MESSAGES/Horde_Smtp.po" />
    <install as="Horde/Smtp/AllTests.php" name="test/Horde/Smtp/AllTests.php" />
    <install as="Horde/Smtp/bootstrap.php" name="test/Horde/Smtp/bootstrap.php" />
    <install as="Horde/Smtp/conf.php.dist" name="test/Horde/Smtp/conf.php.dist" />
@@ -360,9 +372,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Smtp#send() now returns recipient status information if at least one recipient was successfully accepted.
+* [mms] Added an LMTP (RFC 2033) driver.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
    </notes>
   </release>

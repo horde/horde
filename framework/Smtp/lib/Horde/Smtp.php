@@ -66,7 +66,14 @@ class Horde_Smtp implements Serializable
     protected $_debug;
 
     /**
-     * The list of extensions.
+     * The hello command to use for extended SMTP support.
+     *
+     * @var string
+     */
+    protected $_ehlo = 'EHLO';
+
+    /**
+     * The list of ESMTP extensions.
      * If this value is null, we have not connected to server yet.
      *
      * @var array
@@ -79,6 +86,13 @@ class Horde_Smtp implements Serializable
      * @var array
      */
     protected $_params = array();
+
+    /**
+     * List of required ESMTP extensions.
+     *
+     * @var array
+     */
+    protected $_requiredExts = array();
 
     /**
      * Constructor.
@@ -364,46 +378,25 @@ class Horde_Smtp implements Serializable
             $this->_getResponse(220, 'logout');
         }
 
-        $ehlo = $host = gethostname();
-        if ($host === false) {
-            $ehlo = $_SERVER['SERVER_ADDR'];
-            $host = 'localhost';
-        }
-
-        $this->_connection->write('EHLO ' . $ehlo);
-        try {
-            $resp = $this->_getResponse(250);
-
-            foreach ($resp as $val) {
-                $tmp = explode(' ', $val, 2);
-                $this->_extensions[$tmp[0]] = empty($tmp[1])
-                    ? true
-                    : $tmp[1];
-            }
-        } catch (Horde_Smtp_Exception $e) {
-            switch ($e->getSmtpCode()) {
-            case 502:
-                // Old server - doesn't support EHLO
-                $this->_connection->write('HELO ' . $host);
-                try {
-                    $this->_getResponse(250);
-                } catch (Horde_Smtp_Exception $e2) {
-                    $this->logout();
-                    throw $e;
-                }
-                $this->_extensions = array();
-                break;
-
-            default:
-                $this->logout();
-                throw $e;
-            }
-        }
+        $this->_hello();
 
         if ($this->_startTls()) {
             $this->_extensions = null;
             $this->login();
             return;
+        }
+
+        /* Check for required ESMTP extensions. */
+        foreach ($this->_requiredExts as $val) {
+            if (!$this->queryExtension($val)) {
+                throw new Horde_Smtp_Exception(
+                    sprintf(
+                        Horde_Smtp_Translation::r("Server does not support a necessary server extension: %s."),
+                        $val
+                    ),
+                    Horde_Smtp_Exception::LOGIN_MISSINGEXTENSION
+                );
+            }
         }
 
         /* If we reached this point and don't have a secure connection, then
@@ -477,6 +470,14 @@ class Horde_Smtp implements Serializable
      *           DEFAULT: false
      * </pre>
      *
+     * @return array  If no receipients were successful, a
+     *                Horde_Smtp_Exception will be thrown. If at least one
+     *                recipient was successful, an array with the following
+     *                format is returned: (@since 1.5.0)
+     *   - KEYS: Recipient addresses ($to addresses).
+     *   - VALUES: Boolean true (if message was accepted for this recpieint)
+     *             or a Horde_Smtp_Exception (if messages was not accepted).
+     *
      * @throws Horde_Smtp_Exception
      */
     public function send($from, $to, $data, array $opts = array())
@@ -512,7 +513,8 @@ class Horde_Smtp implements Serializable
             $to = new Horde_Mail_Rfc822_List($to);
         }
 
-        foreach ($to->bare_addresses_idn as $val) {
+        $recipients = $to->bare_addresses_idn;
+        foreach ($recipients as $val) {
             $cmds[] = 'RCPT TO:<' . $val . '>';
         }
 
@@ -579,7 +581,8 @@ class Horde_Smtp implements Serializable
         stream_filter_remove($res);
 
         $this->_connection->write('.');
-        $this->_getResponse(250, 'reset');
+
+        return $this->_processData($recipients);
     }
 
     /**
@@ -617,6 +620,50 @@ class Horde_Smtp implements Serializable
     }
 
     /* Internal methods. */
+
+    /**
+     * Send "Hello" command to the server.
+     *
+     * @throws Horde_Smtp_Exception
+     */
+    protected function _hello()
+    {
+        $ehlo = $host = gethostname();
+        if ($host === false) {
+            $ehlo = $_SERVER['SERVER_ADDR'];
+            $host = 'localhost';
+        }
+
+        $this->_connection->write($this->_ehlo . ' ' . $ehlo);
+        try {
+            $resp = $this->_getResponse(250);
+
+            foreach ($resp as $val) {
+                $tmp = explode(' ', $val, 2);
+                $this->_extensions[$tmp[0]] = empty($tmp[1])
+                    ? true
+                    : $tmp[1];
+            }
+        } catch (Horde_Smtp_Exception $e) {
+            switch ($e->getSmtpCode()) {
+            case 502:
+                // Old server - doesn't support EHLO
+                $this->_connection->write('HELO ' . $host);
+                try {
+                    $this->_getResponse(250);
+                } catch (Horde_Smtp_Exception $e2) {
+                    $this->logout();
+                    throw $e;
+                }
+                $this->_extensions = array();
+                break;
+
+            default:
+                $this->logout();
+                throw $e;
+            }
+        }
+    }
 
     /**
      * Starts the TLS connection to the server, if necessary.  See RFC 3207.
@@ -832,6 +879,22 @@ class Horde_Smtp implements Serializable
         }
 
         throw $e;
+    }
+
+    /**
+     * Process the return from the DATA command.
+     *
+     * @see _send()
+     *
+     * @param array $recipients  The list of message recipients.
+     *
+     * @return array  See _send().
+     * @throws Horde_Smtp_Exception
+     */
+    protected function _processData($recipients)
+    {
+        $this->_getResponse(250, 'reset');
+        return array_fill_keys($recipients, true);
     }
 
 }
