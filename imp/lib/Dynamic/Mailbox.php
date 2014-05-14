@@ -336,7 +336,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
         }
-        if (!$registry->hasInterface('mail/newEmailFilter')) {
+        if (!$registry->hasLink('mail/newEmailFilter')) {
             unset($context['ctx_message']['addfilter']);
         }
         if ($prefs->getValue('use_trash')) {

@@ -165,7 +165,7 @@ abstract class IMP_Dynamic_Base
             )
         );
 
-        if ($registry->hasInterface('mail/newEmailFilter')) {
+        if ($registry->hasLink('mail/newEmailFilter')) {
             $context['ctx_contacts']['addfilter'] = _("Create Filter");
         }
 
