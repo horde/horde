@@ -23,6 +23,8 @@
  * @property-read boolean $all  Does this represent an ALL message set?
  * @property-read array $ids  The list of IDs.
  * @property-read boolean $largest  Does this represent the largest ID in use?
+ * @property-read string $max  The largest ID (@since 2.20.0).
+ * @property-read string $min  The smallest ID (@since 2.20.0).
  * @property-read string $range_string  Generates a range string consisting of
  *                                      all messages between begin and end of
  *                                      ID list.
@@ -101,14 +103,21 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         case 'largest':
             return ($this->_ids === self::LARGEST);
 
+        case 'max':
+            $this->sort();
+            return end($this->_ids);
+
+        case 'min':
+            $this->sort();
+            return reset($this->_ids);
+
         case 'range_string':
             if (!count($this)) {
                 return '';
             }
 
-            $this->sort();
-            $min = reset($this->_ids);
-            $max = end($this->_ids);
+            $min = $this->min;
+            $max = $this->max;
 
             return ($min == $max)
                 ? $min

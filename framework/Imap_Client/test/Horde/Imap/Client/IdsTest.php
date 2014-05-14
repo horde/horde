@@ -311,4 +311,40 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMinAndMax()
+    {
+        $ids = new Horde_Imap_Client_Ids(array(1));
+
+        $this->assertEquals(
+            1,
+            $ids->min
+        );
+        $this->assertEquals(
+            1,
+            $ids->max
+        );
+
+        $ids2 = new Horde_Imap_Client_Ids(array(1, 2));
+
+        $this->assertEquals(
+            1,
+            $ids2->min
+        );
+        $this->assertEquals(
+            2,
+            $ids2->max
+        );
+
+        $ids3 = new Horde_Imap_Client_Ids(array(1, 5, 3));
+
+        $this->assertEquals(
+            1,
+            $ids3->min
+        );
+        $this->assertEquals(
+            5,
+            $ids3->max
+        );
+    }
+
 }

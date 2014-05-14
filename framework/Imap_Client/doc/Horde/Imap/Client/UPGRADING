@@ -11,6 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.20.0
+===================
+
+  - Horde_Imap_Client_Ids
+
+    - min
+    - max
+
+      These properties have been added.
+
+
 Upgrading to 2.19.0
 ===================
 
