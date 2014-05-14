@@ -2593,11 +2593,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $results->get($sequence ? $k : $v->getUid())->merge($v);
             }
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            // A NO response, when coupled with a sequence FETCH, most
-            // likely means that messages were expunged. RFC 2180 [4.1]
-            if ($sequence &&
-                ($e->status === Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->noop();
+            if ($e->status === Horde_Imap_Client_Interaction_Server::NO) {
+                if ($e->getCode() === $e::UNKNOWNCTE) {
+                    /* UNKNOWN-CTE error. Redo the query without the BINARY
+                     * elements. */
+                    $bq = $pipeline->data['binaryquery'];
+
+                    foreach ($queries as $val) {
+                        foreach ($bq as $key2 => $val2) {
+                            unset($val2['decode']);
+                            $val['_query']->bodyPart($key2, $val2);
+                            $val['_query']->remove(Horde_Imap_Client::FETCH_BODYPARTSIZE, $key2);
+                        }
+                        $pipeline->data['fetch_followup'][] = $val;
+                    }
+                } elseif ($sequence) {
+                    /* A NO response, when coupled with a sequence FETCH, most
+                     * likely means that messages were expunged. (RFC 2180
+                     * [4.1]) */
+                    $this->noop();
+                }
             }
         } catch (Exception $e) {
             // For any other error, ignore the Exception - fetch() is nice in
@@ -2703,7 +2718,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if (!empty($val['decode']) &&
                             $this->queryCapability('BINARY')) {
                             $main_cmd = 'BINARY';
-                            $pipeline->data['binaryquery'] = $val;
+                            $pipeline->data['binaryquery'][$key] = $val;
                         }
                         break;
 
@@ -2981,7 +2996,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         /* Dovecot bug (as of 2.2.12): binary fetch of body
                          * part may fail with NIL return if decoding failed on
                          * server. Try again with non-decoded body. */
-                        $bq = $pipeline->data['binaryquery'];
+                        $bq = $pipeline->data['binaryquery'][$tag];
                         unset($bq['decode']);
 
                         $query = new Horde_Imap_Client_Fetch_Query();
