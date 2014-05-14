@@ -2145,36 +2145,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             $ret = $this->_search($query, $options);
         } else {
-            $ret = array();
-
-            foreach ($options['results'] as $val) {
-                switch ($val) {
-                case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
-                    $ret['count'] = 0;
-                    break;
-
-                case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                    $ret['match'] = $this->getIdsOb();
-                    break;
-
-                case Horde_Imap_Client::SEARCH_RESULTS_MAX:
-                    $ret['max'] = null;
-                    break;
-
-                case Horde_Imap_Client::SEARCH_RESULTS_MIN:
-                    $ret['min'] = null;
-                    break;
-
-                case Horde_Imap_Client::SEARCH_RESULTS_MIN:
-                    if (isset($status_res['highestmodseq'])) {
-                        $ret['modseq'] = $status_res['highestmodseq'];
-                    }
-                    break;
-
-                case Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY:
-                    $ret['relevancy'] = array();
-                    break;
-                }
+            $ret = array(
+                'count' => 0,
+                'match' => $this->getIdsOb(),
+                'max' => null,
+                'min' => null,
+                'relevancy' => array()
+            );
+            if (isset($status_res['highestmodseq'])) {
+                $ret['modseq'] = $status_res['highestmodseq'];
             }
         }
 
