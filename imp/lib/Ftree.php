@@ -767,9 +767,13 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     protected function _insertElt($elt)
     {
         $name = $this->_normalize($elt['v']);
-        if (isset($this->_elts[$name]) ||
-            ($this->getAttribute('container', $name) === false)) {
-            return;
+
+        $container = false;
+        if (isset($this->_elts[$name])) {
+            if ($this->getAttribute('container', $name) === false) {
+                return;
+            }
+            $container = true;
         }
 
         $p_elt = $this[isset($elt['p']) ? $elt['p'] : self::BASE_ELT];
@@ -783,7 +787,11 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         $this->_parent[$parent][] = $name;
         $this->_elts[$name] = $elt['a'];
 
-        $this->eltdiff->add($name);
+        if ($container) {
+            $this->eltdiff->change($name);
+        } else {
+            $this->eltdiff->add($name);
+        }
 
         /* Check for polled status. */
         $this->setAttribute('polled', $name, $this->poll[$name]);
