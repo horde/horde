@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-02</date>
+ <date>2014-05-14</date>
  <version>
-  <release>2.2.1</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Add Horde_Mail_Transport_Lmtphorde driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,6 +45,7 @@
        <file name="Object.php" role="php" />
       </dir> <!-- /lib/Horde/Mail/Rfc822 -->
       <dir name="Transport">
+       <file name="Lmtphorde.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Null.php" role="php" />
@@ -114,7 +115,7 @@
    <package>
     <name>Horde_Smtp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.5.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -156,6 +157,7 @@
    <install as="Horde/Mail/Rfc822/Identification.php" name="lib/Horde/Mail/Rfc822/Identification.php" />
    <install as="Horde/Mail/Rfc822/List.php" name="lib/Horde/Mail/Rfc822/List.php" />
    <install as="Horde/Mail/Rfc822/Object.php" name="lib/Horde/Mail/Rfc822/Object.php" />
+   <install as="Horde/Mail/Transport/Lmtphorde.php" name="lib/Horde/Mail/Transport/Lmtphorde.php" />
    <install as="Horde/Mail/Transport/Mail.php" name="lib/Horde/Mail/Transport/Mail.php" />
    <install as="Horde/Mail/Transport/Mock.php" name="lib/Horde/Mail/Transport/Mock.php" />
    <install as="Horde/Mail/Transport/Null.php" name="lib/Horde/Mail/Transport/Null.php" />
@@ -587,15 +589,15 @@
   </release>
   <release>
    <version>
-    <release>2.2.1</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-02</date>
+   <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Add Horde_Mail_Transport_Lmtphorde driver.
    </notes>
   </release>
  </changelog>

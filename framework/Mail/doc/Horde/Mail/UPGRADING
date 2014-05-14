@@ -11,6 +11,14 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.3
+================
+
+  - Horde_Mail_Transport_Lmtphorde
+
+    This Transport driver has been added.
+
+
 Upgrading to 2.2
 ================
 
