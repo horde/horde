@@ -529,6 +529,7 @@ var DimpCompose = {
         if (this.rte && opts.rte) {
             if (this.rte.busy()) {
                 this.setMessageText.bind(this, opts, r).delay(0.1);
+                return;
             }
             this.rte.setData(r.text.body);
         } else {
