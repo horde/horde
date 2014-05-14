@@ -48,3 +48,11 @@ BC BREAKING (i.e., Horde 6).
 
 - Change the readable names of the WBXML tags to reflect what they are called
   in the MS-AS* documents, and not what Z-Push's developers decided to call them.
+
+- Look at extracting something like Request_Parser and Request_Handler classes
+  to separate the reading of the request from the handling of it. The parser
+  should return some standard request object that can be passed to the handler
+  that contains the pertinent information.
+
+- Maintain the serverid -> backendid map in a single place and stop storing
+  backend ids (i.e., IMAP folder names) in collection/state/folder cache etc...
