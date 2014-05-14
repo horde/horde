@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Trean
+The Horde Team is pleased to announce the first release candidate of the Trean
 Bookmarks Manager version H5 (1.1.0).
 
 Trean is a web-based bookmarks application that provides management of browser
@@ -28,7 +28,7 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/trean/docs/INSTALL
 
-Major changes compared to Trean H5 (1.0) versions are:
+Major changes compared to the Trean H5 (1.0) versions are:
     * Added support for importing bookmarks from Mozilla's JSON format.
     * Added Danish translation.
 ML;
