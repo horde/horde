@@ -12,8 +12,8 @@
  </lead>
  <date>2014-05-14</date>
  <version>
-  <release>2.14.2</release>
-  <api>2.14.0</api>
+  <release>2.15.0</release>
+  <api>2.15.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression with renaming email folders.
+* [mjr] Improve workarounds for certain clients that send broken authentication information (Bug #13184).
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Make SQL state backend compatible with Oracle.
  </notes>
@@ -2108,6 +2110,7 @@
    <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Improve workarounds for certain clients that send broken authentication information (Bug #13184).
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Make SQL state backend compatible with Oracle.
    </notes>
