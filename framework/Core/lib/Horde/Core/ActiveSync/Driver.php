@@ -2412,7 +2412,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         try {
-            $params = $hooks->callHook('activesync_autodisover_parameters', 'horde', array($params));
+            $params = $hooks->callHook('activesync_autodiscover_parameters', 'horde', array($params));
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $params;
