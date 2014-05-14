@@ -786,7 +786,9 @@ class IMP_Mailbox
         /* Subscribe, if requested. */
         if ((!isset($opts['subscribe']) && $prefs->getValue('subscribe')) ||
             !empty($opts['subscribe'])) {
-            $this->subscribe(true);
+            try {
+                $imp_imap->subscribeMailbox($this->_mbox, true);
+            } catch (IMP_Imap_Exception $e) {}
         }
 
         /* Update the mailbox tree. */
