@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
  </notes>
  <contents>
@@ -3392,6 +3393,7 @@
    <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
    </notes>
   </release>

@@ -1017,6 +1017,36 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function hasMethod($method, $app = null)
     {
+        return $this->_doHasSearch($method, $app, 'methods');
+    }
+
+    /**
+     * Determine if a link has been registered with the registry.
+     *
+     * @since 2.12.0
+     *
+     * @param string $method  The full name of the link method to check for.
+     * @param string $app     Only check this application.
+     *
+     * @return mixed  The application implementing $method if we have it,
+     *                false if the link method doesn't exist.
+     */
+    public function hasLink($method, $app = null)
+    {
+        return $this->_doHasSearch($method, $app, 'links');
+    }
+
+    /**
+     * Do the has*() search.
+     *
+     * @see hasMethod
+     * @see hasLink
+     *
+     * @param string $func  The API function to call to get the list of
+     *                      elements to search. Either 'methods' or 'links'.
+     */
+    protected function _doHasSearch($method, $app, $func)
+    {
         if (is_null($app)) {
             if (($lookup = $this->_methodLookup($method)) === false) {
                 return false;
@@ -1026,11 +1056,18 @@ class Horde_Registry implements Horde_Shutdown_Task
             $call = $method;
         }
 
-        $api_ob = $this->_loadApi($app);
+        if ($api_ob = $this->_loadApi($app)) {
+            switch ($func) {
+            case 'links':
+                $links = $api_ob->links();
+                return isset($links[$call]);
 
-        return ($api_ob && in_array($call, $api_ob->methods()))
-            ? $app
-            : false;
+            case 'methods':
+                return in_array($call, $api_ob->methods());
+            }
+        }
+
+        return false;
     }
 
     /**
