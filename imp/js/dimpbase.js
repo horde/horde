@@ -3488,6 +3488,8 @@ var DimpBase = {
                 Effect.toggle(s, 'blind', {
                     beforeStart: function(e) {
                         if (need.get(mbox)) {
+                            var ed;
+
                             this.getMboxElt(mbox).down('A').update(
                                 new Element('SPAN')
                                     .addClassName('imp-sidebar-mbox-loading')
@@ -3499,11 +3501,22 @@ var DimpBase = {
                                 mboxes: [ mbox ]
                             }, true);
 
-                            e.element = this.getSubMboxElt(mbox);
-
-                            // Need to pass element here, since we might be
-                            // working with 'special' mailboxes.
+                            /* Need to pass element here, since we might be
+                             * working with 'special' mailboxes. (This should
+                             * have already been changed via the 'c' AJAX
+                             * callback of the base mailbox, but this is
+                             * sanity checking in case the mailbox load
+                             * failed.) */
                             this.setMboxLabel(this.getMboxElt(mbox));
+
+                            /* Need to update sizing since it is calculated at
+                             * instantiation before the submailbox DIV
+                             * contained anything. */
+                            ed = this.getSubMboxElt(mbox).getDimensions();
+                            e.options.scaleMode = {
+                                originalHeight: ed.height,
+                                originalWidth: ed.width
+                            };
                         }
                     }.bindAsEventListener(this),
                     afterFinish: function() {
