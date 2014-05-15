@@ -871,9 +871,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             !is_null($filter) &&
             $cc[$id]['filtertype'] != $filter) {
 
-            $this->_cache->removeCollection($id);
+            $this->_cache->removeCollection($id, true);
             $this->_cache->save();
-            $this->_logger->info('Invalidating SYNCKEY - found updated filtertype');
+            $this->_logger->info('Invalidating SYNCKEY and removing collection - found updated filtertype');
 
             return false;
         }
