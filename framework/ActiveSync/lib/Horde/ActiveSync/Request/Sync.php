@@ -149,10 +149,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             }
         } else {
-            if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_collections->setHeartbeat(array('wait' => false, 'hbinterval' => false));
-            }
-
             // Start decoding request.
             while (($sync_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERS) ? Horde_ActiveSync::SYNC_FOLDERS :
