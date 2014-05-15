@@ -3479,6 +3479,7 @@ var DimpBase = {
                     ((mode == 'tog') && s.visible())) {
                     collapse.push(mbox);
                 } else if (!noexpand &&
+                           !need.get(mbox) &&
                            (mode == 'exp' ||
                             ((mode == 'tog') && !s.visible()))) {
                     expand.push(mbox);
