@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue that would cause a SYNC loop when changing FILTERTYPE in certain clients (Bug #13182).
 * [mjr] Fix regression with renaming email folders.
 * [mjr] Improve workarounds for certain clients that send broken authentication information (Bug #13184).
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
