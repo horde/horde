@@ -53,10 +53,11 @@
 </div>
 
 <?php else: ?>
-<div>
- <?php printf(_("Could not find authorization for %s to interact with your Facebook account."), $this->user_name) ?>
+
+<div class="prefsErrorDiv">
+ <?php printf(_("Could not find authorization for \"%s\" to interact with your Facebook account. This means that either you have not yet authorized your Facebook account to interact with \"%s\", or your authorization has expired and must be renewed."), $this->app_name, $this->app_name) ?>
 </div>
-<br />
+<br /><br />
 <div>
  <?php printf(_("Login to Facebook and authorize %s"), $this->app_name) ?>:
  <a href="<?php echo $this->authUrl ?>" class="horde-default"><?php echo _("Authorize") ?></a>
