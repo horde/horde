@@ -61,15 +61,15 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * @var array
      */
     protected $_capabilities = array(
-        'add',
-        'authenticate',
-        'exists',
-        'list',
-        'remove',
-        'resetpassword',
-        'transparent',
-        'update',
-        'validate'
+        'add' => true,
+        'authenticate' => true,
+        'exists' => true,
+        'list' => true,
+        'remove' => true,
+        'resetpassword' => true,
+        'transparent' => true,
+        'update' => true,
+        'validate' => ture
     );
 
     /**
