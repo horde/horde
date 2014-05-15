@@ -80,9 +80,16 @@ extends Horde_Imap_Client_Socket_Connection_Base
             $data = $data->stream;
         }
 
-        rewind($data);
+        if (!rewind($data)) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::r("Server write error (stream rewind failed)."),
+                Horde_Imap_Client_Exception::SERVER_WRITEERROR
+            );
+        }
+
         while (!feof($data)) {
-            if (fwrite($this->_stream, fread($data, 8192)) === false) {
+            $read_data = fread($data, 8192);
+            if ($read_data === false || fwrite($this->_stream, $read_data) === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::r("Server write error."),
                     Horde_Imap_Client_Exception::SERVER_WRITEERROR
