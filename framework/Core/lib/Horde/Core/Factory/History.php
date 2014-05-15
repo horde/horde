@@ -35,7 +35,6 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
         $driver = empty($conf['history']['driver'])
             ? 'Sql'
             : $conf['history']['driver'];
-        $params = Horde::getDriverConfig('history', $driver);
 
         $history = null;
         $user = $injector->getInstance('Horde_Registry')->getAuth();
