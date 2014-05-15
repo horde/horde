@@ -131,7 +131,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if (!$heartbeat = $collections->getHeartbeat()) {
             $heartbeat = !empty($this->_pingSettings['heartbeatdefault'])
                 ? $this->_pingSettings['heartbeatdefault']
-                : 10;
+                : 60;
             $this->_logger->info(sprintf(
                 '[%s] Cached heartbeat is %s',
                 $this->_procid,
