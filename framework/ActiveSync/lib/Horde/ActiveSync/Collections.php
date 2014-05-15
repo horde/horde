@@ -260,7 +260,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Add a new populated collection array to this collection.
+     * Add a new populated collection array to the sync cache.
      *
      * @param array $collection        The collection array.
      * @param boolean $requireSyncKey  Attempt to read missing synckey from
