@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mms] Fix regression in displaying MOTD content on login screen.
 [mms] Support LMTP servers when sending mail.
 
 

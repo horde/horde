@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Fix regression in displaying MOTD content on login screen.
 * [mms] Support LMTP servers when sending mail.
  </notes>
  <contents>
@@ -3876,6 +3877,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Fix regression in displaying MOTD content on login screen.
 * [mms] Support LMTP servers when sending mail.
    </notes>
   </release>
