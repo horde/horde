@@ -576,6 +576,7 @@ span.mimePartInfoSize {
 }
 .impACList li.hordeACListItem {
     font-size: 100%;
+    margin-bottom: 1px;
 }
 .impACListItemBad {
     background-color: #ff6347;
