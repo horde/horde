@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix tracking bad login count and honoring the lock setting when using Application auth backend.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
@@ -3390,6 +3391,7 @@
    <date>2014-05-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix tracking bad login count and honoring the lock setting when using Application auth backend.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Add Horde_Registry#hasLink() (Bug #13175).
 * [mjr] Fix returning mailbox list for ActiveSync clients when not using IMAP subscriptions (Bug #13177).
