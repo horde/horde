@@ -100,7 +100,7 @@ class Horde_ActiveSync_Credentials
         } else {
             // Might be using X509 certs, so won't have the Auth headers or a
             // password.
-            $get = $this->server->getGetVars();
+            $get = $this->_server->getGetVars();
             if (!empty($get['User'])) {
                 $user = $get['User'];
             }
