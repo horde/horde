@@ -347,6 +347,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
             break;
 
+        case 'body':
+            $style = $node->hasAttribute('style')
+                ? (rtrim($node->getAttribute('style'), ';') . ';')
+                : '';
+            $node->setAttribute('style', $style . 'width:auto !important');
+            break;
+
         case 'img':
         case 'input':
             if ($node->hasAttribute('src')) {
