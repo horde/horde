@@ -32,14 +32,14 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
     {
         return array(
             /* RFC 2369 */
-            'list-help'         =>  Horde_ListHeaders_Translation::t("List-Help"),
-            'list-unsubscribe'  =>  Horde_ListHeaders_Translation::t("List-Unsubscribe"),
-            'list-subscribe'    =>  Horde_ListHeaders_Translation::t("List-Subscribe"),
-            'list-owner'        =>  Horde_ListHeaders_Translation::t("List-Owner"),
-            'list-post'         =>  Horde_ListHeaders_Translation::t("List-Post"),
-            'list-archive'      =>  Horde_ListHeaders_Translation::t("List-Archive"),
+            'list-help'         =>  Horde_ListHeaders_Translation::t("Help"),
+            'list-unsubscribe'  =>  Horde_ListHeaders_Translation::t("Unsubscribe"),
+            'list-subscribe'    =>  Horde_ListHeaders_Translation::t("Subscribe"),
+            'list-owner'        =>  Horde_ListHeaders_Translation::t("Owner"),
+            'list-post'         =>  Horde_ListHeaders_Translation::t("Post"),
+            'list-archive'      =>  Horde_ListHeaders_Translation::t("Archive"),
             /* RFC 2919 */
-            'list-id'           =>  Horde_ListHeaders_Translation::t("List-Id")
+            'list-id'           =>  Horde_ListHeaders_Translation::t("Identification")
         );
     }
 
