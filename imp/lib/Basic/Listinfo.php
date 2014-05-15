@@ -46,7 +46,7 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
         $view->headers = array();
         foreach ($listheaders->headers() as $key => $val) {
             if ($data = $mime_headers->getValue($key)) {
-                $view->headers[$val] = $this->_parseListHeaders($val, $data);
+                $view->headers[$val] = $this->_parseListHeaders($key, $data);
             }
         }
 
