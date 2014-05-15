@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-05-14</date>
+ <date>2014-05-15</date>
  <version>
   <release>2.12.0beta1</release>
   <api>2.12.0</api>
@@ -619,6 +619,7 @@
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
+      <file name="History.php" role="php" />
       <file name="Hooks.php" role="php" />
       <file name="HordeMap.php" role="php" />
       <file name="LoginTasks.php" role="php" />
@@ -1716,6 +1717,7 @@
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
+   <install as="Horde/Core/History.php" name="lib/Horde/Core/History.php" />
    <install as="Horde/Core/Hooks.php" name="lib/Horde/Core/Hooks.php" />
    <install as="Horde/Core/HordeMap.php" name="lib/Horde/Core/HordeMap.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
@@ -3385,7 +3387,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-05-14</date>
+   <date>2014-05-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Support LMTP servers when sending mail.
