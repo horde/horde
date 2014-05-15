@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-05-15</date>
  <version>
   <release>2.2.1</release>
   <api>1.2.0</api>
@@ -325,14 +325,19 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Alarm">
+      <dir name="Storage">
+       <dir name="Sql">
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Horde/Alarm/Storage/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="NullTest.php" role="test" />
+       <file name="ObjectTest.php" role="test" />
+      </dir> <!-- /test/Horde/Alarm/Storage -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="HandlerTest.php" role="test" />
-      <file name="NullTest.php" role="test" />
-      <file name="ObjectTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
-      <file name="SqlTest.php" role="test" />
      </dir> <!-- /test/Horde/Alarm -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -535,10 +540,11 @@
    <install as="Horde/Alarm/bootstrap.php" name="test/Horde/Alarm/bootstrap.php" />
    <install as="Horde/Alarm/conf.php.dist" name="test/Horde/Alarm/conf.php.dist" />
    <install as="Horde/Alarm/HandlerTest.php" name="test/Horde/Alarm/HandlerTest.php" />
-   <install as="Horde/Alarm/NullTest.php" name="test/Horde/Alarm/NullTest.php" />
-   <install as="Horde/Alarm/ObjectTest.php" name="test/Horde/Alarm/ObjectTest.php" />
    <install as="Horde/Alarm/phpunit.xml" name="test/Horde/Alarm/phpunit.xml" />
-   <install as="Horde/Alarm/SqlTest.php" name="test/Horde/Alarm/SqlTest.php" />
+   <install as="Horde/Alarm/Storage/Base.php" name="test/Horde/Alarm/Storage/Base.php" />
+   <install as="Horde/Alarm/Storage/NullTest.php" name="test/Horde/Alarm/Storage/NullTest.php" />
+   <install as="Horde/Alarm/Storage/ObjectTest.php" name="test/Horde/Alarm/Storage/ObjectTest.php" />
+   <install as="Horde/Alarm/Storage/Sql/Base.php" name="test/Horde/Alarm/Storage/Sql/Base.php" />
   </filelist>
  </phprelease>
  <changelog>
