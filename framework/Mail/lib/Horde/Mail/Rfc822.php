@@ -179,7 +179,10 @@ class Horde_Mail_Rfc822
             $this->_parseAddressList();
         }
 
-        return $this->_listob;
+        $ret = $this->_listob;
+        unset($this->_listob);
+
+        return $ret;
     }
 
    /**
