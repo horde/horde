@@ -43,8 +43,7 @@ class Components_Release_Task_Website extends Components_Release_Task_Base
         $errors = array();
         if (empty($options['web_dir'])) {
             $errors[] = 'The "web" option has no value. Where is the local checkout of the horde-web repository?';
-        }
-        if (!file_exists($options['web_dir'] . '/config/versions.sqlite') ||
+        } elseif (!file_exists($options['web_dir'] . '/config/versions.sqlite') ||
             !is_writable($options['web_dir'] . '/config/versions.sqlite')) {
             $errors[] = 'The database at ' . $options['web_dir'] . '/config/versions.sqlite doesn\'t exist or is not writable';
         } else {
@@ -60,13 +59,20 @@ class Components_Release_Task_Website extends Components_Release_Task_Base
      */
     public function run(&$options)
     {
+        if (!$this->getComponent()->getReleaseNotesPath()) {
+            $this->getOutput()->warn(
+                'Not an application. Will not add a new version to the website.'
+            );
+            return;
+        }
+
         $module = $this->getComponent()->getName();
         $version = $this->getComponent()->getVersion();
 
         if ($this->getTasks()->pretend()) {
             $this->getOutput()->info(
                 sprintf(
-                    'Would add new version "%s" to module "%s".',
+                    'Would add new version "%s" to module "%s" on the website.',
                     $version,
                     $module
                 )
