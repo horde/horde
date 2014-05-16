@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-16</date>
  <version>
-  <release>2.15.1</release>
+  <release>2.15.2</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue with clients that support EAS 12.1+ but still use PING commands that would cause the cached heartbeat interval to be cleared.
-* [mjr] Fix issue where the device managed heartbeat interval would be ignored during PING requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2127,6 +2126,19 @@
    <notes>
 * [mjr] Fix issue with clients that support EAS 12.1+ but still use PING commands that would cause the cached heartbeat interval to be cleared.
 * [mjr] Fix issue where the device managed heartbeat interval would be ignored during PING requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.2</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
