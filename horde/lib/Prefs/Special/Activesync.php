@@ -48,6 +48,10 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
                 'id' => $dev->id,
                 'user' => $dev->user
             );
+            $syncCache = new Horde_ActiveSync_SyncCache($state, $dev->id, $dev->user, $injector->getInstance('Horde_Log_Logger'));
+            $dev->hbinterval = $syncCache->hbinterval
+                ? $syncCache->hbinterval
+                : ($syncCache->wait ? $syncCache->wait * 60 : _("Unavailable"));
             $devs[] = $dev;
         }
 

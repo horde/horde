@@ -26,6 +26,7 @@
         <?php foreach ($d->getFormattedDeviceProperties() as $key => $value): ?>
           <?php echo '<b>' . $key . '</b>: ' . $value . '<br />' ?>
         <?php endforeach; ?>
+        <b><?php echo _("Cached Heartbeat (seconds)")?></b>: <?php echo $d->hbinterval ?><br />
       </td>
       <td>
         <?php if ($d->policykey): ?>
