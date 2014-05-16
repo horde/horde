@@ -8,7 +8,7 @@ use Sabre\HTTP;
  *
  * @copyright Copyright (C) 2007-2014 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
- * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
+ * @license http://sabre.io/license/ Modified BSD License
  */
 class Server {
 
@@ -684,6 +684,9 @@ class Server {
      */
     protected function httpDelete($uri) {
 
+        // Checking If-None-Match and related headers.
+        if (!$this->checkPreconditions()) return;
+
         if (!$this->broadcastEvent('beforeUnbind',array($uri))) return;
         $this->tree->delete($uri);
         $this->broadcastEvent('afterUnbind',array($uri));
@@ -871,12 +874,12 @@ class Server {
 
         }
 
+        // Checking If-None-Match and related headers.
+        if (!$this->checkPreconditions()) return;
+
         if ($this->tree->nodeExists($uri)) {
 
             $node = $this->tree->getNodeForPath($uri);
-
-            // Checking If-None-Match and related headers.
-            if (!$this->checkPreconditions()) return;
 
             // If the node is a collection, we'll deny it
             if (!($node instanceof IFile)) throw new Exception\Conflict('PUT is not allowed on non-files.');

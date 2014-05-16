@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a6351ecf8803fabb8c3788c20ded7d94",
+    "hash": "6a4abe0dd61e595e9b81892d1cb44914",
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "1.8.9",
+            "version": "1.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-dav.git",
-                "reference": "25e095469e44d195cd255bdce55ce473224558bc"
+                "reference": "0d064536ed3c7974e486b6ebb5b17ad7a974fe18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/25e095469e44d195cd255bdce55ce473224558bc",
-                "reference": "25e095469e44d195cd255bdce55ce473224558bc",
+                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/0d064536ed3c7974e486b6ebb5b17ad7a974fe18",
+                "reference": "0d064536ed3c7974e486b6ebb5b17ad7a974fe18",
                 "shasum": ""
             },
             "require": {
@@ -37,8 +37,7 @@
             },
             "require-dev": {
                 "evert/phpdoc-md": "~0.0.7",
-                "phing/phing": "2.4.14",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~4.0.0"
             },
             "suggest": {
                 "ext-apc": "*",
@@ -65,7 +64,7 @@
             "authors": [
                 {
                     "name": "Evert Pot",
-                    "email": "evert@rooftopsolutions.nl",
+                    "email": "me@evertpot.com",
                     "homepage": "http://evertpot.com/",
                     "role": "Developer"
                 }
@@ -79,7 +78,7 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2014-02-26 22:17:11"
+            "time": "2014-05-16 00:14:02"
         },
         {
             "name": "sabre/vobject",

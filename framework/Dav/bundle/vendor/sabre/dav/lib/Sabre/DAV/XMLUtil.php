@@ -7,7 +7,7 @@ namespace Sabre\DAV;
  *
  * @copyright Copyright (C) 2007-2014 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
- * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
+ * @license http://sabre.io/license/ Modified BSD License
  */
 class XMLUtil {
 
@@ -134,7 +134,7 @@ class XMLUtil {
 
         // Restoring old mechanism for error handling
         if ($oldErrorSetting===false) libxml_use_internal_errors(false);
-        if ($oldEntityLoaderSetting===false) libxml_disable_entity_loader(true);
+        if ($oldEntityLoaderSetting===false) libxml_disable_entity_loader(false);
 
         return $dom;
 
