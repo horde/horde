@@ -19,7 +19,7 @@ class Horde_Group_Sql_Pdo_PgsqlTest extends Horde_Group_Test_Sql_Base
     {
         if (!extension_loaded('pdo') ||
             !in_array('pgsql', PDO::getAvailableDrivers())) {
-            self::$reason = 'No pgsql extension or no pgsql PDO driver';
+            self::$reason = 'No pdo extension or no pgsql PDO driver';
             return;
         }
         $config = self::getConfig('GROUP_SQL_PDO_PGSQL_TEST_CONFIG',

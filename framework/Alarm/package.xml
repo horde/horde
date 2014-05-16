@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-15</date>
+ <date>2014-05-16</date>
  <version>
   <release>2.2.1</release>
   <api>1.2.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Test all available SQL backends.
 * [jan] Make tests work with PEAR-installed package.
 * [jan] Use correct schema table name when running tests.
  </notes>
@@ -327,7 +328,15 @@
      <dir name="Alarm">
       <dir name="Storage">
        <dir name="Sql">
+        <dir name="Pdo">
+         <file name="MysqlTest.php" role="test" />
+         <file name="PgsqlTest.php" role="test" />
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Horde/Alarm/Storage/Sql/Pdo -->
         <file name="Base.php" role="test" />
+        <file name="MysqliTest.php" role="test" />
+        <file name="MysqlTest.php" role="test" />
+        <file name="Oci8Test.php" role="test" />
        </dir> <!-- /test/Horde/Alarm/Storage/Sql -->
        <file name="Base.php" role="test" />
        <file name="NullTest.php" role="test" />
@@ -545,6 +554,12 @@
    <install as="Horde/Alarm/Storage/NullTest.php" name="test/Horde/Alarm/Storage/NullTest.php" />
    <install as="Horde/Alarm/Storage/ObjectTest.php" name="test/Horde/Alarm/Storage/ObjectTest.php" />
    <install as="Horde/Alarm/Storage/Sql/Base.php" name="test/Horde/Alarm/Storage/Sql/Base.php" />
+   <install as="Horde/Alarm/Storage/Sql/MysqliTest.php" name="test/Horde/Alarm/Storage/Sql/MysqliTest.php" />
+   <install as="Horde/Alarm/Storage/Sql/MysqlTest.php" name="test/Horde/Alarm/Storage/Sql/MysqlTest.php" />
+   <install as="Horde/Alarm/Storage/Sql/Oci8Test.php" name="test/Horde/Alarm/Storage/Sql/Oci8Test.php" />
+   <install as="Horde/Alarm/Storage/Sql/Pdo/MysqlTest.php" name="test/Horde/Alarm/Storage/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Alarm/Storage/Sql/Pdo/PgsqlTest.php" name="test/Horde/Alarm/Storage/Sql/Pdo/PgsqlTest.php" />
+   <install as="Horde/Alarm/Storage/Sql/Pdo/SqliteTest.php" name="test/Horde/Alarm/Storage/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -896,9 +911,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-05-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Test all available SQL backends.
 * [jan] Make tests work with PEAR-installed package.
 * [jan] Use correct schema table name when running tests.
    </notes>

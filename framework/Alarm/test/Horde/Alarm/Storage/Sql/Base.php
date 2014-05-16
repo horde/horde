@@ -6,55 +6,31 @@
  * @package    Alarm
  * @subpackage UnitTests
  */
-class Horde_Alarm_Storage_Sql_Base extends Horde_Alarm_Storage_Base
+abstract class Horde_Alarm_Storage_Sql_Base extends Horde_Alarm_Storage_Base
 {
-    protected static $skip = false;
     protected static $db;
     protected static $migrator;
+    protected static $reason;
 
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
 
-        // @fixme
-        $GLOBALS['language'] = 'en_US';
-
-        $conf = self::getConfig('ALARM_TEST_CONFIG',
-                                  __DIR__ . '/../..');
-        if (!isset($conf['alarm']['test'])) {
-            self::$skip = true;
-            return;
-        }
-
-        $migrationDir = __DIR__ . '/../../../../../migration/Horde/Alarm';
-        if (!is_dir($migrationDir)) {
+        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
+        //self::$db->setLogger($logger);
+        $dir = __DIR__ . '/../../../../../migration/Horde/Alarm';
+        if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
-            $migrationDir = PEAR_Config::singleton()
+            $dir = PEAR_Config::singleton()
                 ->get('data_dir', null, 'pear.horde.org')
                 . '/Horde_Alarm/migration';
             error_reporting(E_ALL | E_STRICT);
         }
-
-        $adapter = str_replace(
-            ' ',
-            '_' ,
-            ucwords(str_replace(
-                '_',
-                ' ',
-                basename($conf['alarm']['test']['horde']['adapter'])
-            ))
-        );
-        $class = 'Horde_Db_Adapter_' . $adapter;
-        self::$db = new $class($conf['alarm']['test']['horde']);
-
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
-            null,
-            array(
-                'migrationsPath' => $migrationDir,
-                'schemaTableName' => 'horde_alarm_schema'
-            )
-        );
+            null,//$logger,
+            array('migrationsPath' => $dir,
+                  'schemaTableName' => 'horde_alarm_test_schema'));
         self::$migrator->up();
     }
 
@@ -63,12 +39,16 @@ class Horde_Alarm_Storage_Sql_Base extends Horde_Alarm_Storage_Base
         if (self::$migrator) {
             self::$migrator->down();
         }
+        if (self::$db) {
+            self::$db->disconnect();
+        }
+        self::$db = self::$migrator = null;
     }
 
     public function setUp()
     {
-        if (self::$skip) {
-            $this->markTestSkipped('No configuration for Horde_Alarm test.');
+        if (!self::$db) {
+            $this->markTestSkipped(self::$reason);
         }
         parent::setUp();
     }
