@@ -2390,7 +2390,7 @@ var DimpBase = {
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
                 DimpCore.doAction('renameMailbox', {
-                    new_name: drag.retrieve('l'),
+                    new_name: drag.readAttribute('title'),
                     new_parent: dropbase ? '' : mboxname,
                     old_name: drag.retrieve('mbox')
                 });
