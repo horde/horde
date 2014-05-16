@@ -97,8 +97,8 @@ msgid "ESE"
 msgstr "ESE"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
-msgid "East"
-msgstr "Itä"
+msgid "E"
+msgstr "E"
 
 #: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
@@ -610,8 +610,8 @@ msgid "NW"
 msgstr "NW"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "North"
-msgstr "Pohjoinen"
+msgid "N"
+msgstr "N"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
@@ -744,8 +744,8 @@ msgid "Snow Showers"
 msgstr "Lumisadekuuroja"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "South"
-msgstr "Etelä"
+msgid "S"
+msgstr "S"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
 msgid "Spray"
@@ -812,8 +812,8 @@ msgid "WSW"
 msgstr "WSW"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "West"
-msgstr "Länsi"
+msgid "W"
+msgstr "W"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
 msgid "Widespread Dust"

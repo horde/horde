@@ -89,15 +89,15 @@ msgstr "Portubák"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:162
 msgid "ENE"
-msgstr "ENE"
+msgstr "KÉK"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:164
 msgid "ESE"
-msgstr "ESE"
+msgstr "KDK"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
-msgid "East"
-msgstr "Kelet"
+msgid "E"
+msgstr "K"
 
 #: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
@@ -609,8 +609,8 @@ msgid "NW"
 msgstr "ÉNy"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "North"
-msgstr "Észak"
+msgid "N"
+msgstr "É"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
@@ -743,8 +743,8 @@ msgid "Snow Showers"
 msgstr "Hózáporok"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "South"
-msgstr "Dél"
+msgid "S"
+msgstr "D"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
 msgid "Spray"
@@ -811,8 +811,8 @@ msgid "WSW"
 msgstr "NyDNy"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "West"
-msgstr "Nyugat"
+msgid "W"
+msgstr "Ny"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
 msgid "Widespread Dust"

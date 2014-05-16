@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2013-01-17 14:46+0100\n"
+"PO-Revision-Date: 2014-05-16 11:06+0200\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "Language: \n"
@@ -98,8 +98,8 @@ msgid "ESE"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
-msgid "East"
-msgstr "Ekialdea"
+msgid "E"
+msgstr "E"
 
 #: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
@@ -611,8 +611,8 @@ msgid "NW"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "North"
-msgstr "Iparraldea"
+msgid "N"
+msgstr "I"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
@@ -745,8 +745,8 @@ msgid "Snow Showers"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "South"
-msgstr "Hegoaldea"
+msgid "S"
+msgstr "H"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
 msgid "Spray"
@@ -813,7 +813,7 @@ msgid "WSW"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "West"
+msgid "W"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20

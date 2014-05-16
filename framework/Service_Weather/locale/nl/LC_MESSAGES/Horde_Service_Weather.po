@@ -97,7 +97,7 @@ msgid "ESE"
 msgstr "oostzuidoost"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
-msgid "East"
+msgid "E"
 msgstr "het oosten"
 
 #: lib/Horde/Service/Weather/Base.php:197
@@ -610,7 +610,7 @@ msgid "NW"
 msgstr "noordwest"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "North"
+msgid "N"
 msgstr "het noorden"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
@@ -744,7 +744,7 @@ msgid "Snow Showers"
 msgstr "Sneeuwbuien"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "South"
+msgid "S"
 msgstr "het zuiden"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
@@ -818,7 +818,7 @@ msgid "WSW"
 msgstr "westzuidwest"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "West"
+msgid "W"
 msgstr "het westen"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2012-01-17 12:49+0100\n"
+"PO-Revision-Date: 2014-05-16 11:04+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -97,8 +97,8 @@ msgid "ESE"
 msgstr "OSO"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
-msgid "East"
-msgstr "Ost"
+msgid "E"
+msgstr "O"
 
 #: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
@@ -610,8 +610,8 @@ msgid "NW"
 msgstr "NW"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "North"
-msgstr "Nord"
+msgid "N"
+msgstr "N"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
@@ -744,8 +744,8 @@ msgid "Snow Showers"
 msgstr "Schneeschauer"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "South"
-msgstr "Süd"
+msgid "S"
+msgstr "S"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
 msgid "Spray"
@@ -812,8 +812,8 @@ msgid "WSW"
 msgstr "WSW"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "West"
-msgstr "West"
+msgid "W"
+msgstr "W"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
 msgid "Widespread Dust"
