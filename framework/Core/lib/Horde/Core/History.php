@@ -5,21 +5,17 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
  * @copyright 2014 Horde LLC
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
+
 /**
  * Decorate the base Horde_History class to allow the username to be reset
  * if the authenticated status changes after the history object has been
  * initialized.
- *
- * Copyright 2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
