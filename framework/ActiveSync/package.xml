@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-15</date>
+ <date>2014-05-16</date>
  <version>
   <release>2.15.1</release>
   <api>2.15.0</api>
@@ -2122,7 +2122,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-15</date>
+   <date>2014-05-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with clients that support EAS 12.1+ but still use PING commands that would cause the cached heartbeat interval to be cleared.
