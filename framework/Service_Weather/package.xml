@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-16</date>
+ <date>2014-05-17</date>
  <version>
   <release>2.1.1</release>
   <api>1.2.0</api>
@@ -80,11 +80,6 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
-    <dir name="en_US">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Service_Weather.mo" role="data" />
-     </dir> <!-- /locale/en_US/LC_MESSAGES -->
-    </dir> <!-- /locale/en_US -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Weather.mo" role="data" />
@@ -346,7 +341,6 @@
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.po" name="locale/de/LC_MESSAGES/Horde_Service_Weather.po" />
-   <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.po" name="locale/es/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/eu/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/eu/LC_MESSAGES/Horde_Service_Weather.mo" />
@@ -742,7 +736,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-16</date>
+   <date>2014-05-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Add cardinal direction abbreviations (Bug #13186).
