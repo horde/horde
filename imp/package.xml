@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-14</date>
+ <date>2014-05-17</date>
  <version>
   <release>6.2.0beta1</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add automatic configuration of remote account connection details.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.
 * [mms] Add checks to ensure that saved session expiration message was created by the user rather than an outside source.
@@ -127,6 +128,7 @@
        <file name="Mboxtoggle.php" role="horde" />
        <file name="Passphrase.php" role="horde" />
        <file name="Remote.php" role="horde" />
+       <file name="RemotePrefs.php" role="horde" />
        <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
       </dir> <!-- /lib/Ajax/Application/Handler -->
@@ -236,6 +238,7 @@
      <file name="Identity.php" role="horde" />
      <file name="Imap.php" role="horde" />
      <file name="Mail.php" role="horde" />
+     <file name="MailAutoconfig.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="MailboxCache.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
@@ -1341,6 +1344,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mail_Autoconfig</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>2.3.0</min>
@@ -1598,6 +1608,7 @@
    <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
    <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
    <install as="imp/lib/Ajax/Application/Handler/Remote.php" name="lib/Ajax/Application/Handler/Remote.php" />
+   <install as="imp/lib/Ajax/Application/Handler/RemotePrefs.php" name="lib/Ajax/Application/Handler/RemotePrefs.php" />
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Application/Viewport/Error.php" name="lib/Ajax/Application/Viewport/Error.php" />
@@ -1661,6 +1672,7 @@
    <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
    <install as="imp/lib/Factory/Imap.php" name="lib/Factory/Imap.php" />
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
+   <install as="imp/lib/Factory/MailAutoconfig.php" name="lib/Factory/MailAutoconfig.php" />
    <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxCache.php" name="lib/Factory/MailboxCache.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
@@ -3598,9 +3610,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-05-14</date>
+   <date>2014-05-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add automatic configuration of remote account connection details.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.
 * [mms] Add checks to ensure that saved session expiration message was created by the user rather than an outside source.

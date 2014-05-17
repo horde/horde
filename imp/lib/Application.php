@@ -103,6 +103,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Identity' => 'IMP_Factory_Identity',
             'IMP_Ftree' => 'IMP_Factory_Ftree',
             'IMP_Mail' => 'IMP_Factory_Mail',
+            'IMP_Mail_Autoconfig' => 'IMP_Factory_MailAutoconfig',
             'IMP_Mailbox_SessionCache' => 'IMP_Factory_MailboxCache',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
             'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',

@@ -133,6 +133,12 @@ MIME
 :RFC 5751: S/MIME Version 3.2 Message Specification
 
 
+Other
+=====
+
+:RFC 6186: Use of SRV Records for Locating Email Submission/Access Services
+
+
 Non-RFC Features
 ================
 

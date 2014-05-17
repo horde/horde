@@ -8,7 +8,8 @@
 
 var ImpRemotePrefs = {
 
-    // Variables set by other code: confirm_delete
+    // Variables set by PHP code: confirm_delete, empty_email, empty_password,
+    //     next, wait
 
     _sendData: function(a, d, c)
     {
@@ -18,6 +19,27 @@ var ImpRemotePrefs = {
             $('prefs').getInputs('hidden', 'actionID').first().clear();
         }
         $('prefs').submit();
+    },
+
+    _autoconfigCallback: function(r)
+    {
+        if (r.success) {
+            $('remote_type').setValue(r.mconfig.imap ? 'imap' : 'pop3');
+            $('remote_server').setValue(r.mconfig.host);
+            $('remote_user').setValue(r.mconfig.username);
+            $('remote_port').setValue(r.mconfig.port);
+
+            if ($F('remote_label').blank()) {
+                $('remote_label').setValue(r.mconfig.label);
+            }
+
+            $('autoconfig_button').hide();
+            $('add_button').show();
+        } else {
+            $('autoconfig_button').setValue(this.next);
+        }
+
+        $('prefs').enable();
     },
 
     clickHandler: function(e)
@@ -40,6 +62,39 @@ var ImpRemotePrefs = {
             switch (elt.readAttribute('id')) {
             case 'add_button':
                 this._sendData('add', '');
+                break;
+
+            case 'autoconfig_button':
+                if ($F('remote_email').blank()) {
+                    window.alert(this.empty_email);
+                } else if ($F('remote_password').blank()) {
+                    window.alert(this.empty_password);
+                } else {
+                    HordeCore.doAction(
+                        'autoconfigAccount',
+                        {
+                            email: $F('remote_email'),
+                            // Base64 encode just to keep password data from
+                            // being plaintext. A trivial obfuscation, but
+                            // will prevent passwords from leaking in the
+                            // event of some sort of data dump.
+                            password: Base64.encode($F('remote_password')),
+                            password_base64: true,
+                            secure: ~~(!!($F('remote_secure') == 'yes'))
+                        },
+                        {
+                            callback: this._autoconfigCallback.bind(this)
+                        }
+                    );
+                    elt.setValue(this.wait);
+                    $('prefs').disable();
+                }
+                e.stop();
+                break;
+
+            case 'advanced_show':
+                $('prefs').select('.imp-remote-autoconfig').invoke('hide');
+                $('prefs').select('.imp-remote-advanced').invoke('show');
                 break;
 
             case 'cancel_button':
