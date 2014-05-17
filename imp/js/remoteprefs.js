@@ -28,6 +28,7 @@ var ImpRemotePrefs = {
             $('remote_server').setValue(r.mconfig.host);
             $('remote_user').setValue(r.mconfig.username);
             $('remote_port').setValue(r.mconfig.port);
+            $('remote_secure_autoconfig').setValue(~~(!!r.mconfig.tls));
 
             if ($F('remote_label').blank()) {
                 $('remote_label').setValue(r.mconfig.label);
@@ -95,6 +96,7 @@ var ImpRemotePrefs = {
 
             case 'advanced_show':
                 $('prefs').select('.imp-remote-autoconfig').invoke('hide');
+                $('remote_secure_autoconfig').remove();
                 $('prefs').select('.imp-remote-advanced').invoke('show');
                 break;
 

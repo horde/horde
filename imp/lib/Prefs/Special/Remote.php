@@ -85,26 +85,42 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                 if ($ui->vars->remote_port) {
                     $ob->port = $ui->vars->remote_port;
                 }
-
-                switch ($ui->vars->remote_secure) {
-                case 'auto':
-                    $ob->secure = true;
-                    break;
-
-                case 'yes':
-                    $ob->secure = 'ssl';
-                    if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
-                        stream_set_timeout($stream, 2);
-                        if (fread($stream, 1024)) {
-                            $ob->secure = 'tls';
-                        }
-                        fclose($stream);
-                    }
-                    break;
-                }
-
                 if ($ui->vars->get('remote_type') == 'pop3') {
                     $ob->type = $ob::POP3;
+                }
+
+                if ($ui->vars->remote_secure_autoconfig) {
+                    $ob->secure = 'ssl';
+                } else {
+                    switch ($ui->vars->remote_secure) {
+                    case 'auto':
+                        $ob->secure = true;
+                        break;
+
+                    case 'yes':
+                        if (isset($ui->vars->remote_secure_autoconfig)) {
+                            $ob->secure = 'tls';
+                        } else {
+                            switch ($ob->type) {
+                            case $ob::IMAP:
+                                $tmp = new Horde_Mail_Autoconfig_Server_Imap();
+                                break;
+
+                            case $ob::POP3:
+                                $tmp = new Horde_Mail_Autoconfig_Server_Pop3();
+                                break;
+                            }
+
+                            $tmp->host = $ob->hostspec;
+                            $tmp->port = $ob->port;
+                            $tmp->tls = true;
+
+                            $ob->secure = $tmp->valid()
+                                ? 'ssl'
+                                : 'tls';
+                        }
+                        break;
+                    }
                 }
 
                 $remote[strval($ob)] = $ob;

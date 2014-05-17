@@ -1,5 +1,6 @@
 <input type="hidden" name="remote_action" id="remote_action" />
 <input type="hidden" name="remote_data" id="remote_data" />
+<input type="hidden" name="remote_secure_autoconfig" id="remote_secure_autoconfig" />
 
 <?php if ($this->new): ?>
 <div class="horde-form remotemanagement">
