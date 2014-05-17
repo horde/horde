@@ -250,7 +250,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->_params = $params;
-        $this->setParam('password', $params['password']);
+        if (isset($params['password'])) {
+            $this->setParam('password', $params['password']);
+        }
 
         $this->changed = true;
         $this->_initOb();
@@ -465,7 +467,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Passwords may be stored encrypted. */
         switch ($key) {
         case 'password':
-            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password)) {
                 return $this->_params[$key]->getPassword();
             }
 
