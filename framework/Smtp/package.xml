@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix harmless undefined error when accessing certain configuration parameters.
 * [mms] Horde_Smtp#send() now returns recipient status information if at least one recipient was successfully accepted.
 * [mms] Added an LMTP (RFC 2033) driver.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
@@ -375,6 +376,7 @@
    <date>2014-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix harmless undefined error when accessing certain configuration parameters.
 * [mms] Horde_Smtp#send() now returns recipient status information if at least one recipient was successfully accepted.
 * [mms] Added an LMTP (RFC 2033) driver.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).

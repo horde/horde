@@ -252,7 +252,8 @@ class Horde_Smtp implements Serializable
         switch ($key) {
         case 'password':
         case 'xoauth2_token':
-            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
+            if (isset($this->_params[$key]) &&
+                ($this->_params[$key] instanceof Horde_Smtp_Password)) {
                 return $this->_params[$key]->getPassword();
             }
 
