@@ -31,7 +31,7 @@ class Horde_Mail_Autoconfig_Server_Msa extends Horde_Mail_Autoconfig_Server
      */
     public function valid(array $opts = array())
     {
-        if (empty($opts['users'])) {
+        if (empty($opts['users']) || !isset($opts['auth'])) {
             unset($opts['auth']);
             $opts['users'] = array(null);
         }

@@ -209,7 +209,7 @@ class Horde_Mail_Autoconfig
 
             if ($res) {
                 foreach ($res as $val2) {
-                    $vconfig = clone $opts;
+                    $vconfig = $opts;
 
                     if ($val2->username) {
                         $vconfig['users'] = array($val2->username);
