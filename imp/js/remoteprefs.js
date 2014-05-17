@@ -82,7 +82,7 @@ var ImpRemotePrefs = {
                             // event of some sort of data dump.
                             password: Base64.encode($F('remote_password')),
                             password_base64: true,
-                            secure: ~~(!!($F('remote_secure') == 'yes'))
+                            secure: ~~($F('remote_secure') == 'yes')
                         },
                         {
                             callback: this._autoconfigCallback.bind(this)
