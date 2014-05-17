@@ -23,30 +23,17 @@
 class Horde_Mail_Autoconfig_Driver_Guess extends Horde_Mail_Autoconfig_Driver
 {
     /**
-     * Low priority: shot-in-the dark technique that has no formalized
-     * standard.
-     */
-    public $priority = 30;
-
-    /**
      * DNS resolver.
      *
      * @var Net_DNS2_Resolver
      */
-    protected $_dns;
+    public $dns;
 
     /**
-     * Constructor.
-     *
-     * @param Net_DNS2_Resolver $dns  Use this DNS object instead of creating
-     *                                one internally.
+     * Low priority: shot-in-the dark technique that has no formalized
+     * standard.
      */
-    public function __construct($dns = null)
-    {
-        $this->_dns = is_null($dns)
-            ? new Net_DNS2_Resolver()
-            : $dns;
-    }
+    public $priority = 30;
 
     /**
      */
@@ -126,9 +113,13 @@ class Horde_Mail_Autoconfig_Driver_Guess extends Horde_Mail_Autoconfig_Driver
     {
         $out = array();
 
+        if (is_null($this->dns)) {
+            $this->dns = new Net_DNS2_Resolver();
+        }
+
         foreach ($hosts as $val) {
             try {
-                $this->_dns->query($val->host, 'A');
+                $this->dns->query($val->host, 'A');
                 $out[] = $val;
             } catch (Net_DNS2_Exception $e) {
                 // Not found; ignore.

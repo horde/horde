@@ -23,30 +23,17 @@
 class Horde_Mail_Autoconfig_Driver_Srv extends Horde_Mail_Autoconfig_Driver
 {
     /**
-     * High priority: this is a standardized (RFC) method of determining
-     * configuration values.
-     */
-    public $priority = 10;
-
-    /**
      * DNS resolver.
      *
      * @var Net_DNS2_Resolver
      */
-    protected $_dns;
+    public $dns;
 
     /**
-     * Constructor.
-     *
-     * @param Net_DNS2_Resolver $dns  Use this DNS object instead of creating
-     *                                one internally.
+     * High priority: this is a standardized (RFC) method of determining
+     * configuration values.
      */
-    public function __construct($dns = null)
-    {
-        $this->_dns = is_null($dns)
-            ? new Net_DNS2_Resolver()
-            : $dns;
-    }
+    public $priority = 10;
 
     /**
      */
@@ -86,10 +73,14 @@ class Horde_Mail_Autoconfig_Driver_Srv extends Horde_Mail_Autoconfig_Driver
     {
         $obs = $out = array();
 
+        if (is_null($this->dns)) {
+            $this->dns = new Net_DNS2_Resolver();
+        }
+
         foreach ($domains as $val) {
             foreach ($queries as $val2) {
                 try {
-                    $res = $this->_dns->query($val2 . '._tcp.' . $val, 'SRV');
+                    $res = $this->dns->query($val2 . '._tcp.' . $val, 'SRV');
                     foreach ($res->answer as $val3) {
                         if (strlen($val3->target)) {
                             $val3->query = $val2;

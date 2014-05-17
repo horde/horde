@@ -27,6 +27,13 @@ class Horde_Mail_Autoconfig_Driver_Thunderbird
 extends Horde_Mail_Autoconfig_Driver
 {
     /**
+     * Http client.
+     *
+     * @var Horde_Http_Client
+     */
+    public $http;
+
+    /**
      * URL of Mozilla ISPDB server lookup.
      *
      * @var string
@@ -38,26 +45,6 @@ extends Horde_Mail_Autoconfig_Driver
      * maintained by Mozilla.
      */
     public $priority = 20;
-
-    /**
-     * Http client.
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Http_Client $http  Use this HTTP object instead of
-     *                                 creating one internally.
-     */
-    public function __construct($http = null)
-    {
-        $this->_http = is_null($http)
-            ? new Horde_Http_Client()
-            : $http;
-    }
 
     /**
      */
@@ -127,9 +114,13 @@ extends Horde_Mail_Autoconfig_Driver
             );
         }
 
+        if (is_null($this->http)) {
+            $this->http = new Horde_Http_Client();
+        }
+
         foreach ($urls as $url) {
             try {
-                $get = $this->_http->get($url);
+                $get = $this->http->get($url);
                 if ($get->code == 404) {
                     continue;
                 }
