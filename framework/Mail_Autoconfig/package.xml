@@ -70,6 +70,7 @@
        <file name="AllTests.php" role="test" />
        <file name="AutoconfigTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
+       <file name="conf.php.dist" role="test" />
        <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Mail/Autoconfig -->
      </dir> <!-- /test/Horde/Mail -->
@@ -149,6 +150,7 @@
    <install as="Horde/Mail/Autoconfig/AllTests.php" name="test/Horde/Mail/Autoconfig/AllTests.php" />
    <install as="Horde/Mail/Autoconfig/AutoconfigTest.php" name="test/Horde/Mail/Autoconfig/AutoconfigTest.php" />
    <install as="Horde/Mail/Autoconfig/bootstrap.php" name="test/Horde/Mail/Autoconfig/bootstrap.php" />
+   <install as="Horde/Mail/Autoconfig/conf.php.dist" name="test/Horde/Mail/Autoconfig/conf.php.dist" />
    <install as="Horde/Mail/Autoconfig/phpunit.xml" name="test/Horde/Mail/Autoconfig/phpunit.xml" />
    <install as="Horde/Mail/Autoconfig/Driver/conf.php.dist" name="test/Horde/Mail/Autoconfig/Driver/conf.php.dist" />
    <install as="Horde/Mail/Autoconfig/Driver/GuessTest.php" name="test/Horde/Mail/Autoconfig/Driver/GuessTest.php" />

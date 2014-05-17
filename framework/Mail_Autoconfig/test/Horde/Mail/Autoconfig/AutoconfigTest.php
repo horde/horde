@@ -23,12 +23,46 @@
  * @package    Mail_Autoconfig
  * @subpackage UnitTests
  */
-class Horde_Mail_Autoconfig_AutoconfigTest extends PHPUnit_Framework_TestCase
+class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
 {
+    private $aconfig;
+
+    public function setUp()
+    {
+        $this->aconfig = new Horde_Mail_Autoconfig();
+    }
+
     public function testGetDrivers()
     {
-        $drivers = Horde_Mail_Autoconfig::getDrivers();
+        $drivers = $this->aconfig->getDrivers();
         $this->assertNotEmpty($drivers);
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testGetMsaConfigWithoutAuth($email)
+    {
+        $this->assertNotFalse($this->aconfig->getMsaConfig($email));
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testGetMailConfigWithoutAuth($email)
+    {
+        $this->assertNotFalse($this->aconfig->getMailConfig($email));
+    }
+
+    public function provider()
+    {
+        $config = self::getConfig('MAILAUTOCONFIG_TEST_CONFIG');
+        if (!is_null($config) &&
+            !empty($config['mail_autoconfig']['nonauth_emails'])) {
+            return $config['mail_autoconfig']['nonauth_emails'];
+        }
+
+        return array();
     }
 
 }
