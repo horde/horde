@@ -83,23 +83,10 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
                 switch ($ui->vars->remote_secure) {
                 case 'auto':
-                    /* Check for non-SSL connection. */
-                    $ob->secure = false;
-                    if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
-                        stream_set_timeout($stream, 2);
-                        if (fread($stream, 1024)) {
-                            $ob->secure = true;
-                        }
-                        fclose($stream);
-                    }
-                    break;
-
-                case 'no':
-                    $ob->secure = false;
+                    $ob->secure = true;
                     break;
 
                 case 'yes':
-                    /* Check for non-SSL connection. */
                     $ob->secure = 'ssl';
                     if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
                         stream_set_timeout($stream, 2);

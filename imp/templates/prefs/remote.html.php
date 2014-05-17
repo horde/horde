@@ -48,7 +48,6 @@
    <select name="remote_secure">
     <option value="yes" selected="selected"><?php echo _("Required") ?></option>
     <option value="auto"><?php echo _("Use if available") ?></option>
-    <option value="no"><?php echo _("Never") ?></option>
    </select>
   </td>
   <td></td>
