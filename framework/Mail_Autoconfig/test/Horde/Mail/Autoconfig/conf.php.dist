@@ -1,0 +1,7 @@
+<?php
+$conf['mail_autoconfig'] = array(
+    /* Test e-mails used for the non-auth autoconfig tests. */
+    'nonauth_emails' => array(
+        array(array('test@gmail.com'))
+    )
+);
