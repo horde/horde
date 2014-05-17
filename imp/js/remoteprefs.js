@@ -33,6 +33,7 @@ var ImpRemotePrefs = {
                 $('remote_label').setValue(r.mconfig.label);
             }
 
+            $('remote_password').remove();
             $('autoconfig_button').hide();
             $('add_button').show();
         } else {
