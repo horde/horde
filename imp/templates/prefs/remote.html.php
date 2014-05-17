@@ -63,11 +63,8 @@
  <thead>
   <tr>
    <th><?php echo _("Label") ?></th>
-   <th><?php echo _("Type") ?></th>
-   <th><?php echo _("Server") ?></th>
    <th><?php echo _("Username") ?></th>
-   <th><?php echo _("Port") ?></th>
-   <th><?php echo _("Secure") ?></th>
+   <th><?php echo _("Server") ?></th>
    <th></th>
   </tr>
  </thead>
@@ -76,17 +73,8 @@
 <?php foreach ($this->accounts as $v): ?>
   <tr>
    <td><?php echo $this->h($v->label) ?></td>
-   <td><?php echo ($v->type == IMP_Remote_Account::POP3) ? 'POP3' : 'IMAP' ?></td>
-   <td><?php echo $this->h($v->hostspec) ?></td>
    <td><?php echo $this->h($v->username) ?></td>
-   <td><?php echo $this->h($v->port) ?></td>
-<?php if (is_null($v->secure)): ?>
-   <td><?php echo _("Auto") ?></td>
-<?php elseif (!$v->secure): ?>
-   <td class="remoteNotSecure"><?php echo _("No") ?></td>
-<?php else: ?>
-   <td class="remoteSecure"><?php echo _("Yes") ?></td>
-<?php endif; ?>
+   <td><?php echo $this->h($v->hostspec) ?></td>
    <td>
     <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete-small.png') ?></a>
    </td>
