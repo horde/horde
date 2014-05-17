@@ -43,6 +43,10 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
      */
     public function testGetMsaConfigWithoutAuth($email)
     {
+        if (!$email) {
+            $this->markTestSkipped();
+        }
+
         $this->assertNotFalse($this->aconfig->getMsaConfig($email));
     }
 
@@ -51,6 +55,10 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
      */
     public function testGetMailConfigWithoutAuth($email)
     {
+        if (!$email) {
+            $this->markTestSkipped();
+        }
+
         $this->assertNotFalse($this->aconfig->getMailConfig($email));
     }
 
@@ -62,7 +70,7 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
             return $config['mail_autoconfig']['nonauth_emails'];
         }
 
-        return array();
+        return array(array(null));
     }
 
 }

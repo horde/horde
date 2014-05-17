@@ -45,6 +45,10 @@ extends Horde_Test_Case
      */
     public function testGetMsaConfig($domains)
     {
+        if (!$domains) {
+            $this->markTestSkipped();
+        }
+
         $res = $this->driver->msaSearch($domains, array(
             'email' => new Horde_Mail_Rfc822_Address('test@example.com')
         ));
@@ -61,6 +65,10 @@ extends Horde_Test_Case
      */
     public function testGetMailConfig($domains)
     {
+        if (!$domains) {
+            $this->markTestSkipped();
+        }
+
         $res = $this->driver->mailSearch($domains, array(
             'email' => new Horde_Mail_Rfc822_Address('test@example.com')
         ));
@@ -79,7 +87,8 @@ extends Horde_Test_Case
             !empty($config['mail_autoconfig']['domains'])) {
             return $config['mail_autoconfig']['domains'];
         }
-        return array();
+
+        return array(array(null));
     }
 
 }
