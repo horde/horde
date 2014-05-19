@@ -5,14 +5,10 @@ class HordeHistoryRemoveCompositeIndex extends Horde_Db_Migration_Base
     {
         // Older installs may have indexes differently named.
         $indexes = $this->indexes('horde_histories');
-        $modseq_idx_name = $this->indexName('horde_histories', 'history_modseq');
-        $object_idx_name = $this->indexName('horde_histories', 'object_uid');
         foreach ($indexes as $idx) {
-            switch ($idx->name) {
-            case $modseq_idx_name:
-            case $object_idx_name:
+            if ($idx->columns == array('history_modseq') ||
+                $idx->columns == array('object_uid')) {
                 $this->removeIndex('horde_histories', array('name' => $idx->name));
-                break;
             }
         }
     }
