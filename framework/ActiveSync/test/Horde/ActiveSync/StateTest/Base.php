@@ -450,7 +450,12 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $cache->save();
 
         $collections = $this->getCollectionHandler();
+        // False since we don't have hangingSync.
+        $this->assertEquals(false, $collections->canSendEmptyResponse());
+
+        $collections->hangingSync = true;
         $this->assertEquals(true, $collections->canSendEmptyResponse());
+
         $collections->importedChanges = true;
         $this->assertEquals(false, $collections->canSendEmptyResponse());
     }
