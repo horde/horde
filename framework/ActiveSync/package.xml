@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-16</date>
+ <date>2014-05-19</date>
  <version>
   <release>2.16.0</release>
   <api>2.16.0</api>
@@ -2137,7 +2137,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-15</date>
+   <date>2014-05-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Allow saving just dirty deviceProperties, and not deviceInfo.
