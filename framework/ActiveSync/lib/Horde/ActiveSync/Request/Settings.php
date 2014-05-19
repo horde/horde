@@ -273,11 +273,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         if (isset($device_properties)) {
             $this->_encoder->startTag(self::SETTINGS_DEVICEINFORMATION);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
-            if (!isset($result['set']['deviceinformation'])) {
-                $this->_encoder->content(0);
-            } else {
-                $this->_encoder->content(Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
-            }
+            $this->_encoder->content(Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_DEVICEINFORMATION
         }
