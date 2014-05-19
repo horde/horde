@@ -37,7 +37,6 @@
  */
 class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
 {
-
     /* Wbxml constants */
     const MOVES    = 'Move:Moves';
     const MOVE     = 'Move:Move';
