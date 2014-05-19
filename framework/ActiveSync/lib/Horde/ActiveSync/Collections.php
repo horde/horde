@@ -132,6 +132,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     protected $_changes;
 
     /**
+     * Flag to indicate the client is requesting a hanging SYNC.
+     *
+     * @var boolean
+     */
+    protected $_hangingSync = false;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_SyncCache $cache  The SyncCache.
@@ -208,6 +215,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             return $this->_cache->$property;
         case 'importedChanges':
         case 'shortSyncRequest':
+        case 'hangingSync':
             $p = '_' . $property;
             return $this->$p;
         }
@@ -223,6 +231,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         switch ($property) {
         case 'importedChanges':
         case 'shortSyncRequest':
+        case 'hangingSync':
             $p = '_' . $property;
             $this->$p = $value;
             return;
@@ -548,7 +557,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function canDoLoopingSync()
     {
-        return !$this->_importedChanges && ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false);
+        return $this->_hangingSync && !$this->_importedChanges && ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false);
     }
 
     /**
@@ -809,7 +818,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function canSendEmptyResponse()
     {
         return !$this->_importedChanges &&
-            ($this->_cache->wait !== false || $this->_cache->hbinterval !== false);
+            ($this->_hangingSync && ($this->_cache->wait !== false || $this->_cache->hbinterval !== false));
     }
 
     /**
