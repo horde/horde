@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mjr] Fix blocking an ActiveSync client through the admin interface.
 [mjr] Add an ActivSync device's currently used heartbeat interval to the device
       information display.
 [mms] Fix regression in displaying MOTD content on login screen.
