@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-19</date>
  <version>
-  <release>2.16.0</release>
+  <release>2.16.1</release>
   <api>2.16.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Allow saving just dirty deviceProperties, and not deviceInfo.
-* [mjr] Fix return status for SETTINGS_DEVICEINFORMATION requests (Bug #13191).
-* [mjr] Fix regression that could cause some clients to no longer sync.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2143,6 +2141,19 @@
 * [mjr] Allow saving just dirty deviceProperties, and not deviceInfo.
 * [mjr] Fix return status for SETTINGS_DEVICEINFORMATION requests (Bug #13191).
 * [mjr] Fix regression that could cause some clients to no longer sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.16.1</release>
+    <api>2.16.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
