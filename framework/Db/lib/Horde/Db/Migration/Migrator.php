@@ -279,7 +279,7 @@ class Horde_Db_Migration_Migrator
         $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('autoincrementKey' => false));
         $schemaTable->column('version', 'integer');
         $schemaTable->end();
-        $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');
+        $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)', null, null, null, 1);
     }
 
     /**
