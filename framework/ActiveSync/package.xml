@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-19</date>
  <version>
-  <release>2.16.1</release>
+  <release>2.16.2</release>
   <api>2.16.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix duplicate items in mailboxes after handling MOVEITEMS requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2154,6 +2154,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix duplicate items in mailboxes after handling MOVEITEMS requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.16.2</release>
+    <api>2.16.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
