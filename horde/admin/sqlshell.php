@@ -26,6 +26,7 @@ $vars = $injector->getInstance('Horde_Variables');
 if ($vars->get('list-tables')) {
     $description = 'LIST TABLES';
     $result = $db->tables();
+    sort($result);
     $command = null;
 } elseif ($command = trim($vars->sql)) {
     // Keep a cache of prior queries for convenience.
