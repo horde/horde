@@ -288,13 +288,14 @@ extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $prefs, $session;
 
+        $ftree = $injector->getInstance('IMP_Ftree');
+        $iterator = new AppendIterator();
+
         /* This might be a long running operation. */
         if ($this->vars->initial) {
             $session->close();
+            $ftree->eltdiff->clear();
         }
-
-        $ftree = $injector->getInstance('IMP_Ftree');
-        $iterator = new AppendIterator();
 
         if ($this->vars->reload) {
             $ftree->init();
