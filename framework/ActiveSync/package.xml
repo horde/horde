@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix return status for SETTINGS_DEVICEINFORMATION requests (Bug #13191).
 * [mjr] Fix regression that could cause some clients to no longer sync.
  </notes>
  <contents>
@@ -2138,6 +2139,7 @@
    <date>2014-05-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix return status for SETTINGS_DEVICEINFORMATION requests (Bug #13191).
 * [mjr] Fix regression that could cause some clients to no longer sync.
    </notes>
   </release>
