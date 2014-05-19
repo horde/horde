@@ -3774,11 +3774,15 @@ var DimpBase = {
             return;
         }
 
-        tmp = this.getMboxElt(ob.m).down('DIV');
-
-        this.deleteMboxElt(ob.m, !ob.ch);
-        if (ob.co && this.view == ob.m) {
-            this.go('mbox', this.INBOX);
+        /* If refreshing page, change mailboxes may not exist so need to
+         * treat as 'add' instead. */
+        tmp = this.getMboxElt(ob.m);
+        if (tmp) {
+            tmp.down('DIV');
+            this.deleteMboxElt(ob.m, !ob.ch);
+            if (ob.co && this.view == ob.m) {
+                this.go('mbox', this.INBOX);
+            }
         }
         this.createMbox(ob);
         if (ob.ch && tmp && tmp.hasClassName('col')) {
