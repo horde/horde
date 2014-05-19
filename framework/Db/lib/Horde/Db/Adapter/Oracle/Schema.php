@@ -429,7 +429,9 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
 
         $old = $this->typeToSql(
             $column->getType(),
-            is_null($options['limit']) ? null : $column->getLimit(),
+            $column->getType() == 'integer' || is_null($options['limit'])
+                ? null
+                : $column->getLimit(),
             is_null($options['precision']) ? null : $column->precision(),
             is_null($options['scale']) ? null : $column->scale(),
             is_null($options['unsigned']) ? null : $column->isUnsigned()
@@ -458,7 +460,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
                     . ' '
                     . $this->typeToSql(
                         $column->getType(),
-                        $column->getLimit(),
+                        $column->getType() == 'integer' ? null : $column->getLimit(),
                         $column->precision(),
                         $column->scale(),
                         $column->isUnsigned()
