@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Pass current vacation addresses to hook (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #13185).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1420,7 +1420,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Pass current vacation addresses to hook (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #13185).
    </notes>
   </release>
  </changelog>

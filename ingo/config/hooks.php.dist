@@ -53,13 +53,19 @@ class Ingo_Hooks
      * Set the default addresses used for the vacation module.
      *
      * @param string $user  The username.
+     * @param array $value  The default/current value.
      *
      * @return array  A list of vacation addresses.
      */
-//    public function vacation_addresses($user = null)
+//    public function vacation_addresses($user = null, $value = null)
 //    {
 //        // Example #1: User has 2 vacation addresses.
 //        return array($user . '@example.com', $user . '@foobar.com');
+//
+//        // Example #2: Keep user-supplied values, return defaults only
+//        return is_array($value) && count($array)
+//            ? $value
+//            : array($user . '@example.com', $user . '@foobar.com');
 //    }
 
 }
