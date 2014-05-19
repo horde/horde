@@ -132,6 +132,7 @@ extends Horde_Mail_Autoconfig_Driver
                     continue;
                 }
 
+                $label = strval($xml->emailProvider->displayName);
                 foreach ($xml->emailProvider->{$tag} as $val) {
                     if (in_array($val['type'], $types)) {
                         switch ($val['type']) {
@@ -150,6 +151,7 @@ extends Horde_Mail_Autoconfig_Driver
 
                         $ob->host = strval($val->hostname);
                         $ob->port = intval(strval($val->port));
+                        $ob->label = $label;
                         $ob->tls = (strcasecmp($val->socketType, 'SSL') === 0);
 
                         if (!is_null($email) &&

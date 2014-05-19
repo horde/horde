@@ -37,6 +37,13 @@ abstract class Horde_Mail_Autoconfig_Server
     public $port = null;
 
     /**
+     * The server label.
+     *
+     * @var integer
+     */
+    public $label = null;
+
+    /**
      * Is TLS needed to directly connect to the server/port?
      *
      * @var boolean
