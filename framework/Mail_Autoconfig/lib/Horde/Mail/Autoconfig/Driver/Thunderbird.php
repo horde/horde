@@ -125,7 +125,12 @@ extends Horde_Mail_Autoconfig_Driver
                     continue;
                 }
 
-                $xml = new SimpleXMLElement($get->getBody());
+                try {
+                    $xml = new SimpleXMLElement($get->getBody());
+                } catch (Exception $e) {
+                    // No valid XML; ignore
+                    continue;
+                }
 
                 foreach ($xml->emailProvider->{$tag} as $val) {
                     if (in_array($val['type'], $types)) {
