@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Fix migrating large values to BLOB on Oracle.
 * [jan] Fix certain migrations with Oracle.
  </notes>
  <contents>
@@ -786,6 +787,7 @@
    <date>2014-03-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Fix migrating large values to BLOB on Oracle.
 * [jan] Fix certain migrations with Oracle.
    </notes>
   </release>

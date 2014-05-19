@@ -489,10 +489,26 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $this->beginDbTransaction();
             $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
             $this->update(sprintf(
-                'UPDATE %s SET %s = UTL_RAW.CAST_TO_RAW(%s)',
+                'UPDATE %s SET %s = UTL_RAW.CAST_TO_RAW(%s) WHERE LENGTH(%3$s) <= 2000',
                 $this->quoteTableName($tableName),
                 $this->quoteColumnName($columnName . '_tmp'),
                 $this->quoteColumnName($columnName)
+            ));
+            $this->execute(sprintf(
+                'DECLARE CURSOR cur IS SELECT %s, %s FROM %s WHERE LENGTH(%s) > 2000 FOR UPDATE; new blob; old %s; BEGIN OPEN cur; IF cur%%ISOPEN THEN LOOP FETCH cur INTO old, new; EXIT WHEN cur%%NOTFOUND; DBMS_LOB.WRITE(new, LENGTH(old), 1, UTL_RAW.CAST_TO_RAW(SUBSTR(old, 1, LENGTH(old)))); END LOOP; CLOSE cur; END IF; END;',
+                $this->quoteColumnName($columnName),
+                $this->quoteColumnName($columnName . '_tmp'),
+                $this->quoteTableName($tableName),
+                $this->quoteColumnName($columnName),
+                $this->typeToSql(
+                    $column->getType(),
+                    $column->getType() == 'integer' || $column->getType() == 'text'
+                        ? null
+                        : $column->getLimit(),
+                    $column->precision(),
+                    $column->scale(),
+                    $column->isUnsigned()
+                )
             ));
             $this->removeColumn($tableName, $columnName);
             $this->renameColumn($tableName, $columnName . '_tmp', $columnName);
