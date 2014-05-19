@@ -61,7 +61,7 @@ extends Horde_Core_Ajax_Application_Handler
 
                 $res->mconfig = (object)$mconfig;
                 $res->mconfig->imap = $imap;
-                if (empty($res->mconfig->label)) {
+                if (!strlen($res->mconfig->label)) {
                     $res->mconfig->label = $email->bare_address;
                 }
                 $res->success = true;
