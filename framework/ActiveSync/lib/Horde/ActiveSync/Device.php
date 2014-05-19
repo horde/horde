@@ -325,10 +325,18 @@ class Horde_ActiveSync_Device
 
     /**
      * Save the dirty device info data.
+     *
+     * @param boolean $all  If true, save all properties (deviceInfo and
+     *                      deviceProperties). Otherwise, just save dirty
+     *                      deviceProperties. @since 2.16.0
+     * @todo For 3.0, make it clearer taht deviceInfo is per-user and
+     *       deviceProperties is per-device.
      */
-    public function save()
+    public function save($all = true)
     {
-        $this->_state->setDeviceInfo($this, $this->_dirty);
+        if ($all) {
+            $this->_state->setDeviceInfo($this, $this->_dirty);
+        }
         if (!empty($this->_dirty['properties'])) {
             $this->_state->setDeviceProperties($this->properties, $this->id);
         }
