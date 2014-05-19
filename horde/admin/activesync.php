@@ -54,11 +54,13 @@ if ($actionID = Horde_Util::getPost('actionID')) {
     case 'block':
         $device = $state->loadDeviceInfo($deviceID);
         $device->blocked = true;
+        $device->save(false);
         break;
 
     case 'unblock':
         $device = $state->loadDeviceInfo($deviceID);
         $device->blocked = false;
+        $device->save(false);
         break;
     }
 }
