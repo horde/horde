@@ -3566,6 +3566,7 @@ var DimpBase = {
     {
         var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
             cname = 'imp-sidebar-container',
+            css = ob.cl || 'folderImg',
             label = ob.l || ob.m,
             title = ob.t || ob.m;
 
@@ -3629,7 +3630,7 @@ var DimpBase = {
         }
 
         if (ob.s) {
-            div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
+            div.removeClassName('exp').addClassName(css);
             parent_e = $('imp-specialmboxes');
 
             /* Create a dummy container element in normal mailboxes section
@@ -3648,7 +3649,7 @@ var DimpBase = {
         }
 
         if (!ob.s) {
-            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
+            div.addClassName(ob.ch ? 'exp' : css);
             parent_e = ob.pa
                 ? this.getSubMboxElt(ob.pa)
                 : $('imp-normalmboxes');

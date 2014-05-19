@@ -586,7 +586,7 @@ class IMP_Ajax_Queue
      *   - ch: (boolean) [children] Does the mailbox contain children?
      *         DEFAULT: no
      *   - cl: (string) [class] The CSS class.
-     *         DEFAULT: 'base'
+     *         DEFAULT: 'folderImg'
      *   - co: (boolean) [container] Is this mailbox a container element?
      *         DEFAULT: no
      *   - fs: (boolean) [boolean] Fixed element for sorting purposes.
@@ -698,7 +698,7 @@ class IMP_Ajax_Queue
         if ($icon->user_icon) {
             $ob->cl = 'customimg';
             $ob->i = strval($icon->icon);
-        } else {
+        } elseif (!in_array($icon->class, array('folderImg', 'folderopenImg'))) {
             $ob->cl = $icon->class;
         }
 
