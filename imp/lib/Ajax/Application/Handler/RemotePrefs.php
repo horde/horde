@@ -56,12 +56,12 @@ extends Horde_Core_Ajax_Application_Handler
             ));
 
             if ($mconfig && !is_null($mconfig->username)) {
-                $email = new Horde_Mail_Rfc822_Address($this->vars->email);
                 $imap = ($mconfig instanceof Horde_Mail_Autoconfig_Server_Imap);
 
                 $res->mconfig = (object)$mconfig;
                 $res->mconfig->imap = $imap;
                 if (!strlen($res->mconfig->label)) {
+                    $email = new Horde_Mail_Rfc822_Address($this->vars->email);
                     $res->mconfig->label = $email->bare_address;
                 }
                 $res->success = true;
