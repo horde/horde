@@ -69,6 +69,14 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
         $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
+        /* Set the timezone variable, if available. */
+        $GLOBALS['registry']->setTimeZone();
+
+        /* Store the request timestamp if it's not already present. */
+        if (!isset($_SERVER['REQUEST_TIME'])) {
+            $_SERVER['REQUEST_TIME'] = time();
+        }
+
         if (!$GLOBALS['prefs']->getValue('dynamic_view')) {
             $this->features['dynamicView'] = false;
         }
@@ -76,17 +84,6 @@ class Kronolith_Application extends Horde_Registry_Application
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
             empty($this->initParams['nodynamicinit'])) {
             Kronolith::initialize();
-        }
-    }
-
-    protected function _authenticated()
-    {
-        /* Set the timezone variable, if available. */
-        $GLOBALS['registry']->setTimeZone();
-
-        /* Store the request timestamp if it's not already present. */
-        if (!isset($_SERVER['REQUEST_TIME'])) {
-            $_SERVER['REQUEST_TIME'] = time();
         }
     }
 
