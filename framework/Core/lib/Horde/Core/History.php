@@ -140,6 +140,19 @@ class Horde_Core_History extends Horde_History
         return $this->_history->getLatestEntry($guid, $use_ts);
     }
 
+    /**
+     * Return the maximum modification sequence. To be overridden in concrete
+     * class.
+     *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
+     * @return integer  The modseq
+     */
+    public function getHighestModSeq($parent = null)
+    {
+        return $this->_history->getHighestModSeq($parent);
+    }
+
     protected function _log(Horde_History_Log $history, array $attributes, $replaceAction = false)
     {
         // NOOP. Here to satisfy the Horde_History API since we must extend the
