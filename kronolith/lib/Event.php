@@ -1876,18 +1876,22 @@ abstract class Kronolith_Event
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
 
-       // Resources
-       if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
-           $r = $this->getResources();
-           foreach ($r as $id => $data) {
-               $resource = Kronolith::getDriver('Resource')->getResource($id);
-               $attendee = new Horde_ActiveSync_Message_Attendee(array(
-                    'protocolversion' => $options['protocolversion']));
-               $attendee->email = $resource->get('email');
-               $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
-               $attendee->name = $data['name'];
-               $attendee->status = $data['response'];
-               $message->addAttendee($attendee);
+        // Resources
+        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+            $r = $this->getResources();
+            foreach ($r as $id => $data) {
+                $resource = Kronolith::getDriver('Resource')->getResource($id);
+                // EAS *REQUIRES* an email field for Resources. If it is missing
+                // a number of clients will fail, losing push.
+                if ($resource->get('email')) {
+                    $attendee = new Horde_ActiveSync_Message_Attendee(array(
+                        'protocolversion' => $options['protocolversion']));
+                    $attendee->email = $resource->get('email');
+                    $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+                    $attendee->name = $data['name'];
+                    $attendee->status = $data['response'];
+                    $message->addAttendee($attendee);
+                }
            }
         }
 
