@@ -41,33 +41,60 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
     /**
      * @dataProvider provider
      */
-    public function testGetMsaConfigWithoutAuth($email)
+    public function testGetMsaConfigWithoutAuth($email, $success)
     {
         if (!$email) {
             $this->markTestSkipped();
         }
 
-        $this->assertNotFalse($this->aconfig->getMsaConfig($email));
+        $config = $this->aconfig->getMsaConfig($email);
+
+        if ($success) {
+            $this->assertNotFalse($config);
+        } else {
+            $this->assertFalse($config);
+        }
     }
 
     /**
      * @dataProvider provider
      */
-    public function testGetMailConfigWithoutAuth($email)
+    public function testGetMailConfigWithoutAuth($email, $success)
     {
         if (!$email) {
             $this->markTestSkipped();
         }
 
-        $this->assertNotFalse($this->aconfig->getMailConfig($email));
+        $config = $this->aconfig->getMailConfig($email);
+
+        if ($success) {
+            $this->assertNotFalse($config);
+        } else {
+            $this->assertFalse($config);
+        }
     }
 
     public function provider()
     {
         $config = self::getConfig('MAILAUTOCONFIG_TEST_CONFIG');
-        if (!is_null($config) &&
-            !empty($config['mail_autoconfig']['nonauth_emails'])) {
-            return $config['mail_autoconfig']['nonauth_emails'];
+        if (!is_null($config)) {
+            $out = array();
+
+            if (!empty($config['mail_autoconfig']['nonauth_emails'])) {
+                foreach ($config['mail_autoconfig']['nonauth_emails'] as $val) {
+                    $out[] = array($val, true);
+                }
+            }
+
+            if (!empty($config['mail_autoconfig']['nonauth_emails_bad'])) {
+                foreach ($config['mail_autoconfig']['nonauth_emails_bad'] as $val) {
+                    $out[] = array($val, false);
+                }
+            }
+
+            if (!empty($out)) {
+                return $out;
+            }
         }
 
         return array(array(null));

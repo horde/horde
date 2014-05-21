@@ -62,7 +62,13 @@ class Horde_Mail_Autoconfig_Server_Pop3 extends Horde_Mail_Autoconfig_Server
                     'timeout' => 2,
                     'username' => $user
                 ));
-                $pop3->noop();
+
+                if (isset($opts['auth'])) {
+                    $pop3->login();
+                    $this->username = $user;
+                } else {
+                    $pop3->noop();
+                }
 
                 if (isset($opts['auth'])) {
                     $this->username = $user;

@@ -2,7 +2,10 @@
 $conf['mail_autoconfig'] = array(
     /* Test e-mails used for the non-auth autoconfig tests. */
     'nonauth_emails' => array(
-        array(array('test@gmail.com'))
+        'test@gmail.com'
+    ),
+    'nonauth_emails_bad' => array(
+        'foo@example.com'
     ),
     /* Test domains used for the autoconfig driver tests. */
     'domains' => array(

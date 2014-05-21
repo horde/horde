@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix verification of IMAP and POP3 servers (Bug #13205).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -104,7 +104,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.14.0</min>
+    <min>2.20.1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -183,7 +183,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix verification of IMAP and POP3 servers (Bug #13205).
    </notes>
   </release>
  </changelog>

@@ -62,11 +62,14 @@ class Horde_Mail_Autoconfig_Server_Imap extends Horde_Mail_Autoconfig_Server
                     'timeout' => 2,
                     'username' => $user
                 ));
-                $imap->noop();
 
                 if (isset($opts['auth'])) {
+                    $imap->login();
                     $this->username = $user;
+                } else {
+                    $imap->noop();
                 }
+
                 if ($secure === 'tls') {
                     $this->tls = 'starttls';
                 } elseif ($secure === true) {
