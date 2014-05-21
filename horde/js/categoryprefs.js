@@ -1,8 +1,8 @@
 /**
  * Provides the javascript for managing categories.
  *
- * See the enclosed file COPYING for license information (LGPL-2). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 
 var HordeCategoryPrefs = {

@@ -1,3 +1,8 @@
+/**
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
+ */
+
 function chooseObject(oid)
 {
     if (!window.opener || !window.opener.obrowserCallback) {

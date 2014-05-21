@@ -35,12 +35,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Horde
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
+ * @copyright  2011-2014 Horde LLC (http://www.horde.org/)
  */
 
 var FormGhost = Class.create({

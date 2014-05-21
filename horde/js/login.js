@@ -1,11 +1,13 @@
 /**
  * Provides the javascript for the login.php script.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2006-2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 
 var HordeLogin = {
+
     // Variables set by outside code: user_error, pass_error
 
     submit: function()

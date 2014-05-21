@@ -20,9 +20,12 @@
  *   params: NONE
  *
  * @author Michael Slusarz <slusarz@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 
 var TextareaResize = Class.create({
+
     // Variables used: elt, max_rows, size
 
     initialize: function(id, opts)

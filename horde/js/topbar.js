@@ -1,6 +1,10 @@
 /**
  * Scripts for the Horde topbar.
+ *
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
+
 var HordeTopbar = {
 
     // Vars used and defaulting to null/false:

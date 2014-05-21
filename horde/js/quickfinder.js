@@ -14,6 +14,8 @@
  * and Gavin's name as acknowledgements.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 
 var QuickFinder = {

@@ -1,3 +1,10 @@
+/**
+ * Provides the javascript for problem reporting.
+ *
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
+ */
+
 var HordeProblem = {
 
     onSubmit: function(e)

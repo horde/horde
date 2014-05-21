@@ -52,8 +52,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2006-2014 Horde LLC
  */
 
 var ContextSensitive = Class.create({

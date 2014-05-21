@@ -1,8 +1,9 @@
 /**
- * Provides the javascript for the logintasks confirmation page.
+ * Provides the javascript for the logintasks confirmation page (smartmobile).
  *
- * See the enclosed file COPYING for license information (LGPL-2). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2006-2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 
 $(document).on('click', function(e) {

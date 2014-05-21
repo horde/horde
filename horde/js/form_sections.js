@@ -1,16 +1,11 @@
 /**
- * Horde Form Sections Javascript Class
- *
  * Provides the javascript class for handling tabbed sections in Horde Forms.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL-2). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl.
- *
- * @author  Marko Djukic <marko@oblo.com>
- * @package Horde_Form
+ * @author     Marko Djukic <marko@oblo.com>
+ * @copyright  2003-2014 Horde LLC
+ * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
+
 function Horde_Form_Sections(instanceName, openSection)
 {
     /* Set up this class instance for function calls from the page. */
