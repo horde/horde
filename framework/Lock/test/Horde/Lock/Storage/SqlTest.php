@@ -19,7 +19,7 @@ class Horde_Lock_Storage_SqlTest extends Horde_Lock_Storage_TestBase
             error_reporting(E_ALL & ~E_DEPRECATED);
             self::$_migrationDir = PEAR_Config::singleton()
                 ->get('data_dir', null, 'pear.horde.org')
-                . '/Horde_Group/migration';
+                . '/Horde_Lock/migration';
             error_reporting(E_ALL | E_STRICT);
         }
     }
