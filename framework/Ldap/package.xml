@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-05-21</date>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -414,7 +414,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-05-21</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Fix creating filters with the less (&lt;) operator (Bug #13154).
