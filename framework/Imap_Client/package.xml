@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-21</date>
  <version>
-  <release>2.20.0</release>
+  <release>2.20.1</release>
   <api>2.20.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix instantiating base object with an empty password.
-* [mms] Better error checking when writing data to the server (Bug #13187; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mms] Support partial search limitation even if the PARTIAL search return option is not available on the server (Request #13153).
-* [mms] Added the &apos;max&apos; and &apos;min&apos; properties to Horde_Imap_Client_Ids.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2416,6 +2413,19 @@
 * [mms] Better error checking when writing data to the server (Bug #13187; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Support partial search limitation even if the PARTIAL search return option is not available on the server (Request #13153).
 * [mms] Added the &apos;max&apos; and &apos;min&apos; properties to Horde_Imap_Client_Ids.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.1</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
