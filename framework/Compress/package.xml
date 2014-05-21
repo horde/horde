@@ -30,7 +30,7 @@
  </developer>
  <date>2014-05-21</date>
  <version>
-  <release>2.0.8</release>
+  <release>2.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
-* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -898,6 +897,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
