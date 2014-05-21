@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[jan] Add Japanese help file (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 [mms] Add automatic configuration of remote account connection details.
 [mms] Support LMTP servers when sending mail.
 [mms] Fix regression where creating a mailbox that is currently a container

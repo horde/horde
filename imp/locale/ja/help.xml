@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+    <entry id="compose-actions" md5="bf907bcfd67c0226a391d1d5f28c6ba8" state="uptodate">
+        <title>メール作成: 動作</title>
+        <para>
+	    「メッセージ送信」は、あなたの電子メールメッセージを受信者に転送します。送信されたメッセージは取り消せないので、本当に送って良いかを確認して下さい。
+        </para>
+        <para>
+	    「下書きを保存」は、書きかけのメッセージを下書きフォルダーに入れます。後で下書きフォルダーを開き、メッセージをクリックして「再開」できます。
+        </para>
+        <tip>
+            下書きを保存する前に、件名を入力しておくと、後で再開する際に下書きを見つけ易くなります。
+        </tip>
+        <para>
+            「メッセージをキャンセル」は作成中のメッセージを破棄します。作成画面がポップアップ画面でなければ、以前の画面に戻ります。
+        </para>
+    </entry>
+
+    <entry id="compose-identity" md5="d25ad8c8f3c2c21aaa5ca1e7ae924c2f" state="uptodate">
+        <title>メール作成: ID</title>
+        <para>
+            メールの From とする ID をドロップダウンから選択します。この ID は、「個人設定 -&gt; メール -&gt; 個人情報」 で設定します。
+        </para>
+    </entry>
+
+    <entry id="compose-to" md5="859e22e4635003e5f50d777b60141467" state="uptodate">
+        <title>メール作成: To</title>
+        <para>
+            あなたのメッセージを受け取る相手のメールアドレスを入力します。複数のアドレスを入力するなら、アドレスをコンマで区切って下さい。
+        </para>
+        <warn>
+            メールアドレスをセミコロン(;)で区切らないで下さい。
+        </warn>
+    </entry>
+
+    <entry id="compose-cc" md5="d85384e61b6a7f58b13eb4af4381d528" state="uptodate">
+        <title>メール作成: Cc</title>
+        <para>
+            あなたのメッセージのカーボンコピーを受け取るメールアドレスを入力して下さい。複数のアドレスを入力するなら、アドレスをコンマで区切って下さい。それ以外の文字ではエラーになります。
+        </para>
+        <warn>
+            メールアドレスをセミコロン(;)で区切らないで下さい。
+        </warn>
+        <para>
+            カーボンコピーは通常、直接の宛先ではないがメールの情報を知るべき相手に送られます。すべての「To:」と「Cc:」の受信者は、両方の受信者の一覧を見ることができます。
+        </para>
+    </entry>
+
+    <entry id="compose-bcc" md5="2cf1b9bc62e0defff7702bdd5b92c265" state="uptodate">
+        <title>メール作成: Bcc</title>
+        <para>
+            あなたのメッセージのブラインドカーボンコピーを受け取るメールアドレスを入力して下さい。複数のアドレスを入力するなら、アドレスをコンマで区切って下さい。
+        </para>
+        <warn>
+            メールアドレスをセミコロン(;)で区切らないで下さい。
+        </warn>
+        <para>
+            ブラインドカーボンコピーは通常、直接または間接の受信者（「To:」および「Cc:」受信者）以外に、他の受信者に対して受け取っていることを知られずにメールを読む必要がある人に対して送信されます。したがって、「ブラインド」とは受信者の情報を、他の受信者から隠すことを意味します。あなたとメールを受け取った人だけが、メールのコピーを受け取ったことを知っています。
+        </para>
+    </entry>
+
+    <entry id="compose-subject" md5="76400c3f7fce3964197b2fb37b305804" state="uptodate">
+        <title>メール作成: 件名</title>
+        <para>
+            メールの件名を入力して下さい。送信メールの「件名:」となります。簡潔かつ記述的に書きましょう。件名は、あなたとあなたの通信相手にメールの内容を思い出せる近道となります。また、メールボックスからメールを検索する際の基本項目となります。
+        </para>
+        <para>
+            「返信」または「転送」する際に、件名は新しいメールにコピーされますので、メールでの話し合いの「スレッド」を識別し易くするという利点になります。
+        </para>
+        <tip>
+            「返信」または「転送」するメールに新たな意見がある場合は、「件名：」に簡単な修正を加えても構いません。受信者は「スレッド」の流れを追いながらも、派生したトピックだと分かります。
+        </tip>
+    </entry>
+
+    <entry id="compose-spellcheck" md5="caf852dff957650ca90e0f082dd589ee" state="uptodate">
+        <title>メール作成: スペルチェック</title>
+        <warn>
+            この動作は管理者が許可しなければ使用できません。
+        </warn>
+        <para>
+             「スペルチェック」をクリックすると、綴りのチェックが行われます。
+             綴り間違いの単語は赤く表示され下線も付きます。その単語をクリックすると、正しい綴りの候補が表示されます。候補のどれかをクリックすると、元の単語が置き換わります。候補以外の場所をクリックすると、候補は閉じます。スペルチェックが終わったら、「編集再開」ボタンでメッセージの編集に戻ります。
+        </para>
+    </entry>
+
+    <entry id="compose-sentmail" md5="1296b510cd32ec0886b983eca924fc0e" state="uptodate">
+        <title>メール作成: 送信控えに保存</title>
+        <warn>
+            この動作は管理者が許可しなければ使用できません。
+        </warn>
+        <para>
+            あなたが送信したメッセージのコピーを保存するために「保存」のチェックをオンにします。デフォルトの保存先は「個人設定 -&gt; メール- &gt; 個人情報」で設定できます。管理者が許可するなら、「保存」の横にドロップダウンで場所が選択できます。
+        </para>
+        <para>
+            重要な送信メールのコピーを保存することは何を議論していたかを記録するのに役立つでしょう。「個人設定 -&gt; メール- &gt; 個人情報」で、デフォルトをONにできます。保守作業の設定で、定期的にフォルダーを空にしたり、名前を変更することもできます。
+        </para>
+        <tip>
+            全てのメールを保存すると、特に大きな添付ファイルを送信した場合などで、ディスク容量がすぐに満杯になる心配があります。クォータが満杯になると新しいメールを受信することもできなくなります。
+        </tip>
+    </entry>
+
+    <entry id="compose-priority" md5="d2ef446bfe2c72c95ed4f4d092058de8" state="uptodate">
+        <title>メール作成: 優先度</title>
+        <para>
+            これはあなたが送るメッセージに優先度を設定します。優先度は多くのメールクライアントで使用できます。優先度を使用できないクライアントは単に無視します。
+        </para>
+    </entry>
+
+    <entry id="filter-edit-rules" md5="ed0e2cd7f4dfb9fe50a98c564a76f0ad" state="uptodate">
+        <title>振り分け: 個人設定: 振り分けルールの編集</title>
+        <para>
+            「振り分けルールを編集」をクリックして、ルールの追加や削除、編集の画面にアクセスします。
+        </para>
+    </entry>
+
+    <entry id="filter-edit-blacklist" md5="25c5c6cf045c70960dc95c9813ec1171" state="uptodate">
+        <title>振り分け: 個人設定: ブラックリストの編集</title>
+        <para>
+            「ブラックリストの編集」をクリックして、常に拒否するメールアドレスのリストへの追加、削除や編集の画面にアクセスします。
+        </para>
+    </entry>
+
+    <entry id="filter-edit-whitelist" md5="213c6258253919088a3cbc76495473b5" state="uptodate">
+        <title>振り分け: 個人設定: ホワイトリストの編集</title>
+        <para>
+            「ホワイトリストの編集」をクリックして、常に受け入れるメールアドレスのリストへの追加、削除や編集の画面にアクセスします。
+        </para>
+    </entry>
+
+    <entry id="filter-on-login" md5="939a9996c1313264175ffa6ee48a1bc2" state="uptodate">
+        <title>振り分け: 個人設定: ログイン時に振り分け</title>
+        <para>
+            このオプションをクリックすると、最初のログイン時に振り分けが適用されます。
+        </para>
+    </entry>
+
+    <entry id="filter-on-display" md5="08c26328ea17a4c811ad577d3ef70ac1" state="uptodate">
+        <title>振り分け: 個人設定: リフレッシュ時に振り分け</title>
+        <para>
+            このオプションをクリックすると、INBOXを開く度に振り分けが適用されます。
+        </para>
+    </entry>
+
+    <entry id="filter-any-mailbox" md5="c89004a1ef14f8a875ebf02f25727934" state="uptodate">
+        <title>振り分け: 個人設定: 全てのメールボックスで振り分け</title>
+        <para>
+            このオプションは、振り分けルールを全てのメールボックスに適用したい場合に使用します。通常、振り分けルールはINBOXへの新着メールに適用されます。このオプションをチェックすると、全てのメールボックス画面に振り分けを適用させるアイコンが追加されます。
+        </para>
+        <tip>
+            INBOX 以外のメールボックスでの振り分けは予期しない（例えば、メッセージのコピーが配送されたり）、あるいは望まない結果（例えば、メールボックスに配送されるはずのメッセージが移動や削除されたり）になることがあります。
+        </tip>
+    </entry>
+
+    <entry id="pgp-compose-attach-pubkey" md5="a3ea551d25b0e4f9e131ca1415153def" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵を添付</title>
+        <para>
+            選択されていると、もしあなたのPGP公開鍵があれば、送信するメッセージに添付されます。デフォルトは個人設定のPGP設定画面で設定できます。
+        </para>
+    </entry>
+
+    <entry id="pgp-option-reply-pubkey" md5="758623ecc4eabd8f0e0a9057e2b3a71e" state="uptodate">
+        <title>PGP: 個人設定: 返信時に公開鍵を検証</title>
+        <para>
+            セットすると、メール作成でPGP暗号化がデフォルトで使用され、返信時には受信者の公開鍵が検証されます。その結果、返信画面の表示がかなり遅くなります。反面、良い点として、受信者に暗号化メッセージを正しく送信できない場合、そのことが直ちに分かります。
+        </para>
+    </entry>
+
+    <entry id="compose-options-encrypt" md5="9a36c004d88bbee23c6952dd24cb72b5" state="uptodate">
+        <title>メール作成: 暗号オプション</title>
+        <heading>暗号なし</heading>
+        <para>
+	    メッセージを暗号化せず（クリアテキスト）に送信します。
+        </para>
+        <heading>PGP暗号メッセージ</heading>
+        <para>
+            このオプションは現在のメッセージをPGPを使用し、受信者の公開鍵で暗号化して送信します。受信者の公開鍵がアドレス帳に保存されている必要があり、でないと失敗します。受信者の公開鍵がアドレス帳に保存されているにも関わらず送信が失敗する場合には、受信者のメールアドレスと公開鍵を保存したアドレスが一致するか確認して下さい。暗号化したデータはメッセージの添付として送られます。
+        </para>
+        <heading>PGP署名メッセージ</heading>
+        <para>
+            このオプションは現在のメッセージをPGPを使用し、あなたの秘密鍵でデジタル署名します。もしもセッションで秘密鍵のパスフレーズを入力していないならば、入力が促されます。受信者があなたの署名を検証するためには、あなたの公開鍵を持っている必要があります。
+        </para>
+        <heading>PGP署名／暗号メッセージ</heading>
+        <para>
+            このオプションは先ずメッセージをデジタル署名し、その後暗号化します。詳しくは「PGP暗号メッセージ」と「PGP署名メッセージ」を参照して下さい。
+        </para>
+        <heading>PGP暗号メッセージ（パスフレーズ使用）</heading>
+        <para>
+            このオプションは現在のメッセージをPGPを使用し、パスフレーズで暗号化します。暗号化で使用するパスフレーズの入力が促されます。パスフレーズは安全な経路（例えば、電話や対話など）で受信者に伝える必要があります。暗号化されたデータは添付として送信されます。
+        </para>
+        <heading>PGP署名／暗号メッセージ（パスフレーズ使用）</heading>
+        <para>
+            このオプションは先ずメッセージをデジタル署名し、その後パスフレーズで暗号化します。詳しくは「PGP暗号メッセージ（パスフレーズ使用）」と「PGP署名メッセージ」を参照して下さい。
+        </para>
+        <heading>S/MIME暗号メッセージ</heading>
+        <para>
+            このオプションは現在のメッセージをS/MIMEを使用し、受信者の証明書で暗号化して送信します。受信者の証明書がアドレス帳に保存されている必要があり、でないと失敗します。受信者の証明書がアドレス帳に保存されているにも関わらず送信が失敗する場合には、受信者のメールアドレスと証明書を保存したアドレスが一致するか確認して下さい。暗号化したデータはメッセージの添付として送られます。
+        </para>
+        <heading>S/MIME署名メッセージ</heading>
+        <para>
+            このオプションは現在のメッセージをS/MIMEを使用し、あなたの証明書でデジタル署名します。もしもセッションで証明書のパスフレーズを入力していないならば、入力が促されます。
+        </para>
+        <heading>S/MIME署名／暗号メッセージ</heading>
+        <para>
+            このオプションは先ずメッセージをデジタル署名し、その後パスフレーズで暗号化します。詳しくは「S/MIME暗号メッセージ」と「S/MIME署名メッセージ」を参照して下さい。
+        </para>
+    </entry>
+
+    <entry id="pgp-overview" md5="70c98866d308d4eb29ac844d04262b92" state="uptodate">
+        <title>PGP: 概略</title>
+        <heading>PGPとは？</heading>
+        <para>
+            PGPは安全な通信とデータ保存用ツールの一つで、電子メール専門です。データの暗号化や、デジタル署名ができます。我々はGnuPG (GNU Privacy Guard) を使用しています。
+        </para>
+        <heading>PGP機能を有効にしますか？</heading>
+        <para>
+            このオプションを選択すると、あなたのPGP秘密鍵を作成、表示することや公開鍵の追加、削除をすることが出来るようになります。また、暗号化されたメールの解読、デジタル署名の検証、暗号化／署名したメールの送信が出来ます。
+        </para>
+    </entry>
+
+    <entry id="pgp-option-attach-pubkey" md5="a4d42b8f3b2b36cd874ab35b727c1218" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵を添付</title>
+        <para>
+            選択すると、あなたのPGP公開鍵があるなら、送信するメッセージに添付されます。
+        </para>
+    </entry>
+
+    <entry id="pgp-manage-pubkey" md5="45c1f3ce9577aca2ae83cfcafea6bc40" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵の管理</title>
+        <heading>概略</heading>
+        <para>
+            あなたのアドレス帳に保存されている全てのPGP公開鍵を表示します。それらは、あなたが暗号メッセージを送信したか、デジタル署名を検証した人達です。
+        </para>
+        <heading>表示</heading>
+        <para>
+            PGP公開鍵を表示するウインドーを開きます。
+        </para>
+        <heading>詳細</heading>
+        <para>
+            PGP公開鍵の詳細を表示します。
+        </para>
+        <heading>削除</heading>
+        <para>
+            あなたのアドレス帳から公開鍵を削除します。
+        </para>
+    </entry>
+
+    <entry id="pgp-import-pubkey" md5="252988480aa775fdff90728cf05c7bce" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵の管理: インポート</title>
+        <para>
+            このボタンでPGP公開鍵をインポートするウインドーが開きます。公開鍵はテキスト領域にペーストするか公開鍵のファイルを指定します。鍵が正しければあなたのアドレス帳に保存され、ウインドーは閉じます。もしも鍵が正しくなければ、エラー内容を説明するメッセージが表示されるでしょう。
+        </para>
+    </entry>
+
+    <entry id="pgp-overview-personalkey" md5="914fb8925e606a642a4144457c950555" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵の管理</title>
+        <heading>概略</heading>
+        <para>
+            もしもあなたがデジタル署名したメッセージを送信するか、あるいは誰かがあなたに暗号化したメッセージを送信できるようにするには、あなたはPGP公開鍵と秘密鍵のペアを持つ必要があります。
+        </para>
+        <heading>あなたの公開鍵</heading>
+        <para>
+            あなたの公開鍵は誰かがあなたに暗号化したメッセージを送信する時に必要で、そのメッセージはあなただけが解読できます（あなたの秘密鍵を使います）。また、あなたの公開鍵はあなたがデジタル署名したメッセージを受信者が検証する際にも必要です。
+        </para>
+        <heading>あなたの秘密鍵</heading>
+        <para>
+            あなたの秘密鍵はあなたの公開鍵で暗号化されたメッセージを解読する際に必要です。また、あなたの秘密鍵はデジタル署名する際にも必要です。あなたの秘密鍵は鍵を作成する時に指定したパスフレーズで保護されます。なので、秘密鍵を使用する度にパスフレーズの入力が促されますが、セッションの間は一度だけ入力すれば良いです。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-public" md5="f73a254f5784c51f3020f8ca11e454cc" state="uptodate">
+        <title>PGP: 個人設定: 公開鍵の管理: 公開鍵</title>
+        <heading>表示</heading>
+        <para>
+            PGP公開鍵を表示するウインドーを開きます。
+        </para>
+        <heading>詳細</heading>
+        <para>
+            PGP公開鍵の詳細を表示します。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-private" md5="350d3c221c933754ee0bc245668e3a56" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の管理: 秘密鍵</title>
+        <heading>パスフレーズ入力</heading>
+        <para>
+            パスフレーズのダイアログウインドーを開きます。入力したパスフレーズが正しければ、セッションの間は保持されます。
+        </para>
+        <heading>パスフレーズをアンロード</heading>
+        <para>
+            保持したパスフレーズを削除します。その後、秘密鍵を使用する時にはパスフレーズの入力が必要となります。
+        </para>
+        <heading>表示</heading>
+        <para>
+            PGP秘密鍵を表示するウインドーを開きます。この鍵は誰にも見せたり、送ったりしてはいけません！
+            このオプションは秘密鍵を他のプログラムで使用するためにエクスポートする時だけ使用します。
+        </para>
+        <heading>詳細</heading>
+        <para>
+            PGP秘密鍵の詳細を表示します。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-delete" md5="a86d88b21db235fc2a80563b3d6b0610" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の管理: 削除</title>
+        <para>
+            このボタンはあなたの公開鍵／秘密鍵ペアを削除します。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-create-name" md5="8e73624f29d8951b9c3f7c2190694460" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の作成: 名前</title>
+        <para>
+            あなたのPGP秘密鍵に入れる名前です。必須項目です。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-create-comment" md5="7308d506140e37cc582c16354c5f2f20" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の作成: コメント</title>
+        <para>
+        あなたのPGP秘密鍵に入れるコメント文字列です。オプション項目です。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-create-email" md5="cfa8ef72051883978adce74e149049fe" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の作成: 電子メールアドレス</title>
+        <para>
+            あなたのPGP秘密鍵に入れる電子メールアドレスです。必須項目です。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-create-passphrase" md5="47522ad328d8e1a0a1e68291780e4bd9" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の作成: パスフレーズ</title>
+        <para>
+            パスフレーズはあなたの秘密鍵を保護または使用する時に使用します。パスフレーズは少なくとも６文字で、ログインパスワードと同一でなく、辞書に無い文字列で、数字と記号を含むのが望ましいです。パスフレーズは検証のため２度入力する必要があります。必須項目です。
+        </para>
+    </entry>
+
+    <entry id="pgp-personalkey-create-actions" md5="0a7b4143400bc648f235cd841b611143" state="uptodate">
+        <title>PGP: 個人設定: 秘密鍵の作成: 動作</title>
+        <heading>鍵の作成</heading>
+        <para>
+	    あなたの秘密鍵を作成し保存します。
+        </para>
+        <heading>鍵のインポート</heading>
+        <para>
+            このボタンであなたが既にお持ちのPGP秘密鍵をインポートするウインドーを開きます。鍵はテキスト領域にペーストするか、鍵の入ったファイルを指定してアップロードします。鍵が正しければ、あなたの個人設定に保存されウインドーは閉じます。でなければ、エラー内容を説明するメッセージが表示されるでしょう。
+        </para>
+        <para>
+            秘密鍵の部分だけが必要です。公開鍵は秘密鍵から自動的に生成されます。
+        </para>
+    </entry>
+
+    <entry id="smime-overview" md5="3cab2af4d9b0041580b5c6a996b83796" state="uptodate">
+        <title>S/MIME: 概略</title>
+        <heading>S/MIMEとは？</heading>
+        <para>
+            S/MIMEは秘密鍵／公開鍵のペアを使用するシステムで、デジタル署名、メッセージの保護、改竄の検出などの機能を相互運用可能な方法で提供します。
+            S / MIMEは、送信者と意図された受信者だけが解読できる暗号化により、メッセージの保護を提供することができます。また、デジタル署名によりメッセージの送信者を識別することができます。この暗号化とデジタル署名を同時に用いて、送信した後にメッセージが変更されたかどうかを受信者が判断できる、改竄検出の機能を提供します。
+        </para>
+        <heading>S/MIME 機能を有効にしますか？</heading>
+        <para>
+            このオプションを選択すると、あなたのS/MIME秘密鍵をインポートすることや暗号化されたメールの解読、デジタル署名の検証、暗号化／署名したメールの送信が出来ます。
+        </para>
+    </entry>
+
+    <entry id="smime-overview-personalkey" md5="f396c6349cd59218a9f0408878ced995" state="uptodate">
+        <title>S/MIME: 個人設定: 個人証明書</title>
+        <para>
+            もしもあなたがデジタル署名かメッセージの暗号化をしたいなら、あなた個人のS/MIME証明書（公開／秘密）が必要です。
+        </para>
+    </entry>
+
+    <entry id="smime-import-personal-certs" md5="edd106f8ca1e841d9a65a345553f33fd" state="uptodate">
+        <title>S/MIME: 個人設定: 個人証明書: インポート</title>
+        <para>
+            PKCS#12形式の個人証明書をインポートします。PKCS#12形式は普通、ブラウザから鍵をエクスポートするかOS用の証明書を購入した時に使用されます。もしも鍵が正しいなら、あなたの個人設定に保存されウインドーは閉じます。しかし、正しくないなら、エラー内容を説明するメッセージが表示されるでしょう。
+        </para>
+    </entry>
+
+    <entry id="smime-delete-personal-certs" md5="9a0eb4a3c27d77f0a58be91ac83a86c2" state="uptodate">
+        <title>S/MIME: 個人設定: 個人証明書: 削除</title>
+        <para>
+             個人設定からあなたの個人証明書を削除します。以後は、メッセージにS/MIMEデジタル署名したり、あなた宛のS/MIME暗号を解読したりできなくなります。
+        </para>
+    </entry>
+
+    <entry id="smime-manage-pubkey" md5="0aff8be5d92d7d4ffbfca1333607a9fb" state="uptodate">
+        <title>S/MIME: 個人設定: 公開鍵の管理</title>
+        <para>
+            あなたのS/MIME公開鍵リストを管理します。
+        </para>
+        <heading>表示</heading>
+        <para>
+            公開鍵の生データを表示します。
+        </para>
+        <heading>詳細</heading>
+        <para>
+            公開鍵の詳細を表示します。
+        </para>
+        <heading>削除</heading>
+        <para>
+            選択した公開鍵を削除します。削除すると、その人宛に暗号化メッセージは送信できなくなります。
+        </para>
+    </entry>
+
+    <entry id="printing" md5="8f38316f520b5c60c0311c97f9472144" state="uptodate">
+        <title>メッセージ: 印刷</title>
+        <para>
+            あなたが見ているメッセージを印刷するには、メッセージ画面の下にある「印刷」アイコンをクリックします。すると、印刷用に整形された新しいウインドーが開きます。使用しているブラウザとOSに依りますが、印刷ダイアログが表示されるでしょう。もしもダイアログが表示されないなら、ブラウザの「ファイル」メニューから「印刷」を選択して下さい。
+        </para>
+    </entry>
+
+    <entry id="sorting" md5="3f793fe1cdb63cedeb0c1f4011f604ec" state="uptodate">
+        <title>メールボックス: 並び替えとスレッド表示</title>
+        <heading>並び替え</heading>
+        <para>
+            メッセージの一覧表示で、コラムのタイトル行をクリックすれば並びを変更できます。更に、昇順と降順の変更はタイトル行の矢印アイコンをクリックすることで変更できます。
+        </para>
+        <heading>スレッド表示</heading>
+        <para>
+            件名はアルファベット順あるいはスレッド順（関係するメッセージ）で並びを変更できます。
+        </para>
+    </entry>
+
+    <entry id="prefs-rename_sentmail_monthly" md5="3561414016ac45e716230f9dbb870b5e" state="uptodate">
+        <title>メール作成: 送信控え: 個人設定: 送信控えフォルダーの名前を毎月変更</title>
+        <para>
+            送信控えフォルダーの名前を毎月の始めに変更したいなら、この設定をオンにします。送信控えフォルダーの名前は年と月を含む名前に変更され、新しい控えフォルダーが作られます。
+        </para>
+    </entry>
+
+    <entry id="prefs-delete_sentmail_monthly_keep" md5="b3d5879b419675c61c41cb84eb246dc7" state="uptodate">
+        <title>メール作成: 送信控え: 個人設定: 送信控えフォルダーを毎月削除</title>
+        <para>
+            このオプションは、何ヶ月か経過した古い送信控えを削除します。指定した月数より古いフォルダーは全て削除されます。このオプションは例えば、ディスクスペースの節約に有効です。
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_sentmail_interval" md5="f854e46a1713f25ac9759771d1a0cb2e" state="uptodate">
+        <title>メール作成: 送信控え: 個人設定: 送信控えをパージ</title>
+        <para>
+            どの程度の頻度で送信控えフォルダーをパージしますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_sentmail_keep" md5="422aed0bbe1fc0fa2363d3b1c0e62f4e" state="uptodate">
+        <title>メール作成: 送信控え: 個人設定: 送信控えパージの残り</title>
+        <para>
+            送信控えフォルダーをパージする際、何日より以前のメッセージを削除しますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-delete_attachments_monthly_keep" md5="07dea78c24ed2a97c123d4e5e56fe163" state="uptodate">
+        <title>メール作成: 個人設定: リンク付き添付を毎月削除</title>
+        <para>
+            あなたのアカウントが送信メッセージでのリンク付き添付の使用を許可されているなら、このオプションは指定した月数より古いリンク付き添付をパージします。指定より古い添付は全て削除されます。このオプションは、ディスクスペースの節約に有効です。
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_trash_interval" md5="35f16f19ee3d55284fa759f14ee38291" state="uptodate">
+        <title>ログインタスク: 個人設定: ゴミ箱清掃</title>
+        <para>
+            ゴミ箱フォルダーをどの程度の頻度でパージしますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_trash_keep" md5="8047a69fde4170ea0e5e509f52564b01" state="uptodate">
+        <title>ログインタスク: 個人設定: ゴミ箱パージの残りPurge Trash Keep</title>
+        <para>
+            ゴミ箱フォルダーをパージする際、何日より古いメッセージを削除しますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_spam_interval" md5="19701b374e192a0bac07a0095008da43" state="uptodate">
+        <title>ログインタスク: 個人設定: Spamパージ</title>
+        <para>
+            Spamフォルダーをどの程度の頻度でパージしますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-purge_spam_keep" md5="13c1810fa63097999db37ddda6659568" state="uptodate">
+        <title>ログインタスク: 個人設定: Spamパージの残り</title>
+        <para>
+            Spamフォルダーをパージする際、何日より古いメッセージを削除しますか？
+        </para>
+    </entry>
+
+    <entry id="prefs-attrib_text" md5="47088bb3c410e32d916e6e19ea89da66" state="uptodate">
+        <title>メール作成: 個人設定: 属性文字列</title>
+        <para>
+            ここで、返信の際に引用の前に挿入する文字列を入力します。
+        </para>
+        <para>
+            返信の際、メッセージの中に情報を挿入するために、特別な記号を使用することができます。記号は「%」で始まり、次に１文字続きます。以下がそのリストです。
+        </para>
+        <raw>
+             %f：送信者の名前とメールアドレス
+        </raw>
+        <raw>
+            %a：送信者のメールアドレス
+        </raw>
+        <raw>
+            %p：送信者の名前
+        </raw>
+        <raw>
+            %r：RFC 822/2822/5322形式の日時とタイムゾーン
+        </raw>
+        <raw>
+            %d：日付 www,dd mmm YYYY
+        </raw>
+        <raw>
+            %x：現地のデフォルト日付
+        </raw>
+        <raw>
+            %c：現地のデフォルト日付と時間
+        </raw>
+        <raw>
+            %m：メッセージID
+        </raw>
+        <raw>
+            %s：件名
+        </raw>
+         <raw>
+            %n：改行
+        </raw>
+        <raw>
+            %%：「%」文字
+        </raw>
+    </entry>
+
+    <entry id="prefs-default_msg_charset" md5="b2a6c49163203f3462784dbf4e391066" state="uptodate">
+        <title>メッセージ: 個人設定: 文字セットのデフォルト</title>
+        <para>
+            テキストメッセージで特に文字セットをしていない場合に使用するデフォルトの文字セットを指定します。メールのMIME規格では、文字セットを指定していない場合には US-ASCII の基本文字セットで表示可能でなければなりません。世の中には、文字セットをヘッダに指定しないで送信するメールクライアントもあります。そのような場合に、ここで指定した値がデフォルトとして使用されます。MIMEのデフォルトとして使用する文字セットを選択して下さい。
+        </para>
+    </entry>
+
+    <entry id="prefs-request_mdn" md5="5155a0b683cd0bbd49606be2b8b42758" state="uptodate">
+        <title>メール作成: 個人設定: 開封確認要求</title>
+        <para>
+            「開封確認要求」はメッセージに開封確認要求（MDN:メッセージ処理通知）を付加し、受信者がメッセージを開いたことを通知してもらう機能です。ただし、全てのクライアントが対応している訳ではありません。
+        </para>
+    </entry>
+
+    <entry id="prefs-send_mdn" md5="3e09a8766616d7e17553a36f2161d09a" state="uptodate">
+        <title>メッセージ: 個人設定: 開封確認送信</title>
+        <para>
+            「開封確認送信」はあなたが開いたメッセージに送信者が開封確認の通知を付加していた場合、開封確認（MDN:メッセージ処理通知）を送信します。デフォルトでは、送信前に確認を促します。
+        </para>
+    </entry>
+
+    <entry id="prefs-delete_spam_after_report" md5="5e2523414b34ddc1bc9454c8a1b5053c" state="uptodate">
+        <title>メッセージ: 個人設定: Spam報告後に削除</title>
+        <para>
+            メッセージをspamとして報告した後で、以下の処置が選択できます。
+        </para>
+        <para>
+            1. 何もしない。Spamとして報告するが、それ以外は何も変更されない。
+        </para>
+        <para>
+            2. Spamとして報告したメッセージは直ちに削除される。
+        </para>
+        <para>
+            3. Spamとして報告したメッセージはspamフォルダーに移動される。
+        </para>
+    </entry>
+
+    <entry id="prefs-move_innocent_after_report" md5="99a33858f784fa3ad393b735f91941d0" state="uptodate">
+        <title>メッセージ: 個人設定: 無害報告後に移動</title>
+        <para>
+            Spamとマークされたメッセージを無害（spamではない）として報告した後で、以下の処置が選択できます。
+        </para>
+        <para>
+            1. 何もしない。メッセージを無害として報告するが、それ以外は何も変更されない。
+        </para>
+        <para>
+            2. 無害として報告したメッセージはINBOXに移動される。
+        </para>
+    </entry>
+
+    <entry id="prefs-image_replacement" md5="de99f0ad2e7cd7367524ddcbf07dc4d6" state="uptodate">
+        <title>メッセージ: 個人設定: 画像ブロック</title>
+        <para>
+            メッセージをインライン表示した時、全ての画像を指示するまでブロックしますか？注意：添付を常に表示すると指定すると画像も常に表示されます。
+        </para>
+    </entry>
+
+    <entry id="prefs-save_attachments" md5="1b2c33ade5d2967f2f532999fefd94ec" state="uptodate">
+        <title>メール作成: 送信控え: 個人設定: 送信控えに添付を保存</title>
+        <para>
+            もしも送信メッセージを送信控えフォルダーに保存する場合、デフォルトで添付も保存するかを決めます。
+        </para>
+    </entry>
+
+    <entry id="virtual_inbox" md5="bf6db3e373a0592cd285ee6e94adb1fb" state="uptodate">
+        <title>フォルダー: 仮想 INBOX</title>
+        <para>
+            仮想 INBOX は全てのメールボックスの新着メッセージを検索するという手間を省くためのものです。購読している全てのメールボックスで新着メッセージを検索し、結果を１つのメールボックスとして表示します。
+        </para>
+    </entry>
+
+    <entry id="virtual_trash" md5="3674e4fce2260d4a738bcee3272fa1b8" state="uptodate">
+        <title>フォルダー: 仮想ゴミ箱</title>
+        <para>
+        仮想ゴミ箱は複数のゴミ箱を扱う手間を省くためのものです。メッセージを一つのゴミ箱フォルダーに移動させるのではなく、その場で削除の印を付けるだけです。「削除メッセージを表示」をオフにした時には、これらは表示されなくなるです。仮想ゴミ箱をクリックした時には、全てのメールボックスから削除の印の付いたメッセージが検索され、一つのメールボックスとして表示されます。
+        </para>
+    </entry>
+
+    <view id="basic">
+        <entry id="mailbox-keyboard" md5="8cce3b6be2b37cf7a3126ae9e638f950" state="uptodate">
+            <title>メールボックス: キイボードショートカット</title>
+            <para>
+                メールボックス内のメッセージをキイボードで選択できます。
+                メッセージ間を移動するには <css class="kbd">Ctrl</css> キイを押しながら、<css class="iconImg keyupImg"/> あるいは <css class="iconImg keydownImg"/> を押します。<css class="iconImg keyupImg"/> キイでページの末尾に、<css class="iconImg keyupImg"/>  キイでページの先頭に移動します。
+            </para>
+            <para>
+                マウスの位置する現在のメッセージは反転表示されます。メッセージ一覧で上下に移動し、<css class="kbd">Space</css> でメッセージを選択／解除でき、<css class="kbd">Enter</css> で内容を表示できます（基本モードの場合）。
+            </para>
+            <para>
+                <css class="kbd">Ctrl</css> でなく <css class="kbd">Alt</css> を押しながらメッセージ一覧を移動すると、メッセージは選択／解除されます。
+            </para>
+            <para>
+                <css class="iconImg keyleftImg"/> と <css class="iconImg keyrightImg"/> で、メッセージ一覧の前のページ、次のページが表示されます（基本モードの場合）。
+            </para>
+        </entry>
+
+        <entry id="message-keyboard" md5="cba7bd946ce1207f05c6dd28ee64073b" state="uptodate">
+            <title>メッセージ: 前／次のメッセージ</title>
+            <para>
+                <css class="iconImg keyleftImg"/> と <css class="iconImg keyrightImg"/> キイで前／次のメッセージに移動します。
+            </para>
+        </entry>
+
+        <entry id="compose-attachments" md5="5d29f2809f557efa25759e642c901369" state="uptodate">
+            <title>メール作成: 添付の追加</title>
+            <para>
+                お使いのブラウザがファイルのアップロードをサポートしているなら、メッセージにファイルを添付することができます。
+            </para>
+            <para>
+                「参照」ボタンをクリックし添付したいファイルを選択します。すると、添付ボックスに名前が表示されます。ブラウザがJavaScriptをサポートしているなら、次のアップロードのための入力欄が表示されます。
+            </para>
+            <para>
+                添付の説明を変更したいなら、「更新」をクリックすれば、ファイルが直ちにアップロードされ、あなたの変更が反映されます。
+            </para>
+            <tip>
+                注意：大きな添付ファイルや遅い回線でアップロードすると時間が掛かります。
+            </tip>
+        </entry>
+
+        <entry id="compose-current-attachments" md5="cdaa6aa03ea535e85bb496bdc9a90351" state="uptodate">
+            <title>メール作成: 現在の添付</title>
+            <heading>現在の添付</heading>
+            <para>
+                この領域には既に添付されたファイルの一覧が表示されます。
+            </para>
+            <heading>添付ファイルの削除</heading>
+            <para>
+                添付ファイルを削除するには：
+            </para>
+            <para>
+                Step 1: 添付ファイルの名前の下にある削除のチェックボタンをチェックします。
+            </para>
+            <para>
+                Step 2: 現在の添付領域に上にある「更新」ボタンをクリックすると変更が反映されます。メッセージを送信する時にも変更は更新されます。
+            </para>
+            <heading>添付の説明の変更</heading>
+            <para>
+                添付の説明を変更するには：
+            </para>
+            <para>
+                Step 1: 説明領域に説明文を入力します。
+            </para>
+            <para>
+                Step 2: 添付領域の上にある「更新」ボタンをクリックすると直ちに更新されます。メッセージを送信する時にも変更は更新されます。
+            </para>
+        </entry>
+
+        <entry id="compose-link-attachments" md5="9e301c5f70eb89e4e91cf5deab82ff64" state="uptodate">
+            <title>メール作成: リンク付き添付</title>
+            <para>
+                あなたの作成したメールの添付をメッセージと共に送信するか、それともサーバに残しておくかを決めます。もし添付がリンクなら、受信者がそのリンクから添付をダウンロードできます。
+            </para>
+            <para>
+                リンク型添付の利点は送信するメッセージのサイズを小さくできることです。特に大きな添付には有効です。欠点は、添付がメッセージの中には無いので、将来も存在するかを保証できないことです。
+            </para>
+        </entry>
+
+        <entry id="folders" md5="013062bdc2d23e8879bc97137adf90a8" state="uptodate">
+            <title>フォルダー</title>
+            <para>
+                左端の欄でフォルダを選択できます。次に、操作のプルダウンメニューから実行したい操作を選択します。
+            </para>
+        </entry>
+
+        <entry id="folders-create" md5="0cdec687f538673ccd19190af40765f2" state="uptodate">
+            <title>フォルダー: 作成</title>
+            <para>
+                 フォルダを新規に作成（可能なら）します。フォルダを最上位レベルに作成したいなら、どのフォルダも選択せずに「作成」します。サブフォルダを作成するなら、先ずフォルダを選択してから「作成」を選択します。
+            </para>
+        </entry>
+
+        <entry id="folders-rename" md5="ee878e110f141c5380b86e605a5d619d" state="uptodate">
+            <title>フォルダー: 名前の変更</title>
+            <para>
+                フォルダの名前を変更します。変更したいフォルダを選択してから、「名前変更」をクリックします。
+            </para>
+        </entry>
+
+        <entry id="folders-delete" md5="cfeb4fb5e1c194a16c370fc3d28c22cd" state="uptodate">
+            <title>フォルダー: 削除</title>
+            <para>
+                フォルダとフォルダ内の全てのメッセージを削除します。削除したいフォルダを選択してから、「削除」をクリックします。サブフォルダは自動では削除されません。サブフォルダを削除したいなら、左端の欄で選択してから削除を行って下さい。
+            </para>
+        </entry>
+
+        <entry id="folders-empty" md5="40aa6e04eea1deaafbebbf10b0253b64" state="uptodate">
+            <title>フォルダー: 空にする</title>
+            <para>
+                フォルダ内の全てのメッセージを削除するが、フォルダ自身は削除しない場合は、フォルダを選択してから、「空にする」をクリックします。
+            </para>
+        </entry>
+
+        <entry id="folders-purge" md5="ff4eec60c5f3fccac8efbdb5befd2453" state="uptodate">
+            <title>フォルダー: パージ</title>
+            <para>
+                フォルダ内の削除の印の付いたメッセージだけを削除するには、フォルダを選択してから、「パージ」をクリックします。このオプションはゴミ箱を指定していない場合にだけ現れます。
+            </para>
+        </entry>
+
+        <entry id="folders-subscribe" md5="f6deebeac842b011decafe6d6fd7e28e" state="uptodate">
+            <title>フォルダー: 購読／非購読</title>
+            <para>
+                フォルダに購読／非購読という印を付けます。フォルダが購読されているとフォルダのドロップダウンに現れます。このオプションはIMAPのフォルダ購読を使用している場合にだけ現れます。
+            </para>
+            <para>
+		フォルダーを購読するには、左の欄からフォルダーを選択し、「購読」をクリックします。非購読にするには「非購読」をクリックします。
+            </para>
+        </entry>
+
+        <entry id="folders-newmail" md5="968bf7baad520a2d2bdb59926f649d9b" state="uptodate">
+            <title>フォルダー: 新着メールを確認する／しない</title>
+            <warn>
+		この動作は管理者が許可しなければ使用できません。
+            </warn>
+            <para>
+                フォルダー一覧とサイドバーでフォルダーの新着メールを確認する印です。
+            </para>
+            <para>
+                この印をセットするには、左の欄からフォルダーを選択し、「新着メールを確認」をクリックします。解除するには、「新着メールを確認しない」をクリックします。
+            </para>
+        </entry>
+
+        <entry id="folders-markseen" md5="559380c98d187db02af27d3405a36f9c" state="uptodate">
+            <title>フォルダー: 全てのメッセージを既読／未読とする</title>
+            <para>
+                 フォルダ内の全てのメッセージを既読にするには、フォルダを選択してから、「全てを既読とする」をクリックして下さい。同様に、全てを未読にするには、フォルダを選択してから、「全てを未読とする」をクリックして下さい。
+            </para>
+        </entry>
+
+        <entry id="folders-download" md5="ca1b4a5affef2ab24994112bd286587b" state="uptodate">
+            <title>フォルダー: ダウンロード</title>
+            <para>
+                フォルダ内の全てのメッセージを１つのファイル（mbox形式）としてダウンロードするには、フォルダを選択してから、「ダウンロード」をクリックして下さい。ZIP圧縮形式でダウンロードしたい場合には、「ダウンロード[zip形式]」をクリックして下さい。
+            </para>
+        </entry>
+
+        <entry id="folders-import" md5="60df93f93185f35846b212b6149578c3" state="uptodate">
+            <title>フォルダー: メッセージのインポート</title>
+            <para>
+                このオプションでmbox形式か.emlのファイルをフォルダにインポートできます。先ず、フォルダを選択してから、このオプションを選択して下さい。次のプロンプトでmbox形式か.emlファイルを指定します。
+            </para>
+        </entry>
+
+        <entry id="folders-rebuild" md5="4d10b81eafbe1658dddd5ee45bd35e20" state="uptodate">
+            <title>フォルダー: フォルダーツリーの再構築</title>
+            <para>
+                メールサーバに問い合わせをしてフォルダの構成を再構築します。あなたが別のクライアントで同時にサーバにアクセスし、フォルダ構成を変更しない限りは通常、必要ありません。
+            </para>
+        </entry>
+
+        <entry id="folders-showsub" md5="20b82145260d1e1fc4ad4f93cf9037cf" state="uptodate">
+            <title>フォルダー: 非購読を表示／非表示</title>
+            <para>
+                IMAPフォルダの購読を使用しているなら、非購読フォルダを表示・非表示します。フォルダの購読・非購読は先ず、フォルダを選択してから、フォルダ操作のプルダウンメニューから購読・未非購読を選択して下さい。
+            </para>
+        </entry>
+
+        <entry id="folders-expandall" md5="2f092b6f14cf3cf7d2e63cd5cfd5e416" state="uptodate">
+            <heading>フォルダー: 全て展開</heading>
+            <para>
+                フォルダー一覧を展開します。
+            </para>
+        </entry>
+
+        <entry id="folders-collapseall" md5="5bfe9c7029027dc384e08c4c608285d0" state="uptodate">
+            <heading>フォルダー: 全て畳む</heading>
+            <para>
+                フォルダー一覧を畳みます。
+            </para>
+        </entry>
+
+        <entry id="filter-apply" md5="10b30835208f15d76b973498c3e199e6" state="uptodate">
+            <title>振り分け: ルールの適用</title>
+            <para>
+		メールボックス表示で、INBOX名前の横の「適用」アイコンをクリックすると、指定したルールが全てのメッセージに適用されます。
+            </para>
+        </entry>
+    </view>
+
+    <view id="dynamic">
+        <entry id="compose-attachments" md5="bbde99a27e8a94bdf1e8f4b8faedd12d" state="uptodate">
+            <title>メール作成: 添付の追加</title>
+            <para>
+		お使いのブラウザがファイルのアップロードに対応しているなら、メッセージにファイルを添付することができます。
+            </para>
+            <para>
+            「参照」ボタンをクリックし添付したいファイルを選択します。もしも添付の上限を超えていなければ、次のアップロード入力欄が表示されます。
+            </para>
+            <tip>
+            注意：大きなファイルや遅い回線を使用の場合、ファイルのアップロードに時間がかかるでしょう。
+            </tip>
+        </entry>
+
+        <entry id="compose-current-attachments" md5="62a9a2bcb0cb4ad18ccc95c48a8c7ef5" state="uptodate">
+            <title>メール作成: 現在の添付</title>
+            <heading>添付の表示</heading>
+            <para>
+            もしも添付ファイルの名前がクリック可能ならば、添付の内容をブラウザで表示できます。ファイル名をクリックすると、ポップアップ画面にファイルの内容が表示されます。
+            </para>
+            <heading>添付の削除</heading>
+            <para>
+                添付を削除するには、添付ファイル名の横の「削除」ボタンをクリックします。
+            </para>
+        </entry>
+
+        <entry id="mailbox" md5="ef690e1219cfd1cfc2429790202f881a" state="uptodate">
+            <title>メールボックス</title>
+            <para>
+                メッセージの内容を表示するには、メッセージ一覧から選択します。
+            </para>
+            <para>
+                メールボックスあるいはメッセージの上で右クリックすると、可能な操作が表示されます。
+            </para>
+            <warn>
+                ブラウザOperaは右クリックをサポートしていません。代わりに、左クリック + <css class="kbd">Shift</css> + <css class="kbd">Ctrl</css> で表示されます。
+            </warn>
+            <para>
+                <css class="kbd">Ctrl</css> キイを押しながら、メッセージをクリックすると、複数のメッセージを選択できます。範囲で指定したいなら、先ず最初のメッセージをクリックし、次に<css class="kbd">Shift</css>キイを押しながら、範囲の最後のメッセージをクリックします。
+            </para>
+        </entry>
+
+        <entry id="mailbox-keyboard" md5="6aa100450de5b2b9bd82627a7af64103" state="uptodate">
+            <title>メールボックス: キイボードショートカット</title>
+            <para>
+                以下のようなキイボードショートカットが使用可能です：
+            </para>
+            <para>
+                <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/> : メッセージ一覧で上／下に移動。
+            </para>
+            <para>
+                <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : メッセージ一覧で前後のページに移動。
+            </para>
+            <para>
+                <css class="kbd">Alt</css> + (<css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> / <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/>): メッセージ表示画面で前後にスクロール。
+            </para>
+            <para>
+                <css class="kbd">Home</css> / <css class="kbd">End</css> : メッセージ一覧の先頭／末尾に移動。
+            </para>
+            <para>
+                <css class="kbd">Del</css> : 現在選択されているメッセージを削除。
+                <css class="kbd">Shift</css> + <css class="kbd">Del</css> 現在選択されているメッセージを削除し、選択が１つなら次のメッセージに移動。
+            </para>
+            <para>
+                <css class="kbd">Shift</css> + <css class="kbd">N</css> : 次の未読メッセージに移動（検索結果では不可）。
+            </para>
+            <para>
+                <css class="kbd">Enter</css> : ポップアップ画面にメッセージを表示。
+            </para>
+            <para>
+                <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : 現在のメールボックス内の全てのメッセージを選択。
+            </para>
+        </entry>
+    </view>
+</help>

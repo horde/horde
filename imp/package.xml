@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Japanese help file (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mms] Add automatic configuration of remote account connection details.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.
@@ -3613,6 +3614,7 @@
    <date>2014-05-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Japanese help file (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mms] Add automatic configuration of remote account connection details.
 * [mms] Support LMTP servers when sending mail.
 * [mms] Fix regression where creating a mailbox that is currently a container would not subscribe to that mailbox.
