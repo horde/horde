@@ -1,6 +1,6 @@
-----------
-v5.2.0-git
-----------
+-----------
+v5.2.0beta1
+-----------
 
 [mjr] Fix blocking an ActiveSync client through the admin interface.
 [mjr] Add an ActivSync device's currently used heartbeat interval to the device

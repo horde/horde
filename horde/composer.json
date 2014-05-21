@@ -26,8 +26,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.0alpha1",
-    "time": "2014-05-05",
+    "version": "5.2.0beta1",
+    "time": "2014-05-21",
     "repositories": [
         {
             "type": "pear",
@@ -72,11 +72,11 @@
     "suggest": {
         "pear-pear.php.net/Net_DNS2": "*",
         "pear-pear.php.net/Services_Weather": "*",
-        "pear-pear.horde.org/Horde_ActiveSync": ">=2.7.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_ActiveSync": ">=2.16.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Db": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Feed": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Oauth": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_OpenXchange": ">=1.0.0alpha1,<=2.0.0alpha1",
+        "pear-pear.horde.org/Horde_OpenXchange": ">=1.0.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Service_Facebook": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Service_Twitter": ">=2.1.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Service_Weather": ">=2.1.0,<=3.0.0alpha1",
