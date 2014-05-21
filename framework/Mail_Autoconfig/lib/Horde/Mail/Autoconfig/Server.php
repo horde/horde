@@ -44,11 +44,15 @@ abstract class Horde_Mail_Autoconfig_Server
     public $label = null;
 
     /**
-     * Is TLS needed to directly connect to the server/port?
+     * TLS connection details.
      *
-     * @var boolean
+     * 'tls' = TLS needed for direct connection to server/port.
+     * 'starttls' = Switch to TLS via protocol after connection.
+     * false = No TLS connection used.
+     *
+     * @var mixed
      */
-    public $tls = false;
+    public $tls = null;
 
     /**
      * The username to use.

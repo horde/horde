@@ -152,15 +152,21 @@ class Horde_Mail_Autoconfig_Driver_Srv extends Horde_Mail_Autoconfig_Driver
             foreach ($val as $val2) {
                 switch ($val2->query) {
                 case '_imap':
+                    $tmp = new Horde_Mail_Autoconfig_Server_Imap();
+                    break;
+
                 case '_imaps':
                     $tmp = new Horde_Mail_Autoconfig_Server_Imap();
-                    $tmp->tls = ($val2->query == '_imaps');
+                    $tmp->tls = 'tls';
                     break;
 
                 case '_pop3':
+                    $tmp = new Horde_Mail_Autoconfig_Server_Pop3();
+                    break;
+
                 case '_pop3s':
                     $tmp = new Horde_Mail_Autoconfig_Server_Pop3();
-                    $tmp->tls = ($val2->query == '_pop3s');
+                    $tmp->tls = 'tls';
                     break;
 
                 case '_submission':

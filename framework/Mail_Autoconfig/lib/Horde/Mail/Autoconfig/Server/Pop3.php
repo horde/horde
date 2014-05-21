@@ -38,9 +38,19 @@ class Horde_Mail_Autoconfig_Server_Pop3 extends Horde_Mail_Autoconfig_Server
             $opts['users'] = array('testing');
         }
 
-        $secure = $this->tls
-            ? 'ssl'
-            : (!empty($opts['insecure']) ?: 'tls');
+        switch ($this->tls) {
+        case 'starttls':
+            $secure = 'tls';
+            break;
+
+        case 'tls':
+            $secure = 'ssl';
+            break;
+
+        default:
+            $secure = !empty($opts['insecure']) ?: 'tls';
+            break;
+        }
 
         foreach ($opts['users'] as $user) {
             try {
@@ -53,11 +63,19 @@ class Horde_Mail_Autoconfig_Server_Pop3 extends Horde_Mail_Autoconfig_Server
                     'username' => $user
                 ));
                 $pop3->noop();
-                $pop3->shutdown();
 
                 if (isset($opts['auth'])) {
                     $this->username = $user;
                 }
+                if ($secure === 'tls') {
+                    $this->tls = 'starttls';
+                } elseif ($secure === true) {
+                    $this->tls = $pop3->isSecureConnection()
+                        ? 'starttls'
+                        : false;
+                }
+
+                $pop3->shutdown();
 
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {}

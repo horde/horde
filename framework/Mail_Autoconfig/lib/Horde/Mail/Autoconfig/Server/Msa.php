@@ -36,9 +36,19 @@ class Horde_Mail_Autoconfig_Server_Msa extends Horde_Mail_Autoconfig_Server
             $opts['users'] = array(null);
         }
 
-        $secure = $this->tls
-            ? 'ssl'
-            : (!empty($opts['insecure']) ?: 'tls');
+        switch ($this->tls) {
+        case 'starttls':
+            $secure = 'tls';
+            break;
+
+        case 'tls':
+            $secure = 'ssl';
+            break;
+
+        default:
+            $secure = !empty($opts['insecure']) ?: 'tls';
+            break;
+        }
 
         foreach ($opts['users'] as $user) {
             try {
@@ -51,11 +61,20 @@ class Horde_Mail_Autoconfig_Server_Msa extends Horde_Mail_Autoconfig_Server
                     'username' => $user
                 ));
                 $smtp->noop();
-                $smtp->shutdown();
 
                 if (isset($opts['auth'])) {
                     $this->username = $user;
                 }
+
+                if ($secure === 'tls') {
+                    $this->tls = 'starttls';
+                } elseif ($secure === true) {
+                    $this->tls = $pop3->isSecureConnection()
+                        ? 'starttls'
+                        : false;
+                }
+
+                $smtp->shutdown();
 
                 return true;
             } catch (Horde_Smtp_Exception $e) {}

@@ -152,7 +152,9 @@ extends Horde_Mail_Autoconfig_Driver
                         $ob->host = strval($val->hostname);
                         $ob->port = intval(strval($val->port));
                         $ob->label = $label;
-                        $ob->tls = (strcasecmp($val->socketType, 'SSL') === 0);
+                        if (strcasecmp($val->socketType, 'SSL') === 0) {
+                            $ob->tls = 'tls';
+                        }
 
                         if (!is_null($email) &&
                             $email->valid &&
