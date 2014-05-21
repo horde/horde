@@ -1,6 +1,6 @@
-----------
-v6.2.0-git
-----------
+-----------
+v6.2.0beta1
+-----------
 
 [jan] Add Japanese help file (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 [mms] Add automatic configuration of remote account connection details.

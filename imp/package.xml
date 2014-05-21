@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-17</date>
+ <date>2014-05-21</date>
  <version>
   <release>6.2.0beta1</release>
   <api>6.2.0</api>
@@ -728,6 +728,7 @@
       <file name="imp.mo" role="horde" />
       <file name="imp.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ja -->
     <dir name="km">
      <dir name="LC_MESSAGES">
@@ -1950,6 +1951,7 @@
    <install as="imp/locale/it/help.xml" name="locale/it/help.xml" />
    <install as="imp/locale/it/LC_MESSAGES/imp.mo" name="locale/it/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/it/LC_MESSAGES/imp.po" name="locale/it/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ja/help.xml" name="locale/ja/help.xml" />
    <install as="imp/locale/ja/LC_MESSAGES/imp.mo" name="locale/ja/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/ja/LC_MESSAGES/imp.po" name="locale/ja/LC_MESSAGES/imp.po" />
    <install as="imp/locale/km/LC_MESSAGES/imp.mo" name="locale/km/LC_MESSAGES/imp.mo" />
@@ -3611,7 +3613,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-05-17</date>
+   <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Japanese help file (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).

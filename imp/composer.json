@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "6.2.0alpha1",
-    "time": "2014-05-05",
+    "version": "6.2.0beta1",
+    "time": "2014-05-21",
     "repositories": [
         {
             "type": "pear",
@@ -36,7 +36,7 @@
         "pear-pear.horde.org/Horde_Browser": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Cache": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Compress": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Core": ">=2.12.0alpha1,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Core": ">=2.12.0beta1,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Crypt": ">=2.4.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Css_Parser": ">=1.0.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Date": ">=2.0.0,<=3.0.0alpha1",
@@ -49,6 +49,7 @@
         "pear-pear.horde.org/Horde_ListHeaders": ">=1.1.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_LoginTasks": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Mail": ">=2.2.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Mail_Autoconfig": ">=1.0.0beta1,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Mime": ">=2.3.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Nls": ">=2.0.0,<=3.0.0alpha1",
