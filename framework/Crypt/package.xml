@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-05-21</date>
  <version>
   <release>2.4.3</release>
   <api>2.4.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1016,10 +1016,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
    </notes>
   </release>
  </changelog>
