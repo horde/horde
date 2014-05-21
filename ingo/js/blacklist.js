@@ -1,3 +1,11 @@
+/**
+ * Provides the javascript for the blacklist view.
+ *
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    ASL (http://www.horde.org/licenses/apache)
+ */
+
 var IngoBlacklist = {
 
     // Vars used and defaulting to null/false:

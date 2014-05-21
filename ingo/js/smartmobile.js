@@ -1,13 +1,11 @@
 /**
  * jQuery Mobile UI Ingo application logic.
  *
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file LICENSE for license information (ASL).  If you did
- * did not receive this file, see http://www.horde.org/licenses/apache.
- *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    ASL (http://www.horde.org/licenses/apache)
  */
+
 var IngoMobile = {
 
     /**

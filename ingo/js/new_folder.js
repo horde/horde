@@ -1,6 +1,9 @@
 /**
- * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/apache.
+ * Provides the javascript for creating a new mailbox.
+ *
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2014 Horde LLC
+ * @license    ASL (http://www.horde.org/licenses/apache)
  */
 
 var IngoNewFolder = {
