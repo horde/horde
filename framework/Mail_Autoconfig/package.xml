@@ -10,14 +10,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-17</date>
+ <date>2014-05-21</date>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -61,7 +61,6 @@
      <dir name="Mail">
       <dir name="Autoconfig">
        <dir name="Driver">
-        <file name="conf.php.dist" role="test" />
         <file name="GuessTest.php" role="test" />
         <file name="SrvTest.php" role="test" />
         <file name="TestBase.php" role="test" />
@@ -152,7 +151,6 @@
    <install as="Horde/Mail/Autoconfig/bootstrap.php" name="test/Horde/Mail/Autoconfig/bootstrap.php" />
    <install as="Horde/Mail/Autoconfig/conf.php.dist" name="test/Horde/Mail/Autoconfig/conf.php.dist" />
    <install as="Horde/Mail/Autoconfig/phpunit.xml" name="test/Horde/Mail/Autoconfig/phpunit.xml" />
-   <install as="Horde/Mail/Autoconfig/Driver/conf.php.dist" name="test/Horde/Mail/Autoconfig/Driver/conf.php.dist" />
    <install as="Horde/Mail/Autoconfig/Driver/GuessTest.php" name="test/Horde/Mail/Autoconfig/Driver/GuessTest.php" />
    <install as="Horde/Mail/Autoconfig/Driver/SrvTest.php" name="test/Horde/Mail/Autoconfig/Driver/SrvTest.php" />
    <install as="Horde/Mail/Autoconfig/Driver/TestBase.php" name="test/Horde/Mail/Autoconfig/Driver/TestBase.php" />
@@ -160,5 +158,20 @@
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2014-05-21</date>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
  </changelog>
 </package>

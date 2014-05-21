@@ -3,5 +3,11 @@ $conf['mail_autoconfig'] = array(
     /* Test e-mails used for the non-auth autoconfig tests. */
     'nonauth_emails' => array(
         array(array('test@gmail.com'))
+    ),
+    /* Test domains used for the autoconfig driver tests. */
+    'domains' => array(
+        /* As of May 2014, Gmail supports SRV records. */
+        array(array('gmail.com')),
+        array(array('test.mail.gmail.com', 'mail.gmail.com', 'gmail.com'))
     )
 );

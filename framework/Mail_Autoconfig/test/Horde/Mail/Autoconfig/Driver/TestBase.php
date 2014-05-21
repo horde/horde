@@ -82,7 +82,7 @@ extends Horde_Test_Case
 
     public function provider()
     {
-        $config = self::getConfig('MAILAUTOCONFIG_TEST_CONFIG');
+        $config = self::getConfig('MAILAUTOCONFIG_TEST_CONFIG', __DIR__ . '/..');
         if (!is_null($config) &&
             !empty($config['mail_autoconfig']['domains'])) {
             return $config['mail_autoconfig']['domains'];
