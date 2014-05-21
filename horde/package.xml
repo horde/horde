@@ -30,7 +30,7 @@
  </lead>
  <date>2014-05-21</date>
  <version>
-  <release>5.2.0beta1</release>
+  <release>5.2.0beta2</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Fix blocking an ActiveSync client through the admin interface.
-* [mjr] Add an ActivSync device&apos;s currently used heartbeat interval to the device information display.
-* [mms] Fix regression in displaying MOTD content on login screen.
-* [mms] Support LMTP servers when sending mail.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3883,6 +3880,19 @@
 * [mjr] Add an ActivSync device&apos;s currently used heartbeat interval to the device information display.
 * [mms] Fix regression in displaying MOTD content on login screen.
 * [mms] Support LMTP servers when sending mail.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0beta2</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
