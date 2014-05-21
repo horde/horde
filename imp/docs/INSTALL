@@ -240,7 +240,8 @@ Configuring IMP
    * By default, IMP is configured to NOT display text/html message parts
      inline.  This is done for various security reasons.  If you would like to
      see text/html parts inline, you must create a
-     ``imp/config/mime_drivers.local.php`` file with the following content::
+     ``imp/config/mime_drivers.local.php`` file (or add to the existing
+     mime_drivers.local.php file) with the following content::
 
         <?php
         $mime_drivers['html']['inline'] = true;
