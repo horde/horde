@@ -89,8 +89,20 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                     $ob->type = $ob::POP3;
                 }
 
-                if ($ui->vars->remote_secure_autoconfig) {
-                    $ob->secure = 'ssl';
+                if (isset($ui->vars->remote_secure_autoconfig)) {
+                    switch ($ui->vars->remote_secure_autoconfig) {
+                    case 'starttls':
+                        $ob->secure = 'tls';
+                        break;
+
+                    case 'tls':
+                        $ob->secure = 'ssl';
+                        break;
+
+                    default:
+                        $ob->secure = true;
+                        break;
+                    }
                 } else {
                     switch ($ui->vars->remote_secure) {
                     case 'auto':
@@ -98,29 +110,25 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                         break;
 
                     case 'yes':
-                        if (isset($ui->vars->remote_secure_autoconfig)) {
-                            $ob->secure = 'tls';
-                        } else {
-                            switch ($ob->type) {
-                            case $ob::IMAP:
-                                $tmp = new Horde_Mail_Autoconfig_Server_Imap();
-                                break;
+                        switch ($ob->type) {
+                        case $ob::IMAP:
+                            $tmp = new Horde_Mail_Autoconfig_Server_Imap();
+                            break;
 
-                            case $ob::POP3:
-                                $tmp = new Horde_Mail_Autoconfig_Server_Pop3();
-                                break;
-                            }
-
-                            $tmp->host = $ob->hostspec;
-                            $tmp->port = $ob->port;
-                            $tmp->tls = true;
-
-                            $ob->secure = $tmp->valid()
-                                ? 'ssl'
-                                : 'tls';
+                        case $ob::POP3:
+                            $tmp = new Horde_Mail_Autoconfig_Server_Pop3();
+                            break;
                         }
-                        break;
+
+                        $tmp->host = $ob->hostspec;
+                        $tmp->port = $ob->port;
+                        $tmp->tls = true;
+
+                        $ob->secure = $tmp->valid()
+                            ? 'ssl'
+                            : 'tls';
                     }
+                    break;
                 }
 
                 $remote[strval($ob)] = $ob;
