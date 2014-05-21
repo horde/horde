@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-05-21</date>
  <version>
   <release>2.0.10</release>
   <api>2.0.0</api>
@@ -27,7 +27,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -980,10 +982,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
    </notes>
   </release>
  </changelog>
