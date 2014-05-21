@@ -555,6 +555,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function queryCapability($capability)
     {
+        // @todo: Remove this catch(); if capability fails due to connection
+        // error, should throw an exception.
         try {
             $this->capability();
         } catch (Horde_Imap_Client_Exception $e) {
