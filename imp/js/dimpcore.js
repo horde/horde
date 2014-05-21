@@ -436,8 +436,12 @@ document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e)
 
         if (document.activeElement) {
             var ae = $(document.activeElement);
-            if (ae.match('TEXTAREA') || ae.match('INPUT')) {
-                ae.blur();
+            try {
+                if (ae.match('TEXTAREA') || ae.match('INPUT')) {
+                    ae.blur();
+                }
+            } catch (ex) {
+                // Chrome 32: reports that ae can be an Object - ignore.
             }
         }
     }
