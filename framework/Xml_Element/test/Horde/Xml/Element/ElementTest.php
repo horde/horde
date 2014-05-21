@@ -237,7 +237,7 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
     {
         $xml = '<element><author><name>Joe</name><email>joe@example.com</email></author></element>';
         $e = new Horde_Xml_Element_CustomGetter($xml);
-        
+
         /* For some reason C14N() calls on the internal DOMElement objects,
          * triggered by PHPUnit's comparison, return empty strings.
         $this->assertEquals($e->author, $e->writer);
