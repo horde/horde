@@ -10,8 +10,7 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2013-05-06</date>
- <time>18:51:31</time>
+ <date>2014-05-21</date>
  <version>
   <release>2.1.1</release>
   <api>1.1.0</api>
@@ -319,7 +318,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix and improve tests.
