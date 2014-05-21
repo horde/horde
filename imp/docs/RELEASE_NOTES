@@ -39,14 +39,16 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
 The major changes compared to IMP version H5 (6.2.0alpha1) are:
+    * Added automatic configuration of remote accounts.
     * LMTP servers are now supported for sending mail.
-    * Small improvements.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Added automatic configuration of remote accounts.
 LMTP servers are now supported for sending mail.
-Small improvements.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';
