@@ -69,7 +69,7 @@ var ImpRemotePrefs = {
             case 'autoconfig_button':
                 if ($F('remote_email').blank()) {
                     window.alert(this.empty_email);
-                } else if ($F('remote_password').blank()) {
+                } else if ($F('remote_password').empty()) {
                     window.alert(this.empty_password);
                 } else {
                     HordeCore.doAction(
