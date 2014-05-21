@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second beta release of the Kronolith
+The Horde Team is pleased to announce the first beta release of the Kronolith
 Calendar Application version H5 (4.2.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
