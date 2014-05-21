@@ -611,10 +611,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function noop()
     {
-        // NOOP only useful if we are already authenticated.
-        if ($this->_isAuthenticated) {
-            $this->_noop();
+        if (!$this->_connection) {
+            // NOOP can be called in the unauthenticated state.
+            $this->_connect();
         }
+        $this->_noop();
     }
 
     /**
