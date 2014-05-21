@@ -24,7 +24,7 @@
  </lead>
  <date>2014-05-21</date>
  <version>
-  <release>4.2.0beta1</release>
+  <release>4.2.0beta2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Do not include resources with no email address when synching to EAS clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2341,6 +2341,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Do not include resources with no email address when synching to EAS clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0beta2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-05-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
