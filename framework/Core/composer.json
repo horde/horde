@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.12.0alpha1",
-    "time": "2014-05-02",
+    "version": "2.12.0beta1",
+    "time": "2014-05-21",
     "repositories": [
         {
             "type": "pear",
@@ -40,7 +40,7 @@
         "pear-pear.horde.org/Horde_Auth": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Autoloader": ">=2.1.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Browser": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Cache": ">=2.3.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Cache": ">=2.5.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Cli": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Compress": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Compress_Fast": ">=1.0.0,<=2.0.0alpha1",
@@ -65,7 +65,6 @@
         "pear-pear.horde.org/Horde_Serialize": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_SessionHandler": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Share": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Smtp": ">=1.0.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Support": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Template": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Token": ">=2.0.0,<=3.0.0alpha1",
@@ -95,7 +94,7 @@
         "pear-pear.horde.org/Horde_Kolab_Session": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Ldap": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Mail": ">=2.1.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Mail": ">=2.3.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Mongo": ">=1.0.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Nls": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Oauth": ">=2.0.0,<=3.0.0alpha1",

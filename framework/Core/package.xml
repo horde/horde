@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-05-15</date>
+ <date>2014-05-21</date>
  <version>
   <release>2.12.0beta1</release>
   <api>2.12.0</api>
@@ -3388,7 +3388,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-05-15</date>
+   <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix tracking bad login count and honoring the lock setting when using Application auth backend.
