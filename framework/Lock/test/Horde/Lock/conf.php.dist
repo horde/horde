@@ -1,2 +1,2 @@
 <?php
-$conf['lock']['mongo'] = null;
+$conf['lock']['mongo'] = 'localhost';
