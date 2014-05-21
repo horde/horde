@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-10 15:14+0900\n"
-"PO-Revision-Date: 2014-03-10 15:30+0900\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-05-12 20:10+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -380,28 +380,28 @@ msgstr "フィルタースクリプトの表示"
 msgid "Filter _Rules"
 msgstr "_Rフィルタールール"
 
-#: lib/Script/Imap.php:321
+#: lib/Script/Imap.php:331
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" にコピーされました。"
 
-#: lib/Script/Imap.php:298
+#: lib/Script/Imap.php:308
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "フィルターの実行：%s メッセージは削除されました。"
 
-#: lib/Script/Imap.php:273
+#: lib/Script/Imap.php:283
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" に移動されました。"
 
-#: lib/Script/Imap.php:171
+#: lib/Script/Imap.php:181
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
 "フィルターの実行：ブラックリストに一致した %s メッセージは削除されました。"
 
-#: lib/Script/Imap.php:314
+#: lib/Script/Imap.php:324
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -410,13 +410,13 @@ msgstr ""
 "フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" にコ"
 "ピーされました。"
 
-#: lib/Script/Imap.php:292
+#: lib/Script/Imap.php:302
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr ""
 "フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" は削除されました。"
 
-#: lib/Script/Imap.php:266
+#: lib/Script/Imap.php:276
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -1099,11 +1099,11 @@ msgstr "新しいメッセージを受信しました"
 msgid "You need to select at least one field to match."
 msgstr "一致させるために少なくとも１つは選択する必要があります。"
 
-#: lib/Script/Imap.php:268 lib/Script/Imap.php:294 lib/Script/Imap.php:316
+#: lib/Script/Imap.php:278 lib/Script/Imap.php:304 lib/Script/Imap.php:326
 msgid "[No Sender]"
 msgstr "[送信者名なし]"
 
-#: lib/Script/Imap.php:267 lib/Script/Imap.php:293 lib/Script/Imap.php:315
+#: lib/Script/Imap.php:277 lib/Script/Imap.php:303 lib/Script/Imap.php:325
 msgid "[No Subject]"
 msgstr "[件名なし]"
 

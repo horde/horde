@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-10 15:14+0900\n"
-"PO-Revision-Date: 2014-03-10 15:34+0900\n"
+"POT-Creation-Date: 2014-03-26 10:26+0100\n"
+"PO-Revision-Date: 2014-05-12 20:10+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -427,8 +427,8 @@ msgid "Successfully saved \"%s\"."
 msgstr "\"%s\" に保存されました。"
 
 #: config/prefs.php:161
-msgid "Support separate collections?"
-msgstr "分割したコレクションをサポートしますか？"
+msgid "Support separate notepads?"
+msgstr "分割したメモ帳をサポートしますか？"
 
 #: config/prefs.php:27
 msgid "Synchronization Preferences"

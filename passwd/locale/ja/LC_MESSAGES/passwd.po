@@ -1,14 +1,14 @@
 # Japanese translation for Passwd.
-# Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H4 (4.0-git)\n"
+"Project-Id-Version: Passwd H5 (5.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
-"PO-Revision-Date: 2013-05-25 09:16+0900\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-05-12 20:11+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: lib/Driver/Expect.php:31
 #, php-format
@@ -121,7 +121,7 @@ msgstr "%s のパスワード変更失敗しました： %s"
 msgid "Full buffer."
 msgstr "バッファーが一杯です。"
 
-#: lib/Driver.php:74 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
+#: lib/Driver.php:76 lib/Driver/Horde.php:47 lib/Driver/Http.php:55
 #: lib/Driver/Kolab.php:78 lib/Driver/Poppassd.php:120
 #: lib/Driver/Vmailmgr.php:40
 msgid "Incorrect old password."
@@ -131,7 +131,7 @@ msgstr "古いパスワードが正しくありません。"
 msgid "Incorrect password"
 msgstr "正しくないパスワードです"
 
-#: lib/Driver/Ldap.php:154
+#: lib/Driver/Ldap.php:164
 msgid "Minimum password age has not yet expired"
 msgstr "パスワードの有効期限は過ぎていません。"
 
@@ -145,11 +145,11 @@ msgstr ""
 msgid "New password:"
 msgstr "新しいパスワード："
 
-#: lib/Factory/Driver.php:199
+#: lib/Factory/Driver.php:200
 msgid "No backend configured for this host"
 msgstr "このホスト用のバックエンドが設定されていません"
 
-#: lib/Factory/Driver.php:182
+#: lib/Factory/Driver.php:183
 msgid "No backends configured in backends.php"
 msgstr "バックエンドの設定が backends.php にありません"
 
@@ -246,7 +246,7 @@ msgstr "不明なユーザー"
 msgid "User not found"
 msgstr "ユーザが見付かりません"
 
-#: lib/Driver/Kolab.php:70 lib/Driver/Ldap.php:132 lib/Driver/Pine.php:240
+#: lib/Driver/Kolab.php:70 lib/Driver/Ldap.php:142 lib/Driver/Pine.php:240
 msgid "User not found."
 msgstr "ユーザが見付かりません"
 

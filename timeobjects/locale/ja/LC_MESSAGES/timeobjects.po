@@ -1,14 +1,14 @@
-# Japanese translation for Timeobjects.
-# Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+# Japanese translation for timeobjects.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Timeobjects package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Timeobjects (1.0-git)\n"
+"Project-Id-Version: Timeobjects 2.1.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-10-14 11:37+0900\n"
+"PO-Revision-Date: 2014-05-12 20:11+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: lib/Driver/Weather.php:116
 #, php-format
@@ -25,9 +25,9 @@ msgid ""
 "High temperature: %d%s\n"
 "Precipitation: %s\n"
 msgstr ""
-"気象状況: %s\n"
-"最高気温: %d%s\n"
-"降水: %s\n"
+"天候：%s\n"
+"最高気温：%d%s\n"
+"降水量：%s\n"
 
 #: lib/Driver/Weather.php:104
 #, php-format
@@ -38,11 +38,11 @@ msgid ""
 "Humidity: %d%%\n"
 "Winds: From the %s at %d%s"
 msgstr ""
-"気象状況: %s\n"
-"最高気温: %d%s\n"
-"降水: %s\n"
-"湿度: %d%%\n"
-"風: From the %s at %d%s"
+"天候：%s\n"
+"最高気温：%d%s\n"
+"降水量：%s\n"
+"湿度：%d%%\n"
+"風：向き %s 風力 %d%s"
 
 #: lib/Api.php:34
 msgid "Facebook Events"
@@ -51,7 +51,7 @@ msgstr "Facebook イベント"
 #: lib/Driver/Weather.php:131
 #, php-format
 msgid "Location: %s"
-msgstr "場所: %s"
+msgstr "場所：%s"
 
 #: lib/Driver/Weather.php:100
 msgid "N/A"
@@ -63,9 +63,9 @@ msgid ""
 "Sunrise: %s\n"
 "Sunset: %s\n"
 msgstr ""
-"日出: %s\n"
-"日没: %s\n"
+"日の出：%s\n"
+"日の入：%s\n"
 
 #: lib/Api.php:33
 msgid "Weather"
-msgstr "天気"
+msgstr "天候"

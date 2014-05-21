@@ -1,14 +1,14 @@
 # Japanese translation for Gollem.
-# Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2009-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Gollem package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gollem H4 (2.0-git)\n"
+"Project-Id-Version: Gollem H5 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2013-06-01 16:48+0900\n"
+"PO-Revision-Date: 2014-05-12 20:10+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: manager.php:65
 #, php-format

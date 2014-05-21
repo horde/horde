@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-10 15:14+0900\n"
-"PO-Revision-Date: 2014-03-10 15:40+0900\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-05-12 20:10+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -288,7 +288,7 @@ msgstr "ユーザの追加は禁止になっています。"
 msgid "Address"
 msgstr "住所"
 
-#: config/registry.php:133
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "アドレス帳"
 
@@ -517,7 +517,7 @@ msgstr "ブロック型"
 msgid "Bluetooth"
 msgstr "ブルートゥース"
 
-#: config/registry.php:184
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "ブックマーク"
 
@@ -533,7 +533,7 @@ msgstr "最も下"
 msgid "Browser"
 msgstr "ブラウザ"
 
-#: config/registry.php:119
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "予定表"
 
@@ -687,7 +687,7 @@ msgstr "畳む"
 msgid "Color Picker"
 msgstr "色選択"
 
-#: config/registry.php:248
+#: config/registry.php:249
 msgid "Comics"
 msgstr "コミックス"
 
@@ -982,7 +982,7 @@ msgstr "端末\"%s\"とデータベース\"%s\"との同期セッションは削
 msgid "Describe the Problem"
 msgstr "障害内容の説明"
 
-#: config/registry.php:208
+#: config/registry.php:209
 msgid "Development"
 msgstr "開発"
 
@@ -1277,7 +1277,7 @@ msgstr "気分"
 msgid "Fields to search"
 msgstr "検索項目"
 
-#: config/registry.php:314
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "ファイル管理"
 
@@ -1285,7 +1285,7 @@ msgstr "ファイル管理"
 msgid "Filter"
 msgstr "フィルター"
 
-#: config/registry.php:89
+#: config/registry.php:90
 msgid "Filters"
 msgstr "フィルタ"
 
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "パスワードを忘れてしまいましたか？"
 
-#: config/registry.php:343
+#: config/registry.php:344
 msgid "Forms"
 msgstr "フォーム"
 
@@ -1337,7 +1337,7 @@ msgstr "格言"
 msgid "Fortunes 2"
 msgstr "格言２"
 
-#: config/registry.php:337
+#: config/registry.php:338
 msgid "Forums"
 msgstr "フォーラム"
 
@@ -1469,7 +1469,7 @@ msgstr "結果を隠す"
 msgid "Home Directory"
 msgstr "ホームディレクトリー"
 
-#: config/registry.php:76
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
@@ -1548,7 +1548,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr "個別ユーザ"
 
-#: config/registry.php:242
+#: config/registry.php:243
 msgid "Information"
 msgstr "情報"
 
@@ -1585,7 +1585,7 @@ msgstr "不正なハッシュです。"
 msgid "Invalid parent permission."
 msgstr "上位のアクセス権が無効です。"
 
-#: config/registry.php:295
+#: config/registry.php:296
 msgid "Inventory"
 msgstr "一覧作成"
 
@@ -1593,7 +1593,7 @@ msgstr "一覧作成"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "日本語 (ISO-2022-JP)"
 
-#: login.php:154
+#: login.php:167
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1617,7 +1617,7 @@ msgstr "キイワード"
 msgid "Kids"
 msgstr "子供"
 
-#: config/registry.php:303
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1625,7 +1625,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "韓国語 (EUC-KR)"
 
-#: login.php:344 templates/login/login.inc:57
+#: login.php:364 templates/login/login.inc:57
 msgid "Language"
 msgstr "言語"
 
@@ -1745,7 +1745,7 @@ msgstr "ユーザをロック"
 msgid "Locks"
 msgstr "ロック"
 
-#: login.php:271 templates/login/login.inc:66
+#: login.php:291 templates/login/login.inc:66
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "ログイン"
@@ -1758,11 +1758,11 @@ msgstr "ログアウト"
 msgid "Logged in to Facebook"
 msgstr "Facebook にログイン"
 
-#: login.php:300
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "ユーザ名かパスワードが正しくないためにログインに失敗しました。"
 
-#: login.php:296
+#: login.php:316
 msgid "Login failed."
 msgstr "ログインに失敗しました。"
 
@@ -1795,11 +1795,11 @@ msgstr "月"
 msgid "Magic"
 msgstr "魔法"
 
-#: config/registry.php:81
+#: config/registry.php:82
 msgid "Mail"
 msgstr "電子メール"
 
-#: config/registry.php:348
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "メール管理"
 
@@ -1926,7 +1926,7 @@ msgstr "月曜"
 msgid "Moon Phases"
 msgstr "月相"
 
-#: config/registry.php:308
+#: config/registry.php:309
 msgid "My Account"
 msgstr "私のアカウント"
 
@@ -1997,7 +1997,7 @@ msgstr "新しいパスワード"
 msgid "New passwords don't match."
 msgstr "新しいパスワードが一致しません。"
 
-#: config/registry.php:253 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "ニュース"
 
@@ -2100,7 +2100,7 @@ msgstr "北半球"
 msgid "Not Provisioned"
 msgstr "未プロビジョン"
 
-#: config/registry.php:168
+#: config/registry.php:169
 msgid "Notes"
 msgstr "メモ"
 
@@ -2132,7 +2132,7 @@ msgstr "オブジェクト作成者"
 msgid "Offense filter"
 msgstr "耳に痛いものを選別"
 
-#: config/registry.php:265
+#: config/registry.php:266
 msgid "Office"
 msgstr "オフィス"
 
@@ -2175,7 +2175,7 @@ msgstr "その他の情報"
 msgid "Other Options"
 msgstr "その他のオプション"
 
-#: config/registry.php:179
+#: config/registry.php:180
 msgid "Others"
 msgstr "その他"
 
@@ -2211,8 +2211,8 @@ msgstr "POSIX 拡張が見当たりません"
 msgid "P_HP Shell"
 msgstr "_HPHPシェル"
 
-#: login.php:191 admin/config/index.php:414 admin/user.php:39
-#: admin/user.php:53 config/registry.php:326
+#: login.php:211 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "パスワード"
@@ -2271,7 +2271,7 @@ msgstr "ペット"
 msgid "Phone Number"
 msgstr "電話番号"
 
-#: config/registry.php:196
+#: config/registry.php:197
 msgid "Photos"
 msgstr "写真"
 
@@ -2279,11 +2279,11 @@ msgstr "写真"
 msgid "Platitudes"
 msgstr "陳腐"
 
-#: login.php:197
+#: login.php:217
 msgid "Please enter a password."
 msgstr "パスワードを入力してください。"
 
-#: login.php:196
+#: login.php:216
 msgid "Please enter a username."
 msgstr "ユーザ名を入力してください。"
 
@@ -2628,7 +2628,7 @@ msgstr "追加するユーザを選択："
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr "アドレスを拡張する際に検索する蘭を全て選択して下さい。"
+msgstr "アドレスを拡張する際に検索する欄を全て選択して下さい。"
 
 #: templates/data/datetime.inc:57
 msgid "Select the date and time format:"
@@ -2792,7 +2792,7 @@ msgstr "南ヨーロッパ (ISO-8859-3)"
 msgid "Southern Hemisphere"
 msgstr "南半球"
 
-#: config/registry.php:105
+#: config/registry.php:106
 msgid "Spam"
 msgstr "SPAM"
 
@@ -2925,7 +2925,7 @@ msgstr "Syndicated Feed"
 msgid "Tag Cloud"
 msgstr "タグ・クラウド"
 
-#: config/registry.php:154
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "タスク"
 
@@ -3123,11 +3123,11 @@ msgstr "この結果、全ての端末の全項目が再同期されます。"
 msgid "This will cause your devices to resyncronize all items."
 msgstr "この結果、あなたの端末の全ての項目が再同期されます。"
 
-#: config/registry.php:225
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "チケット"
 
-#: config/registry.php:271
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "経過追跡"
 
@@ -3343,7 +3343,7 @@ msgstr "ユーザーアカウントがありません。。"
 msgid "User to add:"
 msgstr "追加するユーザ："
 
-#: login.php:186 admin/config/index.php:413 admin/user.php:36
+#: login.php:206 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3377,7 +3377,7 @@ msgstr "バージョン"
 msgid "Version Check"
 msgstr "バージョンの確認"
 
-#: config/registry.php:214
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "バージョン管理"
 
@@ -3409,7 +3409,7 @@ msgstr "天気"
 msgid "Weather data provided by"
 msgstr "気象データの提供は"
 
-#: config/registry.php:331
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Web サイト"
 
@@ -3468,7 +3468,7 @@ msgstr "左に表示する %s メニューの幅："
 msgid "Wifi"
 msgstr "WiFi"
 
-#: config/registry.php:202
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3506,7 +3506,7 @@ msgstr "with"
 msgid "Work"
 msgstr "仕事"
 
-#: config/registry.php:237
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3595,7 +3595,7 @@ msgid ""
 msgstr ""
 "あなたはサービス同意条項に合意していませんので、ログインは許可されません。"
 
-#: login.php:292
+#: login.php:312
 msgid "You have been logged out."
 msgstr "あなたはログアウトしました。"
 
@@ -3647,7 +3647,7 @@ msgstr "電子メールアドレス"
 msgid "Your Information"
 msgstr "あなたの情報"
 
-#: login.php:280
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3676,7 +3676,7 @@ msgstr ""
 "この認証バックエンドでは、ユーザの一覧がサポートされていないか、あるいは何ら"
 "かの理由でこの機能が無効になっています。"
 
-#: login.php:284
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3696,7 +3696,7 @@ msgstr "あなたのタイムゾーン："
 msgid "Your full name:"
 msgstr "あなたの氏名"
 
-#: login.php:304
+#: login.php:324
 msgid "Your login has expired."
 msgstr "ログインは期限切れです。"
 
@@ -3737,15 +3737,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "パスワードが期限切れです"
 
-#: login.php:165
+#: login.php:178
 msgid "Your password has expired."
 msgstr "パスワードが期限切れです。"
 
-#: login.php:276
+#: login.php:296
 msgid "Your session has expired. Please login again."
 msgstr "セッションの有効期限が切れました。ログインし直してください。"
 
-#: login.php:288
+#: login.php:308
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
