@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php
 /**
- * Copyright 2013-2014-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Ralf Lang <lang@b1-systems.de>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL 2
  * @package  Horde
  */
 
