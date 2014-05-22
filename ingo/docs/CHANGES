@@ -2,6 +2,8 @@
 v3.2.0-git
 ----------
 
+[mms] Fix regression in copying a rule when storing in SQL backend (Bug
+      #13213).
 
 
 -----------

@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] Fix regression in copying a rule when storing in SQL backend (Bug #13213).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1433,7 +1433,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mms] Fix regression in copying a rule when storing in SQL backend (Bug #13213).
    </notes>
   </release>
  </changelog>
