@@ -8,20 +8,58 @@
 
 var DimpBase = {
 
-    // Vars used and defaulting to null/false:
-    //   colorpicker, init, pollPE, pp, resize, rownum, search,
-    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
-    //   uid, view, viewaction, viewport, viewswitch
-
+    // colorpicker,
     flags: {},
     flags_o: [],
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
+    // init,
+    mboxDragConfig: {
+        classname: 'mboxdrag',
+        ghosting: true,
+        offset: { x: 15, y: 0 },
+        scroll: 'imp-normalmboxes',
+        threshold: 5
+    },
+    mboxDropConfig: (function() {
+        return {
+            caption: function(drop, drag, e) {
+                return DimpBase.mboxDropCaption(drop, drag, e);
+            },
+            keypress: true
+        };
+    })(),
     mboxes: {},
     mboxopts: {},
+    msgDragConfig: (function() {
+        return {
+            caption: function() {
+                return DimpBase.messageCountText(DimpBase.selectedCount());
+            },
+            classname: 'msgdrag',
+            rightclick: true,
+            scroll: 'imp-normalmboxes',
+            threshold: 5
+        };
+    })(),
+    // pollPE,
+    // pp,
     ppcache: {},
     ppfifo: [],
+    // resize,
+    // rownum,
+    // search,
+    // searchbar_time,
+    // searchbar_time_mins,
+    // splitbar,
     showunsub: 0,
     smboxes: {},
+    // sort_init,
+    // template,
+    // uid,
+    // view,
+    // viewaction,
+    // viewport,
+    // viewswitch,
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
     // of an average e-mail size is 10 KB (including headers), also make
@@ -616,7 +654,7 @@ var DimpBase = {
                 elt: e.memo,
                 type: 'message'
             });
-            new Drag(e.memo, this._msgDragConfig);
+            new Drag(e.memo, this.msgDragConfig);
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
@@ -2426,6 +2464,41 @@ var DimpBase = {
         }
     },
 
+    mboxDropCaption: function(drop, drag, e)
+    {
+        var m,
+            d = drag.retrieve('l'),
+            ftype = drop.retrieve('ftype'),
+            l = drop.retrieve('l');
+
+        if (drop == $('dropbase')) {
+            return DimpCore.text.moveto.sub('%s', d).sub('%s', DimpCore.text.baselevel);
+        }
+
+        switch (e.type) {
+        case 'mousemove':
+            m = (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
+            break;
+
+        case 'keydown':
+            /* Can't use ctrlKey here since different browsers handle the
+             * ctrlKey in different ways when it comes to firing keyboard
+             * events. */
+             m = (e.keyCode == 17) ? DimpCore.text.copyto : DimpCore.text.moveto;
+             break;
+
+         case 'keyup':
+             m = (e.keyCode == 17)
+                 ? DimpCore.text.moveto
+                 : (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
+             break;
+         }
+
+         return drag.hasClassName('imp-sidebar-mbox')
+             ? ((ftype != 'special' && !this.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
+             : ((ftype != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', l) : '');
+    },
+
     messageCountText: function(cnt)
     {
         switch (cnt) {
@@ -3707,7 +3780,7 @@ var DimpBase = {
 
         // Make the new mailbox a drop target.
         if (!ob.v) {
-            new Drop(li, this._mboxDropConfig);
+            new Drop(li, this.mboxDropConfig);
         }
 
         // Check for unseen messages
@@ -3729,7 +3802,7 @@ var DimpBase = {
 
         case 'container':
         case 'mbox':
-            new Drag(li, this._mboxDragConfig);
+            new Drag(li, this.mboxDragConfig);
             break;
 
         case 'remote':
@@ -4180,7 +4253,7 @@ var DimpBase = {
         }
 
         if ($('dropbase')) {
-            new Drop('dropbase', this._mboxDropConfig);
+            new Drop('dropbase', this.mboxDropConfig);
         }
 
         // See: http://www.thecssninja.com/javascript/gmail-dragout
@@ -4239,62 +4312,6 @@ var DimpBase = {
         }
     }
 
-};
-
-/* Need to add after DimpBase is defined. */
-DimpBase._msgDragConfig = {
-    classname: 'msgdrag',
-    rightclick: true,
-    scroll: 'imp-normalmboxes',
-    threshold: 5,
-    caption: function() {
-        return DimpBase.messageCountText(DimpBase.selectedCount());
-    }
-};
-
-DimpBase._mboxDragConfig = {
-    classname: 'mboxdrag',
-    ghosting: true,
-    offset: { x: 15, y: 0 },
-    scroll: 'imp-normalmboxes',
-    threshold: 5
-};
-
-DimpBase._mboxDropConfig = {
-    caption: function(drop, drag, e) {
-        var m,
-            d = drag.retrieve('l'),
-            ftype = drop.retrieve('ftype'),
-            l = drop.retrieve('l');
-
-        if (drop == $('dropbase')) {
-            return DimpCore.text.moveto.sub('%s', d).sub('%s', DimpCore.text.baselevel);
-        }
-
-        switch (e.type) {
-        case 'mousemove':
-            m = (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
-            break;
-
-        case 'keydown':
-            /* Can't use ctrlKey here since different browsers handle the
-             * ctrlKey in different ways when it comes to firing keyboard
-             * events. */
-            m = (e.keyCode == 17) ? DimpCore.text.copyto : DimpCore.text.moveto;
-            break;
-
-        case 'keyup':
-            m = (e.keyCode == 17)
-                ? DimpCore.text.moveto
-                : (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
-            break;
-        }
-
-        return drag.hasClassName('imp-sidebar-mbox')
-            ? ((ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
-            : ((ftype != 'container') ? m.sub('%s', DimpBase.messageCountText(DimpBase.selectedCount())).sub('%s', l) : '');
-    },
-    keypress: true
 };
 
 /* Basic event handlers. */
