@@ -515,14 +515,13 @@ Configuring Horde Groupware Webmail Edition
 
 2. Configuring Horde Groupware Webmail Edition
 
-   Documentation on the format and purpose of the configuration files
-   in the ``config/`` directory can be found in each file. The
-   defaults will be correct for most sites. If you wish to customize
-   Horde Groupware Webmail Edition's appearance and behavior, create
-   "local" files for the configuration file you want to change. For
-   example if you want to change the default value and lock a
-   preference, create a ``config/prefs.local.php`` file with the
-   following content::
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file. The defaults will be
+   correct for most sites. If you wish to customize Horde Groupware Webmail
+   Edition's appearance and behavior, create "local" files for the
+   configuration file you want to change. For example if you want to change the
+   default value and lock a preference, create a ``config/prefs.local.php``
+   file with the following content::
 
       <?php
       $_prefs['prefname']['value'] = 'somedefault';
@@ -530,22 +529,30 @@ Configuring Horde Groupware Webmail Edition
 
    This works with any configuration file.
 
-   .. Warning:: All configuration files in Horde Groupware Webmail
-                Edition are PHP scripts that are executed by the web
-                server. If you make an error in one of these files,
-                Horde might stop working. Thus it is always a good
-                idea to test the configuration files after you edited
-                them. If you want to test mime_drivers.local.php for
+   .. Warning:: All configuration files in Horde Groupware Webmail Edition are
+                PHP scripts that are executed by the web server. If you make an
+                error in one of these files, Horde might stop working. Thus it
+                is always a good idea to test the configuration files after you
+                edited them. If you want to test mime_drivers.local.php for
                 example run::
 
                    php -l mime_drivers.local.php
 
-   The default configuration stores files uploaded through the file manager in
-   the SQL database. This is the most compatible configuration but doesn't
-   scale well, may hit some database server limits, and may only work for very
-   small installations. You should configure a different backend as soon as
-   possible. See ``gollem/config/backends.php`` and
-   ``gollem/config/backends.d/10-webmail.php`` for details.
+   * By default, Horde Groupware Webmail Edition is configured to NOT display
+     text/html message parts inline.  This is done for various security
+     reasons.  If you would like to see text/html parts inline, you must create
+     a ``imp/config/mime_drivers.local.php`` file (or add to the existing
+     mime_drivers.local.php file) with the following content::
+
+        <?php
+        $mime_drivers['html']['inline'] = true;
+
+   * The default configuration stores files uploaded through the file manager
+     in the SQL database. This is the most compatible configuration but doesn't
+     scale well, may hit some database server limits, and may only work for
+     very small installations. You should configure a different backend as soon
+     as possible. See ``gollem/config/backends.php`` and
+     ``gollem/config/backends.d/10-webmail.php`` for details.
 
 3. Setting up alarm emails
 
