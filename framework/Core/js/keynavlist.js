@@ -27,10 +27,8 @@
  *
  * [base = (Element) The element to use for display positioning purposes]
  *
- * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @copyright  2005-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var KeyNavList = Class.create({

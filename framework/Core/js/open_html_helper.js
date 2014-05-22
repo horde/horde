@@ -1,20 +1,12 @@
 /**
- * Horde Html Helper Javascript Class
- *
  * Provides the javascript class insert html tags by clicking on icons.
  *
  * The helpers available:
- *      emoticons - for inserting emoticons strings
+ *   - emoticons - for inserting emoticons strings
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Marko Djukic <marko@oblo.com>
- * @category Horde
- * @package  Core
- * @todo     Add handling for font tags, tables, etc.
+ * @author     Marko Djukic <marko@oblo.com>
+ * @copyright  2003-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var Horde_Html_Helper = {

@@ -3,8 +3,8 @@
  *
  * Requires prototypejs 1.6+ and scriptaculous 1.8+ (effects.js only).
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var RedBox = {

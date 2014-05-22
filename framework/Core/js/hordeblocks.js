@@ -1,3 +1,8 @@
+/**
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
+ */
+
 var HordeBlocks = {
 
     addUpdateableBlock: function(app, blockid, uid, refresh, opts)

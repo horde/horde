@@ -19,8 +19,8 @@
  *   params: Date object
  *   Fired when a year is selected.
  *
- * @category Horde
- * @package  Core
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var Horde_Calendar =

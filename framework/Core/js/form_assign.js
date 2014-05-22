@@ -1,14 +1,9 @@
 /**
- * Horde Form Assign Field Javascript Class
- *
  * Provides the javascript class to accompany the Horde_Form assign field.
  *
- * Copyright 2004-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
-*
-* @author Jan Schneider <jan@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
+ * @copyright  2004-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var Horde_Form_Assign = {

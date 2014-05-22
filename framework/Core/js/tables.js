@@ -3,13 +3,8 @@
  * dynamically striping their row colors, and finding all tables with
  * classname "sortable" and making them dynamically sortable.
  *
- * TODO: incorporate missing features (if wanted) and improvements from:
- * http://tetlaw.id.au/view/blog/table-sorting-with-prototype/
- * http://www.millstream.com.au/view/code/tablekit/
- * http://tablesorter.com/docs/
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * @copyright  2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var SORT_COLUMN_INDEX;

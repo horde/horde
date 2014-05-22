@@ -1,13 +1,15 @@
 /**
- * inplaceeditor.js - A javascript library which implements ajax inplace editing
+ * inplaceeditor.js - A javascript library which implements ajax inplace
+ * editing.
  * Requires prototype.js v1.6.0.2+ and scriptaculous v1.8.0+ (effects.js) if
  * using the default callback functions.
  *
  * Adapted from script.aculo.us controls.js v1.8.3
- * Copyright (c) 2005-2009 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
- *          (c) 2005-2009 Ivan Krstic (http://blogs.law.harvard.edu/ivan)
- *          (c) 2005-2009 Jon Tirsen (http://www.tirsen.com)
- *   Contributors:
+ * (c) 2005-2009 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+ * (c) 2005-2009 Ivan Krstic (http://blogs.law.harvard.edu/ivan)
+ * (c) 2005-2009 Jon Tirsen (http://www.tirsen.com)
+ *
+ * Contributors:
  *   Richard Livsey
  *   Rahul Bhargava
  *   Rob Wills
@@ -15,13 +17,8 @@
  * The original script was freely distributable under the terms of an
  * MIT-style license.
  *
- * Usage:
- * ------
- *
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * @copyright  2010-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 InPlaceEditor = Class.create(

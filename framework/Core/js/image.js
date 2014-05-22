@@ -1,14 +1,10 @@
 /**
- * Horde Image Javascript
+ * Provides the javascript to help during the uploading of images in
+ * Horde_Form.
  *
- * Provides the javascript to help during the uploading of images in Horde_Form.
- *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
-*
-* @author Marko Djukic <marko@oblo.com>
+ * @author     Marko Djukic <marko@oblo.com>
+ * @copyright  2003-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 /**

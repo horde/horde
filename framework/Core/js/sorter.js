@@ -1,15 +1,10 @@
 /**
- * Horde Form Sorter Field Javascript Class
- *
  * Provides the javascript class to accompany the Horde_Form sorter
  * field.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
-*
-* @author Marko Djukic <marko@oblo.com>
+ * @author     Marko Djukic <marko@oblo.com>
+ * @copyright  2003-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 function Horde_Form_Sorter(instanceName, varName, header)

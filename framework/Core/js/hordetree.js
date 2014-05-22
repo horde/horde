@@ -13,15 +13,10 @@
  * 'Horde_Tree:collapse'
  *   Fired when a tree element is collapsed.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Marko Djukic <marko@oblo.com>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Core
+ * @author     Marko Djukic <marko@oblo.com>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2003-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var Horde_Tree = Class.create({

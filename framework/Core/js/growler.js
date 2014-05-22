@@ -59,7 +59,9 @@
  *   Written by Kevin Armstrong <kevin@kevinandre.com>
  *   Released under the MIT license
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2010-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 (function() {

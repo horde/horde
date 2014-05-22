@@ -5,8 +5,6 @@
  *
  * Requires: prototype.js (v1.6.1+), KeyNavList.js
  *
- * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
- *
  * Custom Events:
  * --------------
  * Custom events are triggered on the target element.
@@ -23,11 +21,9 @@
  * 'SpellChecker:noerror'
  *    Fired when no spellcheck errors are found.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @category Horde
- * @package  Core
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @copyright  2005-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var SpellChecker = Class.create({

@@ -1,15 +1,9 @@
 /**
  * Provides the javascript for toggle quotes (Highlightquotes text filter).
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @copyright  2011-2014 Horde LLC
+ * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 
 var Horde_ToggleQuotes = {
