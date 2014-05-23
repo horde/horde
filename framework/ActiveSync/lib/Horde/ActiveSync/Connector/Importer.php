@@ -327,7 +327,8 @@ class Horde_ActiveSync_Connector_Importer
             $folderid = $results->_serverid;
             $uid = $results->serverid;
         } else {
-            // Need to build a message folder object here for BC reasons.
+            // @TODO Remove for 3.0 Need to build a message folder object here
+            // for BC reasons.
             $serverid = $results;
             $results = $this->_as->messageFactory('Folder');
             $results->serverid = $serverid;
