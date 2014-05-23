@@ -386,19 +386,7 @@ class IMP_Mailbox
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox, true);
 
         case 'exists':
-            if ($this->search) {
-                return ($ob = $this->getSearchOb()) && $ob->enabled;
-            }
-
-            if ($elt = $this->tree_elt) {
-                return !$elt->container;
-            }
-
-            try {
-                return (bool)$this->imp_imap->listMailboxes($this->imap_mbox_ob, null, array('flat' => true));
-            } catch (IMP_Imap_Exception $e) {
-                return false;
-            }
+            return $injector->getInstance('IMP_Mailbox_SessionCache')->exists($this);
 
         case 'form_to':
             return $this->formTo($this->_mbox);

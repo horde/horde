@@ -751,6 +751,7 @@ class IMP_Imap implements Serializable
 
         /* Special handling for various methods. */
         switch ($method) {
+        case 'createMailbox':
         case 'deleteMailbox':
         case 'renameMailbox':
             $injector->getInstance('IMP_Mailbox_SessionCache')->expire(

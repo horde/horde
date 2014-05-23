@@ -36,6 +36,7 @@ class IMP_Mailbox_SessionCache implements Serializable
     const CACHE_UIDVALIDITY = 'v'; // (integer) UIDVALIDITY
 
     /** Cache identifiers - temporary data. */
+    const CACHE_EXISTS = 'e';
     const CACHE_ICONHOOK = 'ic';
     const CACHE_PREFTO = 'pt';
     const CACHE_SPECIALMBOXES = 's';
@@ -285,6 +286,42 @@ class IMP_Mailbox_SessionCache implements Serializable
     }
 
     /**
+     * Return whether the mailbox exists.
+     *
+     * @param string $mbox  Mailbox.
+     *
+     * @return boolean  True if mailbox exists.
+     */
+    public function exists($mbox)
+    {
+        $s_mbox = strval($mbox);
+
+        if (!isset($this->_temp[$s_mbox][self::CACHE_EXISTS])) {
+            $mbox = IMP_Mailbox::get($mbox);
+
+            if ($mbox->search) {
+                $exists = (($ob = $this->getSearchOb()) && $ob->enabled);
+            } elseif ($elt = $mbox->tree_elt) {
+                $exists = !$elt->container;
+            }
+
+            try {
+                $exists = (bool)$mbox->imp_imap->listMailboxes(
+                    $mbox->imap_mbox_ob,
+                    null,
+                    array('flat' => true)
+                );
+            } catch (IMP_Imap_Exception $e) {
+                $exists = false;
+            }
+
+            $this->_temp[$s_mbox][self::CACHE_EXISTS] = $exists;
+        }
+
+        return $this->_temp[$s_mbox][self::CACHE_EXISTS];
+    }
+
+    /**
      * Expire cache entries.
      *
      * @param mixed $entries     A CACHE_* constant (or array of constants).
@@ -298,6 +335,7 @@ class IMP_Mailbox_SessionCache implements Serializable
             $entries = array(
                 self::CACHE_ACL,
                 self::CACHE_DISPLAY,
+                self::CACHE_EXISTS,
                 self::CACHE_ICONS,
                 self::CACHE_LABEL,
                 self::CACHE_PREFTO,
@@ -309,6 +347,7 @@ class IMP_Mailbox_SessionCache implements Serializable
             switch ($val) {
             case self::CACHE_ACL:
             case self::CACHE_DISPLAY:
+            case self::CACHE_EXISTS:
             case self::CACHE_ICONS:
             case self::CACHE_LABEL:
             case self::CACHE_PREFTO:
