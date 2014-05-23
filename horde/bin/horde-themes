@@ -28,7 +28,7 @@ Horde_Registry::appInit('horde', array(
 ));
 
 $parser = new Horde_Argv_Parser();
-$parser->addOptions('--expirecache', array(
+$parser->addOption('--expirecache', array(
     'action' => 'store_true',
     'help' => 'Expire all cache entries'
 ));
