@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-26 12:17+0200\n"
-"PO-Revision-Date: 2013-08-26 12:30+0100\n"
-"Last-Translator: Jozef Sudolsky <azurit@pobox.sk>\n"
+"POT-Creation-Date: 2014-05-22 09:59+0200\n"
+"PO-Revision-Date: 2014-05-22 15:15+0100\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "\"%s\" nebolo možné vytvoriť: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB použitých z povolených %.2fMB (%.2f%%)"
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:206
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s a %s"
@@ -56,7 +56,7 @@ msgstr "%d dní do vypršania platnosti hesla."
 msgid "%d minutes"
 msgstr "%d minút"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -69,7 +69,7 @@ msgstr[2] "%d osobám sa to páči"
 msgid "%d to %d of %d"
 msgstr "%d až %d z %d"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:246
 #, php-format
 msgid "%d-day forecast"
 msgstr "predpoveď na %d dní"
@@ -79,7 +79,7 @@ msgstr "predpoveď na %d dní"
 msgid "%s - Notice"
 msgstr "%s - Poznámka"
 
-#: admin/config/config.php:28 admin/config/index.php:437
+#: admin/config/config.php:28 admin/config/index.php:458
 #, php-format
 msgid "%s Configuration"
 msgstr "%s Konfigurácia"
@@ -101,32 +101,27 @@ msgid "%s at %s %s"
 msgstr "%s vo výške %s %s"
 
 #: templates/prefs/twitter.html.php:9
-#, fuzzy, php-format
+#, php-format
 msgid "%s can interact with your Twitter account"
-msgstr "<tag:appname /> môže sa prepojiť s Vašim účtom na Twitteri"
+msgstr "%s sa môže prepojiť s Vašim účtom na Twitteri"
 
 #: templates/prefs/facebook.html.php:48
-#, fuzzy, php-format
+#, php-format
 msgid "%s cannot read information about your Facebook friends."
-msgstr ""
-"<tag:app_name /> nepodarilo sa načítať informácie o Vašich priateľoch na "
-"Facebooku."
+msgstr "%s nemôže načítať informácie o Vašich priateľoch na Facebooku."
 
 #: templates/prefs/facebook.html.php:34
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s cannot read your stream messages and various other Facebook data items."
-msgstr ""
-"<tag:app_name /> nepodarilo sa načítať Vaše správy a iné dátové položky z "
-"Facebooku."
+msgstr "%s nemôže načítať Vaše správy a iné dátové položky z Facebooku."
 
 #: templates/prefs/facebook.html.php:20
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s cannot set your status messages or publish other content to Facebook."
 msgstr ""
-"<tag:app_name /> napodarilo sa nastaviť statusové správy alebo zverejniť iný "
-"obsah na Facebooku."
+"%s nemôže nastaviť statusové správy alebo zverejniť iný obsah na Facebooku."
 
 #: services/logintasks.php:72
 #, php-format
@@ -175,7 +170,7 @@ msgstr "24-hodinový formát"
 msgid "24 hours"
 msgstr "24 hodín"
 
-#: config/prefs.php:492 config/prefs.php:494
+#: config/prefs.php:483 config/prefs.php:485
 msgid "24-hour format"
 msgstr "24-hodinový formát"
 
@@ -191,13 +186,13 @@ msgstr ""
 "Vyžaduje sa premazanie zariadenia. Zariadenie bude premazané pri ďalšom "
 "pokuse o synchronizáciu."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "K dispozícii je novšia verzia (%s)."
 
-#: lib/Prefs/Special/Activesync.php:77
+#: lib/Prefs/Special/Activesync.php:95
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -214,27 +209,28 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Informácie o účte"
 
-#: config/prefs.php:334
+#: config/prefs.php:325
 msgid "Account Password"
 msgstr "Heslo pre účet"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "Operácie"
 
-#: config/prefs.php:739 lib/Application.php:200
+#: config/prefs.php:732 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:74
-msgid "ActiveSync Device Administration"
-msgstr "Správa ActiveSync Device zariadenia"
+#: admin/activesync.php:100
+msgid "ActiveSync Administration"
+msgstr "Správa ActiveSync"
 
-#: admin/activesync.php:196 lib/Api.php:93
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
 msgstr "Zariadenia ActiveSync"
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:22 lib/Api.php:725 lib/Api.php:786
+#: lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
 msgstr "%s nie je aktivované."
 
@@ -292,11 +288,11 @@ msgstr "\"%s\" bol pridaný do systému. Teraz sa môžete prihlásiť."
 msgid "Adding users is disabled."
 msgstr "Pridávanie používateľov nie je povolené."
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Adresa"
 
-#: config/registry.php:131
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Adresár"
 
@@ -324,15 +320,19 @@ msgstr "Text upozornenia"
 msgid "Alarm title"
 msgstr "Názov upozornenia"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "Upozornenia"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr ""
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Všetky"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Všetci overení používatelia"
 
@@ -340,7 +340,7 @@ msgstr "Všetci overení používatelia"
 msgid "All policy keys successfully reset."
 msgstr "Všetky prístupové kľúče boli úspešne nastavené."
 
-#: lib/Prefs/Special/Activesync.php:92
+#: lib/Prefs/Special/Activesync.php:110
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -352,10 +352,6 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr "Všetky synchronizované relácie boli vymazané."
 
-#: lib/Application.php:216
-msgid "Allow"
-msgstr "Povoliť"
-
 #: lib/Application.php:236
 msgid "Allow alphanumeric"
 msgstr "Povoliť alfanumerické"
@@ -364,19 +360,24 @@ msgstr "Povoliť alfanumerické"
 msgid "Allow any"
 msgstr "Povoliť akékoľvek"
 
+#: lib/Application.php:215
+#, fuzzy
+msgid "Allow non-provisionable devices"
+msgstr "Znovu zabezpečiť všetky zariadenia"
+
 #: lib/Application.php:235
 msgid "Allow only numeric"
 msgstr "Povoliť iba numerické"
 
-#: config/prefs.php:694
+#: config/prefs.php:687
 msgid "Alternate IMSP Login"
 msgstr "Alternatívne prihlasovacie meno IMSP"
 
-#: config/prefs.php:711
+#: config/prefs.php:704
 msgid "Alternate IMSP Password"
 msgstr "Alternatívne heslo IMSP"
 
-#: config/prefs.php:705
+#: config/prefs.php:698
 msgid "Alternate IMSP Username"
 msgstr "Alternatívne používateľské meno IMSP"
 
@@ -396,7 +397,7 @@ msgstr "Aplikácia"
 msgid "Application Context"
 msgstr "Kontext aplikácie"
 
-#: admin/config/index.php:245
+#: admin/config/index.php:250
 msgid "Application is ready."
 msgstr "Aplikácia je pripravená."
 
@@ -408,7 +409,7 @@ msgstr "Schváliť"
 msgid "Arabic (Windows-1256)"
 msgstr "Arabsky (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Naozaj chcete vymazať '%s'?"
@@ -459,26 +460,23 @@ msgstr "Pokus o vymazanie neexistujúceho práva."
 msgid "Attempt to edit a non-existent permission."
 msgstr "Pokus o úpravu neexistujúceho práva."
 
-#: services/shares/edit.php:68
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "Pokus o úpravu neexistujúceho zdieľaného objektu."
 
 #: templates/admin/sessions.html.php:11
-#, fuzzy
 msgid "Authenticated Applications"
-msgstr "Prihlásený do"
+msgstr ""
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
-#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
 #: templates/prefs/twitter.html.php:18
-#, fuzzy
 msgid "Authorize"
-msgstr "Autor"
+msgstr "Autorizovať"
 
 #: templates/prefs/facebook.html.php:49
-#, fuzzy
 msgid "Authorize Access to Friends Data"
-msgstr "Autorizovať prístup do dát priateľov:"
+msgstr "Autorizovať prístup do dát priateľov"
 
 #: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
@@ -508,6 +506,10 @@ msgstr "Balticky (ISO-8859-13)"
 msgid "Basic"
 msgstr "Základný"
 
+#: templates/activesync/device_table.html.php:43
+msgid "Block"
+msgstr "Zablokovať"
+
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
 msgstr "Nastavenia bloku"
@@ -520,7 +522,7 @@ msgstr "Typ bloku"
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:182
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Záložky"
 
@@ -528,7 +530,7 @@ msgstr "Záložky"
 msgid "Both"
 msgstr "Obe"
 
-#: config/prefs.php:755
+#: config/prefs.php:748
 msgid "Bottom"
 msgstr "Dolu"
 
@@ -536,7 +538,12 @@ msgstr "Dolu"
 msgid "Browser"
 msgstr "Prehliadač"
 
-#: config/registry.php:117
+#: templates/activesync/device_table.html.php:29
+#: templates/prefs/activesync.html.php:56
+msgid "Cached Heartbeat (seconds)"
+msgstr ""
+
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "Kalendár"
 
@@ -553,7 +560,8 @@ msgstr "Zrušiť"
 msgid "Cancel Problem Report"
 msgstr "Zrušiť správu o probléme"
 
-#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
+#: templates/activesync/device_table.html.php:36
+#: templates/prefs/activesync.html.php:41
 msgid "Cancel Wipe"
 msgstr "Zrušiť"
 
@@ -562,7 +570,7 @@ msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Nepodarilo sa automaticky zmeniť heslo, kontaktujte svojho administrátora."
 
-#: config/prefs.php:516
+#: config/prefs.php:507
 msgid "Categories and Labels"
 msgstr "Kategórie a popisky"
 
@@ -578,7 +586,7 @@ msgstr "Stredoeurópske (ISO-8859-2)"
 msgid "Change"
 msgstr "Zmeniť"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:128
 msgid "Change Location"
 msgstr "Zmeniť lokalitu"
 
@@ -586,7 +594,7 @@ msgstr "Zmeniť lokalitu"
 msgid "Change Your Password"
 msgstr "Zmeniť Vaše heslo"
 
-#: config/prefs.php:273
+#: config/prefs.php:264
 msgid "Change your personal information."
 msgstr "Zmeniť osobné informácie."
 
@@ -606,7 +614,7 @@ msgstr "Skontrolovať"
 msgid "Check for newer versions"
 msgstr "Skontrolovať nové verzie"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "Kontroluje sa"
 
@@ -618,20 +626,20 @@ msgstr "Čínske zjednodušené (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "Činske tradičné (Big5)"
 
-#: services/obrowser/index.php:59
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "Vyberte %s"
 
-#: config/prefs.php:484
+#: config/prefs.php:475
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Vyberte spôsob zobrazovania dátumov (skrátený formát):"
 
-#: config/prefs.php:460
+#: config/prefs.php:451
 msgid "Choose how to display dates (full format):"
 msgstr "Vyberte spôsob zobrazovania dátumov (úplný formá):"
 
-#: config/prefs.php:497
+#: config/prefs.php:488
 msgid "Choose how to display times:"
 msgstr "Vyberte spôsob zobrazovania dátumov:"
 
@@ -669,7 +677,7 @@ msgstr "Kliknite pre pokračovanie"
 msgid "Client Anchor"
 msgstr "Klientské ukotvenie"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Zatvoriť okno"
 
@@ -685,12 +693,12 @@ msgstr "Frekvencia codeword"
 msgid "Collapse"
 msgstr "Zbaliť"
 
-#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
-#: templates/prefs/category.html.php:36
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Výber farby"
 
-#: config/registry.php:246
+#: config/registry.php:249
 msgid "Comics"
 msgstr "Komiks"
 
@@ -702,16 +710,21 @@ msgstr "Príkaz"
 msgid "Command Shell"
 msgstr "Príkazový riadok"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:182
 #, php-format
 msgid "Comments: %d"
 msgstr "Komentáre: %d"
+
+#: templates/admin/activesync.html.php:16
+#, fuzzy
+msgid "Common Name"
+msgstr "Vaše meno"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Počítače"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:259
 msgid "Condition"
 msgstr "Podmienka"
 
@@ -727,22 +740,26 @@ msgstr "Konfigurácia"
 msgid "Configuration Differences"
 msgstr "Rozdiely v konfigurácii"
 
-#: config/prefs.php:721
+#: config/prefs.php:714
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Nastavenia pre synchronizáciu s PDA, Smartphone a Outlookom."
 
-#: admin/config/index.php:240
+#: admin/config/index.php:245
 msgid "Configuration is out of date."
 msgstr "Konfigurácia potrebuje aktualizáciu."
 
-#: templates/admin/config/index.html.php:96
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "Sú dostupné skripty na upgrade nastavení"
 
-#: admin/config/index.php:180
+#: admin/config/index.php:182
 #, php-format
 msgid "Configure %s"
 msgstr "Konfigurovať %s"
+
+#: lib/Prefs/Special/Activesync.php:64
+msgid "Configured Horde Default"
+msgstr ""
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
@@ -770,21 +787,22 @@ msgstr "Neočakávaná odpoveď od servera na, skúste neskôr."
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "Nepodarilo sa vymazať skript na aktualizáciu konfigurácie \"%s\"."
 
-#: templates/prefs/facebook.html.php:57
-#, fuzzy, php-format
+#: templates/prefs/facebook.html.php:58
+#, php-format
 msgid ""
-"Could not find authorization for %s to interact with your Facebook account."
+"Could not find authorization for \"%s\" to interact with your Facebook "
+"account. This means that either you have not yet authorized your Facebook "
+"account to interact with \"%s\", or your authorization has expired and must "
+"be renewed."
 msgstr ""
-"Nepodarilo sa nájsť autorizáciu pre <tag:appname /> interakciu s Vašim účtom "
-"na Twitteri"
 
 #: templates/prefs/twitter.html.php:15
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Could not find authorization for %s to interact with your Twitter account"
 msgstr ""
-"Nepodarilo sa nájsť autorizáciu pre <tag:appname /> interakciu s Vašim účtom "
-"na Twitteri"
+"Nepodarilo sa nájsť autorizáciu pre %s na interakciu s Vašim účtom na "
+"Twitteri"
 
 #: services/resetpassword.php:104
 msgid ""
@@ -834,7 +852,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Nepodarilo sa zapísať konfiguráciu pre \"%s\": %s"
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "Krajina"
 
@@ -842,7 +860,7 @@ msgstr "Krajina"
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "Vytvoriť novú identitu"
 
@@ -870,7 +888,7 @@ msgstr "Aktuálny čas"
 msgid "Current Weather"
 msgstr "Aktuálne počasie"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:238
 msgid "Current condition"
 msgstr "Aktuálne podmienky"
 
@@ -886,7 +904,7 @@ msgstr "Kyrilické (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kyrilické/Ukrajinské (KOI8-U)"
 
-#: admin/config/index.php:260 admin/config/index.php:312
+#: admin/config/index.php:265 admin/config/index.php:317
 msgid "DB access is not configured."
 msgstr "Prístup do databázy nie je nakonfigurovaný."
 
@@ -905,7 +923,7 @@ msgstr "Údaje"
 msgid "Database"
 msgstr "Databáza"
 
-#: lib/Block/Vatid.php:85
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Dátum"
 
@@ -918,16 +936,16 @@ msgstr "Dátum prijatia"
 msgid "Date: %s; time: %s"
 msgstr "Dátum: %s; čas: %s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:254
 msgid "Day"
 msgstr "Deň"
 
-#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
-#: config/prefs.php:491 themes/default/info.php:2
+#: config/prefs.php:379 config/prefs.php:400 config/prefs.php:413
+#: config/prefs.php:482 themes/default/info.php:2
 msgid "Default"
 msgstr "Prednastavené"
 
-#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "Prednastavená farba"
 
@@ -935,11 +953,11 @@ msgstr "Prednastavená farba"
 msgid "Default Shell"
 msgstr "Prednastavená schránka"
 
-#: config/prefs.php:412
+#: config/prefs.php:403
 msgid "Default charset for sending e-mail messages:"
 msgstr "Štandardná znaková sada pre posielanie e-mailových správ:"
 
-#: config/prefs.php:305
+#: config/prefs.php:296
 msgid "Default location to use for location-aware features."
 msgstr ""
 "Pre funkcie, ktoré sa ukladajú podľa polohy použiť štandardné uloženie."
@@ -950,18 +968,18 @@ msgstr "Definície"
 
 #: admin/groups.php:52 templates/admin/groups/delete.inc:11
 #: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
-#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Vymazať"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:208
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Vymazať \"%s\""
@@ -970,7 +988,7 @@ msgstr "Vymazať \"%s\""
 msgid "Delete All SyncML Data"
 msgstr "Vymazať všetky údaje SyncML"
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "Vymazať skupinu"
 
@@ -989,39 +1007,47 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Popíšte problém"
 
-#: config/registry.php:206
+#: config/registry.php:209
 msgid "Development"
 msgstr "Vývoj"
 
-#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/activesync.html.php:28 templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "Zariadenie"
 
-#: admin/activesync.php:122
-msgid "Device ID"
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
 msgstr "ID zariadenia"
 
-#: templates/prefs/activesync.html.php:23
-#, fuzzy
+#: templates/activesync/device_table.html.php:7
+#: templates/prefs/activesync.html.php:31
 msgid "Device Information"
-msgstr "Informácie"
+msgstr "Informácie o zariadení"
 
-#: templates/prefs/activesync.html.php:11
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
 msgstr "Správca zariadení"
+
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Typ zariadenia"
 
 #: lib/Application.php:312
 msgid "Device encryption"
 msgstr "Šifrovanie zariadenia"
 
-#: templates/prefs/activesync.html.php:35
-#, fuzzy
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "Zariadenie je zablokované."
+
+#: templates/prefs/activesync.html.php:43
 msgid "Device is Wiped"
 msgstr "Zariadenie je premazané"
 
-#: admin/activesync.php:165
-msgid "Device is wiped"
-msgstr "Zariadenie je premazané"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
 
 #: admin/activesync.php:46
 msgid "Device successfully removed."
@@ -1039,7 +1065,7 @@ msgstr "Rosný bod"
 msgid "Dew Point for last hour: "
 msgstr "Rosný bod za poslednú hodinu: "
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:189
 msgid "Dew point"
 msgstr "Rosný bod"
 
@@ -1048,15 +1074,19 @@ msgstr "Rosný bod"
 msgid "Disable"
 msgstr "Znefunkčniť"
 
-#: config/prefs.php:430
+#: lib/Application.php:216
+msgid "Disable (not recommended)"
+msgstr ""
+
+#: config/prefs.php:421
 msgid "Display 24-hour times?"
 msgstr "Zobrazovať čas v 24-hodinovom formáte?"
 
-#: config/prefs.php:541
+#: config/prefs.php:532
 msgid "Display Preferences"
 msgstr "Nastavenia pre zobrazenie"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:95
 msgid "Display detailed forecast"
 msgstr "Zobraziť detailnú predpoveď"
 
@@ -1068,17 +1098,17 @@ msgstr "Zobraziť predpoveď (TAF)"
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Obsahuje prvý riadok názvy polí? Ak áno, zaškrtnite políčko:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:77
 msgid "Don't have an account? Sign up."
 msgstr "Nemáte účet? Zaregistrujte sa."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "Download %s"
 msgstr "Stiahnuť %s"
 
-#: admin/config/index.php:384
+#: admin/config/index.php:393
 msgid "Download generated configuration as PHP script."
 msgstr "Stiahnuť vygenerovanú konfiguráciu ako PHP skript."
 
@@ -1094,13 +1124,13 @@ msgstr "Dynamický"
 msgid "EU VAT identification"
 msgstr "Identifikácia európskeho IČ DPH"
 
-#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Upraviť"
 
@@ -1113,11 +1143,11 @@ msgstr "Upraviť \"%s\""
 msgid "Edit Preferences for"
 msgstr "Upraviť nastavenia pre"
 
-#: services/shares/edit.php:247
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "Upraviť práva"
 
-#: services/shares/edit.php:246 templates/shares/edit.inc:14
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Upraviť práva pre \"%s\""
@@ -1130,11 +1160,15 @@ msgstr "Vzdelávanie"
 msgid "Email Address"
 msgstr "E-mailová adresa"
 
+#: lib/Application.php:214
+msgid "Enable"
+msgstr "Aktivovať"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Čas ukončenia"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:83
 msgid "English"
 msgstr "Anglicky"
 
@@ -1142,7 +1176,7 @@ msgstr "Anglicky"
 msgid "Enter a name for the new category:"
 msgstr "Zadajte prosím meno pre novú kategóriu:"
 
-#: config/prefs.php:351
+#: config/prefs.php:342
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1150,11 +1184,18 @@ msgstr ""
 "Zadajte bezpečnostnú otázku, na ktorú budete musieť odpovedať ak zabudnete "
 "heslo, napr. 'ako sa volá moje zvieratko?':"
 
-#: services/twitter/index.php:27
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:264
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Chyba pri pripájaní do Facebooku. Detaily boli zaznamenané pre "
+"administrátora."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
 msgid ""
 "Error connecting to Twitter. Details have been logged for the administrator."
-msgstr "Interná chyba: %s Detaily boli zaznamenané pre administrátora."
+msgstr ""
+"Chyba pri pripájaní do Twitteru. Detaily boli zaznamenané pre administrátora."
 
 #: lib/Prefs/Special/Twitter.php:54
 #, php-format
@@ -1180,27 +1221,27 @@ msgstr "Chyba pri aktualizácii hesla: %s"
 msgid "Ethnic"
 msgstr "Etnické"
 
-#: services/facebook/index.php:189
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
 msgstr "Pozvánky na udalosti"
 
-#: config/prefs.php:599 templates/portal/layout.inc:101
+#: config/prefs.php:591 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Každých 15 minút"
 
-#: config/prefs.php:618
+#: config/prefs.php:610
 msgid "Every 2 minutes"
 msgstr "Každé 2 minúty"
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
+#: config/prefs.php:588 config/prefs.php:608 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Každých 30 sekúnd"
 
-#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
+#: config/prefs.php:590 config/prefs.php:611 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Každých 5 minút"
 
-#: config/prefs.php:600 templates/portal/layout.inc:102
+#: config/prefs.php:592 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Každú polhodinu"
 
@@ -1208,7 +1249,7 @@ msgstr "Každú polhodinu"
 msgid "Every hour"
 msgstr "Každú hodinu"
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
+#: config/prefs.php:589 config/prefs.php:609 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Každú minútu"
 
@@ -1229,11 +1270,11 @@ msgstr "Rozbaliť"
 msgid "Extra Large"
 msgstr "Veľmi veľké"
 
-#: templates/admin/config/index.html.php:110
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
 msgstr "Ukladanie konfigurácie cez FTP"
 
-#: config/prefs.php:642
+#: config/prefs.php:635
 msgid "Facebook Integration"
 msgstr "Integrácia Facebooku"
 
@@ -1261,23 +1302,23 @@ msgstr "Ako"
 msgid "Fields to search"
 msgstr "Polia pre vyhľadávanie"
 
-#: config/registry.php:312
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Správca súborov"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "Filter"
 
-#: config/registry.php:88
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Filtre"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "Prvá polovica"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "Prvá štvrtina"
 
@@ -1285,15 +1326,11 @@ msgstr "Prvá štvrtina"
 msgid "Food"
 msgstr "Potrava"
 
-#: lib/Application.php:215
-msgid "Force"
-msgstr "Donútiť"
-
 #: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Predpoveď (TAF)"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:89
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1301,11 +1338,11 @@ msgstr ""
 "Predpoveď na uvedený počet dní (pamätajte na to, že predpoveď zahŕňa dni aj "
 "noci a tak môže veľké číslo vytvoriť veľmi široký blok)"
 
-#: templates/login/login.inc:79
+#: templates/login/login.inc:84
 msgid "Forgot your password?"
 msgstr "Zabudli ste heslo?"
 
-#: config/registry.php:341
+#: config/registry.php:344
 msgid "Forms"
 msgstr "Formuláre"
 
@@ -1325,25 +1362,24 @@ msgstr "Fortuny"
 msgid "Fortunes 2"
 msgstr "Fortuny 2"
 
-#: config/registry.php:335
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Fóra"
 
-#: services/facebook/index.php:188
+#: lib/Ajax/Application/FacebookHandler.php:62
 msgid "Friend Requests:"
 msgstr "Požiadavky priateľa:"
 
 #: templates/prefs/facebook.html.php:44
-#, fuzzy
 msgid "Friends enabled."
-msgstr "Priatelia povolení"
+msgstr "Priatelia povolení."
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:215
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "Zo smeru %s (%s &deg;) rýchlosťou %s %s"
 
-#: lib/Block/Weather.php:318
+#: lib/Block/Weather.php:326
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "Zo smeru %s rýchlosťou %s %s"
@@ -1352,7 +1388,7 @@ msgstr "Zo smeru %s rýchlosťou %s %s"
 msgid "Full Description"
 msgstr "Úplný popis"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Spln"
 
@@ -1369,7 +1405,7 @@ msgstr "Generovať %s konfiguráciu"
 msgid "Generated Code"
 msgstr "Vygenerovaný kód"
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Viac"
 
@@ -1406,11 +1442,11 @@ msgstr "Meno skupiny"
 msgid "Group was not created: %s."
 msgstr "Skupina nebola vytvorená: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Skupiny"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Práva anonymných používateľov"
 
@@ -1426,7 +1462,7 @@ msgstr "Hebrejsky (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Výška"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr "Výška prúdového obsahu (šírka automaticky prispôsobená do blokov)"
 
@@ -1458,7 +1494,7 @@ msgstr "Skryť výsledky"
 msgid "Home Directory"
 msgstr "Domáci priečinok"
 
-#: config/registry.php:75
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
@@ -1470,7 +1506,7 @@ msgstr "Koľko je tam polí (stĺpcov)?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Koľko sekúnd pred kontrolou, či nie sú nové články?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
 msgstr "Vlhkosť"
 
@@ -1478,12 +1514,20 @@ msgstr "Vlhkosť"
 msgid "Humorists"
 msgstr "Humoristi"
 
-#: util/icon_browser.php:34
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
+
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "Ikony pre %s"
 
-#: config/prefs.php:283
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "Identita, ktorá sa má použiť pri odosielaní e-mailov cez ActiveSync."
+
+#: config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Názov identity:"
 
@@ -1526,11 +1570,11 @@ msgstr ""
 "Nesprávne používateľské meno alebo alternatívna adresa. Skúste to znovu "
 "alebo kontaktujte správcu Vášho systému, ak potrebujete pomoc."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Jednotliví používatelia"
 
-#: config/registry.php:240
+#: config/registry.php:243
 msgid "Information"
 msgstr "Informácie"
 
@@ -1538,15 +1582,15 @@ msgstr "Informácie"
 msgid "Inherited Members"
 msgstr "Prevzatí členovia"
 
-#: config/prefs.php:363
+#: config/prefs.php:354
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Zadajte e-mailovú adresu, na ktorú bude poslané nové heslo:"
 
-#: config/prefs.php:357
+#: config/prefs.php:348
 msgid "Insert the required answer to the security question:"
 msgstr "Zadajte požadovanú odpoveď na bezpečnostnú otázku:"
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "Neplatný formát IČ DPH."
 
@@ -1567,7 +1611,7 @@ msgstr "Neplatná transformácia."
 msgid "Invalid parent permission."
 msgstr "Neplatné rodičovské právo."
 
-#: config/registry.php:293
+#: config/registry.php:296
 msgid "Inventory"
 msgstr "Inventár"
 
@@ -1575,7 +1619,7 @@ msgstr "Inventár"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonsky (ISO-2022-JP)"
 
-#: login.php:164
+#: login.php:167
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1599,7 +1643,7 @@ msgstr "Kľúčové slovo"
 msgid "Kids"
 msgstr "Deti"
 
-#: config/registry.php:301
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1607,7 +1651,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Kórejsky (EUC-KR)"
 
-#: login.php:354 templates/login/login.inc:52
+#: login.php:364 templates/login/login.inc:57
 msgid "Language"
 msgstr "Jazyk"
 
@@ -1615,7 +1659,7 @@ msgstr "Jazyk"
 msgid "Large"
 msgstr "Veľké"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Posledná polovica"
 
@@ -1623,11 +1667,12 @@ msgstr "Posledná polovica"
 msgid "Last Password Change"
 msgstr "Posledná zmena hesla"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Posledná štvrtina"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/activesync/device_table.html.php:5
+#: templates/prefs/activesync.html.php:29
 msgid "Last Sync Time"
 msgstr "Posledná synchronizácia času"
 
@@ -1657,7 +1702,7 @@ msgstr "Nedávno"
 msgid "Law"
 msgstr "Právo"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:225
 msgid "Like"
 msgstr "Páči sa"
 
@@ -1673,7 +1718,7 @@ msgstr "Linux cookie"
 msgid "List Tables"
 msgstr "Vypísať zoznam tabuliek"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Nepodarilo sa zobraziť upozornenia: %s"
@@ -1705,16 +1750,16 @@ msgstr "Zobrazovanie zoznamu používateľov nie je umožnené."
 msgid "Literature"
 msgstr "Literatúra"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:167
 #, php-format
-msgid "Local time: %s %s"
-msgstr "Miestny čas: %s %s"
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Miestny čas: %s %s (UTC %s)"
 
-#: config/prefs.php:372
+#: config/prefs.php:363
 msgid "Locale and Time"
 msgstr "Lokalita a čas"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:75
 msgid "Location"
 msgstr "Lokalita"
 
@@ -1726,11 +1771,12 @@ msgstr "Uzamknúť používateľa"
 msgid "Locks"
 msgstr "Zámky"
 
-#: login.php:281 templates/login/login.inc:61
+#: login.php:291 templates/login/login.inc:66
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Prihlásenie"
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr "Odhlásiť sa"
 
@@ -1738,25 +1784,25 @@ msgstr "Odhlásiť sa"
 msgid "Logged in to Facebook"
 msgstr "Prihlásený do Facebooku"
 
-#: login.php:310
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Prihlásenie zlyhalo, pretože ste zadali nesprávne používateľské meno alebo "
 "heslo."
 
-#: login.php:306
+#: login.php:316
 msgid "Login failed."
 msgstr "Prihlásenie zlyhalo."
 
-#: templates/prefs/facebook.html.php:61
-#, fuzzy, php-format
+#: templates/prefs/facebook.html.php:62
+#, php-format
 msgid "Login to Facebook and authorize %s"
-msgstr "Prihlásiť sa do Facebooku a autorizovať <tag:app_name />"
+msgstr "Prihlásiť sa do Facebooku a autorizovať %s"
 
 #: templates/prefs/twitter.html.php:18
-#, fuzzy, php-format
+#, php-format
 msgid "Login to Twitter and authorize %s"
-msgstr "Prihlásiť sa na Twitter a autorizovať aplikáciu <tag:appname />"
+msgstr "Prihlásiť sa na Twitter a autorizovať aplikáciu %s"
 
 #: templates/prefs/facebook.html.php:10
 msgid "Logout"
@@ -1777,15 +1823,15 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Mágia"
 
-#: config/registry.php:80
+#: config/registry.php:82
 msgid "Mail"
 msgstr "Pošta"
 
-#: config/registry.php:346
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Poslať e-mail administrátorovi"
 
-#: config/prefs.php:517
+#: config/prefs.php:508
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1793,7 +1839,7 @@ msgstr ""
 "Spravovať zoznam kategórií, s ktorými označujete položky a farby spojené s "
 "týmito kategóriami."
 
-#: config/prefs.php:740
+#: config/prefs.php:733
 msgid "Manage your ActiveSync devices."
 msgstr "Spravovať Vaše ActiveSync zariadenia."
 
@@ -1825,7 +1871,7 @@ msgstr "Maximálna veľkosť prílohy"
 msgid "Maximum number of devices"
 msgstr "Maximálny počet zariadení"
 
-#: lib/Block/FbStream.php:66
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "Maximálny počet vztupov na zobrazenie"
 
@@ -1849,7 +1895,7 @@ msgstr "Definície"
 msgid "Metar Weather"
 msgstr "Počasie Metar"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:84
 msgid "Metric"
 msgstr "Metrika"
 
@@ -1869,13 +1915,17 @@ msgstr "Minimálna dĺžka PINu"
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: admin/config/index.php:217
+#: admin/config/index.php:222
 msgid "Missing configuration."
 msgstr "Chýbajúca konfigurácia."
 
 #: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
 msgstr "Mobilný (Minimalistický)"
+
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr ""
 
 #: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
 msgid "Mobile (Smartphone/Tablet)"
@@ -1889,12 +1939,17 @@ msgstr "Aplikácie optimalizované pre mobily"
 msgid "Mode"
 msgstr "Režim"
 
-#: admin/config/index.php:165 admin/config/index.php:206
-#: admin/config/index.php:339 admin/config/index.php:365
+#: templates/admin/activesync.html.php:14
+#, fuzzy
+msgid "Model"
+msgstr "Režim"
+
+#: admin/config/index.php:167 admin/config/index.php:211
+#: admin/config/index.php:344 admin/config/index.php:370
 msgid "Module is up-to-date."
 msgstr "Modul je aktuálny."
 
-#: config/prefs.php:505
+#: config/prefs.php:496
 msgid "Monday"
 msgstr "Pondelok"
 
@@ -1902,7 +1957,7 @@ msgstr "Pondelok"
 msgid "Moon Phases"
 msgstr "Fázy mesiaca"
 
-#: config/registry.php:306
+#: config/registry.php:309
 msgid "My Account"
 msgstr "Moje konto"
 
@@ -1910,7 +1965,7 @@ msgstr "Moje konto"
 msgid "My Account Information"
 msgstr "Informácie o mojom účte"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
 msgstr "Môj Facebook kanál"
 
@@ -1922,8 +1977,8 @@ msgstr "Môj portál"
 msgid "My Portal Layout"
 msgstr "Vzhľad môjho portálu"
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:316 lib/Block/Weather.php:320
+#: lib/Block/Weather.php:336
 msgid "N/A"
 msgstr "N/A"
 
@@ -1932,7 +1987,8 @@ msgstr "N/A"
 msgid "NO, I Do NOT Agree"
 msgstr "Nie, NESÚHLASÍM"
 
-#: templates/prefs/activesync.html.php:60
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:69
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1941,24 +1997,23 @@ msgstr ""
 "NA PÔVODNÉ HODNOTY OD VÝROBCU. PRED PREMAZANÍM SA, PROSÍM, UISTITE, ŽE TO "
 "NAOZAJ CHCETE UROBIŤ"
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Meno"
 
-#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
-#: templates/portal/layout.inc:97
+#: config/prefs.php:587 config/prefs.php:607 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nikdy"
 
-#: templates/prefs/category.html.php:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Nová kategória"
 
-#: services/facebook/index.php:185
+#: lib/Ajax/Application/FacebookHandler.php:59
 msgid "New Messages:"
 msgstr "Nové správy:"
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Nov mesiaca"
 
@@ -1974,7 +2029,7 @@ msgstr "Nové heslo"
 msgid "New passwords don't match."
 msgstr "Nové heslá musia byť rovnaké."
 
-#: config/registry.php:251 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Novinky"
 
@@ -2001,7 +2056,7 @@ msgstr ""
 msgid "No change."
 msgstr "Žiadna zmena."
 
-#: util/icon_browser.php:52
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "Žiadne ikony neboli nájdené."
 
@@ -2031,8 +2086,8 @@ msgstr ""
 "Nebola nastavená bezpečnostná otázka, kontaktujte, prosím svojho "
 "administrátora."
 
-#: admin/config/index.php:159 admin/config/index.php:200
-#: admin/config/index.php:333 admin/config/index.php:359
+#: admin/config/index.php:161 admin/config/index.php:205
+#: admin/config/index.php:338 admin/config/index.php:364
 msgid "No stable version exists yet."
 msgstr "Žiadne stále verzie ešte nie sú k dispozícii."
 
@@ -2040,34 +2095,36 @@ msgstr "Žiadne stále verzie ešte nie sú k dispozícii."
 msgid "No username specified."
 msgstr "Nebolo špecifikované žiadne meno."
 
-#: admin/config/index.php:223
+#: admin/config/index.php:228
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "V pôvodnej konfigurácii nebola nájdená žiadna verzia. Vygenerujte "
 "konfiguráciu znovu."
 
-#: admin/config/index.php:232
+#: admin/config/index.php:237
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "V konfigurácii nebola nájdená žiadna verzia. Vygenerujte konfiguráciu znovu."
 
-#: admin/config/index.php:284
+#: admin/config/index.php:289
+#, fuzzy
 msgid "NoSQL indices are ready."
-msgstr ""
+msgstr "Štatistiky pre %s"
 
-#: admin/config/index.php:279
+#: admin/config/index.php:284
 #, fuzzy, php-format
 msgid "NoSQL indices for %s"
 msgstr "Štatistiky pre %s"
 
-#: admin/config/index.php:281
+#: admin/config/index.php:286
 #, fuzzy
 msgid "NoSQL indices out of date."
 msgstr "Konfigurácia potrebuje aktualizáciu."
 
-#: templates/prefs/activesync.html.php:42
-#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
-#: templates/prefs/identityselect.html:20
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:50
+#: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Žiaden"
 
@@ -2075,15 +2132,16 @@ msgstr "Žiaden"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Severské (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Severná pologuľa"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Not Provisioned"
 msgstr "Nezabezpečené"
 
-#: config/registry.php:166
+#: config/registry.php:169
 msgid "Notes"
 msgstr "Poznámky"
 
@@ -2099,11 +2157,15 @@ msgstr "Počet článkov na zobrazenie"
 msgid "Number of seconds to wait to refresh"
 msgstr "Počet sekúnd do obnovenia"
 
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "OS"
+
 #: templates/services/obrowser.html.php:5
 msgid "Object Browser"
 msgstr "Prehliadač objektov"
 
-#: templates/shares/edit.inc:132
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Autor objektu"
 
@@ -2111,7 +2173,7 @@ msgstr "Autor objektu"
 msgid "Offense filter"
 msgstr "Filter na nadávky"
 
-#: config/registry.php:263
+#: config/registry.php:266
 msgid "Office"
 msgstr "Pracovisko"
 
@@ -2131,7 +2193,7 @@ msgstr "Staré heslo je nesprávne."
 msgid "Only offensive fortunes"
 msgstr "Iba urážlivé fortuny"
 
-#: services/shares/edit.php:89
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2143,12 +2205,12 @@ msgstr ""
 msgid "Operating System"
 msgstr "Operačný systém"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Alebo zadajte používateľské meno:"
 
-#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
-#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
+#: config/prefs.php:531 config/prefs.php:634 config/prefs.php:660
+#: config/prefs.php:686 config/prefs.php:712 config/prefs.php:731
 msgid "Other Information"
 msgstr "Ďalšie informácie"
 
@@ -2156,15 +2218,15 @@ msgstr "Ďalšie informácie"
 msgid "Other Options"
 msgstr "Ostatné nastavenia"
 
-#: config/registry.php:177
+#: config/registry.php:180
 msgid "Others"
 msgstr "Ostatní"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Vlastník"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Vlastník:"
 
@@ -2192,8 +2254,8 @@ msgstr "Chýbajúce rozšírenie POSIX"
 msgid "P_HP Shell"
 msgstr "P_HP konzola"
 
-#: login.php:201 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:324
+#: login.php:211 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Heslo"
@@ -2210,7 +2272,7 @@ msgstr "Heslo bolo úspešne zmenené."
 msgid "Passwords must match."
 msgstr "Heslá musia byť rovnaké."
 
-#: templates/admin/sqlshell.html.php:42
+#: templates/admin/sqlshell.html.php:43
 msgid "Paste"
 msgstr "Vložiť"
 
@@ -2240,7 +2302,7 @@ msgstr "Práva"
 msgid "Permissions Administration"
 msgstr "Administrácia práv"
 
-#: config/prefs.php:272
+#: config/prefs.php:263
 msgid "Personal Information"
 msgstr "Osobné informácie"
 
@@ -2248,7 +2310,11 @@ msgstr "Osobné informácie"
 msgid "Pets"
 msgstr "Domáce zvieratá"
 
-#: config/registry.php:194
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Telefónne číslo"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Fotografie"
 
@@ -2256,11 +2322,11 @@ msgstr "Fotografie"
 msgid "Platitudes"
 msgstr "Platitudes"
 
-#: login.php:207
+#: login.php:217
 msgid "Please enter a password."
 msgstr "Zadajte prosím heslo."
 
-#: login.php:206
+#: login.php:216
 msgid "Please enter a username."
 msgstr "Zadajte, prosím, používateľské meno."
 
@@ -2276,19 +2342,15 @@ msgstr ""
 "Prečítajte si prosím nasledujúci text. MUSÍTE súhlasiť s podmienkami "
 "používania tohto systému."
 
-#: services/facebook/index.php:187
+#: lib/Ajax/Application/FacebookHandler.php:61
 msgid "Pokes:"
 msgstr "Štuchnutia:"
-
-#: admin/activesync.php:108
-msgid "Policy Key"
-msgstr "Verejný kľúč"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: config/prefs.php:754
+#: config/prefs.php:747
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2296,11 +2358,11 @@ msgstr ""
 "Pozícia textu odpovede keď zo zariadenia odpovedáte na e-mail. Niektoré "
 "zariadenia posielajú citácie vždy na konci odpovede."
 
-#: lib/Block/FbStream.php:142
+#: lib/Block/FbStream.php:143
 msgid "Post"
 msgstr "Odoslať"
 
-#: services/facebook/index.php:33
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, php-format
 msgid "Posted %s"
 msgstr "Poslané %s"
@@ -2318,12 +2380,12 @@ msgstr[0] "Zrážky za poslednú %d hodinu: "
 msgstr[1] "Zrážky za posledné %d hodiny: "
 msgstr[2] "Zrážky za posledných %d hodín: "
 
-#: lib/Block/Weather.php:255
+#: lib/Block/Weather.php:263
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Pravdepodobnosť%szrážok"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:200
 msgid "Pressure"
 msgstr "Tlak"
 
@@ -2339,7 +2401,8 @@ msgstr "Príkazca"
 msgid "Problem Description"
 msgstr "Popis problému"
 
-#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:18
+#: templates/prefs/activesync.html.php:45
 msgid "Provisioned"
 msgstr "Zabezpečené"
 
@@ -2363,13 +2426,13 @@ msgstr "Kvóta"
 msgid "Random Fortune"
 msgstr "Náhodná fortune"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Čítať"
 
@@ -2390,21 +2453,17 @@ msgstr ""
 "Naozaj vymazať používateľské údaje pre používateľa \"%s\"? Túto operáciu "
 "nemožno vrátiť späť."
 
-#: config/prefs.php:621
+#: config/prefs.php:613
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Obnoviť prvky dynamického menu:"
 
-#: config/prefs.php:602
+#: config/prefs.php:594
 msgid "Refresh Portal View:"
 msgstr "Obnoviť zobrazenie portálu:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "Obnovovacia frekvencia:"
-
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr "Registrované používateľské zariadenia"
 
 #: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
@@ -2418,10 +2477,10 @@ msgstr "Postrehy"
 msgid "Remote Host"
 msgstr "Vzdialený počítač"
 
-#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:41
+#: templates/activesync/device_table.html.php:38
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
-#: templates/prefs/activesync.html.php:39
+#: templates/prefs/activesync.html.php:47
 msgid "Remove"
 msgstr "Odstrániť"
 
@@ -2429,7 +2488,7 @@ msgstr "Odstrániť"
 msgid "Remove pair"
 msgstr "Odstrániť pár"
 
-#: admin/config/index.php:416
+#: admin/config/index.php:433
 msgid "Remove saved script from server's temporary directory."
 msgstr "Odstrániť uložený skript z dočasného priečinka na serveri."
 
@@ -2445,10 +2504,6 @@ msgstr "Odstrániť používateľa: %s"
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
 msgstr "Odpovedať"
-
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr "Znovu zabezpečiť všetky zariadenia"
 
 #: lib/Application.php:221
 msgid "Require PIN"
@@ -2471,13 +2526,10 @@ msgstr "Obnoviť"
 msgid "Reset Password"
 msgstr "Obnoviť heslo"
 
-#: templates/prefs/activesync.html.php:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
 msgstr ""
-"Resetovať stav všetkých zariadení. Toto spôsobí resynchronizáciu všetkých "
-"položiek na Vašich zariadeniach."
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
@@ -2496,10 +2548,6 @@ msgstr "Výsledky"
 #, php-format
 msgid "Results for %s"
 msgstr "Výsledky pre %s"
-
-#: templates/prefs/end.html:8
-msgid "Return to Main Screen"
-msgstr "Návrat na nastavenia"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -2522,7 +2570,7 @@ msgstr "Vrátiť konfiguráciu"
 msgid "Riddles"
 msgstr "Hádanky"
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:44
 msgid "Run"
 msgstr "Spustiť"
 
@@ -2542,15 +2590,13 @@ msgstr "Šifrovanie SD karty"
 msgid "SMS Text messages"
 msgstr "SMS správy"
 
-#: admin/config/index.php:266 admin/config/index.php:319
-#, fuzzy
-msgid "SQL DB schema is out of date."
-msgstr "Konfigurácia potrebuje aktualizáciu."
-
 #: admin/config/index.php:271 admin/config/index.php:324
-#, fuzzy
+msgid "SQL DB schema is out of date."
+msgstr "SQL DB schéma nie je aktuálna."
+
+#: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
-msgstr "Schéma DB je pripravená."
+msgstr "SQL DB schéma je pripravená."
 
 #: admin/sqlshell.php:23
 msgid "SQL Shell"
@@ -2564,16 +2610,16 @@ msgstr "S_QL konzola"
 msgid "Save"
 msgstr "Uložiť"
 
-#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Uložiť \"%s\""
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Uložiť a ukončiť"
 
-#: admin/config/index.php:388
+#: admin/config/index.php:401
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2598,25 +2644,24 @@ msgstr "Škála"
 msgid "Sea_rch"
 msgstr "Hľadať"
 
-#: lib/View/Topbar.php:60 services/help/index.php:156
-#: templates/admin/user/list.inc:14
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Hľadať"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Hľadať:"
 
 #: lib/Application.php:242
-#, fuzzy
 msgid "Seconds of inactivity before device should lock"
-msgstr "Počet minút neaktivity pred uzamknutím zariadenia"
+msgstr "Počet sekúnd neaktivity pred uzamknutím zariadenia"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Vyberte skupinu, ktorú chcete pridať:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Vyberte nového vlastníka:"
 
@@ -2624,7 +2669,7 @@ msgstr "Vyberte nového vlastníka:"
 msgid "Select a server"
 msgstr "Vyberte server"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Vyberte používateľa, ktorého chcete pridať:"
 
@@ -2656,11 +2701,11 @@ msgstr "Vyberte oddeľovač vo formáte času:"
 msgid "Select the time format:"
 msgstr "Vyberte formát času:"
 
-#: config/prefs.php:588
+#: config/prefs.php:580
 msgid "Select your color scheme."
 msgstr "Vyberte si farebnú schému."
 
-#: config/prefs.php:385
+#: config/prefs.php:376
 msgid "Select your preferred language:"
 msgstr "Vyberte preferovný jazyk:"
 
@@ -2688,24 +2733,24 @@ msgstr "Časová známka relácie"
 msgid "Sessions"
 msgstr "Relácie"
 
-#: config/prefs.php:335
+#: config/prefs.php:326
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "Nastavte možnosti na obnovenie Vášho hesla ak ho zabudnete."
 
-#: config/prefs.php:643
+#: config/prefs.php:636
 msgid "Set up integration with your Facebook account."
 msgstr "Nataviť prepojenie s Vašim účtom na Facebooku."
 
-#: config/prefs.php:669
+#: config/prefs.php:662
 msgid "Set up integration with your Twitter account."
 msgstr "Nataviť prepojenie s Vašim účtom na Twitteri."
 
-#: config/prefs.php:373
+#: config/prefs.php:364
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Vyberte jazyk, časovú zónu a nastavenia dátumu."
 
-#: config/prefs.php:542
+#: config/prefs.php:533
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2713,7 +2758,7 @@ msgstr ""
 "Nastavenie aplikácie spúšťanej pri štarte, farebnej schémy, intervalu "
 "obnovovania stránky a iných vlastností zobrazenia."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:144
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Do úvahy prichádza niekoľko lokalít pomocou parametra: %s"
@@ -2722,17 +2767,17 @@ msgstr "Do úvahy prichádza niekoľko lokalít pomocou parametra: %s"
 msgid "Short Summary"
 msgstr "Krátky súhrn"
 
-#: config/prefs.php:627
+#: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
 msgstr "Majú sa pre väčšinu odkazov vytvoriť prístupové kľúče?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Zobraziť"
 
@@ -2740,7 +2785,11 @@ msgstr "Zobraziť"
 msgid "Show Advanced Preferences"
 msgstr "Zobraziť pokročilé nastavenia"
 
-#: admin/config/index.php:378
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Zobraziť všetky skupiny nastavení"
+
+#: admin/config/index.php:383
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2751,11 +2800,11 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Zobraziť extra detaily?"
 
-#: config/prefs.php:573
+#: config/prefs.php:565
 msgid "Show last login time when logging in?"
 msgstr "Má sa pri prihlásení zobraziť čas posledného prihlásenia?"
 
-#: lib/Block/FbStream.php:71
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
 msgstr "Ukázať upozornenia"
 
@@ -2784,11 +2833,11 @@ msgstr "Piesne a básne"
 msgid "South European (ISO-8859-3)"
 msgstr "Juhoeurópske (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Južná pologuľa"
 
-#: config/registry.php:103
+#: config/registry.php:106
 msgid "Spam"
 msgstr "Nevyžiadaná pošta"
 
@@ -2808,16 +2857,17 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Star Trek"
 
-#: templates/prefs/activesync.html.php:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "Stavový menežment"
 
-#: admin/activesync.php:115 templates/admin/config/index.html.php:36
-#: templates/prefs/activesync.html.php:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
+#: templates/prefs/activesync.html.php:30
 msgid "Status"
 msgstr "Stav"
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:106
 msgid "Status unable to be set."
 msgstr "Status nie je možné nastaviť."
 
@@ -2834,7 +2884,7 @@ msgstr ""
 "Požiadavka na pridanie \"%s\" do systému bola odoslaná. Nemôžete sa "
 "prihlásiť, kým nebude Vaša požiadavka schválená."
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Pripojenie do Vášho Facebook účtu alebo aktualizácia oprávnení bolo úspešné."
@@ -2891,11 +2941,11 @@ msgstr "Východ slnka"
 msgid "Sun Set"
 msgstr "Západ slnka"
 
-#: config/prefs.php:504
+#: config/prefs.php:495
 msgid "Sunday"
 msgstr "Nedeľa"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:174 lib/Block/Weather.php:175
 msgid "Sunrise"
 msgstr "Východ slnka"
 
@@ -2903,7 +2953,7 @@ msgstr "Východ slnka"
 msgid "Sunrise/Sunset"
 msgstr "Východ/západ slnka"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:177 lib/Block/Weather.php:178
 msgid "Sunset"
 msgstr "Západ slnka"
 
@@ -2911,7 +2961,7 @@ msgstr "Západ slnka"
 msgid "Sync all"
 msgstr "Synchronizovať všetko"
 
-#: config/prefs.php:720
+#: config/prefs.php:713
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2923,7 +2973,7 @@ msgstr "Syndikovaná dávka"
 msgid "Tag Cloud"
 msgstr "Frázový oblak"
 
-#: config/registry.php:152
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Úlohy"
 
@@ -2931,16 +2981,16 @@ msgstr "Úlohy"
 msgid "Temp for last hour: "
 msgstr "Teplota za poslednú hodinu: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:184
 msgid "Temperature"
 msgstr "Teplota"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Teplota%s(%sMax%s/%sMin%s)"
 
-#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "Nie je možné pripojenie k Facebooku. Prosím skúste to znova."
 
@@ -2953,7 +3003,7 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Thajské (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:83
+#: lib/Prefs/Special/Activesync.php:101
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "Vzdialené premazávanie pre zariadenie id %s bolo zrušené."
@@ -2975,7 +3025,7 @@ msgstr ""
 "Konfigurácia pre %s nemôže prebehnúť automaticky. Prosím aktualizujte "
 "konfiguráciu manuálne."
 
-#: config/prefs.php:299
+#: config/prefs.php:290
 msgid "The default e-mail address to use with this identity:"
 msgstr "Prednastavená e-mailová adresu pre použitie s touto identitou:"
 
@@ -2983,7 +3033,7 @@ msgstr "Prednastavená e-mailová adresu pre použitie s touto identitou:"
 msgid "The lock has been removed."
 msgstr "Upozornenie bolo vymazané."
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2991,7 +3041,7 @@ msgstr ""
 "Služba členského štátu nebola dosiahnutá v určenom časovom limite. Skúste "
 "neskôr alebo vyberte iný členský štát."
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2999,15 +3049,15 @@ msgstr ""
 "Služba členského štátu nie je dostupná. Skúste neskôr alebo vyberte iný "
 "členský štát."
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "Uvedený kód štátu je neplatný."
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "Služba momentálne nie je dostupná. Skúste to neskôr."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "Služba je momentálne preťažená. Skúste to neskôr."
 
@@ -3021,7 +3071,7 @@ msgstr "Žiadosť o prihlásenie \"%s\" bola vymazaná."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Žiadosť o prihlásenie \"%s\" bola vymazaná."
 
-#: lib/Prefs/Special/Activesync.php:98
+#: lib/Prefs/Special/Activesync.php:116
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3043,7 +3093,7 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "Používateľ \"%s\" už existuje."
 
-#: services/shares/edit.php:91 services/shares/edit.php:176
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Zdieľanie \"%s\" neexistuje."
@@ -3068,7 +3118,7 @@ msgstr "Nastala chyba pri odstraňovaní \"%s\" zo systému: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Nastala chyba pri aktualizácii \"%s\": %s"
 
-#: lib/Prefs/Special/Activesync.php:101
+#: lib/Prefs/Special/Activesync.php:119
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Nastala chyba pri komunikácii so serverom ActiveSync: %s"
@@ -3086,13 +3136,13 @@ msgstr ""
 "Nastala chyba v konfiguračnom formulári. Pravdepodobne ste nevyplnili "
 "požadované pole."
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Nastala chyba pri vykonávaní požiadavky: %s"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
@@ -3106,23 +3156,37 @@ msgstr ""
 "Vyskytla sa chyba pri odstraňovaní všeobecných dát z %s. Detaily boli "
 "zaznamenané."
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
 msgstr "Nastala chyba pri zobrazovaní požadovaných povolení"
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr "Toto IČ DPH je neplatné."
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr "Toto IČ DPH je platné."
 
-#: config/registry.php:223
+#: templates/admin/activesync.html.php:33
+#, fuzzy
+msgid "This will cause all devices to resyncronize all items."
+msgstr ""
+"Resetovať stav všetkých zariadení. Toto spôsobí resynchronizáciu všetkých "
+"položiek na Vašich zariadeniach."
+
+#: templates/prefs/activesync.html.php:16
+#, fuzzy
+msgid "This will cause your devices to resyncronize all items."
+msgstr ""
+"Resetovať stav všetkých zariadení. Toto spôsobí resynchronizáciu všetkých "
+"položiek na Vašich zariadeniach."
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Lístky"
 
-#: config/registry.php:269
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Sledovanie času"
 
@@ -3158,15 +3222,15 @@ msgstr ""
 "Pre výber viacerých polí držte počas klikania klávesu Control (PC) alebo "
 "Command (Mac)."
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:288
 msgid "Today"
 msgstr "Dnes"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:290
 msgid "Tomorrow"
 msgstr "Zajtra"
 
-#: config/prefs.php:755
+#: config/prefs.php:748
 msgid "Top"
 msgstr "Hore"
 
@@ -3182,7 +3246,7 @@ msgstr "Turecky (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweetovať"
 
-#: config/prefs.php:668
+#: config/prefs.php:661
 msgid "Twitter Integration"
 msgstr "Integrácia Twittera"
 
@@ -3195,6 +3259,11 @@ msgstr "Časová os na Twitteri"
 msgid "Twitter Timeline for %s"
 msgstr "Časová os na Twitteri pre %s"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+#, fuzzy
+msgid "Twitter not enabled."
+msgstr "Priatelia povolení"
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3204,23 +3273,32 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s."
 msgstr "Nemožno vymazať \"%s\": %s."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:138
 msgid "Unable to set like."
 msgstr "Nepodarilo sa o-like-ovať."
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "Požiadavku nebolo možné validovať. Skúste to znovu."
+
+#: admin/activesync.php:90 lib/Prefs/Special/Activesync.php:54
+msgid "Unavailable"
+msgstr ""
+
+#: templates/activesync/device_table.html.php:41
+msgid "Unblock"
+msgstr "Odblokovať"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Zrušiť zmeny"
 
 #: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+#, fuzzy
 msgid "Unfavorite"
-msgstr ""
+msgstr "Obľúbené"
 
-#: templates/prefs/category.html.php:19
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Nevyplnené"
 
@@ -3228,7 +3306,7 @@ msgstr "Nevyplnené"
 msgid "Unicode (UTF-8)"
 msgstr "Unikód (UTF-8)"
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:80
 msgid "Units"
 msgstr "Jednotky"
 
@@ -3240,6 +3318,10 @@ msgstr "Neznáme"
 msgid "Unlock"
 msgstr "Odomknúť"
 
+#: lib/Api.php:728 lib/Api.php:789
+msgid "Unsupported action."
+msgstr "Nepodporovaná akcia."
+
 #: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Aktualizácia"
@@ -3249,7 +3331,7 @@ msgstr "Aktualizácia"
 msgid "Update %s"
 msgstr "Aktualizovať %s"
 
-#: admin/config/index.php:183 admin/config/index.php:298
+#: admin/config/index.php:185 admin/config/index.php:303
 #, php-format
 msgid "Update %s schema"
 msgstr "Aktualizovať schému %s"
@@ -3266,7 +3348,7 @@ msgstr "Aktualizovať všetky konfigurácie"
 msgid "Update user"
 msgstr "Aktualizovať používateľa"
 
-#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Aktualizované \"%s\"."
@@ -3276,18 +3358,19 @@ msgstr "Aktualizované \"%s\"."
 msgid "Updated schema for %s."
 msgstr "Schémy pre %s bola aktualizovaná."
 
-#: admin/config/index.php:395
+#: admin/config/index.php:412
 msgid "Upload"
 msgstr "Nahrať"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:420
 msgid "Uploaded all application configuration files to the server."
 msgstr "Všetky súbory s konfiguráciou boli nahrané na server."
 
-#: config/prefs.php:695
+#: config/prefs.php:688
 msgid "Use if name/password is different for IMSP server."
 msgstr "Použite v prípade, že je meno/heslo odlišné pre IMSP server."
 
+#: templates/activesync/device_table.html.php:3
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
 #: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
@@ -3296,6 +3379,11 @@ msgstr "Používateľ"
 #: admin/user.php:240
 msgid "User Administration"
 msgstr "Správa používateľov"
+
+#: templates/admin/activesync.html.php:12
+#, fuzzy
+msgid "User Agent"
+msgstr "Používateľské meno"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3317,13 +3405,13 @@ msgstr "Registrácia používateľov nie je pre túto stránku správe nastaven�
 msgid "User account not found"
 msgstr "Používateľský účet nebol nájdený"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "Vyberte používateľa, ktorého chcete pridať:"
 
-#: login.php:196 admin/config/index.php:396 admin/user.php:36
+#: login.php:206 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:23
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Používateľské meno"
 
@@ -3343,15 +3431,19 @@ msgstr "Overenie IČ DPH"
 msgid "VAT identification number:"
 msgstr "IČ DPH:"
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
 msgstr "IČ DPH"
 
-#: templates/admin/config/index.html.php:43
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Verzia"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "Kontrola verzií"
 
-#: config/registry.php:212
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Kontrola verzií"
 
@@ -3363,7 +3455,7 @@ msgstr "Vietnamsky (VISCII)"
 msgid "View an external web page"
 msgstr "Zobraziť externú www stránku"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:232
 msgid "Visibility"
 msgstr "Viditeľnosť"
 
@@ -3371,15 +3463,19 @@ msgstr "Viditeľnosť"
 msgid "Warning"
 msgstr "Varovanie"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:39
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "Upozornenie: Caps Lock je zapnutý!"
+
+#: lib/Block/Weather.php:62
 msgid "Weather"
 msgstr "Počasie"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:348 lib/Block/Weather.php:356
 msgid "Weather data provided by"
 msgstr "Údaje o počasí poskytuje"
 
-#: config/registry.php:329
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Webová stránka"
 
@@ -3404,7 +3500,7 @@ msgstr "Západné (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Západné (ISO-8859-15)"
 
-#: config/prefs.php:554
+#: config/prefs.php:545
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Ktorú aplikáciu má %s zobraziť po prihlásení?"
@@ -3421,7 +3517,7 @@ msgstr "Aký je znak pre oddeľovač?"
 msgid "What is the quote character?"
 msgstr "Aký je znak pre úvodzovku?"
 
-#: config/prefs.php:507
+#: config/prefs.php:498
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Ktorý deň mý byť zobrazený ako prvý deň v týždni?"
 
@@ -3429,7 +3525,7 @@ msgstr "Ktorý deň mý byť zobrazený ako prvý deň v týždni?"
 msgid "Which phases"
 msgstr "Ktoré fázy"
 
-#: config/prefs.php:608
+#: config/prefs.php:600
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Šírka menu %s na ľavej strane:"
@@ -3438,11 +3534,11 @@ msgstr "Šírka menu %s na ľavej strane:"
 msgid "Wifi"
 msgstr "Wifi"
 
-#: config/registry.php:200
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:271
 msgid "Wind"
 msgstr "Vietor"
 
@@ -3454,17 +3550,15 @@ msgstr "Rýchlosť vetra v uzloch"
 msgid "Wind:"
 msgstr "Vietor:"
 
-#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
+#: templates/activesync/device_table.html.php:33
+#: templates/prefs/activesync.html.php:37
 msgid "Wipe"
 msgstr "Premazávanie"
 
-#: templates/prefs/activesync.html.php:32
+#: templates/activesync/device_table.html.php:12
+#: templates/prefs/activesync.html.php:40
 msgid "Wipe Pending"
 msgstr "Premazávanie pozastavené"
-
-#: admin/activesync.php:160
-msgid "Wipe is pending"
-msgstr "Prebieha premazávanie"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"
@@ -3478,7 +3572,7 @@ msgstr "S "
 msgid "Work"
 msgstr "Práca"
 
-#: config/registry.php:235
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3494,7 +3588,8 @@ msgstr "YY"
 msgid "Yes, I Agree"
 msgstr "Áno, súhlasím"
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3546,7 +3641,7 @@ msgstr "Nemáte právo zobraziť zoznam používateľov v skupinách."
 msgid "You are not allowed to list users of shares."
 msgstr "Nemáte právo zobraziť zoznam používateľov v zdieľaniach."
 
-#: lib/Block/FbStream.php:106
+#: lib/Block/FbStream.php:107
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
@@ -3555,8 +3650,8 @@ msgstr ""
 "Nie ste pripojený do Vášho účtu na Facebooku. Skontrolujte svoje nastavenia "
 "na Facebooku v %s."
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Môžete si presrieť nastavenia Vášho Facebooku v %s."
@@ -3568,15 +3663,15 @@ msgid ""
 msgstr ""
 "Nesúhlasili ste s Podmienkami používania služby, preto sa nemôžete prihlásiť."
 
-#: login.php:302
+#: login.php:312
 msgid "You have been logged out."
 msgstr "Boli ste odhlásený."
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "Nemáte právo čítať práva k zdieľaniu."
 
-#: lib/Block/TwitterTimeline.php:163
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3585,8 +3680,9 @@ msgstr ""
 "Nesprávne ste sa pripojili do Vášho účtu na Twitteri cez Horde. Skontrolujte "
 "svoje nastavenia na Twitteri v %s."
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 msgid "You like this"
 msgstr "Páči sa Vám to"
 
@@ -3614,12 +3710,12 @@ msgstr "Musíte určiť používateľa, ktorý sa má aktualizovať."
 msgid "Your Email Address"
 msgstr "Vaša e-mailová adresa"
 
-#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
-#: config/prefs.php:515
+#: config/prefs.php:262 config/prefs.php:324 config/prefs.php:362
+#: config/prefs.php:506
 msgid "Your Information"
 msgstr "Vaše informácie"
 
-#: login.php:290
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3648,7 +3744,7 @@ msgstr ""
 "Váš autentifikačný modul nepodporuje zobrazovanie zoznamu používateľov, "
 "alebo bola táto možnosť z nejakého dôvodu zablokovaná."
 
-#: login.php:294
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3656,19 +3752,19 @@ msgstr ""
 "Zdá sa, že Váš prehliadač sa zmenil od začiatku Vašej relácie. Pre Vašu "
 "bezpečnosť sa musíte znovu prihlásiť."
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "Váš prehliadač nepodporuje túto funkciu."
 
-#: config/prefs.php:419
+#: config/prefs.php:410
 msgid "Your current time zone:"
 msgstr "Vaša aktuálna časová zóna:"
 
-#: config/prefs.php:291
+#: config/prefs.php:282
 msgid "Your full name:"
 msgstr "Vaše plné meno:"
 
-#: login.php:314
+#: login.php:324
 msgid "Your login has expired."
 msgstr "Vaše prihlásenie vypršalo."
 
@@ -3710,15 +3806,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "Vášmu heslu vypršala platnosť"
 
-#: login.php:175
+#: login.php:178
 msgid "Your password has expired."
 msgstr "Vášmu heslu vypršala platnosť."
 
-#: login.php:286
+#: login.php:296
 msgid "Your session has expired. Please login again."
 msgstr "Platnosť Vašej relácie vypršala. Prosím prihláste sa znovu."
 
-#: login.php:298
+#: login.php:308
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3774,7 +3870,7 @@ msgstr "bezvetrie"
 msgid "from the %s (%s) at %s %s"
 msgstr "zo smeru %s (%s) rýchlosťou %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:221 lib/Block/Weather.php:331
 msgid "gusting"
 msgstr "v nárazoch"
 
@@ -3782,9 +3878,9 @@ msgstr "v nárazoch"
 msgid "inline"
 msgstr "v správe"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "nastavenia"
 
@@ -3800,6 +3896,6 @@ msgstr "pre potvrdenie zadajte heslo dvakrát"
 msgid "unified"
 msgstr "unifikované"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "počasie"
