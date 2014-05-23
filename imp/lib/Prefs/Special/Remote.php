@@ -133,7 +133,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
                 $remote[strval($ob)] = $ob;
 
-                $notification->push(sprintf(_("Account \"%s\" added."), $ui->vars->remote_server), 'horde.success');
+                $notification->push(sprintf(_("Account \"%s\" added."), $ob->label), 'horde.success');
 
                 $injector->getInstance('IMP_Ftree')->insert($ob);
             } catch (IMP_Exception $e) {
