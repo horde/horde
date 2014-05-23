@@ -164,15 +164,13 @@ class Horde_ActiveSync_Connector_Importer
                 );
                 return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
-        } else {
-            if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
-                // Already saw this addition, but PIM never received UID
-                $this->_logger->notice(sprintf(
-                    '[%s] Duplicate addition for %s',
-                    $this->_procid, $uid)
-                );
-                return $uid;
-            }
+        } elseif ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
+            // Already saw this addition, but PIM never received UID
+            $this->_logger->notice(sprintf(
+                '[%s] Duplicate addition for %s',
+                $this->_procid, $uid)
+            );
+            return $uid;
         }
 
         // Tell the backend about the change
@@ -181,12 +179,9 @@ class Horde_ActiveSync_Connector_Importer
                 '[%s] Change message failed when updating %s',
                 $this->_procid, $id)
             );
-            if ($id) {
-                // Assume any error means the message was not found.
-                return array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
-            } else {
-                return array(false, Horde_ActiveSync_Request_Sync::STATUS_SERVERERROR);
-            }
+            return $id
+                ? array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND)
+                : array(false, Horde_ActiveSync_Request_Sync::STATUS_SERVERERROR);
         }
         $stat['serverid'] = $this->_folderId;
 
@@ -286,11 +281,9 @@ class Horde_ActiveSync_Connector_Importer
         $results = $this->_as->driver->moveMessage($this->_folderId, $uids, $dst);
 
         // Check for any missing (not found) source messages.
-        if (count($results) != count($uids)) {
-            $missing = array_diff($uids, array_keys($results));
-        } else {
-            $missing = array();
-        }
+        $missing = count($results) != count($uids)
+            ? array_diff($uids, array_keys($results))
+            : array();
 
         return array('results' => $results, 'missing' => $missing);
     }
@@ -313,17 +306,12 @@ class Horde_ActiveSync_Connector_Importer
 
         // Convert the uids to serverids.
         $collections = $this->_as->getCollectionsObject();
-        if (!empty($parent)) {
-            $parent_sid = $collections->getBackendIdForFolderUid($parent);
-        } else {
-            $parent_sid = $parent;
-        }
-        if (!empty($uid)) {
-            $folderid = $collections->getBackendIdForFolderUid($uid);
-        } else {
-            // New folder.
-            $folderid = false;
-        }
+        $parent_sid = !empty($parent)
+            ? $collections->getBackendIdForFolderUid($parent)
+            : $parent;
+        $folderid = !empty($uid)
+            ? $collections->getBackendIdForFolderUid($uid)
+            : false;
 
         // Perform the creation in the backend.
         try {
@@ -368,11 +356,9 @@ class Horde_ActiveSync_Connector_Importer
     public function importFolderDeletion($uid, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         $collections = $this->_as->getCollectionsObject();
-        if (!empty($parent)) {
-            $parent_sid = $collections->getBackendIdForFolderUid($parent);
-        } else {
-            $parent_sid = $parent;
-        }
+        $parent_sid = !empty($parent)
+            ? $collections->getBackendIdForFolderUid($parent)
+            : $parent;
         $folderid = $collections->getBackendIdForFolderUid($uid);
         $change = array();
         $change['id'] = $uid;
@@ -405,11 +391,7 @@ class Horde_ActiveSync_Connector_Importer
         $stat = $this->_as->driver->statMessage($folderid, $id);
         if (!$stat) {
             /* Message is gone, if type is change, this is a conflict */
-            if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
-                return true;
-            } else {
-                return false;
-            }
+            return $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE;
         }
 
         return $this->_state->isConflict($stat, $type);
