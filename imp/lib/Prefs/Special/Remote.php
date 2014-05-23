@@ -122,7 +122,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
                         $tmp->host = $ob->hostspec;
                         $tmp->port = $ob->port;
-                        $tmp->tls = true;
+                        $tmp->tls = 'tls';
 
                         $ob->secure = $tmp->valid()
                             ? 'ssl'
