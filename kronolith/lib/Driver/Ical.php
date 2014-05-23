@@ -648,8 +648,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $properties = $client->propfind(
                 '',
                 array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
-            );
+             );
         } catch (\Sabre\DAV\Exception $e) {
+            Horde::log($e, 'INFO');
+            return false;
+        } catch (Horde_Dav_Exception $e) {
             Horde::log($e, 'INFO');
             return false;
         }
