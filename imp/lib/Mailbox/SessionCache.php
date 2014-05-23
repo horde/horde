@@ -315,9 +315,11 @@ class IMP_Mailbox_SessionCache implements Serializable
             case self::CACHE_UIDVALIDITY:
                 if ($mbox) {
                     $mbox = strval($mbox);
-                    if (isset($this->_cache[$val][$mbox]) ||
+                    if (($c = isset($this->_cache[$val][$mbox])) ||
                         isset($this->_temp[$val][$mbox])) {
-                        $this->_changed = self::CHANGED_YES;
+                        if ($c) {
+                            $this->_changed = self::CHANGED_YES;
+                        }
                         unset(
                             $this->_cache[$val][$mbox],
                             $this->_temp[$val][$mbox]
@@ -329,8 +331,11 @@ class IMP_Mailbox_SessionCache implements Serializable
 
             case self::CACHE_ICONHOOK:
             case self::CACHE_SPECIALMBOXES:
-                if (isset($this->_cache[$val]) || isset($this->_temp[$val])) {
-                    $this->_changed = self::CHANGED_YES;
+                if (($c = isset($this->_cache[$val])) ||
+                    isset($this->_temp[$val])) {
+                    if ($c) {
+                        $this->_changed = self::CHANGED_YES;
+                    }
                     unset($this->_cache[$val], $this->_temp[$val]);
                 }
                 break;
