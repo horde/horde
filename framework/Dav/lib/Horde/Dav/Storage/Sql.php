@@ -173,7 +173,7 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
                 array($internal, $interface)
             );
             if (!$external) {
-                $external = $interface . ':' . $internal;
+                $external = $interface . '~' . $internal;
                 $this->addCollectionMap($internal, $external, $interface);
             }
             return $external;
