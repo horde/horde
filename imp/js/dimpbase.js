@@ -4034,8 +4034,11 @@ var DimpBase = {
 
     isDraft: function(vs)
     {
+        var d;
+
         return this.viewport.getMetaData('drafts') ||
-               vs.get('dataob').first().flag.include(DimpCore.conf.FLAG_DRAFT);
+               ((d = vs.get('dataob').first()) &&
+                d.flag.include(DimpCore.conf.FLAG_DRAFT));
     },
 
     /* Miscellaneous mailbox actions. */
