@@ -9,8 +9,7 @@ Tips on performance tuning systems for IMP.  See `horde/docs/PERFORMANCE`_
 for general performance tips for Horde.
 
 
-* Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
-  5162).
+* Use an IMAP server that supports CONDSTORE and/or QRESYNC (RFC 7162).
 
   These extensions are required to properly cache data and to properly keep
   the dynamic display synchronized. It is impossible to do otherwise, and the
