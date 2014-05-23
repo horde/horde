@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Honor &apos;auto_update&apos; preference when re-sorting filters list (Bug #13216).
 * [mms] Fix regression in copying a rule when storing in SQL backend (Bug #13213).
  </notes>
  <contents>
@@ -1433,6 +1434,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Honor &apos;auto_update&apos; preference when re-sorting filters list (Bug #13216).
 * [mms] Fix regression in copying a rule when storing in SQL backend (Bug #13213).
    </notes>
   </release>

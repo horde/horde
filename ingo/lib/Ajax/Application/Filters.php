@@ -49,6 +49,13 @@ class Ingo_Ajax_Application_Filters extends Horde_Core_Ajax_Application_Handler
             $notification->push(_("Rule sort saved successfully."), 'horde.success');
         } catch (Ingo_Exception $e) {
             $notification->push(_("Rule sort not saved."), 'horde.error');
+            return false;
+        }
+
+        try {
+            Ingo_Script_Util::update();
+        } catch (Ingo_Exception $e) {
+            $notification->push($e, 'horde.warning');
         }
 
         return true;
