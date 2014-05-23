@@ -3398,7 +3398,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Return the current user's From/Reply_To address.
      *
-     * @return string
+     * @return string  A RFC822 valid email string.
      */
     protected function _getIdentityFromAddress()
     {
@@ -3411,8 +3411,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $as_ident = $prefs->getValue('activesync_identity');
         $name = $ident->getValue('fullname', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
         $from_addr = $ident->getValue('from_addr', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
+        $rfc822 = new Horde_Mail_Rfc822_Address($from_addr);
+        $rfc822->personal = $name;
 
-        return $name . ' <' . $from_addr . '>';
+        return $name->encoded;
     }
 
     /**
