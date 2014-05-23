@@ -23,9 +23,9 @@
  * @property boolean $acl  Enable ACLs?
  * @property array $admin  Admin configuration.
  * @property array $autocreate_special  Autocreate the special mailboxes?
- * @property-read array $cache_params  The cache configuration.
  * @property mixed $cache  The cache configuration from backends.php.
  * @property string $cache_lifetime  Cache lifetime.
+ * @property-read array $cache_params  The cache configuration.
  * @property array $capability_ignore  The list of capabilities to ignore.
  * @property string $comparator  The non-default comparator to use.
  * @property string $debug  The debug handler.
