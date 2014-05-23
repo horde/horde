@@ -600,31 +600,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Change a folder on the server.
      *
-     * @param string $id           The IMAP server's existing folder id.
-     * @param string $displayname  The new display name.
-     * @param string $parent       The folder's parent IMAP server id, if needed.
-     * @param string $uid          The existing folder uid, if this is an edit.
-     *                             @since 2.5.0 (@todo Look at this for H6. It's
-     *                             here now to save an extra DB lookup for data
-     *                             we already have.)
-     * @param  integer $type       The EAS Folder type. @since 2.12.0
+     * @param string $old_name  The IMAP server's existing folder id.
+     * @param string $new_name  The new display name.
+     * @param string $parent    The folder's parent IMAP server id, if needed.
+     * @param string $uid       The existing folder uid, if this is an edit.
+     *                          @since 2.5.0 (@todo Look at this for H6. It's
+     *                          here now to save an extra DB lookup for data
+     *                          we already have.)
+     * @param  integer $type    The EAS Folder type. @since 2.12.0
      *
      * @return Horde_ActiveSync_Message_Folder
      * @throws  Horde_ActiveSync_Exception
      */
-    public function changeFolder($id, $displayname, $parent, $uid = null, $type = null)
+    public function changeFolder($old_name, $new_name, $parent, $uid = null, $type = null)
     {
         $this->_logger->info(sprintf(
             '[%s] Horde_Core_ActiveSync_Driver::changeFolder(%s, %s, %s, %s, %s)',
-            getmypid(), $id, $displayname, $parent, $uid, $type));
+            getmypid(), $old_name, $new_name, $parent, $uid, $type));
 
         // For FOLDERUPDATE requests, the EAS Folder type is not passed by
-        // the client so we need to figure it out. Unfortunately, since
-        // we support additional collections in each type we don't know
-        // for sure if it's a mail folder or not, so we must check by passing
-        // true to _parseFolderId.
-        if (empty($type) && !empty($id)) {
-            $parts = $this->_parseFolderId($id, true);
+        // the client so we need to figure it out.
+        if (empty($type) && !empty($old_name)) {
+            $parts = $this->_parseFolderId($old_name, true);
             if (is_array($parts)) {
                 $type = $parts[self::FOLDER_PART_CLASS];
             } else {
@@ -635,17 +632,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($type) {
         case Horde_ActiveSync::CLASS_EMAIL;
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
-            if (!$id) {
+            if (!$old_name) {
                 try {
-                    $serverid = $this->_imap->createMailbox($displayname, $parent);
+                    $serverid = $this->_imap->createMailbox($new_name, $parent);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw $e;
                 }
             } else {
                 try {
-                    $serverid = $this->_imap->renameMailbox($id, $displayname, $parent);
-                    $uid = $this->_getFolderUidForBackendId($displayname, Horde_ActiveSync::FOLDER_TYPE_USER_MAIL, $id);
+                    $serverid = $this->_imap->renameMailbox($old_name, $new_name, $parent);
+                    $uid = $this->_getFolderUidForBackendId($new_name, Horde_ActiveSync::FOLDER_TYPE_USER_MAIL, $old_name);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw $e;
@@ -680,16 +677,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             throw new Horde_ActiveSync_Exception('Unsupported EAS Collection Class.');
         }
 
-        if (!$id) {
+        if (!$old_name) {
             try {
-                $id = $this->_connector->createFolder($class, $displayname);
+                $id = $this->_connector->createFolder($class, $new_name);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
             }
         } else {
             if (empty($parts)) {
-                $parts = $this->_parseFolderId($id);
+                $parts = $this->_parseFolderId($old_name);
             }
             if (is_array($parts)) {
                 $id = $parts[self::FOLDER_PART_ID];
@@ -697,7 +694,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $id = $parts;
             }
             try {
-                $this->_connector->changeFolder($class, $id, $displayname);
+                $this->_connector->changeFolder($class, $id, $new_name);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
@@ -705,7 +702,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return $this->_buildNonMailFolder(
-            $class . ':' . $id, Horde_ActiveSync::FOLDER_ROOT, $type, $displayname
+            $class . ':' . $id, Horde_ActiveSync::FOLDER_ROOT, $type, $new_name
         );
     }
 
