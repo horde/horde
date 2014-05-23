@@ -152,19 +152,19 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Changing an existing object
-        if ($id) {
+        if ($id && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
             $conflict = $this->_isConflict(
                 Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $this->_folderId,
                 $id);
-            if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+            if ($conflict) {
                 $this->_logger->notice(sprintf(
                     '[%s] Conflict when updating %s, will overwrite client version on next sync.',
                     $this->_procid, $id)
                 );
                 return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
-        } elseif ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
+        } elseif (!$id && $uid = $this->_state->isDuplicatePIMAddition($clientid)) {
             // Already saw this addition, but PIM never received UID
             $this->_logger->notice(sprintf(
                 '[%s] Duplicate addition for %s',
