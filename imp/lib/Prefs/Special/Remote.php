@@ -137,7 +137,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
                 $injector->getInstance('IMP_Ftree')->insert($ob);
             } catch (IMP_Exception $e) {
-                $notification->push($e->getMessage(), 'horde.error');
+                $notification->push($e, 'horde.error');
             }
             break;
 
