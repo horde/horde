@@ -1759,7 +1759,9 @@ ViewPort_Selection = Class.create({
     add: function(format, d)
     {
         var c = this._convert(format, d);
-        this.data = this.data.size() ? this.data.concat(c).uniq() : c;
+        this.data = this.data.size()
+            ? this.data.concat(c.reject(this.data.include.bind(this.data)))
+            : c;
     },
 
     remove: function(format, d)
