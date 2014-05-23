@@ -696,7 +696,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
-                    $share->get('color'),
+                    $share->get('color') . 'ff',
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
                 '{http://sabredav.org/ns}read-only' => !$share->hasPermission($user, Horde_Perms::EDIT),
             );
