@@ -241,11 +241,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
             $this->addRule($newrule, false);
 
             $rules = array();
-            foreach (array_slice($this->_filters, 0, -1) as $key => $val) {
-                $rules[$key] = $val;
+            foreach (array_slice(array_keys($this->_filters), 0, -1) as $key) {
+                $rules[] = $key;
                 if ($key == $id) {
                     $end = end($this->_filters);
-                    $rules[key($this->_filters)] = current($this->_filters);
+                    $rules[] = key($this->_filters);
                 }
             }
 
