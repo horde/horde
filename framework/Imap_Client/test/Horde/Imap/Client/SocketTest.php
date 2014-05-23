@@ -295,7 +295,8 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 
     /* See RFC 5162 (Errata #1807) - QRESYNC/CONDSTORE has design flaw where
      * it is allowable to send FETCH responses with MODSEQ/FLAGS but without
-     * UID. This makes the responses practically useless. */
+     * UID. This makes the responses practically useless. This has been
+     * fixed in RFC 7162. */
     public function testModseqFlagsWithoutUid()
     {
         $test = '* 1 FETCH (UID 2 MODSEQ (5) FLAGS (\Seen \Flagged))';

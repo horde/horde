@@ -64,7 +64,7 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     const BADCOMPARATOR = 9;
 
     /**
-     * RFC 4551 [3.1.2] - All mailboxes are not required to support
+     * RFC 7162 [3.1.2.2] - All mailboxes are not required to support
      * mod-sequences.
      */
     const MBOXNOMODSEQ = 10;

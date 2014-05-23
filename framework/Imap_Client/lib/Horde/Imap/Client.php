@@ -176,7 +176,7 @@ class Horde_Imap_Client
      * @var array
      */
     static public $capability_deps = array(
-        // RFC 5162 [1]
+        // RFC 7162 [3.2]
         'QRESYNC' => array(
             // QRESYNC requires CONDSTORE, but the latter is implied and is
             // not required to be listed.

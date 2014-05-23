@@ -44,12 +44,10 @@
  *   - RFC 4422: SASL Authentication (for DIGEST-MD5)
  *   - RFC 4466: Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
  *   - RFC 4469/5550: CATENATE
- *   - RFC 4551: CONDSTORE
  *   - RFC 4731: ESEARCH
  *   - RFC 4959: SASL-IR
  *   - RFC 5032: WITHIN
  *   - RFC 5161: ENABLE
- *   - RFC 5162: QRESYNC
  *   - RFC 5182: SEARCHRES
  *   - RFC 5255: LANGUAGE/I18NLEVEL
  *   - RFC 5256: THREAD/SORT
@@ -63,6 +61,7 @@
  *   - RFC 6203: SEARCH=FUZZY
  *   - RFC 6851: MOVE
  *   - RFC 6858: DOWNGRADED response code
+ *   - RFC 7162: CONDSTORE/QRESYNC
  * </pre>
  *
  * Implements the following non-RFC extensions:
@@ -1566,7 +1565,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse a STATUS response (RFC 3501 [7.2.4], RFC 4551 [3.6])
+     * Parse a STATUS response (RFC 3501 [7.2.4]).
      *
      * @param Horde_Imap_Client_Tokenize $data  Token data
      */
@@ -2006,7 +2005,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse a VANISHED response (RFC 5162 [3.6]).
+     * Parse a VANISHED response (RFC 7162 [3.2.10]).
      *
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
      *                                                          object.
@@ -2670,7 +2669,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          *   ENVELOPE
          *   FLAGS
          *   INTERNALDATE
-         *   MODSEQ (RFC 4551)
+         *   MODSEQ (RFC 7162)
          *   RFC822.SIZE
          *   UID
          *
@@ -2806,7 +2805,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_MODSEQ:
                 /* The 'changedsince' modifier implicitly adds the MODSEQ
-                 * FETCH item (RFC 4551 [3.3.1]). Don't add to query as it
+                 * FETCH item (RFC 7162 [3.1.4.1]). Don't add to query as it
                  * just creates a longer FETCH command. */
                 if (empty($options['changedsince'])) {
                     $fetch->add('MODSEQ');
@@ -2833,15 +2832,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        /* RFC 2683 [3.2.1.5] recommends that lines should be limited to
-         * "approximately 1000 octets". However, servers should allow a
-         * command line of at least "8000 octets". As a compromise, assume
-         * all modern IMAP servers handle ~2000 octets. The FETCH command
-         * should be the only command issued by this library that should ever
-         * approach this limit. For simplification, assume that the UID list
-         * is the limiting factor and split this list at a sequence comma
-         * delimiter if it exceeds 2000 characters. */
-        foreach ($options['ids']->split(2000) as $val) {
+        /* The FETCH command should be the only command issued by this library
+         * that should ever approach this limit.
+         * @todo Move this check to a more centralized location (_command()?).
+         * For simplification, assume that the UID list is the limiting factor
+         * and split this list at a sequence comma delimiter if it exceeds
+         * the character limit. */
+        foreach ($options['ids']->split($this->_init['cmdlength']) as $val) {
             $cmd = $this->_command(
                 $sequence ? 'FETCH' : 'UID FETCH'
             )->add(array(
@@ -2940,7 +2937,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $ob->setModSeq($modseq);
 
                     /* Store MODSEQ value. It may be used as the highestmodseq
-                     * once a tagged response is received (RFC 5162 [5]). */
+                     * once a tagged response is received (RFC 7162 [6]). */
                     $pipeline->data['modseqs'][] = $modseq;
                 }
                 break;
@@ -3060,7 +3057,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * In the (rare) event that there is, don't cache anything and
          * immediately close the mailbox: flags will be correctly sync'd next
          * mailbox open so we only lose a bit of caching efficiency.
-         * Otherwise, we could end up with an inconsistent cached state. */
+         * Otherwise, we could end up with an inconsistent cached state.
+         * This Errata has been fixed in 7162 [3.2.4]. */
         if ($flags && $modseq && !$uid) {
             $pipeline->data['modseqs_nouid'][] = $id;
         }
@@ -4391,7 +4389,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'VANISHED':
-            // QRESYNC extension (RFC 5162 [3.6])
+            // QRESYNC extension (RFC 7162 [3.2.10])
             $this->_parseVanished($pipeline, $token);
             break;
 
@@ -4602,22 +4600,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
 
         case 'HIGHESTMODSEQ':
-            // Defined by RFC 4551 [3.1.1]
+            // Defined by RFC 7162 [3.1.2.1]
             $pipeline->data['modseqs'][] = $rc->data[0];
             break;
 
         case 'NOMODSEQ':
-            // Defined by RFC 4551 [3.1.2]
+            // Defined by RFC 7162 [3.1.2.2]
             $pipeline->data['modseqs'][] = 0;
             break;
 
         case 'MODIFIED':
-            // Defined by RFC 4551 [3.2]
+            // Defined by RFC 7162 [3.1.3]
             $pipeline->data['modified']->add($rc->data[0]);
             break;
 
         case 'CLOSED':
-            // Defined by RFC 5162 [3.7]
+            // Defined by RFC 7162 [3.2.11]
             if (isset($pipeline->data['qresyncmbox'])) {
                 /* If there is any pending FETCH cache entries, flush them
                  * now before changing mailboxes. */

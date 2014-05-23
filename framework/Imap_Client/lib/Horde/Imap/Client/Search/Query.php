@@ -662,7 +662,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
     /**
      * Search for messages modified since a specific moment. The IMAP server
-     * must support the CONDSTORE extension (RFC 4551) for this query to be
+     * must support the CONDSTORE extension (RFC 7162) for this query to be
      * used.
      *
      * @param integer $value  The mod-sequence value.

@@ -344,6 +344,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             );
         } elseif (is_null($val)) {
             unset($this->_init[$key]);
+
+            switch ($key) {
+            case 'capability':
+                unset($this->_init['cmdlength']);
+                break;
+            }
         } else {
             switch ($key) {
             case 'capability':
@@ -359,12 +365,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $val = array_diff_key($val, array_flip($ci));
                 }
 
-                /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even
-                 * if not listed as a capability. */
+                /* RFC 7162 [3.2.3] - QRESYNC implies CONDSTORE and ENABLE,
+                 * even if not listed as a capability. */
                 if (!empty($val['QRESYNC'])) {
                     $val['CONDSTORE'] = true;
                     $val['ENABLE'] = true;
                 }
+
+                /* RFC 2683 [3.2.1.5] originally recommended that lines should
+                 * be limited to "approximately 1000 octets". However, servers
+                 * should allow a command line of at least "8000 octets".
+                 * RFC 7162 [4] updates the recommendation to 8192 octets.
+                 * As a compromise, assume all modern IMAP servers handle
+                 * ~2000 octets and, if CONDSTORE/ENABLE is supported, assume
+                 * they can handle ~8000 octets. */
+                $this->_init['cmdlength'] = (isset($val['CONDSTORE']) || isset($val['QRESYNC']))
+                    ? 8000
+                    : 2000;
                 break;
             }
 
@@ -389,7 +406,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _enabled($exts, $status)
     {
-        /* RFC 5162 [1] - Enabling QRESYNC also implies enabling of
+        /* RFC 7162 [3.2.3] - Enabling QRESYNC also implies enabling of
          * CONDSTORE. */
         if (in_array('QRESYNC', $exts)) {
             $exts[] = 'CONDSTORE';
@@ -2139,8 +2156,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
         if ($status_res['messages'] ||
             in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) {
-            /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
-             * doesn't support it will return BAD. */
+            /* RFC 7162 [3.1.2.2] - trying to do a MODSEQ SEARCH on a mailbox
+             * that doesn't support it will return BAD. */
             if (in_array('CONDSTORE', $options['_query']['exts']) &&
                 !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
@@ -2430,8 +2447,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($modseq_check &&
             !$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-            /* RFC 4551 [3.1] - trying to do a MODSEQ FETCH on a mailbox that
-             * doesn't support it will return BAD. */
+            /* RFC 7162 [3.1.2.2] - trying to do a MODSEQ FETCH on a mailbox
+             * that doesn't support it will return BAD. */
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
                 Horde_Imap_Client_Exception::MBOXNOMODSEQ
@@ -2782,7 +2799,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
             }
 
-            /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
+            /* RFC 7162 [3.1.2.2] - trying to do a UNCHANGEDSINCE STORE on a
              * mailbox that doesn't support it will return BAD. */
             if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
