@@ -127,8 +127,8 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                         $ob->secure = $tmp->valid()
                             ? 'ssl'
                             : 'tls';
+                        break;
                     }
-                    break;
                 }
 
                 $remote[strval($ob)] = $ob;
