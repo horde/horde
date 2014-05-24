@@ -3414,7 +3414,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $rfc822 = new Horde_Mail_Rfc822_Address($from_addr);
         $rfc822->personal = $name;
 
-        return $name->encoded;
+        return $rfc822->encoded;
     }
 
     /**
