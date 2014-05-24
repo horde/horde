@@ -63,9 +63,6 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 return true;
             }
         } else {
-            $this->_logger->info(sprintf(
-                '[%s] Handling SENDMAIL command with Wbxml.',
-                $this->_procid));
             return $this->_handleWbxmlRequest();
         }
     }
@@ -77,6 +74,9 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      */
     protected function _handleWbxmlRequest()
     {
+        $this->_logger->info(sprintf(
+            '[%s] Handling SENDMAIL command with Wbxml.',
+            $this->_procid));
         // Get the first element and see what type of mail request we have.
         $e = $this->_decoder->getElement();
         if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
