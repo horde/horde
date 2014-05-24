@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix detecting forced multiplex values for Android 4.4.0 and greater (Bug #13199).
 * [mjr] Fix issue with renmaing folders (Bug #13196).
  </notes>
  <contents>
@@ -2166,6 +2167,7 @@
    <date>2014-05-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix detecting forced multiplex values for Android 4.4.0 and greater (Bug #13199).
 * [mjr] Fix issue with renmaing folders (Bug #13196).
    </notes>
   </release>
