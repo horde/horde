@@ -805,9 +805,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param integer $maxitems         Maximum number of recipients for a RI
      *                                  collection. @since 2.12.0
      *
-     * @return array A list of messge uids that have changed in the specified
-     *               time period.
+     * @return array  An array of hashes that contain the ids of items that have
+     *                changed in the specified collection along with a 'type'
+     *                flag that indicates the type of change.
      * @todo H6 - clean up method parameters, update parent class etc...
+     *            return a new ids object.
      */
     public function getServerChanges(
         $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100)
