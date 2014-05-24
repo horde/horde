@@ -2005,12 +2005,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_pid,
                     $sf));
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                $msg = $raw_message->getString();
 
                 // Ignore issues sending to sent, in case the folder isn't
                 // available.
                 try {
-                    $this->_imap->appendMessage($sf, $msg, $flags);
+                    $this->_imap->appendMessage($sf, $copy, $flags);
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_logger->err($e->getMessage());
                 }
