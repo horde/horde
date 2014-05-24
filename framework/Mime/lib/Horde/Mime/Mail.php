@@ -463,6 +463,26 @@ class Horde_Mime_Mail
     }
 
     /**
+     * Get the raw email data sent by this object.
+     *
+     * @param  boolean $stream  If true, return a stream resource, otherwise
+     *                          a string is returned.
+     *
+     * @return stream|string  The raw email data.
+     * @since 2.4.0
+     */
+    public function getRaw($stream = true)
+    {
+        if ($stream) {
+            $hdr = new Horde_Stream();
+            $hdr->add($this->_headers->toString());
+            return Horde_Stream_Wrapper_Combine::getStream(array($hdr, $this->getBasePart->toString(array('stream' => true))));
+        }
+
+        return $this->_headers->toString() . $this->_getBasePart->toString();
+    }
+
+    /**
      * Return the base MIME part.
      *
      * @return Horde_Mime_Part
