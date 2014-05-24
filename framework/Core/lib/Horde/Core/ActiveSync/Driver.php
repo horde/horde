@@ -1991,7 +1991,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 if ($save) {
-                    $copy = $mail->getBasePart()->toString(array('stream' => true));
+                    $copy = $mail->getRaw();
                 }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
