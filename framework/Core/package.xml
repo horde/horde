@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix copying forwarded messages to Sent mail folder when using EAS.
 * [mjr] Fix generating From address when sending email via ActiveSync when personal part must be quoted (Bug# 13208).
  </notes>
  <contents>
@@ -3404,6 +3405,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix copying forwarded messages to Sent mail folder when using EAS.
 * [mjr] Fix generating From address when sending email via ActiveSync when personal part must be quoted (Bug# 13208).
    </notes>
   </release>
