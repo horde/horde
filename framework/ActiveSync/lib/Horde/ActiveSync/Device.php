@@ -509,7 +509,7 @@ class Horde_ActiveSync_Device
             // non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
                 preg_match('/(\d+\.\d+\.\d+)/', $this->properties[self::OS], $matches) &&
-                version_compare($matches[0], '4.4.0') < 1) {
+                version_compare($matches[0], '4.4.0') >= 0) {
 
                 $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
