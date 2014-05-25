@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix moving an event from one calendar to another while resources are disabled (Bug #13201, Carlos Timóteo &lt;ctimoteo@sapo.pt&gt;)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2353,7 +2353,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix moving an event from one calendar to another while resources are disabled (Bug #13201, Carlos Timóteo &lt;ctimoteo@sapo.pt&gt;)
    </notes>
   </release>
  </changelog>

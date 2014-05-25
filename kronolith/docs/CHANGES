@@ -2,6 +2,8 @@
 v4.2.0-git
 ----------
 
+[mjr] Fix moving an event from one calendar to another while resources are
+      disabled (Bug #13201, Carlos Timóteo <ctimoteo@sapo.pt>)
 
 
 -----------
