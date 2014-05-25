@@ -327,7 +327,7 @@ class Horde_Core_ActiveSync_Mail
                 $mime_message->getCharset());
         }
 
-        if ($forward) {
+        if ($this->_forward) {
             return $smart_text . $this->_forwardText($body_data, $base_part->getPart($plain_id));
         }
 
