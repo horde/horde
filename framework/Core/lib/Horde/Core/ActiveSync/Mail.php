@@ -272,12 +272,10 @@ class Horde_Core_ActiveSync_Mail
             'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_MIME => true))
         );
         if (!empty($html_id)) {
-            $newbody_text_html = $this->_getHtmlPart($html_id, $mime_message, $body_data, $base_part);
-            $mail->setHtmlBody($newbody_text_html);
+            $mail->setHtmlBody($this->_getHtmlPart($html_id, $mime_message, $body_data, $base_part));
         }
         if (!empty($plain_id)) {
-            $newbody_text_plan = $this->_getPlainPart($plain_id, $mime_message, $body_data, $base_part);
-            $mail->setBody($newbody_text_plain);
+            $mail->setBody($this->_getPlainPart($plain_id, $mime_message, $body_data, $base_part));
         }
         if ($this->_forward) {
             foreach ($base_part->contentTypeMap() as $mid => $type) {
