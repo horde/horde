@@ -17,24 +17,116 @@
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
+ *
+ * @property-read Horde_ActiveSync_Imap_Adapter $imapAdapter  The imap adapter.
+ * @property-read boolean $replacemime  Flag to indicate we are to replace the MIME contents of a SMART request.
+ * @property-read integer $id  The UID of the source email for any SMARTREPLY or SMARTFORWARD requests.
+ * @property-read boolean $reply  Flag indicating a SMARTREPLY request.
+ * @property-read boolean $forward  Flag indicating a SMARTFORWARD request.
+ * @property-read Horde_Mime_Header $header  The headers used when sending the email.
+ * @property-read string $parentFolder  he email folder that contains the source email for any SMARTREPLY or SMARTFORWARD requests.
  */
 class Horde_Core_ActiveSync_Mail
 {
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
+    /**
+     * The headers used when sending the email.
+     *
+     * @var Horde_Mime_Header
+     */
     protected $_headers;
+
+    /**
+     * The raw message body sent from the EAS client.
+     *
+     * @var Horde_ActiveSync_Rfc822
+     */
     protected $_raw;
+
+    /**
+     * The email folder that contains the source email for any SMARTREPLY or
+     * SMARTFORWARD requests.
+     *
+     * @var string
+     */
     protected $_parentFolder = false;
+
+    /**
+     * The UID of the source email for any SMARTREPLY or SMARTFORWARD requests.
+     *
+     * @var integer
+     */
     protected $_id;
+
+    /**
+     * Flag indicating a SMARTFORWARD request.
+     *
+     * @var boolean
+     */
     protected $_forward = false;
+
+    /**
+     * Flag indicating a SMARTREPLY request.
+     *
+     * @var boolean
+     */
     protected $_reply = false;
+
+    /**
+     * Flag indicating the client requested to replace the MIME part
+     * a SMARTREPLY or SMARTFORWARD request.
+     *
+     * @var boolean
+     */
     protected $_replaceMime = false;
+
+    /**
+     * The current EAS user.
+     *
+     * @var string
+     */
     protected $_user;
+
+    /**
+     * Flag to indicate reply position for SMARTREPLY requests.
+     *
+     * @var boolean
+     */
     protected $_replyTop = false;
+
+    /**
+     * Internal cache of the mailer used when sending SMART[REPLY|FORWARD].
+     * Used to fetch the raw message used to save to sent mail folder.
+     *
+     * @var Horde_Mail
+     */
     protected $_mailer;
+
+    /**
+     * The message object representing the source email for a
+     * SMART[REPLY|FORWARD] request.
+     *
+     * @var Horde_ActiveSync_Imap_Message
+     */
     protected $_imapMessage;
 
-    public function __construct($imap, $user, $eas_version)
+    /**
+     * The imap adapter needed to fetch the source IMAP message if needed.
+     *
+     * @var Horde_ActiveSync_Imap_Adapter
+     */
+    protected $_imap;
+
+    /**
+     * Const'r
+     *
+     * @param Horde_ActiveSync_Imap_Adapter $imap  The IMAP adapter.
+     * @param string $user                         EAS user.
+     * @param integer $eas_version                 EAS version in use.
+     */
+    public function __construct(
+        Horde_ActiveSync_Imap_Adapter $imap, $user, $eas_version)
     {
         $this->_imap = $imap;
         $this->_user = $user;
@@ -49,11 +141,22 @@ class Horde_Core_ActiveSync_Mail
                 $this->_getImapMessage();
             }
             return $this->_imapMessage;
+        case 'replacemime':
+        case 'id':
+        case 'reply':
+        case 'forward':
+        case 'headers':
+        case 'parentFolder':
+            $property = '_' . $property;
+            return $this->$property;
         }
-        $property = '_' . $property;
-        return $this->$property;
     }
 
+    /**
+     * Set the raw message content received from the EAS client to send.
+     *
+     * @param Horde_ActiveSync_Rfc822 $raw  The data from the EAS client.
+     */
     public function setRawMessage(Horde_ActiveSync_Rfc822 $raw)
     {
         $this->_headers = $raw->getHeaders();
@@ -62,6 +165,13 @@ class Horde_Core_ActiveSync_Mail
         $this->_raw = $raw;
     }
 
+    /**
+     * Set this as a SMARTFORWARD requests.
+     *
+     * @param string $parent  The folder containing the source message.
+     * @param integer $id     The source message UID.
+     * @throws Horde_ActiveSync_Exception
+     */
     public function setForward($parent, $id)
     {
         if (!empty($this->_reply)) {
@@ -72,6 +182,13 @@ class Horde_Core_ActiveSync_Mail
         $this->_forward = true;
     }
 
+    /**
+     * Set this as a SMARTREPLY requests.
+     *
+     * @param string $parent  The folder containing the source message.
+     * @param integer $id     The source message UID.
+     * @throws Horde_ActiveSync_Exception
+     */
     public function setReply($parent, $id)
     {
         if (!empty($this->_forward)) {
@@ -82,8 +199,16 @@ class Horde_Core_ActiveSync_Mail
         $this->_reply = true;
     }
 
+    /**
+     * Send the email.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
     public function send()
     {
+        if (empty($this->_raw)) {
+            throw new Horde_ActiveSync_Exception('No data set or received from EAS client.');
+        }
         if (!$this->_parentFolder || ($this->_parentFolder && $this->_replaceMime)) {
             $this->_sendRaw();
         } else {
@@ -91,6 +216,11 @@ class Horde_Core_ActiveSync_Mail
         }
     }
 
+    /**
+     * Get the raw message suitable for saving to the sent email folder.
+     *
+     * @return stream  A stream contianing the raw message.
+     */
     public function getSentMail()
     {
         if (!empty($this->_mailer)) {
@@ -100,6 +230,10 @@ class Horde_Core_ActiveSync_Mail
         return $this->_raw->getString();
     }
 
+    /**
+     * Send the raw message received from the client. E.g., NOT a SMART request.
+     *
+     */
     protected function _sendRaw()
     {
         $h_array = $this->_headers->toArray(array('charset' => 'UTF-8'));
@@ -121,6 +255,10 @@ class Horde_Core_ActiveSync_Mail
         }
     }
 
+    /**
+     * Sends a SMART request.
+     *
+     */
     protected function _sendSmart()
     {
         $mime_message = $this->_raw->getMimeObject();
@@ -138,7 +276,7 @@ class Horde_Core_ActiveSync_Mail
             $mail->setHtmlBody($newbody_text_html);
         }
         if (!empty($plain_id)) {
-            $newbody_text_plan = $this->_getPlainPart();
+            $newbody_text_plan = $this->_getPlainPart($plain_id, $mime_message, $body_data, $base_part);
             $mail->setBody($newbody_text_plain);
         }
         if ($this->_forward) {
@@ -164,7 +302,21 @@ class Horde_Core_ActiveSync_Mail
         }
     }
 
-    protected function _getPlainPart($plain_id, $mime_message, $body_data, $base_part)
+    /**
+     * Build the text part of a SMARTREPLY or SMARTFORWARD
+     *
+     * @param string $plain_id               The MIME part id of the plaintext
+     *                                       part of $base_part.
+     * @param Horde_Mime_Part $mime_message  The MIME part of the email to be
+     *                                       sent.
+     * @param array $body_data @see Horde_ActiveSync_Imap_Message::getMessageBodyData()
+     * @param Horde_Mime_Part $base_part     The base MIME part of the source
+     *                                       message for a SMART request.
+     *
+     * @return string  The plaintext part of the email message that is being sent.
+     */
+    protected function _getPlainPart(
+        $plain_id, Horde_Mime_Part $mime_message, array $body_data, Horde_Mime_Part $base_part)
     {
         if (!$id = $mime_message->findBody('plain')) {
             $smart_text = self::html2text(
@@ -186,6 +338,19 @@ class Horde_Core_ActiveSync_Mail
             . ($this->_replyTop ? '' : $smart_text);
     }
 
+    /**
+     * Build the HTML part of a SMARTREPLY or SMARTFORWARD
+     *
+     * @param string $html_id                The MIME part id of the html part of
+     *                                       $base_part.
+     * @param Horde_Mime_Part $mime_message  The MIME part of the email to be
+     *                                       sent.
+     * @param array $body_data @see Horde_ActiveSync_Imap_Message::getMessageBodyData()
+     * @param Horde_Mime_Part $base_part     The base MIME part of the source
+     *                                       message for a SMART request.
+     *
+     * @return string  The plaintext part of the email message that is being sent.
+     */
     protected function _getHtmlPart($html_id, $mime_message, $body_data, $base_part)
     {
         if (!$id = $mime_message->findBody('html')) {
@@ -208,10 +373,7 @@ class Horde_Core_ActiveSync_Mail
     }
 
     /**
-     *
-     * @param  [type] $folder [description]
-     * @param  [type] $uid    [description]
-     *
+     * Fetch the source message for a SMART request from the IMAP server.
      */
     protected function _getImapMessage()
     {
@@ -246,8 +408,8 @@ class Horde_Core_ActiveSync_Mail
     /**
      * Return the body of the forwarded message in the appropriate type.
      *
-     * @param array $body_data         The body data array.
-     * @param Horde_Mime_Part $partId  The body part (minus contents).
+     * @param array $body_data         The body data array of the source msg.
+     * @param Horde_Mime_Part $part    The body part of the email to send.
      * @param boolean $html            Is this an html part?
      *
      * @return string  The propertly formatted forwarded body text.
@@ -271,8 +433,8 @@ class Horde_Core_ActiveSync_Mail
     /**
      * Return the body of the replied message in the appropriate type.
      *
-     * @param array $body_data         The body data array.
-     * @param Horde_Mime_Part $partId  The body part (minus contents).
+     * @param array $body_data         The body data array of the source msg.
+     * @param Horde_Mime_Part $partId  The body part of the email to send.
      * @param boolean $html            Is this an html part?
      *
      * @return string  The propertly formatted replied body text.
@@ -298,8 +460,8 @@ class Horde_Core_ActiveSync_Mail
     /**
      * Return the body text of the original email from a smart request.
      *
-     * @param array $body_data       The message's main mime part.
-     * @param Horde_Mime_Part $part  The body mime part (minus contents).
+     * @param array $body_data       The body data array of the source msg.
+     * @param Horde_Mime_Part $part  The body mime part of the email to send.
      * @param boolean $html          Do we want an html body?
      * @param boolean $flow          Should the body be flowed?
      *
@@ -356,6 +518,5 @@ class Horde_Core_ActiveSync_Mail
     {
         Horde_Text_Filter::filter($msg, 'Html2text');
     }
-
 
 }
