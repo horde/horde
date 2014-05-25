@@ -444,15 +444,11 @@ class Horde_Core_ActiveSync_Mail
         $msg_pre = ($from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted")) . "\n\n";
         $msg = $this->_msgBody($body_data, $part, $html, true);
         if (!empty($msg) && $html) {
-            $msg = '<p>' . self::text2html($msg_pre) . '</p>'
-                . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
-        } else {
-            $msg = empty($msg)
-                ? '[' . Horde_Core_Translation::t("No message body text") . ']'
-                : $msg_pre . $msg;
+            return '<p>' . self::text2html($msg_pre) . '</p>' . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
         }
-
-        return $msg;
+        return empty($msg)
+            ? '[' . Horde_Core_Translation::t("No message body text") . ']'
+            : $msg_pre . $msg;
     }
 
     /**
