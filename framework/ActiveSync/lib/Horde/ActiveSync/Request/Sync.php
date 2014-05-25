@@ -814,6 +814,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             try {
                 $this->_collections->addCollection($collection);
+            } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                $this->_handleError($collection);
+                return false;
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_statusCode = self::STATUS_SERVERERROR;
                 $this->_handleError($collection);
