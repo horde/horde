@@ -505,6 +505,12 @@ class Horde_Smtp implements Serializable
 
         // RFC 6152[3]
         if (!empty($opts['8bit'])) {
+            if (!$this->data_8bit) {
+                throw new InvalidArgumentException(
+                    'Server does not support sending 8-bit data.'
+                );
+            }
+
             $mailcmd .= ' BODY=8BITMIME';
         } elseif ($this->_debug->active && $this->data_8bit) {
             /* Only output extended 7bit command if debug is active (it is
