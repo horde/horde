@@ -650,14 +650,20 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                           namespace list that are not broadcast by
      *                           the server. The namespaces must be UTF-8
      *                           strings.
+     * @param array $opts        Additional options:
+     *   - ob_return: (boolean) If true, returns a
+     *                Horde_Imap_Client_Namespace_List object instead of an
+     *                array.
      *
-     * @return array  An array with the name as the key (UTF-8; @deprecated)
-     *                and a Horde_Imap_Client_Data_Namespace object as the
-     *                value.
+     * @return mixed  An array of namespace objects (@deprecated), or an
+     *                Horde_Imap_Client_Namespace_List object if 'ob_return'
+     *                is true.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function getNamespaces(array $additional = array())
+    public function getNamespaces(
+        array $additional = array(), array $opts = array()
+    )
     {
         $additional = array_map('strval', $additional);
         $sig = hash(
@@ -666,7 +672,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         );
 
         if (isset($this->_init['namespace'][$sig])) {
-            return $this->_init['namespace'][$sig];
+            return empty($opts['ob_return'])
+                ? iterator_to_array($this->_init['namespace'][$sig])
+                : $this->_init['namespace'][$sig];
         }
 
         $this->login();
@@ -675,7 +683,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Skip namespaces if we have already auto-detected them. Also, hidden
          * namespaces cannot be empty. */
-        $to_process = array_diff(array_filter($additional, 'strlen'), array_map('strlen', $ns));
+        $to_process = array_diff(array_filter($additional, 'strlen'), array_map('strlen', iterator_to_array($ns)));
         if (!empty($to_process)) {
             foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
                 $ob = new Horde_Imap_Client_Data_Namespace();
@@ -683,12 +691,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $ob->hidden = true;
                 $ob->name = $val;
                 $ob->type = $ob::NS_SHARED;
-                // @todo: Remove key in 3.0
                 $ns[$val] = $ob;
             }
         }
 
-        if (empty($ns)) {
+        if (!count($ns)) {
             /* This accurately determines the namespace information of the
              * base namespace if the NAMESPACE command is not supported.
              * See: RFC 3501 [6.3.8] */
@@ -697,19 +704,20 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             $ob = new Horde_Imap_Client_Data_Namespace();
             $ob->delimiter = $first['delimiter'];
-            // @todo: Remove key in 3.0
             $ns[''] = $ob;
         }
 
         $this->_setInit('namespace', array_merge($this->_init['namespace'], array($sig => $ns)));
 
-        return $ns;
+        return empty($opts['ob_return'])
+            ? iterator_to_array($ns)
+            : $ns;
     }
 
     /**
      * Get the NAMESPACE information from the IMAP server.
      *
-     * @return array  An array of Horde_Imap_Client_Data_Namespace objects.
+     * @return Horde_Imap_Client_Namespace_List  Namespace list object.
      *
      * @throws Horde_Imap_Client_Exception
      */

@@ -23,7 +23,7 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_Data_NamespaceTest
+class Horde_Imap_Client_Namespace_DataTest
 extends PHPUnit_Framework_TestCase
 {
     private $ob;

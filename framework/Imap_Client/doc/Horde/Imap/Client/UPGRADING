@@ -17,6 +17,7 @@ Upgrading to 2.21.0
   - Horde_Imap_Client
 
     These constants have been deprecated:
+
       - NS_PERSONAL
       - NS_OTHER
       - NS_SHARED
@@ -25,9 +26,14 @@ Upgrading to 2.21.0
 
     - getNamespaces()
 
-      Returns Horde_Imap_Client_Data_Namespace objects instead of an array.
-      (Existing code should not need to change, as this object is backward
-      compatibile with the previous array data structure.)
+      Returns an array of Horde_Imap_Client_Data_Namespace objects instead of
+      an array.
+      (Existing code should not need to change, as this object is backwards
+      compatible with the previous array data structure.)
+
+      Add optional parameter to allow a Horde_Imap_Client_Namespace_List
+      object to be returned, instead of an array of Data objects.
+      (This will become the default action in 3.0.)
 
 
 Upgrading to 2.20.0

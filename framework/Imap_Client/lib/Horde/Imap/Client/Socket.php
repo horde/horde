@@ -310,7 +310,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ns->delimiter = $data->next();
                 $ns->name = strval($ob);
                 $ns->type = $val;
-                // @todo: Remove key in 3.0
                 $c[strval($ob)] = $ns;
 
                 // RFC 4466: NAMESPACE extensions
@@ -327,7 +326,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $pipeline->data['namespace'] = $c;
+        $pipeline->data['namespace'] = new Horde_Imap_Client_Namespace_List($c);
     }
 
     /**
