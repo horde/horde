@@ -12,7 +12,7 @@
  </lead>
  <date>2014-05-26</date>
  <version>
-  <release>2.16.2</release>
+  <release>2.16.3</release>
   <api>2.16.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix detecting forced multiplex values for Android 4.4.0 and greater (Bug #13199).
-* [mjr] Fix issue with renmaing folders (Bug #13196).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2169,6 +2168,19 @@
    <notes>
 * [mjr] Fix detecting forced multiplex values for Android 4.4.0 and greater (Bug #13199).
 * [mjr] Fix issue with renmaing folders (Bug #13196).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.16.3</release>
+    <api>2.16.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-05-25</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
