@@ -192,7 +192,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, array($uid));
-        if (!$messages[$uid]->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+        if (empty($messages[$uid]) || !$messages[$uid]->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
             throw new Horde_ActiveSync_Exception('Message Gone');
         }
         $msg = new Horde_ActiveSync_Imap_Message($imap, $mbox, $messages[$uid]);
@@ -1418,7 +1418,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $ids = new Horde_Imap_Client_Ids($uids);
         try {
-            return $imap->fetch($mbox, $query, array('ids' => $ids));
+            return $imap->fetch($mbox, $query, array('ids' => $ids, 'exists' => true));
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] Unable to fetch message: %s',
