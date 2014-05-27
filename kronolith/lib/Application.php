@@ -575,6 +575,11 @@ class Kronolith_Application extends Horde_Registry_Application
             foreach ($calendars as $calendar) {
                 list($type, $cal) = explode('_', $calendar, 2);
                 $kronolith_driver = Kronolith::getDriver($type, $cal);
+                $calendarObject = Kronolith::getCalendar($kronolith_driver);
+                if (!$calendarObject ||
+                    !$calendarObject->hasPermission(Horde_Perms::READ)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
                 $events[$calendar] = $kronolith_driver->listEvents(
                     $start,
                     $end,
@@ -622,7 +627,9 @@ class Kronolith_Application extends Horde_Registry_Application
                     }
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("events.csv"), $data, true);
+                $injector->getInstance('Horde_Core_Factory_Data')
+                    ->create('Csv', array('cleanup' => array($this, 'cleanupData')))
+                    ->exportFile(_("events.csv"), $data, true);
                 exit;
 
             case Horde_Data::EXPORT_ICALENDAR:
