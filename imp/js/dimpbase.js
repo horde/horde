@@ -4134,7 +4134,7 @@ var DimpBase = {
         var DM = DimpCore.DMenu, tmp, tmp2;
 
         /* Register global handlers now. */
-        IMP_JS.keydownhandler = this.keydownHandler.bindAsEventListener(this);
+        IMP_JS.html_keydownhandler = this.keydownHandler.bindAsEventListener(this);
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
 

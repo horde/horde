@@ -8,7 +8,7 @@
 
 var IMP_JS = {
 
-    keydownhandler: null,
+    html_keydownhandler: null,
 
     /**
      * Use DOM manipulation to un-block images.
@@ -107,11 +107,11 @@ var IMP_JS = {
         d.write(data);
         d.close();
 
-        if (this.keydownhandler) {
+        if (this.html_keydownhandler) {
             if (d.addEventListener) {
-                d.addEventListener('keydown', this.keydownhandler, false);
+                d.addEventListener('keydown', this.html_keydownhandler, false);
             } else {
-                d.attachEvent('onkeydown', this.keydownhandler);
+                d.attachEvent('onkeydown', this.html_keydownhandler);
             }
         }
 
