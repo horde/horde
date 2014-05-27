@@ -1224,18 +1224,20 @@ class Horde_Icalendar
     }
 
     /**
-     * Grok the TZID and return an offset in seconds from UTC for this
+     * Groks the TZID and returns an offset in seconds from UTC for this
      * date and time.
      *
-     * @param $date TODO
-     * @param $time TODO
-     * @param $tzid TODO
+     * @param array $date   A date hash.
+     * @param array $time   A time hash.
+     * @param string $tzid  A timezone ID.
      *
-     * @return TODO
+     * @return integer  The offset from UTC in seconds for the provided
+     *                  timezone and date/time.
      */
     protected function _parseTZID($date, $time, $tzid)
     {
-        $vtimezone = $this->_container->findComponentByAttribute('vtimezone', 'TZID', $tzid);
+        $vtimezone = $this->_container
+            ->findComponentByAttribute('vtimezone', 'TZID', $tzid);
         if (!$vtimezone) {
             return false;
         }
@@ -1252,7 +1254,12 @@ class Horde_Icalendar
             return false;
         }
 
-        sort($change_times);
+        usort(
+            $change_times,
+            function($a, $b) {
+                return $a['time'] - $b['time'];
+            }
+        );
 
         // Time is arbitrarily based on UTC for comparison.
         $t = @gmmktime($time['hour'], $time['minute'], $time['second'],
