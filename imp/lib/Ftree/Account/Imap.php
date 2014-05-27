@@ -84,7 +84,10 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             }
 
             foreach ($ns as $val) {
-                $searches[] = strval($val) . '*';
+                $last = $searches[] = $ns_val . '*';
+                if ($last === '*') {
+                    break;
+                }
             }
         } else {
             $searches[] = $query;
