@@ -32,17 +32,20 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
     }
 
     /**
-     * Parse child components of the vTimezone component. Returns an
-     * array with the exact time of the time change as well as the
-     * 'from' and 'to' offsets around the change. Time is arbitrarily
-     * based on UTC for comparison.
+     * Parses child components of vTimezone component.
      *
-     * @param &$child TODO
-     * @param $year TODO
+     * Returns an array with the exact time of the time change as well as the
+     * 'from' and 'to' offsets around the change. Time is arbitrarily based on
+     * UTC for comparison.
      *
-     * @return TODO
+     * @param Horde_Icalendar_Standard|Horde_Icalendar_Daylight $child
+     *        A timezone component.
+     * @param integer $year
+     *        The latest year we are interested in.
+     *
+     * @return array  A list of hashes with "time", "from", and "to" elements.
      */
-    public function parseChild(&$child, $year)
+    public function parseChild($child, $year)
     {
         // Make sure 'time' key is first for sort().
         $result['time'] = 0;
