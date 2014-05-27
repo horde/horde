@@ -300,7 +300,7 @@ class IMP_Mailbox_SessionCache implements Serializable
             $mbox = IMP_Mailbox::get($mbox);
 
             if ($mbox->search) {
-                $exists = (($ob = $this->getSearchOb()) && $ob->enabled);
+                $exists = (($ob = $mbox->getSearchOb()) && $ob->enabled);
             } elseif ($elt = $mbox->tree_elt) {
                 $exists = !$elt->container;
             }
