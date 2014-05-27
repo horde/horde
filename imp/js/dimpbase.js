@@ -4134,7 +4134,6 @@ var DimpBase = {
         var DM = DimpCore.DMenu, tmp, tmp2;
 
         /* Register global handlers now. */
-        IMP_JS.html_keydownhandler = this.keydownHandler.bindAsEventListener(this);
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
 
@@ -4317,6 +4316,16 @@ var DimpBase = {
 
 };
 
+/* Initialize onload handler. */
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // For IE 8
+        DimpBase.onDomLoad.bind(DimpBase).delay(0.1);
+    } else {
+        DimpBase.onDomLoad();
+    }
+});
+
 /* Basic event handlers. */
 document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
 Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
@@ -4356,18 +4365,13 @@ document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEve
 document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(DimpBase));
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
-/* Initialize onload handler. */
-document.observe('dom:loaded', function() {
-    if (Prototype.Browser.IE && !document.addEventListener) {
-        // For IE 8
-        DimpBase.onDomLoad.bind(DimpBase).delay(0.1);
-    } else {
-        DimpBase.onDomLoad();
-    }
-});
-
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+
+/* HTML IFRAME handlers. */
+document.observe('IMP_JS:htmliframe_keydown', function(e) {
+    DimpBase.keydownHandler(e.memo);
+});
 
 /* Define reloadMessage() method for this page. */
 DimpCore.reloadMessage = function(params) {

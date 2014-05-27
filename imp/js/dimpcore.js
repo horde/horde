@@ -395,11 +395,6 @@ var DimpCore = {
 
     onDomLoad: function()
     {
-        IMP_JS.html_clickhandler = function() {
-            if (this.DMenu) {
-                this.DMenu.close();
-            }
-        }.bind(this);
         HordeCore.initHandler('click');
 
         if (typeof ContextSensitive != 'undefined') {
@@ -423,6 +418,13 @@ document.observe('HordeCore:click', DimpCore.clickHandler.bindAsEventListener(Di
 document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
+
+/* HTML IFRAME events. */
+document.observe('IMP_JS:htmliframe_click', function() {
+    if (this.DMenu) {
+        this.DMenu.close();
+    }
+}.bind(DimpCore));
 
 /* Dialog events. Since reloadMessage() can be extended, don't immediately
  * bind function call now. */

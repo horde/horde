@@ -8,9 +8,6 @@
 
 var IMP_JS = {
 
-    html_clickhandler: null,
-    html_keydownhandler: null,
-
     /**
      * Use DOM manipulation to un-block images.
      */
@@ -97,7 +94,7 @@ var IMP_JS = {
             return;
         }
 
-        var d = id.contentDocument || id.contentWindow.document;
+        var d = id.contentDocument || id.contentWindow.document, ev;
 
         id.onload = function(e) {
             this.iframeResize(e, id);
@@ -108,20 +105,16 @@ var IMP_JS = {
         d.write(data);
         d.close();
 
-        if (this.html_clickhandler) {
-            if (d.addEventListener) {
-                d.addEventListener('click', this.html_clickhandler, false);
-            } else {
-                d.attachEvent('click', this.html_clickhandler);
-            }
-        }
+        ev = function(name, e) {
+            id.fire('IMP_JS:' + name, e);
+        };
 
-        if (this.html_keydownhandler) {
-            if (d.addEventListener) {
-                d.addEventListener('keydown', this.html_keydownhandler, false);
-            } else {
-                d.attachEvent('onkeydown', this.html_keydownhandler);
-            }
+        if (d.addEventListener) {
+            d.addEventListener('click', ev.curry('htmliframe_click'), false);
+            d.addEventListener('keydown', ev.curry('htmliframe_keydown'), false);
+        } else {
+            d.attachEvent('onclick', ev.curry('htmliframe_click'));
+            d.attachEvent('onkeydown', ev.curry('htmliframe_keydown'));
         }
 
         id.setStyle({ overflowY: 'hidden' });
