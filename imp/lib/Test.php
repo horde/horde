@@ -153,22 +153,22 @@ class IMP_Test extends Horde_Test
             try {
                 $namespaces = $imap_client->getNamespaces();
                 foreach ($namespaces as $val) {
-                    switch ($val['type']) {
-                    case Horde_Imap_Client::NS_PERSONAL:
+                    switch ($val->type) {
+                    case $val::NS_PERSONAL:
                         $type = 'Personal';
                         break;
 
-                    case Horde_Imap_Client::NS_OTHER:
+                    case $val::NS_OTHER:
                         $type = 'Other Users\'';
                         break;
 
-                    case Horde_Imap_Client::NS_SHARED:
+                    case $val::NS_SHARED:
                         $type = 'Shared';
                         break;
                     }
 
-                    $ret .= 'NAMESPACE: "' . htmlspecialchars($val['name']) . "\"\n" .
-                        'DELIMITER: ' . htmlspecialchars($val['delimiter']) . "\n" .
+                    $ret .= 'NAMESPACE: "' . htmlspecialchars($val->name) . "\"\n" .
+                        'DELIMITER: ' . htmlspecialchars($val->delimiter) . "\n" .
                         'TYPE: ' . htmlspecialchars($type) . "\n\n";
                 }
             } catch (Horde_Imap_Client_Exception $e) {

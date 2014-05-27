@@ -57,13 +57,13 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
                     foreach ($ns as $val) {
                         $type = null;
 
-                        switch ($val['type']) {
-                        case Horde_Imap_Client::NS_OTHER:
+                        switch ($val->type) {
+                        case $val::NS_OTHER:
                             $attr = IMP_Ftree::ELT_NAMESPACE_OTHER;
                             $type = self::OTHER_KEY;
                             break;
 
-                        case Horde_Imap_Client::NS_SHARED:
+                        case $val::NS_SHARED:
                             $attr = IMP_Ftree::ELT_NAMESPACE_SHARED;
                             $type = self::SHARED_KEY;
                             break;
@@ -83,8 +83,8 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
                 $unsub = true;
             }
 
-            foreach (array_keys($ns) as $val) {
-                $searches[] = $val . '*';
+            foreach ($ns as $val) {
+                $searches[] = strval($val) . '*';
             }
         } else {
             $searches[] = $query;

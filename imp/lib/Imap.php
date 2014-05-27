@@ -465,7 +465,7 @@ class IMP_Imap implements Serializable
     /**
      * Get the namespace list.
      *
-     * @return array  See Horde_Imap_Client_Base#getNamespaces().
+     * @return Horde_Imap_Client_Namespace_List  Namespace list.
      */
     public function getNamespaces()
     {
@@ -473,7 +473,8 @@ class IMP_Imap implements Serializable
             try {
                 $nsconfig = $this->config->namespace;
                 $this->_temp['ns'] = $this->__call('getNamespaces', array(
-                    is_null($nsconfig) ? array() : $nsconfig
+                    is_null($nsconfig) ? array() : $nsconfig,
+                    array('ob_return' => true)
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
                 return array();
@@ -486,7 +487,8 @@ class IMP_Imap implements Serializable
     /**
      * Get namespace info for a full mailbox path.
      *
-     * @param string $mailbox    The mailbox path.
+     * @param string $mailbox    The mailbox path. (self:NS_DEFAULT will
+     *                           return the default personal namespace.)
      * @param boolean $personal  If true, will return empty namespace only
      *                           if it is a personal namespace.
      *
@@ -495,32 +497,20 @@ class IMP_Imap implements Serializable
      */
     public function getNamespace($mailbox, $personal = false)
     {
-        if (!$this->isImap()) {
-            return null;
-        }
+        if ($this->isImap()) {
+            $ns = $this->getNamespaces();
+            if ($mailbox !== self::NS_DEFAULT) {
+                return $ns->getNamespace($mailbox, $personal);
+            }
 
-        $ns = $this->getNamespaces();
-
-        if (isset($ns[$mailbox])) {
-            return $ns[$mailbox];
-        }
-
-        foreach ($ns as $key => $val) {
-            if ($mailbox === self::NS_DEFAULT) {
-                if ($val['type'] === Horde_Imap_Client::NS_PERSONAL) {
-                    return $val;
-                }
-            } else {
-                $mbox = $mailbox . $val['delimiter'];
-                if (strlen($key) && (strpos($mbox, $key) === 0)) {
+            foreach ($ns as $val) {
+                if ($val->type === $val::NS_PERSONAL) {
                     return $val;
                 }
             }
         }
 
-        return (isset($ns['']) && (!$personal || ($val['type'] == Horde_Imap_Client::NS_PERSONAL)))
-            ? $ns['']
-            : null;
+        return null;
     }
 
     /**
