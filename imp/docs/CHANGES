@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Cache mailbox exists results in the current access.
 
 
 -----------
