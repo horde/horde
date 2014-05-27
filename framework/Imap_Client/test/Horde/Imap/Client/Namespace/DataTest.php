@@ -120,8 +120,21 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider stripProvider
      */
+    public function testStripNamespace($name, $delimiter, $mbox, $expected)
+    {
+        $this->ob->name = $name;
+        $this->ob->delimiter = $delimiter;
 
+        $this->assertEquals(
+            $expected,
+            $this->ob->stripNamespace($mbox)
+        );
+    }
+
+    /**
+     */
     public function defaultProvider()
     {
         return array(
@@ -136,6 +149,8 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     */
     public function settingProvider()
     {
         return array(
@@ -155,6 +170,18 @@ extends PHPUnit_Framework_TestCase
             array('type', Horde_Imap_Client_Data_Namespace::NS_SHARED),
             // Bogus value
             array('foo', null)
+        );
+    }
+
+    /**
+     */
+    public function stripProvider()
+    {
+        return array(
+            array('foo.', '.', 'foo.bar', 'bar'),
+            array('foo.', '.', 'foo2.bar', 'foo2.bar'),
+            array('foo.bar.', '.', 'foo.bar.baz', 'baz'),
+            array('', '.', 'foo.bar', 'foo.bar')
         );
     }
 

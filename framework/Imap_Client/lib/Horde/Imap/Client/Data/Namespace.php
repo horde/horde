@@ -46,6 +46,23 @@ class Horde_Imap_Client_Data_Namespace implements ArrayAccess, Serializable
     protected $_data = array();
 
     /**
+     * Strips namespace information from the given mailbox name.
+     *
+     * @param string $mbox  Mailbox name.
+     *
+     * @return string  Mailbox name with namespace prefix stripped.
+     */
+    public function stripNamespace($mbox)
+    {
+        $mbox = strval($mbox);
+        $name = $this->name;
+
+        return (strlen($name) && (strpos($mbox, $name) === 0))
+            ? substr($mbox, strlen($name))
+            : $mbox;
+    }
+
+    /**
      */
     public function __get($name)
     {
