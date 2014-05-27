@@ -477,7 +477,7 @@ class IMP_Imap implements Serializable
                     array('ob_return' => true)
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
-                return array();
+                return new Horde_Imap_Client_Namespace_List();
             }
         }
 
