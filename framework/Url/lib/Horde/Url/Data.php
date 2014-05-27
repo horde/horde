@@ -92,11 +92,13 @@ class Horde_Url_Data
      */
     public function __construct($data = null)
     {
-        if (!is_null($data) && self::isData($data)) {
-            $fp = fopen(strval($data), 'r');
+        if (!is_null($data) &&
+            self::isData($data) &&
+            ($fp = @fopen(strval($data), 'r'))) {
             $this->data = stream_get_contents($fp);
             $meta = stream_get_meta_data($fp);
             $this->type = $meta['mediatype'];
+            fclose($fp);
         }
     }
 
