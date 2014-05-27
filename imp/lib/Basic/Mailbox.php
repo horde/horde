@@ -321,17 +321,15 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         if ($mailbox->inbox) {
             $rss_box = '';
         } else {
-            $rss_box = $mailbox;
-            $ns_info = $imp_imap->getNamespace($mailbox);
-            if ($ns_info !== null) {
-                if (!empty($ns_info['name']) &&
-                    ($ns_info['type'] == Horde_Imap_Client::NS_PERSONAL) &&
-                    substr($mailbox, 0, strlen($ns_info['name'])) == $ns_info['name']) {
-                    $rss_box = substr($mailbox, strlen($ns_info['name']));
-                }
-                $rss_box = str_replace(rawurlencode($ns_info['delimiter']), '/', rawurlencode($ns_info['delimiter'] . $rss_box));
-            } else {
+            $ns_info = $mailbox->namespace_info;
+            if (is_null($ns_info)) {
                 $rss_box = null;
+            } else {
+                $rss_box = str_replace(
+                    rawurlencode($ns_info->delimiter),
+                    '/',
+                    rawurlencode($ns_info->delimiter . (($ns_info->type == $ns_info::NS_PERSONAL) ? $ns_info->stripNamespace($mailbox) : $mailbox))
+                );
             }
         }
 

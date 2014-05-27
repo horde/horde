@@ -171,15 +171,15 @@ class IMP_Basic_Folders extends IMP_Basic_Base
                 for ($i = 0; $i < $iMax; ++$i) {
                     $old_name = IMP_Mailbox::formFrom($old_names[$i]);
                     $old_ns = $old_name->namespace_info;
-                    $new = trim($new_names[$i], $old_ns['delimiter']);
+                    $new = trim($new_names[$i], $old_ns->delimiter);
 
                     /* If this is a personal namespace, then anything goes as
                      * far as the input. Just append the personal namespace to
                      * it. */
-                    if (($old_ns['type'] == Horde_Imap_Client::NS_PERSONAL) ||
-                        ($old_ns['name'] &&
-                         (stripos($new_names[$i], $old_ns['name']) !== 0))) {
-                        $new = $old_ns['name'] . $new;
+                    if (($old_ns->type === $old_ns::NS_PERSONAL) ||
+                        (strlen($old_ns->name) &&
+                         (stripos($new_names[$i], $old_ns->name) !== 0))) {
+                        $new = $old_ns->name . $new;
                     }
 
                     $old_name->rename($new);

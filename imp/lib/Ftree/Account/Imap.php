@@ -112,23 +112,23 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
              * step through the name to make sure all subfolders exist
              * in the tree. */
             if (strlen($val['delimiter'])) {
-                /* Strip personal namespace. */
-                if (!empty($ns_info['name']) &&
-                    (strpos($mbox, $ns_info['name']) === 0)) {
-                    $parts = explode($val['delimiter'], substr($mbox, strlen($ns_info['name'])));
-                    $parts[0] = $ns_info['name'] . $parts[0];
+                /* Strip personal namespace (if non-empty). */
+                if (($ns_info->type === $ns_info::NS_PERSONAL) &&
+                    strlen($ns_info->name)) {
+                    $parts = explode($val['delimiter'], $ns_info->stripNamespace($mbox));
+                    $parts[0] = $ns_info->name . $parts[0];
                 } else {
                     $parts = explode($val['delimiter'], $mbox);
                 }
 
-                switch ($ns_info['type']) {
-                case Horde_Imap_Client::NS_OTHER:
+                switch ($ns_info->type) {
+                case $ns_info::NS_OTHER:
                     if ($prefs->getValue('tree_view')) {
                         $parent = self::OTHER_KEY;
                     }
                     break;
 
-                case Horde_Imap_Client::NS_SHARED:
+                case $ns_info::NS_SHARED:
                     if ($prefs->getValue('tree_view')) {
                         $parent = self::SHARED_KEY;
                     }
