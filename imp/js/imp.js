@@ -8,6 +8,7 @@
 
 var IMP_JS = {
 
+    html_clickhandler: null,
     html_keydownhandler: null,
 
     /**
@@ -106,6 +107,14 @@ var IMP_JS = {
         d.open();
         d.write(data);
         d.close();
+
+        if (this.html_clickhandler) {
+            if (d.addEventListener) {
+                d.addEventListener('click', this.html_clickhandler, false);
+            } else {
+                d.attachEvent('click', this.html_clickhandler);
+            }
+        }
 
         if (this.html_keydownhandler) {
             if (d.addEventListener) {

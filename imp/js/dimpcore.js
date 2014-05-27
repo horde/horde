@@ -395,6 +395,11 @@ var DimpCore = {
 
     onDomLoad: function()
     {
+        IMP_JS.html_clickhandler = function() {
+            if (this.DMenu) {
+                this.DMenu.close();
+            }
+        }.bind(this);
         HordeCore.initHandler('click');
 
         if (typeof ContextSensitive != 'undefined') {
