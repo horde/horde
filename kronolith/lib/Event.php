@@ -1059,8 +1059,10 @@ abstract class Kronolith_Event
      *
      * @param Horde_Icalendar_Vevent $vEvent  The iCalendar data to update
      *                                        from.
+     * @param boolean $parseAttendees         Parse attendees too?
+     *                                        @since Kronolith 4.2
      */
-    public function fromiCalendar($vEvent)
+    public function fromiCalendar($vEvent, $parseAttendees = false)
     {
         // Unique ID.
         try {
@@ -1314,15 +1316,27 @@ abstract class Kronolith_Event
         // Importing attendance may result in confusion: editing an imported
         // copy of an event can cause invitation updates to be sent from
         // people other than the original organizer. So we don't import by
-        // default. However to allow updates by SyncML replication, the custom
-        // X-ATTENDEE attribute is used which has the same syntax as
-        // ATTENDEE.
-        try {
-            $attendee = $vEvent->getAttribute('X-ATTENDEE');
+        // default. However to allow updates by synchronization, this behavior
+        // can be overriden.
+        // X-ATTENDEE is there for historical reasons. @todo remove in
+        // Kronolith 5.
+        $attendee = null;
+        if ($parseAttendees) {
+            try {
+                $attendee = $vEvent->getAttribute('ATTENDEE');
+                $params = $vEvent->getAttribute('ATTENDEE', true);
+            } catch (Horde_Icalendar_Exception $e) {
+                try {
+                    $attendee = $vEvent->getAttribute('X-ATTENDEE');
+                    $params = $vEvent->getAttribute('X-ATTENDEE', true);
+                } catch (Horde_Icalendar_Exception $e) {
+                }
+            }
+        }
+        if ($attendee) {
             if (!is_array($attendee)) {
                 $attendee = array($attendee);
             }
-            $params = $vEvent->getAttribute('X-ATTENDEE', true);
             if (!is_array($params)) {
                 $params = array($params);
             }
@@ -1382,7 +1396,7 @@ abstract class Kronolith_Event
 
                 $this->addAttendee($email, $attendance, $response, $name);
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        }
 
         $this->_handlevEventRecurrence($vEvent);
 

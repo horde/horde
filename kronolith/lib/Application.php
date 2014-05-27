@@ -820,7 +820,7 @@ class Kronolith_Application extends Horde_Registry_Application
             }
 
             $event = $kronolith_driver->getEvent();
-            $event->fromiCalendar($content);
+            $event->fromiCalendar($content, true);
 
             try {
                 try {
@@ -857,6 +857,15 @@ class Kronolith_Application extends Horde_Registry_Application
             if (!$existing_event) {
                 $dav->addObjectMap($id, $object, $internal);
             }
+
+            // Send iTip messages.
+            // Notifications will get lost, there is no way to return messages
+            // to clients.
+            Kronolith::sendITipNotifications(
+                $event,
+                new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
+                Kronolith::ITIP_REQUEST
+            );
         }
     }
 
@@ -876,11 +885,23 @@ class Kronolith_Application extends Horde_Registry_Application
                 ?: preg_replace('/\.ics$/', '', $object);
         } catch (Horde_Dav_Exception $e) {
         }
-        Kronolith::getDriver(null, $internal)->deleteEvent($object);
+
+        $kronolith_driver = Kronolith::getDriver(null, $internal);
+        $event = $kronolith_driver->getEvent($object);
+        $kronolith_driver->deleteEvent($object);
 
         try {
             $dav->deleteExternalObjectId($object, $internal);
         } catch (Horde_Dav_Exception $e) {
         }
+
+        // Send iTip messages.
+        // Notifications will get lost, there is no way to return messages to
+        // clients.
+        Kronolith::sendITipNotifications(
+            $event,
+            new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
+            Kronolith::ITIP_CANCEL
+        );
     }
 }
