@@ -85,10 +85,23 @@ extends PHPUnit_Framework_TestCase
 
     /**
      */
+    public function testBaseReturn()
+    {
+        $this->ob->delimiter = '.';
+        $this->ob->name = 'foo.';
+
+        $this->assertEquals(
+            'foo',
+            $this->ob->base
+        );
+    }
+
+    /**
+     */
     public function testSerialize()
     {
         $this->ob->delimiter = '.';
-        $this->ob->name = 'foo';
+        $this->ob->name = 'foo.';
 
         $ob2 = unserialize(serialize($this->ob));
 
@@ -112,6 +125,7 @@ extends PHPUnit_Framework_TestCase
     public function defaultProvider()
     {
         return array(
+            array('base', ''),
             array('delimiter', ''),
             array('hidden', false),
             array('name', ''),

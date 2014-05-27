@@ -21,6 +21,8 @@
  * @package   Imap_Client
  * @since     2.21.0
  *
+ * @property-read string $base  The namespace base ($name without trailing
+ *                              delimiter) (UTF-8).
  * @property string $delimiter  The namespace delimiter.
  * @property boolean $hidden  Is this a hidden namespace?
  * @property string $name  The namespace name (UTF-8).
@@ -52,6 +54,9 @@ class Horde_Imap_Client_Data_Namespace implements ArrayAccess, Serializable
         }
 
         switch ($name) {
+        case 'base':
+            return rtrim($this->name, $this->delimiter);
+
         case 'delimiter':
         case 'name':
         case 'translation':
