@@ -626,20 +626,17 @@ class Kronolith_Application extends Horde_Registry_Application
                 exit;
 
             case Horde_Data::EXPORT_ICALENDAR:
-                $calNames = $calIds = array();
+                $calNames = array();
                 $iCal = new Horde_Icalendar();
 
                 foreach ($events as $calevents) {
                     foreach ($calevents as $dayevents) {
                         foreach ($dayevents as $event) {
-                            $calIds[$event->calendar] = true;
                             $calNames[Kronolith::getCalendar($event->getDriver())->name()] = true;
                             $iCal->addComponent($event->toiCalendar($iCal));
                         }
                     }
                 }
-
-                $kshares = $injector->getInstance('Kronolith_Shares');
 
                 $iCal->setAttribute('X-WR-CALNAME', implode(', ', array_keys($calNames)));
 
