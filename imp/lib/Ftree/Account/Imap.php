@@ -111,14 +111,14 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             /* Break apart the name via the delimiter and go step by
              * step through the name to make sure all subfolders exist
              * in the tree. */
-            if (strlen($val['delimiter'])) {
+            if ($ns_info && strlen($ns_info->delimiter)) {
                 /* Strip personal namespace (if non-empty). */
                 if (($ns_info->type === $ns_info::NS_PERSONAL) &&
                     strlen($ns_info->name)) {
-                    $parts = explode($val['delimiter'], $ns_info->stripNamespace($mbox));
+                    $parts = explode($ns_info->delimiter, $ns_info->stripNamespace($mbox));
                     $parts[0] = $ns_info->name . $parts[0];
                 } else {
-                    $parts = explode($val['delimiter'], $mbox);
+                    $parts = explode($ns_info->delimiter, $mbox);
                 }
 
                 switch ($ns_info->type) {
