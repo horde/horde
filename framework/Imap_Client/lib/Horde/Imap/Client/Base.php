@@ -655,9 +655,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                Horde_Imap_Client_Namespace_List object instead of an
      *                array.
      *
-     * @return mixed  An array of namespace objects (@deprecated), or an
-     *                Horde_Imap_Client_Namespace_List object if 'ob_return'
-     *                is true.
+     * @return mixed  A Horde_Imap_Client_Namespace_List object if
+     *                'ob_return', is true. Otherwise, an array of namespace
+     *                objects (@deprecated) with the name as the key (UTF-8)
+     *                and the following values:
+     * <pre>
+     *  - delimiter: (string) The namespace delimiter.
+     *  - hidden: (boolean) Is this a hidden namespace?
+     *  - name: (string) The namespace name (UTF-8).
+     *  - translation: (string) Returns the translated name of the namespace
+     *                 (UTF-8). Requires RFC 5255 and a previous call to
+     *                 setLanguage().
+     *  - type: (integer) The namespace type. Either:
+     *    - Horde_Imap_Client::NS_PERSONAL
+     *    - Horde_Imap_Client::NS_OTHER
+     *    - Horde_Imap_Client::NS_SHARED
+     * </pre>
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -672,46 +685,59 @@ abstract class Horde_Imap_Client_Base implements Serializable
         );
 
         if (isset($this->_init['namespace'][$sig])) {
-            return empty($opts['ob_return'])
-                ? iterator_to_array($this->_init['namespace'][$sig])
-                : $this->_init['namespace'][$sig];
-        }
+            $ns = $this->_init['namespace'][$sig];
+        } else {
+            $this->login();
 
-        $this->login();
+            $ns = $this->_getNamespaces();
 
-        $ns = $this->_getNamespaces();
-
-        /* Skip namespaces if we have already auto-detected them. Also, hidden
-         * namespaces cannot be empty. */
-        $to_process = array_diff(array_filter($additional, 'strlen'), array_map('strlen', iterator_to_array($ns)));
-        if (!empty($to_process)) {
-            foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
-                $ob = new Horde_Imap_Client_Data_Namespace();
-                $ob->delimiter = $val['delimiter'];
-                $ob->hidden = true;
-                $ob->name = $val;
-                $ob->type = $ob::NS_SHARED;
-                $ns[$val] = $ob;
+            /* Skip namespaces if we have already auto-detected them. Also,
+             * hidden namespaces cannot be empty. */
+            $to_process = array_diff(array_filter($additional, 'strlen'), array_map('strlen', iterator_to_array($ns)));
+            if (!empty($to_process)) {
+                foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
+                    $ob = new Horde_Imap_Client_Data_Namespace();
+                    $ob->delimiter = $val['delimiter'];
+                    $ob->hidden = true;
+                    $ob->name = $val;
+                    $ob->type = $ob::NS_SHARED;
+                    $ns[$val] = $ob;
+                }
             }
+
+            if (!count($ns)) {
+                /* This accurately determines the namespace information of the
+                 * base namespace if the NAMESPACE command is not supported.
+                 * See: RFC 3501 [6.3.8] */
+                $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
+                $first = reset($mbox);
+
+                $ob = new Horde_Imap_Client_Data_Namespace();
+                $ob->delimiter = $first['delimiter'];
+                $ns[''] = $ob;
+            }
+
+            $this->_init['namespace'][$sig] = $ns;
+            $this->_setInit('namespace', $this->_init['namespace']);
         }
 
-        if (!count($ns)) {
-            /* This accurately determines the namespace information of the
-             * base namespace if the NAMESPACE command is not supported.
-             * See: RFC 3501 [6.3.8] */
-            $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
-            $first = reset($mbox);
-
-            $ob = new Horde_Imap_Client_Data_Namespace();
-            $ob->delimiter = $first['delimiter'];
-            $ns[''] = $ob;
+        if (!empty($opts['ob_return'])) {
+            return $ns;
         }
 
-        $this->_setInit('namespace', array_merge($this->_init['namespace'], array($sig => $ns)));
+        /* @todo Remove for 3.0 */
+        $out = array();
+        foreach ($ns as $key => $val) {
+            $out[$key] = array(
+                'delimiter' => $val->delimiter,
+                'hidden' => $val->hidden,
+                'name' => $val->name,
+                'translation' => $val->translation,
+                'type' => $val->type
+            );
+        }
 
-        return empty($opts['ob_return'])
-            ? iterator_to_array($ns)
-            : $ns;
+        return $out;
     }
 
     /**
