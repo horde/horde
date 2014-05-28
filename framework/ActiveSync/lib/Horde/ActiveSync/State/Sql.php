@@ -1143,10 +1143,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * PIM-initiated change for the provided uid. Used to avoid mirroring back
      * changes to the PIM that it sent to the server.
      *
-     * @param array $changes  The changes array, containing 'id' and 'type'.
+     * @param array $changes  The changes array, each entry a hash containing
+     *                        'id' and 'type' keys.
      *
      * @return array  An array of UID -> timestamp of the last PIM-initiated
-     *                change for the specified uid, or null if none found.
+     *                change for the specified uids, or null if none found.
      */
     protected function _getPIMChangeTS(array $changes)
     {
