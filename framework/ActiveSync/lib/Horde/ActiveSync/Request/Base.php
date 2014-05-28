@@ -245,7 +245,10 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_device->version,
             Horde_ActiveSync::LIBRARY_VERSION)
         );
-
+        $this->_logger->info(sprintf(
+            '[%s] GET VARIABLES: %s',
+            $this->_procid,
+            print_r($this->_activeSync->getGetVars(), true)));
         try {
             return $this->_handle();
         } catch (Exception $e) {
