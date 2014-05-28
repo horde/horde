@@ -1823,7 +1823,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $rfc822, $forward = false, $reply = false, $parent = false, $save = true,
         Horde_ActiveSync_Message_SendMail $message = null)
     {
-        $mailer = new Horde_Core_ActiveSync_Mail();
+        $mailer = new Horde_Core_ActiveSync_Mail($this->_imap, $this->_user, $this->_version);
         $raw_message = !empty($message)
             ? new Horde_ActiveSync_Rfc822($message->mime)
             : new Horde_ActiveSync_Rfc822($rfc822);
