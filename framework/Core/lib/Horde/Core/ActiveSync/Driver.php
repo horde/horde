@@ -1823,6 +1823,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $rfc822, $forward = false, $reply = false, $parent = false, $save = true,
         Horde_ActiveSync_Message_SendMail $message = null)
     {
+        ob_start();
         $mailer = new Horde_Core_ActiveSync_Mail($this->_imap, $this->_user, $this->_version);
         $raw_message = !empty($message)
             ? new Horde_ActiveSync_Rfc822($message->mime)
@@ -1836,18 +1837,30 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // [Smart]Reply/[Smart]Forward?
-        if ($forward === true) {
-            $mailer->setForward($message->source->folderid, $message->source->itemid);
-        } elseif (!empty($forward)) {
-            $mailer->setForward($parent, $forward);
-        }
-        if ($reply === true) {
-            $mailer->setReply($message->source->folderid, $message->source->itemid);
-        } elseif (!empty($reply)) {
-            $mailer->setReply($parent, $reply);
+        try {
+            if ($forward === true) {
+                $mailer->setForward($message->source->folderid, $message->source->itemid);
+            } elseif (!empty($forward)) {
+                $mailer->setForward($parent, $forward);
+            }
+            if ($reply === true) {
+                $mailer->setReply($message->source->folderid, $message->source->itemid);
+            } elseif (!empty($reply)) {
+                $mailer->setReply($parent, $reply);
+            }
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_endBuffer();
+            throw $e;
         }
 
-        $mailer->send();
+        try {
+            $mailer->send();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_endBuffer();
+            throw $e;
+        }
 
         if ($save) {
             $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
@@ -1896,7 +1909,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         } catch (Horde_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
-
+        $this->_endBuffer();
         return true;
     }
 
