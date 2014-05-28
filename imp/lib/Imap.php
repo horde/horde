@@ -463,28 +463,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Get the namespace list.
-     *
-     * @return Horde_Imap_Client_Namespace_List  Namespace list.
-     */
-    public function getNamespaces()
-    {
-        if (!isset($this->_temp['ns'])) {
-            try {
-                $nsconfig = $this->config->namespace;
-                $this->_temp['ns'] = $this->__call('getNamespaces', array(
-                    is_null($nsconfig) ? array() : $nsconfig,
-                    array('ob_return' => true)
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                return new Horde_Imap_Client_Namespace_List();
-            }
-        }
-
-        return $this->_temp['ns'];
-    }
-
-    /**
      * Get namespace info for a full mailbox path.
      *
      * @param string $mailbox    The mailbox path. (self:NS_DEFAULT will
@@ -708,6 +686,15 @@ class IMP_Imap implements Serializable
             $params[1] = $dest->imap_mbox_ob;
             break;
 
+        case 'getNamespaces':
+            if (isset($this->_temp['ns'])) {
+                return $this->_temp['ns'];
+            }
+            $nsconfig = $this->config->namespace;
+            $params[0] = is_null($nsconfig) ? array() : $nsconfig;
+            $params[1] = array('ob_return' => true);
+            break;
+
         case 'openMailbox':
             $mbox = IMP_Mailbox::get($params[0]);
             if ($mbox->search) {
@@ -725,6 +712,11 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
+            switch ($method) {
+            case 'getNamespaces':
+                return new Horde_Imap_Client_Namespace_List();
+            }
+
             Horde::log(
                 new Exception(
                     sprintf('[%s] %s', $method, $e->raw_msg),
@@ -749,6 +741,10 @@ class IMP_Imap implements Serializable
                 // Mailbox is first parameter.
                 IMP_Mailbox::get($params[0])
             );
+            break;
+
+        case 'getNamespaces':
+            $this->_temp['ns'] = $result;
             break;
 
         case 'login':
