@@ -233,6 +233,7 @@ class Horde_Core_ActiveSync_Mail
     /**
      * Send the raw message received from the client. E.g., NOT a SMART request.
      *
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _sendRaw()
     {
@@ -246,18 +247,28 @@ class Horde_Core_ActiveSync_Mail
             unset($h_array['Bcc']);
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $this->_raw->getMessage()->stream);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Mail')
+                ->send($recipients, $h_array, $this->_raw->getMessage()->stream);
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e->getMessage());
+        }
 
         // Replace MIME? Don't have original body, but still need headers.
         // @TODO: Get JUST the headers?
         if ($this->_replaceMime) {
-            $this->_getImapMessage();
+            try {
+                $this->_getImapMessage();
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Horde_ActiveSync_Exception($e->getMessage());
+            }
         }
     }
 
     /**
      * Sends a SMART request.
      *
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _sendSmart()
     {
@@ -267,10 +278,15 @@ class Horde_Core_ActiveSync_Mail
         $base_part = $this->imapMessage->getStructure();
         $plain_id = $base_part->findBody('plain');
         $html_id = $base_part->findBody('html');
-        $body_data = $this->imapMessage->getMessageBodyData(array(
-            'protocolversion' => $this->_version,
-            'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_MIME => true))
-        );
+
+        try {
+            $body_data = $this->imapMessage->getMessageBodyData(array(
+                'protocolversion' => $this->_version,
+                'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_MIME => true))
+            );
+        } catch (Horde_Exception_NotFound $e) {
+            throw new Horde_ActiveSync_Exception($e->getMessage());
+        }
         if (!empty($html_id)) {
             $mail->setHtmlBody($this->_getHtmlPart($html_id, $mime_message, $body_data, $base_part));
         }
@@ -295,7 +311,7 @@ class Horde_Core_ActiveSync_Mail
         try {
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             $this->_mailer = $mail;
-        } catch (Horde_Mail_Exception $e) {
+        } catch (Horde_Mime_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -372,6 +388,8 @@ class Horde_Core_ActiveSync_Mail
 
     /**
      * Fetch the source message for a SMART request from the IMAP server.
+     *
+     * @throws Horde_Exception_NotFound
      */
     protected function _getImapMessage()
     {
