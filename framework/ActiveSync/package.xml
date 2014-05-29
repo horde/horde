@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-26</date>
+ <date>2014-05-29</date>
  <version>
   <release>2.16.3</release>
   <api>2.16.0</api>
@@ -218,6 +218,7 @@
       <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
       <file name="19_horde_activesync_addtimestamp.php" role="data" />
       <file name="20_horde_activesync_removesynccounters.php" role="data" />
+      <file name="21_horde_activesync_addmailmapchangeflag.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -512,6 +513,7 @@
    <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
    <install as="migration/19_horde_activesync_addtimestamp.php" name="migration/Horde/ActiveSync/19_horde_activesync_addtimestamp.php" />
    <install as="migration/20_horde_activesync_removesynccounters.php" name="migration/Horde/ActiveSync/20_horde_activesync_removesynccounters.php" />
+   <install as="migration/21_horde_activesync_addmailmapchangeflag.php" name="migration/Horde/ActiveSync/21_horde_activesync_addmailmapchangeflag.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/AutodiscoverTest.php" name="test/Horde/ActiveSync/AutodiscoverTest.php" />
@@ -2177,7 +2179,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-25</date>
+   <date>2014-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
