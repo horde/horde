@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Truly fix duplicate email in Outlook 2013 when moving/deleting messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2182,7 +2182,7 @@
    <date>2014-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Truly fix duplicate email in Outlook 2013 when moving/deleting messages.
    </notes>
   </release>
  </changelog>
