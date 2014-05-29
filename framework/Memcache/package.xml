@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Ramp up to the maximum unlock wait interval (Request #13231).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -362,7 +362,7 @@
    <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Ramp up to the maximum unlock wait interval (Request #13231).
    </notes>
   </release>
  </changelog>

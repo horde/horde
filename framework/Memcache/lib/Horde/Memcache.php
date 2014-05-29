@@ -383,9 +383,10 @@ class Horde_Memcache implements Serializable
      */
     public function lock($key)
     {
+        $i = 0;
+
         while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, self::LOCK_TIMEOUT) === false) {
-            /* Wait 0.1 secs before attempting again. */
-            usleep(100000);
+            usleep(min(pow(2, $i++) * 10000, 100000));
         }
 
         $this->_locks[$key] = true;
