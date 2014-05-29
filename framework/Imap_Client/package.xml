@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix working with mailboxes containing entirely integers (Bug #13157).
 * [mms] Horde_Imap_Client_Base#getNamespaces() can now return a Horde_Imap_Client_Namespace_List object instead of an array.
 * [mms] Use the new command length limitations defined in RFC 7162.
 * [mms] A noop() call before authentication will now correctly throw an exception on a connection issue (Bug #13205).
@@ -2439,6 +2440,7 @@
    <date>2014-05-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix working with mailboxes containing entirely integers (Bug #13157).
 * [mms] Horde_Imap_Client_Base#getNamespaces() can now return a Horde_Imap_Client_Namespace_List object instead of an array.
 * [mms] Use the new command length limitations defined in RFC 7162.
 * [mms] A noop() call before authentication will now correctly throw an exception on a connection issue (Bug #13205).

@@ -1244,7 +1244,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'ext' => false,
             'options' => $options,
             'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
-            'subscribed' => ($check ? array_merge(array_flip(array_map('strval', $subscribed)), array('INBOX' => 1)) : null)
+            'subscribed' => ($check ? (array_fill_keys(array_map('strval', $subscribed), true) + array('INBOX' => true)) : null)
         );
         $pipeline->data['listresponse'] = array();
 
