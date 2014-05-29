@@ -285,6 +285,23 @@ class Horde_ActiveSync_Connector_Importer
             ? array_diff($uids, array_keys($results))
             : array();
 
+        // Update client state. For MOVES, we treat it as a delete from the
+        // SRC folder.
+        $mod = $this->_as->driver->getSyncStamp($this->_folderId);
+        foreach ($uids as $uid) {
+            $change = array();
+            $change['id'] = $uid;
+            $change['mod'] = $mod;
+            $change['serverid'] = $this->_folderId;
+            $change['class'] = Horde_ActiveSync::CLASS_EMAIL;
+            $change['folderuid'] = $this->_folderUid;
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_DELETE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+                $this->_as->driver->getUser());
+        }
+
         return array('results' => $results, 'missing' => $missing);
     }
 
