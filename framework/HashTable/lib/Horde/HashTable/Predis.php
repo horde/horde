@@ -175,10 +175,10 @@ implements Horde_HashTable_Lock
     public function lock($key)
     {
         $hkey = $this->hkey($key) . self::LOCK_SUFFIX;
+        $i = 0;
 
         while (!$this->_predis->setnx($hkey, 1)) {
-            /* Wait 0.1 secs before attempting again. */
-            usleep(100000);
+            usleep(min(pow(2, $i++) * 10000, 100000));
         }
 
         $this->_predis->expire($hkey, self::LOCK_TIMEOUT);

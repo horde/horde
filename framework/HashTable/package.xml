@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] In the Predis driver, ramp up to the maximum unlock wait interval (Request #13231).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -237,7 +237,7 @@
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] In the Predis driver, ramp up to the maximum unlock wait interval (Request #13231).
    </notes>
   </release>
  </changelog>
