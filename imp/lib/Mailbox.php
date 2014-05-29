@@ -490,7 +490,7 @@ class IMP_Mailbox
             $ns_info = $this->namespace_info;
             return is_null($ns_info)
                 ? ''
-                : $ns_info['delimiter'];
+                : $ns_info->delimiter;
 
         case 'namespace_info':
             return $this->imp_imap->getNamespace(strlen($this) ? $this->_mbox : IMP_Imap::NS_DEFAULT);
