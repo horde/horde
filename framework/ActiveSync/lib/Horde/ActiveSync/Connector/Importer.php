@@ -285,18 +285,23 @@ class Horde_ActiveSync_Connector_Importer
             ? array_diff($uids, array_keys($results))
             : array();
 
-        // Update client state. For MOVES, we treat it as a delete from the
-        // SRC folder.
+        // Update client state. For MOVEITEMS, we are supposed to send
+        // a DELETE and ADD command to the appropriate folders on the next
+        // sync, but some broken clients don't like this. Save the import
+        // in the map table in case we need it later.
         $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         foreach ($uids as $uid) {
+            if (empty($results[$uid])) {
+                continue;
+            }
             $change = array();
-            $change['id'] = $uid;
+            $change['id'] = $results[$uid];
             $change['mod'] = $mod;
-            $change['serverid'] = $this->_folderId;
+            $change['serverid'] = $dst;
             $change['class'] = Horde_ActiveSync::CLASS_EMAIL;
             $change['folderuid'] = $this->_folderUid;
             $this->_state->updateState(
-                Horde_ActiveSync::CHANGE_TYPE_DELETE,
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $change,
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
                 $this->_as->driver->getUser());
