@@ -1415,6 +1415,11 @@
  <configtab name="session" desc="Session Handler">
   <configsection name="sessionhandler">
    <configheader>Session Handler Settings</configheader>
+   <configdescription>
+    &lt;strong&gt;Unless you are running Horde on a PHP cluster, there is NO
+    reason to use any session handler backend other than Builtin (i.e. session
+    data stored on local filesystem).&lt;/strong&gt;
+   </configdescription>
    <configswitch name="type" desc="What sessionhandler driver should we
    use?">Builtin
     <case name="Builtin" desc="Use the default PHP session handler (file-based
