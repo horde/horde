@@ -681,7 +681,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $additional = array_map('strval', $additional);
         $sig = hash(
             (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            json_encode($additional)
+            json_encode($additional) . intval(empty($opts['ob_return']))
         );
 
         if (isset($this->_init['namespace'][$sig])) {
