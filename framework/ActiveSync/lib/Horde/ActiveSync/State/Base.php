@@ -456,10 +456,27 @@ abstract class Horde_ActiveSync_State_Base
                     $mailmap = $this->_getMailMapChanges($changes);
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
-                        Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion'
+                        Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
+                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
                     );
+                    Horde::debug($mailmap);
                     foreach ($changes as $change) {
                         if (!empty($mailmap[$change['id']][$change['type']])) {
+                            // @todo For 3.0, create a Changes and
+                            // ChangeFilter classes to abstract out a bunch of
+                            // this stuff. (Needs BC breaking changes in
+                            // storage/state classes).
+                            //
+                            // OL2013 is broken and duplicates the destination
+                            // email during MOVEITEMS requests (instead it
+                            // reassigns the existing email the new UID). Don't
+                            // send the ADD command for these changes.
+                            if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                                $change['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
+                                $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
+                                $this->_changes[] = $change;
+                                continue;
+                            }
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated %s for %s',
                                 $this->_procid,
