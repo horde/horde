@@ -26,6 +26,8 @@
  *
  * @property-read array $add  List of added elements.
  * @property-read array $change  List of changed elements.
+ * @property-read integer $changed_elts  The number of changed elements
+ *                                       tracked.
  * @property-read array $delete  List of deleted elements.
  * @property boolean $track  Is tracking active?
  */
@@ -68,6 +70,12 @@ class IMP_Ftree_Eltdiff implements Serializable
         case 'delete':
             if ($this->track) {
                 $elt = strval(reset($args));
+
+                /* Don't track base element. */
+                if (!strlen($elt)) {
+                    return;
+                }
+
                 $value = isset($this->_changes[$elt])
                     ? $this->_changes[$elt]
                     : null;
@@ -139,6 +147,9 @@ class IMP_Ftree_Eltdiff implements Serializable
                 }
             }
             return $out;
+
+        case 'changed_elts':
+            return count($this->_changes);
 
         case 'track':
             return $this->_track;

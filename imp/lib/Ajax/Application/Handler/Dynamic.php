@@ -417,6 +417,14 @@ extends Horde_Core_Ajax_Application_Handler
 
         if ($this->vars->initial) {
             $session->start();
+
+            /* We need at least 1 changed mailbox. If not, something went
+             * wrong and we should reinitialize the folder list. */
+            if (!$ftree->eltdiff->changed_elts) {
+                $this->vars->reload = true;
+                $this->listMailboxes();
+                $this->vars->reload = false;
+            }
         }
 
         return true;
