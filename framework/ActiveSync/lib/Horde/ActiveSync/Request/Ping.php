@@ -253,7 +253,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_logger->warn(sprintf(
                             '[%s] Version is >= 14.0 returning status code 132 since we have no PINGABLE collections.',
                             $this->_procid));
-                        $this->_statusCode = Horde_ActiveSync_Status::STATEFILE_NOT_FOUND;
+                        $this->_statusCode = self::STATUS_NEEDSYNC;
                         $this->_handleGlobalError();
                         return true;
                     }
