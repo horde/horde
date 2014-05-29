@@ -422,7 +422,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     !empty($change['flags'])) {
                     $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                 }
-                if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                switch ($type) {
+                case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if (isset($change['flags']['read'])) {
                         // This is a mail sync changing only a read flag.
                         $sql = 'INSERT INTO ' . $this->_syncMailMapTable
@@ -437,19 +438,26 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             . ' VALUES (?, ?, ?, ?, ?, ?)';
                         $flag_value = !empty($change['flags']['flagged']);
                     }
-                } else {
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                         . ' (message_uid, sync_key, sync_devid,'
                         . ' sync_folderid, sync_user, sync_deleted)'
                         . ' VALUES (?, ?, ?, ?, ?, ?)';
+                    $flag_value = true;
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                    // Used to remember "new" messages that are a result of
+                    // a MOVEITEMS request.
+                    $sql = 'INSERT INTO ' . $this->_syncMailMapTable
+                        . ' (message_uid, sync_key, sync_devid,'
+                        . ' sync_folderid, sync_user, sync_changed)'
+                        . ' VALUES (?, ?, ?, ?, ?, ?)';
+                    $flag_value = true;
+                    break;
                 }
-                $params = array(
-                    $change['id'],
-                    $syncKey,
-                    $this->_deviceInfo->id,
-                    $change['serverid'],
-                    $user,
-                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
+                $params = array($change['id'], $syncKey, $this->_deviceInfo->id,
+                    $change['serverid'], $user, $flag_value
                 );
                 break;
 
@@ -1222,8 +1230,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _getMailMapChanges(array $changes)
     {
-        $sql = 'SELECT message_uid, sync_read, sync_flagged, sync_deleted FROM '
-            . $this->_syncMailMapTable
+        $sql = 'SELECT message_uid, sync_read, sync_flagged, sync_deleted,'
+            . 'sync_changed FROM ' . $this->_syncMailMapTable
             . ' WHERE sync_folderid = ? AND sync_devid = ?'
             . ' AND sync_user = ? AND message_uid IN '
             . '(' . implode(',', array_fill(0, count($changes), '?')) . ')';
@@ -1248,15 +1256,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         foreach ($rows as $row) {
             foreach ($changes as $change) {
                 if ($change['id'] == $row['message_uid']) {
-                    if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                    switch ($change['type']) {
+                    case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                         $results[$row['message_uid']][$change['type']] =
                             (!is_null($row['sync_read']) && $row['sync_read'] == $change['flags']['read']) ||
                             (!is_null($row['sync_flagged'] && $row['sync_flagged'] == $change['flags']['flagged']));
-                        continue 2;
-                    } elseif ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        continue 3;
+                    case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                         $results[$row['message_uid']][$change['type']] =
                             !is_null($row['sync_deleted']) && $row['sync_deleted'] == true;
-                        continue 2;
+                        continue 3;
+                    case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                        $results[$row['message_uid']][$change['type']] =
+                            !is_null($row['sync_changed']) && $row['sync_changed'] == true;
+                        continue 3;
                     }
                 }
             }
