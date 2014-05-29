@@ -734,6 +734,7 @@ class Ansel
      */
     static public function downloadImagesAsZip($gallery = null, $images = array())
     {
+        global $session;
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
             $GLOBALS['notification']->push(
@@ -765,7 +766,7 @@ class Ansel
 
         // Try to close off the current session to avoid locking it while the
         // gallery is downloading.
-        @session_write_close();
+        $session->close();
 
         if (!is_null($gallery)) {
             // Check full photo permissions

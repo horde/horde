@@ -103,6 +103,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
      */
     public function listEvents()
     {
+        global $session;
+
         $start = new Horde_Date($this->vars->start);
         $end   = new Horde_Date($this->vars->end);
         $result = $this->_signedResponse($this->vars->cal);
@@ -110,12 +112,12 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             return $result;
         }
         try {
-            session_write_close();
+            $session->close();
             $events = $kronolith_driver->listEvents($start, $end, array(
                 'show_recurrence' => true,
                 'json' => true)
             );
-            session_start();
+            $session->start();
             if (count($events)) {
                 $result->events = $events;
             }
