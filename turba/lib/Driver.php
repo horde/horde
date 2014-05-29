@@ -1120,6 +1120,7 @@ class Turba_Driver implements Countable
         global $injector;
 
         $hash = $object->getAttributes();
+        $attributes = array_keys($this->map);
         $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
         $charset = ($version == '2.1')
@@ -1129,7 +1130,8 @@ class Turba_Driver implements Countable
         $hooks = $injector->getInstance('Horde_Core_Hooks');
         $decode_hook = $hooks->hookExists('decode_attribute', 'turba');
 
-        foreach ($hash as $key => $val) {
+        foreach ($attributes as $key) {
+            $val = $object->getValue($key);
             if ($skipEmpty && !strlen($val)) {
                 continue;
             }

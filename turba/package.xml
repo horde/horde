@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Export composite attributes to vCard too.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1838,7 +1838,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Export composite attributes to vCard too.
    </notes>
   </release>
  </changelog>
