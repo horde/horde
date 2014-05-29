@@ -340,7 +340,8 @@ $loginurl = Horde::url('login.php', false, array(
     'force_ssl' => true
 ));
 
-$page_output->topbar = $page_output->sidebar = false;
+$page_output->sidebar = false;
+$page_output->topbar = (bool)$is_auth;
 $page_output->addInlineJsVars($js_code);
 
 if ($browser->isMobile() &&
@@ -394,6 +395,10 @@ if ($browser->isMobile() &&
     $notification->notify(array('listeners' => 'status'));
     echo $view->render('smartmobile');
 } else {
+    $auth_label = ($is_auth && $auth)
+        ? sprintf(_("Login to %s"), $registry->get('name', $vars->app))
+        : null;
+
     foreach ($js_files as $val) {
         $page_output->addScriptFile($val[0], $val[1]);
     }

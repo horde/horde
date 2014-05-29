@@ -630,6 +630,12 @@ div.modal-form .extras {
     margin: .5em 0;
 }
 
+/* Login page. */
+.login-app {
+    padding: 5px;
+    text-align: center;
+}
+
 /* Login tasks */
 div.logintasks-item {
     margin-bottom: 1em;

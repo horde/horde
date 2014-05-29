@@ -1,5 +1,9 @@
 <div class="modal-form">
 
+<?php if (!is_null($auth_label)): ?>
+ <div class="label login-app"><?php echo $auth_label ?></div>
+<?php endif; ?>
+
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
 <form name="horde_login" id="horde_login" method="post" action="<?php echo $loginurl ?>">

@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mms] Cleaner indication on login page that an authenticated user is logging into specific application rather than Horde in general.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3892,7 +3892,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mms] Cleaner indication on login page that an authenticated user is logging into specific application rather than Horde in general.
    </notes>
   </release>
  </changelog>

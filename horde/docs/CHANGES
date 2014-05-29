@@ -2,6 +2,8 @@
 v5.2.0-git
 ----------
 
+[mms] Cleaner indication on login page that an authenticated user is logging
+      into specific application rather than Horde in general.
 
 
 -----------
