@@ -377,6 +377,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
      * @param string $clientid  PIM clientid sent when adding a new message
+     *
+     * @todo This method needs some cleanup, abstraction.
      */
     public function updateState(
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,

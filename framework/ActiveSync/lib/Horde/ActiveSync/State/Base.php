@@ -98,15 +98,7 @@ abstract class Horde_ActiveSync_State_Base
     protected $_logger;
 
     /**
-     * Device info structure. Contains the following properties:
-     *  'rwstatus'   - Device RemoteWipe status.
-     *  'deviceType' - The device type.
-     *  'userAgent'  - The device's userAgent string.
-     *  'id'         - Device id.
-     *  'user'       - The user associated with the current account.
-     *  'supported'  - The SUPPORTED response for the device's collections.
-     *  'policykey'  - The device's current POLICYKEY.
-     *  'version'    - The currently requested EAS version.
+     * Device object.
      *
      * @var Horde_ActiveSync_Device
      */
