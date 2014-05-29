@@ -1147,7 +1147,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *                        'id' and 'type' keys.
      *
      * @return array  An array of UID -> timestamp of the last PIM-initiated
-     *                change for the specified uids, or null if none found.
+     *                change for the specified UIDs, or null if none found.
      */
     protected function _getPIMChangeTS(array $changes)
     {
@@ -1193,14 +1193,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _havePIMChanges()
     {
-        $class = $this->_collection['class'];
-
-        $table = $class == Horde_ActiveSync::CLASS_EMAIL ?
-            $this->_syncMailMapTable :
-            $this->_syncMapTable;
-        $sql = 'SELECT COUNT(*) FROM ' . $table
+        // No benefit from making this extra query for email collections.
+        if ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
+            return true;
+        }
+        $sql = 'SELECT COUNT(*) FROM ' . $this->_syncMapTable
             . ' WHERE sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
-
         try {
             return (bool)$this->_db->selectValue(
                 $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['serverid']));

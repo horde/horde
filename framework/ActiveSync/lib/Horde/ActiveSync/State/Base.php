@@ -465,28 +465,17 @@ abstract class Horde_ActiveSync_State_Base
                     foreach ($changes as $change) {
                         switch ($change['type']) {
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                            if (!empty($mailmap[$change['id']][$change['type']])) {
-                                $this->_logger->info(sprintf(
-                                    '[%s] Ignoring PIM initiated flag change for %s',
-                                    $this->_procid,
-                                    $change['id']));
-                                $change['ignore'] = true;
-                            }
-                            $this->_changes[] = $change;
-                            break;
-
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                             if (!empty($mailmap[$change['id']][$change['type']])) {
-                               $this->_logger->info(sprintf(
-                                    '[%s] Ignoring PIM initiated deletion for %s',
+                                $this->_logger->info(sprintf(
+                                    '[%s] Ignoring PIM initiated %s for %s',
                                     $this->_procid,
+                                    $change['type'] == Horde_ActiveSync::CHANGE_TYPE_FLAGS ? 'flag change' : 'deletion',
                                     $change['id']));
                                 $change['ignore'] = true;
                             }
-                            $this->_changes[] = $change;
-                            break;
-
                         default:
+                            // Fall through
                             // New message.
                             $this->_changes[] = $change;
                         }
