@@ -3,7 +3,7 @@
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
  * @copyright  2014 Horde LLC
- * @license    GPL (http://www.horde.org/licenses/gpl)
+ * @license    http://www.horde.org/licenses/lgpl LGPL-2
  */
 
 var Horde_Facebook = Class.create({
