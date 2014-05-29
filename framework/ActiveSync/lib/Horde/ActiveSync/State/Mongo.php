@@ -93,6 +93,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     const SYNC_READ              = 'sync_read';
     const SYNC_FLAGGED           = 'sync_flagged';
     const SYNC_DELETED           = 'sync_deleted';
+    const SYNC_CHANGED           = 'sync_changed';
     const SYNC_MODTIME           = 'sync_modtime';
     const SYNC_CLIENTID          = 'sync_clientid';
     const SYNC_DATA              = 'sync_data';
@@ -469,20 +470,26 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                 }
                 $document = array(
-                    self::MESSAGE_UID => $change['id'],
+                    self::MESSAGE_UID => (string)$change['id'],
                     self::SYNC_KEY => $syncKey,
                     self::SYNC_DEVID => $this->_deviceInfo->id,
                     self::SYNC_FOLDERID => $change['serverid'],
                     self::SYNC_USER => $user
                 );
-                if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                switch ($type) {
+                case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if (isset($change['flags']['read'])) {
                         $document[self::SYNC_READ] = !empty($change['flags']['read']);
                     } else {
                         $document[self::SYNC_FLAGGED] = $flag_value = !empty($change['flags']['flagged']);
                     }
-                } else {
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     $document[self::SYNC_DELETED] = true;
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                    $document[self::SYNC_CHANGED] = true;
+                    break;
                 }
                 try {
                     $this->_db->selectCollection(self::COLLECTION_MAILMAP)->insert($document);
@@ -1345,14 +1352,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _havePIMChanges()
     {
+        if ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
+            return true;
+        }
+
         $this->_logger->info(sprintf(
             '[%s] Horde_ActiveSync_State_Mongo::_havePIMChanges() for %s',
             $this->_procid, $this->_collection['serverid']));
 
-        $c = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL ?
-            $this->_db->selectCollection(self::COLLECTION_MAILMAP) :
-            $this->_db->selectCollection(self::COLLECTION_MAP);
-
+        $c = $this->_db->selectCollection(self::COLLECTION_MAP);
         $query = array(
             self::SYNC_DEVID => $this->_deviceInfo->id,
             self::SYNC_USER => $this->_deviceInfo->user,
@@ -1393,24 +1401,29 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             self::SYNC_USER => $this->_deviceInfo->user,
             self::MESSAGE_UID => array('$in' => $ids)
         );
+        Horde::debug($query);
         $rows = $this->_db->selectCollection(self::COLLECTION_MAILMAP)->find(
             $query,
-            array(self::MESSAGE_UID, self::SYNC_READ, self::SYNC_FLAGGED, self::SYNC_DELETED)
+            array(self::MESSAGE_UID, self::SYNC_READ, self::SYNC_FLAGGED, self::SYNC_DELETED, self::SYNC_CHANGED)
         );
-
+Horde::debug($rows);
         $results = array();
         foreach ($rows as $row) {
             foreach ($changes as $change) {
                 if ($change['id'] == $row[self::MESSAGE_UID]) {
-                    if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                    switch ($change['type']) {
+                    case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                         $results[$row[self::MESSAGE_UID]][$change['type']] =
                             (!is_null($row[self::SYNC_READ]) && $row[self::SYNC_READ] == $change['flags']['read']) ||
                             (!is_null($row[self::SYNC_FLAGGED] && $row[self::SYNC_FLAGGED] == $change['flags']['flagged']));
-                        continue 2;
-                    } elseif ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        continue 3;
+                    case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                         $results[$row[self::MESSAGE_UID]][$change['type']] =
                             !is_null($row[self::SYNC_DELETED]) && $row[self::SYNC_DELETED] == true;
-                        continue 2;
+                        continue 3;
+                    case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                        $results[$row[self::MESSAGE_UID]][$change['type']] =
+                            !is_null($row[self::SYNC_CHANGED]) && $row[self::SYNC_CHANGED] == true;
                     }
                 }
             }
