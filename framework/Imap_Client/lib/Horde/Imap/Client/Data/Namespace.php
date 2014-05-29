@@ -31,7 +31,7 @@
  * @property integer $type  The namespace type. Either self::NS_PERSONAL,
  *                          self::NS_OTHER, or self::NS_SHARED.
  */
-class Horde_Imap_Client_Data_Namespace implements ArrayAccess, Serializable
+class Horde_Imap_Client_Data_Namespace implements Serializable
 {
     /* Namespace type constants. */
     const NS_PERSONAL = 1;
@@ -122,36 +122,6 @@ class Horde_Imap_Client_Data_Namespace implements ArrayAccess, Serializable
     public function __toString()
     {
         return $this->name;
-    }
-
-    /* ArrayAccess methods (for BC). @deprecated */
-
-    /**
-     */
-    public function offsetExists($offset)
-    {
-        return !is_null($this->$offset);
-    }
-
-    /**
-     */
-    public function offsetGet($offset)
-    {
-        return $this->$offset;
-    }
-
-    /**
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->$offset = $value;
-    }
-
-    /**
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->_data[$offset]);
     }
 
     /* Serializable methods. */
