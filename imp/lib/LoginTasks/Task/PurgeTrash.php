@@ -27,12 +27,18 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        if ($this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval')) {
-            if ($GLOBALS['prefs']->isLocked('purge_trash_interval')) {
+        global $prefs;
+
+        if (!$prefs->getValue('use_trash') ||
+            !($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) ||
+            $trash->vtrash ||
+            !$trash->exists ||
+            !($this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval'))) {
+            $this->active = false;
+        } else {
+            if ($prefs->isLocked('purge_trash_interval')) {
                 $this->display = Horde_LoginTasks::DISPLAY_NONE;
             }
-        } else {
-            $this->active = false;
         }
     }
 
@@ -44,13 +50,6 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     public function execute()
     {
         global $injector, $notification, $prefs;
-
-        if (!$prefs->getValue('use_trash') ||
-            !($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) ||
-            $trash->vtrash ||
-            !$trash->exists) {
-            return false;
-        }
 
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_trash_keep'.  If a message has a
