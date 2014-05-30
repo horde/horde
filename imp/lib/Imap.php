@@ -577,22 +577,16 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Handle status() calls. This call may hit multiple servers, so need to
-     * handle separately from other IMAP calls.
+     * Handle status() calls. This call may hit multiple servers.
      *
      * @see Horde_Imap_Client_Base#status()
      */
-    public function status()
+    protected function _status($args)
     {
         global $injector;
 
         $accounts = $mboxes = $out = array();
-        $args = func_get_args();
         $imap_factory = $injector->getInstance('IMP_Factory_Imap');
-
-        if (!is_array($args[0])) {
-            return $this->__call('status', $args);
-        }
 
         foreach (IMP_Mailbox::get($args[0]) as $val) {
             if ($raccount = $val->remote_account) {
@@ -604,7 +598,7 @@ class IMP_Imap implements Serializable
         foreach ($mboxes as $key => $val) {
             $imap = $imap_factory->create($key);
             if ($imap->init) {
-                foreach ($imap->__call('status', array($val) + $args) as $key2 => $val2) {
+                foreach (call_user_func_array(array($imap, 'impStatus'), array($val) + $args) as $key2 => $val2) {
                     $out[isset($accounts[$key]) ? $accounts[$key]->mailbox($key2) : $key2] = $val2;
                 }
             }
@@ -643,10 +637,6 @@ class IMP_Imap implements Serializable
             );
         }
 
-        if (!method_exists($this->_ob, $method)) {
-            throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
-        }
-
         switch ($method) {
         case 'append':
         case 'createMailbox':
@@ -661,7 +651,6 @@ class IMP_Imap implements Serializable
         case 'getSyncToken':
         case 'setMetadata':
         case 'setQuota':
-        case 'status':
         case 'store':
         case 'subscribeMailbox':
         case 'sync':
@@ -695,6 +684,13 @@ class IMP_Imap implements Serializable
             $params[1] = array('ob_return' => true);
             break;
 
+        case 'impStatus':
+            /* Internal method: allows status call with array of mailboxes,
+             * guaranteeing they are all on this server. */
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            $method = 'status';
+            break;
+
         case 'openMailbox':
             $mbox = IMP_Mailbox::get($params[0]);
             if ($mbox->search) {
@@ -706,6 +702,21 @@ class IMP_Imap implements Serializable
 
         case 'search':
             $params = call_user_func_array(array($this, '_search'), $params);
+            break;
+
+        case 'status':
+            if (is_array($params[0])) {
+                return $this->_status($params);
+            }
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            break;
+
+        default:
+            if (!method_exists($this->_ob, $method)) {
+                throw new BadMethodCallException(
+                    sprintf('%s: Invalid method call "%s".', __CLASS__, $method)
+                );
+            }
             break;
         }
 
