@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow drag/drop to HTML compose body work with text data (Firefox only).
 * [mms] Cache mailbox exists results in the current access.
  </notes>
  <contents>
@@ -3629,6 +3630,7 @@
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Allow drag/drop to HTML compose body work with text data (Firefox only).
 * [mms] Cache mailbox exists results in the current access.
    </notes>
   </release>

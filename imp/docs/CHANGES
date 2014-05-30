@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Allow drag/drop to HTML compose body work with text data.
 [mms] Cache mailbox exists results in the current access.
 
 

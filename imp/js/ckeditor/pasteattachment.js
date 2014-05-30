@@ -60,14 +60,23 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         editor.on('contentDom', function(e1) {
             editor.document.on('drop', function(e2) {
-                var error = 0,
+                var d = e2.data.$,
+                    error = 0,
                     upload = [];
 
                 fireEventInParent('drop');
+
+                /* Only handle file data here. For other data (i.e. text)
+                 * have the browser handle it natively. */
+                if (!d.dataTransfer ||
+                    !d.dataTransfer.files ||
+                    !d.dataTransfer.files.length) {
+                    return;
+                }
+
                 e2.data.preventDefault();
 
-                /* Only support images for now. */
-                $A(e2.data.$.dataTransfer.files).each(function(f) {
+                $A(d.dataTransfer.files).each(function(f) {
                     if (f.type.startsWith('image/')) {
                         upload.push(f);
                     } else {

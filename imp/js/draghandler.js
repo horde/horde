@@ -17,7 +17,8 @@ var DragHandler = {
 
     handleObserve: function(e)
     {
-        if (this.dropelt) {
+        if (this.dropelt &&
+            (e.dataTransfer || this.dropelt.visible())) {
             if (Prototype.Browser.IE &&
                 !(("onpropertychange" in document) && (!!window.matchMedia))) {
                 // IE 9 supports drag/drop, but not dataTransfer.files
@@ -42,9 +43,7 @@ var DragHandler = {
 
     handleDrop: function(e)
     {
-        if (this.dropelt.hasClassName(this.hoverclass) &&
-            e.dataTransfer &&
-            e.dataTransfer.files) {
+        if (this.dropelt.hasClassName(this.hoverclass)) {
             this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
         }
         this.leave = true;
