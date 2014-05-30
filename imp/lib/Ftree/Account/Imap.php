@@ -114,8 +114,9 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             if ($ns_info && strlen($ns_info->delimiter)) {
                 /* Strip personal namespace (if non-empty). */
                 if ($ns_info->type === $ns_info::NS_PERSONAL) {
-                    $parts = explode($ns_info->delimiter, $ns_info->stripNamespace($mbox));
-                    if (count($parts) > 1) {
+                    $stripped = $ns_info->stripNamespace($mbox);
+                    $parts = explode($ns_info->delimiter, $stripped);
+                    if ($stripped != $mbox) {
                         $parts[0] = $ns_info->name . $parts[0];
                     }
                 } else {
