@@ -33,7 +33,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
             !($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) ||
             $trash->vtrash ||
             !$trash->exists ||
-            !($this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval'))) {
+            !($this->interval = $prefs->getValue('purge_trash_interval'))) {
             $this->active = false;
         } else {
             if ($prefs->isLocked('purge_trash_interval')) {
