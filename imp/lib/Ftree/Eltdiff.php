@@ -69,13 +69,18 @@ class IMP_Ftree_Eltdiff implements Serializable
         case 'change':
         case 'delete':
             if ($this->track) {
-                $elt = strval(reset($args));
+                $elt = reset($args);
 
                 /* Don't track base element. */
-                if (!strlen($elt)) {
+                if ($elt instanceof IMP_Ftree_Element) {
+                    if ($elt->base_elt) {
+                        return;
+                    }
+                } elseif (!strlen($elt)) {
                     return;
                 }
 
+                $elt = strval($elt);
                 $value = isset($this->_changes[$elt])
                     ? $this->_changes[$elt]
                     : null;
