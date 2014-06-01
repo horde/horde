@@ -59,7 +59,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $trash->runSearchQuery($query);
+        $msg_ids = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
         if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
