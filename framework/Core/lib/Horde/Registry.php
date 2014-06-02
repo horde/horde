@@ -327,7 +327,7 @@ class Horde_Registry implements Horde_Shutdown_Task
 
             case self::NOT_ACTIVE:
                 /* Try redirect to Horde if an app is not active. */
-                if ($app != 'horde') {
+                if (!$args['cli'] && $app != 'horde') {
                     $GLOBALS['notification']->push($e, 'horde.error');
                     Horde::url($registry->getInitialPage('horde'))->redirect();
                 }
