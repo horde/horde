@@ -12,6 +12,7 @@ var RedBox = {
     overlay: true,
     duration: 0.4,
     onDisplay: null,
+    opacity: 0.6,
 
     showInline: function(id)
     {
@@ -98,7 +99,7 @@ var RedBox = {
 
         if (this.overlay) {
             this.setOverlaySize();
-            return new Effect.Appear($('RB_overlay'), { sync: sync, duration: this.duration, to: 0.6, queue: sync ? 'parallel' : 'end' });
+            return new Effect.Appear($('RB_overlay'), { sync: sync, duration: this.duration, to: this.opacity, queue: sync ? 'parallel' : 'end' });
         }
     },
 
