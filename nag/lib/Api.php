@@ -1427,7 +1427,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $out = array();
 
-        foreach (Nag::listTaskLists(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ, false) as $key => $val) {
+        foreach (Nag::listTasklists(false, $writeable ? Horde_Perms::EDIT : Horde_Perms::READ, false) as $key => $val) {
             $out[$key] = $val->get('name');
         }
 

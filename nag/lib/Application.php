@@ -155,7 +155,7 @@ class Nag_Application extends Horde_Registry_Application
                 'collapsed' => true,
             ),
         );
-        foreach (Nag::listTaskLists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
+        foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
             $url = $list->add(array(
                 'display_tasklist' => $name,
                 'actionID' => in_array($name, $display_tasklists)
