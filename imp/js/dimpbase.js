@@ -29,7 +29,6 @@ var DimpBase = {
         };
     })(),
     mboxes: {},
-    mboxopts: {},
     msgDragConfig: (function() {
         return {
             caption: function() {
@@ -3377,19 +3376,25 @@ var DimpBase = {
                 ? this.getSubMboxElt(r.base).previous()
                 : true;
         }
-        this.mboxopts = r;
 
         if (r.d) {
-            r.d.each(this.deleteMbox.bind(this));
+            r.d.each(function(m) {
+                if (this.view == m) {
+                    this.go('mbox', r['switch'] || this.INBOX);
+                }
+                this.deleteMboxElt(m, true);
+            }, this);
         }
         if (r.c) {
-            r.c.each(this.changeMbox.bind(this));
+            r.c.each(function(m) {
+                this.changeMbox(m, { expand: r.expand });
+            }, this);
         }
         if (r.a && !r.noexpand) {
-            r.a.each(this.createMbox.bind(this));
+            r.a.each(function(m) {
+                this.createMbox(m, { expand: r.expand });
+            }, this);
         }
-
-        this.mboxopts = {};
 
         if (r.all) {
             this._toggleSubFolder(nm, 'expall', true);
@@ -3634,8 +3639,8 @@ var DimpBase = {
 
     // For format of the ob object, see
     // IMP_Ajax_Application#_createMailboxElt().
-    // If mboxopts.expand is set, expand folder list on initial display.
-    createMbox: function(ob)
+    // If opts.expand is set, expand folder list on initial display.
+    createMbox: function(ob, opts)
     {
         var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
             cname = 'imp-sidebar-container',
@@ -3712,7 +3717,7 @@ var DimpBase = {
                 tmp = Object.clone(ob);
                 tmp.co = tmp.dummy = true;
                 tmp.s = false;
-                this.createMbox(tmp);
+                this.createMbox(tmp, opts);
             }
         }
 
@@ -3756,12 +3761,12 @@ var DimpBase = {
         }
 
         if (!f_node &&
-            this.mboxopts.expand &&
+            opts.expand &&
             parent_e.id != 'imp-specialmboxes' &&
             parent_e.id != 'imp-normalmboxes') {
             tmp2 = parent_e.previous();
-            if (!Object.isElement(this.mboxopts.expand) ||
-                this.mboxopts.expand != tmp2) {
+            if (!Object.isElement(opts.expand) ||
+                opts.expand != tmp2) {
                 tmp2.next().show();
                 tmp2.down().removeClassName('exp').addClassName('col');
             }
@@ -3827,15 +3832,7 @@ var DimpBase = {
         });
     },
 
-    deleteMbox: function(mbox)
-    {
-        if (this.view == mbox) {
-            this.go('mbox', this.mboxopts['switch'] || this.INBOX);
-        }
-        this.deleteMboxElt(mbox, true);
-    },
-
-    changeMbox: function(ob)
+    changeMbox: function(ob, opts)
     {
         var tmp;
 
@@ -3858,7 +3855,7 @@ var DimpBase = {
                 this.go('mbox', this.INBOX);
             }
         }
-        this.createMbox(ob);
+        this.createMbox(ob, opts);
         if (ob.ch && tmp && tmp.hasClassName('col')) {
             this.getMboxElt(ob.m).down('DIV').removeClassName('exp').addClassName('col');
         }
