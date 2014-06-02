@@ -27,7 +27,7 @@
   <?php if ($this->sortDir): ?>
     <?php echo $this->contentTag('a', Horde::img('za.png', _("Ascending")), array('href' => $this->refresh_link->copy()->add(array('sort' => $this->sortBy, 'sort_dir' => 0)))) ?>
   <?php else: ?>
-    <?php echo $this->contentTag('a', Horde::img('az.png', _("Descending")), array('href' => $this->refresh_link->copy()->add(array('sort' => $this->_sortBy, 'sort_dir' => 1)))) ?>
+    <?php echo $this->contentTag('a', Horde::img('az.png', _("Descending")), array('href' => $this->refresh_link->copy()->add(array('sort' => $this->sortBy, 'sort_dir' => 1)))) ?>
   <?php endif; ?>
 </div>
 <?php endif; ?>
