@@ -3273,7 +3273,7 @@ var DimpBase = {
                         (tmp = m_elt.up('DIV.horde-subnavi-sub'))) {
                         tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
                     }
-                    this.deleteMboxElt(m);
+                    this.flist.deleteMbox(m);
                 }
             }.bind(this);
 
@@ -3358,7 +3358,7 @@ var DimpBase = {
                 if (this.view == m) {
                     this.go('mbox', r['switch'] || this.INBOX);
                 }
-                this.deleteMboxElt(m, true);
+                this.flist.deleteMbox(m, { sub: true });
             }, this);
         }
         if (r.c) {
@@ -3814,13 +3814,13 @@ var DimpBase = {
             // The case of children being added to a special mailbox is
             // handled by createMbox().
             if (!ob.ch) {
-                this.deleteMboxElt(ob.m, true);
+                this.flist.deleteMbox(ob.m, true);
             }
         } else {
             /* If refreshing page, change mailboxes may not exist so need to
              * treat as 'add' instead. */
             if (this.flist.getMboxElt(ob.m)) {;
-                this.deleteMboxElt(ob.m, !ob.ch);
+                this.flist.deleteMbox(ob.m, !ob.ch);
                 if (ob.co && this.view == ob.m) {
                     this.go('mbox', this.INBOX);
                 }
@@ -3829,26 +3829,16 @@ var DimpBase = {
         }
     },
 
-    // m: (string) Mailbox ID
-    deleteMboxElt: function(m, sub)
+    deleteMboxHandler: function(e)
     {
-        var m_elt = this.flist.getMboxElt(m), submbox;
-        if (!m_elt) {
-            return;
-        }
+        var m_elt = e.element(),
+            m = m_elt.retrieve('mbox');
 
-        if (sub &&
-            (submbox = this.flist.getSubMboxElt(m_elt))) {
-            delete this.flist.smboxes[submbox.retrieve('mbox')];
-            submbox.remove();
-        }
         [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
         this._removeMouseEvents([ m_elt ]);
         if (this.viewport) {
-            this.viewport.deleteView(m_elt.retrieve('mbox'));
+            this.viewport.deleteView(m);
         }
-        delete this.flist.mboxes[m_elt.retrieve('mbox')];
-        m_elt.remove();
     },
 
     _sizeFolderlist: function()
@@ -3873,7 +3863,7 @@ var DimpBase = {
 
         [ Object.values(this.flist.mboxes), Object.values(this.flist.smboxes) ].flatten().compact().each(function(elt) {
             try {
-                this.deleteMboxElt(elt, true);
+                this.flist.deleteMbox(elt, { sub: true });
             } catch (e) {}
         }, this);
 
@@ -4305,6 +4295,28 @@ var IMP_Flist = Class.create({
             : null;
     },
 
+    // m: (string) Mailbox ID
+    // opts: (object) [sub]
+    deleteMbox: function(m, opts)
+    {
+        var m_elt = this.getMboxElt(m), submbox;
+        if (!m_elt) {
+            return;
+        }
+        m = m_elt.retrieve('mbox');
+
+        if (opts.sub &&
+            (submbox = this.getSubMboxElt(m_elt))) {
+            delete this.smboxes[submbox.retrieve('mbox')];
+            submbox.remove();
+        }
+
+        m_elt.fire('IMP_Flist:delete');
+
+        m_elt.remove();
+        delete this.mboxes[m];
+    },
+
     // p = (element) Parent element
     // c = (element) Child element
     isSubfolder: function(p, c)
@@ -4366,6 +4378,9 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+
+/* IMP_Flist handlers. */
+document.observe('IMP_Flist:delete', DimpBase.deleteMboxHandler.bind(DimpBase));
 
 /* HTML IFRAME handlers. */
 document.observe('IMP_JS:htmliframe_keydown', function(e) {
