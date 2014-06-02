@@ -3363,12 +3363,15 @@ var DimpBase = {
         }
         if (r.c) {
             r.c.each(function(m) {
-                this.changeMbox(m, { expand: r.expand });
+                this.flist.changeMbox(m, { expand: r.expand });
             }, this);
         }
         if (r.a && !r.noexpand) {
             r.a.each(function(m) {
-                this.createMbox(m, { expand: r.expand });
+                this.flist.createMbox(m, {
+                    expand: r.expand,
+                    showunsub: this.showunsub
+                });
             }, this);
         }
 
@@ -3611,222 +3614,6 @@ var DimpBase = {
         DimpCore.doAction('listMailboxes', params, {
             ajaxopts: { asynchronous: !sync }
         });
-    },
-
-    // For format of the ob object, see
-    // IMP_Ajax_Application#_createMailboxElt().
-    // If opts.expand is set, expand folder list on initial display.
-    createMbox: function(ob, opts)
-    {
-        var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
-            cname = 'imp-sidebar-container',
-            css = ob.cl || 'folderImg',
-            label = ob.l || ob.m,
-            title = ob.t || ob.m;
-
-        if (this.flist.mboxes[ob.m]) {
-            return;
-        }
-
-        if (ob.v) {
-            if (ob.co) {
-                ftype = 'vcontainer';
-            } else {
-                cname = 'imp-sidebar-mbox';
-                ftype = 'vfolder';
-            }
-            title = label;
-        } else if (ob.r) {
-            switch (ob.r) {
-            case 1:
-                ftype = 'rcontainer';
-                break;
-
-            case 2:
-                cname = 'imp-sidebar-remote';
-                ftype = 'remote';
-                break;
-
-            case 3:
-                ftype = 'remoteauth';
-                break;
-            }
-        } else if (ob.co) {
-            if (ob.n) {
-                ftype = 'scontainer';
-                title = label;
-            } else {
-                ftype = 'container';
-            }
-        } else {
-            cname = 'imp-sidebar-mbox';
-            ftype = ob.s ? 'special' : 'mbox';
-        }
-
-        if (ob.un && this.showunsub) {
-            cname += ' imp-sidebar-unsubmbox';
-        }
-
-        div = new Element('DIV', { className: 'horde-subnavi-icon' });
-        if (ob.i) {
-            div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
-        }
-
-        li = new Element('DIV', { className: 'horde-subnavi', title: title })
-            .addClassName(cname)
-            .store('l', label)
-            .store('mbox', ob.m)
-            .insert(div)
-            .insert(new Element('DIV', { className: 'horde-subnavi-point' })
-                        .insert(new Element('A').insert(label)));
-        if (ob.fs) {
-            li.store('fs', true);
-        }
-
-        if (ob.s) {
-            div.removeClassName('exp').addClassName(css);
-            parent_e = $('imp-specialmboxes');
-
-            /* Create a dummy container element in normal mailboxes section
-             * if special mailbox has children. */
-            if (ob.ch) {
-                tmp = Object.clone(ob);
-                tmp.co = tmp.dummy = true;
-                tmp.s = false;
-                this.createMbox(tmp, opts);
-            }
-        }
-
-        this.flist.mboxes[ob.m] = li;
-        if (ob.dummy) {
-            this.flist.smboxes[ob.m] = li;
-        }
-
-        if (!ob.s) {
-            div.addClassName(ob.ch ? 'exp' : css);
-            parent_e = ob.pa
-                ? this.flist.getSubMbox(ob.pa)
-                : $('imp-normalmboxes');
-        }
-
-        /* Insert into correct place in level. */
-        parent_c = parent_e.childElements();
-        if (!ob.ns) {
-            ll = label.toLowerCase();
-            f_node = parent_c.find(function(node) {
-                if (node.retrieve('fs')) {
-                    return false;
-                }
-
-                var l = node.retrieve('l');
-                return (l && (ll < l.toLowerCase()));
-            });
-        }
-
-        tmp2 = f_node
-            ? f_node.previous()
-            : parent_c.last();
-        if (tmp2 &&
-            tmp2.hasClassName('horde-subnavi-sub') &&
-            tmp2.retrieve('m') == ob.m) {
-            tmp2.insert({ before: li });
-        } else if (f_node) {
-            f_node.insert({ before: li });
-        } else {
-            parent_e.insert(li);
-        }
-
-        if (!f_node &&
-            opts.expand &&
-            parent_e.id != 'imp-specialmboxes' &&
-            parent_e.id != 'imp-normalmboxes') {
-            tmp2 = parent_e.previous();
-            if (!Object.isElement(opts.expand) ||
-                opts.expand != tmp2) {
-                tmp2.next().show();
-                tmp2.down().removeClassName('exp').addClassName('col');
-            }
-        }
-
-        if (!ob.s && ob.ch && !this.flist.getSubMbox(ob.m)) {
-            li.insert({
-                after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
-            });
-            if (tmp) {
-                li.insert({ after: tmp });
-            }
-        }
-
-        li.store('ftype', ftype);
-
-        // Make the new mailbox a drop target.
-        if (!ob.v) {
-            new Drop(li, this.mboxDropConfig);
-        }
-
-        // Check for unseen messages
-        if (ob.po) {
-            li.store('u', '');
-        }
-
-        // Check for mailboxes that don't allow children
-        if (ob.nc) {
-            li.store('nc', true);
-        }
-
-        switch (ftype) {
-        case 'special':
-            // For purposes of the contextmenu, treat special mailboxes
-            // like regular mailboxes.
-            ftype = 'mbox';
-            // Fall through.
-
-        case 'container':
-        case 'mbox':
-            new Drag(li, this.mboxDragConfig);
-            break;
-
-        case 'remote':
-        case 'scontainer':
-            ftype = 'noactions';
-            break;
-
-        case 'remoteauth':
-            ftype = 'remoteauth';
-            break;
-
-        case 'vfolder':
-            if (ob.v == 1) {
-                ftype = 'noactions';
-            }
-            break;
-        }
-
-        DimpCore.addContextMenu({
-            elt: li,
-            type: ftype
-        });
-    },
-
-    changeMbox: function(ob, opts)
-    {
-        if (this.flist.smboxes[ob.m]) {
-            // The case of children being added to a special mailbox is
-            // handled by createMbox().
-            if (!ob.ch) {
-                this.flist.deleteMbox(ob.m, true);
-            }
-        } else {
-            /* If refreshing page, change mailboxes may not exist so need to
-             * treat as 'add' instead. */
-            if (this.flist.getMbox(ob.m)) {;
-                this.flist.deleteMbox(ob.m, !ob.ch);
-                if (ob.co && this.view == ob.m) {
-                    this.go('mbox', this.INBOX);
-                }
-            }
-            this.createMbox(ob, opts);
-        }
     },
 
     deleteMboxHandler: function(e)
@@ -4315,6 +4102,220 @@ var IMP_Flist = Class.create({
 
         m_elt.remove();
         delete this.mboxes[m];
+    },
+
+    changeMbox: function(ob, opts)
+    {
+        if (this.smboxes[ob.m]) {
+            // The case of children being added to a special mailbox is
+            // handled by createMbox().
+            if (!ob.ch) {
+                this.deleteMbox(ob.m, { sub: true });
+            }
+        } else {
+            /* If refreshing page, change mailboxes may not exist so need to
+             * treat as 'add' instead. */
+            if (this.getMbox(ob.m)) {;
+                this.deleteMbox(ob.m, { sub: !ob.ch });
+            }
+            this.createMbox(ob, opts);
+        }
+    },
+
+    // For format of the ob object, see
+    // IMP_Ajax_Application#_createMailboxElt().
+    // opts: (object) [expand, showunsub]
+    // If opts.expand is set, expand folder list on initial display.
+    createMbox: function(ob, opts)
+    {
+        var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
+            cname = 'imp-sidebar-container',
+            css = ob.cl || 'folderImg',
+            label = ob.l || ob.m,
+            title = ob.t || ob.m;
+
+        if (this.mboxes[ob.m]) {
+            return;
+        }
+
+        if (ob.v) {
+            if (ob.co) {
+                ftype = 'vcontainer';
+            } else {
+                cname = 'imp-sidebar-mbox';
+                ftype = 'vfolder';
+            }
+            title = label;
+        } else if (ob.r) {
+            switch (ob.r) {
+            case 1:
+                ftype = 'rcontainer';
+                break;
+
+            case 2:
+                cname = 'imp-sidebar-remote';
+                ftype = 'remote';
+                break;
+
+            case 3:
+                ftype = 'remoteauth';
+                break;
+            }
+        } else if (ob.co) {
+            if (ob.n) {
+                ftype = 'scontainer';
+                title = label;
+            } else {
+                ftype = 'container';
+            }
+        } else {
+            cname = 'imp-sidebar-mbox';
+            ftype = ob.s ? 'special' : 'mbox';
+        }
+
+        if (ob.un && opts.showunsub) {
+            cname += ' imp-sidebar-unsubmbox';
+        }
+
+        div = new Element('DIV', { className: 'horde-subnavi-icon' });
+        if (ob.i) {
+            div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
+        }
+
+        li = new Element('DIV', { className: 'horde-subnavi', title: title })
+            .addClassName(cname)
+            .store('l', label)
+            .store('mbox', ob.m)
+            .insert(div)
+            .insert(new Element('DIV', { className: 'horde-subnavi-point' })
+                        .insert(new Element('A').insert(label)));
+        if (ob.fs) {
+            li.store('fs', true);
+        }
+
+        if (ob.s) {
+            div.removeClassName('exp').addClassName(css);
+            parent_e = $('imp-specialmboxes');
+
+            /* Create a dummy container element in normal mailboxes section
+             * if special mailbox has children. */
+            if (ob.ch) {
+                tmp = Object.clone(ob);
+                tmp.co = tmp.dummy = true;
+                tmp.s = false;
+                this.createMbox(tmp, opts);
+            }
+        }
+
+        this.mboxes[ob.m] = li;
+        if (ob.dummy) {
+            this.smboxes[ob.m] = li;
+        }
+
+        if (!ob.s) {
+            div.addClassName(ob.ch ? 'exp' : css);
+            parent_e = ob.pa
+                ? this.getSubMbox(ob.pa)
+                : $('imp-normalmboxes');
+        }
+
+        /* Insert into correct place in level. */
+        parent_c = parent_e.childElements();
+        if (!ob.ns) {
+            ll = label.toLowerCase();
+            f_node = parent_c.find(function(node) {
+                if (node.retrieve('fs')) {
+                    return false;
+                }
+
+                var l = node.retrieve('l');
+                return (l && (ll < l.toLowerCase()));
+            });
+        }
+
+        tmp2 = f_node
+            ? f_node.previous()
+            : parent_c.last();
+        if (tmp2 &&
+            tmp2.hasClassName('horde-subnavi-sub') &&
+            tmp2.retrieve('m') == ob.m) {
+            tmp2.insert({ before: li });
+        } else if (f_node) {
+            f_node.insert({ before: li });
+        } else {
+            parent_e.insert(li);
+        }
+
+        if (!f_node &&
+            opts.expand &&
+            parent_e.id != 'imp-specialmboxes' &&
+            parent_e.id != 'imp-normalmboxes') {
+            tmp2 = parent_e.previous();
+            if (!Object.isElement(opts.expand) ||
+                opts.expand != tmp2) {
+                tmp2.next().show();
+                tmp2.down().removeClassName('exp').addClassName('col');
+            }
+        }
+
+        if (!ob.s && ob.ch && !this.getSubMbox(ob.m)) {
+            li.insert({
+                after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
+            });
+            if (tmp) {
+                li.insert({ after: tmp });
+            }
+        }
+
+        li.store('ftype', ftype);
+
+        // Make the new mailbox a drop target.
+        if (!ob.v) {
+            new Drop(li, DimpBase.mboxDropConfig);
+        }
+
+        // Check for unseen messages
+        if (ob.po) {
+            li.store('u', '');
+        }
+
+        // Check for mailboxes that don't allow children
+        if (ob.nc) {
+            li.store('nc', true);
+        }
+
+        switch (ftype) {
+        case 'special':
+            // For purposes of the contextmenu, treat special mailboxes
+            // like regular mailboxes.
+            ftype = 'mbox';
+            // Fall through.
+
+        case 'container':
+        case 'mbox':
+            new Drag(li, DimpBase.mboxDragConfig);
+            break;
+
+        case 'remote':
+        case 'scontainer':
+            ftype = 'noactions';
+            break;
+
+        case 'remoteauth':
+            ftype = 'remoteauth';
+            break;
+
+        case 'vfolder':
+            if (ob.v == 1) {
+                ftype = 'noactions';
+            }
+            break;
+        }
+
+        DimpCore.addContextMenu({
+            elt: li,
+            type: ftype
+        });
     },
 
     // p = (element) Parent element
