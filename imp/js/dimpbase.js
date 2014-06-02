@@ -3810,30 +3810,22 @@ var DimpBase = {
 
     changeMbox: function(ob, opts)
     {
-        var tmp;
-
         if (this.flist.smboxes[ob.m]) {
             // The case of children being added to a special mailbox is
             // handled by createMbox().
             if (!ob.ch) {
                 this.deleteMboxElt(ob.m, true);
             }
-            return;
-        }
-
-        /* If refreshing page, change mailboxes may not exist so need to
-         * treat as 'add' instead. */
-        tmp = this.flist.getMboxElt(ob.m);
-        if (tmp) {
-            tmp.down('DIV');
-            this.deleteMboxElt(ob.m, !ob.ch);
-            if (ob.co && this.view == ob.m) {
-                this.go('mbox', this.INBOX);
+        } else {
+            /* If refreshing page, change mailboxes may not exist so need to
+             * treat as 'add' instead. */
+            if (this.flist.getMboxElt(ob.m)) {;
+                this.deleteMboxElt(ob.m, !ob.ch);
+                if (ob.co && this.view == ob.m) {
+                    this.go('mbox', this.INBOX);
+                }
             }
-        }
-        this.createMbox(ob, opts);
-        if (ob.ch && tmp && tmp.hasClassName('col')) {
-            this.flist.getMboxElt(ob.m).down('DIV').removeClassName('exp').addClassName('col');
+            this.createMbox(ob, opts);
         }
     },
 
@@ -4294,7 +4286,7 @@ var IMP_Flist = Class.create({
     {
         return Object.isElement(id)
             ? id
-            : this.flist.mboxes[id];
+            : this.mboxes[id];
     },
 
     getSubMboxElt: function(id)
