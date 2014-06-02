@@ -353,7 +353,7 @@ var DimpBase = {
         }
 
         if (!elt) {
-            elt = this.flist.getMboxElt(id);
+            elt = this.flist.getMbox(id);
         }
 
         if (elt) {
@@ -1371,7 +1371,7 @@ var DimpBase = {
                 $('ctx_mbox_poll', 'ctx_mbox_nopoll').compact().invoke('hide');
             }
 
-            [ $('ctx_mbox_expand').up() ].invoke(this.flist.getSubMboxElt(baseelt) ? 'show' : 'hide');
+            [ $('ctx_mbox_expand').up() ].invoke(this.flist.getSubMbox(baseelt) ? 'show' : 'hide');
 
             [ $('ctx_mbox_acl').up() ].invoke(DimpCore.conf.acl ? 'show' : 'hide');
             // Fall-through
@@ -1656,7 +1656,7 @@ var DimpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
-        } else if ((elt = this.flist.getMboxElt(this.view))) {
+        } else if ((elt = this.flist.getMbox(this.view))) {
             unseen = elt.retrieve('u');
         }
 
@@ -2099,7 +2099,7 @@ var DimpBase = {
     // Return: Number or undefined
     getUnseenCount: function(mbox)
     {
-        var elt = this.flist.getMboxElt(mbox);
+        var elt = this.flist.getMbox(mbox);
 
         if (elt) {
             elt = elt.retrieve('u');
@@ -2141,7 +2141,7 @@ var DimpBase = {
     // m = (string|Element) Mailbox element.
     setMboxLabel: function(m, unseen)
     {
-        var elt = this.flist.getMboxElt(m);
+        var elt = this.flist.getMbox(m);
 
         if (!elt) {
             return;
@@ -3139,7 +3139,7 @@ var DimpBase = {
             }, {
                 callback: function(r) {
                     if (r.success) {
-                        this.flist.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
+                        this.flist.getMbox($F(elt.down('INPUT[name="remote_id"]')))
                             .removeClassName('imp-sidebar-remote')
                             .addClassName('imp-sidebar-container');
                         HordeDialog.close();
@@ -3238,7 +3238,7 @@ var DimpBase = {
                 });
 
                 if (this.showunsub) {
-                    this.flist.getMboxElt(mbox).removeClassName('imp-sidebar-unsubmbox');
+                    this.flist.getMbox(mbox).removeClassName('imp-sidebar-unsubmbox');
                 }
             }.bind(this);
 
@@ -3256,7 +3256,7 @@ var DimpBase = {
         case 'unsubscribe':
             this.viewaction = function(e) {
                 var m = elt.retrieve('mbox'),
-                    m_elt = this.flist.getMboxElt(m),
+                    m_elt = this.flist.getMbox(m),
                     tmp;
 
                 DimpCore.doAction('subscribe', {
@@ -3328,7 +3328,7 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = mbox.retrieve('mbox');
-                    tmp = this.flist.getSubMboxElt(params.parent);
+                    tmp = this.flist.getSubMbox(params.parent);
                     if (!tmp || !tmp.childElements().size()) {
                         params.noexpand = 1;
                     }
@@ -3349,7 +3349,7 @@ var DimpBase = {
 
         if (r.expand) {
             r.expand = r.base
-                ? this.flist.getSubMboxElt(r.base).previous()
+                ? this.flist.getSubMbox(r.base).previous()
                 : true;
         }
 
@@ -3544,7 +3544,7 @@ var DimpBase = {
                         if (need.get(mbox)) {
                             var ed;
 
-                            this.flist.getMboxElt(mbox).down('A').update(
+                            this.flist.getMbox(mbox).down('A').update(
                                 new Element('SPAN')
                                     .addClassName('imp-sidebar-mbox-loading')
                                     .update('[' + DimpCore.text.loading + ']')
@@ -3561,12 +3561,12 @@ var DimpBase = {
                              * callback of the base mailbox, but this is
                              * sanity checking in case the mailbox load
                              * failed.) */
-                            this.setMboxLabel(this.flist.getMboxElt(mbox));
+                            this.setMboxLabel(this.flist.getMbox(mbox));
 
                             /* Need to update sizing since it is calculated at
                              * instantiation before the submailbox DIV
                              * contained anything. */
-                            ed = this.flist.getSubMboxElt(mbox).getDimensions();
+                            ed = this.flist.getSubMbox(mbox).getDimensions();
                             e.options.scaleMode = {
                                 originalHeight: ed.height,
                                 originalWidth: ed.width
@@ -3574,7 +3574,7 @@ var DimpBase = {
                         }
                     }.bindAsEventListener(this),
                     afterFinish: function() {
-                        this.flist.getMboxElt(mbox).down().toggleClassName('exp').toggleClassName('col');
+                        this.flist.getMbox(mbox).down().toggleClassName('exp').toggleClassName('col');
                     }.bind(this),
                     duration: noeffect ? 0 : 0.2,
                     queue: {
@@ -3705,7 +3705,7 @@ var DimpBase = {
         if (!ob.s) {
             div.addClassName(ob.ch ? 'exp' : css);
             parent_e = ob.pa
-                ? this.flist.getSubMboxElt(ob.pa)
+                ? this.flist.getSubMbox(ob.pa)
                 : $('imp-normalmboxes');
         }
 
@@ -3748,7 +3748,7 @@ var DimpBase = {
             }
         }
 
-        if (!ob.s && ob.ch && !this.flist.getSubMboxElt(ob.m)) {
+        if (!ob.s && ob.ch && !this.flist.getSubMbox(ob.m)) {
             li.insert({
                 after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
             });
@@ -3819,7 +3819,7 @@ var DimpBase = {
         } else {
             /* If refreshing page, change mailboxes may not exist so need to
              * treat as 'add' instead. */
-            if (this.flist.getMboxElt(ob.m)) {;
+            if (this.flist.getMbox(ob.m)) {;
                 this.flist.deleteMbox(ob.m, !ob.ch);
                 if (ob.co && this.view == ob.m) {
                     this.go('mbox', this.INBOX);
@@ -4016,10 +4016,10 @@ var DimpBase = {
     _modifyPollCallback: function(r)
     {
         if (r.add) {
-            this.flist.getMboxElt(r.mbox).store('u', 0);
+            this.flist.getMbox(r.mbox).store('u', 0);
         } else {
             this.updateUnseenStatus(r.mbox, 0);
-            this.flist.getMboxElt(r.mbox).store('u', undefined);
+            this.flist.getMbox(r.mbox).store('u', undefined);
         }
     },
 
@@ -4272,14 +4272,14 @@ var IMP_Flist = Class.create({
         this.smboxes = {};
     },
 
-    getMboxElt: function(id)
+    getMbox: function(id)
     {
         return Object.isElement(id)
             ? id
             : this.mboxes[id];
     },
 
-    getSubMboxElt: function(id)
+    getSubMbox: function(id)
     {
         var m_elt = Object.isElement(id)
             ? id
@@ -4299,14 +4299,14 @@ var IMP_Flist = Class.create({
     // opts: (object) [sub]
     deleteMbox: function(m, opts)
     {
-        var m_elt = this.getMboxElt(m), submbox;
+        var m_elt = this.getMbox(m), submbox;
         if (!m_elt) {
             return;
         }
         m = m_elt.retrieve('mbox');
 
         if (opts.sub &&
-            (submbox = this.getSubMboxElt(m_elt))) {
+            (submbox = this.getSubMbox(m_elt))) {
             delete this.smboxes[submbox.retrieve('mbox')];
             submbox.remove();
         }
@@ -4321,7 +4321,7 @@ var IMP_Flist = Class.create({
     // c = (element) Child element
     isSubfolder: function(p, c)
     {
-        var sf = this.getSubMboxElt(p);
+        var sf = this.getSubMbox(p);
         return sf && c.descendantOf(sf);
     }
 
