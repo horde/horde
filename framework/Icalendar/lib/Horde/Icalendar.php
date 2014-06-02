@@ -1257,7 +1257,16 @@ class Horde_Icalendar
         usort(
             $change_times,
             function($a, $b) {
-                return $a['time'] - $b['time'];
+                if (!$a['end']) {
+                    if (!$b['end']) {
+                        return $a['time'] - $b['time'];
+                    }
+                    return 1;
+                }
+                if (!$b['end']) {
+                    return -1;
+                }
+                return $a['end'] - $b['end'];
             }
         );
 

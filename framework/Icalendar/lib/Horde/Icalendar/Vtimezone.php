@@ -47,8 +47,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
      */
     public function parseChild($child, $year)
     {
-        // Make sure 'time' key is first for sort().
-        $result['time'] = 0;
+        $result['time'] = $result['end'] = 0;
 
         try {
             $t = $child->getAttribute('TZOFFSETFROM');
@@ -82,9 +81,10 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             $rdates = $child->getAttributeValues('RDATE');
             foreach ($rdates as $rdate) {
                 if ($rdate['year'] == $year || $rdate['year'] == $year - 1) {
-                    $result['time'] = gmmktime(
-                    $start['hours'], $start['minutes'], $start['seconds'],
-                    $rdate['month'], $rdate['mday'], $rdate['year']);
+                    $result['time'] = $result['end'] = gmmktime(
+                        $start['hours'], $start['minutes'], $start['seconds'],
+                        $rdate['month'], $rdate['mday'], $rdate['year']
+                    );
                     $results[] = $result;
                 }
             }
@@ -95,7 +95,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             $rrules = $child->getAttribute('RRULE');
         } catch (Horde_Icalendar_Exception $e) {
             if (!$results) {
-                $result['time'] = $start[0];
+                $result['time'] = $result['end'] = $start[0];
                 $results[] = $result;
             }
             return $results;
@@ -141,9 +141,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
                 break;
 
             case 'UNTIL':
-                if (intval($year) > intval(substr($t[1], 0, 4))) {
-                    return array();
-                }
+                $result['end'] = intval(substr($t[1], 0, 4));
                 break;
             }
         }
@@ -168,7 +166,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         // of $month.
         if ($which < 0) {
             do {
-                $when += 60*60*24*7;
+                $when += 60 * 60 * 24 * 7;
             } while (intval(gmstrftime('%m', $when)) == $month);
         }
 
