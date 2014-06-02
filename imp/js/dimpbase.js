@@ -3648,12 +3648,7 @@ var DimpBase = {
         $('foldersLoading').show();
         $('foldersSidebar').hide();
 
-        [ Object.values(this.flist.mboxes), Object.values(this.flist.smboxes) ].flatten().compact().each(function(elt) {
-            try {
-                this.flist.deleteMbox(elt, { sub: true });
-            } catch (e) {}
-        }, this);
-
+        this.flist.reload();
         this._listMboxes({ reload: 1, mboxes: this.view });
     },
 
@@ -4324,6 +4319,13 @@ var IMP_Flist = Class.create({
     {
         var sf = this.getSubMbox(p);
         return sf && c.descendantOf(sf);
+    },
+
+    reload: function()
+    {
+        [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
+            this.deleteMbox(elt, { sub: true });
+        }, this);
     }
 
 });
