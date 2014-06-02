@@ -296,7 +296,7 @@ class Nag_Application extends Horde_Registry_Application
 
         switch ($params['id']) {
         case 'menu':
-            $add = Horde::url('task.php')->add('actionID', 'add_task');
+            $add = Horde::url('task.php', true)->add('actionID', 'add_task');
 
             $tree->addNode(array(
                 'id' => $parent . '__new',
