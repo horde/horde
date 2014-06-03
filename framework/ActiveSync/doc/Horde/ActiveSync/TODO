@@ -83,3 +83,8 @@ BC BREAKING (i.e., Horde 6).
 - Implmement A Horde_ActiveSync_Response object and move functionality currently
   living in the RPC layer (sending back certain headers, etc...) into this
   class.
+
+- Implement a Horde_ActiveSync_Change_Filter class/interface. Used to implement
+  workarounds for broken clients. E.g., filter out the ADD commands sent in
+  response to MOVEITEMS for Outlook clients. Use a similar pattern for other
+  types of broken client behavior.
