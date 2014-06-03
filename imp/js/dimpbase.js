@@ -314,20 +314,20 @@ var DimpBase = {
         }
     },
 
-    setTitle: function(title, unread)
+    setTitle: function(title, unseen)
     {
         var opts = {};
 
         document.title = DimpCore.conf.name + ' :: ' + title;
 
-        if (unread > 99 & unread < 1000) {
+        if (unseen > 99 & unseen < 1000) {
             opts.font = '8px Arial';
             opts.offset = 1;
             opts.width = 1;
         }
 
         Tinycon.setOptions(opts);
-        Tinycon.setBubble(unread);
+        Tinycon.setBubble(unseen);
     },
 
     // id: (string) Either the ID of a sidebar element, or the name of a
