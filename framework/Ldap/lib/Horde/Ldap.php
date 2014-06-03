@@ -206,10 +206,10 @@ class Horde_Ldap
     public function bind($dn = null, $password = null)
     {
         /* Fetch current bind credentials. */
-        if (empty($dn)) {
+        if (is_null($dn)) {
             $dn = $this->_config['binddn'];
         }
-        if (empty($password)) {
+        if (is_null($password)) {
             $password = $this->_config['bindpw'];
         }
 

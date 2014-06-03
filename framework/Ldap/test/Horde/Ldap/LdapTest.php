@@ -84,6 +84,19 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
     }
 
     /**
+     * Tests if the server can connect and bind, but not rebind with empty
+     * password.
+     *
+     * @expectedException Horde_Ldap_Exception
+     */
+    public function testConnectAndEmptyRebind()
+    {
+        // Simple working connect and privileged bind.
+        $ldap = new Horde_Ldap(self::$ldapcfg['server']);
+        $ldap->bind(self::$ldapcfg['server']['binddn'], '');
+    }
+
+    /**
      * Tests startTLS() if server supports it.
      */
     public function testStartTLS()
