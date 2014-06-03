@@ -1309,7 +1309,7 @@ var DimpBase = {
                 }
             } else {
                 if ($('ctx_mbox_sub')) {
-                    tmp = baseelt.element().hasClassName('imp-sidebar-unsubmbox');
+                    tmp = baseelt.unsubscribed();
                     [ $('ctx_mbox_sub') ].invoke(tmp ? 'show' : 'hide');
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
@@ -3187,7 +3187,7 @@ var DimpBase = {
                 });
 
                 if (this.showunsub) {
-                    elt.element().removeClassName('imp-sidebar-unsubmbox');
+                    elt.unsubscribed(false);
                 }
             }.bind(this);
 
@@ -3213,7 +3213,7 @@ var DimpBase = {
                 });
 
                 if (this.showunsub) {
-                    elt.element().addClassName('imp-sidebar-unsubmbox');
+                    elt.unsubscribed(true);
                 } else {
                     if (!this.showunsub &&
                         !elt.element().siblings().size() &&
@@ -4137,6 +4137,7 @@ var IMP_Flist = Class.create({
         mbox.ftype(ftype);
         mbox.fs(ob.fs);
         mbox.label(label);
+        mbox.unsubscribed(ob.un && opts.showunsub);
         this.mboxes[ob.m] = mbox;
 
         if (!ob.s) {
@@ -4286,7 +4287,8 @@ var IMP_Flist_Mbox = Class.create({
             fs: false,
             label: null,
             nc: false,
-            unseen: null
+            unseen: null,
+            unsub: false
         };
     },
 
@@ -4380,6 +4382,16 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.data.fs;
+    },
+
+    unsubscribed: function(unsub)
+    {
+        if (!Object.isUndefined(unsub)) {
+            [ this.elt ].invoke(unsub ? 'addClassName' : 'removeClassName', 'imp-sidebar-unsubmbox');
+            this.data.unsub = !!unsub;
+        }
+
+        return this.data.unsub;
     },
 
     fullMboxDisplay: function()
