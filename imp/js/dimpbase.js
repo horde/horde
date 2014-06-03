@@ -2118,11 +2118,9 @@ var DimpBase = {
             u = ~~elt.unseen();
         }
 
-        elt = elt.element();
-
-        elt.down('A').update((unseen > 0) ?
-            new Element('STRONG').insert(elt.retrieve('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
-            elt.retrieve('l'));
+        elt.element().down('A').update((unseen > 0) ?
+            new Element('STRONG').insert(elt.label()).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
+            elt.label());
     },
 
     /* Folder list updates. */
@@ -2354,7 +2352,7 @@ var DimpBase = {
                 (drop.ftype() != 'special' &&
                  !this.flist.isSubfolder(drag, drop))) {
                 DimpCore.doAction('renameMailbox', {
-                    new_name: drag.element().retrieve('l').unescapeHTML(),
+                    new_name: drag.label().unescapeHTML(),
                     new_parent: dropbase ? '' : drop.value(),
                     old_name: drag.value()
                 });
@@ -2392,13 +2390,13 @@ var DimpBase = {
 
     mboxDropCaption: function(drop, drag, e)
     {
+        drop = this.flist.getMbox(drop);
         var m,
-            d = drag.retrieve('l'),
-            ftype = this.flist.getMbox(drop).ftype(),
-            l = drop.retrieve('l');
+            ftype = drop.ftype(),
+            l = drop.label();
 
         if (drop == $('dropbase')) {
-            return DimpCore.text.moveto.sub('%s', d).sub('%s', DimpCore.text.baselevel);
+            return DimpCore.text.moveto.sub('%s', this.flist.getMbox(drag).label()).sub('%s', DimpCore.text.baselevel);
         }
 
         switch (e.type) {
@@ -2421,7 +2419,7 @@ var DimpBase = {
          }
 
          return drag.hasClassName('imp-sidebar-mbox')
-             ? ((ftype != 'special' && !this.flist.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
+             ? ((ftype != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', this.flist.getMbox(drag).label()).sub('%s', l) : '')
              : ((ftype != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', l) : '');
     },
 
@@ -3174,7 +3172,7 @@ var DimpBase = {
 
         case 'rename':
             if (r.result) {
-                this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay()), elt.element().retrieve('l').unescapeHTML());
+                this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay()), elt.label().unescapeHTML());
             } else {
                 RedBox.close();
             }
@@ -3263,7 +3261,7 @@ var DimpBase = {
         if (val) {
             switch (mode) {
             case 'rename':
-                if (mbox.element().retrieve('l') != val) {
+                if (mbox.label() != val) {
                     action = 'renameMailbox';
                     params = {
                         old_name: mbox.value(),
@@ -4114,7 +4112,6 @@ var IMP_Flist = Class.create({
 
         li = new Element('DIV', { className: 'horde-subnavi', title: title })
             .addClassName(cname)
-            .store('l', label)
             .store('mbox', ob.m)
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
@@ -4139,6 +4136,7 @@ var IMP_Flist = Class.create({
 
         mbox = new IMP_Flist_Mbox();
         mbox.element(li);
+        mbox.label(label);
         if (ob.dummy) {
             mbox.dummy(true);
         }
@@ -4293,6 +4291,7 @@ var IMP_Flist_Mbox = Class.create({
             dummy: false,
             elt: null,
             fixed: null,
+            label: null,
             nc: false,
             unseen: null
         };
@@ -4366,6 +4365,15 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.data.unseen;
+    },
+
+    label: function(label)
+    {
+        if (!Object.isUndefined(label)) {
+            this.data.label = label;
+        }
+
+        return this.data.label;
     },
 
     fullMboxDisplay: function()
