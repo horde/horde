@@ -60,7 +60,7 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
             $params = array_merge(array(
                 'hostspec' => array(),
                 'password' => null,
-                'port' => array(),
+                'port' => '',
                 'protocol' => 'tcp',
             ), $params);
             $redis_params = array();
