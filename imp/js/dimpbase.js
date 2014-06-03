@@ -1314,7 +1314,7 @@ var DimpBase = {
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
 
-                if (baseelt.fixed() === null) {
+                if (Object.isUndefined(baseelt.fixed())) {
                     DimpCore.doAction('isFixedMbox', {
                         mbox: baseelt.value()
                      }, {
@@ -1339,10 +1339,9 @@ var DimpBase = {
                 $('ctx_mbox_create').hide();
             }
 
-            tmp = (baseelt.unseen() === null);
             if (DimpCore.conf.poll_alter) {
-                [ $('ctx_mbox_poll') ].compact().invoke(tmp ? 'show' : 'hide');
-                [ $('ctx_mbox_nopoll') ].compact().invoke(tmp ? 'hide' : 'show');
+                [ $('ctx_mbox_poll') ].compact().invoke(baseelt.polled() ? 'hide' : 'show');
+                [ $('ctx_mbox_nopoll') ].compact().invoke(baseelt.polled() ? 'show' : 'hide');
             } else {
                 $('ctx_mbox_poll', 'ctx_mbox_nopoll').compact().invoke('hide');
             }
@@ -1746,7 +1745,7 @@ var DimpBase = {
         // preload next unseen message that exists in current buffer.
         if (data &&
             (tmp = this.flist.getMbox(data.VP_view)) &&
-            (tmp.unseen() !== null)) {
+            tmp.polled()) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
                 flag: { notinclude: DimpCore.conf.FLAG_SEEN }
@@ -2077,9 +2076,15 @@ var DimpBase = {
     // unseen: (integer) The updated value.
     updateUnseenStatus: function(mbox, unseen)
     {
-        this.setMboxLabel(mbox, unseen);
+        if (!(mbox = this.flist.getMbox(mbox))) {
+            return;
+        }
 
-        if (this.view == mbox) {
+        mbox.unseen(unseen);
+
+        this.setMboxLabel(mbox);
+
+        if (this.view == mbox.value()) {
             this.updateTitle();
         }
     },
@@ -2101,27 +2106,16 @@ var DimpBase = {
     },
 
     // m = (string|Element) Mailbox element.
-    setMboxLabel: function(m, unseen)
+    setMboxLabel: function(m)
     {
-        var elt = this.flist.getMbox(m), u;
+        var unseen;
 
-        if (!elt) {
-            return;
+        if ((m = this.flist.getMbox(m))) {
+            unseen = m.unseen();
+            m.labelElement().update((unseen > 0) ?
+                new Element('STRONG').insert(m.label()).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
+                m.label());
         }
-
-        u = ~~elt.unseen();
-
-        if (Object.isUndefined(unseen)) {
-            if (unseen === u) {
-                return;
-            }
-            elt.unseen(unseen);
-            u = ~~elt.unseen();
-        }
-
-        elt.element().down('A').update((unseen > 0) ?
-            new Element('STRONG').insert(elt.label()).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
-            elt.label());
     },
 
     /* Folder list updates. */
@@ -2148,7 +2142,7 @@ var DimpBase = {
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
             args.set('poll', Object.toJSON(Object.values(this.flist.mboxes).findAll(function(m) {
-                return (m.unseen() !== null);
+                return m.polled();
             }).invoke('value')));
         } else {
             args.set('poll', Object.toJSON([]));
@@ -2666,14 +2660,14 @@ var DimpBase = {
         case 78: // N
         case 110: // n
             if (e.shiftKey && !this.isSearch()) {
-                cnt = this.flist.getMbox(this.view).unseen();
-                if (cnt || (cnt === null)) {
+                tmp = this.flist.getMbox(this.view);
+                cnt = tmp.unseen();
+                if (cnt || !tmp.polled()) {
                     vsel = this.viewport.createSelectionBuffer();
                     row = vsel.search({ flag: { notinclude: DimpCore.conf.FLAG_SEEN } }).get('rownum');
                     all = (vsel.size() == this.viewport.getMetaData('total_rows'));
 
-                    if (all ||
-                        (!Object.isUndefined(cnt) && row.size() == cnt)) {
+                    if (all || ((row.size() == cnt) && tmp.polled())) {
                         // Here we either have the entire mailbox in buffer,
                         // or all unseen messages are in the buffer.
                         if (sel.size()) {
@@ -3191,6 +3185,7 @@ var DimpBase = {
 
                 if (this.showunsub) {
                     elt.unsubscribed(false);
+                    elt.element().removeClassName('imp-sidebar-unsubmbox');
                 }
             }.bind(this);
 
@@ -3217,6 +3212,7 @@ var DimpBase = {
 
                 if (this.showunsub) {
                     elt.unsubscribed(true);
+                    elt.element().addClassName('imp-sidebar-unsubmbox');
                 } else {
                     if (!this.showunsub &&
                         !elt.element().siblings().size() &&
@@ -3299,12 +3295,6 @@ var DimpBase = {
     {
         var nm = $('imp-normalmboxes');
 
-        if (r.expand) {
-            r.expand = r.base
-                ? this.flist.getMbox(r.base)
-                : true;
-        }
-
         if (r.d) {
             r.d.each(function(m) {
                 if (this.view == m) {
@@ -3314,18 +3304,23 @@ var DimpBase = {
                 this.viewport.deleteView(m);
             }, this);
         }
+
         if (r.c) {
             r.c.each(function(m) {
-                this.flist.changeMbox(m, { expand: r.expand });
+                this.flist.createMbox(m, true);
             }, this);
         }
+
         if (r.a && !r.noexpand) {
-            r.a.each(function(m) {
-                this.flist.createMbox(m, {
-                    expand: r.expand,
-                    showunsub: this.showunsub
-                });
-            }, this);
+            r.a.each(this.flist.createMbox.bind(this.flist));
+            if (r.expand) {
+                r.expand = r.base
+                    ? [ this.flist.getMbox(r.base) ]
+                    : r.a.pluck('m').collect(this.flist.getMbox.bind(this.flist));
+                r.expand.invoke('subElement').compact().invoke('down').compact().each(function(sub) {
+                    this._toggleSubFolder(sub, 'exp', true, true);
+                }, this);
+            }
         }
 
         if (r.all) {
@@ -3499,7 +3494,7 @@ var DimpBase = {
                         if (need.get(mbox.value())) {
                             var ed;
 
-                            mbox.element().down('A').update(
+                            mbox.labelElement().update(
                                 new Element('SPAN')
                                     .addClassName('imp-sidebar-mbox-loading')
                                     .update('[' + DimpCore.text.loading + ']')
@@ -3516,7 +3511,7 @@ var DimpBase = {
                              * callback of the base mailbox, but this is
                              * sanity checking in case the mailbox load
                              * failed.) */
-                            mbox = this.flist.getMbox(mbox.value()); // TODO
+                            mbox = this.flist.getMbox(mbox.value());
                             this.setMboxLabel(mbox.element());
 
                             /* Need to update sizing since it is calculated at
@@ -3530,7 +3525,7 @@ var DimpBase = {
                         }
                     }.bindAsEventListener(this),
                     afterFinish: function() {
-                        mbox.element().down().toggleClassName('exp').toggleClassName('col');
+                        this.flist.getMbox(mbox.value()).element().down().toggleClassName('exp').toggleClassName('col');
                     }.bind(this),
                     duration: noeffect ? 0 : 0.2,
                     queue: {
@@ -3577,6 +3572,10 @@ var DimpBase = {
         // Make the new mailbox a drop target.
         if (!m.virtual()) {
             new Drop(m.element(), this.mboxDropConfig);
+        }
+
+        if (this.showunsub && m.unsubscribed()) {
+            m.element().addClassName('imp-sidebar-unsubmbox');
         }
 
         switch (ftype) {
@@ -3790,16 +3789,10 @@ var DimpBase = {
 
     _modifyPollCallback: function(r)
     {
-        var u;
-
-        if (r.add) {
-            u = 0;
-        } else {
+        this.flist.getMbox(r.mbox).polled(r.add);
+        if (!r.add) {
             this.updateUnseenStatus(r.mbox, 0);
-            u = null;
         }
-
-        this.flist.getMbox(r.mbox).unseen(u);
     },
 
     loadingImg: function(id, show)
@@ -4082,169 +4075,12 @@ var IMP_Flist = Class.create({
         delete this.mboxes[m];
     },
 
-    changeMbox: function(ob, opts)
+    createMbox: function(ob, force)
     {
-        if (this.getMbox(ob.m).dummy()) {
-            // The case of children being added to a special mailbox is
-            // handled by createMbox().
-            if (!ob.ch) {
-                this.deleteMbox(ob.m, { sub: true });
-            }
-        } else {
-            /* If refreshing page, change mailboxes may not exist so need to
-             * treat as 'add' instead. */
-            if (this.getMbox(ob.m)) {;
-                this.deleteMbox(ob.m, { sub: !ob.ch });
-            }
-            this.createMbox(ob, opts);
+        if (force || !this.mboxes[ob.m]) {
+            this.mboxes[ob.m] = new IMP_Flist_Mbox(this, ob);
+            this.mboxes[ob.m].element().fire('IMP_Flist:create');
         }
-    },
-
-    // For format of the ob object, see IMP_Queue#_ftreeElt().
-    // opts: (object) [expand, showunsub]
-    createMbox: function(ob, opts)
-    {
-        var div, f_node, ftype, li, ll, mbox, parent_c, parent_e, tmp, tmp2,
-            cname = 'imp-sidebar-container',
-            css = ob.cl || 'folderImg',
-            label = ob.l || ob.m,
-            title = ob.t || ob.m;
-
-        if (this.mboxes[ob.m]) {
-            return;
-        }
-
-        if (ob.v) {
-            if (ob.co) {
-                ftype = 'vcontainer';
-            } else {
-                cname = 'imp-sidebar-mbox';
-                ftype = 'vfolder';
-            }
-            title = label;
-        } else if (ob.r) {
-            switch (ob.r) {
-            case 1:
-                ftype = 'rcontainer';
-                break;
-
-            case 2:
-                cname = 'imp-sidebar-remote';
-                ftype = 'remote';
-                break;
-
-            case 3:
-                ftype = 'remoteauth';
-                break;
-            }
-        } else if (ob.co) {
-            if (ob.n) {
-                ftype = 'scontainer';
-                title = label;
-            } else {
-                ftype = 'container';
-            }
-        } else {
-            cname = 'imp-sidebar-mbox';
-            ftype = ob.s ? 'special' : 'mbox';
-        }
-
-        if (ob.un && opts.showunsub) {
-            cname += ' imp-sidebar-unsubmbox';
-        }
-
-        div = new Element('DIV', { className: 'horde-subnavi-icon' });
-        if (ob.i) {
-            div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
-        }
-
-        li = new Element('DIV', { className: 'horde-subnavi', title: title })
-            .addClassName(cname)
-            .store('mbox', ob.m)
-            .insert(div)
-            .insert(new Element('DIV', { className: 'horde-subnavi-point' })
-                        .insert(new Element('A').insert(label)));
-
-        if (ob.s) {
-            div.removeClassName('exp').addClassName(css);
-            parent_e = $('imp-specialmboxes');
-
-            /* Create a dummy container element in normal mailboxes section
-             * if special mailbox has children. */
-            if (ob.ch) {
-                tmp = Object.clone(ob);
-                tmp.co = tmp.dummy = true;
-                tmp.s = false;
-                this.createMbox(tmp, opts);
-            }
-        }
-
-        mbox = new IMP_Flist_Mbox();
-        mbox.dummy(ob.dummy);
-        mbox.element(li);
-        mbox.ftype(ftype);
-        mbox.fs(ob.fs);
-        mbox.label(label);
-        mbox.nc(ob.nc);
-        if (ob.po) {
-            mbox.unseen(0);
-        }
-        mbox.unsubscribed(ob.un && opts.showunsub);
-        mbox.virtual(ob.v);
-        this.mboxes[ob.m] = mbox;
-
-        if (!ob.s) {
-            div.addClassName(ob.ch ? 'exp' : css);
-            parent_e = ob.pa
-                ? this.getMbox(ob.pa).subElement()
-                : $('imp-normalmboxes');
-        }
-
-        /* Insert into correct place in level. */
-        parent_c = parent_e.childElements();
-        if (!ob.ns) {
-            ll = label.toLowerCase();
-            f_node = parent_c.find(function(node) {
-                var m = this.getMbox(node);
-                return (m && !m.fs() && (ll < m.label().toLowerCase()));
-            }, this);
-        }
-
-        tmp2 = f_node
-            ? f_node.previous()
-            : parent_c.last();
-        if (tmp2 &&
-            tmp2.hasClassName('horde-subnavi-sub') &&
-            tmp2.retrieve('m') == ob.m) {
-            tmp2.insert({ before: li });
-        } else if (f_node) {
-            f_node.insert({ before: li });
-        } else {
-            parent_e.insert(li);
-        }
-
-        if (!f_node &&
-            opts.expand &&
-            parent_e.id != 'imp-specialmboxes' &&
-            parent_e.id != 'imp-normalmboxes') {
-            tmp2 = parent_e.previous();
-            if (!Object.isElement(opts.expand) ||
-                opts.expand != tmp2) {
-                tmp2.next().show();
-                tmp2.down().removeClassName('exp').addClassName('col');
-            }
-        }
-
-        if (!ob.s && ob.ch && !this.getMbox(ob.m).subElement()) {
-            li.insert({
-                after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
-            });
-            if (tmp) {
-                li.insert({ after: tmp });
-            }
-        }
-
-        li.fire('IMP_Flist:create');
     },
 
     // p = (element) Parent element
@@ -4284,32 +4120,169 @@ var IMP_Flist = Class.create({
 
 var IMP_Flist_Mbox = Class.create({
 
-    initialize: function()
+    // For format of the ob object, see IMP_Queue#_ftreeElt().
+    initialize: function(flist, ob)
     {
-        this.data = {
-            dummy: false,
-            elt: null,
-            fixed: null,
-            ftype: null,
-            fs: false,
-            label: null,
-            nc: false,
-            unseen: null,
-            unsub: false,
-            virtual: false
-        };
-    },
+        var div, f_node, ll, mbox, parent_c, parent_e, title, tmp,
+            cname = 'imp-sidebar-container';
 
-    element: function(elt)
-    {
-        if (Object.isElement(elt)) {
-            this.data.elt = elt;
+        // Extra fields: dummy, elt, fixed, ftype, unseen
+        this.data = ob;
+
+        title = ob.t || ob.m;
+
+        /* Create a dummy container element in normal mailboxes section
+         * if special mailbox has children. */
+        if (ob.s && ob.ch) {
+            tmp = Object.clone(ob);
+            tmp.co = tmp.dummy = true;
+            tmp.s = false;
+            flist.createMbox(tmp);
         }
 
+        if (ob.v) {
+            if (ob.co) {
+                this.data.ftype = 'vcontainer';
+            } else {
+                cname = 'imp-sidebar-mbox';
+                this.data.ftype = 'vfolder';
+            }
+            title = this.label();
+        } else if (ob.r) {
+            switch (ob.r) {
+            case 1:
+                this.data.ftype = 'rcontainer';
+                break;
+
+            case 2:
+                cname = 'imp-sidebar-remote';
+                this.data.ftype = 'remote';
+                break;
+
+            case 3:
+                this.data.ftype = 'remoteauth';
+                break;
+            }
+        } else if (ob.co) {
+            if (ob.n) {
+                this.data.ftype = 'scontainer';
+                title = this.label();
+            } else {
+                this.data.ftype = 'container';
+            }
+        } else {
+            cname = 'imp-sidebar-mbox';
+            this.data.ftype = ob.s ? 'special' : 'mbox';
+        }
+
+        div = new Element('DIV', { className: 'horde-subnavi-icon' });
+        div.addClassName((!ob.s && ob.ch) ? 'exp' : (ob.cl || 'folderImg'));
+        if (ob.i) {
+            div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
+        }
+
+        this.data.elt = new Element('DIV', { className: 'horde-subnavi', title: title })
+            .addClassName(cname)
+            .store('mbox', ob.m)
+            .insert(div)
+            .insert(new Element('DIV', { className: 'horde-subnavi-point' })
+                    .insert(new Element('A').insert(this.label())));
+
+        mbox = flist.getMbox(ob.m);
+        if (mbox) {
+            mbox.element().fire('IMP_Flist:delete');
+            mbox.element().replace(this.data.elt);
+        } else {
+            if (ob.s) {
+                parent_e = $('imp-specialmboxes');
+            } else {
+                parent_e = ob.pa
+                    ? flist.getMbox(ob.pa).subElement()
+                    : $('imp-normalmboxes');
+            }
+
+            /* Insert into correct place in level. */
+            parent_c = parent_e.childElements();
+            if (!ob.ns) {
+                ll = this.label().toLowerCase();
+                f_node = parent_c.find(function(node) {
+                    var m = flist.getMbox(node);
+                    return (m && !m.fs() && (ll < m.label().toLowerCase()));
+                }, this);
+            }
+
+            tmp = f_node
+                ? f_node.previous()
+                : parent_c.last();
+            if (tmp &&
+                tmp.hasClassName('horde-subnavi-sub') &&
+                tmp.retrieve('m') == ob.m) {
+                tmp.insert({ before: this.data.elt });
+            } else if (f_node) {
+                f_node.insert({ before: this.data.elt });
+            } else {
+                parent_e.insert(this.data.elt);
+            }
+        }
+
+        if (!ob.s && ob.ch && !this.subElement()) {
+            this.data.elt.insert({
+                after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
+            });
+        }
+    },
+
+    /* Read/write. */
+
+    fixed: function(f)
+    {
+        if (!Object.isUndefined(f)) {
+            this.data.fixed = !!f;
+        }
+
+        return this.data.fixed;
+    },
+
+    polled: function(p)
+    {
+        if (!Object.isUndefined(p)) {
+            this.data.po = p;
+        }
+
+        return !!this.data.po;
+    },
+
+    unseen: function(u)
+    {
+        if (!Object.isUndefined(u)) {
+            this.data.unseen = u;
+        }
+
+        return ~~this.data.unseen;
+    },
+
+    unsubscribed: function(unsub)
+    {
+        if (!Object.isUndefined(unsub)) {
+            this.data.un = unsub;
+        }
+
+        return !!this.data.un;
+    },
+
+    /* Read-only. */
+
+    element: function()
+    {
         return this.data.elt;
     },
 
-    subElement: function(id)
+    labelElement: function()
+    {
+        return this.data.elt.down('A');
+    },
+
+    subElement: function()
     {
         var m_elt;
 
@@ -4324,13 +4297,9 @@ var IMP_Flist_Mbox = Class.create({
         return this.data.m;
     },
 
-    dummy: function(dummy)
+    dummy: function()
     {
-        if (!Object.isUndefined(dummy)) {
-            this.data.dummy = !!dummy;
-        }
-
-        return this.data.dummy;
+        return !!this.data.dummy;
     },
 
     isContainer: function()
@@ -4343,77 +4312,29 @@ var IMP_Flist_Mbox = Class.create({
         return this.data.elt.hasClassName('imp-sidebar-mbox');
     },
 
-    ftype: function(ftype)
+    ftype: function()
     {
-        if (!Object.isUndefined(ftype)) {
-            this.data.ftype = ftype;
-        }
-
         return this.data.ftype;
     },
 
-    fixed: function(fixed)
+    nc: function()
     {
-        if (!Object.isUndefined(fixed)) {
-            this.data.fixed = !!fixed;
-        }
-
-        return this.data.fixed;
+        return !!this.data.nc;
     },
 
-    nc: function(nc)
+    label: function()
     {
-        if (!Object.isUndefined(nc)) {
-            this.data.nc = !!fixed;
-        }
-
-        return this.data.nc;
+        return this.data.l || this.data.m;
     },
 
-    unseen: function(unseen)
+    fs: function()
     {
-        if (!Object.isUndefined(unseen)) {
-            this.data.unseen = unseen;
-        }
-
-        return this.data.unseen;
+        return !!this.data.fs;
     },
 
-    label: function(label)
+    virtual: function()
     {
-        if (!Object.isUndefined(label)) {
-            this.data.label = label;
-        }
-
-        return this.data.label;
-    },
-
-    fs: function(fs)
-    {
-        if (!Object.isUndefined(fs)) {
-            this.data.fs = !!fs;
-        }
-
-        return this.data.fs;
-    },
-
-    unsubscribed: function(unsub)
-    {
-        if (!Object.isUndefined(unsub)) {
-            [ this.elt ].invoke(unsub ? 'addClassName' : 'removeClassName', 'imp-sidebar-unsubmbox');
-            this.data.unsub = !!unsub;
-        }
-
-        return this.data.unsub;
-    },
-
-    virtual: function(v)
-    {
-        if (!Object.isUndefined(v)) {
-            this.data.virtual = !!v;
-        }
-
-        return this.data.virtual;
+        return !!(~~this.data.v);
     },
 
     fullMboxDisplay: function()
