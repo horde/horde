@@ -2390,12 +2390,12 @@ var DimpBase = {
 
     mboxDropCaption: function(drop, drag, e)
     {
-        drag = this.flist.getMbox(drag);
-        drop = this.flist.getMbox(drop);
-
         var m,
             ftype = drop.ftype(),
             l = drop.label();
+
+        drag = this.flist.getMbox(drag);
+        drop = this.flist.getMbox(drop);
 
         if (drop == $('dropbase')) {
             return DimpCore.text.moveto.sub('%s', drag.label()).sub('%s', DimpCore.text.baselevel);
@@ -2421,8 +2421,8 @@ var DimpBase = {
          }
 
          return drag.isMbox()
-             ? ((ftype != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', drag.label()).sub('%s', l) : '')
-             : ((ftype != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', l) : '');
+             ? ((drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', drag.label()).sub('%s', drop.label()) : '')
+             : ((drop.ftype() != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', drop.label()) : '');
     },
 
     messageCountText: function(cnt)
@@ -3299,7 +3299,7 @@ var DimpBase = {
 
         if (r.expand) {
             r.expand = r.base
-                ? this.flist.getMbox(r.base).subElement().previous()
+                ? this.flist.getMbox(r.base)
                 : true;
         }
 
@@ -3746,12 +3746,16 @@ var DimpBase = {
 
     _modifyPollCallback: function(r)
     {
+        var u;
+
         if (r.add) {
-            this.flist.getMbox(r.mbox).unseen(0);
+            u = 0;
         } else {
             this.updateUnseenStatus(r.mbox, 0);
-            this.flist.getMbox(r.mbox).unseen(null);
+            u = null;
         }
+
+        this.flist.getMbox(r.mbox).unseen(u);
     },
 
     loadingImg: function(id, show)
