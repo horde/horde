@@ -1314,7 +1314,7 @@ var DimpBase = {
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
 
-                if (Object.isUndefined(baseelt.element().retrieve('fixed'))) {
+                if (baseelt.fixed() === null) {
                     DimpCore.doAction('isFixedMbox', {
                         mbox: baseelt.value()
                      }, {
@@ -1322,12 +1322,12 @@ var DimpBase = {
                             asynchronous: false
                         },
                         callback: function(r) {
-                            baseelt.store('fixed', r.fixed);
+                            baseelt.fixed(r.fixed);
                         }
                      });
                  }
 
-                if (baseelt.element().retrieve('fixed')) {
+                if (baseelt.fixed()) {
                     elts.shift();
                     elts.invoke('hide');
                 } else {
@@ -4306,6 +4306,7 @@ var IMP_Flist_Mbox = Class.create({
     {
         // this.dummy = false;
         // this.elt = null;
+        this.fixed = null;
     },
 
     element: function(elt)
@@ -4349,6 +4350,15 @@ var IMP_Flist_Mbox = Class.create({
     ftype: function()
     {
         return this.elt.retrieve('ftype');
+    },
+
+    fixed: function(fixed)
+    {
+        if (!Object.isUndefined(fixed)) {
+            this.fixed = !!fixed;
+        }
+
+        return this.fixed;
     },
 
     fullMboxDisplay: function()
