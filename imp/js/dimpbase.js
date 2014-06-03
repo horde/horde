@@ -1335,7 +1335,7 @@ var DimpBase = {
                 }
             }
 
-            if (baseelt.retrieve('nc')) {
+            if (baseelt.nc()) {
                 $('ctx_mbox_create').hide();
             }
 
@@ -4228,7 +4228,7 @@ var IMP_Flist = Class.create({
 
         // Check for mailboxes that don't allow children
         if (ob.nc) {
-            li.store('nc', true);
+            this.mboxes[ob.m].nc(true);
         }
 
         switch (ftype) {
@@ -4307,6 +4307,7 @@ var IMP_Flist_Mbox = Class.create({
         // this.dummy = false;
         // this.elt = null;
         this.fixed = null;
+        this.nc = false;
     },
 
     element: function(elt)
@@ -4359,6 +4360,15 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.fixed;
+    },
+
+    nc: function(nc)
+    {
+        if (!Object.isUndefined(nc)) {
+            this.nc = !!fixed;
+        }
+
+        return this.nc;
     },
 
     fullMboxDisplay: function()
