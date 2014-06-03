@@ -19,6 +19,18 @@ TODO
 - SCHEMA support in ITEMOPERATIONS requests. Don't have client that supports
   currently.
 
+- Implement some sort of issue tracking/counting to prevent loops due to things
+  like clients not supporting standard status codes, like FOLDERSYNC_REQUIRED.
+  Send the error code up to a maximum number of times, and after that send a
+  server 500-ish error code indicating the client should stop trying. Probably
+  store data in device object, but need to figure out how to prevent race
+  conditions since multiple requests can be in progress. Perhaps some sort
+  of shared memory cache?
+
+- Perhaps if we use a shared memory solution, we can also possibly create
+  some sort of top-like application to monitor EAS usage. Make it easier to
+  find troublesome devices etc....
+
 BC BREAKING (i.e., Horde 6).
 ============================
 
@@ -63,3 +75,11 @@ BC BREAKING (i.e., Horde 6).
 - Extract a basic Horde_ActiveSync_Storage class? At the very least we need to
   rename the current Horde_ActiveSync_State_* classes to Horde_ActiveSync_Storage
   since they now deal with more that device state.
+
+- Implmement Horde_ActiveSync_HttpRequest object and remove dependency on
+  Horde_Controller. We only use the Horde_Controller_Request_Http object from
+  that package.
+
+- Implmement A Horde_ActiveSync_Response object and move functionality currently
+  living in the RPC layer (sending back certain headers, etc...) into this
+  class.
