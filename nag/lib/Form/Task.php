@@ -154,7 +154,18 @@ class Nag_Form_Task extends Horde_Form
 
     public function renderActive()
     {
-        return parent::renderActive($this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))), $this->_vars, Horde::url('t/save'), 'post');
+        global $conf;
+
+        return parent::renderActive(
+            $this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))),
+            $this->_vars,
+            Horde::url(
+                $conf['urls']['pretty'] == 'rewrite'
+                    ? 't/save'
+                    : 'task/save.php'
+            ),
+            'post'
+        );
     }
 
 }

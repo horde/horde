@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2014-06-03</date>
  <version>
   <release>4.2.0alpha2</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Only use URL rewriting for saving/completing tasks if pretty URLs are enabled in the configuration.
 * [jan] Don&apos;t include smart lists in top menu.
 * [jan] Fix top menu URLs to create new tasks in specific task lists.
  </notes>
@@ -409,6 +410,10 @@
     <file name="12_nag_fix_smartlists.php" role="horde" />
     <file name="13_nag_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
+   <dir name="task">
+    <file name="complete.php" role="horde" />
+    <file name="save.php" role="horde" />
+   </dir> <!-- /task -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
@@ -930,6 +935,8 @@
    <install as="nag/migration/11_nag_upgrade_smartlists.php" name="migration/11_nag_upgrade_smartlists.php" />
    <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
+   <install as="nag/task/complete.php" name="task/complete.php" />
+   <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
@@ -1502,9 +1509,10 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-05-06</date>
+   <date>2014-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Only use URL rewriting for saving/completing tasks if pretty URLs are enabled in the configuration.
 * [jan] Don&apos;t include smart lists in top menu.
 * [jan] Fix top menu URLs to create new tasks in specific task lists.
    </notes>

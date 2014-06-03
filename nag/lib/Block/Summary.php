@@ -187,7 +187,15 @@ class Nag_Block_Summary extends Horde_Core_Block
                 } else {
                     $label = sprintf(_("Complete \"%s\""), $task->name);
                     $html .= '<td width="1%">'
-                        . Horde::url('t/complete')->add(array('task' => $task->id, 'tasklist' => $task->tasklist, 'url' => Horde::selfUrl(true)))->link()
+                        . Horde::url(
+                            $conf['urls']['pretty'] == 'rewrite'
+                                ? 't/complete'
+                                : 'task/complete.php'
+                        )->add(array(
+                            'task' => $task->id,
+                            'tasklist' => $task->tasklist,
+                            'url' => Horde::selfUrl(true)
+                        ))->link()
                         . Horde::img('unchecked.png', $label) . '</a></td>';
                 }
             }

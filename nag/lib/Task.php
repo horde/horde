@@ -710,6 +710,8 @@ class Nag_Task
      */
     public function process($indent = null)
     {
+        global $conf;
+
         /* Link cache. */
         static $view_url_list, $task_url_list;
 
@@ -756,7 +758,15 @@ class Nag_Task
         $this->view_link = $view_url_list[$this->tasklist]->copy()->add('task', $this->id);
 
         $task_url_task = $task_url_list[$this->tasklist]->copy()->add('task', $this->id);
-        $this->complete_link = Horde::url('t/complete')->add(array('url' => Horde::url('list.php'), 'task' => $this->id, 'tasklist' => $this->tasklist));
+        $this->complete_link = Horde::url(
+            $conf['urls']['pretty'] == 'rewrite'
+                ? 't/complete'
+                : 'task/complete.php'
+            )->add(array(
+                'url' => Horde::url('list.php'),
+                'task' => $this->id,
+                'tasklist' => $this->tasklist
+            ));
         $this->edit_link = $task_url_task->copy()->add('actionID', 'modify_task');
         $this->delete_link = $task_url_task->copy()->add('actionID', 'delete_task');
     }
