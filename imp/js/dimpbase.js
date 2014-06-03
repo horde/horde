@@ -4116,9 +4116,6 @@ var IMP_Flist = Class.create({
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                         .insert(new Element('A').insert(label)));
-        if (ob.fs) {
-            li.store('fs', true);
-        }
 
         if (ob.s) {
             div.removeClassName('exp').addClassName(css);
@@ -4135,11 +4132,10 @@ var IMP_Flist = Class.create({
         }
 
         mbox = new IMP_Flist_Mbox();
+        mbox.dummy(ob.dummy);
         mbox.element(li);
+        mbox.fs(ob.fs);
         mbox.label(label);
-        if (ob.dummy) {
-            mbox.dummy(true);
-        }
         this.mboxes[ob.m] = mbox;
 
         if (!ob.s) {
@@ -4154,13 +4150,9 @@ var IMP_Flist = Class.create({
         if (!ob.ns) {
             ll = label.toLowerCase();
             f_node = parent_c.find(function(node) {
-                if (node.retrieve('fs')) {
-                    return false;
-                }
-
-                var l = node.retrieve('l');
-                return (l && (ll < l.toLowerCase()));
-            });
+                var m = this.getMbox(node);
+                return (m && !m.fs() && (ll < m.label().toLowerCase()));
+            }, this);
         }
 
         tmp2 = f_node
@@ -4291,6 +4283,7 @@ var IMP_Flist_Mbox = Class.create({
             dummy: false,
             elt: null,
             fixed: null,
+            fs: false,
             label: null,
             nc: false,
             unseen: null
@@ -4374,6 +4367,15 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.data.label;
+    },
+
+    fs: function(fs)
+    {
+        if (!Object.isUndefined(fs)) {
+            this.data.fs = !!fs;
+        }
+
+        return this.data.fs;
     },
 
     fullMboxDisplay: function()
