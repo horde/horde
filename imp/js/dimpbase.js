@@ -4288,27 +4288,29 @@ var IMP_Flist_Mbox = Class.create({
 
     initialize: function()
     {
-        this.dummy = false;
-        this.elt = null;
-        this.fixed = null;
-        this.nc = false;
-        this.unseen = null;
+        this.data = {
+            dummy: false,
+            elt: null,
+            fixed: null,
+            nc: false,
+            unseen: null
+        };
     },
 
     element: function(elt)
     {
         if (Object.isElement(elt)) {
-            this.elt = elt;
+            this.data.elt = elt;
         }
 
-        return this.elt;
+        return this.data.elt;
     },
 
     subElement: function(id)
     {
         var m_elt;
 
-        m_elt = this.elt.next();
+        m_elt = this.data.elt.next();
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
@@ -4316,58 +4318,58 @@ var IMP_Flist_Mbox = Class.create({
 
     value: function()
     {
-        return this.elt.retrieve('mbox');
+        return this.data.elt.retrieve('mbox');
     },
 
     dummy: function(dummy)
     {
         if (!Object.isUndefined(dummy)) {
-            this.dummy = dummy;
+            this.data.dummy = !!dummy;
         }
 
-        return !!this.dummy;
+        return this.data.dummy;
     },
 
     isContainer: function()
     {
-        return this.elt.hasClassName('imp-sidebar-container');
+        return this.data.elt.hasClassName('imp-sidebar-container');
     },
 
     ftype: function()
     {
-        return this.elt.retrieve('ftype');
+        return this.data.elt.retrieve('ftype');
     },
 
     fixed: function(fixed)
     {
         if (!Object.isUndefined(fixed)) {
-            this.fixed = !!fixed;
+            this.data.fixed = !!fixed;
         }
 
-        return this.fixed;
+        return this.data.fixed;
     },
 
     nc: function(nc)
     {
         if (!Object.isUndefined(nc)) {
-            this.nc = !!fixed;
+            this.data.nc = !!fixed;
         }
 
-        return this.nc;
+        return this.data.nc;
     },
 
     unseen: function(unseen)
     {
         if (!Object.isUndefined(unseen)) {
-            this.unseen = unseen;
+            this.data.unseen = unseen;
         }
 
-        return this.unseen;
+        return this.data.unseen;
     },
 
     fullMboxDisplay: function()
     {
-        return this.elt.readAttribute('title').escapeHTML();
+        return this.data.elt.readAttribute('title').escapeHTML();
     }
 
 });
