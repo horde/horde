@@ -1637,7 +1637,7 @@ var DimpBase = {
                 label += ' (' + this.search.label + ')';
             }
         } else if ((elt = this.flist.getMbox(this.view))) {
-            unseen = elt.retrieve('u');
+            unseen = elt.element().retrieve('u');
         }
 
         this.setTitle(label, unseen);
@@ -2082,7 +2082,7 @@ var DimpBase = {
         var elt = this.flist.getMbox(mbox);
 
         if (elt) {
-            elt = elt.retrieve('u');
+            elt = elt.element().retrieve('u');
             if (!Object.isUndefined(elt)) {
                 return Number(elt);
             }
@@ -2128,8 +2128,10 @@ var DimpBase = {
         }
 
         if (Object.isUndefined(unseen)) {
-            unseen = this.getUnseenCount(elt.retrieve('mbox'));
+            unseen = this.getUnseenCount(elt.value());
+            elt = elt.element();
         } else {
+            elt = elt.element();
             if (!Object.isUndefined(elt.retrieve('u')) &&
                 elt.retrieve('u') == unseen) {
                 return;
@@ -3115,7 +3117,7 @@ var DimpBase = {
             }, {
                 callback: function(r) {
                     if (r.success) {
-                        this.flist.getMbox($F(elt.down('INPUT[name="remote_id"]')))
+                        this.flist.getMbox($F(elt.down('INPUT[name="remote_id"]'))).element()
                             .removeClassName('imp-sidebar-remote')
                             .addClassName('imp-sidebar-container');
                         HordeDialog.close();
@@ -3214,7 +3216,7 @@ var DimpBase = {
                 });
 
                 if (this.showunsub) {
-                    this.flist.getMbox(mbox).removeClassName('imp-sidebar-unsubmbox');
+                    this.flist.getMbox(mbox).element().removeClassName('imp-sidebar-unsubmbox');
                 }
             }.bind(this);
 
@@ -3231,8 +3233,8 @@ var DimpBase = {
 
         case 'unsubscribe':
             this.viewaction = function(e) {
-                var m = elt.retrieve('mbox'),
-                    m_elt = this.flist.getMbox(m),
+                var m_elt = this.flist.getMbox(m),
+                    m = m_elt.value(),
                     tmp;
 
                 DimpCore.doAction('subscribe', {
@@ -3242,11 +3244,11 @@ var DimpBase = {
                 });
 
                 if (this.showunsub) {
-                    m_elt.addClassName('imp-sidebar-unsubmbox');
+                    m_elt.element().addClassName('imp-sidebar-unsubmbox');
                 } else {
                     if (!this.showunsub &&
-                        !m_elt.siblings().size() &&
-                        (tmp = m_elt.up('DIV.horde-subnavi-sub'))) {
+                        !m_elt.element().siblings().size() &&
+                        (tmp = m_elt.element().up('DIV.horde-subnavi-sub'))) {
                         tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
                     }
                     this.flist.deleteMbox(m);
@@ -3523,7 +3525,7 @@ var DimpBase = {
                         if (need.get(mbox)) {
                             var ed;
 
-                            this.flist.getMbox(mbox).down('A').update(
+                            this.flist.getMbox(mbox).element().down('A').update(
                                 new Element('SPAN')
                                     .addClassName('imp-sidebar-mbox-loading')
                                     .update('[' + DimpCore.text.loading + ']')
@@ -3540,7 +3542,7 @@ var DimpBase = {
                              * callback of the base mailbox, but this is
                              * sanity checking in case the mailbox load
                              * failed.) */
-                            this.setMboxLabel(this.flist.getMbox(mbox));
+                            this.setMboxLabel(this.flist.getMbox(mbox).element());
 
                             /* Need to update sizing since it is calculated at
                              * instantiation before the submailbox DIV
@@ -3553,7 +3555,7 @@ var DimpBase = {
                         }
                     }.bindAsEventListener(this),
                     afterFinish: function() {
-                        this.flist.getMbox(mbox).down().toggleClassName('exp').toggleClassName('col');
+                        this.flist.getMbox(mbox).element().down().toggleClassName('exp').toggleClassName('col');
                     }.bind(this),
                     duration: noeffect ? 0 : 0.2,
                     queue: {
@@ -3774,10 +3776,10 @@ var DimpBase = {
     _modifyPollCallback: function(r)
     {
         if (r.add) {
-            this.flist.getMbox(r.mbox).store('u', 0);
+            this.flist.getMbox(r.mbox).element().store('u', 0);
         } else {
             this.updateUnseenStatus(r.mbox, 0);
-            this.flist.getMbox(r.mbox).store('u', undefined);
+            this.flist.getMbox(r.mbox).element().store('u', undefined);
         }
     },
 
@@ -4033,22 +4035,29 @@ var IMP_Flist = Class.create({
 
     getMbox: function(id)
     {
-        return Object.isElement(id)
-            ? id
-            : this.mboxes[id];
+        if (Object.isElement(id)) {
+            id = id.retrieve('mbox');
+        } else if (Object.isFunction(id.value)) {
+            return id;
+        }
+
+        return this.mboxes[id];
     },
 
     getSubMbox: function(id)
     {
-        var m_elt = Object.isElement(id)
-            ? id
-            : (this.smboxes[id] || this.mboxes[id]);
+        var m_elt;
 
+        if (Object.isElement(id)) {
+            id = id.retrieve('mbox');
+        }
+
+        m_elt = this.smboxes[id] || this.mboxes[id];
         if (!m_elt) {
             return null;
         }
 
-        m_elt = m_elt.next();
+        m_elt = m_elt.element().next();
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
@@ -4058,21 +4067,21 @@ var IMP_Flist = Class.create({
     // opts: (object) [sub]
     deleteMbox: function(m, opts)
     {
-        var m_elt = this.getMbox(m), submbox;
-        if (!m_elt) {
+        var mbox = this.getMbox(m), submbox;
+        if (!mbox) {
             return;
         }
-        m = m_elt.retrieve('mbox');
+        m = mbox.value();
 
         if (opts.sub &&
-            (submbox = this.getSubMbox(m_elt))) {
+            (submbox = this.getSubMbox(mbox))) {
             delete this.smboxes[submbox.retrieve('mbox')];
             submbox.remove();
         }
 
-        m_elt.fire('IMP_Flist:delete');
+        mbox.element().fire('IMP_Flist:delete');
 
-        m_elt.remove();
+        mbox.element().remove();
         delete this.mboxes[m];
     },
 
@@ -4179,9 +4188,10 @@ var IMP_Flist = Class.create({
             }
         }
 
-        this.mboxes[ob.m] = li;
+        this.mboxes[ob.m] = new IMP_Flist_Mbox();
+        this.mboxes[ob.m].element(li);
         if (ob.dummy) {
-            this.smboxes[ob.m] = li;
+            this.smboxes[ob.m] = this.mboxes[ob.m];
         }
 
         if (!ob.s) {
@@ -4314,13 +4324,36 @@ var IMP_Flist = Class.create({
         }
 
         if (this.active) {
-            this.active.removeClassName('horde-subnavi-active');
+            this.active.element().removeClassName('horde-subnavi-active');
         }
 
         if (elt) {
-            elt.addClassName('horde-subnavi-active');
+            elt.element().addClassName('horde-subnavi-active');
             this.active = elt;
         }
+    }
+
+});
+
+var IMP_Flist_Mbox = Class.create({
+
+    initialize: function()
+    {
+        this.elt = null;
+    },
+
+    element: function(elt)
+    {
+        if (Object.isElement(elt)) {
+            this.elt = elt;
+        }
+
+        return this.elt;
+    },
+
+    value: function()
+    {
+        return this.elt.retrieve('mbox');
     }
 
 });
