@@ -3566,6 +3566,50 @@ var DimpBase = {
         });
     },
 
+    createMboxHandler: function(e)
+    {
+        var m = this.flist.getMbox(e.element()),
+            ftype = m.ftype();
+
+        // Make the new mailbox a drop target.
+        if (!m.virtual()) {
+            new Drop(m.element(), this.mboxDropConfig);
+        }
+
+        switch (ftype) {
+        case 'special':
+            // For purposes of the contextmenu, treat special mailboxes
+            // like regular mailboxes.
+            ftype = 'mbox';
+            // Fall through.
+
+        case 'container':
+        case 'mbox':
+            new Drag(m.element(), this.mboxDragConfig);
+            break;
+
+        case 'remote':
+        case 'scontainer':
+            ftype = 'noactions';
+            break;
+
+        case 'remoteauth':
+            ftype = 'remoteauth';
+            break;
+
+        case 'vfolder':
+            if (m.virtual()) {
+                ftype = 'noactions';
+            }
+            break;
+        }
+
+        DimpCore.addContextMenu({
+            elt: m.element(),
+            type: ftype
+        });
+    },
+
     deleteMboxHandler: function(e)
     {
         var m = this.flist.getMbox(e.element());
@@ -4143,6 +4187,10 @@ var IMP_Flist = Class.create({
         mbox.ftype(ftype);
         mbox.fs(ob.fs);
         mbox.label(label);
+        mbox.nc(ob.nc);
+        if (ob.po) {
+            mbox.unseen(0);
+        }
         mbox.unsubscribed(ob.un && opts.showunsub);
         mbox.virtual(ob.v);
         this.mboxes[ob.m] = mbox;
@@ -4198,53 +4246,7 @@ var IMP_Flist = Class.create({
             }
         }
 
-        // Make the new mailbox a drop target.
-        if (!ob.v) {
-            new Drop(li, DimpBase.mboxDropConfig);
-        }
-
-        // Check for unseen messages
-        if (ob.po) {
-            mbox.unseen(0);
-        }
-
-        // Check for mailboxes that don't allow children
-        if (ob.nc) {
-            mbox.nc(true);
-        }
-
-        switch (ftype) {
-        case 'special':
-            // For purposes of the contextmenu, treat special mailboxes
-            // like regular mailboxes.
-            ftype = 'mbox';
-            // Fall through.
-
-        case 'container':
-        case 'mbox':
-            new Drag(li, DimpBase.mboxDragConfig);
-            break;
-
-        case 'remote':
-        case 'scontainer':
-            ftype = 'noactions';
-            break;
-
-        case 'remoteauth':
-            ftype = 'remoteauth';
-            break;
-
-        case 'vfolder':
-            if (ob.v == 1) {
-                ftype = 'noactions';
-            }
-            break;
-        }
-
-        DimpCore.addContextMenu({
-            elt: li,
-            type: ftype
-        });
+        li.fire('IMP_Flist:create');
     },
 
     // p = (element) Parent element
@@ -4476,6 +4478,7 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
 
 /* IMP_Flist handlers. */
+document.observe('IMP_Flist:create', DimpBase.createMboxHandler.bind(DimpBase));
 document.observe('IMP_Flist:delete', DimpBase.deleteMboxHandler.bind(DimpBase));
 
 /* HTML IFRAME handlers. */
