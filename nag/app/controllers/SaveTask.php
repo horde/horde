@@ -3,7 +3,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
 {
     public function processRequest(Horde_Controller_Request $request, Horde_Controller_Response $response)
     {
-        global $prefs;
+        global $nag_shares, $prefs;
 
         $vars = Horde_Variables::getDefaultVariables();
         $registry = $this->getInjector()->getInstance('Horde_Registry');
@@ -25,7 +25,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         // Check if we are here due to a deletebutton push
         if ($vars->deletebutton) {
             try {
-                $share = $GLOBALS['nag_shares']->getShare($info['old_tasklist']);
+                $share = $nag_shares->getShare($info['old_tasklist']);
             } catch (Horde_Share_Exception $e) {
                 $notification->push(sprintf(_("Access denied deleting task: %s"), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
@@ -34,7 +34,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(_("Access denied deleting task"), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
-            $storage = $GLOBALS['injector']
+            $storage = $this->getInjector()
                 ->getInstance('Nag_Factory_Driver')
                 ->create($info['old_tasklist']);
             try {
@@ -52,7 +52,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
         try {
-            $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
+            $share = $nag_shares->getShare($info['tasklist_id']);
         } catch (Horde_Share_Exception $e) {
             $notification->push(sprintf(_("Access denied saving task: %s"), $e->getMessage()), 'horde.error');
             Horde::url('list.php', true)->redirect();
@@ -65,7 +65,8 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         /* If a task id is set, we're modifying an existing task.  Otherwise,
          * we're adding a new task with the provided attributes. */
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
+            $storage = $this->getInjector()
+                ->getInstance('Nag_Factory_Driver')
                 ->create($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
             $result = $storage->modify($info['task_id'], $info);
@@ -78,7 +79,8 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             }
 
             /* Creating a new task. */
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
+            $storage = $this->getInjector()
+                ->getInstance('Nag_Factory_Driver')
                 ->create($info['tasklist_id']);
             // These must be unset since the form sets them to NULL
             unset($info['owner']);
