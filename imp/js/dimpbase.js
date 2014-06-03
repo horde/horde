@@ -4144,6 +4144,7 @@ var IMP_Flist = Class.create({
         mbox.fs(ob.fs);
         mbox.label(label);
         mbox.unsubscribed(ob.un && opts.showunsub);
+        mbox.virtual(ob.v);
         this.mboxes[ob.m] = mbox;
 
         if (!ob.s) {
@@ -4294,7 +4295,8 @@ var IMP_Flist_Mbox = Class.create({
             label: null,
             nc: false,
             unseen: null,
-            unsub: false
+            unsub: false,
+            virtual: false
         };
     },
 
@@ -4403,6 +4405,15 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.data.unsub;
+    },
+
+    virtual: function(v)
+    {
+        if (!Object.isUndefined(v)) {
+            this.data.virtual = !!v;
+        }
+
+        return this.data.virtual;
     },
 
     fullMboxDisplay: function()
