@@ -3152,7 +3152,7 @@ var DimpBase = {
             if (r.result) {
                 this.viewaction = function(e) {
                     DimpCore.doAction('deleteMailbox', {
-                        container: ~~elt.element().hasClassName('imp-sidebar-container'),
+                        container: ~~elt.isContainer(),
                         mbox: elt.value(),
                         subfolders: e.element().down('[name=delete_subfolders]').getValue()
                     });
@@ -3164,7 +3164,7 @@ var DimpBase = {
                         DimpCore.text.delete_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
                     ),
                     form_id: 'dimpbase_confirm',
-                    text: elt.element().hasClassName('imp-sidebar-container') ? null : DimpCore.text.delete_mbox.sub('%s', elt.fullMboxDisplay())
+                    text: elt.isContainer() ? null : DimpCore.text.delete_mbox.sub('%s', elt.fullMboxDisplay())
                 });
             } else {
                 RedBox.close();
@@ -3216,7 +3216,7 @@ var DimpBase = {
                     DimpCore.text.subscribe_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
                 ),
                 form_id: 'dimpbase_confirm',
-                text: elt.element().hasClassName('imp-sidebar-container') ? null : DimpCore.text.subscribe_mbox.sub('%s', elt.fullMboxDisplay())
+                text: elt.isContainer() ? null : DimpCore.text.subscribe_mbox.sub('%s', elt.fullMboxDisplay())
             });
             break;
 
@@ -3249,7 +3249,7 @@ var DimpBase = {
                     DimpCore.text.unsubscribe_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
                 ),
                 form_id: 'dimpbase_confirm',
-                text: elt.element().hasClassName('imp-sidebar-container') ? null : DimpCore.text.unsubscribe_mbox.sub('%s', elt.fullMboxDisplay())
+                text: elt.isContainer() ? null : DimpCore.text.unsubscribe_mbox.sub('%s', elt.fullMboxDisplay())
             });
             break;
         }
@@ -4339,6 +4339,11 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return !!this.dummy;
+    },
+
+    isContainer: function()
+    {
+        return this.elt.hasClassName('imp-sidebar-container');
     },
 
     fullMboxDisplay: function()
