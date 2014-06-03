@@ -337,28 +337,8 @@ var DimpBase = {
         // Folder bar may not be fully loaded yet.
         if ($('foldersLoading').visible()) {
             this.highlightSidebar.bind(this, id).delay(0.1);
-            return;
-        }
-
-        var curr = $('foldersSidebar').down('.horde-subnavi-active'),
-            elt = $(id);
-
-        if (curr === elt) {
-            return;
-        }
-
-        if (curr) {
-            curr.removeClassName('horde-subnavi-active');
-            curr.addClassName('horde-subnavi');
-        }
-
-        if (!elt) {
-            elt = this.flist.getMbox(id);
-        }
-
-        if (elt) {
-            elt.addClassName('horde-subnavi-active');
-            this._toggleSubFolder(elt, 'exp', true);
+        } else {
+            this.flist.highlight(id);
         }
     },
 
@@ -4050,6 +4030,7 @@ var IMP_Flist = Class.create({
 
     initialize: function()
     {
+        this.active = null;
         this.mboxes = {};
         this.smboxes = {};
     },
@@ -4326,6 +4307,24 @@ var IMP_Flist = Class.create({
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
             this.deleteMbox(elt, { sub: true });
         }, this);
+    },
+
+    highlight: function(id)
+    {
+        var elt = this.getMbox(id);
+
+        if (this.active === elt) {
+            return;
+        }
+
+        if (this.active) {
+            this.active.removeClassName('horde-subnavi-active');
+        }
+
+        if (elt) {
+            elt.addClassName('horde-subnavi-active');
+            this.active = elt;
+        }
     }
 
 });
