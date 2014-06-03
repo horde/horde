@@ -4100,10 +4100,8 @@ var IMP_Flist = Class.create({
         }
     },
 
-    // For format of the ob object, see
-    // IMP_Ajax_Application#_createMailboxElt().
+    // For format of the ob object, see IMP_Queue#_ftreeElt().
     // opts: (object) [expand, showunsub]
-    // If opts.expand is set, expand folder list on initial display.
     createMbox: function(ob, opts)
     {
         var div, f_node, ftype, li, ll, mbox, parent_c, parent_e, tmp, tmp2,
