@@ -4058,7 +4058,7 @@ var IMP_Flist = Class.create({
     // If opts.expand is set, expand folder list on initial display.
     createMbox: function(ob, opts)
     {
-        var div, f_node, ftype, li, ll, parent_c, parent_e, tmp, tmp2,
+        var div, f_node, ftype, li, ll, mbox, parent_c, parent_e, tmp, tmp2,
             cname = 'imp-sidebar-container',
             css = ob.cl || 'folderImg',
             label = ob.l || ob.m,
@@ -4137,11 +4137,12 @@ var IMP_Flist = Class.create({
             }
         }
 
-        this.mboxes[ob.m] = new IMP_Flist_Mbox();
-        this.mboxes[ob.m].element(li);
+        mbox = new IMP_Flist_Mbox();
+        mbox.element(li);
         if (ob.dummy) {
-            this.mboxes[ob.m].dummy(true);
+            mbox.dummy(true);
         }
+        this.mboxes[ob.m] = mbox;
 
         if (!ob.s) {
             div.addClassName(ob.ch ? 'exp' : css);
@@ -4207,12 +4208,12 @@ var IMP_Flist = Class.create({
 
         // Check for unseen messages
         if (ob.po) {
-            this.mboxes[ob.m].unseen(0);
+            mbox.unseen(0);
         }
 
         // Check for mailboxes that don't allow children
         if (ob.nc) {
-            this.mboxes[ob.m].nc(true);
+            mbox.nc(true);
         }
 
         switch (ftype) {
