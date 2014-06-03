@@ -1339,7 +1339,7 @@ var DimpBase = {
                 $('ctx_mbox_create').hide();
             }
 
-            tmp = Object.isUndefined(baseelt.element().retrieve('u'));
+            tmp = (baseelt.unseen() === null);
             if (DimpCore.conf.poll_alter) {
                 [ $('ctx_mbox_poll') ].compact().invoke(tmp ? 'show' : 'hide');
                 [ $('ctx_mbox_nopoll') ].compact().invoke(tmp ? 'hide' : 'show');
@@ -1632,7 +1632,7 @@ var DimpBase = {
                 label += ' (' + this.search.label + ')';
             }
         } else if ((elt = this.flist.getMbox(this.view))) {
-            unseen = elt.element().retrieve('u');
+            unseen = elt.unseen();
         }
 
         this.setTitle(label, unseen);
@@ -1734,7 +1734,7 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, last, p, peek, pp_uid, rows,
+        var curr, last, p, peek, pp_uid, rows, tmp,
             msgload = {};
 
         if (!DimpCore.getPref('preview')) {
@@ -1743,7 +1743,9 @@ var DimpBase = {
 
         // If single message is loaded, and this mailbox is polled, try to
         // preload next unseen message that exists in current buffer.
-        if (data && !Object.isUndefined(this.getUnseenCount(data.VP_view))) {
+        if (data &&
+            (tmp = this.flist.getMbox(data.VP_view)) &&
+            (tmp.unseen() !== null)) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
                 flag: { notinclude: DimpCore.conf.FLAG_SEEN }
@@ -2070,22 +2072,6 @@ var DimpBase = {
         return uid + '|' + mailbox;
     },
 
-    // mbox = (string|Element) The mailbox to query.
-    // Return: Number or undefined
-    getUnseenCount: function(mbox)
-    {
-        var elt = this.flist.getMbox(mbox);
-
-        if (elt) {
-            elt = elt.element().retrieve('u');
-            if (!Object.isUndefined(elt)) {
-                return Number(elt);
-            }
-        }
-
-        return elt;
-    },
-
     // mbox: (string) Mailbox name.
     // unseen: (integer) The updated value.
     updateUnseenStatus: function(mbox, unseen)
@@ -2116,25 +2102,23 @@ var DimpBase = {
     // m = (string|Element) Mailbox element.
     setMboxLabel: function(m, unseen)
     {
-        var elt = this.flist.getMbox(m);
+        var elt = this.flist.getMbox(m), u;
 
         if (!elt) {
             return;
         }
 
+        u = ~~elt.unseen();
+
         if (Object.isUndefined(unseen)) {
-            unseen = this.getUnseenCount(elt.value());
-            elt = elt.element();
-        } else {
-            elt = elt.element();
-            if (!Object.isUndefined(elt.retrieve('u')) &&
-                elt.retrieve('u') == unseen) {
+            if (unseen === u) {
                 return;
             }
-
-            unseen = Number(unseen);
-            elt.store('u', unseen);
+            elt.unseen(unseen);
+            u = ~~elt.unseen();
         }
+
+        elt = elt.element();
 
         elt.down('A').update((unseen > 0) ?
             new Element('STRONG').insert(elt.retrieve('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
@@ -2165,8 +2149,8 @@ var DimpBase = {
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
             args.set('poll', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
-                return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
-            }).invoke('retrieve', 'mbox')));
+                return (elt.visible() && (this.flist.getMbox(elt).unseen() !== null));
+            }, this).invoke('retrieve', 'mbox')));
         } else {
             args.set('poll', Object.toJSON([]));
         }
@@ -2681,8 +2665,8 @@ var DimpBase = {
         case 78: // N
         case 110: // n
             if (e.shiftKey && !this.isSearch()) {
-                cnt = this.getUnseenCount(this.view);
-                if (Object.isUndefined(cnt) || cnt) {
+                cnt = this.flist.getMbox(this.view).unseen();
+                if (cnt || (cnt === null)) {
                     vsel = this.viewport.createSelectionBuffer();
                     row = vsel.search({ flag: { notinclude: DimpCore.conf.FLAG_SEEN } }).get('rownum');
                     all = (vsel.size() == this.viewport.getMetaData('total_rows'));
@@ -3763,10 +3747,10 @@ var DimpBase = {
     _modifyPollCallback: function(r)
     {
         if (r.add) {
-            this.flist.getMbox(r.mbox).element().store('u', 0);
+            this.flist.getMbox(r.mbox).unseen(0);
         } else {
             this.updateUnseenStatus(r.mbox, 0);
-            this.flist.getMbox(r.mbox).element().store('u', undefined);
+            this.flist.getMbox(r.mbox).unseen(null);
         }
     },
 
@@ -4223,7 +4207,7 @@ var IMP_Flist = Class.create({
 
         // Check for unseen messages
         if (ob.po) {
-            li.store('u', '');
+            this.mboxes[ob.m].unseen(0);
         }
 
         // Check for mailboxes that don't allow children
@@ -4304,10 +4288,11 @@ var IMP_Flist_Mbox = Class.create({
 
     initialize: function()
     {
-        // this.dummy = false;
-        // this.elt = null;
+        this.dummy = false;
+        this.elt = null;
         this.fixed = null;
         this.nc = false;
+        this.unseen = null;
     },
 
     element: function(elt)
@@ -4369,6 +4354,15 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return this.nc;
+    },
+
+    unseen: function(unseen)
+    {
+        if (!Object.isUndefined(unseen)) {
+            this.unseen = unseen;
+        }
+
+        return this.unseen;
     },
 
     fullMboxDisplay: function()
