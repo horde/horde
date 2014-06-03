@@ -2361,28 +2361,27 @@ var DimpBase = {
     mboxDropHandler: function(e)
     {
         var dropbase, sel, uids,
-            drag = e.memo.element,
-            drop = e.element(),
-            mboxname = drop.retrieve('mbox'),
-            ftype = drop.retrieve('ftype');
+            drag = this.flist.getMbox(e.memo.element),
+            drop = this.flist.getMbox(e.element());
 
         if (drag.hasClassName('imp-sidebar-mbox')) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
-                (ftype != 'special' && !this.flist.isSubfolder(drag, drop))) {
+                (drop.element().retrieve('ftype') != 'special' &&
+                 !this.flist.isSubfolder(drag, drop))) {
                 DimpCore.doAction('renameMailbox', {
-                    new_name: drag.retrieve('l').unescapeHTML(),
-                    new_parent: dropbase ? '' : mboxname,
-                    old_name: drag.retrieve('mbox')
+                    new_name: drag.element().retrieve('l').unescapeHTML(),
+                    new_parent: dropbase ? '' : drop.value(),
+                    old_name: drag.value()
                 });
             }
-        } else if (ftype != 'container') {
+        } else if (drop.element().retrieve('ftype') != 'container') {
             sel = this.viewport.getSelected();
 
             if (sel.size()) {
                 // Dragging multiple selected messages.
                 uids = sel;
-            } else if (drag.retrieve('mbox') != mboxname) {
+            } else if (drag.value() != drop.value()) {
                 // Dragging a single unselected message.
                 uids = this.viewport.createSelection('domid', drag.id);
             }
@@ -2390,15 +2389,15 @@ var DimpBase = {
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
                     DimpCore.doAction('copyMessages', this.addViewportParams({
-                        mboxto: mboxname
+                        mboxto: drop.value()
                     }), {
                         uids: uids
                     });
-                } else if (this.view != mboxname) {
+                } else if (this.view != drop.value()) {
                     // Don't allow drag/drop to the current mailbox.
                     this.updateFlag(uids, DimpCore.conf.FLAG_DELETED, true);
                     DimpCore.doAction('moveMessages', this.addViewportParams({
-                        mboxto: mboxname
+                        mboxto: drop.value()
                     }), {
                         uids: uids
                     });
@@ -3413,18 +3412,17 @@ var DimpBase = {
 
     _handleMboxMouseClick: function(e)
     {
-        var tmp,
-            elt = e.element(),
-            li = elt.match('DIV') ? elt : elt.up('DIV.horde-subnavi');
+        var elt = e.element(),
+            mbox = this.flist.getMbox(e.findElement('DIV.horde-subnavi'));
 
-        if (!li) {
+        if (!mbox) {
             return;
         }
 
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
-            this._toggleSubFolder(li, 'tog');
+            this._toggleSubFolder(mbox.element(), 'tog');
         } else {
-            switch (li.retrieve('ftype')) {
+            switch (mbox.element().retrieve('ftype')) {
             case 'container':
             case 'rcontainer':
             case 'remote':
@@ -3438,9 +3436,9 @@ var DimpBase = {
             case 'special':
             case 'vfolder':
                 e.stop();
-                tmp = li.retrieve('mbox');
-                if (tmp != this.view || !$('dimpmain_folder').visible()) {
-                    this.go('mbox', li.retrieve('mbox'));
+                if (mbox.value() != this.view ||
+                    !$('dimpmain_folder').visible()) {
+                    this.go('mbox', mbox.value());
                 }
                 break;
             }
@@ -3478,9 +3476,9 @@ var DimpBase = {
         if (mode == 'tog' || mode == 'expall') {
             subs.each(function(s) {
                 if (!s.visible() && !s.childElements().size()) {
-                    need.set(s.previous().retrieve('mbox'), 1);
+                    need.set(this.flist.getMbox(s.previous()).value(), 1);
                 }
-            });
+            }, this);
 
             if (need.size() && mode == 'expall') {
                 this._listMboxes({
@@ -3497,24 +3495,24 @@ var DimpBase = {
             if (mode == 'tog' ||
                 ((mode == 'exp' || mode == 'expall') && !s.visible()) ||
                 ((mode == 'col' || mode == 'colall') && s.visible())) {
-                var mbox = s.previous().retrieve('mbox');
+                var mbox = this.flist.getMbox(s.previous());
 
                 if (mode == 'col' ||
                     ((mode == 'tog') && s.visible())) {
-                    collapse.push(mbox);
+                    collapse.push(mbox.value());
                 } else if (!noexpand &&
-                           !need.get(mbox) &&
+                           !need.get(mbox.value()) &&
                            (mode == 'exp' ||
                             ((mode == 'tog') && !s.visible()))) {
-                    expand.push(mbox);
+                    expand.push(mbox.value());
                 }
 
                 Effect.toggle(s, 'blind', {
                     beforeStart: function(e) {
-                        if (need.get(mbox)) {
+                        if (need.get(mbox.value())) {
                             var ed;
 
-                            this.flist.getMbox(mbox).element().down('A').update(
+                            mbox.element().down('A').update(
                                 new Element('SPAN')
                                     .addClassName('imp-sidebar-mbox-loading')
                                     .update('[' + DimpCore.text.loading + ']')
@@ -3522,7 +3520,7 @@ var DimpBase = {
 
                             this._listMboxes({
                                 base: base,
-                                mboxes: [ mbox ]
+                                mboxes: [ mbox.value() ]
                             }, true);
 
                             /* Need to pass element here, since we might be
@@ -3531,12 +3529,13 @@ var DimpBase = {
                              * callback of the base mailbox, but this is
                              * sanity checking in case the mailbox load
                              * failed.) */
-                            this.setMboxLabel(this.flist.getMbox(mbox).element());
+                            mbox = this.flist.getMbox(mbox.value()); // TODO
+                            this.setMboxLabel(mbox.element());
 
                             /* Need to update sizing since it is calculated at
                              * instantiation before the submailbox DIV
                              * contained anything. */
-                            ed = this.flist.getMbox(mbox).subElement().getDimensions();
+                            ed = mbox.subElement().getDimensions();
                             e.options.scaleMode = {
                                 originalHeight: ed.height,
                                 originalWidth: ed.width
@@ -3544,12 +3543,12 @@ var DimpBase = {
                         }
                     }.bindAsEventListener(this),
                     afterFinish: function() {
-                        this.flist.getMbox(mbox).element().down().toggleClassName('exp').toggleClassName('col');
+                        mbox.element().down().toggleClassName('exp').toggleClassName('col');
                     }.bind(this),
                     duration: noeffect ? 0 : 0.2,
                     queue: {
                         limit: 1,
-                        scope: 'subfolder' + mbox
+                        scope: 'subfolder' + mbox.value()
                     }
                 });
             }
@@ -3574,7 +3573,7 @@ var DimpBase = {
             params.mboxes = [ params.mboxes ];
         }
         if (Object.isElement(params.base)) {
-            params.base = params.base.retrieve('mbox');
+            params.base = this.flist.getMbox(params.base).value();
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
@@ -3585,13 +3584,12 @@ var DimpBase = {
 
     deleteMboxHandler: function(e)
     {
-        var m_elt = e.element(),
-            m = m_elt.retrieve('mbox');
+        var m = this.flist.getMbox(e.element());
 
-        [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
-        this._removeMouseEvents([ m_elt ]);
+        [ DragDrop.Drags.getDrag(m.value()), DragDrop.Drops.getDrop(m.value()) ].compact().invoke('destroy');
+        this._removeMouseEvents([ m.element() ]);
         if (this.viewport) {
-            this.viewport.deleteView(m);
+            this.viewport.deleteView(m.value());
         }
     },
 
