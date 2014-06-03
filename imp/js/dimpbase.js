@@ -4030,7 +4030,6 @@ var IMP_Flist = Class.create({
     {
         this.active = null;
         this.mboxes = {};
-        this.smboxes = {};
     },
 
     getMbox: function(id)
@@ -4046,21 +4045,16 @@ var IMP_Flist = Class.create({
 
     getSubMbox: function(id)
     {
-        var m_elt;
+        var m_elt = this.getMbox(id);
 
-        if (Object.isElement(id)) {
-            id = id.retrieve('mbox');
+        if (m_elt) {
+            m_elt = m_elt.element().next();
+            if (m_elt && m_elt.hasClassName('horde-subnavi-sub')) {
+                return m_elt;
+            }
         }
 
-        m_elt = this.smboxes[id] || this.mboxes[id];
-        if (!m_elt) {
-            return null;
-        }
-
-        m_elt = m_elt.element().next();
-        return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
-            ? m_elt
-            : null;
+        return null;
     },
 
     // m: (string) Mailbox ID
@@ -4073,9 +4067,7 @@ var IMP_Flist = Class.create({
         }
         m = mbox.value();
 
-        if (opts.sub &&
-            (submbox = this.getSubMbox(mbox))) {
-            delete this.smboxes[submbox.retrieve('mbox')];
+        if (opts.sub && (submbox = this.getSubMbox(mbox))) {
             submbox.remove();
         }
 
@@ -4087,7 +4079,7 @@ var IMP_Flist = Class.create({
 
     changeMbox: function(ob, opts)
     {
-        if (this.smboxes[ob.m]) {
+        if (this.getMbox(ob.m).dummy()) {
             // The case of children being added to a special mailbox is
             // handled by createMbox().
             if (!ob.ch) {
@@ -4191,7 +4183,7 @@ var IMP_Flist = Class.create({
         this.mboxes[ob.m] = new IMP_Flist_Mbox();
         this.mboxes[ob.m].element(li);
         if (ob.dummy) {
-            this.smboxes[ob.m] = this.mboxes[ob.m];
+            this.mboxes[ob.m].dummy(true);
         }
 
         if (!ob.s) {
@@ -4310,7 +4302,7 @@ var IMP_Flist = Class.create({
 
     reload: function()
     {
-        [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
+        Object.values(this.mboxes).each(function(elt) {
             this.deleteMbox(elt, { sub: true });
         }, this);
     },
@@ -4339,7 +4331,8 @@ var IMP_Flist_Mbox = Class.create({
 
     initialize: function()
     {
-        this.elt = null;
+        // this.dummy = false;
+        // this.elt = null;
     },
 
     element: function(elt)
@@ -4354,6 +4347,15 @@ var IMP_Flist_Mbox = Class.create({
     value: function()
     {
         return this.elt.retrieve('mbox');
+    },
+
+    dummy: function(dummy)
+    {
+        if (!Object.isUndefined(dummy)) {
+            this.dummy = dummy;
+        }
+
+        return !!this.dummy;
     }
 
 });
