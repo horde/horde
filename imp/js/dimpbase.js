@@ -2346,7 +2346,7 @@ var DimpBase = {
             drag = this.flist.getMbox(e.memo.element),
             drop = this.flist.getMbox(e.element());
 
-        if (drag.hasClassName('imp-sidebar-mbox')) {
+        if (drag.isMbox()) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (drop.ftype() != 'special' &&
@@ -2390,13 +2390,15 @@ var DimpBase = {
 
     mboxDropCaption: function(drop, drag, e)
     {
+        drag = this.flist.getMbox(drag);
         drop = this.flist.getMbox(drop);
+
         var m,
             ftype = drop.ftype(),
             l = drop.label();
 
         if (drop == $('dropbase')) {
-            return DimpCore.text.moveto.sub('%s', this.flist.getMbox(drag).label()).sub('%s', DimpCore.text.baselevel);
+            return DimpCore.text.moveto.sub('%s', drag.label()).sub('%s', DimpCore.text.baselevel);
         }
 
         switch (e.type) {
@@ -2418,8 +2420,8 @@ var DimpBase = {
              break;
          }
 
-         return drag.hasClassName('imp-sidebar-mbox')
-             ? ((ftype != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', this.flist.getMbox(drag).label()).sub('%s', l) : '')
+         return drag.isMbox()
+             ? ((ftype != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', drag.label()).sub('%s', l) : '')
              : ((ftype != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', l) : '');
     },
 
@@ -2439,7 +2441,7 @@ var DimpBase = {
 
     onDragMouseDown: function(e)
     {
-        var args,
+        var args, tmp,
             elt = e.element(),
             id = elt.identify(),
             d = DragDrop.Drags.getDrag(id);
@@ -2475,7 +2477,7 @@ var DimpBase = {
             } else {
                 this.msgSelect(id, args);
             }
-        } else if (elt.hasClassName('imp-sidebar-mbox')) {
+        } else if ((tmp = this.flist.getMbox(elt)) && tmp.isMbox()) {
             d.opera = DimpCore.DMenu.operaCheck(e);
         }
     },
@@ -4328,6 +4330,11 @@ var IMP_Flist_Mbox = Class.create({
     isContainer: function()
     {
         return this.data.elt.hasClassName('imp-sidebar-container');
+    },
+
+    isMbox: function()
+    {
+        return this.data.elt.hasClassName('imp-sidebar-mbox');
     },
 
     ftype: function(ftype)
