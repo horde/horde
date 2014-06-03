@@ -2367,7 +2367,7 @@ var DimpBase = {
         if (drag.hasClassName('imp-sidebar-mbox')) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
-                (drop.element().retrieve('ftype') != 'special' &&
+                (drop.ftype() != 'special' &&
                  !this.flist.isSubfolder(drag, drop))) {
                 DimpCore.doAction('renameMailbox', {
                     new_name: drag.element().retrieve('l').unescapeHTML(),
@@ -2375,7 +2375,7 @@ var DimpBase = {
                     old_name: drag.value()
                 });
             }
-        } else if (drop.element().retrieve('ftype') != 'container') {
+        } else if (drop.ftype() != 'container') {
             sel = this.viewport.getSelected();
 
             if (sel.size()) {
@@ -2410,7 +2410,7 @@ var DimpBase = {
     {
         var m,
             d = drag.retrieve('l'),
-            ftype = drop.retrieve('ftype'),
+            ftype = this.flist.getMbox(drop).ftype(),
             l = drop.retrieve('l');
 
         if (drop == $('dropbase')) {
@@ -3422,7 +3422,7 @@ var DimpBase = {
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
             this._toggleSubFolder(mbox.element(), 'tog');
         } else {
-            switch (mbox.element().retrieve('ftype')) {
+            switch (mbox.ftype()) {
             case 'container':
             case 'rcontainer':
             case 'remote':
@@ -4344,6 +4344,11 @@ var IMP_Flist_Mbox = Class.create({
     isContainer: function()
     {
         return this.elt.hasClassName('imp-sidebar-container');
+    },
+
+    ftype: function()
+    {
+        return this.elt.retrieve('ftype');
     },
 
     fullMboxDisplay: function()
