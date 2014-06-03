@@ -4134,6 +4134,7 @@ var IMP_Flist = Class.create({
         mbox = new IMP_Flist_Mbox();
         mbox.dummy(ob.dummy);
         mbox.element(li);
+        mbox.ftype(ftype);
         mbox.fs(ob.fs);
         mbox.label(label);
         this.mboxes[ob.m] = mbox;
@@ -4188,8 +4189,6 @@ var IMP_Flist = Class.create({
                 li.insert({ after: tmp });
             }
         }
-
-        li.store('ftype', ftype);
 
         // Make the new mailbox a drop target.
         if (!ob.v) {
@@ -4283,6 +4282,7 @@ var IMP_Flist_Mbox = Class.create({
             dummy: false,
             elt: null,
             fixed: null,
+            ftype: null,
             fs: false,
             label: null,
             nc: false,
@@ -4328,9 +4328,13 @@ var IMP_Flist_Mbox = Class.create({
         return this.data.elt.hasClassName('imp-sidebar-container');
     },
 
-    ftype: function()
+    ftype: function(ftype)
     {
-        return this.data.elt.retrieve('ftype');
+        if (!Object.isUndefined(ftype)) {
+            this.data.ftype = ftype;
+        }
+
+        return this.data.ftype;
     },
 
     fixed: function(fixed)
