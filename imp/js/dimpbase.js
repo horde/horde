@@ -1351,7 +1351,7 @@ var DimpBase = {
                 $('ctx_mbox_poll', 'ctx_mbox_nopoll').compact().invoke('hide');
             }
 
-            [ $('ctx_mbox_expand').up() ].invoke(this.flist.getSubMbox(baseelt) ? 'show' : 'hide');
+            [ $('ctx_mbox_expand').up() ].invoke(this.flist.getMbox(baseelt).subElement() ? 'show' : 'hide');
 
             [ $('ctx_mbox_acl').up() ].invoke(DimpCore.conf.acl ? 'show' : 'hide');
             // Fall-through
@@ -3306,7 +3306,7 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = mbox.retrieve('mbox');
-                    tmp = this.flist.getSubMbox(params.parent);
+                    tmp = this.flist.getMbox(params.parent).subElement();
                     if (!tmp || !tmp.childElements().size()) {
                         params.noexpand = 1;
                     }
@@ -3327,7 +3327,7 @@ var DimpBase = {
 
         if (r.expand) {
             r.expand = r.base
-                ? this.flist.getSubMbox(r.base).previous()
+                ? this.flist.getMbox(r.base).subElement().previous()
                 : true;
         }
 
@@ -3547,7 +3547,7 @@ var DimpBase = {
                             /* Need to update sizing since it is calculated at
                              * instantiation before the submailbox DIV
                              * contained anything. */
-                            ed = this.flist.getSubMbox(mbox).getDimensions();
+                            ed = this.flist.getMbox(mbox).subElement().getDimensions();
                             e.options.scaleMode = {
                                 originalHeight: ed.height,
                                 originalWidth: ed.width
@@ -4043,20 +4043,6 @@ var IMP_Flist = Class.create({
         return this.mboxes[id];
     },
 
-    getSubMbox: function(id)
-    {
-        var m_elt = this.getMbox(id);
-
-        if (m_elt) {
-            m_elt = m_elt.element().next();
-            if (m_elt && m_elt.hasClassName('horde-subnavi-sub')) {
-                return m_elt;
-            }
-        }
-
-        return null;
-    },
-
     // m: (string) Mailbox ID
     // opts: (object) [sub]
     deleteMbox: function(m, opts)
@@ -4067,7 +4053,7 @@ var IMP_Flist = Class.create({
         }
         m = mbox.value();
 
-        if (opts.sub && (submbox = this.getSubMbox(mbox))) {
+        if (opts.sub && (submbox = mbox.subElement())) {
             submbox.remove();
         }
 
@@ -4189,7 +4175,7 @@ var IMP_Flist = Class.create({
         if (!ob.s) {
             div.addClassName(ob.ch ? 'exp' : css);
             parent_e = ob.pa
-                ? this.getSubMbox(ob.pa)
+                ? this.getMbox(ob.pa).subElement()
                 : $('imp-normalmboxes');
         }
 
@@ -4232,7 +4218,7 @@ var IMP_Flist = Class.create({
             }
         }
 
-        if (!ob.s && ob.ch && !this.getSubMbox(ob.m)) {
+        if (!ob.s && ob.ch && !this.getMbox(ob.m).subElement()) {
             li.insert({
                 after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
             });
@@ -4296,7 +4282,7 @@ var IMP_Flist = Class.create({
     // c = (element) Child element
     isSubfolder: function(p, c)
     {
-        var sf = this.getSubMbox(p);
+        var sf = this.getMbox(p).subElement();
         return sf && c.descendantOf(sf);
     },
 
@@ -4343,6 +4329,17 @@ var IMP_Flist_Mbox = Class.create({
 
         return this.elt;
     },
+
+    subElement: function(id)
+    {
+        var m_elt;
+
+        m_elt = this.elt.next();
+        return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
+            ? m_elt
+            : null;
+    },
+
 
     value: function()
     {
