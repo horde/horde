@@ -2139,10 +2139,6 @@ var DimpBase = {
             elt.store('u', unseen);
         }
 
-        if (window.fluid && elt.retrieve('mbox') == this.INBOX) {
-            window.fluid.setDockBadge(unseen ? unseen : '');
-        }
-
         elt.down('A').update((unseen > 0) ?
             new Element('STRONG').insert(elt.retrieve('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
             elt.retrieve('l'));

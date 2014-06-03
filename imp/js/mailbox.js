@@ -447,12 +447,6 @@ var ImpMailbox = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-
-        if (window.fluid) {
-            try {
-                window.fluid.setDockBadge(this.unread);
-            } catch (e) {}
-        }
     }
 
 };
