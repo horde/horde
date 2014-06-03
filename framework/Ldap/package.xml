@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] SECURITY: Stricter parameter check in bind() to detect empty passwords.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -430,7 +430,7 @@
    <date>2014-05-21</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] SECURITY: Stricter parameter check in bind() to detect empty passwords.
    </notes>
   </release>
  </changelog>
