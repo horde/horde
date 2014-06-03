@@ -1053,7 +1053,7 @@ var DimpBase = {
         case 'ctx_container_collapse':
         case 'ctx_mbox_expand':
         case 'ctx_mbox_collapse':
-            this._toggleSubFolder(this.contextMbox(e).element().next(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
+            this._toggleSubFolder(this.contextMbox(e).subElement(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_container_search':
