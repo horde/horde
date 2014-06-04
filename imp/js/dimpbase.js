@@ -4131,6 +4131,7 @@ var IMP_Flist = Class.create({
 var IMP_Flist_Mbox = Class.create({
 
     // For format of the ob object, see IMP_Queue#_ftreeElt().
+    // Extra fields: fake, elt, fixed, unseen
     initialize: function(flist, ob)
     {
         this.build(flist, ob);
@@ -4138,26 +4139,22 @@ var IMP_Flist_Mbox = Class.create({
 
     build: function(flist, ob)
     {
-        var div, f_node, ll, old_elt, parent_c, parent_e, title, tmp,
+        var div, f_node, ll, parent_c, parent_e, tmp,
             cname = 'imp-sidebar-container',
-            mbox = flist.getMbox(ob.m);
+            mbox = flist.getMbox(ob.m),
+            title = ob.t || ob.l;
 
-        if (mbox) {
-            old_elt = mbox.element();
-        }
-
-        // Extra fields: fake, elt, fixed, unseen
-        this.data = ob;
-
-        title = ob.t || ob.l;
-
-        /* Create a "fake" container element in normal mailboxes section
-         * if special mailbox has children. */
-        if (ob.s && ob.ch) {
-            this.data.fake = new IMP_Flist_Mbox(flist, Object.extend(Object.clone(ob), {
-                co: true,
-                s: false
-            }));
+        if (ob.s) {
+            /* Create a "fake" container element in normal mailboxes section
+             * if special mailbox has children. */
+            if (ob.ch) {
+                ob.fake = new IMP_Flist_Mbox(flist, Object.extend(Object.clone(ob), {
+                    co: true,
+                    s: false
+                }));
+            } else if (mbox && mbox.fake()) {
+                mbox.fake().remove();
+            }
         }
 
         if (ob.v) {
@@ -4170,7 +4167,7 @@ var IMP_Flist_Mbox = Class.create({
             }
         } else if (ob.co) {
             if (ob.n) {
-                title = this.label();
+                title = ob.l;
             }
         } else {
             cname = 'imp-sidebar-mbox';
@@ -4178,26 +4175,26 @@ var IMP_Flist_Mbox = Class.create({
 
         div = new Element('DIV', { className: 'horde-subnavi-icon' });
         if (ob.ch && !ob.s) {
-            this.data.expand = true;
+            ob.expand = true;
             div.addClassName('exp');
         } else {
-            this.data.expand = null;
+            ob.expand = null;
             div.addClassName(ob.cl || 'folderImg');
         }
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        this.data.elt = new Element('DIV', { className: 'horde-subnavi', title: title })
+        ob.elt = new Element('DIV', { className: 'horde-subnavi', title: title })
             .addClassName(cname)
             .store('mbox', ob.m)
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
-                    .insert(new Element('A').insert(this.label())));
+                    .insert(new Element('A').insert(ob.l)));
 
-        if (old_elt) {
-            old_elt.fire('IMP_Flist_Mbox:delete', mbox);
-            old_elt.replace(this.data.elt);
+        if (mbox) {
+            mbox.element().fire('IMP_Flist_Mbox:delete', mbox);
+            mbox.element().replace(ob.elt);
         } else {
             if (ob.s) {
                 parent_e = $('imp-specialmboxes');
@@ -4210,11 +4207,11 @@ var IMP_Flist_Mbox = Class.create({
             /* Insert into correct place in level. */
             parent_c = parent_e.childElements();
             if (!ob.ns) {
-                ll = this.label().toLowerCase();
+                ll = ob.l.toLowerCase();
                 f_node = parent_c.find(function(node) {
                     var m = flist.getMbox(node);
                     return (m && !m.fs() && (ll < m.label().toLowerCase()));
-                }, this);
+                });
             }
 
             tmp = f_node
@@ -4223,21 +4220,23 @@ var IMP_Flist_Mbox = Class.create({
             if (tmp &&
                 tmp.hasClassName('horde-subnavi-sub') &&
                 tmp.retrieve('m') == ob.m) {
-                tmp.insert({ before: this.data.elt });
+                tmp.insert({ before: ob.elt });
             } else if (f_node) {
-                f_node.insert({ before: this.data.elt });
+                f_node.insert({ before: ob.elt });
             } else {
-                parent_e.insert(this.data.elt);
+                parent_e.insert(ob.elt);
             }
         }
 
+        this.data = ob;
+
         if (!ob.s && ob.ch && !this.subElement()) {
-            this.data.elt.insert({
+            ob.elt.insert({
                 after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
             });
         }
 
-        this.data.elt.fire('IMP_Flist_Mbox:create', this);
+        ob.elt.fire('IMP_Flist_Mbox:create', this);
     },
 
     remove: function(sub)
