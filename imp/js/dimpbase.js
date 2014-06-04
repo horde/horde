@@ -4147,18 +4147,18 @@ var IMP_Flist_Mbox = Class.create({
             old_elt = mbox.element();
         }
 
-        // Extra fields: dummy, elt, fixed, unseen
+        // Extra fields: fake, elt, fixed, unseen
         this.data = ob;
 
         title = ob.t || ob.l;
 
-        /* Create a dummy container element in normal mailboxes section
+        /* Create a "fake" container element in normal mailboxes section
          * if special mailbox has children. */
         if (ob.s && ob.ch) {
-            tmp = Object.clone(ob);
-            tmp.co = tmp.dummy = true;
-            tmp.s = false;
-            flist.createMbox(tmp);
+            this.data.fake = new IMP_Flist_Mbox(flist, Object.extend(Object.clone(ob), {
+                co: true,
+                s: false
+            }));
         }
 
         if (ob.v) {
@@ -4281,7 +4281,9 @@ var IMP_Flist_Mbox = Class.create({
     {
         var elt;
 
-        if (!Object.isUndefined(e)) {
+        if (this.data.fake) {
+            return this.data.fake.expand(e);
+        } else if (!Object.isUndefined(e)) {
             elt = this.data.elt.down('DIV.horde-subnavi-icon');
             [ 'col', 'exp', 'folderImg' ].each(elt.removeClassName.bind(elt));
 
@@ -4314,6 +4316,10 @@ var IMP_Flist_Mbox = Class.create({
     {
         var m_elt;
 
+        if (this.data.fake) {
+            return this.data.fake.subElement();
+        }
+
         m_elt = this.data.elt.next();
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
@@ -4329,11 +4335,6 @@ var IMP_Flist_Mbox = Class.create({
     value: function()
     {
         return this.data.m;
-    },
-
-    dummy: function()
-    {
-        return !!this.data.dummy;
     },
 
     isContainer: function()
