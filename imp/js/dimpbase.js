@@ -4321,7 +4321,7 @@ var IMP_Flist_Mbox = Class.create({
 
     value: function()
     {
-        return this.data.elt.retrieve('mbox');
+        return this.data.m;
     },
 
     dummy: function(dummy)
