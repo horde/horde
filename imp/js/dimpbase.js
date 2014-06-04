@@ -3567,16 +3567,15 @@ var DimpBase = {
 
     createMboxHandler: function(e)
     {
-        var m = this.flist.getMbox(e.element()),
-            ftype = m.ftype();
+        var ftype = e.memo.ftype();
 
         // Make the new mailbox a drop target.
-        if (!m.virtual()) {
-            new Drop(m.element(), this.mboxDropConfig);
+        if (!e.memo.virtual()) {
+            new Drop(e.memo.element(), this.mboxDropConfig);
         }
 
-        if (this.showunsub && m.unsubscribed()) {
-            m.element().addClassName('imp-sidebar-unsubmbox');
+        if (this.showunsub && e.memo.unsubscribed()) {
+            e.memo.element().addClassName('imp-sidebar-unsubmbox');
         }
 
         switch (ftype) {
@@ -3588,7 +3587,7 @@ var DimpBase = {
 
         case 'container':
         case 'mbox':
-            new Drag(m.element(), this.mboxDragConfig);
+            new Drag(e.memo.element(), this.mboxDragConfig);
             break;
 
         case 'remote':
@@ -3601,24 +3600,22 @@ var DimpBase = {
             break;
 
         case 'vfolder':
-            if (m.virtual()) {
+            if (e.memo.virtual()) {
                 ftype = 'noactions';
             }
             break;
         }
 
         DimpCore.addContextMenu({
-            elt: m.element(),
+            elt: e.memo.element(),
             type: ftype
         });
     },
 
     deleteMboxHandler: function(e)
     {
-        var m = this.flist.getMbox(e.element());
-
-        [ DragDrop.Drags.getDrag(m.value()), DragDrop.Drops.getDrop(m.value()) ].compact().invoke('destroy');
-        this._removeMouseEvents([ m.element() ]);
+        [ DragDrop.Drags.getDrag(e.memo.value()), DragDrop.Drops.getDrop(e.memo.value()) ].compact().invoke('destroy');
+        this._removeMouseEvents([ e.memo.element() ]);
     },
 
     _sizeFolderlist: function()
@@ -4060,27 +4057,19 @@ var IMP_Flist = Class.create({
     // opts: (object) [sub]
     deleteMbox: function(m, opts)
     {
-        var mbox = this.getMbox(m), submbox;
-        if (!mbox) {
+        if (!(m = this.getMbox(m))) {
             return;
         }
-        m = mbox.value();
 
-        if (opts.sub && (submbox = mbox.subElement())) {
-            submbox.remove();
-        }
+        m.remove(opts.sub);
 
-        mbox.element().fire('IMP_Flist:delete');
-
-        mbox.element().remove();
-        delete this.mboxes[m];
+        delete this.mboxes[m.value()];
     },
 
     changeMbox: function(ob)
     {
         if (this.mboxes[ob.m]) {
             this.mboxes[ob.m].build(this, ob);
-            this.mboxes[ob.m].element().fire('IMP_Flist:create');
         } else {
             this.createMbox(ob);
         }
@@ -4090,7 +4079,6 @@ var IMP_Flist = Class.create({
     {
         if (!this.mboxes[ob.m]) {
             this.mboxes[ob.m] = new IMP_Flist_Mbox(this, ob);
-            this.mboxes[ob.m].element().fire('IMP_Flist:create');
         }
     },
 
@@ -4197,7 +4185,7 @@ var IMP_Flist_Mbox = Class.create({
                     .insert(new Element('A').insert(this.label())));
 
         if (old_elt) {
-            old_elt.fire('IMP_Flist:delete');
+            old_elt.fire('IMP_Flist_Mbox:delete', mbox);
             old_elt.replace(this.data.elt);
         } else {
             if (ob.s) {
@@ -4237,6 +4225,24 @@ var IMP_Flist_Mbox = Class.create({
                 after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
             });
         }
+
+        this.data.elt.fire('IMP_Flist_Mbox:create', this);
+    },
+
+    remove: function(sub)
+    {
+        var smbox;
+
+        if (sub && (smbox = this.subElement())) {
+            smbox.remove();
+        }
+
+        if (this.data.fake) {
+            this.data.fake.remove(sub);
+        }
+
+        this.data.elt.fire('IMP_Flist_Mbox:delete', this);
+        this.data.elt.remove();
     },
 
     /* Read/write. */
@@ -4455,9 +4461,9 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
 
-/* IMP_Flist handlers. */
-document.observe('IMP_Flist:create', DimpBase.createMboxHandler.bind(DimpBase));
-document.observe('IMP_Flist:delete', DimpBase.deleteMboxHandler.bind(DimpBase));
+/* Folder list element handlers. */
+document.observe('IMP_Flist_Mbox:create', DimpBase.createMboxHandler.bind(DimpBase));
+document.observe('IMP_Flist_Mbox:delete', DimpBase.deleteMboxHandler.bind(DimpBase));
 
 /* HTML IFRAME handlers. */
 document.observe('IMP_JS:htmliframe_keydown', function(e) {
