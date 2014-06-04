@@ -40,7 +40,7 @@
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
 * [mjr] Fix pagination of search results (Bug #13047).
-* [mjr] Don&apos;t output empty properties for CardDav requests (Bug #12782).
+* [mjr] Don&apos;t output empty properties for CardDAV requests (Bug #12782).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [jan] Fix portal serach block response when no contacts have been found (dulinux &lt;lfbm.andamentos@gmail.com&gt;, Bug #13044).
  </notes>
