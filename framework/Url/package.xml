@@ -18,7 +18,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>2.2.3</release>
+  <release>2.2.4</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Catch/ignore invalid RFC 2397 data strings.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -379,6 +379,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Catch/ignore invalid RFC 2397 data strings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
