@@ -96,8 +96,6 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
 
     public function testInvalidTimezone()
     {
-        $this->markTestIncomplete();
-
         $GLOBALS['conf']['calendar']['driver'] = 'Mock';
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $event = $this->_getFixture('bug11688.ics', 1);
