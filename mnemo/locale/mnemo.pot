@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-26 10:26+0100\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,6 +202,11 @@ msgstr ""
 msgid "Export Notes"
 msgstr ""
 
+#: lib/Driver/Kolab.php:286
+#, php-format
+msgid "Failed retrieving Kolab data for notepad %s: %s"
+msgstr ""
+
 #: lib/Form/Search.php:24
 msgid "For"
 msgstr ""
@@ -293,10 +298,6 @@ msgstr ""
 
 #: list.php:97
 msgid "No_te"
-msgstr ""
-
-#: lib/Driver/Sql.php:112
-msgid "Not Found"
 msgstr ""
 
 #: view.php:155
@@ -528,7 +529,7 @@ msgid ""
 msgstr ""
 
 #: memo.php:29 view.php:69
-msgid "This note has been encrypted, please provide the password below"
+msgid "This note has been encrypted, please provide the password."
 msgstr ""
 
 #: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331

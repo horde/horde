@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Browser.php:1124
+#: lib/Horde/Browser.php:1130
 msgid "File uploads not supported."
 msgstr ""
 
-#: lib/Horde/Browser.php:1141
+#: lib/Horde/Browser.php:1147
 msgid "No file uploaded"
 msgstr ""
 
-#: lib/Horde/Browser.php:1163
+#: lib/Horde/Browser.php:1169
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 
-#: lib/Horde/Browser.php:1185
+#: lib/Horde/Browser.php:1191
 msgid ""
 "There was a problem with the file upload: Can't write the uploaded data to "
 "the server."
 msgstr ""
 
-#: lib/Horde/Browser.php:1159
+#: lib/Horde/Browser.php:1165
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
 
-#: lib/Horde/Browser.php:1170
+#: lib/Horde/Browser.php:1176
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
 
-#: lib/Horde/Browser.php:1173
+#: lib/Horde/Browser.php:1179
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
 
-#: lib/Horde/Browser.php:1177
+#: lib/Horde/Browser.php:1183
 msgid ""
 "There was a problem with the file upload: The temporary folder used to store "
 "the upload data is missing."

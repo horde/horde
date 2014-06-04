@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Hermes.php:352
+#: lib/Hermes.php:356
 #, php-format
 msgid " (%0.2f hours)"
 msgstr ""
 
-#: lib/Hermes.php:354
+#: lib/Hermes.php:358
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr ""
@@ -39,7 +39,7 @@ msgstr ""
 
 #: lib/Api.php:517
 #, php-format
-msgid "%d hours: %s"
+msgid "%.2f hours: %s"
 msgstr ""
 
 #: templates/deliverables/list.inc:4
@@ -60,7 +60,7 @@ msgstr ""
 msgid "--- General Cost Objects ---"
 msgstr ""
 
-#: lib/Hermes.php:330
+#: lib/Hermes.php:334
 msgid "--- No Cost Object ---"
 msgstr ""
 
@@ -160,23 +160,23 @@ msgstr ""
 msgid "Budget hours"
 msgstr ""
 
-#: lib/Hermes.php:374
+#: lib/Hermes.php:378
 msgid "By Client"
 msgstr ""
 
-#: lib/Hermes.php:376
+#: lib/Hermes.php:380
 msgid "By Cost Object"
 msgstr ""
 
-#: lib/Hermes.php:372
+#: lib/Hermes.php:376
 msgid "By Date"
 msgstr ""
 
-#: lib/Hermes.php:373
+#: lib/Hermes.php:377
 msgid "By Employee"
 msgstr ""
 
-#: lib/Hermes.php:375
+#: lib/Hermes.php:379
 msgid "By Job Type"
 msgstr ""
 
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Error deleting deliverable: %s"
 msgstr ""
 
-#: lib/Form/Search.php:116 lib/Hermes.php:298
+#: lib/Form/Search.php:116 lib/Hermes.php:302
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr ""
@@ -636,6 +636,10 @@ msgstr ""
 msgid "Non-billable Hours"
 msgstr ""
 
+#: lib/Hermes.php:266
+msgid "Not Found"
+msgstr ""
+
 #: lib/Api.php:74 lib/Slice.php:148
 msgid "Notes"
 msgstr ""
@@ -815,7 +819,7 @@ msgstr ""
 msgid "Submitted?"
 msgstr ""
 
-#: lib/Hermes.php:371
+#: lib/Hermes.php:375
 msgid "Summary"
 msgstr ""
 
@@ -848,7 +852,7 @@ msgstr ""
 msgid "The job type was not deleted."
 msgstr ""
 
-#: lib/Hermes.php:473
+#: lib/Hermes.php:477
 msgid "The requested timer was not found."
 msgstr ""
 

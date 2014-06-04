@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,4 +35,13 @@ msgstr ""
 
 #: lib/Horde/Alarm/Handler/Notify.php:105
 msgid "Play a sound?"
+msgstr ""
+
+#: lib/Horde/Alarm/Sql.php:88 lib/Horde/Alarm/Sql.php:115
+#: lib/Horde/Alarm/Sql.php:136 lib/Horde/Alarm/Sql.php:178
+#: lib/Horde/Alarm/Sql.php:216 lib/Horde/Alarm/Sql.php:251
+#: lib/Horde/Alarm/Sql.php:277 lib/Horde/Alarm/Sql.php:307
+#: lib/Horde/Alarm/Sql.php:332 lib/Horde/Alarm/Sql.php:357
+#: lib/Horde/Alarm/Sql.php:381 lib/Horde/Alarm/Sql.php:409
+msgid "Server error when querying database."
 msgstr ""

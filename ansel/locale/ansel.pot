@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgstr ""
 msgid "%s :: Sort"
 msgstr ""
 
-#: lib/Widget/SimilarPhotos.php:74
+#: lib/Widget/SimilarPhotos.php:75
 #, php-format
 msgid "%s from %s"
 msgstr ""
@@ -647,7 +647,7 @@ msgstr ""
 msgid "Download selected photos"
 msgstr ""
 
-#: lib/Ansel.php:740
+#: lib/Ansel.php:741
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr ""
@@ -1989,7 +1989,7 @@ msgstr ""
 msgid "There are no photo galleries available."
 msgstr ""
 
-#: lib/Ansel.php:758
+#: lib/Ansel.php:759
 #, php-format
 msgid "There are no photos in %s to download."
 msgstr ""
