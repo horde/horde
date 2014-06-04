@@ -895,7 +895,7 @@ var DimpBase = {
         case 'ctx_container_create':
         case 'ctx_mbox_create':
         case 'ctx_remoteauth_create':
-            tmp = this.contextMbox(e);
+            tmp = this.flist.getMbox(e);
             RedBox.loading();
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.value()
@@ -906,7 +906,7 @@ var DimpBase = {
 
         case 'ctx_container_rename':
         case 'ctx_mbox_rename':
-            tmp = this.contextMbox(e);
+            tmp = this.flist.getMbox(e);
             RedBox.loading();
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.value(),
@@ -917,7 +917,7 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_empty':
-            tmp = this.contextMbox(e);
+            tmp = this.flist.getMbox(e);
             RedBox.loading();
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.value()
@@ -927,14 +927,14 @@ var DimpBase = {
             break;
 
         case 'ctx_container_delete':
-            this._mailboxPromptCallback('delete', this.contextMbox(e), {
+            this._mailboxPromptCallback('delete', this.flist.getMbox(e), {
                 result: true
             });
             break;
 
         case 'ctx_mbox_delete':
         case 'ctx_vfolder_delete':
-            tmp = this.contextMbox(e);
+            tmp = this.flist.getMbox(e);
             RedBox.loading();
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.value(),
@@ -948,7 +948,7 @@ var DimpBase = {
             this.viewaction = function(e) {
                 HordeCore.download('', {
                     actionID: 'download_mbox',
-                    mbox_list: Object.toJSON([ this.contextMbox(e).value() ]),
+                    mbox_list: Object.toJSON([ this.flist.getMbox(e).value() ]),
                     type: e.element().down('[name=download_type]').getValue()
                 });
             };
@@ -971,7 +971,7 @@ var DimpBase = {
                       ).insert(
                           new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
                       ).insert(
-                          new Element('INPUT', { name: 'import_mbox', value: this.contextMbox(e).value() }).hide()
+                          new Element('INPUT', { name: 'import_mbox', value: this.flist.getMbox(e).value() }).hide()
                       ),
                 form_id: 'mbox_import',
                 form_opts: {
@@ -989,25 +989,25 @@ var DimpBase = {
             DimpCore.doAction('flagAll', {
                 add: ~~(id == 'ctx_mbox_flag_seen'),
                 flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
-                mbox: this.contextMbox(e).value()
+                mbox: this.flist.getMbox(e).value()
             });
             break;
 
         case 'ctx_mbox_poll':
         case 'ctx_mbox_nopoll':
-            this.modifyPoll(this.contextMbox(e).value(), id == 'ctx_mbox_poll');
+            this.modifyPoll(this.flist.getMbox(e).value(), id == 'ctx_mbox_poll');
             break;
 
         case 'ctx_mbox_sub':
-            this._mailboxPromptCallback('subscribe', this.contextMbox(e));
+            this._mailboxPromptCallback('subscribe', this.flist.getMbox(e));
             break;
 
         case 'ctx_mbox_unsub':
-            this._mailboxPromptCallback('unsubscribe', this.contextMbox(e));
+            this._mailboxPromptCallback('unsubscribe', this.flist.getMbox(e));
             break;
 
         case 'ctx_mbox_size':
-            tmp = this.contextMbox(e);
+            tmp = this.flist.getMbox(e);
             RedBox.loading();
             DimpCore.doAction('mailboxSize', {
                 mbox: tmp.value()
@@ -1026,7 +1026,7 @@ var DimpBase = {
                 DimpCore.conf.URI_PREFS_IMP,
                 {
                     group: 'acl',
-                    mbox: this.contextMbox(e).value()
+                    mbox: this.flist.getMbox(e).value()
                 }
             ));
             break;
@@ -1053,13 +1053,13 @@ var DimpBase = {
         case 'ctx_container_collapse':
         case 'ctx_mbox_expand':
         case 'ctx_mbox_collapse':
-            this._toggleSubFolder(this.contextMbox(e).subElement(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
+            this._toggleSubFolder(this.flist.getMbox(e).subElement(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_container_search':
         case 'ctx_mbox_search':
             this.go('search', {
-                mailbox: this.contextMbox(e).value()
+                mailbox: this.flist.getMbox(e).value()
             });
             break;
 
@@ -1202,7 +1202,7 @@ var DimpBase = {
         case 'ctx_vfolder_edit':
             this.go('search', {
                 edit_query: 1,
-                mailbox: this.contextMbox(e).value()
+                mailbox: this.flist.getMbox(e).value()
             });
             break;
 
@@ -1262,7 +1262,7 @@ var DimpBase = {
 
         case 'ctx_remoteauth_logout':
             DimpCore.doAction('remoteLogout', {
-                remoteid: this.contextMbox(e).value()
+                remoteid: this.flist.getMbox(e).value()
             });
             break;
 
@@ -1300,7 +1300,7 @@ var DimpBase = {
         switch (ctx_id) {
         case 'ctx_mbox':
             elts = $('ctx_mbox_create', 'ctx_mbox_rename', 'ctx_mbox_delete');
-            baseelt = this.contextMbox(e);
+            baseelt = this.flist.getMbox(e);
 
             if (baseelt.value() == this.INBOX) {
                 elts.invoke('hide');
@@ -1355,7 +1355,7 @@ var DimpBase = {
         case 'ctx_noactions':
         case 'ctx_remoteauth':
         case 'ctx_vfolder':
-            $(ctx_id).down('DIV.mboxName').update(this.contextMbox(e).fullMboxDisplay());
+            $(ctx_id).down('DIV.mboxName').update(this.flist.getMbox(e).fullMboxDisplay());
             break;
 
         case 'ctx_reply':
@@ -1608,11 +1608,6 @@ var DimpBase = {
         );
 
         a.store('flag', flag);
-    },
-
-    contextMbox: function(e)
-    {
-        return this.flist.getMbox(e.findElement('DIV.horde-subnavi'));
     },
 
     updateTitle: function()
@@ -3392,14 +3387,13 @@ var DimpBase = {
 
     _handleMboxMouseClick: function(e)
     {
-        var elt = e.element(),
-            mbox = this.flist.getMbox(e.findElement('DIV.horde-subnavi'));
+        var mbox = this.flist.getMbox(e);
 
         if (!mbox) {
             return;
         }
 
-        if ((mbox.expand() !== null) && (elt == mbox.iconElement())) {
+        if ((mbox.expand() !== null) && (e.element() == mbox.iconElement())) {
             this._toggleSubFolder(mbox.element(), 'tog');
         } else {
             switch (mbox.ftype()) {
@@ -4048,6 +4042,8 @@ var IMP_Flist = Class.create({
             id = id.retrieve('mbox');
         } else if (Object.isFunction(id.value)) {
             return id;
+        } else if (Object.isFunction(id.findElement)) {
+            return this.getMbox(id.findElement('DIV.horde-subnavi'));
         }
 
         return this.mboxes[id];
