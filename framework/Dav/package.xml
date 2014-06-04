@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-23</date>
+ <date>2014-06-04</date>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Allow the same external object UID in multiple resources to fix moving objects (Bug #13102).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -377,6 +377,7 @@
     <dir name="Horde">
      <dir name="Dav">
       <file name="1_horde_dav_base_tables.php" role="data" />
+      <file name="2_horde_dav_remove_unique_index.php" role="data" />
      </dir> <!-- /migration/Horde/Dav -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -654,6 +655,7 @@
    <install as="Sabre/VObject/Splitter/ICalendar.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/Splitter/ICalendar.php" />
    <install as="Sabre/VObject/Splitter/SplitterInterface.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/Splitter/SplitterInterface.php" />
    <install as="Sabre/VObject/Splitter/VCard.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/Splitter/VCard.php" />
+   <install as="migration/2_horde_dav_remove_unique_index.php" name="migration/Horde/Dav/2_horde_dav_remove_unique_index.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -790,10 +792,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-23</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Allow the same external object UID in multiple resources to fix moving objects (Bug #13102).
    </notes>
   </release>
  </changelog>
