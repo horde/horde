@@ -4133,7 +4133,7 @@ var IMP_Flist_Mbox = Class.create({
         var div, f_node, ll, mbox, parent_c, parent_e, title, tmp,
             cname = 'imp-sidebar-container';
 
-        // Extra fields: dummy, elt, fixed, ftype, unseen
+        // Extra fields: dummy, elt, fixed, unseen
         this.data = ob;
 
         title = ob.t || ob.l;
@@ -4148,38 +4148,19 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         if (ob.v) {
-            if (ob.co) {
-                this.data.ftype = 'vcontainer';
-            } else {
+            if (!ob.co) {
                 cname = 'imp-sidebar-mbox';
-                this.data.ftype = 'vfolder';
             }
-            title = this.label();
         } else if (ob.r) {
-            switch (ob.r) {
-            case 1:
-                this.data.ftype = 'rcontainer';
-                break;
-
-            case 2:
+            if (ob.r == 2) {
                 cname = 'imp-sidebar-remote';
-                this.data.ftype = 'remote';
-                break;
-
-            case 3:
-                this.data.ftype = 'remoteauth';
-                break;
             }
         } else if (ob.co) {
             if (ob.n) {
-                this.data.ftype = 'scontainer';
                 title = this.label();
-            } else {
-                this.data.ftype = 'container';
             }
         } else {
             cname = 'imp-sidebar-mbox';
-            this.data.ftype = ob.s ? 'special' : 'mbox';
         }
 
         div = new Element('DIV', { className: 'horde-subnavi-icon' });
@@ -4321,7 +4302,26 @@ var IMP_Flist_Mbox = Class.create({
 
     ftype: function()
     {
-        return this.data.ftype;
+        if (this.data.v) {
+            return this.data.co ? 'vcontainer' : 'vfolder';
+        } else if (this.data.r) {
+            switch (this.data.r) {
+            case 1:
+                return 'rcontainer';
+
+            case 2:
+                return 'remote';
+
+            case 3:
+                return 'remoteauth';
+            }
+        } else if (this.data.co) {
+            return this.data.n ? 'scontainer' : 'container';
+        } else if (this.data.s) {
+            return 'special';
+        }
+
+        return 'mbox';
     },
 
     nc: function()
