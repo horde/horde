@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "4.2.0alpha1",
-    "time": "2014-05-05",
+    "version": "4.2.0beta1",
+    "time": "2014-06-04",
     "repositories": [
         {
             "type": "pear",
@@ -71,7 +71,7 @@
         "pear-pear.horde.org/Horde_Kolab_Format": ">=2.0.5,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.1.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Ldap": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_OpenXchange": ">=1.0.0alpha1,<=2.0.0alpha1",
+        "pear-pear.horde.org/Horde_OpenXchange": ">=1.0.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Service_Facebook": ">=2.0.0,<=3.0.0alpha1"
     }
 }
