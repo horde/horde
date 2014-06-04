@@ -736,7 +736,8 @@ class Turba_Application extends Horde_Registry_Application
         } catch (Horde_Dav_Exception $e) {
         }
 
-        $data = $driver->tovCard($contact, '3.0')->exportvCalendar();
+        $data = $driver->tovCard($contact, '3.0', null, true)
+            ->exportvCalendar();
 
         return array(
             'id' => $id,
