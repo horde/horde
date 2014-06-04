@@ -3329,7 +3329,7 @@ var DimpBase = {
         }
 
         if (r.all) {
-            this._toggleSubFolder(nm, 'expall', true);
+            this._toggleSubFolder(nm, 'expall', true, true);
         }
 
         if ($('foldersLoading').visible()) {
