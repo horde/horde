@@ -1618,8 +1618,9 @@ var DimpBase = {
 
     updateTitle: function()
     {
-        var elt, unseen,
-            label = this.viewport.getMetaData('label');
+        var elt,
+            label = this.viewport.getMetaData('label'),
+            unseen = 0;
 
         // 'label' will not be set if there has been an error retrieving data
         // from the server.
