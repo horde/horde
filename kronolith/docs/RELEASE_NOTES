@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Kronolith
+The Horde Team is pleased to announce the second beta release of the Kronolith
 Calendar Application version H5 (4.2.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
@@ -39,13 +39,15 @@ http://www.horde.org/apps/kronolith/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to Kronolith version H5 (4.2.0alpha2) are:
-    * Improved ActiveSync synchronization of event resources.
+The major changes compared to Kronolith version H5 (4.2.0beta1) are:
+    * Synchronize attendees via CalDAV.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Improved ActiveSync synchronization of event resources.
+Synchronize attendees via CalDAV.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Kronolith';

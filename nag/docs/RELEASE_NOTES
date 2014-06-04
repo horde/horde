@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Nag Task
+The Horde Team is pleased to announce the first beta release of the Nag Task
 List Manager version H5 (4.2.0).
 
 Nag is a web-based application built upon the Horde Application Framework which
@@ -37,23 +37,15 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag H5 (4.1) versions are:
-    * Added script to import from Open-Xchange.
-    * Added recurrence controls to basic view.
-    * Synchronize multiple task lists via ActiveSync.
-    * Synchronize shared task lists via CalDAV.
-    * Added Oracle support.
-    * Further improvements.
+The major changes compared to the Nag version H5 (4.2.0alpha1) are:
+    * Don't require URL rewriting.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added script to import from Open-Xchange.
-Added recurrence controls to basic view.
-Synchronize multiple task lists via ActiveSync.
-Synchronize shared task lists via CalDAV.
-Added Oracle support.
-Further improvements.
+Don't require URL rewriting.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Nag';
