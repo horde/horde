@@ -22,13 +22,13 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-06-03</date>
+ <date>2014-06-04</date>
  <version>
-  <release>4.2.0alpha2</release>
+  <release>4.2.0beta1</release>
   <api>4.2.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -1504,12 +1504,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0alpha2</release>
+    <release>4.2.0beta1</release>
     <api>4.2.0</api></version>
    <stability>
-    <release>alpha</release>
+    <release>beta</release>
     <api>alpha</api></stability>
-   <date>2014-06-03</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Only use URL rewriting for saving/completing tasks if pretty URLs are enabled in the configuration.
