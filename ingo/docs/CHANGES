@@ -1,6 +1,6 @@
-----------
-v3.2.0-git
-----------
+-----------
+v3.2.0beta2
+-----------
 
 [mms] Honor 'auto_update' preference when re-sorting filters list (Bug #13216).
 [mms] Fix regression in copying a rule when storing in SQL backend (Bug
