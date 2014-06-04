@@ -594,7 +594,6 @@ class IMP_Ajax_Queue
      *   - i: (string) [icon] A user defined icon to use.
      *        DEFAULT: none
      *   - l: (string) [label] The mailbox display label.
-     *        DEFAULT: 'm' val
      *   - m: (string) [mbox] The mailbox value (base64url encoded).
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
@@ -612,7 +611,7 @@ class IMP_Ajax_Queue
      *   - s: (boolean) [special] Is this a "special" element?
      *        DEFAULT: no
      *   - t: (string) [title] Mailbox title.
-     *        DEFAULT: 'm' val
+     *        DEFAULT: 'l' val
      *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
      *         DEFAULT: no
      *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
@@ -640,14 +639,10 @@ class IMP_Ajax_Queue
             $ob->nc = 1;
         }
 
+        $ob->l = htmlspecialchars($mbox_ob->abbrev_label);
         $label = $mbox_ob->label;
-        if ($ob->m != $label) {
+        if ($ob->l != $label) {
             $ob->t = $label;
-        }
-
-        $tmp = htmlspecialchars($mbox_ob->abbrev_label);
-        if ($ob->m != $tmp) {
-            $ob->l = $tmp;
         }
 
         $parent = $elt->parent;
