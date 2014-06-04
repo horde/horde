@@ -24,7 +24,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>4.2.0beta1</release>
+  <release>4.2.0beta2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Only use URL rewriting for saving/completing tasks if pretty URLs are enabled in the configuration.
-* [jan] Don&apos;t include smart lists in top menu.
-* [jan] Fix top menu URLs to create new tasks in specific task lists.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1515,6 +1513,19 @@
 * [jan] Only use URL rewriting for saving/completing tasks if pretty URLs are enabled in the configuration.
 * [jan] Don&apos;t include smart lists in top menu.
 * [jan] Fix top menu URLs to create new tasks in specific task lists.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0beta2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
