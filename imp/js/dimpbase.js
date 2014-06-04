@@ -3429,7 +3429,8 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect, noexpand)
     {
-        var collapse = [], expand = [], subs = [],
+        var loadMboxes, toggleIcon,
+            collapse = [], expand = [], subs = [],
             need = $H();
 
         if (mode == 'expall' || mode == 'colall') {
@@ -3473,6 +3474,38 @@ var DimpBase = {
             }
         }
 
+        toggleIcon = function(m)
+        {
+            this.flist.getMbox(m).element().down().toggleClassName('exp').toggleClassName('col');
+        }.bind(this);
+
+        loadMboxes = function(m, e)
+        {
+            var ed;
+
+            m.labelElement().update(
+                new Element('SPAN')
+                    .addClassName('imp-sidebar-mbox-loading')
+                    .update('[' + DimpCore.text.loading + ']')
+            );
+
+            this._listMboxes({
+                base: base,
+                mboxes: [ m.value() ]
+            }, true);
+
+            m = this.flist.getMbox(m.value());
+            this.setMboxLabel(m);
+
+            /* Need to update sizing since it is calculated at instantiation
+             * before the submailbox DIV contained anything. */
+            ed = this.flist.getMbox(m.value()).subElement().getDimensions();
+            e.options.scaleMode = {
+                originalHeight: ed.height,
+                originalWidth: ed.width
+            };
+        }.bind(this);
+
         subs.each(function(s) {
             if (mode == 'tog' ||
                 ((mode == 'exp' || mode == 'expall') && !s.visible()) ||
@@ -3489,50 +3522,24 @@ var DimpBase = {
                     expand.push(mbox.value());
                 }
 
-                Effect.toggle(s, 'blind', {
-                    beforeStart: function(e) {
-                        if (need.get(mbox.value())) {
-                            var ed;
-
-                            mbox.labelElement().update(
-                                new Element('SPAN')
-                                    .addClassName('imp-sidebar-mbox-loading')
-                                    .update('[' + DimpCore.text.loading + ']')
-                            );
-
-                            this._listMboxes({
-                                base: base,
-                                mboxes: [ mbox.value() ]
-                            }, true);
-
-                            /* Need to pass element here, since we might be
-                             * working with 'special' mailboxes. (This should
-                             * have already been changed via the 'c' AJAX
-                             * callback of the base mailbox, but this is
-                             * sanity checking in case the mailbox load
-                             * failed.) */
-                            mbox = this.flist.getMbox(mbox.value());
-                            this.setMboxLabel(mbox.element());
-
-                            /* Need to update sizing since it is calculated at
-                             * instantiation before the submailbox DIV
-                             * contained anything. */
-                            ed = mbox.subElement().getDimensions();
-                            e.options.scaleMode = {
-                                originalHeight: ed.height,
-                                originalWidth: ed.width
-                            };
+                if (noeffect && !need.get(mbox.value())) {
+                    s.toggle();
+                    toggleIcon(mbox);
+                } else {
+                    Effect.toggle(s, 'blind', {
+                        beforeStart: function(e) {
+                            if (need.get(mbox.value())) {
+                                loadMboxes(mbox, e);
+                            }
+                        },
+                        afterFinish: toggleIcon.curry(mbox.value()),
+                        duration: noeffect ? 0 : 0.2,
+                        queue: {
+                            limit: 1,
+                            scope: 'subfolder' + mbox.value()
                         }
-                    }.bindAsEventListener(this),
-                    afterFinish: function() {
-                        this.flist.getMbox(mbox.value()).element().down().toggleClassName('exp').toggleClassName('col');
-                    }.bind(this),
-                    duration: noeffect ? 0 : 0.2,
-                    queue: {
-                        limit: 1,
-                        scope: 'subfolder' + mbox.value()
-                    }
-                });
+                    });
+                }
             }
         }, this);
 
