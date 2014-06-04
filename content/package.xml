@@ -16,7 +16,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-02</date>
+ <date>2014-06-04</date>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add unit tests for Oracle.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -115,6 +115,7 @@
       <file name="Base.php" role="test" />
       <file name="MysqliTest.php" role="test" />
       <file name="MysqlTest.php" role="test" />
+      <file name="Oci8Test.php" role="test" />
      </dir> <!-- /test/Content/Sql -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -264,6 +265,7 @@
    <install as="Content/Sql/Base.php" name="test/Content/Sql/Base.php" />
    <install as="Content/Sql/MysqliTest.php" name="test/Content/Sql/MysqliTest.php" />
    <install as="Content/Sql/MysqlTest.php" name="test/Content/Sql/MysqlTest.php" />
+   <install as="Content/Sql/Oci8Test.php" name="test/Content/Sql/Oci8Test.php" />
    <install as="Content/Sql/Pdo/MysqlTest.php" name="test/Content/Sql/Pdo/MysqlTest.php" />
    <install as="Content/Sql/Pdo/PgsqlTest.php" name="test/Content/Sql/Pdo/PgsqlTest.php" />
    <install as="Content/Sql/Pdo/SqliteTest.php" name="test/Content/Sql/Pdo/SqliteTest.php" />
@@ -495,10 +497,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-02</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add unit tests for Oracle.
    </notes>
   </release>
  </changelog>

@@ -1,23 +1,23 @@
 <?php
-$conf['content']['sql']['mysql']['adapter'] = 'mysql';
 $conf['content']['sql']['mysql']['host'] = 'localhost';
 $conf['content']['sql']['mysql']['username'] = '';
 $conf['content']['sql']['mysql']['password'] = '';
 $conf['content']['sql']['mysql']['dbname'] = 'test';
 $conf['content']['sql']['mysql']['charset'] = 'utf-8';
-$conf['content']['sql']['mysqli']['adapter'] = 'mysqli';
 $conf['content']['sql']['mysqli']['host'] = 'localhost';
 $conf['content']['sql']['mysqli']['username'] = '';
 $conf['content']['sql']['mysqli']['password'] = '';
 $conf['content']['sql']['mysqli']['dbname'] = 'test';
 $conf['content']['sql']['mysqli']['charset'] = 'utf-8';
-$conf['content']['sql']['pdo_mysql']['adapter'] = 'pdo_mysql';
+$conf['content']['sql']['oci8']['host'] = 'localhost';
+$conf['content']['sql']['oci8']['username'] = '';
+$conf['content']['sql']['oci8']['password'] = '';
+$conf['content']['sql']['oci8']['charset'] = 'utf-8';
 $conf['content']['sql']['pdo_mysql']['host'] = 'localhost';
 $conf['content']['sql']['pdo_mysql']['username'] = '';
 $conf['content']['sql']['pdo_mysql']['password'] = '';
 $conf['content']['sql']['pdo_mysql']['dbname'] = 'test';
 $conf['content']['sql']['pdo_mysql']['charset'] = 'utf-8';
-$conf['content']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
 $conf['content']['sql']['pdo_pgsql']['username'] = '';
 $conf['content']['sql']['pdo_pgsql']['password'] = '';
 $conf['content']['sql']['pdo_pgsql']['dbname'] = 'test';
