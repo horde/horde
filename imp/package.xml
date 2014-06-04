@@ -24,7 +24,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>6.2.0beta2</release>
+  <release>6.2.0beta3</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Allow drag/drop to HTML compose body work with text data (Firefox only).
-* [mms] Cache mailbox exists results in the current access.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3632,6 +3631,19 @@
    <notes>
 * [mms] Allow drag/drop to HTML compose body work with text data (Firefox only).
 * [mms] Cache mailbox exists results in the current access.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.0beta3</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
