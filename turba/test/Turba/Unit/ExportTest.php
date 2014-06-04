@@ -59,6 +59,7 @@ class Turba_Unit_ExportTest extends Turba_TestCase
             '__tags' => array('Foo', 'Foo,Bar', 'Foo;Bar', 'Bar'),
         );
         $this->driver = new Turba_Driver();
+        $this->driver->map = array_fill_keys(array_keys($this->contact), true);
         $this->object = new Turba_Object($this->driver, $this->contact);
     }
 
@@ -150,6 +151,7 @@ END:VCARD
         $this->assertEquals(
 'BEGIN:VCARD
 VERSION:3.0
+FN:Mr. Jan K. Schneiderö
 EMAIL;TYPE=INTERNET:jan@horde.org
 NICKNAME:yunosh
 X-EPOCSECONDNAME:yunosh
@@ -171,7 +173,6 @@ PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
  FgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
 CATEGORIES:Foo,Foo\,Bar,Foo\;Bar,Bar
 N:Schneiderö;Jan;K.;Mr.;
-FN:Mr. Jan K. Schneiderö
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
 ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Denmark
