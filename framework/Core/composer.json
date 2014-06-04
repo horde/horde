@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.12.0beta1",
-    "time": "2014-05-21",
+    "version": "2.12.0beta2",
+    "time": "2014-06-04",
     "repositories": [
         {
             "type": "pear",
@@ -56,7 +56,7 @@
         "pear-pear.horde.org/Horde_Lock": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Log": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_LoginTasks": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Mime": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Mime": ">=2.4.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Notification": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0,<=3.0.0alpha1",
