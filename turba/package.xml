@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2014-06-04</date>
  <version>
   <release>4.2.0alpha2</release>
   <api>4.0.0</api>
@@ -522,6 +522,10 @@
     <dir name="Turba">
      <dir name="fixtures">
       <file name="az.png" role="test" />
+      <file name="bug_6518.ldif" role="test" />
+      <file name="export.ldif" role="test" />
+      <file name="import.ldif" role="test" />
+      <file name="importCRLF.ldif" role="test" />
      </dir> <!-- /test/Turba/fixtures -->
      <dir name="Stub">
       <file name="Hooks.php" role="test" />
@@ -529,16 +533,10 @@
      <dir name="ToDo">
       <file name="ApiTest.php" role="test" />
       <file name="BrowsePageTest.php" role="test" />
-      <file name="bug_6518.phpt" role="test" />
       <file name="DriverTest.php" role="test" />
       <file name="GroupTest.php" role="test" />
-      <file name="import.ldif" role="test" />
-      <file name="importCRLF.ldif" role="test" />
       <file name="KolabTest.php" role="test" />
       <file name="KolabTestBase.php" role="test" />
-      <file name="ldif_exportFile.phpt" role="test" />
-      <file name="ldif_importFile.phpt" role="test" />
-      <file name="ldif_importFileCRLF.phpt" role="test" />
       <file name="ListTest.php" role="test" />
       <file name="ListViewTest.php" role="test" />
       <file name="TestBase.php" role="test" />
@@ -568,6 +566,7 @@
       </dir> <!-- /test/Turba/Unit/Turba -->
       <file name="ExportTest.php" role="test" />
       <file name="ImportTest.php" role="test" />
+      <file name="LdifTest.php" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1113,19 +1112,17 @@
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
    <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
+   <install as="Turba/fixtures/bug_6518.ldif" name="test/Turba/fixtures/bug_6518.ldif" />
+   <install as="Turba/fixtures/export.ldif" name="test/Turba/fixtures/export.ldif" />
+   <install as="Turba/fixtures/import.ldif" name="test/Turba/fixtures/import.ldif" />
+   <install as="Turba/fixtures/importCRLF.ldif" name="test/Turba/fixtures/importCRLF.ldif" />
    <install as="Turba/Stub/Hooks.php" name="test/Turba/Stub/Hooks.php" />
    <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
-   <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
    <install as="Turba/ToDo/DriverTest.php" name="test/Turba/ToDo/DriverTest.php" />
    <install as="Turba/ToDo/GroupTest.php" name="test/Turba/ToDo/GroupTest.php" />
-   <install as="Turba/ToDo/import.ldif" name="test/Turba/ToDo/import.ldif" />
-   <install as="Turba/ToDo/importCRLF.ldif" name="test/Turba/ToDo/importCRLF.ldif" />
    <install as="Turba/ToDo/KolabTest.php" name="test/Turba/ToDo/KolabTest.php" />
    <install as="Turba/ToDo/KolabTestBase.php" name="test/Turba/ToDo/KolabTestBase.php" />
-   <install as="Turba/ToDo/ldif_exportFile.phpt" name="test/Turba/ToDo/ldif_exportFile.phpt" />
-   <install as="Turba/ToDo/ldif_importFile.phpt" name="test/Turba/ToDo/ldif_importFile.phpt" />
-   <install as="Turba/ToDo/ldif_importFileCRLF.phpt" name="test/Turba/ToDo/ldif_importFileCRLF.phpt" />
    <install as="Turba/ToDo/ListTest.php" name="test/Turba/ToDo/ListTest.php" />
    <install as="Turba/ToDo/ListViewTest.php" name="test/Turba/ToDo/ListViewTest.php" />
    <install as="Turba/ToDo/TestBase.php" name="test/Turba/ToDo/TestBase.php" />
@@ -1133,6 +1130,7 @@
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
    <install as="Turba/Unit/ExportTest.php" name="test/Turba/Unit/ExportTest.php" />
    <install as="Turba/Unit/ImportTest.php" name="test/Turba/Unit/ImportTest.php" />
+   <install as="Turba/Unit/LdifTest.php" name="test/Turba/Unit/LdifTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
@@ -1835,7 +1833,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2014-05-05</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Export composite attributes to vCard too.

@@ -1,0 +1,12 @@
+dn:: Y249Sm9obiBQw7xibGljLG1haWw9am9obkBleGFtcGxlLmNvbQ==
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+cn:: Sm9obiBQw7xibGlj
+givenName: John
+sn:: UMO8YmxpYw==
+mail: john@example.com
+modifytimestamp: 0Z
+

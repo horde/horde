@@ -190,7 +190,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
      *                data set after the final step.
      * @throws Horde_Data_Exception
      */
-    public function nextStep($action, $param = array())
+    public function nextStep($action, array $param = array())
     {
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
