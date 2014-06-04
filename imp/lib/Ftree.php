@@ -349,6 +349,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                         $this->delete($p_elt);
                     } else {
                         $p_elt->open = false;
+                        $this->eltdiff->change($p_elt);
                     }
                 }
             }
@@ -598,7 +599,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
             } else {
                 unset($this->expanded[$elt]);
             }
-            $this->eltdiff->change($elt);
             break;
 
         case 'polled':
