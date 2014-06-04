@@ -79,7 +79,7 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
         $this->imap->getComparator();
 
         // Tack on namespace information to mailbox names.
-        $namespaces = $this->imap->getNamespaces();
+        $namespaces = iterator_to_array($this->imap->getNamespaces(array(), array('ob_return' => true)));
         $ns_prefix = strval(reset($namespaces));
         $test_mbox = $ns_prefix . $this->test_mbox;
         $test_mbox_utf8 = $ns_prefix . $this->test_mbox_utf8;
