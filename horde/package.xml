@@ -30,7 +30,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>5.2.0beta2</release>
+  <release>5.2.0beta3</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Cleaner indication on login page that an authenticated user is logging into specific application rather than Horde in general.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3893,6 +3893,19 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Cleaner indication on login page that an authenticated user is logging into specific application rather than Horde in general.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0beta3</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
