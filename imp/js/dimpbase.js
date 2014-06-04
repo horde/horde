@@ -3224,6 +3224,7 @@ var DimpBase = {
                         tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
                     }
                     this.flist.deleteMbox(elt);
+                    this.viewport.deleteView(elt.value());
                 }
             }.bind(this);
 
@@ -3310,6 +3311,7 @@ var DimpBase = {
                     this.go('mbox', r['switch'] || this.INBOX);
                 }
                 this.flist.deleteMbox(m, { sub: true });
+                this.viewport.deleteView(m);
             }, this);
         }
         if (r.c) {
@@ -3617,9 +3619,6 @@ var DimpBase = {
 
         [ DragDrop.Drags.getDrag(m.value()), DragDrop.Drops.getDrop(m.value()) ].compact().invoke('destroy');
         this._removeMouseEvents([ m.element() ]);
-        if (this.viewport) {
-            this.viewport.deleteView(m.value());
-        }
     },
 
     _sizeFolderlist: function()
