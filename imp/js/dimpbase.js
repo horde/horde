@@ -50,7 +50,7 @@ var DimpBase = {
     // searchbar_time,
     // searchbar_time_mins,
     // splitbar,
-    showunsub: 0,
+    // showunsub,
     // sort_init,
     // template,
     // uid,
