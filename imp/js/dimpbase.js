@@ -4136,7 +4136,7 @@ var IMP_Flist_Mbox = Class.create({
         // Extra fields: dummy, elt, fixed, ftype, unseen
         this.data = ob;
 
-        title = ob.t || ob.m;
+        title = ob.t || ob.l;
 
         /* Create a dummy container element in normal mailboxes section
          * if special mailbox has children. */
@@ -4331,7 +4331,7 @@ var IMP_Flist_Mbox = Class.create({
 
     label: function()
     {
-        return this.data.l || this.data.m;
+        return this.data.l;
     },
 
     fs: function()
