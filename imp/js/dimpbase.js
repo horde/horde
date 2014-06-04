@@ -3399,7 +3399,7 @@ var DimpBase = {
             return;
         }
 
-        if (mbox.expand() !== null) {
+        if ((mbox.expand() !== null) && (elt == mbox.iconElement())) {
             this._toggleSubFolder(mbox.element(), 'tog');
         } else {
             switch (mbox.ftype()) {
@@ -4284,7 +4284,7 @@ var IMP_Flist_Mbox = Class.create({
         if (this.data.fake) {
             return this.data.fake.expand(e);
         } else if (!Object.isUndefined(e)) {
-            elt = this.data.elt.down('DIV.horde-subnavi-icon');
+            elt = this.iconElement();
             [ 'col', 'exp', 'folderImg' ].each(elt.removeClassName.bind(elt));
 
             if (e === null) {
@@ -4330,6 +4330,11 @@ var IMP_Flist_Mbox = Class.create({
     {
         var elt = this.data.elt.up('DIV.horde-subnavi-sub');
         return elt ? elt.previous() : null;
+    },
+
+    iconElement: function()
+    {
+        return this.data.elt.down('DIV.horde-subnavi-icon');
     },
 
     value: function()
