@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
 "PO-Revision-Date: 2012-07-19 19:00+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Cannot open file."
 msgstr "Die Datei kann nicht geöffnet werden."
 
-#: lib/Horde/Data/Csv.php:227
+#: lib/Horde/Data/Csv.php:226
 msgid "Incorrect charset given for the data."
 msgstr "Falscher Zeichensatz für die Daten angegeben."
 
@@ -38,7 +38,7 @@ msgid "The uploaded data was lost since the previous step."
 msgstr ""
 "Die hochgeladenen Daten sind nach dem letzten Schritt verloren gegangen."
 
-#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:223
 msgid "The uploaded file could not be saved."
 msgstr "Die hochgeladene Datei konnte nicht gespeichert werden."
 

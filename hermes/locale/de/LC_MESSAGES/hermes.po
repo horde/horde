@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
-"PO-Revision-Date: 2014-03-26 10:35+0100\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-06-04 11:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Hermes.php:352
+#: lib/Hermes.php:356
 #, php-format
 msgid " (%0.2f hours)"
 msgstr " (%0.2f Stunden)"
 
-#: lib/Hermes.php:354
+#: lib/Hermes.php:358
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr " (%d%%, %0.2f von %0.2f Stunden)"
@@ -42,8 +42,8 @@ msgstr "\"%s\" ist nicht als Tabelle definiert."
 
 #: lib/Api.php:517
 #, php-format
-msgid "%d hours: %s"
-msgstr "%d Stunden: %s"
+msgid "%.2f hours: %s"
+msgstr "%,2f Stunden: %s"
 
 #: templates/deliverables/list.inc:4
 #, php-format
@@ -63,7 +63,7 @@ msgstr "- - Keiner - -"
 msgid "--- General Cost Objects ---"
 msgstr "--- Allgemeine Kostenstellen ---"
 
-#: lib/Hermes.php:330
+#: lib/Hermes.php:334
 msgid "--- No Cost Object ---"
 msgstr "--- Keine Kostenstelle ---"
 
@@ -166,23 +166,23 @@ msgstr "Budget"
 msgid "Budget hours"
 msgstr "Budgetstunden"
 
-#: lib/Hermes.php:374
+#: lib/Hermes.php:378
 msgid "By Client"
 msgstr "Nach Kunde"
 
-#: lib/Hermes.php:376
+#: lib/Hermes.php:380
 msgid "By Cost Object"
 msgstr "Nach Kostenstelle"
 
-#: lib/Hermes.php:372
+#: lib/Hermes.php:376
 msgid "By Date"
 msgstr "Nach Datum"
 
-#: lib/Hermes.php:373
+#: lib/Hermes.php:377
 msgid "By Employee"
 msgstr "Nach Mitarbeiter"
 
-#: lib/Hermes.php:375
+#: lib/Hermes.php:379
 msgid "By Job Type"
 msgstr "Nach Arbeitsart"
 
@@ -413,7 +413,7 @@ msgstr "Geben Sie Details für diese Stoppuhr an."
 msgid "Error deleting deliverable: %s"
 msgstr "Fehler beim Löschen des Ergebnisses: %s"
 
-#: lib/Form/Search.php:116 lib/Hermes.php:298
+#: lib/Form/Search.php:116 lib/Hermes.php:302
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr "Fehler beim Lesen der Kostenstellen aus \"%s\": %s"
@@ -649,6 +649,10 @@ msgstr "Keine Rechnung"
 msgid "Non-billable Hours"
 msgstr "Nicht in Rechnung zu stellende Stunden"
 
+#: lib/Hermes.php:266
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
 #: lib/Api.php:74 lib/Slice.php:148
 msgid "Notes"
 msgstr "Bemerkungen"
@@ -839,7 +843,7 @@ msgstr "Abgeschickte Zeiteinträge"
 msgid "Submitted?"
 msgstr "Abgeschickt?"
 
-#: lib/Hermes.php:371
+#: lib/Hermes.php:375
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -872,7 +876,7 @@ msgstr "Die Arbeitsart wurde geändert."
 msgid "The job type was not deleted."
 msgstr "Die Arbeitsart wurde nicht gelöscht."
 
-#: lib/Hermes.php:473
+#: lib/Hermes.php:477
 msgid "The requested timer was not found."
 msgstr "Stoppuhr nicht gefunden."
 

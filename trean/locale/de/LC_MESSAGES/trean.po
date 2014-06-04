@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
-"PO-Revision-Date: 2014-03-26 10:58+0100\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-06-04 11:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -71,7 +71,7 @@ msgid "Bookmarked on"
 msgstr "Datum"
 
 #: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
-#: lib/View/BookmarkList.php:120
+#: lib/View/BookmarkList.php:119
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -136,7 +136,7 @@ msgstr ""
 "Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Persönliche "
 "Symbolleiste\""
 
-#: templates/list.html.php:55
+#: templates/list.html.php:57
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -168,7 +168,7 @@ msgstr "Internet Explorer"
 msgid "Loading..."
 msgstr "Lade..."
 
-#: lib/Application.php:74
+#: lib/Application.php:76
 msgid "Maximum Number of Bookmarks"
 msgstr "Maximale Anzahl an Lesezeichen"
 
@@ -229,7 +229,7 @@ msgstr "Andere Einstellungen"
 msgid "Previously used tags"
 msgstr "Bisher verwendete Tags"
 
-#: lib/View/BookmarkList.php:214
+#: lib/View/BookmarkList.php:213
 msgid "Remove from search"
 msgstr "Aus der Suche entfernen"
 
@@ -276,7 +276,12 @@ msgstr "Sortieren nach"
 msgid "Sort direction:"
 msgstr "Sortierrichtung:"
 
-#: lib/Application.php:100 templates/add.html.php:30
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "Tagged with %s"
+msgstr "Getaggt mit %s"
+
+#: lib/Application.php:102 templates/add.html.php:30
 #: templates/edit.html.php:39
 msgid "Tags"
 msgstr "Tags"
@@ -335,15 +340,15 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr "Sie dürfen nicht mehr als %d Lesezeichen erstellen."
 
-#: lib/Application.php:84
+#: lib/Application.php:86
 msgid "_Browse"
 msgstr "_Liste"
 
-#: lib/Application.php:85
+#: lib/Application.php:87
 msgid "_Import"
 msgstr "_Importieren"
 
-#: lib/Application.php:95
+#: lib/Application.php:97
 msgid "_New Bookmark"
 msgstr "_Neues Lesezeichen"
 
@@ -356,8 +361,3 @@ msgstr "Klick"
 #: templates/block/standard.inc:22
 msgid "clicks"
 msgstr "Klicks"
-
-#: app/controllers/BrowseByTag.php:23
-#, php-format
-msgid "tagged %s"
-msgstr "Mit \"%s\" getaggt."

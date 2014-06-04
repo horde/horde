@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
 "PO-Revision-Date: 2012-10-02 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -273,7 +273,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Object.php:537
+#: lib/Horde/Kolab/Storage/Object.php:531
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
