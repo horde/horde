@@ -3306,9 +3306,7 @@ var DimpBase = {
         }
 
         if (r.c) {
-            r.c.each(function(m) {
-                this.flist.createMbox(m, true);
-            }, this);
+            r.c.each(this.flist.changeMbox.bind(this.flist));
         }
 
         if (r.a && !r.noexpand) {
@@ -3429,7 +3427,7 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect, noexpand)
     {
-        var loadMboxes, toggleIcon,
+        var loadMboxes,
             collapse = [], expand = [], subs = [],
             need = $H();
 
@@ -3474,12 +3472,6 @@ var DimpBase = {
             }
         }
 
-        toggleIcon = function(m)
-        {
-            m = this.flist.getMbox(m);
-            m.expand(!m.expand());
-        }.bind(this);
-
         loadMboxes = function(m, e)
         {
             var ed;
@@ -3495,12 +3487,11 @@ var DimpBase = {
                 mboxes: [ m.value() ]
             }, true);
 
-            m = this.flist.getMbox(m.value());
             this.setMboxLabel(m);
 
             /* Need to update sizing since it is calculated at instantiation
              * before the submailbox DIV contained anything. */
-            ed = this.flist.getMbox(m.value()).subElement().getDimensions();
+            ed = m.subElement().getDimensions();
             e.options.scaleMode = {
                 originalHeight: ed.height,
                 originalWidth: ed.width
@@ -3525,7 +3516,7 @@ var DimpBase = {
 
                 if (noeffect && !need.get(mbox.value())) {
                     s.toggle();
-                    toggleIcon(mbox);
+                    mbox.expand(!mbox.expand());
                 } else {
                     Effect.toggle(s, 'blind', {
                         beforeStart: function(e) {
@@ -3533,7 +3524,9 @@ var DimpBase = {
                                 loadMboxes(mbox, e);
                             }
                         },
-                        afterFinish: toggleIcon.curry(mbox.value()),
+                        afterFinish: function() {
+                            mbox.expand(!mbox.expand());
+                        },
                         duration: noeffect ? 0 : 0.2,
                         queue: {
                             limit: 1,
@@ -4083,9 +4076,19 @@ var IMP_Flist = Class.create({
         delete this.mboxes[m];
     },
 
-    createMbox: function(ob, force)
+    changeMbox: function(ob)
     {
-        if (force || !this.mboxes[ob.m]) {
+        if (this.mboxes[ob.m]) {
+            this.mboxes[ob.m].build(this, ob);
+            this.mboxes[ob.m].element().fire('IMP_Flist:create');
+        } else {
+            this.createMbox(ob);
+        }
+    },
+
+    createMbox: function(ob)
+    {
+        if (!this.mboxes[ob.m]) {
             this.mboxes[ob.m] = new IMP_Flist_Mbox(this, ob);
             this.mboxes[ob.m].element().fire('IMP_Flist:create');
         }
@@ -4131,8 +4134,18 @@ var IMP_Flist_Mbox = Class.create({
     // For format of the ob object, see IMP_Queue#_ftreeElt().
     initialize: function(flist, ob)
     {
-        var div, f_node, ll, mbox, parent_c, parent_e, title, tmp,
-            cname = 'imp-sidebar-container';
+        this.build(flist, ob);
+    },
+
+    build: function(flist, ob)
+    {
+        var div, f_node, ll, old_elt, parent_c, parent_e, title, tmp,
+            cname = 'imp-sidebar-container',
+            mbox = flist.getMbox(ob.m);
+
+        if (mbox) {
+            old_elt = mbox.element();
+        }
 
         // Extra fields: dummy, elt, fixed, unseen
         this.data = ob;
@@ -4183,10 +4196,9 @@ var IMP_Flist_Mbox = Class.create({
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                     .insert(new Element('A').insert(this.label())));
 
-        mbox = flist.getMbox(ob.m);
-        if (mbox) {
-            mbox.element().fire('IMP_Flist:delete');
-            mbox.element().replace(this.data.elt);
+        if (old_elt) {
+            old_elt.fire('IMP_Flist:delete');
+            old_elt.replace(this.data.elt);
         } else {
             if (ob.s) {
                 parent_e = $('imp-specialmboxes');
