@@ -94,6 +94,7 @@ class PHP_CodeCoverage_Filter
         'Text_Template' => 1,
         'Symfony\Component\Yaml\Yaml' => 1,
         'SebastianBergmann\Diff\Diff' => 1,
+        'SebastianBergmann\Comparator\Comparator' => 1,
         'SebastianBergmann\Environment\Runtime' => 1,
         'SebastianBergmann\Exporter\Exporter' => 1,
         'SebastianBergmann\Version' => 1,
@@ -248,6 +249,8 @@ class PHP_CodeCoverage_Filter
     public function isFile($filename)
     {
         if ($filename == '-' ||
+            strpos($filename, 'vfs://') === 0 ||
+            strpos($filename, 'xdebug://debug-eval') !== false ||
             strpos($filename, 'eval()\'d code') !== false ||
             strpos($filename, 'runtime-created function') !== false ||
             strpos($filename, 'runkit created function') !== false ||
