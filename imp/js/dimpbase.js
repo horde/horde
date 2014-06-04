@@ -3216,8 +3216,8 @@ var DimpBase = {
                 } else {
                     if (!this.showunsub &&
                         !elt.element().siblings().size() &&
-                        (tmp = elt.element().up('DIV.horde-subnavi-sub'))) {
-                        tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+                        (tmp = elt.parentElt())) {
+                        tmp.expand(null);
                     }
                     this.flist.deleteMbox(elt);
                     this.viewport.deleteView(elt.value());
@@ -3401,7 +3401,7 @@ var DimpBase = {
             return;
         }
 
-        if (elt.hasClassName('exp') || elt.hasClassName('col')) {
+        if (mbox.expand() !== null) {
             this._toggleSubFolder(mbox.element(), 'tog');
         } else {
             switch (mbox.ftype()) {
@@ -3476,7 +3476,8 @@ var DimpBase = {
 
         toggleIcon = function(m)
         {
-            this.flist.getMbox(m).element().down().toggleClassName('exp').toggleClassName('col');
+            m = this.flist.getMbox(m);
+            m.expand(!m.expand());
         }.bind(this);
 
         loadMboxes = function(m, e)
@@ -4164,7 +4165,13 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         div = new Element('DIV', { className: 'horde-subnavi-icon' });
-        div.addClassName((!ob.s && ob.ch) ? 'exp' : (ob.cl || 'folderImg'));
+        if (ob.ch && !ob.s) {
+            this.data.expand = true;
+            div.addClassName('exp');
+        } else {
+            this.data.expand = null;
+            div.addClassName(ob.cl || 'folderImg');
+        }
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
@@ -4258,6 +4265,27 @@ var IMP_Flist_Mbox = Class.create({
         return !!this.data.un;
     },
 
+    expand: function(e)
+    {
+        var elt;
+
+        if (!Object.isUndefined(e)) {
+            elt = this.data.elt.down('DIV.horde-subnavi-icon');
+            [ 'col', 'exp', 'folderImg' ].each(elt.removeClassName.bind(elt));
+
+            if (e === null) {
+                elt.addClassName('folderImg');
+            } else {
+                e = !!e;
+                [ elt ].invoke('addClassName', e ? 'exp' : 'col');
+            }
+
+            this.data.expand = e;
+        }
+
+        return this.data.expand;
+    },
+
     /* Read-only. */
 
     element: function()
@@ -4278,6 +4306,12 @@ var IMP_Flist_Mbox = Class.create({
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
+    },
+
+    parentElement: function()
+    {
+        var elt = this.data.elt.up('DIV.horde-subnavi-sub');
+        return elt ? elt.previous() : null;
     },
 
     value: function()
