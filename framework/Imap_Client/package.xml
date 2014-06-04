@@ -12,7 +12,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>2.21.0</release>
+  <release>2.21.1</release>
   <api>2.21.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix working with mailboxes containing entirely integers (Bug #13157).
-* [mms] Horde_Imap_Client_Base#getNamespaces() can now return a Horde_Imap_Client_Namespace_List object instead of an array.
-* [mms] Use the new command length limitations defined in RFC 7162.
-* [mms] A noop() call before authentication will now correctly throw an exception on a connection issue (Bug #13205).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2444,6 +2441,19 @@
 * [mms] Horde_Imap_Client_Base#getNamespaces() can now return a Horde_Imap_Client_Namespace_List object instead of an array.
 * [mms] Use the new command length limitations defined in RFC 7162.
 * [mms] A noop() call before authentication will now correctly throw an exception on a connection issue (Bug #13205).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.21.1</release>
+    <api>2.21.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
