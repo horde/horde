@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-26</date>
+ <date>2014-06-04</date>
  <version>
   <release>2.21.0</release>
   <api>2.21.0</api>
@@ -2437,7 +2437,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-26</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix working with mailboxes containing entirely integers (Bug #13157).
