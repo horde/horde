@@ -4038,15 +4038,30 @@ var IMP_Flist = Class.create({
 
     getMbox: function(id)
     {
-        if (Object.isElement(id)) {
-            id = id.retrieve('mbox');
+        var ob;
+
+        if (Object.isUndefined(id)) {
+            return null;
+        } else if (Object.isString(id)) {
+            return this.mboxes[id];
+        } else if (Object.isElement(id)) {
+            ob = this.mboxes[id.retrieve('mbox')];
+            if (ob) {
+                if (ob.element() == id) {
+                    return ob;
+                }
+                ob = ob.fake();
+                if (ob && ob.element() == id) {
+                    return ob;
+                }
+            }
         } else if (Object.isFunction(id.value)) {
             return id;
         } else if (Object.isFunction(id.findElement)) {
             return this.getMbox(id.findElement('DIV.horde-subnavi'));
         }
 
-        return this.mboxes[id];
+        return null;
     },
 
     // m: (string) Mailbox ID
@@ -4342,6 +4357,11 @@ var IMP_Flist_Mbox = Class.create({
     value: function()
     {
         return this.data.m;
+    },
+
+    fake: function()
+    {
+        return this.data.fake;
     },
 
     isContainer: function()
