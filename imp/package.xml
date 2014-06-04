@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-21</date>
+ <date>2014-06-04</date>
  <version>
   <release>6.2.0beta2</release>
   <api>6.2.0</api>
@@ -3627,7 +3627,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-05-21</date>
+   <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Allow drag/drop to HTML compose body work with text data (Firefox only).
