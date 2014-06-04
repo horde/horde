@@ -306,11 +306,13 @@ class IMP_Mailbox_SessionCache implements Serializable
             }
 
             try {
-                $exists = (bool)$mbox->imp_imap->listMailboxes(
+                $mbox_list = $mbox->imp_imap->listMailboxes(
                     $mbox->imap_mbox_ob,
                     null,
-                    array('flat' => true)
+                    array('attributes' => true)
                 );
+                $exists = (isset($mbox_list[strval($mbox)]) &&
+                           !in_array('\\noselect', $mbox_list[strval($mbox)]['attributes']));
             } catch (IMP_Imap_Exception $e) {
                 $exists = false;
             }
