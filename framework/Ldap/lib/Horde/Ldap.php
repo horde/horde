@@ -1518,31 +1518,71 @@ class Horde_Ldap
      *                      name and that attribute's value which make
      *                      up the DN. Example:
      *                      <code>
-     *                      $parts = array(0 => array('cn', 'John Smith'),
-     *                                     1 => array('dc', 'example'),
-     *                                     2 => array('dc', 'com'));
+     *                      $parts = array(
+     *                          array('cn', 'John Smith'),
+     *                          array('dc', 'example'),
+     *                          array('dc', 'com')
+     *                      );
      *                      </code>
+     *                      Nested arrays are supported since 2.1.0, to form
+     *                      multi-valued RDNs. Example:
+     *                      <code>
+     *                      $parts = array(
+     *                          array(
+     *                              array('cn', 'John'),
+     *                              array('sn', 'Smith'),
+     *                              array('o', 'Acme Inc.'),
+     *                          ),
+     *                          array('dc', 'example'),
+     *                          array('dc', 'com')
+     *                      );
+     *                      </code>
+     *                      which will result in
+     *                      cn=John+sn=Smith+o=Acme Inc.,dc=example,dc=com
      *
      * @return string  The properly quoted string DN.
      */
     public static function quoteDN($parts)
     {
-        $dn = '';
-        $count = count($parts);
-        for ($i = 0; $i < $count; $i++) {
-            if ($i > 0) {
-                $dn .= ',';
-            }
-            $dn .= $parts[$i][0] . '=';
+        return implode(
+            ',',
+            array_map(
+                function($attribute)
+                {
+                    if (is_array($attribute[0])) {
+                        return implode(
+                            '+',
+                            array_map('self::_quoteRDN', $attribute)
+                        );
+                    } else {
+                        return self::_quoteRDN($attribute);
+                    }
+                },
+                $parts
+            )
+        );
+    }
 
-            // See if we need to quote the value.
-            if (preg_match('/^\s|\s$|\s\s|[,+="\r\n<>#;]/', $parts[$i][1])) {
-                $dn .= '"' . str_replace('"', '\\"', $parts[$i][1]) . '"';
-            } else {
-                $dn .= $parts[$i][1];
-            }
+    /**
+     * Takes an RDN array with an attribute name and value and properly quotes
+     * it according to RFC 1485.
+     *
+     * @param array $attribute  A tuple containing the attribute name and that
+     *                          attribute's value which make up the RDN.
+     *
+     * @return string  The properly quoted string RDN.
+     */
+    protected static function _quoteRDN($attribute)
+    {
+        $rdn = $attribute[0] . '=';
+
+        // See if we need to quote the value.
+        if (preg_match('/^\s|\s$|\s\s|[,+="\r\n<>#;]/', $attribute[1])) {
+            $rdn .= '"' . str_replace('"', '\\"', $attribute[1]) . '"';
+        } else {
+            $rdn .= $attribute[1];
         }
 
-        return $dn;
+        return $rdn;
     }
 }

@@ -621,4 +621,32 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
         $this->assertTrue(is_resource($ldap->getLink()));
     }
+
+    public function testQuoteDN()
+    {
+        $this->assertEquals(
+            'cn=John Smith,dc=example,dc=com',
+            Horde_Ldap::quoteDN(
+                array(
+                    array('cn', 'John Smith'),
+                    array('dc', 'example'),
+                    array('dc', 'com')
+                )
+            )
+        );
+        $this->assertEquals(
+            'cn=John+sn=Smith+o=Acme Inc.,dc=example,dc=com',
+            Horde_Ldap::quoteDN(
+                array(
+                    array(
+                        array('cn', 'John'),
+                        array('sn', 'Smith'),
+                        array('o', 'Acme Inc.'),
+                    ),
+                    array('dc', 'example'),
+                    array('dc', 'com')
+                )
+            )
+        );
+    }
 }
