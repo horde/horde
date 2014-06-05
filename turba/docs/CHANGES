@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request
+      #11889).
 
 
 -----------

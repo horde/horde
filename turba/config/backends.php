@@ -92,6 +92,10 @@
  *                     information.
  *           - dn: (array) Defines the list of LDAP attributes that build a
  *                 valid DN.
+ *                 Members of this list can be arrays too. In this case the
+ *                 attributes in the nested array are joined with the '+'
+ *                 character instead of the default ',' to form the DN.
+ *                 This way, multi-valued RDNs can be employed.
  *           - objectclass: (array) Defines a list of objectclasses that
  *                          contacts must belong to, and that new objects will
  *                          be created with.

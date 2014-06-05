@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -852,7 +852,7 @@
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1862,7 +1862,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
    </notes>
   </release>
  </changelog>

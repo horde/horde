@@ -469,14 +469,39 @@ class Turba_Driver_Ldap extends Turba_Driver
             return '';
         }
 
+        return Horde_Ldap::quoteDN(
+            self::_makeRDNhelper($attributes, $this->_params['dn'])
+        );
+    }
+
+    /**
+     * Helper function for _makeRDN().
+     *
+     * Recursively builds the (possibly nested) attribute-value array to build
+     * a DN. Nested arrays will be joined with the '+' character, see
+     * Horde_Ldap::quoteDN().
+     *
+     * @param array $attributes  The attributes (in driver keys) of the object
+     *                           being added.
+     * @param array $dn          The array describing how the DN should be
+     *                           built.
+     *
+     * @return string  The array to be passed to Horde_Ldap::quoteDN().
+     */
+    protected function _makeRDNhelper(array $attributes, array $dn)
+    {
         $pairs = array();
-        foreach ($this->_params['dn'] as $param) {
-            if (isset($attributes[$param])) {
-                $pairs[] = array($param, $attributes[$param]);
+        foreach ($dn as $param) {
+            if (is_array($param)) {
+                $pairs[] = self::_makeRDNhelper($attributes, $param);
+            } else {
+                if (isset($attributes[$param])) {
+                    $pairs[] = array($param, $attributes[$param]);
+                }
             }
         }
 
-        return Horde_Ldap::quoteDN($pairs);
+        return $pairs;
     }
 
     /**
