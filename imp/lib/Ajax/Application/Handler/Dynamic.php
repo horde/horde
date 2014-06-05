@@ -440,7 +440,7 @@ extends Horde_Core_Ajax_Application_Handler
         $this->_base->callAction('viewPort');
 
         $this->vars->initial = 1;
-        $this->vars->mboxes = json_encode(array($this->vars->mbox));
+        $this->vars->mboxes = json_encode(array($this->vars->mailbox));
         $this->listMailboxes();
 
         $this->_base->queue->flagConfig(Horde_Registry::VIEW_DYNAMIC);
