@@ -442,6 +442,10 @@ class Horde_Group_Ldap extends Horde_Group_Base
      */
     public function removeUser($gid, $user)
     {
+        if ($this->readOnly()) {
+            throw new Horde_Group_Exception('This group backend is read-only.');
+        }
+
         $attr = $this->_params['memberuid'];
         try {
             if (!empty($this->_params['attrisdn'])) {
