@@ -3544,13 +3544,15 @@ var DimpBase = {
 
     _listMboxes: function(params, sync)
     {
+        var m;
+
         params = params || {};
         params.unsub = ~~(!!this.showunsub);
         if (!Object.isArray(params.mboxes)) {
             params.mboxes = [ params.mboxes ];
         }
-        if (Object.isElement(params.base)) {
-            params.base = this.flist.getMbox(params.base).value();
+        if ((m = this.flist.getMbox(params.base))) {
+            params.base = m.value();
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
