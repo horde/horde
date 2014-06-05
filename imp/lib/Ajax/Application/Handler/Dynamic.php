@@ -315,11 +315,8 @@ extends Horde_Core_Ajax_Application_Handler
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append($filter);
             if ($this->vars->expall) {
-                // @todo: Move to Mboxtoggle:expandAll action
-                $old_track = $ftree->eltdiff->track;
-                $ftree->eltdiff->track = false;
-                $ftree->expandAll();
-                $ftree->eltdiff->track = $old_track;
+                $this->vars->action = 'expand';
+                $this->_base->callAction('toggleMailboxes');
             }
         } elseif ($this->vars->initial || $this->vars->reload) {
             $special = new ArrayIterator();

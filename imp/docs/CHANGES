@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Fix saving expanded state when expanding all mailboxes when all mailboxes
+      are already cached in the browser.
 
 
 -----------
