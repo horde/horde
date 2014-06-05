@@ -1,9 +1,7 @@
 ----------
-v5.2.0-git
+v5.3.0-git
 ----------
 
-[jan] Don't try to write to read-only group backends when removing user data
-      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
 
 
 -----------

@@ -30,7 +30,7 @@
  </lead>
  <date>2014-06-04</date>
  <version>
-  <release>5.2.0beta3</release>
+  <release>5.3.0</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] Don&apos;t try to write to read-only group backends when removing user data (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3906,6 +3906,19 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Don&apos;t try to write to read-only group backends when removing user data (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.3.0</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
