@@ -3421,8 +3421,7 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect, noexpand)
     {
-        var loadMboxes,
-            collapse = [], expand = [], subs = [],
+        var collapse = [], expand = [], subs = [],
             need = $H();
 
         if (mode == 'expall' || mode == 'colall') {
@@ -3466,32 +3465,6 @@ var DimpBase = {
             }
         }
 
-        loadMboxes = function(m, e)
-        {
-            var ed;
-
-            m.labelElement().update(
-                new Element('SPAN')
-                    .addClassName('imp-sidebar-mbox-loading')
-                    .update('[' + DimpCore.text.loading + ']')
-            );
-
-            this._listMboxes({
-                base: base,
-                mboxes: [ m.value() ]
-            }, true);
-
-            this.setMboxLabel(m);
-
-            /* Need to update sizing since it is calculated at instantiation
-             * before the submailbox DIV contained anything. */
-            ed = m.subElement().getDimensions();
-            e.options.scaleMode = {
-                originalHeight: ed.height,
-                originalWidth: ed.width
-            };
-        }.bind(this);
-
         subs.each(function(s) {
             if (mode == 'tog' ||
                 ((mode == 'exp' || mode == 'expall') && !s.visible()) ||
@@ -3513,11 +3486,7 @@ var DimpBase = {
                     mbox.expand(!mbox.expand());
                 } else {
                     Effect.toggle(s, 'blind', {
-                        beforeStart: function(e) {
-                            if (need.get(mbox.value())) {
-                                loadMboxes(mbox, e);
-                            }
-                        },
+                        beforeStart: (need.get(mbox.value()) ? this._loadMboxes.bind(this, mbox, base) : Prototype.emptyFunction),
                         afterFinish: function() {
                             mbox.expand(!mbox.expand());
                         },
@@ -3549,6 +3518,32 @@ var DimpBase = {
                 });
             }
         }
+    },
+
+    _loadMboxes: function(m, base, e)
+    {
+        var ed;
+
+        m.labelElement().update(
+            new Element('SPAN')
+                .addClassName('imp-sidebar-mbox-loading')
+                .update('[' + DimpCore.text.loading + ']')
+        );
+
+        this._listMboxes({
+            base: base,
+            mboxes: [ m.value() ]
+        }, true);
+
+        this.setMboxLabel(m);
+
+        /* Need to update sizing since it is calculated at instantiation
+         * before the submailbox DIV contained anything. */
+        ed = m.subElement().getDimensions();
+        e.options.scaleMode = {
+            originalHeight: ed.height,
+            originalWidth: ed.width
+        };
     },
 
     _listMboxes: function(params, sync)
