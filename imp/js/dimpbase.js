@@ -3533,11 +3533,20 @@ var DimpBase = {
 
         if (DimpCore.conf.mbox_expand) {
             if (collapse.size()) {
-                DimpCore.doAction('collapseMailboxes', { mboxes: Object.toJSON(collapse) });
-            } else if (mode == 'colall') {
-                DimpCore.doAction('collapseMailboxes', { all: 1 });
+                DimpCore.doAction('toggleMailboxes', {
+                    action: 'collapse',
+                    mboxes: Object.toJSON(collapse)
+                });
             } else if (expand.size()) {
-                DimpCore.doAction('expandMailboxes', { mboxes: Object.toJSON(expand) });
+                DimpCore.doAction('toggleMailboxes', {
+                    action: 'expand',
+                    mboxes: Object.toJSON(expand)
+                });
+            } else if (mode == 'colall' || (!noexpand && mode == 'expall')) {
+                DimpCore.doAction('toggleMailboxes', {
+                    action: (mode == 'colall' ? 'collapse' : 'expand'),
+                    all: 1
+                });
             }
         }
     },
