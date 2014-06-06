@@ -2333,18 +2333,19 @@ var DimpBase = {
     mboxDropHandler: function(e)
     {
         var dropbase, sel, uids,
-            drag = this.flist.getMbox(e.memo.element),
+            drag = e.memo.element,
+            drag_m = this.flist.getMbox(drag_m),
             drop = this.flist.getMbox(e.element());
 
-        if (drag.isMbox()) {
+        if (drag_m && drag_m.isMbox()) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (drop.ftype() != 'special' &&
-                 !this.flist.isSubfolder(drag, drop))) {
+                 !this.flist.isSubfolder(drag_m, drop))) {
                 DimpCore.doAction('renameMailbox', {
-                    new_name: drag.label().unescapeHTML(),
+                    new_name: drag_m.label().unescapeHTML(),
                     new_parent: dropbase ? '' : drop.value(),
-                    old_name: drag.value()
+                    old_name: drag_m.value()
                 });
             }
         } else if (drop.ftype() != 'container') {
@@ -2353,7 +2354,7 @@ var DimpBase = {
             if (sel.size()) {
                 // Dragging multiple selected messages.
                 uids = sel;
-            } else if (drag.value() != drop.value()) {
+            } else if (drag.retrieve('mbox') != drop.value()) {
                 // Dragging a single unselected message.
                 uids = this.viewport.createSelection('domid', drag.id);
             }
@@ -2408,7 +2409,7 @@ var DimpBase = {
              break;
          }
 
-         return drag.isMbox()
+         return (drag && drag.isMbox())
              ? ((drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', drag.label()).sub('%s', drop.label()) : '')
              : ((drop.ftype() != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', drop.label()) : '');
     },
