@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix requesting remote wipe when using the MongoDB state driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2195,7 +2195,7 @@
    <date>2014-06-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix requesting remote wipe when using the MongoDB state driver.
    </notes>
   </release>
  </changelog>
