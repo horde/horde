@@ -61,7 +61,6 @@ extends Horde_Core_Ajax_Application_Handler
      *
      * Variables used:
      *   - mbox: (string) The name of the new mailbox.
-     *   - noexpand: (integer) Submailbox is not yet expanded.
      *   - parent: (string) The parent mailbox (base64url encoded).
      *
      * @return boolean  True on success, false on failure.
@@ -83,9 +82,6 @@ extends Horde_Core_Ajax_Application_Handler
             $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
         } elseif ($new_mbox->create()) {
             $result = true;
-            if (isset($this->vars->parent) && $this->vars->noexpand) {
-                $this->_base->queue->setMailboxOpt('noexpand', 1);
-            }
         }
 
         return $result;

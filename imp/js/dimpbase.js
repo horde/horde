@@ -3249,7 +3249,7 @@ var DimpBase = {
     // mbox: (Object:IMP_Flist_Mbox)
     _mboxAction: function(e, mbox, mode)
     {
-        var action, params, tmp, val,
+        var action, params, val,
             form = e.findElement('form');
         val = $F(form.down('input'));
 
@@ -3271,10 +3271,6 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = mbox.value();
-                    tmp = mbox.subElement();
-                    if (!tmp || !tmp.childElements().size()) {
-                        params.noexpand = 1;
-                    }
                 }
                 break;
             }
@@ -3304,7 +3300,7 @@ var DimpBase = {
             r.c.each(this.flist.changeMbox.bind(this.flist));
         }
 
-        if (r.a && !r.noexpand) {
+        if (r.a) {
             r.a.each(this.flist.createMbox.bind(this.flist));
             if (r.expand) {
                 r.expand = r.base
@@ -4094,8 +4090,13 @@ var IMP_Flist = Class.create({
 
     createMbox: function(ob)
     {
+        var f;
+
         if (!this.mboxes[ob.m]) {
-            this.mboxes[ob.m] = new IMP_Flist_Mbox(this, ob);
+            f = new IMP_Flist_Mbox(this, ob);
+            if (f.element()) {
+                this.mboxes[ob.m] = f;
+            }
         }
     },
 
@@ -4204,10 +4205,15 @@ var IMP_Flist_Mbox = Class.create({
         } else {
             if (ob.s) {
                 parent_e = $('imp-specialmboxes');
+            } else if (ob.pa) {
+                /* Check for existence of parent object. May not exist if,
+                 * e.g., mailbox is creating in collapsed subfolder. */
+                if (!(tmp = flist.getMbox(ob.pa))) {
+                    return;
+                }
+                parent_e = flist.getMbox(ob.pa).subElement();
             } else {
-                parent_e = ob.pa
-                    ? flist.getMbox(ob.pa).subElement()
-                    : $('imp-normalmboxes');
+                parent_e = $('imp-normalmboxes');
             }
 
             /* Insert into correct place in level. */

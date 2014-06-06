@@ -155,7 +155,6 @@ class IMP_Ajax_Queue
      *   - c: (array) Mailboxes that were changed (base64url encoded).
      *   - d: (array) Mailboxes that were deleted (base64url encoded).
      *   - expand: (integer) Expand subfolders on load.
-     *   - noexpand: (integer) TODO
      *   - switch: (string) Load this mailbox (base64url encoded).
      *
      * For maillog data (key: 'maillog'), an object with these properties:
