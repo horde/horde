@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Workaround PHP DateTime regression in 5.4.29 &amp; 5.5.13.
 * [mms] Fix translating error messages if they contain printf placeholders.
  </notes>
  <contents>
@@ -2453,6 +2454,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Workaround PHP DateTime regression in 5.4.29 &amp; 5.5.13.
 * [mms] Fix translating error messages if they contain printf placeholders.
    </notes>
   </release>
