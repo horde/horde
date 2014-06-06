@@ -278,4 +278,19 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
         $this->code = intval($code);
     }
 
+    /**
+     * Perform substitution of variables in the error message.
+     *
+     * Needed to allow for correct translation of error message.
+     *
+     * @since 2.22.0
+     *
+     * @param array $args  Arguments used for substitution.
+     */
+    public function messagePrintf(array $args = array())
+    {
+        $this->raw_msg = vsprintf($this->raw_msg, $args);
+        $this->message = vsprintf($this->message, $args);
+    }
+
 }
