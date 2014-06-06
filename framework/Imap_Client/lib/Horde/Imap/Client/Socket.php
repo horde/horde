@@ -730,10 +730,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         default:
-            throw new Horde_Imap_Client_Exception(
-                sprintf(Horde_Imap_Client_Translation::r("Unknown authentication method: %s"), $method),
+            $e = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::r("Unknown authentication method: %s"),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
+            $e->messagePrintf(array($method));
+            throw $e;
         }
 
         if ($authenticate_cmd) {
@@ -1078,10 +1080,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_changeSelected(null);
                 $this->_mode = 0;
                 if (!$e->getCode()) {
-                    throw new Horde_Imap_Client_Exception(
-                        sprintf(Horde_Imap_Client_Translation::r("Could not open mailbox \"%s\"."), $mailbox),
+                    $e = new Horde_Imap_Client_Exception(
+                        Horde_Imap_Client_Translation::r("Could not open mailbox \"%s\"."),
                         Horde_Imap_Client_Exception::MAILBOX_NOOPEN
                     );
+                    $e->messagePrintf(array($mailbox));
                 }
             }
             throw $e;
@@ -3747,10 +3750,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return array(substr($name, 8), 'value.priv');
         }
 
-        throw new Horde_Imap_Client_Exception(
-            sprintf(Horde_Imap_Client_Translation::r("Invalid METADATA entry: \"%s\"."), $name),
+        $e = new Horde_Imap_Client_Exception(
+            Horde_Imap_Client_Translation::r("Invalid METADATA entry: \"%s\"."),
             Horde_Imap_Client_Exception::METADATA_INVALID
         );
+        $e->messagePrintf(array($name));
+        throw $e;
     }
 
     /**
@@ -3833,10 +3838,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             default:
-                throw new Horde_Imap_Client_Exception(
-                    sprintf(Horde_Imap_Client_Translation::r("Invalid METADATA value type \"%s\"."), $type),
+                $e = new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Invalid METADATA value type \"%s\"."),
                     Horde_Imap_Client_Exception::METADATA_INVALID
                 );
+                $e->messagePrintf(array($type));
+                throw $e;
             }
         }
     }
@@ -4502,12 +4509,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($ob->status) {
             case Horde_Imap_Client_Interaction_Server::BAD:
             case Horde_Imap_Client_Interaction_Server::NO:
-                throw new Horde_Imap_Client_Exception_ServerResponse(
-                    sprintf(Horde_Imap_Client_Translation::r("The mail server was unable to parse the contents of the mail message: %s"), strval($ob->token)),
+                $e = new Horde_Imap_Client_Exception_ServerResponse(
+                    Horde_Imap_Client_Translation::r("The mail server was unable to parse the contents of the mail message: %s"),
                     Horde_Imap_Client_Exception::PARSEERROR,
                     $ob,
                     $pipeline
                 );
+                $e->messagePrintf(strval($ob->token));
+                throw $e;
             }
             break;
 
