@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-02</date>
+ <date>2014-06-06</date>
  <version>
   <release>2.16.4</release>
   <api>2.16.0</api>
@@ -2192,7 +2192,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-02</date>
+   <date>2014-06-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix requesting remote wipe when using the MongoDB state driver.
