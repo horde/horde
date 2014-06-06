@@ -153,8 +153,6 @@ var ImpMobile = {
                 HordeMobile.doAction('poll', {
                     poll: JSON.stringify([])
                 });
-            } else {
-                ImpMobile.loadFolders();
             }
             break;
 
@@ -366,6 +364,12 @@ var ImpMobile = {
     pageShow: function()
     {
         switch (HordeMobile.currentPage()) {
+        case 'folders':
+            if (!ImpMobile.foldersLoaded) {
+                ImpMobile.loadFolders();
+            }
+            break;
+
         case 'mailbox':
             $.mobile.silentScroll(ImpMobile.mailboxTop);
 
