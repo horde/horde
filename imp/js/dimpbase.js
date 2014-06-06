@@ -4192,11 +4192,11 @@ var IMP_Flist_Mbox = Class.create({
                 parent_e = $('imp-specialmboxes');
             } else if (ob.pa) {
                 /* Check for existence of parent object. May not exist if,
-                 * e.g., mailbox is creating in collapsed subfolder. */
+                 * e.g., mailbox is created in collapsed subfolder. */
                 if (!(tmp = flist.getMbox(ob.pa))) {
                     return;
                 }
-                parent_e = flist.getMbox(ob.pa).subElement();
+                parent_e = tmp.subElement();
             } else {
                 parent_e = $('imp-normalmboxes');
             }
