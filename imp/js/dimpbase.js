@@ -2380,9 +2380,7 @@ var DimpBase = {
 
     mboxDropCaption: function(drop, drag, e)
     {
-        var m,
-            ftype = drop.ftype(),
-            l = drop.label();
+        var m;
 
         drag = this.flist.getMbox(drag);
         drop = this.flist.getMbox(drop);
