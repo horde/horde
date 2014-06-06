@@ -3302,14 +3302,15 @@ var DimpBase = {
 
         if (r.a) {
             r.a.each(this.flist.createMbox.bind(this.flist));
-            if (r.expand) {
-                r.expand = r.base
-                    ? [ this.flist.getMbox(r.base) ]
-                    : r.a.pluck('m').collect(this.flist.getMbox.bind(this.flist));
-                r.expand.invoke('subElement').compact().invoke('down').compact().each(function(sub) {
-                    this._toggleSubFolder(sub, 'exp', true, true);
-                }, this);
-            }
+        }
+
+        if (r.expand) {
+            r.expand = r.base
+                ? [ this.flist.getMbox(r.base) ]
+                : [ $A(r.c), $A(r.a) ].flatten().pluck('m').compact().collect(this.flist.getMbox.bind(this.flist));
+            r.expand.invoke('subElement').compact().invoke('down').compact().each(function(sub) {
+                this._toggleSubFolder(sub, 'exp', true, true);
+            }, this);
         }
 
         if (r.all) {
