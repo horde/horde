@@ -64,15 +64,15 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
 
             $ftree = $injector->getInstance('IMP_Ftree');
 
-            $ftree->eltdiff->track = false;
             $ftree->delete($remote_ob);
             $ftree->insert($remote_ob);
-            $ftree->eltdiff->track = true;
 
             $ftree[$remote_ob]->open = true;
             $this->_base->queue->setMailboxOpt('expand', 1);
 
-            $iterator = new IMP_Ftree_IteratorFilter($ftree);
+            $iterator = new IMP_Ftree_IteratorFilter(
+                new IMP_Ftree_Iterator($ftree[$remote_ob])
+            );
             if ($this->vars->unsub) {
                 $ftree->loadUnsubscribed();
                 $iterator->remove($iterator::UNSUB);
