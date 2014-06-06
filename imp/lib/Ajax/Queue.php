@@ -553,13 +553,13 @@ class IMP_Ajax_Queue
         }
 
         if (($add = $eltdiff->add) &&
-            ($elts = array_values(array_map(array($this, '_ftreeElt'), $add)))) {
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $add))))) {
             $out['a'] = $elts;
             $poll = $add;
         }
 
         if (($change = $eltdiff->change) &&
-            ($elts = array_values(array_map(array($this, '_ftreeElt'), $change)))) {
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $change))))) {
             $out['c'] = $elts;
             $poll = array_merge($poll, $change);
         }
