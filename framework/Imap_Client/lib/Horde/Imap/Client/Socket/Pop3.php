@@ -398,10 +398,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         default:
-            throw new Horde_Imap_Client_Exception(
-                sprintf(Horde_Imap_Client_Translation::r("Unknown authentication method: %s"), $method),
+            $e = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::r("Unknown authentication method: %s"),
                 Horde_Imap_Client_Exception::SERVER_CONNECT
             );
+            $e->messagePrintf(array($method));
+            throw $e;
         }
     }
 

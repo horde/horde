@@ -31,9 +31,10 @@ extends Horde_Imap_Client_Exception
     public function __construct($feature)
     {
         parent::__construct(
-            sprintf(Horde_Imap_Client_Translation::r("%s not supported on POP3 servers."), $feature),
+            Horde_Imap_Client_Translation::r("%s not supported on POP3 servers."),
             self::NOT_SUPPORTED
         );
+        $this->messagePrintf(array($feature));
     }
 
 }
