@@ -3177,12 +3177,7 @@ var DimpBase = {
                     sub: 1,
                     subfolders: e.element().down('[name=subscribe_subfolders]').getValue()
                 });
-
-                if (this.showunsub) {
-                    elt.unsubscribed(false);
-                    elt.element().removeClassName('imp-sidebar-unsubmbox');
-                }
-            }.bind(this);
+            };
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
@@ -3197,27 +3192,12 @@ var DimpBase = {
 
         case 'unsubscribe':
             this.viewaction = function(e) {
-                var tmp;
-
                 DimpCore.doAction('subscribe', {
                     mbox: elt.value(),
                     sub: 0,
                     subfolders: e.element().down('[name=unsubscribe_subfolders]').getValue()
                 });
-
-                if (this.showunsub) {
-                    elt.unsubscribed(true);
-                    elt.element().addClassName('imp-sidebar-unsubmbox');
-                } else {
-                    if (!this.showunsub &&
-                        !elt.element().siblings().size() &&
-                        (tmp = elt.parentElt())) {
-                        tmp.expand(null);
-                    }
-                    this.flist.deleteMbox(elt);
-                    this.viewport.deleteView(elt.value());
-                }
-            }.bind(this);
+            };
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
@@ -3297,7 +3277,14 @@ var DimpBase = {
         }
 
         if (r.c) {
-            r.c.each(this.flist.changeMbox.bind(this.flist));
+            r.c.each(function(m) {
+                if (!this.showunsub && m.un) {
+                    this.flist.deleteMbox(m.m);
+                    this.viewport.deleteView(m.m);
+                } else {
+                    this.flist.changeMbox(m);
+                }
+            }, this);
         }
 
         if (r.a) {
@@ -4071,13 +4058,10 @@ var IMP_Flist = Class.create({
     // opts: (object) [sub]
     deleteMbox: function(m, opts)
     {
-        if (!(m = this.getMbox(m))) {
-            return;
+        if ((m = this.getMbox(m))) {
+            m.remove(opts && opts.sub);
+            delete this.mboxes[m.value()];
         }
-
-        m.remove(opts.sub);
-
-        delete this.mboxes[m.value()];
     },
 
     changeMbox: function(ob)
@@ -4297,15 +4281,6 @@ var IMP_Flist_Mbox = Class.create({
         return ~~this.data.unseen;
     },
 
-    unsubscribed: function(unsub)
-    {
-        if (!Object.isUndefined(unsub)) {
-            this.data.un = unsub;
-        }
-
-        return !!this.data.un;
-    },
-
     expand: function(e)
     {
         var elt;
@@ -4428,6 +4403,11 @@ var IMP_Flist_Mbox = Class.create({
     virtual: function()
     {
         return !!(~~this.data.v);
+    },
+
+    unsubscribed: function()
+    {
+        return !!this.data.un;
     },
 
     fullMboxDisplay: function()
