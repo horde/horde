@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-06-07</date>
  <version>
-  <release>2.22.0</release>
+  <release>2.22.1</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Workaround PHP DateTime regression in 5.4.29 &amp; 5.5.13.
-* [mms] Fix translating error messages if they contain printf placeholders.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2451,11 +2450,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround PHP DateTime regression in 5.4.29 &amp; 5.5.13.
 * [mms] Fix translating error messages if they contain printf placeholders.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.1</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
