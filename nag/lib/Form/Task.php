@@ -53,12 +53,11 @@ class Nag_Form_Task extends Horde_Form
         $this->addHidden('', 'task_id', 'text', false);
         $this->addHidden('', 'old_tasklist', 'text', false);
         $this->addHidden('', 'url', 'text', false);
-        $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addHidden('', 'uid', 'text', false);
         $this->addHidden('', 'owner', 'text', false);
 
         $this->setSection(self::SECTION_GENERAL, _("General"));
-
+        $this->addVariable(_("Name"), 'name', 'text', true);
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
             count($tasklist_enums) > 1) {
             $v = $this->addVariable(
