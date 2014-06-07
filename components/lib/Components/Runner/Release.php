@@ -85,19 +85,21 @@ class Components_Runner_Release
 
         $pre_commit = false;
 
-        /* Require package unit tests to pass locally before committing. */
-        $unit = $this->_qc->getTask('unit', $component);
-        if (!$unit->validate($options)) {
-            $this->_output->info(
-                'Running ' . $unit->getName() . ' on ' . $component->getName() .  "\n"
-            );
+        if ($this->_doTask('unittest')) {
+            $unit = $this->_qc->getTask('unit', $component);
+            if (!$unit->validate($options)) {
+                $this->_output->info(
+                    'Running ' . $unit->getName() . ' on ' . $component->getName() .  "\n"
+                );
 
-            if ($unit->run($options)) {
-                $this->_output->warn('Aborting due to unit test errors.');
-                return;
+                if ($unit->run($options)) {
+                    $this->_output->warn('Aborting due to unit test errors.');
+                    return;
+                }
+
+                $this->_output->ok('No problems found in unit test.');
             }
-
-            $this->_output->ok('No problems found in unit test.');
+            $pre_commit = true;
         }
 
         if ($this->_doTask('timestamp')) {
