@@ -170,6 +170,7 @@ This should perform all required actions. Sometimes it might be necessary to avo
 
 The available tasks are:
 
+ - unittest    : Perform unittests on the package.
  - timestamp   : Timestamp the package.xml and sync the change log.
  - composer    : Update the composer.json file.
  - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
