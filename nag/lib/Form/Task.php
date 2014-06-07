@@ -16,6 +16,10 @@
  */
 class Nag_Form_Task extends Horde_Form
 {
+    const SECTION_GENERAL = 1;
+    const SECTION_RECUR   = 2;
+    const SECTION_DESC    = 3;
+
     /**
      * Const'r
      *
@@ -52,6 +56,8 @@ class Nag_Form_Task extends Horde_Form
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addHidden('', 'uid', 'text', false);
         $this->addHidden('', 'owner', 'text', false);
+
+        $this->setSection(self::SECTION_GENERAL, _("General"));
 
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
             count($tasklist_enums) > 1) {
@@ -126,12 +132,14 @@ class Nag_Form_Task extends Horde_Form
 
             $v = $this->addVariable(_("Priority"), 'priority', 'enum', false, false, false, array($priorities));
             $v->setDefault(3);
-
-            $this->addVariable(_("Recurrence"), 'recurrence', 'Nag:NagRecurrence', false);
             $this->addVariable(_("Estimated Time"), 'estimate', 'number', false);
             $this->addVariable(_("Completed?"), 'completed', 'boolean', false);
+
+            $this->setSection(self::SECTION_RECUR, _("Recurrence"));
+            $this->addVariable(_("Recurrence"), 'recurrence', 'Nag:NagRecurrence', false);
         }
 
+        $this->setSection(self::SECTION_DESC, _("Description"));
         try {
             $description = Horde::callHook('description_help', array(), 'nag');
         } catch (Horde_Exception_HookNotSet $e) {
