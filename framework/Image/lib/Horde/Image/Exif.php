@@ -78,7 +78,9 @@ class Horde_Image_Exif
             'XMP' => array(
                 'Creator' => array('description' => Horde_Image_Translation::t("Image Creator"), 'type' => 'text'),
                 'Rights' => array('description' => Horde_Image_Translation::t("Rights"), 'type' => 'text'),
-                'UsageTerms' => array('description' => Horde_Image_Translation::t("Usage Terms"), 'type' => 'type'),
+                'UsageTerms' => array('description' => Horde_Image_Translation::t("Usage Terms"), 'type' => 'text'),
+                'Title' => array('description' => Horde_Image_Translation::t("Title"), 'type' => 'text'),
+                'Description' => array('description' => Horde_Image_Translation::t("Description"), 'type' => 'text'),
             ),
 
             'EXIF' => array(
