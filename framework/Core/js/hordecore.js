@@ -24,7 +24,6 @@ var HordeCore = {
 
     alarms: [],
     audios: [],
-    base: null,
     handlers: {},
     jsfiles: [],
     loading: {},
@@ -190,7 +189,7 @@ var HordeCore = {
 
     sessionId: function(sid)
     {
-        var conf = (this.base || window).HordeCore.conf;
+        var conf = this.baseWindow().HordeCore.conf;
 
         if (conf.SID) {
             if (sid) {
@@ -632,6 +631,19 @@ var HordeCore = {
             : url;
     },
 
+    baseWindow: function()
+    {
+        try {
+            if (parent.opener &&
+                parent.opener.location.host == window.location.host &&
+                parent.opener.HordeCore) {
+                return parent.opener.HordeCore.baseWindow();
+            }
+        } catch (e) {}
+
+        return window;
+    },
+
     initHandler: function(type)
     {
         var h, t;
@@ -734,9 +746,7 @@ var HordeCore = {
 
     onDomLoad: function()
     {
-        /* Determine base window. Need a try/catch block here since, if the
-         * page was loaded by an opener out of this current domain, this will
-         * throw an exception. */
+        // @todo: Remove for H6
         try {
             if (parent.opener &&
                 parent.opener.location.host == window.location.host &&
