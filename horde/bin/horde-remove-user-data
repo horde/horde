@@ -29,26 +29,76 @@ Horde_Registry::appInit('horde', array(
     'user_admin' => true
 ));
 
-$cli->message('Horde directory: ' . realpath(HORDE_BASE), 'cli.message');
+$usage = <<<USAGE
+Remove user data from Horde database
 
-do {
-    $user = $cli->prompt('Username:');
-} while (!strlen($user));
+  horde-remove-user-data [options] [user...]
 
-$app = $cli->prompt('Application to remove data from (blank for all apps):');
-if (!strlen($app)) {
-    $app = null;
+If no user is specified on command line, the user is prompted for one.
+The a prompt for the Horde application is displayed.
+
+If at least one user is specified on command line, the data for
+all Horde applications is remove for all specified users.
+USAGE;
+
+// Parse command line arguments.
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => $usage,
+        'optionList' => array(
+            new Horde_Argv_Option('-c', '--continue', array(
+                'action' => 'store_true',
+                'help' => 'Continue with next user on failure',
+                'dest' => 'continue'
+            )),
+            new Horde_Argv_Option('-f', '--force', array(
+                'action' => 'store_true',
+                'help' => 'Force removing without prompt',
+                'dest' => 'force'
+            )),
+        )
+    )
+);
+list($options, $argv) = $parser->parseArgs();
+
+/* null = all; particular app otherwise */
+$app = null;
+
+if (!count($argv)) {
+    $cli->message('Horde directory: ' . realpath(HORDE_BASE), 'cli.message');
+
+    do {
+        $user = $cli->prompt('Username:');
+    } while (!strlen($user));
+
+    $argv = array($user);
+    $app = $cli->prompt('Application to remove data from (blank for all apps):');
+    if (!strlen($app)) {
+        $app = null;
+    }
+
+    $cli->writeln();
 }
 
-$cli->writeln();
+if (!$options->force) {
+    $cli->writeln($cli->red('Removing data of user(s)') . ':');
+    $cli->writeln('  ' . implode(', ', $argv));
+    $cli->writeln();
 
-if ($cli->prompt($cli->red('Are you sure you want to remove user data?'), array('y' => 'Yes', 'n' => 'No'), 'n') != 'y') {
-    exit(0);
+    if ($cli->prompt($cli->red('Are you sure you want to remove user data?'), array('y' => 'Yes', 'n' => 'No'), 'n') != 'y') {
+        exit(0);
+    }
 }
 
-try {
-    $registry->removeUserData($user, $app);
-    $cli->message('Data removed.', 'cli.success');
-} catch (Horde_Exception $e) {
-    $cli->fatal($e->getMessage());
+foreach ($argv as $user) {
+    try {
+        $registry->removeUserData($user, $app);
+        $cli->message($user . ': Data removed.', 'cli.success');
+    } catch (Horde_Exception $e) {
+        if ($options->continue) {
+            $cli->message($user . ': Data NOT removed completely. ' . $e->getMessage() , 'cli.error');
+        } else {
+            $cli->fatal($user . ': Data NOT removed completely. ' . $e->getMessage());
+        }
+    }
 }
