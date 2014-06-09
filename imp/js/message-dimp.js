@@ -92,6 +92,8 @@ var DimpMessage = {
     /* Click handlers. */
     clickHandler: function(e)
     {
+        var base;
+
         switch (e.element().readAttribute('id')) {
         case 'windowclose':
             window.close();
@@ -111,15 +113,15 @@ var DimpMessage = {
         case 'button_delete':
         case 'button_innocent':
         case 'button_spam':
-            if (DimpCore.baseAvailable()) {
-                HordeCore.base.focus();
+            if ((base = DimpCore.baseAvailable())) {
+                base.focus();
                 if (e.element().identify() == 'button_delete') {
-                    HordeCore.base.DimpBase.deleteMsg({
+                    base.DimpBase.deleteMsg({
                         mailbox: this.mbox,
                         uid: this.buid
                     });
                 } else {
-                    HordeCore.base.DimpBase.reportSpam(e.element().identify() == 'button_spam', {
+                    base.DimpBase.reportSpam(e.element().identify() == 'button_spam', {
                         mailbox: this.mbox,
                         uid: this.buid
                     });
@@ -251,6 +253,8 @@ var DimpMessage = {
 
     onDomLoad: function()
     {
+        var base;
+
         HordeCore.initHandler('click');
 
         if (DimpCore.conf.disable_compose) {
@@ -273,9 +277,9 @@ var DimpMessage = {
         }, this);
         delete this.addr_limit;
 
-        if (DimpCore.baseAvailable()) {
+        if ((base = DimpCore.baseAvailable())) {
             if (this.strip) {
-                HordeCore.base.DimpBase.poll();
+                base.DimpBase.poll();
             } else if (this.tasks) {
                 if (this.tasks['imp:maillog']) {
                     this.tasks['imp:maillog'].each(function(l) {
@@ -287,7 +291,7 @@ var DimpMessage = {
                     }, this);
                     delete this.tasks['imp:maillog'];
                 }
-                HordeCore.base.DimpBase.tasksHandler({ tasks: this.tasks });
+                base.DimpBase.tasksHandler({ tasks: this.tasks });
             }
         }
 
