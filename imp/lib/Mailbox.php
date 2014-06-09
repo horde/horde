@@ -349,9 +349,13 @@ class IMP_Mailbox
                 return $this->label;
             }
 
-            return (($pos = strrpos($this->_mbox, $this->namespace_delimiter)) === false)
-                ? strval($this)
-                : substr($this->_mbox, $pos + 1);
+            $mbox = $this->remote_mbox
+                ? $this->label
+                : $this->_mbox;
+
+            return (($pos = strrpos($mbox, $this->namespace_delimiter)) === false)
+                ? strval($mbox)
+                : substr($mbox, $pos + 1);
 
         case 'cacheid':
         case 'cacheid_date':

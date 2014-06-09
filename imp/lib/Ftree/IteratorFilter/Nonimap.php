@@ -28,7 +28,8 @@ class IMP_Ftree_IteratorFilter_Nonimap extends FilterIterator
     {
         $curr = $this->current();
 
-        return (!$curr->nonimap || ($curr->namespace && $curr->children));
+        return (!$curr->nonimap ||
+                (($curr->remote || $curr->namespace) && $curr->children));
     }
 
 }

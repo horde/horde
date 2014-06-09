@@ -124,6 +124,11 @@ class IMP_Ftree_Element
             while ($elt = $elt->parent) {
                 if ($elt->namespace) {
                     return $i + 1;
+                } elseif ($elt->remote) {
+                    if ($this->remote_mbox) {
+                        ++$i;
+                    }
+                    return $i + 1;
                 }
             }
 
