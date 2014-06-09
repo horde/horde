@@ -120,18 +120,16 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
                     $parts = explode($ns_info->delimiter, $mbox);
                 }
 
-                switch ($ns_info->type) {
-                case $ns_info::NS_OTHER:
-                    if ($prefs->getValue('tree_view')) {
+                if ($prefs->getValue('tree_view')) {
+                    switch ($ns_info->type) {
+                    case $ns_info::NS_OTHER:
                         $parent = self::OTHER_KEY;
-                    }
-                    break;
+                        break;
 
-                case $ns_info::NS_SHARED:
-                    if ($prefs->getValue('tree_view')) {
+                    case $ns_info::NS_SHARED:
                         $parent = self::SHARED_KEY;
+                        break;
                     }
-                    break;
                 }
             } else {
                 $parts = array($mbox);
