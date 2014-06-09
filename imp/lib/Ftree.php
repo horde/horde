@@ -349,6 +349,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                         $this->delete($p_elt);
                     } else {
                         $p_elt->open = false;
+                        $this->eltdiff->change($p_elt);
                     }
                 }
             }
@@ -598,7 +599,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
             } else {
                 unset($this->expanded[$elt]);
             }
-            $this->eltdiff->change($elt);
             break;
 
         case 'polled':
@@ -768,12 +768,12 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     {
         $name = $this->_normalize($elt['v']);
 
-        $container = false;
+        $change = false;
         if (isset($this->_elts[$name])) {
-            if ($this->getAttribute('container', $name) === false) {
+            if ($elt['a'] && self::ELT_NOSELECT) {
                 return;
             }
-            $container = true;
+            $change = true;
         }
 
         $p_elt = $this[isset($elt['p']) ? $elt['p'] : self::BASE_ELT];
@@ -787,7 +787,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         $this->_parent[$parent][] = $name;
         $this->_elts[$name] = $elt['a'];
 
-        if ($container) {
+        if ($change) {
             $this->eltdiff->change($name);
         } else {
             $this->eltdiff->add($name);

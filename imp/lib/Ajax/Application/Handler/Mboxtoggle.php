@@ -20,36 +20,17 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Application_Handler
+class IMP_Ajax_Application_Handler_Mboxtoggle
+extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
      * <pre>
-     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded).
-     * </pre>
-     *
-     * @return boolean  True.
-     */
-    public function expandMailboxes()
-    {
-        if (!empty($this->vars->mboxes)) {
-            $GLOBALS['injector']->getInstance('IMP_Ftree')->expand(
-                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
-            );
-        }
-
-        return true;
-    }
-
-    /**
-     * AJAX action: Collapse mailboxes.
-     *
-     * Variables used:
-     * <pre>
-     *   - all: (integer) 1 to collapse all mailboxes.
+     *   - action: (string) [REQUIRED] Either 'collapse' or 'expand'.
+     *   - all: (integer) 1 to toggle all mailboxes (mailbox information
+     *          will not be returned).
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
      *             array; mailboxes are base64url encoded); required if 'all'
      *             is 0.
@@ -57,19 +38,37 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
      *
      * @return boolean  True.
      */
-    public function collapseMailboxes()
+    public function toggleMailboxes()
     {
         $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
 
         if ($this->vars->all) {
             $old_track = $ftree->eltdiff->track;
             $ftree->eltdiff->track = false;
-            $ftree->collapseAll();
+
+            switch ($this->vars->action) {
+            case 'collapse':
+                $ftree->collapseAll();
+                break;
+
+            case 'expand':
+                $ftree->expandAll();
+                break;
+            }
+
             $ftree->eltdiff->track = $old_track;
         } elseif (!empty($this->vars->mboxes)) {
-            $ftree->collapse(
-                IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))
-            );
+            $mboxes = IMP_Mailbox::formFrom(json_decode($this->vars->mboxes));
+
+            switch ($this->vars->action) {
+            case 'collapse':
+                $ftree->collapse($mboxes);
+                break;
+
+            case 'expand':
+                $ftree->expand($mboxes);
+                break;
+            }
         }
 
         return true;

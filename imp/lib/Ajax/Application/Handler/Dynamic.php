@@ -61,7 +61,6 @@ extends Horde_Core_Ajax_Application_Handler
      *
      * Variables used:
      *   - mbox: (string) The name of the new mailbox.
-     *   - noexpand: (integer) Submailbox is not yet expanded.
      *   - parent: (string) The parent mailbox (base64url encoded).
      *
      * @return boolean  True on success, false on failure.
@@ -83,9 +82,6 @@ extends Horde_Core_Ajax_Application_Handler
             $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
         } elseif ($new_mbox->create()) {
             $result = true;
-            if (isset($this->vars->parent) && $this->vars->noexpand) {
-                $this->_base->queue->setMailboxOpt('noexpand', 1);
-            }
         }
 
         return $result;
@@ -315,11 +311,8 @@ extends Horde_Core_Ajax_Application_Handler
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append($filter);
             if ($this->vars->expall) {
-                // @todo: Move to Mboxtoggle:expandAll action
-                $old_track = $ftree->eltdiff->track;
-                $ftree->eltdiff->track = false;
-                $ftree->expandAll();
-                $ftree->eltdiff->track = $old_track;
+                $this->vars->action = 'expand';
+                $this->_base->callAction('toggleMailboxes');
             }
         } elseif ($this->vars->initial || $this->vars->reload) {
             $special = new ArrayIterator();
@@ -443,7 +436,7 @@ extends Horde_Core_Ajax_Application_Handler
         $this->_base->callAction('viewPort');
 
         $this->vars->initial = 1;
-        $this->vars->mboxes = json_encode(array($this->vars->mbox));
+        $this->vars->mboxes = json_encode(array($this->vars->mailbox));
         $this->listMailboxes();
 
         $this->_base->queue->flagConfig(Horde_Registry::VIEW_DYNAMIC);
