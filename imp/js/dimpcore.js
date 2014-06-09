@@ -243,9 +243,15 @@ var DimpCore = {
 
     baseAvailable: function()
     {
-        return (HordeCore.base &&
-                !Object.isUndefined(HordeCore.base.DimpBase) &&
-                !HordeCore.base.closed);
+        var base = HordeCore.baseWindow();
+
+        if (base != window &&
+            !base.closed &&
+            !Object.isUndefined(base.DimpBase)) {
+            return base;
+        }
+
+        return null;
     },
 
     /* Mouse click handler. */
