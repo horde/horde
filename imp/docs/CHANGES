@@ -1,7 +1,8 @@
 ----------
-v6.3.0-git
+v6.2.0-git
 ----------
 
+[mms] Rewritten folder list code for dynamic view.
 [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes
       are already cached in the browser.
 
