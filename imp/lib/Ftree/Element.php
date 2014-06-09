@@ -114,9 +114,20 @@ class IMP_Ftree_Element
             return ($this->_id == 'INBOX');
 
         case 'level':
-            return ($this->base_elt)
-                ? 0
-                : substr_count($this->_id, $this->namespace_info->delimiter);
+            if ($this->base_elt) {
+                return 0;
+            }
+
+            $i = substr_count($this->_id, $this->namespace_info->delimiter);
+
+            $elt = $this;
+            while ($elt = $elt->parent) {
+                if ($elt->namespace) {
+                    return $i + 1;
+                }
+            }
+
+            return $i;
 
         case 'mbox_ob':
             return IMP_Mailbox::get($this->_id);
