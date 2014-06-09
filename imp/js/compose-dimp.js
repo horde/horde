@@ -130,10 +130,16 @@ var DimpCompose = {
             this.toggleCC('bcc');
         }
         this.setSaveSentMail(identity.sm_save);
-        ImpComposeBase.setSignature(ImpComposeBase.editor_on, identity);
+        this.setSignature(ImpComposeBase.editor_on, identity);
         this.last_identity = $F('identity');
 
         return true;
+    },
+
+    setSignature: function(rte, identity)
+    {
+        ImpComposeBase.setSignature(rte, identity);
+        this.hash_sigOrig = this.sigHash();
     },
 
     setSaveSentMail: function(set)
@@ -450,7 +456,7 @@ var DimpCompose = {
             });
         } else {
             this.rteInit(!active);
-            ImpComposeBase.setSignature(!active, ImpComposeBase.identities[$F('identity')]);
+            this.setSignature(!active, ImpComposeBase.identities[$F('identity')]);
         }
     },
 
@@ -545,7 +551,7 @@ var DimpCompose = {
 
         this.RTELoading(false);
 
-        ImpComposeBase.setSignature(opts.rte, r.text.sig ? r.text.sig : ImpComposeBase.identities[$F('identity')]);
+        this.setSignature(opts.rte, r.text.sig ? r.text.sig : ImpComposeBase.identities[$F('identity')]);
 
         this.resizeMsgArea();
 
@@ -675,7 +681,6 @@ var DimpCompose = {
         if (!this.hash_msgOrig) {
             this.hash_msgOrig = this.msgHash();
         }
-        this.hash_sigOrig = this.sigHash();
 
         // Set auto-save-drafts now if not already active.
         if (DimpCore.conf.auto_save_interval_val &&
