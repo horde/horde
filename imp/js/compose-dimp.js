@@ -139,7 +139,16 @@ var DimpCompose = {
     setSignature: function(rte, identity)
     {
         ImpComposeBase.setSignature(rte, identity);
-        this.hash_sigOrig = this.sigHash();
+        this.setSignatureHash();
+    },
+
+    setSignatureHash: function()
+    {
+        if (ImpComposeBase.rte_sig && ImpComposeBase.rte_sig.busy()) {
+            this.setSignatureHash.bind(this).delay(0.1);
+        } else {
+            this.hash_sigOrig = this.sigHash();
+        }
     },
 
     setSaveSentMail: function(set)
