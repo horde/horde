@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Rewritten folder list code for dynamic view.
 * [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes are already cached in the browser.
  </notes>
  <contents>
@@ -3643,6 +3644,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Rewritten folder list code for dynamic view.
 * [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes are already cached in the browser.
    </notes>
   </release>
