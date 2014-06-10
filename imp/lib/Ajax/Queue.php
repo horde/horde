@@ -683,8 +683,11 @@ class IMP_Ajax_Queue
                 $ob->po = 1;
             }
 
-            if ($elt->inbox || $mbox_ob->special) {
+            if ($elt->inbox) {
                 $ob->ns = $ob->s = 1;
+            } elseif ($mbox_ob->special) {
+                $ob->ns = $ob->s = 1;
+                $ob->t = strval($elt);
             }
         }
 
