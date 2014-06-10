@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
-"PO-Revision-Date: 2014-05-12 20:10+0900\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-06-06 22:30+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: lib/Storage.php:347
 msgid " and"
@@ -72,7 +72,7 @@ msgstr "スクリプトを有効にする"
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "\"%s\" 用スクリプトの有効化に失敗しました：(%d) %s"
 
-#: templates/basic/filters/filters.html.php:78
+#: templates/basic/filters/filters.html.php:82
 msgid "Additional Settings"
 msgstr "追加の設定"
 
@@ -92,11 +92,11 @@ msgstr "詳細設定"
 msgid "Answered"
 msgstr "返信済み"
 
-#: templates/basic/filters/filters.html.php:67
+#: templates/basic/filters/filters.html.php:71
 msgid "Apply Filters"
-msgstr "フィルターを適用"
+msgstr "振り分けを実行"
 
-#: lib/Basic/Filters.php:262
+#: lib/Basic/Filters.php:270
 msgid "Are you sure you want to delete this rule?"
 msgstr "本当にこのルールを削除しても良いですか?"
 
@@ -125,7 +125,7 @@ msgstr "始まる"
 msgid "Bind failed: (%s) %s"
 msgstr "バインド失敗：(%s) %s"
 
-#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:197
+#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:200
 #: lib/Block/Overview.php:101 lib/Smartmobile.php:85
 #: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
@@ -136,7 +136,7 @@ msgid "Blacklist Edit"
 msgstr "ブラックリストを編集"
 
 #: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
-#: lib/Script/Sieve.php:230
+#: lib/Script/Sieve.php:236
 msgid "Blacklisted Addresses"
 msgstr "ブラックリストのアドレス"
 
@@ -169,7 +169,7 @@ msgstr "含む"
 msgid "Copy"
 msgstr "コピー"
 
-#: lib/Basic/Filters.php:267
+#: lib/Basic/Filters.php:275
 #, php-format
 msgid "Copy %s"
 msgstr "%s をコピー"
@@ -199,7 +199,7 @@ msgstr "スクリプトを休止する"
 msgid "Delete"
 msgstr "削除"
 
-#: lib/Basic/Filters.php:262
+#: lib/Basic/Filters.php:270
 #, php-format
 msgid "Delete %s"
 msgstr "%s を削除"
@@ -240,22 +240,22 @@ msgstr "説明"
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "受信先 (To, Cc, Bcc 等)"
 
-#: lib/Basic/Filters.php:274
+#: lib/Basic/Filters.php:282
 #, php-format
 msgid "Disable %s"
 msgstr "%s を無効にする"
 
 #: lib/Basic/Forward.php:86 lib/Basic/Spam.php:101 lib/Basic/Vacation.php:124
 #: templates/basic/blacklist/blacklist.html.php:8
-#: templates/basic/filters/filters.html.php:52
+#: templates/basic/filters/filters.html.php:56
 #: templates/basic/rule/rule.html.php:14
 #: templates/basic/whitelist/whitelist.html.php:8
 msgid "Disabled"
 msgstr "無効"
 
-#: templates/basic/filters/filters.html.php:84
+#: templates/basic/filters/filters.html.php:88
 msgid "Display detailed notification when each filter is applied?"
-msgstr "各フィルターを適用した詳細な通知を表示しますか？"
+msgstr "それぞれの振り分けを適用した詳細な通知を表示しますか？"
 
 #: lib/Form/Vacation.php:72
 msgid "Do not send responses to bulk or list messages?"
@@ -291,12 +291,12 @@ msgstr "一致しない"
 msgid "Edit"
 msgstr "編集"
 
-#: lib/Basic/Filters.php:255 lib/Basic/Filters.php:257
+#: lib/Basic/Filters.php:263 lib/Basic/Filters.php:265
 #, php-format
 msgid "Edit %s"
 msgstr "%s の編集"
 
-#: lib/Basic/Filters.php:277
+#: lib/Basic/Filters.php:285
 #, php-format
 msgid "Enable %s"
 msgstr "%s を有効にする"
@@ -319,7 +319,7 @@ msgstr "一致する"
 msgid "Error retrieving current script: (%d) %s"
 msgstr "スクリプトの取得中のエラー：(%d) %s"
 
-#: templates/basic/filters/filters.html.php:18
+#: templates/basic/filters/filters.html.php:22
 msgid "Existing Rules"
 msgstr "既存のルール"
 
@@ -334,72 +334,72 @@ msgstr "１オブジェクトを期待しましたが、実際は %d でした�
 
 #: lib/Transport/Sivtest.php:155
 msgid "Failed to read from socket: "
-msgstr "Socket からの読み出し失敗："
+msgstr "ソケットからの読み出し失敗："
 
 #: lib/Transport/Sivtest.php:150
 msgid "Failed to write to socket: "
-msgstr "Socket への書き込み失敗："
+msgstr "ソケットへの書き込み失敗："
 
 #: lib/Transport/Sivtest.php:145
 msgid "Failed to write to socket: (connection lost!)"
-msgstr "Socket への書き込み失敗：（接続断！）"
+msgstr "ソケットへの書き込み失敗：（接続断！）"
 
 #: templates/basic/rule/rule.html.php:46
 msgid "Field"
 msgstr "項目"
 
-#: templates/basic/filters/filters.html.php:90
+#: templates/basic/filters/filters.html.php:94
 msgid "Filter All Messages"
-msgstr "全てのメッセージをフィルターにかける"
+msgstr "全てのメッセージを振り分ける"
+
+#: templates/basic/filters/filters.html.php:96
+msgid "Filter Only Seen Messages"
+msgstr "既読メッセージだけを振り分ける"
+
+#: templates/basic/filters/filters.html.php:95
+msgid "Filter Only Unseen Messages"
+msgstr "未読のメッセージだけを振り分ける"
 
 #: templates/basic/filters/filters.html.php:92
-msgid "Filter Only Seen Messages"
-msgstr "読んだメッセージだけをフィルターにかける"
-
-#: templates/basic/filters/filters.html.php:91
-msgid "Filter Only Unseen Messages"
-msgstr "未読のメッセージだけをフィルターにかける"
-
-#: templates/basic/filters/filters.html.php:88
 msgid "Filter Options"
-msgstr "フィルターのオプション"
+msgstr "振り分けのオプション"
 
 #: templates/basic/rule/rule.html.php:12
 msgid "Filter Rule"
-msgstr "フィルタールール"
+msgstr "振り分けルール"
 
-#: lib/Basic/Filters.php:310
+#: lib/Basic/Filters.php:319
 msgid "Filter Rules"
-msgstr "フィルタールール"
+msgstr "振り分けルール"
 
 #: lib/Basic/Script.php:108
 msgid "Filter Script Display"
-msgstr "フィルタースクリプトの表示"
+msgstr "振り分けスクリプトの表示"
 
 #: lib/Application.php:115
 msgid "Filter _Rules"
-msgstr "_Rフィルタールール"
+msgstr "_R振り分けルール"
 
 #: lib/Script/Imap.php:331
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" にコピーされました。"
+msgstr "振り分けの実行：%s メッセージはフォルダ \"%s\" にコピーされました。"
 
 #: lib/Script/Imap.php:308
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "フィルターの実行：%s メッセージは削除されました。"
+msgstr "振り分けの実行：%s メッセージは削除されました。"
 
 #: lib/Script/Imap.php:283
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" に移動されました。"
+msgstr "振り分けの実行：%s メッセージはフォルダ \"%s\" に移動されました。"
 
 #: lib/Script/Imap.php:181
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
-"フィルターの実行：ブラックリストに一致した %s メッセージは削除されました。"
+"振り分けの実行：ブラックリストに一致した %s メッセージは削除されました。"
 
 #: lib/Script/Imap.php:324
 #, php-format
@@ -407,14 +407,13 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
-"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" にコ"
+"振り分けの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" にコ"
 "ピーされました。"
 
 #: lib/Script/Imap.php:302
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr ""
-"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" は削除されました。"
+msgstr "振り分けの実行：\"%2$s\" からのメッセージ \"%1$s\" は削除されました。"
 
 #: lib/Script/Imap.php:276
 #, php-format
@@ -422,8 +421,8 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" に移"
-"動されました。"
+"振り分けの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" に移動"
+"されました。"
 
 #: lib/Basic/Rule.php:94
 msgid "Filter not found."
@@ -435,13 +434,13 @@ msgstr "印あり"
 
 #: lib/Form/Spam.php:38
 msgid "Folder to receive spam:"
-msgstr "SPAM 受信用フォルダ："
+msgstr "Spam 受信用フォルダ："
 
 #: templates/basic/rule/rule.html.php:26
 msgid "For an incoming message that matches:"
 msgstr "受信したメールが以下の条件に一致したら："
 
-#: lib/Basic/Filters.php:224 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
+#: lib/Basic/Filters.php:227 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
 #: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "転送"
@@ -463,11 +462,11 @@ msgstr "転送先の編集"
 msgid "From"
 msgstr "From"
 
-#: lib/Script/Sieve/Action/Notify.php:52
+#: lib/Script/Sieve/Action/Notify.php:61
 msgid "From:"
 msgstr "From:"
 
-#: lib/Script/Sieve.php:470
+#: lib/Script/Sieve.php:476
 msgid "Generated by Ingo"
 msgstr "Ingo で生成されました"
 
@@ -527,7 +526,7 @@ msgstr "List-ID"
 msgid "Login to %s failed."
 msgstr "%s へのログインに失敗しました。"
 
-#: lib/Basic/Filters.php:304
+#: lib/Basic/Filters.php:312
 msgid "Mailbox Search"
 msgstr "メールボックス検索"
 
@@ -593,9 +592,9 @@ msgstr ""
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
-msgstr "SPAM スコアがこの値と同じか上だったら、SPAM と判定する。"
+msgstr "Spam スコアがこの値と同じか上だったら、Spam と判定する。"
 
-#: lib/Script/Sieve/Action/Notify.php:66
+#: lib/Script/Sieve/Action/Notify.php:80
 msgid "Missing address to notify"
 msgstr "通知先アドレスがありません"
 
@@ -620,7 +619,7 @@ msgid "My email addresses:"
 msgstr "私のメールアドレス："
 
 #: lib/Application.php:194 lib/Storage/Filters.php:123
-#: templates/basic/filters/filters.html.php:25
+#: templates/basic/filters/filters.html.php:29
 msgid "New Rule"
 msgstr "新規ルール"
 
@@ -641,11 +640,11 @@ msgstr "このホスト用のバックエンド設定がありません"
 msgid "No backends configured in backends.php"
 msgstr "backends.php にバックエンドの設定がありません"
 
-#: templates/basic/filters/filters.html.php:25
+#: templates/basic/filters/filters.html.php:29
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr ""
-"フィルターがありません。\"%s\" をクリックして新しいフィルターを作成して下さ"
+"振り分けルールがありません。\"%s\" をクリックして新しいルールを作成して下さ"
 "い。"
 
 #: lib/Script/Sieve/Test/Exists.php:49 lib/Script/Sieve/Test/Header.php:84
@@ -742,7 +741,7 @@ msgstr "Resent-To"
 
 #: templates/basic/rule/rule.html.php:165
 msgid "Return to Filters List"
-msgstr "フィルタ一覧に戻る"
+msgstr "振り分け一覧に戻る"
 
 #: lib/Basic/Forward.php:35 lib/Basic/Spam.php:42 lib/Basic/Vacation.php:42
 #: lib/Form/Base.php:56 templates/basic/blacklist/blacklist.html.php:43
@@ -750,22 +749,22 @@ msgstr "フィルタ一覧に戻る"
 msgid "Return to Rules List"
 msgstr "ルール一覧に戻る"
 
-#: lib/Basic/Filters.php:108
+#: lib/Basic/Filters.php:111
 #, php-format
 msgid "Rule \"%s\" copied."
 msgstr "ルール \"%s\" がコピーされました。"
 
-#: lib/Basic/Filters.php:83
+#: lib/Basic/Filters.php:86
 #, php-format
 msgid "Rule \"%s\" deleted."
 msgstr "ルール \"%s\" は削除されました。"
 
-#: lib/Basic/Filters.php:115
+#: lib/Basic/Filters.php:118
 #, php-format
 msgid "Rule \"%s\" disabled."
 msgstr "ルールは \"%s\" 禁止されました。"
 
-#: lib/Basic/Filters.php:121
+#: lib/Basic/Filters.php:124
 #, php-format
 msgid "Rule \"%s\" enabled."
 msgstr "ルール \"%s\" は有効になりました。"
@@ -794,7 +793,7 @@ msgstr "ルール並び替えは保存されていません。"
 msgid "Rule sort saved successfully."
 msgstr "ルール並び替えは正常に保存されました。"
 
-#: lib/Script/Sieve/Action/Notify.php:54
+#: lib/Script/Sieve/Action/Notify.php:63
 msgid "Rule:"
 msgstr "ルール："
 
@@ -803,10 +802,15 @@ msgstr "ルール："
 msgid "Rules"
 msgstr "ルール"
 
-#: templates/basic/filters/filters.html.php:16
+#: templates/basic/filters/filters.html.php:19
 #, php-format
 msgid "Rules Containing Mailbox \"%s\""
 msgstr "ルールにはメールボックス \"%s\" が含まれています。"
+
+#: templates/basic/filters/filters.html.php:17
+#, php-format
+msgid "Rules Matching Mailbox \"%s\""
+msgstr "メールボックス \"%s\" に該当するルール"
 
 #: lib/Application.php:206
 msgid "Ruleset"
@@ -821,14 +825,14 @@ msgstr "STARTTLS 失敗: (%s) %s"
 msgid "S_pam"
 msgstr "S_pam"
 
-#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:42
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:43
 #: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:42
 #: templates/basic/rule/rule.html.php:164
 #: templates/basic/whitelist/whitelist.html.php:21
 msgid "Save"
 msgstr "保存"
 
-#: templates/basic/filters/filters.html.php:98
+#: templates/basic/filters/filters.html.php:102
 msgid "Save Settings"
 msgstr "設定の保存"
 
@@ -893,9 +897,9 @@ msgstr "ユーザ定義ヘッダー"
 
 #: config/fields.php:40
 msgid "Sender"
-msgstr "Sender"
+msgstr "送信元"
 
-#: lib/Basic/Filters.php:141
+#: lib/Basic/Filters.php:144
 msgid "Settings successfully updated."
 msgstr "設定は更新されました。"
 
@@ -915,23 +919,23 @@ msgstr "サイズ"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "送信元 (From, Reply-to 等)"
 
-#: lib/Basic/Filters.php:233 lib/Block/Overview.php:112
-#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:397
+#: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:403
 #: lib/Smartmobile.php:105
 msgid "Spam Filter"
-msgstr "SPAM フィルタ"
+msgstr "Spam フィルタ"
 
 #: lib/Basic/Spam.php:99 lib/Basic/Spam.php:106
 msgid "Spam Filtering"
-msgstr "SPAM フィルタリング"
+msgstr "Spam フィルタリング"
 
 #: lib/Form/Spam.php:35
 msgid "Spam Level:"
-msgstr "SPAM レベル："
+msgstr "Spam レベル："
 
 #: lib/Basic/Spam.php:33
 msgid "Spam filtering"
-msgstr "SPAM フィルタリング"
+msgstr "Spam フィルタリング"
 
 #: lib/Form/Vacation.php:45
 msgid "Start of vacation:"
@@ -949,7 +953,7 @@ msgstr "件名"
 msgid "Subject of vacation message:"
 msgstr "休暇中メッセージの件名："
 
-#: lib/Script/Sieve/Action/Notify.php:53
+#: lib/Script/Sieve/Action/Notify.php:62
 msgid "Subject:"
 msgstr "件名："
 
@@ -998,10 +1002,10 @@ msgstr "トランスポートドライバー \"%s\" がロードできません�
 msgid "User header"
 msgstr "ユーザヘッダー"
 
-#: lib/Basic/Filters.php:215 lib/Basic/Vacation.php:32
+#: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
 #: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:292
-#: lib/Script/Sieve.php:370 lib/Smartmobile.php:95
+#: lib/Script/Sieve.php:376 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "休暇応答"
 
@@ -1029,7 +1033,7 @@ msgstr "ルール表示"
 msgid "Wh_itelist addresses:"
 msgstr "_Iホワイトリストのアドレス"
 
-#: lib/Basic/Filters.php:206 lib/Basic/Whitelist.php:33
+#: lib/Basic/Filters.php:209 lib/Basic/Whitelist.php:33
 #: lib/Block/Overview.php:90 lib/Smartmobile.php:90
 #: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"
@@ -1040,7 +1044,7 @@ msgid "Whitelist Edit"
 msgstr "ホワイトリストの編集"
 
 #: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
-#: lib/Script/Sieve.php:291
+#: lib/Script/Sieve.php:297
 msgid "Whitelisted Addresses"
 msgstr "ホワイトリストのアドレス"
 
@@ -1060,12 +1064,12 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: lib/Basic/Filters.php:101 lib/Basic/Rule.php:356
+#: lib/Basic/Filters.php:104 lib/Basic/Rule.php:356
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "あなたは %d 以上のルール作成が許可されていません。"
 
-#: lib/Basic/Filters.php:93 lib/Basic/Rule.php:38
+#: lib/Basic/Filters.php:96 lib/Basic/Rule.php:38
 msgid "You are not allowed to create or edit custom rules."
 msgstr "あなたはルールの作成・編集が許可されていません。"
 
@@ -1082,16 +1086,16 @@ msgstr ""
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "条件が空ではいけません。\"%s\" の値を入力して下さい。"
 
-#: lib/Basic/Filters.php:77
+#: lib/Basic/Filters.php:80
 msgid "You do not have permission to delete filter rules."
 msgstr "あなたにはルールを削除する権限がありません。"
 
-#: lib/Ajax/Application/Filters.php:38 lib/Basic/Filters.php:70
-#: lib/Basic/Filters.php:136 lib/Basic/Rule.php:44
+#: lib/Ajax/Application/Filters.php:38 lib/Basic/Filters.php:73
+#: lib/Basic/Filters.php:139 lib/Basic/Rule.php:44
 msgid "You do not have permission to edit filter rules."
 msgstr "あなたにはルールを編集する権限がありません。"
 
-#: lib/Script/Sieve/Action/Notify.php:51
+#: lib/Script/Sieve/Action/Notify.php:60
 msgid "You have received a new message"
 msgstr "新しいメッセージを受信しました"
 
@@ -1129,7 +1133,7 @@ msgstr "_Mメッセージをフォルダに移動："
 
 #: lib/Application.php:150
 msgid "_Permissions"
-msgstr "_Pアクセス権"
+msgstr "_P権限"
 
 #: lib/Application.php:143
 msgid "_Script"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Gollem H5 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2014-05-12 20:10+0900\n"
+"PO-Revision-Date: 2014-06-08 11:18+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: manager.php:65
 #, php-format
@@ -129,7 +129,7 @@ msgstr "フォルダの変更"
 
 #: templates/manager.html.php:60
 msgid "Change Permissions"
-msgstr "アクセス権の変更"
+msgstr "権限の変更"
 
 #: lib/Application.php:244
 msgid "Check Quota"
@@ -177,8 +177,8 @@ msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
 msgstr ""
-"\"%s\" への空のアクセス権を作成しました。このバックエンドでのアクセス許可を今"
-"指定して下さい。"
+"\"%s\" への空の権限を作成しました。このバックエンドでのアクセス許可を今すぐ指"
+"定して下さい。"
 
 #: templates/clipboard.html.php:22
 msgid "Current directory:"
@@ -348,7 +348,7 @@ msgstr "貼り付け"
 
 #: manager.php:556
 msgid "Permission"
-msgstr "アクセス権"
+msgstr "権限"
 
 #: selectlist.php:65
 #, php-format
@@ -366,7 +366,7 @@ msgstr "このバックエンドへのアクセスが拒否されました。"
 
 #: manager.php:612
 msgid "Permissions"
-msgstr "アクセス権"
+msgstr "権限"
 
 #: manager.php:614
 msgid "Please select an item before this action."
@@ -491,7 +491,7 @@ msgstr "Gollem のセッションを作成できません"
 #: permissions.php:40
 #, php-format
 msgid "Unable to create backend permission: %s"
-msgstr "バックエンドのアクセス権が作成できません：%s"
+msgstr "バックエンドの権限が作成できません：%s"
 
 #: manager.php:102
 #, php-format
@@ -531,9 +531,8 @@ msgstr "あなたはこのフォルダーの共有を許可されていません
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
-"アクセス権を設定するには少なくとも１つのバックエンドを定義する必要がありま"
-"す。"
+"権限を設定するには少なくとも１つのバックエンドを定義する必要があります。"
 
 #: lib/Application.php:251
 msgid "_Permissions"
-msgstr "_Pアクセス権"
+msgstr "_P権限"
