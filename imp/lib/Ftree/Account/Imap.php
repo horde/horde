@@ -45,6 +45,7 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
         global $prefs;
 
         $imp_imap = $this->imp_imap;
+        $lmquery = Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS;
         $out = $searches = array();
         $unsub = false;
 
@@ -80,6 +81,7 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 
                 $searches[] = 'INBOX';
             } elseif ($query & self::UNSUB) {
+                $lmquery = Horde_Imap_Client::MBOX_UNSUBSCRIBED;
                 $unsub = true;
             }
 
@@ -88,9 +90,10 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             }
         } else {
             $searches[] = $query;
+            $lmquery = Horde_Imap_Client::MBOX_ALL;
         }
 
-        $res = $imp_imap->listMailboxes($searches, $unsub ? Horde_Imap_Client::MBOX_UNSUBSCRIBED : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
+        $res = $imp_imap->listMailboxes($searches, $lmquery, array(
             'attributes' => true,
             'delimiter' => true,
             'sort' => true
