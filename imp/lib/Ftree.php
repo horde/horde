@@ -175,7 +175,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         $ob = $this->_accounts[self::BASE_ELT] = $access_folders
             ? new IMP_Ftree_Account_Imap()
             : new IMP_Ftree_Account_Inboxonly();
-        array_map(array($this, '_insertElt'), $ob->getList($mask));
+        array_map(array($this, '_insertElt'), $ob->getList(null, $mask));
 
         if ($access_folders) {
             /* Add remote servers. */
@@ -460,7 +460,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         $old_track = $this->eltdiff->track;
         $this->eltdiff->track = false;
         foreach ($this->_accounts as $val) {
-            array_map(array($this, '_insertElt'), $val->getList($val::UNSUB));
+            array_map(array($this, '_insertElt'), $val->getList(null, $val::UNSUB));
         }
         $this->eltdiff->track = $old_track;
     }
