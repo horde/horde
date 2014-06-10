@@ -109,6 +109,7 @@ The following preferences have been added::
 
 The following preferences have been removed::
 
+   default_msg_charset
    mail_domain
    mimp_download_confirm
    mimp_inline_all

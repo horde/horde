@@ -980,8 +980,7 @@ $prefGroups['viewing'] = array(
         'filtering', 'strip_attachments', 'alternative_display',
         'image_replacement', 'image_replacement_manage', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
-        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn'
+        'emoticons', 'parts_display', 'mail_hdr', 'send_mdn'
     )
 );
 
@@ -1095,21 +1094,6 @@ $_prefs['mail_hdr'] = array(
     'value' => '',
     'type' => 'textarea',
     'desc' => _("Additional headers to display when viewing: <em>(enter each header on a new line)</em>")
-);
-
-$_prefs['default_msg_charset'] = array(
-    'value' => $GLOBALS['registry']->getEmailCharset()
-        ? $GLOBALS['registry']->getEmailCharset()
-        : ($GLOBALS['registry']->getLanguageCharset()
-            ? $GLOBALS['registry']->getLanguageCharset()
-            : ''),
-    'advanced' => true,
-    'type' => 'enum',
-    'enum' => array_merge(
-        array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort
-    ),
-    'desc' => _("The default charset for messages:"),
-    'help' => 'prefs-default_msg_charset'
 );
 
 $_prefs['send_mdn'] = array(
