@@ -4141,6 +4141,7 @@ var IMP_Flist_Mbox = Class.create({
             if (ob.ch) {
                 ob.fake = new IMP_Flist_Mbox(flist, Object.extend(Object.clone(ob), {
                     co: true,
+                    l: title,
                     s: false
                 }));
             } else if (mbox && mbox.fake()) {
