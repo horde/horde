@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Group task fields into tabs on edit form (Request #13228).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1525,7 +1525,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Group task fields into tabs on edit form (Request #13228).
    </notes>
   </release>
  </changelog>
