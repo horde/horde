@@ -971,8 +971,8 @@ var DimpCompose = {
             if (f.files) {
                 f = f.files;
             } else {
-                f = null;
                 t = $F(f).escapeHTML();
+                f = null;
             }
         }
 
