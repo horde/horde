@@ -525,13 +525,6 @@
         </raw>
     </entry>
 
-    <entry id="prefs-default_msg_charset">
-        <title>Message: Preferences: Default Message Character Set</title>
-        <para>
-            Define the default character set to use for text message parts that do not contain explicit character set information. Per the MIME e-mail standard, messages send without character set information must be displayed using the basic 'US-ASCII' character set. However, certain badly broken mailers may send out text messages in other character sets without setting the proper parameters in the message header. Set this parameter to the default character set string to use locally. Select &quot;Default&quot; to use the MIME defaults.
-        </para>
-    </entry>
-
     <entry id="prefs-request_mdn">
         <title>Compose: Preferences: Request Read Receipts</title>
         <para>
