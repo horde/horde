@@ -5,16 +5,26 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @package Text_Diff
- * @author  Geoffrey T. Dairiki <dairiki@dairiki.org>
+ * @author   Geoffrey T. Dairiki <dairiki@dairiki.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Text_Diff
+ */
+
+/**
+ * This can be used to compute things like case-insensitve diffs, or diffs
+ * which ignore changes in white-space.
+ *
+ * @author    Geoffrey T. Dairiki <dairiki@dairiki.org>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Text_Diff
  */
 class Horde_Text_Diff_Mapped extends Horde_Text_Diff
 {
     /**
      * Computes a diff between sequences of strings.
-     *
-     * This can be used to compute things like case-insensitve diffs, or diffs
-     * which ignore changes in white-space.
      *
      * @param array $from_lines         An array of strings.
      * @param array $to_lines           An array of strings.
