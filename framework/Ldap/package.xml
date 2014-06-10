@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-05</date>
+ <date>2014-06-10</date>
  <version>
   <release>2.1.0</release>
   <api>1.1.1</api>
@@ -440,7 +440,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-05</date>
+   <date>2014-06-10</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Support multi-value RDNs in Horde_Ldap::quoteDN() (Request #11888).
