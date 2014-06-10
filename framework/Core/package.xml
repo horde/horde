@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Allow any HordeCore AJAX response object to return JSON-HTML output, instead of pure JSON.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3420,7 +3420,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Allow any HordeCore AJAX response object to return JSON-HTML output, instead of pure JSON.
    </notes>
   </release>
  </changelog>

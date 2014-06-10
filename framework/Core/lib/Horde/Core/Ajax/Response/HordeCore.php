@@ -33,6 +33,15 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
     public $jsfiles = array();
 
     /**
+     * If true, output HTML-ized JSON instead of application/json.
+     *
+     * @since 2.12.0
+     *
+     * @var boolean
+     */
+    public $jsonhtml = false;
+
+    /**
      * Task data to send to the browser.
      *
      * @var object
@@ -55,8 +64,15 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
      */
     public function send()
     {
-        header('Content-Type: application/json');
-        echo str_replace("\00", '', Horde::escapeJson($this->_jsonData()));
+        $json = str_replace("\00", '', Horde::escapeJson($this->_jsonData()));
+
+        if ($this->jsonhtml) {
+            header('Content-Type: text/html; charset=UTF-8');
+            echo htmlspecialchars($json, null, 'UTF-8');
+        } else {
+            header('Content-Type: application/json');
+            echo $json;
+        }
     }
 
     /**
