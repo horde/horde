@@ -4,9 +4,12 @@
  *
  * Path Info:
  * ----------
- * http://example.com/horde/services/ajax.php/APP/ACTION
+ * http://example.com/horde/services/ajax.php/APP/ACTION[?OPTIONS]
  *   - ACTION: (string) The AJAX action identifier.
  *   - APP: (string) The application name.
+ *   - OPTIONS: Additional URL options
+ *     - jsonhtml: (boolean) On error, return in text/html format instead of
+ *                 application/json
  *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
@@ -50,6 +53,7 @@ try {
 } catch (Horde_Exception $e) {
     /* Treat a token error as a session timeout. */
     $response = new Horde_Core_Ajax_Response_HordeCore_SessionTimeout($app);
+    $response->jsonhtml = $vars->jsonhtml;
     $response->sendAndExit();
 }
 
@@ -69,9 +73,11 @@ try {
     // authentication to some underlying backend failed. Best to logout
     // immediately, since no way of knowing if error is transient.
     $response = new Horde_Core_Ajax_Response_HordeCore_NoAuth($app, $e->getCode());
+    $response->jsonhtml = $vars->jsonhtml;
     $response->sendAndExit();
 } catch (Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
     $response = new Horde_Core_Ajax_Response_HordeCore();
+    $response->jsonhtml = $vars->jsonhtml;
     $response->sendAndExit();
 }

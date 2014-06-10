@@ -148,6 +148,13 @@ var HordeCore = {
             });
         }
 
+        /* This adds both token and SID information to the URL also. Allows
+         * recovery from failure server-side if max-POST limit is exceeded.
+         * jsonhtml param indicates we want a text/html return for error
+         * messages - otherwise, IE8 will download the incoming JSON
+         * instead. */
+        form.action = this.addURLParam(form.action, { jsonhtml: 1 });
+
         form.submit();
     },
 
