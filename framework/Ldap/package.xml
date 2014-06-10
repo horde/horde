@@ -19,7 +19,7 @@
  </lead>
  <date>2014-06-10</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>1.1.1</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* [jan] Support multi-value RDNs in Horde_Ldap::quoteDN() (Request #11888).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -444,6 +444,19 @@
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Support multi-value RDNs in Horde_Ldap::quoteDN() (Request #11888).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.1.1</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-10</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
