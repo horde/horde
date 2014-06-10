@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-26 10:26+0100\n"
-"PO-Revision-Date: 2014-05-12 20:10+0900\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-06-06 22:30+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: memo.php:282
 #, php-format
@@ -80,7 +80,7 @@ msgstr "取り消し"
 
 #: lib/Form/EditNotepad.php:64
 msgid "Change Permissions"
-msgstr "アクセス権変更"
+msgstr "権限の変更"
 
 #: config/prefs.php:14
 msgid "Change your note sorting and display preferences."
@@ -205,6 +205,11 @@ msgstr "エクスポート"
 msgid "Export Notes"
 msgstr "メモのエクスポート"
 
+#: lib/Driver/Kolab.php:286
+#, php-format
+msgid "Failed retrieving Kolab data for notepad %s: %s"
+msgstr "メモ帳%sにKolabデータを取り出すことに失敗しました：%s"
+
 #: lib/Form/Search.php:24
 msgid "For"
 msgstr "For"
@@ -298,10 +303,6 @@ msgstr "表示するメモはありません。"
 #: list.php:97
 msgid "No_te"
 msgstr "_Tメモ"
-
-#: lib/Driver/Sql.php:112
-msgid "Not Found"
-msgstr "見付かりません"
 
 #: view.php:155
 msgid "Note Details"
@@ -536,8 +537,8 @@ msgid ""
 msgstr "メモは暗号化されています。復号するには安全なweb接続が必要です"
 
 #: memo.php:29 view.php:69
-msgid "This note has been encrypted, please provide the password below"
-msgstr "メモは暗号化されています。パスワードを入力して下さい"
+msgid "This note has been encrypted, please provide the password."
+msgstr "メモは暗号化されていますので、パスワードを入力して下さい"
 
 #: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
@@ -575,7 +576,7 @@ msgstr "あなたはこのメモの閲覧を許可されていません。"
 
 #: lib/Ajax/Imple/EditNote.php:27
 msgid "You do not have permission to edit this note."
-msgstr "あなたにはメモ %s を編集するアクセス権がありません。"
+msgstr "あなたにはメモ %s を編集する権限がありません。"
 
 #: note/pdf.php:46 view.php:49
 msgid "You do not have permission to view this notepad."
