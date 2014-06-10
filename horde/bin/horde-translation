@@ -1213,7 +1213,9 @@ class Horde_Translation_Script
                 }
             }
             if ($docs && !$help_only && $apps[$i]) {
-                $files[] = $this->strip_horde($dirs[$i] . DS . 'docs');
+                if (is_dir($dirs[$i] . DS . 'docs')) {
+                    $files[] = $this->strip_horde($dirs[$i] . DS . 'docs');
+                }
                 if ($apps[$i] == 'horde') {
                     $horde_conf = $dirs[array_search('horde', $dirs)] . DS . 'config' . DS;
                     $files[] = $this->strip_horde($horde_conf . 'nls.php');
@@ -1233,12 +1235,13 @@ class Horde_Translation_Script
                 }
                 foreach ($files as $file) {
                     if (strstr($file, 'locale')) {
-                        if ($help_only) {
+                        if (glob($file . DS . '*.xml')) {
                             $add_files[] = $file . DS . '*.xml';
                             $this->writeln($file . DS . '*.xml');
-                        } else {
-                            $add_files[] = $file . DS . '*.xml ' . $file . DS . 'LC_MESSAGES';
-                            $this->writeln($file . DS . "*.xml\n$file" . DS . 'LC_MESSAGES');
+                        }
+                        if (!$help_only) {
+                            $add_files[] = $file . DS . 'LC_MESSAGES';
+                            $this->writeln($file . DS . 'LC_MESSAGES');
                         }
                     }
                 }
