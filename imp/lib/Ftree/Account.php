@@ -59,13 +59,13 @@ abstract class IMP_Ftree_Account implements Serializable
     /**
      * Return a list of mailbox to attribute pairs.
      *
-     * @param mixed $query  Either an integer mask (INIT and UNSUB constants)
-     *                      or an array of search queries.
+     * @param array $query  Array of search queries.
+     * @param mixed $mask   Integer mask (INIT and UNSUB constants).
      *
      * @return array  Array of elements to be added via
      *                IMP_Ftree#_insertElt().
      */
-    abstract public function getList($query = null);
+    abstract public function getList(array $query = array(), $mask = 0);
 
     /**
      * Return the mailbox selction to delete.

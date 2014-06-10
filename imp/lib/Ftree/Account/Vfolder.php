@@ -38,7 +38,7 @@ class IMP_Ftree_Account_Vfolder extends IMP_Ftree_Account
 
     /**
      */
-    public function getList($query = null)
+    public function getList(array $query = array(), $mask = 0)
     {
         global $injector;
 

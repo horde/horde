@@ -38,7 +38,7 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
 
     /**
      */
-    public function getList($query = null)
+    public function getList(array $query = array(), $mask = 0)
     {
         global $injector;
 
@@ -48,11 +48,15 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
 
         $remote = $injector->getInstance('IMP_Remote');
         $raccount = $remote[strval($this)];
-        if (!is_integer($query)) {
-            $query = $remote->getMailboxById($query) ?: self::INIT;
+
+        $query = array_filter(
+            array_map(array($remote, 'getMailboxById'), $query)
+        );
+        if (empty($query)) {
+            $mask |= self::INIT;
         }
 
-        if ($query & self::INIT) {
+        if ($mask & self::INIT) {
             $out[] = array(
                 'a' => IMP_Ftree::ELT_REMOTE | IMP_Ftree::ELT_NOSELECT | IMP_Ftree::ELT_NONIMAP,
                 'v' => self::REMOTE_KEY
@@ -67,7 +71,7 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
         }
 
         if ($init) {
-            foreach (parent::getList($query) as $val) {
+            foreach (parent::getList($query, $mask) as $val) {
                 $out[] = array_filter(array(
                     'a' => $val['a'] | IMP_Ftree::ELT_REMOTE_MBOX,
                     'p' => isset($val['p']) ? $raccount->mailbox($val['p']) : strval($raccount),
