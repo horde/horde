@@ -19,8 +19,8 @@ class Horde_Core_Ajax_Response_HordeCore_JsonHtml extends Horde_Core_Ajax_Respon
      */
     public function send()
     {
-        header('Content-Type: text/html; charset=UTF-8');
-        echo htmlspecialchars(str_replace("\00", '', Horde::escapeJson($this->_jsonData())), null, 'UTF-8');
+        $this->jsonhtml = true;
+        parent::send();
     }
 
 }
