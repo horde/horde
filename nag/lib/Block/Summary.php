@@ -89,7 +89,7 @@ class Nag_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $registry, $prefs;
+        global $conf, $prefs, $registry;
 
         $html = '';
 
