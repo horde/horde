@@ -815,10 +815,6 @@ var ImpMobile = {
         tmp = $('#imp-message-headers');
         $.mobile.silentScroll(parseInt(tmp.position().top, 10) + parseInt(tmp.height(), 10) - $('#message > :jqmData(role=header)').height());
 
-        $.each($('#imp-message-body IFRAME.htmlMsgData'), function(k, v) {
-            IMP_JS.iframeResize($(v));
-        });
-
         delete ImpMobile.message;
     },
 
@@ -1722,7 +1718,9 @@ var IMP_JS = {
         id = $('#' + id);
         var d = id.get(0).contentWindow.document;
 
-        id.one('load', function() { IMP_JS.iframeResize(id); });
+        id.one('load', function() {
+            window.setTimeout(function() { IMP_JS.iframeResize(id); }, 0);
+        });
 
         d.open();
         d.write(data);
