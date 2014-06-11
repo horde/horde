@@ -291,6 +291,11 @@ extends Horde_Core_Ajax_Application_Handler
         if ($this->vars->initial) {
             $session->close();
             $ftree->eltdiff->clear();
+
+            /* @todo: Correctly handle unsubscribed mailboxes in ftree. */
+            if ($ftree->unsubscribed_loaded && !$this->vars->reload) {
+                $ftree->init();
+            }
         }
 
         if ($this->vars->reload) {
