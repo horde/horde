@@ -219,7 +219,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                 $val = $this->_normalize($val);
             }
 
-            array_map(array($this, '_insertElt'), $account->getList($val));
+            array_map(array($this, '_insertElt'), $account->getList(array($val)));
         }
     }
 

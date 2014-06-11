@@ -62,9 +62,8 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
                 'v' => self::REMOTE_KEY
             );
 
-            $mask = $init ? IMP_Ftree::ELT_REMOTE_AUTH : 0;
             $out[] = array(
-                'a' => $mask | IMP_Ftree::ELT_REMOTE | IMP_Ftree::ELT_IS_SUBSCRIBED | IMP_Ftree::ELT_NONIMAP,
+                'a' => ($init ? IMP_Ftree::ELT_REMOTE_AUTH : 0) | IMP_Ftree::ELT_REMOTE | IMP_Ftree::ELT_IS_SUBSCRIBED | IMP_Ftree::ELT_NONIMAP,
                 'p' => self::REMOTE_KEY,
                 'v' => strval($this)
             );
