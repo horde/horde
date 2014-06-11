@@ -711,7 +711,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *  - priority: (string) The message priority ('high', 'normal', 'low').
      *  - save_sent: (boolean) Save sent mail?
      *  - sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
-     *  - save_attachments: (bool) Save attachments with the message?
+     *  - strip_attachments: (bool) Strip attachments from the message?
      *  - signature: (string) The message signature.
      *  - readreceipt: (boolean) Add return receipt headers?
      *  - useragent: (string) The User-Agent string to use.
@@ -975,7 +975,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             /* Strip attachments if requested. */
-            if (empty($opts['save_attachments'])) {
+            if (!empty($opts['strip_attachments'])) {
                 $save_msg->buildMimeIds();
 
                 /* Don't strip any part if this is a text message with both

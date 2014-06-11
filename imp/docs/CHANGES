@@ -2,6 +2,14 @@
 v6.2.0-git
 ----------
 
+
+
+------
+v6.2.0
+------
+
+[mms] Fix saving attachments to sent-mail message in smartmobile view (Bug
+      #13257).
 [mms] Remove the 'default_msg_charset' preference.
 [mms] Rewritten folder list code for dynamic view.
 [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes
