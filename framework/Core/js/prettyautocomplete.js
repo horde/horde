@@ -34,7 +34,8 @@ var PrettyAutocompleter = Class.create({
             filterCallback: this._filterChoices.bind(this),
             onAdd: Prototype.K,
             onRemove: Prototype.K,
-            requireSelection: false
+            requireSelection: false,
+            existing: []
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -93,13 +94,10 @@ var PrettyAutocompleter = Class.create({
         // Make sure the knl is contained in the overlay
         this.p.domParent = this.p.box;
         this.aac = new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
-
         this.initialized = true;
 
         // Prepopulate the items and the container elements?
-        if (typeof this.p.existing != 'undefined') {
-            this.reset(this.p.existing);
-        }
+        this.reset(this.p.existing);
     },
 
     /**
@@ -110,6 +108,7 @@ var PrettyAutocompleter = Class.create({
         if (!this.initialized) {
             this.init();
         }
+        existing = existing || [];
 
         // TODO: Resize the trigger field to fill the current line?
         // Clear any existing values
@@ -123,7 +122,7 @@ var PrettyAutocompleter = Class.create({
         $(this.p.items).value = '';
 
         // Add any initial values
-        if (typeof existing != 'undefined' && existing.length) {
+        if (existing.length) {
             for (var i = 0, l = existing.length; i < l; i++) {
                 this.addNewItemNode(existing[i]);
             }
