@@ -2,7 +2,6 @@
 v5.3.0-git
 ----------
 
-[jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
 
 
 -----------
