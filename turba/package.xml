@@ -28,9 +28,9 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-06-11</date>
  <version>
-  <release>4.2.0beta2</release>
+  <release>4.2.0RC1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1841,15 +1842,16 @@
   </release>
   <release>
    <version>
-    <release>4.2.0beta2</release>
+    <release>4.2.0RC1</release>
     <api>4.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-11</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>
