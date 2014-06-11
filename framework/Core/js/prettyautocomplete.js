@@ -9,6 +9,8 @@
 
 var PrettyAutocompleter = Class.create({
 
+    aac: null,
+
     initialize: function(element, params)
     {
         this.p = Object.extend({
@@ -87,7 +89,7 @@ var PrettyAutocompleter = Class.create({
 
         // Make sure the knl is contained in the overlay
         this.p.domParent = this.p.box;
-        new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
+        this.aac = new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
 
         this.initialized = true;
 
@@ -165,12 +167,18 @@ var PrettyAutocompleter = Class.create({
     _onKeyDown: function(e)
     {
         // Check for a comma or enter
-        if ((e.keyCode == 188 || e.keyCode == Event.KEY_RETURN) && !this.p.requireSelection) {
+        if ((e.keyCode == 188 || (this._honorReturn() && e.keyCode == Event.KEY_RETURN)) && !this.p.requireSelection) {
             this._processValue();
             e.stop();
         } else if (e.keyCode == 188) {
             e.stop();
         }
+    },
+
+    _honorReturn: function()
+    {
+        return (this.aac.knl && !this.aac.knl.getCurrentEntry()) ||
+               !this.aac.knl;
     },
 
     _processValue: function()
