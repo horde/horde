@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Nag Task
+The Horde Team is pleased to announce the second beta release of the Nag Task
 List Manager version H5 (4.2.0).
 
 Nag is a web-based application built upon the Horde Application Framework which
@@ -37,15 +37,15 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag version H5 (4.2.0alpha1) are:
-    * Don't require URL rewriting.
-    * Small bugfixes.
+The major changes compared to the Nag version H5 (4.2.0beta1) are:
+    * Organize task form fields into tabs.
+    * Separate sidebar section for system task lists.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Don't require URL rewriting.
-Small bugfixes.
+Organize task form fields into tabs.
+Separate sidebar section for system task lists.
 FM;
 
 $this->notes['name'] = 'Nag';
