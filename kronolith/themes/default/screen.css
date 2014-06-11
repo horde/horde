@@ -220,7 +220,8 @@ table.kronolithViewMonth {
 .kronolith-minical table tbody td a {
     display: block;
 }
-.kronolith-minical table tbody td:hover {
+.kronolith-minical table tbody td:hover,
+.kronolith-minical table tbody td:hover a {
     background-color: #f1f1f1;
     color: #000;
 }
@@ -251,8 +252,9 @@ tr.kronolith-minical-nav, tr.kronolith-minical-nav th {
 .kronolith-minical .kronolith-today,
 .kronolith-minical .kronolith-today:hover,
 .kronolith-minical .kronolith-today a,
+.kronolith-minical .kronolith-today:hover a,
 #horde-sidebar .kronolith-minical .kronolith-today a {
-    background-color: #7eaa42;
+    background-color: #7eaa42 !important;
     color: #fff;
 }
 .kronolith-minical .kronolith-selected.kronolith-today {
