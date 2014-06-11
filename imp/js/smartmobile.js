@@ -441,7 +441,7 @@ var ImpMobile = {
         }
 
         HordeMobile.doAction(
-            'smartmobileViewport',
+            'viewport',
             ImpMobile.addViewportParams($.extend(params, {
                 view: mailbox
             }))
