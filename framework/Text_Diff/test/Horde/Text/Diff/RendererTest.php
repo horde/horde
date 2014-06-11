@@ -287,4 +287,26 @@ QQ;
         $renderer = new Horde_Text_Diff_Renderer_Inline();
         $renderer->render($diff);
     }
+    
+    public function testGithubPullRequest86() 
+    {
+        $a = <<<EOA
+One
+Two
+EOA;
+                
+        $b = <<<EOB
+Ones
+Twos
+EOB;
+        $patch = <<<EOPATCH
+One<ins>s</ins>
+Two<ins>s</ins>
+
+EOPATCH;
+    
+        $diff = new Horde_Text_Diff('Native', array(explode("\n", $a), explode("\n", $b)));
+        $renderer = new Horde_Text_Diff_Renderer_Inline(array('split_characters' => true));
+        $this->assertEquals($patch, $renderer->render($diff));
+    }
 }
