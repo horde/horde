@@ -11,6 +11,9 @@ var PrettyAutocompleter = Class.create({
 
     aac: null,
 
+    // required params:
+    //   deleteImg
+    //   uri
     initialize: function(element, params)
     {
         this.p = Object.extend({
