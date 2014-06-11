@@ -148,6 +148,19 @@ class Nag_Application extends Horde_Registry_Application
                 'label' => _("Create a new Task List"),
             );
         }
+        if ($GLOBALS['registry']->isAdmin()) {
+            $sidebar->containers['system'] = array(
+                'header' => array(
+                    'id' => 'nag-toggle-system',
+                    'label' => _("System Task Lists"),
+                    'collapsed' => true,
+                ),
+            );
+            $sidebar->containers['system']['header']['add'] = array(
+                'url' => Horde::url('tasklists/create.php')->add('system', 1),
+                'label' => _("Create a new System Task List"),
+            );
+        }
         $sidebar->containers['shared'] = array(
             'header' => array(
                 'id' => 'nag-toggle-shared',
@@ -170,7 +183,9 @@ class Nag_Application extends Horde_Registry_Application
                 'edit' => $edit->add('t', $tasklist->getName()),
                 'type' => 'checkbox',
             );
-            if ($tasklist->get('owner') == $user) {
+            if (is_null($tasklist->get('owner'))) {
+                $sidebar->addRow($row, 'system');
+            } elseif ($tasklist->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
                 $sidebar->addRow($row, 'shared');

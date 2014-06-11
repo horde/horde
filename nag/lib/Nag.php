@@ -489,7 +489,12 @@ class Nag
                 array('perm' => $permission,
                       'attributes' => $att,
                       'sort_by' => 'name'));
-
+            if ($GLOBALS['registry']->isAdmin()) {
+                $tasklists = array_merge(
+                    $tasklists,
+                    $GLOBALS['nag_shares']->listSystemShares()
+                );
+            }
         } catch (Horde_Share_Exception $e) {
             Horde::log($e->getMessage(), 'ERR');
             return array();
