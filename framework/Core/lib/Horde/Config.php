@@ -1194,6 +1194,9 @@ class Horde_Config
                 $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: 3306) : 3306
             );
 
+        $pgsql_protocol = $protocol;
+        $pgsql_protocol['switch']['unix']['fields']['port'] = $port;
+
         $charset = array(
             '_type' => 'text',
             'required' => true,
@@ -1378,7 +1381,7 @@ class Horde_Config
                     'fields' => array(
                         'username' => $username,
                         'password' => $password,
-                        'protocol' => $protocol,
+                        'protocol' => $pgsql_protocol,
                         'database' => $database,
                         'charset' => $charset,
                         'splitread' => $splitread,

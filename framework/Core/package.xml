@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3433,7 +3433,7 @@
    <date>2014-06-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
    </notes>
   </release>
  </changelog>
