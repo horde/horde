@@ -155,11 +155,11 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
             return null;
         }
 
-        list($mbox, $uid) = explode(self::IDX_SEP, $this->_buids[$buid]);
+        $pos = strrpos($this->_buids[$buid], self::IDX_SEP);
 
         return array(
-            'm' => IMP_Mailbox::get($mbox),
-            'u' => intval($uid)
+            'm' => IMP_Mailbox::get(substr($this->_buids[$buid], 0, $pos)),
+            'u' => intval(substr($this->_buids[$buid], $pos + 1))
         );
     }
 
