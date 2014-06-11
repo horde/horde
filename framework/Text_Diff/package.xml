@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Assume Unicode input when splitting on character level (Petr Kalivoda &lt;petr.kalivoda@gmail.com&gt;).
 * [jan] Fix signature of Horde_Text_Diff_Mapped constructor (BC break!) (Bug #13253).
  </notes>
  <contents>
@@ -390,6 +391,7 @@
    <date>2014-06-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Assume Unicode input when splitting on character level (Petr Kalivoda &lt;petr.kalivoda@gmail.com&gt;).
 * [jan] Fix signature of Horde_Text_Diff_Mapped constructor (BC break!) (Bug #13253).
    </notes>
   </release>
