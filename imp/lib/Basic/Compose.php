@@ -532,14 +532,14 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $header,
                         $identity,
                         array(
-                            'signature' => $this->vars->signature,
                             'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
                             'html' => $rtemode,
                             'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
                             'priority' => $priority,
                             'save_sent' => $save_sent_mail,
                             'sent_mail' => $sent_mail,
-                            'save_attachments' => $this->vars->save_attachments_select,
+                            'signature' => $this->vars->signature,
+                            'strip_attachments' => !$this->vars->save_attachments_select,
                             'readreceipt' => $request_read_receipt,
                             'vcard_attach' => $this->vars->vcard ? $identity->getValue('fullname') : null
                         )
