@@ -33,6 +33,8 @@ class Horde_Imap_Client
     const MBOX_SUBSCRIBED_EXISTS = 2;
     const MBOX_UNSUBSCRIBED = 3;
     const MBOX_ALL = 4;
+    /* @since 2.23.0 */
+    const MBOX_ALL_SUBSCRIBED = 5;
 
     /* Constants for status() */
     const STATUS_MESSAGES = 1;

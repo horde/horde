@@ -1255,9 +1255,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                         number of matches possible).
      * @param integer $mode    Which mailboxes to return.  Either:
      *   - Horde_Imap_Client::MBOX_SUBSCRIBED
+     *     Return subscribed mailboxes.
      *   - Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS
+     *     Return subscribed mailboxes that exist on the server.
      *   - Horde_Imap_Client::MBOX_UNSUBSCRIBED
+     *     Return unsubscribed mailboxes.
      *   - Horde_Imap_Client::MBOX_ALL
+     *     Return all mailboxes regardless of subscription status.
+     *   - Horde_Imap_Client::MBOX_ALL_SUBSCRIBED (@since 2.23.0)
+     *     Return all mailboxes regardless of subscription status, and ensure
+     *     the '\subscribed' attribute is set if mailbox is subscribed
+     *     (implies 'attributes' option is true).
      * @param array $options   Additional options:
      * <pre>
      *   - attributes: (boolean) If true, return attribute information under

@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.23.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - listMailboxes()
+
+      Added the Horde_Imap_Client::MBOX_ALL_SUBSCRIBED $mode option.
+
+
 Upgrading to 2.22.0
 ===================
 

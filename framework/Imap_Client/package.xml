@@ -12,8 +12,8 @@
  </lead>
  <date>2014-06-07</date>
  <version>
-  <release>2.22.1</release>
-  <api>2.22.0</api>
+  <release>2.23.0</release>
+  <api>2.23.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix broken MBOX_UNSUBSCRIBED behavior on IMAP servers that support LIST-EXTENDED.
+* [mms] Added the MBOX_ALL_SUBSCRIBED mode to Horde_Imap_Client_Base#listMailboxes().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2459,15 +2460,16 @@
   </release>
   <release>
    <version>
-    <release>2.22.1</release>
-    <api>2.22.0</api></version>
+    <release>2.23.0</release>
+    <api>2.23.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-06-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix broken MBOX_UNSUBSCRIBED behavior on IMAP servers that support LIST-EXTENDED.
+* [mms] Added the MBOX_ALL_SUBSCRIBED mode to Horde_Imap_Client_Base#listMailboxes().
    </notes>
   </release>
  </changelog>

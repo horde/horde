@@ -1260,11 +1260,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $select_opts = new Horde_Imap_Client_Data_Format_List();
             $subscribed = false;
 
-            if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
-                ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
+            switch ($mode) {
+            case Horde_Imap_Client::MBOX_ALL_SUBSCRIBED:
+            case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
+                $return_opts->add('SUBSCRIBED');
+                break;
+
+            case Horde_Imap_Client::MBOX_SUBSCRIBED:
+            case Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS:
                 $select_opts->add('SUBSCRIBED');
                 $return_opts->add('SUBSCRIBED');
                 $subscribed = true;
+                break;
             }
 
             if (!empty($options['remote'])) {
@@ -1408,17 +1415,33 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
         $ml = $pipeline->data['mailboxlist'];
 
-        if ($ml['mode'] === Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS) {
-            if (!is_null($ml['sub']) &&
-                // Subscribed list is in UTF-8.
-                !isset($ml['sub'][strval($mbox)])) {
-                return;
-            }
-
+        switch ($ml['mode']) {
+        case Horde_Imap_Client::MBOX_ALL_SUBSCRIBED:
+        case Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS:
+        case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
             $attr = array_flip(array_map('strtolower', $attr_raw));
-            if (isset($attr['\\nonexistent'])) {
+
+            if (!is_null($ml['sub']) &&
+                /* Subscribed list is in UTF-8. */
+                isset($ml['sub'][strval($mbox)])) {
+                $attr['\\subscribed'] = 1;
+            }
+            break;
+        }
+
+        switch ($ml['mode']) {
+        case Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS:
+            if (isset($attr['\\nonexistent']) ||
+                !isset($attr['\\subscribed'])) {
                 return;
             }
+            break;
+
+        case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
+            if (isset($attr['\\subscribed'])) {
+                return;
+            }
+            break;
         }
 
         if (!empty($ml['opts']['flat'])) {
@@ -1428,7 +1451,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $tmp = array('mailbox' => $mbox);
 
-        if (!empty($ml['opts']['attributes'])) {
+        if ($attr || !empty($ml['opts']['attributes'])) {
             if (is_null($attr)) {
                 $attr = array_flip(array_map('strtolower', $attr_raw));
             }
