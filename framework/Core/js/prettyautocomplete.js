@@ -195,6 +195,8 @@ var PrettyAutocompleter = Class.create({
 
     _resize: function()
     {
+        var newSize;
+
         this.sizer.update($(this.p.trigger).value);
         newSize = Math.min(this.sizer.getWidth(), $(this.p.box).getWidth());
         newSize = Math.max(newSize, this.p.minTriggerWidth);
