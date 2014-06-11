@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add &lt;configldapuser&gt; configuration item.
 * [jan] Add base DN to LDAP configuration for searching user DNs.
 * [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
  </notes>
@@ -3434,6 +3435,7 @@
    <date>2014-06-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add &lt;configldapuser&gt; configuration item.
 * [jan] Add base DN to LDAP configuration for searching user DNs.
 * [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
    </notes>

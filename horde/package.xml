@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1645,7 +1645,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0alpha1</min>
+    <min>2.12.0beta4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3918,7 +3918,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
    </notes>
   </release>
  </changelog>

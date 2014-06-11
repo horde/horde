@@ -930,9 +930,13 @@
        <configstring name="gid" desc="The group search key">cn</configstring>
        <configstring name="memberuid" desc="Group membership field">
        memberUid</configstring>
-       <configboolean name="attrisdn" required="false"
-        desc="If checked, the user member attributes returned from LDAP are
-       expected to be fully qualified DNs"/>
+       <configswitch name="attrisdn" required="false" desc="Are the user member
+       attributes returned from LDAP expected to be fully qualified DNs?">false
+        <case name="false" desc="No"/>
+        <case name="true" desc="Yes">
+          <configldapuser/>
+        </case>
+       </configswitch>
        <configlist name="newgroup_objectclass" desc="What objectclasses should
        a new group be member of? These objectclasses should cover the mail and
        gidnumber attributes as well as the group search key">

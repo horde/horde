@@ -668,6 +668,10 @@ class Horde_Config
                 $conf[$node->getAttribute('switchname')] = $this->_configLDAP($ctx, $node);
                 break;
 
+            case 'configldapuser':
+                $conf = array_merge($conf, $this->_configLDAPUser($ctx, $node));
+                break;
+
             case 'configphp':
                 $conf[$name] = array(
                     '_type' => 'php',
