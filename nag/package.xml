@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Always display system task lists to administrators.
 * [mjr] Group task fields into tabs on edit form (Request #13228).
  </notes>
  <contents>
@@ -1525,6 +1526,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Always display system task lists to administrators.
 * [mjr] Group task fields into tabs on edit form (Request #13228).
    </notes>
   </release>
