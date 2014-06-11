@@ -1185,12 +1185,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // RFC 5258 [3.1]: Use LSUB for MBOX_SUBSCRIBED if no other server
         // return options are specified.
         if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) &&
-            empty($options['attributes']) &&
-            empty($options['children']) &&
-            empty($options['recursivematch']) &&
-            empty($options['remote']) &&
-            empty($options['special_use']) &&
-            empty($options['status'])) {
+            !array_intersect(array_keys($options), array('attributes', 'children', 'recursivematch', 'remote', 'special_use', 'status'))) {
             return $this->_getMailboxList(
                 $pattern,
                 Horde_Imap_Client::MBOX_SUBSCRIBED,
@@ -1207,7 +1202,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // ensure we receive the correct information.
         if (($mode != Horde_Imap_Client::MBOX_ALL) &&
             !$this->queryCapability('LIST-EXTENDED')) {
-            $subscribed = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
+            $subscribed = $this->_getMailboxList(
+                $pattern,
+                Horde_Imap_Client::MBOX_SUBSCRIBED,
+                array('flat' => true)
+            );
 
             // If mode is subscribed, and 'flat' option is true, we can
             // return now.
@@ -1238,18 +1237,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _getMailboxList($pattern, $mode, $options,
                                        $subscribed = null)
     {
-        $check = (($mode != Horde_Imap_Client::MBOX_ALL) && !is_null($subscribed));
-
         // Setup entry for use in _parseList().
         $pipeline = $this->_pipeline();
         $pipeline->data['mailboxlist'] = array(
-            'check' => $check,
             'ext' => false,
-            'options' => $options,
-            'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
+            'mode' => $mode,
+            'opts' => $options,
             /* Can't use array_merge here because it will destroy any mailbox
              * name (key) that is "numeric". */
-            'subscribed' => ($check ? (array_flip(array_map('strval', $subscribed)) + array('INBOX' => true)) : null)
+            'sub' => (is_null($subscribed) ? null : array_flip(array_map('strval', $subscribed)) + array('INBOX' => true))
         );
         $pipeline->data['listresponse'] = array();
 
@@ -1406,54 +1402,58 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     )
     {
         $data->next();
-        $attr = $data->flushIterator();
+        $attr = null;
+        $attr_raw = $data->flushIterator();
         $delimiter = $data->next();
         $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
         $ml = $pipeline->data['mailboxlist'];
 
-        if ($ml['check'] &&
-            $ml['subexist'] &&
-            // Subscribed list is in UTF-8.
-            !isset($ml['subscribed'][strval($mbox)])) {
-            return;
-        } elseif ((!$ml['check'] && $ml['subexist']) ||
-                   (empty($ml['options']['flat']) &&
-                    !empty($ml['options']['attributes']))) {
-            $attr = array_flip(array_map('strtolower', $attr));
-            if ($ml['subexist'] &&
-                !$ml['check'] &&
-                isset($attr['\\nonexistent'])) {
+        if ($ml['mode'] === Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS) {
+            if (!is_null($ml['sub']) &&
+                // Subscribed list is in UTF-8.
+                !isset($ml['sub'][strval($mbox)])) {
+                return;
+            }
+
+            $attr = array_flip(array_map('strtolower', $attr_raw));
+            if (isset($attr['\\nonexistent'])) {
                 return;
             }
         }
 
-        if (empty($ml['options']['flat'])) {
-            $tmp = array(
-                'mailbox' => $mbox
-            );
-
-            if (!empty($ml['options']['attributes'])) {
-                /* RFC 5258 [3.4]: inferred attributes. */
-                if ($ml['ext']) {
-                    if (isset($attr['\\noinferiors'])) {
-                        $attr['\\hasnochildren'] = 1;
-                    }
-                    if (isset($attr['\\nonexistent'])) {
-                        $attr['\\noselect'] = 1;
-                    }
-                }
-                $tmp['attributes'] = array_keys($attr);
-            }
-            if (!empty($ml['options']['delimiter'])) {
-                $tmp['delimiter'] = $delimiter;
-            }
-            if ($data->next() !== false) {
-                $tmp['extended'] = $data->flushIterator();
-            }
-            $pipeline->data['listresponse'][strval($mbox)] = $tmp;
-        } else {
+        if (!empty($ml['opts']['flat'])) {
             $pipeline->data['listresponse'][] = $mbox;
+            return;
         }
+
+        $tmp = array('mailbox' => $mbox);
+
+        if (!empty($ml['opts']['attributes'])) {
+            if (is_null($attr)) {
+                $attr = array_flip(array_map('strtolower', $attr_raw));
+            }
+
+            /* RFC 5258 [3.4]: inferred attributes. */
+            if ($ml['ext']) {
+                if (isset($attr['\\noinferiors'])) {
+                    $attr['\\hasnochildren'] = 1;
+                }
+                if (isset($attr['\\nonexistent'])) {
+                    $attr['\\noselect'] = 1;
+                }
+            }
+            $tmp['attributes'] = array_keys($attr);
+        }
+
+        if (!empty($ml['opts']['delimiter'])) {
+            $tmp['delimiter'] = $delimiter;
+        }
+
+        if ($data->next() !== false) {
+            $tmp['extended'] = $data->flushIterator();
+        }
+
+        $pipeline->data['listresponse'][strval($mbox)] = $tmp;
     }
 
     /**
