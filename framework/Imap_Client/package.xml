@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Delimiter information is now always returned from Horde_Imap_Client_Base#listMailboxes().
 * [mms] Fix broken MBOX_UNSUBSCRIBED behavior on IMAP servers that support LIST-EXTENDED.
 * [mms] Added the MBOX_ALL_SUBSCRIBED mode to Horde_Imap_Client_Base#listMailboxes().
  </notes>
@@ -2468,6 +2469,7 @@
    <date>2014-06-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Delimiter information is now always returned from Horde_Imap_Client_Base#listMailboxes().
 * [mms] Fix broken MBOX_UNSUBSCRIBED behavior on IMAP servers that support LIST-EXTENDED.
 * [mms] Added the MBOX_ALL_SUBSCRIBED mode to Horde_Imap_Client_Base#listMailboxes().
    </notes>

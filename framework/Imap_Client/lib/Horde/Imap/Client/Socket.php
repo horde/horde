@@ -1190,7 +1190,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $pattern,
                 Horde_Imap_Client::MBOX_SUBSCRIBED,
                 array(
-                    'delimiter' => !empty($options['delimiter']),
                     'flat' => !empty($options['flat']),
                     'no_listext' => true
                 )
@@ -1449,7 +1448,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $tmp = array('mailbox' => $mbox);
+        $tmp = array(
+            'delimiter' => $delimiter,
+            'mailbox' => $mbox
+        );
 
         if ($attr || !empty($ml['opts']['attributes'])) {
             if (is_null($attr)) {
@@ -1466,10 +1468,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
             $tmp['attributes'] = array_keys($attr);
-        }
-
-        if (!empty($ml['opts']['delimiter'])) {
-            $tmp['delimiter'] = $delimiter;
         }
 
         if ($data->next() !== false) {

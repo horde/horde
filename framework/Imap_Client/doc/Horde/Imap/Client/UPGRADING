@@ -19,6 +19,8 @@ Upgrading to 2.23.0
     - listMailboxes()
 
       Added the Horde_Imap_Client::MBOX_ALL_SUBSCRIBED $mode option.
+      Removed the 'delimiter' option (delimiter information is always
+      returned now).
 
 
 Upgrading to 2.22.0

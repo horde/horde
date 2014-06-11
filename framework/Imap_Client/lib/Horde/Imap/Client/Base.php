@@ -1278,11 +1278,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *               option, or if the CHILDREN extension is available, but it
      *               is not guaranteed.
      *               DEFAULT: false
-     *   - delimiter: (boolean) If true, return delimiter information under
-     *                the'delimiter' key.
-     *                DEFAULT: Do not return this information.
      *   - flat: (boolean) If true, return a flat list of mailbox names only.
-     *           Overrides both the 'attributes' and 'delimiter' options.
+     *           Overrides the 'attributes' option.
      *           DEFAULT: Do not return flat list.
      *   - recursivematch: (boolean) Force the server to return information
      *                     about parent mailboxes that don't match other
@@ -1321,8 +1318,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                with these keys:
      *   - attributes: (array) List of lower-cased attributes [only if
      *                 'attributes' option is true].
-     *   - delimiter: (string) The delimiter for the mailbox [only if
-     *                'delimiter' option is true].
+     *   - delimiter: (string) The delimiter for the mailbox.
      *   - extended: (TODO) TODO [only if 'recursivematch' option is true and
      *               LIST-EXTENDED extension is supported on the server].
      *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox object.

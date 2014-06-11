@@ -118,9 +118,9 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
         // Listing subscribed mailboxes (flat format).
         $this->imap->listMailboxes('*', Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
 
-        // Listing unsubscribed mailboxes in base level (with attribute and
-        // delimiter information).
-        $this->imap->listMailboxes('%', Horde_Imap_Client::MBOX_UNSUBSCRIBED, array('attributes' => true, 'delimiter' => true));
+        // Listing unsubscribed mailboxes in base level (with attribute
+        // information).
+        $this->imap->listMailboxes('%', Horde_Imap_Client::MBOX_UNSUBSCRIBED, array('attributes' => true));
 
         // Re-create mailboxes for tests.
         $this->imap->createMailbox($test_mbox);
