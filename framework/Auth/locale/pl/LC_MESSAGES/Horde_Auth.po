@@ -1,0 +1,128 @@
+# Polish translations for Horde.
+# Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde package.
+# Mariusz Zynel <mariusz@math.uwb.edu.pl>, 2001.
+# Piotr Roszatycki <dexter@debian.org>, 2001.
+# Krzysztof Kozlowski <kozik1@o2.pl>, 2005.
+# Daniel Horecki <shinden@linux.pl>, 2007.
+# Krzysztof Kozera <krzysztof113@o2.pl>, 2012.
+# Maciej Uhlig <maciej.uhlig@us.edu.pl>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde 5.0\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2013-10-14 14:26+0200\n"
+"PO-Revision-Date: 2014-03-23 22:10+0100\n"
+"Last-Translator: Maciej Uhlig <maciej.uhlig@us.edu.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: e:\\git\\horde5new\n"
+
+#: lib/Horde/Auth.php:362
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr ""
+"Twoje hasło jest zbyt długie; hasła nie mogą być dłuższe niż %d znaków!"
+
+#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:443
+msgid "The password is too simple to guess."
+msgstr "Twoje hasło można zbyt łatwo odgadnąć."
+
+#: lib/Horde/Auth.php:358
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Twoje hasło musi posiadać przynajmniej %d znaków!"
+
+#: lib/Horde/Auth.php:394
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d literę."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d litery."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d liter."
+
+#: lib/Horde/Auth.php:397
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d znak alfanumeryczny."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d znaki alfanumeryczne."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d znaków alfanumerycznych."
+
+#: lib/Horde/Auth.php:403
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Twoje hasło musi zawierać przynajmniej %d różnych typów znaków. Typy znaków "
+"to: małe litery, wielkie litery, cyfry i symbole."
+
+#: lib/Horde/Auth.php:388
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d małą literę."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d małe litery."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d małych liter."
+
+#: lib/Horde/Auth.php:391
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d cyfrę."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d cyfry."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d cyfr."
+
+#: lib/Horde/Auth.php:400
+#, php-format
+msgid "The password must contain at least %d numeric or special character."
+msgid_plural ""
+"The password must contain at least %d numeric or special characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d cyfrę lub znak specjalny."
+msgstr[1] ""
+"Twoje hasło musi zawierać przynajmniej %d cyfry lub znaki specjalne."
+msgstr[2] ""
+"Twoje hasło musi zawierać przynajmniej %d cyfr lub znaków specjalnych."
+
+#: lib/Horde/Auth.php:412
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d symbol."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d symbole."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d symboli."
+
+#: lib/Horde/Auth.php:385
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] "Twoje hasło musi zawierać przynajmniej %d wielką literę."
+msgstr[1] "Twoje hasło musi zawierać przynajmniej %d wielkie litery."
+msgstr[2] "Twoje hasło musi zawierać przynajmniej %d wielkich liter."
+
+#: lib/Horde/Auth.php:407
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Twoje hasło musi zawierać mniej niż %d białych znaków (spacji itp.)."
+
+#: lib/Horde/Auth.php:409
+msgid "The password must not contain whitespace characters."
+msgstr "Twoje hasło nie może zawierać białych znaków (spacji itp.)."
+
+#: lib/Horde/Auth/Base.php:156
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Twoje konto zostało zablokowane na %d minut"
+
+#: lib/Horde/Auth/Base.php:154
+msgid "Your account has been permanently locked"
+msgstr "Twoje konto zostało zablokowane na stałe"
