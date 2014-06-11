@@ -440,15 +440,12 @@ var ImpMobile = {
             params.checkcache = 1;
         }
 
-        params = ImpMobile.addViewportParams($.extend(params, {
-            view: mailbox
-        }));
-
-        if (!ImpMobile.flags) {
-            params.flag_config = 1;
-        }
-
-        HordeMobile.doAction('smartmobileViewport', params);
+        HordeMobile.doAction(
+            'smartmobileViewport',
+            ImpMobile.addViewportParams($.extend(params, {
+                view: mailbox
+            }))
+        );
     },
 
     /**
@@ -457,7 +454,8 @@ var ImpMobile = {
     {
         params = params || {};
 
-        var ob = ImpMobile.cache[ImpMobile.mailbox], slice;
+        var p, slice,
+            ob = ImpMobile.cache[ImpMobile.mailbox];
 
         if (ob) {
             params.cache = ImpMobile.toUidString(ob.cachedIds());
@@ -473,10 +471,16 @@ var ImpMobile = {
             params.slice = '1:' + slice;
         }
 
-        return {
+        p = {
             view: params.view,
             viewport: JSON.stringify(params)
         };
+
+        if (!ImpMobile.flags) {
+            p.flag_config = 1;
+        }
+
+        return p;
     },
 
     /**
@@ -530,7 +534,7 @@ var ImpMobile = {
         if (!ob) {
             if (HordeMobile.currentPage() != 'folders') {
                 HordeMobile.doAction(
-                    'smartmobileViewport',
+                    'viewPort',
                     ImpMobile.addViewportParams({
                         checkcache: 1,
                         view: ImpMobile.mailbox
