@@ -3422,6 +3422,7 @@
    <date>2014-06-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix incorrect processing of autocompleted data when using prettyautocompleter (Bug #13256).
 * [mms] Allow any HordeCore AJAX response object to return JSON-HTML output, instead of pure JSON.
    </notes>
   </release>
