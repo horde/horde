@@ -636,7 +636,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            this._removeMouseEvents([ e.memo ]);
+            $(e.memo).fire('DimpBase:removeElt');
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
@@ -867,21 +867,6 @@ var DimpBase = {
         return (this.isQSearch() || this.isFSearch())
             ? DimpCore.text.vp_empty_search
             : DimpCore.text.vp_empty;
-    },
-
-    _removeMouseEvents: function(elt)
-    {
-        elt.each(function(a) {
-            var d, id = $(a).readAttribute('id');
-
-            if (id) {
-                if ((d = DragDrop.Drags.getDrag(id))) {
-                    d.destroy();
-                }
-
-                DimpCore.DMenu.removeElement(id);
-            }
-        });
     },
 
     contextOnClick: function(e)
@@ -1826,7 +1811,7 @@ var DimpBase = {
             pm = $('previewMsg'),
             r = this.ppcache[this._getPPId(uid, mbox)];
 
-        this._removeMouseEvents(pm.down('.msgHeaders').select('.address'));
+        pm.down('.msgHeaders').select('.address').invoke('fire', 'DimpBase:removeElt');
 
         // Add subject. Subject was already html encoded on server (subject
         // may include links).
@@ -2029,9 +2014,7 @@ var DimpBase = {
         var pm = $('previewMsg');
 
         if (pm.visible()) {
-            this._removeMouseEvents(
-                pm.hide().down('.msgHeaders').select('.address')
-            );
+            pm.hide().down('.msgHeaders').select('.address').invoke('fire', 'DimpBase:removeElt');
         }
 
         this.loadingImg('msg', false);
@@ -3102,6 +3085,16 @@ var DimpBase = {
         delete this.colorpicker;
     },
 
+    removeEltHandler: function(e)
+    {
+        var id = e.element().readAttribute('id');
+
+        if (id) {
+            [ DragDrop.Drags.getDrag(id), DragDrop.Drops.getDrop(id) ].compact().invoke('destroy');
+            DimpCore.DMenu.removeElement(id);
+        }
+    },
+
     updateSliderCount: function()
     {
         var range = this.viewport.currentViewableRange();
@@ -3593,12 +3586,6 @@ var DimpBase = {
             elt: e.memo.element(),
             type: ftype
         });
-    },
-
-    deleteMboxHandler: function(e)
-    {
-        [ DragDrop.Drags.getDrag(e.memo.value()), DragDrop.Drops.getDrop(e.memo.value()) ].compact().invoke('destroy');
-        this._removeMouseEvents([ e.memo.element() ]);
     },
 
     _sizeFolderlist: function()
@@ -4466,12 +4453,17 @@ document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEve
 document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(DimpBase));
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
+/* DimpBase handlers. */
+document.observe('DimpBase:removeElt', DimpBase.removeEltHandler.bindAsEventListener(DimpBase));
+
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
 
 /* Folder list element handlers. */
 document.observe('IMP_Flist_Mbox:create', DimpBase.createMboxHandler.bind(DimpBase));
-document.observe('IMP_Flist_Mbox:delete', DimpBase.deleteMboxHandler.bind(DimpBase));
+document.observe('IMP_Flist_Mbox:delete', function(e) {
+    e.memo.element().fire('DimpBase:removeElt');
+});
 
 /* HTML IFRAME handlers. */
 document.observe('IMP_JS:htmliframe_keydown', function(e) {
