@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2014-06-11 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,15 +135,15 @@ msgstr ""
 msgid ", variable from %s to %s"
 msgstr ""
 
-#: lib/Application.php:325
+#: lib/Application.php:327
 msgid "1 Day"
 msgstr ""
 
-#: lib/Application.php:329
+#: lib/Application.php:331
 msgid "1 Month"
 msgstr ""
 
-#: lib/Application.php:327
+#: lib/Application.php:329
 msgid "1 Week"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "12 Hour Format"
 msgstr ""
 
-#: lib/Application.php:328
+#: lib/Application.php:330
 msgid "2 Weeks"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "24-hour format"
 msgstr ""
 
-#: lib/Application.php:326
+#: lib/Application.php:328
 msgid "3 Days"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: config/prefs.php:732 lib/Application.php:200
+#: config/prefs.php:732 lib/Application.php:202
 msgid "ActiveSync"
 msgstr ""
 
@@ -337,19 +337,19 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr ""
 
-#: lib/Application.php:236
+#: lib/Application.php:238
 msgid "Allow alphanumeric"
 msgstr ""
 
-#: lib/Application.php:237
+#: lib/Application.php:239
 msgid "Allow any"
 msgstr ""
 
-#: lib/Application.php:215
+#: lib/Application.php:217
 msgid "Allow non-provisionable devices"
 msgstr ""
 
-#: lib/Application.php:235
+#: lib/Application.php:237
 msgid "Allow only numeric"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Attachment"
 msgstr ""
 
-#: lib/Application.php:259
+#: lib/Application.php:261
 msgid "Attachment Download"
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr ""
 msgid "Block Type"
 msgstr ""
 
-#: lib/Application.php:292
+#: lib/Application.php:294
 msgid "Bluetooth"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: lib/Application.php:280
+#: lib/Application.php:282
 msgid "Camera"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr ""
 msgid "Clouds"
 msgstr ""
 
-#: lib/Application.php:252
+#: lib/Application.php:254
 msgid "Codeword frequency"
 msgstr ""
 
@@ -999,7 +999,7 @@ msgstr ""
 msgid "Device Type"
 msgstr ""
 
-#: lib/Application.php:312
+#: lib/Application.php:314
 msgid "Device encryption"
 msgstr ""
 
@@ -1040,7 +1040,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: lib/Application.php:216
+#: lib/Application.php:218
 msgid "Disable (not recommended)"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: lib/Application.php:214
+#: lib/Application.php:216
 msgid "Enable"
 msgstr ""
 
@@ -1239,7 +1239,7 @@ msgstr ""
 msgid "Facebook Integration"
 msgstr ""
 
-#: lib/Application.php:247
+#: lib/Application.php:249
 msgid "Failed unlock attempts before device is wiped"
 msgstr ""
 
@@ -1409,7 +1409,7 @@ msgstr ""
 msgid "Guest Permissions"
 msgstr ""
 
-#: lib/Application.php:316
+#: lib/Application.php:318
 msgid "HTML Email"
 msgstr ""
 
@@ -1807,7 +1807,7 @@ msgstr ""
 msgid "Max temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:320
+#: lib/Application.php:322
 msgid "Maximum Email age"
 msgstr ""
 
@@ -1815,11 +1815,11 @@ msgstr ""
 msgid "Maximum Number of Portal Blocks"
 msgstr ""
 
-#: lib/Application.php:264
+#: lib/Application.php:266
 msgid "Maximum attachment size"
 msgstr ""
 
-#: lib/Application.php:205
+#: lib/Application.php:207
 msgid "Maximum number of devices"
 msgstr ""
 
@@ -1859,7 +1859,7 @@ msgstr ""
 msgid "Min temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:226
+#: lib/Application.php:228
 msgid "Minimum PIN length"
 msgstr ""
 
@@ -2022,7 +2022,7 @@ msgstr ""
 msgid "No pending signups."
 msgstr ""
 
-#: lib/Application.php:333
+#: lib/Application.php:335
 msgid "No push while roaming"
 msgstr ""
 
@@ -2179,7 +2179,7 @@ msgstr ""
 msgid "PHP Shell"
 msgstr ""
 
-#: lib/Application.php:296
+#: lib/Application.php:298
 msgid "POP/IMAP Email accounts"
 msgstr ""
 
@@ -2197,7 +2197,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: lib/Application.php:231
+#: lib/Application.php:233
 msgid "Password Complexity"
 msgstr ""
 
@@ -2338,7 +2338,7 @@ msgstr ""
 msgid "Provisioned"
 msgstr ""
 
-#: lib/Application.php:210
+#: lib/Application.php:212
 msgid "Provisioning"
 msgstr ""
 
@@ -2435,15 +2435,15 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: lib/Application.php:221
+#: lib/Application.php:223
 msgid "Require PIN"
 msgstr ""
 
-#: lib/Application.php:304
+#: lib/Application.php:306
 msgid "Require S/MIME Encryption"
 msgstr ""
 
-#: lib/Application.php:308
+#: lib/Application.php:310
 msgid "Require S/MIME Signature"
 msgstr ""
 
@@ -2508,15 +2508,15 @@ msgstr ""
 msgid "Run Login Tasks"
 msgstr ""
 
-#: lib/Application.php:276
+#: lib/Application.php:278
 msgid "SD card"
 msgstr ""
 
-#: lib/Application.php:269
+#: lib/Application.php:271
 msgid "SD card encryption"
 msgstr ""
 
-#: lib/Application.php:284
+#: lib/Application.php:286
 msgid "SMS Text messages"
 msgstr ""
 
@@ -2581,7 +2581,7 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: lib/Application.php:242
+#: lib/Application.php:244
 msgid "Seconds of inactivity before device should lock"
 msgstr ""
 
@@ -2877,7 +2877,7 @@ msgstr ""
 msgid "Sunset"
 msgstr ""
 
-#: lib/Application.php:324
+#: lib/Application.php:326
 msgid "Sync all"
 msgstr ""
 
@@ -3054,7 +3054,7 @@ msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 
-#: lib/Application.php:191
+#: lib/Application.php:193
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3370,7 +3370,7 @@ msgstr ""
 msgid "Web Site"
 msgstr ""
 
-#: lib/Application.php:300
+#: lib/Application.php:302
 msgid "Web browser"
 msgstr ""
 
@@ -3421,7 +3421,7 @@ msgstr ""
 msgid "Width of the %s menu on the left:"
 msgstr ""
 
-#: lib/Application.php:288
+#: lib/Application.php:290
 msgid "Wifi"
 msgstr ""
 
