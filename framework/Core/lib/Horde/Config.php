@@ -746,8 +746,8 @@ class Horde_Config
      * @param string $ctx         The context of the <configldap> tag.
      * @param DomNode $node       The DomNode representation of the
      *                            <configldap> tag.
-     * @param string $switchname  If DomNode is not set, the value of the
-     *                            tag's switchname attribute.
+     * @param string $switchname  If $node is not set, the value of the tag's
+     *                            switchname attribute.
      *
      * @return array  An associative array with the LDAP configuration tree.
      */
@@ -823,73 +823,7 @@ class Horde_Config
                     ),
                     'user' => array(
                         'desc' => 'Bind as the currently logged-in user',
-                        'fields' => array(
-                            'user' => array(
-                                'binddn' => array(
-                                    '_type' => 'text',
-                                    'required' => false,
-                                    'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
-                                    'default' => $this->_default(
-                                        $ctx . '|user|binddn',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
-                                    )
-                                ),
-                                'bindpw' => array(
-                                    '_type' => 'text',
-                                    'required' => false,
-                                    'desc' => 'Password for bind DN',
-                                    'default' => $this->_default(
-                                        $ctx . '|user|bindpw',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
-                                    )
-                                ),
-                                'uid' => array(
-                                    '_type' => 'text',
-                                    'required' => true,
-                                    'desc' => 'The username search key (set to samaccountname for AD).',
-                                    'default' => $this->_default(
-                                        $ctx . '|user|uid',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="uid"])', $node) ?: 'uid') : 'uid'
-                                    )
-                                ),
-                                'filter_type' => array(
-                                    'required' => false,
-                                    'desc' => 'How to specify a filter for the user lists.',
-                                    'default' => $this->_default(
-                                        $ctx . '|user|filter_type',
-                                        $node ? ($xpath->evaluate('normalize-space(configsection/configswitch[@name="filter_type"]/text())', $node) ?: 'objectclass') : 'objectclass'),
-                                    'switch' => array(
-                                        'filter' => array(
-                                            'desc' => 'LDAP filter string',
-                                            'fields' => array(
-                                                'filter' => array(
-                                                    '_type' => 'text',
-                                                    'required' => true,
-                                                    'desc' => 'The LDAP filter string used to search for users.',
-                                                    'default' => $this->_default(
-                                                        $ctx . '|user|filter',
-                                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="filter"])', $node) ?: '(objectClass=*)') : '(objectClass=*)'
-                                                    )
-                                                ),
-                                            ),
-                                        ),
-                                        'objectclass' => array(
-                                            'desc' => 'List of objectClasses',
-                                            'fields' => array(
-                                                'objectclass' => array(
-                                                    '_type' => 'stringlist',
-                                                    'required' => true,
-                                                    'desc' => 'The objectclass filter used to search for users. Can be a single objectclass or a comma-separated list.',
-                                                    'default' => implode(', ', $this->_default(
-                                                        $ctx . '|user|objectclass',
-                                                        $node ? ($xpath->evaluate('string(configsection/configlist[@name="objectclass"])', $node) ?: array('*')) : array('*')))
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
+                        'fields' => $this->_configLDAPUser($ctx, $node)
                     ),
                     'admin' => array(
                         'desc' => 'Bind with administrative/system credentials',
@@ -992,6 +926,103 @@ class Horde_Config
         }
 
         return $config;
+    }
+
+    /**
+     * Returns the configuration tree for an LDAP configuration to search user
+     * DNs to replace a <configldapuser> tag.
+     *
+     * Subnodes will be parsed and added.
+     *
+     * @param string $ctx         The context of the <configldapuser> tag.
+     * @param DomNode $node       The DomNode representation of the
+     *                            <configldapuser> tag.
+     *
+     * @return array  A list of associative arrays with the LDAP configuration
+     *                tree.
+     */
+    protected function _configLDAPUser($ctx, $node = null)
+    {
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
+        return array(
+            'user' => array(
+                'basedn' => array(
+                    '_type' => 'text',
+                    'required' => false,
+                    'desc' => 'Base DN for searching the user\'s DN',
+                    'default' => $this->_default(
+                        $ctx . '|user|basedn',
+                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="basedn"])', $node) ?: '') : ''
+                    )
+                ),
+                'binddn' => array(
+                    '_type' => 'text',
+                    'required' => false,
+                    'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
+                    'default' => $this->_default(
+                        $ctx . '|user|binddn',
+                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                    )
+                ),
+                'bindpw' => array(
+                    '_type' => 'text',
+                    'required' => false,
+                    'desc' => 'Password for bind DN',
+                    'default' => $this->_default(
+                        $ctx . '|user|bindpw',
+                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
+                    )
+                ),
+                'uid' => array(
+                    '_type' => 'text',
+                    'required' => true,
+                    'desc' => 'The username search key (set to samaccountname for AD).',
+                    'default' => $this->_default(
+                        $ctx . '|user|uid',
+                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="uid"])', $node) ?: 'uid') : 'uid'
+                    )
+                ),
+                'filter_type' => array(
+                    'required' => false,
+                    'desc' => 'How to specify a filter for the user lists.',
+                    'default' => $this->_default(
+                        $ctx . '|user|filter_type',
+                        $node ? ($xpath->evaluate('normalize-space(configsection/configswitch[@name="filter_type"]/text())', $node) ?: 'objectclass') : 'objectclass'),
+                    'switch' => array(
+                        'filter' => array(
+                            'desc' => 'LDAP filter string',
+                            'fields' => array(
+                                'filter' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'The LDAP filter string used to search for users.',
+                                    'default' => $this->_default(
+                                        $ctx . '|user|filter',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="filter"])', $node) ?: '(objectClass=*)') : '(objectClass=*)'
+                                    )
+                                ),
+                            ),
+                        ),
+                        'objectclass' => array(
+                            'desc' => 'List of objectClasses',
+                            'fields' => array(
+                                'objectclass' => array(
+                                    '_type' => 'stringlist',
+                                    'required' => true,
+                                    'desc' => 'The objectclass filter used to search for users. Can be a single objectclass or a comma-separated list.',
+                                    'default' => implode(', ', $this->_default(
+                                        $ctx . '|user|objectclass',
+                                        $node ? ($xpath->evaluate('string(configsection/configlist[@name="objectclass"])', $node) ?: array('*')) : array('*')))
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 
     /**

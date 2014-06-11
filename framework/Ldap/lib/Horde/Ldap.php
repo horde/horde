@@ -32,7 +32,7 @@ class Horde_Ldap
      * - filter:         default search filter.
      * - scope:          default search scope.
      * - user:           configuration parameters for {@link findUserDN()},
-     *                   must contain 'uid', and 'filter' or 'objectclass'
+     *                   must contain 'uid', and may contain 'basedn'
      *                   entries.
      * - auto_reconnect: if true, the class will automatically
      *                   attempt to reconnect to the LDAP server in certain
@@ -877,7 +877,9 @@ class Horde_Ldap
             array(Horde_Ldap_Filter::build($this->_config['user']),
                   Horde_Ldap_Filter::create($this->_config['user']['uid'], 'equals', $user)));
         $search = $this->search(
-            null,
+            isset($this->_config['user']['basedn'])
+                ? $this->_config['user']['basedn']
+                : null,
             $filter,
             array('attributes' => array($this->_config['user']['uid'])));
         if (!$search->count()) {
