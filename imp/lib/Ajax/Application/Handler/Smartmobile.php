@@ -14,6 +14,9 @@
 /**
  * Defines AJAX actions used exclusively in the IMP smartmobile view.
  *
+ * Global tasks:
+     - flag_config: (boolean) True if flag information is needed.
+ *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2012-2014 Horde LLC
@@ -34,6 +37,10 @@ extends Horde_Core_Ajax_Application_Handler
 
         /* Disable implicit polling - not used in smartmobile for now. */
         $base->queue->poll(null);
+
+        if ($this->vars->flag_config) {
+            $base->queue->flagConfig(Horde_Registry::VIEW_SMARTMOBILE);
+        }
     }
 
     /**
@@ -163,23 +170,6 @@ extends Horde_Core_Ajax_Application_Handler
         }
 
         return $this->_base->callAction('sendMessage');
-    }
-
-    /**
-     * AJAX action: Output ViewPort data.
-     *
-     * @see IMP_Ajax_Application_Handler_Common#viewPort()
-     *
-     * Additional variables used:
-     *   - flag_config: (boolean) True if flag information is needed.
-     */
-    public function smartmobileViewport()
-    {
-        if ($this->vars->flag_config) {
-            $this->_base->queue->flagConfig(Horde_Registry::VIEW_SMARTMOBILE);
-        }
-
-        return $this->_base->callAction('viewPort');
     }
 
 }
