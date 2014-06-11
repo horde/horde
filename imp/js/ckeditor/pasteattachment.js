@@ -10,6 +10,8 @@ CKEDITOR.plugins.add('pasteattachment', {
 
     init: function(editor)
     {
+        var active_img = [];
+
         function attachCallback(r)
         {
             var iframe = editor.getThemeSpace('contents').$.down('IFRAME');
@@ -19,6 +21,32 @@ CKEDITOR.plugins.add('pasteattachment', {
                     elt.setAttribute(r.img.related[0], r.img.related[1]);
                     elt.setAttribute('height', elt.height);
                     elt.setAttribute('width', elt.width);
+
+                    /* CKEditor 3 doesn't support onchange event for content
+                     * body.  Poll the attached images to detect deletions,
+                     * since this may influence attachment limits. */
+                    if (!active_img.size()) {
+                        new PeriodicalExecuter(function(pe) {
+                            active_img.each(function(a) {
+                                if (!a.parentNode) {
+                                    active_img = active_img.without(a);
+
+                                    if (!active_img.size()) {
+                                        pe.stop();
+                                        DimpCore.doAction(
+                                            'deleteAttach',
+                                            DimpCompose.actionParams({
+                                                atc_indices: Object.toJSON([ a.getAttribute('dropatc_id') ]),
+                                                quiet: 1
+                                            })
+                                        );
+                                    }
+                                }
+                            });
+                        }, 2);
+                    }
+
+                    active_img.push(elt);
                 } else {
                     elt.parentNode.removeChild(elt);
                 }

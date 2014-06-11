@@ -753,6 +753,7 @@ extends Horde_Core_Ajax_Application_Handler
      * Variables used:
      *   - atc_indices: (string) [JSON array] Attachment IDs to delete.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - quiet: (boolean) If true, don't output notifications.
      *
      * @return array  The list of attchment IDs that were deleted.
      */
@@ -766,7 +767,9 @@ extends Horde_Core_Ajax_Application_Handler
             $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose);
             foreach (json_decode($this->vars->atc_indices) as $val) {
                 if (isset($imp_compose[$val])) {
-                    $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
+                    if (empty($this->vars->quiet)) {
+                        $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
+                    }
                     unset($imp_compose[$val]);
                     $result[] = $val;
                     $this->_base->queue->compose($imp_compose);
@@ -774,7 +777,7 @@ extends Horde_Core_Ajax_Application_Handler
             }
         }
 
-        if (empty($result)) {
+        if (empty($result) && empty($this->vars->quiet)) {
             $notification->push(_("At least one attachment could not be deleted."), 'horde.error');
         }
 
