@@ -6133,9 +6133,7 @@ KronolithCore = {
     /**
      * Removes an attendee row from the free/busy table.
      *
-     * @param object attendee  An attendee object with the properties:
-     *                         - e: email address
-     *                         - l: the display name of the attendee
+     * @param string attendee  The display name of the attendee.
      */
     removeAttendee: function(attendee)
     {
