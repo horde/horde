@@ -54,12 +54,6 @@ var PrettyAutocompleter = Class.create({
         this.enabled = true;
     },
 
-    blur: function()
-    {
-        this.processValue();
-        this.resize();
-    },
-
     /**
      * Initializes the autocompleter, builds the dom structure, registers
      * events, etc...
@@ -159,28 +153,6 @@ var PrettyAutocompleter = Class.create({
         this.box.insert(Element.replace(this.elm, this.box));
     },
 
-    shutdown: function()
-    {
-        this.processValue();
-    },
-
-    keyDownHandler: function(e)
-    {
-        // Check for a comma or enter
-        if ((e.keyCode == 188 || (this.honorReturn() && e.keyCode == Event.KEY_RETURN)) && !this.p.requireSelection) {
-            this.processValue();
-            e.stop();
-        } else if (e.keyCode == 188) {
-            e.stop();
-        }
-    },
-
-    honorReturn: function()
-    {
-        return (this.aac.knl && !this.aac.knl.getCurrentEntry()) ||
-               !this.aac.knl;
-    },
-
     processValue: function()
     {
         var value = $F(this.p.trigger).replace(/^,/, '').strip();
@@ -233,6 +205,13 @@ var PrettyAutocompleter = Class.create({
         return true;
     },
 
+    removeItemNode: function(elt)
+    {
+        var value = elt.remove().retrieve('raw');
+        this.updateHiddenInput();
+        this.p.onRemove(value);
+    },
+
     deleteImg: function()
     {
         if (!this.dimg) {
@@ -275,11 +254,13 @@ var PrettyAutocompleter = Class.create({
         return this.currentEntries().invoke('retrieve', 'raw');
     },
 
-    removeItemNode: function(elt)
+    filterChoices: function(c)
     {
-        var value = elt.remove().retrieve('raw');
-        this.updateHiddenInput();
-        this.p.onRemove(value);
+        var cv = this.currentValues();
+
+        return c.select(function(v) {
+            return !cv.include(v);
+        });
     },
 
     disable: function()
@@ -303,6 +284,12 @@ var PrettyAutocompleter = Class.create({
         this.input.enable();
     },
 
+    honorReturn: function()
+    {
+        return (this.aac.knl && !this.aac.knl.getCurrentEntry()) ||
+               !this.aac.knl;
+    },
+
     clickHandler: function(e)
     {
         var elt = e.element();
@@ -324,13 +311,21 @@ var PrettyAutocompleter = Class.create({
         e.stop();
     },
 
-    filterChoices: function(c)
+    keyDownHandler: function(e)
     {
-        var cv = this.currentValues();
+        // Check for a comma or enter
+        if ((e.keyCode == 188 || (this.honorReturn() && e.keyCode == Event.KEY_RETURN)) && !this.p.requireSelection) {
+            this.processValue();
+            e.stop();
+        } else if (e.keyCode == 188) {
+            e.stop();
+        }
+    },
 
-        return c.select(function(v) {
-            return !cv.include(v);
-        });
+    blur: function()
+    {
+        this.processValue();
+        this.resize();
     },
 
     knlShow: function(l)
@@ -341,5 +336,11 @@ var PrettyAutocompleter = Class.create({
     knlHide: function(l)
     {
         this.input.observe('blur', this.boundProcessValue);
+    },
+
+    shutdown: function()
+    {
+        this.processValue();
     }
+
 });
