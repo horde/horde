@@ -84,7 +84,8 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
      * 2.10.0).
      *
      * The object may include a 'msgs' property, which is an array of
-     * notification message objects with 2 properties: message and type.
+     * notification message objects with 3 properties: flags, message, and
+     * type.
      *
      * The object may include a 'tasks' property, which is an array of
      * keys (task names) / values (task data).
@@ -105,7 +106,14 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
         ));
 
         if (!empty($stack)) {
-            $ob->msgs = $stack;
+            $ob->msgs = array();
+            foreach ($stack as $val) {
+                $ob->msgs[] = array_filter(array(
+                    'flags' => $val->flags,
+                    'message' => $val->message,
+                    'type' => $val->type
+                ));
+            }
         }
 
         foreach ($page_output->hsl as $val) {
