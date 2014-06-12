@@ -2359,7 +2359,7 @@
   </release>
   <release>
    <version>
-    <release>4.2.0beta3</release>
+    <release>4.2.0RC1</release>
     <api>4.2.0</api></version>
    <stability>
     <release>beta</release>
@@ -2367,7 +2367,9 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix navigating free/busy dates.
+* [jan] Fix hover style in year view (Bug #13057).
+* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
    </notes>
   </release>
   <release>

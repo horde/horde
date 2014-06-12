@@ -6256,7 +6256,7 @@ KronolithCore = {
     attendeeStartDateHandler: function(start)
     {
         this.attendees.each(function(attendee) {
-            this.insertFreeBusy(attendee.e, start);
+            this.insertFreeBusy(attendee.l, start);
         }, this);
     },
 
