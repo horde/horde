@@ -38,13 +38,13 @@ http://www.horde.org/apps/kronolith/docs/INSTALL
 
 The major changes compared to Kronolith version H5 (4.2.0beta2) are:
     * Updated translations.
-    * Small bugfix.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
 Updated translations.
-Small bugfix.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Kronolith';
