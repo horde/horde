@@ -313,6 +313,19 @@ var PrettyAutocompleter = Class.create({
 
     keyDownHandler: function(e)
     {
+        var tmp;
+
+        switch (e.which || e.keyCode || e.charCode) {
+        case Event.KEY_DELETE:
+        case Event.KEY_BACKSPACE:
+            if (!$F(this.input).length &&
+                (tmp = this.currentEntries().last())) {
+                this.updateInput(tmp);
+                e.stop();
+                return;
+            }
+        }
+
         // Check for a comma or enter
         if ((e.keyCode == 188 || (this.honorReturn() && e.keyCode == Event.KEY_RETURN)) && !this.p.requireSelection) {
             this.processValue();
