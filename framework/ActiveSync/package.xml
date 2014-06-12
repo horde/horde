@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent sending non-UTF8 data due to meeting response emails.
+* [mjr] Remove Horde::debug output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2208,7 +2209,8 @@
    <date>2014-06-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent sending non-UTF8 data due to meeting response emails.
+* [mjr] Remove Horde::debug output.
    </notes>
   </release>
  </changelog>
