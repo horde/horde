@@ -5,11 +5,18 @@
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @copyright  2008-2014 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
+ *
+ * @todo H6 Extract common code between this class and IMP's version. Use custom
+ * events instead of passing handlers.
  */
 
 var PrettyAutocompleter = Class.create({
 
+    // Autocompleter
     aac: null,
+
+    // Delete image element.
+    dimg: null,
 
     // required params:
     //   deleteImg
@@ -22,12 +29,10 @@ var PrettyAutocompleter = Class.create({
             boxClass: 'hordeACBox',
             // <ul> CSS class
             listClass: 'hordeACList',
+            listClassItem: 'hordeACListItem',
             // CSS class for real input field
             growingInputClass: 'hordeACTrigger',
-            // Dom id for <li> that holds the input field.
-            triggerContainer: 'hordeACTriggerContainer',
-            // Min pixel width of input field
-            minTriggerWidth: 100,
+            removeClass: 'hordeACItemRemove',
             // Allow for a function that filters the display value
             // This function should *always* return escaped HTML
             displayFilter: function(t) { return t.escapeHTML(); },
@@ -38,14 +43,10 @@ var PrettyAutocompleter = Class.create({
             existing: []
         }, params || {});
 
-        // Array to hold the currently selected items to ease with removing
-        // them, assuring no duplicates etc..
-        this.selectedItems = [];
-
         // The original input element is transformed into the hidden input
-        // field that hold the text values (p.items), while p.trigger is
+        // field that hold the text values (this.elm), while p.trigger is
         // the borderless input field located in p.box
-        this.p.items = element;
+        this.elm = $(element);
         this.p.trigger = element + 'real';
         this.initialized = false;
         this._enabled = true;
@@ -66,20 +67,22 @@ var PrettyAutocompleter = Class.create({
 
         // Remember the bound method to unregister later.
         this._boundProcessValue = this._processValue.bind(this);
-        var trigger = $(this.p.trigger);
+        var trigger = this.input;
         trigger.observe('keydown', this._onKeyDown.bindAsEventListener(this));
         trigger.observe('blur', this._boundProcessValue);
 
         // Make sure the p.items element is hidden
         if (!this.p.debug) {
-            $(this.p.items).hide();
+            this.elm.hide();
         }
 
         // Set the updateElement callback
         this.p.onSelect = this._updateElement.bind(this);
 
         // Look for clicks on the box to simulate clicking in an input box
-        $(this.p.box).observe('click', function() { trigger.focus(); });
+        this.box.observe('click', this.clickHandler.bindAsEventListener(this));
+        this.box.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
+
         trigger.observe('blur', this._resize.bind(this));
         trigger.observe('keydown', this._resize.bind(this));
         trigger.observe('keypress', this._resize.bind(this));
@@ -108,20 +111,13 @@ var PrettyAutocompleter = Class.create({
         if (!this.initialized) {
             this.init();
         }
-        existing = existing || [];
-
-        // TODO: Resize the trigger field to fill the current line?
-        // Clear any existing values
-        if (this.selectedItems.length) {
-            $(this.p.box).select('li.' + this.p.listClass + 'Item').each(function(item) {
-                this.removeItemNode(item);
-            }.bind(this));
-        }
-
-        // Clear the hidden items field
-        $(this.p.items).value = '';
+        this.currentEntries().each(function(elt) {
+            this.removeItemNode(elt);
+        }.bind(this));
+        this.updateInput('');
 
         // Add any initial values
+        existing = existing || [];
         if (existing.length) {
             for (var i = 0, l = existing.length; i < l; i++) {
                 this.addNewItemNode(existing[i]);
@@ -133,32 +129,25 @@ var PrettyAutocompleter = Class.create({
     buildStructure: function()
     {
         // Build the outter box
-        var box = new Element('div', { id: this.p.box, className: this.p.boxClass }).setStyle({ position: 'relative' }),
+        this.box = new Element('div', { id: this.p.box, className: this.p.boxClass }).setStyle({ position: 'relative' });
 
-        // The list - where the choosen items are placed as <li> nodes
-            list = new Element('ul', { className: this.p.listClass }),
-
-        // The input element and the <li> wraper
-            inputListItem = new Element('li', { id: this.p.triggerContainer }),
-            growingInput = new Element('input', {
+        this.input = new Element('input', {
                 className: this.p.growingInputClass,
                 id: this.p.trigger,
                 name: this.p.trigger,
                 autocomplete: 'off' });
 
-        // Create a hidden span node to help calculate the needed size
-        // of the input field.
-        this.sizer = new Element('span').setStyle({ cssFloat: 'left', display: 'inline-block', position: 'absolute', left: '-1000px' });
-
-        inputListItem.update(growingInput);
-        list.update(inputListItem);
-        box.update(list);
-        box.insert(this.sizer);
+        this.box.insert(
+            // The list - where the choosen items are placed as <li> nodes
+            new Element('ul', { className: this.p.listClass }).insert(
+                new Element('li').update(this.input)
+            )
+        );
 
         // Replace the single input element with the new structure and
         // move the old element into the structure while making sure it's
         // hidden. (Use the long form to play nice with Opera)
-        box.insert(Element.replace($(this.p.items), box));
+        this.box.insert(Element.replace(this.elm, this.box));
     },
 
     shutdown: function()
@@ -195,12 +184,9 @@ var PrettyAutocompleter = Class.create({
 
     _resize: function()
     {
-        var newSize;
-
-        this.sizer.update($(this.p.trigger).value);
-        newSize = Math.min(this.sizer.getWidth(), $(this.p.box).getWidth());
-        newSize = Math.max(newSize, this.p.minTriggerWidth);
-        $(this.p.trigger).setStyle({ width: newSize + 'px' });
+        this.input.setStyle({
+            width: Math.max(80, $F(this.input).length * 9) + 'px'
+        });
     },
 
     // Used as the updateElement callback.
@@ -218,47 +204,78 @@ var PrettyAutocompleter = Class.create({
      */
     addNewItemNode: function(value)
     {
-        var displayValue, newItem, x;
+        var displayValue;
 
-        // Don't add if it's already present.
-        for (x = 0, len = this.selectedItems.length; x < len; x++) {
-            if (this.selectedItems[x].rawValue == value) {
-                $(this.p.trigger).value = '';
-                return false;
-            }
+        if (value.empty() || !this._filterChoices([ value ]).size()) {
+            return false;
         }
 
         displayValue = this.p.displayFilter(value);
-        newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue);
-        x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
-        x.observe('click', this._removeItemHandler.bindAsEventListener(this));
-        newItem.insert(x);
-        $(this.p.triggerContainer).insert({ before: newItem });
-        $(this.p.trigger).value = '';
+
+        this.input.up('li').insert({
+            before: new Element('li', { className: this.p.listClassItem })
+                .update(displayValue)
+                .insert(this.deleteImg().clone(true).show())
+                .store('raw', value)
+        });
+        this.input.value = '';
 
         // Add to hidden input field.
-        if ($(this.p.items).value) {
-            $(this.p.items).value = $(this.p.items).value + ', ' + value;
+        if (this.elm.value) {
+            this.elm.value = this.elm.value + ', ' + value;
         } else {
-            $(this.p.items).value = value;
+            this.elm.value = value;
         }
-
-        // ...and keep the selectedItems array up to date.
-        this.selectedItems.push({ rawValue: value, displayValue: displayValue });
 
         return true;
     },
 
-    removeItemNode: function(item)
+    deleteImg: function()
     {
-        var x, value = item.collectTextNodesIgnoreClass('informal');
-        for (x = 0, len = this.selectedItems.length; x < len; x++) {
-            if (this.selectedItems[x].displayValue.unescapeHTML() == value) {
-               this.selectedItems.splice(x, 1);
-               break;
-            }
+        if (!this.dimg) {
+            this.dimg = new Element('img', {
+                className: this.p.removeClass,
+                src: this.p.deleteIcon
+            }).hide();
+            this.box.insert(this.dimg);
         }
-        item.remove();
+
+        return this.dimg;
+    },
+
+    updateInput: function(input)
+    {
+        var raw;
+
+        if (Object.isElement(input)) {
+            raw = input.retrieve('raw');
+            this.removeItemNode(input);
+        } else {
+            raw = input;
+        }
+        this.input.setValue(raw);
+        this._resize();
+    },
+
+    updateHiddenInput: function()
+    {
+        this.elm.setValue(this.currentValues().join(', '));
+    },
+
+    currentEntries: function()
+    {
+        return this.input.up('ul').select('li.' + this.p.listClassItem);
+    },
+
+    currentValues: function()
+    {
+        return this.currentEntries().invoke('retrieve', 'raw');
+    },
+
+    removeItemNode: function(elt)
+    {
+        var value = elt.remove().retrieve('raw');
+        this.updateHiddenInput();
         this.p.onRemove(value);
     },
 
@@ -269,8 +286,8 @@ var PrettyAutocompleter = Class.create({
       }
 
       this._enabled = false;
-      $(this.p.box).select('.hordeACItemRemove').invoke('toggle');
-      $(this.p.trigger).disable();
+      this.box.select('.hordeACItemRemove').invoke('toggle');
+      this.input.disable();
     },
 
     enable: function()
@@ -279,35 +296,47 @@ var PrettyAutocompleter = Class.create({
             return;
         }
         this._enabled = true;
-        $(this.p.box).select('.hordeACItemRemove').invoke('toggle');
-        $(this.p.trigger).enable();
+        this.box.select('.hordeACItemRemove').invoke('toggle');
+        this.input.enable();
     },
 
-    _removeItemHandler: function(e)
+    clickHandler: function(e)
     {
-        var realValues = [], x, len;
-        this.removeItemNode(e.element().up());
-        for (x = 0, len = this.selectedItems.length; x < len; x++) {
-            realValues.push(this.selectedItems[x].rawValue);
+        var elt = e.element();
+        if (elt.hasClassName(this.p.removeClass)) {
+            this.removeItemNode(elt.up('li'));
         }
-        $(this.p.items).value = realValues.join(',');
+        this.input.focus();
+    },
+
+    dblclickHandler: function(e)
+    {
+        var elt = e.findElement('li');
+        if (elt) {
+            this.addNewItemNode($F(this.input));
+            this.updateInput(elt);
+        } else {
+            this.input.focus();
+        }
+        e.stop();
     },
 
     _filterChoices: function(c)
     {
-        this.selectedItems.each(function(item) {
-            c = c.without(item.rawValue);
+        var cv = this.currentValues();
+
+        return c.select(function(v) {
+            return !cv.include(v);
         });
-        return c;
     },
 
     _knvShow: function(l)
     {
-        $(this.p.trigger).stopObserving('blur', this._boundProcessValue);
+        this.input.stopObserving('blur', this._boundProcessValue);
     },
 
     _knvHide: function(l)
     {
-        $(this.p.trigger).observe('blur', this._boundProcessValue);
+        this.input.observe('blur', this._boundProcessValue);
     }
 });
