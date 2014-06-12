@@ -1095,7 +1095,7 @@ class Horde_ActiveSync_Imap_Adapter
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             if ($mime_part = $imap_message->hasiCalendar()) {
-                $data = $mime_part->getContents();
+                $data = Horde_ActiveSync_Utils::ensureUtf8($mime_part->getContents(), $mime_part->getCharset());
                 $vCal = new Horde_Icalendar();
                 if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
                     try {
