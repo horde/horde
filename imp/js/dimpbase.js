@@ -4119,7 +4119,7 @@ var IMP_Flist_Mbox = Class.create({
     {
         var div, f_node, ll, parent_c, parent_e, tmp,
             cname = 'imp-sidebar-container',
-            mbox = flist.getMbox(ob.m),
+            mbox = (!ob.isfake && flist.getMbox(ob.m)),
             title = ob.t || ob.l;
 
         if (ob.s) {
@@ -4128,7 +4128,9 @@ var IMP_Flist_Mbox = Class.create({
             if (ob.ch) {
                 ob.fake = new IMP_Flist_Mbox(flist, Object.extend(Object.clone(ob), {
                     co: true,
+                    isfake: true,
                     l: title,
+                    ns: false,
                     s: false
                 }));
             } else if (mbox && mbox.fake()) {
