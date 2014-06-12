@@ -1293,7 +1293,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
             // Should we import an iTip response if we have one and we are in
             // the INBOX?
-            if ($folder_split[self::FOLDER_PART_ID] == 'INBOX' &&
+            if ($folderid == 'INBOX' &&
                 $this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
                 $msg->contentclass == 'urn:content-classes:calendarmessage') {
 
