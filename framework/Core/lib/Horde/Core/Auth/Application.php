@@ -672,7 +672,14 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             if (empty($conf['user']['select_view'])) {
                 $mode = 'auto';
             } else {
-                setcookie('default_horde_view', $mode, time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
+                /* 'auto' is default, so don't store in cookie. */
+                setcookie(
+                    'default_horde_view',
+                    ($mode == 'auto') ? '' : $mode,
+                    time() + (($mode == 'auto') ? -3600 : (30 * 86400)),
+                    $conf['cookie']['path'],
+                    $conf['cookie']['domain']
+                );
             }
         } else {
             // Forcing mode as per config.
