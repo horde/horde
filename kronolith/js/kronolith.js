@@ -6146,8 +6146,8 @@ KronolithCore = {
 
     checkOrganizerAsAttendee: function()
     {
-        if (HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.length == 1 &&
-            HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.first().rawValue != Kronolith.conf.email) {
+        var values = HordeImple.AutoCompleter.kronolithEventAttendees.currentValues();
+        if (values.length == 1 && values.first() != Kronolith.conf.email) {
             // Invite the organizer of this event to the new event.
             HordeImple.AutoCompleter.kronolithEventAttendees.addNewItemNode(Kronolith.conf.email);
             this.addAttendee(Kronolith.conf.email);
