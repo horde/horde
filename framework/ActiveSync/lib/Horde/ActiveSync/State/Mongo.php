@@ -1417,12 +1417,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             self::SYNC_USER => $this->_deviceInfo->user,
             self::MESSAGE_UID => array('$in' => $ids)
         );
-        Horde::debug($query);
         $rows = $this->_db->selectCollection(self::COLLECTION_MAILMAP)->find(
             $query,
             array(self::MESSAGE_UID, self::SYNC_READ, self::SYNC_FLAGGED, self::SYNC_DELETED, self::SYNC_CHANGED)
         );
-Horde::debug($rows);
         $results = array();
         foreach ($rows as $row) {
             foreach ($changes as $change) {
