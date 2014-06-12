@@ -459,7 +459,6 @@ abstract class Horde_ActiveSync_State_Base
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
                         Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
                     );
-                    Horde::debug($mailmap);
                     foreach ($changes as $change) {
                         if (!empty($mailmap[$change['id']][$change['type']])) {
                             // @todo For 3.0, create a Changes and
