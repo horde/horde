@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[jan] Fix navigating free/busy dates.
 [jan] Fix hover style in year view (Bug #13057).
 [jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
 

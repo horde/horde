@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix navigating free/busy dates.
 * [jan] Fix hover style in year view (Bug #13057).
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
  </notes>
@@ -2368,6 +2369,7 @@
    <date>2014-06-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix navigating free/busy dates.
 * [jan] Fix hover style in year view (Bug #13057).
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
    </notes>
