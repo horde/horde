@@ -853,13 +853,11 @@ var DimpBase = {
         });
     },
 
-    addViewportParams: function(params)
+    addViewportParams: function(params, vs)
     {
-        var tmp = this.viewport.addRequestParams();
-        if (params) {
-            tmp.update(params);
-        }
-        return tmp;
+        return this.viewport.addRequestParams(params, {
+            view: (vs ? vs.getBuffer().getView() : null)
+        });
     },
 
     emptyMsg: function()
@@ -3638,7 +3636,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.addViewportParams(args), {
+            DimpCore.doAction(type, this.addViewportParams(args, vs), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
                 uids: vs
@@ -3702,7 +3700,7 @@ var DimpBase = {
             DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
                 add: ~~(!!add),
                 flags: Object.toJSON([ flag ])
-            })), {
+            }), vs), {
                 uids: vs
             });
         }
