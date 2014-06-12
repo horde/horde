@@ -853,9 +853,9 @@ var DimpBase = {
         });
     },
 
-    addViewportParams: function(params, vs)
+    addViewportParams: function(vs)
     {
-        return this.viewport.addRequestParams(params, {
+        return this.viewport.addRequestParams({}, {
             view: (vs ? vs.getBuffer().getView() : null)
         });
     },
@@ -1783,7 +1783,7 @@ var DimpBase = {
         }
         params.preview = 1;
 
-        DimpCore.doAction('showMessage', this.addViewportParams(params), {
+        DimpCore.doAction('showMessage', this.addViewportParams().merge(params), {
             callback: function(r) {
                 if (!r) {
                     this.clearPreviewPane();
@@ -2342,7 +2342,7 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('copyMessages', this.addViewportParams({
+                    DimpCore.doAction('copyMessages', this.addViewportParams().merge({
                         mboxto: drop.value()
                     }), {
                         uids: uids
@@ -2350,7 +2350,7 @@ var DimpBase = {
                 } else if (this.view != drop.value()) {
                     // Don't allow drag/drop to the current mailbox.
                     this.updateFlag(uids, DimpCore.conf.FLAG_DELETED, true);
-                    DimpCore.doAction('moveMessages', this.addViewportParams({
+                    DimpCore.doAction('moveMessages', this.addViewportParams().merge({
                         mboxto: drop.value()
                     }), {
                         uids: uids
@@ -2951,7 +2951,7 @@ var DimpBase = {
                 e.memo.stop();
             } else if (elt.hasClassName('stripAtc')) {
                 if (window.confirm(DimpCore.text.strip_warn)) {
-                    DimpCore.doAction('stripAttachment', this.addViewportParams({
+                    DimpCore.doAction('stripAttachment', this.addViewportParams().merge({
                         id: elt.readAttribute('mimeid')
                     }), {
                         callback: function(r) {
@@ -3019,7 +3019,7 @@ var DimpBase = {
             break;
 
         case 'flag_new':
-            DimpCore.doAction('createFlag', this.addViewportParams({
+            DimpCore.doAction('createFlag', this.addViewportParams().merge({
                 flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
                 flagname: $F(elt.down('INPUT[name="flagname"]'))
             }), {
@@ -3636,7 +3636,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.addViewportParams(args, vs), {
+            DimpCore.doAction(type, this.addViewportParams(vs).merge(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
                 uids: vs
@@ -3686,7 +3686,6 @@ var DimpBase = {
         opts = opts || {};
 
         var need,
-            params = $H(opts.params),
             vs = this._getSelection(opts);
 
         need = !vs.getBuffer().getMetaData('readonly') &&
@@ -3697,10 +3696,10 @@ var DimpBase = {
             });
 
         if (need) {
-            DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
+            DimpCore.doAction('flagMessages', this.addViewportParams(vs).merge(opts.params).merge({
                 add: ~~(!!add),
                 flags: Object.toJSON([ flag ])
-            }), vs), {
+            }), {
                 uids: vs
             });
         }
