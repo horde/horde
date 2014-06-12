@@ -6216,7 +6216,7 @@ KronolithCore = {
             var from = new Date(), to = new Date(), left;
             from.setTime(busy.key * 1000);
             to.setTime(busy.value * 1000);
-            if (from.isAfter(end) || to.isBefore(start)) {
+            if (!end.isAfter(from) || to.isBefore(start)) {
                 return;
             }
             if (from.isBefore(start)) {

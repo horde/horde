@@ -2367,6 +2367,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix free/busy display with 24-hours-busy days.
 * [jan] Fix navigating free/busy dates.
 * [jan] Fix hover style in year view (Bug #13057).
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
