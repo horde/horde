@@ -114,12 +114,12 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             return $this->_listCalDAVEvents(
                 $startDate, $endDate, $options['show_recurrence'],
                 $options['has_alarm'], $options['json'],
-                $options['cover_dates']);
+                $options['cover_dates'], $options['hide_exceptions']);
         }
         return $this->_listWebDAVEvents(
             $startDate, $endDate, $options['show_recurrence'],
             $options['has_alarm'], $options['json'],
-            $options['cover_dates']);
+            $options['cover_dates'], $options['hide_exceptions']);
     }
 
     /**
@@ -137,14 +137,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
+     * $param boolean $hideExceptions    Hide events that represent exceptions
+     *                                   to a recurring event.
      *
      * @return array  Events in the given time range.
      * @throws Kronolith_Exception
      */
-    protected function _listWebDAVEvents($startDate = null, $endDate = null,
-                                         $showRecurrence = false,
-                                         $hasAlarm = false, $json = false,
-                                         $coverDates = true)
+    protected function _listWebDAVEvents(
+        $startDate = null, $endDate = null, $showRecurrence = false,
+        $hasAlarm = false, $json = false, $coverDates = true,
+        $hideExceptions = false
+    )
     {
         $ical = $this->getRemoteCalendar();
 
@@ -166,8 +169,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $endDate->min = $endDate->sec = 59;
 
         $results = array();
-        $this->_processComponents($results, $ical, $startDate, $endDate,
-                                  $showRecurrence, $json, $coverDates);
+        $this->_processComponents(
+            $results, $ical, $startDate, $endDate, $showRecurrence, $json,
+            $coverDates, $hideExceptions
+        );
 
         return $results;
     }
@@ -187,14 +192,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
+     * $param boolean $hideExceptions    Hide events that represent exceptions
+     *                                   to a recurring event.
      *
      * @return array  Events in the given time range.
      * @throws Kronolith_Exception
      */
-    protected function _listCalDAVEvents($startDate = null, $endDate = null,
-                                         $showRecurrence = false,
-                                         $hasAlarm = false, $json = false,
-                                         $coverDates = true)
+    protected function _listCalDAVEvents(
+        $startDate = null, $endDate = null, $showRecurrence = false,
+        $hasAlarm = false, $json = false, $coverDates = true,
+        $hideExceptions = false
+    )
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
@@ -265,9 +273,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             } catch (Horde_Icalendar_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
-            $this->_processComponents($results, $ical, $startDate, $endDate,
-                                      $showRecurrence, $json, $coverDates,
-                                      trim(str_replace($path, '', $response->href), '/'));
+            $this->_processComponents(
+                $results, $ical, $startDate, $endDate, $showRecurrence, $json,
+                $coverDates, $hideExceptions,
+                trim(str_replace($path, '', $response->href), '/')
+            );
         }
 
         return $results;
@@ -290,13 +300,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
+     * $param boolean $hideExceptions    Hide events that represent exceptions
+     *                                   to a recurring event.
      * @param string $id                 Enforce a certain event id (not UID).
      *
      * @throws Kronolith_Exception
      */
-    protected function _processComponents(&$results, $ical, $startDate,
-                                          $endDate, $showRecurrence, $json,
-                                          $coverDates, $id = null)
+    protected function _processComponents(
+        &$results, $ical, $startDate, $endDate, $showRecurrence, $json,
+        $coverDates, $hideExceptions, $id = null
+    )
     {
         $components = $ical->getComponents();
         $events = array();
@@ -318,6 +331,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                         is_string($uid = $component->getAttribute('UID')) &&
                         is_int($seq = $component->getAttribute('SEQUENCE'))) {
                         $exceptions[$uid][$seq] = $recurrence_id;
+                        if ($hideExceptions) {
+                            continue;
+                        }
                         $event->id .= '/' . $recurrence_id;
                     }
                 } catch (Horde_Icalendar_Exception $e) {}
