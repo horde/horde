@@ -648,5 +648,17 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                 )
             )
         );
+        $this->assertEquals(
+            'cn=John+sn=Smith+o=Acme Inc.',
+            Horde_Ldap::quoteDN(
+                array(
+                    array(
+                        array('cn', 'John'),
+                        array('sn', 'Smith'),
+                        array('o', 'Acme Inc.'),
+                    ),
+                )
+            )
+        );
     }
 }
