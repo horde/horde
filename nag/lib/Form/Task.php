@@ -96,7 +96,6 @@ class Nag_Form_Task extends Horde_Form
         $delete = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && $vars->get('task_id');
 
         if (!$vars->get('mobile')) {
-            $users = array();
             $users = $share->listUsers(Horde_Perms::READ);
             $groups = $share->listGroups(Horde_Perms::READ);
             if (count($groups)) {
