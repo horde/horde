@@ -1546,23 +1546,29 @@ class Horde_Ldap
      */
     public static function quoteDN($parts)
     {
-        return implode(
-            ',',
-            array_map(
-                function($attribute)
-                {
-                    if (is_array($attribute[0])) {
-                        return implode(
-                            '+',
-                            array_map('self::_quoteRDN', $attribute)
-                        );
-                    } else {
-                        return self::_quoteRDN($attribute);
-                    }
-                },
-                $parts
-            )
-        );
+        return implode(',', array_map('self::_quoteRDNs', $parts));
+    }
+
+    /**
+     * Takes a single or a list of RDN arrays with an attribute name and value
+     * and properly quotes it according to RFC 1485.
+     *
+     * @param array $attribute  A tuple or array of tuples containing the
+     *                          attribute name and that attribute's value which
+     *                          make up the RDN.
+     *
+     * @return string  The properly quoted string RDN.
+     */
+    protected static function _quoteRDNs($attribute)
+    {
+        if (is_array($attribute[0])) {
+            return implode(
+                '+',
+                array_map('self::_quoteRDN', $attribute)
+            );
+        } else {
+            return self::_quoteRDN($attribute);
+        }
     }
 
     /**

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
+* [jan] Fix compatibility with PHP 5.3 (Bug #11888).
 * [jan] Allow to specify base DN for searching user DNs.
  </notes>
  <contents>
@@ -456,6 +457,7 @@
    <date>2014-06-11</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
+* [jan] Fix compatibility with PHP 5.3 (Bug #11888).
 * [jan] Allow to specify base DN for searching user DNs.
    </notes>
   </release>
