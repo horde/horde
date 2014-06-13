@@ -48,7 +48,7 @@ var PrettyAutocompleter = Class.create({
         // The original input element is transformed into the hidden input
         // field that hold the text values (this.elm), while p.trigger is
         // the borderless input field located in p.box
-        this.elm = $(element);
+        this.elm = element;
         this.p.trigger = element + 'real';
         this.initialized = false;
         this.enabled = true;
@@ -69,7 +69,7 @@ var PrettyAutocompleter = Class.create({
 
         // Make sure the original input box element is hidden
         if (!this.p.debug) {
-            this.elm.hide();
+            $(this.elm).hide();
         }
 
         // Set the updateElement callback to pass to the Autocompleter.
@@ -150,7 +150,7 @@ var PrettyAutocompleter = Class.create({
         // Replace the single input element with the new structure and
         // move the old element into the structure while making sure it's
         // hidden. (Use the long form to play nice with Opera)
-        this.box.insert(Element.replace(this.elm, this.box));
+        this.box.insert(Element.replace($(this.elm), this.box));
     },
 
     processValue: function()
@@ -241,7 +241,7 @@ var PrettyAutocompleter = Class.create({
 
     updateHiddenInput: function()
     {
-        this.elm.setValue(this.currentValues().join(', '));
+        $(this.elm).setValue(this.currentValues().join(', '));
     },
 
     currentEntries: function()
