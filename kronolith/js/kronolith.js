@@ -2164,7 +2164,7 @@ KronolithCore = {
     {
         var calendar = event.calendar.split('|'),
             span = new Element('span'),
-            time;
+            time, end;
         opts = Object.extend({ time: false }, opts || {});
 
         div.update();
@@ -2175,7 +2175,13 @@ KronolithCore = {
             time = new Element('span', { className: 'kronolith-time' })
                 .insert(event.start.toString(Kronolith.conf.time_format));
             if (!event.start.equals(event.end)) {
-                time.insert('-' + event.end.toString(Kronolith.conf.time_format));
+                end = event.end.clone();
+                if (end.getHours() == 23 &&
+                    end.getMinutes() == 59 &&
+                    end.getSeconds() == 59) {
+                    end.add(1).second();
+                }
+                time.insert('-' + end.toString(Kronolith.conf.time_format));
             }
             div.insert(time).insert(' ');
         }
