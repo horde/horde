@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix error when deleting unselected calendars.
 * [jan] Improve DTEND compatibility with other programs using iCalendar.
 * [mjr] Fix sending iTip invitations when Save As New is used (Bug #13239).
 * [jan] Fix free/busy display with 24-hours-busy days.
@@ -2372,6 +2373,7 @@
    <date>2014-06-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix error when deleting unselected calendars.
 * [jan] Improve DTEND compatibility with other programs using iCalendar.
 * [mjr] Fix sending iTip invitations when Save As New is used (Bug #13239).
 * [jan] Fix free/busy display with 24-hours-busy days.
