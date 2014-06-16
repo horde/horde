@@ -48,6 +48,6 @@ class Kronolith_Integration_Kronolith_KolabTest extends Kronolith_Integration_Kr
 
     public function setUp()
     {
-        $this->markTestSkipped("No query of type 'Share' registered!");
+        $this->markTestIncomplete("No query of type 'Share' registered!");
     }
 }
