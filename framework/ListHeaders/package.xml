@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-10</date>
+ <date>2014-06-16</date>
  <version>
   <release>1.1.4</release>
   <api>1.1.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Spanish translation (Manuel Perez Ayala &lt;mperaya@alcazaba.unex.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -59,6 +59,12 @@
       <file name="Horde_ListHeaders.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ListHeaders.mo" role="data" />
+      <file name="Horde_ListHeaders.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_ListHeaders.mo" role="data" />
@@ -128,6 +134,8 @@
    <install as="locale/da/LC_MESSAGES/Horde_ListHeaders.po" name="locale/da/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/de/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/de/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_ListHeaders.po" name="locale/de/LC_MESSAGES/Horde_ListHeaders.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.po" name="locale/es/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
@@ -252,10 +260,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-10</date>
+   <date>2014-06-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Spanish translation (Manuel Perez Ayala &lt;mperaya@alcazaba.unex.es&gt;).
    </notes>
   </release>
  </changelog>

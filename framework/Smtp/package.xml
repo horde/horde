@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-10</date>
+ <date>2014-06-16</date>
  <version>
   <release>1.5.2</release>
   <api>1.5.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Spanish translation (Manuel Perez Ayala &lt;mperaya@alcazaba.unex.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -61,6 +61,12 @@
       <file name="Horde_Smtp.po" role="data" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Smtp.mo" role="data" />
+      <file name="Horde_Smtp.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
       <file name="Horde_Smtp.mo" role="data" />
@@ -176,6 +182,8 @@
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
    <install as="locale/da/LC_MESSAGES/Horde_Smtp.mo" name="locale/da/LC_MESSAGES/Horde_Smtp.mo" />
    <install as="locale/da/LC_MESSAGES/Horde_Smtp.po" name="locale/da/LC_MESSAGES/Horde_Smtp.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Smtp.mo" name="locale/es/LC_MESSAGES/Horde_Smtp.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Smtp.po" name="locale/es/LC_MESSAGES/Horde_Smtp.po" />
    <install as="locale/hu/LC_MESSAGES/Horde_Smtp.mo" name="locale/hu/LC_MESSAGES/Horde_Smtp.mo" />
    <install as="locale/hu/LC_MESSAGES/Horde_Smtp.po" name="locale/hu/LC_MESSAGES/Horde_Smtp.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Smtp.mo" name="locale/ja/LC_MESSAGES/Horde_Smtp.mo" />
@@ -407,10 +415,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-10</date>
+   <date>2014-06-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Spanish translation (Manuel Perez Ayala &lt;mperaya@alcazaba.unex.es&gt;).
    </notes>
   </release>
  </changelog>
