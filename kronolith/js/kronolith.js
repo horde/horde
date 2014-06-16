@@ -1257,10 +1257,13 @@ KronolithCore = {
      */
     deleteCalendarLegend: function(type, id)
     {
-        $('kronolith-legend').select('span').find(function(span) {
+        var legend = $('kronolith-legend').select('span').find(function(span) {
             return span.retrieve('calendarclass') == type &&
                 span.retrieve('calendar') == id;
-        }).remove();
+        });
+        if (legend) {
+            legend.remove();
+        }
     },
 
     /**
