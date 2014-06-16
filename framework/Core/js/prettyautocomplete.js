@@ -20,6 +20,9 @@ var PrettyAutocompleter = Class.create({
 
     enabled: false,
 
+    // For BC. Remove in H6.
+    selectedItems: [],
+
     // required params:
     //   deleteImg
     //   uri
@@ -201,8 +204,18 @@ var PrettyAutocompleter = Class.create({
         });
         this.updateInput('');
         this.updateHiddenInput();
+        // Remove in H6.
+        this.updateSelectedItems();
 
         return true;
+    },
+
+    updateSelectedItems: function()
+    {
+        this.selecteItems = [];
+        this.currentValues().each(function(item) {
+            this.selectedItems.push( { rawValue: item });
+        }.bind(this));
     },
 
     removeItemNode: function(elt)
@@ -210,6 +223,7 @@ var PrettyAutocompleter = Class.create({
         var value = elt.remove().retrieve('raw');
         this.updateHiddenInput();
         this.p.onRemove(value);
+        this.updateSelectedItems();
     },
 
     deleteImg: function()
