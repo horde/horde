@@ -4502,6 +4502,7 @@ KronolithCore = {
                 break;
             case 'kronolithEventSaveAsNew':
                 if (!elt.disabled) {
+                    $('kronolithEventSendUpdates').setValue(1);
                     this.saveEvent(true);
                 }
                 e.stop();
