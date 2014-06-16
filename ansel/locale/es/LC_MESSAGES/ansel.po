@@ -1,14 +1,14 @@
-# Spanish translations for Ansel H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Spanish translations for Ansel package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ansel package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel H5 (3.0.0-git)\n"
+"Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -91,7 +91,7 @@ msgstr "%d al %d de %d elementos"
 msgid "%s :: Sort"
 msgstr "%s :: Ordenar"
 
-#: lib/Widget/SimilarPhotos.php:74
+#: lib/Widget/SimilarPhotos.php:75
 #, php-format
 msgid "%s from %s"
 msgstr "%s de %s"
@@ -113,7 +113,7 @@ msgstr "Galerías de %s"
 msgid "%s: faces %s"
 msgstr "%s: rostros %s"
 
-#: lib/Image.php:1082
+#: lib/Image.php:1080
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -146,7 +146,7 @@ msgstr "Se ha denegado el acceso para añadir fotos a esta galería."
 msgid "Access denied adding tags to this gallery."
 msgstr "Se ha denegado el acceso para añadir etiquetas a esta galería."
 
-#: lib/Image.php:1230
+#: lib/Image.php:1228
 msgid "Access denied adding tags to this photo."
 msgstr "Se ha denegado el acceso para añadir etiquetas a esta foto."
 
@@ -166,7 +166,7 @@ msgstr "Se ha denegado el acceso para eliminar las galerías."
 msgid "Access denied deleting photos from this gallery."
 msgstr "Se ha denegado el acceso para eliminar fotos de esta galería."
 
-#: lib/ActionHandler.php:947 lib/ActionHandler.php:972 lib/Api.php:518
+#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:518
 msgid "Access denied deleting this gallery."
 msgstr "Se ha denegado el acceso para eliminar esta galería."
 
@@ -177,7 +177,7 @@ msgstr ""
 "galería."
 
 #: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:900 lib/Image.php:913
+#: lib/ActionHandler.php:901 lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Se ha denegado el acceso para descargar fotos de esta galería."
 
@@ -185,7 +185,7 @@ msgstr "Se ha denegado el acceso para descargar fotos de esta galería."
 msgid "Access denied editing galleries."
 msgstr "Se ha denegado el acceso para modificar las galerías."
 
-#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:824
+#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:825
 #: lib/Faces/Base.php:434 lib/Faces/Base.php:522
 msgid "Access denied editing the photo."
 msgstr "Se ha denegado el acceso para modificar la foto."
@@ -225,7 +225,7 @@ msgid "Access denied viewing this gallery."
 msgstr "Se ha denegado el acceso para ver esta galería."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1192
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1190
 msgid "Access denied viewing this photo."
 msgstr "Se ha denegado el acceso para ver esta foto."
 
@@ -282,7 +282,7 @@ msgstr "Añadir una galería"
 msgid "Administrators"
 msgstr "Administradores"
 
-#: report.php:45
+#: report.php:52
 msgid "Advertisement content"
 msgstr "Contenido publicitario"
 
@@ -311,7 +311,7 @@ msgid "An error has occured retrieving the image. Details have been logged."
 msgstr ""
 "Se produjo un error al recuperar la imagen. Se han registrado los detalles."
 
-#: config/prefs.php:189 templates/gallery/properties.html.php:110
+#: config/prefs.php:183 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr "Cualquiera"
 
@@ -331,11 +331,11 @@ msgstr "Ascendente"
 msgid "Attempt to edit a non-existent share."
 msgstr "Intenta modificar un recurso compartido inexistente."
 
-#: config/prefs.php:190 templates/gallery/properties.html.php:111
+#: config/prefs.php:185 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr "Usuarios autentificados"
 
-#: config/prefs.php:182
+#: config/prefs.php:176
 msgid "Automatically watermark photos?"
 msgstr "¿Añadir marcas de agua a las imágenes de forma automática?"
 
@@ -361,7 +361,7 @@ msgstr "Entrada incorrecta."
 msgid "Basic Thumbnails"
 msgstr "Miniaturas sencillas"
 
-#: config/prefs.php:161 lib/Form/Watermark.php:49
+#: config/prefs.php:155 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr "Abajo"
 
@@ -384,8 +384,8 @@ msgstr "No se puede obtener el tipo de archivo desconocido \"%s\"."
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:256
-#: report.php:43 templates/faces/custom.inc:19 templates/faces/define.inc:39
-#: templates/gallery/delete_confirmation.inc:13
+#: report.php:49 report.php:68 templates/faces/custom.inc:19
+#: templates/faces/define.inc:39 templates/gallery/delete_confirmation.inc:13
 #: templates/gallery/properties.html.php:135 templates/image/crop_image.inc:90
 #: templates/image/edit_image.inc:8 templates/image/resize_image.inc:7
 msgid "Cancel"
@@ -421,7 +421,7 @@ msgstr "Editor de títulos"
 msgid "Captions Saved."
 msgstr "Se han guardado los títulos."
 
-#: config/prefs.php:149 config/prefs.php:160 lib/Form/Watermark.php:41
+#: config/prefs.php:143 config/prefs.php:154 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr "Centro"
@@ -497,7 +497,7 @@ msgstr[1] "Copiadas %d fotos de %s a %s"
 msgid "Copy"
 msgstr "Copiar"
 
-#: report.php:48
+#: report.php:55
 msgid "Copyright infringement"
 msgstr "Infracción de Copyright"
 
@@ -545,7 +545,7 @@ msgstr "Crear subgalería"
 msgid "Created"
 msgstr "Creado"
 
-#: lib/ActionHandler.php:838 templates/image/crop_image.inc:111
+#: lib/ActionHandler.php:839 templates/image/crop_image.inc:111
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:29
 msgid "Crop"
 msgstr "Recortar"
@@ -562,7 +562,7 @@ msgstr ""
 "Texto personalizado mostrado describiendo las galerías. Se mostrará en vez "
 "del nombre de usuario al agrupar las galerías por nombres de usuario."
 
-#: config/prefs.php:113 config/prefs.php:141
+#: config/prefs.php:135
 msgid "Custom watermark to use for photos"
 msgstr "Marca de agua personalizada a utilizar en las fotos"
 
@@ -619,9 +619,9 @@ msgstr "Modo de visualización"
 
 #: config/prefs.php:12
 msgid "Display Preferences"
-msgstr "Mostrar opciones"
+msgstr "Opciones de visualización"
 
-#: config/prefs.php:248
+#: config/prefs.php:242
 msgid ""
 "Do not use the ajax-enabled uploader? Select this if your browser is having "
 "trouble uploading images with the ajax uploader."
@@ -662,7 +662,7 @@ msgstr "Descargar como archivo zip"
 msgid "Download selected photos"
 msgstr "Descargar fotos seleccionadas"
 
-#: lib/Ansel.php:740
+#: lib/Ansel.php:741
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr ""
@@ -710,7 +710,7 @@ msgstr "Modificar permisos"
 msgid "Edit Permissions for %s"
 msgstr "Modificar permisos de %s"
 
-#: lib/ActionHandler.php:769
+#: lib/ActionHandler.php:770
 msgid "Edit Photo"
 msgstr "Modificar foto"
 
@@ -836,6 +836,10 @@ msgstr "Buscar parecidos"
 msgid "Flip"
 msgstr "Voltear"
 
+#: config/prefs.php:170
+msgid "Font Size"
+msgstr "Tamaño de letra"
+
 #: templates/tile/image.html.php:10
 msgid "From"
 msgstr "De"
@@ -874,7 +878,7 @@ msgstr "Galería"
 msgid "Gallery %s not found."
 msgstr "No se ha encontrado la galería %s."
 
-#: lib/Widget/Actions.php:37
+#: lib/Widget/Actions.php:39
 msgid "Gallery Actions"
 msgstr "Acciones de la galería"
 
@@ -882,7 +886,7 @@ msgstr "Acciones de la galería"
 msgid "Gallery Ages"
 msgstr "Edades de la galería"
 
-#: faces/claim.php:47 faces/report.php:50 report.php:65
+#: faces/claim.php:47 faces/report.php:50 report.php:76
 #: templates/gallery/properties.html.php:63
 msgid "Gallery Description"
 msgstr "Descripción de la galería"
@@ -891,7 +895,7 @@ msgstr "Descripción de la galería"
 msgid "Gallery Display Name"
 msgstr "Nombre visible de la galería"
 
-#: report.php:66
+#: report.php:77
 msgid "Gallery Id"
 msgstr "ID de la galería"
 
@@ -900,7 +904,7 @@ msgid "Gallery List"
 msgstr "Lista de la galería"
 
 #: faces/claim.php:46 faces/report.php:49 lib/Block/MyGalleries.php:70
-#: report.php:64
+#: report.php:75
 msgid "Gallery Name"
 msgstr "Nombre de la galería"
 
@@ -940,11 +944,11 @@ msgstr "Reiniciar el orden de la Galería."
 msgid "Gallery sorted."
 msgstr "Galería ordenada."
 
-#: report.php:75 report.php:78
+#: report.php:86 report.php:89
 msgid "Gallery was not reported."
 msgstr "No se comunicó la galería."
 
-#: report.php:73
+#: report.php:84
 msgid "Gallery was reported."
 msgstr "Se comunicó la galería."
 
@@ -953,7 +957,7 @@ msgstr "Se comunicó la galería."
 msgid "General Preferences"
 msgstr "Pref. generales"
 
-#: config/prefs.php:174 lib/Form/Watermark.php:35
+#: config/prefs.php:168 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr "Gigante"
 
@@ -982,7 +986,7 @@ msgstr "Agrupar galerías por"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Altura del mapa (el ancho se ajusta automáticamente al bloque)"
 
-#: config/prefs.php:152 lib/Form/Watermark.php:43
+#: config/prefs.php:146 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Línea horizontal"
 
@@ -1002,7 +1006,7 @@ msgstr "La imagen ya tiene los atributos existentes."
 msgid "Image not found in gallery."
 msgstr "No se encontró la imagen en la galería"
 
-#: lib/Storage.php:706
+#: lib/Storage.php:704
 msgid "Images not found"
 msgstr "No se encontraron imágenes"
 
@@ -1023,7 +1027,7 @@ msgstr "Entrada %s inválida"
 msgid "Landscape"
 msgstr "Apaisado"
 
-#: config/prefs.php:173 lib/Form/Watermark.php:34
+#: config/prefs.php:167 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr "Grande"
 
@@ -1035,7 +1039,7 @@ msgstr "Última modificación"
 msgid "Learn how to publish photos directly from Windows."
 msgstr "Aprenda cómo publicar fotos directamente desde Windows."
 
-#: config/prefs.php:148 lib/Form/Watermark.php:40
+#: config/prefs.php:142 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr "Izquierda"
 
@@ -1122,7 +1126,7 @@ msgstr "Tamaño máximo de foto:"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Tamaño máximo de foto: %s; con un total de: %s"
 
-#: config/prefs.php:172 lib/Form/Watermark.php:33
+#: config/prefs.php:166 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr "Mediano"
 
@@ -1254,13 +1258,13 @@ msgstr ""
 msgid "No location data present. You may add some %s."
 msgstr "No existen datos de ubicación. Puede añadir algunos %s"
 
-#: config/prefs.php:73 config/prefs.php:200 config/prefs.php:221
-#: config/prefs.php:240 templates/view/gallery.html.php:34
+#: config/prefs.php:73 config/prefs.php:194 config/prefs.php:215
+#: config/prefs.php:234 templates/view/gallery.html.php:34
 #: templates/view/results.html.php:26
 msgid "None"
 msgstr "Ninguna"
 
-#: config/prefs.php:211
+#: config/prefs.php:205
 msgid "None (Owner only)"
 msgstr "Nadie (Sólo el propietario)"
 
@@ -1292,7 +1296,7 @@ msgstr "Número de imágenes por página"
 msgid "Number of tiles per row"
 msgstr "Número de imágenes por fila"
 
-#: report.php:47
+#: report.php:54
 msgid "Offensive content"
 msgstr "Contenido ofensivo"
 
@@ -1478,7 +1482,7 @@ msgstr "Pulse el botón \"Retroceder\" y pruebe otra vez."
 msgid "Preview"
 msgstr "Vista previa"
 
-#: lib/ActionHandler.php:773 lib/ActionHandler.php:842
+#: lib/ActionHandler.php:774 lib/ActionHandler.php:843
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr "Previsualizar cambios de %s :: %s"
@@ -1519,15 +1523,15 @@ msgstr "Galería aleatoria"
 msgid "Random photo"
 msgstr "Foto aleatoria"
 
-#: config/prefs.php:202 config/prefs.php:223
+#: config/prefs.php:196 config/prefs.php:217
 msgid "Read and write"
 msgstr "Leer y escribir"
 
-#: config/prefs.php:224
+#: config/prefs.php:218
 msgid "Read, write, and delete"
 msgstr "Leer, escribir y eliminar"
 
-#: config/prefs.php:201 config/prefs.php:212 config/prefs.php:222
+#: config/prefs.php:195 config/prefs.php:206 config/prefs.php:216
 msgid "Read-only"
 msgstr "Sólo lectura"
 
@@ -1653,7 +1657,7 @@ msgstr "Eliminar etiqueta"
 msgid "Replace photo with this file"
 msgstr "Sustituir foto con este archivo"
 
-#: report.php:43 report.php:62 templates/faces/face.inc:11
+#: report.php:48 report.php:73 templates/faces/face.inc:11
 #: templates/faces/search.inc:15 templates/tile/face.inc:31
 #: templates/view/image.html.php:24 templates/widgets/actions.html.php:46
 msgid "Report"
@@ -1676,11 +1680,11 @@ msgstr "No existe el controlador de notificaciones."
 msgid "Report face"
 msgstr "Notificar rostro"
 
-#: report.php:57 report.php:68
+#: report.php:64 report.php:79
 msgid "Report reason"
 msgstr "Motivo de la notificación"
 
-#: report.php:56 report.php:67
+#: report.php:63 report.php:78
 msgid "Report type"
 msgstr "Tipo de notificación"
 
@@ -1710,7 +1714,7 @@ msgstr "Redimensionar"
 msgid "Return to image view"
 msgstr "Volver a la vista de imágenes"
 
-#: config/prefs.php:150 lib/Form/Watermark.php:42
+#: config/prefs.php:144 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr "Derecha"
 
@@ -1852,7 +1856,7 @@ msgstr "Definir permisos"
 msgid "Shadowed Thumbnails (White Background)"
 msgstr "Miniaturas sombreadas (Fondo blanco)"
 
-#: config/prefs.php:242
+#: config/prefs.php:236
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1893,7 +1897,7 @@ msgstr ""
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr "Los IDs de galería permiten el acceso directo a la galería visitando:"
 
-#: config/prefs.php:171 lib/Form/Watermark.php:32
+#: config/prefs.php:165 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr "Pequeño"
 
@@ -1922,12 +1926,12 @@ msgstr "Iniciar presentación"
 msgid "Subject"
 msgstr "Asunto"
 
-#: lib/ActionHandler.php:953
+#: lib/ActionHandler.php:954
 #, php-format
 msgid "Successfully deleted %s."
 msgstr "Se ha eliminado correctamente %s."
 
-#: lib/ActionHandler.php:977
+#: lib/ActionHandler.php:978
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr "Se ha vaciado correctamente \"%s\""
@@ -1958,7 +1962,7 @@ msgstr "Opciones de etiquetas y metadatos"
 msgid "Tell us who is in this photo"
 msgstr "Díganos quién está es esta foto"
 
-#: report.php:46
+#: report.php:53
 msgid "Terms and conditions infringement"
 msgstr "Infracción de los términos y condiciones"
 
@@ -1990,15 +1994,15 @@ msgstr "Se ha creado correctamente la galería \"%s\"."
 msgid "The gallery was saved."
 msgstr "Se ha guardado la galería."
 
-#: lib/ActionHandler.php:1006
+#: lib/ActionHandler.php:1007
 msgid "The gallery's default photo has successfully been reset."
 msgstr "Se ha reiniciado correctamente la goto por omisión de la galería."
 
-#: lib/ActionHandler.php:1026
+#: lib/ActionHandler.php:1027
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr "Se han reiniciado correctamente las miniaturas de la galería."
 
-#: lib/ActionHandler.php:1041
+#: lib/ActionHandler.php:1042
 msgid "The gallery's views have successfully been reset."
 msgstr "Se han reiniciado correctamente las vistas de la galería."
 
@@ -2027,7 +2031,7 @@ msgstr ""
 msgid "There are no photo galleries available."
 msgstr "No se dispone  de galerías de fotos."
 
-#: lib/Ansel.php:758
+#: lib/Ansel.php:759
 #, php-format
 msgid "There are no photos in %s to download."
 msgstr "No hay fotos para descargar en %s."
@@ -2037,7 +2041,7 @@ msgstr "No hay fotos para descargar en %s."
 msgid "There are no photos in this gallery."
 msgstr "No hay fotos en esta galería."
 
-#: lib/ActionHandler.php:957
+#: lib/ActionHandler.php:958
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Se produjo un problema al eliminar %s: %s"
@@ -2115,11 +2119,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr "Estilo de miniaturas"
 
-#: config/prefs.php:170 lib/Form/Watermark.php:31
+#: config/prefs.php:164 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr "Minúscula"
 
-#: config/prefs.php:159 lib/Form/Watermark.php:47
+#: config/prefs.php:153 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr "Arriba"
 
@@ -2212,11 +2216,11 @@ msgstr "Usuario"
 msgid "Username or password are incorrect."
 msgstr "El nombre de usuario o la contraseña son incorrectos."
 
-#: config/prefs.php:191 templates/gallery/properties.html.php:112
+#: config/prefs.php:184 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr "Usuarios con permisos de modificación"
 
-#: config/prefs.php:163 config/prefs.php:176 lib/Form/Watermark.php:50
+#: config/prefs.php:157 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr "Alineación vertical"
 
@@ -2267,7 +2271,7 @@ msgstr "Tipo de letra de marca de agua"
 msgid "Watermark Preferences"
 msgstr "Opciones de marca de agua"
 
-#: config/prefs.php:226
+#: config/prefs.php:220
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
@@ -2275,7 +2279,7 @@ msgstr ""
 "Al crear una galería, ¿qué permisos por omisión se deberían otorgar a los "
 "grupos a los que pertenezca el usuario?"
 
-#: config/prefs.php:204
+#: config/prefs.php:198
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
@@ -2283,7 +2287,7 @@ msgstr ""
 "Al crear una galería, ¿qué permisos por omisión se deberían otorgar a los "
 "usuarios autentificados?"
 
-#: config/prefs.php:214
+#: config/prefs.php:208
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
@@ -2291,7 +2295,7 @@ msgstr ""
 "Al crear una galería, ¿Qué permisos por omisión se deberían otorgar a los "
 "invitados?"
 
-#: config/prefs.php:233
+#: config/prefs.php:227
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
@@ -2299,7 +2303,7 @@ msgstr ""
 "¿Qué campos de metadatos se deberían añadir como etiquetas de forma "
 "automática durante la carga?"
 
-#: config/prefs.php:193
+#: config/prefs.php:187
 msgid "Who should be allowed to download original photos"
 msgstr "Quién debería tener permiso para descargar las fotos originales"
 

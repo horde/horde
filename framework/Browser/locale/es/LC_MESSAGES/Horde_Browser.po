@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Browser package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Browser package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Browser \n"
+"Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,39 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1122
+#: lib/Horde/Browser.php:1130
 msgid "File uploads not supported."
 msgstr "La carga de archivos no está soportada."
 
-#: lib/Horde/Browser.php:1139
+#: lib/Horde/Browser.php:1147
 msgid "No file uploaded"
 msgstr "No se ha cargado ningún archivo"
 
-#: lib/Horde/Browser.php:1149
+#: lib/Horde/Browser.php:1169
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "Parece que el archivo cargado está vacío. Puede que no existe en su "
 "ordenador."
 
-#: lib/Horde/Browser.php:1146
+#: lib/Horde/Browser.php:1191
+msgid ""
+"There was a problem with the file upload: Can't write the uploaded data to "
+"the server."
+msgstr ""
+"Se produjo un problema con la carga del archivo: No se pueden escribir los "
+"datos cargados en el servidor."
+
+#: lib/Horde/Browser.php:1165
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr "Se produjo un problema con la carga del archivo: No se cargó %s."
 
-#: lib/Horde/Browser.php:1154
+#: lib/Horde/Browser.php:1176
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Se produjo un problema con la carga del archivo. El %s era más grande que el "
+"Se produjo un problema con la carga del archivo: El %s era más grande que el "
 "tamaño máximo permitido (%d bytes)."
 
-#: lib/Horde/Browser.php:1156
+#: lib/Horde/Browser.php:1179
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Se produjo un problema con la carga del archivo. Sólo se cargó parcialmente "
+"Se produjo un problema con la carga del archivo: Sólo se cargó parcialmente "
 "el %s."
+
+#: lib/Horde/Browser.php:1183
+msgid ""
+"There was a problem with the file upload: The temporary folder used to store "
+"the upload data is missing."
+msgstr ""
+"Se produjo un problema con la carga del archivo: La carpeta temporal usada "
+"para almacenar temporalmente los datos cargados no se encuentra."

@@ -17,7 +17,7 @@
     <title>Campos del registro</title>
     <heading>Marca de tiempo</heading>
     <para>
-      Este campos sólo está disponible con el motor "ldap2dns".
+      Este campo sólo está disponible con el motor "ldap2dns".
     </para>
     <para>
       El campo marca de tiempo permite indicar al servidor DNS que "No emita antes de" o "No emita después de" un tiempo concreto. Si el campo "ttl" difiere de cero o se omite, "timestamp" indica una hora a partir de la que el registro será válido. Si "ttl" vale 0 la marca de tiempo es una hora final tras la que el registro ya no se volverá a servir. <a href="http://cr.yp.to">tinydns</a> ajustará automáticamente el ttl para que el registro no se almacene más de unos pocos segundos más allá de su caducidad.

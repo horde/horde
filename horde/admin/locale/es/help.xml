@@ -5,7 +5,7 @@
     <title>Herramientas de administración: Consola PHP</title>
     <heading>Cómo usar la consola PHP</heading>
     <para>
-    La consola de órdenes PHP le permite ejecutar cualquier órden PHP en el servidor. Las órdenes se ejecutan a través de la función <code>eval()</code> y en el contexto de la sesión actual. El propósito de esta consola es la comprobación de sintaxis y la ejecución de cualquier código sencillo. Tenga en cuenta que para obtener cualquier salida, tiene que hacer echo o imprimir algo en su fragmento de código.
+    La consola de órdenes PHP le permite ejecutar cualquier órden PHP en el servidor. Las órdenes se ejecutan a través de la función <code>eval()</code> y en el contexto de la sesión actual. El propósito de esta consola es la comprobación de sintaxis y la ejecución de cualquier código sencillo. Tenga en cuenta que para obtener cualquier salida, tiene que haber hecho o imprimir algo en su fragmento de código.
     </para>
   </entry>
 

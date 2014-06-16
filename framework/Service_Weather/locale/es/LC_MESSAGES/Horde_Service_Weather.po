@@ -1,17 +1,17 @@
 # Spanish translations for Horde_Service_Weather package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Service_Weather package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Service_Weather \n"
+"Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2014-05-16 11:06+0200\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
+"Last-Translator: Automatically generated\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
-"Language-Team: i18n@lists.horde.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr "Nube de polvo generalizada"
 msgid "Blowing snow"
 msgstr "Nieve y viento"
 
-#: lib/Horde/Service/Weather/Base.php:207
+#: lib/Horde/Service/Weather/Base.php:235
 msgid "C"
 msgstr "C"
 
@@ -89,19 +89,23 @@ msgstr "Llovizna"
 msgid "Dust Whirls"
 msgstr "Remolinos de polvo"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:162
-msgid "ENE"
-msgstr "ENE"
-
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:164
-msgid "ESE"
-msgstr "ESE"
-
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:165
 msgid "E"
 msgstr "E"
 
-#: lib/Horde/Service/Weather/Base.php:197
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
+msgid "ENE"
+msgstr "ENE"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:166
+msgid "ESE"
+msgstr "ESE"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:164
+msgid "East"
+msgstr "Este"
+
+#: lib/Horde/Service/Weather/Base.php:225
 msgid "F"
 msgstr "F"
 
@@ -588,31 +592,35 @@ msgstr "Mayormente nublado"
 msgid "Mostly Sunny"
 msgstr "Mayormente soleado"
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:127
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:160
+msgid "N"
+msgstr "N"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:128
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:73
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:81
 msgid "N/A"
 msgstr "N/A"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:161
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:162
 msgid "NE"
 msgstr "NE"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:160
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:161
 msgid "NNE"
 msgstr "NNE"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:174
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:178
 msgid "NNW"
 msgstr "NNO"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:173
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:177
 msgid "NW"
 msgstr "NO"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
-msgid "N"
-msgstr "N"
+msgid "North"
+msgstr "Norte"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
@@ -624,7 +632,7 @@ msgstr "Cubierto"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
 #: lib/Horde/Service/Weather/Wwo_Strings.php:54
 #: test/Horde/Service/Weather/WundergroundTest.php:74
-#: test/Horde/Service/Weather/WwoTest.php:29
+#: test/Horde/Service/Weather/WwoTest.php:31
 msgid "Partly Cloudy"
 msgstr "Parcialmente nublado"
 
@@ -689,19 +697,23 @@ msgstr "Lluvia neblinosa"
 msgid "Rain Showers"
 msgstr "Chubascos de lluvia"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:165
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:170
+msgid "S"
+msgstr "S"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
 msgid "SE"
 msgstr "SE"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:166
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:168
 msgid "SSE"
 msgstr "SSE"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:168
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
 msgid "SSW"
 msgstr "SSO"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:169
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:172
 msgid "SW"
 msgstr "SO"
 
@@ -744,9 +756,9 @@ msgstr "Cinarra"
 msgid "Snow Showers"
 msgstr "Chubascos de nieve"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
-msgid "S"
-msgstr "S"
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:169
+msgid "South"
+msgstr "Sur"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
 msgid "Spray"
@@ -754,8 +766,8 @@ msgstr "Rocío"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:152
 #: lib/Horde/Service/Weather/Wwo_Strings.php:56
-#: test/Horde/Service/Weather/WwoTest.php:81
-#: test/Horde/Service/Weather/WwoTest.php:96
+#: test/Horde/Service/Weather/WwoTest.php:83
+#: test/Horde/Service/Weather/WwoTest.php:98
 msgid "Sunny"
 msgstr "Soleado"
 
@@ -804,65 +816,69 @@ msgstr "Desconocido"
 msgid "Volcanic Ash"
 msgstr "Ceniza volcánica"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:172
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:175
+msgid "W"
+msgstr "O"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:176
 msgid "WNW"
 msgstr "ONO"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:170
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:173
 msgid "WSW"
 msgstr "OSO"
 
-#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:171
-msgid "W"
-msgstr "O"
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:174
+msgid "West"
+msgstr "Oeste"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
 msgid "Widespread Dust"
 msgstr "Polvo ambiental"
 
-#: lib/Horde/Service/Weather/Base.php:212
+#: lib/Horde/Service/Weather/Base.php:240
 msgid "centimeters"
 msgstr "centímetros"
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:115
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:116
 #: test/Horde/Service/Weather/WundergroundTest.php:50
 msgid "falling"
 msgstr "disminuyendo"
 
-#: lib/Horde/Service/Weather/Base.php:199
-#: lib/Horde/Service/Weather/Base.php:201
-#: lib/Horde/Service/Weather/Base.php:202
+#: lib/Horde/Service/Weather/Base.php:227
+#: lib/Horde/Service/Weather/Base.php:229
+#: lib/Horde/Service/Weather/Base.php:230
 msgid "inches"
 msgstr "pulgadas"
 
-#: lib/Horde/Service/Weather/Base.php:210
+#: lib/Horde/Service/Weather/Base.php:238
 msgid "km"
 msgstr "km"
 
-#: lib/Horde/Service/Weather/Base.php:208
+#: lib/Horde/Service/Weather/Base.php:236
 msgid "kph"
 msgstr "km/h"
 
-#: lib/Horde/Service/Weather/Base.php:200
+#: lib/Horde/Service/Weather/Base.php:228
 msgid "miles"
 msgstr "millas"
 
-#: lib/Horde/Service/Weather/Base.php:209
+#: lib/Horde/Service/Weather/Base.php:237
 msgid "millibars"
 msgstr "milibares"
 
-#: lib/Horde/Service/Weather/Base.php:211
+#: lib/Horde/Service/Weather/Base.php:239
 msgid "millimeters"
 msgstr "milímetros"
 
-#: lib/Horde/Service/Weather/Base.php:198
+#: lib/Horde/Service/Weather/Base.php:226
 msgid "mph"
 msgstr "m/h"
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:113
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:114
 msgid "rising"
 msgstr "aumentando"
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:111
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:112
 msgid "steady"
 msgstr "estable"

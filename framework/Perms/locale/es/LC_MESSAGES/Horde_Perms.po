@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Perms package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Perms package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Perms \n"
+"Project-Id-Version: Horde_Perms\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -36,7 +36,7 @@ msgstr "Mostrar"
 
 #: lib/Horde/Perms/Sql.php:206
 msgid ""
-"Trying to create sub permission of non-existant parent permission. Create "
+"Trying to create sub permission of non-existent parent permission. Create "
 "parent permission(s) first."
 msgstr ""
 "Intentando crear subpermiso de permiso ascendiente inexistente. Cree primero "

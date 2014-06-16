@@ -95,207 +95,58 @@
     El mensaje original se eliminará y se enviará un mensaje nuevo al remitente con el texto que indique.
     </para>
   </entry>
-  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="changed">
-    <title>Regla de filtrado: Combinar opciones</title>
-    <para>
-    Puede definir varias condiciones en una misma regla. Puede agruparlas de forma lógica mediante "Y"/"O", No puede crear filtros complejos que contengan ambos tipos de condiciones.
-    </para>
-    <heading>Y</heading>
-    <para>
-    Si selecciona Y, un mensaje entrante tiene que cumplir todas y cada una de las condiciones que especifique para que se ejecuten las acciones.
-    </para>
-    <heading>O</heading>
-    <para>
-    Si seleccion O, las acciones indicadas se ejecutarán si se cumple al menso una de las condiciones.
-    </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
-    <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
-    filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>--></entry>
+  <entry id="rule-match" state="uptodate" md5="9c59f97fcc11a8349105610a26630ecd">
+    <title>Regla de filtrado: Coincidencia</title>
+    <para>Puede definir varias condiciones en una única regla. Puede agruparlas lógicamente mediante TODO o CUALQUIERA. No se pueden crear filtros complejos que contengan ambos tipos de condiciones.</para>
+    <para>Si selecciona <b>TODO</b>, un mensaje entrante tiene que coincidir con cada una de las condiciones que indique para que se ejecuten las acciones.</para>
+    <para>Si selecciona <b>CUALQUIERA</b>, las acciones indicadas se ejecutarán si se cumple al menos una de las condiciones.</para>
+    <heading>Condiciones</heading>
+    <para>Hay tres componentes en cada regla de condición. El primero es el campo a evaluar. El segundo es el tipo de comparación a realizar. El tercero es el valor con el que se quiere comparar el campo. Existen varios tipos distintos de comparaciones a realizar. Las comparaciones disponibles para un campo determinado dependerán tanto del tipo de campo como de las capacidades del software de filtrado subyacente. Por ello puede que no todas las opciones de coincidencia potenciales listadas a continuación aparezcan en un campo dado.</para>
+    <heading>Contiene</heading>
+    <para>Se considerará cierto si la cadena indicada se encuentra en cualquier lugar de la línea. Por ejemplo: usuario@ejemplo.com coincidirá en jose_usuario@ejemplo.com</para>
+    <heading>No contiene</heading>
+    <para>Se considerará cierto si la cadena indicada no se encuentra en ninguna parte de la línea. Por ejemplo: usuario@ejemplo.es no coincidirá en jose_usuario@ejemplo.com</para>
+    <heading>Es</heading>
+    <para>Se considerará cierto si la cadena indicada coincide exactamente con la línea. Por ejemplo: usuario@ejemplo.com es usuario@ejemplo.com</para>
+    <heading>No es</heading>
+    <para>Se considerará cierto si la cadena indicada no coincide exactamente con la línea. Por ejemplo: usuario@ejemplo no es usuario@ejemplo.com</para>
+    <heading>Empieza por</heading>
+    <para>Se considerará cierto si la cadena indicada coincide con el comienzo de la línea. Por ejemplo: usuario@ejemplo coincidirá en usuario@ejemplo.com</para>
+    <heading>No empieza por</heading>
+    <para>Se considerará cierto si la cadena indicada no coincide con el comienzo de la línea. Por ejemplo: usuario@ejemplo.com no coincidirá en usuario@ejemplo</para>
+    <heading>Termina por</heading>
+    <para>Se considerará cierto si la cadena indicada coincide con el final de la línea. Por ejemplo: ejemplo.com coincidirá en usuario@ejemplo.com</para>
+    <heading>No termina por</heading>
+    <para>Se considerará cierto si la cadena indicada no coincide con el final de la línea. Por ejemplo: horde.org no coincidirá en usuario@ejemplo.com</para>
+    <heading>Existe</heading>
+    <para>Se considerará cierto si la cabecera indicada existe en el mensaje, con independencia de su valor.</para>
+    <heading>No existe</heading>
+    <para>Se considerará cierto si la cabecera indicada no existe en el mensaje.</para>
+    <heading>Expresión regular</heading>
+    <para>Expresión regular permite usar expresiones regulares compatibles POSIX complejas para comparaciones en las cabeceras del mensaje.</para>
+    <heading>Coincide (con comodines)</heading>
+    <para>Coincide (con comodines) es similar a Contiene con la excepción de que se pueden usar * y ? como comodines. Un * coincidirá con cualquier número de caracteres y una ? coincidirá exactamente con un carácter. Por ejemplo: "*usuario?@ejemplo.com" coincidirá tanto en ""usuario1@ejemplo.com" como "otrousuario2@ejemplo.com"</para>
+    <heading>No coincide (con comodines)</heading>
+    <para>No coincide (con comodines) es similar a Coincide (con comodines) excepto por que se considerará falso si el valor indicado coincide con la cadena en la cabecera del mensaje.</para>
+    <heading>Menor que</heading>
+    <para>Se trata de una prueba relacional que comparará el valor indicado y el de la cabecera del mensaje de forma numérica.</para>
+    <heading>Menor o igual que</heading>
+    <para>Se trata de una prueba relacional que comparará el valor indicado y el de la cabecera del mensaje de forma numérica.</para>
+    <heading>Igual a</heading>
+    <para>Se trata de una prueba relacional que comparará el valor indicado y el de la cabecera del mensaje de forma numérica.</para>
+    <heading>Mayor o igual que</heading>
+    <para>Se trata de una prueba relacional que comparará el valor indicado y el de la cabecera del mensaje de forma numérica.</para>
+    <heading>Mayor que</heading>
+    <para>Se trata de una prueba relacional que comparará el valor indicado y el de la cabecera del mensaje de forma numérica.</para>
+    <heading>Limitaciones del filtrado Sieve</heading>
+    <warn>Las especificaciones de Sieve no permiten comparaciones con números negativos. Si indica un valor negativo en una de las pruebas relacionales la regla no funcionará correctamente.</warn>
+  </entry>
   <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
     <title>Regla de filtrado: Señalar mensaje</title>
     <para>
     Como una de las acciones de una regla, puede indicar que se señale un mensaje con uno o más de los marcadores IMAP. Los valores posibles son Continuación, Respondido y Eliminado.
     </para>
   </entry>
-  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="changed">
-    <title>Regla de filtrado: Coincidencia</title>
-    <para>
-    En cada condición de una regla hay tres componentes. El primero en el campo que hay que examinar. El segundo es el tipo de comparación a realizar. El tercero es el valor con el que hay que comparar el campo.
-    Existen varios tipos distintos de comparaciones realizables. Las comparaciones disponibles para cada campo dependen tanto del tipo de campo como de lo que pueda manejar el software utilizado. Por ello no todas las siguientes posibles opciones de coincidencia aparecerán en un campo determinado.
-    </para>
-    <heading>Contiene</heading>
-    <para>
-    Se considerará cierto si se localiza la cadena indicada en cualquier parte de la línea.
-    Ejemplo: jose_usuario@ejemplo.com contiene usuario@ejemplo
-    </para>
-    <heading>No contiene</heading>
-    <para>
-    Se considerará cierto si la cadena indicada no se encuentra en ninguna parte de la línea.
-    Ejemplo: jose@ejemplo.com no contiene usuario@ejemplo
-    </para>
-    <heading>Es</heading>
-    <para>
-    Se considerará cierto si la cadena indicada coincide exactamente con la línea.
-    Ejemplo: usuario@ejemplo es usuario@ejemplo
-    </para>
-    <heading>No es</heading>
-    <para>
-    Se considerará cierto si la cadena indicada no coincide exactamente con la línea.
-    Ejemplo: usuario@ejemplo no es usuario@ejemplo.com
-    </para>
-    <heading>Empieza por</heading>
-    <para>
-    Se considerará cierto si la cadena indicada coincide con el comienzo de la línea.
-    Ejemplo: usuario@ejemplo.com Empieza por usuario@ejemplo
-    </para>
-    <heading>No empieza por</heading>
-    <para>
-    Se considerará cierto si la cadena indicada no coincide con el comienzo de la línea.
-    Ejemplo: jose@ejemplo.com No empieza por usuario@ejemplo
-    </para>
-    <heading>Termina por</heading>
-    <para>
-    Se considerará cierto si la cadena indicada coincide con el final de la línea.
-    Ejemplo: usuario@ejemplo Termina por @ejemplo
-    </para>
-    <heading>No termina por</heading>
-    <para>
-    Se considerará cierto si la cadena indicada no coincide con el final de la línea.
-    Ejemplo: usuario@ejemplo No termina por @ejemplo.com
-    </para>
-    <heading>Existe</heading>
-    <para>
-    Se considerará cierto si la cabecera indicada existe en el mensaje, independientemente de lo que contenga.
-    </para>
-    <heading>No existe</heading>
-    <para>
-    Se considerará cierto si la cabecera indicada no existe en el mensaje.
-    </para>
-    <heading>Regex</heading>
-    <para>
-    Le permite utilizar en las comparaciones de las cabeceras expresiones regulares compatibles POSIX complejas.
-    Ejemplo: "Recibido desde [*\.*\.*\.*] por (anfitrion-a|anfitrion-b).ejemplo.com*" se cumplirá con "Recibido desde [172.16.100.1] por anfitrion-a.ejemplo.com el Martes"
-    </para>
-    <heading>Coincide</heading>
-    <para>
-    Coincide es parecido a Contiene con la excepción de que pueden utilizarse * y ? como comodines. Un * sustituirá cualquier número de caracteres y una ? sustituirá exactamente uno.
-    Ejemplo: "*usuario?@ejemplo.com" se cumplirá tanto con "usuario1@ejemplo.com" como con "otrousuario2@ejemplo.com"
-    </para>
-    <heading>No coincide</heading>
-    <para>
-    No coincide es lo mismo que Coincide excepto por que será falso si el valor indicado coincide con la cadena de la cabecera del mensaje.
-    </para>
-    <heading>Menor que</heading>
-    <para>
-    Ésta es una prueba relacional que compara numéricamente el valor indicado y el valor de la cabecera del mensaje.
-    </para>
-    <heading>Menor o igual que</heading>
-    <para>
-    Ésta es una prueba relacional que compara numéricamente el valor indicado y el valor de la cabecera del mensaje.
-    </para>
-    <heading>Igual que</heading>
-    <para>
-    Ésta es una prueba relacional que compara numéricamente el valor indicado y el valor de la cabecera del mensaje.
-    </para>
-    <heading>Mayor o igual que</heading>
-    <para>
-    Ésta es una prueba relacional que compara numéricamente el valor indicado y el valor de la cabecera del mensaje.
-    </para>
-    <heading>Mayor que</heading>
-    <para>
-    Ésta es una prueba relacional que compara numéricamente el valor indicado y el valor de la cabecera del mensaje.
-    </para>
-    <heading>Limitaciones con filtrado Sieve</heading>
-    <para>
-    La especificación Sieve no permite comparaciones de números negativos. Si introduce un número negativo en una de las pruebas relacionales la regla no funcionará correctamente.
-    </para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
-    <para>There are 3 components to each condition in a rule. The first is the
-    field to examine. The second is the type of comparison to perform. The
-    third is the value to which the field should be compared. There are a few
-    different types of comparisons that can be performed. The comparisons
-    available for any given field will depend on both the type of the field and
-    what the underlying filtering software can handle. Thus, all potential
-    matching options listed below may not appear for a given field.</para>
-    <heading>Contains</heading>
-    <para>Will be considered to be true if the specified string is found
-    anywhere on the line. Example: user@example would match
-    joe_user@example.com</para>
-    <heading>Doesn't Contain</heading>
-    <para>Will be considered to be true if the specified string is not found
-    anywhere on the line. Example: user@example would not match
-    joe_user@example.com</para>
-    <heading>Is</heading>
-    <para>Will be considered to be true if the specified string matches the
-    line exactly. Example: user@example.com is user@example.com</para>
-    <heading>Isn't</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the line exactly. Example: user@example is not user@example.com</para>
-    <heading>Begins with</heading>
-    <para>Will be considered to be true if the specified string matches the
-    beginning of the line. Example: user@example will match
-    user@example.com</para>
-    <heading>Doesn't begin with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the beginning of the line. Example: user@example.com will not match
-    user@example</para>
-    <heading>Ends with</heading>
-    <para>Will be considered to be true if the specified string matches the end
-    of the line. Example: example.com will match user@example.com</para>
-    <heading>Doesn't end with</heading>
-    <para>Will be considered to be true if the specified string does not match
-    the end of the line. Example: horde.org will not match
-    user@example.com</para>
-    <heading>Exists</heading>
-    <para>Will be considered to be true if the specified header exists in the
-    message, regardless of what its value is.</para>
-    <heading>Doesn't Exist</heading>
-    <para>Will be considered to be true if the specified header does not exist
-    in the message.</para>
-    <heading>Regex</heading>
-    <para>Regex allows you to use complex POSIX compatible regular expressions
-    to compare against message headers.</para>
-    <heading>Matches</heading>
-    <para>Matches is similar to contains, with the exception that you may use *
-    and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
-    "user1@example.com" and "otheruser2@example.com"</para>
-    <heading>Doesn't match</heading>
-    <para>Doesn't match is the same as matches except that it will evaluate to
-    false if the specified value matches the string in the message
-    header.</para>
-    <heading>Less than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Less than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than or equal to</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Greater than</heading>
-    <para>This is a relational test which will compare the value you specify
-    and the value in the message header numerically.</para>
-    <heading>Limitation with Sieve filtering</heading>
-    <warn>The Sieve specification doesn't support comparions with negative
-    numbers. If you enter a negative value in one of the relational tests,
-    your rule won't work correctly.</warn>
-  </entry>--></entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Regla de filtrado: Nombre</title>
     <para>
@@ -369,12 +220,6 @@
     <heading>Lista blanca</heading>
     <para>
     La lista blanca es un listado de direcciones (legítimas) de las que siempre desea poder ver los mensajes en el buzón de Entrada. Cada dirección debe incluirse en una línea distinta.
-    </para>
-  </entry>
-  <entry id="whitelist-addresses" md5="9ad6cb56e8bc5762112fa95382424608" state="uptodate">
-    <title>Lista blanca: Direcciones</title>
-    <para>
-    Cada dirección debe incluirse en una línea distinta.
     </para>
   </entry>
   <entry id="spam-level" state="uptodate" md5="6f00c30a45b0acaef4ae9dba56d58013">

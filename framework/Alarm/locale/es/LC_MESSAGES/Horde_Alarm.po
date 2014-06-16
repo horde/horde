@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Alarm package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Alarm package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Alarm \n"
+"Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,22 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:79
+#: lib/Horde/Alarm/Handler/Desktop.php:85
 msgid "Desktop notification (with certain browsers)"
 msgstr "Notificación en el escritorio (con ciertos navegadores)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:129
+#: lib/Horde/Alarm/Handler/Mail.php:135
 msgid "Email"
 msgstr "Correo"
 
-#: lib/Horde/Alarm/Handler/Mail.php:149
+#: lib/Horde/Alarm/Handler/Mail.php:155
 msgid "Email address (optional)"
 msgstr "Dirección de correo (opcional)"
 
-#: lib/Horde/Alarm/Handler/Notify.php:79
+#: lib/Horde/Alarm/Handler/Notify.php:85
 msgid "Inline"
 msgstr "En línea"
 
-#: lib/Horde/Alarm/Handler/Notify.php:99
+#: lib/Horde/Alarm/Handler/Notify.php:105
 msgid "Play a sound?"
 msgstr "¿Reproducir un sonido?"
+
+#: lib/Horde/Alarm/Sql.php:88 lib/Horde/Alarm/Sql.php:115
+#: lib/Horde/Alarm/Sql.php:136 lib/Horde/Alarm/Sql.php:178
+#: lib/Horde/Alarm/Sql.php:216 lib/Horde/Alarm/Sql.php:251
+#: lib/Horde/Alarm/Sql.php:277 lib/Horde/Alarm/Sql.php:307
+#: lib/Horde/Alarm/Sql.php:332 lib/Horde/Alarm/Sql.php:357
+#: lib/Horde/Alarm/Sql.php:381 lib/Horde/Alarm/Sql.php:409
+msgid "Server error when querying database."
+msgstr "Error del servidor al consultar la base de datos."

@@ -1,14 +1,14 @@
-# Spanish translations for Agora H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Spanish translations for Agora package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Agora package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Agora H5 (1.0-git)\n"
+"Project-Id-Version: Agora\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -90,7 +90,7 @@ msgstr "Aprobar"
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: lib/Driver.php:1560
+#: lib/Driver.php:1558
 msgid "Attachment"
 msgstr "Adjunto"
 
@@ -110,7 +110,7 @@ msgstr ""
 "Las imágenes personales tienen que medir menos de %s por %s píxeles y tener "
 "un tamaño menor de %sKb."
 
-#: ban.php:52 lib/Driver.php:1506
+#: ban.php:52 lib/Driver.php:1504
 msgid "Ban"
 msgstr "Prohibir"
 
@@ -128,7 +128,7 @@ msgstr "Cuerpo"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: lib/Driver.php:1937
+#: lib/Driver.php:1935
 msgid "Cannot create a forum with an empty name."
 msgstr "No se puede crear un foro con un nombre en blanco."
 
@@ -189,7 +189,7 @@ msgstr "No se pudieron leer las opciones de línea de comandos."
 msgid "Create"
 msgstr "Crear"
 
-#: lib/Driver.php:1556
+#: lib/Driver.php:1554
 msgid "Current attachment"
 msgstr "Adjunto actual"
 
@@ -222,7 +222,7 @@ msgid "Default threads view sort:"
 msgstr "Clasificación por omisión de la vista de conversaciones:"
 
 #: ban.php:49 deleteforum.php:40 deleteforum.php:58 lib/Api.php:601
-#: lib/Api.php:606 lib/Driver.php:913 lib/Driver.php:1836
+#: lib/Api.php:606 lib/Driver.php:911 lib/Driver.php:1834
 #: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
 #: moderate.php:35 moderate.php:63 moderators.php:59
 msgid "Delete"
@@ -233,19 +233,19 @@ msgstr "Eliminar"
 msgid "Delete \"%s\" and all replies?"
 msgstr "¿Eliminar \"%s\" y todas las respuestas?"
 
-#: deleteforum.php:37 lib/Driver.php:1504
+#: deleteforum.php:37 lib/Driver.php:1502
 msgid "Delete Forum"
 msgstr "Eliminar foro"
 
-#: lib/Driver.php:1836
+#: lib/Driver.php:1834
 msgid "Delete forum"
 msgstr "Eliminar foro"
 
-#: lib/Driver.php:913
+#: lib/Driver.php:911
 msgid "Delete message"
 msgstr "Eliminar mensaje"
 
-#: lib/Driver.php:1555
+#: lib/Driver.php:1553
 msgid "Delete the existing attachment?"
 msgstr "¿Eliminar el adjunto existente?"
 
@@ -261,7 +261,7 @@ msgstr "Descripción"
 #: config/prefs.php:22 config/prefs.php:29 config/prefs.php:39
 #: config/prefs.php:49 config/prefs.php:56
 msgid "Display Preferences"
-msgstr "Mostrar opciones"
+msgstr "Opciones de visualización"
 
 #: config/prefs.php:261
 msgid "Display full message bodies in the comments view?"
@@ -275,11 +275,11 @@ msgstr "¿Mostrar los mensajes completos en el listado de conversaciones?"
 msgid "Display graphical emoticons?"
 msgstr "¿Mostrar emoticones gráficos?"
 
-#: lib/Driver.php:909 lib/Driver.php:1829 messages/index.php:113
+#: lib/Driver.php:907 lib/Driver.php:1827 messages/index.php:113
 msgid "Edit"
 msgstr "Modificar"
 
-#: editforum.php:34 lib/Driver.php:1501
+#: editforum.php:34 lib/Driver.php:1499
 msgid "Edit Forum"
 msgstr "Modificar foro"
 
@@ -296,11 +296,11 @@ msgstr "Modificar mensaje en \"%s\""
 msgid "Edit a comment"
 msgstr "Modificar un comentario"
 
-#: lib/Driver.php:1829
+#: lib/Driver.php:1827
 msgid "Edit forum"
 msgstr "Modificar foro"
 
-#: lib/Driver.php:909
+#: lib/Driver.php:907
 msgid "Edit message"
 msgstr "Modificar mensaje"
 
@@ -318,7 +318,7 @@ msgstr "Vista plana"
 msgid "Forum"
 msgstr "Foro"
 
-#: lib/Api.php:578 lib/Driver.php:1728
+#: lib/Api.php:578 lib/Driver.php:1726
 #, php-format
 msgid "Forum %s does not exist."
 msgstr "El foro %s no existe."
@@ -357,7 +357,7 @@ msgstr "Vista de foros"
 msgid "Forums in %s"
 msgstr "Foros de %s"
 
-#: lib/Driver.php:1537
+#: lib/Driver.php:1535
 msgid "From"
 msgstr "De"
 
@@ -369,7 +369,7 @@ msgstr "Ir a la página:"
 msgid "Hide bodies"
 msgstr "Ocultar cuerpos"
 
-#: lib/Driver.php:827
+#: lib/Driver.php:825
 msgid "Hot thread"
 msgstr "Conversación caliente"
 
@@ -409,7 +409,7 @@ msgstr "Último envío"
 msgid "Last posts in forums owned by %s"
 msgstr "Último envío en los foros propiedad de %s"
 
-#: lib/Driver.php:917
+#: lib/Driver.php:915
 msgid "Lock"
 msgstr "Bloquear"
 
@@ -437,7 +437,7 @@ msgstr ""
 "Los argumentos requeridos por las opciones completas también son requeridos "
 "en las opciones abreviadas."
 
-#: lib/Driver.php:928 messages/merge.php:40 messages/merge.php:67
+#: lib/Driver.php:926 messages/merge.php:40 messages/merge.php:67
 msgid "Merge"
 msgstr "Combinar"
 
@@ -446,7 +446,7 @@ msgstr "Combinar"
 msgid "Merge \"%s\" with another thread"
 msgstr "Combinar \"%s\" con otra conversación"
 
-#: lib/Driver.php:1550
+#: lib/Driver.php:1548
 msgid "Message"
 msgstr "Mensaje"
 
@@ -484,7 +484,7 @@ msgstr "Mensajes"
 msgid "Messages Awaiting Moderation"
 msgstr "Mensajes pendientes de moderación"
 
-#: lib/Driver.php:1850
+#: lib/Driver.php:1848
 msgid "Moderate"
 msgstr "Moderar"
 
@@ -499,7 +499,7 @@ msgstr "Moderador"
 msgid "Moderators"
 msgstr "Moderadores"
 
-#: lib/Driver.php:924 messages/move.php:40 messages/move.php:52
+#: lib/Driver.php:922 messages/move.php:40 messages/move.php:52
 msgid "Move"
 msgstr "Trasladar"
 
@@ -516,7 +516,7 @@ msgstr "Mi información"
 msgid "New Forum"
 msgstr "Añadir foro"
 
-#: lib/Driver.php:1824
+#: lib/Driver.php:1822
 msgid "New Post"
 msgstr "Añadir envío"
 
@@ -524,7 +524,7 @@ msgstr "Añadir envío"
 msgid "New Thread"
 msgstr "Añadir conversación"
 
-#: lib/Driver.php:828
+#: lib/Driver.php:826
 msgid "New posts"
 msgstr "Envíos nuevos"
 
@@ -604,7 +604,7 @@ msgstr ""
 msgid "Options"
 msgstr "Opciones"
 
-#: lib/Driver.php:875
+#: lib/Driver.php:873
 #, php-format
 msgid "Page %d"
 msgstr "Página %d"
@@ -613,7 +613,7 @@ msgstr "Página %d"
 msgid "Parent forum"
 msgstr "Foro anterior"
 
-#: lib/Driver.php:1519
+#: lib/Driver.php:1517
 msgid "Post"
 msgstr "Enviar"
 
@@ -631,7 +631,7 @@ msgstr "Añadir un mensaje a \"%s\""
 msgid "Post a Reply to \"%s\""
 msgstr "Añadir una respuesta a \"%s\""
 
-#: lib/Driver.php:1495 lib/Driver.php:1824
+#: lib/Driver.php:1493 lib/Driver.php:1822
 msgid "Post message"
 msgstr "Enviar mensaje"
 
@@ -643,7 +643,7 @@ msgstr "Enviar mensaje"
 msgid "Posted by"
 msgstr "Enviado por"
 
-#: lib/Driver.php:513 messages/index.php:84 templates/messages/flat.html.php:9
+#: lib/Driver.php:511 messages/index.php:84 templates/messages/flat.html.php:9
 #, php-format
 msgid "Posted by %s on %s"
 msgstr "Enviado por %s de %s"
@@ -652,19 +652,19 @@ msgstr "Enviado por %s de %s"
 msgid "Posts"
 msgstr "Envíos"
 
-#: lib/Driver.php:1542
+#: lib/Driver.php:1540
 msgid "Quote"
 msgstr "Citar"
 
-#: lib/Driver.php:897 messages/index.php:107
+#: lib/Driver.php:895 messages/index.php:107
 msgid "Reply"
 msgstr "Responder"
 
-#: lib/Driver.php:897
+#: lib/Driver.php:895
 msgid "Reply to message"
 msgstr "Responder al mensaje"
 
-#: lib/Driver.php:903 messages/abuse.php:40 messages/abuse.php:41
+#: lib/Driver.php:901 messages/abuse.php:40 messages/abuse.php:41
 msgid "Report as abuse"
 msgstr "Considerar como correo abusivo"
 
@@ -672,7 +672,7 @@ msgstr "Considerar como correo abusivo"
 msgid "Require all keywords?"
 msgstr "¿Requerir todas las palabras claves?"
 
-#: lib/Driver.php:1519
+#: lib/Driver.php:1517
 msgid "Save"
 msgstr "Guardar"
 
@@ -761,11 +761,11 @@ msgstr "Ordenar por %s"
 msgid "Sort direction"
 msgstr "Sentido de clasificación"
 
-#: lib/Driver.php:1564 lib/Form/Message.php:22
+#: lib/Driver.php:1562 lib/Form/Message.php:22
 msgid "Spam protection"
 msgstr "Protección anti spam"
 
-#: lib/Driver.php:933 messages/split.php:42 messages/split.php:50
+#: lib/Driver.php:931 messages/split.php:42 messages/split.php:50
 msgid "Split"
 msgstr "Dividir"
 
@@ -784,8 +784,8 @@ msgstr "Foros secundarios"
 
 #: config/prefs.php:139 config/prefs.php:184 config/prefs.php:268
 #: lib/Api.php:297 lib/Block/Thread.php:78 lib/Block/Threads.php:119
-#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1544
-#: lib/Driver.php:1547 messages/index.php:139 moderate.php:56 owner.php:55
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1542
+#: lib/Driver.php:1545 messages/index.php:139 moderate.php:56 owner.php:55
 #: threads.php:54
 msgid "Subject"
 msgstr "Asunto"
@@ -885,7 +885,7 @@ msgstr "Incapaz de traer la conversación seleccionada."
 msgid "Unable to fetch threads for selected forum."
 msgstr "Incapaz de traer las conversaciones del foro seleccionado."
 
-#: lib/Driver.php:917
+#: lib/Driver.php:915
 msgid "Unlock"
 msgstr "Desbloquear"
 
@@ -934,12 +934,12 @@ msgstr "Sí, permitir respuestas"
 msgid "Yes, and don't thread them"
 msgstr "Sí, y no mostrar las conversaciones"
 
-#: lib/Driver.php:1710
+#: lib/Driver.php:1708
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
 msgstr "Carece de permisos para acceder a los mensajes del foro %s."
 
-#: lib/Api.php:589 lib/Driver.php:537 lib/Driver.php:724
+#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722
 #: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
 #: messages/move.php:31 messages/split.php:31
 #, php-format
@@ -952,7 +952,7 @@ msgstr "Carece de permisos para eliminar los mensajes del foro %s."
 msgid "You don't have permission to post messages in forum %s."
 msgstr "Carece de permisos para enviar mensajes al foro %s."
 
-#: lib/Driver.php:799
+#: lib/Driver.php:797
 #, php-format
 msgid "You don't have permission to read messages in forum %s."
 msgstr "Carece de permisos para leer los mensajes del foro %s."
@@ -1013,7 +1013,7 @@ msgstr "_Conversaciones"
 msgid "by"
 msgstr "por"
 
-#: lib/Driver.php:1653
+#: lib/Driver.php:1651
 msgid "download"
 msgstr "descargar"
 
@@ -1021,12 +1021,12 @@ msgstr "descargar"
 msgid "on: "
 msgstr "en: "
 
-#: lib/Driver.php:1654
+#: lib/Driver.php:1652
 #, php-format
 msgid "size: %s"
 msgstr "tamaño: %s"
 
-#: lib/Driver.php:1654
+#: lib/Driver.php:1652
 #, php-format
 msgid "type: %s"
 msgstr "tipo: %s"

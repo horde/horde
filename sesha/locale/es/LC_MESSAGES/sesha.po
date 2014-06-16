@@ -1,14 +1,14 @@
 # Spanish translations for Sesha H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Sesha package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H5 (1.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:51+0100\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -213,7 +213,7 @@ msgstr "Se eliminó correctamente el elemento número %d"
 
 #: config/prefs.php:50
 msgid "List"
-msgstr "Listar"
+msgstr "Lista de correo"
 
 #: admin.php:31
 msgid "Manage Categories"
