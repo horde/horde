@@ -43,6 +43,6 @@ class Kronolith_Integration_Driver_KolabTest extends Kronolith_Integration_Drive
 
     public function setUp()
     {
-        $this->markTestSkipped('Unserialization error from Kolab share objects.');
+        $this->markTestIncomplete('Unserialization error from Kolab share objects.');
     }
 }
