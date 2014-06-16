@@ -1,14 +1,14 @@
 # Spanish translations for Beatnik H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Beatnik package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Beatnik H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-05-07 14:14+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -139,7 +139,7 @@ msgstr "Eliminar"
 
 #: config/prefs.php:13
 msgid "Display Preferences"
-msgstr "Mostrar opciones"
+msgstr "Opciones de visualización"
 
 #: templates/listzones/header.inc:4
 msgid "Domain Categories"

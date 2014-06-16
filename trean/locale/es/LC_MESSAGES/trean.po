@@ -1,14 +1,14 @@
-# Spanish translations for Trean H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Spanish translations for Trean package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Trean package.
-# Automatically generated, 2013.
+# Automatically generated, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0.1-git)\n"
+"Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-06-16 09:05+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -72,7 +72,7 @@ msgid "Bookmarked on"
 msgstr "Marcado"
 
 #: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
-#: lib/View/BookmarkList.php:120
+#: lib/View/BookmarkList.php:119
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -80,9 +80,17 @@ msgstr "Marcadores"
 msgid "Bookmarks Feed"
 msgstr "Suscripción de marcadores"
 
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "Marcadores importado correctamente"
+
 #: browse.php:31
 msgid "Browse"
 msgstr "Examinar"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "No se puede crear un marcador."
 
 #: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
@@ -110,7 +118,7 @@ msgstr "Descripción"
 
 #: config/prefs.php:13
 msgid "Display Preferences"
-msgstr "Mostrar opciones"
+msgstr "Opciones de visualización"
 
 #: lib/Block/Bookmarks.php:37
 msgid "Display Rows"
@@ -129,7 +137,7 @@ msgstr ""
 "Arrastre el vínculo inferior \"Añadir a los marcadores\" a su \"Barra "
 "personal\""
 
-#: templates/list.html.php:55
+#: templates/list.html.php:57
 msgid "Edit"
 msgstr "Modificar"
 
@@ -137,9 +145,21 @@ msgstr "Modificar"
 msgid "Edit Bookmark"
 msgstr "Modificar marcador"
 
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "JSON de Firefox"
+
 #: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Importar"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Importar marcadores"
 
 #: templates/add.html.php:63
 msgid "Internet Explorer"
@@ -149,7 +169,7 @@ msgstr "Internet Explorer"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/Application.php:74
+#: lib/Application.php:76
 msgid "Maximum Number of Bookmarks"
 msgstr "Máximo número de marcadores"
 
@@ -210,7 +230,7 @@ msgstr "Otras opciones"
 msgid "Previously used tags"
 msgstr "Etiquetas usadas con anterioridad"
 
-#: lib/View/BookmarkList.php:214
+#: lib/View/BookmarkList.php:213
 msgid "Remove from search"
 msgstr "Eliminar de la búsqueda"
 
@@ -231,6 +251,14 @@ msgstr "Resultados de la búsqueda (%s)"
 msgid "See previously used tags"
 msgstr "Ver etiquetas usadas con anterioridad"
 
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Seleccione el archivo a importar:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Seleccione el formato del archivo origen:"
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr "Define cómo mostrar listados de marcadores y cómo abrir los vínculos."
@@ -247,13 +275,23 @@ msgstr "Ordenar por"
 msgid "Sort direction:"
 msgstr "Sentido de clasificación:"
 
-#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "Tagged with %s"
+msgstr "Etiquetado con %s"
+
+#: lib/Application.php:102 templates/add.html.php:30
+#: templates/edit.html.php:39
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr "Plantilla"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "El archivo no contenía ningún marcador."
 
 #: app/controllers/DeleteBookmark.php:16
 #, php-format
@@ -269,6 +307,11 @@ msgstr "Se produjo un error al añadir el marcador: %s"
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Se produjo un error al guardar el marcador: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Ésto es lo que dijo el servidor: %s"
 
 #: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
@@ -296,11 +339,15 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr "Carece de permisos para crear más de %d marcadores."
 
-#: lib/Application.php:84
+#: lib/Application.php:86
 msgid "_Browse"
 msgstr "_Examinar"
 
-#: lib/Application.php:94
+#: lib/Application.php:87
+msgid "_Import"
+msgstr "_Importar"
+
+#: lib/Application.php:97
 msgid "_New Bookmark"
 msgstr "_Añadir"
 
@@ -313,8 +360,3 @@ msgstr "visita"
 #: templates/block/standard.inc:22
 msgid "clicks"
 msgstr "visitas"
-
-#: app/controllers/BrowseByTag.php:23
-#, php-format
-msgid "tagged %s"
-msgstr "etiquetado %s"

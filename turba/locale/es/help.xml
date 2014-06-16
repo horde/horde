@@ -5,7 +5,7 @@
     <title>Introducción</title>
     <heading>Introducción</heading>
     <para>
-    La libreta de direcciones ofrece un método y lugar adecuados para almacenar la información de contactos para su cómoda recuperación y uso. En función de cómo haya configurado el sistema el administrador, puede disponer de libretas de direcciones privadas así como acceder a servicios de directorio de red públicos. También admite listas de distribución de forma que pueda crear sus propias "listas de correo".
+    La lista de contactos ofrece un método y lugar adecuados para almacenar la información de contactos para su cómoda recuperación y uso. En función de cómo haya configurado el sistema el administrador, puede disponer de listas de contactos privadas así como acceder a servicios de directorio de red públicos. También admite listas de distribución de forma que pueda crear sus propias "listas de correo".
     </para>
   </entry>
 
@@ -13,7 +13,7 @@
     <title>Menú: Añadir</title>
     <heading>Añadir</heading>
     <para>
-    Añade un usuario a la libreta de direcciones. Sólo se puede añadir usuarios a las libretas de direcciones si dispone de privilegios de escritura. Si están activadas libretas de direcciones compartidas o públicas, a menudos son de sólo lectura y no podrá añadir contactos en ellas.
+    Añade un usuario a la lista de contactos. Sólo se puede añadir usuarios a las listas de contactos si dispone de privilegios de escritura. Si están activadas listas de contactos compartidas o públicas, a menudos son de sólo lectura y no podrá añadir contactos en ellas.
     </para>
   </entry>
 
@@ -21,7 +21,7 @@
     <title>Menú: Buscar</title>
     <heading>Buscar</heading>
     <para>
-    Le permite buscar en una libreta de direcciones para localizar información. Se trata de una búsqueda sencilla que sólo le permitirá buscar por algunos campos básicos. Normalmente el nombre y la dirección de correo, pero puede variar dependiendo de cómo haya configurado el administrador la libreta.
+    Le permite buscar en una lista de contactos para localizar información. Se trata de una búsqueda sencilla que sólo le permitirá buscar por algunos campos básicos. Normalmente el nombre y la dirección de correo, pero puede variar dependiendo de cómo haya configurado el administrador la lista de contactos.
     </para>
     <para>
     Para una búsqueda más compleja, puede utilizar la "<ref module="turba" entry="menu-advanced-search">Búsqueda avanzada</ref>" que le permitirá buscar en otros campos.
@@ -32,7 +32,7 @@
     <title>Menú: Búsqueda avanzada</title>
     <heading>Búsqueda avanzada</heading>
     <para>
-    Le permite buscar en una libreta de direcciones para localizar información. Este método de búsqueda le permite buscar en varios campos. Los campos disponibles para la búsqueda dependen de la libreta de direcciones en la que esté buscando.
+    Le permite buscar en una lista de contactos para localizar información. Este método de búsqueda le permite buscar en varios campos. Los campos disponibles para la búsqueda dependen de la lista de contactos en la que esté buscando.
     </para>
   </entry>
 
@@ -40,41 +40,41 @@
     <title>Menú: Importar/Exportar</title>
     <heading>Importar/Exportar</heading>
     <para>
-    Este menú permite la importación o exportación a o desde su libreta de direcciones personal. Soporta tanto el formato CSV (Valores separados por comas) de Outlook como el vCard así como algunos otros formatos habituales.
+    Este menú permite la importación o exportación a o desde su lista de contactos personal. Soporta tanto el formato CSV (Valores separados por comas) de Outlook como el vCard así como algunos otros formatos habituales.
     </para>
     <heading>Importar</heading>
     <para>
-    Para importar una libreta de direcciones, necesita tener en la máquina local (en la que se ejecuta el navegador web) los datos de la libreta de direcciones que quiera importar. Para ello primero tendrá que exportar la información de la libreta de direcciones de su cliente de correo actual.
+    Para importar una lista de contactos, necesita tener en la máquina local (en la que se ejecuta el navegador web) los datos de la lista de contactos que quiera importar. Para ello primero tendrá que exportar la información de la lista de contactos de su cliente de correo actual.
     </para>
     <para>
     Si utiliza Outlook Express:
     </para>
     <para>
-    1) Seleccione el menú Archivo &gt; Exportar &gt; Libreta de direcciones
+    1) Seleccione el menú Archivo &gt; Exportar &gt; Lista de contactos
     </para>
     <para>
-    2) Seleccione "Archivo de texto" (Valores separados por comas) en la "Herramienta de exportación de direcciones". Pulse "Exportar".
+    2) Seleccione "Archivo de texto" (Valores separados por comas) en la "Herramienta de exportación de contactos". Pulse "Exportar".
     </para>
     <para>
-    3) En el campo "Guardar archivo exportado como" escriba un nombre para la libreta de direcciones. Pulse "Siguiente".
+    3) En el campo "Guardar archivo exportado como" escriba un nombre para la lista de contactos. Pulse "Siguiente".
     </para>
     <para>
     4) Active la casilla de la izquierda de cada uno de los campos que desee exportar. Pulse "Terminar".
     </para>
     <para>
-    5) Debería el siguiente mensaje informativo 'Proceso de exportación de la libreta de direcciones terminado'. Pulse 'Aceptar'.
+    5) Debería el siguiente mensaje informativo 'Proceso de exportación de la lista de contactos terminado'. Pulse 'Aceptar'.
     </para>
     <para>
-    6) Pulse 'Cerrar' en la 'Herramienta de exportación de direcciones' y cierre Outlook Express.
+    6) Pulse 'Cerrar' en la 'Herramienta de exportación de contactos' y cierre Outlook Express.
     </para>
     <tip>
-    Si el archivo de direcciones exportado no está en su escritorio y está utilizando un sistema operativo Windows, pulse el menú Inicio &gt; Buscar &gt; Archivos o Carpetas y busque en su unidad de disco duro principal el nombre de archivo que utilizó en el paso 3. Anote la localización del archivo.
+    Si el archivo de contactos exportado no está en su escritorio y está utilizando un sistema operativo Windows, pulse el menú Inicio &gt; Buscar &gt; Archivos o Carpetas y busque en su unidad de disco duro principal el nombre de archivo que utilizó en el paso 3. Anote la localización del archivo.
     </tip>
     <para>
-    Para importar una libreta de direcciones, abra la libreta de direcciones a la que desee importar la información. Pulse el icono "Importar/Exportar". Seleccione en el listado desplegable el tipo de archivo de datos de información de direcciones que desee importar. Pulse el botón "Examinar" para localizar el archivo de datos de direcciones en su ordenador. Seleccione el archivo y pulse el botón "Siguiente". Siga las instrucciones y la información del archivo se importará a su libreta de direcciones.
+    Para importar una lista de contactos, abra la lista de contactos a la que desee importar la información. Pulse el icono "Importar/Exportar". Seleccione en el listado desplegable el tipo de archivo de datos de información de contactos que desee importar. Pulse el botón "Examinar" para localizar el archivo de datos de contactos en su ordenador. Seleccione el archivo y pulse el botón "Siguiente". Siga las instrucciones y la información del archivo se importará a su lista de contactos.
     </para>
     <tip>
-    Algunas entradas complejas o cuyos campos no coincidan con los de su libreta de direcciones pueden no importarse correctamente. Es conveniente que compruebe los datos importados tras una operación de importación.
+    Algunas entradas complejas o cuyos campos no coincidan con los de su lista de contactos pueden no importarse correctamente. Es conveniente que compruebe los datos importados tras una operación de importación.
     </tip>
   </entry>
 
@@ -85,7 +85,7 @@
     Si una búsqueda obtiene resultados, se mostrarán en el área de "Resultados de la búsqueda".
     </para>
     <para>
-    Pulsando en un campo de "Correo" se abrirá una ventana de redacción de mensajes para enviar correo a esa dirección. Pulsando en un campo de "Nombre" se mostrará el registro de ese nombre de la libreta de direcciones, permitiéndole modificar o eliminar la entrada.
+    Pulsando en un campo de "Correo" se abrirá una ventana de redacción de mensajes para enviar correo a esa dirección. Pulsando en un campo de "Nombre" se mostrará el registro de ese nombre de la lista de contactos, permitiéndole modificar o eliminar la entrada.
     </para>
     <para>
     En función de cómo haya configurado el sistema su administrador, los resultados de las búsquedas podrán ser acumulativos. Cada búsqueda añadirá los resultados nuevos a los existentes. Ésto es útil al elaborar listas. Para eliminar los resultados de búsquedas acumuladas y empezar una nueva, pulse el vínculo "Limpiar búsqueda".
