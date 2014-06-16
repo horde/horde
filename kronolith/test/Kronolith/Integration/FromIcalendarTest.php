@@ -38,7 +38,7 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
     public function testEnd()
     {
         $event = $this->_getFixture('fromicalendar.ics');
-        $this->assertEquals('2010-11-01 10:59:59', (string)$event->end);
+        $this->assertEquals('2010-11-01 11:00:00', (string)$event->end);
     }
 
     public function testAllDay()
