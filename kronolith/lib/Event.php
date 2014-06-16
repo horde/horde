@@ -706,12 +706,8 @@ abstract class Kronolith_Event
         }
 
         if ($this->isAllDay()) {
-            /* DTEND is non-inclusive, but $this->end is inclusive. */
-            $end = clone $this->end;
-            $end->sec++;
-
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
-            $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
+            $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
         } else {
             $this->setTimezone(true);
@@ -726,13 +722,8 @@ abstract class Kronolith_Event
                 }
             }
 
-            /* DTEND is non-inclusive, but $this->end is inclusive. This needs
-             * to be done AFTER setting the timezone. */
-            $end = clone $this->end;
-            $end->sec++;
-
             $vEvent->setAttribute('DTSTART', clone $this->start, $params);
-            $vEvent->setAttribute('DTEND', clone $end, $params);
+            $vEvent->setAttribute('DTEND', clone $this->end, $params);
         }
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
@@ -1202,10 +1193,6 @@ abstract class Kronolith_Event
                               'month' => (int)$this->end->month,
                               'mday'  => (int)$this->end->mday + 1),
                         $tzid);
-                } else {
-                    // Otherwise, honor RFC 2445 that says DTEND is non-inclusive
-                    // (we store it as inclusive).
-                    --$this->end->sec;
                 }
             } else {
                 // Date field
