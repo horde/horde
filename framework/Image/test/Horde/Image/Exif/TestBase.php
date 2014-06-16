@@ -27,6 +27,20 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
         }
     }
 
+    public function testTitleFields()
+    {
+        $fields = Horde_Image_Exif::getTitleFields();
+        $this->assertTrue(array_search('ObjectName', $fields) !== false);
+        $this->assertTrue(array_search('Title', $fields) !== false);
+    }
+    public function testDescriptionFields()
+    {
+        $descFields = Horde_Image_Exif::getDescriptionFields();
+        $this->assertTrue(array_search('ImageDescription', $descFields) !== false);
+        $this->assertTrue(array_search('Description', $descFields) !== false);
+        $this->assertTrue(array_search('Caption-Abstract', $descFields) !== false);
+    }
+
     /**
      * Tests ability to extract EXIF data without errors. Does not test data
      * for validity.

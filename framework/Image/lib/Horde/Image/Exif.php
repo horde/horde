@@ -15,6 +15,18 @@
  */
 class Horde_Image_Exif
 {
+    static protected $_titleFields = array(
+        'IPTC' => array('ObjectName'),
+        'XMP'  => array('Title'),
+        'EXIF' => array()
+    );
+
+    static protected $_descriptionFields = array(
+        'IPTC' => array('Caption-Abstract'),
+        'XMP'  => array('Description'),
+        'EXIF' => array('ImageDescription')
+    );
+
     /**
      * Factory method for instantiating a Horde_Image_Exif object.
      *
@@ -135,10 +147,71 @@ class Horde_Image_Exif
     }
 
     /**
+     * Return a list of metadata fields that can by used for image titles.
+     *
+     * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
+     *                       specifying the driver in use.
+     *
+     * @return array  An array of metadata field names.
+     * @since 2.1.0
+     */
+    static public function getTitleFields($driver = null)
+    {
+        $map = self::getCategories();
+        if (!is_null($driver) && is_array($driver)) {
+            $driver = self::factory($driver[0], $driver[1]);
+        }
+        if ($driver instanceof Horde_Image_Exif_Base) {
+            $supported = $driver->supportedCategories();
+        } else {
+            $supported = array('XMP', 'IPTC', 'EXIF');
+        }
+
+        $fields = array();
+        foreach ($supported as $category) {
+            $fields = array_merge($fields, self::$_titleFields[$category]);
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Return a list of metadata fields that can by used for image descriptions.
+     *
+     * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
+     *                       specifying the driver in use.
+     *
+     * @return array  An array of metadata field names.
+     * @since 2.1.0
+     */
+    static public function getDescriptionFields($driver = null)
+    {
+        $map = self::getCategories();
+        if (!is_null($driver) && is_array($driver)) {
+            $driver = self::factory($driver[0], $driver[1]);
+        }
+        if ($driver instanceof Horde_Image_Exif_Base) {
+            $supported = $driver->supportedCategories();
+        } else {
+            $supported = array('XMP', 'IPTC', 'EXIF');
+        }
+
+        $fields = array();
+        foreach ($supported as $category) {
+            $fields = array_merge($fields, self::$_descriptionFields[$category]);
+        }
+
+        return $fields;
+    }
+
+    /**
      * Return a flattened array of supported metadata fields.
      *
-     * @param $driver
-     * @return unknown_type
+     * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
+     *                       specifying the driver in use.
+     * @param boolean $description_only  Only return the field descriptions.
+     *
+     * @return array
      */
     static public function getFields($driver = null, $description_only = false)
     {
