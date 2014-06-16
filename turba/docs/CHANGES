@@ -17,7 +17,7 @@ v4.2.0beta1
 v4.2.0alpha1
 ------------
 
-[jan] Don't extport binary fields to CSV/TSV.
+[jan] Don't export binary fields to CSV/TSV.
 [mms] Fix search in Facebook driver.
 [jan] Add script to import contacts from Open-Xchange.
 [jan] Don't remove missing contacts from distributions lists in Kolab backends

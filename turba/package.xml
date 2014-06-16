@@ -1813,7 +1813,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [jan] Don&apos;t extport binary fields to CSV/TSV.
+* [jan] Don&apos;t export binary fields to CSV/TSV.
 * [mms] Fix search in Facebook driver.
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
