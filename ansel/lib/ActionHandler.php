@@ -24,7 +24,6 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
-
 class Ansel_ActionHandler
 {
     /**
@@ -39,11 +38,9 @@ class Ansel_ActionHandler
         if ($actionID == 'downloadzip') {
             $gallery_id = Horde_Util::getFormData('gallery');
             $image_id = Horde_Util::getFormData('image');
-            if (!is_array($image_id)) {
-                $image_id = array($image_id);
-            } else {
-                $image_id = array_keys($image_id);
-            }
+            $image_id = !is_array($image_id)
+                ? array($image_id)
+                : array_keys($image_id);
 
             // All from same gallery.
             if ($gallery_id) {
@@ -103,13 +100,12 @@ class Ansel_ActionHandler
 
         switch($actionID) {
         case 'delete':
-            $image_id = Horde_Util::getFormData('image');
             $gallery_id = Horde_Util::getFormData('gallery');
-            if (is_array($image_id)) {
-                $images = array_keys($image_id);
-            } else {
-                $images = array($image_id);
-            }
+            $image_id = Horde_Util::getFormData('image');
+            $images = !is_array($image_id)
+                ? array($image_id)
+                : array_keys($image_id);
+
             foreach ($images as $image) {
                 $img = $storage->getImage($image);
                 if (empty($gallery_id)) {
@@ -131,13 +127,12 @@ class Ansel_ActionHandler
             return true;
 
         case 'move':
-            $image_id = Horde_Util::getFormData('image');
             $newGallery = Horde_Util::getFormData('new_gallery');
-            if (is_array($image_id)) {
-                $images = array_keys($image_id);
-            } else {
-                $images = array($image_id);
-            }
+            $image_id = Horde_Util::getFormData('image');
+            $images = !is_array($image_id)
+                ? array($image_id)
+                : array_keys($image_id);
+
             if ($images && $newGallery) {
                 try {
                     $newGallery = $storage->getGallery($newGallery);
@@ -169,13 +164,11 @@ class Ansel_ActionHandler
             return true;
 
         case 'copy':
-            $image_id = Horde_Util::getFormData('image');
             $newGallery = Horde_Util::getFormData('new_gallery');
-            if (is_array($image_id)) {
-                $images = array_keys($image_id);
-            } else {
-                $images = array($image_id);
-            }
+            $image_id = Horde_Util::getFormData('image');
+            $images = !is_array($image_id)
+                ? array($image_id)
+                : array_keys($image_id);
 
             if ($images && $newGallery) {
                 try {
@@ -210,11 +203,9 @@ class Ansel_ActionHandler
         case 'downloadzip':
             $gallery_id = Horde_Util::getFormData('gallery');
             $image_id = Horde_Util::getFormData('image');
-            if (!is_array($image_id)) {
-                $image_id = array($image_id);
-            } else {
-                $image_id = array_keys($image_id);
-            }
+            $images = !is_array($image_id)
+                ? array($image_id)
+                : array_keys($image_id);
 
             // All from same gallery.
             if ($gallery_id) {
@@ -228,10 +219,10 @@ class Ansel_ActionHandler
                         'horde.error');
                     return true;
                 }
-                $image_ids = $image_id;
+                $image_ids = $images;
             } else {
                 $image_ids = array();
-                foreach ($image_id as $image) {
+                foreach ($images as $image) {
                     $img = $storage->getImage($image);
                     $galleries[$img->gallery][] = $image;
                 }
