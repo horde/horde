@@ -24,7 +24,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>6.2.0beta3</release>
+  <release>6.2.0beta4</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug #13257).
-* [mms] Remove the &apos;default_msg_charset&apos; preference.
-* [mms] Rewritten folder list code for dynamic view.
-* [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes are already cached in the browser.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3650,6 +3647,19 @@
 * [mms] Remove the &apos;default_msg_charset&apos; preference.
 * [mms] Rewritten folder list code for dynamic view.
 * [mms] Fix saving expanded state when expanding all mailboxes when all mailboxes are already cached in the browser.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.0beta4</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
