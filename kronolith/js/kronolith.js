@@ -4804,7 +4804,7 @@ KronolithCore = {
             case 'kronolithViewYear':
                 var tmp = orig;
                 if (tmp.tagName != 'td' && tmp.tagName != 'th') {
-                    tmp.up('td');
+                    tmp = tmp.up('td');
                 }
                 if (tmp) {
                     if (tmp.retrieve('weekdate') &&
