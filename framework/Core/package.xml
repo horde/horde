@@ -30,7 +30,7 @@
  </developer>
  <date>2014-06-17</date>
  <version>
-  <release>2.12.0RC1</release>
+  <release>2.12.0RC2</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -39,11 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix incorrect processing of autocompleted data when using prettyautocompleter (Bug #13256).
-* [mjr] Fix updating attendee response status when receeived via ActiveSync.
-* [jan] Add &lt;configldapuser&gt; configuration item.
-* [jan] Add base DN to LDAP configuration for searching user DNs.
-* [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3442,6 +3438,19 @@
 * [jan] Add &lt;configldapuser&gt; configuration item.
 * [jan] Add base DN to LDAP configuration for searching user DNs.
 * [jan] Allow to specify port for PostgreSQL socket connections (Request #13250).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.0RC2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
