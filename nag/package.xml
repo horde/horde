@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-06-17</date>
  <version>
   <release>4.2.0beta2</release>
   <api>4.2.0</api>
@@ -1523,7 +1523,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Always display system task lists to administrators.
