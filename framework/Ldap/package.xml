@@ -19,7 +19,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* [jan] Fix compatibility with PHP 5.3 (Bug #11888).
-* [jan] Allow to specify base DN for searching user DNs.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -459,6 +458,19 @@
    <notes>
 * [jan] Fix compatibility with PHP 5.3 (Bug #11888).
 * [jan] Allow to specify base DN for searching user DNs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
