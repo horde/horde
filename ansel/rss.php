@@ -231,7 +231,6 @@ if (empty($rss)) {
                 $imgs[$i]['longitude'] = $images[$i]->lng;
             }
         }
-
     }
 
     if (!isset($imgs)) {
