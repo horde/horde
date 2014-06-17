@@ -4803,7 +4803,7 @@ KronolithCore = {
 
             case 'kronolithViewYear':
                 var tmp = orig;
-                if (tmp.tagName != 'td' && tmp.tagName != 'th') {
+                if (tmp.tagName.toLowerCase() != 'td' && tmp.tagName.toLowerCase() != 'th') {
                     tmp = tmp.up('td');
                 }
                 if (tmp) {
