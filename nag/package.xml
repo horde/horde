@@ -24,7 +24,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>4.2.0beta2</release>
+  <release>4.2.0beta3</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Always display system task lists to administrators.
-* [mjr] Group task fields into tabs on edit form (Request #13228).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1528,6 +1527,19 @@
    <notes>
 * [jan] Always display system task lists to administrators.
 * [mjr] Group task fields into tabs on edit form (Request #13228).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0beta3</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
