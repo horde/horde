@@ -111,7 +111,8 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
                 $ob->msgs[] = array_filter(array(
                     'flags' => $val->flags,
                     'message' => $val->message,
-                    'type' => $val->type
+                    'type' => $val->type,
+                    'webnotify' => isset($val->webnotify) ? $val->webnotify : null
                 ));
             }
         }
