@@ -112,10 +112,9 @@ $notification->notify(array('listeners' => 'status'));
 <?php
 $images = $gallery->getImages();
 foreach ($images as $image) {
-    $caption = htmlspecialchars(empty($image->caption) ? $image->filename : $image->caption);
     echo '<div id="o_' . (int)$image->id . '"><a title="'
-        . $caption . '" href="#">'
-        . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . htmlspecialchars($image->filename) . '" />'
+        . htmlspecialchars($image->title) . '" href="#">'
+        . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . htmlspecialchars($image->title) . '" />'
         . '</a></div>';
 }
 echo '</div>';

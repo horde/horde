@@ -221,7 +221,7 @@ if (empty($rss)) {
                     array('view' => 'Image',
                           'gallery' => $images[$i]->gallery,
                           'image' => $images[$i]->id), true);
-                $imgs[$i]['filename'] = $images[$i]->filename;
+                $imgs[$i]['filename'] = $images[$i]->title;
                 $imgs[$i]['caption'] = $images[$i]->caption;
                 $imgs[$i]['url'] = htmlspecialchars(Ansel::getImageUrl($images[$i]->id, 'screen', true));
                 $imgs[$i]['type'] = $images[$i]->getType('screen');
@@ -243,7 +243,7 @@ if (empty($rss)) {
                 array('view' => 'Image',
                       'gallery' => $images[$i]->gallery,
                       'image' => $images[$i]->id), true);
-            $imgs[$i]['filename'] = $images[$i]->filename;
+            $imgs[$i]['filename'] = $images[$i]->title;
             $imgs[$i]['caption'] = $images[$i]->caption;
             $imgs[$i]['url'] = htmlspecialchars(Ansel::getImageUrl($images[$i]->id, 'screen', true));
             $imgs[$i]['type'] = $images[$i]->getType('screen');

@@ -167,7 +167,7 @@ HEADER;
                     array(
                         'onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
                         'onmouseover' => 'Ansel.previewImage(event, ' . $image->id . ');'))
-                . htmlspecialchars(strlen($caption) ? $caption : $image->filename)
+                . htmlspecialchars($image->title)
                 . '</a></td><td class="nowrap">' . $galleryLink . '</td></tr>';
         }
         $html .= '</tbody></table>';

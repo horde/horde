@@ -353,7 +353,7 @@ class Ansel_Gallery implements Serializable
         /* Check for a supported multi-page image */
         if ($image->isMultiPage() === true) {
             $params['name'] = $image->getImagePageCount() . ' page image: '
-                . $image->filename;
+                . $image->title;
             $mGallery = $GLOBALS['storage']->createGallery(
                 $params, $this->_share->getPermission(), $this);
             $i = 1;
@@ -501,7 +501,8 @@ class Ansel_Gallery implements Serializable
                'data' => $img->raw(),
                'image_filename' => $img->filename,
                'image_type' => $img->getType(),
-               'image_uploaded_date' => $img->uploaded)
+               'image_uploaded_date' => $img->uploaded,
+               'image_title' => $img->title)
             );
             /* Copy any tags */
             $tags = $img->getTags();

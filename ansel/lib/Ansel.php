@@ -570,7 +570,7 @@ class Ansel
         // Check for an active image
         if (!empty($image_id)) {
             $text = '<span class="thiscrumb" id="PhotoName">'
-                . htmlspecialchars($image->filename) . '</span>';
+                . htmlspecialchars($image->title) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
         }

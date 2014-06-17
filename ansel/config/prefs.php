@@ -232,7 +232,7 @@ $_prefs['exif_title'] = array(
     'type' => 'enum',
     'enum' => array_merge(array(
         'none' => _("None"),
-    ), Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()), true)),
+    ), Horde_Image_Exif::getTitleFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()))),
     'desc' => _("Should we automatically set the image title on upload if able? If so, choose the field to obtain the title from.")
 );
 

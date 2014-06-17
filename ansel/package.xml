@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-17</date>
+ <date>2014-06-16</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -134,6 +134,7 @@
     <file name="editfaces.js" role="horde" />
     <file name="embed.js" role="horde" />
     <file name="imagefaces.js" role="horde" />
+    <file name="imageview.js" role="horde" />
     <file name="layout.js" role="horde" />
     <file name="lightbox.js" role="horde" />
     <file name="map.js" role="horde" />
@@ -270,6 +271,7 @@
     <file name="Ansel.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="Attributes.php" role="horde" />
     <file name="Config.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Faces.php" role="horde" />
@@ -395,6 +397,7 @@
     <file name="11_ansel_fix_blob_length.php" role="horde" />
     <file name="12_ansel_upgrade_fixautoincrement.php" role="horde" />
     <file name="13_ansel_upgrade_parents.php" role="horde" />
+    <file name="14_ansel_upgrade_addtitle.php" role="horde" />
     <file name="14_ansel_upgrade_fixshareusers.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
@@ -542,6 +545,7 @@
       <file name="arrow_switch.png" role="horde" />
       <file name="bookmark.png" role="horde" />
       <file name="browse.png" role="horde" />
+      <file name="close.png" role="horde" />
       <file name="date.png" role="horde" />
       <file name="down.png" role="horde" />
       <file name="embed.png" role="horde" />
@@ -900,6 +904,7 @@
    <install as="ansel/js/editfaces.js" name="js/editfaces.js" />
    <install as="ansel/js/embed.js" name="js/embed.js" />
    <install as="ansel/js/imagefaces.js" name="js/imagefaces.js" />
+   <install as="ansel/js/imageview.js" name="js/imageview.js" />
    <install as="ansel/js/layout.js" name="js/layout.js" />
    <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
    <install as="ansel/js/map.js" name="js/map.js" />
@@ -921,6 +926,7 @@
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
    <install as="ansel/lib/Application.php" name="lib/Application.php" />
+   <install as="ansel/lib/Attributes.php" name="lib/Attributes.php" />
    <install as="ansel/lib/Config.php" name="lib/Config.php" />
    <install as="ansel/lib/Exception.php" name="lib/Exception.php" />
    <install as="ansel/lib/Faces.php" name="lib/Faces.php" />
@@ -1060,6 +1066,7 @@
    <install as="ansel/migration/11_ansel_fix_blob_length.php" name="migration/11_ansel_fix_blob_length.php" />
    <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
    <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
+   <install as="ansel/migration/14_ansel_upgrade_addtitle.php" name="migration/14_ansel_upgrade_addtitle.php" />
    <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
@@ -1139,6 +1146,7 @@
    <install as="ansel/themes/default/graphics/arrow_switch.png" name="themes/default/graphics/arrow_switch.png" />
    <install as="ansel/themes/default/graphics/bookmark.png" name="themes/default/graphics/bookmark.png" />
    <install as="ansel/themes/default/graphics/browse.png" name="themes/default/graphics/browse.png" />
+   <install as="ansel/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="ansel/themes/default/graphics/date.png" name="themes/default/graphics/date.png" />
    <install as="ansel/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
    <install as="ansel/themes/default/graphics/embed.png" name="themes/default/graphics/embed.png" />
@@ -1372,7 +1380,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-17</date>
+   <date>2014-06-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Keep original file names when PUTing images via WebDAV.

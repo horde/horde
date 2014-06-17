@@ -10,7 +10,7 @@
        | <?php echo $this->contentTag('a', _("Edit"), array('id' => 'image_edit_link', 'href' => $this->urls['edit'])); ?> |
       <?php endif; ?>
       <?php if (!empty($this->urls['delete'])): ?>
-        <?php echo $this->contentTag('a', _("Delete"), array('href' => $this->urls['delete'], 'onclick' => 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->filename)) . '\');', 'id' => 'image_delete_link')) ?> |
+        <?php echo $this->contentTag('a', _("Delete"), array('href' => $this->urls['delete'], 'onclick' => 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->title)) . '\');', 'id' => 'image_delete_link')) ?> |
       <?php endif; ?>
       <?php if (!empty($this->urls['ecard'])): ?>
         <?php echo $this->contentTag('a', _("Send an Ecard"), array('href' => $this->urls['ecard'], 'onclick' => 'SlideController.pause();', 'target' => '_blank', 'id' => 'image_ecard_link')) ?> |

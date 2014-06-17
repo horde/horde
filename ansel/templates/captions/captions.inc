@@ -31,7 +31,7 @@ if ($gallery->countImages()) {
         $thumb_url = Ansel::getImageUrl($image->id, 'thumb', false, $style);
 
         echo '<td width="10%" align="right" valign="top">';
-        echo '<img src="' . $thumb_url . '" alt="' . htmlspecialchars($image->filename) . '" />' .
+        echo '<img src="' . $thumb_url . '" alt="' . htmlspecialchars($image->title) . '" />' .
             '</td><td width="40%" valign="top"><textarea name="img' . $image->id . '" rows="5" cols="25">' .
             htmlspecialchars($image->caption) . '</textarea></td>';
 

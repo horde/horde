@@ -1,4 +1,4 @@
-<div class="header"><?php echo sprintf(_("Update position of %s"), $this->filename) ?></div>
+<div class="header"><?php echo sprintf(_("Update position of %s"), $this->title) ?></div>
 <div style="width:450px;float:left;">
   <div id="ansel_map" style="width:450px;height:450px;"></div>
 </div>

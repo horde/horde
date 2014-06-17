@@ -39,7 +39,7 @@ if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)
 $view = $injector->getInstance('Horde_View');
 $view->image_id = $image_id;
 $view->loadingImg = Horde::img('loading.gif', _("Loading..."));
-$view->filename = $image->filename;
+$view->title = $image->title;
 
 // Determine if we already have a geotag or are we tagging it for the 1st time
 if (empty($image->lat)) {

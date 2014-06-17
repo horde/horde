@@ -43,7 +43,14 @@ class Ansel_Image Implements Iterator
      *
      * @var string
      */
-    public $filename = 'Untitled';
+    public $filename = '';
+
+    /**
+     * The image title.
+     *
+     * @var string
+     */
+    public $title = 'Untitled';
 
     /**
      * Image caption
@@ -225,11 +232,11 @@ class Ansel_Image Implements Iterator
     }
 
     /**
-     * Obtain a reference to the underlying Horde_Image
+     * Return the underlying Horde_Image
      *
      * @return Horde_Image_Base
      */
-    public function &getHordeImage()
+    public function getHordeImage()
     {
         return $this->_image;
     }
@@ -700,17 +707,12 @@ class Ansel_Image Implements Iterator
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
-        $params = !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array();
-        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-        $exif = Horde_Image_Exif::factory(
-            $GLOBALS['conf']['exif']['driver'],
-            $params);
 
+        // @todo
+        $att = new Ansel_Attributes();
         try {
-            $exif_fields = $exif->getData($imageFile);
-        } catch (Horde_Image_Exception $e) {
+            $exif_fields = $att->getImageExifData($imageFile);
+        } catch (Ansel_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
             Horde::log($e, 'ERR');
             $exif_fields = array();
@@ -733,10 +735,13 @@ class Ansel_Image Implements Iterator
             $needUpdate = true;
         }
 
-        // Overwrite any existing value for caption with exif data
-        $exif_title = $GLOBALS['prefs']->getValue('exif_title');
-        if (!empty($exif_fields[$exif_title])) {
-            $this->caption = $exif_fields[$exif_title];
+        // Overwrite any existing value for title and caption with exif data
+        if ($exif_title = $att->getTitle()) {
+            $this->title = $exif_title;
+            $needUpdate = true;
+        }
+        if ($exif_caption = $att->getCaption()) {
+            $this->caption = $exif_caption;
             $needUpdate = true;
         }
 

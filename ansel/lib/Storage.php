@@ -514,25 +514,28 @@ class Ansel_Storage
      */
     public function saveImage(Ansel_Image $image)
     {
+        global $conf;
+
         // If we have an id, then it's an existing image.
         if ($image->id) {
             $update = 'UPDATE ansel_images SET image_filename = ?, '
                 . 'image_type = ?, image_caption = ?, image_sort = ?, '
                 . 'image_original_date = ?, image_latitude = ?, '
                 . 'image_longitude = ?, image_location = ?, '
-                . 'image_geotag_date = ? WHERE image_id = ?';
+                . 'image_geotag_date = ?, image_title = ? WHERE image_id = ?';
             try {
                return $this->_db->update(
                    $update,
-                   array(Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                   array(Horde_String::convertCharset($image->filename, 'UTF-8', $conf['sql']['charset']),
                          $image->type,
-                         Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                         Horde_String::convertCharset($image->caption, 'UTF-8', $conf['sql']['charset']),
                          $image->sort,
                          $image->originalDate,
                          $image->lat,
                          $image->lng,
                          $image->location,
                          $image->geotag_timestamp,
+                         Horde_String::convertCharset($image->title, 'UTF-8', $conf['sql']['charset']),
                          $image->id));
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
@@ -548,29 +551,26 @@ class Ansel_Storage
         $insert = 'INSERT INTO ansel_images (gallery_id, image_filename, '
             . 'image_type, image_caption, image_uploaded_date, image_sort, '
             . 'image_original_date, image_latitude, image_longitude, '
-            . 'image_location, image_geotag_date) VALUES '
+            . 'image_location, image_geotag_date, image_title) VALUES '
             . '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         try {
             $image->id = $this->_db->insert(
                 $insert,
                 array($image->gallery,
-                      Horde_String::convertCharset(
-                          $image->filename,
-                          'UTF-8',
-                          $GLOBALS['conf']['sql']['charset']),
+                      Horde_String::convertCharset($image->filename,'UTF-8', $conf['sql']['charset']),
                       $image->type,
-                      Horde_String::convertCharset(
-                          $image->caption,
-                          'UTF-8',
-                          $GLOBALS['conf']['sql']['charset']),
+                      Horde_String::convertCharset($image->caption, 'UTF-8',$conf['sql']['charset']),
                       $image->uploaded,
                       $image->sort,
                       $image->originalDate,
                       $image->lat,
                       $image->lng,
                       $image->location,
-                     (empty($image->lat) ? 0 : $image->uploaded)));
+                     (empty($image->lat) ? 0 : $image->geotag_timestamp),
+                     Horde_String::convertCharset($image->title, 'UTF-8', $conf['sql']['charset'])
+                )
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -1322,7 +1322,7 @@ class Ansel_Storage
             'image_id', 'gallery_id', 'image_filename', 'image_type',
             'image_caption', 'image_uploaded_date', 'image_sort',
             'image_faces', 'image_original_date', 'image_latitude',
-            'image_longitude', 'image_location', 'image_geotag_date');
+            'image_longitude', 'image_location', 'image_geotag_date', 'image_title');
         if (!empty($alias)) {
             foreach ($fields as $field) {
                 $new[] = $alias . '.' . $field;

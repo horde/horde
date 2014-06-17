@@ -1,6 +1,6 @@
 <!-- Image Tile -->
 <div class="image-tile" id="imagetile_<?php echo $this->image->id?>">
-  <?php echo $this->contentTag('a', $this->tag('img', array('src' => $this->thumb_url, 'alt' => $this->h($this->image->filename))), array_merge(array('href' => $this->view_url, 'title' => $this->image->filename, 'onclick' => $this->imgOnClick), $this->imgAttributes)) ?>
+  <?php echo $this->contentTag('a', $this->tag('img', array('src' => $this->thumb_url, 'alt' => $this->h($this->image->title))), array_merge(array('href' => $this->view_url, 'title' => $this->image->title, 'onclick' => $this->imgOnClick), $this->imgAttributes)) ?>
   <div style="valign: bottom;">
    <?php echo $this->contentTag('div', $this->imageCaption, array('class' => 'image-tile-caption',  'id' => $this->image->id . 'caption')) ?>
    <?php if ($GLOBALS['registry']->getAuth() || $this->option_select): ?>

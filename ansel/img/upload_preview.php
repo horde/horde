@@ -35,7 +35,7 @@ $gallery->set('view_mode', $old_mode);
 foreach ($images as $image) {
     echo  '<li>';
     echo '<div>';
-    $alt = htmlspecialchars($image->filename);
+    $alt = htmlspecialchars($image->title);
     echo '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . $alt . '" title="' . $alt . '" />';
     echo '</div></li>' . "\n";
 }

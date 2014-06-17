@@ -1,6 +1,6 @@
 <h1 class="header"><?php echo $title ?></h1>
 <div style="float:left;width:70%;">
-  <img src="<?php echo Ansel::getImageUrl($image_id, 'screen') ?>" alt="<?php echo htmlspecialchars($image->filename) ?>" id="faceImage" />
+  <img src="<?php echo Ansel::getImageUrl($image_id, 'screen') ?>" alt="<?php echo htmlspecialchars($image->title) ?>" id="faceImage" />
 </div>
 <div style="float:left;width:25%;text-align:center;">
   <form method="post" action="<?php echo $form_post ?>">

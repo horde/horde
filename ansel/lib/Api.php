@@ -818,6 +818,7 @@ class Ansel_Api extends Horde_Registry_Api
      * @return array  Hash of image data (see below) keyed by image_id.
      *<pre>
      *  name
+     *  title
      *  caption
      *  type
      *  uploaded
@@ -851,6 +852,7 @@ class Ansel_Api extends Horde_Registry_Api
         foreach ($images as $id) {
             $image = $storage->getImage($id);
             $imagelist[$id]['name'] = $image->filename;
+            $imagelist[$id]['title'] = $image->title;
             $imagelist[$id]['caption'] = $image->caption;
             $imagelist[$id]['type'] = $image->type;
             $imagelist[$id]['uploaded'] = $image->uploaded;
@@ -904,7 +906,7 @@ class Ansel_Api extends Horde_Registry_Api
         foreach ($images as $image) {
             $id = $image->id;
             $imagelist[$id]['id'] = $id;
-            $imagelist[$id]['name'] = $image->filename;
+            $imagelist[$id]['name'] = $image->title;
             $imagelist[$id]['url'] = Ansel::getImageUrl(
                 $id,
                 $params->get('view', 'screen'),
@@ -1021,7 +1023,7 @@ class Ansel_Api extends Horde_Registry_Api
                     true);
                 $gurl = Ansel::getUrlFor('view', array('view' => 'Gallery', 'gallery' => $image->gallery));
                 $return[] = array(
-                    'title' => $image->filename,
+                    'title' => $image->title,
                     'desc'=> $image->caption . ' '. _("from") . ' ' . $gurl->link() . $g->get('name') . '</a>',
                     'view_url' => $view_url,
                     'app' => $app,

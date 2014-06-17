@@ -20,10 +20,10 @@ class Ansel_Tile_Image
     /**
      * Outputs the HTML for an image thumbnail tile.
      *
-     * @param Ansel_Image $image     The Ansel_Image we are displaying.
-     * @param Ansel_Style $style     A sytle definiition array.
-     * @param boolean $mini          Force the use of a mini thumbnail?
-     * @param array $params         Any other paramaters needed by this tile
+     * @param Ansel_Image $image  The Ansel_Image we are displaying.
+     * @param Ansel_Style $style  A sytle definiition array.
+     * @param boolean $mini       Force the use of a mini thumbnail?
+     * @param array $params       Any other paramaters needed by this tile
      *
      * @return  Outputs the HTML for the image tile.
      */
@@ -136,7 +136,7 @@ class Ansel_Tile_Image
             !empty($image->_data[$params['image_view_title']])) {
             $title = $image->_data[$params['image_view_title']];
         } else {
-            $title = $image->filename;
+            $title = $image->title;
         }
 
         // In-line caption editing if we have Horde_Perms::EDIT

@@ -87,12 +87,12 @@ case 'send':
     exit;
 }
 
-$title = sprintf(_("Send Ecard :: %s"), $image->filename);
+$title = sprintf(_("Send Ecard :: %s"), $image->title);
 
 /* Set up the form object. */
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('actionID', 'send');
-$vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->filename);
+$vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->title);
 $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
