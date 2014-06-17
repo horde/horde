@@ -12,7 +12,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>2.23.1</release>
+  <release>2.23.2</release>
   <api>2.23.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression where INBOX subscription status was based on server status, instead of always being treated as subscribed (Bug #13261).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2483,6 +2483,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression where INBOX subscription status was based on server status, instead of always being treated as subscribed (Bug #13261).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.23.2</release>
+    <api>2.23.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
