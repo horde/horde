@@ -521,7 +521,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         case 'raw':
             if (($this->_mimepart->getType() == 'application/pgp-signature') &&
-                $this->_mimepart->getMetadata(self::PGP_SIG)) {
+                $this->_mimepart->getMetadata(Horde_Crypt_Pgp_Parse::SIG_RAW)) {
                 return true;
             }
             break;
