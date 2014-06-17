@@ -25,7 +25,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.4</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix changing columns to NULL/NOT NULL on Oracle and SQLite.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -801,6 +801,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix changing columns to NULL/NOT NULL on Oracle and SQLite.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
