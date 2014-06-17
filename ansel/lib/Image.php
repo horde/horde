@@ -180,7 +180,9 @@ class Ansel_Image Implements Iterator
     {
         if ($image) {
             $this->filename = $image['image_filename'];
-
+            if (!empty($image['image_title'])) {
+                $this->title = $image['image_title'];
+            }
             if  (!empty($image['gallery_id'])) {
                 $this->gallery = $image['gallery_id'];
             }
