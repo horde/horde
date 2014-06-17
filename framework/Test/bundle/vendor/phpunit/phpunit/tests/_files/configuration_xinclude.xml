@@ -66,3 +66,4 @@
       parse="xml"
       xpointer="xpointer(/phpunit/selenium)" />
 </phpunit>
+

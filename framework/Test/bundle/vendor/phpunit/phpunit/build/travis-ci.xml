@@ -22,3 +22,4 @@
     <const name="PHPUNIT_TESTSUITE" value="true"/>
   </php>
 </phpunit>
+

@@ -770,6 +770,29 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_MockObject_BadMethodCallException
+     */
+    public function testInvokingStubbedStaticMethodRaisesException()
+    {
+        $mock = $this->getMock('ClassWithStaticMethod');
+        $mock->staticMethod();
+    }
+
+    /**
+     * @see    https://github.com/sebastianbergmann/phpunit-mock-objects/issues/171
+     * @ticket 171
+     */
+    public function testStubForClassThatImplementsSerializableCanBeCreatedWithoutInvokingTheConstructor()
+    {
+        $this->assertInstanceOf(
+            'ClassThatImplementsSerializable',
+            $this->getMockBuilder('ClassThatImplementsSerializable')
+                 ->disableOriginalConstructor()
+                 ->getMock()
+        );
+    }
+
     private function resetMockObjects()
     {
         $refl = new ReflectionObject($this);

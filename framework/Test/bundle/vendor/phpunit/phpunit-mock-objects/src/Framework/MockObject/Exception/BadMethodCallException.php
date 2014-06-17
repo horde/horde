@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2001-2014, Sebastian Bergmann <sebastian@phpunit.de>.
+ * Copyright (c) 2010-2014, Sebastian Bergmann <sebastian@phpunit.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,72 +34,22 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package    PHPUnit
- * @subpackage Runner
+ * @package    PHPUnit_MockObject
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  2010-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      File available since Release 2.0.0
+ * @link       http://github.com/sebastianbergmann/phpunit-mock-objects
+ * @since      File available since Release 2.0.6
  */
 
 /**
- * This class defines the current version of PHPUnit.
- *
- * @package    PHPUnit
- * @subpackage Runner
+ * @package    PHPUnit_MockObject
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  2010-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      Class available since Release 2.0.0
+ * @link       http://github.com/sebastianbergmann/phpunit-mock-objects
+ * @since      Class available since Release 2.0.6
  */
-class PHPUnit_Runner_Version
+class PHPUnit_Framework_MockObject_BadMethodCallException extends BadMethodCallException implements PHPUnit_Framework_MockObject_Exception
 {
-    private static $pharVersion;
-    private static $version;
-
-    /**
-     * Returns the current version of PHPUnit.
-     *
-     * @return string
-     */
-    public static function id()
-    {
-        if (self::$pharVersion !== null) {
-            return self::$pharVersion;
-        }
-
-        if (self::$version === null) {
-            $version = new SebastianBergmann\Version('4.1.3', dirname(dirname(__DIR__)));
-            self::$version = $version->getVersion();
-        }
-
-        return self::$version;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getVersionString()
-    {
-        return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann.';
-    }
-
-    /**
-     * @return string
-     * @since  Method available since Release 4.0.0
-     */
-    public static function getReleaseChannel()
-    {
-        if (strpos(self::$pharVersion, 'alpha') !== false) {
-            return '-alpha';
-        }
-
-        if (strpos(self::$pharVersion, 'beta') !== false) {
-            return '-beta';
-        }
-
-        return '';
-    }
 }

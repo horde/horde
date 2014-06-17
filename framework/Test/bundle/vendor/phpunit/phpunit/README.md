@@ -38,3 +38,4 @@ Thanks to everyone who has contributed to PHPUnit! You can find a detailed list 
 A very special thanks to everyone who has contributed to the documentation and helps maintaining the translations:
 
 * [PHPUnit Documentation](https://github.com/sebastianbergmann/phpunit-documentation/graphs/contributors)
+

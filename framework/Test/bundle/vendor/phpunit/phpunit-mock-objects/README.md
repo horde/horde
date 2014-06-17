@@ -18,3 +18,4 @@ To add PHPUnit_MockObject as a local, per-project dependency to your project, si
             "phpunit/phpunit-mock-objects": "2.1.*"
         }
     }
+

@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-06</date>
+ <date>2014-06-17</date>
  <version>
   <release>2.4.2</release>
   <api>2.3.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update to PHPUnit 4.1.3.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -673,8 +673,8 @@
          <file name="ini-isolation.phpt" role="php" />
          <file name="list-groups.phpt" role="php" />
          <file name="log-json-5.3.phpt" role="php" />
-         <file name="log-json-5.4.phpt" role="php" />
-         <file name="log-json-5.6.phpt" role="php" />
+         <file name="log-json-post-66021.phpt" role="php" />
+         <file name="log-json-pre-66021.phpt" role="php" />
          <file name="log-tap.phpt" role="php" />
          <file name="log-xml.phpt" role="php" />
          <file name="repeat.phpt" role="php" />
@@ -814,7 +814,6 @@
          <file name="ThrowNoExceptionTestCase.php" role="php" />
          <file name="WasRun.php" role="php" />
         </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/_files -->
-        <file name="autoload.php" role="php" />
         <file name="bootstrap-travis.php" role="php" />
         <file name="bootstrap.php" role="php" />
        </dir> <!-- /bundle/vendor/phpunit/phpunit/tests -->
@@ -846,11 +845,17 @@
            <file name="ParametersMatch.php" role="php" />
            <file name="Stub.php" role="php" />
           </dir> <!-- /bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder -->
+          <dir name="Exception">
+           <file name="BadMethodCallException.php" role="php" />
+           <file name="Exception.php" role="php" />
+           <file name="RuntimeException.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception -->
           <dir name="Generator">
            <file name="mocked_class.tpl.dist" role="php" />
            <file name="mocked_class_method.tpl.dist" role="php" />
            <file name="mocked_clone.tpl.dist" role="php" />
            <file name="mocked_method.tpl.dist" role="php" />
+           <file name="mocked_static_method.tpl.dist" role="php" />
            <file name="proxied_method.tpl.dist" role="php" />
            <file name="trait_class.tpl.dist" role="php" />
            <file name="unmocked_clone.tpl.dist" role="php" />
@@ -884,7 +889,6 @@
            <file name="ReturnSelf.php" role="php" />
            <file name="ReturnValueMap.php" role="php" />
           </dir> <!-- /bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Stub -->
-          <file name="Exception.php" role="php" />
           <file name="Generator.php" role="php" />
           <file name="Invocation.php" role="php" />
           <file name="InvocationMocker.php" role="php" />
@@ -934,6 +938,10 @@
          <file name="wsdl_class_namespace.phpt" role="php" />
          <file name="wsdl_class_partial.phpt" role="php" />
         </dir> <!-- /bundle/vendor/phpunit/phpunit-mock-objects/tests/MockObject -->
+        <dir name="_files">
+         <file name="ClassThatImplementsSerializable.php" role="php" />
+         <file name="ClassWithStaticMethod.php" role="php" />
+        </dir> <!-- /bundle/vendor/phpunit/phpunit-mock-objects/tests/_files -->
         <dir name="_fixture">
          <file name="AbstractMockTestClass.php" role="php" />
          <file name="AbstractTrait.php" role="php" />
@@ -1631,7 +1639,6 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/HTML.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/HTML.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/autoload.php" name="bundle/vendor/phpunit/phpunit/tests/autoload.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/bootstrap-travis.php" name="bundle/vendor/phpunit/phpunit/tests/bootstrap-travis.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/bootstrap.php" name="bundle/vendor/phpunit/phpunit/tests/bootstrap.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Extensions/RepeatedTestTest.php" name="bundle/vendor/phpunit/phpunit/tests/Extensions/RepeatedTestTest.php" />
@@ -1736,8 +1743,8 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/ini-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/ini-isolation.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/list-groups.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/list-groups.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-5.3.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-5.3.phpt" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-5.4.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-5.4.phpt" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-5.6.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-5.6.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-post-66021.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-post-66021.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-pre-66021.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-pre-66021.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-tap.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-tap.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" />
@@ -1877,7 +1884,6 @@
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/phpunit.xml.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/phpunit.xml.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/README.md" name="bundle/vendor/phpunit/phpunit-mock-objects/README.md" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/build/travis-ci.xml" name="bundle/vendor/phpunit/phpunit-mock-objects/build/travis-ci.xml" />
-   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Invocation.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Invocation.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/InvocationMocker.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/InvocationMocker.php" />
@@ -1894,10 +1900,14 @@
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/Namespace.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/Namespace.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/ParametersMatch.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/ParametersMatch.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/Stub.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/Stub.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/BadMethodCallException.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/BadMethodCallException.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/Exception.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/Exception.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/RuntimeException.php" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/RuntimeException.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_class.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_class.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_class_method.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_class_method.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_clone.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_clone.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_method.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_method.tpl.dist" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_static_method.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_static_method.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/proxied_method.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/proxied_method.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/trait_class.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/trait_class.tpl.dist" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/unmocked_clone.tpl.dist" name="bundle/vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/unmocked_clone.tpl.dist" />
@@ -1960,6 +1970,8 @@
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Invocation/ObjectTest.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Invocation/ObjectTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Invocation/StaticTest.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Invocation/StaticTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Matcher/ConsecutiveParametersTest.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/MockObject/Matcher/ConsecutiveParametersTest.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/_files/ClassThatImplementsSerializable.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/_files/ClassThatImplementsSerializable.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/_files/ClassWithStaticMethod.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/_files/ClassWithStaticMethod.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AbstractMockTestClass.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AbstractMockTestClass.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AbstractTrait.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AbstractTrait.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AnInterface.php" name="bundle/vendor/phpunit/phpunit-mock-objects/tests/_fixture/AnInterface.php" />
@@ -2513,10 +2525,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-06</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update to PHPUnit 4.1.3.
    </notes>
   </release>
  </changelog>

@@ -16,3 +16,4 @@ PHPUnit %s by Sebastian Bergmann.
 BankAccount
  [x] Balance is initially zero
  [x] Balance cannot become negative
+
