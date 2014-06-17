@@ -50,9 +50,6 @@ abstract class Ansel_View_Base
      *                         that are used as attributes of the image view
      *                         link.
      *
-     * image_view_title        Specifies which property of the image object
-     *                         to use as the image caption.
-     *
      * image_onclick           Specifies a onclick handler for the image tile
      *                         links.
      *

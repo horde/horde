@@ -124,20 +124,7 @@ class Ansel_Tile_Image
         $view->imgOnClick = (!empty($params['image_onclick'])
                 ? str_replace('%i', $image->id, $params['image_onclick'])
                 : '');
-
-        $view->imageCaption = $injector
-            ->getInstance('Horde_Core_Factory_TextFilter')
-            ->filter(
-                $image->caption,
-                'text2html',
-                array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-
-        if (!empty($params['image_view_title']) &&
-            !empty($image->_data[$params['image_view_title']])) {
-            $title = $image->_data[$params['image_view_title']];
-        } else {
-            $title = $image->title;
-        }
+        $view->title = $image->title;
 
         // In-line caption editing if we have Horde_Perms::EDIT
         if ($view->option_edit) {
