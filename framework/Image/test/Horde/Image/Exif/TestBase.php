@@ -30,15 +30,16 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
     public function testTitleFields()
     {
         $fields = Horde_Image_Exif::getTitleFields();
-        $this->assertTrue(array_search('ObjectName', $fields) !== false);
-        $this->assertTrue(array_search('Title', $fields) !== false);
+        $this->assertTrue(array_key_exists('ObjectName', $fields));
+        $this->assertTrue(array_key_exists('Title', $fields));
     }
+
     public function testDescriptionFields()
     {
         $descFields = Horde_Image_Exif::getDescriptionFields();
-        $this->assertTrue(array_search('ImageDescription', $descFields) !== false);
-        $this->assertTrue(array_search('Description', $descFields) !== false);
-        $this->assertTrue(array_search('Caption-Abstract', $descFields) !== false);
+        $this->assertTrue(array_key_exists('ImageDescription', $descFields));
+        $this->assertTrue(array_key_exists('Description', $descFields));
+        $this->assertTrue(array_key_exists('Caption-Abstract', $descFields));
     }
 
     /**
