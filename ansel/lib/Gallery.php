@@ -367,7 +367,7 @@ class Ansel_Gallery implements Serializable
         }
 
         /* If this was a single, normal image, continue */
-        $result = $image->save();
+        $image->save();
         if (empty($image_data['image_id'])) {
             $this->updateImageCount(1);
             if ($this->countImages() < 5) {

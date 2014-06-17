@@ -31,7 +31,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple_InPlaceEditor
         if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $image->caption = $vars->{$vars->input};
             try {
-                $result = $image->save();
+                $image->save();
             } catch (Ansel_Exception $e) {
                 return '';
             }

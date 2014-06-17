@@ -586,20 +586,22 @@ class Ansel_Image Implements Iterator
     /**
      * Save image details to storage.
      *
-     * @return integer image id
      * @throws Ansel_Exception
      */
     public function save()
     {
         global $storage;
 
+        // Save
+        $id = $storage->saveImage($this);
+
         // Existing image, just save and exit
         if ($this->id) {
-            return $storage->saveImage($this);
+            return;
         }
 
         // New image, need to save the image files
-        $storage->saveImage($this);
+        $this->id = $id;
 
         // The EXIF functions require a stream, need to save before we read
         $this->_writeData();
