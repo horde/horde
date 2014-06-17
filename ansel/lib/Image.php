@@ -727,7 +727,7 @@ class Ansel_Image Implements Iterator
             $exif_fields = array();
             return false;
         }
-        $this->_exif = $this->_getAttributeObject()->imageAttributes($exif_fields);
+        $this->_exif = $this->_getAttributeObject()->imageAttributes($exif_fields, $replacing);
 
         // Flag to determine if we need to resave the image data.
         $needUpdate = false;
@@ -758,11 +758,6 @@ class Ansel_Image Implements Iterator
         // Attempt to autorotate based on Orientation field
         if (!empty($exif_fields['Orientation'])) {
             $this->_autoRotate($exif_fields['Orientation']);
-        }
-
-        // Save attributes.
-        if ($replacing) {
-            $GLOBALS['storage']->clearImageAttributes($this->id);
         }
 
         return $needUpdate;

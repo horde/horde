@@ -78,14 +78,18 @@ class Ansel_Attributes
      * exif data.
      *
      * @param array  An array of exif data, as returned from self::getImageExifData()
+     * @param boolean $replacing  Set to true if we are replacing the exif data.
      *
      * @return array  A hash of exif field names and human readable values.
      * @throws Ansel_Exception
      */
-    public function imageAttributes($attributes = array())
+    public function imageAttributes($attributes = array(), $replacing = false)
     {
         if ($this->_imageExif === false && empty($attributes)) {
             throw new Ansel_Exception('Ansel_Attributes::getImageExifData must be called before imageAttributes');
+        }
+        if ($replacing) {
+            $GLOBALS['storage']->clearImageAttributes($this->_id);
         }
         $exif = array();
         foreach ($this->_imageExif as $name => $value) {
