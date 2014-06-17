@@ -235,7 +235,6 @@ class Ansel_Image Implements Iterator
             $this->geotag_timestamp = !empty($image['image_geotag_date']) ? $image['image_geotag_date'] : '0';
         }
 
-        $this->_attributes = new Ansel_Attributes();
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
         $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
@@ -721,14 +720,14 @@ class Ansel_Image Implements Iterator
         }
 
         try {
-            $exif_fields = $this->_attributes->getImageExifData($imageFile);
+            $exif_fields = $this->_getAttributeObject()->getImageExifData($imageFile);
         } catch (Ansel_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
             Horde::log($e, 'ERR');
             $exif_fields = array();
             return false;
         }
-        $this->_exif = $this->_attributes-imageAttributes($exif_fields);
+        $this->_exif = $this->_getAttributeObject()->imageAttributes($exif_fields);
 
         // Flag to determine if we need to resave the image data.
         $needUpdate = false;
@@ -747,11 +746,11 @@ class Ansel_Image Implements Iterator
         }
 
         // Overwrite any existing value for title and caption with exif data
-        if ($exif_title = $att->getTitle()) {
+        if ($exif_title = $this->_getAttributeObject()->getTitle()) {
             $this->title = $exif_title;
             $needUpdate = true;
         }
-        if ($exif_caption = $att->getCaption()) {
+        if ($exif_caption = $this->_getAttributeObject()->getCaption()) {
             $this->caption = $exif_caption;
             $needUpdate = true;
         }
@@ -1517,4 +1516,14 @@ class Ansel_Image Implements Iterator
 
         return $newImage;
     }
+
+    protected function _getAttributeObject()
+    {
+        if (empty($this->_attributes)) {
+            $this->_attributes = new Ansel_Attributes($this->id);
+        }
+
+        return $this->_attributes;
+    }
+
 }

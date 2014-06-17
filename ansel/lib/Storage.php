@@ -552,7 +552,7 @@ class Ansel_Storage
             . 'image_type, image_caption, image_uploaded_date, image_sort, '
             . 'image_original_date, image_latitude, image_longitude, '
             . 'image_location, image_geotag_date, image_title) VALUES '
-            . '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            . '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         try {
             return $this->_db->insert(
