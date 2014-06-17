@@ -57,8 +57,9 @@ class Horde_Crypt_Pgp_Parse
     const ARMOR_TEXT = 6;
 
     /**
-     * Metadata names for signature data.
+     * Metadata names for data.
      */
+    const PGP_ARMOR = 'pgp_armor'; /* @since 2.5.0 */
     const SIG_CHARSET = 'pgp_sig_charset';
     const SIG_RAW = 'pgp_sig_raw';
 
@@ -178,7 +179,7 @@ class Horde_Crypt_Pgp_Parse
             case self::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
                 $part->setType('multipart/encrypted');
-                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
+                $part->setMetadata(self::PGP_ARMOR, true);
                 $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
 
                 $part1 = new Horde_Mime_Part();

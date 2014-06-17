@@ -18,8 +18,8 @@
  </lead>
  <date>2014-05-21</date>
  <version>
-  <release>2.4.4</release>
-  <api>2.4.0</api>
+  <release>2.5.0</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix reference to constant outside of the package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1024,15 +1024,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.4.4</release>
-    <api>2.4.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix reference to constant outside of the package.
    </notes>
   </release>
  </changelog>
