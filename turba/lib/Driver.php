@@ -1132,7 +1132,7 @@ class Turba_Driver implements Countable
 
         foreach ($attributes as $key) {
             $val = $object->getValue($key);
-            if ($skipEmpty && !strlen($val)) {
+            if ($skipEmpty && !is_array($val) && !strlen($val)) {
                 continue;
             }
             if ($decode_hook) {
@@ -1810,7 +1810,7 @@ class Turba_Driver implements Countable
                     break;
                 }
                 $vcard->setAttribute($name,
-                                     base64_encode($val),
+                                     base64_encode($hash[$key]),
                                      $params);
                 break;
             }
