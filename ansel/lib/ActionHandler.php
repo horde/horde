@@ -312,6 +312,7 @@ class Ansel_ActionHandler
             // Set up the gallery attributes.
             $vars->set('image_default', $image->id == $gallery->get('default'));
             $vars->set('image_desc', $image->caption);
+            $vars->set('image_title', $image->title);
             $vars->set('image_tags', implode(', ', $image->getTags()));
             $vars->set('image_originalDate', $image->originalDate);
             $vars->set('image_uploaded', $image->uploaded);
@@ -374,6 +375,7 @@ class Ansel_ActionHandler
 
                 $image = $storage->getImage($image_id);
                 $image->caption = $vars->get('image_desc');
+                $image->title = $vars->get('image_title');
                 $image->setTags(explode(',' , $vars->get('image_tags')));
                 $newDate = new Horde_Date($vars->get('image_originalDate'));
                 $image->originalDate = (int)$newDate->timestamp();

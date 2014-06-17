@@ -27,9 +27,7 @@ if (Ansel_ActionHandler::imageActions($actionID)) {
     $gallery_id = Horde_Util::getFormData('gallery');
     $gallery = $storage->getGallery($gallery_id);
     $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
-    $perpage = min(
-        $prefs->getValue('tilesperpage'),
-        $conf['thumbnail']['perpage']);
+    $perpage = min($prefs->getValue('tilesperpage'), $conf['thumbnail']['perpage']);
     $pages = ceil($children / $perpage);
     if ($page > $pages) {
         $page = $pages;

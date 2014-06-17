@@ -23,6 +23,7 @@ class Ansel_Form_Image extends Horde_Form
         $this->addHidden('', 'gallery', 'text', false);
         $this->addHidden('', 'image', 'text', false);
         $this->addHidden('', 'page', 'text', false);
+        $this->addHidden('', 'image0', 'text', false);
 
         $filesize = ini_get('upload_max_filesize');
         if (substr($filesize, -1) == 'M') {
@@ -30,20 +31,19 @@ class Ansel_Form_Image extends Horde_Form
         }
         $filesize = $this->_get_size($filesize);
         $this->addVariable(_("Make this the default photo for this gallery?"),
-                           'image_default', 'boolean', false);
+            'image_default', 'boolean', false);
+
+        $this->addVariable(_("Title"), 'image_title', 'text', true, false);
         $this->addVariable(_("Caption"), 'image_desc', 'longtext', false, false,
-                           null, array('4', '40'));
+            null, array('4', '40'));
 
         $this->addVariable(_("Original Date"), 'image_originalDate',
-                           'monthdayyear', true, false, null,
-                           array('start_year' => 1900));
+            'monthdayyear', true, false, null, array('start_year' => 1900));
 
         $this->addVariable(_("Tags"), 'image_tags', 'text', false);
-
-        $this->addHidden('', 'image0', 'text', false);
         $upload = &$this->addVariable(
-        _("Replace photo with this file"), 'file0', 'file', false, false,
-        _("Maximum photo size:") . ' '  . $filesize, array(false));
+            _("Replace photo with this file"), 'file0', 'file', false, false,
+            _("Maximum photo size:") . ' '  . $filesize, array(false));
         $upload->setHelp('upload');
     }
 
