@@ -1399,6 +1399,8 @@ class Ansel_Image Implements Iterator
         $i->url = Ansel::getImageUrl($this->id, 'thumb', false, $style)->toString(true);
         $i->screen = Ansel::getImageUrl($this->id, 'screen', $tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
         $i->fn = $this->filename;
+        $i->t = $this->title;
+        $i->c = $this->caption;
         // @TODO implement more granular view names.
         $dim = $this->getDimensions('screen');
         $i->width_s = $dim['width'];

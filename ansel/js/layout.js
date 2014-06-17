@@ -207,7 +207,7 @@ AnselLayout = Class.create({
         // @TODO: Probably need to generalize the photo.screen to a url.
         meta = new Element('div', {
             class: 'ansel-tile-meta'
-        }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.fn.escapeHTML()));
+        }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.t.escapeHTML()));
 
         img = new Element('img', {
             class: 'ansel-photo',
