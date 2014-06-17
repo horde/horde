@@ -120,7 +120,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         $handler->push(
             Horde_Core_Notification_Event_Webnotification::createEvent(
                 $text,
-                array('icon' => strval(Horde_Themes::img('forwarded.png')))
+                array('icon' => strval(Horde_Themes::img('unseen.png')))
             ),
             'webnotification'
         );
