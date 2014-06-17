@@ -1,6 +1,6 @@
-----------
-v5.2.0-git
-----------
+---------
+v5.2.0RC1
+---------
 
 [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
 [jan] Don't try to write to read-only group backends when removing user data

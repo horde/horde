@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-11</date>
+ <date>2014-06-17</date>
  <version>
   <release>5.2.0RC1</release>
   <api>5.2.0</api>
@@ -3903,7 +3903,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-11</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
