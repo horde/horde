@@ -24,7 +24,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>4.2.0RC1</release>
+  <release>4.2.0RC2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,13 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix error when deleting unselected calendars.
-* [jan] Improve DTEND compatibility with other programs using iCalendar.
-* [mjr] Fix sending iTip invitations when Save As New is used (Bug #13239).
-* [jan] Fix free/busy display with 24-hours-busy days.
-* [jan] Fix navigating free/busy dates.
-* [jan] Fix hover style in year view (Bug #13057).
-* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2380,6 +2374,19 @@
 * [jan] Fix navigating free/busy dates.
 * [jan] Fix hover style in year view (Bug #13057).
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
