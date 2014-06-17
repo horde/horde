@@ -30,7 +30,7 @@
  </lead>
  <date>2014-06-17</date>
  <version>
-  <release>4.2.0RC1</release>
+  <release>4.2.0RC2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix regression with exporting photos in vCard when we are ignoring empty values.
-* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
-* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1854,6 +1852,19 @@
 * [mjr] Fix regression with exporting photos in vCard when we are ignoring empty values.
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
