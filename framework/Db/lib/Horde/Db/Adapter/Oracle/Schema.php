@@ -427,14 +427,22 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             return;
         }
 
-        $old = $this->typeToSql(
-            $column->getType(),
-            $column->getType() == 'integer' || is_null($options['limit'])
-                ? null
-                : $column->getLimit(),
-            is_null($options['precision']) ? null : $column->precision(),
-            is_null($options['scale']) ? null : $column->scale(),
-            is_null($options['unsigned']) ? null : $column->isUnsigned()
+        $columnOptions = array(
+            'limit' => $column->getLimit(),
+            'default' => $column->getDefault(),
+            'null' => $column->isNull()
+        );
+        $old = $this->addColumnOptions(
+            $this->typeToSql(
+                $column->getType(),
+                $column->getType() == 'integer' || is_null($options['limit'])
+                    ? null
+                    : $column->getLimit(),
+                is_null($options['precision']) ? null : $column->precision(),
+                is_null($options['scale']) ? null : $column->scale(),
+                is_null($options['unsigned']) ? null : $column->isUnsigned()
+            ),
+            $columnOptions
         );
         $new = $this->typeToSql(
             $type,
@@ -443,7 +451,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $options['scale'],
             $options['unsigned']
         );
-        if ($old == $new) {
+        if ($old == $this->addColumnOptions($new, $options)) {
             return;
         }
 

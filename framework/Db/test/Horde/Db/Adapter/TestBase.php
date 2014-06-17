@@ -430,6 +430,21 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     abstract public function testChangeColumnPrecisionScale();
 
+    public function testChangeColumnNull()
+    {
+        $this->_createTestTable('sports');
+        $column = $this->_getColumn('sports', 'name');
+        $this->assertTrue($column->isNull());
+        $this->_conn->changeColumn('sports', 'name', 'string',
+                                   array('null' => false));
+        $column = $this->_getColumn('sports', 'name');
+        $this->assertFalse($column->isNull());
+        $this->_conn->changeColumn('sports', 'name', 'string',
+                                   array('null' => true));
+        $column = $this->_getColumn('sports', 'name');
+        $this->assertTrue($column->isNull());
+    }
+
     abstract public function testRenameColumn();
 
     public function testRenameColumnWithSqlReservedWord()

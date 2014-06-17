@@ -46,6 +46,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
 
         $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
         $conn->setCache($cache);
+        //$conn->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Cli()));
 
         return array($conn, $cache);
     }

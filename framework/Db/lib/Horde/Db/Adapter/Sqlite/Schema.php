@@ -283,7 +283,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
         }
         if (isset($options['null'])) {
-            $defs[] = sprintf('$definition["%s"]->setNull("%s");', $columnName, $options['null']);
+            $defs[] = sprintf('$definition["%s"]->setNull((bool)%d);', $columnName, $options['null']);
         }
         if (isset($options['precision'])) {
             $defs[] = sprintf('$definition["%s"]->setPrecision("%s");', $columnName, $options['precision']);
