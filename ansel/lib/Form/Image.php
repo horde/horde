@@ -14,8 +14,6 @@ class Ansel_Form_Image extends Horde_Form
 
     public function __construct(&$vars, $title)
     {
-        global $gallery;
-
         parent::__construct($vars, $title);
 
         $this->setButtons(_("Save"));
