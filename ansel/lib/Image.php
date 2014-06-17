@@ -170,6 +170,13 @@ class Ansel_Image Implements Iterator
     protected $_exif = array();
 
     /**
+     * Attribute handler
+     *
+     * @var Ansel_Attributes
+     */
+    protected $_attributes;
+
+    /**
      * Const'r
      *
      * @param array $image
@@ -228,6 +235,7 @@ class Ansel_Image Implements Iterator
             $this->geotag_timestamp = !empty($image['image_geotag_date']) ? $image['image_geotag_date'] : '0';
         }
 
+        $this->_attributes = new Ansel_Attributes();
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
         $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
@@ -612,7 +620,7 @@ class Ansel_Image Implements Iterator
         }
 
         // Create tags from exif data if desired
-        $fields = @unserialize($GLOBALS['prefs']->getValue('exif_tags'));
+        $fields = unserialize($GLOBALS['prefs']->getValue('exif_tags'));
         if ($fields) {
             $this->_exifToTags($fields);
         }
@@ -712,16 +720,15 @@ class Ansel_Image Implements Iterator
             throw new Ansel_Exception($e);
         }
 
-        // @todo
-        $att = new Ansel_Attributes();
         try {
-            $exif_fields = $att->getImageExifData($imageFile);
+            $exif_fields = $this->_attributes->getImageExifData($imageFile);
         } catch (Ansel_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
             Horde::log($e, 'ERR');
             $exif_fields = array();
             return false;
         }
+        $this->_exif = $this->_attributes-imageAttributes($exif_fields);
 
         // Flag to determine if we need to resave the image data.
         $needUpdate = false;
@@ -757,13 +764,6 @@ class Ansel_Image Implements Iterator
         // Save attributes.
         if ($replacing) {
             $GLOBALS['storage']->clearImageAttributes($this->id);
-        }
-
-        foreach ($exif_fields as $name => $value) {
-            if (!empty($value)) {
-                $GLOBALS['storage']->saveImageAttribute($this->id, $name, $value);
-                $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
-            }
         }
 
         return $needUpdate;
