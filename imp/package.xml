@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-06-17</date>
  <version>
   <release>6.2.0beta3</release>
   <api>6.2.0</api>
@@ -3643,7 +3643,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug #13257).

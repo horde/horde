@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "6.2.0beta2",
-    "time": "2014-06-04",
+    "version": "6.2.0beta3",
+    "time": "2014-06-17",
     "repositories": [
         {
             "type": "pear",
@@ -44,7 +44,7 @@
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Image": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Imap_Client": ">=2.21.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Imap_Client": ">=2.23.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Itip": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_ListHeaders": ">=1.1.0,<=2.0.0alpha1",
         "pear-pear.horde.org/Horde_LoginTasks": ">=2.0.0,<=3.0.0alpha1",

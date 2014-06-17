@@ -1,6 +1,6 @@
-----------
-v6.2.0-git
-----------
+-----------
+v6.2.0beta3
+-----------
 
 [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug
       #13257).
