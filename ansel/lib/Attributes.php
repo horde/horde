@@ -103,6 +103,29 @@ class Ansel_Attributes
     }
 
     /**
+     * Return the stored image attributes.
+     *
+     * @return array  The array of image attributes.
+     */
+    public function getAttributes()
+    {
+        $attributes = $GLOBALS['storage']->getImageAttributes($this->_id);
+        $fields = Horde_Image_Exif::getFields($this->_exif);
+        $output = array();
+        foreach (array_keys($fields) as $field) {
+            if (!isset($attributes[$field])) {
+                continue;
+            }
+            $output[$field] = Horde_Image_Exif::getHumanReadable(
+                $field,
+                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8')
+            );
+        }
+
+        return $output;
+    }
+
+    /**
      * Return a suitable image title from exif data. Taken from the first
      * non-empty Horde_Image_Exif::getTitleFields() field.
      *

@@ -656,12 +656,7 @@ class Ansel_Image Implements Iterator
         // Reset the data array and remove all cached images
         $this->_data = array();
         $this->reset();
-
-        // Remove attributes
-        $GLOBALS['storage']->clearImageAttributes($this->id);
-
-        // Load the new image data
-        $this->getEXIF();
+        $this->getEXIF(true);
         $this->updateData($imageData);
     }
 
@@ -1313,30 +1308,7 @@ class Ansel_Image Implements Iterator
      */
     public function getAttributes()
     {
-        $attributes = $GLOBALS['storage']->getImageAttributes($this->id);
-        $params = !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array();
-        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-
-        $exif = Horde_Image_Exif::factory(
-            $GLOBALS['conf']['exif']['driver'],
-            $params
-        );
-        $fields = Horde_Image_Exif::getFields($exif);
-
-        $output = array();
-        foreach ($fields as $field => $data) {
-            if (!isset($attributes[$field])) {
-                continue;
-            }
-            $output[$field] = $value = Horde_Image_Exif::getHumanReadable(
-                $field,
-                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8')
-            );
-        }
-
-        return $output;
+        return $this->_getAttributeObject()->getAttributes();
     }
 
     /**
