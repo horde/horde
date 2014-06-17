@@ -120,25 +120,10 @@ class Ansel_Tile_Image
         $view->option_edit = $view->parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT);
         $view->imgAttributes = (!empty($params['image_view_attributes']) ? $params['image_view_attributes'] : array());
         $view->option_comments = ($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $registry->getAuth())) && empty($params['hide_comments']);
-
         $view->imgOnClick = (!empty($params['image_onclick'])
                 ? str_replace('%i', $image->id, $params['image_onclick'])
                 : '');
         $view->title = $image->title;
-
-        // In-line caption editing if we have Horde_Perms::EDIT
-        if ($view->option_edit) {
-            try {
-                $geometry = $image->getDimensions($thumbstyle);
-                $injector->createInstance('Horde_Core_Factory_Imple')->create(
-                    'Ansel_Ajax_Imple_EditCaption',
-                    array(
-                        'dataid' => $image->id,
-                        'id' => $image->id . 'caption',
-                        'width' => $geometry['width']));
-            } catch (Ansel_Exception $e) {
-            }
-        }
 
         return $view->render('image');
     }
