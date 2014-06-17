@@ -1,4 +1,4 @@
-<?php
+z<?php
 /**
  * Release focus. Possible values (multiple possible with arrays):
  * Horde_Release::FOCUS_INITIAL - Initial announcement
@@ -10,7 +10,7 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -36,11 +36,13 @@ http://www.horde.org/apps/turba/docs/INSTALL
 
 The major changes compared to the Turba version H5 (4.2.0beta1) are:
     * Updated translations.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Updated translations.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Turba';
