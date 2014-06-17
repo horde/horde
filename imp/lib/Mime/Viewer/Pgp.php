@@ -32,7 +32,6 @@
 class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 {
     /* Metadata constants. */
-    const PGP_ARMOR = 'imp-pgp-armor';
     const PGP_SIGN_ENC = 'imp-pgp-signed-encrypted';
 
     /**
@@ -312,7 +311,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         }
 
         /* Force armor data as text/plain data. */
-        if ($this->_mimepart->getMetadata(self::PGP_ARMOR)) {
+        if ($this->_mimepart->getMetadata(Horde_Crypt_Pgp_Parse::PGP_ARMOR)) {
             $decrypted_data->message = "Content-Type: text/plain\n\n" .
                                        $decrypted_data->message;
         }
