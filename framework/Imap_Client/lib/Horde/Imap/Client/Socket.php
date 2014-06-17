@@ -1420,9 +1420,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
             $attr = array_flip(array_map('strtolower', $attr_raw));
 
-            if (!is_null($ml['sub']) &&
-                /* Subscribed list is in UTF-8. */
-                isset($ml['sub'][strval($mbox)])) {
+            /* Subscribed list is in UTF-8. */
+            if (is_null($ml['sub']) &&
+                !isset($attr['\\subscribed']) &&
+                (strcasecmp($mbox, 'INBOX') === 0)) {
+                $attr['\\subscribed'] = 1;
+            } elseif (isset($ml['sub'][strval($mbox)])) {
                 $attr['\\subscribed'] = 1;
             }
             break;
