@@ -724,30 +724,22 @@ class Ansel_Image Implements Iterator
         }
         $this->_exif = $this->_getAttributeObject()->imageAttributes($exif_fields, $replacing);
 
-        // Flag to determine if we need to resave the image data.
-        $needUpdate = false;
-
         // Populate any local properties that come from EXIF
         if (!empty($exif_fields['GPSLatitude'])) {
             $this->lat = $exif_fields['GPSLatitude'];
             $this->lng = $exif_fields['GPSLongitude'];
             $this->geotag_timestamp = time();
-            $needUpdate = true;
         }
 
         if (!empty($exif_fields['DateTimeOriginal'])) {
             $this->originalDate = $exif_fields['DateTimeOriginal'];
-            $needUpdate = true;
         }
 
         // Overwrite any existing value for title and caption with exif data
-        if ($exif_title = $this->_getAttributeObject()->getTitle()) {
-            $this->title = $exif_title;
-            $needUpdate = true;
-        }
+        $exif_title = $this->_getAttributeObject()->getTitle();
+        $this->title = empty($exif_title) ? $this->filename : $exif_title;
         if ($exif_caption = $this->_getAttributeObject()->getCaption()) {
             $this->caption = $exif_caption;
-            $needUpdate = true;
         }
 
         // Attempt to autorotate based on Orientation field
@@ -755,7 +747,7 @@ class Ansel_Image Implements Iterator
             $this->_autoRotate($exif_fields['Orientation']);
         }
 
-        return $needUpdate;
+        return true;
     }
 
     /**
