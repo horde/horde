@@ -1,6 +1,6 @@
-----------
-v4.2.0-git
-----------
+---------
+v4.2.0RC1
+---------
 
 [jan] Fix error when deleting unselected calendars.
 [jan] Improve DTEND compatibility with other programs using iCalendar.
