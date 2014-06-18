@@ -15,38 +15,85 @@
  */
 class Horde_Data
 {
-    /* Import already mapped csv data. */
+    /**
+     * Import already mapped csv data.
+     */
     const IMPORT_MAPPED = 1;
-    /* Map date and time entries of csv data. */
+
+    /**
+     * Map date and time entries of csv data.
+     */
     const IMPORT_DATETIME =  2;
-    /* Import generic CSV data. */
+
+    /**
+     * Import generic CSV data.
+     */
     const IMPORT_CSV = 3;
-    /* Import MS Outlook data. */
+
+    /**
+     * Import MS Outlook data.
+     */
     const IMPORT_OUTLOOK = 4;
-    /* Import vCalendar/iCalendar data. */
+
+    /**
+     * Import vCalendar/iCalendar data.
+     */
     const IMPORT_ICALENDAR = 5;
-    /* Import vCards. */
+
+    /**
+     * Import vCards.
+     */
     const IMPORT_VCARD = 6;
-    /* Import generic tsv data. */
+
+    /**
+     * Import generic tsv data.
+     */
     const IMPORT_TSV = 7;
-    /* Import Mulberry address book data. */
+
+    /**
+     * Import Mulberry address book data.
+     */
     const IMPORT_MULBERRY = 8;
-    /* Import Pine address book data. */
+
+    /**
+     * Import Pine address book data.
+     */
     const IMPORT_PINE = 9;
-    /* Import file. */
+
+    /**
+     * Import file.
+     */
     const IMPORT_FILE = 11;
-    /* Import data. */
+
+    /**
+     * Import data.
+     */
     const IMPORT_DATA = 12;
 
-    /* Export generic CSV data. */
+
+    /**
+     * Export generic CSV data.
+     */
     const EXPORT_CSV = 100;
-    /* Export iCalendar data. */
+
+    /**
+     * Export iCalendar data.
+     */
     const EXPORT_ICALENDAR = 101;
-    /* Export vCards. */
+
+    /**
+     * Export vCards.
+     */
     const EXPORT_VCARD = 102;
-    /* Export TSV data. */
+
+    /**
+     * Export TSV data.
+     */
     const EXPORT_TSV = 103;
-    /* Export Outlook CSV data. */
+
+    /**
+     * Export Outlook CSV data.
+     */
     const EXPORT_OUTLOOKCSV = 104;
 
 }
