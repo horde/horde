@@ -70,6 +70,13 @@ class Horde_Data
      */
     const IMPORT_DATA = 12;
 
+    /**
+     * Import URL.
+     *
+     * @since Horde_Data 2.1.0
+     */
+    const IMPORT_URL = 13;
+
 
     /**
      * Export generic CSV data.

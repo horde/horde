@@ -29,6 +29,13 @@ abstract class Horde_Data_Base
     protected $_browser;
 
     /**
+     * HTTP client object.
+     *
+     * @var Horde_Http_Client
+     */
+    protected $_http;
+
+    /**
      * Cleanup callback function.
      *
      * @var callback
@@ -69,6 +76,7 @@ abstract class Horde_Data_Base
      * @param Horde_Data_Storage  A storage object.
      * @param array $params       Optional parameters:
      *   - browser: (Horde_Browser) A browser object.
+     *   - http: (Horde_Http_Client) A HTTP client object.
      *   - cleanup: (callback) A callback to call at cleanup time.
      *   - vars: (Horde_Variables) Form data.
      */
@@ -76,15 +84,15 @@ abstract class Horde_Data_Base
                                 array $params = array())
     {
         $this->storage = $storage;
-
         if (isset($params['browser'])) {
             $this->_browser = $params['browser'];
         }
-
+        if (isset($params['http'])) {
+            $this->_http = $params['http'];
+        }
         if (isset($params['cleanup']) && is_callable($params['cleanup'])) {
             $this->_cleanupCallback = $params['cleanup'];
         }
-
         $this->_vars = isset($params['vars'])
             ? $params['vars']
             : Horde_Variables::getDefaultVariables();
@@ -103,11 +111,38 @@ abstract class Horde_Data_Base
     abstract public function exportData($data, $method = 'REQUEST');
 
     /**
-     * Stub to import a file.
+     * Imports a file.
      */
     public function importFile($filename, $header = false)
     {
         $data = file_get_contents($filename);
+        return $this->importData($data, $header);
+    }
+
+    /**
+     * Imports a URL.
+     *
+     * @since 2.1.0
+     */
+    public function importUrl($url, $header = false)
+    {
+        if (!isset($this->_http)) {
+            throw new LogicException('Missing http parameter.');
+        }
+
+        try {
+            $response = $this->_http->get($url);
+            if ($response->code != 200) {
+                throw new Horde_Data_Exception(sprintf(
+                    Horde_Data_Translation::t("URL %s not found"),
+                    $url
+                ));
+            }
+            $data = $response->getBody();
+        } catch (Horde_Http_Exception $e) {
+            throw new Horde_Data_Exception($e);
+        }
+
         return $this->importData($data, $header);
     }
 
