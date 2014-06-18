@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add importing of calendar data from a URL.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2383,7 +2383,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add importing of calendar data from a URL.
    </notes>
   </release>
  </changelog>

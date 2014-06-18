@@ -71,6 +71,7 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
+case Horde_Data::IMPORT_URL:
     $storage->set('import_cal', Horde_Util::getFormData('importCal'));
     $storage->set('purge', Horde_Util::getFormData('purge'));
     break;
@@ -79,9 +80,15 @@ case Horde_Data::IMPORT_FILE:
 if ($import_format) {
     $data = null;
     try {
-        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
+        $data = $injector
+            ->getInstance('Horde_Core_Factory_Data')
+            ->create(
+                $import_format,
+                array('cleanup' => array($app_ob, 'cleanupData'))
+            );
 
-        if ($actionID == Horde_Data::IMPORT_FILE) {
+        if ($actionID == Horde_Data::IMPORT_FILE ||
+            $actionID == Horde_Data::IMPORT_URL) {
             $cleanup = true;
             try {
                 if (!in_array($storage->get('import_cal'), array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
@@ -106,9 +113,19 @@ if ($import_format) {
             $next_step = $data->cleanup();
         } else {
             $notification->push(_("This file format is not supported."), 'horde.error');
-            $next_step = Horde_Data::IMPORT_FILE;
+            $next_step = in_array(
+                $actionID,
+                array(Horde_Data::IMPORT_FILE, Horde_Data::IMPORT_URL)
+            )
+                ? $actionID
+                : Horde_Data::IMPORT_FILE;
         }
     }
+}
+
+if (Horde_Util::getFormData('import_ajax')) {
+    $page_output->includeScriptFiles();
+    $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();})(window.parent)');
 }
 
 /* We have a final result set. */
@@ -211,8 +228,7 @@ if (is_array($next_step)) {
                                     $file_types[$storage->get('format')]), 'horde.success');
     }
     if (Horde_Util::getFormData('import_ajax')) {
-        $page_output->includeScriptFiles();
-        $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
+        $page_output->addInlineScript('(function(window){window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
     }
     $next_step = $data->cleanup();
 }

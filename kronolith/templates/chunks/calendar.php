@@ -43,7 +43,7 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 <?php if ($file_upload): ?>
 <input type="hidden" id="kronolithCalendarinternalImportCal" name="importCal" />
 <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $file_upload ?>" />
-<input type="hidden" name="actionID" value="<?php echo Horde_Data::IMPORT_FILE ?>" />
+<input type="hidden" id="kronolithCalendarinternalImportAction" name="actionID" value="<?php echo Horde_Data::IMPORT_FILE ?>" />
 <input type="hidden" name="import_step" value="1" />
 <input type="hidden" name="import_format" value="icalendar" />
 <input type="hidden" name="import_ajax" value="1" />
@@ -143,6 +143,10 @@ $accountUrl = Horde::url($accountUrl, true, -1)
   <div>
     <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
     <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
+  </div>
+  <div>
+    <label for="kronolithCalendarinternalImportURL"><?php echo _("Import ICS URL") ?>:</label>
+    <input type="text" id="kronolithCalendarinternalImportUrl" name="import_url" /><br />
   </div>
   <div>
     <?php printf(_("Importing should %s %sreplace this calendar%s."),

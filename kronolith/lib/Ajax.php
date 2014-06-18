@@ -97,6 +97,8 @@ class Kronolith_Ajax
                 Horde_Nls::getLangInfo(D_FMT)
             ),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
+            'import_file' => Horde_Data::IMPORT_FILE,
+            'import_url' => Horde_Data::IMPORT_URL,
             'show_time' => Kronolith::viewShowTime(),
             'default_alarm' => intval($prefs->getValue('default_alarm')),
             'status' => array(

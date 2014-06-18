@@ -3769,7 +3769,13 @@ KronolithCore = {
             delete data.calendar;
         }
         if (r.saved) {
-            if ($F('kronolithCalendarinternalImport')) {
+            if ($F('kronolithCalendarinternalImport') ||
+                $F('kronolithCalendarinternalImportUrl')) {
+                $('kronolithCalendarinternalImportAction').setValue(
+                    $F('kronolithCalendarinternalImport')
+                        ? Kronolith.conf.import_file
+                        : Kronolith.conf.import_url
+                );
                 HordeCore.notify(Kronolith.text.import_warning, 'horde.message');
                 this.loading++;
                 $('kronolithLoading').show();
