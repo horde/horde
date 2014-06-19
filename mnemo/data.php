@@ -76,7 +76,7 @@ if ($import_format) {
 /* We have a final result set. */
 if (is_array($next_step)) {
     /* Create a Mnemo storage instance. */
-    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($storage->get('target'));
+    $memo_storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($storage->get('target'));
     $max_memos = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes');
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
@@ -111,12 +111,12 @@ if (is_array($next_step)) {
             $row['desc'] = array_shift($tmp);
         }
         try {
-            $result = $storage->add($row['desc'], $row['body'], $row['tags']);
+            $result = $memo_storage->add($row['desc'], $row['body'], $row['tags']);
         } catch (Mnemo_Exception $e) {
             $haveError = $e->getMessage();
             break;
         }
-        $note = $storage->get($result);
+        $note = $memo_storage->get($result);
 
         /* If we have created or modified dates for the note, set them
          * correctly in the history log. */
