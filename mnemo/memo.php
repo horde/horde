@@ -307,7 +307,7 @@ if (!$view->modify || !$view->passphrase) {
         $view->delete = Horde::url('memo.php')->add(array(
             'memo' => $memo_id,
             'memolist' => $memolist_id,
-            'actionID', 'delete_memos'
+            'actionID' => 'delete_memos'
         ));
     }
 }
