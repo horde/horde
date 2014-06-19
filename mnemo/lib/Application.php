@@ -282,6 +282,7 @@ class Mnemo_Application extends Horde_Registry_Application
                         $note['memolist_id'],
                         $nore['uid']
                     );
+                    $note['tags'] = implode(',', $note['tags']);
                     if ($note['body'] instanceof Mnemo_Exception) {
                         $note['body'] = $note['body']->getMessage();
                     }
