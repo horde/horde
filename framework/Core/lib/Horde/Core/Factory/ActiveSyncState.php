@@ -9,6 +9,10 @@ class Horde_Core_Factory_ActiveSyncState extends Horde_Core_Factory_Injector
     {
         global $conf;
 
+        if (empty($conf['activesync']['enabled'])) {
+            throw new Horde_Exception('ActiveSync is disabled.');
+        }
+
         $driver = $conf['activesync']['storage'];
         switch (Horde_String::lower($driver)) {
         case 'nosql':
