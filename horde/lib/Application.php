@@ -263,7 +263,7 @@ class Horde_Application extends Horde_Registry_Application
             );
 
             $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_MAXATCSIZE] = array(
-                'title' => _("Maximum attachment size"),
+                'title' => _("Maximum attachment size in bytes"),
                 'type' => 'int'
             );
 
