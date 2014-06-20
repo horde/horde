@@ -967,13 +967,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
             if (!empty($device_query)) {
                 $this->_db->delete($device_query, $values);
-            } elseif (!empty($user_query) && empty($options['devId'])) {
-                // If there was a user_deletion, check if we should remove the
-                // device entry as well
-                $sql = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
-                if (!$this->_db->selectValue($sql, array($options['devId']))) {
-                    $query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
-                    $this->_db->delete($query, array($options['devId']));
+            } elseif (!empty($user_query)) {
+                $sql = 'SELECT t1.device_id FROM horde_activesync_device t1 '
+                    . 'LEFT JOIN horde_activesync_device_users t2 '
+                    . 'ON t1.device_id = t2.device_id WHERE t2.device_id IS NULL';
+                try {
+                    $devids = $this->_db->selectValues($sql);
+                    foreach ($devids as $id) {
+                        $this->_db->delete(
+                            'DELETE FROM horde_activesync_device WHERE device_id = ?',
+                            array($id));
+                    }
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e->getMessage());
                 }
             }
         } catch (Horde_Db_Exception $e) {
