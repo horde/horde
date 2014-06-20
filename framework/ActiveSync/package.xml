@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix removing orphaned device entries (Bug #13277).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2222,7 +2222,7 @@
    <date>2014-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix removing orphaned device entries (Bug #13277).
    </notes>
   </release>
  </changelog>
