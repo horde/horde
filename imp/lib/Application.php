@@ -486,13 +486,28 @@ class IMP_Application extends Horde_Registry_Application
         $out = array();
 
         $backends = array(
-            'Horde_Imap_Client_Cache_Backend_Mongo' => $injector->getInstance('IMP_Factory_Imap')->create()->config->cache_params['backend']->backend,
-            'IMP_Sentmail_Mongo' => $injector->getInstance('IMP_Sentmail')
+            'Horde_Imap_Client_Cache_Backend_Mongo' => function() use ($injector) {
+                $backend = $injector
+                    ->getInstance('IMP_Factory_Imap')
+                    ->create()
+                    ->config
+                    ->cache_params['backend'];
+                if (isset($backend->backend)) {
+                    return $backend->backend;
+                }
+            },
+            'IMP_Sentmail_Mongo' => function() use ($injector) {
+                return $injector->getInstance('IMP_Sentmail');
+            },
         );
 
-        foreach ($backends as $key => $val) {
-            if ($val instanceof $key) {
-                $out[] = $val;
+        foreach ($backends as $key => $func) {
+            try {
+                $val = $func();
+                if ($val instanceof $key) {
+                    $drivers[] = $val;
+                }
+            } catch (Horde_Exception $e) {
             }
         }
 
