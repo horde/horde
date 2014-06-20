@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Fix link on edit form to delete notes (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13271).
 * [jan] Fix exporting tags to CSV (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13269).
 * [jan] Fix adding and editing notes with Kolab backend (Bug #13269).
  </notes>
@@ -1180,6 +1181,7 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix link on edit form to delete notes (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13271).
 * [jan] Fix exporting tags to CSV (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13269).
 * [jan] Fix adding and editing notes with Kolab backend (Bug #13269).
    </notes>
