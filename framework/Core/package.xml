@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
  </notes>
  <contents>
@@ -3450,6 +3451,7 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
    </notes>
   </release>

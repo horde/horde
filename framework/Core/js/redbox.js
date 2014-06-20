@@ -75,8 +75,10 @@ var RedBox = {
 
     close: function()
     {
-        $('RB_window').fade({ duration: this.duration, queue: 'end' });
-        if (this.overlay) {
+        if ($('RB_window').visible()) {
+            $('RB_window').fade({ duration: this.duration, queue: 'end' });
+        }
+        if (this.overlay && $('RB_overlay').visible()) {
             $('RB_overlay').fade({ duration: this.duration, queue: 'end' });
         }
     },
