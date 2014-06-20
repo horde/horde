@@ -47,19 +47,39 @@ class Horde_Core_NoSql
         /* Handle framework-level drivers here. */
         if ($app == 'horde') {
             $backends = array(
-                'Horde_ActiveSync_State_Mongo' => $injector->getInstance('Horde_ActiveSyncState'),
-                'Horde_Cache_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_Cache')->storage,
-                'Horde_History_Mongo' => $injector->getInstance('Horde_History'),
-                'Horde_Lock_Mongo' => $injector->getInstance('Horde_Lock'),
-                'Horde_Prefs_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_Prefs')->storage,
-                'Horde_SessionHandler_Storage_Mongo' => $injector->getInstance('Horde_Core_Factory_SessionHandler')->storage,
-                'Horde_Token_Mongo' => $injector->getInstance('Horde_Token'),
-                'Horde_Vfs_Mongo' => $injector->getInstance('Horde_Core_Factory_Vfs')->create()
+                'Horde_ActiveSync_State_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_ActiveSyncState');
+                },
+                'Horde_Cache_Storage_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Core_Factory_Cache')->storage;
+                },
+                'Horde_History_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_History');
+                },
+                'Horde_Lock_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Lock');
+                },
+                'Horde_Prefs_Storage_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Core_Factory_Prefs')->storage;
+                },
+                'Horde_SessionHandler_Storage_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Core_Factory_SessionHandler')->storage;
+                },
+                'Horde_Token_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Token');
+                },
+                'Horde_Vfs_Mongo' => function() use ($injector) {
+                    return $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+                },
             );
 
-            foreach ($backends as $key => $val) {
-                if ($val instanceof $key) {
-                    $drivers[] = $val;
+            foreach ($backends as $key => $func) {
+                try {
+                    $val = $func();
+                    if ($val instanceof $key) {
+                        $drivers[] = $val;
+                    }
+                } catch (Horde_Exception $e) {
                 }
             }
         }

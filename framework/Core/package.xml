@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch exceptions from NoSQL backends when building indices.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3450,7 +3450,7 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch exceptions from NoSQL backends when building indices.
    </notes>
   </release>
  </changelog>
