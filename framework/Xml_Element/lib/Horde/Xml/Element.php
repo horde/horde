@@ -110,10 +110,10 @@ class Horde_Xml_Element implements ArrayAccess
     /**
      * Get a DOM representation of the element
      *
-     * Returns the underlying DOM object, which can then be
-     * manipulated with full DOM methods.
+     * Returns the underlying DOM object, which can then be manipulated with
+     * full DOM methods.
      *
-     * @return DOMDocument
+     * @return DOMElement
      */
     public function getDom()
     {
@@ -531,13 +531,15 @@ class Horde_Xml_Element implements ArrayAccess
     protected function _cacheChildren()
     {
         foreach ($this->_element->childNodes as $child) {
-            if (!isset($this->_children[$child->localName]))
+            if (!isset($this->_children[$child->localName])) {
                 $this->_children[$child->localName] = array();
+            }
             $this->_children[$child->localName][] = $child;
 
             if ($child->prefix) {
-                if (!isset($this->_children[$child->prefix . ':' . $child->localName]))
+                if (!isset($this->_children[$child->prefix . ':' . $child->localName])) {
                     $this->_children[$child->prefix . ':' . $child->localName] = array();
+                }
                 $this->_children[$child->prefix . ':' . $child->localName][] = $child;
             }
         }
