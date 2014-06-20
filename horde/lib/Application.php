@@ -189,6 +189,17 @@ class Horde_Application extends Horde_Registry_Application
             }
         }
 
+        // Remove any activesync device pairings.
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_ActiveSyncState')
+                    ->removeState(array('user' => $user));
+            } catch (Horde_ActiveSync_Exception $e) {
+                Horde::log($e, 'NOTICE');
+                $error = true;
+            }
+        }
+
         if ($error) {
             throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
