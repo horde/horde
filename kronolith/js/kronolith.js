@@ -5811,7 +5811,15 @@ KronolithCore = {
             $('kronolithEventUrlDisplay').show();
             $('kronolithEventUrl').hide();
         }
-        $('kronolithEventUrl').setValue(ev.u);
+        else {
+            $('kronolithEventUrlDisplay').hide();
+            $('kronolithEventUrl').show();
+        }
+
+        if (ev.u) {
+            $('kronolithEventUrl').setValue(ev.u);
+        }
+
         $('kronolithEventAllday').setValue(ev.al);
 
         if (ev.r && ev.rsd && ev.red) {
