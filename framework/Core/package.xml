@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-06-17</date>
+ <date>2014-06-21</date>
  <version>
   <release>2.12.0RC2</release>
   <api>2.12.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improvements to vcard mime handler to allow for ajax updating (Bug #13101).
 * [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
  </notes>
@@ -3448,9 +3449,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-06-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improvements to vcard mime handler to allow for ajax updating (Bug #13101).
 * [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
    </notes>
