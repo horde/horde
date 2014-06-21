@@ -49,6 +49,12 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
         $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
         if (!isset($vars->p)) {
+            $imp_contents = $this->getConfigParam('imp_contents');
+
+            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_VCardImport', array(
+                'mime_id' => $this->_mimepart->getMimeId(),
+                'muid' => strval($imp_contents->getIndicesOb())
+            ));
             $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render', array('params' => array('mode' => IMP_Contents::RENDER_INLINE)));
             return parent::_renderInline();
         }
