@@ -51,6 +51,16 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * Return a single image object.
+     *
+     * @return [type] [description]
+     */
+    public function getImage()
+    {
+        return $GLOBALS['storage']->getImage($this->vars->id)->toJson();
+    }
+
+    /**
      * Return an array of image objects matching the requested parameters.
      * Expects the following in $this->vars:
      *   - view:  The current view (VIEW_ME)

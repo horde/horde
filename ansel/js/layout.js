@@ -88,7 +88,7 @@ AnselLayout = Class.create({
             border: 8,
             padding: 12,
             galleryWidth: 300,
-            perPage: 10,
+            perPage: 10
         }, opts);
 
         // Container is the image row container.
@@ -180,10 +180,7 @@ AnselLayout = Class.create({
         //        moreAvailable = false, but we don't know that we don't have
         //        anymore images until the next request. The can cause the last
         //        few images to be hidden until the container is resized manually.
-        if (imgs.length < this.opts.perPage) {
-            this.moreAvailable = false;
-        }
-
+        this.moreAvailable = (imgs.length >= this.opts.perPage);
         if (imgs.length) {
             // If we don't already have lastWidth, this is the first.
             if (!this.lastWidth) {
@@ -203,8 +200,7 @@ AnselLayout = Class.create({
         target = new Element('span', {
             class: 'ansel-tile-target'
         });
-
-        // @TODO: Probably need to generalize the photo.screen to a url.
+        target.store('photo', photo);
         meta = new Element('div', {
             class: 'ansel-tile-meta'
         }).update(new Element('div', { class: 'ansel-tile-title' }).update(photo.t.escapeHTML()));

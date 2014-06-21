@@ -26,6 +26,8 @@ class Ansel_Ajax
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('ansel.js');
         $page_output->addScriptFile('layout.js');
+        $page_output->addScriptFile('imageview.js');
+        $page_output->addScriptPackage('Horde_Core_Script_Package_Datejs');
         $page_output->addInlineJsVars(array(
             'var Ansel' => $this->_addBaseVars()
         ), array('top' => true));
@@ -93,7 +95,8 @@ class Ansel_Ajax
             'prefs' => _("Preferences"),
             'searching' => sprintf(_("Images matching \"%s\""), '#{term}'),
             'images' => _("Images"),
-            'subgalleries' => _("Sub-galleries")
+            'subgalleries' => _("Sub-galleries"),
+            'taken' => _("Taken"),
         );
 
         // Maps

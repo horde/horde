@@ -22,6 +22,10 @@ AnselCore =
     effectDur: 0.4,
     inScrollHandler: false,
     perPage: 10,
+    imageLayout: null,
+    galleryLayout: null,
+    imagesLayout: null,
+
 
     /**
      * The location that was open before the current location.
@@ -114,24 +118,25 @@ AnselCore =
         } else if (this.openLocation) {
             this.closeView(loc, subview);
         }
-
         this.viewLoading.push([ fullloc, data ]);
 
         // if (loc != 'search') {
         //     HordeTopbar.searchGhost.reset();
         // }
-
+        var locCap = loc.capitalize();
         switch (loc) {
         case 'me':
         case 'groups':
         case 'subscribed':
-            var locCap = loc.capitalize();
-            $('anselNav' + locCap).addClassName('horde-subnavi-active');
-            $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
+            if (subview != 'image') {
+                $('anselNav' + locCap).addClassName('horde-subnavi-active');
+                $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
+            }
             switch (loc) {
             case 'me':
                 this.view = loc;
                 this.subview = subview;
+                this.addHistory(fullloc);
                 $('anselView' + subview.capitalize()).appear({
                         duration: this.effectDur,
                         queue: 'end',
@@ -142,7 +147,6 @@ AnselCore =
                 });
                 //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
-
             default:
                 if (!$('anselView' + locCap)) {
                     break;
@@ -157,7 +161,6 @@ AnselCore =
                     }.bind(this) });
                 break;
             }
-
             break;
         }
     },
@@ -204,7 +207,6 @@ AnselCore =
                     { callback: this.listImagesCallback.bind(this) }
                 );
                 break;
-
             case 'galleries':
                 $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
@@ -215,8 +217,16 @@ AnselCore =
                     this.addHistory(view + ':' + subview );
                     HordeCore.doAction('listGalleries', {}, { callback: this.listGalleriesCallback.bind(this) });
                 }
+                break;
+            case 'image':
+                $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
+                $('anselViewGalleries').stopObserving('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
+                if (data.id) {
+                    this.loadImageView(data);
+                } else {
+                    HordeCore.doAction('getImage', { id: data }, { callback: this.loadImageView.bind(this) });
+                }
             }
-            break;
         }
     },
 
@@ -243,7 +253,7 @@ AnselCore =
 
     listImagesCallback: function(r)
     {
-        this.imageLayout.addImages(r);
+        this.imagesLayout.addImages(r);
         this.inScrollHandler = false;
     },
 
@@ -275,6 +285,8 @@ AnselCore =
      */
     closeView: function(loc, subview)
     {
+        console.log(loc);
+        console.log(subview);
         $w('Me Groups Subscribed').each(function(a) {
             a = $('anselNav' + a);
             if (a) {
@@ -295,10 +307,27 @@ AnselCore =
                 if (subview == 'galleries') {
                     this.galleryLayout.reset();
                 } else if (subview == 'images') {
-                    this.imageLayout.reset();
+                    this.imagesLayout.reset();
                 }
             }.bind(this)
         });
+        if (this.subview == 'image') {
+            this.imageLayout.reset();
+        }
+    },
+
+    loadImageView: function(photo)
+    {
+        this.imageLayout.showImage(photo);
+    },
+
+    closeImageView: function()
+    {
+        if (this.lastLocation) {
+            this.go(this.lastLocation);
+        } else {
+            this.go('me:galleries');
+        }
     },
 
     /**
@@ -425,7 +454,11 @@ AnselCore =
             // Caution, this only works if the element has definitely only a
             // single CSS class.
             switch (elt.className) {
-            //return
+            case 'ansel-tile-target':
+                this.go('me:image:' + elt.retrieve('photo').id, elt.retrieve('photo'));
+                break;
+            // case 'ansel-imageview-close':
+            //     this.go(this.lastLocation);
             }
 
             elt = elt.up();
@@ -652,6 +685,7 @@ AnselCore =
             this.redBoxLoading = false;
         }.bind(this);
         RedBox.duration = this.effectDur;
+        RedBox.opacity = 1;
 
         // Event handlers
         document.observe('keydown', AnselCore.keydownHandler.bindAsEventListener(AnselCore));
@@ -659,13 +693,14 @@ AnselCore =
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
         $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
+        $('anselViewImage').observe('AnselImageView:close', function() { this.closeImageView(); }.bind(this));
 
         this.initialize(tmp);
     },
 
     initialize: function(location)
     {
-        this.imageLayout = new AnselLayout({
+        this.imagesLayout = new AnselLayout({
             container: 'anselViewImages',
             perPage: this.perPage
         });
@@ -673,6 +708,10 @@ AnselCore =
         this.galleryLayout = new AnselLayout({
             container: 'anselViewGalleries',
             perPage: this.perPage
+        });
+
+        this.imageLayout = new AnselImageView({
+            container: 'anselViewImage'
         });
 
         this.initialized = true;

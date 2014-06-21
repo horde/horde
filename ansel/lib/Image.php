@@ -1354,6 +1354,7 @@ class Ansel_Image Implements Iterator
         $tiny = $conf['image']['tiny'] &&
                 ($conf['vfs']['src'] == 'direct' || $gallery->hasPermission($registry->getAuth(), Horde_Perms::READ));
 
+        // Need to include different sized images?
         $i = new StdClass();
         $i->id = $this->id;
         $i->url = Ansel::getImageUrl($this->id, 'thumb', false, $style)->toString(true);
@@ -1361,10 +1362,15 @@ class Ansel_Image Implements Iterator
         $i->fn = $this->filename;
         $i->t = $this->title;
         $i->c = $this->caption;
-        // @TODO implement more granular view names.
+
         $dim = $this->getDimensions('screen');
         $i->width_s = $dim['width'];
         $i->height_s = $dim['height'];
+        $i->c = $this->caption;
+
+        $i->tags = array_values($this->getTags());
+        $i->d = (string)new Horde_Date($this->originalDate);
+        $i->l = $this->location;
 
         return $i;
     }
