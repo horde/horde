@@ -393,7 +393,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         if ($registry->hasMethod('contacts/import') &&
             $registry->hasMethod('contacts/sources')) {
             $html .= '<div class="horde-form-buttons"><form action="'
-                . Horde::selfUrl() . '" method="get" name="vcard_import">'
+                . Horde::selfUrl() . '" method="get" name="vcard_import" id="vcard_import">'
                 . Horde_Util::formInput();
             foreach ($_GET as $key => $val) {
                 $html .= '<input type="hidden" name="' . htmlspecialchars($key)
