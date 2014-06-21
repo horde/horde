@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2014-06-21</date>
  <version>
   <release>6.2.0beta4</release>
   <api>6.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -143,6 +143,7 @@
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
+      <file name="VcardImport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
      <file name="Queue.php" role="horde" />
@@ -1612,6 +1613,7 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Ajax/Imple/VcardImport.php" name="lib/Ajax/Imple/VcardImport.php" />
    <install as="imp/lib/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
@@ -3656,10 +3658,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-06-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
