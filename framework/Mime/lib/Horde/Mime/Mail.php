@@ -476,7 +476,12 @@ class Horde_Mime_Mail
         if ($stream) {
             $hdr = new Horde_Stream();
             $hdr->add($this->_headers->toString(), true);
-            return Horde_Stream_Wrapper_Combine::getStream(array($hdr->stream, $this->getBasePart()->toString(array('stream' => true))));
+            return Horde_Stream_Wrapper_Combine::getStream(
+                array($hdr->stream,
+                      $this->getBasePart()->toString(
+                        array('stream' => true, 'encode' => Horde_Mime_Part::ENCODE_7BIT | Horde_Mime_Part::ENCODE_8BIT | Horde_Mime_Part::ENCODE_BINARY))
+                )
+            );
         }
 
         return $this->_headers->toString() . $this->_getBasePart->toString();
