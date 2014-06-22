@@ -110,7 +110,7 @@ class Ansel_Attributes
     public function getAttributes()
     {
         $attributes = $GLOBALS['storage']->getImageAttributes($this->_id);
-        $fields = Horde_Image_Exif::getFields($this->_exif);
+        $fields = Horde_Image_Exif::getFields($this->_getExifDriver());
         $output = array();
         foreach (array_keys($fields) as $field) {
             if (!isset($attributes[$field])) {
