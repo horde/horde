@@ -90,7 +90,7 @@ extends Horde_Push_TestCase
                                 't' => 'note.default',
                                 'm' => array(
                                     1 => array(
-                                        'structure' => __DIR__ . '/../../../fixtures/note.struct',
+                                        'structure' => __DIR__ . '/../../../fixtures/note.php',
                                         'parts' => array(
                                             '2' => array(
                                                 'file' => __DIR__ . '/../../../fixtures/note.xml.qp',

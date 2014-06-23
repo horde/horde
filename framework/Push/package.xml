@@ -10,8 +10,7 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:18</time>
+ <date>2014-06-23</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -72,6 +71,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="Horde_Push.mo" role="data" />
@@ -84,12 +89,30 @@
       <file name="Horde_Push.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="Horde_Push.mo" role="data" />
       <file name="Horde_Push.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Push.mo" role="data" />
@@ -109,7 +132,7 @@
      <dir name="Push">
       <dir name="fixtures">
        <file name="empty.php" role="test" />
-       <file name="note.struct" role="test" />
+       <file name="note.php" role="test" />
        <file name="note.xml.qp" role="test" />
        <file name="push.php" role="test" />
        <file name="push.yaml" role="test" />
@@ -246,12 +269,20 @@
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
    <install as="locale/Horde_Push.pot" name="locale/Horde_Push.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_Push.mo" name="locale/da/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Push.po" name="locale/da/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/de/LC_MESSAGES/Horde_Push.mo" name="locale/de/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Push.po" name="locale/de/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Push.mo" name="locale/es/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Push.po" name="locale/es/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Push.mo" name="locale/eu/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Push.po" name="locale/eu/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Push.mo" name="locale/fi/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Push.po" name="locale/fi/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Push.mo" name="locale/fr/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Push.po" name="locale/fr/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Push.mo" name="locale/hu/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Push.po" name="locale/hu/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Push.mo" name="locale/ja/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Push.po" name="locale/ja/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Push.mo" name="locale/lv/LC_MESSAGES/Horde_Push.mo" />
@@ -262,7 +293,7 @@
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
    <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
    <install as="Horde/Push/fixtures/empty.php" name="test/Horde/Push/fixtures/empty.php" />
-   <install as="Horde/Push/fixtures/note.struct" name="test/Horde/Push/fixtures/note.struct" />
+   <install as="Horde/Push/fixtures/note.php" name="test/Horde/Push/fixtures/note.php" />
    <install as="Horde/Push/fixtures/note.xml.qp" name="test/Horde/Push/fixtures/note.xml.qp" />
    <install as="Horde/Push/fixtures/push.php" name="test/Horde/Push/fixtures/push.php" />
    <install as="Horde/Push/fixtures/push.yaml" name="test/Horde/Push/fixtures/push.yaml" />
@@ -287,7 +318,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-11-19</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
