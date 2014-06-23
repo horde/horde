@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2014-06-23</date>
  <version>
   <release>1.1.5</release>
   <api>1.1.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -65,6 +65,12 @@
       <file name="Horde_ListHeaders.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ListHeaders.mo" role="data" />
+      <file name="Horde_ListHeaders.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_ListHeaders.mo" role="data" />
@@ -136,6 +142,8 @@
    <install as="locale/de/LC_MESSAGES/Horde_ListHeaders.po" name="locale/de/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.po" name="locale/es/LC_MESSAGES/Horde_ListHeaders.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/hu/LC_MESSAGES/Horde_ListHeaders.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_ListHeaders.po" name="locale/hu/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
@@ -273,10 +281,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
    </notes>
   </release>
  </changelog>
