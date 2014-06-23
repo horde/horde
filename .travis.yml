@@ -13,7 +13,7 @@ before_install:
   - sudo locale-gen cs_CZ.UTF-8 de_DE.UTF-8 tr_TR
   - sudo apt-get -qq install libwbxml2-utils aspell rcs cvs cvsps libimage-exiftool-perl
 before_script:
-  - phpenv config-add .travis.ini
+  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then phpenv config-add .travis.ini; fi
   - pear install channel://pear.php.net/Net_DNS2
   - pear install channel://pear.horde.org/Horde_Role
   - ./framework/bin/pear_batch_install
