@@ -1,16 +1,6 @@
 <?php
-/**
- * Release focus. Possible values (multiple possible with arrays):
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+/* Security release? */
+$this->notes['security'] = false;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -43,12 +33,5 @@ The major changes compared to IMP version H5 (6.2.0beta2) are:
     * Small bug fixes and improvements.
 ML;
 
-/* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
-Folder list optimizations.
-Small bug fixes and improvements.
-FM;
-
 $this->notes['name'] = 'IMP';
-$this->notes['fm']['project'] = 'imp';
-$this->notes['fm']['branch'] = 'Horde 5';
+$this->notes['branch'] = 'Horde 5';

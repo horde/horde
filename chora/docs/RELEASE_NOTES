@@ -1,16 +1,6 @@
 <?php
-/**
- * Release focus. Possible values (multiple possible with arrays):
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+/* Security release? */
+$this->notes['security'] = false;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -31,15 +21,5 @@ The major changes compared to the Chora 1.x versions are:
     * mod_rewrite support for prettier URLs.
 ML;
 
-/* Freshmeat release notes. */
-$this->notes['fm']['changes'] = <<<FM
-Subversion support and patchset information have been added.
-Cvsgraph has been integrated for grahpical tree views.
-Simple commit statistics have been added.
-Access keys have been added.
-mod_rewrite support has been added for prettier URLs.
-FM;
-
 $this->notes['name'] = 'Chora';
-$this->notes['fm']['project'] = 'chora';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['branch'] = 'Horde 4';
