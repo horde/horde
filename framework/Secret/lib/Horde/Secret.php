@@ -215,9 +215,9 @@ class Horde_Secret
         );
 
         if ($key === false) {
-            unset($_COOKIE[$keyname], $this->_keyCache[$keyname]);
+            unset($_COOKIE[$keyname . '_key'], $this->_keyCache[$keyname]);
         } else {
-            $_COOKIE[$keyname] = $this->_keyCache[$keyname] = $key;
+            $_COOKIE[$keyname . '_key'] = $this->_keyCache[$keyname] = $key;
         }
     }
 
