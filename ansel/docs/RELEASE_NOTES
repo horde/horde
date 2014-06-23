@@ -3,7 +3,7 @@
 $this->notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$this->notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ansel Photo
 Management and Web Gallery application version H5 (3.0.1).
 
