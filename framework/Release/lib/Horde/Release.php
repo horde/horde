@@ -41,20 +41,8 @@ class Horde_Release
         'nocommit' => false,
         'noftp' => false,
         'noannounce' => false,
-        'nofreecode' => false,
         'nowhups' => false,
     );
-
-    /* Constants for the release foucs - these are used as tags when sending
-     * FM the new release announcement.*/
-    const FOCUS_INITIAL = 'Initial announcement';
-    const FOCUS_MINORFEATURE = 'Minor feature enhancements';
-    const FOCUS_MAJORFEATURE = 'Major feature enhancements';
-    const FOCUS_MINORBUG = 'Minor bugfixes';
-    const FOCUS_MAJORBUG = 'Major bugfixes';
-    const FOCUS_MINORSECURITY = 'Minor security fixes';
-    const FOCUS_MAJORSECURITY = 'Major security fixes';
-    const FOCUS_DOCS = 'Documentation improvements';
 
     /**
      * Version number of release.
@@ -375,12 +363,6 @@ class Horde_Release
                 $directory = './' . $this->_directoryName . '/docs';
             }
         }
-        if (!$old) {
-            include "$directory/RELEASE_NOTES";
-            if (strlen($this->notes['fm']['changes']) > 600) {
-                print "WARNING: freecode release notes are longer than 600 characters!\n";
-            }
-        }
         exec("cd $directory; cvs status CHANGES", $output);
         foreach ($output as $line) {
             if (preg_match('/Repository revision:\s+([\d.]+)/', $line, $matches)) {
@@ -526,7 +508,7 @@ class Horde_Release
     }
 
     /**
-     * announce release to mailing lists and freecode.
+     * announce release to mailing lists.
      */
     public function announce($doc_dir = null)
     {
@@ -534,12 +516,6 @@ class Horde_Release
         if (!isset($this->notes)) {
             print "NOT announcing release, RELEASE_NOTES missing.\n";
             return;
-        }
-        if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreecode'])) {
-            print "NOT announcing release on freecode.com\n";
-        } else {
-            print "Announcing release on freecode.com\n";
         }
 
         if (empty($doc_dir)) {
@@ -550,41 +526,6 @@ class Horde_Release
             ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?rt=horde&r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
             : '';
 
-        // Params to add new release on FM
-        $version = array('version' => $this->_sourceVersionString,
-                         'changelog' => $this->notes['fm']['changes']);
-
-        if (is_array($this->notes['fm']['focus'])) {
-            $version['tag_list'] = $this->notes['fm']['focus'];
-        } else {
-            $version['tag_list'] = array($this->notes['fm']['focus']);
-        }
-
-        // Params to update the various project links on FM
-        $links = array();
-        $links[] = array('label' => 'Tar/GZ',
-                         'location' => "ftp://ftp.horde.org/pub/$module/{$this->_tarballName}");
-        if (!empty($url_changelog)) {
-            $links[] =  array('label' => 'Changelog',
-                              'location' => $url_changelog);
-        }
-
-        if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreecode'])) {
-
-            print "Announcement data:\n";
-            print_r($version);
-            print_r($links);
-        } else {
-            try {
-                $fm = $this->_fmPublish($version);
-                $fm = $this->_fmUpdateLinks($links);
-            } catch (Horde_Exception $e) {
-                print "Error publishing to FM:\n";
-                print $e->getMessage();
-            }
-        }
-
         $mailer = new Horde_Release_MailingList(
             $module,
             $this->notes['name'],
@@ -592,7 +533,7 @@ class Horde_Release
             $this->_options['ml']['from'],
             isset($this->notes['list']) ? $this->notes['list'] : null,
             $this->_ticketVersion,
-            $version['tag_list']
+            $this->notes['security']
         );
 
         $headers = $mailer->getHeaders();
@@ -659,102 +600,6 @@ class Horde_Release
         } catch (Horde_Mime_Exception $e) {
             print $e->getMessage() . "\n";
         }
-    }
-
-    /**
-     * Attempt to publish the new release to the fm restful api.
-     *
-     * @param array $params  The array of fm release parameters
-     *
-     * @return mixed Result of the attempt / PEAR_Error on failure
-     */
-    protected function _fmPublish($params)
-    {
-        $key = $this->_options['fm']['user_token'];
-        $params['tag_list'] = implode(', ', $params['tag_list']);
-        $fm_params = array('auth_code' => $key,
-                           'release' => $params);
-        $http = new Horde_Http_Client();
-        try {
-            $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/releases.json',
-                                    Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
-                                    array('Content-Type' => 'application/json'));
-        } catch (Horde_Http_Exception $e) {
-            if (strpos($e->getMessage(), '201 Created') === false) {
-                throw new Horde_Exception_Wrapped($e);
-            } else {
-                return '';
-            }
-        }
-
-        // 201 Created
-        return $response->getBody();
-    }
-
-    /**
-     * Attempt to update FM project links
-     */
-    public function _fmUpdateLinks($links)
-    {
-        // Need to get the list of current URLs first, then find the one we want
-        // to update.
-        $http = new Horde_Http_Client();
-        try {
-            $response = $http->get('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
-        } catch (Horde_Http_Exception $e) {
-            throw new Horde_Exception_Wrapped($e);
-        }
-
-        $url_response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
-        if (!is_array($url_response)) {
-            $url_response = array();
-        }
-
-        // Should be an array of URL info in response...go through our requested
-        // updates and see if we can find the correct 'permalink' parameter.
-        foreach ($links as $link) {
-            $permalink = '';
-            foreach ($url_response as $url) {
-                // FM docs contradict this, but each url entry in the array is
-                // wrapped in a 'url' property.
-                $url = $url->url;
-                if ($link['label'] == $url->label) {
-                    $permalink = $url->permalink;
-                    break;
-                }
-            }
-            $link = array('auth_code' => $this->_options['fm']['user_token'],
-                          'url' => $link);
-            $http = new Horde_Http_Client();
-            if (empty($permalink)) {
-                // No link found to update...create it.
-                try {
-                    $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json',
-                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
-                                            array('Content-Type' => 'application/json'));
-                    $response = $response->getBody();
-                } catch (Horde_Http_Exception $e) {
-                    if (strpos($e->getMessage(), '201 Created') === false) {
-                        throw new Horde_Exception_Wrapped($e);
-                    } else {
-                        $response = '';
-                    }
-                }
-            } else {
-                // Found the link to update...update it.
-                try {
-                    $response = $http->put('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
-                                           Horde_Serialize::serialize($link, Horde_Serialize::JSON),
-                                           array('Content-Type' => 'application/json'));
-                    $response = $response->getBody();
-                    // Status: 200???
-                } catch (Horde_Http_Exception $e) {
-                    throw new Horde_Exception_Wrapped($e);
-                }
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -1016,10 +861,6 @@ class Horde_Release
                 // Check to see if they tell us not to announce
                 $this->_options['noannounce']= true;
 
-            } elseif (strstr($arg, '--nofreecode')) {
-                // Check to see if they tell us not to announce
-                $this->_options['nofreecode']= true;
-
             } elseif (strstr($arg, '--noticketversion')) {
                 // Check to see if they tell us not to add new ticket versions
                 $this->_options['nowhups'] = true;
@@ -1030,7 +871,6 @@ class Horde_Release
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreecode']= true;
 
             } elseif (strstr($arg, '--test')) {
                 // Check to see if they tell us to test (for development only)
@@ -1040,7 +880,6 @@ class Horde_Release
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreecode']= true;
 
             } elseif (strstr($arg, '--help')) {
                 // Check for help usage.
@@ -1126,7 +965,7 @@ make-release.php: Horde release generator.
                          --version=[Hn-]xx.yy[.zz[-<string>]]
                          --oldversion=[Hn-]xx[.yy[.zz[-<string>]]]
                          [--branch=<branchname>] [--nocommit] [--noftp]
-                         [--noannounce] [--nofreecode] [--noticketversion]
+                         [--noannounce] [--noticketversion]
                          [--test] [--dryrun] [--help]
 
    If you omit the branch, it will implicitly work with the HEAD branch.
@@ -1135,11 +974,10 @@ make-release.php: Horde release generator.
    repository).
    Use the --noftp option to not upload any files on the FTP server.
    Use the --noannounce option to not send any release announcements.
-   Use the --nofreecode option to not send any freecode announcements.
    Use the --noticketversion option to not update the version information on
    bugs.horde.org.
    The --dryrun option is an alias for:
-     --nocommit --noftp --noannounce --nofreecode --noticketversion.
+     --nocommit --noftp --noannounce --noticketversion.
    The --test option is for debugging purposes only.
 
    EXAMPLES:

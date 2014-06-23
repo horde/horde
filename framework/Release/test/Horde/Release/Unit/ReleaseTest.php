@@ -147,7 +147,7 @@ v1.0.1-cvs
     public function testSecuritySubject()
     {
         $r = $this->_getAnnounceHelper();
-        $r->notes['fm']['focus'] = Horde_Release::FOCUS_MAJORSECURITY;
+        $r->notes['security'] = true;
         $this->assertContains(
             '[SECURITY]',
             $this->_announce($r)
@@ -234,10 +234,8 @@ v1.0.1-cvs
         );
 
         $r->notes['name'] = 'Horde';
-        $r->notes['fm']['focus'] = 5;
-        $r->notes['fm']['changes'] = 'FM-CHANGES';
-        $r->notes['fm']['project'] = 'horde';
-        $r->notes['fm']['branch'] = 'Horde 3';
+        $r->notes['security'] = false;
+        $r->notes['branch'] = 'Horde 3';
         $r->notes['ml']['changes'] = 'ML-CHANGES';
         return $r;
     }

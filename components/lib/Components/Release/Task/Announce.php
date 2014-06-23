@@ -76,7 +76,7 @@ extends Components_Release_Task_Base
             $options['from'],
             $this->getNotes()->getList(),
             $this->getComponent()->getVersion(),
-            $this->getNotes()->getFocusList()
+            $this->getNotes()->getSecurity()
         );
         $mailer->append($this->getNotes()->getAnnouncement());
         $mailer->append("\n\n" .

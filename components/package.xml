@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2014-06-23</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Remove Freecode support.
 * [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.
@@ -243,7 +244,6 @@
        <file name="CommitPreRelease.php" role="php" />
        <file name="Composer.php" role="horde" />
        <file name="CurrentSentinel.php" role="php" />
-       <file name="Freecode.php" role="horde" />
        <file name="NextSentinel.php" role="php" />
        <file name="NextVersion.php" role="php" />
        <file name="Package.php" role="php" />
@@ -734,7 +734,6 @@
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
    <install as="Components/Release/Task/Composer.php" name="lib/Components/Release/Task/Composer.php" />
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
-   <install as="Components/Release/Task/Freecode.php" name="lib/Components/Release/Task/Freecode.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
    <install as="Components/Release/Task/NextVersion.php" name="lib/Components/Release/Task/NextVersion.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
@@ -891,9 +890,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2014-03-10</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Remove Freecode support.
 * [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.

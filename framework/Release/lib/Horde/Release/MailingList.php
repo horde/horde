@@ -74,11 +74,11 @@ class Horde_Release_MailingList
     private $_version;
 
     /**
-     * The list of focus tags.
+     * Security release?
      *
-     * @param array
+     * @param boolean
      */
-    private $_tag_list;
+    private $_security;
 
     /**
      * The message body.
@@ -98,10 +98,10 @@ class Horde_Release_MailingList
      * @param string $list        The mailing list the announcement should be
      *                            sent to.
      * @param string $version     The version to be released.
-     * @param array  $tag_list    Release focus.
+     * @param boolean $security   Whether it's a security release.
      */
     public function __construct(
-        $component, $name, $branch, $from, $list, $version, $tag_list
+        $component, $name, $branch, $from, $list, $version, $security
     )
     {
         $this->_component = $component;
@@ -110,7 +110,7 @@ class Horde_Release_MailingList
         $this->_from = $from;
         $this->_list = $list;
         $this->_version = $version;
-        $this->_tag_list = $tag_list;
+        $this->_security = $security;
         $this->_body = '';
     }
 
@@ -140,7 +140,7 @@ class Horde_Release_MailingList
         if ($this->_isLatest()) {
             $subject .= ' (final)';
         }
-        if (in_array(Horde_Release::FOCUS_MAJORSECURITY, $this->_tag_list)) {
+        if ($this->_security) {
             $subject = '[SECURITY] ' . $subject;
         }
 
