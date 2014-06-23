@@ -656,7 +656,7 @@ extends PHPUnit_Framework_TestCase
     protected function getDefaultEventData($add = '')
     {
         return array(
-            'structure' => __DIR__ . '/fixtures/event.struct',
+            'structure' => __DIR__ . '/fixtures/event.php',
             'parts' => array(
                 '2' => array(
                     'file' => __DIR__ . '/fixtures/event' . $add . '.xml.qp',

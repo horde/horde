@@ -98,9 +98,7 @@ implements ArrayAccess
                 $folder['mails'] = $element['m'];
                 foreach ($element['m'] as $uid => $mail) {
                     if (isset($mail['structure'])) {
-                        $folder['mails'][$uid]['structure'] = unserialize(
-                            base64_decode(file_get_contents($mail['structure']))
-                        );
+                        $folder['mails'][$uid]['structure'] = include $mail['structure'];
                     }
                     if (isset($mail['parts'])) {
                         $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];

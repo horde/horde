@@ -11,7 +11,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-06-23</date>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix tests including Horde_Mime_Part.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -505,7 +505,7 @@
         <file name="event.1.xml.qp" role="test" />
         <file name="event.2.xml.qp" role="test" />
         <file name="event.3.xml.qp" role="test" />
-        <file name="event.struct" role="test" />
+        <file name="event.php" role="test" />
         <file name="event.xml.qp" role="test" />
         <file name="note.eml" role="test" />
         <file name="preferences.1" role="test" />
@@ -936,7 +936,7 @@
    <install as="Horde/Kolab/Storage/fixtures/event.1.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.1.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.2.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.2.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.3.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.3.xml.qp" />
-   <install as="Horde/Kolab/Storage/fixtures/event.struct" name="test/Horde/Kolab/Storage/fixtures/event.struct" />
+   <install as="Horde/Kolab/Storage/fixtures/event.php" name="test/Horde/Kolab/Storage/fixtures/event.php" />
    <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/note.eml" name="test/Horde/Kolab/Storage/fixtures/note.eml" />
    <install as="Horde/Kolab/Storage/fixtures/preferences.1" name="test/Horde/Kolab/Storage/fixtures/preferences.1" />
@@ -1345,10 +1345,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix tests including Horde_Mime_Part.
    </notes>
   </release>
  </changelog>
