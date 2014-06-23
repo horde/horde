@@ -530,7 +530,7 @@ class Horde_Release
             $module,
             $this->notes['name'],
             $this->_hordeVersionString,
-            $this->_options['ml']['from'],
+            $this->_options['from'],
             isset($this->notes['list']) ? $this->notes['list'] : null,
             $this->_ticketVersion,
             $this->notes['security']
@@ -545,7 +545,7 @@ class Horde_Release
         }
 
         // Building message text
-        $mailer->append($this->notes['ml']['changes']);
+        $mailer->append($this->notes['changes']);
         if ($this->_oldVersion) {
             $mailer->append("\n\n" .
                 sprintf('The full list of changes (from version %s) can be viewed here:', $this->_oldSourceVersionString) .

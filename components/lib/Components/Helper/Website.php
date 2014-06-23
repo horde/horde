@@ -128,7 +128,7 @@ class Components_Helper_Website
             } else if ($filename == 'RELEASE_NOTES') {
                 $out = "<h3>Release notes for the latest release</h3><pre>\n";
                 include $path;
-                $out .= $this->notes['ml']['changes'];
+                $out .= $this->notes['changes'];
                 $out .= "</pre>\n";
             } else {
                 $descriptorspec = array(

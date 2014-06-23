@@ -133,8 +133,8 @@ class Components_Release_Notes
      */
     public function getAnnouncement()
     {
-        if (isset($this->notes['ml']['changes'])) {
-            return $this->notes['ml']['changes'];
+        if (isset($this->notes['changes'])) {
+            return $this->notes['changes'];
         }
         return '';
     }
@@ -146,6 +146,6 @@ class Components_Release_Notes
      */
     public function hasNotes()
     {
-        return !empty($this->notes['ml']);
+        return !empty($this->notes['changes']);
     }
 }

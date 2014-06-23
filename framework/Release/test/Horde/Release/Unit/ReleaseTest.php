@@ -224,9 +224,7 @@ v1.0.1-cvs
                         'oldversion' => '0.9',
                         'version' => '1.0',
                         'noannounce' => true,
-                        'ml' => array(
-                            'from' => 'test@example.com'
-                        )
+                        'from' => 'test@example.com'
                     )
                 ),
                 $options
@@ -236,7 +234,7 @@ v1.0.1-cvs
         $r->notes['name'] = 'Horde';
         $r->notes['security'] = false;
         $r->notes['branch'] = 'Horde 3';
-        $r->notes['ml']['changes'] = 'ML-CHANGES';
+        $r->notes['changes'] = 'ML-CHANGES';
         return $r;
     }
 
