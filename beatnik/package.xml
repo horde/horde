@@ -10,8 +10,7 @@
   <email>bklang@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-05</date>
- <time>13:42:43</time>
+ <date>2014-06-23</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -22,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL</license>
  <notes>
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [mjr] Add initial database migration.
 * Initial release.
  </notes>
@@ -61,12 +61,25 @@
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="beatnik.mo" role="horde" />
       <file name="beatnik.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
       <file name="beatnik.mo" role="horde" />
@@ -112,7 +125,6 @@
     </dir> <!-- /themes/default -->
    </dir> <!-- /themes -->
    <file name="autogenerate.php" role="horde" />
-   <file name="beatnik-1.0.0dev201212191259.tgz" role="horde" />
    <file name="commit.php" role="horde" />
    <file name="delete.php" role="horde" />
    <file name="editrec.php" role="horde" />
@@ -148,7 +160,6 @@
  <phprelease>
   <filelist>
    <install as="beatnik/autogenerate.php" name="autogenerate.php" />
-   <install as="beatnik/beatnik-1.0.0dev201212191259.tgz" name="beatnik-1.0.0dev201212191259.tgz" />
    <install as="beatnik/commit.php" name="commit.php" />
    <install as="beatnik/delete.php" name="delete.php" />
    <install as="beatnik/editrec.php" name="editrec.php" />
@@ -176,8 +187,13 @@
    <install as="beatnik/locale/.htaccess" name="locale/.htaccess" />
    <install as="beatnik/locale/beatnik.pot" name="locale/beatnik.pot" />
    <install as="beatnik/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="beatnik/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="beatnik/locale/es/LC_MESSAGES/beatnik.mo" name="locale/es/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/es/LC_MESSAGES/beatnik.po" name="locale/es/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.mo" name="locale/fi/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.po" name="locale/fi/LC_MESSAGES/beatnik.po" />
+   <install as="beatnik/locale/hu/LC_MESSAGES/beatnik.mo" name="locale/hu/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/hu/LC_MESSAGES/beatnik.po" name="locale/hu/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.mo" name="locale/lv/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.po" name="locale/lv/LC_MESSAGES/beatnik.po" />
@@ -207,9 +223,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2013-06-05</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL</license>
    <notes>
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [mjr] Add initial database migration.
 * Initial release.
    </notes>

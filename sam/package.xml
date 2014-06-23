@@ -10,8 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:21</time>
+ <date>2014-06-23</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -22,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Add Latvian translation (Jānis Eisaks).
 * Initial release.
  </notes>
@@ -109,6 +109,12 @@
       <file name="sam.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="it">
      <dir name="LC_MESSAGES">
       <file name="sam.mo" role="horde" />
@@ -236,6 +242,8 @@
    <install as="sam/locale/fi/LC_MESSAGES/sam.po" name="locale/fi/LC_MESSAGES/sam.po" />
    <install as="sam/locale/fr/LC_MESSAGES/sam.mo" name="locale/fr/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/fr/LC_MESSAGES/sam.po" name="locale/fr/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/hu/LC_MESSAGES/sam.mo" name="locale/hu/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/hu/LC_MESSAGES/sam.po" name="locale/hu/LC_MESSAGES/sam.po" />
    <install as="sam/locale/it/LC_MESSAGES/sam.mo" name="locale/it/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/it/LC_MESSAGES/sam.po" name="locale/it/LC_MESSAGES/sam.po" />
    <install as="sam/locale/lv/LC_MESSAGES/sam.mo" name="locale/lv/LC_MESSAGES/sam.mo" />
@@ -263,9 +271,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-19</date>
+   <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Add Latvian translation (Jānis Eisaks).
 * Initial release.
    </notes>
