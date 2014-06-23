@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-14 14:26+0200\n"
-"PO-Revision-Date: 2014-04-30 10:19+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -16,36 +16,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Auth.php:362
+#: lib/Horde/Auth.php:375
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr "A jelszó túl hosszú! Nem lehet hosszabb %d karakternél!"
 
-#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:443
+#: lib/Horde/Auth.php:446 lib/Horde/Auth.php:456
 msgid "The password is too simple to guess."
 msgstr "A jelszavad túl könnyen kitalálható."
 
-#: lib/Horde/Auth.php:358
+#: lib/Horde/Auth.php:371
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "A jelszónak legalább %d karakter hosszúnak kell lennie!"
 
-#: lib/Horde/Auth.php:394
+#: lib/Horde/Auth.php:407
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "A jelszó legalább %d betűt kell tartalmazzon."
 msgstr[1] "A jelszó legalább %d betűt kell tartalmazzon."
 
-#: lib/Horde/Auth.php:397
+#: lib/Horde/Auth.php:410
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
 msgstr[0] "A jelszó legalább %d betűt, vagy számot kell tartalmazzon."
 msgstr[1] "A jelszó legalább %d betűt, vagy számot kell tartalmazzon."
 
-#: lib/Horde/Auth.php:403
+#: lib/Horde/Auth.php:416
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -54,21 +54,21 @@ msgstr ""
 "A jelszó legalább %d, különböző típusú karaktert kell tartalmazzon. A "
 "típusok: kisbetű, nagybetű, szám, speciális karakter."
 
-#: lib/Horde/Auth.php:388
+#: lib/Horde/Auth.php:401
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "A jelszó legalább %d kisbetűt kell tartalmazzon."
 msgstr[1] "A jelszó legalább %d kisbetűt kell tartalmazzon."
 
-#: lib/Horde/Auth.php:391
+#: lib/Horde/Auth.php:404
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
 msgstr[0] "A jelszó legalább %d számot kell tartalmazzon."
 msgstr[1] "A jelszó legalább %d számot kell tartalmazzon."
 
-#: lib/Horde/Auth.php:400
+#: lib/Horde/Auth.php:413
 #, php-format
 msgid "The password must contain at least %d numeric or special character."
 msgid_plural ""
@@ -78,7 +78,7 @@ msgstr[0] ""
 msgstr[1] ""
 "A jelszó legalább %d számot, vagy speciális karaktert kell tartalmazzon."
 
-#: lib/Horde/Auth.php:412
+#: lib/Horde/Auth.php:425
 #, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
@@ -89,19 +89,19 @@ msgstr[1] ""
 "A jelszó legalább %d speciális karaktert (pl. százalékjel, pont, stb.) kell "
 "tartalmazzon."
 
-#: lib/Horde/Auth.php:385
+#: lib/Horde/Auth.php:398
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "A jelszó legalább %d nagybetűt kell tartalmazzon."
 msgstr[1] "A jelszó legalább %d nagybetűt kell tartalmazzon."
 
-#: lib/Horde/Auth.php:407
+#: lib/Horde/Auth.php:420
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr "A jelszó nem tartalmazhat kevesebb, mint %d szóközt."
 
-#: lib/Horde/Auth.php:409
+#: lib/Horde/Auth.php:422
 msgid "The password must not contain whitespace characters."
 msgstr "A jelszó nem tartalmazhat szóközt."
 

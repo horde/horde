@@ -1,14 +1,13 @@
 # Hungarian translations for Horde_Crypt module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Crypt module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-07 12:17+0100\n"
-"PO-Revision-Date: 2014-04-30 10:40+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -126,10 +125,11 @@ msgid "Email Address"
 msgstr "Emailcím"
 
 #: lib/Horde/Crypt/Smime.php:551
+#, php-format
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "Hiba történt az S/MIME tanúsítvány olvasásakor: %s"
 
-#: lib/Horde/Crypt/Pgp.php:1434 lib/Horde/Crypt/Pgp.php:1442
+#: lib/Horde/Crypt/Pgp.php:1453 lib/Horde/Crypt/Pgp.php:1461
 msgid "Error while talking to pgp binary."
 msgstr "Hiba történt a pgp program futtatásakor."
 
@@ -239,19 +239,19 @@ msgstr "Szervezet"
 msgid "Organisational Unit"
 msgstr "Szervezeti egység"
 
-#: lib/Horde/Crypt/Pgp.php:1256
+#: lib/Horde/Crypt/Pgp.php:1275
 msgid "PGP Digital Signature"
 msgstr "PGP digitális aláírás"
 
-#: lib/Horde/Crypt/Pgp.php:1300
+#: lib/Horde/Crypt/Pgp.php:1319
 msgid "PGP Encrypted Data"
 msgstr "PGP-vel titkosított adat"
 
-#: lib/Horde/Crypt/Pgp.php:1361
+#: lib/Horde/Crypt/Pgp.php:1380
 msgid "PGP Public Key"
 msgstr "PGP nyilvános kulcs"
 
-#: lib/Horde/Crypt/Pgp.php:1343
+#: lib/Horde/Crypt/Pgp.php:1362
 msgid "PGP Signed/Encrypted Data"
 msgstr "PGP-vel aláírt/titkosított adat"
 

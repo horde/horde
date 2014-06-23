@@ -1,14 +1,13 @@
 # Hungarian translations for Horde_Alarm module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Alarm module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2014-04-30 02:09+0200\n"
+"POT-Creation-Date: 2014-05-28 15:10+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -17,22 +16,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:79
+#: lib/Horde/Alarm/Handler/Desktop.php:85
 msgid "Desktop notification (with certain browsers)"
 msgstr "Asztali emlékeztető (erre alkalmas böngészővel)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:129
+#: lib/Horde/Alarm/Handler/Mail.php:135
 msgid "Email"
 msgstr "Email"
 
-#: lib/Horde/Alarm/Handler/Mail.php:149
+#: lib/Horde/Alarm/Handler/Mail.php:155
 msgid "Email address (optional)"
 msgstr "Emailcím (opcionális):"
 
-#: lib/Horde/Alarm/Handler/Notify.php:79
+#: lib/Horde/Alarm/Handler/Notify.php:85
 msgid "Inline"
 msgstr "Szövegközi"
 
-#: lib/Horde/Alarm/Handler/Notify.php:99
+#: lib/Horde/Alarm/Handler/Notify.php:105
 msgid "Play a sound?"
 msgstr "Hang lejátszása."
+
+#: lib/Horde/Alarm/Sql.php:88 lib/Horde/Alarm/Sql.php:115
+#: lib/Horde/Alarm/Sql.php:136 lib/Horde/Alarm/Sql.php:178
+#: lib/Horde/Alarm/Sql.php:216 lib/Horde/Alarm/Sql.php:251
+#: lib/Horde/Alarm/Sql.php:277 lib/Horde/Alarm/Sql.php:307
+#: lib/Horde/Alarm/Sql.php:332 lib/Horde/Alarm/Sql.php:357
+#: lib/Horde/Alarm/Sql.php:381 lib/Horde/Alarm/Sql.php:409
+msgid "Server error when querying database."
+msgstr "Hiba történt az adatbázisműveletek közben."

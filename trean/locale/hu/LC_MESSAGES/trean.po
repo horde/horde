@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  H5 (1.0.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-29 19:08+0200\n"
-"PO-Revision-Date: 2014-05-09 15:58+0200\n"
+"POT-Creation-Date: 2014-06-22 13:30+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -70,7 +70,7 @@ msgid "Bookmarked on"
 msgstr "Könyvjelzők itt:"
 
 #: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
-#: lib/View/BookmarkList.php:120
+#: lib/View/BookmarkList.php:119
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
@@ -78,9 +78,17 @@ msgstr "Könyvjelzők"
 msgid "Bookmarks Feed"
 msgstr "Könyvjelző hírcsatornak"
 
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "A könyvjelző sikeresen importálva"
+
 #: browse.php:31
 msgid "Browse"
 msgstr "Böngészés"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "Új könyvjelző létrehozása sikertelen."
 
 #: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
@@ -127,7 +135,7 @@ msgstr ""
 "Húzza egerével az alábbi \"Hozzáadás a könyvjelzőkhöz\" feliratot a "
 "böngészőprogram Kedvencek sávjára"
 
-#: templates/list.html.php:55
+#: templates/list.html.php:57
 msgid "Edit"
 msgstr "Módosítás"
 
@@ -135,9 +143,21 @@ msgstr "Módosítás"
 msgid "Edit Bookmark"
 msgstr "Könyvjelzők módosítása"
 
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "Firefox JSON"
+
 #: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla esetén:"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Import"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Könyvjelzők importálása"
 
 #: templates/add.html.php:63
 msgid "Internet Explorer"
@@ -147,7 +167,7 @@ msgstr "Internet Explorer esetén:"
 msgid "Loading..."
 msgstr "Betötés..."
 
-#: lib/Application.php:74
+#: lib/Application.php:76
 msgid "Maximum Number of Bookmarks"
 msgstr "A könyvjelzők maximális száma"
 
@@ -208,7 +228,7 @@ msgstr "Egyéb"
 msgid "Previously used tags"
 msgstr "Előzőleg használt címkék"
 
-#: lib/View/BookmarkList.php:214
+#: lib/View/BookmarkList.php:213
 msgid "Remove from search"
 msgstr "Eltávolítás a keresésből"
 
@@ -229,6 +249,14 @@ msgstr "A keresés eredménye (%s)"
 msgid "See previously used tags"
 msgstr "Előzőleg használt címkék"
 
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Az importálandó fájl:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Válassza ki, milyen formátumú fájlból kíván importálni:"
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr "Könyvjelzők megjelenítése és megnyitása"
@@ -245,13 +273,22 @@ msgstr "Rendezési szempont:"
 msgid "Sort direction:"
 msgstr "A sorbarendezési irány:"
 
-#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+#: app/controllers/BrowseByTag.php:23
+msgid "Tagged with %s"
+msgstr "Címkézve: %s"
+
+#: lib/Application.php:102 templates/add.html.php:30
+#: templates/edit.html.php:39
 msgid "Tags"
 msgstr "Címkék"
 
 #: lib/Block/Mostclicked.php:38 lib/Block/Bookmarks.php:47
 msgid "Template"
 msgstr "Sablon"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "A \"%s\" fájlban nem volt könyvjelző."
 
 #: app/controllers/DeleteBookmark.php:16
 #, php-format
@@ -267,6 +304,11 @@ msgstr "A könyvjelző hozzáadása során hiba történt: %s"
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Hiba történt a könyvjelző elmentése során: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "A szerver üzenete: %s"
 
 #: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/list.html.php:12
 #: templates/add.html.php:20 templates/edit.html.php:29
@@ -294,11 +336,15 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr "Ön legfeljebb %d könyvjelzőt hozhat létre."
 
-#: lib/Application.php:84
+#: lib/Application.php:86
 msgid "_Browse"
 msgstr "_Böngészés"
 
-#: lib/Application.php:94
+#: lib/Application.php:87
+msgid "_Import"
+msgstr "_Importálás"
+
+#: lib/Application.php:97
 msgid "_New Bookmark"
 msgstr "Ú_j könyvjelző"
 
@@ -311,8 +357,3 @@ msgstr "kattintás"
 #: templates/block/2line.inc:24
 msgid "clicks"
 msgstr "Kattintás"
-
-#: app/controllers/BrowseByTag.php:23
-#, php-format
-msgid "tagged %s"
-msgstr "Könyvjelzők %s címkével"

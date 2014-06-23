@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-10-29 10:13+0100\n"
-"PO-Revision-Date: 2014-04-30 11:19+0200\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: lib/Horde/Date/Utils.php:105
 msgid "%d days ago"
-msgstr "%s nappal ezelőtt"
+msgstr "%d nappal ezelőtt"
 
 #: lib/Horde/Date/Utils.php:95
 #, php-format
@@ -28,6 +28,7 @@ msgstr[0] "%d órával ezelőtt"
 msgstr[1] "%d órával ezelőtt"
 
 #: lib/Horde/Date/Utils.php:90
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "%d perccel ezelőtt"
@@ -40,6 +41,11 @@ msgid_plural "%d seconds ago"
 msgstr[0] "%d másodperccel ezelőtt"
 msgstr[1] "%d másodperccel ezelőtt"
 
+#: lib/Horde/Date/Recurrence.php:1647
+#, php-format
+msgid "%d times"
+msgstr "%d alkalommal"
+
 #: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
@@ -51,26 +57,117 @@ msgstr[1] "%d héttel korábban"
 msgid "Daily"
 msgstr "naponta"
 
-#: lib/Horde/Date.php:361
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "Daily: Recurs every"
+msgstr "naponta: minden"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "Ends after"
+msgstr "Végződik"
+
+#: lib/Horde/Date/Recurrence.php:1649
+msgid "Exceptions on"
+msgstr "Kivéve: "
+
+#: lib/Horde/Date.php:369 lib/Horde/Date.php:375
+#, php-format
 msgid "Failed to parse time string (%s)"
 msgstr "Nem sikerült a \"%s\" értelmezése"
+
+#: lib/Horde/Date/Recurrence.php:1631
+msgid "Friday"
+msgstr "péntek"
+
+#: lib/Horde/Date/Recurrence.php:1627
+msgid "Monday"
+msgstr "hétfő"
 
 #: lib/Horde/Date/Recurrence.php:219
 msgid "Monthly"
 msgstr "Havonta"
 
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "Monthly: Recurs every"
+msgstr "havonta: ismétlődik minden"
+
+#: lib/Horde/Date/Recurrence.php:1647
+msgid "No end date"
+msgstr "nincs vége"
+
 #: lib/Horde/Date/Recurrence.php:212
 msgid "No recurrence"
 msgstr "Nincs ismétlődés"
+
+#: lib/Horde/Date/Recurrence.php:1632
+msgid "Saturday"
+msgstr "szombat"
+
+#: lib/Horde/Date/Recurrence.php:1633
+msgid "Sunday"
+msgstr "vasárnap"
+
+#: lib/Horde/Date/Recurrence.php:1630
+msgid "Thursday"
+msgstr "csütörtök"
+
+#: lib/Horde/Date/Recurrence.php:1628
+msgid "Tuesday"
+msgstr "Kedd"
+
+#: lib/Horde/Date/Recurrence.php:1629
+msgid "Wednesday"
+msgstr "szerda"
 
 #: lib/Horde/Date/Recurrence.php:216
 msgid "Weekly"
 msgstr "Hetente"
 
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "Weekly: Recurs every"
+msgstr "hetente: ismétlődik minden"
+
 #: lib/Horde/Date/Recurrence.php:223
 msgid "Yearly"
 msgstr "Évente"
 
+#: lib/Horde/Date/Recurrence.php:1640 lib/Horde/Date/Recurrence.php:1642
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "Yearly: Recurs every"
+msgstr "évente: ismétlődik minden"
+
+#: lib/Horde/Date/Recurrence.php:1624
+msgid "day(s)"
+msgstr "nap"
+
+#: lib/Horde/Date/Recurrence.php:1636 lib/Horde/Date/Recurrence.php:1638
+msgid "month(s)"
+msgstr ". hónap"
+
+#: lib/Horde/Date/Recurrence.php:1636
+msgid "on the same date"
+msgstr " a hónap ugyanazon napján"
+
+#: lib/Horde/Date/Recurrence.php:1638
+msgid "on the same weekday"
+msgstr " a hét ugyanazon napján"
+
+#: lib/Horde/Date/Recurrence.php:1634
+msgid "week(s) on:"
+msgstr ". héten a következő nap(ok)on:"
+
+#: lib/Horde/Date/Recurrence.php:1640
+msgid "year(s) on the same date"
+msgstr " évente, ugyanazon a dátumon"
+
+#: lib/Horde/Date/Recurrence.php:1642
+msgid "year(s) on the same day of the year"
+msgstr "évente, az év ugyanazon napján"
+
+#: lib/Horde/Date/Recurrence.php:1644
+msgid "year(s) on the same weekday and month of the year"
+msgstr "évente, ugyanabban a hónapban, és a hét ugyanazon napján"
+
 #: lib/Horde/Date/Utils.php:100
+#, php-format
 msgid "yesterday at %s"
 msgstr "tegnap ekkor: %s"

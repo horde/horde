@@ -1,14 +1,13 @@
 # Hungarian translations for Horde_Cli module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Cli module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Cli \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2014-04-30 10:27+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -32,6 +31,7 @@ msgid "Fatal Error:"
 msgstr "Helyrehozhatatlan hiba:"
 
 #: lib/Horde/Cli.php:338
+#, php-format
 msgid "In %s"
 msgstr "Itt: %s"
 

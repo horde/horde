@@ -1,14 +1,13 @@
 # Hungarian translations for Horde_Image module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-30 11:35+0200\n"
-"PO-Revision-Date: 2014-05-05 17:09+0200\n"
+"POT-Creation-Date: 2014-06-22 13:10+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -17,37 +16,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Image/Exif.php:180
+#: lib/Horde/Image/Exif.php:266
 #, php-format
 msgid "%4f sec"
 msgstr "%4f s"
 
-#: lib/Horde/Image/Exif.php:272
+#: lib/Horde/Image/Exif.php:358
 #, php-format
 msgid "%d dots per unit"
 msgstr "%d pixel per egység"
 
-#: lib/Horde/Image/Exif.php:354 lib/Horde/Image/Exif.php:356
+#: lib/Horde/Image/Exif.php:440 lib/Horde/Image/Exif.php:442
 #, php-format
 msgid "%d mm"
 msgstr "%d mm"
 
-#: lib/Horde/Image/Exif.php:274
+#: lib/Horde/Image/Exif.php:360
 #, php-format
 msgid "%d per unit"
 msgstr "%d per egység"
 
-#: lib/Horde/Image/Exif.php:286
+#: lib/Horde/Image/Exif.php:372
 #, php-format
 msgid "%d pixels"
 msgstr "%d pixel"
 
-#: lib/Horde/Image/Exif.php:175
+#: lib/Horde/Image/Exif.php:261
 #, php-format
 msgid "%d sec"
 msgstr "%d s"
 
-#: lib/Horde/Image/Exif.php:182
+#: lib/Horde/Image/Exif.php:268
+#, php-format
 msgid "%s / %s sec"
 msgstr "%s / %s s"
 
@@ -56,7 +56,6 @@ msgid "/10s"
 msgstr "/10s"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:85
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 msgid "1-area-focusing"
 msgstr "1 területű fókusz"
 
@@ -64,7 +63,7 @@ msgstr "1 területű fókusz"
 msgid "1-area-focusing (High speed)"
 msgstr "1 területű fókusz (gyors)"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:426
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:423
 msgid "10s"
 msgstr "10s"
 
@@ -76,7 +75,7 @@ msgstr "1st curtain sync"
 msgid "2nd(rear)-curtain sync used"
 msgstr "2nd(rear)-curtain sync used"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:429
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:426
 msgid "2s"
 msgstr "2s"
 
@@ -96,19 +95,19 @@ msgstr "4x"
 msgid "9-area-focusing"
 msgstr "9 területű fókusz"
 
-#: lib/Horde/Image/Exif.php:301
+#: lib/Horde/Image/Exif.php:387
 msgid "90 deg CCW"
 msgstr "90 fok balra"
 
-#: lib/Horde/Image/Exif.php:303
+#: lib/Horde/Image/Exif.php:389
 msgid "90 deg CCW Mirrored"
 msgstr "90 fok balra, tükrözött"
 
-#: lib/Horde/Image/Exif.php:305
+#: lib/Horde/Image/Exif.php:391
 msgid "90 deg CW"
 msgstr "90 fok jobbra"
 
-#: lib/Horde/Image/Exif.php:299
+#: lib/Horde/Image/Exif.php:385
 msgid "90 deg CW Mirrored"
 msgstr "90 fok jobbra, tükrözött"
 
@@ -128,15 +127,15 @@ msgstr "AI Focus"
 msgid "AI Servo"
 msgstr "AI Servo"
 
-#: lib/Horde/Image/Exif.php:262
+#: lib/Horde/Image/Exif.php:348
 msgid "Action"
 msgstr "Esemény"
 
-#: lib/Horde/Image/Exif.php:105 lib/Horde/Image/Exif.php:128
+#: lib/Horde/Image/Exif.php:121 lib/Horde/Image/Exif.php:144
 msgid "Aperture"
 msgstr "Rekesz"
 
-#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:266
+#: lib/Horde/Image/Exif.php:345 lib/Horde/Image/Exif/Parser/Panasonic.php:263
 msgid "Aperture Priority"
 msgstr "Rekeszprioritás"
 
@@ -144,11 +143,11 @@ msgstr "Rekeszprioritás"
 msgid "Aperture Prority AE"
 msgstr "AE rekeszprioritás"
 
-#: lib/Horde/Image/Exif.php:119
+#: lib/Horde/Image/Exif.php:135
 msgid "Artist"
 msgstr "Művész"
 
-#: lib/Horde/Image/Exif.php:417 lib/Horde/Image/Exif/Parser/Fujifilm.php:124
+#: lib/Horde/Image/Exif.php:503 lib/Horde/Image/Exif/Parser/Fujifilm.php:124
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:159
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:179
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:197
@@ -157,8 +156,8 @@ msgstr "Művész"
 #: lib/Horde/Image/Exif/Parser/Canon.php:229
 #: lib/Horde/Image/Exif/Parser/Canon.php:258
 #: lib/Horde/Image/Exif/Parser/Canon.php:364
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:161
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:194
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:158
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:191
 msgid "Auto"
 msgstr "Automatikus"
 
@@ -174,19 +173,19 @@ msgstr "Autofókusz Jó"
 msgid "Auto Selected"
 msgstr "Automatikus"
 
-#: lib/Horde/Image/Exif.php:251
+#: lib/Horde/Image/Exif.php:337
 msgid "Auto bracket"
 msgstr "Auto bracket"
 
-#: lib/Horde/Image/Exif.php:249
+#: lib/Horde/Image/Exif.php:335
 msgid "Auto exposure"
 msgstr "Automatikus expozíció"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:203
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:200
 msgid "Auto, Continuous"
 msgstr "Automatikus, folyamatos"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:200
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:197
 msgid "Auto, Focus button"
 msgstr "Automatikus, fókusz gomb"
 
@@ -198,11 +197,11 @@ msgstr "Auto-DEP"
 msgid "Av"
 msgstr "Av"
 
-#: lib/Horde/Image/Exif.php:379
+#: lib/Horde/Image/Exif.php:465
 msgid "Average"
 msgstr "Átlagos"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:299
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:296
 msgid "Baby"
 msgstr "Baby"
 
@@ -210,8 +209,8 @@ msgstr "Baby"
 msgid "Black & White"
 msgstr "Fekete-fehér"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:179
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:354
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:176
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:351
 msgid "Black and White"
 msgstr "Fekete-fehér"
 
@@ -223,27 +222,27 @@ msgstr "Világosítás+"
 msgid "Bright-"
 msgstr "Világosítás-"
 
-#: lib/Horde/Image/Exif.php:185
+#: lib/Horde/Image/Exif.php:271
 msgid "Bulb"
 msgstr "Lámpatest"
 
-#: lib/Horde/Image/Exif.php:73
+#: lib/Horde/Image/Exif.php:87
 msgid "By"
 msgstr "által"
 
-#: lib/Horde/Image/Exif.php:90
+#: lib/Horde/Image/Exif.php:106
 msgid "Camera Make"
 msgstr "Kamera gyártmánya"
 
-#: lib/Horde/Image/Exif.php:91
+#: lib/Horde/Image/Exif.php:107
 msgid "Camera Model"
 msgstr "Kamera típusa"
 
-#: lib/Horde/Image/Exif.php:117
+#: lib/Horde/Image/Exif.php:133
 msgid "Camera Orientation"
 msgstr "Kamera helyzete"
 
-#: lib/Horde/Image/Exif.php:75
+#: lib/Horde/Image/Exif.php:89
 msgid "Caption"
 msgstr "Caption"
 
@@ -253,7 +252,7 @@ msgstr "Caption"
 msgid "Center"
 msgstr "Közép"
 
-#: lib/Horde/Image/Exif.php:380
+#: lib/Horde/Image/Exif.php:466
 msgid "Center Weighted Average"
 msgstr "Középsúlyozott átlag"
 
@@ -261,7 +260,7 @@ msgstr "Középsúlyozott átlag"
 msgid "Center-weighted"
 msgstr "Középsúlyozott"
 
-#: lib/Horde/Image/Exif.php:280
+#: lib/Horde/Image/Exif.php:366
 msgid "Centimeter"
 msgstr "centiméter"
 
@@ -284,11 +283,11 @@ msgstr "Közeli (makró)"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
 #: lib/Horde/Image/Exif/Parser/Nikon.php:201
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:167
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:164
 msgid "Cloudy"
 msgstr "Felhős"
 
-#: lib/Horde/Image/Exif.php:397
+#: lib/Horde/Image/Exif.php:483
 msgid "Cloudy weather"
 msgstr "Felhős idő"
 
@@ -296,27 +295,27 @@ msgstr "Felhős idő"
 msgid "Color"
 msgstr "Szín"
 
-#: lib/Horde/Image/Exif.php:467
+#: lib/Horde/Image/Exif.php:553
 msgid "Color Sequential Area Sensor"
 msgstr "Color Sequential Area Sensor"
 
-#: lib/Horde/Image/Exif.php:469
+#: lib/Horde/Image/Exif.php:555
 msgid "Color Sequential Linear Sensor"
 msgstr "Color Sequential Linear Sensor"
 
-#: lib/Horde/Image/Exif.php:114
+#: lib/Horde/Image/Exif.php:130
 msgid "Color Space"
 msgstr "Színtartomány"
 
-#: lib/Horde/Image/Exif.php:432
+#: lib/Horde/Image/Exif.php:518
 msgid "Compulsory Flash"
 msgstr "Vaku mindenképpen"
 
-#: lib/Horde/Image/Exif.php:434
+#: lib/Horde/Image/Exif.php:520
 msgid "Compulsory Flash, Return light detected"
 msgstr "Vaku mindenképpen, visszfényérzékeléssel"
 
-#: lib/Horde/Image/Exif.php:433
+#: lib/Horde/Image/Exif.php:519
 msgid "Compulsory Flash, Return light not detected"
 msgstr "Vaku mindenképpen, visszfényérzékelés nélkül"
 
@@ -346,15 +345,15 @@ msgstr "Kontraszt+"
 msgid "Contrast-"
 msgstr "Kontraszt-"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:351
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:348
 msgid "Cool"
 msgstr "Hideg"
 
-#: lib/Horde/Image/Exif.php:401
+#: lib/Horde/Image/Exif.php:487
 msgid "Cool white fluorescent"
 msgstr "Cool white fluorescent"
 
-#: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
+#: lib/Horde/Image/Exif.php:88 lib/Horde/Image/Exif.php:134
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -370,7 +369,7 @@ msgstr "InteroperabilityIFD nem található"
 msgid "Couldnt Find SubIFD"
 msgstr "SubIFD nem található"
 
-#: lib/Horde/Image/Exif.php:261
+#: lib/Horde/Image/Exif.php:347
 msgid "Creative"
 msgstr "Kreatív"
 
@@ -379,29 +378,29 @@ msgstr "Kreatív"
 msgid "Custom"
 msgstr "Egyedi"
 
-#: lib/Horde/Image/Exif.php:87
+#: lib/Horde/Image/Exif.php:103
 msgid "Date Photo Digitized"
 msgstr "Digitalizálási dátum"
 
-#: lib/Horde/Image/Exif.php:85
+#: lib/Horde/Image/Exif.php:101
 msgid "Date Photo Modified"
 msgstr "Módosítási dátum"
 
-#: lib/Horde/Image/Exif.php:86
+#: lib/Horde/Image/Exif.php:102
 msgid "Date Photo Taken"
 msgstr "Készítési dáum"
 
-#: lib/Horde/Image/Exif.php:400
+#: lib/Horde/Image/Exif.php:486
 msgid "Day white fluorescent"
 msgstr "Day white fluorescent"
 
-#: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
+#: lib/Horde/Image/Exif.php:478 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:164
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 msgid "Daylight"
 msgstr "Nappali fény"
 
-#: lib/Horde/Image/Exif.php:399
+#: lib/Horde/Image/Exif.php:485
 msgid "Daylight fluorescent"
 msgstr "Nappali fluorescent"
 
@@ -413,9 +412,13 @@ msgstr "DaylightColor-fluorescence"
 msgid "DaywhiteColor-fluorescence"
 msgstr "DaywhiteColor-fluorescence"
 
-#: lib/Horde/Image/Exif.php:129
+#: lib/Horde/Image/Exif.php:145
 msgid "Depth of Field"
 msgstr "Mélységélesség"
+
+#: lib/Horde/Image/Exif.php:97
+msgid "Description"
+msgstr "Leírás"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:269
 msgid "Did Not Fire"
@@ -429,19 +432,19 @@ msgstr "EasyShoot"
 msgid "Evaluative"
 msgstr "Evaluative"
 
-#: lib/Horde/Image/Exif.php:102
+#: lib/Horde/Image/Exif.php:118
 msgid "Exposure"
 msgstr "Expozíció"
 
-#: lib/Horde/Image/Exif.php:108
+#: lib/Horde/Image/Exif.php:124
 msgid "Exposure Bias"
 msgstr "Exposure Bias"
 
-#: lib/Horde/Image/Exif.php:109
+#: lib/Horde/Image/Exif.php:125
 msgid "Exposure Mode"
 msgstr "Exposure Mode"
 
-#: lib/Horde/Image/Exif.php:110
+#: lib/Horde/Image/Exif.php:126
 msgid "Exposure Program"
 msgstr "Exposure Program"
 
@@ -457,7 +460,7 @@ msgstr "Külső E-TTL"
 msgid "External Flash"
 msgstr "Külső vaku"
 
-#: lib/Horde/Image/Exif.php:106
+#: lib/Horde/Image/Exif.php:122
 msgid "F-Number"
 msgstr "F-Number"
 
@@ -469,11 +472,11 @@ msgstr "FP sync used"
 msgid "Fast Shutter"
 msgstr "Fast Shutter"
 
-#: lib/Horde/Image/Exif.php:130
+#: lib/Horde/Image/Exif.php:146
 msgid "Field of View"
 msgstr "Látómező"
 
-#: lib/Horde/Image/Exif.php:95
+#: lib/Horde/Image/Exif.php:111
 msgid "File Size"
 msgstr "Fájlméret"
 
@@ -481,11 +484,11 @@ msgstr "Fájlméret"
 msgid "Fine"
 msgstr "Finom"
 
-#: lib/Horde/Image/Exif.php:396
+#: lib/Horde/Image/Exif.php:482
 msgid "Fine weather"
 msgstr "Jó idő"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:284
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:281
 msgid "Fireworks"
 msgstr "Tüzijáték"
 
@@ -493,9 +496,9 @@ msgstr "Tüzijáték"
 msgid "Fisheye"
 msgstr "Halszem"
 
-#: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
+#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif.php:515
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:176
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:173
 msgid "Flash"
 msgstr "Vaku"
 
@@ -507,27 +510,27 @@ msgstr "A vaku nem villant"
 msgid "Flash Fired"
 msgstr "A vaku villant"
 
-#: lib/Horde/Image/Exif.php:112
+#: lib/Horde/Image/Exif.php:128
 msgid "Flash Setting"
 msgstr "Vakubeállítás"
 
-#: lib/Horde/Image/Exif.php:437
+#: lib/Horde/Image/Exif.php:523
 msgid "Flash, Auto-Mode"
 msgstr "Vaku, automata mód"
 
-#: lib/Horde/Image/Exif.php:439
+#: lib/Horde/Image/Exif.php:525
 msgid "Flash, Auto-Mode, Return light detected"
 msgstr "Vaku, automata mód, visszfényérzékelés"
 
-#: lib/Horde/Image/Exif.php:438
+#: lib/Horde/Image/Exif.php:524
 msgid "Flash, Auto-Mode, Return light not detected"
 msgstr "Vaku, automata mód, visszfényérzékelés nélkül"
 
-#: lib/Horde/Image/Exif.php:431
+#: lib/Horde/Image/Exif.php:517
 msgid "Flash, strobe return light detected"
 msgstr "Flash, strobe return light detected"
 
-#: lib/Horde/Image/Exif.php:430
+#: lib/Horde/Image/Exif.php:516
 msgid "Flash, strobe return light not detected"
 msgstr "Flash, strobe return light not detected"
 
@@ -535,19 +538,19 @@ msgstr "Flash, strobe return light not detected"
 msgid "Flourescence"
 msgstr "Flourescence"
 
-#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
+#: lib/Horde/Image/Exif.php:479 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
 msgstr "Fluorescent"
 
-#: lib/Horde/Image/Exif.php:103
+#: lib/Horde/Image/Exif.php:119
 msgid "Focal Length"
 msgstr "Fókusztáv"
 
-#: lib/Horde/Image/Exif.php:104
+#: lib/Horde/Image/Exif.php:120
 msgid "Focal Length (35mm equiv)"
 msgstr "Fókusztáv (35 mm-re átszámolva)"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:296
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:293
 msgid "Food"
 msgstr "Étel"
 
@@ -555,7 +558,7 @@ msgstr "Étel"
 msgid "Full Auto"
 msgstr "Teljesen automatikus"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:170
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:167
 msgid "Halogen"
 msgstr "Halogén"
 
@@ -564,7 +567,7 @@ msgstr "Halogén"
 msgid "Hard"
 msgstr "Lemény"
 
-#: lib/Horde/Image/Exif.php:97
+#: lib/Horde/Image/Exif.php:113
 msgid "Height"
 msgstr "Magasság"
 
@@ -572,25 +575,25 @@ msgstr "Magasság"
 #: lib/Horde/Image/Exif/Parser/Canon.php:199
 #: lib/Horde/Image/Exif/Parser/Canon.php:207
 #: lib/Horde/Image/Exif/Parser/Canon.php:215
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:140
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:393
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:411
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:137
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:390
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:408
 msgid "High"
 msgstr "nagy"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:302
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:299
 msgid "High Sensitivity"
 msgstr "Nagy érzékenység"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:441
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:438
 msgid "Horizontal (normal)"
 msgstr "Vízszintes (normál)"
 
-#: lib/Horde/Image/Exif.php:107
+#: lib/Horde/Image/Exif.php:123
 msgid "ISO Setting"
 msgstr "ISO beállítás"
 
-#: lib/Horde/Image/Exif.php:410
+#: lib/Horde/Image/Exif.php:496
 msgid "ISO studio tungsten"
 msgstr "ISO studio tungsten"
 
@@ -606,19 +609,19 @@ msgstr "Érvénytelen InteroperabilityIFD méret"
 msgid "Illegal size for SubIFD"
 msgstr "Érvénytelen SubIFD méret"
 
-#: lib/Horde/Image/Exif.php:79
+#: lib/Horde/Image/Exif.php:93
 msgid "Image Creator"
 msgstr "A kép készítője"
 
-#: lib/Horde/Image/Exif.php:121
+#: lib/Horde/Image/Exif.php:137
 msgid "Image Stabilization"
 msgstr "Képstabilizáció"
 
-#: lib/Horde/Image/Exif.php:72
+#: lib/Horde/Image/Exif.php:86
 msgid "Image Title"
 msgstr "Név"
 
-#: lib/Horde/Image/Exif.php:71
+#: lib/Horde/Image/Exif.php:85
 msgid "Image keywords"
 msgstr "Kulcsszavak"
 
@@ -627,11 +630,11 @@ msgstr "Kulcsszavak"
 msgid "Incandescense"
 msgstr "Incandescense"
 
-#: lib/Horde/Image/Exif.php:279
+#: lib/Horde/Image/Exif.php:365
 msgid "Inch"
 msgstr "Hüvelyk"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:375
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:372
 msgid "Infinite"
 msgstr "Végtelen"
 
@@ -639,7 +642,7 @@ msgstr "Végtelen"
 msgid "Internal Flash"
 msgstr "Belső vaku"
 
-#: lib/Horde/Image/Exif.php:264 lib/Horde/Image/Exif.php:482
+#: lib/Horde/Image/Exif.php:350 lib/Horde/Image/Exif.php:568
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:199
 #: lib/Horde/Image/Exif/Parser/Canon.php:174
 msgid "Landscape"
@@ -649,7 +652,7 @@ msgstr "Vízszintes"
 msgid "Large"
 msgstr "Nagy"
 
-#: lib/Horde/Image/Exif.php:88
+#: lib/Horde/Image/Exif.php:104
 msgid "Latitude"
 msgstr "Szélesség"
 
@@ -658,11 +661,11 @@ msgstr "Szélesség"
 msgid "Left"
 msgstr "Balra"
 
-#: lib/Horde/Image/Exif.php:126
+#: lib/Horde/Image/Exif.php:142
 msgid "Lens Id"
 msgstr "Lencseazonosító"
 
-#: lib/Horde/Image/Exif.php:120
+#: lib/Horde/Image/Exif.php:136
 msgid "Light source"
 msgstr "Fényforrás"
 
@@ -670,24 +673,24 @@ msgstr "Fényforrás"
 msgid "Locked (Pan Mode)"
 msgstr "Zárolt (Pan Mode)"
 
-#: lib/Horde/Image/Exif.php:89
+#: lib/Horde/Image/Exif.php:105
 msgid "Longitude"
 msgstr "Hosszúság"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:200
 #: lib/Horde/Image/Exif/Parser/Canon.php:208
 #: lib/Horde/Image/Exif/Parser/Canon.php:216
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:390
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:408
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:387
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:405
 msgid "Low"
 msgstr "Alacsony"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:372
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:369
 msgid "Low/High Quality"
 msgstr "Alacsony/magas minőség"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:105
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:272
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:269
 msgid "Macro"
 msgstr "Makró"
 
@@ -695,16 +698,16 @@ msgstr "Makró"
 msgid "Macro/Close-Up"
 msgstr "Makró/közeli"
 
-#: lib/Horde/Image/Exif.php:257 lib/Horde/Image/Exif.php:418
+#: lib/Horde/Image/Exif.php:343 lib/Horde/Image/Exif.php:504
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:180
 #: lib/Horde/Image/Exif/Parser/Nikon.php:257
 #: lib/Horde/Image/Exif/Parser/Canon.php:173
 #: lib/Horde/Image/Exif/Parser/Canon.php:257
 #: lib/Horde/Image/Exif/Parser/Canon.php:280
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:173
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:182
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:197
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:275
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:170
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:179
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:194
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:272
 msgid "Manual"
 msgstr "Kézi"
 
@@ -718,7 +721,7 @@ msgstr "Kézi exponálás"
 msgid "Manual Focus"
 msgstr "Manuális fókusz"
 
-#: lib/Horde/Image/Exif.php:250
+#: lib/Horde/Image/Exif.php:336
 msgid "Manual exposure"
 msgstr "Kézi exponálás"
 
@@ -726,19 +729,19 @@ msgstr "Kézi exponálás"
 msgid "Medium"
 msgstr "Közepes"
 
-#: lib/Horde/Image/Exif.php:111
+#: lib/Horde/Image/Exif.php:127
 msgid "Metering Mode"
 msgstr "Mérési mód"
 
-#: lib/Horde/Image/Exif.php:293
+#: lib/Horde/Image/Exif.php:379
 msgid "Mirrored"
 msgstr "Tükrözött"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:215
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:212
 msgid "Mode 1"
 msgstr "Mode 1"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:221
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:218
 msgid "Mode 2"
 msgstr "Mode 2"
 
@@ -746,15 +749,15 @@ msgstr "Mode 2"
 msgid "Monochrome"
 msgstr "Szürkeárnyalatos"
 
-#: lib/Horde/Image/Exif.php:383
+#: lib/Horde/Image/Exif.php:469
 msgid "Multi-Segment"
 msgstr "Multi-Segment"
 
-#: lib/Horde/Image/Exif.php:382
+#: lib/Horde/Image/Exif.php:468
 msgid "Multi-Spot"
 msgstr "Multi-Spot"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:462
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:459
 msgid "Natural"
 msgstr "Természetes"
 
@@ -763,24 +766,24 @@ msgstr "Természetes"
 msgid "Night"
 msgstr "Éjszaka"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:260
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:257
 msgid "Night Portrait"
 msgstr "Éjszakai portré"
 
-#: lib/Horde/Image/Exif.php:484
+#: lib/Horde/Image/Exif.php:570
 msgid "Night Scene"
 msgstr "Éjszakai helyszín"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:293
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:290
 msgid "Night Scenery"
 msgstr "Éjszakai helyszín"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:323
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:320
 msgid "No"
 msgstr "Nem"
 
-#: lib/Horde/Image/Exif.php:428 lib/Horde/Image/Exif.php:435
-#: lib/Horde/Image/Exif.php:436 lib/Horde/Image/Exif.php:440
+#: lib/Horde/Image/Exif.php:514 lib/Horde/Image/Exif.php:521
+#: lib/Horde/Image/Exif.php:522 lib/Horde/Image/Exif.php:526
 msgid "No Flash"
 msgstr "Vaku nélkül"
 
@@ -802,20 +805,20 @@ msgstr "nincs"
 #: lib/Horde/Image/Exif/Parser/Canon.php:198
 #: lib/Horde/Image/Exif/Parser/Canon.php:206
 #: lib/Horde/Image/Exif/Parser/Canon.php:214
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:248
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:459
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:245
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:456
 msgid "Normal"
 msgstr "Normál"
 
-#: lib/Horde/Image/Exif.php:291
+#: lib/Horde/Image/Exif.php:377
 msgid "Normal (O deg)"
 msgstr "Normál (0 fok)"
 
-#: lib/Horde/Image/Exif.php:258
+#: lib/Horde/Image/Exif.php:344
 msgid "Normal Program"
 msgstr "Normál program"
 
-#: lib/Horde/Image/Exif.php:463
+#: lib/Horde/Image/Exif.php:549
 msgid "Not defined"
 msgstr "Nincs megadva"
 
@@ -825,11 +828,11 @@ msgstr "Nincs megadva"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:213
 #: lib/Horde/Image/Exif/Parser/Canon.php:112
 #: lib/Horde/Image/Exif/Parser/Canon.php:126
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:218
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:236
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:345
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:369
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:423
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:215
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:233
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:342
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:366
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:420
 msgid "Off"
 msgstr "Ki"
 
@@ -838,7 +841,7 @@ msgstr "Ki"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:189
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:214
 #: lib/Horde/Image/Exif/Parser/Canon.php:128
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:233
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:230
 msgid "On"
 msgstr "Be"
 
@@ -850,7 +853,7 @@ msgstr "Be + vörösszem effektus csökkentés"
 msgid "On Camera"
 msgstr "On Camera"
 
-#: lib/Horde/Image/Exif.php:464
+#: lib/Horde/Image/Exif.php:550
 msgid "One Chip Color Area Sensor"
 msgstr "One Chip Color Area Sensor"
 
@@ -858,7 +861,7 @@ msgstr "One Chip Color Area Sensor"
 msgid "One-Shot"
 msgstr "Egyes kép"
 
-#: lib/Horde/Image/Exif.php:385
+#: lib/Horde/Image/Exif.php:471
 msgid "Other"
 msgstr "Egyéb"
 
@@ -874,38 +877,38 @@ msgstr "Túlexponált"
 msgid "Pan Focus"
 msgstr "Pan Focus"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:278
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:275
 msgid "Panning"
 msgstr "Eltolás"
 
-#: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
+#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif/Parser/Canon.php:250
 msgid "Partial"
 msgstr "Részleges"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:287
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:284
 msgid "Party"
 msgstr "Parti"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:308
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:305
 msgid "Pet"
 msgstr "Állat"
 
-#: lib/Horde/Image/Exif.php:94
+#: lib/Horde/Image/Exif.php:110
 msgid "Photo Description"
 msgstr "Leírás"
 
-#: lib/Horde/Image/Exif.php:93
+#: lib/Horde/Image/Exif.php:109
 msgid "Photo Type"
 msgstr "Típus"
 
-#: lib/Horde/Image/Exif.php:278
+#: lib/Horde/Image/Exif.php:364
 msgid "Pixels"
 msgstr "Pixel"
 
-#: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
+#: lib/Horde/Image/Exif.php:349 lib/Horde/Image/Exif.php:569
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:251
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:248
 msgid "Portrait"
 msgstr "Portré"
 
@@ -914,7 +917,7 @@ msgid "Preset"
 msgstr "Beállítás"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:277
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:263
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:260
 msgid "Program"
 msgstr "Program"
 
@@ -922,11 +925,11 @@ msgstr "Program"
 msgid "Program AE"
 msgstr "Program AE"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:149
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:146
 msgid "RAW"
 msgstr "RAW"
 
-#: lib/Horde/Image/Exif.php:441
+#: lib/Horde/Image/Exif.php:527
 msgid "Red Eye"
 msgstr "Vörösszem"
 
@@ -934,36 +937,36 @@ msgstr "Vörösszem"
 msgid "Red Eye Reduction"
 msgstr "Vörösszem effektus csökkentés"
 
-#: lib/Horde/Image/Exif.php:447
+#: lib/Horde/Image/Exif.php:533
 msgid "Red Eye, Auto-Mode"
 msgstr "Vörösszem effektus csökkentés, automatikus"
 
-#: lib/Horde/Image/Exif.php:449
+#: lib/Horde/Image/Exif.php:535
 msgid "Red Eye, Auto-Mode, Return light detected"
 msgstr "Vörösszem effektus csökkentés, automatikus, visszfényérzékelés"
 
-#: lib/Horde/Image/Exif.php:448
+#: lib/Horde/Image/Exif.php:534
 msgid "Red Eye, Auto-Mode, Return light not detected"
 msgstr "Vörösszem effektus csökkentés, automatikus, visszfényérzékelés nélkül"
 
-#: lib/Horde/Image/Exif.php:444
+#: lib/Horde/Image/Exif.php:530
 msgid "Red Eye, Compulsory Flash"
 msgstr "Vörösszem effektus csökkentés, mindenképpen vaku"
 
-#: lib/Horde/Image/Exif.php:446
+#: lib/Horde/Image/Exif.php:532
 msgid "Red Eye, Compulsory Flash, Return light detected"
 msgstr "Vörösszem effektus csökkentés, mindenképpen vaku, visszfényérzékelés"
 
-#: lib/Horde/Image/Exif.php:445
+#: lib/Horde/Image/Exif.php:531
 msgid "Red Eye, Compulsory Flash, Return light not detected"
 msgstr ""
 "Vörösszem effektus csökkentés, mindenképpen vaku, visszfényérzékelés nélkül"
 
-#: lib/Horde/Image/Exif.php:443
+#: lib/Horde/Image/Exif.php:529
 msgid "Red Eye, Return light detected"
 msgstr "Vörösszem effektus csökkentés, visszfényérzékelés"
 
-#: lib/Horde/Image/Exif.php:442
+#: lib/Horde/Image/Exif.php:528
 msgid "Red Eye, Return light not detected"
 msgstr "Vörösszem effektus csökkentés, visszfényérzékelés nélkül"
 
@@ -971,7 +974,7 @@ msgstr "Vörösszem effektus csökkentés, visszfényérzékelés nélkül"
 msgid "Red-Eye Reduction"
 msgstr "Vörösszem effektus csökkentés"
 
-#: lib/Horde/Image/Exif.php:100
+#: lib/Horde/Image/Exif.php:116
 msgid "Resolution Unit"
 msgstr "Felbontási egység"
 
@@ -980,15 +983,15 @@ msgstr "Felbontási egység"
 msgid "Right"
 msgstr "Jobbra"
 
-#: lib/Horde/Image/Exif.php:80
+#: lib/Horde/Image/Exif.php:94
 msgid "Rights"
 msgstr "Jogok"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:447
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:444
 msgid "Rotate 270 CW"
 msgstr "Forgatás 270 fokkal jobbra"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:444
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:441
 msgid "Rotate 90 CW"
 msgstr "Forgatás 90 fokkal jobbra"
 
@@ -1004,37 +1007,37 @@ msgstr "SXGA Fine"
 msgid "SXGA Normal"
 msgstr "SXGA Normal"
 
-#: lib/Horde/Image/Exif.php:122
+#: lib/Horde/Image/Exif.php:138
 msgid "Scene Type"
 msgstr "Jelenlettípus"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:254
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:251
 msgid "Scenery"
 msgstr "Jelenet"
 
-#: lib/Horde/Image/Exif.php:115
+#: lib/Horde/Image/Exif.php:131
 msgid "Sensing Method"
 msgstr "Érzékelési módszer"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:179
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:357
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:354
 msgid "Sepia"
 msgstr "Szépia"
 
-#: lib/Horde/Image/Exif.php:398
+#: lib/Horde/Image/Exif.php:484
 msgid "Shade"
 msgstr "Árnyék"
 
-#: lib/Horde/Image/Exif.php:260 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:269
+#: lib/Horde/Image/Exif.php:346 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Shutter Priority"
 msgstr "Zárprioritás"
 
-#: lib/Horde/Image/Exif.php:101
+#: lib/Horde/Image/Exif.php:117
 msgid "Shutter Speed"
 msgstr "Zársebesség"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:281
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:278
 msgid "Simple"
 msgstr "Egyszerű"
 
@@ -1059,7 +1062,7 @@ msgstr "Lassú szinkron"
 msgid "Small"
 msgstr "Kicsi"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:290
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Snow"
 msgstr "Hóesés"
 
@@ -1068,7 +1071,7 @@ msgstr "Hóesés"
 msgid "Soft"
 msgstr "Puha"
 
-#: lib/Horde/Image/Exif.php:92
+#: lib/Horde/Image/Exif.php:108
 msgid "Software Version"
 msgstr "Szoftver verzió"
 
@@ -1081,33 +1084,33 @@ msgid "Sport"
 msgstr "Sport"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:200
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:257
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Sports"
 msgstr "Sport"
 
-#: lib/Horde/Image/Exif.php:381
+#: lib/Horde/Image/Exif.php:467
 msgid "Spot"
 msgstr "Pontszerű"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:97
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 msgid "Spot-focusing"
 msgstr "Pontszerű fókusz"
 
-#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:387
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:405
+#: lib/Horde/Image/Exif.php:567 lib/Horde/Image/Exif/Parser/Panasonic.php:140
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:384
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:402
 msgid "Standard"
 msgstr "Standard"
 
-#: lib/Horde/Image/Exif.php:403
+#: lib/Horde/Image/Exif.php:489
 msgid "Standard light A"
 msgstr "Standard light A"
 
-#: lib/Horde/Image/Exif.php:404
+#: lib/Horde/Image/Exif.php:490
 msgid "Standard light B"
 msgstr "Standard light B"
 
-#: lib/Horde/Image/Exif.php:405
+#: lib/Horde/Image/Exif.php:491
 msgid "Standard light C"
 msgstr "Standard light C"
 
@@ -1123,15 +1126,19 @@ msgstr "Szuperfinom"
 msgid "The file could not be opened."
 msgstr "A fájl nem megnyitható."
 
-#: lib/Horde/Image/Exif.php:466
+#: lib/Horde/Image/Exif.php:552
 msgid "Three Chip Color Area Sensor"
 msgstr "Three Chip Color Area Sensor"
 
-#: lib/Horde/Image/Exif.php:468
+#: lib/Horde/Image/Exif.php:96
+msgid "Title"
+msgstr "Elnevezés"
+
+#: lib/Horde/Image/Exif.php:554
 msgid "Trilinear Sensor"
 msgstr "Trilinear Sensor"
 
-#: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
+#: lib/Horde/Image/Exif.php:480 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
 msgstr "Tungsten"
 
@@ -1139,22 +1146,22 @@ msgstr "Tungsten"
 msgid "Tv"
 msgstr "Tv"
 
-#: lib/Horde/Image/Exif.php:465
+#: lib/Horde/Image/Exif.php:551
 msgid "Two Chip Color Area Sensor"
 msgstr "Two Chip Color Area Sensor"
 
-#: lib/Horde/Image/Exif.php:476
+#: lib/Horde/Image/Exif.php:562
 msgid "Uncalibrated"
 msgstr "Nem kalibrált"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:305
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:302
 msgid "Underwater"
 msgstr "Vízalatti"
 
-#: lib/Horde/Image/Exif.php:252 lib/Horde/Image/Exif.php:265
-#: lib/Horde/Image/Exif.php:281 lib/Horde/Image/Exif.php:378
-#: lib/Horde/Image/Exif.php:412 lib/Horde/Image/Exif.php:419
-#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif.php:485
+#: lib/Horde/Image/Exif.php:338 lib/Horde/Image/Exif.php:351
+#: lib/Horde/Image/Exif.php:367 lib/Horde/Image/Exif.php:464
+#: lib/Horde/Image/Exif.php:498 lib/Horde/Image/Exif.php:505
+#: lib/Horde/Image/Exif.php:556 lib/Horde/Image/Exif.php:571
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:117
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:132
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:98
@@ -1194,24 +1201,26 @@ msgstr "Vízalatti"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:100
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:152
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:326
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:360
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:378
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:396
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:414
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:432
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:450
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:465
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:97
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:149
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:323
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:357
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:375
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:393
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:411
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:429
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:447
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:462
+#, php-format
 msgid "Unknown (%s)"
 msgstr "Ismeretlen (%s)"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:185
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:206
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:224
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:239
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:311
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:182
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:203
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:221
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:236
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:308
+#, php-format
 msgid "Unknown(%s)"
 msgstr "Ismeretlen (%s)"
 
@@ -1229,27 +1238,29 @@ msgstr "Ismeretlen (%s)"
 msgid "Unknown: "
 msgstr "Ismeretlen: "
 
-#: lib/Horde/Image/Exif.php:386
+#: lib/Horde/Image/Exif.php:472
+#, php-format
 msgid "Unknown: %s"
 msgstr "Ismeretlen: %s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:45
+#, php-format
 msgid "Unknown: (%s)"
 msgstr "Ismeretlen: (%s)"
 
-#: lib/Horde/Image/Exif.php:295
+#: lib/Horde/Image/Exif.php:381
 msgid "Upsidedown"
 msgstr "Fejjel lefelé"
 
-#: lib/Horde/Image/Exif.php:297
+#: lib/Horde/Image/Exif.php:383
 msgid "Upsidedown Mirrored"
 msgstr "Fejjel lefelé, tükrözve"
 
-#: lib/Horde/Image/Exif.php:81
+#: lib/Horde/Image/Exif.php:95
 msgid "Usage Terms"
 msgstr "Használati szabályok"
 
-#: lib/Horde/Image/Exif.php:113
+#: lib/Horde/Image/Exif.php:129
 msgid "User Comment"
 msgstr "Megjegyzés"
 
@@ -1265,11 +1276,11 @@ msgstr "VGA Fine"
 msgid "VGA Normal"
 msgstr "VGA Normal"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:146
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:143
 msgid "Very High"
 msgstr "Nagyon magas"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:348
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:345
 msgid "Warm"
 msgstr "Meleg"
 
@@ -1277,11 +1288,11 @@ msgstr "Meleg"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/Horde/Image/Exif.php:116
+#: lib/Horde/Image/Exif.php:132
 msgid "White Balance"
 msgstr "Fehéregyensúly"
 
-#: lib/Horde/Image/Exif.php:402
+#: lib/Horde/Image/Exif.php:488
 msgid "White fluorescent"
 msgstr "White fluorescent"
 
@@ -1289,30 +1300,31 @@ msgstr "White fluorescent"
 msgid "White-fluorescence"
 msgstr "White-fluorescence"
 
-#: lib/Horde/Image/Exif.php:96
+#: lib/Horde/Image/Exif.php:112
 msgid "Width"
 msgstr "Szélesség"
 
-#: lib/Horde/Image/Exif.php:98
+#: lib/Horde/Image/Exif.php:114
 msgid "X Resolution"
 msgstr "X felbontás"
 
-#: lib/Horde/Image/Exif.php:99
+#: lib/Horde/Image/Exif.php:115
 msgid "Y Resolution"
 msgstr "Y felbontás"
 
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:320
+#: lib/Horde/Image/Exif/Parser/Panasonic.php:317
 msgid "Yes"
 msgstr "Igen"
 
-#: lib/Horde/Image/Exif.php:411
+#: lib/Horde/Image/Exif.php:497
 msgid "other light source"
 msgstr "más fényforrás"
 
-#: lib/Horde/Image/Exif.php:475
+#: lib/Horde/Image/Exif.php:561
 msgid "sRGB"
 msgstr "sRGB"
 
 #: lib/Horde/Image/Exif/Bundled.php:816
+#, php-format
 msgid "version %d"
 msgstr "verzió %d"

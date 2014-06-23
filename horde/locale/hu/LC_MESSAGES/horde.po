@@ -1,43 +1,41 @@
-# Horde Hungarian translation file
-# Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+# Hungarian translations for Horde package.
+# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
-# Latest versions: http://etit.hu/hun_horde_project.php
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.1.1-git\n"
+"Project-Id-Version: Horde 5.3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
-"PO-Revision-Date: 2013-03-30 14:55+0200\n"
-"Last-Translator: Király László <l.kiraly@madalbal.hu>\n"
+"POT-Creation-Date: 2014-06-22 13:30+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Hungarian\n"
-"X-Poedit-Country: HUNGARY\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: admin/groups.php:32
 #, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "\"%s\"-t hozzáadtuk a csoportokhoz."
+msgstr "\"%s\" hozzáadva a csoportokhoz."
 
 #: admin/perms/addchild.php:49
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "\"%s\"-t hozzáadtuk a jogosultsági rendszerhez."
+msgstr "\"%s\" hozzáadva a jogosultsági rendszerhez."
 
 #: admin/perms/addchild.php:53
 #, php-format
 msgid "\"%s\" was not created: %s."
-msgstr "\"%s\"-t nem hoztuk létre: %s."
+msgstr "\"%s\" nem jött létre: %s."
 
 #: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB foglalt a megengedett %.2fMB-ból (%.2f%%)"
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:206
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s és %s"
@@ -52,19 +50,19 @@ msgstr "Jelszavának érvényessége %d nap múlva lejár."
 msgid "%d minutes"
 msgstr "%d perc"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] "%d kedveli ezt"
-msgstr[1] "%d embernek tetszik"
+msgstr[0] "%d személy kedveli ezt"
+msgstr[1] "%d személy kedveli ezt"
 
 #: templates/admin/user/list.inc:4
 #, php-format
 msgid "%d to %d of %d"
 msgstr "%d - %d (összesen %d)"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:246
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d napos előrejelzés"
@@ -74,7 +72,7 @@ msgstr "%d napos előrejelzés"
 msgid "%s - Notice"
 msgstr "%s - Figyelmeztetés"
 
-#: admin/config/config.php:28 admin/config/index.php:437
+#: admin/config/index.php:458 admin/config/config.php:28
 #, php-format
 msgid "%s Configuration"
 msgstr "%s Konfiguráció"
@@ -96,39 +94,35 @@ msgid "%s at %s %s"
 msgstr "%s sebesség %s %s"
 
 #: templates/prefs/twitter.html.php:9
-#, fuzzy, php-format
+#, php-format
 msgid "%s can interact with your Twitter account"
-msgstr "<tag:appname /> sikerült a kapcsolódás a Twitter fiókjához"
+msgstr "A %s hozzáfér a Twitter fiókjához"
 
 #: templates/prefs/facebook.html.php:48
-#, fuzzy, php-format
+#, php-format
 msgid "%s cannot read information about your Facebook friends."
-msgstr ""
-"<tag:app_name /> nem olvashatók az információk a Facebook barátaidról. "
+msgstr "A %s nem tudja lekérdezni az Ön Facebook ismerőseit."
 
 #: templates/prefs/facebook.html.php:34
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s cannot read your stream messages and various other Facebook data items."
 msgstr ""
-"<tag:app_name /> nem olvashatóak a hírfolyam és más adatok a Facebookról."
+"A %s nem tudja olvasni az Ön Facebook üzenőfali üzeneteit és más elemeit."
 
 #: templates/prefs/facebook.html.php:20
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s cannot set your status messages or publish other content to Facebook."
 msgstr ""
-"<tag:app_name /> nem sikerült az Ön állapotát vagy egyéb adatait frissíteni "
-"a Facebookon."
+"A %s nem tudja a frissíteni az állapotát, vagy más adatait a Facebookon."
 
 #: services/logintasks.php:72
 #, php-format
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
 "time."
-msgstr ""
-"%s készen áll az alább kijelölt karbantartási feladatok elvégzésére. Jelölje "
-"ki azokat a feladatokat, amiket most el kíván végezni."
+msgstr "A %s készen áll az alábbi bejelentkezési feladatok elvégzésére:"
 
 #: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
@@ -140,16 +134,15 @@ msgstr ", %s %s sebességű széllökések"
 msgid ", variable from %s to %s"
 msgstr ", %s és %s között változó"
 
-#: lib/Application.php:325
-#, fuzzy
+#: lib/Application.php:338
 msgid "1 Day"
 msgstr "nappal"
 
-#: lib/Application.php:329
+#: lib/Application.php:342
 msgid "1 Month"
 msgstr "1 Hónap"
 
-#: lib/Application.php:327
+#: lib/Application.php:340
 msgid "1 Week"
 msgstr "1 Hét"
 
@@ -157,7 +150,7 @@ msgstr "1 Hét"
 msgid "12 Hour Format"
 msgstr "12 órás formátum"
 
-#: lib/Application.php:328
+#: lib/Application.php:341
 msgid "2 Weeks"
 msgstr "2 Hét"
 
@@ -165,16 +158,15 @@ msgstr "2 Hét"
 msgid "24 Hour Format"
 msgstr "24 órás formátum"
 
-#: templates/data/datetime.inc:109 templates/data/time.inc:28
+#: templates/data/time.inc:28 templates/data/datetime.inc:109
 msgid "24 hours"
 msgstr "24 óra"
 
-#: config/prefs.php:492 config/prefs.php:494
+#: config/prefs.php:483 config/prefs.php:485
 msgid "24-hour format"
 msgstr "24 órás formátum"
 
-#: lib/Application.php:326
-#, fuzzy
+#: lib/Application.php:339
 msgid "3 Days"
 msgstr "nappal"
 
@@ -186,13 +178,13 @@ msgstr ""
 "Egy eszköz tisztítási kérés érkezett. Az eszköz megtisztítása a következő "
 "szinkronizációkor lesz megkísérelve."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Létezik egy újabb verzió (%s)."
 
-#: lib/Prefs/Special/Activesync.php:74
+#: lib/Prefs/Special/Activesync.php:95
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -201,7 +193,7 @@ msgstr ""
 "A távoli %s eszköz tisztítása megkezdve. Az eszköz megtisztítása a következő "
 "szinkronizációval fog megtörténni."
 
-#: templates/data/datetime.inc:110 templates/data/time.inc:29
+#: templates/data/time.inc:29 templates/data/datetime.inc:110
 msgid "AM/PM"
 msgstr "de/du"
 
@@ -209,27 +201,28 @@ msgstr "de/du"
 msgid "Account Information"
 msgstr "Bejelentkezési információ"
 
-#: config/prefs.php:334
+#: config/prefs.php:325
 msgid "Account Password"
-msgstr "Jelszó"
+msgstr "Jelszóemlékeztető"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "Opciók"
 
-#: config/prefs.php:739 lib/Application.php:200
+#: config/prefs.php:732 lib/Application.php:213
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:74
-msgid "ActiveSync Device Administration"
-msgstr "Felhasználók adminisztrálása"
+#: admin/activesync.php:100
+msgid "ActiveSync Administration"
+msgstr "ActiveSync adminisztráció"
 
-#: admin/activesync.php:199 lib/Api.php:93
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
 msgstr "ActiveSync eszközök "
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:22 lib/Api.php:720 lib/Api.php:781
+#: lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
 msgstr "ActiveSync nincs engedélyezve"
 
@@ -259,7 +252,7 @@ msgstr "Új felhasználó létrehozása:"
 
 #: admin/alarms.php:27
 msgid "Add new alarm"
-msgstr "Új figyelmeztetés hozzáadása"
+msgstr "Új emlékeztető hozzáadása"
 
 #: templates/data/csvmap.inc:93
 msgid "Add pair"
@@ -275,23 +268,23 @@ msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"\"%s\" felhasználót hozzáadtuk a rendszerhez, de nem sikerült a többi "
+"\"%s\" felhasználó hozzáadva a rendszerhez, de nem sikerült a többi "
 "bejelentkezési adat tárolása: %s."
 
 #: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "\"%s\" felhasználót felvettük a rendszerbe. Most már bejelentkezhet."
+msgstr "A \"%s\" felhasználó felvéve a rendszerbe. Most már bejelentkezhet."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
 msgstr "A rendszerhez nem adhatók hozzá új felhasználók."
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Cím"
 
-#: config/registry.php:131
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Címjegyzék"
 
@@ -301,41 +294,45 @@ msgstr "Felhasználók adminisztrálása"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
-msgstr "A figyelmeztetés vége"
+msgstr "Az emlékeztető vége"
 
 #: admin/alarms.php:33
 msgid "Alarm methods"
-msgstr "A figyelmeztetés módjai"
+msgstr "Az emlékeztető módjai"
 
 #: admin/alarms.php:30
 msgid "Alarm start"
-msgstr "A figyelmeztetés kezdete"
+msgstr "Az emlékeztető kezdete"
 
 #: admin/alarms.php:32
 msgid "Alarm text"
-msgstr "A figyelmeztetés szövege"
+msgstr "Az emlékeztető szövege"
 
 #: admin/alarms.php:29
 msgid "Alarm title"
-msgstr "A figyelmeztetés elnevezése"
+msgstr "Az emlékeztető neve"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
-msgstr "Figyelmeztetések"
+msgstr "Emlékeztetők"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "A részletek a rendszergazda számára készülő naplófájlba kerültek."
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "az összeset"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
-msgstr "Minden nem vendég felhasználó"
+msgstr "Felhasználók"
 
 #: admin/activesync.php:51
 msgid "All policy keys successfully reset."
 msgstr "Minden biztonsági kulcs sikeresen visszaállt"
 
-#: lib/Prefs/Special/Activesync.php:87
+#: lib/Prefs/Special/Activesync.php:110
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -347,32 +344,31 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr "Mindnen szinkronizációs munkamenet törölve."
 
-#: lib/Application.php:216
-#, fuzzy
-msgid "Allow"
-msgstr "az összeset"
-
-#: lib/Application.php:236
+#: lib/Application.php:249
 msgid "Allow alphanumeric"
 msgstr "betű-szám engedélyezése"
 
-#: lib/Application.php:237
+#: lib/Application.php:250
 msgid "Allow any"
 msgstr "Minden engedélyezése"
 
-#: lib/Application.php:235
+#: lib/Application.php:228
+msgid "Allow non-provisionable devices"
+msgstr "Minden eszköz engedélyezése"
+
+#: lib/Application.php:248
 msgid "Allow only numeric"
 msgstr "Csak számok engedélyezése"
 
-#: config/prefs.php:694
+#: config/prefs.php:687
 msgid "Alternate IMSP Login"
 msgstr "IMSP bejelentkezési paraméterek"
 
-#: config/prefs.php:711
+#: config/prefs.php:704
 msgid "Alternate IMSP Password"
 msgstr "Másik, IMSP jelszó"
 
-#: config/prefs.php:705
+#: config/prefs.php:698
 msgid "Alternate IMSP Username"
 msgstr "Másik, IMSP bejelentkezési név"
 
@@ -389,11 +385,10 @@ msgid "Application"
 msgstr "Alkalmazás"
 
 #: templates/admin/phpshell.html.php:6
-#, fuzzy
 msgid "Application Context"
 msgstr "Az alkalmazás környezete:"
 
-#: admin/config/index.php:245
+#: admin/config/index.php:250
 msgid "Application is ready."
 msgstr "Az alkalmazás kész."
 
@@ -405,7 +400,7 @@ msgstr "Engedélyezés"
 msgid "Arabic (Windows-1256)"
 msgstr "Arab (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Biztos, hogy törölni kívánja %s-t?"
@@ -434,14 +429,13 @@ msgstr "Ascii rajzok"
 
 #: lib/LoginTasks/Task/AdminCheck.php:57
 msgid "At least one database schema is outdated."
-msgstr "Egy vagy több adatbázis séma elavúlt."
+msgstr "Néhány adatbázis séma elavult."
 
 #: templates/problem/problem.inc:22
 msgid "Attachment"
 msgstr "Melléklet"
 
-#: lib/Application.php:259
-#, fuzzy
+#: lib/Application.php:272
 msgid "Attachment Download"
 msgstr "Melléklet"
 
@@ -453,28 +447,25 @@ msgstr "Nemlétező csoportot kísérelt meg törölni."
 msgid "Attempt to delete a non-existent permission."
 msgstr "Nemlétező jogosultságot kísérelt meg törölni."
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "Nemlétező jogosultságot kísérelt meg módosítani."
 
-#: services/shares/edit.php:68
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "Nemlétező közös tárterületet kísérelt meg módosítani."
 
-#: templates/admin/sessions.html.php:27
-#, fuzzy
-msgid "Authenticated to"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
 msgstr "Bejelentkezve mint:"
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
-#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
 #: templates/prefs/twitter.html.php:18
-#, fuzzy
 msgid "Authorize"
 msgstr "Olvasás engedélyezése:"
 
 #: templates/prefs/facebook.html.php:49
-#, fuzzy
 msgid "Authorize Access to Friends Data"
 msgstr "Engedélyezett hozzáférések a barátaid adataihoz:"
 
@@ -483,11 +474,10 @@ msgid "Authorize Publish"
 msgstr "Közzététel engedélyezése"
 
 #: templates/prefs/facebook.html.php:35
-#, fuzzy
 msgid "Authorize Read"
 msgstr "Olvasás engedélyezése:"
 
-#: templates/login/login.inc:19 templates/login/smartmobile.html.php:31
+#: templates/login/login.inc:23 templates/login/smartmobile.html.php:31
 msgid "Automatic"
 msgstr "Automatikus"
 
@@ -503,10 +493,13 @@ msgstr "A gonosz rendszergazda mentségei"
 msgid "Baltic (ISO-8859-13)"
 msgstr "Balti (ISO-8859-13)"
 
-#: templates/login/login.inc:21 templates/login/smartmobile.html.php:33
-#, fuzzy
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:33
 msgid "Basic"
 msgstr "Varázslat"
+
+#: templates/activesync/device_table.html.php:43
+msgid "Block"
+msgstr "Tiltás"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -516,12 +509,11 @@ msgstr "Képernyőmodul beállítás"
 msgid "Block Type"
 msgstr "Képernyőmodul típus"
 
-#: lib/Application.php:292
-#, fuzzy
+#: lib/Application.php:305
 msgid "Bluetooth"
 msgstr "Kék hold"
 
-#: config/registry.php:182
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
@@ -529,27 +521,29 @@ msgstr "Könyvjelzők"
 msgid "Both"
 msgstr "Mindkettő"
 
-#: config/prefs.php:755
-#, fuzzy
+#: config/prefs.php:748
 msgid "Bottom"
 msgstr "Mindkettő"
 
-#: templates/admin/sessions.html.php:19
-#, fuzzy
+#: templates/admin/sessions.html.php:9
 msgid "Browser"
 msgstr "Böngészőprogram:"
 
-#: config/registry.php:117
+#: templates/prefs/activesync.html.php:56
+#: templates/activesync/device_table.html.php:29
+msgid "Cached Heartbeat (seconds)"
+msgstr "Gyorsítótárazott Heartbeat (másodperc)"
+
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "Naptár"
 
-#: lib/Application.php:280
-#, fuzzy
+#: lib/Application.php:293
 msgid "Camera"
 msgstr "Név"
 
-#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
-#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
+#: admin/user.php:115 admin/user.php:138 templates/admin/user/remove.inc:15
+#: templates/admin/user/clear.inc:14 templates/admin/groups/delete.inc:12
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -557,7 +551,8 @@ msgstr "Mégse"
 msgid "Cancel Problem Report"
 msgstr "Mégse küldök hibajelentést"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html.php:33
+#: templates/prefs/activesync.html.php:41
+#: templates/activesync/device_table.html.php:36
 msgid "Cancel Wipe"
 msgstr "Mégse"
 
@@ -565,7 +560,7 @@ msgstr "Mégse"
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "A jelszó nem állítható át automatikusan, keresse meg a rendszergazdát."
 
-#: config/prefs.php:516
+#: config/prefs.php:507
 msgid "Categories and Labels"
 msgstr "Kategóriák és jelölésük"
 
@@ -581,18 +576,17 @@ msgstr "kelet-európai (ISO-8859-2)"
 msgid "Change"
 msgstr "Változtatás"
 
-#: lib/Block/Weather.php:120
-#, fuzzy
+#: lib/Block/Weather.php:128
 msgid "Change Location"
 msgstr "Hely"
 
 #: services/changepassword.php:26
 msgid "Change Your Password"
-msgstr "A jelszó megváltoztatása"
+msgstr "A jelszó módosítása"
 
-#: config/prefs.php:273
+#: config/prefs.php:264
 msgid "Change your personal information."
-msgstr "Személyes adatok megváltoztatása"
+msgstr "Személyes adatok módosítása"
 
 #: services/changepassword.php:20
 msgid ""
@@ -610,7 +604,7 @@ msgstr "Ellenőrzés"
 msgid "Check for newer versions"
 msgstr "Nézzük meg, hogy van-e új verzió"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "Ellenőrzés"
 
@@ -622,20 +616,20 @@ msgstr "kínai, egyszerűsített (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "kínai, hagyományos (Big5)"
 
-#: services/obrowser/index.php:59
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "Válasszuk %s-t"
 
-#: config/prefs.php:484
+#: config/prefs.php:475
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Válassza ki a dátumok megjelenítési formáját (rövidített):"
 
-#: config/prefs.php:460
+#: config/prefs.php:451
 msgid "Choose how to display dates (full format):"
 msgstr "Válassza ki a dátumok megjelenítési formáját (hosszú):"
 
-#: config/prefs.php:497
+#: config/prefs.php:488
 msgid "Choose how to display times:"
 msgstr "Válassza ki az idő megjelenítési formáját:"
 
@@ -672,7 +666,7 @@ msgstr "A folytatáshoz kattintson az egérrel"
 msgid "Client Anchor"
 msgstr "Kliens rögzítése"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Az ablak bezárása"
 
@@ -680,21 +674,20 @@ msgstr "Az ablak bezárása"
 msgid "Clouds"
 msgstr "Borult ég"
 
-#: lib/Application.php:252
+#: lib/Application.php:265
 msgid "Codeword frequency"
 msgstr "Kódszó gyakoriság"
 
-#: lib/View/Sidebar.php:65 templates/admin/sessions.html.php:9
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
-msgstr "Csukjuk be"
+msgstr "Becsukás"
 
-#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
-#: templates/prefs/category.html.php:36
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Színválasztó"
 
-#: config/registry.php:246
+#: config/registry.php:249
 msgid "Comics"
 msgstr "Képregények"
 
@@ -706,16 +699,20 @@ msgstr "Parancs"
 msgid "Command Shell"
 msgstr "Parancsértelmező"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:182
 #, php-format
 msgid "Comments: %d"
 msgstr "Megjegyzés: %d"
+
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "Általános név"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Számítógépek"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:259
 msgid "Condition"
 msgstr "Feltétel"
 
@@ -731,30 +728,34 @@ msgstr "Konfiguráció"
 msgid "Configuration Differences"
 msgstr "Különbségek a konfigurációban"
 
-#: config/prefs.php:721
+#: config/prefs.php:714
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 "Kéziszámítógépekkel, okostelefonokkal, Outlookal való adatszinkronizálás "
 "konfigurációja."
 
-#: admin/config/index.php:240
+#: admin/config/index.php:245
 msgid "Configuration is out of date."
 msgstr "A konfiguráció elavult."
 
-#: templates/admin/config/index.html.php:96
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "Friss beállítások elérhetők"
 
-#: admin/config/index.php:180
+#: admin/config/index.php:182
 #, php-format
 msgid "Configure %s"
 msgstr "%s konfigurációja"
+
+#: lib/Prefs/Special/Activesync.php:64
+msgid "Configured Horde Default"
+msgstr "Horde alapértelmezett"
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
 msgstr "A jelszó megerősítése"
 
-#: services/changepassword.php:28 services/resetpassword.php:29
+#: services/resetpassword.php:29 services/changepassword.php:28
 msgid "Continue"
 msgstr "Folytatás"
 
@@ -765,7 +766,7 @@ msgstr "Süti"
 #: admin/config/index.php:32
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
-msgstr "Nem sikerült az FTP kapcsolat felvétele a(z) \"%s\" szerverrel: %s"
+msgstr "Nem sikerült az FTP kapcsolat felvétele a \"%s\" szerverrel: %s"
 
 #: admin/config/index.php:88
 msgid "Could not contact server. Try again later."
@@ -774,23 +775,27 @@ msgstr "A szerver nem érhető el, próbálja újra később."
 #: admin/config/scripts.php:35
 #, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
-msgstr "Nem sikerült törölni a(z) \"%s\" setup upgrade programot."
+msgstr "Nem sikerült törölni a \"%s\" setup upgrade programot."
 
-#: templates/prefs/facebook.html.php:57
-#, fuzzy, php-format
+#: templates/prefs/facebook.html.php:58
+#, php-format
 msgid ""
-"Could not find authorization for %s to interact with your Facebook account."
+"Could not find authorization for \"%s\" to interact with your Facebook "
+"account. This means that either you have not yet authorized your Facebook "
+"account to interact with \"%s\", or your authorization has expired and must "
+"be renewed."
 msgstr ""
-"Nem engedélyezett a <tag:appname /> alkalmazásnak, hogy kommunikáljon az Ön "
-"Twitter fiókjával"
+"Nem sikerült a \"%s\" autentikálása a Facebook profiljához való "
+"hozzáféréshez. Ez azt jelenti, hogy vagy még nem állította be a Facebook "
+"profilját a \"%s\" kapcsolódásához, vagy az már lejárt és meg kell újítani."
 
 #: templates/prefs/twitter.html.php:15
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Could not find authorization for %s to interact with your Twitter account"
 msgstr ""
-"Nem engedélyezett a <tag:appname /> alkalmazásnak, hogy kommunikáljon az Ön "
-"Twitter fiókjával"
+"A %s alkalmazás nem jogosult arra, hogy kommunikáljon az Ön Twitter "
+"fiókjával."
 
 #: services/resetpassword.php:104
 msgid ""
@@ -814,7 +819,7 @@ msgstr "Nem sikerült elmenteni a backup konfigurációt: %s"
 #: admin/config/scripts.php:94
 #, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
-msgstr "Nem sikerült elmenteni a(z) \"%s\" setup upgrade programot."
+msgstr "Nem sikerült elmenteni a \"%s\" setup upgrade programot."
 
 #: admin/config/index.php:109
 #, php-format
@@ -822,7 +827,7 @@ msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
 "save the code."
 msgstr ""
-"A(z) %s konfigurációs állományt nem sikerült elmenteni. Használja valamelyik "
+"A %s konfigurációs állományt nem sikerült elmenteni. Használja valamelyik "
 "lehetőséget az alábbiak közül a mentéshez."
 
 #: admin/config/config.php:59
@@ -831,15 +836,15 @@ msgid ""
 "Could not save the configuration file %s. You can either use one of the "
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
-"A(z) %s konfigurációs állományt nem sikerült elmenteni. Vagy használja a(z) "
-"%s oldalon levő lehetőségeket, vagy másolja át az alábbi kódot ide: %s."
+"A %s konfigurációs állományt nem sikerült elmenteni. Vagy használja a %s "
+"oldalon levő lehetőségeket, vagy másolja át az alábbi kódot ide: %s."
 
 #: admin/config/index.php:56
 #, php-format
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Nem sikerült elmenteni \"%s\" konfigurációját: %s"
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "Ország"
 
@@ -847,7 +852,7 @@ msgstr "Ország"
 msgid "Create"
 msgstr "Létrehozás"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "Új azonosító"
 
@@ -857,13 +862,13 @@ msgstr "Jelenlegi 4 fázis"
 
 #: templates/admin/alarms/list.html.php:2
 msgid "Current Alarms"
-msgstr "Jelenlegi figyelmeztetések"
+msgstr "Jelenlegi emlékeztetők"
 
 #: templates/admin/locks/list.html.php:2
 msgid "Current Locks"
 msgstr "A jelenlegi felhasználókapcsolatok"
 
-#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "A jelenlegi felhasználókapcsolatok"
 
@@ -875,8 +880,7 @@ msgstr "Pontos idő"
 msgid "Current Weather"
 msgstr "Jelenlegi időjárás"
 
-#: lib/Block/Weather.php:230
-#, fuzzy
+#: lib/Block/Weather.php:238
 msgid "Current condition"
 msgstr "A jelenlegi időjárási helyzet: "
 
@@ -892,7 +896,7 @@ msgstr "cirill (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "cirill-ukrán (KOI8-U)"
 
-#: admin/config/index.php:260 admin/config/index.php:312
+#: admin/config/index.php:265 admin/config/index.php:317
 msgid "DB access is not configured."
 msgstr "Nincs mentett DB konfiguráció."
 
@@ -907,11 +911,11 @@ msgstr "NN"
 msgid "Data"
 msgstr "Adatok"
 
-#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
+#: templates/prefs/syncml.html.php:11 templates/admin/config/index.html.php:30
 msgid "Database"
 msgstr "Adatbázis"
 
-#: lib/Block/Vatid.php:85
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Dátum"
 
@@ -924,16 +928,16 @@ msgstr "A beérkezés napja"
 msgid "Date: %s; time: %s"
 msgstr "Dátum: %s; idő: %s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:254
 msgid "Day"
 msgstr "nappal"
 
-#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
-#: config/prefs.php:491 themes/default/info.php:2
+#: config/prefs.php:379 config/prefs.php:400 config/prefs.php:413
+#: config/prefs.php:482 themes/default/info.php:2
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "Az alapértelmezés szerinti szín"
 
@@ -941,32 +945,32 @@ msgstr "Az alapértelmezés szerinti szín"
 msgid "Default Shell"
 msgstr "Az alapértelmezett parancsértelmező"
 
-#: config/prefs.php:412
+#: config/prefs.php:403
 msgid "Default charset for sending e-mail messages:"
 msgstr "Alapértelmezett karakter készlet a küldéshez:"
 
-#: config/prefs.php:305
+#: config/prefs.php:296
 msgid "Default location to use for location-aware features."
-msgstr "Használja az alapértelmezett helyet a helymeghatározó funkciókhoz."
+msgstr "Alapértelmezett hely a helyfüggő funkciókhoz:"
 
 #: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definíciók"
 
-#: admin/groups.php:52 templates/admin/groups/delete.inc:11
-#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
-#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: admin/groups.php:52 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/admin/user/list.inc:32
+#: templates/admin/groups/delete.inc:11 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Törlés"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/groups.php:208 admin/alarms.php:133
 #, php-format
 msgid "Delete \"%s\""
 msgstr "\"%s\" törlése"
@@ -975,14 +979,14 @@ msgstr "\"%s\" törlése"
 msgid "Delete All SyncML Data"
 msgstr "Összes SyncML adat törlése"
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "A csoport törlése"
 
 #: admin/config/scripts.php:33
 #, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
-msgstr "A(z) \"%s\" setup upgrade programot töröltük."
+msgstr "A \"%s\" setup upgrade programot töröltük."
 
 #: lib/Prefs/Special/Syncml.php:68
 #, php-format
@@ -994,39 +998,49 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Adjon leírást a problémáról"
 
-#: config/registry.php:206
+#: config/registry.php:209
 msgid "Development"
 msgstr "Fejlesztés"
 
-#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
+#: templates/prefs/activesync.html.php:28 templates/prefs/syncml.html.php:10
+#: templates/activesync/device_table.html.php:4
 msgid "Device"
 msgstr "Eszköz"
 
-#: admin/activesync.php:122
-msgid "Device ID"
-msgstr "Ezköz Azon."
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
+msgstr "Ezköz Azonosító"
 
-#: templates/prefs/activesync.html.php:23
-#, fuzzy
+#: templates/prefs/activesync.html.php:31
+#: templates/activesync/device_table.html.php:7
 msgid "Device Information"
 msgstr "Információ"
 
-#: templates/prefs/activesync.html.php:11
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
 msgstr "Eszköz kezelő"
 
-#: lib/Application.php:312
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Eszköz típus"
+
+#: lib/Application.php:325
 msgid "Device encryption"
 msgstr "Eszköz titkosítás"
 
-#: templates/prefs/activesync.html.php:35
-#, fuzzy
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "Az eszköz blokkolva."
+
+#: templates/prefs/activesync.html.php:43
 msgid "Device is Wiped"
 msgstr "Eszköz megtisztítva"
 
-#: admin/activesync.php:168
-msgid "Device is wiped"
-msgstr "Eszköz megtisztítva"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
+"Az eszköz törölve. Törölje az eszköz állapotát, ha újra szeretne csatlakozni "
+"vele."
 
 #: admin/activesync.php:46
 msgid "Device successfully removed."
@@ -1044,25 +1058,28 @@ msgstr "Harmatpont"
 msgid "Dew Point for last hour: "
 msgstr "Harmatpont jelenleg: "
 
-#: lib/Block/Weather.php:181
-#, fuzzy
+#: lib/Block/Weather.php:189
 msgid "Dew point"
-msgstr "Harmatpont: "
+msgstr "Harmatpont"
 
 #: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
 #: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
 msgstr "Letiltva"
 
-#: config/prefs.php:430
+#: lib/Application.php:229
+msgid "Disable (not recommended)"
+msgstr "Kikapcsolás (nem ajánlott)"
+
+#: config/prefs.php:421
 msgid "Display 24-hour times?"
 msgstr "Az időpontokat 24 órás formátumban jelenítsük meg?"
 
-#: config/prefs.php:541
+#: config/prefs.php:532
 msgid "Display Preferences"
 msgstr "Megjelenítési beállítások"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:95
 msgid "Display detailed forecast"
 msgstr "Részletes időjárási előrejelzés megjelenítése"
 
@@ -1070,21 +1087,21 @@ msgstr "Részletes időjárási előrejelzés megjelenítése"
 msgid "Display forecast (TAF)"
 msgstr "Előrejelzés megjelenítése (repülőtéri)"
 
-#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+#: templates/data/tsvinfo.inc:12 templates/data/csvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Az első sor a mezők neveit tartalmazza? Ha igen, jelölje ki ezt:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:81
 msgid "Don't have an account? Sign up."
 msgstr "Nincs még bejelentkezési neve? Igényeljen egyet."
 
-#: admin/config/index.php:162 admin/config/index.php:203
-#: admin/config/index.php:336 admin/config/index.php:362
+#: admin/config/index.php:164 admin/config/index.php:208
+#: admin/config/index.php:341 admin/config/index.php:367
 #, php-format
 msgid "Download %s"
 msgstr "Töltsük le %s-t"
 
-#: admin/config/index.php:384
+#: admin/config/index.php:393
 msgid "Download generated configuration as PHP script."
 msgstr "Töltsük le PHP program formájában az elkészült konfigurációt."
 
@@ -1092,21 +1109,21 @@ msgstr "Töltsük le PHP program formájában az elkészült konfigurációt."
 msgid "Drugs"
 msgstr "Kábítószerek"
 
-#: templates/login/login.inc:22 templates/login/smartmobile.html.php:34
+#: templates/login/login.inc:26 templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "Dinamikus"
 
 #: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
-msgstr "EU ÁFA-azonosító"
+msgstr "EU ÁFA-azonosító"
 
-#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Módosítás"
 
@@ -1117,13 +1134,13 @@ msgstr "\"%s\" módosítása"
 
 #: templates/prefs/app.html:6
 msgid "Edit Preferences for"
-msgstr "Beállításainak ezrkesztése"
+msgstr "Beállítások szerkesztése"
 
-#: services/shares/edit.php:247
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "Jogosultságok módosítása"
 
-#: services/shares/edit.php:246 templates/shares/edit.inc:14
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "\"%s\" jogosultságainak módosítása"
@@ -1132,15 +1149,19 @@ msgstr "\"%s\" jogosultságainak módosítása"
 msgid "Education"
 msgstr "Oktatás"
 
-#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
+#: templates/admin/user/update.inc:45 templates/admin/groups/edit.inc:12
 msgid "Email Address"
 msgstr "Email cím"
+
+#: lib/Application.php:227
+msgid "Enable"
+msgstr "Engedélyezés"
 
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Vége időpont"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:83
 msgid "English"
 msgstr "Angol"
 
@@ -1148,7 +1169,7 @@ msgstr "Angol"
 msgid "Enter a name for the new category:"
 msgstr "Kérem adja meg az új kategória nevét:"
 
-#: config/prefs.php:351
+#: config/prefs.php:342
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1156,8 +1177,14 @@ msgstr ""
 "Adja meg azt a biztonsági kérdést, melyre majd válaszolnia kell jelszavának "
 "átállításához, pl. 'hogy hívják a kutyáját?':"
 
-#: services/twitter/index.php:27
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:264
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Nem sikerült a Facebookhoz csatlakozni: a részletek a rendszergazda "
+"naplójába kerültek."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
 msgid ""
 "Error connecting to Twitter. Details have been logged for the administrator."
 msgstr ""
@@ -1184,33 +1211,33 @@ msgstr "Nem sikerült a sync infok törlése:"
 #: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
-msgstr "A jelszó megváltoztatásakor hiba történt: %s"
+msgstr "A jelszó módosításakor hiba történt: %s"
 
 #: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Nemzetiségek"
 
-#: services/facebook/index.php:189
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
 msgstr "Esemény meghívás:"
 
-#: config/prefs.php:599 templates/portal/layout.inc:101
+#: config/prefs.php:591 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15 percenként"
 
-#: config/prefs.php:618
+#: config/prefs.php:610
 msgid "Every 2 minutes"
 msgstr "2 percenként"
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
+#: config/prefs.php:588 config/prefs.php:608 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30 másodpercenként"
 
-#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
+#: config/prefs.php:590 config/prefs.php:611 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5 percenként"
 
-#: config/prefs.php:600 templates/portal/layout.inc:102
+#: config/prefs.php:592 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "félóránként"
 
@@ -1218,7 +1245,7 @@ msgstr "félóránként"
 msgid "Every hour"
 msgstr "óránként"
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
+#: config/prefs.php:589 config/prefs.php:609 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "percenként"
 
@@ -1226,34 +1253,32 @@ msgstr "percenként"
 msgid "Example values:"
 msgstr "Példa értékek:"
 
-#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:55
+#: templates/admin/phpshell.html.php:21 templates/admin/sqlshell.html.php:55
+#: templates/admin/cmdshell.html.php:22
 msgid "Execute"
 msgstr "Végrehajtás"
 
-#: lib/View/Sidebar.php:66 templates/admin/sessions.html.php:8
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
-msgstr "Nyissuk szét"
+msgstr "Kinyitás"
 
 #: lib/Block/Iframe.php:38
 msgid "Extra Large"
 msgstr "Extra nagy"
 
-#: templates/admin/config/index.html.php:110
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
 msgstr "FTP feltöltés beállítása"
 
-#: config/prefs.php:642
+#: config/prefs.php:635
 msgid "Facebook Integration"
 msgstr "Facebook integráció"
 
-#: lib/Application.php:247
+#: lib/Application.php:260
 msgid "Failed unlock attempts before device is wiped"
 msgstr "Meghiúsult unlock próbálkozások mielőtt az eszköz el lett távolítva"
 
 #: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
-#, fuzzy
 msgid "Favorite"
 msgstr "Idézet"
 
@@ -1273,23 +1298,23 @@ msgstr "Hőmérsékletérzet"
 msgid "Fields to search"
 msgstr "Mezők keresése"
 
-#: config/registry.php:312
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Fájl menedzser"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "Szűrő"
 
-#: config/registry.php:88
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Szűrők"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "Első negyed"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "Első negyed"
 
@@ -1297,16 +1322,11 @@ msgstr "Első negyed"
 msgid "Food"
 msgstr "Ételek"
 
-#: lib/Application.php:215
-#, fuzzy
-msgid "Force"
-msgstr "Idézet"
-
 #: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Előrejelzés (repülőtéri)"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:89
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1314,11 +1334,11 @@ msgstr ""
 "Az előrejelzés időtartama napokban (az előrejelzés nappali és éjszakai "
 "adatokat is tartalmaz, ezért a nagy számok széles blokkot eredményeznek)"
 
-#: templates/login/login.inc:79
+#: templates/login/login.inc:88
 msgid "Forgot your password?"
 msgstr "Elfelejtette a jelszavát?"
 
-#: config/registry.php:341
+#: config/registry.php:344
 msgid "Forms"
 msgstr "Űrlapok"
 
@@ -1338,34 +1358,33 @@ msgstr "Idézetek"
 msgid "Fortunes 2"
 msgstr "Idézetek 2"
 
-#: config/registry.php:335
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Fórumok"
 
-#: services/facebook/index.php:188
+#: lib/Ajax/Application/FacebookHandler.php:62
 msgid "Friend Requests:"
 msgstr "Barátnak jelölt:"
 
 #: templates/prefs/facebook.html.php:44
-#, fuzzy
 msgid "Friends enabled."
-msgstr "Barátok engedélyezése"
+msgstr "Barátok engedélyezve."
 
-#: lib/Block/Weather.php:207
-#, fuzzy, php-format
+#: lib/Block/Weather.php:215
+#, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "%s (%s) irányból %s %s sebességgel"
 
-#: lib/Block/Weather.php:318
-#, fuzzy, php-format
+#: lib/Block/Weather.php:326
+#, php-format
 msgid "From the %s at %s %s"
-msgstr "%s (%s) irányból %s %s sebességgel"
+msgstr "%s irányból %s %s sebességgel"
 
 #: templates/problem/problem.inc:27
 msgid "Full Description"
 msgstr "Részletes leírás"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Telihold"
 
@@ -1376,13 +1395,13 @@ msgstr "Teljes név"
 #: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Hozzuk létre a(z) %s konfigurációját"
+msgstr "Hozzuk létre a %s konfigurációját"
 
 #: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "A keletkezett kód"
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Bővebben"
 
@@ -1417,17 +1436,17 @@ msgstr "Csoport neve"
 #: admin/groups.php:35
 #, php-format
 msgid "Group was not created: %s."
-msgstr "A csoportot nem hoztuk létre: %s."
+msgstr "A csoport nem jött létre: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Csoportok"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
-msgstr "Vendég jogosultságok"
+msgstr "Vendégek"
 
-#: lib/Application.php:316
+#: lib/Application.php:329
 msgid "HTML Email"
 msgstr "HTML Email"
 
@@ -1439,7 +1458,7 @@ msgstr "héber (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Magasság"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/TwitterTimeline.php:64 lib/Block/FbStream.php:76
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr "A hírfolyam magassága (a szélesség automatikus)"
 
@@ -1455,7 +1474,7 @@ msgstr "A segítség témái"
 msgid "Hemisphere"
 msgstr "Félteke"
 
-#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+#: templates/data/tsvinfo.inc:10 templates/data/csvinfo.inc:10
 msgid "Here is the beginning of the file:"
 msgstr "Ez a fájl eleje:"
 
@@ -1471,7 +1490,7 @@ msgstr "Az eredmények elrejtése"
 msgid "Home Directory"
 msgstr "Személyes alkönyvtár"
 
-#: config/registry.php:75
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
@@ -1483,7 +1502,7 @@ msgstr "Hány mező (oszlop) van?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Hány másodpercenként ellenőrizzük, hogy van-e új cikk?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
 msgstr "Páratartalom"
 
@@ -1491,17 +1510,25 @@ msgstr "Páratartalom"
 msgid "Humorists"
 msgstr "Humoristák"
 
-#: util/icon_browser.php:34
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
+
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "%s ikonjai"
 
-#: config/prefs.php:283
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "Azonosító használata emailküldéshez ActiveSync-en keresztül"
+
+#: config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Az azonosítóhoz választott elnevezés:"
 
-#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
-#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#: templates/data/tsvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/csvinfo.inc:7
 #, php-format
 msgid "Import, Step %d"
 msgstr "Importálás, %d. lépés"
@@ -1540,11 +1567,11 @@ msgstr ""
 "Nem megfelelő a felhasználói név vagy az alternatív cím. Próbálja újra vagy "
 "forduljon a rendszergazdához, ha további segítségre van szüksége."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Egyes felhasználók"
 
-#: config/registry.php:240
+#: config/registry.php:243
 msgid "Information"
 msgstr "Információ"
 
@@ -1552,15 +1579,15 @@ msgstr "Információ"
 msgid "Inherited Members"
 msgstr "Öröklött tagok"
 
-#: config/prefs.php:363
+#: config/prefs.php:354
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Adjon meg egy email címet, melyen megkaphatja az új jelszót:"
 
-#: config/prefs.php:357
+#: config/prefs.php:348
 msgid "Insert the required answer to the security question:"
 msgstr "Írja be a biztonsági ellenőrző kérdésre adandó választ:"
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "Hibás/elfogadhatatlan VAT-azonosítószám-formátum."
 
@@ -1581,7 +1608,7 @@ msgstr "Érvénytelen ellenőrzőösszeg."
 msgid "Invalid parent permission."
 msgstr "Hibás az eredetobjektum jogosultsága."
 
-#: config/registry.php:293
+#: config/registry.php:296
 msgid "Inventory"
 msgstr "Nyilvántartás"
 
@@ -1589,7 +1616,7 @@ msgstr "Nyilvántartás"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "japán (ISO-2022-JP)"
 
-#: login.php:174
+#: login.php:167
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1613,7 +1640,7 @@ msgstr "Kulcsszó"
 msgid "Kids"
 msgstr "Gyerekek"
 
-#: config/registry.php:301
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1621,7 +1648,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "koreai (EUC-KR)"
 
-#: login.php:364 templates/login/login.inc:52
+#: login.php:365 templates/login/login.inc:61
 msgid "Language"
 msgstr "Nyelv"
 
@@ -1629,7 +1656,7 @@ msgstr "Nyelv"
 msgid "Large"
 msgstr "Nagy"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Utolsó negyed"
 
@@ -1637,11 +1664,12 @@ msgstr "Utolsó negyed"
 msgid "Last Password Change"
 msgstr "Az utolsó jelszóváltoztatás"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Utolsó negyed"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
+#: templates/prefs/activesync.html.php:29
+#: templates/activesync/device_table.html.php:5
 msgid "Last Sync Time"
 msgstr "Legutoljára szinkronizálva"
 
@@ -1649,17 +1677,17 @@ msgstr "Legutoljára szinkronizálva"
 msgid "Last Updated:"
 msgstr "Utolsó változtatás:"
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Utolsó bejelentkezés: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Utolsó bejelentkezés: %s, %s címről"
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Utolsó bejelentkezés: még soha nem volt"
 
@@ -1671,7 +1699,7 @@ msgstr "Legutolsó"
 msgid "Law"
 msgstr "Jog"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:225
 msgid "Like"
 msgstr "Tetszik"
 
@@ -1687,20 +1715,29 @@ msgstr "Linux"
 msgid "List Tables"
 msgstr "Az adattáblák listája"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
-msgstr "A figyelmeztetések kilistázása nem sikerült: %s"
+msgstr "Az emlékeztetők kilistázása nem sikerült: %s"
 
 #: admin/locks.php:57
 #, php-format
 msgid "Listing locks failed: %s"
 msgstr "Hibás letiltások listázása: %s"
 
-#: templates/admin/sessions.html.php:37
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "A kapcsolatok kilistázása nem sikerült: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "A felhasználók kilistázása sikertelen a következő üzenettel: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "A felhasználók kilistázása sikertelen."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -1710,16 +1747,16 @@ msgstr "A felhasználók kilistázása tiltva van."
 msgid "Literature"
 msgstr "Irodalom"
 
-#: lib/Block/Weather.php:159
-#, fuzzy, php-format
-msgid "Local time: %s %s"
-msgstr "Helyi idő: "
+#: lib/Block/Weather.php:167
+#, php-format
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Helyi idő: %s %s (UTC %s)"
 
-#: config/prefs.php:372
+#: config/prefs.php:363
 msgid "Locale and Time"
 msgstr "Nyelv, dátum, idő"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Weather.php:75 lib/Block/Sunrise.php:23
 msgid "Location"
 msgstr "Hely"
 
@@ -1731,11 +1768,12 @@ msgstr "Felhasználó letiltása"
 msgid "Locks"
 msgstr "Letiltások"
 
-#: login.php:291 templates/login/login.inc:61
+#: login.php:291 templates/login/login.inc:70
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Bejelentkezés"
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr "Kijelentkezés"
 
@@ -1753,20 +1791,22 @@ msgstr ""
 msgid "Login failed."
 msgstr "A bejelentkezés nem sikerült."
 
-#: templates/prefs/facebook.html.php:61
-#, fuzzy, php-format
+#: login.php:399
+#, php-format
+msgid "Login to %s"
+msgstr "Bejelentkezés:  %s"
+
+#: templates/prefs/facebook.html.php:62
+#, php-format
 msgid "Login to Facebook and authorize %s"
-msgstr ""
-"Bejelentkezett a Facebookra és a(z) <tag:app_name />  alkalmazás engedélyezve"
+msgstr "Bejelentkezés a Facebookra és a %s alkalmazás engedélyezése"
 
 #: templates/prefs/twitter.html.php:18
-#, fuzzy, php-format
+#, php-format
 msgid "Login to Twitter and authorize %s"
-msgstr ""
-"Bejelentkezett a Twitter és a(z) <tag:app_name />  alkalmazás engedélyezve"
+msgstr "Bejelentkezés a Twitterre és a %s alkalmazás engedélyezése"
 
 #: templates/prefs/facebook.html.php:10
-#, fuzzy
 msgid "Logout"
 msgstr "Kijelentkezés"
 
@@ -1785,15 +1825,15 @@ msgstr "HH"
 msgid "Magic"
 msgstr "Varázslat"
 
-#: config/registry.php:80
+#: config/registry.php:82
 msgid "Mail"
 msgstr "Levelezés"
 
-#: config/registry.php:346
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Email domain kezelés"
 
-#: config/prefs.php:517
+#: config/prefs.php:508
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1801,7 +1841,7 @@ msgstr ""
 "Adatait kategóriákba sorolhatja. Ezek itt definiálhatók, módosíthatók, "
 "továbbá színek rendelhetők hozzájuk."
 
-#: config/prefs.php:740
+#: config/prefs.php:733
 msgid "Manage your ActiveSync devices."
 msgstr "ActiveSync eszközök kezelése."
 
@@ -1817,7 +1857,7 @@ msgstr "Az elmúlt 24 óra maximális hőmérséklete: "
 msgid "Max temp last 6 hours: "
 msgstr "Az elmúlt 6 óra maximális hőmérséklete: "
 
-#: lib/Application.php:320
+#: lib/Application.php:333
 msgid "Maximum Email age"
 msgstr "Maximális Email életkor"
 
@@ -1825,17 +1865,15 @@ msgstr "Maximális Email életkor"
 msgid "Maximum Number of Portal Blocks"
 msgstr "A képernyőmodulok maximális száma"
 
-#: lib/Application.php:264
-#, fuzzy
-msgid "Maximum attachment size"
-msgstr "melléklet"
+#: lib/Application.php:277
+msgid "Maximum attachment size in bytes"
+msgstr "Maximális melléklet méret bájtban"
 
-#: lib/Application.php:205
-#, fuzzy
+#: lib/Application.php:218
 msgid "Maximum number of devices"
-msgstr "A megjelenítendő elemek száma"
+msgstr "Az eszközök maximális száma"
 
-#: lib/Block/FbStream.php:66
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "A megjelenítendő elemek száma"
 
@@ -1859,7 +1897,7 @@ msgstr "Megemlít"
 msgid "Metar Weather"
 msgstr "Metar időjárásjelentés"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:84
 msgid "Metric"
 msgstr "Metrikus"
 
@@ -1871,47 +1909,48 @@ msgstr "Az elmúlt 24 óra legalacsonyabb hőmérséklete: "
 msgid "Min temp last 6 hours: "
 msgstr "Az elmúlt 6 óra legalacsonyabb hőmérséklete: "
 
-#: lib/Application.php:226
+#: lib/Application.php:239
 msgid "Minimum PIN length"
 msgstr "Minimum PIN hosszúság"
-
-#: lib/Application.php:242
-msgid "Minutes of inactivity before device should lock"
-msgstr "Tétlen percek mielőtt az eszköz zárolásra kerül"
 
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Vegyes"
 
-#: admin/config/index.php:217
+#: admin/config/index.php:222
 msgid "Missing configuration."
 msgstr "Hiányzó konfiguráció"
 
-#: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
-#, fuzzy
+#: templates/login/login.inc:28 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
-msgstr "Mobil (okostelefon)"
+msgstr "Mobil (minimális)"
 
-#: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
-#, fuzzy
+#: templates/login/login.inc:29 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mobil (JavaScript nélkül)"
+
+#: templates/login/login.inc:27 templates/login/smartmobile.html.php:35
 msgid "Mobile (Smartphone/Tablet)"
-msgstr "Mobil (okostelefon)"
+msgstr "Mobil (okostelefon/tablet)"
 
 #: templates/portal/smartmobile.inc:12
 msgid "Mobile Optimized Apps"
 msgstr "Mobilra optimalizált alkalmazások"
 
-#: templates/login/login.inc:16 templates/login/smartmobile.html.php:29
+#: templates/login/login.inc:20 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "Mód"
 
-#: admin/config/index.php:165 admin/config/index.php:206
-#: admin/config/index.php:339 admin/config/index.php:365
-#, fuzzy
-msgid "Module is up-to-date."
-msgstr "Az alkalmazás a legfrissebb verziójú."
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "Model"
 
-#: config/prefs.php:505
+#: admin/config/index.php:167 admin/config/index.php:211
+#: admin/config/index.php:344 admin/config/index.php:370
+msgid "Module is up-to-date."
+msgstr "A modul a legfrissebb verziójú."
+
+#: config/prefs.php:496
 msgid "Monday"
 msgstr "hétfő"
 
@@ -1919,7 +1958,7 @@ msgstr "hétfő"
 msgid "Moon Phases"
 msgstr "Holdfázisok"
 
-#: config/registry.php:306
+#: config/registry.php:309
 msgid "My Account"
 msgstr "Bejelentkezési beállítások"
 
@@ -1927,7 +1966,7 @@ msgstr "Bejelentkezési beállítások"
 msgid "My Account Information"
 msgstr "Bejelentkezési információim"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
 msgstr "Saját Facebook hírfolyam"
 
@@ -1939,8 +1978,8 @@ msgstr "Saját összegző oldalam"
 msgid "My Portal Layout"
 msgstr "Saját összegző oldalam tervezése"
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:316 lib/Block/Weather.php:320
+#: lib/Block/Weather.php:336
 msgid "N/A"
 msgstr "Ismeretlen"
 
@@ -1949,7 +1988,8 @@ msgstr "Ismeretlen"
 msgid "NO, I Do NOT Agree"
 msgstr "NEM, nem egyezem bele."
 
-#: templates/prefs/activesync.html.php:60
+#: templates/prefs/activesync.html.php:69
+#: templates/admin/activesync.html.php:37
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1957,24 +1997,23 @@ msgstr ""
 "MEGJEGYZÉS: AZ ESZKÖZ TISZTÍTÁSA MINDENT VISSZAÁLLÍT GYÁRI ÉRTÉKRE. "
 "GYŐZŐDJÖN MEG RÓLA BIZTOSAN EL SZERETNÉ INDÍTANI A TÖRLÉST."
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Név"
 
-#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
-#: templates/portal/layout.inc:97
+#: config/prefs.php:587 config/prefs.php:607 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Soha"
 
-#: templates/prefs/category.html.php:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Új kategória"
 
-#: services/facebook/index.php:185
+#: lib/Ajax/Application/FacebookHandler.php:59
 msgid "New Messages:"
 msgstr "Új üzenet:"
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Újhold"
 
@@ -1990,12 +2029,12 @@ msgstr "Új jelszó"
 msgid "New passwords don't match."
 msgstr "Az új jelszavak nem egyeznek."
 
-#: config/registry.php:251 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Hírek"
 
-#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:123
-#: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:17
+#: templates/data/tsvinfo.inc:17 templates/data/csvmap.inc:123
+#: templates/data/datemap.inc:46 templates/data/csvinfo.inc:23
 msgid "Next"
 msgstr "Következő"
 
@@ -2017,14 +2056,13 @@ msgstr ""
 msgid "No change."
 msgstr "Nincs változás."
 
-#: util/icon_browser.php:52
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "Nincs ikon."
 
 #: templates/sidebar/_container.html.php:30
-#, fuzzy
 msgid "No items to display"
-msgstr "A megjelenítendő cikkek száma"
+msgstr "Nincs megjelenítendő elem"
 
 #: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
@@ -2038,7 +2076,7 @@ msgstr "Ne legyen megbotránkoztató idézet"
 msgid "No pending signups."
 msgstr "Nincs új bejelentkezési igény."
 
-#: lib/Application.php:333
+#: lib/Application.php:346
 msgid "No push while roaming"
 msgstr "Nincs \"push\" romaingkor"
 
@@ -2047,8 +2085,8 @@ msgid "No security question has been set. Please contact your administrator."
 msgstr ""
 "Nincs beállítva biztonsági kérdés. Kérem keresse meg az adminisztrátort."
 
-#: admin/config/index.php:159 admin/config/index.php:200
-#: admin/config/index.php:333 admin/config/index.php:359
+#: admin/config/index.php:161 admin/config/index.php:205
+#: admin/config/index.php:338 admin/config/index.php:364
 msgid "No stable version exists yet."
 msgstr "Még nincs stabil verzió."
 
@@ -2056,31 +2094,31 @@ msgstr "Még nincs stabil verzió."
 msgid "No username specified."
 msgstr "Nincs megadva a felhasználónév."
 
-#: admin/config/index.php:223
+#: admin/config/index.php:228
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr "Nincs még konfiguráció, generáljon egyet."
 
-#: admin/config/index.php:232
+#: admin/config/index.php:237
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "Nincs még konfigurációja, generáljon egyet."
 
-#: admin/config/index.php:284
+#: admin/config/index.php:289
 msgid "NoSQL indices are ready."
 msgstr "NoSQL indexek elkészültek."
 
-#: admin/config/index.php:279
-#, fuzzy, php-format
+#: admin/config/index.php:284
+#, php-format
 msgid "NoSQL indices for %s"
-msgstr "%s ikonjai"
+msgstr "NoSQL indexek ehhez: %s"
 
-#: admin/config/index.php:281
-#, fuzzy
+#: admin/config/index.php:286
 msgid "NoSQL indices out of date."
-msgstr "A DB konfiguráció elavult."
+msgstr "A NoSQL indexek elavultak."
 
-#: templates/prefs/activesync.html.php:42
-#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
-#: templates/prefs/identityselect.html:20
+#: templates/prefs/activesync.html.php:50
+#: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
+#: templates/admin/activesync.html.php:28
+#: templates/activesync/device_table.html.php:23
 msgid "None"
 msgstr "nincs"
 
@@ -2088,17 +2126,18 @@ msgstr "nincs"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordikus (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Északi félteke"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: templates/prefs/activesync.html.php:45
+#: templates/activesync/device_table.html.php:18
 msgid "Not Provisioned"
 msgstr "Nem felügyelt"
 
-#: config/registry.php:166
+#: config/registry.php:169
 msgid "Notes"
-msgstr "Feljegyzések"
+msgstr "Jegyzettömb"
 
 #: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
@@ -2112,20 +2151,23 @@ msgstr "A megjelenítendő cikkek száma"
 msgid "Number of seconds to wait to refresh"
 msgstr "Frissítési idő másodpercben"
 
-#: templates/services/obrowser.html.php:5
-#, fuzzy
-msgid "Object Browser"
-msgstr "Az objektum létrehozója"
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "OS"
 
-#: templates/shares/edit.inc:132
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Objektum browser"
+
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
-msgstr "Az objektum létrehozója"
+msgstr "Létrehozó"
 
 #: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Szűrés"
 
-#: config/registry.php:263
+#: config/registry.php:266
 msgid "Office"
 msgstr "Hivatal/munkahely"
 
@@ -2145,7 +2187,7 @@ msgstr "A régi jelszó nem megfelelő."
 msgid "Only offensive fortunes"
 msgstr "Csak megbotránkoztató idézet legyen"
 
-#: services/shares/edit.php:89
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2157,30 +2199,28 @@ msgstr ""
 msgid "Operating System"
 msgstr "Operációs rendszer"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Válasszon egy felhasználónevet:"
 
-#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
-#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
+#: config/prefs.php:531 config/prefs.php:634 config/prefs.php:660
+#: config/prefs.php:686 config/prefs.php:712 config/prefs.php:731
 msgid "Other Information"
 msgstr "Egyéb információ"
 
 #: templates/login/smartmobile.html.php:18
-#, fuzzy
 msgid "Other Options"
-msgstr "Egyéb információ"
+msgstr "Egyéb opciók"
 
-#: config/registry.php:177
-#, fuzzy
+#: config/registry.php:180
 msgid "Others"
-msgstr "Egyéb"
+msgstr "Egyebek"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Tulajdonos"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Tulajdonos:"
 
@@ -2196,7 +2236,7 @@ msgstr "PHP kód"
 msgid "PHP Shell"
 msgstr "PHP parancsértelmező"
 
-#: lib/Application.php:296
+#: lib/Application.php:309
 msgid "POP/IMAP Email accounts"
 msgstr "POP/IMAP Email fiókok"
 
@@ -2208,29 +2248,29 @@ msgstr "Hiányzik a POSIX bővítés"
 msgid "P_HP Shell"
 msgstr "PHP parancsértelmező"
 
-#: login.php:211 admin/config/index.php:397 admin/user.php:39
-#: admin/user.php:53 config/registry.php:324
+#: login.php:211 admin/user.php:39 admin/user.php:53
+#: admin/config/index.php:414 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Jelszó"
 
-#: lib/Application.php:231
+#: lib/Application.php:244
 msgid "Password Complexity"
 msgstr "Jelszó bonyolultság"
 
 #: services/changepassword.php:47
 msgid "Password changed successfully."
-msgstr "A jelszót sikeresen megváltoztattuk."
+msgstr "A jelszó sikeresen módosítva."
 
 #: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "A jelszavaknak egyezniük kell."
 
-#: templates/admin/sqlshell.html.php:42
+#: templates/admin/sqlshell.html.php:43
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+#: templates/admin/user/removequeued.inc:7 templates/admin/user/approve.inc:9
 msgid "Pending Signups:"
 msgstr "Új felhasználónak bejelentkezettek:"
 
@@ -2240,31 +2280,35 @@ msgstr "Emberek"
 
 #: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
-msgstr "Bejelentkezéssel kapcsolatos feladatok"
+msgstr "Feladatok elvégzése"
 
 #: admin/perms/delete.php:48
 #, php-format
 msgid "Permission \"%s\" not deleted."
-msgstr "A(z) \"%s\" jogosultságot nem töröltük."
+msgstr "A \"%s\" jogosultságot nem lett törölve."
 
 #: admin/perms/index.php:29
 msgid "Permissions"
 msgstr "Jogosultságok"
 
-#: admin/perms/addchild.php:58 admin/perms/delete.php:53
-#: admin/perms/edit.php:129 admin/perms/index.php:23
+#: admin/perms/edit.php:150 admin/perms/delete.php:53 admin/perms/index.php:23
+#: admin/perms/addchild.php:58
 msgid "Permissions Administration"
 msgstr "Jogosultság adminisztráció"
 
-#: config/prefs.php:272
+#: config/prefs.php:263
 msgid "Personal Information"
 msgstr "Személyes adatok"
 
 #: lib/Block/Fortune.php:62
 msgid "Pets"
-msgstr "Állatkedvencek"
+msgstr "Állatkedvencek"
 
-#: config/registry.php:194
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Telefonszám"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Fényképek"
 
@@ -2292,19 +2336,15 @@ msgstr ""
 "Kérem olvassa el a következő szöveget. A rendszer használatának feltételeit "
 "el KELL fogadnia."
 
-#: services/facebook/index.php:187
+#: lib/Ajax/Application/FacebookHandler.php:61
 msgid "Pokes:"
 msgstr "Viccek"
-
-#: admin/activesync.php:108
-msgid "Policy Key"
-msgstr "Biztonsági kulcs"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: config/prefs.php:754
+#: config/prefs.php:747
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2313,7 +2353,11 @@ msgstr ""
 "feledje, néhány eszköz mindíg elküldi a hivatkozó szöveget a válasz üzenet "
 "végén."
 
-#: services/facebook/index.php:33
+#: lib/Block/FbStream.php:143
+msgid "Post"
+msgstr "Küldés"
+
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, php-format
 msgid "Posted %s"
 msgstr "Elküldve %s-t"
@@ -2330,12 +2374,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Az elmúlt %d óra csapadékmennyisége: "
 msgstr[1] "Az elmúlt %d óra csapadékmennyisége: "
 
-#: lib/Block/Weather.php:255
-#, fuzzy, php-format
+#: lib/Block/Weather.php:263
+#, php-format
 msgid "Precipitation%schance"
-msgstr "Csapadék<br />valószínűség"
+msgstr "Csapadékvalószínűség %s"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:200
 msgid "Pressure"
 msgstr "Légnyomás"
 
@@ -2351,14 +2395,14 @@ msgstr "Elsődleges"
 msgid "Problem Description"
 msgstr "A hiba leírása"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: templates/prefs/activesync.html.php:45
+#: templates/activesync/device_table.html.php:18
 msgid "Provisioned"
 msgstr "Felügyelet"
 
-#: lib/Application.php:210
-#, fuzzy
+#: lib/Application.php:223
 msgid "Provisioning"
-msgstr "Felügyelet"
+msgstr "Provisioning"
 
 #: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
@@ -2376,20 +2420,19 @@ msgstr "Kvóta"
 msgid "Random Fortune"
 msgstr "Véletlen idézet"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Olvasás"
 
 #: templates/prefs/facebook.html.php:30
-#, fuzzy
 msgid "Read enabled."
-msgstr "Olvasás engedélyezése"
+msgstr "Olvasás engedélyezve."
 
 #: templates/admin/user/remove.inc:11
 #, php-format
@@ -2405,21 +2448,17 @@ msgstr ""
 "Tényleg töröljük \"%s\" felhasználó adatait? Ez a változtatás nem fordítható "
 "vissza."
 
-#: config/prefs.php:621
+#: config/prefs.php:613
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "A menü dinamikus elemeinek frissítési gyakorisága:"
 
-#: config/prefs.php:602
+#: config/prefs.php:594
 msgid "Refresh Portal View:"
 msgstr "Az indulóoldal frissítésének gyakorisága:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "Frissítési gyakoriság:"
-
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr "Regisztrált felhasználói eszközök"
 
 #: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
@@ -2429,15 +2468,14 @@ msgstr "Általános alkalmazások"
 msgid "Remarks"
 msgstr "Megjegyzések"
 
-#: templates/admin/sessions.html.php:23
-#, fuzzy
+#: templates/admin/sessions.html.php:10
 msgid "Remote Host"
-msgstr "Távoli számítógép:"
+msgstr "Távoli számítógép"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:41
+#: templates/prefs/activesync.html.php:47
 #: templates/admin/user/removequeued.inc:13
-#: templates/prefs/activesync.html.php:39
+#: templates/admin/user/approve.inc:41 templates/admin/groups/edit.inc:25
+#: templates/activesync/device_table.html.php:38
 msgid "Remove"
 msgstr "Törlés"
 
@@ -2445,7 +2483,7 @@ msgstr "Törlés"
 msgid "Remove pair"
 msgstr "A pár törlése"
 
-#: admin/config/index.php:416
+#: admin/config/index.php:433
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
 "Töröljük az elmentett programot a szerver ideiglenes állományokat tartalmazó "
@@ -2464,19 +2502,15 @@ msgstr "%s felhasználó törlése"
 msgid "Reply"
 msgstr "Válasz"
 
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr "Minden eszköz rendelkezésére"
-
-#: lib/Application.php:221
+#: lib/Application.php:234
 msgid "Require PIN"
 msgstr "PIN szükséges"
 
-#: lib/Application.php:304
+#: lib/Application.php:317
 msgid "Require S/MIME Encryption"
 msgstr "S/MIME titkosítás szükséges"
 
-#: lib/Application.php:308
+#: lib/Application.php:321
 msgid "Require S/MIME Signature"
 msgstr "S/MIME aláírás szükséges"
 
@@ -2489,13 +2523,10 @@ msgstr "Reset"
 msgid "Reset Password"
 msgstr "A jelszó visszaállítása"
 
-#: templates/prefs/activesync.html.php:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
-"Minden eszköz állapotának visszaállítása. Ennek hatására az összes eszköz "
-"újraszinkronizálja minden elemet. "
+#: templates/prefs/activesync.html.php:15
+#: templates/admin/activesync.html.php:32
+msgid "Reset all device state"
+msgstr "Minden eszköz alaphelyzetbe állítása"
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
@@ -2505,8 +2536,8 @@ msgstr "Az Ön jelszavának visszaállítása"
 msgid "Restore Last Query"
 msgstr "Az utolsó keresés visszaállítása"
 
-#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:11
+#: templates/admin/phpshell.html.php:32 templates/admin/sqlshell.html.php:11
+#: templates/admin/cmdshell.html.php:7
 msgid "Results"
 msgstr "Eredmény"
 
@@ -2514,10 +2545,6 @@ msgstr "Eredmény"
 #, php-format
 msgid "Results for %s"
 msgstr "%s keresés eredménye"
-
-#: templates/prefs/end.html:8
-msgid "Return to Main Screen"
-msgstr "Vissza a fő képernyőre"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -2534,40 +2561,37 @@ msgstr "Az új jelszót írja be ismét"
 
 #: admin/config/config.php:38 admin/config/config.php:47
 msgid "Revert Configuration"
-msgstr "Állítsuk vissza a konfigurációt"
+msgstr "Konfiguráció visszaállítása"
 
 #: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Találós kérdések"
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:44
 msgid "Run"
 msgstr "Futtatás"
 
 #: templates/logintasks/smartmobile.html.php:29
 msgid "Run Login Tasks"
-msgstr "Bejelentkezéssel kapcsolatos feladatok elvégzése"
+msgstr "Bejelentkezési feladatok elvégzése"
 
-#: lib/Application.php:276
+#: lib/Application.php:289
 msgid "SD card"
 msgstr "SD kártya"
 
-#: lib/Application.php:269
+#: lib/Application.php:282
 msgid "SD card encryption"
 msgstr "SD kártya titkosítás"
 
-#: lib/Application.php:284
-#, fuzzy
+#: lib/Application.php:297
 msgid "SMS Text messages"
-msgstr "Új üzenet:"
+msgstr "SMS üzenetek"
 
-#: admin/config/index.php:266 admin/config/index.php:319
-#, fuzzy
+#: admin/config/index.php:271 admin/config/index.php:324
 msgid "SQL DB schema is out of date."
 msgstr "A DB konfiguráció elavult."
 
-#: admin/config/index.php:271 admin/config/index.php:324
-#, fuzzy
+#: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
 msgstr "A DB konfiguráció kész."
 
@@ -2583,16 +2607,16 @@ msgstr "SQL parancsértelmező"
 msgid "Save"
 msgstr "Mentés"
 
-#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "\"%s\" mentése"
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Mentés és befejezés"
 
-#: admin/config/index.php:388
+#: admin/config/index.php:401
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2603,7 +2627,7 @@ msgstr ""
 #: admin/config/scripts.php:92
 #, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Elmentettük a setup upgrade programot ide: \"%s\"."
+msgstr "A setup upgrade programot elmentve ide: \"%s\"."
 
 #: lib/Block/Fortune.php:66
 msgid "Science"
@@ -2617,20 +2641,24 @@ msgstr "Hatókör"
 msgid "Sea_rch"
 msgstr "Keresés"
 
-#: lib/View/Topbar.php:60 services/help/index.php:156
-#: templates/admin/user/list.inc:14
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Keresés"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Keresés:"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: lib/Application.php:255
+msgid "Seconds of inactivity before device should lock"
+msgstr "Tétlen percek mielőtt az eszköz zárolásra kerül"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Melyik csoportot kívánja hozzáadni:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Válassza ki az új tulajdonost:"
 
@@ -2638,7 +2666,7 @@ msgstr "Válassza ki az új tulajdonost:"
 msgid "Select a server"
 msgstr "Válasszon szervert"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Melyik felhasználót kívánja hozzáadni:"
 
@@ -2662,19 +2690,19 @@ msgstr "Válassza ki a dátum formátumát:"
 msgid "Select the day and time order:"
 msgstr "Válassza ki a dátum és idő sorrendjét:"
 
-#: templates/data/datetime.inc:97 templates/data/time.inc:16
+#: templates/data/time.inc:16 templates/data/datetime.inc:97
 msgid "Select the time delimiter:"
 msgstr "Válassza ki az időelválasztó karaktert:"
 
-#: templates/data/datetime.inc:106 templates/data/time.inc:25
+#: templates/data/time.inc:25 templates/data/datetime.inc:106
 msgid "Select the time format:"
 msgstr "Válassza ki az idő formátumát:"
 
-#: config/prefs.php:588
+#: config/prefs.php:580
 msgid "Select your color scheme."
 msgstr "Válassza ki a kívánt színegyüttest."
 
-#: config/prefs.php:385
+#: config/prefs.php:376
 msgid "Select your preferred language:"
 msgstr "Válassza ki az Önnek megfelelő nyelvet:"
 
@@ -2690,38 +2718,36 @@ msgstr "Érzékelő: "
 msgid "Server Time"
 msgstr "Szerver idő"
 
-#: admin/sessions.php:69
-#, fuzzy
+#: admin/sessions.php:67
 msgid "Session Administration"
-msgstr "Jogosultság adminisztráció"
+msgstr "Felhasználókapcsolat adminisztráció"
 
-#: templates/admin/sessions.html.php:15
-#, fuzzy
+#: templates/admin/sessions.html.php:8
 msgid "Session Timestamp"
-msgstr "A felhasználókapcsolat időbélyegzője:"
+msgstr "Felhasználókapcsolat időbélyeg"
 
 #: lib/Api.php:70
 msgid "Sessions"
 msgstr "Felhasználókapcsolatok"
 
-#: config/prefs.php:335
+#: config/prefs.php:326
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "Állítsa be, arra az esetre, ha jelszavát elfelejtené."
 
-#: config/prefs.php:643
+#: config/prefs.php:636
 msgid "Set up integration with your Facebook account."
 msgstr "Facebook integráció beállítása"
 
-#: config/prefs.php:669
+#: config/prefs.php:662
 msgid "Set up integration with your Twitter account."
 msgstr "Twitter integráció beállítsa."
 
-#: config/prefs.php:373
+#: config/prefs.php:364
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "A kívánt nyelv, időzóna és dátumformátum beállítása."
 
-#: config/prefs.php:542
+#: config/prefs.php:533
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2730,26 +2756,26 @@ msgstr ""
 "milyen színösszeállítást, oldalfrissítési gyakoriságot ill. egyéb "
 "megjelenítési beállításokat szeretne."
 
-#: lib/Block/Weather.php:136
-#, fuzzy, php-format
+#: lib/Block/Weather.php:144
+#, php-format
 msgid "Several locations possible with the parameter: %s"
-msgstr "A megadott paraméter több helységet is jelöl: "
+msgstr "A megadott paraméter több helységet is jelöl: %s"
 
 #: templates/problem/problem.inc:17
 msgid "Short Summary"
 msgstr "Rövid összefoglalás"
 
-#: config/prefs.php:627
+#: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
 msgstr "El kívánja érni az egyes funkciókat Alt-billentyű-kombinációkkal is?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Megjelenítés"
 
@@ -2757,31 +2783,34 @@ msgstr "Megjelenítés"
 msgid "Show Advanced Preferences"
 msgstr "Haladó beállítások mutatatása"
 
-#: admin/config/index.php:378
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Haladó beállítások mutatatása"
+
+#: admin/config/index.php:383
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr ""
-"Mutassuk meg a különbségeket az elmentett és az újonnan létrehozott "
-"konfiguráció között."
+"Különbségek az elmentett és az újonnan létrehozott konfiguráció között."
 
 #: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr "Mutassuk a részleteket is?"
+msgstr "Részletek megjelenítése"
 
-#: config/prefs.php:573
+#: config/prefs.php:565
 msgid "Show last login time when logging in?"
 msgstr ""
 "Minden bejelentkezéskor íródjék ki a korábbi utolsó bejelentkezés ideje?"
 
-#: lib/Block/FbStream.php:71
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
 msgstr "Értesítések megjelenítése"
 
 #: templates/logintasks/logintasks.html.php:25
 #: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
-msgstr "Bejelentkezéssel kapcsolatos feladatok kihagyása"
+msgstr "Feladatok kihagyása"
 
 #: lib/Block/Iframe.php:35
 msgid "Small"
@@ -2803,11 +2832,11 @@ msgstr "Dalok, versek"
 msgid "South European (ISO-8859-3)"
 msgstr "dél-európai (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Déli félteke"
 
-#: config/registry.php:103
+#: config/registry.php:106
 msgid "Spam"
 msgstr "Spam"
 
@@ -2827,16 +2856,17 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Kezdő időpont"
 
-#: templates/prefs/activesync.html.php:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "Állapot kezelés"
 
-#: admin/activesync.php:115 templates/admin/config/index.html.php:36
-#: templates/prefs/activesync.html.php:22
+#: templates/prefs/activesync.html.php:30
+#: templates/admin/config/index.html.php:33
+#: templates/activesync/device_table.html.php:6
 msgid "Status"
-msgstr "Állapot"
+msgstr "Állapot"
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:106
 msgid "Status unable to be set."
 msgstr "Az állapot nem változtatható meg."
 
@@ -2850,10 +2880,10 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"\"%s\" új felhasználó bejelentkezési kérelmét továbbítottuk. Ön csak "
-"kérelmének elfogadását követően tud majd bejelentkezni."
+"\"%s\" új felhasználó bejelentkezési kérelme továbbítva. Ön csak kérelmének "
+"elfogadását követően tud majd bejelentkezni."
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Sikeresene csatlakoztatta a Facebook fiókját vagy frissítette az engedélyeit."
@@ -2865,7 +2895,7 @@ msgstr "Sikerült"
 #: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
-msgstr "Sikeresen hozzáadtuk \"%s\"-t a rendszerhez."
+msgstr "\"%s\" sikeresen hozzáadva a rendszerhez."
 
 #: admin/user.php:147
 #, php-format
@@ -2880,17 +2910,17 @@ msgstr "Sikeresen töröltük \"%s\"-t."
 #: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
-msgstr "Sikeresen eltávolítottuk \"%s\"-t a rendszerből."
+msgstr "A \"%s\" felhasználó sikeresen eltávolítotva a rendszerből."
 
 #: admin/config/config.php:49
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
-"A konfigurációt sikeresen visszaállítottuk. A változások megtekintéséhez "
+"A konfiguráció sikeresen visszaállítva. A változások megtekintéséhez "
 "frissítse az oldalt."
 
 #: admin/config/index.php:44
 msgid "Successfully saved backup configuration."
-msgstr "A backup konfigurációt elmentettük."
+msgstr "A backup konfiguráció elmentetve."
 
 #: admin/user.php:199
 #, php-format
@@ -2900,7 +2930,7 @@ msgstr "\"%s\" adatainak módosítása sikeresen megtörtént."
 #: admin/config/index.php:52
 #, php-format
 msgid "Successfully wrote %s"
-msgstr "Sikeresen elmentettük a %s állományt."
+msgstr "A %s állomány sikeresen elmentetve."
 
 #: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
@@ -2910,11 +2940,11 @@ msgstr "Napkelte"
 msgid "Sun Set"
 msgstr "Napnyugta"
 
-#: config/prefs.php:504
+#: config/prefs.php:495
 msgid "Sunday"
 msgstr "vasárnap"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:174 lib/Block/Weather.php:175
 msgid "Sunrise"
 msgstr "Napkelte"
 
@@ -2922,16 +2952,15 @@ msgstr "Napkelte"
 msgid "Sunrise/Sunset"
 msgstr "Napkelte/napnyugta"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:177 lib/Block/Weather.php:178
 msgid "Sunset"
 msgstr "Napnyugta"
 
-#: lib/Application.php:324
-#, fuzzy
+#: lib/Application.php:337
 msgid "Sync all"
-msgstr "Kicsi"
+msgstr "Minden szinkronizálása"
 
-#: config/prefs.php:720
+#: config/prefs.php:713
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2943,7 +2972,7 @@ msgstr "Egyesített hírek"
 msgid "Tag Cloud"
 msgstr "Felhők"
 
-#: config/registry.php:152
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Feladatok"
 
@@ -2951,16 +2980,16 @@ msgstr "Feladatok"
 msgid "Temp for last hour: "
 msgstr "Hőmérséklet az elmúlt órában: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:184
 msgid "Temperature"
 msgstr "Hőmérséklet"
 
-#: lib/Block/Weather.php:247
-#, fuzzy, php-format
+#: lib/Block/Weather.php:255
+#, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
-msgstr "Hőmérséklet<br />(%sMax%s/%sMin%s) &deg;%s"
+msgstr "Hőmérséklet%s(%sMax%s/%sMin%s)"
 
-#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "A Facebook ideinglenesen nem elérhető. Kérem próbálja meg később."
 
@@ -2972,18 +3001,18 @@ msgstr "Pillanatnyilag nem elérhető a Twitter. Kérem próbálja meg később.
 msgid "Thai (TIS-620)"
 msgstr "thai (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:78
+#: lib/Prefs/Special/Activesync.php:101
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "A távoli %s eszköz tisztítása megszakítva."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
-msgstr "A figyelmeztetést töröltük."
+msgstr "Az emlékeztető törölve."
 
 #: admin/alarms.php:75
 msgid "The alarm has been saved."
-msgstr "A figyelmeztetést elmentettük."
+msgstr "Az emlékeztető elmentetve."
 
 #: admin/config/index.php:112
 #, php-format
@@ -2994,15 +3023,15 @@ msgstr ""
 "A %s beállításait nem sikerült automatikusan frissíteni. Kérem végezze el a "
 "frissítést kézzel."
 
-#: config/prefs.php:299
+#: config/prefs.php:290
 msgid "The default e-mail address to use with this identity:"
-msgstr "Az alapértelmezett email címet használja mint:"
+msgstr "Emailcíme:"
 
 #: admin/locks.php:24
 msgid "The lock has been removed."
-msgstr "A letiltást feloldottuk."
+msgstr "A letiltás feloldva."
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -3010,7 +3039,7 @@ msgstr ""
 "A tagállam szolgáltatása nem válaszolt időben. Próbálja meg később, vagy "
 "használja egy másik tagállam szolgáltatását."
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -3018,36 +3047,36 @@ msgstr ""
 "A tagállam szolgáltatása jelenleg nem érhető el. Próbálja meg később, vagy "
 "használja egy másik tagállam szolgáltatását."
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "A megadott országkód hibás/nem elfogadható."
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "A szolgáltatás jelenleg nem érhető el. Kérem próbálja meg később."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "A szolgáltatás jelenleg túlterhelt. Próbálkozzon később."
 
 #: admin/user.php:224
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "\"%s\" bejelentkezési kérelmét töröltük."
+msgstr "\"%s\" bejelentkezési kérelme törölve lett."
 
 #: admin/signup_confirm.php:41
 #, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "\"%s\" regisztrálási kérelmét töröltük."
+msgstr "\"%s\" regisztrálási kérelme törölve lett."
 
-#: lib/Prefs/Special/Activesync.php:93
+#: lib/Prefs/Special/Activesync.php:116
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
 "it connects to the server."
 msgstr ""
-"A(z) %s eszköz állapota újraindult. A szinkronizálás a következő "
-"csatlakozáskor megtörténik."
+"A %s eszköz állapota újraindult. A szinkronizálás a következő csatlakozáskor "
+"megtörténik."
 
 #: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
@@ -3062,10 +3091,10 @@ msgstr ""
 msgid "The user \"%s\" already exists."
 msgstr "\"%s\" felhasználó már létezik."
 
-#: services/shares/edit.php:91 services/shares/edit.php:176
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
-msgstr "A(z) \"%s\" felhasználó nem létezik."
+msgstr "A \"%s\" felhasználó nem létezik."
 
 #: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
@@ -3087,7 +3116,7 @@ msgstr "\"%s\" rendszerből való törlésekor hiba lépett fel: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "\"%s\" módosítása során hiba lépett fel: %s"
 
-#: lib/Prefs/Special/Activesync.php:96
+#: lib/Prefs/Special/Activesync.php:119
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Hiba történt az ActiveSync szerverrel való kommunikáció közben: %s"
@@ -3105,43 +3134,51 @@ msgstr ""
 "Hibás a megadott konfiguráció. Lehet, hogy nem töltött ki egy szükséges "
 "mezőt."
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Block/FbStream.php:153 lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Hiba történt a kérés közben: %s"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 "Hiba történt a Facebook munkamenet megszerzése közben. Kérem próbálja meg "
 "később."
 
-#: lib/Application.php:191
+#: lib/Application.php:204
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
 "Hiba törént a globális adatok eltávolítása közben: %s Hibajelentés elmentve."
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
 msgstr "Hiba történt a kért engedélyek biztosítása közben"
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
-msgstr "Ez az ÁFA-azonosítószám érvénytelen."
+msgstr "Ez az ÁFA-azonosítószám érvénytelen."
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
-msgstr "Ez az ÁFA-azonosítószám érvényes."
+msgstr "Ez az ÁFA-azonosítószám érvényes."
 
-#: config/registry.php:223
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr "Ennek hatására az összes eszköz újraszinkronizálja minden elemét. "
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr "Ennek hatására az összes eszköz újraszinkronizálja minden elemét. "
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Hibabejelentés-kezelés"
 
-#: config/registry.php:269
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Munkaidő-nyilvántartás"
 
@@ -3178,17 +3215,17 @@ msgstr ""
 "Ha több elemet is ki akar jelölni, tartsa lenyomva a Control (PC) vagy a "
 "Command (Mac) billentyűt a kattintás közben."
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:288
 msgid "Today"
 msgstr "Ma"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:290
 msgid "Tomorrow"
 msgstr "Holnap"
 
-#: config/prefs.php:755
+#: config/prefs.php:748
 msgid "Top"
-msgstr ""
+msgstr "Legfölül"
 
 #: lib/Block/Fortune.php:70
 msgid "Translations"
@@ -3202,7 +3239,7 @@ msgstr "Török (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:668
+#: config/prefs.php:661
 msgid "Twitter Integration"
 msgstr "Twitter integráció"
 
@@ -3215,6 +3252,10 @@ msgstr "Twitter idővonal"
 msgid "Twitter Timeline for %s"
 msgstr "%s Twitter idővonala"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "A Twitter nincs engedélyezve."
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3224,13 +3265,21 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s."
 msgstr "\"%s\" törlése nem sikerült: %s."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:138
 msgid "Unable to set like."
 msgstr "Nem lehet beállítani"
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "Nem lehet érvényesíteni a kérés jelet. Kérem próbálja újra."
+
+#: admin/activesync.php:90 lib/Prefs/Special/Activesync.php:54
+msgid "Unavailable"
+msgstr "Elérhetetlen"
+
+#: templates/activesync/device_table.html.php:41
+msgid "Unblock"
+msgstr "Feloldás"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
@@ -3240,7 +3289,7 @@ msgstr "Mégse mentsük el"
 msgid "Unfavorite"
 msgstr "Nem kedvenc"
 
-#: templates/prefs/category.html.php:19
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Besorolatlan"
 
@@ -3248,20 +3297,23 @@ msgstr "Besorolatlan"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:80
 msgid "Units"
 msgstr "egység"
 
 #: admin/sessions.php:36
-#, fuzzy
 msgid "Unknown"
-msgstr "[ismeretlen]"
+msgstr "Ismeretlen"
 
 #: admin/locks.php:43
 msgid "Unlock"
 msgstr "FEloldás"
 
-#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
+#: lib/Api.php:723 lib/Api.php:784
+msgid "Unsupported action."
+msgstr "Nem támogatott művelet."
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Módosítás"
 
@@ -3270,7 +3322,7 @@ msgstr "Módosítás"
 msgid "Update %s"
 msgstr "%s módosítása"
 
-#: admin/config/index.php:183 admin/config/index.php:298
+#: admin/config/index.php:185 admin/config/index.php:303
 #, php-format
 msgid "Update %s schema"
 msgstr "%s séma frissítése"
@@ -3287,36 +3339,41 @@ msgstr "Minden beállítás frissítése"
 msgid "Update user"
 msgstr "Az adatok módosítása"
 
-#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
-msgstr "\"%s\" változásait elmentettük."
+msgstr "A \"%s\" változásai elmentetve."
 
 #: admin/config/index.php:127
 #, php-format
 msgid "Updated schema for %s."
-msgstr "\"%s\" változásait elmentettük."
+msgstr "A \"%s\" változásai elmentetve."
 
-#: admin/config/index.php:395
+#: admin/config/index.php:412
 msgid "Upload"
 msgstr "Feltöltés"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:420
 msgid "Uploaded all application configuration files to the server."
-msgstr "Az összes alkalmazás konfigurációját feltöltöttük a szerverre."
+msgstr "Az összes alkalmazás konfigurációja feltöltötve a szerverre."
 
-#: config/prefs.php:695
+#: config/prefs.php:688
 msgid "Use if name/password is different for IMSP server."
 msgstr "Arra az esetre, ha az IMSP szerveren más a login/jelszó páros."
 
+#: templates/admin/sessions.html.php:7 templates/admin/locks/list.html.php:12
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
-#: templates/admin/locks/list.html.php:12
+#: templates/activesync/device_table.html.php:3
 msgid "User"
 msgstr "Felhasználók"
 
 #: admin/user.php:240
 msgid "User Administration"
 msgstr "Felhasználók adminisztrálása"
+
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "User Agent"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3338,13 +3395,13 @@ msgstr "Ezen a rendszeren nincs engedélyezve a felhasználók regisztrációja.
 msgid "User account not found"
 msgstr "A felhasználói azonosító nem található"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "A hozzáadandó felhasználó:"
 
-#: login.php:206 admin/config/index.php:396 admin/user.php:36
-#: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:23
+#: login.php:206 admin/user.php:36 admin/user.php:52
+#: admin/config/index.php:413 services/resetpassword.php:33
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Felhasználói név"
 
@@ -3358,21 +3415,25 @@ msgstr "A rendszer felhasználói:"
 
 #: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
-msgstr "ÁFA-azonosító ellenőrzése"
+msgstr "ÁFA-azonosító ellenőrzése"
 
 #: lib/Block/Vatid.php:40
 msgid "VAT identification number:"
-msgstr "ÁFA-azonosítószám:"
+msgstr "ÁFA-azonosítószám:"
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
-msgstr "ÁFA szám"
+msgstr "ÁFA szám"
 
-#: templates/admin/config/index.html.php:43
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Verzió"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "Verziókövetés"
 
-#: config/registry.php:212
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Verziókövetés"
 
@@ -3384,7 +3445,7 @@ msgstr "vietnami (VISCII)"
 msgid "View an external web page"
 msgstr "Külső weboldal megjelenítése"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:232
 msgid "Visibility"
 msgstr "Látótávolság"
 
@@ -3392,22 +3453,25 @@ msgstr "Látótávolság"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:43
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "Vigyázat: a Caps Lock be van kapcsolva!"
+
+#: lib/Block/Weather.php:62
 msgid "Weather"
 msgstr "Időjárás"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:348 lib/Block/Weather.php:356
 msgid "Weather data provided by"
 msgstr "Az időjárási adatok forrása"
 
-#: config/registry.php:329
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Honlap"
 
-#: lib/Application.php:300
-#, fuzzy
+#: lib/Application.php:313
 msgid "Web browser"
-msgstr "Böngészőprogram:"
+msgstr "Böngészőprogram"
 
 #: services/portal/smartmobile.php:44
 msgid "Welcome"
@@ -3426,7 +3490,7 @@ msgstr "nyugat-európai (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "nyugat-európai (ISO-8859-15)"
 
-#: config/prefs.php:554
+#: config/prefs.php:545
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Milyen alkalmazást mutasson %s a bejelentkezés után?"
@@ -3443,29 +3507,28 @@ msgstr "Mi az elválasztó karakter?"
 msgid "What is the quote character?"
 msgstr "Mi az idézetkarakter?"
 
-#: config/prefs.php:507
+#: config/prefs.php:498
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Melyik napot szeretné a hét első napjaként megjeleníttetni?"
 
 #: lib/Block/Moon.php:22
 msgid "Which phases"
-msgstr "Melyik fázisokat mutassuk?"
+msgstr "Mely fázisok"
 
-#: config/prefs.php:608
+#: config/prefs.php:600
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "A %s menü szélessége a bal oldalon:"
 
-#: lib/Application.php:288
-#, fuzzy
+#: lib/Application.php:301
 msgid "Wifi"
-msgstr "Wiki"
+msgstr "Wifi"
 
-#: config/registry.php:200
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:271
 msgid "Wind"
 msgstr "Szél"
 
@@ -3477,17 +3540,14 @@ msgstr "Szélsebesség csomóban"
 msgid "Wind:"
 msgstr "Szél:"
 
-#: admin/activesync.php:182 templates/prefs/activesync.html.php:29
+#: templates/prefs/activesync.html.php:37
+#: templates/activesync/device_table.html.php:33
 msgid "Wipe"
 msgstr "Tisztítás"
 
-#: templates/prefs/activesync.html.php:32
-#, fuzzy
+#: templates/prefs/activesync.html.php:40
+#: templates/activesync/device_table.html.php:12
 msgid "Wipe Pending"
-msgstr "Tisztítás folyamatban"
-
-#: admin/activesync.php:163
-msgid "Wipe is pending"
 msgstr "Tisztítás folyamatban"
 
 #: lib/Block/Fortune.php:71
@@ -3496,13 +3556,13 @@ msgstr "Bölcsesség"
 
 #: templates/block/facebook_story.html.php:48
 msgid "With "
-msgstr ""
+msgstr "Ezzel "
 
 #: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Munka"
 
-#: config/registry.php:235
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3518,68 +3578,69 @@ msgstr "ÉÉ"
 msgid "Yes, I Agree"
 msgstr "Igen, belegyezem."
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] "Te ls %d ember kedveli ezt"
-msgstr[1] "Te ls %d ember kedveli ezt"
+msgstr[0] "Ön és további %d ember kedveli ezt"
+msgstr[1] "Ön és további %d ember kedveli ezt"
 
-#: lib/Api.php:255
+#: lib/Api.php:250
 msgid "You are not allowed to add groups."
 msgstr "Ön nem jogosult csoportokat létrehozni."
 
-#: lib/Api.php:353
+#: lib/Api.php:348
 msgid "You are not allowed to add shares."
 msgstr "Ön nem jogosult új megosztások létrehozására."
 
-#: lib/Api.php:290 lib/Api.php:309
+#: lib/Api.php:285 lib/Api.php:304
 msgid "You are not allowed to change groups."
 msgstr "Ön nem jogosult csoportokat módosítani."
 
-#: lib/Api.php:427 lib/Api.php:460 lib/Api.php:490 lib/Api.php:511
+#: lib/Api.php:422 lib/Api.php:455 lib/Api.php:485 lib/Api.php:506
 msgid "You are not allowed to change shares."
 msgstr "Ön nem jogosult megosztások módosítására."
 
-#: lib/Api.php:273
+#: lib/Api.php:268
 msgid "You are not allowed to delete groups."
 msgstr "Ön nem jogosult csoportokat törölni."
 
-#: lib/Api.php:374
+#: lib/Api.php:369
 msgid "You are not allowed to delete shares."
 msgstr "Ön nem jogosult megosztások törlésére."
 
-#: lib/Api.php:642
+#: lib/Api.php:637
 msgid "You are not allowed to list groups of shares."
 msgstr "Ön nem jogosult megosztási csoportok kilistázására."
 
-#: lib/Api.php:533 lib/Api.php:571
+#: lib/Api.php:528 lib/Api.php:566
 msgid "You are not allowed to list share permissions."
 msgstr "Ön nem jogosult megosztási jogosultságok kilistázására."
 
-#: lib/Api.php:395
+#: lib/Api.php:390
 msgid "You are not allowed to list shares."
 msgstr "Ön nem jogosult megosztások kilistázására."
 
-#: lib/Api.php:329
+#: lib/Api.php:324
 msgid "You are not allowed to list users of groups."
 msgstr "Ön nem jogosult a csoportok felhasználóit kilistázni."
 
-#: lib/Api.php:610
+#: lib/Api.php:605
 msgid "You are not allowed to list users of shares."
 msgstr "Ön nem jogosult kilistázni a megosztások felhasználóit."
 
-#: lib/Block/FbStream.php:106
-#, fuzzy, php-format
+#: lib/Block/FbStream.php:107
+#, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
 "Facebook settings in your %s."
 msgstr ""
-"Nem lehetséges a Facebook fiókhoz kapcsolódás a Horde alól. Ellenőrízze a "
-"Facebook beállításait %s."
+"Nem lehetséges a Facebook fiókhoz kapcsolódás. Ellenőrízze a Facebook "
+"beállításait itt: %s."
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Block/FbStream.php:154 lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Őn is ellenőrízheti a Facebook beállításait: %s"
@@ -3596,11 +3657,11 @@ msgstr ""
 msgid "You have been logged out."
 msgstr "Sikeresen kijelentkezett."
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "Ön nem rendelkezik kellő jogosúltsággal a kért művelethez."
 
-#: lib/Block/TwitterTimeline.php:166
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3609,8 +3670,9 @@ msgstr ""
 "Nem lehetséges a Twitter fiókhoz kapcsolódás a Horde alól. Ellenőrízze a "
 "Twitter beállításait %s."
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 msgid "You like this"
 msgstr "Tetszik neked"
 
@@ -3634,14 +3696,14 @@ msgstr "Meg kell adnia a hozzáadandó felhasználó nevét."
 
 #: admin/user.php:171
 msgid "You must specify the username to update."
-msgstr "Meg kell adnia, hogy melyik felhasználó adatait kívánja megváltoztani."
+msgstr "Meg kell adnia, hogy melyik felhasználó adatait kívánja módosítani."
 
 #: templates/problem/problem.inc:13
 msgid "Your Email Address"
 msgstr "Az Ön email címe"
 
-#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
-#: config/prefs.php:515
+#: config/prefs.php:262 config/prefs.php:324 config/prefs.php:362
+#: config/prefs.php:506
 msgid "Your Information"
 msgstr "Személyes információ"
 
@@ -3683,15 +3745,15 @@ msgstr ""
 "Úgy tűnik, megváltozott a böngészőprogramja a bejelentkezése óta. Biztonsága "
 "érdekében ismét be kell jelentkeznie."
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "Az Ön böngészőprogramja nem támogatja ezt a lehetőséget."
 
-#: config/prefs.php:419
+#: config/prefs.php:410
 msgid "Your current time zone:"
 msgstr "A jelenleg érvényes időzóna:"
 
-#: config/prefs.php:291
+#: config/prefs.php:282
 msgid "Your full name:"
 msgstr "Az Ön teljes neve:"
 
@@ -3706,7 +3768,7 @@ msgstr "Az Ön %s-re használt új jelszava: %s"
 
 #: services/resetpassword.php:89
 msgid "Your password has been reset"
-msgstr "Az Ön jelszavát átállítottuk"
+msgstr "Az Ön jelszava átállítva"
 
 #: services/resetpassword.php:99
 msgid ""
@@ -3725,19 +3787,16 @@ msgstr ""
 "új jelszóval."
 
 #: services/changepassword.php:50
-#, fuzzy
 msgid ""
 "Your password has been succesfully changed. You need to re-login to the "
 "system with your new password."
-msgstr ""
-"Az Ön jelszavát átállítottuk, nézze meg a leveleit, majd jelentkezzen be az "
-"új jelszóval."
+msgstr "A jelszava megváltozott. Újra be kell jelentkeznie az új jelszavával."
 
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Az Ön jelszavának lejárt az érvényességi ideje"
 
-#: login.php:185
+#: login.php:178
 msgid "Your password has expired."
 msgstr "Az Ön jelszavának lejárt az érvényességi ideje."
 
@@ -3746,7 +3805,6 @@ msgid "Your session has expired. Please login again."
 msgstr "Az Ön munkamenete lejárt. Kérem jelentkezzen be újra."
 
 #: login.php:308
-#, fuzzy
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3762,7 +3820,7 @@ msgstr "[Hibajelentés]"
 
 #: lib/Api.php:65
 msgid "_Alarms"
-msgstr "_Figyelmeztetések"
+msgstr "_Emlékeztetők"
 
 #: lib/Api.php:85
 msgid "_CLI"
@@ -3795,14 +3853,14 @@ msgstr "melléklet"
 #: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, php-format
 msgid "calm"
-msgstr "szélcsönd"
+msgstr "szélcsend"
 
 #: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "%s (%s) irányból %s %s sebességgel"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:221 lib/Block/Weather.php:331
 msgid "gusting"
 msgstr "széllökések"
 
@@ -3810,9 +3868,9 @@ msgstr "széllökések"
 msgid "inline"
 msgstr "beillesztett"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:166 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Block/TwitterTimeline.php:168 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66
 msgid "preferences"
 msgstr "beállítások"
 
@@ -3828,6 +3886,6 @@ msgstr "megerősítésként kétszer írja be a jelszót"
 msgid "unified"
 msgstr "egységesített"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "időjárás"

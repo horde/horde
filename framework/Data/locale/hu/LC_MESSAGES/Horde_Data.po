@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-30 10:40+0200\n"
-"PO-Revision-Date: 2014-04-30 11:15+0200\n"
+"POT-Creation-Date: 2014-06-22 13:09+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Cannot open file."
 msgstr "A fájl nem nyitható meg."
 
-#: lib/Horde/Data/Csv.php:227
+#: lib/Horde/Data/Csv.php:226
 msgid "Incorrect charset given for the data."
 msgstr "Érvénytelen karakterkódolás"
 
@@ -28,15 +28,15 @@ msgstr "Érvénytelen karakterkódolás"
 msgid "TSV file"
 msgstr "TSV (TAB-bal elválasztott adatokat tartalmazó) állomány"
 
-#: lib/Horde/Data/Base.php:282
+#: lib/Horde/Data/Base.php:317
 msgid "The file contained no data."
 msgstr "A fájl üres."
 
-#: lib/Horde/Data/Base.php:343
+#: lib/Horde/Data/Base.php:378
 msgid "The uploaded data was lost since the previous step."
 msgstr "A feltöltött adatok az előző lépés óta elvesztek."
 
-#: lib/Horde/Data/Tsv.php:222 lib/Horde/Data/Csv.php:206
+#: lib/Horde/Data/Tsv.php:223 lib/Horde/Data/Csv.php:206
 msgid "The uploaded file could not be saved."
 msgstr "A feltöltött fájl mentése nem sikerült."
 
@@ -44,7 +44,12 @@ msgstr "A feltöltött fájl mentése nem sikerült."
 msgid "There was an error importing the iCalendar data."
 msgstr "Az iCalendar adatok importálása nem sikerült."
 
-#: lib/Horde/Data/Base.php:289
+#: lib/Horde/Data/Base.php:137
+#, php-format
+msgid "URL %s not found"
+msgstr "A %s URL nem található"
+
+#: lib/Horde/Data/Base.php:324
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

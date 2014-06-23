@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-30 00:08+0200\n"
-"PO-Revision-Date: 2014-05-05 17:09+0200\n"
+"POT-Creation-Date: 2014-06-22 13:08+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -16,55 +16,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1070
+#: lib/Horde.php:935
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Alt-billentyű %s)"
 
-#: lib/Horde/Registry.php:1337 lib/Horde/Registry.php:2011
+#: lib/Horde/Registry.php:1338 lib/Horde/Registry.php:2030
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" nincs konfigurálva a Horde Registryben."
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:122
+#, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] "%d névjegy sikeresen hozzáadva a címjegyzékéhez."
 msgstr[1] "%d névjegy sikeresen hozzáadva a címjegyzékéhez."
 
-#: lib/Horde/Core/Auth/Application.php:651
+#: lib/Horde/Core/Auth/Application.php:654
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] "Jelszavának érvényessége %d nap múlva lejár."
 msgstr[1] "Jelszavának érvényessége %d nap múlva lejár."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:827 lib/Horde/Core/Perms/Ui.php:352
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:845 lib/Horde/Core/Perms/Ui.php:352
 #: lib/Horde/Core/Perms/Ui.php:412
 msgid "-- select --"
 msgstr "-- válasszon --"
 
-#: lib/Horde/PageOutput.php:759
+#: lib/Horde/PageOutput.php:654
 #: lib/Horde/Core/Notification/Event/Status.php:73
 msgid "1 day"
 msgstr "1 nap"
 
-#: lib/Horde/PageOutput.php:757
+#: lib/Horde/PageOutput.php:652
 #: lib/Horde/Core/Notification/Event/Status.php:71
 msgid "1 hour"
 msgstr "1 óra"
 
-#: lib/Horde/PageOutput.php:756
+#: lib/Horde/PageOutput.php:651
 #: lib/Horde/Core/Notification/Event/Status.php:70
 msgid "15 minutes"
 msgstr "15 perc"
 
-#: lib/Horde/PageOutput.php:755
+#: lib/Horde/PageOutput.php:650
 #: lib/Horde/Core/Notification/Event/Status.php:69
 msgid "5 minutes"
 msgstr "5 perc"
 
-#: lib/Horde/PageOutput.php:758
+#: lib/Horde/PageOutput.php:653
 #: lib/Horde/Core/Notification/Event/Status.php:72
 msgid "6 hours"
 msgstr "6 óra"
@@ -73,11 +74,11 @@ msgstr "6 óra"
 msgid "<Previous"
 msgstr "<Előző"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:101
 msgid "A fatal error has occurred"
 msgstr "Helyrehozhatatlan hiba történt"
 
-#: lib/Horde/Core/Prefs/Identity.php:63
+#: lib/Horde/Core/Prefs/Identity.php:89
 #, php-format
 msgid ""
 "A message has been sent to \"%s\" to verify that this is really your "
@@ -88,7 +89,7 @@ msgstr ""
 "valóban az Ön emailcíme-e. Miután Ön visszaigazolja ezt a levelet, az új "
 "email cím aktiválódik."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:96
+#: lib/Horde/Core/Auth/Signup/Base.php:103
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -101,11 +102,12 @@ msgstr ""
 "Egy felugró ablak nyitása nem sikerült. Lehetséges, hogy a böngészőprogramja "
 "blokkolja őket"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:104
+#: lib/Horde/Core/Auth/Signup/Base.php:111
+#, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Egy új felhasználót, \"%s\" névvel igényeltek a regisztrációs oldalon."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:627 lib/Horde/Core/Perms/Ui.php:201
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:645 lib/Horde/Core/Perms/Ui.php:201
 msgid "Add"
 msgstr "Bevitel"
 
@@ -147,18 +149,18 @@ msgstr "Cím"
 msgid "Address Book"
 msgstr "Címjegyzék"
 
-#: lib/Horde/Registry.php:340
+#: lib/Horde/Registry.php:358
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
 "Admin jogosultság szükséges, de nincs ilyen jogosultságú felhasználó megadva "
 "a konfigurációban."
 
-#: lib/Horde/Core/Topbar.php:116
+#: lib/Horde/Core/Topbar.php:123
 msgid "Administration"
 msgstr "Adminisztráció"
 
-#: lib/Horde/Core/Notification/Event/Status.php:89
+#: lib/Horde/Core/Notification/Event/Status.php:92
 msgid "Alarm"
 msgstr "Emlékeztető"
 
@@ -182,19 +184,19 @@ msgstr "A megadott érték nem fogadható el."
 msgid "Applications"
 msgstr "Alkalmazások"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:98
+#: lib/Horde/Core/Auth/Signup/Base.php:105
 msgid "Approve the account:"
 msgstr "A felhasználó jóváhagyása: "
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:488
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:451
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
 msgid "April"
 msgstr "április"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:135
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:442
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:492
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:455
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:511
 msgid "August"
 msgstr "augusztus"
 
@@ -202,7 +204,7 @@ msgstr "augusztus"
 msgid "Available address books:"
 msgstr "Elérhető címjegyzékek:"
 
-#: lib/Horde/PageOutput.php:690 lib/Horde/Core/Smartmobile/View/Helper.php:46
+#: lib/Horde/PageOutput.php:583 lib/Horde/Core/Smartmobile/View/Helper.php:46
 msgid "Back"
 msgstr "Vissza"
 
@@ -210,13 +212,13 @@ msgstr "Vissza"
 msgid "Birthday"
 msgstr "Születésnap"
 
-#: lib/Horde/Core/Block/Collection.php:392
+#: lib/Horde/Core/Block/Collection.php:398
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "A \"%s\" blokk (\"%s\" alkalmazás) nem található"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
-#: lib/Horde/Core/ActiveSync/Driver.php:134
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
+#: lib/Horde/Core/ActiveSync/Driver.php:152
 msgid "Calendar"
 msgstr "Naptár"
 
@@ -243,16 +245,20 @@ msgstr "Válasszon egy felhasználónevet"
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr "A címjegyzékek sorrendje címrészlet teljes címmé alakításakor."
 
+#: lib/Horde/PageOutput.php:660
+msgid "Clear All"
+msgstr "Mind törlése"
+
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
 msgid "Click to add caption..."
 msgstr "Felirt hozzáadásához kattintson"
 
-#: lib/Horde/PageOutput.php:691
+#: lib/Horde/PageOutput.php:584
 msgid "Close"
 msgstr "Bezárás"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:577
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:579
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:595
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:597
 msgid "Color Picker"
 msgstr "Színválasztó"
 
@@ -260,11 +266,11 @@ msgstr "Színválasztó"
 msgid "Company"
 msgstr "Cég"
 
-#: lib/Horde/Core/Prefs/Identity.php:54
+#: lib/Horde/Core/Prefs/Identity.php:74
 msgid "Confirm new email address"
 msgstr "Az új email cím megerősítése"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:135
+#: lib/Horde/Core/ActiveSync/Driver.php:153
 msgid "Contacts"
 msgstr "Névjegyek"
 
@@ -277,13 +283,13 @@ msgstr "A %s konfigurációs fájl mentése nem sikerült."
 msgid "Creator Permissions"
 msgstr "Létrehozó jogosultságai"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:518
 msgid "DD"
 msgstr "NN"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:139
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:446
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:496
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:515
 msgid "December"
 msgstr "december"
 
@@ -305,7 +311,7 @@ msgstr "\"%s\" jogosultságainak törlése"
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "\"%s\" jogosultságainam és minden al-jogosultságának törlése?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:100
+#: lib/Horde/Core/Auth/Signup/Base.php:107
 msgid "Deny the account:"
 msgstr "Felhasználó elutasítása:"
 
@@ -313,15 +319,19 @@ msgstr "Felhasználó elutasítása:"
 msgid "Department"
 msgstr "Részleg"
 
-#: lib/Horde/ErrorHandler.php:115
+#: lib/Horde/Core/Alarm/Handler/Desktop.php:94
+msgid "Desktop notification (with certain browsers)"
+msgstr "Asztali emlékeztető (erre alkalmas böngészővel)"
+
+#: lib/Horde/ErrorHandler.php:117
 msgid "Details"
 msgstr "Részletek"
 
-#: lib/Horde/ErrorHandler.php:122
+#: lib/Horde/ErrorHandler.php:124
 msgid "Details have been logged for the administrator."
 msgstr "A részletek a rendszergazda számára készülő naplófájlba kerültek."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1168
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1186
 #, php-format
 msgid "Dial %s"
 msgstr "%s tárcsázása"
@@ -356,29 +366,29 @@ msgstr "\"%s\" jogosultságainak módosítása"
 msgid "Email"
 msgstr "Email"
 
-#: lib/Horde/Core/Prefs/Identity.php:87
-msgid "Email addresses to confirm not found."
+#: lib/Horde/Core/Prefs/Identity.php:109
+msgid "Email address to confirm not found."
 msgstr "A megerősítendő email cím nem található."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:316
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:329
 msgid "Emoticons"
 msgstr "Hangulatjelek"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1641
+#: lib/Horde/Core/ActiveSync/Mail.php:446
 msgid "End forwarded message"
 msgstr "Vége a továbbított levélnek"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:974
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:981
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:992
 msgid "Enter the letters below:"
 msgstr "Írja be az alábbi betűket:"
 
-#: lib/Horde/Core/Block/Layout/View.php:124
-#: lib/Horde/Core/Notification/Event/Status.php:94
+#: lib/Horde/Core/Block/Layout/View.php:119
+#: lib/Horde/Core/Notification/Event/Status.php:97
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/Horde/PageOutput.php:749
+#: lib/Horde/PageOutput.php:644
 msgid "Error when communicating with the server."
 msgstr "Hiba történt a szerverrel való kommunikációban."
 
@@ -391,24 +401,24 @@ msgid "Fax"
 msgstr "Fax"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:129
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:486
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:449
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
 msgid "February"
 msgstr "február"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:256
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:268
 msgid "Fix ratio"
 msgstr "Változatlan méretarány"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:243
 msgid "Flip"
 msgstr "Tükrözés (föl-le)"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1639
+#: lib/Horde/Core/ActiveSync/Mail.php:444
 msgid "Forwarded message"
 msgstr "Továbbított levél"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1639
+#: lib/Horde/Core/ActiveSync/Mail.php:444
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Továbbított levél %s címről"
@@ -421,15 +431,15 @@ msgstr "Pé"
 msgid "Friday"
 msgstr "péntek"
 
-#: lib/Horde/Core/Topbar.php:147 lib/Horde/Core/Prefs/Ui.php:675
+#: lib/Horde/Core/Topbar.php:154 lib/Horde/Core/Prefs/Ui.php:675
 msgid "Global Preferences"
 msgstr "Globális beállítások"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1329
 msgid "Google Maps"
 msgstr "Google térkép"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
 msgid "Grayscale"
 msgstr "Fekete-fehér"
 
@@ -441,7 +451,7 @@ msgstr "Csoportok"
 msgid "Guest Permissions"
 msgstr "Vendég jogosultságok"
 
-#: lib/Horde/Help.php:253 lib/Horde/Help.php:254 lib/Horde/Core/Topbar.php:193
+#: lib/Horde/Help.php:253 lib/Horde/Help.php:254 lib/Horde/Core/Topbar.php:200
 msgid "Help"
 msgstr "Segítség"
 
@@ -458,7 +468,7 @@ msgstr "Otthoni cím"
 msgid "Home Phone"
 msgstr "Otthoni telefon"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2574
+#: lib/Horde/Core/ActiveSync/Driver.php:2778
 msgid "Inbox"
 msgstr "Beérkezett"
 
@@ -466,7 +476,7 @@ msgstr "Beérkezett"
 msgid "Individual Users"
 msgstr "Egyes felhasználók"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:54
+#: lib/Horde/Core/Alarm/Handler/Notify.php:69
 msgid "Inline"
 msgstr "Szövegközi"
 
@@ -475,30 +485,30 @@ msgstr "Szövegközi"
 msgid "International Address"
 msgstr "Nemzetközi cím"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:752
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:770
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
 msgstr "A kijelölt rész invertálása"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:128
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:448
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
 msgid "January"
 msgstr "január"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:134
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:441
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:491
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:454
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
 msgid "July"
 msgstr "július"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:133
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:440
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:490
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:453
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
 msgid "June"
 msgstr "június"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:276
 msgid "Keep original?"
 msgstr "Tartsuk meg az eredetit?"
 
@@ -506,33 +516,33 @@ msgstr "Tartsuk meg az eredetit?"
 msgid "Log out"
 msgstr "Kijelentkezés"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
 msgid "MM"
 msgstr "HH"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1255
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1304
 msgid "MapQuest map"
 msgstr "MapQuest térkép"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:130
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:487
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:450
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
 msgid "March"
 msgstr "március"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:132
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:452
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
 msgid "May"
 msgstr "május"
 
-#: lib/Horde/Core/Notification/Event/Status.php:99
+#: lib/Horde/Core/Notification/Event/Status.php:102
 msgid "Message"
 msgstr "Üzenet"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:246
 msgid "Mirror"
 msgstr "Tükrözés (jobb-bal)"
 
@@ -560,18 +570,18 @@ msgstr "Jobbra"
 msgid "Move Up"
 msgstr "Fölfelé"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:101
 msgid "Move down"
 msgstr "Lefelé"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:604
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:100
 msgid "Move up"
 msgstr "Fölfelé"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1224
 msgid "Multimap UK map"
 msgstr "Multimap Nagy-Britannia térkép"
 
@@ -583,11 +593,11 @@ msgstr "Név"
 msgid "Next>"
 msgstr "Következő>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "No"
 msgstr "Nem"
 
-#: lib/Horde/PageOutput.php:765
+#: lib/Horde/PageOutput.php:662
 msgid "No Alerts"
 msgstr "Nincs emlékeztető"
 
@@ -595,7 +605,7 @@ msgstr "Nincs emlékeztető"
 msgid "No OAuth Key or Secret found for the Twitter API"
 msgstr "Nincs OAuth kulcs, vagy Secret a Twitter API-hoz"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:548
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:566
 msgid "No Sound"
 msgstr "Nincs hang"
 
@@ -607,12 +617,12 @@ msgstr "Címjegyzék nincs kiválasztva."
 msgid "No children can be added to this permission."
 msgstr "Ehhez a jogosultsághoz nem hozható létre jogosultsági alcsoport."
 
-#: lib/Horde.php:490
+#: lib/Horde.php:352
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Hiányoznak a konfigurációs adatok %s-hez."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1669
+#: lib/Horde/Core/ActiveSync/Mail.php:472
 msgid "No message body text"
 msgstr "A levéltörzs üres"
 
@@ -620,26 +630,26 @@ msgstr "A levéltörzs üres"
 msgid "No valid email address found"
 msgstr "Érvényes emailcím nem található"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1064
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1085
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1102
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1119
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1082
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1092
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1103
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1120
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1137
 msgid "No values"
 msgstr "Nincs adat"
 
-#: lib/Horde/Registry.php:293
+#: lib/Horde/Registry.php:302
 msgid "Not an admin"
 msgstr "Nem admin"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:137
+#: lib/Horde/Core/ActiveSync/Driver.php:155
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr "Feljegyzések"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:445
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:495
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:458
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
 msgid "November"
 msgstr "november"
 
@@ -647,13 +657,13 @@ msgstr "november"
 msgid "OK"
 msgstr "OK"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Object"
 msgstr "Objektum"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:494
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:457
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:513
 msgid "October"
 msgstr "október"
 
@@ -661,7 +671,7 @@ msgstr "október"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Horde/Core/ActiveSync/Connector.php:682
+#: lib/Horde/Core/ActiveSync/Connector.php:839
 msgid "Out Of Office"
 msgstr "Házon kívül"
 
@@ -674,7 +684,7 @@ msgstr "Csomagcím"
 msgid "Permission"
 msgstr "Jogosultság"
 
-#: lib/Horde/Registry.php:351
+#: lib/Horde/Registry.php:369
 msgid "Permission denied."
 msgstr "Hozzáférés megtagadva."
 
@@ -692,7 +702,7 @@ msgstr "Telefon"
 msgid "Photo"
 msgstr "Fénykép"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:74
+#: lib/Horde/Core/Alarm/Handler/Notify.php:89
 msgid "Play a sound?"
 msgstr "Hang lejátszása"
 
@@ -701,11 +711,12 @@ msgstr "Hang lejátszása"
 msgid "Postal Address"
 msgstr "Postacím"
 
-#: lib/Horde/Core/Topbar.php:135
+#: lib/Horde/Core/Topbar.php:142
 msgid "Preferences"
 msgstr "Beállítások"
 
 #: lib/Horde/Core/Prefs/Ui.php:678
+#, php-format
 msgid "Preferences for %s"
 msgstr "%s beállításai"
 
@@ -714,19 +725,19 @@ msgstr "%s beállításai"
 msgid "Preferred Address"
 msgstr "Preferált cím"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1535
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1554
 msgid "Preview"
 msgstr "Betekintés"
 
-#: lib/Horde/Core/Topbar.php:181
+#: lib/Horde/Core/Topbar.php:188
 msgid "Problem"
 msgstr "Hibabejelentés"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1662
+#: lib/Horde/Core/ActiveSync/Mail.php:466
 msgid "Quoted"
 msgstr "Idézett"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1662
+#: lib/Horde/Core/ActiveSync/Mail.php:466
 #, php-format
 msgid "Quoting %s"
 msgstr "%s idézése"
@@ -735,8 +746,8 @@ msgstr "%s idézése"
 msgid "Really delete this block?"
 msgstr "A blokk törlése?"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:201
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:630
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:212
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:648
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
 msgid "Remove"
 msgstr "Törlés"
@@ -745,12 +756,12 @@ msgstr "Törlés"
 msgid "Remove source"
 msgstr "A forrás törlése"
 
-#: lib/Horde.php:499
+#: lib/Horde.php:361
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "A kötelezően megadandó \"%s\" nem szerepel %s konfigurációjában."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:219
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
 msgid "Reset"
 msgstr "Reset"
 
@@ -758,15 +769,15 @@ msgstr "Reset"
 msgid "Role"
 msgstr "Szerep"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:225
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
 msgid "Rotate 180"
 msgstr "Forgatás 180 fokkal"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:222
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
 msgid "Rotate Left"
 msgstr "Balra forgatás"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:228
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:240
 msgid "Rotate Right"
 msgstr "Jobbra forgatás"
 
@@ -778,33 +789,33 @@ msgstr "Szo"
 msgid "Saturday"
 msgstr "szombat"
 
-#: lib/Horde/Registry.php:237
+#: lib/Horde/Registry.php:245
 msgid "Script must be run from the command line"
 msgstr "A szkript parancssorból futtatandó"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Select a date"
 msgstr "Dátum kiválasztása"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:750
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:768
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
 msgstr "Mind kijelölése"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Select an object"
 msgstr "Elem kiválasztása"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:751
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:769
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
 msgstr "Kijelölés törlése"
 
-#: lib/Horde/Core/Prefs/Ui.php:848
+#: lib/Horde/Core/Prefs/Ui.php:860
 msgid "Select the identity you want to change:"
 msgstr "Válassza ki, melyik azonosítóját kívánja megváltoztatni:"
 
-#: lib/Horde/PageOutput.php:754
+#: lib/Horde/PageOutput.php:649
 msgid "Select..."
 msgstr "Kijelölés..."
 
@@ -812,17 +823,17 @@ msgstr "Kijelölés..."
 msgid "Selected address books:"
 msgstr "A kiválasztott címjegyzék:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1184
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
 msgid "Send SMS"
 msgstr "SMS küldése"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2569
+#: lib/Horde/Core/ActiveSync/Driver.php:2773
 msgid "Sent"
 msgstr "Elküldött"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:443
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:493
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:456
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:512
 msgid "September"
 msgstr "szeptember"
 
@@ -838,7 +849,7 @@ msgstr "Jelentkezés"
 msgid "Sign up for an account"
 msgstr "Felhasználó regisztrálása"
 
-#: lib/Horde/Core/Notification/Event/Status.php:76
+#: lib/Horde/Core/Notification/Event/Status.php:79
 msgid "Snooze..."
 msgstr "Szundi..."
 
@@ -846,7 +857,7 @@ msgstr "Szundi..."
 msgid "Su"
 msgstr "Va"
 
-#: lib/Horde/Core/Notification/Event/Status.php:104
+#: lib/Horde/Core/Notification/Event/Status.php:107
 msgid "Success"
 msgstr "Sikerült"
 
@@ -864,7 +875,7 @@ msgstr "A %s állomány sikeresen elmentetve."
 msgid "Sunday"
 msgstr "vasárnap"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:136
+#: lib/Horde/Core/ActiveSync/Driver.php:154
 msgid "Tasks"
 msgstr "Feladatok"
 
@@ -872,15 +883,15 @@ msgstr "Feladatok"
 msgid "Th"
 msgstr "Csü"
 
-#: lib/Horde/Core/Factory/History.php:12
-msgid "The History system is disabled."
-msgstr "A History rendszer működése nincs engedélyezve."
+#: lib/Horde/PageOutput.php:656
+msgid "The alarm was dismissed."
+msgstr "Az emlékeztető elnémítva."
 
-#: lib/Horde/PageOutput.php:750
+#: lib/Horde/PageOutput.php:645
 msgid "The connection to the server has been restored."
 msgstr "A kapcsolat a szerverhez helyreállt."
 
-#: lib/Horde/Core/Prefs/Identity.php:112
+#: lib/Horde/Core/Prefs/Identity.php:145
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
@@ -894,22 +905,22 @@ msgid "The encryption features require a secure web connection."
 msgstr ""
 "A titkosítási szolgáltatásokhoz biztonságos web kapcsolat (https) kell."
 
-#: lib/Horde.php:500
+#: lib/Horde.php:362
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "A %s állományban szerepelnie kell egy %s beállításnak."
 
-#: lib/Horde.php:491
+#: lib/Horde.php:353
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "A %s állományban szerepelnie kellene valamilyen %s beállításnak."
 
-#: lib/Horde/Registry.php:2665
+#: lib/Horde/Registry.php:2631
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A %s alkalmazás hibába ütközött a felhasználói adatok törlése során."
 
-#: lib/Horde/ErrorHandler.php:116
+#: lib/Horde/ErrorHandler.php:118
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -917,16 +928,16 @@ msgstr ""
 "A teljes hibaüzenet a rendszernaplóban rögzítésre került. Nem adminisztrátor "
 "felhasználók ezt nem láthtják."
 
-#: lib/Horde/Core/Prefs/Ui.php:935
+#: lib/Horde/Core/Prefs/Ui.php:947
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "A \"%s\" azonosító törölve."
 
-#: lib/Horde/Core/Prefs/Ui.php:984
+#: lib/Horde/Core/Prefs/Ui.php:996
 msgid "The new from address can't be verified, try again later: "
 msgstr "Az új feladói címet nem sikerült ellenőrizni, próbálja később: "
 
-#: lib/Horde/Core/Factory/Prefs.php:227
+#: lib/Horde/Core/Factory/Prefs.php:230
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -935,7 +946,7 @@ msgstr ""
 "A \"%s\" beállítás mentése nem sikerült, mert a mérete meghaladja a "
 "megengedett legnagyobb méretet."
 
-#: lib/Horde/Core/Factory/Prefs.php:199
+#: lib/Horde/Core/Factory/Prefs.php:202
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -943,15 +954,11 @@ msgstr ""
 "A beállításainak betöltése nem sikerült. Folytathatja a rendszer használatát "
 "az alapértelmezett beállításokkal."
 
-#: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
-msgid "There are no email addresses to confirm."
-msgstr "Nincs megerősítendő email cím."
-
 #: lib/Horde/Core/Prefs/Ui.php:466
 msgid "There are no preferences available for this application."
 msgstr "Nincs beállítási lehetőség ehhez az alkalmazáshoz."
 
-#: lib/Horde/PageOutput.php:751
+#: lib/Horde/PageOutput.php:646
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -973,11 +980,11 @@ msgstr "A névjegy beolvasása során hiba történt."
 msgid "There were errors encountered while updating your preferences."
 msgstr "Hiba történt a beállítások mentése során."
 
-#: lib/Horde/PageOutput.php:764
+#: lib/Horde/PageOutput.php:661
 msgid "This is the notification log."
 msgstr "Ez az emlékeztető napló."
 
-#: lib/Horde/Registry.php:537
+#: lib/Horde/Registry.php:554
 msgid "This system is currently deactivated."
 msgstr "A rendszer jelenleg inaktiválva van."
 
@@ -997,7 +1004,7 @@ msgstr "csütörtök"
 msgid "Title"
 msgstr "Titulus"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:723
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:741
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -1005,11 +1012,11 @@ msgstr ""
 "Ha több elemet is ki akar jelölni, tartsa lenyomva a Control (PC) vagy a "
 "Command (Mac) billentyűt a kattintás közben."
 
-#: lib/Horde/Core/Topbar.php:170
+#: lib/Horde/Core/Topbar.php:177
 msgid "Toggle Alerts Log"
 msgstr "Emlékeztető napló"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2564
+#: lib/Horde/Core/ActiveSync/Driver.php:2768
 msgid "Trash"
 msgstr "Szemetes"
 
@@ -1034,11 +1041,12 @@ msgstr "URL"
 msgid "Update"
 msgstr "Módosítás"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:193
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:204
 msgid "Upload"
 msgstr "Feltöltés"
 
 #: lib/Horde/Core/Auth/Signup/Sql.php:95
+#, php-format
 msgid "User \"%s\" does not exist."
 msgstr "A \"%s\" felhasználó nem létezik"
 
@@ -1046,12 +1054,12 @@ msgstr "A \"%s\" felhasználó nem létezik"
 msgid "User Preferences"
 msgstr "Felhasználói beállítások"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:132
+#: lib/Horde/Core/Auth/Signup/Base.php:143
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "A \"%s\" felhasználói név már foglalt."
 
-#: lib/Horde/Core/Notification/Event/Status.php:109
+#: lib/Horde/Core/Notification/Event/Status.php:112
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
@@ -1067,7 +1075,7 @@ msgstr "Az időjárás szolgáltatás nincs beállítva."
 msgid "Wednesday"
 msgstr "szerda"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1231
 msgid "Whereis Australia map"
 msgstr "Whereis Ausztrália térkép"
 
@@ -1080,16 +1088,16 @@ msgstr "Munkahelyi cím"
 msgid "Work Phone"
 msgstr "Munkahelyi telefon"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "YYYY"
 msgstr "ÉÉÉÉ"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1275
 msgid "Yahoo! map"
 msgstr "Yahoo! térkép"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "Yes"
 msgstr "Igen"
 
@@ -1100,11 +1108,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Nincs jogosultsága több, mint %d blokk létrehozására"
 msgstr[1] "Nincs jogosultsága több, mint %d blokk létrehozására"
 
-#: lib/Horde/Registry.php:2632
+#: lib/Horde/Registry.php:2598
 msgid "You are not allowed to remove user data."
 msgstr "Nincs jogosultsága felhasználói adatok törlésére."
 
-#: lib/Horde/Core/Auth/Application.php:729
+#: lib/Horde/Core/Auth/Application.php:739
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
@@ -1115,12 +1123,12 @@ msgstr ""
 "IE8-at, vagy újabbat használ, kapcsolja ki a Kompatibilitási nézetet. Addig "
 "is a minimális nézet működik."
 
-#: lib/Horde/PageOutput.php:752
+#: lib/Horde/PageOutput.php:647
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "%s szundi, vagy %s kikapcsolás %s "
 
-#: lib/Horde/Core/Prefs/Identity.php:44
+#: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
 msgid ""
 "You have requested to add the email address \"%s\" to the list of your "
@@ -1139,7 +1147,7 @@ msgstr ""
 "Ha a fenti email cím nem az Öné, vagy nem tudja miért kapta ezt a levelet, "
 "akkor nyugodtan törölje ki."
 
-#: lib/Horde/Core/Factory/Vfs.php:72
+#: lib/Horde/Core/Factory/Vfs.php:74
 msgid "You must configure a VFS backend."
 msgstr "A VFS alrendszer nincs beállítva."
 
@@ -1148,31 +1156,31 @@ msgstr "A VFS alrendszer nincs beállítva."
 msgid "You must provide a setting for \"%s\"."
 msgstr "Meg kell adnia \"%s\" beállítását."
 
-#: lib/Horde/Core/Auth/Application.php:696
+#: lib/Horde/Core/Auth/Application.php:706
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr ""
 "A böngészőprogramja nem futtat Javascriptet. A minimális nézetet használjuk."
 
-#: lib/Horde/Core/Auth/Application.php:704
+#: lib/Horde/Core/Auth/Application.php:714
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
 "A böngészőprogramja nem támogatja a dinamikus nézetet. Az egyszerű nézetet "
 "használjuk."
 
-#: lib/Horde/Core/Auth/Application.php:707
-#: lib/Horde/Core/Auth/Application.php:715
+#: lib/Horde/Core/Auth/Application.php:717
+#: lib/Horde/Core/Auth/Application.php:725
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
 "A böngészőprogramja nem támogatja a dinamikus nézetet. Az minimális nézetet "
 "használjuk."
 
-#: lib/Horde/Core/Prefs/Ui.php:951
+#: lib/Horde/Core/Prefs/Ui.php:963
 msgid "Your default identity has been changed."
 msgstr "Az Ön alapértelmezés szerinti azonosítója megváltozott."
 
-#: lib/Horde/Core/Prefs/Ui.php:847
+#: lib/Horde/Core/Prefs/Ui.php:859
 msgid "Your default identity:"
 msgstr "Az Ön alapértelmezés szerinti azonosítója:"
 
@@ -1193,26 +1201,27 @@ msgid "[No Label]"
 msgstr "[Név nélkül]"
 
 #: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
+#, php-format
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[A beidézett szöveg megjelenítése - %d sor]"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:261
 msgid "h:"
 msgstr "m:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:391
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:404
 msgid "hh"
 msgstr "óó"
 
-#: lib/Horde/PageOutput.php:692
+#: lib/Horde/PageOutput.php:585
 msgid "loading"
 msgstr "Töltés"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:402
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:415
 msgid "mm"
 msgstr "pp"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:419
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
 msgid "ss"
 msgstr "mp"
 
@@ -1220,6 +1229,6 @@ msgstr "mp"
 msgid "vCard"
 msgstr "vCard"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:241
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:253
 msgid "w:"
 msgstr "sz:"

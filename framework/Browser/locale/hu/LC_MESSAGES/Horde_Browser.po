@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-27 14:53+0200\n"
-"PO-Revision-Date: 2014-04-30 10:23+0200\n"
+"POT-Creation-Date: 2014-05-28 16:21+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -16,35 +16,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1123
+#: lib/Horde/Browser.php:1130
 msgid "File uploads not supported."
 msgstr "Fájlok feltöltése nem lehetséges."
 
-#: lib/Horde/Browser.php:1140
+#: lib/Horde/Browser.php:1147
 msgid "No file uploaded"
 msgstr "A feltöltés sikertelen"
 
-#: lib/Horde/Browser.php:1150
+#: lib/Horde/Browser.php:1169
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr "A feltöltött fájl üres."
 
-#: lib/Horde/Browser.php:1147
+#: lib/Horde/Browser.php:1191
+msgid ""
+"There was a problem with the file upload: Can't write the uploaded data to "
+"the server."
+msgstr "Hiba a fájl feltöltésekor: Az írás sikertelen."
+
+#: lib/Horde/Browser.php:1165
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "A %s fájl nem töltődött föl a szerverre."
+msgstr "Hiba a fájl feltöltésekor: %s nem töltődött föl a szerverre."
 
-#: lib/Horde/Browser.php:1155
+#: lib/Horde/Browser.php:1176
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"A %s fájl nem töltődött föl a szerverre, mert nagyobb, mint a maximálisan "
-"megengedett %d bájt."
+"Hiba a fájl feltöltésekor: A %s fájl nem töltődött föl a szerverre, mert a "
+"mérete nagyobb, mint a maximálisan megengedett %d bájt."
 
-#: lib/Horde/Browser.php:1157
+#: lib/Horde/Browser.php:1179
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
-msgstr "A %s fájl csak egy része töltődött föl a szerverre."
+msgstr "Hiba a fájl feltöltésekor: Csak a %s fájl egy része töltődött föl."
+
+#: lib/Horde/Browser.php:1183
+msgid ""
+"There was a problem with the file upload: The temporary folder used to store "
+"the upload data is missing."
+msgstr "Hiba a fájl feltöltésekor: Az ideiglenes mappa nem létezik."

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Text_Filter \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
-"PO-Revision-Date: 2014-05-09 14:58+0200\n"
+"POT-Creation-Date: 2014-05-29 09:25+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Text/Filter/Html2text.php:118
-#: lib/Horde/Text/Filter/Html2text.php:119
+#: lib/Horde/Text/Filter/Html2text.php:122
+#: lib/Horde/Text/Filter/Html2text.php:123
 msgid "Links"
 msgstr "Hivatkozások"

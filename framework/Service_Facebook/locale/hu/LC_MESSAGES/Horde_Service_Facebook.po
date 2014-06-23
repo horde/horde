@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Horde_Service_Facebook \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2014-05-05 21:20+0200\n"
+"PO-Revision-Date: 2014-06-22 19:11+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -22,5 +22,6 @@ msgstr ""
 "A Facebook szolgáltatás jelenleg nem érhető el. Kérem próbálja meg később."
 
 #: lib/Horde/Service/Facebook/Request/Graph.php:106
+#, php-format
 msgid "Upload failed: %s"
 msgstr "A feltöltés sikertelen: %s"
