@@ -141,7 +141,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
-        $this->_enocder->endTag();
+        $this->_encoder->endTag();
     }
 
 }
