@@ -65,7 +65,7 @@ abstract class IMP_Ftree_Account implements Serializable
      * @return array  Array of elements to be added via
      *                IMP_Ftree#_insertElt().
      */
-    abstract public function getList(array $query = array(), $mask = 0);
+    abstract public function getList($query = array(), $mask = 0);
 
     /**
      * Return the mailbox selction to delete.

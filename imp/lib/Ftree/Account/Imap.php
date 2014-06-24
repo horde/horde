@@ -40,7 +40,7 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 
     /**
      */
-    public function getList(array $query = array(), $mask = 0)
+    public function getList($query = array(), $mask = 0)
     {
         global $prefs;
 
