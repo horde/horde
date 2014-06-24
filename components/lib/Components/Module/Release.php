@@ -116,13 +116,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '--fm_token',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The token for accessing freecode.com.'
-                )
-            ),
-            new Horde_Argv_Option(
                 '--web_dir',
                 array(
                     'action' => 'store',
@@ -181,7 +174,6 @@ The available tasks are:
  - announce    : Announce the release on the mailing lists.
  - website     : Add the new release on www.horde.org
  - bugs        : Add the new release on bugs.horde.org
- - freecode    : Add the new release on freecode.com
  - next        : Update package.xml with the next version.
  - nextsentinel: Update the sentinels for the next version as well.
 
@@ -211,7 +203,6 @@ The following example would generate the package and add the release tag to git 
             '--from' => '',
             '--horde_user' => '',
             '--horde_pass' => '',
-            '--fm_token' => '',
             '--web_dir' => '',
         );
     }
