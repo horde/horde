@@ -24,7 +24,7 @@ class IMP_Ftree_Account_Inboxonly extends IMP_Ftree_Account
 {
     /**
      */
-    public function getList(array $query = array(), $mask = 0)
+    public function getList($query = array(), $mask = 0)
     {
         return array(
             array(

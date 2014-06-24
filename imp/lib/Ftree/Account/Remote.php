@@ -38,7 +38,7 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
 
     /**
      */
-    public function getList(array $query = array(), $mask = 0)
+    public function getList($query = array(), $mask = 0)
     {
         global $injector;
 
