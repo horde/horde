@@ -70,6 +70,9 @@ class Components_Release_Notes
     public function setComponent(Components_Component $component)
     {
         $this->_component = $component;
+        if ($notes = $component->getReleaseNotesPath()) {
+            include $notes;
+        }
     }
 
     /**
