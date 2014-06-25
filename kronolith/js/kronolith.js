@@ -5593,6 +5593,8 @@ KronolithCore = {
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
+            $('kronolithEventUrlDisplay').hide();
+            $('kronolithEventUrl').show();
             this.toggleRecurrence(true, 'None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
@@ -5815,7 +5817,15 @@ KronolithCore = {
             $('kronolithEventUrlDisplay').show();
             $('kronolithEventUrl').hide();
         }
-        $('kronolithEventUrl').setValue(ev.u);
+        else {
+            $('kronolithEventUrlDisplay').hide();
+            $('kronolithEventUrl').show();
+        }
+
+        if (ev.u) {
+            $('kronolithEventUrl').setValue(ev.u);
+        }
+
         $('kronolithEventAllday').setValue(ev.al);
 
         if (ev.r && ev.rsd && ev.red) {
