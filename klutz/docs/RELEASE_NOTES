@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Klutz Comic
 viewing application version H3 (1.0).
 
@@ -11,6 +11,7 @@ Klutz is a Horde application for viewing comics. Users can pick which comics
 they want to read and browse them by comic or by day.
 ML;
 
-$this->notes['name'] = 'Klutz';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Default';
+$notes['name'] = 'Klutz';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Default';
+return $notes;

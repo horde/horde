@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the [first release candidate|final
 release] of the Skeleton Foo Bar Application version H3 (x.x).
 
@@ -28,5 +28,6 @@ The major changes compared to the Skeleton version H3 (x.x) are:
     * ...
 ML;
 
-$this->notes['name'] = 'Skeleton';
-$this->notes['branch'] = 'Horde 4';
+$notes['name'] = 'Skeleton';
+$notes['branch'] = 'Horde 4';
+return $notes;

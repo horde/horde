@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the first release candidate of the Turba
 Contact Manager version H5 (4.2.0).
 
@@ -29,5 +29,6 @@ The major changes compared to the Turba version H5 (4.2.0beta1) are:
     * Small bugfixes.
 ML;
 
-$this->notes['name'] = 'Turba';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Turba';
+$notes['branch'] = 'Horde 5';
+return $notes;

@@ -1,2 +1,3 @@
 <?php
-$this->notes['name'] = 'Content';
+$notes['name'] = 'Content';
+return $notes;

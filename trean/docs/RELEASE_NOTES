@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the first release candidate of the Trean
 Bookmarks Manager version H5 (1.1.0).
 
@@ -23,6 +23,7 @@ Major changes compared to the Trean H5 (1.0) versions are:
     * Added Danish translation.
 ML;
 
-$this->notes['name'] = 'Trean';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Trean';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Horde 5';
+return $notes;

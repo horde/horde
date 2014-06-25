@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the first release candidate of the Mnemo
 Note Manager version H5 (4.2.0).
 
@@ -28,6 +28,7 @@ The major changes compared to the Mnemo version H5 (4.2.0alpha1) are:
     * Updated translations.
 ML;
 
-$this->notes['name'] = 'Mnemo';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Mnemo';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Horde 5';
+return $notes;

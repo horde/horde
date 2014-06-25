@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the third release candidate of the Sesha
 Inventory Manager Application version H5 (1.0.0).
 
@@ -20,6 +20,7 @@ The major changes compared to the Sesha version H5 (1.0.0RC2) are:
     * Search improvements.
 ML;
 
-$this->notes['name'] = 'Sesha';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Sesha';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Horde 5';
+return $notes;

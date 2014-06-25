@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the first release candidate of the Horde
 Application Framework version 5.2.0.
 
@@ -29,5 +29,6 @@ The major changes compared to the Horde version 5.2.0beta2 are:
     * Small bugfixes.
 ML;
 
-$this->notes['name'] = 'Horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Horde';
+$notes['branch'] = 'Horde 5';
+return $notes;

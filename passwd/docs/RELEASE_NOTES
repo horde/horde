@@ -1,8 +1,8 @@
 <?php
-$this->notes['fm']['project'] = 'skeleton';
+$notes['fm']['project'] = 'skeleton';
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Passwd Horde
 password changing application version H5 (5.0.1).
 
@@ -20,6 +20,7 @@ The major changes compared to Passwd version H5 (5.0.0) are:
 ML;
 
 
-$this->notes['name'] = 'Passwd';
-$this->notes['list'] = 'sork';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Passwd';
+$notes['list'] = 'sork';
+$notes['branch'] = 'Horde 5';
+return $notes;

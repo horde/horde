@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Wicked wiki
 application version H5 (2.0.1).
 
@@ -19,6 +19,7 @@ The major changes compared to the Wicked version H5 (2.0.0) are:
     * Small bugfixes and improvements.
 ML;
 
-$this->notes['name'] = 'Wicked';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Wicked';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Horde 5';
+return $notes;
