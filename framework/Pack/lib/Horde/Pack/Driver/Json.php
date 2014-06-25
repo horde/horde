@@ -37,12 +37,17 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
      */
     public function pack($data)
     {
+        $d = json_encode($data);
+        if (json_last_error() === 5) {
+            throw new Horde_Pack_Exception('Non UTF-8 data cannot be JSON packed.');
+        }
+
         /* For JSON, we need to keep track whether the initial data was
          * an object or class. The initial JSON character is one of the
          * following:
          *   0: Non-array
          *   1: Array */
-        return intval(is_array($data)) . json_encode($data);
+        return intval(is_array($data)) . $d;
     }
 
     /**

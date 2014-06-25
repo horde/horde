@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t use JSON driver to pack if input contains non-UTF8 data (Bug #13275).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -182,7 +182,7 @@
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t use JSON driver to pack if input contains non-UTF8 data (Bug #13275).
    </notes>
   </release>
  </changelog>
