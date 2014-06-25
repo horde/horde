@@ -34,4 +34,25 @@ class Horde_Pack_PackTest extends Horde_Test_Case
         serialize($pack);
     }
 
+    // Bug #13275
+    public function testNonUtf8Pack()
+    {
+        // ISO-8859-1 string
+        $data = base64_decode('VORzdA==');
+
+        $pack = new Horde_Pack();
+
+        $p = $pack->pack($data, array(
+            'drivers' => array(
+                'Horde_Pack_Driver_Json',
+                'Horde_Pack_Driver_Serialize'
+            )
+        ));
+
+        $this->assertEquals(
+            $data,
+            $pack->unpack($p)
+        );
+    }
+
 }

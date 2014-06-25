@@ -126,7 +126,11 @@ class Horde_Pack
              *   128 - RESERVED for future use (if set, indicates that initial
              *         byte will extend into next byte).
              * Packed (and compressed data) follows this byte. */
-            $packed = $val->pack($data);
+            try {
+                $packed = $val->pack($data);
+            } catch (Horde_Pack_Exception $e) {
+                continue;
+            }
 
             if ($opts['compress'] !== false) {
                 if ($opts['compress'] === 0) {
