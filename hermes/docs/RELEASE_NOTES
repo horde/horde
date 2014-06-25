@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the first beta release of the Hermes Time
 Tracking Application version H5 (2.0).
 
@@ -28,6 +28,7 @@ Major changes compared to the Hermes H3 (1.0.1) version are:
     * Added improved support for timers.
 ML;
 
-$this->notes['name'] = 'Hermes';
-$this->notes['list'] = 'horde';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Hermes';
+$notes['list'] = 'horde';
+$notes['branch'] = 'Horde 5';
+return $notes;

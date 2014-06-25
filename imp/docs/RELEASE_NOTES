@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the second beta release of the Internet
 Mail Program (IMP) version H5 (6.2.0).
 
@@ -32,5 +32,6 @@ The major changes compared to IMP version H5 (6.2.0beta1) are:
     * Allow dragging of text to HTML compose body.
 ML;
 
-$this->notes['name'] = 'IMP';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'IMP';
+$notes['branch'] = 'Horde 5';
+return $notes;

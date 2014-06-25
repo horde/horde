@@ -34,21 +34,21 @@ class Components_Release_Notes
      *
      * @var array
      */
-    private $notes = array();
+    protected $_notes = array();
 
     /**
      * The component that should be released
      *
      * @var Components_Component
      */
-    private $_component;
+    protected $_component;
 
     /**
      * The task output.
      *
      * @var Components_Output
      */
-    private $_output;
+    protected $_output;
 
     /**
      * Constructor.
@@ -70,8 +70,8 @@ class Components_Release_Notes
     public function setComponent(Components_Component $component)
     {
         $this->_component = $component;
-        if ($notes = $component->getReleaseNotesPath()) {
-            include $notes;
+        if ($file = $component->getReleaseNotesPath()) {
+            $this->_notes = include $file;
         }
     }
 
@@ -84,9 +84,9 @@ class Components_Release_Notes
      */
     public function getBranch()
     {
-        if (!empty($this->notes['branch'])
-            && $this->notes['name'] != 'Horde') {
-            return strtr($this->notes['branch'], array('Horde ' => 'H'));
+        if (!empty($this->_notes['branch'])
+            && $this->_notes['name'] != 'Horde') {
+            return strtr($this->_notes['branch'], array('Horde ' => 'H'));
         } else {
             return '';
         }
@@ -99,8 +99,8 @@ class Components_Release_Notes
      */
     public function getName()
     {
-        if (isset($this->notes['name'])) {
-            return $this->notes['name'];
+        if (isset($this->_notes['name'])) {
+            return $this->_notes['name'];
         } else {
             return $this->_component->getName();
         }
@@ -114,8 +114,8 @@ class Components_Release_Notes
      */
     public function getList()
     {
-        if (isset($this->notes['list'])) {
-            return $this->notes['list'];
+        if (isset($this->_notes['list'])) {
+            return $this->_notes['list'];
         }
     }
 
@@ -126,7 +126,7 @@ class Components_Release_Notes
      */
     public function getSecurity()
     {
-        return !empty($this->notes['security']);
+        return !empty($this->_notes['security']);
     }
 
     /**
@@ -136,8 +136,8 @@ class Components_Release_Notes
      */
     public function getAnnouncement()
     {
-        if (isset($this->notes['changes'])) {
-            return $this->notes['changes'];
+        if (isset($this->_notes['changes'])) {
+            return $this->_notes['changes'];
         }
         return '';
     }
@@ -149,6 +149,6 @@ class Components_Release_Notes
      */
     public function hasNotes()
     {
-        return !empty($this->notes['changes']);
+        return !empty($this->_notes['changes']);
     }
 }

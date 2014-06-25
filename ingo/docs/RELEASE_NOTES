@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the second beta release of the Ingo Email
 Filter Rules Manager version H5 (3.2.0).
 
@@ -30,5 +30,6 @@ The major changes compared to Ingo version H5 (3.2.0beta1) are:
     * Small bugfixes.
 ML;
 
-$this->notes['name'] = 'Ingo';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Ingo';
+$notes['branch'] = 'Horde 5';
+return $notes;

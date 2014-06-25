@@ -1,2 +1,3 @@
 <?php
-$this->notes['name'] = 'Timeobjects';
+$notes['name'] = 'Timeobjects';
+return $notes;

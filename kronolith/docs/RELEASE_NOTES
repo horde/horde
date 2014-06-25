@@ -1,9 +1,9 @@
 <?php
 /* Security release? */
-$this->notes['security'] = false;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the second beta release of the Kronolith
 Calendar Application version H5 (4.2.0).
 
@@ -34,5 +34,6 @@ The major changes compared to Kronolith version H5 (4.2.0beta1) are:
     * Small bugfixes.
 ML;
 
-$this->notes['name'] = 'Kronolith';
-$this->notes['branch'] = 'Horde 5';
+$notes['name'] = 'Kronolith';
+$notes['branch'] = 'Horde 5';
+return $notes;
