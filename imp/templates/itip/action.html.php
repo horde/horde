@@ -97,7 +97,7 @@
 <?php if (isset($this->options)): ?>
 <?php if (count($this->options) == 1): ?>
 <input type="hidden" name="itip_action[<?php echo $this->options_id ?>]" value="<?php echo key($this->options) ?>" />
-<input type="submit" class="<?php echo key($this->options) == 'delete' ? 'horde-delete' : 'horde-default' ?>" value="<?php echo current($this->options) ?>" />
+<input type="submit" class="<?php echo key($this->options) == 'delete' ? 'horde-delete' : 'horde-default' ?>" value="<?php echo $this->h(current($this->options)) ?>" />
 <?php else: ?>
 <h2 class="smallheader"><?php echo _("Actions") ?>:</h2>
 
