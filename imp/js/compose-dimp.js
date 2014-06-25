@@ -375,7 +375,7 @@ var DimpCompose = {
 
         this.disabled = disable;
 
-        if (redirect.visible()) {
+        if (redirect && redirect.visible()) {
             HordeCore.loadingImg('sendingImg', 'redirect', disable);
             DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
             redirect.setStyle({ cursor: disable ? 'wait': null });
