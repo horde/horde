@@ -88,3 +88,8 @@ BC BREAKING (i.e., Horde 6).
   workarounds for broken clients. E.g., filter out the ADD commands sent in
   response to MOVEITEMS for Outlook clients. Use a similar pattern for other
   types of broken client behavior.
+
+- No longer ignore SMS synchronization in the library, but pass it up to the
+  backend and the let the backend decide what to do with it. Since the SMS
+  ability of EAS uses the device to actually send the SMS, I could foresee
+  some added ability in IMP, or maybe a separate app, that allows managing this.
