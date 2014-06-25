@@ -27,7 +27,9 @@ class IMP_Dynamic_Compose_Common
      *
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
      * @param array $args             Configuration parameters:
-     *   - redirect: (string) Display the redirect interface?
+     *   - redirect: (boolean) Display the redirect interface? If true,
+     *               display only redirect. If false, don't add redirect
+     *               interface to page.
      *   - resume: (boolean) Are we resuming a saved draft?
      *   - show_editor: (boolean) Show the HTML editor?
      *   - template: (string) Display the edit template interface?
@@ -68,11 +70,16 @@ class IMP_Dynamic_Compose_Common
             return $view->render('redirect');
         }
 
-        $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
+        $ac = array('to', 'cc', 'bcc');
+        if (!isset($args['redirect'])) {
+            $ac[] = 'redirect_to';
+        }
+
+        $imp_ui->attachAutoCompleter($ac);
         $view->spellcheck = $imp_ui->attachSpellChecker();
 
         $this->_compose($base, $view, $args);
-        return $view->render('compose') . $view->render('redirect');
+        return $view->render('compose') . (isset($args['redirect']) ? '' : $view->render('redirect'));
     }
 
     /**

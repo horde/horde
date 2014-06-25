@@ -211,9 +211,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             break;
         }
 
-        if ($this->vars->type == 'forward_redirect') {
-            $compose_opts['redirect'] = true;
-        }
+        $compose_opts['redirect'] = ($this->vars->type == 'forward_redirect');
 
         if (isset($onload->addr) || !empty($addr)) {
             foreach (array('to', 'cc', 'bcc') as $val) {
