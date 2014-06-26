@@ -81,10 +81,12 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+  </required>
+  <optional>
    <extension>
     <name>bcmath</name>
    </extension>
-  </required>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
