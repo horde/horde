@@ -252,7 +252,7 @@ class Horde_Session
         /* Store encrypted data, since secret key may have changed. */
         foreach ($encrypted as $app => $val) {
             foreach ($val as $key2 => $val2) {
-                $this->set($app, $key2, $val2, self::ENCRYPTED);
+                $this->set($app, $key2, $val2, self::ENCRYPT);
             }
         }
 
