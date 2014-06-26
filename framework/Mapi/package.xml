@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-01-18</date>
+ <date>2014-06-26</date>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -151,7 +151,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-01-18</date>
+   <date>2014-06-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Make bcmath an optional, not required, extension (Bug #13285).
