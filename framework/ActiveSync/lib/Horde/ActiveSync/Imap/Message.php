@@ -458,7 +458,11 @@ class Horde_ActiveSync_Imap_Message
             $mime_part = $data;
         }
         $tnef_parser = Horde_Compress::factory('Tnef');
-        $tnef_data = $tnef_parser->decompress($mime_part->getContents());
+        try {
+            $tnef_data = $tnef_parser->decompress($mime_part->getContents());
+        } catch (Horde_Compress_Exception $e) {
+            return false;
+        }
         if (!count($tnef_data)) {
             return false;
         }
