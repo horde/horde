@@ -160,8 +160,15 @@ class Horde_Core_ActiveSync_Mail
     public function setRawMessage(Horde_ActiveSync_Rfc822 $raw)
     {
         $this->_headers = $raw->getHeaders();
-        $this->_headers->removeHeader('From');
-        $this->_headers->addHeader('From', $this->_getIdentityFromAddress());
+
+        // Try to get e-mail address from users identity. If available,
+        // replace the 'From' header with the new e-mail address.
+        $from_addr = $this->_getIdentityFromAddress();
+        if ($from_addr !== false) {
+            $this->_headers->removeHeader('From');
+            $this->_headers->addHeader('From', $from_addr);
+        }
+
         $this->_raw = $raw;
     }
 
@@ -406,7 +413,8 @@ class Horde_Core_ActiveSync_Mail
     /**
      * Return the current user's From/Reply_To address.
      *
-     * @return string  A RFC822 valid email string.
+     * @return string|false  A RFC822 valid email string or false if no default identiy
+     *                       was found.
      */
     protected function _getIdentityFromAddress()
     {
@@ -419,6 +427,10 @@ class Horde_Core_ActiveSync_Mail
         $as_ident = $prefs->getValue('activesync_identity');
         $name = $ident->getValue('fullname', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
         $from_addr = $ident->getValue('from_addr', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
+        if (empty($from_addr)) {
+            return false;
+        }
+        
         $rfc822 = new Horde_Mail_Rfc822_Address($from_addr);
         $rfc822->personal = $name;
 
