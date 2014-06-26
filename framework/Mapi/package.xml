@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Make bcmath an optional, not required, extension (Bug #13285).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -154,7 +154,7 @@
    <date>2014-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Make bcmath an optional, not required, extension (Bug #13285).
    </notes>
   </release>
  </changelog>
