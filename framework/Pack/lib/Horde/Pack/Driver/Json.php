@@ -38,6 +38,7 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
     public function pack($data)
     {
         $d = json_encode($data);
+        // TODO: JSON_ERROR_UTF8 = 5; available as of PHP 5.3.3
         if (json_last_error() === 5) {
             throw new Horde_Pack_Exception('Non UTF-8 data cannot be JSON packed.');
         }

@@ -35,6 +35,7 @@ document.observe('dom:loaded', function() {
                     if (!Object.isString(data)) {
                         rf.attrdata = data;
                     }
+                    var c;
                     return true;
                 },
                 params: params.toObject(),
@@ -51,6 +52,14 @@ document.observe('dom:loaded', function() {
                 style: 'display:inline-block;margin-top:10px;',
                 type: 'button'
             }, 'browse');
+
+            definition.dialog.on('cancel', function(ev2) {
+                var a;
+            });
+
+            definition.dialog.on('ok', function(ev2) {
+                var b;
+            });
         }
     });
 });
