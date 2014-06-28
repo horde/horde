@@ -15,12 +15,6 @@ document.observe('dom:loaded', function() {
             upload = definition.getContents('Upload');
 
             rf = upload.add({
-                commit: function(type, element, internalCommit) {
-                    if (type == 1 && rf.attrdata) {
-                        element.setAttributes(rf.attrdata);
-                        delete rf.attrdata;
-                    }
-                },
                 hidden: true,
                 id: 'related_fields',
                 type: 'text'
@@ -32,6 +26,7 @@ document.observe('dom:loaded', function() {
             upload.get('uploadButton').filebrowser = {
                 action: 'QuickUpload',
                 onSelect: function(fileUrl, data) {
+                    delete rf.attrdata;
                     if (!Object.isString(data)) {
                         rf.attrdata = data;
                     }
@@ -51,6 +46,22 @@ document.observe('dom:loaded', function() {
                 style: 'display:inline-block;margin-top:10px;',
                 type: 'button'
             }, 'browse');
+
+            definition.dialog.on('cancel', function(ev2) {
+                if (rf.attrdata) {
+                    IMP_Ckeditor_Imagepoll.remove([
+                        new CKEDITOR.dom.element('IMG').writeAttribute(rf.attrdata)
+                    ]);
+                }
+            });
+
+            definition.dialog.on('hide', function(ev2) {
+                var elt = new CKEDITOR.dom.element(ev2.sender.imageElement.$);
+                if (elt.isVisible()) {
+                    elt.setAttributes(rf.attrdata);
+                    IMP_Ckeditor_Imagepoll.add(elt.$);
+                }
+            });
         }
     });
 });

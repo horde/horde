@@ -36,6 +36,10 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
             switch ($registry->getView()) {
             case $registry::VIEW_DYNAMIC:
                 $this->_files[] = new Horde_Script_File_JsDir('ckeditor/imageupload.js', 'imp');
+                $this->_files[] = new Horde_Script_File_JsDir('ckeditor/imagepoll.js', 'imp');
+                $page_output->addInlineJsVars(array(
+                    'IMP_Ckeditor_Imagepoll.related_attr' => IMP_Compose::RELATED_ATTR
+                ));
 
                 $plugin = 'pasteattachment';
                 $upload_url = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachmentCkeditor';

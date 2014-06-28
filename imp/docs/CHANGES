@@ -2,11 +2,13 @@
 v6.2.0-git
 ----------
 
+[mms] Fix handling image attachments when added via the HTML editor Image
+      dialog.
 
 
-------
-v6.2.0
-------
+-----------
+v6.2.0beta3
+-----------
 
 [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug
       #13257).

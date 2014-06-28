@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-21</date>
+ <date>2014-06-28</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -69,6 +69,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <dir name="ckeditor">
+     <file name="imagepoll.js" role="horde" />
      <file name="imageupload.js" role="horde" />
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
@@ -1558,6 +1559,7 @@
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
+   <install as="imp/js/ckeditor/imagepoll.js" name="js/ckeditor/imagepoll.js" />
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
@@ -3653,15 +3655,15 @@
   </release>
   <release>
    <version>
-    <release>6.3.0</release>
+    <release>6.2.0beta4</release>
     <api>6.2.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-21</date>
+   <date>2014-06-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix handling image attachments when added via the HTML editor Image dialog.
    </notes>
   </release>
  </changelog>
