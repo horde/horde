@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Fix handling image attachments when added via the HTML editor Image
+      dialog.
 
 
 -----------
