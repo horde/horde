@@ -928,13 +928,13 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_export':
-            this.viewaction = function(e) {
+            this.viewaction = function(e2, e) {
                 HordeCore.download('', {
                     actionID: 'download_mbox',
                     mbox_list: Object.toJSON([ this.flist.getMbox(e).value() ]),
-                    type: e.element().down('[name=download_type]').getValue()
+                    type: e2.memo.findElement('FORM').down('[name=download_type]').getValue()
                 });
-            };
+            }.bindAsEventListener(this, e);
 
             tmp = new Element('SELECT', { name: 'download_type' });
             $H(DimpCore.conf.download_types).each(function(d) {
