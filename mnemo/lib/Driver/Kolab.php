@@ -133,11 +133,12 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _add($noteId, $desc, $body, $tags)
     {
         try {
-            return $this->_getData()
+            $this->_getData()
                 ->create($this->_buildObject($noteId, $desc, $body, $tags));
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
+        return $uid;
     }
 
     /**
@@ -154,11 +155,12 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _modify($noteId, $desc, $body, $tags)
     {
         try {
-            return $this->_getData()
+            $this->_getData()
                 ->modify($this->_buildObject($noteId, $desc, $body, $tags));
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
+        return $uid;
     }
 
     /**
@@ -169,7 +171,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      * @param string $body    The whole note body.
      * @param string $tags    The tags of the note.
      *
-     * @return array  The Kolab hash.
+     * @return string  The Kolab hash.
      */
     protected function _buildObject($noteId, $desc, $body, $tags)
     {
@@ -183,8 +185,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             ->getInstance('Mnemo_Tagger')
             ->split($tags);
         usort($object['categories'], 'strcoll');
-
-        return $object;
     }
 
     /**
