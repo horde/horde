@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] Fix regression in deactivating scripts (Bug #13297).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1461,7 +1461,7 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mms] Fix regression in deactivating scripts (Bug #13297).
    </notes>
   </release>
  </changelog>

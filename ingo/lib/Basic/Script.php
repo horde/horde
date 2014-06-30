@@ -51,20 +51,13 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
         /* Activate/deactivate script if requested. */
         switch ($actionID) {
         case 'action_activate':
+        case 'action_deactivate':
             if (!empty($scripts)) {
                 try {
-                    Ingo_Script_Util::activate($scripts);
+                    Ingo_Script_Util::activate($scripts, $actionID == 'action_deactivate');
                 } catch (Ingo_Exception $e) {
                     $notification->push($e);
                 }
-            }
-            break;
-
-        case 'action_deactivate':
-            try {
-                Ingo_Script_Util::activate('', true);
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
             }
             break;
 
