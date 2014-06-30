@@ -203,14 +203,14 @@ class Horde_ActiveSync_Connector_Importer
      * modified.
      *
      * @param array $ids          Server message uids to delete
-     * @param string $collection  The server collection type.
+     * @param string $class       The server collection class.
      *
      * @return array  An array containing ids of successfully deleted messages.
      */
-    public function importMessageDeletion(array $ids, $collection)
+    public function importMessageDeletion(array $ids, $class)
     {
         // Don't support SMS, but can't tell client that.
-        if ($collection == Horde_ActiveSync::CLASS_SMS) {
+        if ($class == Horde_ActiveSync::CLASS_SMS || preg_grep("/^IGNORESMS_.*/", $ids)) {
             return array();
         }
 
