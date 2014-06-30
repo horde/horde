@@ -178,7 +178,17 @@ class Client
             $conn . $host . ':' . $port,
             $error_number,
             $error_string,
-            $timeout
+            $timeout,
+            STREAM_CLIENT_CONNECT,
+            /* @todo: As of PHP 5.6, TLS connections require valid certs.
+             * However, this is BC-breaking to this library. For now, keep
+             * pre-5.6 behavior. */
+            stream_context_create(array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                )
+            ))
         );
 
         if ($this->_stream === false) {
