@@ -277,7 +277,11 @@ class Horde_ActiveSync_Connector_Importer
         if ($class == Horde_ActiveSync::CLASS_SMS) {
             return $uids;
         }
-
+        // Filter out SMS if $class is not CLASS_SMS
+        $uids = array_filter(
+            $uids,
+            function($e) { return strpos($e, 'IGNORESMS_') === false; }
+        );
         $collections = $this->_as->getCollectionsObject();
         $dst = $collections->getBackendIdForFolderUid($dst);
         $results = $this->_as->driver->moveMessage($this->_folderId, $uids, $dst);
