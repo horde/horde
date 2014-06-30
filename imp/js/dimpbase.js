@@ -2315,7 +2315,7 @@ var DimpBase = {
     {
         var dropbase, sel, uids,
             drag = e.memo.element,
-            drag_m = this.flist.getMbox(drag_m),
+            drag_m = this.flist.getMbox(drag),
             drop = this.flist.getMbox(e.element());
 
         if (drag_m && drag_m.isMbox()) {
