@@ -74,7 +74,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Horde_Service_Weather_Translation::t("Partly Cloudy"), $dayOne->conditions);
         $this->assertEquals('South', $dayOne->wind_direction);
         $this->assertEquals('187', $dayOne->wind_degrees);
-        $this->assertEquals(80, $dayOne->humidity);
+        $this->assertEquals(75, $dayOne->humidity);
         $this->assertEquals(0, $dayOne->precipitation_percent);
 
         $this->assertEquals(58, $dayOne->high);
