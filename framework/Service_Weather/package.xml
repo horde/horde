@@ -12,7 +12,7 @@
  </lead>
  <date>2014-06-30</date>
  <version>
-  <release>2.1.2</release>
+  <release>2.1.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Adjust to changes in Wunderground API (Bug #13299, arjen+horde@de-korte.org).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -753,6 +753,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Adjust to changes in Wunderground API (Bug #13299, arjen+horde@de-korte.org).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-06-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
