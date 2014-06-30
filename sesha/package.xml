@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix several notices and warnings (skhorde@smail.inf.fh-bonn-rhein-sieg.de).
 * [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
  </notes>
  <contents>
@@ -417,6 +418,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix several notices and warnings (skhorde@smail.inf.fh-bonn-rhein-sieg.de).
 * [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
    </notes>
   </release>
