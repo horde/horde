@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix issue sending email via EAS when the imap client throws an error when synchronizing the maillog (Bug #13276).
 * [mjr] Improvements to vcard mime handler to allow for ajax updating (Bug #13101).
 * [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
@@ -3452,6 +3453,7 @@
    <date>2014-06-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue sending email via EAS when the imap client throws an error when synchronizing the maillog (Bug #13276).
 * [mjr] Improvements to vcard mime handler to allow for ajax updating (Bug #13101).
 * [jan] Fix delay when fading the same dialog more than once.
 * [jan] Catch exceptions from NoSQL backends when building indices.
