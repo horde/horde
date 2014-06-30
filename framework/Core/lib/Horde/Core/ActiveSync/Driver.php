@@ -3166,6 +3166,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $uid = $this->_imap->getUidFromMid($mid, $folder);
             } catch (Horde_Exception_NotFound $e) {
                 continue;
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                continue;
             }
             $s_changes[] = $uid;
             $verb = $this->_getLastVerb($mid);
