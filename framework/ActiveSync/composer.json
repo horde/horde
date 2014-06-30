@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.16.7",
-    "time": "2014-06-25",
+    "version": "2.16.8",
+    "time": "2014-06-30",
     "repositories": [
         {
             "type": "pear",
