@@ -271,7 +271,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      *
      * @param array $info Array with new property values.
      *
-     * @return Sesha_Entity_Property  
+     * @return Sesha_Entity_Property
      */
     public function addProperty($info)
     {
@@ -527,12 +527,16 @@ class Sesha_Driver_Rdo extends Sesha_Driver
         $query->combineWith('OR');
         foreach ($filters as $filter) {
             switch ($filter['type']) {
-                case 'note':
-                case 'stock_name':
-                case 'stock_id':
-                $filter_values = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
-                $filter_test   = $filter['test'] ? $filter['test'] : 'LIKE';
-                $filter_field  = $filter['type'];
+            case 'note':
+            case 'stock_name':
+            case 'stock_id':
+                $filter_values = is_array($filter['value'])
+                    ? $filter['value']
+                    : array($filter['value']);
+                $filter_test = empty($filter['test'])
+                    ? 'LIKE'
+                    : $filter['test'];
+                $filter_field = $filter['type'];
                 if ($filter_field == 'stock_id') {
                     $filter_test = '=';
                 }
@@ -544,58 +548,61 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                         $query->addTest($filter_field, $filter_test, $filter_value);
                     }
                 }
-
                 break;
-                case 'categories':
-                    $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-                    $categories = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
-                    $items = array();
-                    foreach ($categories as $category) {
-                        if ($category instanceof Sesha_Entity_Category) {
-                            $category_id = $category->category_id;
-                        } else {
-                            $category_id = $category;
-                            $category = $cm->findOne($category_id);
-                        }
-                        foreach ($category->stock as $item) {
-                            /* prevent duplicates when an item has several categories */
-                            $items[$item->stock_id] = $item;
-                        }
-                    }
-                    if (count($filters == 1)) {
-                        return $items;
-                    }
-                    $query->addTest('stock_id', $filter['test'] ? $filter['test'] : 'IN', array_keys($items));
-                break;
-                case 'values':
-                    $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
-                    $items = array();
-                    foreach ($filter['value'] as $propTest) {
-                        $values = is_array($propTest['values']) ? $propTest['values'] : array($propTest['values']);
-                        // Find all Value objects which match any of the $value[values]
-                        foreach ($values as $filter_value) {
-                            $valueQuery = new Horde_Rdo_Query($vm);
-                            if ($propTest['property']) {
-                                $valueQuery->addTest('property_id', '=', $propTest['property']);
-                            }
-                            if (empty($filter['exact'])) {
-                                $filter_value = '%' . $filter_value . '%';
-                            }
 
-                            $valueQuery->addTest('txt_datavalue', 'LIKE', $filter_value);
-                            foreach ($vm->find($valueQuery) as $value) {
-                                // prevent doubles
-                                $items[$value->stock_id] = $value->stock;
-                            }
+            case 'categories':
+                $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+                $categories = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
+                $items = array();
+                foreach ($categories as $category) {
+                    if ($category instanceof Sesha_Entity_Category) {
+                        $category_id = $category->category_id;
+                    } else {
+                        $category_id = $category;
+                        $category = $cm->findOne($category_id);
+                    }
+                    foreach ($category->stock as $item) {
+                        /* prevent duplicates when an item has several
+                         * categories */
+                        $items[$item->stock_id] = $item;
+                    }
+                }
+                if (count($filters == 1)) {
+                    return $items;
+                }
+                $query->addTest('stock_id', $filter['test'] ? $filter['test'] : 'IN', array_keys($items));
+                break;
+
+            case 'values':
+                $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
+                $items = array();
+                foreach ($filter['value'] as $propTest) {
+                    $values = is_array($propTest['values']) ? $propTest['values'] : array($propTest['values']);
+                    // Find all Value objects which match any of the $value[values]
+                    foreach ($values as $filter_value) {
+                        $valueQuery = new Horde_Rdo_Query($vm);
+                        if ($propTest['property']) {
+                            $valueQuery->addTest('property_id', '=', $propTest['property']);
+                        }
+                        if (empty($filter['exact'])) {
+                            $filter_value = '%' . $filter_value . '%';
+                        }
+
+                        $valueQuery->addTest('txt_datavalue', 'LIKE', $filter_value);
+                        foreach ($vm->find($valueQuery) as $value) {
+                            // prevent doubles
+                            $items[$value->stock_id] = $value->stock;
                         }
                     }
-                    if (count($filters == 1)) {
-                        return $items;
-                    }
-                    $query->addTest('stock_id',$filter['test'] ? $filter['test'] : 'IN', array_keys($items));
+                }
+                if (count($filters == 1)) {
+                    return $items;
+                }
+                $query->addTest('stock_id',$filter['test'] ? $filter['test'] : 'IN', array_keys($items));
                 break;
             }
         }
+
         return iterator_to_array($sm->find($query));
     }
 }
