@@ -210,7 +210,7 @@ class Horde_ActiveSync_Connector_Importer
     public function importMessageDeletion(array $ids, $class)
     {
         // Don't support SMS, but can't tell client that.
-        if ($class == Horde_ActiveSync::CLASS_SMS || preg_grep("/^IGNORESMS_.*/", $ids)) {
+        if ($class == Horde_ActiveSync::CLASS_SMS) {
             return array();
         }
 
@@ -218,8 +218,10 @@ class Horde_ActiveSync_Connector_Importer
         $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);
         foreach ($ids as $id) {
-            // Update client state. Note this only modifies the various map
-            // tables to prevent mirroring back any changes.
+            // Ignore SMS changes.
+             if (strpos($id, "IGNORESMS_") === 0) {
+                continue;
+             }
             $change = array();
             $change['id'] = $id;
             $change['mod'] = $mod;
