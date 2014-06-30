@@ -201,7 +201,7 @@ case 'add_property':
     $vars->set('actionID', $actionID);
     $renderer = new Horde_Form_Renderer();
     $form = new Sesha_Form_Property($vars);
-    $form->setTitle(_("Add a new property"));
+    $form->setTitle($title);
     if ($form->validate($vars)) {
         // Save property details.
         $form->getInfo($vars, $info);
@@ -220,16 +220,16 @@ case 'add_property':
 
 default:
 case 'list_categories':
-    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'edit_category');
+    $url = Horde::url($baseUrl . '/admin.php', true)
+        ->add('actionID', 'edit_category');
     $vars->set('actionID', 'edit_category');
     $renderer = new Horde_Form_Renderer();
     $form = new Sesha_Form_CategoryList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the category list form.
-        $url = Horde::url($url, true)->add('category_id', $vars->get('category_id'));
-        header('Location: ' . $url);
-        exit;
+        $url->add('category_id', $vars->get('category_id'));
+        $url->redirect();
     }
     $vars2 = Horde_Variables::getDefaultVariables();
     $form2 = new Sesha_Form_Category($vars2, 'admin.php', 'post');
@@ -238,10 +238,11 @@ case 'list_categories':
     $valid = $form2->validate($vars2);
     if ($valid) {
         // Redirect to the category form.
-        $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_categories');
-        header('Location: ' . Horde::url($url, true));
-        exit;
+        $url = Horde::url($baseUrl . '/admin.php', true)
+            ->add('actionID', 'list_categories')
+            ->redirect();
     }
+    $title = _("List Categories");
     break;
 
 case 'list_properties':
@@ -251,9 +252,12 @@ case 'list_properties':
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the property list form.
-        $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'edit_property')->add('property_id', $vars->get('property_id'));
-        header('Location: ' . Horde::url($url, true));
-        exit;
+        Horde::url($baseUrl . '/admin.php', true)
+            ->add(array(
+                'actionID' => 'edit_property',
+                'property_id' => $vars->get('property_id')
+            ))
+            ->redirect();
     }
     $vars2 = Horde_Variables::getDefaultVariables();
     $vars2->set('actionID', 'add_property');
@@ -262,10 +266,11 @@ case 'list_properties':
     $valid = $form2->validate($vars2);
     if ($valid) {
         // Redirect to the property form.
-        $url = Horde::url($baseUrl . '/admin.php', true)->add('actionID', 'list_properties');
-        header('Location: ' . $url);
-        exit;
+        Horde::url($baseUrl . '/admin.php', true)
+            ->add('actionID', 'list_properties')
+            ->redirect();
     }
+    $title = _("List Properties");
     break;
 }
 
