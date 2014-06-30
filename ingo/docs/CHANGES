@@ -3,6 +3,12 @@ v3.3.0-git
 ----------
 
 
+------
+v3.2.0
+------
+
+[mms] Fix regression in deactivating scripts (Bug #13297).
+
 
 -----------
 v3.2.0beta2
