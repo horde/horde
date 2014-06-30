@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [jan] Update to latest lz4 library.
  </notes>
  <contents>
   <dir name="/">
@@ -160,7 +160,7 @@
    <date>2014-02-10</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [jan] Update to latest lz4 library.
    </notes>
   </release>
  </changelog>
