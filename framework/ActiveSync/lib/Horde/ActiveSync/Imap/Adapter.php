@@ -537,6 +537,7 @@ class Horde_ActiveSync_Imap_Adapter
      * Attempt to find a Message-ID in a list of mail folders.
      *
      * @return array  An array with the 0 element being the mbox
+     * @throws Horde_Exception_NotFound, Horde_ActiveSync_Exception
      */
     public function getUidFromMidInFolders($id, array $folders)
     {
@@ -544,7 +545,11 @@ class Horde_ActiveSync_Imap_Adapter
         $search_q->headerText('Message-ID', $id);
         foreach ($folders as $folder) {
             $mbox = new Horde_Imap_Client_Mailbox($folder->_serverid);
-            $results = $this->_getImapOb()->search($mbox, $search_q);
+            try {
+                $results = $this->_getImapOb()->search($mbox, $search_q);
+            } catch (Horde_Imap_Client_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e->getMessage());
+            }
             $uid = $results['match']->ids;
             if (!empty($uid)) {
                 return array($mbox, current($uid));
