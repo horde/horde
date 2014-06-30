@@ -35,7 +35,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
         'icon_url' => 'icon_url',
         'precipitation_percent' => 'pop',
         'period' => 'period',
-        'humidity' => 'maxhumidity',
+        'humidity' => 'avehumidity',
     );
 
     /**
