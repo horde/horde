@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1438,14 +1439,29 @@
   </release>
   <release>
    <version>
-    <release>3.2.0beta3</release>
+    <release>3.2.0RC1</release>
+    <api>3.2.0</api></version>
+   <stability>
+     <release>beta</release>
+     <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.0RC2</release>
     <api>3.2.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix mailbox selection on Spam page (Bug #13298).
 * [mms] Fix regression in deactivating scripts (Bug #13297).
    </notes>
   </release>

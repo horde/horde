@@ -42,4 +42,22 @@ class Ingo_Form_Spam extends Ingo_Form_Base
 
         $this->setButtons(_("Save"));
     }
+
+    public function renderActive(
+        $renderer = null, $vars = null, $action = '', $method = 'get',
+        $enctype = null, $focus = true
+    )
+    {
+        if (is_null($vars)) {
+            $vars = $this->_vars;
+        }
+
+        $vars = clone $vars;
+        unset($vars->folder_new);
+
+        parent::renderActive(
+            $renderer, $vars, $action, $method, $enctype, $focus
+        );
+    }
+
 }
