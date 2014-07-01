@@ -18,7 +18,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>2.0.11</release>
+  <release>2.0.12</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
-* [jan] Update Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1001,6 +1000,19 @@
    <notes>
 * [jan] Update Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Update Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.12</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
