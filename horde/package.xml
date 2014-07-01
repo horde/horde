@@ -30,7 +30,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>5.2.0RC2</release>
+  <release>5.2.0RC3</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3920,6 +3920,19 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC3</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
