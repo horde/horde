@@ -4,7 +4,7 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Ingo
+The Horde Team is pleased to announce the second release candidate of the Ingo
 Email Filter Rules Manager version H5 (3.2.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
@@ -23,8 +23,8 @@ http://www.horde.org/apps/ingo/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ingo/docs/INSTALL
 
-The major changes compared to Ingo version H5 (3.2.0beta2) are:
-    * Updated translations.
+The major changes compared to Ingo version H5 (3.2.0RC1) are:
+    * Small bugfixes.
 ML;
 
 $notes['name'] = 'Ingo';

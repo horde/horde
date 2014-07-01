@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix another regression with exporting photos in vCard when we are ignoring empty values.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

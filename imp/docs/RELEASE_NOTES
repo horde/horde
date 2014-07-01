@@ -4,8 +4,8 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the third beta release of the Internet
-Mail Program (IMP) version H5 (6.2.0).
+The Horde Team is pleased to announce the first release candidate of the
+Internet Mail Program (IMP) version H5 (6.2.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -14,13 +14,10 @@ minimal interfaces with a rich range of features normally found only in desktop
 email clients. For more information on IMP, visit
 http://www.horde.org/apps/imp.
 
-This is a preview version that should not be used on production systems.  This
-version is considered feature complete but there might still be a few bugs.
-You should not use this preview version over existing production data.
-
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system.  Updated translations are very welcome, though some strings
-might still change before the final release.
+Barring any problems, this code will be released as IMP H5 (6.2.0).  We
+encourage widespread testing and feedback via the mailing lists or our bug
+tracking system.  Updated translations are very welcome, strings should not
+change before the final release.
 
 For upgrading instructions, please see
 http://www.horde.org/apps/imp/docs/UPGRADING
@@ -28,9 +25,8 @@ http://www.horde.org/apps/imp/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
-The major changes compared to IMP version H5 (6.2.0beta2) are:
-    * Folder list optimizations.
-    * Small bug fixes and improvements.
+The major changes compared to IMP version H5 (6.2.0beta3) are:
+    * Small bug fix.
 ML;
 
 $notes['name'] = 'IMP';

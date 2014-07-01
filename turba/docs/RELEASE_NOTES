@@ -4,7 +4,7 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Turba
+The Horde Team is pleased to announce the second release candidate of the Turba
 Contact Manager version H5 (4.2.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -24,9 +24,8 @@ http://www.horde.org/apps/turba/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/turba/docs/INSTALL
 
-The major changes compared to the Turba version H5 (4.2.0beta1) are:
-    * Updated translations.
-    * Small bugfixes.
+The major changes compared to the Turba version H5 (4.2.0RC1) are:
+    * Small bugfix.
 ML;
 
 $notes['name'] = 'Turba';

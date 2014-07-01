@@ -4,7 +4,7 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Horde
+The Horde Team is pleased to announce the second release candidate of the Horde
 Application Framework version 5.2.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
@@ -25,8 +25,8 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.2.0beta2 are:
-    * Small bugfixes.
+The major changes compared to the Horde version 5.2.0RC1 are:
+    * Small bugfix.
 ML;
 
 $notes['name'] = 'Horde';
