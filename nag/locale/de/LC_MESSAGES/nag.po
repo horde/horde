@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-11 16:44+0200\n"
+"POT-Creation-Date: 2014-07-01 14:24+0200\n"
 "PO-Revision-Date: 2014-06-11 16:51+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -166,7 +166,7 @@ msgid_plural "Added %d tasks"
 msgstr[0] "%d Aufgabe hinzugefügt"
 msgstr[1] "%d Aufgaben hinzugefügt"
 
-#: data.php:51 lib/Form/Task.php:126 templates/view/task.inc:48
+#: data.php:51 lib/Form/Task.php:125 templates/view/task.inc:48
 msgid "Alarm"
 msgstr "Alarm"
 
@@ -216,7 +216,7 @@ msgid "Ascending"
 msgstr "Aufsteigend"
 
 #: config/prefs.php:67 config/prefs.php:86 config/prefs.php:103 data.php:49
-#: lib/Form/Task.php:117 templates/list/task_headers.html.php:37
+#: lib/Form/Task.php:116 templates/list/task_headers.html.php:37
 #: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:30
 msgid "Assignee"
 msgstr "Zuständiger"
@@ -392,7 +392,7 @@ msgstr ""
 msgid "Completed tasks"
 msgstr "Erledigte Aufgaben"
 
-#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:135
+#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:134
 #: templates/list/task_headers.html.php:4 templates/view/task.inc:60
 msgid "Completed?"
 msgstr "Erledigt?"
@@ -480,12 +480,12 @@ msgstr "Standard-Aufgabenliste"
 msgid "Defaults for new tasks"
 msgstr "Standardeinstellungen für neue Aufgaben"
 
-#: lib/Form/Task.php:124
+#: lib/Form/Task.php:123
 msgid "Delay Start Until"
 msgstr "Start verzögern bis"
 
 #: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:141
-#: lib/Form/EditTaskList.php:156 lib/Form/Task.php:151
+#: lib/Form/EditTaskList.php:156 lib/Form/Task.php:150
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Löschen"
@@ -521,7 +521,7 @@ msgid "Descending"
 msgstr "Absteigend"
 
 #: data.php:48 lib/Form/CreateTaskList.php:31 lib/Form/EditTaskList.php:69
-#: lib/Form/Search.php:39 lib/Form/Task.php:141 lib/Form/Task.php:147
+#: lib/Form/Search.php:39 lib/Form/Task.php:140 lib/Form/Task.php:146
 #: templates/smartmobile/taskform.html.php:14
 msgid "Description"
 msgstr "Beschreibung"
@@ -549,7 +549,7 @@ msgstr ""
 "Mir keine Benachrichtigung schicken, wenn ich selbst den Termin hinzugefügt, "
 "geändert oder gelöscht habe?"
 
-#: data.php:50 lib/Form/Task.php:122 templates/view/task.inc:44
+#: data.php:50 lib/Form/Task.php:121 templates/view/task.inc:44
 msgid "Due By"
 msgstr "Fällig am"
 
@@ -621,7 +621,7 @@ msgid "Estimate"
 msgstr "Schätzung"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
-#: lib/Form/Task.php:134 templates/list/task_headers.html.php:33
+#: lib/Form/Task.php:133 templates/list/task_headers.html.php:33
 #: templates/view/task.inc:56
 msgid "Estimated Time"
 msgstr "Geschätzte Zeit"
@@ -843,7 +843,7 @@ msgstr "Keine Treffer"
 msgid "No tasks to display"
 msgstr "Keine Aufgaben"
 
-#: lib/Form/Task.php:118 lib/Nag.php:886 lib/Ui/VarRenderer/Nag.php:58
+#: lib/Form/Task.php:117 lib/Nag.php:886 lib/Ui/VarRenderer/Nag.php:58
 msgid "None"
 msgstr "Keiner"
 
@@ -859,7 +859,7 @@ msgstr "Nicht Privat"
 msgid "Not configured"
 msgstr "Nicht konfiguriert"
 
-#: lib/Form/Task.php:129
+#: lib/Form/Task.php:128
 msgid "Notification"
 msgstr "Benachrichtigung"
 
@@ -892,7 +892,7 @@ msgid "Parent task"
 msgstr "Überaufgabe"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
-#: lib/Form/Task.php:132 templates/smartmobile/taskform.html.php:39
+#: lib/Form/Task.php:131 templates/smartmobile/taskform.html.php:39
 #: templates/view/task.inc:52
 msgid "Priority"
 msgstr "Priorität"
@@ -905,7 +905,7 @@ msgstr "Privat"
 msgid "Private Task"
 msgstr "Private Aufgabe"
 
-#: lib/Form/Task.php:121 templates/view/task.inc:34
+#: lib/Form/Task.php:120 templates/view/task.inc:34
 msgid "Private?"
 msgstr "Privat?"
 
@@ -946,7 +946,7 @@ msgstr "Diese Aufgabe wirklich löschen?"
 msgid "Recur Until"
 msgstr "Wiederholen bis"
 
-#: lib/Form/Task.php:137 lib/Form/Task.php:138
+#: lib/Form/Task.php:136 lib/Form/Task.php:137
 msgid "Recurrence"
 msgstr "Wiederholung"
 
@@ -958,7 +958,7 @@ msgstr "Aus der Suche entfernen"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: lib/Form/Task.php:157
+#: lib/Form/Task.php:156
 msgid "Return to Search Results"
 msgstr "Zurück zu Suchergebnissen"
 
@@ -971,7 +971,7 @@ msgid "Sa"
 msgstr "Sa"
 
 #: lib/Form/EditTaskList.php:140 lib/Form/EditTaskList.php:149
-#: lib/Form/Search.php:65 lib/Form/Task.php:149
+#: lib/Form/Search.php:65 lib/Form/Task.php:148
 msgid "Save"
 msgstr "Speichern"
 
@@ -979,7 +979,7 @@ msgstr "Speichern"
 msgid "Save Task"
 msgstr "Aufgabe speichern"
 
-#: lib/Form/Task.php:154
+#: lib/Form/Task.php:153
 msgid "Save and New"
 msgstr "Speichern und Neu"
 

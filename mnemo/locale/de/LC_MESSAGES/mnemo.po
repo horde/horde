@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"POT-Creation-Date: 2014-07-01 14:24+0200\n"
 "PO-Revision-Date: 2014-06-04 11:46+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -207,7 +207,7 @@ msgstr "Exportieren"
 msgid "Export Notes"
 msgstr "Notizen exportieren"
 
-#: lib/Driver/Kolab.php:286
+#: lib/Driver/Kolab.php:293
 #, php-format
 msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr "Fehler beim Lesen der Kolab-Daten für das Notizbuch %s: %s"
@@ -552,7 +552,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr "Diese Notiz wurde verschlüsselt, bitte geben Sie das Passwort ein."
 
-#: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
@@ -652,7 +652,7 @@ msgstr "durch mich"
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:294 templates/data/export.inc:3
+#: lib/Application.php:295 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notizen.csv"
 

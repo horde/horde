@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2014-07-01 14:24+0200\n"
 "PO-Revision-Date: 2014-06-04 11:40+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -40,7 +40,7 @@ msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
 msgid "%d users with login %s found, one expected."
 msgstr "%d Benutzer mit dem Namen %s gefunden, nur einer erwartet."
 
-#: lib/Script/Util.php:48
+#: lib/Script/Util.php:51
 #, php-format
 msgid "%s The driver said: %s"
 msgstr "%s Fehlermeldung des Treibers: %s"
@@ -374,7 +374,7 @@ msgstr "Filterregel"
 msgid "Filter Rules"
 msgstr "Filterregeln"
 
-#: lib/Basic/Script.php:108
+#: lib/Basic/Script.php:101
 msgid "Filter Script Display"
 msgstr "Filterskript-Anzeige"
 
@@ -865,16 +865,16 @@ msgstr "Skript-Aktualisierung"
 msgid "Script name:"
 msgstr "Skriptname:"
 
-#: lib/Script/Util.php:81
+#: lib/Script/Util.php:84
 #, php-format
 msgid "Script not updated: %s"
 msgstr "Skript nicht aktualisiert: %s"
 
-#: lib/Script/Util.php:55
+#: lib/Script/Util.php:58
 msgid "Script successfully activated."
 msgstr "Skript erfolgreich aktiviert."
 
-#: lib/Script/Util.php:54
+#: lib/Script/Util.php:57
 msgid "Script successfully deactivated."
 msgstr "Skript erfolgreich deaktiviert."
 
@@ -974,11 +974,11 @@ msgstr "Die Adresse \"%s\" wurde zu Ihrer Ausschlussliste hinzugefügt."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Die Adresse \"%s\" wurde zu Ihrer Positivliste hinzugefügt."
 
-#: lib/Script/Util.php:46
+#: lib/Script/Util.php:49
 msgid "There was an error activating the script."
 msgstr "Beim Aktivieren des Skripts ist ein Fehler aufgetreten."
 
-#: lib/Script/Util.php:45
+#: lib/Script/Util.php:48
 msgid "There was an error deactivating the script."
 msgstr "Beim Deaktivieren des Skripts ist ein Fehler aufgetreten."
 
