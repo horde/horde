@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "4.2.0RC1",
-    "time": "2014-06-17",
+    "version": "4.2.0RC2",
+    "time": "2014-07-01",
     "repositories": [
         {
             "type": "pear",

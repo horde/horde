@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2014-07-01</date>
  <version>
   <release>4.2.0RC2</release>
   <api>4.0.0</api>
@@ -1861,10 +1861,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix another regression with exporting photos in vCard when we are ignoring empty values.
    </notes>
   </release>
  </changelog>
