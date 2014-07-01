@@ -68,7 +68,7 @@ class IMP_Ajax_Imple_VcardImport extends Horde_Core_Ajax_Imple
                 ->create(new IMP_Indices_Mailbox($vars));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
-                throw new IMP_Exception(_("Cannot retrieve Vcard data from message."));
+                throw new IMP_Exception(_("Cannot retrieve vCard data from message."));
             } elseif (!$iCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
                 throw new IMP_Exception(_("Error reading the contact data."));
             }
