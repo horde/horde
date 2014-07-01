@@ -48,7 +48,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         }
 
         if ($prefs->isLocked('default_tasklist') ||
-            count(Nag::listTasklists(false, Horde_Perms::EDIT)) <= 1) {
+            count(Nag::listTasklists(false, Horde_Perms::EDIT, false)) <= 1) {
             $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
         try {
