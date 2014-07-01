@@ -12,7 +12,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* [jan] Update to latest lz4 library.
+* 
  </notes>
  <contents>
   <dir name="/">
@@ -161,6 +161,19 @@
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [jan] Update to latest lz4 library.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
