@@ -30,7 +30,7 @@
  </developer>
  <date>2014-07-01</date>
  <version>
-  <release>2.11.2</release>
+  <release>2.11.3</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] SECURITY: Fix broken encryption of session data if regenerating session IDs.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3254,6 +3254,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix broken encryption of session data if regenerating session IDs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.3</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
