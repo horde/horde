@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2014-07-01</date>
  <version>
   <release>5.2.0RC2</release>
   <api>5.2.0</api>
@@ -3916,10 +3916,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mjr] Fix removing EAS device pairings via the RemoveUserData API (Bug #13278).
+* [mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
    </notes>
   </release>
  </changelog>

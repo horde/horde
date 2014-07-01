@@ -1,6 +1,6 @@
-----------
-v5.2.0-git
-----------
+---------
+v5.2.0RC2
+---------
 
 [mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
 
