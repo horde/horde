@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>3.2.0RC2</release>
+  <release>3.2.0RC3</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Fix mailbox selection on Spam page (Bug #13298).
-* [mms] Fix regression in deactivating scripts (Bug #13297).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1464,6 +1463,19 @@
    <notes>
 * [mms] Fix mailbox selection on Spam page (Bug #13298).
 * [mms] Fix regression in deactivating scripts (Bug #13297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.0RC3</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
