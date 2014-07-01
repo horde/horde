@@ -537,6 +537,9 @@ class Horde_ActiveSync_Device
                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                 Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                 Horde_ActiveSync_Device::MULTIPLEX_TASKS;
+        } else if ($strpos($this->userAgent, 'Outlook/15.0') !== false) {
+            // OL2013 Doesn't support multiple contact lists.
+            $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_CONTACTS;
         } else {
             $this->_properties['properties']['multiplex'] = 0;
         }
