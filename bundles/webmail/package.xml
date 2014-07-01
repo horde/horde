@@ -12,7 +12,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>5.2.0RC1</release>
+  <release>5.2.0RC2</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -512,6 +512,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC2</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
