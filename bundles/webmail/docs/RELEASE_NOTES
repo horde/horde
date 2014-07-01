@@ -4,14 +4,19 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.1.3.
+The Horde Team is pleased to announce the first release candidate of the Horde
+Groupware Webmail Edition version 5.2.0.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
-communication suite. Users can read, send and organize email messages with
-four different webmail interfaces and manage and share calendars, contacts,
-tasks and notes with the standards compliant components from the Horde
-Project.
+communication suite. Users can read, send and organize email messages with four
+different webmail interfaces and manage and share calendars, contacts, tasks,
+notes, files, and bookmarks with the standards compliant components from the
+Horde Project.
+
+Barring any problems, this code will be released as Horde Groupware Webmail
+Edition 5.2.0.  We encourage widespread testing and feedback via the mailing
+lists or our bug tracking system.  Updated translations are very welcome,
+strings should not change before the final release.
 
 For upgrading instructions, please see
 http://www.horde.org/apps/webmail/docs/UPGRADING
@@ -19,22 +24,68 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 5.1.2
+The major changes compared to the Horde Groupware Webmail Edition 5.1 versions
 are:
 
 General changes:
-    * Fixed XSS and CSRF vulnerabilities.
-    * Added command line script to delete user data.
+    * Improved ActiveSync device administration.
+    * Warn about active Caps Lock key on login page.
+    * Distinguish application-specific from global login page.
+    * Added import scripts for Open-Xchange.
+    * Added Oracle support.
+    * Added configurations for new Horde Framework features.
+    * Added sending messages via LMTP.
     * Bugfixes and improvements.
 
 Mail changes:
-    * Several improvements and fixes for attachment handling.
+    * Added access to remote email accounts.
+    * Added signatures to compose view.
+    * Added images to HTML signatures.
+    * Added ability to create filter rules from messages.
+    * Improved contact information menu.
+    * Allow dragging of text to HTML compose body.
+    * Display web notifications for new mail.
+    * Display unread message count in browser icon.
+    * Display message flags in smartphone view.
+    * Display recurrencies in iTip messages.
+    * Added body size limit for sending messages.
+    * Folder list optimizations.
+    * LMTP servers are now supported for sending mail.
+    * Many performance, memory usage, and other improvements.
+
+Filters changes:
+    * Sorting of rules via drag & drop.
+    * Allow searching of rules by folder name.
+    * Improved permission settings.
+    * Improved vacation addresses hook.
+    * Added enotify and imap4flags Sieve extensions.
+
+Address book changes:
+    * Replaced categories with tags.
+    * Synchronize multiple address books via ActiveSync.
 
 Calendar changes:
-    * Fixed some issues with recurring events.
+    * Synchronize multiple calendars via ActiveSync.
+    * Synchronize shared calendars via CalDAV.
+    * Synchronize attendees via CalDAV.
+    * Improved free/busy display.
+    * Improved sorting of events in month view.
+    * Improved task interfaces.
+    * Improved ActiveSync synchronization of event resources.
 
 Tasks changes:
-    * Fixed editing tasks via CalDAV.
+    * Added recurrence controls.
+    * Organize task form fields into tabs.
+    * Synchronize multiple task lists via ActiveSync.
+    * Synchronize shared task lists via CalDAV.
+    * Separate sidebar section for system task lists.
+    * Don't require URL rewriting.
+
+Notes changes:
+    * Replaced categories with tags.
+
+Bookmarks changes:
+    * Added support for importing bookmarks from Mozilla's JSON format.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';
