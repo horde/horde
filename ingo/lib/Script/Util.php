@@ -36,6 +36,9 @@ class Ingo_Script_Util
         global $injector, $notification;
 
         foreach ($scripts as $script) {
+            if ($deactivate) {
+                $script['script'] = '';
+            }
             try {
                 $injector->getInstance('Ingo_Factory_Transport')
                     ->create($script['transport'])
