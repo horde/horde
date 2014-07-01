@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-06-21</date>
+ <date>2014-07-01</date>
  <version>
   <release>2.12.0RC2</release>
   <api>2.12.0</api>
@@ -3463,7 +3463,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-21</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue sending email via EAS when the imap client throws an error when synchronizing the maillog (Bug #13276).
