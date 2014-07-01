@@ -129,6 +129,7 @@ class Nag_View_List
         $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
         $view->smartShare = $this->_smartShare;
         $view->haveSearch = $this->_haveSearch;
+        $view->tabName = $this->_vars->get('tab_name', $prefs->getValue('show_completed'));
 
         if (empty($view->columns)) {
             $view->columns = array();
