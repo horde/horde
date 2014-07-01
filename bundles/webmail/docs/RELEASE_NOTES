@@ -1,19 +1,9 @@
 <?php
-/**
- * Release focus. Possible values:
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+/* Security release? */
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
 Webmail Edition version 5.1.3.
 
@@ -47,16 +37,6 @@ Tasks changes:
     * Fixed editing tasks via CalDAV.
 ML;
 
-/* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
-Fixed XSS and CSRF vulnerabilities.
-Added command line script to delete user data.
-Several improvements and fixes for email attachment handling.
-Fixed some issues with recurring events.
-Fixed editing tasks via CalDAV.
-Bugfixes and improvements.
-FM;
-
-$this->notes['name'] = 'Horde Groupware Webmail Edition';
-$this->notes['list'] = 'horde';
-$this->notes['fm']['project'] = 'horde-webmail';
+$notes['name'] = 'Horde Groupware Webmail Edition';
+$notes['list'] = 'horde';
+return $notes;
