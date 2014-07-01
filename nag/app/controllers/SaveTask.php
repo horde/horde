@@ -102,7 +102,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 'tasklist_id' => $info['tasklist_id'],
                 'parent' => $info['parent']));
         } else {
-            $url = Horde_Util::getFormData('url', Horde::url('list.php', true));
+            $url = Horde_Util::getFormData('url', Horde::url('list.php', true)->add(array('tab_name' => $vars->get('tab_name'))));
         }
 
         $response->setRedirectUrl($url);
