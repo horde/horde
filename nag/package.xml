@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>4.2.0RC1</release>
+  <release>4.2.0RC2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -1532,6 +1532,19 @@
   <release>
    <version>
     <release>4.2.0RC1</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC2</release>
     <api>4.2.0</api></version>
    <stability>
     <release>beta</release>
