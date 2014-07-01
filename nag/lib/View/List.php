@@ -129,6 +129,7 @@ class Nag_View_List
         $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
         $view->smartShare = $this->_smartShare;
         $view->haveSearch = $this->_haveSearch;
+        $view->tab_name = $this->_vars->get('tab_name', $prefs->getValue('show_completed'));
 
         if (empty($view->columns)) {
             $view->columns = array();
@@ -186,6 +187,9 @@ class Nag_View_List
         }
         switch ($action) {
         case 'search_return':
+            if ($this->_vars->list) {
+                return $this->_handleActions('smart');
+            }
             if ($search = $GLOBALS['session']->get('nag', 'search', Horde_Session::TYPE_OBJECT)) {
                 $search->getVars($this->_vars);
             }

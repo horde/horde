@@ -20,7 +20,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
 
         // Check if we are here due to a search_return push.
         if ($vars->search_return) {
-            Horde::url('list.php', true)->add('actionID', 'search_return')->redirect();
+            Horde::url('list.php', true)->add(array('actionID' => 'search_return', 'list' => $vars->list, 'tab_name' => $vars->tab_name))->redirect();
         }
         // Check if we are here due to a deletebutton push
         if ($vars->deletebutton) {

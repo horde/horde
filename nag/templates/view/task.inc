@@ -13,7 +13,8 @@
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete"), 'class' => 'nag-delete')) ?></li>
 <?php endif ?>
 <?php if (Horde_Util::getFormData('have_search')): ?>
-    <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('list.php', true)->add('actionID', 'search_return'), 'title' => _("Return to search results"), 'class' => 'nag-search')) ?></li>
+  <?php $params = array('actionID' => 'search_return', 'list' => Horde_Util::getFormData('list'), 'tab_name' => Horde_Util::getFormData('tab_name')); ?>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('list.php', true)->add($params), 'title' => _("Return to search results"), 'class' => 'nag-search')) ?></li>
 <?php endif ?>
 
   </ul>
