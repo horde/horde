@@ -22,9 +22,9 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2014-07-01</date>
  <version>
-  <release>4.2.0beta3</release>
+  <release>4.2.0RC1</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -1531,12 +1531,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0beta3</release>
+    <release>4.2.0RC1</release>
     <api>4.2.0</api></version>
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2014-06-17</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
