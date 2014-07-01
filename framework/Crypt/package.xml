@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-21</date>
+ <date>2014-07-01</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -1029,7 +1029,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-21</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix reference to constant outside of the package.
