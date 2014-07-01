@@ -63,7 +63,8 @@ function doPrefsUpdate(column, sortDown)
               'due' => $due,
               'columns' => $this->columns,
               'dynamic_sort' => $this->dynamic_sort &= !$task->hasSubTasks(),
-              'dateFormat' => $GLOBALS['prefs']->getValue('date_format')); ?>
+              'dateFormat' => $GLOBALS['prefs']->getValue('date_format'),
+              'haveSearch' => $this->haveSearch); ?>
             <?php echo $this->renderPartial('list/task', array('locals' => $locals)) ?>
         <?php endwhile; ?>
       </tbody>
