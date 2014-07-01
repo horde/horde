@@ -1210,6 +1210,9 @@ ul.sound-list {
     color: #000;
     white-space: nowrap;
 }
+.KeyNavList ul li.noselect {
+    color: #888;
+}
 .KeyNavList ul li.selected {
     background: #c2ccd0;
 }

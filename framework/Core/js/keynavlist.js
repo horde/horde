@@ -103,6 +103,9 @@ var KeyNavList = Class.create({
                 v.l = v.l.escapeHTML().gsub('  ', ' &nbsp;');
             }
             li = new Element('LI').insert(v.l).store('v', v.v);
+            if (v.v.empty()) {
+                li.addClassName('noselect');
+            }
             if (v.s) {
                 this.markSelected(li);
             }
@@ -233,6 +236,10 @@ var KeyNavList = Class.create({
 
             if (elt &&
                 (elt == this.div || elt.descendantOf(this.div))) {
+                if (elt.retrieve('v').empty()) {
+                    return;
+                }
+
                 this.markSelected(elt);
                 this.opts.onChoose(this.getCurrentEntry());
                 e.stop();
