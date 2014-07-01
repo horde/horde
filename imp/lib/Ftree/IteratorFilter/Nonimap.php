@@ -28,8 +28,25 @@ class IMP_Ftree_IteratorFilter_Nonimap extends FilterIterator
     {
         $curr = $this->current();
 
-        return (!$curr->nonimap ||
-                (($curr->remote || $curr->namespace) && $curr->children));
+        if (!$curr->nonimap) {
+            return true;
+        }
+
+        if (($curr->remote || $curr->namespace) && $curr->children) {
+            $iterator = new IMP_Ftree_IteratorFilter(
+                new IMP_Ftree_Iterator($curr)
+            );
+            $iterator->add(array(
+                $iterator::CONTAINERS,
+                $iterator::NONIMAP
+            ));
+
+            foreach ($iterator as $val) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
