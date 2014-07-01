@@ -226,6 +226,7 @@ class Nag_View_List
             $this->_title = $list->get('name');
             $this->_smartShare = $list;
             $this->_loadTasks($lists);
+            $this->_haveSearch = true;
             break;
         default:
             // If we have an active tag browse, use it.
