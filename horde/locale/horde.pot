@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-11 16:44+0200\n"
+"POT-Creation-Date: 2014-07-01 14:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,15 +135,15 @@ msgstr ""
 msgid ", variable from %s to %s"
 msgstr ""
 
-#: lib/Application.php:327
+#: lib/Application.php:338
 msgid "1 Day"
 msgstr ""
 
-#: lib/Application.php:331
+#: lib/Application.php:342
 msgid "1 Month"
 msgstr ""
 
-#: lib/Application.php:329
+#: lib/Application.php:340
 msgid "1 Week"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "12 Hour Format"
 msgstr ""
 
-#: lib/Application.php:330
+#: lib/Application.php:341
 msgid "2 Weeks"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "24-hour format"
 msgstr ""
 
-#: lib/Application.php:328
+#: lib/Application.php:339
 msgid "3 Days"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: config/prefs.php:732 lib/Application.php:202
+#: config/prefs.php:732 lib/Application.php:213
 msgid "ActiveSync"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 msgid "ActiveSync Devices"
 msgstr ""
 
-#: admin/activesync.php:22 lib/Api.php:725 lib/Api.php:786
+#: admin/activesync.php:22 lib/Api.php:720 lib/Api.php:781
 #: lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
 msgstr ""
@@ -337,19 +337,19 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr ""
 
-#: lib/Application.php:238
+#: lib/Application.php:249
 msgid "Allow alphanumeric"
 msgstr ""
 
-#: lib/Application.php:239
+#: lib/Application.php:250
 msgid "Allow any"
 msgstr ""
 
-#: lib/Application.php:217
+#: lib/Application.php:228
 msgid "Allow non-provisionable devices"
 msgstr ""
 
-#: lib/Application.php:237
+#: lib/Application.php:248
 msgid "Allow only numeric"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Attachment"
 msgstr ""
 
-#: lib/Application.php:261
+#: lib/Application.php:272
 msgid "Attachment Download"
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr ""
 msgid "Block Type"
 msgstr ""
 
-#: lib/Application.php:294
+#: lib/Application.php:305
 msgid "Bluetooth"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: lib/Application.php:282
+#: lib/Application.php:293
 msgid "Camera"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr ""
 msgid "Clouds"
 msgstr ""
 
-#: lib/Application.php:254
+#: lib/Application.php:265
 msgid "Codeword frequency"
 msgstr ""
 
@@ -999,7 +999,7 @@ msgstr ""
 msgid "Device Type"
 msgstr ""
 
-#: lib/Application.php:314
+#: lib/Application.php:325
 msgid "Device encryption"
 msgstr ""
 
@@ -1040,7 +1040,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: lib/Application.php:218
+#: lib/Application.php:229
 msgid "Disable (not recommended)"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: lib/Application.php:216
+#: lib/Application.php:227
 msgid "Enable"
 msgstr ""
 
@@ -1239,7 +1239,7 @@ msgstr ""
 msgid "Facebook Integration"
 msgstr ""
 
-#: lib/Application.php:249
+#: lib/Application.php:260
 msgid "Failed unlock attempts before device is wiped"
 msgstr ""
 
@@ -1409,7 +1409,7 @@ msgstr ""
 msgid "Guest Permissions"
 msgstr ""
 
-#: lib/Application.php:318
+#: lib/Application.php:329
 msgid "HTML Email"
 msgstr ""
 
@@ -1807,7 +1807,7 @@ msgstr ""
 msgid "Max temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:322
+#: lib/Application.php:333
 msgid "Maximum Email age"
 msgstr ""
 
@@ -1815,11 +1815,11 @@ msgstr ""
 msgid "Maximum Number of Portal Blocks"
 msgstr ""
 
-#: lib/Application.php:266
-msgid "Maximum attachment size"
+#: lib/Application.php:277
+msgid "Maximum attachment size in bytes"
 msgstr ""
 
-#: lib/Application.php:207
+#: lib/Application.php:218
 msgid "Maximum number of devices"
 msgstr ""
 
@@ -1859,7 +1859,7 @@ msgstr ""
 msgid "Min temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:228
+#: lib/Application.php:239
 msgid "Minimum PIN length"
 msgstr ""
 
@@ -2022,7 +2022,7 @@ msgstr ""
 msgid "No pending signups."
 msgstr ""
 
-#: lib/Application.php:335
+#: lib/Application.php:346
 msgid "No push while roaming"
 msgstr ""
 
@@ -2179,7 +2179,7 @@ msgstr ""
 msgid "PHP Shell"
 msgstr ""
 
-#: lib/Application.php:298
+#: lib/Application.php:309
 msgid "POP/IMAP Email accounts"
 msgstr ""
 
@@ -2197,7 +2197,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: lib/Application.php:233
+#: lib/Application.php:244
 msgid "Password Complexity"
 msgstr ""
 
@@ -2338,7 +2338,7 @@ msgstr ""
 msgid "Provisioned"
 msgstr ""
 
-#: lib/Application.php:212
+#: lib/Application.php:223
 msgid "Provisioning"
 msgstr ""
 
@@ -2435,15 +2435,15 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: lib/Application.php:223
+#: lib/Application.php:234
 msgid "Require PIN"
 msgstr ""
 
-#: lib/Application.php:306
+#: lib/Application.php:317
 msgid "Require S/MIME Encryption"
 msgstr ""
 
-#: lib/Application.php:310
+#: lib/Application.php:321
 msgid "Require S/MIME Signature"
 msgstr ""
 
@@ -2508,15 +2508,15 @@ msgstr ""
 msgid "Run Login Tasks"
 msgstr ""
 
-#: lib/Application.php:278
+#: lib/Application.php:289
 msgid "SD card"
 msgstr ""
 
-#: lib/Application.php:271
+#: lib/Application.php:282
 msgid "SD card encryption"
 msgstr ""
 
-#: lib/Application.php:286
+#: lib/Application.php:297
 msgid "SMS Text messages"
 msgstr ""
 
@@ -2581,7 +2581,7 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: lib/Application.php:244
+#: lib/Application.php:255
 msgid "Seconds of inactivity before device should lock"
 msgstr ""
 
@@ -2877,7 +2877,7 @@ msgstr ""
 msgid "Sunset"
 msgstr ""
 
-#: lib/Application.php:326
+#: lib/Application.php:337
 msgid "Sync all"
 msgstr ""
 
@@ -3054,7 +3054,7 @@ msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 
-#: lib/Application.php:193
+#: lib/Application.php:204
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3210,7 +3210,7 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
-#: lib/Api.php:728 lib/Api.php:789
+#: lib/Api.php:723 lib/Api.php:784
 msgid "Unsupported action."
 msgstr ""
 
@@ -3370,7 +3370,7 @@ msgstr ""
 msgid "Web Site"
 msgstr ""
 
-#: lib/Application.php:302
+#: lib/Application.php:313
 msgid "Web browser"
 msgstr ""
 
@@ -3421,7 +3421,7 @@ msgstr ""
 msgid "Width of the %s menu on the left:"
 msgstr ""
 
-#: lib/Application.php:290
+#: lib/Application.php:301
 msgid "Wifi"
 msgstr ""
 
@@ -3487,47 +3487,47 @@ msgid_plural "You and %d other people like this"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Api.php:255
+#: lib/Api.php:250
 msgid "You are not allowed to add groups."
 msgstr ""
 
-#: lib/Api.php:353
+#: lib/Api.php:348
 msgid "You are not allowed to add shares."
 msgstr ""
 
-#: lib/Api.php:290 lib/Api.php:309
+#: lib/Api.php:285 lib/Api.php:304
 msgid "You are not allowed to change groups."
 msgstr ""
 
-#: lib/Api.php:427 lib/Api.php:460 lib/Api.php:490 lib/Api.php:511
+#: lib/Api.php:422 lib/Api.php:455 lib/Api.php:485 lib/Api.php:506
 msgid "You are not allowed to change shares."
 msgstr ""
 
-#: lib/Api.php:273
+#: lib/Api.php:268
 msgid "You are not allowed to delete groups."
 msgstr ""
 
-#: lib/Api.php:374
+#: lib/Api.php:369
 msgid "You are not allowed to delete shares."
 msgstr ""
 
-#: lib/Api.php:642
+#: lib/Api.php:637
 msgid "You are not allowed to list groups of shares."
 msgstr ""
 
-#: lib/Api.php:533 lib/Api.php:571
+#: lib/Api.php:528 lib/Api.php:566
 msgid "You are not allowed to list share permissions."
 msgstr ""
 
-#: lib/Api.php:395
+#: lib/Api.php:390
 msgid "You are not allowed to list shares."
 msgstr ""
 
-#: lib/Api.php:329
+#: lib/Api.php:324
 msgid "You are not allowed to list users of groups."
 msgstr ""
 
-#: lib/Api.php:610
+#: lib/Api.php:605
 msgid "You are not allowed to list users of shares."
 msgstr ""
 

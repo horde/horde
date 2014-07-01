@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-11 16:44+0200\n"
+"POT-Creation-Date: 2014-07-01 14:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid_plural "%d Attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Compose/Common.php:255
+#: lib/Dynamic/Compose/Common.php:262
 #, php-format
 msgid "%d Attachments"
 msgstr ""
@@ -75,7 +75,14 @@ msgstr ""
 msgid "%d Messages"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:811
+#: lib/Ajax/Imple/VcardImport.php:101
+#, php-format
+msgid "%d contact was successfully added to your address book."
+msgid_plural "%d contacts were successfully added to your address book."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Ajax/Application/Handler/Dynamic.php:814
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
@@ -131,7 +138,7 @@ msgstr[1] ""
 msgid "%d of %d"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:258
+#: lib/Dynamic/Compose/Common.php:265
 #, php-format
 msgid "%d recipients"
 msgstr ""
@@ -312,7 +319,7 @@ msgstr ""
 msgid "500 characters"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:355
+#: lib/Mime/Viewer/Pgp.php:354
 msgid "A PGP Public Key is attached to the message."
 msgstr ""
 
@@ -738,11 +745,11 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:778
+#: lib/Ajax/Application/Handler/Dynamic.php:781
 msgid "At least one attachment could not be deleted."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:185
+#: lib/Dynamic/Compose/Common.php:192
 msgid "Attach Personal PGP Public Key"
 msgstr ""
 
@@ -750,7 +757,7 @@ msgstr ""
 msgid "Attach a copy of your PGP public key to the message?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:189
+#: lib/Dynamic/Compose/Common.php:196
 msgid "Attach contact information"
 msgstr ""
 
@@ -797,7 +804,7 @@ msgstr ""
 msgid "Attachment stripped: Original attachment type"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:898 lib/Basic/Message.php:181
+#: lib/Ajax/Application/Handler/Dynamic.php:901 lib/Basic/Message.php:181
 #: lib/Dynamic/Message.php:52
 msgid "Attachment successfully stripped."
 msgstr ""
@@ -942,7 +949,7 @@ msgstr ""
 msgid "Cancel Message"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:252
+#: lib/Dynamic/Compose/Common.php:259
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -974,6 +981,10 @@ msgstr ""
 
 #: lib/Ajax/Imple/ImportEncryptKey.php:69
 msgid "Cannot retrieve public key from message."
+msgstr ""
+
+#: lib/Ajax/Imple/VcardImport.php:71
+msgid "Cannot retrieve vCard data from message."
 msgstr ""
 
 #: lib/Basic/Compose.php:918
@@ -1100,7 +1111,7 @@ msgstr ""
 msgid "Click HERE to verify the data."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:469 lib/Mime/Viewer/Pgp.php:473
+#: lib/Mime/Viewer/Pgp.php:468 lib/Mime/Viewer/Pgp.php:472
 msgid "Click HERE to verify the message."
 msgstr ""
 
@@ -1202,7 +1213,7 @@ msgstr ""
 msgid "Compose Templates mailbox:"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:253
+#: lib/Dynamic/Compose/Common.php:260
 msgid "Compose action completed. You may now safely close this window."
 msgstr ""
 
@@ -1295,7 +1306,7 @@ msgstr ""
 msgid "Copy/Move"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:254
+#: lib/Dynamic/Compose/Common.php:261
 #, php-format
 msgid "Could not add %d file(s) to message: only images are supported."
 msgstr ""
@@ -1361,7 +1372,7 @@ msgstr ""
 msgid "Could not parse mailbox data."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:257
+#: lib/Dynamic/Compose/Common.php:264
 msgid "Could not paste image as the clipboard data is invalid."
 msgstr ""
 
@@ -1371,7 +1382,7 @@ msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
 msgstr ""
 
 #: lib/Basic/Compose.php:1104 lib/Compose.php:1814 lib/Compose.php:2185
-#: lib/Dynamic/Compose.php:279 lib/Minimal/Compose.php:531
+#: lib/Dynamic/Compose.php:277 lib/Minimal/Compose.php:531
 msgid "Could not retrieve message data from the mail server."
 msgstr ""
 
@@ -1531,7 +1542,7 @@ msgstr ""
 msgid "Delegated"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:179 lib/Dynamic/Mailbox.php:325
+#: lib/Dynamic/Compose/Common.php:186 lib/Dynamic/Mailbox.php:325
 #: lib/Dynamic/Mailbox.php:356 lib/Imap/Acl.php:196
 #: lib/Minimal/Message.php:224 templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
@@ -1621,7 +1632,7 @@ msgstr ""
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:769 lib/Basic/Compose.php:174
+#: lib/Ajax/Application/Handler/Dynamic.php:771 lib/Basic/Compose.php:174
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr ""
@@ -1670,7 +1681,7 @@ msgstr ""
 msgid "Discard Draft"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:260
+#: lib/Dynamic/Compose/Common.php:267
 msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
@@ -1863,7 +1874,7 @@ msgstr ""
 msgid "Edit your Whitelist"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:1205
+#: lib/Ajax/Application/Handler/Dynamic.php:1208
 msgid "Editing group lists not currently supported."
 msgstr ""
 
@@ -1991,6 +2002,10 @@ msgstr ""
 
 #: lib/Contents.php:115
 msgid "Error displaying message: message does not exist on server."
+msgstr ""
+
+#: lib/Ajax/Imple/VcardImport.php:73
+msgid "Error reading the contact data."
 msgstr ""
 
 #: lib/Ajax/Imple/ItipRequest.php:309 lib/Ajax/Imple/ItipRequest.php:420
@@ -2376,7 +2391,7 @@ msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr ""
 
 #: lib/Basic/Compose.php:865 lib/Basic/Message.php:306
-#: lib/Dynamic/Compose/Common.php:220
+#: lib/Dynamic/Compose/Common.php:227
 msgid "High"
 msgstr ""
 
@@ -2406,7 +2421,7 @@ msgstr ""
 msgid "How to attribute quoted lines in a reply?"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:271
+#: lib/Mime/Viewer/Pgp.php:270
 msgid ""
 "However, no personal private key exists so the message cannot be decrypted."
 msgstr ""
@@ -2707,7 +2722,7 @@ msgid "Logging Out..."
 msgstr ""
 
 #: lib/Basic/Compose.php:867 lib/Basic/Message.php:311
-#: lib/Dynamic/Compose/Common.php:229
+#: lib/Dynamic/Compose/Common.php:236
 msgid "Low"
 msgstr ""
 
@@ -3269,7 +3284,7 @@ msgstr ""
 msgid "No search criteria specified."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:259
+#: lib/Dynamic/Compose/Common.php:266
 msgid "No spelling errors found."
 msgstr ""
 
@@ -3292,7 +3307,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: lib/Basic/Compose.php:866 lib/Dynamic/Compose/Common.php:224
+#: lib/Basic/Compose.php:866 lib/Dynamic/Compose/Common.php:231
 msgid "Normal"
 msgstr ""
 
@@ -3763,7 +3778,7 @@ msgstr ""
 msgid "Read"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:166
+#: lib/Dynamic/Compose/Common.php:173
 msgid "Read Receipt"
 msgstr ""
 
@@ -4154,7 +4169,7 @@ msgstr ""
 msgid "Save All"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:175
+#: lib/Dynamic/Compose/Common.php:182
 msgid "Save Attachments in Sent Mailbox"
 msgstr ""
 
@@ -4233,7 +4248,7 @@ msgstr ""
 msgid "Save the certificate to your Address Book."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:370
+#: lib/Mime/Viewer/Pgp.php:369
 msgid "Save the key to your address book."
 msgstr ""
 
@@ -4394,7 +4409,7 @@ msgstr ""
 msgid "Send message without a Subject?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:256
+#: lib/Dynamic/Compose/Common.php:263
 msgid "Send message without a subject?"
 msgstr ""
 
@@ -4830,13 +4845,13 @@ msgstr ""
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:844
+#: lib/Ajax/Application/Handler/Dynamic.php:847
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:855
+#: lib/Ajax/Application/Handler/Dynamic.php:858
 msgid "The Message Disposition Notification was sent successfully."
 msgstr ""
 
@@ -4853,17 +4868,17 @@ msgstr ""
 msgid "The current sent-mail mailbox(es) \"%s\" will be renamed."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:292
+#: lib/Mime/Viewer/Pgp.php:291
 msgid ""
 "The data in this part does not appear to be a valid PGP encrypted message. "
 "Error: "
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:252
+#: lib/Mime/Viewer/Pgp.php:251
 msgid "The data in this part has been compressed via PGP."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:305 lib/Mime/Viewer/Pgp.php:404
+#: lib/Mime/Viewer/Pgp.php:304 lib/Mime/Viewer/Pgp.php:403
 msgid "The data in this part has been digitally signed via PGP."
 msgstr ""
 
@@ -4871,13 +4886,13 @@ msgstr ""
 msgid "The data in this part has been digitally signed via S/MIME."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:202
+#: lib/Mime/Viewer/Pgp.php:201
 msgid ""
 "The data in this part has been encrypted via PGP, however, PGP support is "
 "disabled so the message cannot be decrypted."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:223 lib/Mime/Viewer/Pgp.php:254
+#: lib/Mime/Viewer/Pgp.php:222 lib/Mime/Viewer/Pgp.php:253
 msgid "The data in this part has been encrypted via PGP."
 msgstr ""
 
@@ -5010,7 +5025,7 @@ msgstr ""
 msgid "The message does not have a Subject entered."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:256
+#: lib/Dynamic/Compose/Common.php:263
 msgid "The message does not have a subject entered."
 msgstr ""
 
@@ -5178,6 +5193,10 @@ msgstr ""
 msgid "There was an error importing %s."
 msgstr ""
 
+#: lib/Ajax/Imple/VcardImport.php:96
+msgid "There was an error importing the contact data:"
+msgstr ""
+
 #: lib/Ajax/Imple/ItipRequest.php:206
 #, php-format
 msgid "There was an error importing the event: %s"
@@ -5232,7 +5251,7 @@ msgstr ""
 msgid "This audio file is reported to be %s in length."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:427
+#: lib/Mime/Viewer/Pgp.php:426
 msgid "This digitally signed message is broken."
 msgstr ""
 
@@ -5493,11 +5512,11 @@ msgid "Upload"
 msgstr ""
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:94
-#: lib/Ajax/Application/Handler/Dynamic.php:1039
+#: lib/Ajax/Application/Handler/Dynamic.php:1042
 msgid "Uploading attachments has been disabled on this server."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:261
+#: lib/Dynamic/Compose/Common.php:268
 msgid "Uploading..."
 msgstr ""
 
@@ -5542,7 +5561,7 @@ msgstr ""
 msgid "User can see the mailbox"
 msgstr ""
 
-#: lib/Application.php:516
+#: lib/Application.php:531
 msgid "User is not authenticated."
 msgstr ""
 
@@ -5643,7 +5662,7 @@ msgstr ""
 msgid "View event"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:372
+#: lib/Mime/Viewer/Pgp.php:371
 msgid "View key details."
 msgstr ""
 
@@ -5868,7 +5887,7 @@ msgstr ""
 msgid "You have already submitted this page."
 msgstr ""
 
-#: lib/Basic/Compose.php:741 lib/Dynamic/Compose/Common.php:251
+#: lib/Basic/Compose.php:741 lib/Dynamic/Compose/Common.php:258
 msgid ""
 "You have edited your signature. Change the identity and lose your changes?"
 msgstr ""
@@ -5888,7 +5907,7 @@ msgstr ""
 msgid "You may not rename \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:265
+#: lib/Mime/Viewer/Pgp.php:264
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message."
 msgstr ""
@@ -5898,7 +5917,7 @@ msgid ""
 "You must enter the passphrase for your S/MIME private key to view this data."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:233
+#: lib/Mime/Viewer/Pgp.php:232
 msgid "You must enter the passphrase used to encrypt this message to view it."
 msgstr ""
 
@@ -5923,7 +5942,9 @@ msgid "You must specify a recipient."
 msgstr ""
 
 #: lib/Dynamic/Base.php:196
-msgid "You need to manually use the keyboard instead (Ctrl/Cmd + C)."
+msgid ""
+"You need to either use the keyboard (Ctrl/Cmd + C) or right click on the "
+"selected address to access the Copy command."
 msgstr ""
 
 #: lib/Maillog/Log/Redirect.php:65
@@ -6018,7 +6039,7 @@ msgid ""
 msgstr ""
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:57
-#: lib/Ajax/Application/Handler/Dynamic.php:1042
+#: lib/Ajax/Application/Handler/Dynamic.php:1045
 msgid ""
 "Your attachment was not uploaded. Most likely, the file exceeded the maximum "
 "size allowed by the server configuration."
@@ -6030,8 +6051,7 @@ msgstr ""
 
 #: lib/Dynamic/Base.php:196
 msgid ""
-"Your browser security settings don't permit the editor to copy to the "
-"clipboard."
+"Your browser security settings don't permit direct access to the clipboard."
 msgstr ""
 
 #: templates/prefs/encrypt.html.php:3
