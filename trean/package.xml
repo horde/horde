@@ -22,13 +22,13 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-07-01</date>
  <version>
-  <release>1.1.0alpha1</release>
+  <release>1.1.0RC1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
@@ -142,6 +142,12 @@
       <file name="trean.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="it">
      <dir name="LC_MESSAGES">
       <file name="trean.mo" role="horde" />
@@ -490,6 +496,8 @@
    <install as="trean/locale/fi/LC_MESSAGES/trean.po" name="locale/fi/LC_MESSAGES/trean.po" />
    <install as="trean/locale/fr/LC_MESSAGES/trean.mo" name="locale/fr/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/fr/LC_MESSAGES/trean.po" name="locale/fr/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/hu/LC_MESSAGES/trean.mo" name="locale/hu/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/hu/LC_MESSAGES/trean.po" name="locale/hu/LC_MESSAGES/trean.po" />
    <install as="trean/locale/it/LC_MESSAGES/trean.mo" name="locale/it/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/it/LC_MESSAGES/trean.po" name="locale/it/LC_MESSAGES/trean.po" />
    <install as="trean/locale/lv/help.xml" name="locale/lv/help.xml" />
@@ -641,11 +649,11 @@
   </release>
   <release>
    <version>
-    <release>1.1.0alpha1</release>
+    <release>1.1.0RC1</release>
     <api>1.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
+    <release>beta</release>
     <api>stable</api>
    </stability>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
