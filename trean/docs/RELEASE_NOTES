@@ -20,7 +20,7 @@ http://www.horde.org/apps/trean/docs/INSTALL
 
 Major changes compared to the Trean H5 (1.0) versions are:
     * Added support for importing bookmarks from Mozilla's JSON format.
-    * Added Danish translation.
+    * Added Danish and Hungarian translations.
 ML;
 
 $notes['name'] = 'Trean';
