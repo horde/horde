@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-01</date>
  <version>
-  <release>4.2.0RC2</release>
+  <release>4.2.0RC3</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix issues with event URL field not updating (Carlos Timóteo &lt;ctimoteo@sapo.pt&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2387,6 +2387,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix issues with event URL field not updating (Carlos Timóteo &lt;ctimoteo@sapo.pt&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC3</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
