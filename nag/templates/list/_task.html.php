@@ -35,7 +35,10 @@
     if ($have_edit &&
         (!$task->private || $task->owner == $GLOBALS['registry']->getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
-        $params = array('have_search' => $this->haveSearch, 'url' => Horde::selfUrl(true));
+        $params = array('have_search' => $this->haveSearch, 'tab_name' => $this->tab_name, 'url' => Horde::selfUrl(true));
+        if ($this->smartShare) {
+          $params['list'] = $this->smartShare->getName();
+        }
         echo Horde::link($task->edit_link->add($params), $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
@@ -47,7 +50,11 @@
         ? htmlspecialchars($task->name)
         : _("[none]");
     if ($have_read) {
-        echo Horde::linkTooltip($task->view_link->add('have_search', $this->haveSearch), '', '', '', '', $task->desc)
+        $params = array('have_search' => $this->haveSearch, 'tab_name' => $this->tab_name, 'url' => Horde::selfUrl(true));
+        if ($this->smartShare) {
+          $params['list'] = $this->smartShare->getName();
+        }
+        echo Horde::linkTooltip($task->view_link->add($params), '', '', '', '', $task->desc)
             . $task_name . '</a>';
     } else {
         echo $task_name;
