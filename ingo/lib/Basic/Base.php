@@ -80,12 +80,12 @@ abstract class Ingo_Basic_Base
     {
         global $registry;
 
-        $new_id = $name . '_new';
+        $new_mbox = $this->vars->get($name . '_new');
 
-        if (isset($this->vars->$new_id)) {
+        if (strlen($new_mbox)) {
             if ($registry->hasMethod('mail/createMailbox') &&
-                $registry->call('mail/createMailbox', array($this->vars->$new_id))) {
-                return $this->vars->$new_id;
+                $registry->call('mail/createMailbox', array($new_mbox))) {
+                return $new_mbox;
             }
         } elseif (strlen($this->vars->$name)) {
             return $this->vars->$name;

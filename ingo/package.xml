@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Fix mailbox selection on Spam page (Bug #13298).
 * [mms] Fix regression in deactivating scripts (Bug #13297).
  </notes>
  <contents>
@@ -1461,6 +1462,7 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix mailbox selection on Spam page (Bug #13298).
 * [mms] Fix regression in deactivating scripts (Bug #13297).
    </notes>
   </release>
