@@ -1,6 +1,6 @@
-----------
-v6.2.0-git
-----------
+---------
+v6.2.0RC1
+---------
 
 [mms] Fix handling image attachments when added via the HTML editor Image
       dialog.
