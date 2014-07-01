@@ -35,7 +35,8 @@
     if ($have_edit &&
         (!$task->private || $task->owner == $GLOBALS['registry']->getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
-        echo Horde::link($task->edit_link->add('have_search', $this->haveSearch), $label) . Horde::img('edit.png', $label) . '</a>';
+        $params = array('have_search' => $this->haveSearch, 'url' => Horde::selfUrl(true));
+        echo Horde::link($task->edit_link->add($params), $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>
