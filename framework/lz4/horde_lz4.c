@@ -25,7 +25,12 @@ ZEND_END_ARG_INFO()
 const zend_function_entry horde_lz4_functions[] = {
     PHP_FE(horde_lz4_compress, arginfo_horde_lz4_compress)
     PHP_FE(horde_lz4_uncompress, arginfo_horde_lz4_uncompress)
+/* Fix for PHP < 5.3.10 */
+#ifdef PHP_FE_END
     PHP_FE_END
+#else
+    { NULL, NULL, NULL, 0, 0 }
+#endif
 };
 
 

@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [mms] Fix compilation on ancient versions of PHP 5.3 (Bug #13310).
  </notes>
  <contents>
   <dir name="/">
@@ -173,7 +173,7 @@
    <date>2014-07-01</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [mms] Fix compilation on ancient versions of PHP 5.3 (Bug #13310).
    </notes>
   </release>
  </changelog>
