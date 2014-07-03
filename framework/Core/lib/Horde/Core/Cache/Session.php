@@ -40,7 +40,7 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
      *   - cache: (Horde_Cache_Storage_Backend) [REQUIRED] The backend cache
      *            storage driver used to store large entries.
      *   - maxsize: (integer) The maximum size of the data to store in the
-     *              session.
+     *              session (0 to always store in session).
      *   - storage_key: (string) The storage key to save the session data
      *                  under.
      */
@@ -58,6 +58,10 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
             ),
             $params
         ));
+
+        if ($params['cache'] instanceof Horde_Cache_Storage_Null) {
+            $this->_params['maxsize'] = 0;
+        }
     }
 
     /**
@@ -92,7 +96,8 @@ class Horde_Core_Cache_Session extends Horde_Cache_Storage_Base
     {
         global $session;
 
-        if (strlen($data) > $this->_params['maxsize']) {
+        if ($this->_params['maxsize'] &&
+            (strlen($data) > $this->_params['maxsize'])) {
             $this->_params['cache']->set($this->_getCid($key, false), $data);
             $this->_stored[$key] = 1;
             $this->_saveStored();
