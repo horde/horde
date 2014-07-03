@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [jan] Update lz4 source to r119 (CVE-2014-4715).
  </notes>
  <contents>
   <dir name="/">
@@ -186,7 +186,7 @@
    <date>2014-07-03</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [jan] Update lz4 source to r119 (CVE-2014-4715).
    </notes>
   </release>
  </changelog>
