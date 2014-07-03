@@ -1040,8 +1040,13 @@
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
    select a driver here. This is used to speed up portions of Horde by storing
    commonly processed objects.">File
-    <case name="Null" desc="Don't cache any data"/>
-    <case name="Apc" desc="Use the APC cache">
+    <case name="Null" desc="Don't cache any data (NOT RECOMMENDED)"/>
+    <case name="Apc" desc="Use the APC cache (NOT RECOMMENDED)">
+     <configdescription>
+     APC is not recommended for general purpose caching as it is not
+     persistent and the size of the cached data for even a small installation
+     (25+ users) will likely exceed the default APC storage size.
+     </configdescription>
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
       cache entries."/>
@@ -1087,6 +1092,10 @@
      </configsection>
     </case>
     <case name="Sql" desc="SQL-based cache storage (NOT RECOMMENDED)">
+     <configdescription>
+     SQL is not recommended for caching as the overhead required to
+     store/retreive the data cancels much of the benefit of caching.
+     </configdescription>
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
@@ -1094,7 +1103,12 @@
       </configsql>
      </configsection>
     </case>
-    <case name="Xcache" desc="Use the xCache cache">
+    <case name="Xcache" desc="Use the xCache cache (NOT RECOMMENDED)">
+     <configdescription>
+     xCache is not recommended for general purpose caching as it is not
+     persistent and the size of the cached data for even a small installation
+     (25+ users) will likely exceed the default xCache storage size.
+     </configdescription>
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
       cache entries."/>
