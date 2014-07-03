@@ -1052,20 +1052,6 @@
       cache entries."/>
      </configsection>
     </case>
-    <case name="Eaccelerator" desc="Use the eAccelerator cache (up to version
-    0.9.5)">
-     <configdescription>
-     eAccelerator must be built with --with-eaccelerator-shared-memory at
-     compile time to allow caching. &lt;strong&gt;WARNING:&lt;/strong&gt; The
-     cache functionality has been removed with eAccelerator version 0.9.6. If
-     you want to use the eAccelerator cache driver, you need version 0.9.5 or
-     lower.
-     </configdescription>
-     <configsection name="params">
-      <configstring name="prefix" required="false" desc="The prefix to use for
-      cache entries."/>
-     </configsection>
-    </case>
     <case name="File" desc="Store data in filesystem">
      <configsection name="params">
       <configstring name="dir" required="false" desc="The location to store the
