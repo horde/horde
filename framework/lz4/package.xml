@@ -160,7 +160,7 @@
    <date>2014-07-01</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* [jan] Update to latest lz4 library.
+* [jan] Update lz4 source to r118 (CVE-2014-4611).
    </notes>
   </release>
   <release>
