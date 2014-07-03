@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-03</date>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -170,7 +170,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-01</date>
+   <date>2014-07-03</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [mms] Fix compilation on ancient versions of PHP 5.3 (Bug #13310).
