@@ -788,6 +788,9 @@ var KronolithMobile = {
         $('#kronolith-minical').on('click', 'td', function(e) {
             KronolithMobile.selectMonthDay($(e.target).jqmData('date'));
         });
+
+        // Load initial view.
+        KronolithMobile.loadPage();
     }
 };
 
