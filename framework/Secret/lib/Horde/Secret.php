@@ -124,7 +124,7 @@ class Horde_Secret
 
     /**
      * Generate a secret key (for encryption), either using a random
-     * string and storing it in a cookie if the user has cookies
+     * md5 string and storing it in a cookie if the user has cookies
      * enabled, or munging some known values if they don't.
      *
      * @param string $keyname  The name of the key to set.
@@ -133,15 +133,21 @@ class Horde_Secret
      */
     public function setKey($keyname = self::DEFAULT_KEY)
     {
+        $set = true;
+
         if (isset($_COOKIE[$this->_params['session_name']])) {
             if (isset($_COOKIE[$keyname . '_key'])) {
                 $key = $_COOKIE[$keyname . '_key'];
+                $set = false;
             } else {
                 $key = $_COOKIE[$keyname . '_key'] = strval(new Horde_Support_Randomid());
-                $this->_setCookie($keyname, $key);
             }
         } else {
             $key = session_id();
+        }
+
+        if ($set) {
+            $this->_setCookie($keyname, $key);
         }
 
         return $key;
@@ -181,13 +187,9 @@ class Horde_Secret
      */
     public function clearKey($keyname = self::DEFAULT_KEY)
     {
-        if (isset($_COOKIE[$this->_params['session_name']])) {
-            if (isset($_COOKIE[$keyname . '_key'])) {
-                $this->_setCookie($keyname, false);
-                return true;
-            }
-        } elseif (isset($this->_keyCache[$keyname])) {
-            unset($this->_keyCache[$keyname]);
+        if (isset($_COOKIE[$this->_params['session_name']]) &&
+            isset($_COOKIE[$keyname . '_key'])) {
+            $this->_setCookie($keyname, false);
             return true;
         }
 
@@ -202,10 +204,6 @@ class Horde_Secret
      */
     protected function _setCookie($keyname, $key)
     {
-        if (!isset($_COOKIE[$this->_params['session_name']])) {
-            return;
-        }
-
         @setcookie(
             $keyname . '_key',
             $key,
