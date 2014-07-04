@@ -297,7 +297,8 @@ var HordeMobile = {
             };
         } else {
             data.options.parsedUrl = {};
-            if (data.options.role === 'dialog') {
+            if (typeof(data.toPage) != 'undefined' &&
+                data.toPage.attr('data-role') == 'dialog') {
                 data.options.changeHash = false;
             }
         }
