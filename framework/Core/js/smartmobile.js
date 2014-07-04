@@ -32,8 +32,9 @@ var HordeMobile = {
      */
     debug: function(label, e)
     {
+        console.log(navigator.userAgent);
         if (!HordeMobile.is_logout && window.console && window.console.error) {
-            window.console.error(label, jQuery.browser.mozilla ? e : jQuery.makeArray(e));
+            window.console.error(label, navigator.userAgent.indexOf("Firefox") > -1 ? e : jQuery.makeArray(e));
         }
     },
 
