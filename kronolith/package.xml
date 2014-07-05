@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Issue a cancellation iTip when an event&apos;s status changes to cancelled (Bug #13321).
 * [jan] Fix loading events for intial view in smartphone mode.
  </notes>
  <contents>
@@ -2399,6 +2400,7 @@
    <date>2014-07-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Issue a cancellation iTip when an event&apos;s status changes to cancelled (Bug #13321).
 * [jan] Fix loading events for intial view in smartphone mode.
    </notes>
   </release>
