@@ -187,7 +187,7 @@ class Trean_View_BookmarkList
         if (count($rtags)) {
             $html = '<div class="trean-tags-related">'
                 . Horde::img('tags.png') . ' <ul class="horde-tags">';
-            foreach ($rtags as $id => $taginfo) {
+            foreach (array_values($rtags) as $taginfo) {
                 $html .= '<li>'
                     . $GLOBALS['injector']->getInstance('Trean_TagBrowser')->addTagLink($taginfo['tag_name'])->link()
                     . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
