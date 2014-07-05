@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
 
 
 ---------

@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3676,7 +3676,7 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
    </notes>
   </release>
  </changelog>
