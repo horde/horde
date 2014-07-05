@@ -24,16 +24,35 @@ class Trean_Data_Json extends Horde_Data_Base
         return $this->_parseJson($json->children, null);
     }
 
+    protected function _parseFolders($data)
+    {
+        // Need a first pass to grab all the folders
+        foreach ($data as $child) {
+            if ($child->type == 'text/x-moz-place-container') {
+                if (empty($child->root)) {
+                    $this->_tagMap[$child->id] = $child->title;
+                    $this->_parentMap[$child->id] = $child->parent;
+                }
+                if (!empty($child->children)) {
+                    $this->_parseFolders($child->children);
+                }
+            }
+        }
+    }
+
     protected function _parseJson($data, $container)
     {
-        $rows = array();
+        // Need a first pass to grab all the folders
+        $this->_parseFolders($data);
+        return $this->_parseBookmarks($data);
+    }
 
+    protected function _parseBookmarks($data, $container = null)
+    {
+        $rows  = array();
         foreach ($data as $child) {
-
             if ($child->type == 'text/x-moz-place-container') {
-                $this->_tagMap[$child->id] = $child->title;
-                $this->_parentMap[$child->id] = $child->parent;
-                $rows = array_merge($this->_parseJson($child->children, $child->title), $rows);
+                $rows = array_merge($this->_parseBookmarks($child->children, $child), $rows);
             }
             if ($child->type == 'text/x-moz-place') {
                 $desc = '';
@@ -49,9 +68,8 @@ class Trean_Data_Json extends Horde_Data_Base
                         }
                     }
                 }
-
                 $tags = array();
-                $current_parent = $child->parent;
+                $current_parent = $container->parent;
                 while (!empty($current_parent)) {
                     if (!empty($this->_tagMap[$current_parent])) {
                         $tags[] = $this->_tagMap[$current_parent];
@@ -59,6 +77,9 @@ class Trean_Data_Json extends Horde_Data_Base
                     $current_parent = !empty($this->_parentMap[$current_parent])
                         ? $this->_parentMap[$current_parent]
                         : false;
+                }
+                if (!empty($container) && empty($container->root)) {
+                    $tags[] = $container->title;
                 }
 
                 $rows[] = array(
