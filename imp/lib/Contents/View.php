@@ -220,8 +220,8 @@ class IMP_Contents_View
 
         $part = reset($render);
 
-        /* Directly render part if this is not an HTML part. */
-        if (stripos($part['type'], 'text/html') !== 0) {
+        /* Directly render part if this is not an HTML part or it is empty. */
+        if (stripos($part['type'], 'text/html') !== 0 || !strlen($part['data'])) {
             return $part;
         }
 
