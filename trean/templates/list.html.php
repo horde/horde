@@ -39,6 +39,7 @@ if ($bookmark->http_status == 'error') {
       <?php endif ?>
     </small>
     <ul class="horde-tags">
+     <?php natcasesort($bookmark->tags);?>
      <?php foreach ($bookmark->tags as $tag):
             $url = $GLOBALS['injector']->getInstance('Trean_TagBrowser')->addTagLink($tag);
      ?>
