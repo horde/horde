@@ -68,7 +68,7 @@ class Trean_Data_Json extends Horde_Data_Base
                         }
                     }
                 }
-                $tags = !empty($child->tags) ? explode(',', $child->tags) : array();
+                $tags = array();
                 $current_parent = $container->parent;
                 while (!empty($current_parent)) {
                     if (!empty($this->_tagMap[$current_parent])) {
