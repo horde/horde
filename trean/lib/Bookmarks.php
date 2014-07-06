@@ -6,6 +6,18 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author  Ben Chavet <ben@horde.org>
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/bsdl.php
+ * @package Trean
+ */
+/**
+ * Trean_Bookmarks:: Handles basic management of bookmark storage.
+ *
+ * @author  Ben Chavet <ben@horde.org>
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/bsdl.php
  * @package Trean
  */
 class Trean_Bookmarks
@@ -22,6 +34,8 @@ class Trean_Bookmarks
 
     /**
      * Constructor.
+     *
+     * @param Content_Users_Manager  A user manager object.
      */
     public function __construct(Content_Users_Manager $userManager)
     {
@@ -34,7 +48,10 @@ class Trean_Bookmarks
     }
 
     /**
-     * Create a new bookmark for the current user
+     * Create a new bookmark for the current user.
+     *
+     * @param array $properties  The bookmark property array.
+     * @param boolean $crawl     If true (default) attempt to crawl the URL.
      *
      * @return Trean_Bookmark
      */
@@ -50,7 +67,14 @@ class Trean_Bookmarks
     }
 
     /**
-     * Search bookmarks.
+     * List bookmarks, sorted and paged as specified.
+     *
+     * @param string $sortyby   Field to sort by.
+     * @param integer $sortdir  Direction of sort.
+     * @param integer $from     Starting bookmark.
+     * @param integer $to       Ending bookmark.
+     *
+     * @return array  An array of Trean_Bookmark objects.
      */
     public function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
     {
@@ -67,6 +91,11 @@ class Trean_Bookmarks
 
     /**
      * Search bookmarks.
+     *
+     * @param string $q  The search text.
+     *
+     * @return array An array of Trean_Bookmark objects that match the search.
+     * @throws Trean_Exception
      */
     public function searchBookmarks($q)
     {
@@ -96,15 +125,25 @@ class Trean_Bookmarks
      * Returns the number of bookmarks.
      *
      * @return integer  The number of all bookmarks.
+     * @throws Trean_Exception
      */
     public function countBookmarks()
     {
         $sql = 'SELECT COUNT(*) FROM trean_bookmarks WHERE user_id = ?';
-        return $GLOBALS['trean_db']->selectValue($sql, array($this->_userId));
+        try {
+            return $GLOBALS['trean_db']->selectValue($sql, array($this->_userId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
     }
 
     /**
      * Return counts on grouping bookmarks by a specific property.
+     *
+     * @param string $groupby  The field to group on. (i.e., 'status').
+     *
+     * @return array A hash of results.
+     * @throws Trean_Exception
      */
     public function groupBookmarks($groupby)
     {
@@ -119,7 +158,11 @@ class Trean_Bookmarks
             return array();
         }
 
-        return $GLOBALS['trean_db']->selectAll($sql);
+        try {
+            return $GLOBALS['trean_db']->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
     }
 
     /**
@@ -128,15 +171,20 @@ class Trean_Bookmarks
      * @param integer $id  The ID of the bookmark to retrieve.
      *
      * @return Trean_Bookmark  The bookmark object corresponding to the given name.
+     * @throws Horde_Exception_NotFound, Trean_Exception
      */
     public function getBookmark($id)
     {
-        $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
-            FROM trean_bookmarks
-            WHERE bookmark_id = ' . (int)$id);
+        try {
+            $bookmark = $GLOBALS['trean_db']->selectOne('
+                SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
+                FROM trean_bookmarks
+                WHERE bookmark_id = ' . (int)$id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
         if (is_null($bookmark)) {
-            throw new Trean_Exception('not found');
+            throw new Horde_Exception_NotFound();
         }
 
         $bookmark = $this->_resultSet(array($bookmark));
@@ -147,12 +195,13 @@ class Trean_Bookmarks
      * Removes a Trean_Bookmark from the backend.
      *
      * @param Trean_Bookmark $bookmark  The bookmark to remove.
+     * @throws Horde_Exception_PermissionDenied, Trean_Exception
      */
     public function removeBookmark(Trean_Bookmark $bookmark)
     {
         /* Check permissions. */
         if ($bookmark->userId != $this->_userId) {
-            throw new Trean_Exception('permission denied');
+            throw new Horde_Exception_PermissionDenied();
         }
 
         /* Untag */
@@ -163,13 +212,21 @@ class Trean_Bookmarks
         //$indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
 
         /* Delete from SQL. */
-        $GLOBALS['trean_db']->delete('DELETE FROM trean_bookmarks WHERE bookmark_id = ' . (int)$bookmark->id);
+        try {
+            $GLOBALS['trean_db']->delete('DELETE FROM trean_bookmarks WHERE bookmark_id = ' . (int)$bookmark->id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
 
         return true;
     }
 
     /**
      * Creates Trean_Bookmark objects for each row in a SQL result.
+     *
+     * @param array $bookmarks  An array of query results.
+     *
+     * @return array  An array of Trean_Bookmark objects.
      */
     protected function _resultSet($bookmarks)
     {
@@ -194,4 +251,5 @@ class Trean_Bookmarks
 
         return $objects;
     }
+
 }
