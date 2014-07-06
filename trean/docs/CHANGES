@@ -2,6 +2,8 @@
 v1.1.0-git
 ----------
 
+[mjr] Add new block for displaying bookmarks tagged with a certain set of tags
+      (Request #13020).
 
 
 ---------
