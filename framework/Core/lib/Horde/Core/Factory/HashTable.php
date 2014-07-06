@@ -75,7 +75,7 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
                 foreach ($params['hostspec'] as $key => $val) {
                     $redis_params[] = array_merge($common, array_filter(array(
                         'host' => trim($val),
-                        'port' => isset($params['port']) ? trim($params['port']) : null,
+                        'port' => isset($params['port'][$key]) ? trim($params['port'][$key]) : null,
                         'scheme' => 'tcp'
                     )));
                 }
