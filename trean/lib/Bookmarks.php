@@ -5,20 +5,20 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
- * @author  Ben Chavet <ben@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsdl.php
- * @package Trean
+ * @package  Trean
  */
 /**
  * Trean_Bookmarks:: Handles basic management of bookmark storage.
  *
- * @author  Ben Chavet <ben@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsdl.php
- * @package Trean
+ * @package  Trean
  */
 class Trean_Bookmarks
 {
