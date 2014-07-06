@@ -1136,10 +1136,6 @@ ul.sound-list {
     float: right;
 }
 
-.activesync-devices td {
-    vertical-align: top;
-}
-
 /* Toggle quote styles. */
 .toggleQuoteHide, .toggleQuoteShow {
     cursor: pointer;
