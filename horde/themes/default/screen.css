@@ -1136,24 +1136,8 @@ ul.sound-list {
     float: right;
 }
 
-/* Activesync styles. */
-.activesyncHdr1 {
-    width: 30%;
-}
-.activesyncHdr2 {
-    width: 22%;
-}
-.activesyncHdr3 {
-    width: 6%;
-}
-.activesyncHdr4 {
-    width: 10%;
-}
-.activesyncHdr5 {
-    width: 12%;
-}
-.activesyncHdr6 {
-    width: 10%;
+.activesync-devices td {
+    vertical-align: top;
 }
 
 /* Toggle quote styles. */
