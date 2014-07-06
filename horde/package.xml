@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mjr] Display ActiveSync client lastSyncTime in user&apos;s timezone (Request #13200).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3919,7 +3919,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mjr] Display ActiveSync client lastSyncTime in user&apos;s timezone (Request #13200).
    </notes>
   </release>
  </changelog>
