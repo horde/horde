@@ -332,17 +332,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CALENDAR, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
-                        $folders[] = $this->_getFolder(
-                            Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
-                            array(
-                                'class' => Horde_ActiveSync::CLASS_CALENDAR,
-                                'primary' => $folder['primary'],
-                                'display' => $folder['display']
-                            )
-                        );
+                        try {
+                            $folders[] = $this->_getFolder(
+                                Horde_ActiveSync::CLASS_CALENDAR . ':' . $id,
+                                array(
+                                    'class' => Horde_ActiveSync::CLASS_CALENDAR,
+                                    'primary' => $folder['primary'],
+                                    'display' => $folder['display']
+                                )
+                            );
+                        } catch (Horde_ActiveSync_Exception $e) {
+                        }
                     }
                 } else {
-                    $folders[] = $this->_getFolder($temp);
+                    try {
+                        $folders[] = $this->_getFolder($temp);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                    }
                 }
             }
 
@@ -350,17 +356,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_CONTACTS, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
-                        $folders[] = $this->_getFolder(
-                            Horde_ActiveSync::CLASS_CONTACTS . ':' . $id,
-                            array(
-                                'class' => Horde_ActiveSync::CLASS_CONTACTS,
-                                'primary' => $folder['primary'],
-                                'display' => $folder['display']
-                            )
-                        );
+                        try {
+                            $folders[] = $this->_getFolder(
+                                Horde_ActiveSync::CLASS_CONTACTS . ':' . $id,
+                                array(
+                                    'class' => Horde_ActiveSync::CLASS_CONTACTS,
+                                    'primary' => $folder['primary'],
+                                    'display' => $folder['display']
+                                )
+                            );
+                        } catch (Horde_ActiveSync_Exception $e) {
+                        }
                     }
                 } else {
-                    $folders[] = $this->_getFolder($temp);
+                    try {
+                        $folders[] = $this->_getFolder($temp);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                    }
                 }
             }
 
@@ -368,17 +380,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_TASKS, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
-                       $folders[] = $this->_getFolder(
-                            Horde_ActiveSync::CLASS_TASKS . ':' . $id,
-                            array(
-                                'class' => Horde_ActiveSync::CLASS_TASKS,
-                                'primary' => $folder['primary'],
-                                'display' => $folder['display']
-                            )
-                        );
+                       try {
+                           $folders[] = $this->_getFolder(
+                                Horde_ActiveSync::CLASS_TASKS . ':' . $id,
+                                array(
+                                    'class' => Horde_ActiveSync::CLASS_TASKS,
+                                    'primary' => $folder['primary'],
+                                    'display' => $folder['display']
+                                )
+                            );
+                       } catch (Horde_ActiveSync_Exception $e) {
+                       }
                     }
                 } else {
-                    $folders[] = $this->_getFolder($temp);
+                    try {
+                        $folders[] = $this->_getFolder($temp);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                    }
                 }
             }
 
@@ -386,17 +404,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $temp = $this->_connector->getFolders(Horde_ActiveSync::CLASS_NOTES, $multiplex);
                 if (is_array($temp)) {
                     foreach ($temp as $id => $folder) {
-                        $folders[] = $this->_getFolder(
-                            Horde_ActiveSync::CLASS_NOTES . ':' . $id,
-                            array(
-                                'class' => Horde_ActiveSync::CLASS_NOTES,
-                                'primary' => $folder['primary'],
-                                'display' => $folder['display']
-                            )
-                        );
+                        try {
+                            $folders[] = $this->_getFolder(
+                                Horde_ActiveSync::CLASS_NOTES . ':' . $id,
+                                array(
+                                    'class' => Horde_ActiveSync::CLASS_NOTES,
+                                    'primary' => $folder['primary'],
+                                    'display' => $folder['display']
+                                )
+                            );
+                        } catch (Horde_ActiveSync_Exception $e) {
+                        }
                     }
                 } else {
-                    $folders[] = $this->_getFolder($temp);
+                    try {
+                        $folders[] = $this->_getFolder($temp);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                    }
                 }
             }
             if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
