@@ -192,6 +192,29 @@ class Trean_Bookmarks
     }
 
     /**
+     * Returns the bookmarks corresponding to the given ids.
+     *
+     * @param array $id  An array of integer IDs of the bookmarks to retrieve.
+     *
+     * @return array  An array of Trean_Bookmark objects.
+     * @throws Trean_Exception
+     * @since 1.2.0
+     */
+    public function getBookmarks(array $ids)
+    {
+        try {
+            $bookmarks = $GLOBALS['trean_db']->selectAll('
+                SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
+                FROM trean_bookmarks
+                WHERE bookmark_id IN (' . implode(',', $ids) . ')');
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
+
+        return $this->_resultSet($bookmarks);
+    }
+
+    /**
      * Removes a Trean_Bookmark from the backend.
      *
      * @param Trean_Bookmark $bookmark  The bookmark to remove.

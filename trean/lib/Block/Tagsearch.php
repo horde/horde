@@ -72,9 +72,8 @@ class Trean_Block_Tagsearch extends Horde_Core_Block
         } catch (Trean_Exception $e) {
             $ids = array();
         }
-        foreach ($ids as $id) {
-            $bookmarks[] = $trean_gateway->getBookmark($id);
-        }
+
+        $bookmarks = $trean_gateway->getBookmarks($ids);
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;
