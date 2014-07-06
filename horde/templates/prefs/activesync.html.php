@@ -47,7 +47,9 @@
     <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id ?>" />
   </td>
   <td><?php echo $d->deviceType ?></td>
-  <td><?php echo $d->getLastSyncTimestamp() ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $d->getLastSyncTimestamp()) : _("None") ?></td>
+  <?php $lst = $d->getLastSyncTimestamp() ? new Horde_Date($d->getLastSyncTimestamp(), 'UTC') : false; ?>
+  <?php if ($lst): $lst->setTimezone($GLOBALS['prefs']->getValue('timezone')); endif;?>
+  <td><?php echo $lst ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $lst->timestamp()) . ' ' . $lst->format('T') : _("None") ?></td>
   <td><?php echo $status ?></td>
   <td>
     <?php foreach ($d->getFormattedDeviceProperties() as $key => $value): ?>
