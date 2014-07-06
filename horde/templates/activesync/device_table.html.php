@@ -5,9 +5,10 @@
     <th class="smallheader"><?php echo _("Last Sync Time") ?></th>
     <th class="smallheader"><?php echo _("Status") ?></th>
     <th class="smallheader"><?php echo _("Device Information") ?></th>
+    <th class ="smallheader"><?php echo _("Cached Collectons") ?></th>
     <th class="smallheader"><?php echo _("Actions")?></th>
    </tr>
-  <?php foreach ($this->devices as $d): ?>
+  <?php foreach ($this->devices as $d_id => $d): ?>
     <?php if ($d->rwstatus == Horde_ActiveSync::RWSTATUS_PENDING): ?>
       <?php $status = $this->contentTag('span', _("Wipe Pending"), array('class' => 'notice')) ?>
     <?php elseif ($d->rwstatus == Horde_ActiveSync::RWSTATUS_WIPED): ?>
@@ -18,8 +19,8 @@
       <?php $status = $d->policykey ? _("Provisioned") : _("Not Provisioned") ?>
     <?php endif; ?>
     <tr>
-      <?php if ($this->isAdmin):?><td><?php echo $d->user?></td><?php endif?>
-      <td><?php echo $d->deviceType ?></td>
+      <?php if ($this->isAdmin):?><td><b><?php echo $d->user?></b></td><?php endif?>
+      <td><b><?php echo $d->deviceType ?></b></td>
       <?php $lst = $d->getLastSyncTimestamp() ? new Horde_Date($d->getLastSyncTimestamp(), 'UTC') : false; ?>
       <?php if ($lst): $lst->setTimezone($GLOBALS['prefs']->getValue('timezone')); endif;?>
       <td><?php echo $lst ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $lst->timestamp()) . ' ' . $lst->format('T') : _("None") ?></td>
@@ -29,6 +30,14 @@
           <?php echo '<b>' . $key . '</b>: ' . $value . '<br />' ?>
         <?php endforeach; ?>
         <b><?php echo _("Cached Heartbeat (seconds)")?></b>: <?php echo $d->hbinterval ?><br />
+      </td>
+      <td>
+        <?php foreach ($this->collections[$d_id] as $cc): ?>
+          <?php foreach ($cc as $key => $value): ?>
+            <?php echo '<b>' . $key . '</b>:' . $value . '<br />' ?>
+          <?php endforeach; ?>
+          <br />
+        <?php endforeach; ?>
       </td>
       <td>
         <?php if ($d->policykey): ?>
