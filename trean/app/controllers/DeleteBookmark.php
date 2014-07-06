@@ -12,7 +12,7 @@ class Trean_DeleteBookmark_Controller extends Horde_Controller_Base
             $gateway->removeBookmark($bookmark);
             $notification->push(_("Deleted bookmark: ") . $bookmark->title, 'horde.success');
             $result = array('data' => 'deleted');
-        } catch (Trean_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was a problem deleting the bookmark: %s"), $e->getMessage()), 'horde.error');
             $result = array('error' => $e->getMessage());
         }

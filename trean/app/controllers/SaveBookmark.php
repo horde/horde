@@ -9,7 +9,6 @@ class Trean_SaveBookmark_Controller extends Horde_Controller_Base
 
         try {
             $bookmark = $gateway->getBookmark($id);
-
             $old_url = $bookmark->url;
             $bookmark->url = Horde_Util::getFormData('bookmark_url');
             $bookmark->title = Horde_Util::getFormData('bookmark_title');
@@ -22,7 +21,7 @@ class Trean_SaveBookmark_Controller extends Horde_Controller_Base
 
             $bookmark->save();
             $result = array('data' => 'saved');
-        } catch (Trean_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $e->getMessage()), 'horde.error');
             $result = array('error' => $e->getMessage());
         }
