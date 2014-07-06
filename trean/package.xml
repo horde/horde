@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-06</date>
  <version>
   <release>1.1.0RC2</release>
   <api>1.1.0</api>
@@ -77,6 +77,7 @@
     <dir name="Block">
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
+     <file name="Tagsearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Data">
      <file name="Json.php" role="horde" />
@@ -473,6 +474,7 @@
    <install as="trean/lib/Ajax/Imple/TopTags.php" name="lib/Ajax/Imple/TopTags.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Block/Tagsearch.php" name="lib/Block/Tagsearch.php" />
    <install as="trean/lib/Data/Json.php" name="lib/Data/Json.php" />
    <install as="trean/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
@@ -668,7 +670,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2014-07-01</date>
+   <date>2014-07-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
