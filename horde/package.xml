@@ -30,7 +30,7 @@
  </lead>
  <date>2014-07-07</date>
  <version>
-  <release>5.1.7</release>
+  <release>5.1.8</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
-* [jan] Fix fatal error in LDAP account portal block (Bug #12910).
-* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3815,6 +3813,19 @@
 * [jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
 * [jan] Fix fatal error in LDAP account portal block (Bug #12910).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.8</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
