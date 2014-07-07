@@ -1,6 +1,6 @@
-----------
-v6.1.8-git
-----------
+------
+v6.1.8
+------
 
 [mms] SECURITY: Fix XSS in displaying user-defined flags in basic mailbox and
       message view.

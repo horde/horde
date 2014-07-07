@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-07</date>
+ <date>2014-07-07</date>
  <version>
   <release>6.1.8</release>
   <api>6.1.0</api>
@@ -3345,7 +3345,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-07</date>
+   <date>2014-07-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS in displaying user-defined flags in basic mailbox and message view.
