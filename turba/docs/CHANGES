@@ -1,6 +1,6 @@
-----------
-v4.1.5-git
-----------
+------
+v4.1.5
+------
 
 [mjr] Fix pagination of search results (Bug #13047).
 [mjr] Don't output empty properties for CardDAV requests (Bug #12782).
