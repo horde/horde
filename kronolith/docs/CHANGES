@@ -2,6 +2,7 @@
 v4.2.0-git
 ----------
 
+[jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
 [mjr] Issue a cancellation iTip when an event's status changes to cancelled
       (Bug #13321).
 [jan] Fix loading events for intial view in smartphone mode.
