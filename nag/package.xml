@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2014-07-07</date>
  <version>
   <release>4.1.5</release>
   <api>4.1.0</api>
@@ -1453,7 +1453,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-07-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix link to task in alarm emails.
