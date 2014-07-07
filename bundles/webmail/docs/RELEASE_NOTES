@@ -1,21 +1,11 @@
 <?php
-/**
- * Release focus. Possible values:
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+/* Security release? */
+$notes['security'] = true;
 
 /* Mailing list release notes. */
-$notes['ml']['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.1.4.
+Webmail Edition version 5.1.5.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,45 +19,21 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 5.1.3
+The major changes compared to the Horde Groupware Webmail Edition version 5.1.4
 are:
 
+Security fixes:
+    * Fixed XSS vulnerabilities in Mail component.
+    * Fixed broken encryption of session data.
+    * Don't leak database authentication/connection information in exception
+      messages.
+    * Stricter LDAP parameter check to detect empty passwords.
+
 General changes:
-    * Fixed detecting of expired sessions via AJAX.
-    * Updated Danish translation.
+    * Updated Danish, Hungarian, Japanese, Korean, and Spanish translations.
     * Bugfixes and improvements.
-
-Mail changes:
-    * Added a link to save all attachments to the message popup window.
-    * Improved support for broken S/MIME messages.
-    * Fixed regressions in permissions, deleting drafts, and applying ACLs.
-
-Address book changes:
-    * Fixed distribution list support for Kolab backends.
-
-Calendar changes:
-    * Fixed fatal error if recurrence exceptions have timezones set.
-    * Fixed deleting and sending iTip notifications for recurring events.
-
-Notes changes:
-    * Fixed removing note encryption.
 ML;
-
-/* Freshmeat release notes, not more than 600 characters. */
-$notes['fm']['changes'] = <<<FM
-Fixed detecting of expired sessions via AJAX.
-Added a link to save all attachments to the message popup window.
-Improved support for broken S/MIME messages.
-Fixed mail regressions in permissions, deleting drafts, and applying ACLs.
-Fixed distribution list support for Kolab backends.
-Fixed fatal error if recurrence exceptions have timezones set.
-Fixed deleting and sending iTip notifications for recurring events.
-Fixed removing note encryption.
-Updated Danish translation.
-Bugfixes and improvements.
-FM;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';
 $notes['list'] = 'horde';
-$notes['fm']['project'] = 'horde-webmail';
 return $notes;

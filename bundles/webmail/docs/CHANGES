@@ -2,6 +2,417 @@
 v5.1.5-git
 ----------
 
+[jan] Update Korean translation (Deokgon Kim <dgkim@dgkim.net>).
+
+Horde Changes
+-------------
+[jan] Detect REPORT queries as DAV requests in RPC server (Bug #13124).
+[jan] Fix fatal error in LDAP account portal block (Bug #12910).
+
+Mail Changes
+------------
+[mms] SECURITY: Fix XSS in displaying user-defined flags in basic mailbox and
+      message view.
+[mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox
+      view (João Machado <geral@jpaulo.eu>).
+[mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view
+      (João Machado <geral@jpaulo.eu>).
+[mms] Fix scrolling through large search mailboxes in dynamic view (Bug
+      #13138).
+[mms] Better handling of malformed message dates in mailbox listing (Bug
+      #13114).
+
+Filters Changes
+---------------
+[mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
+[mms] Fix procmail reject recipe (admin@dei.unipd.it, Bug #13060).
+
+Address Book Changes
+--------------------
+[mjr] Fix pagination of search results (Bug #13047).
+[mjr] Don't output empty properties for CardDAV requests (Bug #12782).
+[jan] Fix portal serach block response when no contacts have been found
+      (dulinux <lfbm.andamentos@gmail.com>, Bug #13044).
+
+Calendar Changes
+----------------
+[jan] Fix history not always returning the last modification time of an event
+      (Bug #13113).
+[jan] Support timezone aliases when importing events (Bug #13100).
+[mjr] Honor the no_sharing configuration option in dynamic view (Bug #13002).
+[mjr] Fix issue that could remove all events from shared calendars if a user
+      with Horde_Perms::EDIT on that calendar is removed via the removeUserData
+      API (Bug #12524).
+[jan] Fix TRIGGER generation if alarm value is negative (Bug #13064).
+
+Tasks Changes
+-------------
+[jan] Fix link to task in alarm emails.
+
+Tagging Changes
+---------------
+[jan] Fix date format for 'created' column.
+
+Timeobject Changes
+------------------
+[jan] Update to changed Facebook events API.
+[jan] Add Danish translation (Erling Preben Hansen <erling@eph.dk>).
+[jan] Fix returning Facebook event URLs.
+[mjr] Cache Facebook queries.
+
+Library Changes
+---------------
+[jan] Update Spanish translations (Manuel Perez Ayala
+      <mperaya@alcazaba.unex.es>).
+[jan] Update Japanese translations (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+[jan] Update Hungarian translations (Andras Galos <galosa@netinform.hu>).
+[jan] Update Danish translations (Erling Preben Hansen <erling@eph.dk>).
+
+ActiveSync
+[mjr] Force multiplex contact collections for Outlook 2013.
+[mjr] Fix issue sending email when the imap client throws an error when
+      synchronizing the maillog (Bug #13276).
+[mjr] Fix issue related to clients with enabled SMS sync causing broken email
+      deletion behavior.
+[mjr] Fix ignoring incoming SMS CHANGE commands.
+[mjr] Fix removing orphaned device entries (Bug #13277).
+[mjr] Prevent sending non-UTF8 data due to meeting response emails.
+[mjr] Remove Horde::debug output.
+[mjr] Fix requesting remote wipe when using the MongoDB state driver.
+[mjr] Truly fix duplicate email in Outlook 2013 when moving/deleting messages.
+[mjr] Fix detecting forced multiplex values for Android 4.4.0 and greater (Bug
+      #13199).
+[mjr] Fix issue with renaming folders (Bug #13196).
+[mjr] Fix duplicate items in mailboxes after handling MOVEITEMS requests.
+[mjr] Allow saving just dirty deviceProperties, and not deviceInfo.
+[mjr] Fix return status for SETTINGS_DEVICEINFORMATION requests (Bug #13191).
+[mjr] Fix regression that could cause some clients to no longer sync.
+[mjr] Fix issue with clients that support EAS 12.1+ but still use PING commands
+      that would cause the cached heartbeat interval to be cleared.
+[mjr] Fix issue where the device managed heartbeat interval would be ignored
+      during PING requests.
+[mjr] Fix issue that would cause a SYNC loop when changing FILTERTYPE in
+      certain clients (Bug #13182).
+[mjr] Fix regression with renaming email folders.
+[mjr] Improve workarounds for certain clients that send broken authentication
+      information (Bug #13184).
+[jan] Make SQL state backend compatible with Oracle.
+[mjr] Improve detection of Android devices for the purposes of determining
+      support for non-multiplexed collections.
+[mjr] Prevent possible PING loop due to PING requests incorrectly containing
+      collections that haven't had a SYNC issued yet.
+[mjr] Add Horde_ActiveSync_Rfc822::addStandardHeaders().
+[mjr] Support sending PRIMARYSMTPADDRESS in EAS 14.1 (Request #13062).
+[mjr] Change the order of WBXML tags for Horde_ActiveSync_Message_Exception to
+      make some older clients happy.
+[mjr] Fix some cases where removing a device's state could cause a PING and/or
+      SYNC loop on some older clients.
+[mjr] Fix regression that broke synchronization in clients that don't support
+      EAS 14.1 (Bug #13038).
+[jan] Optimize SQL query for garbage collection (hannes.brunssen@ewetel.de, Bug
+      #13043).
+[mjr] Fix regression that could prevent stale sync requests to persist (Bug
+      #13032).
+[mjr] Fix regression in sending non Mime encoded messages (Bug #13029).
+
+Alarm
+[jan] Test all available SQL backends.
+[jan] Make tests work with PEAR-installed package.
+[jan] Use correct schema table name when running tests.
+[mjr] Add support for multiple instances of the same alarm, such as for a
+      recurring event.
+
+Argv
+[jan] Update Ukrainian translation.
+
+Auth
+[jan] Add Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+
+Autoloader_Cache
+[mms] Abstract caching logic into Horde_Autoloader_Cache_Bootstrap class.
+
+Browser
+[mms] Correctly identify MSIE 11.
+[mms] Fix checking for upload errors if an array of files was uploaded.
+[mms] Catch newer PHP upload errors when checking for upload data.
+
+Cache
+[mms] Add Memory driver.
+[mms] Deprecate Memoryoverlay and Mock drivers.
+[mms] Hashtable driver now respects lifetime parameter in the get() and
+      exists() methods (Bug #13085).
+
+Cli
+[jan] Fix printing of structured fatal error details.
+
+Core
+[jan] SECURITY: Fix broken encryption of session data if regenerating session
+      IDs.
+
+Crypt
+[mms] Fix reference to constant outside of the package.
+
+CssMinify
+[mms] Initial release.
+
+Data
+[jan] Add importing of IMC (iCalendar/vCard) data from a URL.
+[mms] Store CSV and TSV data in storage object, instead of temporary file, to
+      ensure import can work across a PHP cluster.
+
+Date
+[jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao
+      <duli@easylifeproject.org>).
+[mjr] Fix setting timezone parameter when parsing certain string
+      representations.
+
+Dav
+[jan] Allow the same external object UID in multiple resources to fix moving
+      objects (Bug #13102).
+[jan] Fix synchronization with Mac Calendar application after adding events.
+[jan] Update to SabreDAV 1.8.10.
+[jan] Update to VObject 2.1.4.
+
+Db
+[mms] SECURITY: Don't leak PDO DSN authentication/connection information in
+      exception messages.
+[jan] Fix changing columns to NULL/NOT NULL on Oracle and SQLite.
+[jan] Fix migrating large values to BLOB on Oracle.
+[jan] Fix certain migrations with Oracle.
+[mms] Fix regression preventing caching of any internal DB information.
+[jan] Fix columnCount() result of PDO result objects.
+
+Feed
+[jan] Fix loading of local files with basedir restrictions or libxml entity
+      loading disabled.
+
+Group
+[jan] Check for read-only LDAP configurations in removeUser()
+      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13247).
+
+HashTable
+[mms] In the Predis driver, ramp up to the maximum unlock wait interval
+      (Request #13231).
+[mms] Implement logging.
+[mms] Fix inconsistent usage of 'expire' and 'timeout' options (standardize on
+      'expire', which is more semantically correct).
+
+History
+[jan] Fix migrating from systems older than Horde 4.
+[mms] Add composite driver.
+[mms] Add Null driver.
+[mms] Add MongoDB driver.
+
+Http
+[jan] Fix HTTP authentication with PECL HTTP drivers.
+[jan] Always cast reponse body to string with pecl_http 2.0 (Michael Cramer
+      <michael@bigmichi1.de>).
+[jan] Add support for PECL http 2.0 extension (Michael Cramer
+      <michael@bigmichi1.de>).
+
+Icalendar
+[jan] Fix detecting the current DST rule from certain VTIMEZONE components (Bug
+      #13223).
+[jan] Export VTIMEZONE components only once per TZID (Bug #12988).
+
+Image
+[mjr] Add Horde_Image_Exif::getDescriptionFields() and
+      Horde_Image_Exif::getTitleFields().
+[mjr] Add "Title" and "Description" XMP fields.
+[mjr] Update maximum allowed version for the PECL Imagick extension.
+[jan] Fix converting to grayscale with imagick driver.
+[jan] Add optional dependency on imagick PECL extension.
+
+Imap_Client
+[mms] Fix regression in handling invalid DateTime data due to a BC-incompatible
+      change in PHP.
+[mms] Fix regression where INBOX subscription status was based on server
+      status, instead of always being treated as subscribed (Bug #13261).
+[mms] Delimiter information is now always returned from
+      Horde_Imap_Client_Base#listMailboxes().
+[mms] Fix broken MBOX_UNSUBSCRIBED behavior on IMAP servers that support
+      LIST-EXTENDED.
+[mms] Added the MBOX_ALL_SUBSCRIBED mode to
+      Horde_Imap_Client_Base#listMailboxes().
+[mms] Workaround PHP DateTime regression in 5.4.29 & 5.5.13.
+[mms] Fix translating error messages if they contain printf placeholders.
+[mms] Fix working with mailboxes containing entirely integers (Bug #13157).
+[mms] Horde_Imap_Client_Base#getNamespaces() can now return a
+      Horde_Imap_Client_Namespace_List object instead of an array.
+[mms] Use the new command length limitations defined in RFC 7162.
+[mms] A noop() call before authentication will now correctly throw an exception
+      on a connection issue (Bug #13205).
+[mms] Fix instantiating base object with an empty password.
+[mms] Better error checking when writing data to the server (Bug #13187; Thomas
+      Jarosch <thomas.jarosch@intra2net.com>).
+[mms] Support partial search limitation even if the PARTIAL search return
+      option is not available on the server (Request #13153).
+[mms] Added the 'max' and 'min' properties to Horde_Imap_Client_Ids.
+[mms] Workaround broken MIME parts that cannot be binary decoded on the server.
+[mms] Correctly handle partial search limiting for a single ID (Bug #13153).
+[mms] Workaround bug in Dovecot where improperly encoded body part returns NIL
+      data when using the BINARY extension.
+[mms] Handle IN-USE, LOGIN-DELAY, and SYS/TEMP error codes when authenticating
+      to POP3 servers.
+[mms] Fix TLS negotiation with POP3 servers.
+[mms] Fix throwing authentication exception when using Digest-MD5.
+[mms] Fix parsing a reply/forward subject with no blob content.
+[mms] Ensure integer value returns from Horde_Imap_Client_Base#status() are
+      truly integers.
+[mms] Prevent unnecessary cache writes when list of UIDs passed to deleteMsgs()
+      is empty.
+[mms] Fix stripping non-ASCII characters in
+      Horde_Imap_Client_Data_Format_Atom#stripNonAtomCharacters().
+[mms] Don't allow PREAUTH on unencrypted connection if a secure connection
+      (e.g. STARTTLS) is requested.
+[mms] Password is no longer a necessary parameter.
+[mms] Fix regression in parsing empty string values in IMAP tokenizer.
+
+JavascriptMinify
+[mms] Add commented list of original source URLs in minified output, in order
+      to comply with any license terms contained in original files.
+
+JavascriptMinify_Jsmin
+[mms] Add commented list of original source URLs in minified output, in order
+      to comply with any license terms contained in original files.
+
+Kolab_Storage
+[jan] Consistently return a stream from the getBodypart() methods.
+[jan] Add Horde_Kolab_Storage_Object#getBackendId().
+[jan] Implement saving and loading of attachments to Kolab objects (backward
+      compatibility break in Horde_Kolab_Storage_Data#getAttachment()!).
+[mms] Fix grabbing annotation list from IMAP server.
+
+Ldap
+[jan] SECURITY: Stricter parameter check in bind() to detect empty passwords.
+[jan] Fix compatibility with PHP 5.3 (Bug #11888).
+[jan] Allow to specify base DN for searching user DNs.
+[jan] Support multi-value RDNs in Horde_Ldap::quoteDN() (Request #11888).
+[jan] Fix creating filters with the less (<) operator (Bug #13154).
+[jan] Fix approximate search operator (Leandro Damascena
+      <leandro.damascena@gmail.com>, Bug #9094).
+
+ListHeaders
+[jan] Add German translation.
+[mms] Better translations of the list header fields.
+
+Lock
+[jan] Fix and improve tests.
+
+Mail
+[mms] Add Horde_Mail_Transport_Lmtphorde driver.
+[mms] Be more lenient in parsing RFC 5322 identification field values.
+[mms] Add Horde_Mail_Rfc822_Identification class.
+[mms] Optimizations to address parsing.
+
+Mapi
+[mjr] Make bcmath an optional, not required, extension (Bug #13285).
+
+Memcache
+[mms] Ramp up to the maximum unlock wait interval (Request #13231).
+
+Mime
+[mjr] Fix returning raw data of sent email.
+[mjr] Fix returning stream containing raw email data.
+[mjr] Add Horde_Mime_Mail#getRaw() for returning the raw email email data.
+[mms] Ensure return from Horde_Mime_Part#getBytes() is an integer.
+[mms] Fix regression in part size calculation for parts that contain the raw
+      contents.
+[mms] Add Importance to list of headers that expects a single value.
+[mms] Correctly set size of part when using Horde_Mime_Part::parseMessage() and
+      the 'no_body' option.
+[mms] Fix Horde_Mime_Part#buildMimeIds() when called on the base embedded
+      object of a parent part (Bug #13117).
+
+Mime_Viewer
+[mms] Fix fatal error if using TNEF viewer and bcmath extension is not
+      installed on the system.
+
+Pack
+[mms] Don't use JSON driver to pack if input contains non-UTF8 data (Bug
+      #13275).
+[mms] Due to issues with igbinary 1.1.1, disable the igbinary driver.
+
+Prefs
+[mms] Add Horde_Prefs#getCache().
+[mms] Add Horde_Cache based cache driver.
+[mms] Pref scopes are now loaded on-demand.
+[mms] Add Horde_Prefs#changeScope().
+
+Secret
+[mms] Only store keys in cookie if cookies are in use
+      (thomas.jarosch@intra2net.com, Bug #13284).
+[mms] Correctly clear secret key from cookie data
+      (thomas.jarosch@intra2net.com, Bug #13283).
+
+Service_Weather
+[jan] Fix broken translations of wind forecasts.
+[mjr] Adjust to changes in Wunderground API (Bug #13299,
+      arjen+horde@de-korte.org).
+[mjr] Add cardinal direction abbreviations (Bug #13186).
+[mjr] Fix fetching local observation time from Wwo (Bug #13083,
+      maciej.uhlig@us.edu.pl).
+
+Smtp
+[mms] Fix harmless undefined error when accessing certain configuration
+      parameters.
+[mms] Horde_Smtp#send() now returns recipient status information if at least
+      one recipient was successfully accepted.
+[mms] Added an LMTP (RFC 2033) driver.
+[mms] The mail submission port (587) should be default of this library.
+[mms] Better exception message for a 550 error, since it is common and may be
+      displayed to an end user (Request #12990).
+
+Socket_Client
+[mms] Fix BC-breaking regression with self-signed TLS certificates introduced
+      by PHP 5.6.
+
+Test
+[jan] Update to PHPUnit 4.1.3.
+[jan] Fix running tests from PEAR-installed version.
+[jan] Bundle PHPUnit and dependencies.
+[mms] Fix loading PHPUnit from PHAR file.
+
+Text_Diff
+[jan] Fixed inline renderer breaking line breaks. (Petr Kalivoda
+      <petr.kalivoda@gmail.com>).
+[jan] Assume Unicode input when splitting on character level (Petr Kalivoda
+      <petr.kalivoda@gmail.com>).
+[jan] Fix signature of Horde_Text_Diff_Mapped constructor (BC break!) (Bug
+      #13253).
+
+Text_Filter
+[mms] Javascript minification has been deprecated and moved to the
+      Horde_JavascriptMinify package.
+
+Text_Filter_Jsmin
+[mms] Javascript minification has been deprecated and moved to the
+      Horde_JavascriptMinify package.
+
+Timezone
+[jan] Use passive FTP for downloading the timezone database
+      (arjen+horde@de-korte.org, Request #13024).
+
+Url
+[mms] Catch/ignore invalid RFC 2397 data strings.
+
+Util
+[mms] Add Horde_String_Transliterate class.
+[mms] Support deeply nested HTML documents (requires PHP 5.4.0+ and libxml
+      2.7.0+) (Bug #13086).
+
+View
+[jan] Change Horde_View_Helper_Date#distanceOfTimeInWords() to not round up the
+      distance.
+[jan] Make Horde_View_Helper_Text#truncate() and truncateMiddle()
+      multibyte-safe (Bug #13163).
+
+Extensions
+----------
+horde_lz4
+[jan] Update lz4 source to r119 (CVE-2014-4715).
+[mms] Fix compilation on ancient versions of PHP 5.3 (Bug #13310).
+[jan] Update lz4 source to r118 (CVE-2014-4611).
 
 
 ------
