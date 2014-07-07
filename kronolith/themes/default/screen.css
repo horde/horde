@@ -221,7 +221,9 @@ table.kronolithViewMonth {
     display: block;
 }
 .kronolith-minical table tbody td:hover,
-.kronolith-minical table tbody td:hover a {
+.kronolith-minical table tbody td:hover a,
+ kronolith-minical .kronolith-selected:hover,
+#horde-sidebar .kronolith-minical .kronolith-selected:hover a {
     background-color: #f1f1f1;
     color: #000;
 }
