@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2014-07-07</date>
  <version>
   <release>3.1.5</release>
   <api>3.0.0</api>
@@ -1342,7 +1342,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-07-07</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
