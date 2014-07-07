@@ -503,6 +503,19 @@
   </release>
   <release>
    <version>
+    <release>5.1.5</release>
+    <api>5.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Content, and Timeobjects.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>5.2.0RC1</release>
     <api>5.2.0</api></version>
    <stability>
