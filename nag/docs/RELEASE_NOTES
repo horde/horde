@@ -1,21 +1,11 @@
 <?php
-/**
- * Release focus. Possible values (multiple possible with arrays):
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+/* Security release? */
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H5 (4.1.4).
+Manager version H5 (4.1.5).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
@@ -30,16 +20,9 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
 The major changes compared to the Nag version H5 (4.1.4) are:
-    * Updated Danish translation.
-    * Small improvements.
+    * Small bugfix.
+    * Updated Korean translation.
 ML;
 
-/* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
-Updated Danish translation.
-Small improvements.
-FM;
-
-$this->notes['name'] = 'Nag';
-$this->notes['fm']['project'] = 'nag';
-$this->notes['fm']['branch'] = 'Horde 5';
+$notes['name'] = 'Nag';
+return $notes;

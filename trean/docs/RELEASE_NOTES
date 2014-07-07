@@ -10,10 +10,10 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Trean Bookmarks
 Manager version H5 (1.0.3).
 
@@ -33,11 +33,12 @@ Major changes compared to Trean version H5 (1.0.2) are:
 ML;
 
 /* Freshmeat release notes. */
-$this->notes['fm']['changes'] = <<<FM
+$notes['fm']['changes'] = <<<FM
 Show recently used tags on-demand.
 FM;
 
-$this->notes['name'] = 'Trean';
-$this->notes['list'] = 'horde';
-$this->notes['fm']['project'] = 'trean';
-$this->notes['fm']['branch'] = 'Horde 5';
+$notes['name'] = 'Trean';
+$notes['list'] = 'horde';
+$notes['fm']['project'] = 'trean';
+$notes['fm']['branch'] = 'Horde 5';
+return $notes;

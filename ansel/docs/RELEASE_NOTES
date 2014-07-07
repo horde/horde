@@ -1,19 +1,9 @@
 <?php
-/**
- * Release focus. Possible values (multiple possible with arrays):
- * Horde_Release::FOCUS_INITIAL - Initial announcement
- * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
- * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
- * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
- * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
- * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
- * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
- * Horde_Release::FOCUS_DOCS - Documentation improvements
- */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+/* Security release? */
+$notes['security'] = false;
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ansel Photo
 Management and Web Gallery application version H5 (3.0.1).
 
@@ -30,12 +20,6 @@ Major changes compared to the Ansel version H5 (3.0.0) are:
     * Small bugfixes and improvements.
 ML;
 
-/* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
-Small bugfixes and improvements.
-FM;
-
-$this->notes['name'] = 'Ansel';
-$this->notes['list'] = 'ansel';
-$this->notes['fm']['project'] = 'horde-ansel';
-$this->notes['fm']['branch'] = 'Horde 5';
+$notes['name'] = 'Ansel';
+$notes['list'] = 'ansel';
+return $notes;

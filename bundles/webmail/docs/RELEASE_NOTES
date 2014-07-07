@@ -10,10 +10,10 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
 Webmail Edition version 5.1.4.
 
@@ -54,7 +54,7 @@ Notes changes:
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
+$notes['fm']['changes'] = <<<FM
 Fixed detecting of expired sessions via AJAX.
 Added a link to save all attachments to the message popup window.
 Improved support for broken S/MIME messages.
@@ -67,6 +67,7 @@ Updated Danish translation.
 Bugfixes and improvements.
 FM;
 
-$this->notes['name'] = 'Horde Groupware Webmail Edition';
-$this->notes['list'] = 'horde';
-$this->notes['fm']['project'] = 'horde-webmail';
+$notes['name'] = 'Horde Groupware Webmail Edition';
+$notes['list'] = 'horde';
+$notes['fm']['project'] = 'horde-webmail';
+return $notes;

@@ -10,10 +10,10 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
-$this->notes['ml']['changes'] = <<<ML
+$notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the [first release candidate|final
 release] of the Skeleton Foo Bar Application version H3 (x.x).
 
@@ -39,9 +39,10 @@ The major changes compared to the Skeleton version H3 (x.x) are:
 ML;
 
 /* Freshmeat release notes. */
-$this->notes['fm']['changes'] = <<<FM
+$notes['fm']['changes'] = <<<FM
 FM;
 
-$this->notes['name'] = 'Skeleton';
-$this->notes['fm']['project'] = 'skeleton';
-$this->notes['fm']['branch'] = 'Horde 4';
+$notes['name'] = 'Skeleton';
+$notes['fm']['project'] = 'skeleton';
+$notes['fm']['branch'] = 'Horde 4';
+return $notes;
