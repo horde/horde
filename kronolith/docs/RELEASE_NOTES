@@ -4,8 +4,8 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the
-Kronolith Calendar Application version H5 (4.2.0).
+The Horde Team is pleased to announce the final release of the Kronolith
+Calendar Application version H5 (4.2.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -15,19 +15,26 @@ management, alarms, recurring events, and a sophisticated day/week view which
 handles arbitrary numbers of overlapping events. For more information on
 Kronolith, visit http://www.horde.org/apps/kronolith.
 
-Barring any problems, this code will be released as Kronolith H5 (4.2.0).  We
-encourage widespread testing and feedback via the mailing lists or our bug
-tracking system.  Updated translations are very welcome, strings should not
-change before the final release.
-
 For upgrading instructions, please see
 http://www.horde.org/apps/kronolith/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to Kronolith version H5 (4.2.0RC1) are:
-    * Small bugfix.
+The major changes compared to Kronolith version H5 (4.2.0RC2) are:
+    * Small bugfixes.
+
+The major changes compared to the Kronolith H5 (4.1) versions are:
+    * Added script to import from Open-Xchange.
+    * Synchronize multiple calendars via ActiveSync.
+    * Synchronize shared calendars via CalDAV.
+    * Synchronize attendees via CalDAV.
+    * Improved free/busy display.
+    * Improved sorting of events in month view.
+    * Improved task interfaces.
+    * Improved ActiveSync synchronization of event resources.
+    * Added Oracle support.
+    * Further improvements.
 ML;
 
 $notes['name'] = 'Kronolith';

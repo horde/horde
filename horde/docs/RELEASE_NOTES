@@ -4,7 +4,7 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the Horde
+The Horde Team is pleased to announce the final release of the Horde
 Application Framework version 5.2.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
@@ -14,19 +14,20 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-Barring any problems, this code will be released as Horde 5.2.0.  We encourage
-widespread testing and feedback via the mailing lists or our bug tracking
-system.  Updated translations are very welcome, strings should not change
-before the final release.
-
 For upgrading instructions, please see
 http://www.horde.org/apps/horde/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.2.0RC1 are:
-    * Small bugfix.
+The major changes compared to the Horde 5.1 versions are:
+    * Improved ActiveSync device administration.
+    * Distinguish application-specific from global login page.
+    * Warn about active Caps Lock key on login page.
+    * Added import script for Open-Xchange.
+    * Added configurations for new Horde Framework features.
+    * Added sending messages via LMTP.
+    * Small improvements.
 ML;
 
 $notes['name'] = 'Horde';

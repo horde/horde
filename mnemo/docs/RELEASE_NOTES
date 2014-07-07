@@ -4,8 +4,8 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the Mnemo
-Note Manager version H5 (4.2.0).
+The Horde Team is pleased to announce the final release of the Mnemo Note
+Manager version H5 (4.2.0).
 
 The Mnemo Note Manager is the Horde notes/memos application. It allows users to
 keep web-based notes and freeform text. Notes may be shared with other users
@@ -13,19 +13,16 @@ via shared notepads. It requires the Horde Application Framework and an SQL
 database or Kolab server for backend storage. For more information on Mnemo,
 visit http://www.horde.org/apps/mnemo.
 
-Barring any problems, this code will be released as Mnemo H5 (4.2.0).  We
-encourage widespread testing and feedback via the mailing lists or our bug
-tracking system.  Updated translations are very welcome, strings should not
-change before the final release.
-
 For upgrading instructions, please see
 http://www.horde.org/apps/nag/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Mnemo version H5 (4.2.0RC1) are:
-    * Small bugfixes.
+The major changes compared to the Mnemo H5 (4.1) versions are:
+    * Replaced categories with tags.
+    * Added Oracle support.
+    * Further improvements.
 ML;
 
 $notes['name'] = 'Mnemo';
