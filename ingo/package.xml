@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-07</date>
  <version>
-  <release>3.1.5</release>
+  <release>3.1.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
-* [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1347,6 +1346,19 @@
    <notes>
 * [mms] Fix blacklist/whitelist matching with IMAP backend (Bug #13031).
 * [mms] Fix procmail reject recipe (Bug #13060; admin@dei.unipd.it).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
