@@ -30,7 +30,7 @@
  </developer>
  <date>2014-07-07</date>
  <version>
-  <release>4.1.5</release>
+  <release>4.1.6</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Fix pagination of search results (Bug #13047).
-* [mjr] Don&apos;t output empty properties for CardDAV requests (Bug #12782).
-* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
-* [jan] Fix portal serach block response when no contacts have been found (dulinux &lt;lfbm.andamentos@gmail.com&gt;, Bug #13044).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1760,6 +1757,19 @@
 * [mjr] Don&apos;t output empty properties for CardDAV requests (Bug #12782).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
 * [jan] Fix portal serach block response when no contacts have been found (dulinux &lt;lfbm.andamentos@gmail.com&gt;, Bug #13044).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
