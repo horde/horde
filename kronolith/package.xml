@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2014-07-07</date>
  <version>
   <release>4.1.6</release>
   <api>4.1.0</api>
@@ -2268,13 +2268,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-07-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix history not always returning the last modification time of an event (Bug #13113).
-* Support timezone aliases when importing events (Bug #13100).
+* [jan] Support timezone aliases when importing events (Bug #13100).
 * [mjr] Honor the no_sharing configuration option in dynamic view (Bug #13002).
-* [mjr] Fix issue that could remove all events from shared calendars if a user with Horde_Perms::EDIT on that calendar is removed via the RemoveUserData API (Bug #12524).
+* [mjr] Fix issue that could remove all events from shared calendars if a user with Horde_Perms::EDIT on that calendar is removed via the removeUserData API (Bug #12524).
 * [jan] Fix TRIGGER generation if alarm value is negative (Bug #13064).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
    </notes>

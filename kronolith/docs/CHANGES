@@ -1,6 +1,6 @@
-----------
-v4.1.6-git
-----------
+------
+v4.1.6
+------
 
 [jan] Fix history not always returning the last modification time of an event
       (Bug #13113).
