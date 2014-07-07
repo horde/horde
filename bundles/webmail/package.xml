@@ -495,7 +495,46 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-29</date>
+   <date>2014-03-10</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Gollem.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.5</release>
+    <api>5.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Content, and Timeobjects.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC1</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC2</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 
