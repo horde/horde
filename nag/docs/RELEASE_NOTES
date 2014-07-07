@@ -3,7 +3,7 @@
 $notes['security'] = false;
 
 /* Mailing list release notes. */
-$notes['ml']['changes'] = <<<ML
+$notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
 Manager version H5 (4.1.5).
 
