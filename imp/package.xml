@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-07</date>
  <version>
-  <release>6.1.8</release>
+  <release>6.1.9</release>
   <api>6.1.0</api>
  </version>
  <stability>
@@ -33,12 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] SECURITY: Fix XSS in displaying user-defined flags in basic mailbox and message view.
-* [mms] SECURITY: Fix XSS in displaying user-defined flags in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] SECURITY: Fix XSS in displaying mailbox name in dynamic mailbox view (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Fix scrolling through large search mailboxes in dynamic view (Bug #13138).
-* [mms] Better handling of malformed message dates in mailbox listing (Bug #13114).
-* [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3354,6 +3349,19 @@
 * [mms] Fix scrolling through large search mailboxes in dynamic view (Bug #13138).
 * [mms] Better handling of malformed message dates in mailbox listing (Bug #13114).
 * [jan] Update Korean translation (Deokgon Kim &lt;dgkim@dgkim.net&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.9</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
