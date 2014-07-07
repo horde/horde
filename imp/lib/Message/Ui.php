@@ -144,34 +144,6 @@ class IMP_Message_Ui
     }
 
     /**
-     * Adds the local time string to the date header.
-     *
-     * @param Horde_Imap_Client_DateTime $date  The date object.
-     *
-     * @return string  The local formatted time string.
-     */
-    public function getLocalTime(Horde_Imap_Client_DateTime $date = null)
-    {
-        if (is_null($date)) {
-            return '';
-        }
-
-        $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), strval($date));
-        $tz = strftime('%Z');
-
-        if ((date('Y') != $date->format('Y')) ||
-            (date('M') != $date->format('M')) ||
-            (date('d') != $date->format('d'))) {
-            /* Not today, use the date. */
-            $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), strval($date));
-            return sprintf('%s (%s %s)', $date_str, $time_str, $tz);
-        }
-
-        /* Else, it's today, use the time only. */
-        return sprintf(_("Today, %s %s"), $time_str, $tz);
-    }
-
-    /**
      * Returns e-mail information for a mailing list.
      *
      * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.

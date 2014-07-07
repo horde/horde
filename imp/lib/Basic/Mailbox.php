@@ -867,7 +867,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'bg' => '',
                 'buid' => $imp_mailbox->getBuid($ob['mailbox'], $ob['uid']),
                 'class' => '',
-                'date' => $imp_ui->getDate($ob['envelope']->date),
+                'date' => strval(new IMP_Message_Date($ob['envelope']->date)),
                 'preview' => '',
                 'status' => '',
                 'size' => IMP::sizeFormat($ob['size'])

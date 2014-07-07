@@ -22,8 +22,12 @@
  */
 class IMP_Mailbox_Ui
 {
-     const DATE_FORCE = 1;
-     const DATE_FULL = 2;
+    /**
+     * Cached drafts sent-mail mailbox..
+     *
+     * @var array
+     */
+    private $_draftsSent = array();
 
     /**
      * The current mailbox.
@@ -31,13 +35,6 @@ class IMP_Mailbox_Ui
      * @var IMP_Mailbox
      */
     private $_mailbox;
-
-    /**
-     * Cached data.
-     *
-     * @var array
-     */
-    private $_cache = array();
 
     /**
      * Constructor.
@@ -69,12 +66,12 @@ class IMP_Mailbox_Ui
             'to' => false
         );
 
-        if (!isset($this->_cache['drafts_sm_folder'])) {
-            $this->_cache['drafts_sm_folder'] = $this->_mailbox->special_outgoing;
+        if (!isset($this->_draftsSent)) {
+            $this->_draftsSent = $this->_mailbox->special_outgoing;
         }
 
         if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($ob->from)) {
-            if (!$this->_cache['drafts_sm_folder']) {
+            if (!$this->_draftsSent) {
                 $ret['from'] = _("To:") . ' ';
             }
             $ret['to'] = true;
@@ -87,7 +84,7 @@ class IMP_Mailbox_Ui
             }
         } else {
             $addrs = $ob->from;
-            if ($this->_cache['drafts_sm_folder']) {
+            if ($this->_draftsSent) {
                 $ret['from'] = _("From:") . ' ';
             }
 
@@ -111,62 +108,6 @@ class IMP_Mailbox_Ui
         $ret['from_list'] = $addrs;
 
         return $ret;
-    }
-
-    /**
-     * Formats the date header.
-     *
-     * @param mixed $date      The date object. Either a DateTime object or a
-     *                         date string.
-     * @param integer $format  Mask of formatting options:
-     *   - IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead
-     *                                  of time formatting, for all dates.
-     *   - IMP_Mailbox_Ui::DATE_FULL - Use full representation of date,
-     *                                 including time information.
-     *
-     * @return string  The formatted date header.
-     */
-    public function getDate($date, $format = 0)
-    {
-        if (!is_object($date)) {
-            if (is_null($date)) {
-                return _("Unknown Date");
-            }
-
-            $date = new Horde_Imap_Client_DateTime($date);
-        }
-
-        if (!($format & self::DATE_FORCE) &&
-            !isset($this->_cache['today_start'])) {
-            $this->_cache['today_start'] = new DateTime('today');
-            $this->_cache['today_end'] = new DateTime('today + 1 day');
-        }
-
-        $udate = null;
-        if (!$date->error()) {
-            try {
-                $udate = $date->format('U');
-            } catch (Exception $e) {}
-        }
-
-        if (is_null($udate)) {
-            return _("Unknown Date");
-        }
-
-        if (($format & self::DATE_FORCE) ||
-            ($udate < $this->_cache['today_start']->format('U')) ||
-            ($udate > $this->_cache['today_end']->format('U'))) {
-            /* Not today, use the date. */
-            if ($format & self::DATE_FULL) {
-                return strftime($GLOBALS['prefs']->getValue('date_format'), $udate) .
-                    ' [' . strftime($GLOBALS['prefs']->getValue('time_format'), $udate) . ']';
-            }
-
-            return strftime($GLOBALS['prefs']->getValue('date_format_mini'), $udate);
-        }
-
-        /* Else, it's today, use the time. */
-        return strftime($GLOBALS['prefs']->getValue('time_format'), $udate);
     }
 
     /**

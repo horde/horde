@@ -252,8 +252,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $basic_headers = $imp_ui->basicHeaders();
         $display_headers = $msgAddresses = array();
 
-        $format_date = $imp_ui->getLocalTime($envelope->date);
-        if (!empty($format_date)) {
+        $date_ob = new IMP_Message_Date($envelope->date);
+        if ($format_date = $date_ob->format($date_ob::DATE_LOCAL)) {
             $display_headers['date'] = $format_date;
         }
 

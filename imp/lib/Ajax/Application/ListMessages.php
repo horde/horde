@@ -40,7 +40,7 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $injector, $notification, $registry;
+        global $injector, $notification;
 
         $initial = $args['initial'];
         $is_search = false;
@@ -109,9 +109,6 @@ class IMP_Ajax_Application_ListMessages
         } else {
             $is_search = $mbox->search;
         }
-
-        /* Set the current time zone. */
-        $registry->setTimeZone();
 
         /* Run filters now. */
         if (!empty($args['applyfilter'])) {
@@ -453,7 +450,7 @@ class IMP_Ajax_Application_ListMessages
             $msg['size'] = IMP::sizeFormat($ob['size']);
 
             /* Format the Date: Header. */
-            $msg['date'] = $imp_ui->getDate($ob['envelope']->date);
+            $msg['date'] = strval(new IMP_Message_Date($ob['envelope']->date));
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);

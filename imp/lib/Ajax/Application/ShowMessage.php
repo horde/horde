@@ -134,9 +134,6 @@ class IMP_Ajax_Application_ShowMessage
             'js' => array()
         );
 
-        /* Set the current time zone. */
-        $registry->setTimeZone();
-
         $mime_headers = $this->_peek
             ? $this->_contents->getHeader()
             : $this->_contents->getHeaderAndMarkAsSeen();
@@ -172,7 +169,8 @@ class IMP_Ajax_Application_ShowMessage
             if ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
-                    $val = htmlspecialchars($imp_ui->getLocalTime($this->_envelope->date));
+                    $date_ob = new IMP_Message_Date($this->_envelope->date);
+                    $val = htmlspecialchars($date_ob->format($date_ob::DATE_LOCAL));
                     if ($preview) {
                         $result['localdate'] = $val;
                     }
