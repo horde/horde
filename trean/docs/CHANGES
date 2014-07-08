@@ -2,13 +2,13 @@
 v1.1.0-git
 ----------
 
+[mjr] Fix creating tags from folder names when importing bookmarks.
 
 
 ---------
 v1.1.0RC1
 ---------
 
-[mjr] Fix creating tags from folder names when importing bookmarks.
 [jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
 [jan] Add Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mjr] Add support for importing bookmarks from Mozilla's JSON format.

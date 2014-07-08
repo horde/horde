@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-08</date>
  <version>
   <release>1.1.0RC2</release>
   <api>1.1.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix creating tags from folder names when importing bookmarks.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -656,7 +656,6 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mjr] Fix creating tags from folder names when importing bookmarks.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mjr] Add support for importing bookmarks from Mozilla&apos;s JSON format.
@@ -669,10 +668,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2014-07-01</date>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix creating tags from folder names when importing bookmarks.
    </notes>
   </release>
  </changelog>
