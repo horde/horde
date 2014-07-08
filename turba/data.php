@@ -383,6 +383,7 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     }
 }
 
+$storage = $data->storage;
 foreach ($templates[$next_step] as $template) {
     require $template;
 }
