@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3655,15 +3655,29 @@
   </release>
   <release>
    <version>
-    <release>6.2.0beta4</release>
+    <release>6.2.0RC1</release>
     <api>6.2.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-28</date>
+   <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix handling image attachments when added via the HTML editor Image dialog.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.0RC2</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix some regressions in linked attachments behavior (Bug #13232).
+* [mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
    </notes>
   </release>
  </changelog>

@@ -85,7 +85,7 @@ class IMP_Compose_LinkedAttachment
         $browser->downloadHeaders($md->filename, $md->type, false, $data->length());
 
         while (!$data->eof()) {
-            echo $data->getString(null, 8192);
+            echo $data->substring(0, 8192);
         }
         $data->close();
     }

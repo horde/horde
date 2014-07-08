@@ -1,6 +1,14 @@
-----------
-v6.2.0-git
-----------
+---------
+v6.2.0RC2
+---------
+
+[mms] Fix some regressions in linked attachments behavior (Bug #13232).
+[mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
+
+
+---------
+v6.2.0RC1
+---------
 
 [mms] Fix handling image attachments when added via the HTML editor Image
       dialog.
