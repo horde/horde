@@ -30,13 +30,6 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     const VFS_LINK_ATTACH_PATH = '.horde/imp/attachments';
 
     /**
-     * Force this attachment to be linked.
-     *
-     * @var boolean
-     */
-    public $forceLinked = false;
-
-    /**
      * Cached metadata information.
      *
      * @var array
@@ -80,27 +73,26 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     {
         global $browser, $conf;
 
-        if (!$this->forceLinked &&
-            (filesize($filename) < intval($conf['compose']['link_attach_threshold']))) {
+        if (filesize($filename) < intval($conf['compose']['link_attach_threshold'])) {
             $this->_vfspath = self::VFS_ATTACH_PATH;
-            parent::write($filename, $part);
-            return;
         }
 
-        parent::write($filename, $part);
+        parent::_write($filename, $part);
 
-        // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.
-        $type = $part->getType();
-        if ($browser->isBrowser('mozilla') &&
-            in_array(Horde_String::lower($type), array('application/java-archive', 'application/x-jar'))) {
-            $type = 'application/octet-stream';
+        if ($this->_vfspath !== self::VFS_ATTACH_PATH) {
+            // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.
+            $type = $part->getType();
+            if ($browser->isBrowser('mozilla') &&
+                in_array(Horde_String::lower($type), array('application/java-archive', 'application/x-jar'))) {
+                $type = 'application/octet-stream';
+            }
+
+            $md = $this->getMetadata();
+            $md->filename = $part->getName(true);
+            $md->time = time();
+            $md->type = $type;
+            $this->saveMetadata($md);
         }
-
-        $md = $this->getMetadata();
-        $md->filename = $part->getName(true);
-        $md->time = time();
-        $md->type = $type;
-        $this->saveMetadata($md);
     }
 
     /**
