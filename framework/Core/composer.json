@@ -26,7 +26,7 @@
             "role": "developer"
         }
     ],
-    "version": "2.12.2",
+    "version": "2.12.3",
     "time": "2014-07-08",
     "repositories": [
         {
@@ -59,6 +59,7 @@
         "pear-pear.horde.org/Horde_Mime": ">=2.4.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Notification": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Pack": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Prefs": ">=2.6.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Secret": ">=2.0.0@stable,<=3.0.0alpha1@stable",
