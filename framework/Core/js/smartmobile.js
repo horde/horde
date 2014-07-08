@@ -280,8 +280,6 @@ var HordeMobile = {
             data.toPage = location.href;
         }
 
-        this.page_init = true;
-
         /* Add view/parameter data to dataUrl:
          *   - params: (object) List of URL parameters.
          *   - parsed: (object) Parsed URL object.
@@ -289,6 +287,13 @@ var HordeMobile = {
         if (typeof data.toPage === 'string') {
             var parsed = $.mobile.path.parseUrl(data.toPage),
                 match = /^#([^?]*)/.exec(parsed.hash);
+
+            /* Sanity checking - make sure view exists. */
+            if (!this.page_init && match && !$(match[0]).size()) {
+                data.toPage = parsed.hrefNoHash;
+                parsed = $.mobile.path.parseUrl(data.toPage);
+                match = undefined;
+            }
 
             data.options.parsedUrl = {
                 params: $.extend({}, parsed.search.toQueryParams(), parsed.hash.toQueryParams()),
@@ -302,6 +307,8 @@ var HordeMobile = {
                 data.options.changeHash = false;
             }
         }
+
+        this.page_init = true;
     },
 
     onPageChange: function(e, data)
