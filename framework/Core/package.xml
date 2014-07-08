@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix clearing authentication-related registry caches when initializing a session in certain instances (Bug #13329).
 * [mms] Sanity checking in case smartmobile URL contains anchor that doesn&apos;t exist on the page.
  </notes>
  <contents>
@@ -3527,6 +3528,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix clearing authentication-related registry caches when initializing a session in certain instances (Bug #13329).
 * [mms] Sanity checking in case smartmobile URL contains anchor that doesn&apos;t exist on the page.
    </notes>
   </release>

@@ -2497,8 +2497,9 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
         $session->set('horde', 'auth/timestamp', time());
         $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+
         $this->_cache['auth'] = null;
-        $this->_cache['existing'] = array();
+        $this->_cache['existing'] = $this->_cache['isauth'] = array();
 
         $this->setAuthCredential($credentials, null, $app);
 
