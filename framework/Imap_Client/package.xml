@@ -21,7 +21,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Determination of approximate part size should be done at IMAP level, not within Horde_Mime_Part.
 * [mms] Fix regression in handling invalid DateTime data due to a BC-incompatible change in PHP.
  </notes>
  <contents>
@@ -2496,7 +2495,6 @@
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Determination of approximate part size should be done at IMAP level, not within Horde_Mime_Part.
 * [mms] Fix regression in handling invalid DateTime data due to a BC-incompatible change in PHP.
    </notes>
   </release>
