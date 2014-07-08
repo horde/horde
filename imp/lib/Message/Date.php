@@ -102,6 +102,11 @@ class IMP_Message_Date
 
             if (($udate < self::$_cache['today_start']) ||
                 ($udate > self::$_cache['today_end'])) {
+                if ($udate > self::$_cache['yesterday_start']) {
+                    /* Yesterday. */
+                    return sprintf(_("Yesterday, %s %s"), $time_str, $tz);
+                }
+
                 /* Not today, use the date. */
                 return sprintf(
                     '%s (%s %s)',
@@ -127,6 +132,11 @@ class IMP_Message_Date
 
         if (($udate < self::$_cache['today_start']) ||
             ($udate > self::$_cache['today_end'])) {
+            if ($udate > self::$_cache['yesterday_start']) {
+                /* Yesterday. */
+                return sprintf(_("Yesterday, %s"), $time_str);
+            }
+
             /* Not today, use the date. */
             return ($format === self::DATE_FULL)
                 ? strftime($prefs->getValue('date_format'), $udate) . ' [' . $time_str . ']'
@@ -148,6 +158,9 @@ class IMP_Message_Date
 
             $date = new DateTime('today + 1 day');
             self::$_cache['today_end'] = $date->format('U');
+
+            $date = new DateTime('today - 1 day');
+            self::$_cache['yesterday_start'] = $date->format('U');
         }
     }
 
