@@ -1391,16 +1391,23 @@
       (RFC 6409/STD 72; sending mail via port 25 is DEPRECATED.)"/>
       <configstring name="localhost" required="false" desc="The local hostname
       / domain [localhost]"/>
-      <configenum name="auth" desc="Authenticate to SMTP server?">false
-       <values>
-        <value desc="No">false</value>
-        <value desc="Yes">true</value>
-       </values>
-      </configenum>
-      <configstring name="username" required="false" desc="The username to use
-      for SMTP auth. If empty, uses the Horde authentication username."/>
-      <configstring name="password" required="false" desc="The password to use
-      for SMTP auth. If empty, uses the Horde authentication password."/>
+      <configswitch name="auth" desc="Authenticate to SMTP server?">false
+       <case name="false" desc="No" />
+       <case name="true" desc="Yes">
+        <configstring name="username" required="false" desc="The master
+        username to use for SMTP auth. Will be used if username_auth is false
+        OR for unauthenticated Horde accesses."/>
+        <configboolean name="username_auth" required="false" desc="If
+        authenticated, use the Horde authentication
+        username?">true</configboolean>
+        <configstring name="password" required="false" desc="The master
+        password to use for SMTP auth. Will be used if password_auth is false
+        OR for unauthenticated Horde accesses."/>
+        <configboolean name="password_auth" required="false" desc="If
+        authenticated, use the Horde authentication
+        password?">true</configboolean>
+       </case>
+      </configswitch>
       <configboolean name="lmtp" required="false" desc="Is this an LMTP
       (Local Mail Transfer Protocol) server?">false</configboolean>
      </configsection>

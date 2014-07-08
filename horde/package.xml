@@ -3911,6 +3911,46 @@
   </release>
   <release>
    <version>
+    <release>5.2.0RC1</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
+* [jan] Don&apos;t try to write to read-only group backends when removing user data (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC2</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.0RC3</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [mms] Add configuration to allow for SMTP authentication if the current Horde access does not have an authenticated user.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>5.3.0</release>
     <api>5.2.0</api></version>
    <stability>

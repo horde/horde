@@ -6,6 +6,30 @@ v5.3.0-git
       #13200).
 
 
+---------
+v5.2.0RC3
+---------
+
+[mms] Add configuration to allow for SMTP authentication if the current Horde
+      access does not have an authenticated user.
+
+
+---------
+v5.2.0RC2
+---------
+
+[mjr] Fix removing EAS device pairings via the removeUserData API (Bug #13278).
+
+
+---------
+v5.2.0RC1
+---------
+
+[jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
+[jan] Don't try to write to read-only group backends when removing user data
+      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
+
+
 -----------
 v5.2.0beta2
 -----------

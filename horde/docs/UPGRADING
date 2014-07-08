@@ -81,10 +81,14 @@ The following options were added::
     $conf['cachecssparams']['filemtime']
     $conf['history']['driver']
     $conf['history']['params']['driverconfig']
+    $conf['mailer']['params']['password_auth']
+    $conf['mailer']['params']['username_auth']
 
 The available options for the following options were changed::
 
     $conf['activesync']['logging']['type']
+    $conf['mailer']['params']['password'] (for SMTP)
+    $conf['mailer']['params']['username'] (for SMTP)
 
 The default value for the following options were changed::
 
