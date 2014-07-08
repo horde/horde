@@ -1,6 +1,6 @@
-----------
-v1.1.0-git
-----------
+------
+v1.1.0
+------
 
 [mjr] Fix creating tags from folder names when importing bookmarks.
 
