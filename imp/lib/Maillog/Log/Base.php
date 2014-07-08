@@ -53,7 +53,7 @@ abstract class IMP_Maillog_Log_Base
 
         case 'date':
             return strftime(
-                $prefs->getValue('date_format') . ' ' . $prefs->getValue('time_format'),
+                $prefs->getValue('date_format') . ' ' . $prefs->getValue('time_format_mini'),
                 $this->timestamp
             );
 
