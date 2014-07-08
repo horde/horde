@@ -30,7 +30,7 @@
  </developer>
  <date>2014-07-08</date>
  <version>
-  <release>2.12.1</release>
+  <release>2.12.2</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix bothed 2.12.0 release.
-* [mjr] Fix closing smartmobile dialog pages (Bug #13316).
-* [mjr] Fix issue that could cause multiple tabs to be shown as active when tab_name could be a mix of integers or strings.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3484,6 +3482,19 @@
 * [jan] Fix bothed 2.12.0 release.
 * [mjr] Fix closing smartmobile dialog pages (Bug #13316).
 * [mjr] Fix issue that could cause multiple tabs to be shown as active when tab_name could be a mix of integers or strings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
