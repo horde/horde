@@ -1428,6 +1428,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Determine the size of this MIME part and its child members.
      *
+     * @todo Remove $approx parameter.
+     *
      * @param boolean $approx  If true, determines an approximate size for
      *                         parts consisting of base64 encoded data.
      *
@@ -1480,6 +1482,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
     /**
      * Output the size of this MIME part in KB.
+     *
+     * @todo Remove $approx parameter.
      *
      * @param boolean $approx  If true, determines an approximate size for
      *                         parts consisting of base64 encoded data.
