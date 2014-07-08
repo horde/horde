@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-07-01 14:24+0200\n"
+"POT-Creation-Date: 2014-07-08 17:44+0200\n"
 "PO-Revision-Date: 2014-06-04 11:45+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -318,7 +318,7 @@ msgstr "Hinzufügen zu"
 msgid "Add to attendees"
 msgstr "Zu Teilnehmern hinzufügen"
 
-#: lib/Ajax/Application/Handler.php:959
+#: lib/Ajax/Application/Handler.php:960
 msgid "Added task list not found."
 msgstr "Hinzugefügte Aufgabenliste nicht gefunden."
 
@@ -1244,7 +1244,7 @@ msgstr "Fehler beim Auslesen der Frei/Gebucht-Informationen für %s: %s"
 msgid "Error retrieving your free/busy information: %s"
 msgstr "Fehler beim Auslesen Ihrer Frei/Gebucht-Informationen: %s"
 
-#: lib/Ajax/Application/Handler.php:1402
+#: lib/Ajax/Application/Handler.php:1403
 #, php-format
 msgid "Error saving timeslice: %s"
 msgstr "Fehler beim Speichern des Zeitabschnitts: %s"
@@ -2000,7 +2000,7 @@ msgstr "Rhythmus"
 msgid "Permanently delete this event?"
 msgstr "Diesen Termin unwiederbringlich löschen?"
 
-#: lib/Ajax/Application/Handler.php:1463 lib/Block/Month.php:70
+#: lib/Ajax/Application/Handler.php:1464 lib/Block/Month.php:70
 #: lib/Block/Monthlist.php:89 lib/Block/Prevmonthlist.php:82
 #: lib/Block/Summary.php:100 lib/Kronolith.php:2660 lib/Kronolith.php:2668
 #: lib/Kronolith.php:2674 lib/Kronolith.php:2680
@@ -2758,7 +2758,7 @@ msgstr "Diese Aufgabenliste mit einem anderen Kalenderprogamm abonnieren"
 msgid "Subscription"
 msgstr "Abonnement"
 
-#: lib/Ajax/Application/Handler.php:1405
+#: lib/Ajax/Application/Handler.php:1406
 msgid "Successfully saved timeslice."
 msgstr "Zeitabschnitt erfolgreich gespeichert."
 
@@ -2869,24 +2869,24 @@ msgstr ""
 msgid "The authentication information you specified wasn't accepted."
 msgstr "Die Anmeldedaten, die Sie angegeben haben, wurden nicht akzeptiert."
 
-#: calendars/create.php:31 lib/Ajax/Application/Handler.php:912
+#: calendars/create.php:31 lib/Ajax/Application/Handler.php:913
 #: resources/create.php:31 resources/groups/create.php:27
 #, php-format
 msgid "The calendar \"%s\" has been created."
 msgstr "Der Kalender \"%s\" wurde erzeugt."
 
-#: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1129
+#: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1130
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
 msgstr "Der Kalender \"%s\" wurde gelöscht."
 
-#: calendars/edit.php:47 lib/Ajax/Application/Handler.php:937
+#: calendars/edit.php:47 lib/Ajax/Application/Handler.php:938
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "Der Kalender \"%s\" wurde nach \"%s\" umbenannt."
 
 #: calendars/edit.php:49 calendars/remote_edit.php:46
-#: lib/Ajax/Application/Handler.php:939 lib/Ajax/Application/Handler.php:1030
+#: lib/Ajax/Application/Handler.php:940 lib/Ajax/Application/Handler.php:1031
 #, php-format
 msgid "The calendar \"%s\" has been saved."
 msgstr "Der Kalender \"%s\" wurde gespeichert."
@@ -2996,7 +2996,7 @@ msgstr ""
 "einen Termin zu bestätigen oder abzusagen, fehlen."
 
 #: lib/Ajax/Application/Handler.php:165 lib/Ajax/Application/Handler.php:250
-#: lib/Ajax/Application/Handler.php:382 lib/Ajax/Application/Handler.php:515
+#: lib/Ajax/Application/Handler.php:383 lib/Ajax/Application/Handler.php:516
 msgid "The requested event was not found."
 msgstr "Der gesuchte Termin wurde nicht gefunden."
 
@@ -3005,11 +3005,11 @@ msgstr "Der gesuchte Termin wurde nicht gefunden."
 msgid "The requested feed (%s) was not found on this server."
 msgstr "Der gesuchte Feed (%s) wurde auf diesem Server nicht gefunden."
 
-#: lib/Ajax/Application/Handler.php:632
+#: lib/Ajax/Application/Handler.php:633
 msgid "The requested task was not found."
 msgstr "Gewünschte Aufgabe nicht gefunden."
 
-#: lib/Ajax/Application/Handler.php:1173 lib/Ajax/Application/Handler.php:1190
+#: lib/Ajax/Application/Handler.php:1174 lib/Ajax/Application/Handler.php:1191
 #: resources/delete.php:42
 #, php-format
 msgid "The resource \"%s\" has been deleted."
@@ -3020,7 +3020,7 @@ msgstr "Die Ressource \"%s\" wurde gelöscht."
 msgid "The resource \"%s\" has been renamed to \"%s\"."
 msgstr "Die Ressource \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1074 resources/edit.php:45
+#: lib/Ajax/Application/Handler.php:1075 resources/edit.php:45
 #, php-format
 msgid "The resource \"%s\" has been saved."
 msgstr "Die Ressource \"%s\" wurde gespeichert."
@@ -3041,27 +3041,27 @@ msgstr "Die Ressourcengruppe \"%s\" wurde gelöscht."
 msgid "The resource group \"%s\" has been renamed to \"%s\"."
 msgstr "Die Ressourcengruppe \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1100 resources/groups/edit.php:41
+#: lib/Ajax/Application/Handler.php:1101 resources/groups/edit.php:41
 #, php-format
 msgid "The resource group \"%s\" has been saved."
 msgstr "Die Ressourcengruppe \"%s\" wurde gespeichert."
 
-#: lib/Ajax/Application/Handler.php:987
+#: lib/Ajax/Application/Handler.php:988
 #, php-format
 msgid "The task list \"%s\" has been created."
 msgstr "Die Aufgabenliste \"%s\" wurde erstellt."
 
-#: lib/Ajax/Application/Handler.php:1145
+#: lib/Ajax/Application/Handler.php:1146
 #, php-format
 msgid "The task list \"%s\" has been deleted."
 msgstr "Die Aufgabenliste \"%s\" wurde gelöscht."
 
-#: lib/Ajax/Application/Handler.php:1012
+#: lib/Ajax/Application/Handler.php:1013
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
 msgstr "Die Aufgabenliste \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1014
+#: lib/Ajax/Application/Handler.php:1015
 #, php-format
 msgid "The task list \"%s\" has been saved."
 msgstr "Die Aufgabenliste \"%s\" wurde gespeichert."
@@ -3284,7 +3284,7 @@ msgstr "Dienstag"
 msgid "URL"
 msgstr "URL"
 
-#: lib/Ajax/Application/Handler.php:1126 lib/Ajax/Application/Handler.php:1142
+#: lib/Ajax/Application/Handler.php:1127 lib/Ajax/Application/Handler.php:1143
 #: lib/Form/DeleteResource.php:61 lib/Form/DeleteResourceGroup.php:62
 #: lib/Kronolith.php:1343
 #, php-format
@@ -3519,7 +3519,7 @@ msgstr "Sie dürfen diese Ressource nicht ändern."
 msgid "You are not allowed to create more than %d events."
 msgstr "Sie dürfen nicht mehr als %d Termine erstellen."
 
-#: lib/Ajax/Application/Handler.php:1049
+#: lib/Ajax/Application/Handler.php:1050
 msgid "You are not allowed to create new resources."
 msgstr "Sie dürfen keine neuen Ressourcen anlegen."
 
@@ -3531,16 +3531,16 @@ msgstr "Sie dürfen diesen Kalender nicht löschen."
 msgid "You are not allowed to delete this resource group."
 msgstr "Sie dürfen diese Ressourcengruppe nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1163 lib/Ajax/Application/Handler.php:1181
+#: lib/Ajax/Application/Handler.php:1164 lib/Ajax/Application/Handler.php:1182
 #: resources/delete.php:28
 msgid "You are not allowed to delete this resource."
 msgstr "Sie dürfen diese Ressource nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1136
+#: lib/Ajax/Application/Handler.php:1137
 msgid "You are not allowed to delete this task list."
 msgstr "Sie dürfen diese Aufgabenliste nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1058
+#: lib/Ajax/Application/Handler.php:1059
 msgid "You are not allowed to edit this resource."
 msgstr "Sie dürfen diese Ressource nicht bearbeiten."
 
@@ -3548,7 +3548,7 @@ msgstr "Sie dürfen diese Ressource nicht bearbeiten."
 msgid "You are not allowed to see this calendar."
 msgstr "Sie dürfen diesen Kalender nicht anzeigen."
 
-#: lib/Ajax/Application/Handler.php:1206 lib/Ajax/Application/Handler.php:1213
+#: lib/Ajax/Application/Handler.php:1207 lib/Ajax/Application/Handler.php:1214
 msgid "You are not allowed to view this calendar."
 msgstr "Sie dürfen diesen Kalender nicht lesen."
 
@@ -3588,12 +3588,12 @@ msgid "You do not have permission to delegate events to this user."
 msgstr ""
 "Sie haben nicht genügend Rechte, um Termine an diesen Benutzer zu delegieren."
 
-#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:468
+#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:469
 msgid "You do not have permission to delete this event."
 msgstr "Sie haben nicht genügend Rechte, um diesen Termin zu löschen."
 
 #: edit.php:65 edit.php:112 edit.php:176 lib/Ajax/Application/Handler.php:259
-#: lib/Ajax/Application/Handler.php:385
+#: lib/Ajax/Application/Handler.php:386
 msgid "You do not have permission to edit this event."
 msgstr "Sie haben nicht genügend Rechte, um diesen Termin zu bearbeiten."
 
@@ -3625,12 +3625,12 @@ msgstr ""
 "dies ändern, indem Sie sich %sbei Ihrem Kalender anmelden%s und Ihre "
 "Einstellungen anpassen."
 
-#: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1032
+#: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1033
 #, php-format
 msgid "You have been subscribed to \"%s\" (%s)."
 msgstr "Sie haben \"%s\" (%s) abonniert."
 
-#: calendars/remote_unsubscribe.php:47 lib/Ajax/Application/Handler.php:1155
+#: calendars/remote_unsubscribe.php:47 lib/Ajax/Application/Handler.php:1156
 #, php-format
 msgid "You have been unsubscribed from \"%s\" (%s)."
 msgstr "Sie wurden von \"%s\" (%s) abgemeldet."
