@@ -76,13 +76,12 @@ class IMP_Message_Date
      */
     public function format($format = 0)
     {
-        global $prefs, $registry;
+        global $registry;
 
         $udate = null;
         if ($this->_date && !$this->_date->error()) {
             try {
                 $udate = $this->_date->format('U');
-                $time_str = strftime($prefs->getValue('time_format'), $udate);
 
                 if (empty(self::$_cache['tz'])) {
                     $registry->setTimeZone();
@@ -104,20 +103,28 @@ class IMP_Message_Date
                 ($udate > self::$_cache['today_end'])) {
                 if ($udate > self::$_cache['yesterday_start']) {
                     /* Yesterday. */
-                    return sprintf(_("Yesterday, %s %s"), $time_str, $tz);
+                    return sprintf(
+                        _("Yesterday, %s %s"),
+                        $this->_format('time_format', $udate),
+                        $tz
+                    );
                 }
 
                 /* Not today, use the date. */
                 return sprintf(
                     '%s (%s %s)',
-                    strftime($prefs->getValue('date_format'), $udate),
-                    $time_str,
+                    $this->_format('date_format', $udate),
+                    $this->_format('time_format', $udate),
                     $tz
                 );
             }
 
             /* Else, it's today, use the time only. */
-            return sprintf(_("Today, %s %s"), $time_str, $tz);
+            return sprintf(
+                _("Today, %s %s"),
+                $this->_format('time_format', $udate),
+                $tz
+            );
         }
 
         if (is_null($udate)) {
@@ -125,7 +132,8 @@ class IMP_Message_Date
         }
 
         if ($format === self::DATE_FORCE) {
-            return strftime($prefs->getValue('date_format'), $udate) . ' [' . $time_str . ']';
+            return $this->_format('date_format', $udate) .
+                ' [' .  $this->_format('time_format', $udate) . ']';
         }
 
         $this->_buildCache();
@@ -134,17 +142,20 @@ class IMP_Message_Date
             ($udate > self::$_cache['today_end'])) {
             if ($udate > self::$_cache['yesterday_start']) {
                 /* Yesterday. */
-                return sprintf(_("Yesterday, %s"), $time_str);
+                return sprintf(
+                    _("Yesterday, %s"),
+                    $this->_format('time_format_mini', $udate)
+                );
             }
 
             /* Not today, use the date. */
             return ($format === self::DATE_FULL)
-                ? strftime($prefs->getValue('date_format'), $udate) . ' [' . $time_str . ']'
-                : strftime($prefs->getValue('date_format_mini'), $udate);
+                ? $this->_format('date_format', $udate) . ' [' . $time_str . ']'
+                : $this->_format('date_format_mini', $udate);
         }
 
         /* It's today, use the time. */
-        return $time_str;
+        return $this->_format('time_format_mini', $udate);
     }
 
     /**
@@ -162,6 +173,19 @@ class IMP_Message_Date
             $date = new DateTime('today - 1 day');
             self::$_cache['yesterday_start'] = $date->format('U');
         }
+    }
+
+    /**
+     * Format the date/time.
+     *
+     * @param string $type    The date/time preference name.
+     * @param integer $udate  The UNIX timestamp.
+     *
+     * @return string  Formatted date/time string.
+     */
+    private function _format($type, $udate)
+    {
+        return ltrim(strftime($GLOBALS['prefs']->getValue($type), $udate));
     }
 
 }
