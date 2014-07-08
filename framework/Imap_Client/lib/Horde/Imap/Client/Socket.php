@@ -3140,11 +3140,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ob->setDescription(Horde_Mime::decode($tmp));
             }
 
-            if (!is_null($tmp = $data->next())) {
+            $te = $data->next();
+            $bytes = $data->next();
+
+            if (!is_null($te)) {
                 $ob->setTransferEncoding($tmp);
+
+                /* Base64 transfer encoding is approx. 33% larger than
+                 * original data size (RFC 2045 [6.8]). Return from
+                 * BODYSTRUCTURE is the size of the ENCODED data (RFC 3501
+                 * [7.4.2]). */
+                if (strcasecmp($te, 'base64') === 0) {
+                    $bytes *= 0.75;
+                }
             }
 
-            $ob->setBytes($data->next());
+            $ob->setBytes($bytes);
 
             // If the type is 'message/rfc822' or 'text/*', several extra
             // fields are included
