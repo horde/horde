@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add missing Horde_Pack required dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3514,7 +3514,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add missing Horde_Pack required dependency.
    </notes>
   </release>
  </changelog>
