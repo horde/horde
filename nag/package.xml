@@ -22,14 +22,14 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-08</date>
  <version>
-  <release>4.2.0RC2</release>
+  <release>4.2.0</release>
   <api>4.2.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -1546,12 +1546,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0RC2</release>
+    <release>4.2.0</release>
     <api>4.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2014-07-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix returning to previously selected tab after task is saved (Bug #13308).

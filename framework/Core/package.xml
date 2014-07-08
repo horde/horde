@@ -28,14 +28,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-06-04</date>
+ <date>2014-07-08</date>
  <version>
-  <release>2.12.0beta3</release>
+  <release>2.12.0</release>
   <api>2.12.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -3413,12 +3413,12 @@
   </release>
   <release>
    <version>
-    <release>2.12.0beta3</release>
+    <release>2.12.0</release>
     <api>2.12.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-06-04</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix incorrect processing of autocompleted data when using prettyautocompleter (Bug #13256).

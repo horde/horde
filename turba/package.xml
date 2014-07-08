@@ -28,13 +28,13 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-08</date>
  <version>
-  <release>4.2.0RC3</release>
+  <release>4.2.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
@@ -1871,12 +1871,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.0RC3</release>
+    <release>4.2.0</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-01</date>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix fatal error if importing CSV data with date fields.
