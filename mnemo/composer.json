@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "4.2.0RC2",
-    "time": "2014-07-01",
+    "version": "4.2.0",
+    "time": "2014-07-08",
     "repositories": [
         {
             "type": "pear",
@@ -26,31 +26,31 @@
     ],
     "require": {
         "php": ">=5.3.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/content": ">=2.0.3,<=3.0.0alpha1",
-        "pear-pear.horde.org/horde": ">=5.0.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Core": ">=2.7.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Data": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Form": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Group": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_History": ">=2.1.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Injector": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Perms": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Prefs": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Share": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Support": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Text_Filter": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/content": ">=2.0.3@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/horde": ">=5.0.0@stable,<=6.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Core": ">=2.7.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Data": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Form": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Group": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_History": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Injector": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Prefs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Share": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Text_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "ext-gettext": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_ActiveSync": ">=2.4.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Cli": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Crypt": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Db": ">=2.1.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Pdf": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Test": ">=2.0.0,<=3.0.0alpha1"
+        "pear-pear.horde.org/Horde_ActiveSync": ">=2.4.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Cli": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Crypt": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Pdf": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Test": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     }
 }
