@@ -458,7 +458,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     margin-bottom: 7px;
 }
 .mimePartInfo div {
-    background: #eceff0;
+    background-color: #ebeff0;
     border: 1px solid #d0d0d0;
     margin: 0;
     padding: 5px;
