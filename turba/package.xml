@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix fatal error if importing CSV data with date fields.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1879,7 +1879,7 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix fatal error if importing CSV data with date fields.
    </notes>
   </release>
  </changelog>
