@@ -10,18 +10,18 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-07-08</date>
  <version>
-  <release>5.2.0RC2</release>
+  <release>5.2.0</release>
   <api>5.2.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -529,15 +529,15 @@
   </release>
   <release>
    <version>
-    <release>5.2.0RC2</release>
+    <release>5.2.0</release>
     <api>5.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-07-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
    </notes>
   </release>
  </changelog>

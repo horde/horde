@@ -2,6 +2,46 @@
 v5.2.0-git
 ----------
 
+Horde Changes
+-------------
+[mms] Add configuration to allow for SMTP authentication if the current Horde
+      access does not have an authenticated user.
+
+Mail Changes
+------------
+[mms] Fix some regressions in linked attachments behavior (Bug #13232).
+[mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
+
+Address Book Changes
+--------------------
+[jan] Fix fatal error if importing CSV data with date fields.
+
+Calendar Changes
+----------------
+[jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
+[mjr] Issue a cancellation iTip when an event's status changes to cancelled
+      (Bug #13321).
+[jan] Fix loading events for intial view in smartphone mode.
+
+Tasks Changes
+-------------
+[mjr] Fix returning to previously selected tab after task is saved (Bug
+      #13308).
+[mjr] Fix fatal error when saving a task, only one tasklist exists, and at
+      least one SmartList exists.
+
+Bookmarks Changes
+-----------------
+[mjr] Fix creating tags from folder names when importing bookmarks.
+
+Library Changes
+---------------
+Core
+[mms] Add configuration to allow for SMTP authentication if the current Horde
+      access does not have an authenticated user.
+[mjr] Fix closing smartmobile dialog pages (Bug #13316).
+[mjr] Fix issue that could cause multiple tabs to be shown as active when
+      tab_name could be a mix of integers or strings.
 
 
 ---------

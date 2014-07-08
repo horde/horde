@@ -4,19 +4,14 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Horde
-Groupware Webmail Edition version 5.2.0.
+The Horde Team is pleased to announce the final release of the Horde Groupware
+Webmail Edition version 5.2.0.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
 different webmail interfaces and manage and share calendars, contacts, tasks,
 notes, files, and bookmarks with the standards compliant components from the
 Horde Project.
-
-Barring any problems, this code will be released as Horde Groupware Webmail
-Edition 5.2.0.  We encourage widespread testing and feedback via the mailing
-lists or our bug tracking system.  Updated translations are very welcome,
-strings should not change before the final release.
 
 For upgrading instructions, please see
 http://www.horde.org/apps/webmail/docs/UPGRADING
