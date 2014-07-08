@@ -825,7 +825,7 @@ class IMP_Contents
         if (($mask & self::SUMMARY_BYTES) ||
             $download_zip ||
             ($mask & self::SUMMARY_SIZE)) {
-            $part['bytes'] = $size = $mime_part->getBytes(true);
+            $part['bytes'] = $size = $mime_part->getBytes();
             $part['size'] = ($size > 1048576)
                 ? sprintf(_("%s MB"), IMP::numberFormat($size / 1048576, 1))
                 : sprintf(_("%s KB"), max(round($size / 1024), 1));
