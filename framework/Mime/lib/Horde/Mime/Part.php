@@ -1453,8 +1453,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
-        } elseif (!($bytes = $this->getDispositionParameter('size'))) {
+        } else {
             $bytes = $this->_bytes;
+
             /* Base64 transfer encoding is approx. 33% larger than original
              * data size (RFC 2045 [6.8]). */
             if ($approx && ($this->_transferEncoding == 'base64')) {
@@ -1468,6 +1469,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Explicitly set the size (in bytes) of this part. This value will only
      * be returned (via getBytes()) if there are no contents currently set.
+     *
      * This function is useful for setting the size of the part when the
      * contents of the part are not fully loaded (i.e. creating a
      * Horde_Mime_Part object from IMAP header information without loading the
@@ -1477,7 +1479,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setBytes($bytes)
     {
-        $this->setDispositionParameter('size', $bytes);
+        /* Consider 'size' disposition parameter to be the canonical size.
+         * Only set bytes if that value doesn't exist. */
+        if (!$this->getDispositionParameter('size')) {
+            $this->setDispositionParameter('size', $bytes);
+        }
     }
 
     /**
