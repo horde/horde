@@ -1,6 +1,6 @@
----------
-v3.2.0RC2
----------
+------
+v3.2.0
+------
 
 [mms] Fix mailbox selection on Spam page (Bug #13298).
 [mms] Fix regression in deactivating scripts (Bug #13297).
