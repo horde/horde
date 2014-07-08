@@ -9,6 +9,12 @@ v4.2.0
 ------
 
 [jan] Fix fatal error if importing CSV data with date fields.
+
+
+---------
+v4.2.0RC2
+---------
+
 [mjr] Fix another regression with exporting photos in vCard when we are
       ignoring empty values.
 
