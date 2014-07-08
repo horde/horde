@@ -1,6 +1,6 @@
-----------
-v4.2.0-git
-----------
+------
+v4.2.0
+------
 
 [jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
 [mjr] Issue a cancellation iTip when an event's status changes to cancelled
