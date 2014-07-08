@@ -1451,14 +1451,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
-        } else {
+        } elseif (!($bytes = $this->getDispositionParameter('size'))) {
             $bytes = $this->_bytes;
-        }
-
-        /* Base64 transfer encoding is approx. 33% larger than original
-         * data size (RFC 2045 [6.8]). */
-        if ($approx && ($this->_transferEncoding == 'base64')) {
-            $bytes *= 0.75;
+            /* Base64 transfer encoding is approx. 33% larger than original
+             * data size (RFC 2045 [6.8]). */
+            if ($approx && ($this->_transferEncoding == 'base64')) {
+                $bytes *= 0.75;
+            }
         }
 
         return intval($bytes);
