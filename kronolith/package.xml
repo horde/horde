@@ -24,7 +24,7 @@
  </lead>
  <date>2014-07-08</date>
  <version>
-  <release>4.2.0</release>
+  <release>4.2.1</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
-* [mjr] Issue a cancellation iTip when an event&apos;s status changes to cancelled (Bug #13321).
-* [jan] Fix loading events for intial view in smartphone mode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2409,6 +2407,19 @@
 * [jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
 * [mjr] Issue a cancellation iTip when an event&apos;s status changes to cancelled (Bug #13321).
 * [jan] Fix loading events for intial view in smartphone mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.1</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
