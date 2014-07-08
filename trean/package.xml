@@ -24,11 +24,11 @@
  </lead>
  <date>2014-07-08</date>
  <version>
-  <release>1.1.0RC2</release>
+  <release>1.1.0</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
@@ -663,10 +663,10 @@
   </release>
   <release>
    <version>
-    <release>1.1.0RC2</release>
+    <release>1.1.0</release>
     <api>1.1.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
