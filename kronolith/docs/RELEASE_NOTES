@@ -29,7 +29,8 @@ The major changes compared to the Kronolith H5 (4.1) versions are:
     * Synchronize multiple calendars via ActiveSync.
     * Synchronize shared calendars via CalDAV.
     * Synchronize attendees via CalDAV.
-    * Improved free/busy display.
+    * Improved free/busy display (sponsored by Wolf Maschinenbau AG,
+      https://www.wolf-maschinenbau.de/).
     * Improved sorting of events in month view.
     * Improved task interfaces.
     * Improved ActiveSync synchronization of event resources.
