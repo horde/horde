@@ -3144,7 +3144,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $bytes = $data->next();
 
             if (!is_null($te)) {
-                $ob->setTransferEncoding($tmp);
+                $ob->setTransferEncoding($te);
 
                 /* Base64 transfer encoding is approx. 33% larger than
                  * original data size (RFC 2045 [6.8]). Return from
