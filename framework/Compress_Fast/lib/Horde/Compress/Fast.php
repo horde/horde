@@ -86,11 +86,11 @@ class Horde_Compress_Fast
      */
     public function compress($text)
     {
-        if (!is_string($text)) {
+        if (!is_scalar($text) && !is_null($text)) {
             throw new Horde_Compress_Fast_Exception('Data to compress must be a string.');
         }
 
-        return $this->_compress->compress($text);
+        return $this->_compress->compress(strval($text));
     }
 
     /**
@@ -103,11 +103,11 @@ class Horde_Compress_Fast
      */
     public function decompress($text)
     {
-        if (!is_string($text)) {
+        if (!is_scalar($text) && !is_null($text)) {
             throw new Horde_Compress_Fast_Exception('Data to decompress must be a string.');
         }
 
-        return $this->_compress->decompress($text);
+        return $this->_compress->decompress(strval($text));
     }
 
 }
