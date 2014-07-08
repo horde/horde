@@ -4,6 +4,27 @@ v4.3.0-git
 
 
 
+------
+v4.2.0
+------
+
+[jan] Fix error after successful import (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #13272).
+[jan] Fix link on edit form to delete notes (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #13271).
+[jan] Fix exporting tags to CSV (Thomas Jarosch <thomas.jarosch@intra2net.com>,
+      Bug #13269).
+[jan] Fix adding and editing notes with Kolab backend (Bug #13269).
+
+
+---------
+v4.2.0RC1
+---------
+
+[jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
 ------------
 v4.2.0alpha1
 ------------

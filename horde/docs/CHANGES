@@ -6,11 +6,10 @@ v5.3.0-git
       #13200).
 
 
----------
-v5.2.0RC3
----------
+------
+v5.2.0
+------
 
-[mms] Add the 'time_format_mini' preference.
 [mms] Add configuration to allow for SMTP authentication if the current Horde
       access does not have an authenticated user.
 

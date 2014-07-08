@@ -529,12 +529,38 @@
   </release>
   <release>
    <version>
-    <release>5.2.0RC2</release>
+    <release>5.2.0</release>
     <api>5.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-07-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Trean.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.1</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.3.0</release>
+    <api>5.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

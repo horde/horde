@@ -3938,16 +3938,28 @@
   </release>
   <release>
    <version>
-    <release>5.2.0RC3</release>
+    <release>5.2.0</release>
     <api>5.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-07-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mms] Add the &apos;time_format_mini&apos; preference.
 * [mms] Add configuration to allow for SMTP authentication if the current Horde access does not have an authenticated user.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.1</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>

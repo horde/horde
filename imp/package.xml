@@ -3668,12 +3668,12 @@
   </release>
   <release>
    <version>
-    <release>6.2.0RC2</release>
+    <release>6.2.0</release>
     <api>6.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-07-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix some regressions in linked attachments behavior (Bug #13232).

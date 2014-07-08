@@ -6,6 +6,31 @@ v4.3.0-git
       #11889).
 
 
+------
+v4.2.0
+------
+
+[jan] Fix fatal error if importing CSV data with date fields.
+
+
+---------
+v4.2.0RC2
+---------
+
+[mjr] Fix another regression with exporting photos in vCard when we are
+      ignoring empty values.
+
+
+---------
+v4.2.0RC1
+---------
+
+[mjr] Fix regression with exporting photos in vCard when we are ignoring empty
+      values.
+[jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
 -----------
 v4.2.0beta1
 -----------
@@ -17,7 +42,7 @@ v4.2.0beta1
 v4.2.0alpha1
 ------------
 
-[jan] Don't extport binary fields to CSV/TSV.
+[jan] Don't export binary fields to CSV/TSV.
 [mms] Fix search in Facebook driver.
 [jan] Add script to import contacts from Open-Xchange.
 [jan] Don't remove missing contacts from distributions lists in Kolab backends

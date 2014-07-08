@@ -5,6 +5,37 @@ v4.3.0-git
 [jan] Add importing of calendar data from a URL.
 
 
+------
+v4.2.0
+------
+
+[jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
+[mjr] Issue a cancellation iTip when an event's status changes to cancelled
+      (Bug #13321).
+[jan] Fix loading events for intial view in smartphone mode.
+
+
+---------
+v4.2.0RC2
+---------
+
+[jan] Fix issues with event URL field not updating (Carlos Timóteo
+      <ctimoteo@sapo.pt>).
+
+
+---------
+v4.2.0RC1
+---------
+
+[jan] Fix error when deleting unselected calendars.
+[jan] Improve DTEND compatibility with other programs using iCalendar.
+[mjr] Fix sending iTip invitations when Save As New is used (Bug #13239).
+[jan] Fix free/busy display with 24-hours-busy days.
+[jan] Fix navigating free/busy dates.
+[jan] Fix hover style in year view (Bug #13057).
+[jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+
+
 -----------
 v4.2.0beta2
 -----------

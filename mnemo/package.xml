@@ -1157,12 +1157,55 @@
   </release>
   <release>
    <version>
-    <release>4.2.0alpha2</release>
+    <release>4.2.0RC1</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2014-05-06</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-06-17</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix error after successful import (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13272).
+* [jan] Fix link on edit form to delete notes (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13271).
+* [jan] Fix exporting tags to CSV (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #13269).
+* [jan] Fix adding and editing notes with Kolab backend (Bug #13269).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 

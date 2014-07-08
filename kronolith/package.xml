@@ -2369,13 +2369,57 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix error when deleting unselected calendars.
+* [jan] Improve DTEND compatibility with other programs using iCalendar.
+* [mjr] Fix sending iTip invitations when Save As New is used (Bug #13239).
 * [jan] Fix free/busy display with 24-hours-busy days.
 * [jan] Fix navigating free/busy dates.
 * [jan] Fix hover style in year view (Bug #13057).
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0RC2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2014-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix issues with event URL field not updating (Carlos Timóteo &lt;ctimoteo@sapo.pt&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix selecting days in the sidebar mini calendar (Bug #13327).
+* [mjr] Issue a cancellation iTip when an event&apos;s status changes to cancelled (Bug #13321).
+* [jan] Fix loading events for intial view in smartphone mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.1</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>
