@@ -112,12 +112,6 @@ Read the comments at the top of the hooks.php file for descriptions of each
 hook.
 
 
-Preferences (prefs.php)
------------------------
-
-The 'time_format_mini' preference has been added.
-
-
 Registry Options (registry.php)
 -------------------------------
 
