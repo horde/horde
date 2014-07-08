@@ -1,6 +1,6 @@
----------
-v6.2.0RC2
----------
+------
+v6.2.0
+------
 
 [mms] Fix some regressions in linked attachments behavior (Bug #13232).
 [mjr] Fix fatal error when printing empty HTML attachments (Bug #13322).
