@@ -39,7 +39,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add configuration to allow for SMTP authentication if the current Horde access does not have an authenticated user.
 * [mjr] Fix closing smartmobile dialog pages (Bug #13316).
 * [mjr] Fix issue that could cause multiple tabs to be shown as active when tab_name could be a mix of integers or strings.
  </notes>
@@ -3481,7 +3480,6 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add configuration to allow for SMTP authentication if the current Horde access does not have an authenticated user.
 * [mjr] Fix closing smartmobile dialog pages (Bug #13316).
 * [mjr] Fix issue that could cause multiple tabs to be shown as active when tab_name could be a mix of integers or strings.
    </notes>

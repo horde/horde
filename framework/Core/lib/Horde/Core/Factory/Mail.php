@@ -97,16 +97,12 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
          * 'auth'. Will remove in create() if final config doesn't require
          * authentication. */
         if (strcasecmp($transport, 'smtp') === 0) {
-            if ($auth = $registry->getAuth()) {
-                if (!empty($params['username_auth'])) {
-                    $params['username'] = $auth;
-                }
-                if (!empty($params['password_auth'])) {
-                    $params['password'] = $registry->getAuthCredential('password');
-                }
+            if (!isset($params['username'])) {
+                $params['username'] = $registry->getAuth();
             }
-
-            unset($params['password_auth'], $params['username_auth']);
+            if (!isset($params['password'])) {
+                $params['password'] = $registry->getAuthCredential('password');
+            }
         }
 
         return array($transport, $params);
