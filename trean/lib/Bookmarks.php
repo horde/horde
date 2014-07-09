@@ -175,9 +175,20 @@ class Trean_Bookmarks
      */
     public function getBookmark($id)
     {
-        $results = $this->getBookmarks(array($id));
+        try {
+            $bookmark = $GLOBALS['trean_db']->selectOne('
+                SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
+                FROM trean_bookmarks
+                WHERE bookmark_id = ' . (int)$id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Trean_Exception($e);
+        }
+        if (is_null($bookmark)) {
+            throw new Horde_Exception_NotFound();
+        }
 
-        return array_pop($results);
+        $bookmark = $this->_resultSet(array($bookmark));
+        return array_pop($bookmark);
     }
 
     /**
