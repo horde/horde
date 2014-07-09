@@ -38,7 +38,9 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="ingo-admin-upgrade" role="script" />
+    <file name="ingo-admin-upgrade" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
     <file name="ingo-convert-prefs-to-sql" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
