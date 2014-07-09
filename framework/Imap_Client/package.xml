@@ -12,7 +12,7 @@
  </lead>
  <date>2014-07-09</date>
  <version>
-  <release>2.23.2</release>
+  <release>2.23.3</release>
   <api>2.23.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Determination of approximate part size should be done at IMAP level, not within Horde_Mime_Part.
-* [mms] Fix regression in handling invalid DateTime data due to a BC-incompatible change in PHP.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2498,6 +2497,19 @@
    <notes>
 * [mms] Determination of approximate part size should be done at IMAP level, not within Horde_Mime_Part.
 * [mms] Fix regression in handling invalid DateTime data due to a BC-incompatible change in PHP.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.23.3</release>
+    <api>2.23.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
