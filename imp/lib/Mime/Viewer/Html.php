@@ -341,6 +341,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* See Bug #8695: internal anchors are broken in
                      * Mozilla. */
                     $node->removeAttribute('href');
+                } elseif (empty($url)) {
+                    /* Empty URL - remove href/target so the link is not
+                     * clickable. */
+                    $node->removeAttribute('href');
+                    $node->removeAttribute('target');
                 } else {
                     $node->setAttribute('target', strval(new Horde_Support_Randomid()));
                 }
