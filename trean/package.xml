@@ -45,10 +45,18 @@
     </dir> <!-- /app/controllers -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="trean-backfill-crawler" role="script" />
-    <file name="trean-backfill-favicons" role="script" />
-    <file name="trean-backfill-remove-utm-params" role="script" />
-    <file name="trean-url-checker" role="script" />
+    <file name="trean-backfill-crawler" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="trean-backfill-favicons" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="trean-backfill-remove-utm-params" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="trean-url-checker" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
