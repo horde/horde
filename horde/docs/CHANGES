@@ -2,6 +2,7 @@
 v5.3.0-git
 ----------
 
+[mms] Add the 'time_format_mini' preference.
 [mjr] Display ActiveSync client lastSyncTime in user's timezone (Request
       #13200).
 
