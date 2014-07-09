@@ -41,11 +41,21 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="ansel" role="script" />
-    <file name="ansel-convert-sql-shares-to-sqlng" role="script" />
-    <file name="ansel-exif-to-tags" role="script" />
-    <file name="ansel-garbage-collection" role="script" />
-    <file name="AnselPublish.scpt" role="script" />
+    <file name="ansel" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ansel-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ansel-exif-to-tags" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ansel-garbage-collection" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="AnselPublish.scpt" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name="conf.xml" role="horde" />
