@@ -1826,8 +1826,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $data = array($data);
         }
 
+        $append_filter = array();
         if (!empty($options['filter'])) {
-            $append_filter = array();
             foreach ($options['filter'] as $key => $val) {
                 $append_filter[] = stream_filter_append($fp, $key, STREAM_FILTER_WRITE, $val);
             }
@@ -1859,10 +1859,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $error = $e;
         }
 
-        if (!empty($options['filter'])) {
-            foreach ($append_filter as $val) {
-                stream_filter_remove($val);
-            }
+        foreach ($append_filter as $val) {
+            stream_filter_remove($val);
         }
 
         if (!empty($options['error'])) {
