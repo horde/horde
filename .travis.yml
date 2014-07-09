@@ -1,0 +1,3 @@
+branches:
+  except:
+    - FRAMEWORK_5_2
