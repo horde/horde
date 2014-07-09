@@ -35,17 +35,39 @@
     <file name="index.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <file name="whups-bugzilla-import" role="script" />
-    <file name="whups-convert-datatree-shares-to-sql" role="script" />
-    <file name="whups-convert-sql-shares-to-sqlng" role="script" />
-    <file name="whups-convert-to-utf8" role="script" />
-    <file name="whups-git-hook" role="script" />
-    <file name="whups-git-hook-conf.php.dist" role="script" />
-    <file name="whups-mail-filter" role="script" />
-    <file name="whups-obliterate" role="script" />
-    <file name="whups-reminders" role="script" />
-    <file name="whups-svn-hook" role="script" />
-    <file name="whups-svn-hook-conf.php.dist" role="script" />
+    <file name="whups-bugzilla-import" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-convert-to-utf8" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-git-hook" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-git-hook-conf.php.dist" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-mail-filter" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-obliterate" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-reminders" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-svn-hook" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="whups-svn-hook-conf.php.dist" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
