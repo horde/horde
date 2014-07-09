@@ -1067,7 +1067,7 @@ class Horde_Hooks
   //     // the Galaxy Note 3 doesn't support multiple collections prior to
   //     // KitKat so we have to force them all.
   //     if (empty($device->multiplex)) {
-  //         switch (strtolower($device->userAgent)) {
+  //         switch (strtoupper($device->userAgent)) {
   //         case 'SAMSUNG-SM-N900V/101.403':
   //             // Note 3, Android 4.3
   //             $device->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES |
