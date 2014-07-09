@@ -562,8 +562,11 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
-            if (!is_null($e->tied_identity)) {
+            if (is_null($e->tied_identity)) {
+                $notify_level = 'horde.error';
+            } else {
                 $result->identity = $e->tied_identity;
+                $notify_level = 'horde.warning';
             }
 
             if ($e->encrypt) {
