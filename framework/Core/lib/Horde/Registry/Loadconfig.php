@@ -62,8 +62,8 @@ class Horde_Registry_Loadconfig
 
         /* Load global configuration stanzas in '.d' directory. */
         $dir = $conf_dir . $pinfo['filename'] . '.d';
-        if (is_dir($dir)) {
-            $flist = array_merge($flist, glob($dir . '/*.php'));
+        if (is_dir($dir) && (($conf_d = glob($dir . '/*.php')) !== false)) {
+            $flist = array_merge($flist, $conf_d);
         }
 
         /* Load local version of configuration file. */
