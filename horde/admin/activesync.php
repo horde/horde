@@ -29,6 +29,11 @@ $state->setLogger($injector->getInstance('Horde_Log_Logger'));
 /** Check for any actions **/
 if ($actionID = Horde_Util::getPost('actionID')) {
     $deviceID = Horde_Util::getPost('deviceID');
+
+    $device_desc = explode(':', $deviceID);
+    $deviceID = $device_desc[0];
+    $user = $device_desc[1];
+
     switch ($actionID) {
     case 'wipe':
         $state->setDeviceRWStatus($deviceID, Horde_ActiveSync::RWSTATUS_PENDING);
@@ -85,7 +90,7 @@ $view->reset = $selfurl->copy()->add('reset', 1);
 $devs = array();
 $js = array();
 $collections = array();
-foreach ($devices as $key => $device) {
+foreach (array_values($devices) as $device) {
     $dev = $state->loadDeviceInfo($device['device_id'], $device['device_user']);
     try {
         $dev = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
@@ -95,7 +100,7 @@ foreach ($devices as $key => $device) {
     $dev->hbinterval = $syncCache->hbinterval
         ? $syncCache->hbinterval
         : ($syncCache->wait ? $syncCache->wait * 60 : _("Unavailable"));
-    $js[$dev->id] = array(
+    $js[$dev->id . ':' . $dev->user] = array(
         'id' => $dev->id,
         'user' => $dev->user
     );

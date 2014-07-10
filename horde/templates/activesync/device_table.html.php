@@ -41,17 +41,17 @@
       </td>
       <td>
         <?php if ($d->policykey): ?>
-          <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d->id ?>" />
+          <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d->id . ':' . $d->user ?>" />
         <?php endif; ?>
         <?php if ($d->rwstatus == Horde_ActiveSync::RWSTATUS_PENDING): ?>
-          <input type="button" value="<?php echo _("Cancel Wipe") ?>" id="cancel_<?php echo $d->id ?>" />
+          <input type="button" value="<?php echo _("Cancel Wipe") ?>" id="cancel_<?php echo $d->id  . ':' . $d->user?>" />
         <?php endif; ?>
-        <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id ?>" /><br />
+        <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id . ':' . $d->user ?>" /><br />
         <br class="spacer" />
         <?php if ($d->blocked && $this->isAdmin): ?>
-          <input class="horde-button" type="button" value="<?php echo _("Unblock")?>" id="unblock_<?php echo $d->id?>" />
+          <input class="horde-button" type="button" value="<?php echo _("Unblock")?>" id="unblock_<?php echo $d->id . ':' . $d->user ?>" />
         <?php elseif ($this->isAdmin): ?>
-          <input class="horde-delete" type="button" value="<?php echo _("Block")?>" id="block_<?php echo $d->id?>" />
+          <input class="horde-delete" type="button" value="<?php echo _("Block")?>" id="block_<?php echo $d->id . ':' . $d->user ?>" />
         <?php endif; ?>
       </td>
    </tr>
