@@ -2791,17 +2791,20 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
                 list($attr_name, $atc_id) = explode(';', $node->getAttribute(self::RELATED_ATTR));
-                $r_atc = $this[$atc_id];
 
-                if ($r_atc->linked) {
-                    $attr = strval($r_atc->link_url);
-                } else {
-                    $related_part = $r_atc->getPart(true);
-                    $attr = 'cid:' . $related_part->setContentId();
-                    $add[] = $related_part;
+                /* If attachment can't be found, ignore. */
+                if ($r_atc = $this[$atc_id]) {
+                    if ($r_atc->linked) {
+                        $attr = strval($r_atc->link_url);
+                    } else {
+                        $related_part = $r_atc->getPart(true);
+                        $attr = 'cid:' . $related_part->setContentId();
+                        $add[] = $related_part;
+                    }
+
+                    $node->setAttribute($attr_name, $attr);
                 }
 
-                $node->setAttribute($attr_name, $attr);
                 $node->removeAttribute(self::RELATED_ATTR);
             }
         }
