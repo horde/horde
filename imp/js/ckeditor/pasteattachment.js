@@ -69,9 +69,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
                 /* Only handle file data here. For other data (i.e. text)
                  * have the browser handle it natively. */
-                if (!d.dataTransfer ||
-                    !d.dataTransfer.files ||
-                    !d.dataTransfer.files.length) {
+                if (!DragHandler.isFileDrag(d)) {
                     return;
                 }
 

@@ -3,6 +3,15 @@ v6.3.0-git
 ----------
 
 
+
+------
+v6.2.1
+------
+
+[mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug
+      #13281).
+
+
 ------
 v6.2.0
 ------

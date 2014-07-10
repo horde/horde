@@ -1,5 +1,5 @@
 /**
- * DragHandler library (files support only) for use with prototypejs.
+ * DragHandler library for use with prototypejs.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @copyright  2013-2014 Horde LLC
@@ -11,9 +11,16 @@ var DragHandler = {
     // dropelt,
     // droptarget,
     // hoverclass,
-    // leave
+    // leave,
 
     to: -1,
+
+    isFileDrag: function(e)
+    {
+        return (e.dataTransfer &&
+                e.dataTransfer.files &&
+                e.dataTransfer.files.length);
+    },
 
     handleObserve: function(e)
     {
@@ -43,12 +50,14 @@ var DragHandler = {
 
     handleDrop: function(e)
     {
-        if (this.dropelt.hasClassName(this.hoverclass)) {
-            this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
+        if (this.isFileDrag(e)) {
+            if (this.dropelt.hasClassName(this.hoverclass)) {
+                this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
+            }
+            e.stop();
         }
         this.leave = true;
         this.hide();
-        e.stop();
     },
 
     hide: function()
@@ -81,8 +90,6 @@ var DragHandler = {
         } else {
             this.dropelt.removeClassName(this.hoverclass);
         }
-
-        e.stop();
     }
 
 };
