@@ -189,8 +189,10 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             $this->_encoder->endTag();
         } elseif ($update) {
-            $collections->updateFolderInHierarchy($folder, true);
-            $collections->save();
+            if ($status == self::STATUS_SUCCESS) {
+                $collections->updateFolderInHierarchy($folder, true);
+                $collections->save();
+            }
 
             $this->_encoder->startTag(self::FOLDERUPDATE);
 
@@ -204,7 +206,9 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             $this->_encoder->endTag();
         } elseif ($delete) {
-            $collections->deleteFolderFromHierarchy($server_uid);
+            if ($status == self::STATUS_SUCCESS) {
+                $collections->deleteFolderFromHierarchy($server_uid);
+            }
             $this->_encoder->startTag(self::FOLDERDELETE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
