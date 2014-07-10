@@ -71,8 +71,16 @@ CKEDITOR.plugins.add('pasteattachment', {
                 fireEventInParent('drop', e2);
 
                 /* Only handle file data here. For other data (i.e. text)
-                 * have the browser handle it natively. */
+                 * have the browser handle it natively, except for IE -- it is
+                 * buggy so grab the data from the dataTransfer object
+                 * ourselves and insert. */
                 if (!DragHandler.isFileDrag(d)) {
+                    if (Prototype.Browser.IE &&
+                        d.dataTransfer.types &&
+                        d.dataTransfer.types[0] === 'Text') {
+                        editor.insertText(d.dataTransfer.getData('Text'));
+                        e2.data.preventDefault();
+                    }
                     return;
                 }
 
