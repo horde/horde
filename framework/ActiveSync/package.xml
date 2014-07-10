@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent error caused by attempting to update a non-existent state (Bug #13338).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2275,7 +2275,7 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent error caused by attempting to update a non-existent state (Bug #13338).
    </notes>
   </release>
  </changelog>
