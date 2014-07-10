@@ -46,7 +46,7 @@ CKEDITOR.plugins.add('pasteattachment', {
             });
         }
 
-        function fireEventInParent(type)
+        function fireEventInParent(type, e)
         {
             var evt;
 
@@ -56,6 +56,9 @@ CKEDITOR.plugins.add('pasteattachment', {
                 evt = document.createEvent('DragEvent');
                 evt.initEvent(type, true, true);
             }
+
+            evt.memo = e.data.$;
+
             editor.getThemeSpace('contents').$.dispatchEvent(evt);
         }
 
@@ -65,7 +68,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     error = 0,
                     upload = [];
 
-                fireEventInParent('drop');
+                fireEventInParent('drop', e2);
 
                 /* Only handle file data here. For other data (i.e. text)
                  * have the browser handle it natively. */
@@ -94,9 +97,12 @@ CKEDITOR.plugins.add('pasteattachment', {
                     );
                 }
             });
-            editor.document.on('dragover', function(e) {
-                e.data.preventDefault();
-                fireEventInParent('dragover');
+
+            editor.document.on('dragover', function(e3) {
+                if (Prototype.Browser.IE) {
+                    e3.data.preventDefault();
+                }
+                fireEventInParent('dragover', e3);
             });
         });
 
