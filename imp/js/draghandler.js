@@ -31,7 +31,6 @@ var DragHandler = {
             if (Prototype.Browser.IE &&
                 !(("onpropertychange" in document) && (!!window.matchMedia))) {
                 // IE 9 supports drag/drop, but not dataTransfer.files
-                e.stop();
             } else {
                 switch (e.type) {
                 case 'dragleave':
