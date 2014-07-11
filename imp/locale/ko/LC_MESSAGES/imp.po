@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 22:56+0900\n"
+"PO-Revision-Date: 2014-07-11 22:59+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -272,7 +272,7 @@ msgstr "%s: 보내는 사람이 이 메시지가 주장하는 인물이 아닐 �
 #: lib/Compose.php:2529
 #, php-format
 msgid "%u Forwarded Messages"
-msgstr "%u개의 전달된 메시지"
+msgstr "%u개의 전달한 메시지"
 
 #: rss.php:86
 #, php-format
@@ -1969,7 +1969,7 @@ msgstr "끝"
 
 #: lib/Compose.php:2279
 msgid "End forwarded message"
-msgstr "전달된 메시지 끝"
+msgstr "전달한 메시지 종료"
 
 #: lib/Compose.php:2090
 msgid "End message"
@@ -2283,24 +2283,24 @@ msgstr "전달함"
 
 #: lib/Compose.php:2514
 msgid "Forwarded Message"
-msgstr "전달한 "
+msgstr "전달한 메시지"
 
 #: lib/Compose.php:2277
 msgid "Forwarded message"
-msgstr "전달한 "
+msgstr "전달한 메시지"
 
 #: lib/Compose.php:2277
 #, php-format
 msgid "Forwarded message from %s"
-msgstr "%s이(가) 보낸 메시지를 "
+msgstr "%s이(가) 전달한 메시지"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:64 lib/Minimal/Compose.php:227
 msgid "Forwarded message will be automatically added to your outgoing message."
-msgstr "전달된 메시지는 보낸 메시지에 자동으로 추가됩니다."
+msgstr "전달한 메시지를 보낸 메시지에 자동으로 추가합니다."
 
 #: config/prefs.php:733
 msgid "Forwards"
-msgstr "전달된 메시지"
+msgstr "전달한 메시지"
 
 #: lib/Compose.php:1479
 #, php-format
