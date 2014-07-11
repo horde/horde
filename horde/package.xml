@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Add the 'time_format_mini' preference.
+* [mms] Add the &apos;time_format_mini&apos; preference.
 * [mjr] Display ActiveSync client lastSyncTime in user&apos;s timezone (Request #13200).
  </notes>
  <contents>
@@ -3966,7 +3966,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mms] Fix fatal error in signup confirmation script.
    </notes>
   </release>
   <release>
@@ -3979,7 +3979,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mms] Add the 'time_format_mini' preference.
+* [mms] Add the &apos;time_format_mini&apos; preference.
 * [mjr] Display ActiveSync client lastSyncTime in user&apos;s timezone (Request #13200).
    </notes>
   </release>
