@@ -9,7 +9,8 @@
 document.observe('dom:loaded', function() {
     $('aclmbox').observe('change', function(e) {
         $($('prefs').getInputs('checkbox')).flatten().invoke('disable');
-        $('change_acl_mbox').click();
+        $('change_acl_mbox').setValue(1);
+        $('prefs').submit();
     });
 
     /* Disable selection of container elements. */
