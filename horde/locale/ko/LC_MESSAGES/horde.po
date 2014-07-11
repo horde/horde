@@ -1566,7 +1566,7 @@ msgstr "후반기"
 
 #: lib/Block/Account.php:86
 msgid "Last Password Change"
-msgstr "최근 암호 변경일자"
+msgstr "최근 암호 변경 날짜"
 
 #: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
@@ -1579,21 +1579,21 @@ msgstr "최근 동기화 시간"
 
 #: lib/Block/Metar.php:125
 msgid "Last Updated:"
-msgstr "최근 업데이트 일자:"
+msgstr "최근 업데이트 날짜:"
 
 #: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
-msgstr "마지막 로그인 일자: %s"
+msgstr "마지막 로그인 날짜: %s"
 
 #: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
-msgstr "마지막 로그인 일자: %s, 접속 위치: %s"
+msgstr "마지막 로그인 날짜: %s, 접속 위치: %s"
 
 #: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
-msgstr "마지막 로그인 일자: 없음"
+msgstr "마지막 로그인 날짜: 없음"
 
 #: templates/block/twitter-layout.html.php:19
 msgid "Latest"

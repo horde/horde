@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 14:07+0900\n"
+"PO-Revision-Date: 2014-07-11 22:41+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -181,7 +181,7 @@ msgstr "%s이(가) \"%s\"을(를) 취소했습니다."
 #: lib/Mime/Viewer/Itip.php:349
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
-msgstr ""
+msgstr "%s이(가) 반복하는 \"%s\"의 요청을 취소했습니다."
 
 #: lib/Mime/Viewer/Itip.php:344
 #, php-format
@@ -211,7 +211,7 @@ msgstr "%s : %s"
 #: lib/Spam/Email.php:98
 #, php-format
 msgid "%s report from %s"
-msgstr ""
+msgstr "%s이(가) 보낸 %s 보고서"
 
 #: lib/Mime/Viewer/Itip.php:174
 #, php-format
@@ -221,7 +221,7 @@ msgstr "%s이(가) 한가함/바쁨 정보를 요청합니다."
 #: lib/Mime/Viewer/Itip.php:285
 #, php-format
 msgid "%s requests your presence at \"%s\"."
-msgstr ""
+msgstr "%s이(가) \"%s\"에 출석을 요청합니다."
 
 #: lib/Dynamic/Mailbox.php:550
 #, php-format
@@ -267,7 +267,7 @@ msgstr "%s: %s"
 #: lib/Mime/Viewer/Html.php:199
 #, php-format
 msgid "%s: This message may not be from whom it claims to be."
-msgstr ""
+msgstr "%s: 보내는 사람이 이 메시지가 주장하는 인물이 아닐 수 있습니다."
 
 #: lib/Compose.php:2529
 #, php-format
@@ -2488,7 +2488,7 @@ msgstr "이미지"
 
 #: lib/Mime/Viewer/Html.php:248
 msgid "Images have been blocked in this message part."
-msgstr "이 메시지 부분의 이미지를 차단했습니다."
+msgstr "이 메시지 부분에서 이미지를 차단했습니다."
 
 #: lib/Dynamic/Mailbox.php:373 templates/basic/folders/import.html.php:16
 #: templates/pgp/import_key.html.php:68 templates/smime/import_key.html.php:77
@@ -2855,7 +2855,7 @@ msgstr "보낸 메일을 관리합니다."
 
 #: config/prefs.php:163
 msgid "Manage your saved searches"
-msgstr "저장된 검색을 관리합니다."
+msgstr "저장된 검색 관리"
 
 #: lib/Imap/Acl.php:172
 msgid "Mark (Other)"
@@ -2889,12 +2889,12 @@ msgstr "모두 다음으로 표시"
 
 #: lib/Dynamic/Mailbox.php:316 lib/Dynamic/Mailbox.php:421
 msgid "Mark as"
-msgstr "다음으로 표시"
+msgstr "표시"
 
 #: templates/basic/mailbox/navbar.html.php:42
 #: templates/basic/message/navbar_navigate.html.php:29
 msgid "Mark as:"
-msgstr "다음으로 표시:"
+msgstr "표시:"
 
 #: config/prefs.php:1043
 msgid "Mark different levels of quoting with different colors?"
@@ -3031,8 +3031,8 @@ msgid ""
 "Message styling has been suppressed in this message part since the style "
 "data lives on a remote server."
 msgstr ""
-"메시지 스타일이 스타일 데이터가 원격 서버에 위치하고 있어 메시지 스타일이 이 "
-"메시지 부분에 적용되지 않았습니다."
+"메시지 스타일이 스타일 데이터가 원격 서버에 위치하고 있어, 메시지 스타일을 "
+"이 메시지 부분에 적용하지 못했습니다."
 
 #: templates/minimal/compose.html.php:46
 msgid "Message:"
@@ -3061,7 +3061,7 @@ msgstr "첨부파일이 포함된 메시지"
 
 #: config/prefs.php:311
 msgid "Minutes needed to consider a event as non-conflicting in iTip"
-msgstr ""
+msgstr "iTip에서 일정이 충돌하지 않음을 고려하는 데 필요한 시간(분)"
 
 #: templates/search/search.html.php:116
 msgid "Months"
@@ -4930,7 +4930,7 @@ msgstr "첨부파일 제한용량에 도달했습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:73 lib/Mime/Viewer/Itip.php:89
 msgid "The calendar data is invalid"
-msgstr "달력 데이터가 잘못됐습니다"
+msgstr "달력 데이터가 잘못되었음"
 
 #: lib/LoginTasks/Task/RenameSentmailMonthly.php:114
 #, php-format
@@ -5018,8 +5018,8 @@ msgid ""
 "The linked attachment does not exist. It may have been deleted by the "
 "original sender or it may have expired."
 msgstr ""
-"링크된 첨부파일이 존재하지 않습니다. 기존 보내는 사람이 삭제했거나 만료됐을 "
-"수 있습니다."
+"링크된 첨부파일이 존재하지 않습니다. 기존 보내는 사람이 삭제했거나 만료 되었"
+"을 수 있습니다."
 
 #: lib/Mime/Viewer/Html.php:201
 msgid "The links that caused this warning have this background color:"
@@ -5393,7 +5393,7 @@ msgid ""
 "inline."
 msgstr ""
 "이 메시지 부분이 HTML 데이터를 포함하고 있으나, 이 데이터를 본문에 표시할 수 "
-"엇습니다."
+"없습니다."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:130 lib/Basic/Message.php:503
 msgid "This message to"
@@ -5559,12 +5559,12 @@ msgstr "암호 언로드"
 
 #: lib/Dynamic/Mailbox.php:317 lib/Dynamic/Mailbox.php:422
 msgid "Unmark as"
-msgstr "다음으로 표시 제거"
+msgstr "표시 해제"
 
 #: templates/basic/mailbox/navbar.html.php:47
 #: templates/basic/message/navbar_navigate.html.php:34
 msgid "Unmark as:"
-msgstr "다음으로 표시 제거:"
+msgstr "표시 해제:"
 
 #: lib/Block/Summary.php:107 lib/Dynamic/Mailbox.php:239
 #: lib/Flag/System/Unseen.php:47
@@ -5608,7 +5608,7 @@ msgstr "업로드"
 #: lib/Ajax/Application/Handler/ComposeAttach.php:94
 #: lib/Ajax/Application/Handler/Dynamic.php:1041
 msgid "Uploading attachments has been disabled on this server."
-msgstr "이 서버는 첨부파일 업로드가 비활성화됐습니다."
+msgstr "이 서버는 첨부파일 업로드 기능이 비활성화됐습니다."
 
 #: lib/Dynamic/Compose/Common.php:261
 msgid "Uploading..."
