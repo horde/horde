@@ -3699,6 +3699,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Don&apos;t perform purge Spam login task unless Spam mailbox exists.
 * [mms] Fix dragging a mailbox to the base level in dynamic view.
 * [mms] Add ability to drag/drop text to dynamic HTML compose window on Chrome and IE.
 * [mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug #13281).
