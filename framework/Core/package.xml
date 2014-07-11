@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix broken CHANGEFOLDER functionality for ActiveSync NOTES collections (Bug #13334).
 * [mms] Better error handling when trying to load config files from the conf.d subdirectory.
  </notes>
  <contents>
@@ -3541,6 +3542,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix broken CHANGEFOLDER functionality for ActiveSync NOTES collections (Bug #13334).
 * [mms] Better error handling when trying to load config files from the conf.d subdirectory.
    </notes>
   </release>
