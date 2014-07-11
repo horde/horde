@@ -113,6 +113,11 @@ class IMP_Auth
             $credentials['userId'] = $auth_ob->getCredential('userId');
         }
 
+        if (!isset($credentials['password']) ||
+            !strlen($credentials['password'])) {
+            return false;
+        }
+
         try {
             self::authenticate($credentials);
         } catch (Horde_Auth_Exception $e) {
