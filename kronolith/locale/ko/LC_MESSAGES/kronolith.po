@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kronolith\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2014-07-11 15:14+0900\n"
+"PO-Revision-Date: 2014-07-12 00:34+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -205,7 +205,7 @@ msgstr "* 주소를 선택해주세요 *"
 #: templates/edit/edit.inc:283
 #, php-format
 msgid ", %d times"
-msgstr "%d회"
+msgstr ", %d회"
 
 #: templates/search/header.inc:4
 msgid "1 event"
@@ -424,7 +424,7 @@ msgstr ""
 #: templates/edit/edit_timespan.inc:109
 #: templates/smartmobile/javascript_defs.php:135
 msgid "All day"
-msgstr ""
+msgstr "종일"
 
 #: templates/view/view.inc:36
 msgid "All day event"
@@ -473,7 +473,7 @@ msgstr "정말로 이 과제 목록과 과제 목록의 모든 과제을 삭제�
 
 #: templates/dynamic/task.inc:49
 msgid "Assignee"
-msgstr ""
+msgstr "담당자"
 
 #: templates/data/export.inc:85 templates/data/export.inc:176
 #: templates/edit/edit_timespan.inc:32 templates/edit/edit_timespan.inc:80
@@ -490,7 +490,7 @@ msgstr ""
 
 #: perms.php:64
 msgid "Attempt to edit a non-existent share."
-msgstr ""
+msgstr "존재 하지 않는 공유를 편집하려고 합니다."
 
 #: templates/attendees/attendees.inc:49 templates/attendees/attendees.inc:61
 #: templates/attendees/attendees.inc:86 templates/attendees/attendees.inc:98
@@ -581,7 +581,7 @@ msgstr "달력이 존재하지 않거나 편집 권한이 없음"
 #: lib/Block/Month.php:48 lib/Block/Month.php:67 lib/Block/Monthlist.php:86
 #: lib/Block/Prevmonthlist.php:79 lib/Block/Summary.php:97
 msgid "Calendar not found"
-msgstr "달력을 찾지 못함"
+msgstr "달력을 발견하지 못함"
 
 #: lib/Calendars/Default.php:45
 #, php-format
@@ -648,7 +648,7 @@ msgstr "(아직) 예외사항을 삭제할 수 없습니다."
 #: lib/Kronolith.php:715
 #, php-format
 msgid "Cannot parse event description \"%s\""
-msgstr ""
+msgstr "일정 설명  \"%s\"을(를) 분석할 수 없음"
 
 #: lib/Form/EditCalendar.php:159
 msgid "Change Permissions"
@@ -669,6 +669,7 @@ msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
+"생성, 편집 및 삭제된 일정에 대한 알림을 이메일로 받길 원하는  선택하세요:"
 
 #: config/prefs.php:391
 msgid "Choose if you want to receive daily agenda email reminders:"
@@ -680,7 +681,7 @@ msgstr "알림이 있는 일정에 대한 미리 알림을 받고 싶으면 선�
 
 #: config/prefs.php:483
 msgid "Choose the calendars to include in the above Free/Busy URL:"
-msgstr ""
+msgstr "위 한가함/바쁨 URL에 포함할 달력을 선택하세요:"
 
 #: config/prefs.php:34
 msgid "Choose the calendars to use for synchronization with external devices."
@@ -710,7 +711,7 @@ msgstr "모두 삭제"
 
 #: lib/Form/EditResource.php:66
 msgid "Click or copy this URL to display the calendar of this resource"
-msgstr ""
+msgstr "이 자원의 달력을 표시하려면 URL을 클릭 또는 복사"
 
 #: lib/Form/EditCalendar.php:70
 msgid "Click or copy this URL to display this calendar"
@@ -750,7 +751,7 @@ msgstr "색상 선택자"
 
 #: data.php:21 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr ""
+msgstr "쉼표로 구분된 값"
 
 #: templates/dynamic/tasks.inc:6
 msgid "Completed"
@@ -1021,19 +1022,19 @@ msgstr "만기일"
 
 #: templates/edit/edit_timespan.inc:102
 msgid "Duration"
-msgstr ""
+msgstr "소요시간"
 
 #: lib/Event.php:3281
 msgid "Duration Day"
-msgstr ""
+msgstr "소요시간(일)"
 
 #: lib/Event.php:3292
 msgid "Duration Hour"
-msgstr ""
+msgstr "소요시간(시간)"
 
 #: lib/Event.php:3302
 msgid "Duration Minute"
-msgstr ""
+msgstr "소요시간(분)"
 
 #: lib/Event.php:3505 templates/chunks/permissions.inc:105
 #: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
@@ -1160,7 +1161,7 @@ msgstr ""
 #: attendees.php:235 attendees.php:255
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
-msgstr ""
+msgstr "%s에 대한 한가함/바쁨 정보를 검색할 수 없습니다: %s"
 
 #: attendees.php:213
 #, php-format
@@ -1170,7 +1171,7 @@ msgstr ""
 #: lib/Ajax/Application/Handler.php:1402
 #, php-format
 msgid "Error saving timeslice: %s"
-msgstr ""
+msgstr "시간 구획을 저장하는 동안 오류가 발생했습니다: %s"
 
 #: templates/smartmobile/javascript_defs.php:134
 msgid "Error when communicating with the server."
@@ -1208,12 +1209,12 @@ msgstr "일정을 편집함:"
 #: lib/Driver/Sql.php:480 lib/View/DeleteEvent.php:54
 #: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
 msgid "Event not found"
-msgstr "일정을 찾을 수 없음"
+msgstr "일정을 발견하지 못함"
 
 #: lib/Driver/Kolab.php:317 lib/Driver/Kolab.php:357
 #, php-format
 msgid "Event not found: %s"
-msgstr "일정을 찾을 수 없음: %s"
+msgstr "일정을 발견하지 못함: %s"
 
 #: templates/dynamic/edit.inc:28
 msgid "Event title"
@@ -1482,7 +1483,7 @@ msgstr "달력 클라이언트에서 CalDAV로 구독하는 방법을 알아봅�
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
-msgstr ""
+msgstr "내보내기 할 때 기간을 제한합니다:"
 
 #: config/prefs.php:439
 msgid ""
@@ -1528,7 +1529,7 @@ msgstr "로그인 작업"
 #: feed/index.php:57
 #, php-format
 msgid "Login required for the requested feed (%s)."
-msgstr ""
+msgstr "요청한 피드(%s)에 대한 로그인이 필요합니다."
 
 #: templates/dynamic/task.inc:33
 msgid "Low"
@@ -1744,7 +1745,7 @@ msgstr "%s의 한가함/바쁨 URL에서 한가함/바쁨 정보를 발견하지
 #: lib/FreeBusy.php:229
 #, php-format
 msgid "No free/busy url found for %s."
-msgstr "%s에 대한 한가함/바쁨 정보가 없습니다."
+msgstr "%s에 대한 한가함/바쁨 정보를 발견하지 못했습니다."
 
 #: lib/Api.php:761 lib/Api.php:781 lib/Api.php:1109
 msgid "No iCalendar data was found."
@@ -1790,7 +1791,7 @@ msgstr "정상"
 
 #: lib/View/DeleteEvent.php:38 lib/View/EditEvent.php:39 lib/View/Event.php:38
 msgid "Not Found"
-msgstr "찾을 수 없음"
+msgstr "발견하지 못함"
 
 #: templates/edit/edit.inc:203
 msgid "Notification"
@@ -1918,7 +1919,7 @@ msgstr "권한이 거부됨"
 #: lib/Api.php:506
 #, php-format
 msgid "Permission Denied or Calendar Not Found: %s - skipping."
-msgstr ""
+msgstr "권한을 거부했거나 달력을 발견하지 못했습니다: %s - 건너뜁니다."
 
 #: lib/Form/DeleteResource.php:54 lib/Form/DeleteResourceGroup.php:55
 msgid "Permission denied"
@@ -1927,7 +1928,7 @@ msgstr "권한이 거부됨"
 #: feed/index.php:38
 #, php-format
 msgid "Permission denied for the requested feed (%s)."
-msgstr ""
+msgstr "요청한 피드(%s)에 대한 권한을 거부했습니다."
 
 #: templates/chunks/permissions.inc:86 templates/chunks/permissions.inc:182
 #: templates/chunks/permissions.inc:235
@@ -1936,7 +1937,7 @@ msgstr "권한"
 
 #: lib/Ajax.php:140
 msgid "Please enter correct values in the form first."
-msgstr ""
+msgstr "먼저 서식에 올바른 값을 입력해주세요."
 
 #: templates/fbview/legend.html:11
 msgid "Possible Meeting Time"
@@ -2647,7 +2648,7 @@ msgstr "구독"
 
 #: lib/Ajax/Application/Handler.php:1405
 msgid "Successfully saved timeslice."
-msgstr ""
+msgstr "시간 구획을 성공적으로 저장했습니다."
 
 #: templates/smartmobile/summary.html.php:2
 msgid "Summary"
@@ -2712,7 +2713,7 @@ msgstr "과제"
 
 #: lib/Kronolith.php:853 lib/Kronolith.php:876 templates/dynamic/edit.inc:71
 msgid "Tentative"
-msgstr ""
+msgstr "잠정적"
 
 #: lib/Block/Month.php:112 lib/View/Year.php:61 templates/edit/edit.inc:314
 msgid "Th"
@@ -2946,12 +2947,12 @@ msgstr "과제 목록 제목을 비워둘 수 없습니다."
 
 #: lib/Block/Summary.php:31
 msgid "The time span to show"
-msgstr ""
+msgstr "표시할 기간 범위"
 
 #: lib/Kronolith.php:1426 lib/Kronolith.php:1560
 #, php-format
 msgid "The user \"%s\" does not exist."
-msgstr ""
+msgstr "사용자 \"%s\"이(가) 존재하지 않습니다."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
@@ -2979,12 +2980,12 @@ msgstr "일정을 편집하는 동안 오류가 발생했습니다: %s"
 
 #: lib/Api.php:306 lib/Api.php:753 lib/Api.php:1094 lib/Application.php:812
 msgid "There was an error importing the iCalendar data."
-msgstr ""
+msgstr "iCalendar 데이터를 가져오는 동안 오류가 발생했습니다."
 
 #: edit.php:213 lib/Ajax/Application/Handler.php:239
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr ""
+msgstr "일정을 이동하는 동안 오류가 발생했습니다: %s"
 
 #: lib/Application.php:432
 #, php-format
@@ -2994,7 +2995,7 @@ msgstr ""
 #: lib/Kronolith.php:2030
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr ""
+msgstr "%s에게 일정 알림을 보내는 동안 오류가 발생했습니다: %s"
 
 #: lib/Block/Month.php:13
 msgid "This Month"
@@ -3002,11 +3003,11 @@ msgstr "이번 달"
 
 #: templates/chunks/calendar.php:287
 msgid "This calendar requires to specify a user name and password."
-msgstr ""
+msgstr "달력에 사용자명 및 암호를 지정해야 합니다."
 
 #: templates/dynamic/edit.inc:274
 msgid "This event can be saved as a timeslice in your timesheet."
-msgstr ""
+msgstr "이 일정은 작업표에 시간 구획으로 저장할 수 있습니다."
 
 #: data.php:108
 msgid "This file format is not supported."
@@ -3021,28 +3022,32 @@ msgid ""
 "This is a recurring event. Delete the current event only, this<br /"
 ">occurrence and all future occurences, or all occurences?"
 msgstr ""
+"이것은 반복 일정입니다. 현재 일정만 삭제하거나, 현재<br />일정 및 모든 향후 "
+"일정, 또는 모든 일정을 삭제하시겠습니까?"
 
 #: templates/edit/edit.inc:42
 msgid ""
 "This is a recurring event. Edit the current event only, this occurrence<br /"
 ">and all future occurences, all occurences, or save this event as new?"
 msgstr ""
+"이것은 반복 일정입니다. 현재 일정만 삭제하거나, 현재<br />일정 및 모든 향후 "
+"일정, 또는 모든 일정을 삭제하시거나 새로운 일정으로 시겠습니까?"
 
 #: templates/dynamic/edit.inc:199
 #, php-format
 msgid "This is an exception to a recurring event originally scheduled on %s"
-msgstr ""
+msgstr "이것은 원래 %s에 생성된 일정에 대한 예외사항입니다."
 
 #: templates/edit/edit.inc:290 templates/view/view.inc:98
 #, php-format
 msgid ""
 "This is an exception to a recurring event originally scheduled on %s at %s"
-msgstr ""
+msgstr "이것은 원래 %s %s에 생성된 일정에 대한 예외사항입니다."
 
 #: data.php:155
 #, php-format
 msgid "This is what the server said: %s"
-msgstr ""
+msgstr "서버가 다음과 같이 응답했습니다: %s"
 
 #: templates/dynamic/edit.inc:166 templates/dynamic/task.inc:121
 #: templates/month/head.inc:11 templates/view/view.inc:106
@@ -3076,36 +3081,40 @@ msgstr "제목"
 
 #: templates/itip/notification.plain.php:33
 msgid "To accept the event tentatively:"
-msgstr ""
+msgstr "일정을 잠정적으로 수락하려면:"
 
 #: templates/itip/notification.plain.php:28
 msgid "To accept the event:"
-msgstr ""
+msgstr "일정을 수락하려면:"
 
 #: templates/itip/notification.plain.php:38
 msgid "To decline the event:"
-msgstr ""
+msgstr "일정을 거절하려면:"
 
 #: lib/Form/EditCalendar.php:147
 msgid "To embed this calendar in another website, use the code above."
-msgstr ""
+msgstr "이 달력을 다른 웹 사이트에 추가하려면, 위의 코드를 사용하세요."
 
 #: templates/dynamic/edit.inc:258
 msgid ""
 "To make it easier to find, you can enter comma separated tags related to the "
 "event subject."
 msgstr ""
+"쉽게 찾을 수 있도록 일정 제목과 관련된 쉼표로 구분된 태그를 입력할 수 있습니"
+"다."
 
 #: templates/dynamic/task.inc:156
 msgid ""
 "To make it easier to find, you can enter comma separated tags related to the "
 "task subject."
 msgstr ""
+"쉽게 찾을 수 있도록 과제 제목과 관련된 쉼표로 구분된 태그를 입력할 수 있습니"
+"다."
 
 #: templates/share/notification.html.php:17
 #: templates/share/notification.plain.php:9
 msgid "To subscribe to this calendar, you need to click the following link:"
-msgstr ""
+msgstr "이 달력을 구독하려면, 다음 링크를 클릭해야 합니다:"
 
 #: lib/Block/Monthlist.php:163 lib/Block/Prevmonthlist.php:135
 #: lib/Block/Summary.php:154 lib/Kronolith.php:2415
@@ -3151,20 +3160,20 @@ msgstr "달력 \"%s\"을(를) 삭제할 수 없습니다: %s"
 msgid ""
 "Unable to delete event. An exception date was provided but the event does "
 "not seem to be recurring."
-msgstr ""
+msgstr "예외 날짜가 제공됐으나 "
 
 #: lib/Factory/Driver.php:119 lib/Factory/Storage.php:44
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr ""
+msgstr "%s의 정의를 불러올 수 없습니다."
 
 #: lib/Event.php:1472
 msgid "Unable to locate original event series."
-msgstr ""
+msgstr "원본 일정 시리즈를 찾을 수 없습니다."
 
 #: lib/Ajax.php:141
 msgid "Unable to locate requested address"
-msgstr ""
+msgstr "요청한 주소를 찾을 수 없습니다."
 
 #: lib/Event.php:1002
 msgid "Unable to parse event."
@@ -3173,7 +3182,7 @@ msgstr ""
 #: lib/Kronolith.php:1805
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
-msgstr ""
+msgstr "\"%s\"을(를) 이메일 주소로 인식할 수 없습니다."
 
 #: lib/Kronolith.php:1316
 #, php-format
@@ -3187,7 +3196,7 @@ msgstr "자원 \"%s\"을(를) 저장할 수 없습니다: %s"
 
 #: lib/Driver/Ical.php:728
 msgid "Unexpected response from remote server."
-msgstr ""
+msgstr "원격 서버에서 예기치 않은 응답을 받았습니다."
 
 #: lib/Api.php:1342 lib/Api.php:1359
 msgid "Unknown calendar protocol"
@@ -3216,7 +3225,7 @@ msgstr "미지원 컨텐츠 유형: %s"
 
 #: lib/Block/Monthlist.php:13 lib/Block/Monthlist.php:57
 msgid "Upcoming Events"
-msgstr ""
+msgstr "예정된 일정"
 
 #: templates/attendees/attendees.inc:153
 msgid "Update"
@@ -3272,7 +3281,7 @@ msgstr "수"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this upcoming event."
-msgstr ""
+msgstr "다가오는 일정을 미리 알려드립니다."
 
 #: lib/Form/EditCalendar.php:123 templates/chunks/calendar.php:119
 #: templates/chunks/calendar.php:232
@@ -3301,29 +3310,29 @@ msgstr "주"
 
 #: templates/edit/edit.inc:308 templates/view/view.inc:110
 msgid "Weekly: Recurs every"
-msgstr ""
+msgstr "매주: 반복 주기"
 
 #: config/prefs.php:158
 msgid ""
 "What time should day and week views end, when there are no later events?"
-msgstr ""
+msgstr "이후 일정이 없을 때 몇 시에 일일 및 주간 화면을 종료할까요?"
 
 #: config/prefs.php:139
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
-msgstr ""
+msgstr "이전 일정이 없을 때 몇 시에 일일 및 주간 화면을 시작할까요?"
 
 #: feed/index.php:124
 msgid "When:"
-msgstr ""
+msgstr "언제:"
 
 #: feed/index.php:137
 msgid "Where:"
-msgstr ""
+msgstr "어디서:"
 
 #: feed/index.php:134
 msgid "Who:"
-msgstr ""
+msgstr "누가:"
 
 #: attendees.php:188 config/prefs.php:102 lib/Application.php:448
 #: lib/Kronolith.php:2426 templates/dynamic/index.inc:33
@@ -3339,12 +3348,12 @@ msgstr "년"
 #: templates/edit/edit.inc:346 templates/view/view.inc:116
 #: templates/view/view.inc:118 templates/view/view.inc:120
 msgid "Yearly: Recurs every"
-msgstr ""
+msgstr "매년: 반복 주기"
 
 #: templates/dynamic/edit.inc:317 templates/dynamic/edit.inc:324
 #: templates/dynamic/edit.inc:331
 msgid "Yes"
-msgstr ""
+msgstr "예"
 
 #: templates/smartmobile/javascript_defs.php:137
 msgid "Yesterday"
@@ -3404,7 +3413,7 @@ msgstr "지정한 일정의 참석자가 아닙니다."
 #: templates/dynamic/edit.inc:122 templates/dynamic/task.inc:77
 #, php-format
 msgid "You can change the default settings in the %sNotification options%s"
-msgstr ""
+msgstr "%s알림 옵션%s에서 기본 설정을 변경할 수 있습니다"
 
 #: templates/contacts/contacts.inc:78
 msgid "You can only use this form from the Edit Attendees screen."
@@ -3417,6 +3426,8 @@ msgid ""
 "Preferences. You must set one %shere%s before event notifications can be "
 "sent."
 msgstr ""
+"개인 정보 설정에 구성한 이메일 주소가 없습니다. 일정 알림을 보내기 전에 하나"
+"의 %shere%s을(를) 설정해야 합니다."
 
 #: add.php:48
 msgid "You do not have permission to add events to this calendar."
@@ -3446,6 +3457,8 @@ msgid ""
 "agenda. You can change this if you %slogin to the calendar%s and change your "
 "preferences."
 msgstr ""
+"달력이 일일 일정을 보내도록 구성하였으므로 이 메시지를 받았습니다. %s달력에 "
+"login하여%s 이 설정을 변경할 수있습니다."
 
 #: templates/alarm/mail.html.php:66
 #, php-format
@@ -3454,6 +3467,8 @@ msgid ""
 "reminders of events with alarms. You can change this if you %slogin to the "
 "calendar%s and change your preferences."
 msgstr ""
+"달력이 알림이 있는 일정의 미리 알림을 보내도록 구성하였으므로 이 메시지를 받"
+"았습니다. %s달력에 login하여%s 이 설정을 변경할 수있습니다."
 
 #: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1032
 #, php-format
@@ -3526,7 +3541,7 @@ msgstr ""
 
 #: templates/agenda/notification.html.php:1
 msgid "Your daily agenda"
-msgstr ""
+msgstr "일일 일정"
 
 #: templates/agenda/notification.plain.php:1
 #, php-format
