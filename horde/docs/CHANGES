@@ -12,6 +12,8 @@ v5.2.1
 ------
 
 [mms] Fix fatal error in signup confirmation script.
+[mjr] Fix removing ActiveSync device state from administrative interface when
+      multiple user accounts exist on the same device (Bug #13336).
 
 
 ------
