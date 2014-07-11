@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 22:53+0900\n"
+"PO-Revision-Date: 2014-07-11 22:56+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -1145,11 +1145,11 @@ msgstr "첨부파일을 영구적으로 삭제하려면 다음 링크를 클릭�
 
 #: templates/dynamic/compose.html.php:192
 msgid "Click this box to add the original message as an attachment."
-msgstr "원본 메시지를 첨부파일 형식으로 추가하려면 이 확인란을 클릭하세요."
+msgstr "원본 메시지를 첨부파일 형식으로 추가하려면 이 상자를 클릭하세요."
 
 #: templates/dynamic/compose.html.php:189
 msgid "Click this box to add the original message text to the body."
-msgstr "원본 메시지 내용을 본문에 추가하려면 이 확인란을 클릭하세요."
+msgstr "원본 메시지 내용을 본문에 추가하려면 이 상자를 클릭하세요."
 
 #: lib/Script/Package/Imp.php:33
 msgid "Click to always show images from this sender."
@@ -6165,7 +6165,7 @@ msgid ""
 "recipient address. Click this box to revert to the original identity. The "
 "identity will not be checked again during this compose action."
 msgstr ""
-"신원을 현재 받는 사람 주소와 연관된 신원으로 전환했습니다. 이 확인란을 클릭하"
+"신원을 현재 받는 사람 주소와 연관된 신원으로 전환했습니다. 이 상자를 클릭하"
 "면 원래 신원으로 돌아갑니다. 메시지를 작성하는 동안에는 신원을 다시 확인하지 "
 "않습니다."
 
