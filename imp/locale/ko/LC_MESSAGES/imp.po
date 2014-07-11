@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 22:41+0900\n"
+"PO-Revision-Date: 2014-07-11 22:47+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -1716,7 +1716,7 @@ msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
 msgstr ""
-"모든 텍스트 형식 정보를 (HTML에서 일반 텍스트로 변환하여) 삭제할까요? 이 작업"
+"모든 텍스트 서식 정보를 (HTML에서 일반 텍스트로 변환하여) 삭제할까요? 이 작업"
 "은 취소할 수 없습니다."
 
 #: config/prefs.php:605
@@ -4125,7 +4125,7 @@ msgstr "메시지 삭제, 이동 또는 복사 후 목록 화면으로 돌아갈
 
 #: config/prefs.php:511
 msgid "Rich Text (HTML)"
-msgstr "리치 텍스트(HTML)"
+msgstr "서식 있는 텍스트(HTML)"
 
 #: templates/itip/action.html.php:68
 msgid "Role"
