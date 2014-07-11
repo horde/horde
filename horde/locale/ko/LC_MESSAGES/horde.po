@@ -2649,7 +2649,7 @@ msgstr "짧은 요약:"
 
 #: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
-msgstr "대부분의 링크에 대한 접근 키를 정의해야 할까요?"
+msgstr "대부분의 링크에 대한 접근 키를 정의할까요?"
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
