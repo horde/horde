@@ -1208,6 +1208,7 @@ class Horde_Core_ActiveSync_Connector
                 );
             }
             $this->_registry->notes->updateNotepad($id, array('name' => $name));
+            break;
 
         case Horde_ActiveSync::CLASS_TASKS:
             if (!$this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
