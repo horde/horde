@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 22:47+0900\n"
+"PO-Revision-Date: 2014-07-11 22:53+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -458,8 +458,8 @@ msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
 msgstr ""
-"메시지를 볼 때 표시할 추가적인 머리글: <em>(각 머리글을 새로운 행에 입력하세"
-"요)</em>"
+"메시지를 볼 때 표시할 추가적인 머리글: <em>(각 머리글을 한 줄씩 입력하세요)</"
+"em>"
 
 #: lib/Basic/Compose.php:773 lib/Basic/Compose.php:890
 #: lib/Basic/Contacts.php:117 templates/basic/compose/redirect.html.php:20
@@ -476,16 +476,16 @@ msgid ""
 "Addresses to BCC all messages: <em>(optional, enter each address on a new "
 "line)</em>"
 msgstr ""
-"모든 메시지에 숨은 참조를 포함할 주소: <em>(옵션, 행마다 주소를 하나씩 입력하"
-"세요)</em>"
+"모든 메시지에 숨은 참조를 포함할 주소: <em>(옵션, 주소를 한 줄씩 입력하세"
+"요)</em>"
 
 #: config/prefs.php:40
 msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
 msgstr ""
-"이 신원에 명시적으로 연결할 주소: <em>(옵션, 각 주소를 새로운 행에 입력하세"
-"요)</em>"
+"이 신원에 명시적으로 연결할 주소: <em>(옵션, 각 주소를 한 줄씩 입력하세요)</"
+"em>"
 
 #: lib/Imap/Acl.php:184
 msgid "Administer"
@@ -5030,8 +5030,8 @@ msgid ""
 "The list of addresses that will NOT have their images blocked by default "
 "(enter each address on a new line)"
 msgstr ""
-"기본으로 이미지를 차단하지 않을 이메일 주소 목록(이메일 주소를 한 줄에 하나"
-"씩 입력하세요)"
+"기본으로 이미지를 차단하지 않을 이메일 주소 목록(각 이메일 주소를 한 줄씩 입"
+"력하세요)"
 
 #: lib/Imap.php:773
 msgid "The mail server is not currently avaliable."
@@ -6133,7 +6133,7 @@ msgstr "S/MIME 개인 인증서"
 #: config/prefs.php:34
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
-msgstr "별칭 주소: <em>(옵션, 각 주소를 새로운 행에 입력하세요)</em>"
+msgstr "별칭 주소: <em>(옵션, 각 주소를 한 줄씩 입력하세요)</em>"
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:57
 #: lib/Ajax/Application/Handler/Dynamic.php:1044
