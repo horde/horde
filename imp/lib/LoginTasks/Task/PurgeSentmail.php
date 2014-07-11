@@ -28,8 +28,11 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        if ($this->interval = $GLOBALS['prefs']->getValue('purge_sentmail_interval')) {
-            if ($GLOBALS['prefs']->isLocked('purge_sentmail_interval')) {
+        global $prefs;
+
+        if (($this->interval = $prefs->getValue('purge_sentmail_interval')) &&
+            $this->_getMboxes()) {
+            if ($prefs->isLocked('purge_sentmail_interval')) {
                 $this->display = Horde_LoginTasks::DISPLAY_NONE;
             }
         } else {
@@ -54,11 +57,6 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
         $del_time = new Horde_Date(time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
 
         foreach ($this->_getMboxes() as $mbox) {
-            /* Make sure the sent-mail mailbox exists. */
-            if (!$mbox->exists) {
-                continue;
-            }
-
             /* Open the sent-mail mailbox and get the list of messages older
              * than 'purge_sentmail_keep' days. */
             $query = new Horde_Imap_Client_Search_Query();
@@ -104,11 +102,21 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
     /**
      * Returns the list of sent-mail mailboxes.
      *
-     * @return array  All sent-mail mailboxes (IMP_Mailbox objects).
+     * @return array  All existing sent-mail mailboxes (IMP_Mailbox objects).
      */
     protected function _getMboxes()
     {
-        return IMP_Mailbox::get($GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail());
+        global $injector;
+
+        $sent = array();
+
+        foreach (IMP_Mailbox::get($injector->getInstance('IMP_Identity')->getAllSentmail()) as $val) {
+            if ($val->exists) {
+                $sent[] = $val;
+            }
+        }
+
+        return $sent;
     }
 
 }
