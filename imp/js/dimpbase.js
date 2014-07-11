@@ -2319,7 +2319,7 @@ var DimpBase = {
             drop = this.flist.getMbox(e.element());
 
         if (drag_m && drag_m.isMbox()) {
-            dropbase = (drop == $('dropbase'));
+            dropbase = this.isDropbase(e.element());
             if (dropbase ||
                 (drop.ftype() != 'special' &&
                  !this.flist.isSubfolder(drag_m, drop))) {
@@ -2360,16 +2360,25 @@ var DimpBase = {
         }
     },
 
+    dropbase: function()
+    {
+        var tmp = $('dropbase');
+        return tmp ? tmp.up('DIV') : null;
+    },
+
+    isDropbase: function(elt)
+    {
+        var tmp = this.dropbase();
+        return (tmp === elt || elt.descendantOf(tmp));
+    },
+
     mboxDropCaption: function(drop, drag, e)
     {
-        var m;
+        var m,
+            orig_drop = drop;
 
         drag = this.flist.getMbox(drag);
         drop = this.flist.getMbox(drop);
-
-        if (drop == $('dropbase')) {
-            return DimpCore.text.moveto.sub('%s', drag.label()).sub('%s', DimpCore.text.baselevel);
-        }
 
         switch (e.type) {
         case 'mousemove':
@@ -2383,16 +2392,28 @@ var DimpBase = {
              m = (e.keyCode == 17) ? DimpCore.text.copyto : DimpCore.text.moveto;
              break;
 
-         case 'keyup':
-             m = (e.keyCode == 17)
-                 ? DimpCore.text.moveto
-                 : (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
-             break;
-         }
+        case 'keyup':
+            m = (e.keyCode == 17)
+                ? DimpCore.text.moveto
+                : (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
+            break;
+        }
 
-         return (drag && drag.isMbox())
-             ? ((drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop.element())) ? m.sub('%s', drag.label()).sub('%s', drop.label()) : '')
-             : ((drop.ftype() != 'container') ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', drop.label()) : '');
+        if (drag && drag.isMbox()) {
+            if (drop) {
+                return (drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop.element()))
+                    ? m.sub('%s', drag.label()).sub('%s', drop.label())
+                    : '';
+            }
+
+            return this.isDropbase(orig_drop)
+                ? DimpCore.text.moveto.sub('%s', drag.label()).sub('%s', DimpCore.text.baselevel)
+                : '';
+        }
+
+        return (drop.ftype() != 'container')
+            ? m.sub('%s', this.messageCountText(this.selectedCount())).sub('%s', drop.label())
+            : '';
     },
 
     messageCountText: function(cnt)
@@ -2458,7 +2479,7 @@ var DimpBase = {
             var d = e.memo;
             if (!d.opera && !d.wasDragged) {
                 $('folderopts_link').up().hide();
-                $('dropbase').up().show();
+                this.dropbase().show();
             }
         }
     },
@@ -2475,7 +2496,7 @@ var DimpBase = {
         } else if (elt.hasClassName('horde-subnavi')) {
             if (!d.opera) {
                 $('folderopts_link').up().show();
-                $('dropbase').up().hide();
+                this.dropbase().hide();
             }
         }
     },
@@ -3939,8 +3960,8 @@ var DimpBase = {
             DimpCore.addPopdown('button_forward', 'forward');
         }
 
-        if ($('dropbase')) {
-            new Drop('dropbase', this.mboxDropConfig);
+        if (tmp = this.dropbase()) {
+            new Drop(tmp, this.mboxDropConfig);
         }
 
         // See: http://www.thecssninja.com/javascript/gmail-dragout
