@@ -18,23 +18,23 @@ var DragHandler = {
     isFileDrag: function(e)
     {
         return (e.dataTransfer &&
-                e.dataTransfer.files &&
-                e.dataTransfer.files.length);
+                e.dataTransfer.types &&
+                $A(e.dataTransfer.types).include('Files'));
     },
 
     handleObserve: function(e)
     {
         if (this.dropelt &&
             (e.dataTransfer ||
-             this.dropelt.visible() ||
-             (e.memo && e.memo.dataTransfer))) {
+             (e.memo && e.memo.dataTransfer) ||
+             this.dropelt.visible())) {
             if (Prototype.Browser.IE &&
                 !(("onpropertychange" in document) && (!!window.matchMedia))) {
                 // IE 9 supports drag/drop, but not dataTransfer.files
             } else {
                 switch (e.type) {
                 case 'dragleave':
-                    this.handleLeave(e);
+                    this.handleLeave();
                     break;
 
                 case 'dragover':
@@ -70,7 +70,7 @@ var DragHandler = {
         }
     },
 
-    handleLeave: function(e)
+    handleLeave: function()
     {
         clearTimeout(this.to);
         this.to = this.hide.bind(this).delay(0.25);
@@ -79,14 +79,16 @@ var DragHandler = {
 
     handleOver: function(e)
     {
-        if (!this.dropelt.visible()) {
+        var file = this.isFileDrag(e);
+
+        if (file && !this.dropelt.visible()) {
             this.dropelt.clonePosition(this.droptarget).show();
             this.droptarget.hide();
         }
 
         this.leave = false;
 
-        if (e.target == this.dropelt) {
+        if (file && (e.target == this.dropelt)) {
             this.dropelt.addClassName(this.hoverclass);
             e.stop();
         } else {
