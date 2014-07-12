@@ -96,11 +96,13 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         }
 
         // Server_uid (the EAS uid for this collection).
+        // Another place we have to work around broken Blackberry clients that
+        // send an empty SERVERENTRYID tag (Bug #13351, #12370).
         $server_uid = false;
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID)) {
             $server_uid = $this->_decoder->getElementContent();
-            if (!$this->_decoder->getElementEndTag()) {
-                throw new Horde_ActiveSync_Exception('Protocol Error');
+            if ($server_uid !== false && !$this->_decoder->getElementEndTag()) {
+                throw new Horde_ActiveSync_Exception('Protocol Error - expecting </SERVERENTRYID>');
             }
         }
 
