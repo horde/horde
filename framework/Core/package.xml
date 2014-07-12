@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-07-11</date>
+ <date>2014-07-12</date>
  <version>
   <release>2.12.6</release>
   <api>2.12.0</api>
@@ -3552,7 +3552,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-10</date>
+   <date>2014-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix regression in sending email via ActiveSync when no properly configured identity exists (Bug #13346).
