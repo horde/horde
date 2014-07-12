@@ -3,6 +3,12 @@ v4.3.0-git
 ----------
 
 
+----------
+v4.2.1
+----------
+
+[mjr] Fix detecting task completion when sending task change notifications (Bug
+      #13350, Alfonso Marín Marín <almarin@um.es>).
 
 ------
 v4.2.0

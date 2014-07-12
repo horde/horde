@@ -1569,7 +1569,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix detecting task completion when sending task change notifications (Bug #13350, Alfonso Marín Marín &lt;almarin@um.es&gt;).
    </notes>
   </release>
   <release>
