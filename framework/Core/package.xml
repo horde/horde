@@ -30,7 +30,7 @@
  </developer>
  <date>2014-07-12</date>
  <version>
-  <release>2.12.6</release>
+  <release>2.12.7</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix regression in sending email via ActiveSync when no properly configured identity exists (Bug #13346).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3556,6 +3556,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix regression in sending email via ActiveSync when no properly configured identity exists (Bug #13346).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.7</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
