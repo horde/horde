@@ -160,8 +160,14 @@ class Horde_Core_ActiveSync_Mail
     public function setRawMessage(Horde_ActiveSync_Rfc822 $raw)
     {
         $this->_headers = $raw->getHeaders();
-        $this->_headers->removeHeader('From');
-        $this->_headers->addHeader('From', $this->_getIdentityFromAddress());
+
+        // Attempt to always use the identity's From address, but fall back
+        // to the device's sent value if it's not present.
+        $from = $this->_getIdentityFromAddress();
+        if (!empty($from)) {
+            $this->_headers->removeHeader('From');
+            $this->_headers->addHeader('From', $from);
+        }
         $this->_raw = $raw;
     }
 
@@ -419,6 +425,9 @@ class Horde_Core_ActiveSync_Mail
         $as_ident = $prefs->getValue('activesync_identity');
         $name = $ident->getValue('fullname', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
         $from_addr = $ident->getValue('from_addr', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
+        if (empty($from_addr)) {
+            return;
+        }
         $rfc822 = new Horde_Mail_Rfc822_Address($from_addr);
         $rfc822->personal = $name;
 
