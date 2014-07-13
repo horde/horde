@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-13 19:20+0900\n"
+"PO-Revision-Date: 2014-07-13 19:22+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -4095,11 +4095,11 @@ msgstr "%d분 전 결과입니다"
 
 #: lib/Basic/Message.php:673 templates/dynamic/mailbox.html.php:45
 msgid "Resume"
-msgstr "이어쓰기"
+msgstr "이어 쓰기"
 
 #: lib/Dynamic/Mailbox.php:307 templates/dynamic/mailbox.html.php:105
 msgid "Resume Draft"
-msgstr "작성 중인 메시지 이어쓰기"
+msgstr "작성 중인 메시지 이어서 쓰기"
 
 #: lib/Compose/Ui.php:80
 msgid "Resume Editing"
