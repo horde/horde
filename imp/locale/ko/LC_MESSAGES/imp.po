@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-11 22:59+0900\n"
+"PO-Revision-Date: 2014-07-13 19:20+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Josh Kim <joshkkim@gmail.com>\n"
 "Language: ko\n"
@@ -325,7 +325,7 @@ msgid ""
 "You may resume composing your message by going to your Drafts mailbox."
 msgstr ""
 "세션이 만료되었을 때 작성한 메시지를 복구했습니다. 임시 보관함에서 메시지 작"
-"성을 재개하셔도 됩니다."
+"성을 계속 하셔도 됩니다."
 
 #: lib/Prefs/Special/Acl.php:171
 #, php-format
@@ -1500,7 +1500,7 @@ msgstr "사용자 정의 머리글:"
 
 #: lib/Basic/Mailbox.php:745
 msgid "Dat_e"
-msgstr "일자"
+msgstr "날짜"
 
 #: config/prefs.php:1498 lib/Basic/Search.php:93 lib/Compose.php:2553
 #: lib/Dynamic/Mailbox.php:195 lib/Message/Ui.php:33
@@ -1737,7 +1737,7 @@ msgstr "메뉴 바에 \"지운 편지함 비우기\" 링크를 표시할까요?"
 
 #: templates/minimal/mailbox.html.php:36
 msgid "Do Action"
-msgstr ""
+msgstr "실행 동작"
 
 #: lib/Basic/Search.php:501 templates/basic/search/search-basic.html.php:24
 #: templates/basic/search/search-basic.html.php:38
@@ -4095,15 +4095,15 @@ msgstr "%d분 전 결과입니다"
 
 #: lib/Basic/Message.php:673 templates/dynamic/mailbox.html.php:45
 msgid "Resume"
-msgstr "이어서 하기"
+msgstr "이어쓰기"
 
 #: lib/Dynamic/Mailbox.php:307 templates/dynamic/mailbox.html.php:105
 msgid "Resume Draft"
-msgstr "작성 중인 메시지 재개"
+msgstr "작성 중인 메시지 이어쓰기"
 
 #: lib/Compose/Ui.php:80
 msgid "Resume Editing"
-msgstr "이어서 편집"
+msgstr "편집 계속하기"
 
 #: lib/Basic/Search.php:512
 #, php-format
@@ -6389,7 +6389,7 @@ msgstr "이름"
 #: lib/Search/Element/Personal.php:70 lib/Search/Element/Recipient.php:69
 #: lib/Search/Element/Text.php:62
 msgid "not"
-msgstr ""
+msgstr "다음이 아님"
 
 #: lib/Contents/View.php:65
 #, php-format
