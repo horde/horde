@@ -33,7 +33,7 @@ class Horde_CssMinify_CssParser extends Horde_CssMinify
      *             back with two elements (URI, filename).
      * </pre>
      */
-    public function setOptions($css, array $opts = array())
+    public function setOptions(array $opts = array())
     {
         parent::setOptions($opts);
     }
