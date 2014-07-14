@@ -85,7 +85,7 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                     ->create()
                     ->getBlock($this->vars->app, $this->vars->blockid);
                 if (!empty($block->autoUpdateMethod) && is_callable(array($block, $block->autoUpdateMethod))) {
-                    $html = call_user_func_array(array($block, $block->autoUpdateMethod), isset($this->vars->options) ? $this->vars->options : null);
+                    $html = call_user_func_array(array($block, $block->autoUpdateMethod), isset($this->vars->options) ? array($this->vars->options) : array());
                 } else {
                     $html = $block->getContent(isset($this->vars->options) ? $this->vars->options : null);
                 }
