@@ -62,6 +62,8 @@ var IMP_Ckeditor_Imagepoll = {};
                 DimpCompose.actionParams({
                     atc_indices: Object.toJSON(ids),
                     quiet: 1
+                }, {
+                    callback: DimpCompose.removeAttachCallback.bind(DimpCompose)
                 })
             );
         }
