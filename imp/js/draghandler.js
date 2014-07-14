@@ -19,7 +19,8 @@ var DragHandler = {
     {
         return (e.dataTransfer &&
                 e.dataTransfer.types &&
-                $A(e.dataTransfer.types).include('Files'));
+                $A(e.dataTransfer.types).include('Files') &&
+                ((e.type != 'drop') || e.dataTransfer.files.length));
     },
 
     handleObserve: function(e)
@@ -56,7 +57,10 @@ var DragHandler = {
                 this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
             }
             e.stop();
+        } else if (!e.findElement('TEXTAREA') && !e.findElement('INPUT')) {
+            e.stop();
         }
+
         this.leave = true;
         this.hide();
     },
@@ -93,7 +97,8 @@ var DragHandler = {
             e.stop();
         } else {
             this.dropelt.removeClassName(this.hoverclass);
-            if (Prototype.Browser.IE) {
+            if (Prototype.Browser.IE ||
+                Prototype.Browser.Gecko) {
                 e.stop();
             }
         }
