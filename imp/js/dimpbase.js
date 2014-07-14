@@ -2401,7 +2401,7 @@ var DimpBase = {
 
         if (drag && drag.isMbox()) {
             if (drop) {
-                return (drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop.element()))
+                return (drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop))
                     ? m.sub('%s', drag.label()).sub('%s', drop.label())
                     : '';
             }
@@ -4089,12 +4089,12 @@ var IMP_Flist = Class.create({
         }
     },
 
-    // p = (element) Parent element
-    // c = (element) Child element
+    // p = (IMP_Flist_Mbox) Parent
+    // c = (IMP_Flist_Mbox) Child
     isSubfolder: function(p, c)
     {
-        var sf = this.getMbox(p).subElement();
-        return sf && c.descendantOf(sf);
+        var sf = p.subElement();
+        return sf && c.element().descendantOf(sf);
     },
 
     reload: function()
