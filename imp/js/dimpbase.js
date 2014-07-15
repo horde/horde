@@ -3273,9 +3273,12 @@ var DimpBase = {
             case 'createsub':
                 action = 'createMailbox';
                 params = { mbox: val };
-                if ($F(form.down('INPUT[name=poll]'))) {
+
+                val = form.down('INPUT[name=poll]');
+                if (val && $F(val)) {
                     params.create_poll = 1;
                 }
+
                 if (mode == 'createsub') {
                     params.parent = mbox.value();
                 }
