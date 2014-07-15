@@ -156,7 +156,7 @@
      </td>
      <td>
       <div id="atcdrop" style="display:none">
-       <?php echo _("Drop file here to attach.") ?>
+       <?php echo _("Drop file(s) here to attach.") ?>
       </div>
       <div id="atcdiv">
        <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
