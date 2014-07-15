@@ -3226,13 +3226,28 @@ var DimpBase = {
     /* Handle create mailbox actions. */
     _createMboxForm: function(mbox, mode, text, val)
     {
+        var opts = {
+            form_id: 'dimpbase_confirm',
+            text: text
+        };
+
+        if (DimpCore.conf.poll_alter) {
+            opts.form = new Element('DIV').insert(
+                new Element('INPUT', { id: 'dialog_input', name: 'dialog_input', type: 'text', size: 15 }).setValue(val)
+            ).insert(
+                new Element('DIV').insert(
+                    new Element('INPUT', { name: 'poll', type: 'checkbox' })
+                ).insert(
+                    DimpCore.text.create_poll
+                )
+            );
+        } else {
+            opts.input_val = val;
+        }
+
         this.viewaction = this._mboxAction.bindAsEventListener(this, mbox, mode);
 
-        HordeDialog.display({
-            form_id: 'dimpbase_confirm',
-            input_val: val,
-            text: text
-        });
+        HordeDialog.display(opts);
     },
 
     // mbox: (Object:IMP_Flist_Mbox)
@@ -3258,6 +3273,9 @@ var DimpBase = {
             case 'createsub':
                 action = 'createMailbox';
                 params = { mbox: val };
+                if ($F(form.down('INPUT[name=poll]'))) {
+                    params.create_poll = 1;
+                }
                 if (mode == 'createsub') {
                     params.parent = mbox.value();
                 }

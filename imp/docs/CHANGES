@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Add option to poll mailbox for new mailbox when creating a mailbox
+      (Request #13227).
 
 
 ------

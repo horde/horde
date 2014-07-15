@@ -520,6 +520,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'baselevel' => _("base level of the folder tree"),
             'check' => _("Checking..."),
             'copyto' => _("Copy %s to %s"),
+            'create_poll' => _("Check mailbox for new mail?"),
             'create_prompt' => _("Create mailbox:"),
             'createsub_prompt' => _("Create subfolder of %s:"),
             'delete_mbox' => _("Permanently delete %s?"),

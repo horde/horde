@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Add option to poll mailbox for new mailbox when creating a mailbox (Request #13227).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

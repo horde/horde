@@ -60,6 +60,7 @@ extends Horde_Core_Ajax_Application_Handler
      * AJAX action: Create a mailbox.
      *
      * Variables used:
+     *   - create_poll: (boolean) If true, add new mailbox to poll list.
      *   - mbox: (string) The name of the new mailbox.
      *   - parent: (string) The parent mailbox (base64url encoded).
      *
@@ -67,6 +68,8 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function createMailbox()
     {
+        global $injector, $notification;
+
         if (!isset($this->vars->mbox)) {
             return false;
         }
@@ -79,9 +82,14 @@ extends Horde_Core_Ajax_Application_Handler
         $new_mbox = $parent->createMailboxName($this->vars->mbox);
 
         if ($new_mbox->exists) {
-            $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
         } elseif ($new_mbox->create()) {
             $result = true;
+
+            if ($this->vars->create_poll) {
+                $injector->getInstance('IMP_Ftree')->poll->addPollList($new_mbox);
+                $this->_base->queue->poll($new_mbox);
+            }
         }
 
         return $result;
