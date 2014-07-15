@@ -707,6 +707,6 @@ var ImpSearch = {
 
 };
 
-document.observe('dom:loaded', ImpSearch.onDomLoad.bindAsEventListener(ImpSearch));
+document.observe('dom:loaded', ImpSearch.onDomLoad.bind(ImpSearch));
 document.observe('HordeCore:click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
 document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));

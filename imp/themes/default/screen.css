@@ -292,15 +292,20 @@ table.searchesmanagement {
 }
 table.searchesmanagement td, table.searchesmanagement th {
     border: 1px solid gray;
+    border-right-color: lightgray;
     border-bottom-width: 0;
+}
+table.searchesmanagement td:last-child,
+table.searchesmanagement th:last-child {
+    border-right-color: gray;
 }
 table.searchesmanagement th {
     text-align: left;
 }
 table.searchesmanagement td.searchdescription {
     background-color: #ffa;
+    border-top-color: lightgray;
     width: 500px;
-    border-top-width: 0;
 }
 
 div.remotemanagement table {
