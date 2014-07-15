@@ -640,6 +640,10 @@ var ImpSearch = {
         case 'search_mboxes_add':
             this.insertMailbox(val);
             break;
+
+        case 'search_type':
+            $('search_label').up('DIV').show();
+            break;
         }
 
         e.stop();

@@ -78,9 +78,11 @@
 <?php if ($this->edit_query_vfolder): ?>
   <input type="hidden" id="search_type" name="search_type" value="vfolder" />
   <input type="hidden" name="edit_query_vfolder" value="<?php echo $this->edit_query_vfolder ?>" />
+  <div class="item">
 <?php elseif ($this->edit_query_filter): ?>
   <input type="hidden" id="search_type" name="search_type" value="filter" />
   <input type="hidden" name="edit_query_filter" value="<?php echo $this->edit_query_filter ?>" />
+  <div class="item">
 <?php else: ?>
   <div class="item">
    <label for="search_type"><?php echo _("Type") ?>:</label>
@@ -90,8 +92,8 @@
     <option value="vfolder"><?php echo _("Virtual Folder") ?></option>
    </select>
   </div>
+  <div class="item" style="display:none">
 <?php endif; ?>
-  <div class="item">
    <label for="search_label"><?php echo _("Label") ?>:</label>
    <?php echo $this->textFieldTag('search_label', $this->search_label) ?>
   </div>
