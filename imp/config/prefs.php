@@ -831,8 +831,8 @@ $_prefs['save_attachments'] = array(
     'value' => 'never',
     'type' => 'enum',
     'enum' => array(
-        'always' => _("Save attachments"),
-        'never' => _("Do not save attachments")
+        'always' => _("Yes"),
+        'never' => _("No")
     ),
     'desc' => _("Save attachments in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
