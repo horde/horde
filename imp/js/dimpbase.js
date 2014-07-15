@@ -2318,7 +2318,7 @@ var DimpBase = {
             drag_m = this.flist.getMbox(drag),
             drop = this.flist.getMbox(e.element());
 
-        if (drag_m && drag_m.isMbox()) {
+        if (drag_m) {
             dropbase = this.isDropbase(e.element());
             if (dropbase ||
                 (drop.ftype() != 'special' &&
@@ -2399,7 +2399,7 @@ var DimpBase = {
             break;
         }
 
-        if (drag && drag.isMbox()) {
+        if (drag) {
             if (drop) {
                 return (drop.ftype() != 'special' && !this.flist.isSubfolder(drag, drop))
                     ? m.sub('%s', drag.label()).sub('%s', drop.label())

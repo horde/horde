@@ -2,6 +2,8 @@
 v6.2.1-git
 ----------
 
+[mms] Fix regression where containers could not be moved via drag/drop in
+      dynamic view.
 [mms] Don't perform purge sentmail login task unless at least one sentmail
       mailbox exists.
 [mms] Don't perform purge Spam login task unless Spam mailbox exists.
