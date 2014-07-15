@@ -3226,9 +3226,7 @@ var DimpBase = {
     /* Handle create mailbox actions. */
     _createMboxForm: function(mbox, mode, text, val)
     {
-        this.viewaction = function(e) {
-            this._mboxAction(e, mbox, mode);
-        }.bind(this);
+        this.viewaction = this._mboxAction.bindAsEventListener(this, mbox, mode);
 
         HordeDialog.display({
             form_id: 'dimpbase_confirm',
