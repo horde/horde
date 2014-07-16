@@ -98,9 +98,10 @@ class Trean_Api extends Horde_Registry_Api
                 $bookmark = $GLOBALS['trean_gateway']->getBookmark($bookmark_id);
                 $return[] = array(
                     'title' => $bookmark->title,
-                    'desc' => $bookmark->description,
+                    'desc' => empty($bookmark->description) ? $bookmark->title : $bookmark->description,
                     'view_url' => $redirectUrl->add('b', $bookmark->id),
                     'app' => 'trean',
+                    'icon' => $bookmark->favicon_url
                 );
             } catch (Exception $e) {
             }
