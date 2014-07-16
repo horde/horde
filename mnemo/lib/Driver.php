@@ -131,7 +131,7 @@ abstract class Mnemo_Driver
 
         // Add tags.
         $GLOBALS['injector']->getInstance('Mnemo_Tagger')
-            ->tag($uid, $tags, $this->_notepad, 'note');
+            ->tag($uid, $tags, $GLOBALS['registry']->getAuth(), 'note');
 
         // Log the creation of this item in the history log.
         try {
