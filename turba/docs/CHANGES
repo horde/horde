@@ -5,6 +5,13 @@ v4.3.0-git
 [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request
       #11889).
 
+------
+v4.2.1
+------
+
+[mjr] Add missing API support for searchTags API (Bug #13362).
+[mjr] Fix issue that caused contacts to be tagged with a broken username.
+
 
 ------
 v4.2.0
