@@ -914,7 +914,7 @@ class Turba_Driver implements Countable
             $GLOBALS['injector']->getInstance('Turba_Tagger')->tag(
                 $uid,
                 $attributes['__tags'],
-                $this->getContactOwner(),
+                $GLOBALS['registry']->getAuth(),
                 'contact'
             );
         }
