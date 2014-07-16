@@ -35,7 +35,19 @@
  *
  * TODO:
  * <pre>
+ *   - RFC 1845: CHECKPOINT
+ *   - RFC 2852: DELIVERYBY
  *   - RFC 3030: BINARYMIME/CHUNKING
+ *   - RFC 3461: DSN
+ *   - RFC 3865: NO-SOLICITING
+ *   - RFC 3885: MTRK
+ *   - RFC 4141: CONPERM/CONNEG
+ *   - RFC 4405: SUBMITTER
+ *   - RFC 4468: BURL
+ *   - RFC 4865: FUTURERELEASE
+ *   - RFC 6531: SMTPUTF8
+ *   - RFC 6710: MT-PRIORITY
+ *   - RFC 7293: RRVS
  * </pre>
  *
  * @author    Michael Slusarz <slusarz@horde.org>
