@@ -1,5 +1,10 @@
 <?php
 /**
+ * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
  * Originally based on code from:
  *   - auth.php (1.49)
  *   - imap_general.php (1.212)
@@ -7,11 +12,6 @@
  *   - strings.php (1.184.2.35)
  * from the Squirrelmail project.
  * Copyright (c) 1999-2007 The SquirrelMail Project Team
- *
- * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
  * @copyright 1999-2007 The SquirrelMail Project Team
@@ -21,7 +21,7 @@
  */
 
 /**
- * An interface to an IMAP4rev1 server (RFC 3501) using built-in PHP features.
+ * An interface to an IMAP4rev1 server (RFC 3501) using standard PHP code.
  *
  * Implements the following IMAP-related RFCs (see
  * http://www.iana.org/assignments/imap4-capabilities):
@@ -91,6 +91,7 @@
  *   - RFC 5465: NOTIFY
  *   - RFC 5466: FILTERS
  *   - RFC 6237: MULTISEARCH (Experimental)
+ *   - RFC 6785: IMAPSIEVE
  *   - RFC 6855: UTF8
  * </pre>
  *
