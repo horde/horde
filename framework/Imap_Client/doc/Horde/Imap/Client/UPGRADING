@@ -11,6 +11,32 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.24.0
+===================
+
+  - Horde_Imap_Client
+
+    The $capabilities_deps property has been deprecated.
+
+  - Horde_Imap_Client_Base
+
+    Added the $capability property.
+
+    - capability()
+    - queryCapability()
+
+      These methods have been deprecated. Use the $capability parameter
+      instead.
+
+  - Horde_Imap_Client_Search_Query
+
+    - Constructor
+
+      The constructor now expects either a Horde_Imap_Client_Base object or
+      null as its sole argument.
+      Passing a list of extensions as the first argument is deprecated.
+
+
 Upgrading to 2.23.0
 ===================
 

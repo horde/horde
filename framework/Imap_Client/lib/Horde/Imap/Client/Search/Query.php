@@ -103,13 +103,15 @@ class Horde_Imap_Client_Search_Query implements Serializable
     /**
      * Builds an IMAP4rev1 compliant search string.
      *
-     * @param array $exts  The list of extensions supported by the server.
-     *                     This determines whether certain criteria can be
-     *                     used, and determines whether workarounds are used
-     *                     for other criteria. In the format returned by
-     *                     Horde_Imap_Client_Base::capability(). If this value
-     *                     is null, all extensions are assumed to be
-     *                     available.
+     * @todo  Change default of $exts to null.
+     *
+     * @param Horde_Imap_Client_Base $exts  The server that will be used to
+     *                                      run this query on (@since 2.24.0),
+     *                                      or the list of extensions present
+     *                                      on the server (@deprecated).
+     *                                      If null, all extensions are
+     *                                      assumed to be available.
+     *
      *
      * @return array  An array with these elements:
      *   - charset: (string) The charset of the search string. If null, no
@@ -123,6 +125,17 @@ class Horde_Imap_Client_Search_Query implements Serializable
      */
     public function build($exts = array())
     {
+        /* @todo: BC */
+        if (is_array($exts)) {
+            $tmp = new Horde_Imap_Client_Data_Capability_Imap();
+            foreach ($exts as $key => $val) {
+                $tmp->add($key, is_array($val) ? $val : null);
+            }
+            $exts = $tmp;
+        } elseif ($exts instanceof Horde_Imap_Client_Base) {
+            $exts = $exts->capability;
+        }
+
         $temp = array(
             'cmds' => new Horde_Imap_Client_Data_Format_List(),
             'exts' => $exts,
@@ -261,7 +274,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['within'])) {
-            if (is_null($exts) || isset($exts['WITHIN'])) {
+            if (is_null($exts) || $exts->query('WITHIN')) {
                 $exts_used[] = 'WITHIN';
             }
 
@@ -271,7 +284,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $cmds->add('NOT');
                 }
 
-                if (is_null($exts) || isset($exts['WITHIN'])) {
+                if (is_null($exts) || $exts->query('WITHIN')) {
                     $cmds->add(array(
                         $key,
                         new Horde_Imap_Client_Data_Format_Number($val['interval'])
@@ -288,7 +301,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['modseq'])) {
-            if (!is_null($exts) && !isset($exts['CONDSTORE'])) {
+            if (!is_null($exts) && !$exts->query('CONDSTORE')) {
                 throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
             }
 
@@ -310,7 +323,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (isset($ptr['prevsearch'])) {
-            if (!is_null($exts) && !isset($exts['SEARCHRES'])) {
+            if (!is_null($exts) && !$exts->query('SEARCHRES')) {
                 throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
             }
 
@@ -384,8 +397,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
     protected function _addFuzzy($add, &$temp)
     {
         if ($add) {
-            if (!isset($temp['exts']['SEARCH']) ||
-                !in_array('FUZZY', $temp['exts']['SEARCH'])) {
+            if (!$temp['exts']->query('SEARCH', 'FUZZY')) {
                 throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCH=FUZZY');
             }
             $temp['cmds']->add('FUZZY');
