@@ -2206,4 +2206,108 @@ class Turba_Api extends Horde_Registry_Api
         return $sources;
     }
 
+    /**
+     * Retrieve the list of used tag_names, tag_ids and the total number
+     * of resources that are linked to that tag.
+     *
+     * @param array $tags  An optional array of tag_ids. If omitted, all tags
+     *                     will be included.
+     *
+     * @return array  An array containing tag_name, and total
+     */
+    public function listTagInfo($tags = null, $user = null)
+    {
+        return $GLOBALS['injector']->getInstance('Turba_Tagger')
+            ->getTagInfo($tags, 500, null, $user);
+    }
+
+    /**
+     * SearchTags API:
+     * Returns an application-agnostic array (useful for when doing a tag search
+     * across multiple applications)
+     *
+     * The 'raw' results array can be returned instead by setting $raw = true.
+     *
+     * @param array $names           An array of tag_names to search for.
+     * @param integer $max           The maximum number of resources to return.
+     * @param integer $from          The number of the resource to start with.
+     * @param string $resource_type  The resource type [bookmark, '']
+     * @param string $user           Restrict results to resources owned by $user.
+     * @param boolean $raw           Return the raw data?
+     *
+     * @return array An array of results:
+     * <pre>
+     *  'title'    - The title for this resource.
+     *  'desc'     - A terse description of this resource.
+     *  'view_url' - The URL to view this resource.
+     *  'app'      - The Horde application this resource belongs to.
+     *  'icon'     - URL to an image.
+     * </pre>
+     */
+    public function searchTags($names, $max = 10, $from = 0,
+                               $resource_type = '', $user = null, $raw = false)
+    {
+        global $injector, $registry;
+
+        $results = $injector
+            ->getInstance('Turba_Tagger')
+            ->search(
+                $names,
+                array('user' => $user));
+
+        // Check for error or if we requested the raw data array.
+        if ($raw) {
+            return $results;
+        }
+        $return = array();
+        foreach ($results as $contact_uid) {
+            try {
+                $driver = $injector->getInstance('Turba_Factory_Driver');
+                foreach ($this->_getSources($sources) as $source) {
+                    $sdriver = $driver->create($source);
+                    if (!$sdriver->hasPermission(Horde_Perms::READ)) {
+                        continue;
+                    }
+                    $result = $sdriver->search(array('__uid' => $contact_uid));
+                    if (count($result) == 0) {
+                        continue;
+                    } elseif (count($result) > 1) {
+                        throw new Turba_Exception(sprintf("Internal Horde Error: multiple Turba objects with same objectId %s.", $uid));
+                    }
+                    foreach ($result->objects as $obj) {
+                        $return[] = array(
+                            'title' => $obj->getValue('name'),
+                            'desc' => $obj->getValue('name'),
+                            'view_url' => $obj->url,
+                            'app' => 'turba',
+                            'icon' => $this->_getContactImageUrl($obj)
+                        );
+                    }
+                }
+            } catch (Exception $e) {
+            }
+        }
+
+        return $return;
+    }
+
+
+    protected function _getContactImageUrl($obj)
+    {
+        if ($photo = $obj->getValue('photo')) {
+            try {
+                $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
+                $img->loadString($photo['load']['data']);
+                $img->resize(50, 50, true);
+                $data = $img->raw(true);
+                $type = $img->getContentType();
+            } catch (Horde_Image_Exception $e) {
+                $data = $photo['load']['data'];
+                $type = $obj->getValue('phototype');
+            }
+
+            return Horde_Url_Data::create($type, $data);
+        }
+    }
+
 }
