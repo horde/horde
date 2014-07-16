@@ -41,7 +41,7 @@ class Horde_Block_Cloud extends Horde_Core_Block
 
     /**
      */
-    private function _getTags()
+    protected function _getTags()
     {
         global $registry;
 
