@@ -546,4 +546,79 @@ class Mnemo_Api extends Horde_Registry_Api
         $notepad->save();
     }
 
+    /**
+     * Retrieve the list of used tag_names, tag_ids and the total number
+     * of resources that are linked to that tag.
+     *
+     * @param array $tags  An optional array of tag_ids. If omitted, all tags
+     *                     will be included.
+     *
+     * @return array  An array containing tag_name, and total
+     */
+    public function listTagInfo($tags = null, $user = null)
+    {
+        return $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+            ->getTagInfo($tags, 500, null, $user);
+    }
+
+    /**
+     * SearchTags API:
+     * Returns an application-agnostic array (useful for when doing a tag search
+     * across multiple applications)
+     *
+     * The 'raw' results array can be returned instead by setting $raw = true.
+     *
+     * @param array $names           An array of tag_names to search for.
+     * @param integer $max           The maximum number of resources to return.
+     * @param integer $from          The number of the resource to start with.
+     * @param string $resource_type  The resource type [bookmark, '']
+     * @param string $user           Restrict results to resources owned by $user.
+     * @param boolean $raw           Return the raw data?
+     *
+     * @return array An array of results:
+     * <pre>
+     *  'title'    - The title for this resource.
+     *  'desc'     - A terse description of this resource.
+     *  'view_url' - The URL to view this resource.
+     *  'app'      - The Horde application this resource belongs to.
+     *  'icon'     - URL to an image.
+     * </pre>
+     */
+    public function searchTags($names, $max = 10, $from = 0,
+                               $resource_type = '', $user = null, $raw = false)
+    {
+        // TODO: $max, $from, $resource_type not honored
+        global $injector, $registry;
+
+        $results = $injector
+            ->getInstance('Mnemo_Tagger')
+            ->search(
+                $names,
+                array('user' => $user));
+
+        // Check for error or if we requested the raw data array.
+        if ($raw) {
+            return $results;
+        }
+
+        $return = array();
+        $redirectUrl = Horde::url('memo.php');
+        foreach ($results as $memo_id) {
+            try {
+                $memo = $injector->getInstance('Mnemo_Factory_Driver')
+                    ->create(null)
+                    ->getByUID($memo_id);
+                $return[] = array(
+                    'title' => $memo['desc'],
+                    'desc' => '',
+                    'view_url' => $redirectUrl->copy()->add(array('memo' => $memo['memo_id'], 'memolist' => $memo['memolist_id'])),
+                    'app' => 'mnemo'
+                );
+            } catch (Exception $e) {
+            }
+        }
+
+        return $return;
+    }
+
 }
