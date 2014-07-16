@@ -41,7 +41,7 @@ echo '<div class="control"><strong>'
 
 foreach ($results as $result) {
     echo '<li class="linedRow"><span style="width:50%"> ' .
-         (empty($result['icon']) ? Horde_Themes_Image::tag($result['app'] . '.png', array('alt' => $result['app'])) : '') .
+         (empty($result['icon']) ? Horde_Themes_Image::tag(Horde_Themes::img($result['app'] . '.png', array('app' => $result['app'])), array('alt' => $result['app'])) : '') .
          Horde::link($result['view_url'], '', '', '', '', '', '', array('style' => 'margin:4px')) .
          (empty($result['icon']) ? $result['title'] : '<img src="' . $result['icon'] . '" />') .
          '</a></span><span style="width:50%;font-style:italic;">' . $result['desc'] . '</span></li>';
