@@ -89,7 +89,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPublicKey($public_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_public_key', trim(is_array($public_key) ? implode('', $public_key) : $public_key));
+        $GLOBALS['prefs']->setValue('pgp_public_key', trim($public_key));
     }
 
     /**
@@ -100,7 +100,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPrivateKey($private_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_private_key', trim(is_array($private_key) ? implode('', $private_key) : $private_key));
+        $GLOBALS['prefs']->setValue('pgp_private_key', trim($private_key));
     }
 
     /**
