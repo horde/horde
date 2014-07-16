@@ -15,8 +15,8 @@
  *   - limit_inline_size: (integer) If present, limits the display of message
  *     data inline for large messages.  The value is the maximum number of
  *     bytes that can be shown for the part; above this limit, the user will
- *     only be able to download the part. Don't set the parameter, or set the
- *     value to 0, to disable this check.
+ *     only be able to download the part. An empty value (not set, or set to
+ *     0) will disable this check.
  */
 
 $mime_drivers = array(
@@ -29,6 +29,7 @@ $mime_drivers = array(
             'text/rfc822-headers'
         ),
 
+        /* See above for description. */
         'limit_inline_size' => 1048576,
 
         /* Scans the text for inline PGP data. If true, will strip this data
@@ -55,6 +56,7 @@ $mime_drivers = array(
             'default' => 'html.png'
         ),
 
+        /* See above for description. */
         'limit_inline_size' => 1048576,
 
         /* Check for phishing exploits? */
