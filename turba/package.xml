@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Add missing API support for searchTags API (Bug #13362).
+* [mjr] Fix issue that caused contacts to be tagged with a broken username.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1894,7 +1895,8 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Add missing API support for searchTags API (Bug #13362).
+* [mjr] Fix issue that caused contacts to be tagged with a broken username.
    </notes>
   </release>
  </changelog>
