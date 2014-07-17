@@ -647,7 +647,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     );
                 })
             ));
-            $cmd->debug = sprintf('[AUTHENTICATE %s Command - username: %s]', $method, $username);
+            $cmd->debug = array(
+                null,
+                sprintf('[AUTHENTICATE response (username: %s)]', $username)
+            );
             break;
 
         case 'DIGEST-MD5':
@@ -685,15 +688,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     return new Horde_Imap_Client_Data_Format_List();
                 })
             ));
-            $cmd->debug = sprintf('[AUTHENTICATE DIGEST-MD5 Command - username: %s]', $username);
+            $cmd->debug = array(
+                null,
+                sprintf('[AUTHENTICATE Response (username: %s)]', $username),
+                null
+            );
             break;
 
         case 'LOGIN':
+            $username = new Horde_Imap_Client_Data_Format_Astring($username);
             $cmd = $this->_command('LOGIN')->add(array(
-                new Horde_Imap_Client_Data_Format_Astring($username),
+                $username,
                 new Horde_Imap_Client_Data_Format_Astring($password)
             ));
-            $cmd->debug = sprintf('[LOGIN Command - username: %s]', $username);
+            $cmd->debug = array(
+                sprintf('LOGIN %s [PASSWORD]', $username)
+            );
             break;
 
         case 'PLAIN':
@@ -727,12 +737,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($this->capability->query('SASL-IR')) {
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
                 $cmd->add($auth);
-                $cmd->debug = sprintf('[SASL-IR AUTHENTICATE Command - method: %s, username: %s]', $method, $username);
+                $cmd->debug = array(
+                    sprintf('AUTHENTICATE %s [INITIAL CLIENT RESPONSE (username: %s)]', $method, $username)
+                );
             } else {
                 $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
                     return new Horde_Imap_Client_Data_Format_List($auth);
                 }));
-                $cmd->debug = sprintf('[AUTHENTICATE Command - method: %s, username: %s]', $method, $username);
+                $cmd->debug = array(
+                    null,
+                    sprintf('[INITIAL CLIENT RESPONSE (username: %s)]', $username)
+                );
             }
 
             /* This is an optional command continuation. E.g. XOAUTH2 will
@@ -4012,20 +4027,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($chunk as $val) {
             try {
-                $old_debug = $this->_debug->debug;
-                if (!is_null($val->debug)) {
-                    $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
-                    $this->_debug->debug = false;
-                }
                 if ($this->_processCmd($pipeline, $val, $val)) {
                     $this->_connection->write('', true);
                 } else {
                     $cmd_count = 0;
                 }
-                $this->_debug->debug = $old_debug;
             } catch (Horde_Imap_Client_Exception $e) {
-                $this->_debug->debug = $old_debug;
-
                 switch ($e->getCode()) {
                 case Horde_Imap_Client_Exception::SERVER_WRITEERROR:
                     $this->_temp['logout'] = true;
@@ -4108,6 +4115,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 continue;
             }
 
+            if (!is_null($debug_msg = array_shift($cmd->debug))) {
+                $this->_debug->client(
+                    (($cmd == $data) ? $cmd->tag . ' ' : '') .  $debug_msg
+                );
+                $this->_connection->client_debug = false;
+            }
+
             if ($key) {
                 $this->_connection->write(' ');
             }
@@ -4133,14 +4147,23 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 /* RFC 2088 - If LITERAL+ is available, saves a roundtrip from
                  * the server. */
-                if ($cmd->literalplus && $this->capability->query('LITERAL+')) {
+                if ($cmd->literalplus &&
+                    $this->capability->query('LITERAL+')) {
                     $this->_connection->write('+}', true);
                 } else {
                     $this->_connection->write('}', true);
                     $this->_processCmdContinuation($pipeline);
                 }
 
-                $this->_connection->writeLiteral($val->getStream(), $literal_len, $binary);
+                if ($debug_msg) {
+                    $this->_connection->client_debug = false;
+                }
+
+                $this->_connection->writeLiteral(
+                    $val->getStream(),
+                    $literal_len,
+                    $binary
+                );
             } else {
                 $this->_connection->write($val->escape());
             }

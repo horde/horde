@@ -29,6 +29,13 @@ class Horde_Imap_Client_Socket_Connection_Socket
 extends Horde_Imap_Client_Socket_Connection_Base
 {
     /**
+     * If false, does not outpt the current line of client output to debug.
+     *
+     * @var boolean
+     */
+    public $client_debug = true;
+
+    /**
      * Sending buffer.
      *
      * @var string
@@ -56,7 +63,11 @@ extends Horde_Imap_Client_Socket_Connection_Base
                 );
             }
 
-            $this->_params['debug']->client($buffer . $data);
+            if ($this->client_debug) {
+                $this->_params['debug']->client($buffer . $data);
+            } else {
+                $this->client_debug = true;
+            }
         } else {
             $this->_buffer .= $data;
         }
@@ -97,7 +108,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
             }
         }
 
-        if (!empty($this->_params['debugliteral'])) {
+        if ($this->client_debug && !empty($this->_params['debugliteral'])) {
             rewind($data);
             while (!feof($data)) {
                 $this->_params['debug']->raw(fread($data, 8192));
