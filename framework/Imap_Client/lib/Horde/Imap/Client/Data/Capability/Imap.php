@@ -65,9 +65,13 @@ extends Horde_Imap_Client_Data_Capability
         switch (strtoupper($capability)) {
         case 'CONDSTORE':
         case 'ENABLE':
-            /* RFC 7162 [3.2.3] - QRESYNC implies CONDSTORE and ENABLE,
-             * even if not listed as a capability. */
+            /* RFC 7162 [3.2.3] - QRESYNC implies CONDSTORE and ENABLE. */
             return (is_null($parameter) && $this->query('QRESYNC'));
+
+        case 'UTF8':
+            /* RFC 6855 [3] - UTF8=ONLY implies UTF8=ACCEPT. */
+            return ((strtoupper($parameter) === 'ACCEPT') &&
+                    $this->query('UTF8', 'ONLY'));
         }
 
         return false;
