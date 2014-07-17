@@ -266,7 +266,7 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'FUZZY NOT YOUNGER 30',
-            $this->_fuzzy($ob5, array('WITHIN' => true))
+            $this->_fuzzy($ob5, array('WITHIN'))
         );
     }
 
@@ -364,7 +364,7 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'FUZZY NOT MODSEQ "foo" shared 123',
-            $this->_fuzzy($ob5, array('CONDSTORE' => true))
+            $this->_fuzzy($ob5, array('CONDSTORE'))
         );
     }
 
@@ -391,7 +391,7 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'FUZZY $',
-            $this->_fuzzy($ob3, array('SEARCHRES' => true))
+            $this->_fuzzy($ob3, array('ESEARCH', 'SEARCHRES'))
         );
     }
 
@@ -408,9 +408,13 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 
     private function _fuzzy($ob, array $exts = array())
     {
-        $res = $ob->build(array_merge($exts, array(
-            'SEARCH' => array('FUZZY')
-        )));
+        $capability = new Horde_Imap_Client_Data_Capability_Imap();
+        $capability->add('SEARCH', 'FUZZY');
+        foreach ($exts as $val) {
+            $capability->add($val);
+        }
+
+        $res = $ob->build($capability);
         return $res['query']->escape();
     }
 
