@@ -99,6 +99,21 @@ extends PHPUnit_Framework_TestCase
         $c->remove('FOO');
 
         $this->assertFalse($c->query('FOO'));
+
+        $c->add('BAR', array('A', 'B', 'C'));
+        $c->remove('BAR', array('A', 'C'));
+
+        $this->assertTrue($c->query('BAR'));
+        $this->assertFalse($c->query('BAR', 'A'));
+        $this->assertTrue($c->query('BAR', 'B'));
+        $this->assertFalse($c->query('BAR', 'C'));
+
+        $c->remove('BAR', 'b');
+
+        $this->assertFalse($c->query('BAR'));
+        $this->assertFalse($c->query('BAR', 'A'));
+        $this->assertFalse($c->query('BAR', 'B'));
+        $this->assertFalse($c->query('BAR', 'C'));
     }
 
     public function testGetParams()

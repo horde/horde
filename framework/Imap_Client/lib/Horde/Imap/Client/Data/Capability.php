@@ -64,10 +64,29 @@ class Horde_Imap_Client_Data_Capability
      * Remove a capability.
      *
      * @param string $capability  The capability to remove.
+     * @param string $params      A parameter (or array of parameters) to
+     *                            remove from the capability.
      */
-    public function remove($capability)
+    public function remove($capability, $params = null)
     {
-        unset($this->_data[strtoupper($capability)]);
+        $capability = strtoupper($capability);
+
+        if (is_null($params)) {
+            unset($this->_data[$capability]);
+        } elseif (isset($this->_data[$capability])) {
+            if (!is_array($params)) {
+                $params = array($params);
+            }
+            $params = array_map('strtoupper', $params);
+
+            $this->_data[$capability] = is_array($this->_data[$capability])
+                ? array_diff($this->_data[$capability], $params)
+                : array();
+
+            if (empty($this->_data[$capability])) {
+                unset($this->_data[$capability]);
+            }
+        }
     }
 
     /**

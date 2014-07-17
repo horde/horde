@@ -368,10 +368,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
             case 'capability':
                 if ($ci = $this->getParam('capability_ignore')) {
                     $ignored = array();
+
                     foreach ($ci as $val2) {
-                        if ($val->query($val2)) {
+                        $c = explode('=', $val2);
+
+                        if ($val->query($c[0], isset($c[1]) ? $c[1] : null)) {
                             $ignored[] = $val2;
-                            $val->remove($val2);
+                            $val->remove($c[0], isset($c[1]) ? $c[1] : null);
                         }
                     }
 
