@@ -18,10 +18,12 @@ Horde_Registry::appInit('horde', array(
     'permission' => array('horde:administration:activesync')
 ));
 
-if (empty($conf['activesync']['enabled'])) {
+try {
+    $state = $injector->getInstance('Horde_ActiveSyncState');
+} catch (Horde_Exception $e) {
     throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
 }
-$state = $injector->getInstance('Horde_ActiveSyncState');
+
 $state->setLogger($injector->getInstance('Horde_Log_Logger'));
 
 /** Check for any actions **/
