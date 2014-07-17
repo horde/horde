@@ -689,7 +689,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid     The UID of the task we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
-     * @param string $notpad  The notepad to use, if not using multiplex.
+     * @param string $notepad  The notepad to use, if not using multiplex.
      *
      * @return integer
      * @since 5.1
@@ -1240,7 +1240,7 @@ class Horde_Core_ActiveSync_Connector
     {
         switch ($class) {
         case Horde_ActiveSync::CLASS_TASKS:
-            if (!$this->_registry->horde->getPrefs($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
+            if (!$this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting addressbooks not supported by the contacts API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
@@ -1251,7 +1251,7 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             if (!$this->_registry->hasMethod('contacts/deleteAddressbook') ||
-                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('contacts'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting addressbooks not supported by the contacts API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
@@ -1262,7 +1262,7 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$this->_registry->hasMethod('calendar/deleteCalendar') ||
-                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting calendars not supported by the calendar API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
@@ -1273,13 +1273,13 @@ class Horde_Core_ActiveSync_Connector
 
         case Horde_ActiveSync::CLASS_NOTES  :
             if (!$this->_registry->hasMethod('notes/deleteNotepad') ||
-                !$this->_registry->horde->getPrefs($this->_registry->hasInterface('notes'), 'activesync_no_multiplex')) {
+                !$this->_registry->horde->getPreference($this->_registry->hasInterface('notes'), 'activesync_no_multiplex')) {
                 throw new Horde_ActiveSync_Exception(
                     'Deleting notepads not supported by the notes API.',
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            $this->_registry->notes->deleteNotpad($id);
+            $this->_registry->notes->deleteNotepad($id);
             break;
         }
 
