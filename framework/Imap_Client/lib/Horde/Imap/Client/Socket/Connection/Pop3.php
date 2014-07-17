@@ -35,11 +35,12 @@ extends Horde_Imap_Client_Socket_Connection_Base
     /**
      * Writes data to the POP3 output stream.
      *
-     * @param string $data  String data.
+     * @param string $data    String data.
+     * @param boolean $debug  Output line to debug?
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function write($data)
+    public function write($data, $debug = true)
     {
         if (fwrite($this->_stream, $data . "\r\n") === false) {
             throw new Horde_Imap_Client_Exception(
@@ -48,7 +49,9 @@ extends Horde_Imap_Client_Socket_Connection_Base
             );
         }
 
-        $this->_params['debug']->client($data);
+        if ($debug) {
+            $this->_params['debug']->client($data);
+        }
     }
 
     /**

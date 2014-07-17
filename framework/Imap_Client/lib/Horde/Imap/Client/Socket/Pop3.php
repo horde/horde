@@ -331,7 +331,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $challenge = $this->_sendLine('AUTH ' . $method);
             $response = base64_encode($username . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
             $this->_sendLine($response, array(
-                'debug' => sprintf('[%s Response - username: %s]', $method, $username)
+                'debug' => sprintf('[AUTH Response (username: %s)]', $username)
             ));
             break;
 
@@ -346,7 +346,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 'pop3'
             ));
             $sresponse = $this->_sendLine($response, array(
-                'debug' => sprintf('[%s Response - username: %s]', $method, $username)
+                'debug' => sprintf('[AUTH Response (username: %s)]', $username)
             ));
             if (stripos(base64_decode(substr($sresponse['resp'], 2)), 'rspauth=') === false) {
                 throw new Horde_Imap_Client_Exception(
@@ -362,11 +362,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'LOGIN':
             // RFC 4616 (AUTH=PLAIN) & 5034 (POP3 SASL)
             $this->_sendLine('AUTH LOGIN');
-            $this->_sendLine(base64_encode($username), array(
-                'debug' => sprintf('[AUTH LOGIN Command - username: %s]', $username)
-            ));
+            $this->_sendLine(base64_encode($username));
             $this->_sendLine(base64_encode($password), array(
-                'debug' => '[AUTH LOGIN Command - password]'
+                'debug' => sprintf('[AUTH Password (username: %s)]', $username)
             ));
             break;
 
@@ -377,7 +375,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $username,
                 $password
             ))), array(
-                'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $username)
+                'debug' => sprintf('AUTH PLAIN [Auth Response (username: %s)]', $username)
             ));
             break;
 
@@ -390,7 +388,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 1939 [7]
             $this->_sendLine('USER ' . $username);
             $this->_sendLine('PASS ' . $password, array(
-                'debug' => '[USER Command - password]'
+                'debug' => 'PASS [Password]'
             ));
             break;
 
@@ -1151,31 +1149,26 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($cmd, $options = array())
     {
-        $old_debug = $this->_debug->debug;
         if (!empty($options['debug'])) {
-            $this->_debug->raw($options['debug'] . "\n");
-            $this->_debug->debug = false;
+            $this->_debug->client($options['debug']);
         }
 
-        if ($old_debug) {
+        if ($this->_debug->debug) {
             $timer = new Horde_Support_Timer();
             $timer->push();
         }
 
         try {
-            $this->_connection->write($cmd);
+            $this->_connection->write($cmd, empty($options['debug']));
         } catch (Horde_Imap_Client_Exception $e) {
-            $this->_debug->debug = $old_debug;
             throw $e;
         }
-
-        $this->_debug->debug = $old_debug;
 
         $resp = $this->_getResponse(
             empty($options['multiline']) ? false : $options['multiline']
         );
 
-        if ($old_debug) {
+        if ($this->_debug->debug) {
             $this->_debug->info(sprintf(
                 'Command took %s seconds.',
                 round($timer->pop(), 4)
