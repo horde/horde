@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3568,7 +3568,7 @@
    <date>2014-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
    </notes>
   </release>
  </changelog>
