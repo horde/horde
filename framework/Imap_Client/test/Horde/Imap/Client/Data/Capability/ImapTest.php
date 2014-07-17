@@ -26,17 +26,16 @@
 class Horde_Imap_Client_Data_Capability_ImapTest
 extends PHPUnit_Framework_TestCase
 {
-    public function testQueryWithDependencies()
+    public function testImpliedExtensions()
     {
-        /* LANGUAGE requires NAMESPACE */
         $c = new Horde_Imap_Client_Data_Capability_Imap();
-        $c->add('LANGUAGE');
+        $c->add('QRESYNC');
 
-        $this->assertFalse($c->query('LANGUAGE'));
+        $this->assertTrue($c->query('QRESYNC'));
 
-        $c->add('NAMESPACE');
-
-        $this->assertTrue($c->query('LANGUAGE'));
+        /* QRESYNC implies CONDSTORE and ENABLE. */
+        $this->assertTrue($c->query('CONDSTORE'));
+        $this->assertTrue($c->query('ENABLE'));
     }
 
     public function testCmdlengthProperty()

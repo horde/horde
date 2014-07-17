@@ -27,32 +27,6 @@ class Horde_Imap_Client_Data_Capability_Imap
 extends Horde_Imap_Client_Data_Capability
 {
     /**
-     * Capability dependencies.
-     *
-     * @var array
-     */
-    static public $dependencies = array(
-        // RFC 5182 [2.1]
-        'SEARCHRES' => array(
-            'ESEARCH'
-        ),
-        // RFC 5255 [3.1]
-        'LANGUAGE' => array(
-            'NAMESPACE'
-        ),
-        // RFC 5957 [1]
-        'SORT=DISPLAY' => array(
-            'SORT'
-        ),
-        // RFC 7162 [3.2]
-        'QRESYNC' => array(
-            // QRESYNC requires CONDSTORE, but the latter is implied and is
-            // not required to be listed.
-            'ENABLE'
-        )
-    );
-
-    /**
      */
     public function __get($name)
     {
@@ -77,33 +51,19 @@ extends Horde_Imap_Client_Data_Capability
      */
     public function query($capability, $parameter = null)
     {
-        $capability = strtoupper($capability);
+        if (parent::query($capability, $parameter)) {
+            return true;
+        }
 
-        switch ($capability) {
+        switch (strtoupper($capability)) {
         case 'CONDSTORE':
         case 'ENABLE':
             /* RFC 7162 [3.2.3] - QRESYNC implies CONDSTORE and ENABLE,
              * even if not listed as a capability. */
-            if (is_null($parameter)) {
-                return parent::query($capability) || parent::query('QRESYNC');
-            }
-            break;
+            return (is_null($parameter) && $this->query('QRESYNC'));
         }
 
-        if (!parent::query($capability, $parameter)) {
-            return false;
-        }
-
-        /* Check for capability dependencies. */
-        if (isset(self::$dependencies[$capability])) {
-            foreach (self::$dependencies[$capability] as $val) {
-                if (!$this->query($val)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return false;
     }
 
 }
