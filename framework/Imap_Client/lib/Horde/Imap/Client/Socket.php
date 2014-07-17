@@ -855,7 +855,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd->add($tmp);
         }
 
-        $this->_temp['id'] = $this->_sendCmd($cmd)->data['id'];
+        try {
+            $this->_temp['id'] = $this->_sendCmd($cmd)->data['id'];
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            /* Ignore server errors. E.g. Cyrus returns this:
+             *   001 NO Only one Id allowed in non-authenticated state
+             * even though NO is not allowed in RFC 2971[3.1]. */
+            $this->_temp['id'] = array();
+        }
     }
 
     /**
