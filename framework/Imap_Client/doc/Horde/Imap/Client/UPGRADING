@@ -32,9 +32,9 @@ Upgrading to 2.24.0
 
     - Constructor
 
-      The constructor now expects either a Horde_Imap_Client_Base object or
-      null as its sole argument.
-      Passing a list of extensions as the first argument is deprecated.
+      The constructor now expects either a Horde_Imap_Client_Base object,
+      a Horde_Imap_Client_Data_Capability object, or null as its argument.
+      Passing a list of extensions as the argument is deprecated.
 
 
 Upgrading to 2.23.0

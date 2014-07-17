@@ -105,9 +105,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @todo  Change default of $exts to null.
      *
-     * @param Horde_Imap_Client_Base $exts  The server that will be used to
-     *                                      run this query on (@since 2.24.0),
-     *                                      or the list of extensions present
+     * @param Horde_Imap_Client_Base $exts  The server object this query will
+     *                                      be run on (@since 2.24.0), a
+     *                                      Hore_Imap_Client_Data_Capability
+     *                                      object (@since 2.24.0), or the
+     *                                      list of extensions present
      *                                      on the server (@deprecated).
      *                                      If null, all extensions are
      *                                      assumed to be available.
@@ -132,8 +134,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 $tmp->add($key, is_array($val) ? $val : null);
             }
             $exts = $tmp;
-        } elseif ($exts instanceof Horde_Imap_Client_Base) {
-            $exts = $exts->capability;
+        } elseif (!is_null($exts)) {
+            if ($exts instanceof Horde_Imap_Client_Base) {
+                $exts = $exts->capability;
+            } elseif (!($exts instanceof Horde_Imap_Client_Data_Capability)) {
+                throw new InvalidArgumentException('Incorrect $exts parameter');
+            }
         }
 
         $temp = array(
