@@ -349,7 +349,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Blank passwords are not allowed, so no need to even try
          * authentication to determine this. */
-        if (is_null($this->getParam('password'))) {
+        if (!strlen($this->getParam('password'))) {
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::r("No password provided."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
