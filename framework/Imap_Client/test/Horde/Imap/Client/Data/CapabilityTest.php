@@ -132,4 +132,18 @@ extends PHPUnit_Framework_TestCase
         $this->assertEmpty($c->getParams('BAZ'));
     }
 
+    public function testSerialize()
+    {
+        $c = new Horde_Imap_Client_Data_Capability();
+        $c->add('FOO', 'A');
+        $c->add('FOO', 'B');
+        $c->add('BAR');
+
+        $c_copy = unserialize(serialize($c));
+
+        $this->assertTrue($c_copy->query('FOO', 'A'));
+        $this->assertTrue($c_copy->query('FOO', 'B'));
+        $this->assertTrue($c_copy->query('BAR'));
+    }
+
 }

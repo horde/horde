@@ -137,4 +137,20 @@ class Horde_Imap_Client_Data_Capability
         return $this->_data;
     }
 
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return json_encode($this->_data);
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_data = json_decode($data, true);
+    }
+
 }
