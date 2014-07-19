@@ -857,6 +857,9 @@ class Horde_Test
         if ($output->major < '5.3') {
             $output->status = 'This version of PHP is not supported. You need to upgrade to a more recent version.';
             $vers_check = false;
+        } elseif ($output->major == '5.3') {
+            $output->status = 'You are using an old, deprecated version of PHP. It is highly recommended that you upgrade to at least PHP 5.4 for performance, stability, and security reasons.';
+            $output->status_color = 'orange';
         } elseif (in_array($output->major, $this->_supported)) {
             $output->status = 'You are running a supported version of PHP.';
             $output->status_color = 'green';
