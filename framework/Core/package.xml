@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
 * [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
  </notes>
  <contents>
@@ -3568,6 +3569,7 @@
    <date>2014-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
 * [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
    </notes>
   </release>
