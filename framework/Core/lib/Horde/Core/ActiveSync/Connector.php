@@ -1130,7 +1130,7 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $this->_registry->contacts->addAddressbook($foldername);
+            return $this->_registry->contacts->addAddressbook($foldername, array('synchronize' => true));
 
         case Horde_ActiveSync::CLASS_NOTES:
             // @todo Remove hasMethod checks in H6.
@@ -1141,7 +1141,7 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $this->_registry->notes->addNotepad($foldername);
+            return $this->_registry->notes->addNotepad($foldername, array('synchronize' => true));
 
         case Horde_ActiveSync::CLASS_TASKS:
             if (!$this->_registry->horde->getPreference($this->_registry->hasInterface('tasks'), 'activesync_no_multiplex')) {
@@ -1150,7 +1150,7 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $this->_registry->tasks->addTasklist($foldername);
+            return $this->_registry->tasks->addTasklist($foldername, array('synchronize' => true));
         }
     }
 

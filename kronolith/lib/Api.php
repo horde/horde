@@ -1537,7 +1537,7 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
-     * Create a new calendar.
+     * Create a new calendar for the existing user.
      *
      * @param string $name  The calendar's display name.
      * @param array $param  Any additional parameters. May include:
@@ -1549,7 +1549,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      *   - synchronize:   (boolean) If true, add calendar to the list of
      *                             calendars to syncronize.
-     *
+     *                    DEFAULT: false (do not add to the list of calendars).
      * @return string  The new calendar's UID.
      * @since 4.2.0
      */

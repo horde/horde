@@ -145,13 +145,25 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $name        Task list name.
      * @param string $description Task list description.
      * @param string $color       Task list color.
+     * @param array  $params      Any addtional parameters needed. @since 4.2.1
+     *     - synchronize:   (boolean) If true, add task list to the list of
+     *                                task lists to syncronize.
+     *                      DEFAULT: false (do not add to the list).
      *
      * @return string  The new tasklist's id.
      */
-    public function addTasklist($name, $description = '', $color = '')
+    public function addTasklist($name, $description = '', $color = '', array $params = array())
     {
         $tasklist = Nag::addTasklist(array('name' => $name, 'description' => $description, 'color' => $color));
-        return $tasklist->getName();
+
+        $name = $tasklist->getName();
+        if (!empty($params['synchronize'])) {
+            $sync = @unserialize($prefs->getValue('sync_lists'));
+            $sync[] = $name;
+            $prefs->setValue('sync_lists', serialize($sync));
+        }
+
+        return $name;
     }
 
     /**

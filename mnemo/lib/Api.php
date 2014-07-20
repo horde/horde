@@ -488,6 +488,10 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @param string $name    The notepad display name.
      * @param array  $params  Any additional parameters needed.
+     *     - synchronize:   (boolean) If true, add notepad to the list of
+     *                                notepads to syncronize.
+     *                      DEFAULT: false (do not add to the list).
+     *                      @since 4.2.1
      *
      * @return string  The new notepad's id.
      * @since 4.2.0
@@ -503,7 +507,14 @@ class Mnemo_Api extends Horde_Registry_Api
             strval(new Horde_Support_Uuid()),
             $name);
 
-        return $notepad->getName();
+        $name = $notepad->getName();
+        if (!empty($params['synchronize'])) {
+            $sync = @unserialize($prefs->getValue('sync_notepads'));
+            $sync[] = $name;
+            $prefs->setValue('sync_notepads', serialize($sync));
+        }
+
+        return $name;
     }
 
     /**

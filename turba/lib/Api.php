@@ -2113,6 +2113,10 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @param string $name   The display name for the addressbook.
      * @param array  $params Any addtional parameters needed.
+     *     - synchronize:   (boolean) If true, add address book to the list of
+     *                                address books to syncronize.
+     *                      DEFAULT: false (do not add to the list).
+     *                      @since 4.2.1
      *
      * @return string  The new addressbook's id (share name).
      * @since 4.2.0
@@ -2121,8 +2125,14 @@ class Turba_Api extends Horde_Registry_Api
     {
         $share_name = strval(new Horde_Support_Randomid());
         $share = Turba::createShare($share_name, array('name' => $name));
+        $name = $share->getName();
+        if (!empty($params['synchronize'])) {
+            $sync = @unserialize($prefs->getValue('sync_books'));
+            $sync[] = $name;
+            $prefs->setValue('sync_books', serialize($sync));
+        }
 
-        return $share->getName();
+        return $name;
     }
 
     /**
