@@ -86,7 +86,6 @@ if (count($memos)) {
             'width' => '2%',
             'label' => Horde::widget(array('url' => $baseurl->add('sortby', Mnemo::SORT_NOTEPAD), 'class' => 'sortlink', 'title' => _("Notepad"))),
         );
-        $memo['notepad'] = Mnemo::getLabel($share);
     }
     $view->headers[] = array(
         'id' => 's' . MNEMO::SORT_DESC,
@@ -116,7 +115,9 @@ if (count($memos)) {
             $notification->push($e);
             continue;
         }
-
+        if ($view->showNotepad) {
+            $memo['notepad'] = Mnemo::getLabel($share);
+        }
         if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $label = sprintf(_("Edit \"%s\""), $memo['desc']);
             $memo['edit'] = Horde::url('memo.php')
