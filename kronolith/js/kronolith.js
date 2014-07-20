@@ -4773,7 +4773,7 @@ KronolithCore = {
                 }
 
                 var tmp = orig;
-                if (tmp.tagName != 'td') {
+                if (tmp.tagName.toLowerCase() != 'td') {
                     tmp = tmp.up('td');
                 }
                 if (tmp) {
