@@ -2421,7 +2421,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix catching minical clicks on browsers that return element names in uppercase (Bug #13370, Jasper.Olbrich@students.uni-marburg.de).
    </notes>
   </release>
   <release>
