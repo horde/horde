@@ -621,9 +621,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Change a folder on the server.
      *
-     * @param string $old_name  The IMAP server's existing folder id.
+     * @param string $old_name  The server's existing folder id.
      * @param string $new_name  The new display name.
-     * @param string $parent    The folder's parent IMAP server id, if needed.
+     * @param string $parent    The folder's parent server id, if needed.
      * @param string $uid       The existing folder uid, if this is an edit.
      *                          @since 2.5.0 (@todo Look at this for H6. It's
      *                          here now to save an extra DB lookup for data
@@ -631,7 +631,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param  integer $type    The EAS Folder type. @since 2.12.0
      *
      * @return Horde_ActiveSync_Message_Folder
-     * @throws  Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception
      */
     public function changeFolder($old_name, $new_name, $parent, $uid = null, $type = null)
     {
