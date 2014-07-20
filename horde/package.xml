@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Fix cancelling remote wipe of EAS client from user prefs.
 * [mms] Fix fatal error in signup confirmation script.
 * [mjr] Fix removing ActiveSync device state from administrative interface when multiple user accounts exist on the same device (Bug #13336).
  </notes>
@@ -3952,6 +3953,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Fix cancelling remote wipe of EAS client from user prefs.
 * [mms] Fix fatal error in signup confirmation script.
 * [mjr] Fix removing ActiveSync device state from administrative interface when multiple user accounts exist on the same device (Bug #13336).
    </notes>
