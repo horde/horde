@@ -22,7 +22,7 @@
  * @since     2.24.0
  */
 class Horde_Imap_Client_Data_Capability
-implements SplSubject
+implements Serializable, SplSubject
 {
     /**
      * Capability data.
