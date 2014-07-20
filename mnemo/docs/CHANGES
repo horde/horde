@@ -2,13 +2,17 @@
 v4.3.0-git
 ----------
 
+
+----------
+v4.2.1
+----------
+
 [mjr] Fix showing the notepad name in list view when show_notepad preference is
       set (Bug #13352).
 [mjr] Add EAS client created shares to the sync_notpads preference (Bug
       #13359).
 [mjr] Add missing API support for searchTags API (Bug #13361).
 [mjr] Fix issue that caused notes to be tagged with a broken username.
-
 
 ------
 v4.2.0
