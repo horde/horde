@@ -86,6 +86,7 @@ if (count($memos)) {
             'width' => '2%',
             'label' => Horde::widget(array('url' => $baseurl->add('sortby', Mnemo::SORT_NOTEPAD), 'class' => 'sortlink', 'title' => _("Notepad"))),
         );
+        $memo['notepad'] = Mnemo::getLabel($share);
     }
     $view->headers[] = array(
         'id' => 's' . MNEMO::SORT_DESC,
