@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] IMAP extension enabled information is now stored within the capability object.
 * [mms] Fix regression where authetication was attempted with a non-null, empty string password.
 * [mms] Improved debug logging during connection failures and authentication attempts.
 * [mms] Fix debug logging for certain IMAP authentication actions.
@@ -2524,6 +2525,7 @@
    <date>2014-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] IMAP extension enabled information is now stored within the capability object.
 * [mms] Fix regression where authetication was attempted with a non-null, empty string password.
 * [mms] Improved debug logging during connection failures and authentication attempts.
 * [mms] Fix debug logging for certain IMAP authentication actions.

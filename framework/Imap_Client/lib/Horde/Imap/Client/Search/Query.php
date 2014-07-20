@@ -114,7 +114,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *                                      If null, all extensions are
      *                                      assumed to be available.
      *
-     *
      * @return array  An array with these elements:
      *   - charset: (string) The charset of the search string. If null, no
      *              text strings appear in query.

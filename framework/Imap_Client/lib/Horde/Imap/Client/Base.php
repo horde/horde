@@ -21,11 +21,11 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  *
- * @property-read Horde_Imap_Client_Data_Capability $capability  A capability
- *                                                               object.
- *                                                               (@since 2.24.0)
+ * @property-read Horde_Imap_Client_Data_Capability $capability
+ *                A capability object. (@since 2.24.0)
  */
-abstract class Horde_Imap_Client_Base implements Serializable
+abstract class Horde_Imap_Client_Base
+implements Serializable, SplObserver
 {
     /** Serialized version. */
     const VERSION = 2;
@@ -150,9 +150,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @var array
      */
-    protected $_temp = array(
-        'enabled' => array()
-    );
+    protected $_temp = array();
 
     /**
      * Constructor.
@@ -287,6 +285,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_debug = ($debug = $this->getParam('debug'))
             ? new Horde_Imap_Client_Base_Debug($debug)
             : new Horde_Support_Stub();
+        if (isset($this->_init['capability'])) {
+            $this->_init['capability']->attach($this);
+        }
     }
 
     /**
@@ -303,6 +304,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function __clone()
     {
         throw new LogicException('Object cannot be cloned.');
+    }
+
+    /**
+     */
+    public function update(SplSubject $subject)
+    {
+        if ($subject instanceof Horde_Imap_Client_Data_Capability) {
+            $this->changed = true;
+        }
     }
 
     /**
@@ -385,11 +395,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         ));
                     }
                 }
+
+                $val->attach($this);
                 break;
             }
 
             /* Nothing has changed. */
-            if (isset($this->_init[$key]) && ($this->_init[$key] == $val)) {
+            if (isset($this->_init[$key]) && ($this->_init[$key] === $val)) {
                 return;
             }
 
@@ -397,40 +409,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->changed = true;
-    }
-
-    /**
-     * Set the list of enabled extensions.
-     *
-     * @param array $exts      The list of extensions.
-     * @param integer $status  1 means to report as ENABLED, although it has
-     *                         not been formally enabled on server yet. 2 is
-     *                         verified enabled on the server.
-     */
-    protected function _enabled($exts, $status)
-    {
-        /* RFC 7162 [3.2.3] - Enabling QRESYNC also implies enabling of
-         * CONDSTORE. */
-        if (in_array('QRESYNC', $exts)) {
-            $exts[] = 'CONDSTORE';
-        }
-
-        switch ($status) {
-        case 2:
-            $enabled_list = array_intersect(array(2), $this->_temp['enabled']);
-            break;
-
-        case 1:
-        default:
-            $enabled_list = $this->_temp['enabled'];
-            $status = 1;
-            break;
-        }
-
-        $this->_temp['enabled'] = array_merge(
-            $enabled_list,
-            array_fill_keys($exts, $status)
-        );
     }
 
     /**
@@ -1561,7 +1539,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
-            !isset($this->_temp['enabled']['CONDSTORE'])) {
+            !$this->capability->isEnabled('CONDSTORE')) {
             $master['highestmodseq'] = 0;
             $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
         }
@@ -2150,7 +2128,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $cache = null;
         if (empty($options['nocache']) &&
             $this->_initCache(true) &&
-            (isset($this->_temp['enabled']['CONDSTORE']) ||
+            ($this->capability->isEnabled('CONDSTORE') ||
              !$query->flagSearch())) {
             $cache = $this->_getSearchCache('search', $options);
             if (isset($cache['data'])) {
@@ -2321,7 +2299,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * that don't involve flags. See search() for similar caching. */
         $cache = null;
         if ($this->_initCache(true) &&
-            (isset($this->_temp['enabled']['CONDSTORE']) ||
+            ($this->capability->isEnabled('CONDSTORE') ||
              empty($options['search']) ||
              !$options['search']->flagSearch())) {
             $cache = $this->_getSearchCache('thread', $options);
@@ -2443,7 +2421,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $modseq_check = !empty($options['changedsince']);
         if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ)) {
-            if (!isset($this->_temp['enabled']['CONDSTORE'])) {
+            if (!$this->capability->isEnabled('CONDSTORE')) {
                 unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
             } elseif (empty($options['changedsince'])) {
                 $modseq_check = true;
@@ -2798,7 +2776,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (!empty($options['unchangedsince'])) {
-            if (!isset($this->_temp['enabled']['CONDSTORE'])) {
+            if (!$this->capability->isEnabled('CONDSTORE')) {
                 throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
             }
 
@@ -3370,7 +3348,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function getCacheId($mailbox, array $addl = array())
     {
-        return Horde_Imap_Client_Base_Deprecated::getCacheId($this, $mailbox, isset($this->_temp['enabled']['CONDSTORE']), $addl);
+        return Horde_Imap_Client_Base_Deprecated::getCacheId($this, $mailbox, $this->capability->isEnabled('CONDSTORE'), $addl);
     }
 
     /**
@@ -3940,7 +3918,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $c = $this->getParam('cache');
         $out = $c['fields'];
 
-        if (!isset($this->_temp['enabled']['CONDSTORE'])) {
+        if (!$this->capability->isEnabled('CONDSTORE')) {
             unset($out[Horde_Imap_Client::FETCH_FLAGS]);
         }
 

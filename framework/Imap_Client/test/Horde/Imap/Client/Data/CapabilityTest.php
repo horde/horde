@@ -132,6 +132,27 @@ extends PHPUnit_Framework_TestCase
         $this->assertEmpty($c->getParams('BAZ'));
     }
 
+    public function isEnabled()
+    {
+        $c = new Horde_Imap_Client_Data_Capability();
+        $c->add('FOO');
+
+        $this->assertFalse($c->isEnabled('FOO'));
+    }
+
+    public function testObserver()
+    {
+        $c = new Horde_Imap_Client_Data_Capability();
+        $mock = $this->getMock('SplObserver');
+        $mock->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($c));
+
+        $c->attach($mock);
+
+        $c->add('FOO');
+    }
+
     public function testSerialize()
     {
         $c = new Horde_Imap_Client_Data_Capability();

@@ -28,6 +28,10 @@ Upgrading to 2.24.0
       These methods have been deprecated. Use the $capability parameter
       instead.
 
+  - Horde_Imap_Client_Interaction_Command
+
+    Added the $on_error property.
+
   - Horde_Imap_Client_Search_Query
 
     - Constructor

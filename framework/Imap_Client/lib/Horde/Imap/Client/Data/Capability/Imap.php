@@ -21,11 +21,18 @@
  * @package   Imap_Client
  * @since     2.24.0
  *
- * @property-read intger $cmdlength  Allowable command length (in octets).
+ * @property-read integer $cmdlength  Allowable command length (in octets).
  */
 class Horde_Imap_Client_Data_Capability_Imap
 extends Horde_Imap_Client_Data_Capability
 {
+    /**
+     * The list of enabled extensions.
+     *
+     * @var array
+     */
+    protected $_enabled = array();
+
     /**
      */
     public function __get($name)
@@ -64,6 +71,43 @@ extends Horde_Imap_Client_Data_Capability
         }
 
         return false;
+    }
+
+    /**
+     */
+    public function isEnabled($capability = null)
+    {
+        return is_null($capability)
+            ? $this->_enabled
+            : in_array(strtoupper($capability), $this->_enabled);
+    }
+
+    /**
+     * Set a capability as enabled/disabled.
+     *
+     * @param array $capability  A capability (+ parameter).
+     * @param boolean $enable    If true, enables the capability.
+     */
+    public function enable($capability, $enable = true)
+    {
+        $capability = strtoupper($capability);
+        $enabled = $this->isEnabled($capability);
+
+        if ($enable && !$enabled) {
+            switch ($capability) {
+            case 'QRESYNC':
+                /* RFC 7162 [3.2.3] - Enabling QRESYNC also implies enabling
+                 * of CONDSTORE. */
+                $this->enable('CONDSTORE');
+                break;
+            }
+
+            $this->_enabled[] = $capability;
+            $this->notify();
+        } elseif (!$enable && $enabled) {
+            $this->_enabled = array_diff($this->_enabled, array($capability));
+            $this->notify();
+        }
     }
 
 }

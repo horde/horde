@@ -22,6 +22,7 @@
  * @since     2.24.0
  */
 class Horde_Imap_Client_Data_Capability
+implements SplSubject
 {
     /**
      * Capability data.
@@ -29,6 +30,13 @@ class Horde_Imap_Client_Data_Capability
      * @var array
      */
     protected $_data = array();
+
+    /**
+     * Observers.
+     *
+     * @var array
+     */
+    protected $_observers = array();
 
     /**
      * Add a capability (and optional parameters).
@@ -58,6 +66,7 @@ class Horde_Imap_Client_Data_Capability
         }
 
         $this->_data[$capability] = $params;
+        $this->notify();
     }
 
     /**
@@ -87,6 +96,8 @@ class Horde_Imap_Client_Data_Capability
                 unset($this->_data[$capability]);
             }
         }
+
+        $this->notify();
     }
 
     /**
@@ -126,6 +137,23 @@ class Horde_Imap_Client_Data_Capability
     }
 
     /**
+     * Is the extension enabled?
+     *
+     * @param string $capability  The extension (+ parameter) to query. If
+     *                            null, returns all enabled extensions.
+     *
+     * @return mixed  If $capability is null, return all enabled extensions.
+     *                Otherwise, true if the extension (+ parameter) is
+     *                enabled.
+     */
+    public function isEnabled($capability = null)
+    {
+        return is_null($capability)
+            ? array()
+            : false;
+    }
+
+    /**
      * Returns the raw data.
      *
      * @deprecated
@@ -135,6 +163,36 @@ class Horde_Imap_Client_Data_Capability
     public function toArray()
     {
         return $this->_data;
+    }
+
+    /* SplSubject methods. */
+
+    /**
+     */
+    public function attach(SplObserver $observer)
+    {
+        $this->detach($observer);
+        $this->_observers[] = $observer;
+    }
+
+    /**
+     */
+    public function detach(SplObserver $observer)
+    {
+        if (($key = array_search($observer, $this->_observers, true)) !== false) {
+            unset($this->_observers[$key]);
+        }
+    }
+
+    /**
+     * Notification is triggered internally whenever the object's internal
+     * data storage is altered.
+     */
+    public function notify()
+    {
+        foreach ($this->_observers as $val) {
+            $val->update($this);
+        }
     }
 
     /* Serializable methods. */

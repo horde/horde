@@ -193,6 +193,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
+    public function update(SplSubject $subject)
+    {
+        if (!empty($this->_init['imapproxy']) &&
+            ($subject instanceof Horde_Imap_Client_Data_Capability_Imap)) {
+            $this->_setInit('enabled', $c->isEnabled());
+        }
+
+        return parent::update($subject);
+    }
+
+    /**
+     */
     protected function _capability()
     {
         // Need to use connect call here or else we run into loop issues
@@ -779,7 +791,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * login tasks again. */
         if (!$firstlogin && !empty($resp['proxyreuse'])) {
             if (isset($this->_init['enabled'])) {
-                $this->_temp['enabled'] = $this->_init['enabled'];
+                foreach ($this->_init['enabled'] as $val) {
+                    $this->capability->enable($val);
+                }
             }
 
             // If we have not yet set the language, set it now.
@@ -974,11 +988,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _enable($exts)
     {
         if ($this->capability->query('ENABLE')) {
+            $c = $this->capability;
+            $todo = array();
+
             // Only enable non-enabled extensions.
-            $exts = array_diff($exts, array_keys($this->_temp['enabled']));
-            if (!empty($exts)) {
-                $this->_cmdQueue[] = $this->_command('ENABLE')->add($exts);
-                $this->_enabled($exts, 1);
+            foreach ($exts as $val) {
+                if (!$c->isEnabled($val)) {
+                    $c->enable($val);
+                    $todo[] = $val;
+                }
+            }
+
+            if (!empty($todo)) {
+                $cmd = $this->_command('ENABLE')->add($todo);
+                $cmd->on_error = function() use ($todo, $c) {
+                    /* Something went wrong... disable the extensions. */
+                    foreach ($todo as $val) {
+                        $c->enable($val, false);
+                    }
+                };
+                $this->_cmdQueue[] = $cmd;
             }
         }
     }
@@ -990,17 +1019,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnabled(Horde_Imap_Client_Tokenize $data)
     {
-        $this->_enabled($data->flushIterator(), 2);
-    }
+        $c = $this->capability;
 
-    /**
-     */
-    protected function _enabled($exts, $status)
-    {
-        parent::_enabled($exts, $status);
-
-        if (($status == 2) && !empty($this->_init['imapproxy'])) {
-            $this->_setInit('enabled', $this->_temp['enabled']);
+        foreach ($data->flushIterator() as $val) {
+            $c->enable($val);
         }
     }
 
@@ -1008,7 +1030,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _openMailbox(Horde_Imap_Client_Mailbox $mailbox, $mode)
     {
-        $qresync = isset($this->_temp['enabled']['QRESYNC']);
+        $c = $this->capability;
+        $qresync = $c->isEnabled('QRESYNC');
 
         $cmd = $this->_command(
             ($mode == Horde_Imap_Client::OPEN_READONLY) ? 'EXAMINE' : 'SELECT'
@@ -1065,12 +1088,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_changeSelected($mailbox, $mode);
             }
         } else {
-            if (!isset($this->_temp['enabled']['CONDSTORE']) &&
+            if (!$c->isEnabled('CONDSTORE') &&
                 $this->_initCache() &&
-                $this->capability->query('CONDSTORE')) {
+                $c->query('CONDSTORE')) {
                 /* Activate CONDSTORE now if ENABLE is not available. */
                 $cmd->add(new Horde_Imap_Client_Data_Format_List('CONDSTORE'));
-                $this->_enabled(array('CONDSTORE'), 2);
+                $c->enable('CONDSTORE');
             }
 
             $this->_changeSelected($mailbox, $mode);
@@ -1374,7 +1397,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (($e->status === Horde_Imap_Client_Interaction_Server::BAD) &&
                 $this->capability->query('LIST-EXTENDED')) {
                 $this->capability->remove('LIST-EXTENDED');
-                $this->changed = true;
                 return $this->_listMailboxes($pattern, $mode, $options);
             }
 
@@ -1490,6 +1512,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _status($mboxes, $flags)
     {
+        $on_error = null;
         $out = $to_process = array();
         $pipeline = $this->_pipeline();
         $unseen_flags = array(
@@ -1517,17 +1540,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 if ($val == Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
+                    $c = $this->capability;
+
                     /* Don't include modseq returns if server does not support
                      * it. */
-                    if (!$this->capability->query('CONDSTORE')) {
+                    if (!$c->query('CONDSTORE')) {
                         continue;
                     }
 
                     /* Even though CONDSTORE is available, it may not yet have
                      * been enabled. */
-                    if (!isset($this->_temp['enabled']['CONDSTORE'])) {
-                        $this->_enabled(array('CONDSTORE'), 2);
-                    }
+                    $c->enable('CONDSTORE');
+                    $on_error = function() use ($c) {
+                        $c->enable('CONDSTORE', false);
+                    };
                 }
 
                 if ($mailbox->equals($this->_selected)) {
@@ -1574,14 +1600,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $out[strval($mailbox)] = $data;
 
             if (count($query)) {
-                $pipeline->add(
-                    $this->_command('STATUS')->add(array(
-                        new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-                        new Horde_Imap_Client_Data_Format_List(
-                            array_map('strtoupper', $query)
-                        )
-                    ))
-                );
+                $cmd = $this->_command('STATUS')->add(array(
+                    new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+                    new Horde_Imap_Client_Data_Format_List(
+                        array_map('strtoupper', $query)
+                    )
+                ));
+                $cmd->on_error = $on_error;
+
+                $pipeline->add($cmd);
                 $to_process[] = array($query, $mailbox);
             }
         }
@@ -1755,7 +1782,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * Bug #11111). Regardless, if CATENATE is broken, we can try
                  * to fallback to APPEND. */
                 $this->capability->remove('CATENATE');
-                $this->changed = true;
                 return $this->_append($mailbox, $data, $options);
 
             case $e::DISCONNECT:
@@ -1764,7 +1790,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Need to re-login first before removing capability.
                     $this->login();
                     $this->capability->remove('BINARY');
-                    $this->changed = true;
                     return $this->_append($mailbox, $data, $options);
                 }
                 break;
@@ -1787,7 +1812,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 case Horde_Imap_Client_Interaction_Server::BAD:
                 case Horde_Imap_Client_Interaction_Server::NO:
                     $this->capability->remove('BINARY');
-                    $this->changed = true;
                     return $this->_append($mailbox, $data, $options);
                 }
             }
@@ -1937,7 +1961,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * even if the server returns EXPUNGEs instead, we can use
              * vanished() to grab the list. */
             unset($this->_temp['search_save']);
-            if (isset($this->_temp['enabled']['QRESYNC'])) {
+            if ($this->capability->isEnabled('QRESYNC')) {
                 $ids = $this->resolveIds($this->_selected, $ids, 1);
                 if ($list_msgs) {
                     $modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
@@ -4003,7 +4027,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
             /* CONDSTORE has not yet updated flag information, so don't update
              * modseq yet. */
-            if (!empty($this->_temp['enabled']['QRESYNC'])) {
+            if ($this->capability->isEnabled('QRESYNC')) {
                 $this->_updateModSeq($modseq);
             }
         }
@@ -4314,6 +4338,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * catch this if able to workaround this issue (RFC 3501
              * [7.1.2]). */
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                /* Check for a on_error callback. */
+                if (($cmd = $pipeline->getCmd($server->tag)) &&
+                    is_callback($cmd->on_error)) {
+                    call_user_func($cmd->on_error);
+                }
+
                 throw new Horde_Imap_Client_Exception_ServerResponse(
                     Horde_Imap_Client_Translation::r("IMAP error reported by server."),
                     0,

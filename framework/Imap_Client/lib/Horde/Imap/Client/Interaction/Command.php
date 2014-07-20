@@ -51,6 +51,15 @@ extends Horde_Imap_Client_Data_Format_List
     public $literal8 = false;
 
     /**
+     * A callback to run on error.
+     *
+     * @since 2.24.0
+     *
+     * @var callback
+     */
+    public $on_error = null;
+
+    /**
      * Server response.
      *
      * @var Horde_Imap_Client_Interaction_Server
