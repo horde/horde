@@ -2144,7 +2144,7 @@ abstract class Kronolith_Event
 
         if ($this->recurs()) {
             $eventDate = $this->recurrence->nextRecurrence($time);
-            if ($eventDate && $this->recurrence->hasException($eventDate->year, $eventDate->month, $eventDate->mday)) {
+            if (!$eventDate || ($eventDate && $this->recurrence->hasException($eventDate->year, $eventDate->month, $eventDate->mday))) {
                 return;
             }
             $start = clone $eventDate;
