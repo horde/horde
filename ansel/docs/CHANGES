@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[mjr] Fix fatal divide by zero error due to incorrectly named variable.
 [jan] Fix type of ansel_shares_users.user_uid column.
 [jan] Fix watermark font size preference.
 [jan] Make shares table compatible with Oracle.
