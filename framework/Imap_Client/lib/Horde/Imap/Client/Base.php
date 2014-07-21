@@ -544,7 +544,7 @@ implements Serializable, SplObserver
      * Returns whether the IMAP server supports the given capability
      * (See RFC 3501 [6.1.1]).
      *
-     * @deprecated  Use $capability parameter instead.
+     * @deprecated  Use $capability property instead.
      *
      * @param string $capability  The capability string to query.
      *
@@ -566,7 +566,7 @@ implements Serializable, SplObserver
     /**
      * Get CAPABILITY information from the IMAP server.
      *
-     * @deprecated  Use $capability parameter instead.
+     * @deprecated  Use $capability property instead.
      *
      * @return array  The capability array.
      *
