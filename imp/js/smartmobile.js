@@ -158,7 +158,10 @@ var ImpMobile = {
 
         case 'folders-showall':
         case 'folders-showpoll':
-            $('#folders :jqmData(role=footer) a[href*="folders-show"]').toggle();
+            $('#folders-more :jqmData(role=listview) a[href*="folders-show"]').closest('li').toggle();
+            // Fall-through
+
+        case 'folders-rebuild':
             ImpMobile.loadFolders();
             e.preventDefault();
             break;
@@ -1390,7 +1393,7 @@ var ImpMobile = {
      */
     showAllFolders: function()
     {
-        return $('#folders :jqmData(role=footer) a[href$="folders-showpoll"]').filter(':visible').length;
+        return $('#folders-more :jqmData(role=listview) a[href$="folders-showpoll"]').closest('li').filter(':visible').length;
     },
 
     /**
@@ -1589,6 +1592,14 @@ var ImpMobile = {
             switch ($(r.target).attr('id')) {
             case 'compose-more':
                 ImpMobile.morePopup('compose-more', ImpMobile.composeMorePopup);
+                break;
+            }
+        });
+
+        $('#folders').on('popupbeforeposition', function(r) {
+            switch ($(r.target).attr('id')) {
+            case 'folders-more':
+                ImpMobile.morePopup('folders-more', function() {});
                 break;
             }
         });

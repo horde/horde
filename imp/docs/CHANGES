@@ -2,6 +2,7 @@
 v6.3.0-git
 ----------
 
+[mms] Add button to allow folder tree to be rebuilt in smartmobile view.
 [mms] Add option to poll mailbox for new mailbox when creating a mailbox
       (Request #13227).
 
