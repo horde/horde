@@ -691,9 +691,12 @@ var DimpCompose = {
             this.hash_msgOrig = this.msgHash();
         }
 
-        // Set auto-save-drafts now if not already active.
+        // Set auto-save-drafts now if not already active. Only need if
+        // compose template is output on current page (redirect doesn't
+        // need autosave).
         if (DimpCore.conf.auto_save_interval_val &&
-            !this.auto_save_interval) {
+            !this.auto_save_interval &&
+            $('compose')) {
             this.auto_save_interval = new PeriodicalExecuter(
                 this.autoSaveDraft.bind(this),
                 DimpCore.conf.auto_save_interval_val * 60
@@ -912,7 +915,7 @@ var DimpCompose = {
     {
         var u = $('upload_wait');
 
-        if (u.visible()) {
+        if (u && u.visible()) {
             u.hide();
             this.initAttachList();
         }
