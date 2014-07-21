@@ -820,10 +820,9 @@ var ImpMobile = {
 
     /**
      */
-    messageMorePopup: function()
+    messageMorePopup: function(list)
     {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
-            list = $('#message-more :jqmData(role=listview)'),
             row = cache.rowlist[ImpMobile.rowid];
 
         list.children().each(function() {
@@ -860,18 +859,13 @@ var ImpMobile = {
                 }
             }
         });
-
-        list.listview('refresh');
     },
 
     /**
      */
-    messageReplyPopup: function()
+    messageReplyPopup: function(list)
     {
-        var list = $('#message-reply :jqmData(role=listview)');
-
         $.fn[ImpMobile.listmsg ? 'show' : 'hide'].call(list.find('a[href$="message-reply-list"]').parents('li'));
-        list.listview('refresh');
     },
 
     /**
@@ -1113,10 +1107,8 @@ var ImpMobile = {
 
     /**
      */
-    composeMorePopup: function()
+    composeMorePopup: function(list)
     {
-        var list = $('#compose-more :jqmData(role=listview)');
-
         list.children().each(function() {
             var elt = $(this),
                 id = elt.find('a:first').attr('id');
@@ -1127,8 +1119,6 @@ var ImpMobile = {
                 break;
             }
         });
-
-        list.listview('refresh');
     },
 
     /**
@@ -1555,6 +1545,15 @@ var ImpMobile = {
     },
 
     /**
+     */
+    morePopup: function(id, callback)
+    {
+        var list = $('#' + id + ' :jqmData(role=listview)');
+        callback(list);
+        list.listview('refresh');
+    },
+
+    /**
      * Event handler for the document-ready event, responsible for the initial
      * setup.
      */
@@ -1575,11 +1574,11 @@ var ImpMobile = {
         }).on('popupbeforeposition', function(r) {
             switch ($(r.target).attr('id')) {
             case 'message-more':
-                ImpMobile.messageMorePopup();
+                ImpMobile.morePopup('message-more', ImpMobile.messageMorePopup);
                 break;
 
             case 'message-reply':
-                ImpMobile.messageReplyPopup();
+                ImpMobile.morePopup('message-reply', ImpMobile.messageReplyPopup);
                 break;
             }
         });
@@ -1587,7 +1586,11 @@ var ImpMobile = {
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         $('#compose').on('popupbeforeposition', function() {
-            ImpMobile.composeMorePopup();
+            switch ($(r.target).attr('id')) {
+            case 'compose-more':
+                ImpMobile.morePopup('compose-more', ImpMobile.composeMorePopup);
+                break;
+            }
         });
 
         if (!IMP.conf.disable_compose) {
