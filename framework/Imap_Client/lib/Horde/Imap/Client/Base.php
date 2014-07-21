@@ -23,6 +23,8 @@
  *
  * @property-read Horde_Imap_Client_Data_Capability $capability
  *                A capability object. (@since 2.24.0)
+ * @property-read Horde_Imap_Client_Data_SearchCharset $search_charset
+ *                A search charset object. (@since 2.24.0)
  */
 abstract class Horde_Imap_Client_Base
 implements Serializable, SplObserver
@@ -285,8 +287,11 @@ implements Serializable, SplObserver
         $this->_debug = ($debug = $this->getParam('debug'))
             ? new Horde_Imap_Client_Base_Debug($debug)
             : new Horde_Support_Stub();
-        if (isset($this->_init['capability'])) {
-            $this->_init['capability']->attach($this);
+
+        foreach (array('capability', 'search_charset') as $val) {
+            if (isset($this->_init[$val])) {
+                $this->_init[$val]->attach($this);
+            }
         }
     }
 
@@ -310,7 +315,8 @@ implements Serializable, SplObserver
      */
     public function update(SplSubject $subject)
     {
-        if ($subject instanceof Horde_Imap_Client_Data_Capability) {
+        if (($subject instanceof Horde_Imap_Client_Data_Capability) ||
+            ($subject instanceof Horde_Imap_Client_Data_SearchCharset)) {
             $this->changed = true;
         }
     }
@@ -355,6 +361,14 @@ implements Serializable, SplObserver
                 $this->_capability();
             }
             return $this->_init['capability'];
+
+        case 'search_charset':
+            if (!isset($this->_init['search_charset'])) {
+                $this->_init['search_charset'] = new Horde_Imap_Client_Data_SearchCharset();
+               $this->_init['search_charset']->attach($this);
+            }
+            $this->_init['search_charset']->setBaseOb($this);
+            return $this->_init['search_charset'];
         }
     }
 
@@ -367,9 +381,7 @@ implements Serializable, SplObserver
     public function _setInit($key = null, $val = null)
     {
         if (is_null($key)) {
-            $this->_init = array(
-                's_charset' => array()
-            );
+            $this->_init = array();
         } elseif (is_null($val)) {
             unset($this->_init[$key]);
         } else {
@@ -2058,9 +2070,8 @@ implements Serializable, SplObserver
         // Check for supported charset.
         $options['_query'] = $query->build($this);
         if (!is_null($options['_query']['charset']) &&
-            array_key_exists($options['_query']['charset'], $this->_init['s_charset']) &&
-            !$this->_init['s_charset'][$options['_query']['charset']]) {
-            foreach (array_merge(array_keys(array_filter($this->_init['s_charset'])), array('US-ASCII')) as $val) {
+            ($this->search_charset->query($options['_query']['charset'], false) === false)) {
+            foreach ($this->search_charset->charsets as $val) {
                 try {
                     $new_query = clone $query;
                     $new_query->charset($val);
@@ -3446,40 +3457,15 @@ implements Serializable, SplObserver
      * Determines if the given charset is valid for search-related queries.
      * This check pertains just to the basic IMAP SEARCH command.
      *
+     * @deprecated Use $search_charset property instead.
+     *
      * @param string $charset  The query charset.
      *
      * @return boolean  True if server supports this charset.
      */
     public function validSearchCharset($charset)
     {
-        $charset = strtoupper($charset);
-
-        if ($charset == 'US-ASCII') {
-            return true;
-        }
-
-        if (!isset($this->_init['s_charset'][$charset])) {
-            $s_charset = $this->_init['s_charset'];
-
-            /* Use a dummy search query and search for BADCHARSET response. */
-            $query = new Horde_Imap_Client_Search_Query();
-            $query->charset($charset, false);
-            $query->ids($this->getIdsOb(1, true));
-            $query->text('a');
-            try {
-                $this->search('INBOX', $query, array(
-                    'nocache' => true,
-                    'sequence' => true
-                ));
-                $s_charset[$charset] = true;
-            } catch (Horde_Imap_Client_Exception $e) {
-                $s_charset[$charset] = ($e->getCode() !== Horde_Imap_Client_Exception::BADCHARSET);
-            }
-
-            $this->_setInit('s_charset', $s_charset);
-        }
-
-        return $this->_init['s_charset'][$charset];
+        return $this->search_charset->query($charset);
     }
 
     /* Mailbox syncing functions. */

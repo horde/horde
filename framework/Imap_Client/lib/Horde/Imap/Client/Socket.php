@@ -2306,9 +2306,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * command status of 'NO'. List of supported charsets in
                  * the BADCHARSET response has already been parsed and stored
                  * at this point. */
-                $s_charset = $this->_init['s_charset'];
-                $s_charset[$charset] = false;
-                $this->_setInit('s_charset', $s_charset);
+                $this->search_charset->setValid($charset, false);
                 $e->setCode(Horde_Imap_Client_Exception::BADCHARSET);
             }
 
@@ -2329,7 +2327,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Try to convert charset. */
                 if (($e->getCode() === Horde_Imap_Client_Exception::BADCHARSET) &&
                     ($charset != 'US-ASCII')) {
-                    foreach (array_merge(array_keys(array_filter($this->_init['s_charset'])), array('US-ASCII')) as $val) {
+                    foreach ($this->search_charset->charsets as $val) {
                         $this->_temp['search_retry'] = 1;
                         $new_query = clone($query);
                         try {
@@ -4559,16 +4557,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'BADCHARSET':
             /* Store valid search charsets if returned by server. */
-            $s_charset = array();
+            $s = $this->search_charset;
             foreach ($rc->data[0] as $val) {
-                $s_charset[$val] = true;
-            }
-
-            if (!empty($s_charset)) {
-                $this->_setInit('s_charset', array_merge(
-                    $this->_init['s_charset'],
-                    $s_charset
-                ));
+                $this->search_charset->setValid($val, true);
             }
 
             throw new Horde_Imap_Client_Exception_ServerResponse(

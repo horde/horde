@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-16</date>
+ <date>2014-07-21</date>
  <version>
   <release>2.24.0</release>
   <api>2.24.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
 * [mms] IMAP extension enabled information is now stored within the capability object.
 * [mms] Fix regression where authetication was attempted with a non-null, empty string password.
 * [mms] Improved debug logging during connection failures and authentication attempts.
@@ -100,6 +101,7 @@
         <file name="Fetch.php" role="php" />
         <file name="Format.php" role="php" />
         <file name="Namespace.php" role="php" />
+        <file name="SearchCharset.php" role="php" />
         <file name="Sync.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
@@ -271,6 +273,7 @@
          <file name="StringTest.php" role="test" />
         </dir> <!-- /test/Horde/Imap/Client/Data/Format -->
         <file name="CapabilityTest.php" role="test" />
+        <file name="SearchCharsetTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Data -->
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
@@ -494,6 +497,7 @@
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Format.php" name="lib/Horde/Imap/Client/Data/Format.php" />
    <install as="Horde/Imap/Client/Data/Namespace.php" name="lib/Horde/Imap/Client/Data/Namespace.php" />
+   <install as="Horde/Imap/Client/Data/SearchCharset.php" name="lib/Horde/Imap/Client/Data/SearchCharset.php" />
    <install as="Horde/Imap/Client/Data/Sync.php" name="lib/Horde/Imap/Client/Data/Sync.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Capability/Imap.php" name="lib/Horde/Imap/Client/Data/Capability/Imap.php" />
@@ -587,6 +591,7 @@
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
    <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
    <install as="Horde/Imap/Client/Data/CapabilityTest.php" name="test/Horde/Imap/Client/Data/CapabilityTest.php" />
+   <install as="Horde/Imap/Client/Data/SearchCharsetTest.php" name="test/Horde/Imap/Client/Data/SearchCharsetTest.php" />
    <install as="Horde/Imap/Client/Data/Capability/ImapTest.php" name="test/Horde/Imap/Client/Data/Capability/ImapTest.php" />
    <install as="Horde/Imap/Client/Data/Format/AstringTest.php" name="test/Horde/Imap/Client/Data/Format/AstringTest.php" />
    <install as="Horde/Imap/Client/Data/Format/AtomTest.php" name="test/Horde/Imap/Client/Data/Format/AtomTest.php" />
@@ -2522,9 +2527,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-16</date>
+   <date>2014-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
 * [mms] IMAP extension enabled information is now stored within the capability object.
 * [mms] Fix regression where authetication was attempted with a non-null, empty string password.
 * [mms] Improved debug logging during connection failures and authentication attempts.

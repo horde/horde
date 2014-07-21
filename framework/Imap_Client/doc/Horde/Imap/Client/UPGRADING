@@ -20,13 +20,18 @@ Upgrading to 2.24.0
 
   - Horde_Imap_Client_Base
 
-    Added the $capability property.
+    Added the $capability and $search_charset properties.
 
     - capability()
     - queryCapability()
 
       These methods have been deprecated. Use the $capability property
       instead.
+
+    - validSearchCharset()
+
+      This method has been deprecated. Use the query() method of the
+      $search_charset property instead.
 
   - Horde_Imap_Client_Interaction_Command
 
