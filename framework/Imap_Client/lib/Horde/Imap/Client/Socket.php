@@ -514,7 +514,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (++$this->_temp['referralcount'] < 10) {
                     $this->logout();
                     $this->_setInit('capability');
-                    $this->_setInit('namespace', array());
+                    $this->_setInit('namespace');
                     return $this->login();
                 }
 

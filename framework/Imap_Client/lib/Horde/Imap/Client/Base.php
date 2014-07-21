@@ -368,7 +368,6 @@ implements Serializable, SplObserver
     {
         if (is_null($key)) {
             $this->_init = array(
-                'namespace' => array(),
                 's_charset' => array()
             );
         } elseif (is_null($val)) {
