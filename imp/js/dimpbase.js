@@ -3311,7 +3311,7 @@ var DimpBase = {
         }
 
         if (r.expand) {
-            this.flist.subElements(r.base).each(function(sub) {
+            this.flist.subElements(r.base).findAll(function(e) { return e.down(); }).each(function(sub) {
                 this._toggleSubFolder(sub, 'exp', {
                     noeffect: true,
                     noexpand: true,
@@ -4140,25 +4140,19 @@ var IMP_Flist = Class.create({
 
     subElements: function(base)
     {
-        var elts = [], tmp;
-
         if (base) {
-            tmp = this.getMbox(base);
-            if (tmp) {
-                tmp = tmp.subElement();
-                if (tmp) {
-                    elts = tmp.select('DIV.horde-subnavi').collect(
-                        this.getMbox.bind(this)
-                    ).compact();
+            base = this.getMbox(base);
+            if (base) {
+                base = base.subElement();
+                if (base) {
+                    return base.select('DIV.horde-subnavi-sub').compact();
                 }
             }
-        } else {
-            elts = Object.values(this.mboxes);
+
+            return [];
         }
 
-        return elts.invoke('subElement').compact().findAll(function(e) {
-            return e.down();
-        });
+        return Object.values(this.mboxes).invoke('subElement').compact();
     }
 
 });
