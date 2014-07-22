@@ -132,8 +132,9 @@ class IMP_Message_Date
         }
 
         if ($format === self::DATE_FORCE) {
-            return $this->_format('date_format', $udate) .
-                ' [' .  $this->_format('time_format', $udate) . ']';
+            return $this->_format('date_format', $udate) . ' [' .
+                $this->_format('time_format', $udate) . ' ' . strftime('%Z') .
+                ']';
         }
 
         $this->_buildCache();
