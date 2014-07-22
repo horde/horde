@@ -159,7 +159,7 @@ class IMP_Mailbox_Ui
             /* Not today, use the date. */
             if ($format & self::DATE_FULL) {
                 return strftime($GLOBALS['prefs']->getValue('date_format'), $udate) .
-                    ' [' . strftime($GLOBALS['prefs']->getValue('time_format'), $udate) . ']';
+                    ' [' . strftime($GLOBALS['prefs']->getValue('time_format') . ' %Z', $udate) . ']';
             }
 
             return strftime($GLOBALS['prefs']->getValue('date_format_mini'), $udate);
