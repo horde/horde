@@ -126,6 +126,9 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             $msg_link = _("The text of the message can be viewed %s.");
             $msg_link_status = _("The text of the message");
             break;
+
+        default:
+            return array();
         }
 
         /* Display a link to the returned message, if it exists. */
