@@ -1081,7 +1081,6 @@ span.readonlyImg {
     div.msgfullread div.dimpOptions,
     div.msgfullread div.mimePartInfo a.iconImg,
     div.msgfullread span.messagePrintNoShow {
-    {
         display: none;
     }
 
