@@ -498,6 +498,10 @@ div.vpRowVert div.msgSubject {
     padding-bottom: 5px;
 }
 
+div.msgfullread span.messagePrintShow {
+    display: none;
+}
+
 /* Message Composition. */
 .composeAddrbook, #togglebcc, #togglecc {
     color: #36525d;
@@ -1075,8 +1079,14 @@ span.readonlyImg {
 @media print {
     /* Hide UI elements when printing message in popup window. */
     div.msgfullread div.dimpOptions,
-    div.msgfullread div.mimePartInfo a.iconImg {
+    div.msgfullread div.mimePartInfo a.iconImg,
+    div.msgfullread span.messagePrintNoShow {
+    {
         display: none;
+    }
+
+    div.msgfullread span.messagePrintShow {
+        display: inline;
     }
 
     div.msgfullread div.messageBody{

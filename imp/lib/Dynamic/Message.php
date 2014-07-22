@@ -135,11 +135,18 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $hdrs = array();
         foreach ($msg_res['headers'] as $val) {
-            $hdrs[] = array_filter(array(
+            $tmp = array_filter(array(
                 'id' => (isset($val['id']) ? 'msgHeader' . $val['id'] : null),
                 'label' => $val['name'],
                 'val' => $val['value']
             ));
+
+            if (isset($val['id']) && ($val['id'] === 'Date')) {
+                $this->view->addHelper('Text');
+                $tmp['print'] = $msg_res['fulldate'];
+            }
+
+            $hdrs[] = $tmp;
         }
         $this->view->hdrs = $hdrs;
 

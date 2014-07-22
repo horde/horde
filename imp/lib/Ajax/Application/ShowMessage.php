@@ -107,6 +107,7 @@ class IMP_Ajax_Application_ShowMessage
      *   - atc_list: The list (HTML code) of attachments
      *   - bcc (FULL): The Bcc addresses
      *   - cc: The CC addresses
+     *   - fulldate (FULL): The full canonical date.
      *   - from: The From addresses
      *   - headers (FULL): An array of headers (not including basic headers)
      *   - js: Javascript code to run on display
@@ -173,13 +174,19 @@ class IMP_Ajax_Application_ShowMessage
                     $val = htmlspecialchars($date_ob->format($date_ob::DATE_LOCAL));
                     if ($preview) {
                         $result['localdate'] = $val;
+                    } else {
+                        $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
                     }
                 } elseif (!$preview) {
                     $val = htmlspecialchars($val);
                 }
 
                 if (!$preview) {
-                    $headers[$head] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => $val);
+                    $headers[$head] = array(
+                        'id' => Horde_String::ucfirst($head),
+                        'name' => $str,
+                        'value' => $val
+                    );
                 }
             }
         }

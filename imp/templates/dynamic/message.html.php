@@ -74,7 +74,14 @@
 <?php foreach ($this->hdrs as $val): ?>
        <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
         <td class="label"><?php echo $val['label'] ?>:</td>
-        <td class="allowTextSelection"><?php echo $val['val'] ?></td>
+        <td class="allowTextSelection">
+<?php if (isset($val['print'])): ?>
+         <span class="messagePrintShow"><?php echo $this->h($val['print']) ?></span>
+         <span class="messagePrintNoShow"><?php echo $val['val'] ?></span>
+<?php else: ?>
+         <?php echo $val['val'] ?>
+<?php endif; ?>
+        </td>
        </tr>
 <?php endforeach; ?>
        <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
