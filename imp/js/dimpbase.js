@@ -1025,7 +1025,11 @@ var DimpBase = {
 
         case 'ctx_folderopts_expand':
         case 'ctx_folderopts_collapse':
-            this._toggleSubFolder($('imp-normalmboxes'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
+            this._toggleSubFolder(
+                $('imp-normalmboxes'),
+                id == 'ctx_folderopts_expand' ? 'expall' : 'colall',
+                { noeffect: true }
+            );
             break;
 
         case 'ctx_folderopts_reload':
@@ -1036,7 +1040,11 @@ var DimpBase = {
         case 'ctx_container_collapse':
         case 'ctx_mbox_expand':
         case 'ctx_mbox_collapse':
-            this._toggleSubFolder(this.flist.getMbox(e).subElement(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
+            this._toggleSubFolder(
+                this.flist.getMbox(e).subElement(),
+                (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall',
+                { noeffect: true }
+            );
             break;
 
         case 'ctx_container_search':
@@ -3303,16 +3311,20 @@ var DimpBase = {
         }
 
         if (r.expand) {
-            r.expand = r.base
-                ? [ this.flist.getMbox(r.base) ]
-                : [ $A(r.c), $A(r.a) ].flatten().pluck('m').compact().collect(this.flist.getMbox.bind(this.flist));
-            r.expand.invoke('subElement').compact().invoke('down').compact().each(function(sub) {
-                this._toggleSubFolder(sub, 'exp', true, true);
+            this.flist.subElements(r.base).each(function(sub) {
+                this._toggleSubFolder(sub, 'exp', {
+                    noeffect: true,
+                    noexpand: true,
+                    noparents: r.base
+                });
             }, this);
         }
 
         if (r.all) {
-            this._toggleSubFolder(nm, 'expall', true, true);
+            this._toggleSubFolder(nm, 'expall', {
+                noeffect: true,
+                noexpand: true
+            });
         }
 
         if ($('foldersLoading').visible()) {
@@ -3414,10 +3426,11 @@ var DimpBase = {
         }
     },
 
-    _toggleSubFolder: function(base, mode, noeffect, noexpand)
+    _toggleSubFolder: function(base, mode, opts)
     {
         var collapse = [], expand = [], subs = [],
             need = $H();
+        opts = opts || {};
 
         if (mode == 'expall' || mode == 'colall') {
             if (base.hasClassName('horde-subnavi-sub')) {
@@ -3429,7 +3442,9 @@ var DimpBase = {
             // subfolders are expanded.
             // The last 2 elements of ancestors() are the BODY and HTML tags -
             // don't need to parse through them.
-            subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('horde-subnavi-sub'); });
+            subs = opts.noparents
+                ? [ base ]
+                : [ base, base.ancestors() ].flatten().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('horde-subnavi-sub'); });
         } else {
             if (!base.hasClassName('horde-subnavi')) {
                 base = base.up();
@@ -3469,14 +3484,14 @@ var DimpBase = {
                 if (mode == 'col' ||
                     ((mode == 'tog') && s.visible())) {
                     collapse.push(mbox.value());
-                } else if (!noexpand &&
+                } else if (!opts.noexpand &&
                            !need.get(mbox.value()) &&
                            (mode == 'exp' ||
                             ((mode == 'tog') && !s.visible()))) {
                     expand.push(mbox.value());
                 }
 
-                if (noeffect && !need.get(mbox.value())) {
+                if (opts.noeffect && !need.get(mbox.value())) {
                     s.toggle();
                     mbox.expand(!mbox.expand());
                 } else {
@@ -3485,7 +3500,7 @@ var DimpBase = {
                         afterFinish: function() {
                             mbox.expand(!mbox.expand());
                         },
-                        duration: noeffect ? 0 : 0.2,
+                        duration: opts.noeffect ? 0 : 0.2,
                         queue: {
                             limit: 1,
                             scope: 'subfolder' + mbox.value()
@@ -3506,7 +3521,8 @@ var DimpBase = {
                     action: 'expand',
                     mboxes: Object.toJSON(expand)
                 });
-            } else if (mode == 'colall' || (!noexpand && mode == 'expall')) {
+            } else if (mode == 'colall' ||
+                       (!opts.noexpand && mode == 'expall')) {
                 DimpCore.doAction('toggleMailboxes', {
                     action: (mode == 'colall' ? 'collapse' : 'expand'),
                     all: 1
@@ -4120,6 +4136,29 @@ var IMP_Flist = Class.create({
             elt.element().addClassName('horde-subnavi-active');
             this.active = elt;
         }
+    },
+
+    subElements: function(base)
+    {
+        var elts = [], tmp;
+
+        if (base) {
+            tmp = this.getMbox(base);
+            if (tmp) {
+                tmp = tmp.subElement();
+                if (tmp) {
+                    elts = tmp.select('DIV.horde-subnavi').collect(
+                        this.getMbox.bind(this)
+                    ).compact();
+                }
+            }
+        } else {
+            elts = Object.values(this.mboxes);
+        }
+
+        return elts.invoke('subElement').compact().findAll(function(e) {
+            return e.down();
+        });
     }
 
 });

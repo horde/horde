@@ -400,6 +400,7 @@ extends Horde_Core_Ajax_Application_Handler
             }
         } else {
             $filter->add($filter::EXPANDED);
+            $this->_base->queue->setMailboxOpt('expand', 1);
 
             foreach (array_filter(IMP_Mailbox::formFrom(json_decode($this->vars->mboxes))) as $val) {
                 $filter->iterator = new IMP_Ftree_Iterator($val->tree_elt);
