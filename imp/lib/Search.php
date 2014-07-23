@@ -75,7 +75,7 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
     }
 
     /**
-     * Creates the IMAP search query in the IMP session.
+     * Creates the IMAP search query.
      *
      * @param array $criteria  The search criteria array.
      * @param array $opts      Additional options:
