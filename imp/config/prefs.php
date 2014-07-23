@@ -1110,7 +1110,7 @@ $_prefs['send_mdn'] = array(
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
     'help' => 'prefs-send_mdn',
     'suppress' => function() {
-        return empty($GLOBALS['conf']['maillog']['use_maillog']);
+        return ($GLOBALS['injector']->getInstance('IMP_Maillog') instanceof IMP_Maillog_Storage_Null);
     }
 );
 
