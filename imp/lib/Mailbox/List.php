@@ -404,12 +404,7 @@ implements ArrayAccess, Countable, Iterator, Serializable
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $mbox_ob = IMP_Mailbox::get($mbox);
-                if ($mbox_ob->container) {
-                    continue;
-                }
-
-                $res = $mbox_ob->imp_imap->search($mbox, $val, array(
+                $res = IMP_Mailbox::get($mbox)->imp_imap->search($mbox, $val, array(
                     'sort' => array($sortpref->sortby)
                 ));
                 if ($sortpref->sortdir) {
