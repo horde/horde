@@ -3700,6 +3700,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix advanced search in all mailboxes if virtual folders or remote accounts exist (Bug #13384).
 * [mms] Fix regression in automatically expanding deeply nested mailboxes in the dynamic folder list.
 * [mms] Fix regression where containers could not be moved via drag/drop in dynamic view.
 * [mms] Don&apos;t perform purge sentmail login task unless at least one sentmail mailbox exists.

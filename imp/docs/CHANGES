@@ -11,6 +11,8 @@ v6.3.0-git
 v6.2.1
 ------
 
+[mms] Fix advanced search in all mailboxes if virtual folders or remote
+      accounts exist (Bug #13384).
 [mms] Fix regression in automatically expanding deeply nested mailboxes in the
       dynamic folder list.
 [mms] Fix regression where containers could not be moved via drag/drop in
