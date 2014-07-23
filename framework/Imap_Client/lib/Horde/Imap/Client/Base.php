@@ -2070,7 +2070,7 @@ implements Serializable, SplObserver
         // Check for supported charset.
         $options['_query'] = $query->build($this);
         if (!is_null($options['_query']['charset']) &&
-            ($this->search_charset->query($options['_query']['charset'], false) === false)) {
+            ($this->search_charset->query($options['_query']['charset'], true) === false)) {
             foreach ($this->search_charset->charsets as $val) {
                 try {
                     $new_query = clone $query;
