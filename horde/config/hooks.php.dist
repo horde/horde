@@ -1064,11 +1064,12 @@ class Horde_Hooks
 
   //     // For android devices that don't advertise the android version we have
   //     // to manually set the multiplex flag if we want to force any. E.g.,
-  //     // the Galaxy Note 3 doesn't support multiple collections prior to
-  //     // KitKat so we have to force them all.
+  //     // the Galaxy Note 3 doesn't support multiple collections. EVEN on KK,
+  //     // since they use the same propriatary email app, and not Google's.
   //     if (empty($device->multiplex)) {
   //         switch (strtoupper($device->userAgent)) {
-  //         case 'SAMSUNG-SM-N900V/101.403':
+  //         case 'SAMSUNG-SM-N900V/101.403': // 4.3
+  //         case 'SAMSUNG-SM-N900V/101.40402': // 4.4
   //             // Note 3, Android 4.3
   //             $device->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES |
   //                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
