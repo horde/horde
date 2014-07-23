@@ -437,17 +437,17 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 case 'date_on':
                 case 'date_until':
                 case 'date_since':
+                    $d = new DateTime(
+                        $ui['date'][$key]['year'] . '-' . $ui['date'][$key]['month'] . '-' . $ui['date'][$key]['day']
+                    );
+
                     if ($val == 'date_on') {
-                        $type = IMP_Search_Element_Date::DATE_ON;
+                        $ob->add(new IMP_Search_Element_Daterange($d, $d));
                     } elseif ($val == 'date_until') {
-                        $type = IMP_Search_Element_Date::DATE_BEFORE;
+                        $ob->add(new IMP_Search_Element_Daterange(null, $d));
                     } else {
-                        $type = IMP_Search_Element_Date::DATE_SINCE;
+                        $ob->add(new IMP_Search_Element_Daterange($d, null));
                     }
-                    $ob->add(new IMP_Search_Element_Date(
-                        new DateTime($ui['date'][$key]['year'] . '-' . $ui['date'][$key]['month'] . '-' . $ui['date'][$key]['day']),
-                        $type
-                    ));
                     break;
 
                 case 'size_smaller':
@@ -605,7 +605,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
             foreach (array_keys($tmp) as $key2) {
                 if ($tmp[$key2] instanceof IMP_Search_Element_Date) {
-                    $criteria = $tmp[$key2]->getCriteria();
+                    $criteria = $tmp[$key2]->data;
 
                     switch ($criteria->t) {
                     case IMP_Search_Element_Date::DATE_ON:
@@ -663,6 +663,32 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         if ($prefs->getValue('request_mdn') == 'ask') {
             $prefs->remove('request_mdn');
         }
+    }
+
+}
+
+/**
+ * @internal
+ */
+class IMP_Search_Element_Date implements Serializable
+{
+    const DATE_ON = 1;
+    const DATE_BEFORE = 2;
+    const DATE_SINCE = 3;
+
+    /* Data element:
+     * d = (integer) UNIX timestamp.
+     * t = (integer) Type: one of the self::DATE_* constants. */
+    public $data;
+
+    public function serialize()
+    {
+        return '';
+    }
+
+    public function unserialize($data)
+    {
+        $this->data = json_decode($data);
     }
 
 }
