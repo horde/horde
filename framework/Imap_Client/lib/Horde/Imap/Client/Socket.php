@@ -4434,7 +4434,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
                 /* Check for a on_error callback. */
                 if (($cmd = $pipeline->getCmd($server->tag)) &&
-                    is_callback($cmd->on_error)) {
+                    is_callable($cmd->on_error)) {
                     call_user_func($cmd->on_error);
                 }
 
