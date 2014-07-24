@@ -20,9 +20,11 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  *
+ * @todo $date should return null if it doesn't exist.
+ *
  * @property Horde_Mail_Rfc822_List $bcc  Bcc address(es).
  * @property Horde_Mail_Rfc822_List $cc  Cc address(es).
- * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
+ * @property Horde_Imap_Client_DateTime $date  Message date.
  * @property Horde_Mail_Rfc822_List $from  From address(es).
  * @property string $in_reply_to  Message-ID of the message replied to.
  * @property string $message_id  Message-ID of the message.
