@@ -2633,10 +2633,6 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case '__tags':
-                $message->categories = $value;
-                break;
-
             case 'children':
                 // Children FROM horde are a simple string value. Even though EAS
                 // uses an array stucture to pass them, we pass as a single
@@ -2691,6 +2687,9 @@ class Turba_Driver implements Countable
                 break;
             }
         }
+
+        /* Get tags. */
+        $message->categories = $object->getValue('__tags');
 
         if (empty($this->fileas)) {
             $message->fileas = Turba::formatName($object);
