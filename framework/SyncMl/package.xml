@@ -11,8 +11,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>18:19:06</time>
+ <date>2014-07-24</date>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -1315,7 +1314,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2014-07-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Hotfix to deal with failure exporting non-contact data due to inconsistency in export methods between applications (Bug #13394).
