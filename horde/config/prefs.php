@@ -741,7 +741,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesync_replyposition', 'activesyncmanagement'),
+    'members' => array('activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }
@@ -752,15 +752,6 @@ $_prefs['activesyncmanagement'] = array(
     'handler' => 'Horde_Prefs_Special_Activesync'
 );
 
-$_prefs['activesync_replyposition'] = array(
-    'type' => 'enum',
-    'desc' => _("Position of reply text when replying to email on your device. Note that some devices will always send the citation string at the end of the reply text."),
-    'enum' => array('bottom' => _("Bottom"), 'top' => _("Top")),
-    'value' => 'bottom',
-    'suppress' => function() {
-        return empty($GLOBALS['conf']['activesync']['emailsync']);
-    }
-);
 // Handled by the special.
 // 'horde' = The horde configured default identity.
 // integer - The identity identifier.

@@ -357,9 +357,7 @@ class Horde_Core_ActiveSync_Mail
             return $smart_text . $this->_forwardText($body_data, $base_part->getPart($plain_id));
         }
 
-        return ($this->_replyTop ? $smart_text : '')
-            . $this->_replyText($body_data, $base_part->getPart($plain_id))
-            . ($this->_replyTop ? '' : $smart_text);
+        return $smart_text . $this->_replyText($body_data, $base_part->getPart($plain_id));
     }
 
     /**
@@ -391,9 +389,7 @@ class Horde_Core_ActiveSync_Mail
         if ($this->_forward) {
             return $smart_text . $this->_forwardText($body_data, $base_part->getPart($html_id), true);
         }
-        return ($this->_replyTop ? $smart_text : '')
-            . $this->_replyText($body_data, $base_part->getPart($html_id), true)
-            . ($this->_replyTop ? '' : $smart_text);
+        return $smart_text . $this->_replyText($body_data, $base_part->getPart($html_id), true);
     }
 
     /**
@@ -445,18 +441,7 @@ class Horde_Core_ActiveSync_Mail
      */
     protected function _forwardText(array $body_data, Horde_Mime_Part $part, $html = false)
     {
-        $fwd_headers = $this->imapMessage->getForwardHeaders();
-        $from = $this->imapMessage->getFromAddress();
-
-        $msg = $this->_msgBody($body_data, $part, $html);
-        $msg_pre = "\n----- "
-            . ($from ? sprintf(Horde_Core_Translation::t("Forwarded message from %s"), $from) : Horde_Core_Translation::t("Forwarded message"))
-            . " -----\n" . $fwd_headers . "\n";
-        $msg_post = "\n\n----- " . Horde_Core_Translation::t("End forwarded message") . " -----\n";
-
-        return ($html ? self::text2html($msg_pre) : $msg_pre)
-            . $msg
-            . ($html ? self::text2html($msg_post) : $msg_post);
+        return $this->_msgBody($body_data, $part, $html);
     }
 
     /**
@@ -470,16 +455,13 @@ class Horde_Core_ActiveSync_Mail
      */
     protected function _replyText(array $body_data, Horde_Mime_Part $part, $html = false)
     {
-        $headers = $this->imapMessage->getHeaders();
-        $from = strval($headers->getOb('from'));
-        $msg_pre = ($from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted")) . "\n\n";
         $msg = $this->_msgBody($body_data, $part, $html, true);
         if (!empty($msg) && $html) {
-            return '<p>' . self::text2html($msg_pre) . '</p>' . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
+            return self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
         }
         return empty($msg)
             ? '[' . Horde_Core_Translation::t("No message body text") . ']'
-            : $msg_pre . $msg;
+            : $msg;
     }
 
     /**
