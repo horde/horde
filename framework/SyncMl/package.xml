@@ -13,7 +13,7 @@
  </lead>
  <date>2014-07-24</date>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Hotfix to deal with failure exporting non-contact data due to inconsistency in export methods between applications (Bug #13394).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1318,6 +1318,19 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Hotfix to deal with failure exporting non-contact data due to inconsistency in export methods between applications (Bug #13394).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
