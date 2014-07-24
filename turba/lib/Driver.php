@@ -1130,6 +1130,10 @@ class Turba_Driver implements Countable
         $hooks = $injector->getInstance('Horde_Core_Hooks');
         $decode_hook = $hooks->hookExists('decode_attribute', 'turba');
 
+        // Tags are stored externally to Turba, so they don't appear in the
+        // source map.
+        $attributes[] = '__tags';
+
         foreach ($attributes as $key) {
             $val = $object->getValue($key);
             if ($skipEmpty && !is_array($val) && !strlen($val)) {
@@ -1651,9 +1655,9 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('NOTE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
-
-            case 'businessCategory':
             case '__tags':
+                $val = explode(',', $val);
+            case 'businessCategory':
                 // No CATEGORIES in vCard 2.1
                 if ($version == '2.1' ||
                     ($fields && !isset($fields['CATEGORIES']))) {
