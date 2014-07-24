@@ -325,10 +325,18 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function retrieveEntry($databaseURI, $suid, $contentType, $fields)
     {
+        // Hotfix hack to work around differing function signatures for
+        // export methods in each database. See Bug: 13394
+        $parameters = array($suid, $contentType);
+        $database = $this->normalize($databaseURI);
+        if ($database == 'contacts') {
+            $parameters[] = null;
+            $parameters[] = $fields;
+        }
+
         try {
             return $GLOBALS['registry']->call(
-                $this->normalize($databaseURI) . '/export',
-                array('guid' => $suid, 'contentType' => $contentType, 'dummy' => null, 'fields' => $fields));
+                $this->normalize($databaseURI) . '/export', $parameters);
         } catch (Horde_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
