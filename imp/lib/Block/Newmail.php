@@ -87,7 +87,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
             foreach ($fetch_ret as $uid => $ob) {
                 $envelope = $ob->getEnvelope();
 
-                $date = $imp_ui->getDate($envelope->date);
+                $date = $imp_ui->getDate(isset($envelope->date) ? $envelope->date : null);
                 $from = $imp_ui->getFrom($envelope);
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 

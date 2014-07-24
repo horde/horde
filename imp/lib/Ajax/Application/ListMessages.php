@@ -453,7 +453,7 @@ class IMP_Ajax_Application_ListMessages
             $msg['size'] = IMP::sizeFormat($ob['size']);
 
             /* Format the Date: Header. */
-            $msg['date'] = $imp_ui->getDate($ob['envelope']->date);
+            $msg['date'] = $imp_ui->getDate(isset($ob['envelope']->date) ? $ob['envelope']->date : null);
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);
