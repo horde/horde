@@ -336,7 +336,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
 
         try {
             return $GLOBALS['registry']->call(
-                $this->normalize($databaseURI) . '/export', $parameters);
+                $database . '/export', $parameters);
         } catch (Horde_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
