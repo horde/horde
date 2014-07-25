@@ -882,16 +882,18 @@ fread() to get the stream data::
 Hashing Algorithm
 =================
 
-SHA-1
------
-SHA-1 is the recommended algorithm to use for non-cryptographic hashing
-actions::
+Recommended Algorithm
+---------------------
+FNV1-32 is the recommended algorithm to use for non-cryptographic hashing
+actions. Unfortunately, it is not available until PHP 5.4. For PHP 5.3, use
+SHA-1 instead::
 
-    $hash = hash('sha1', $string);
+    $hash = hash(PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1', $string);
 
 MD5 should NOT be used, as it has known collision issues. (NOTE: SHA-1 hashes
 are 160-bit vs. MD5 hashes which are 128-bit; care needs to be taken if
-switching between methods regarding storage side of the hash string).
+switching between methods regarding storage side of the hash string. FNV1-32
+hashes are 32-bit.)
 
 
 CSRF Token protection
