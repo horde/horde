@@ -383,7 +383,12 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     }
 }
 
-$storage = $data->storage;
+// @todo: These variables are needed for stuff that is in *Horde*, not Turba.
+// That's not correct.
+if ($data) {
+    $storage = $data->storage;
+}
+
 foreach ($templates[$next_step] as $template) {
     require $template;
 }
