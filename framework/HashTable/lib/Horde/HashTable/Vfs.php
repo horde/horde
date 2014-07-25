@@ -28,6 +28,13 @@ extends Horde_HashTable_Base
     const VFS_PATH = '.horde/core/psession_data';
 
     /**
+     * If set, return data from get() as Horde_Stream objects, not strings.
+     *
+     * @var boolean
+     */
+    public $stream = false;
+
+    /**
      */
     protected $_persistent = true;
 
@@ -89,6 +96,7 @@ extends Horde_HashTable_Base
         foreach ($keys as $key) {
             $out[$key] = $this->_vfs->exists($this->_params['vfspath'], $key);
         }
+
         return $out;
     }
 
@@ -100,10 +108,27 @@ extends Horde_HashTable_Base
 
         foreach ($keys as $key) {
             try {
-                $out[$key] = $this->_vfs->read($this->_params['vfspath'], $key);
+                if ($this->stream) {
+                    if (method_exists($this->_vfs, 'readStream')) {
+                        $data = new Horde_Stream_Existing(array(
+                            'stream' => $this->_vfs->readStream($this->_params['vfspath'], $key)
+                        ));
+                        $data->rewind();
+                    } else {
+                        $data = new Horde_Stream_Temp();
+                        $data->add(
+                            $this->_vfs->read($this->_params['vfspath'], $key),
+                            true
+                        );
+                    }
+                } else {
+                    $data = $this->_vfs->read($this->_params['vfspath'], $key);
+                }
             } catch (Horde_Vfs_Exception $e) {
-                $out[$key] = false;
+                $data = false;
             }
+
+            $out[$key] = $data;
         }
 
         return $out;
