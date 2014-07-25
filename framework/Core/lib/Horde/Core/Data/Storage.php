@@ -23,7 +23,7 @@
 class Horde_Core_Data_Storage implements Horde_Data_Storage
 {
     /* Data storage prefix. */
-    const PREFIX = 'data_import:';
+    const PREFIX = 'data_import';
 
     /**
      * The HashTable object.
@@ -50,7 +50,7 @@ class Horde_Core_Data_Storage implements Horde_Data_Storage
 
         try {
             return $injector->getInstance('Horde_Pack')->unpack(
-                $this->_ht->get(self::PREFIX . $key)
+                $this->_ht->get($this->_hkey($key))
             );
         } catch (Exception $e) {
             return null;
@@ -64,10 +64,10 @@ class Horde_Core_Data_Storage implements Horde_Data_Storage
         global $injector;
 
         if (is_null($value)) {
-            $this->_ht->delete(self::PREFIX . $key);
+            $this->_ht->delete($this->_hkey($key));
         } else {
             $this->_ht->set(
-                self::PREFIX . $key,
+                $this->_hkey($key),
                 $injector->getInstance('Horde_Pack')->pack($value)
             );
         }
@@ -77,7 +77,7 @@ class Horde_Core_Data_Storage implements Horde_Data_Storage
      */
     public function exists($key)
     {
-        return $this->_ht->exists(self::PREFIX, $key);
+        return $this->_ht->exists($this->_hkey($key));
     }
 
     /**
@@ -85,6 +85,22 @@ class Horde_Core_Data_Storage implements Horde_Data_Storage
     public function clear()
     {
         $this->_ht->clear();
+    }
+
+    /* Internal methods. */
+
+    /**
+     * Return the hash key to use.
+     *
+     * @return string  Hash key.
+     */
+    private function _hkey($key)
+    {
+        return implode(':', array(
+            self::PREFIX,
+            $GLOBALS['registry']->getAuth(),
+            $key
+        ));
     }
 
 }
