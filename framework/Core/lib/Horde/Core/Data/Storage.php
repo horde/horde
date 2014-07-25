@@ -23,25 +23,53 @@
 class Horde_Core_Data_Storage implements Horde_Data_Storage
 {
     /* Data storage prefix. */
-    const PREFIX = 'data_import';
+    const PREFIX = 'data_import:';
+
+    /**
+     * The HashTable object.
+     *
+     * @var Horde_Core_HashTable_PersistentSession
+     */
+    private $_ht;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_ht = new Horde_Core_HashTable_PersistentSession();
+    }
+
+    /* Horde_Data_Storage methods. */
 
     /**
      */
     public function get($key)
     {
-        return $GLOBALS['session']->get('horde', self::PREFIX . '/' . $key);
+        global $injector;
+
+        try {
+            return $injector->getInstance('Horde_Pack')->unpack(
+                $this->_ht->get(self::PREFIX . $key)
+            );
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
      */
     public function set($key, $value = null)
     {
-        $key = self::PREFIX . '/' . $key;
+        global $injector;
 
         if (is_null($value)) {
-            $GLOBALS['session']->remove('horde', $key);
+            $this->_ht->delete(self::PREFIX . $key);
         } else {
-            $GLOBALS['session']->set('horde', $key, $value);
+            $this->_ht->set(
+                self::PREFIX . $key,
+                $injector->getInstance('Horde_Pack')->pack($value)
+            );
         }
     }
 
@@ -49,14 +77,14 @@ class Horde_Core_Data_Storage implements Horde_Data_Storage
      */
     public function exists($key)
     {
-        return $GLOBALS['session']->exists('horde', self::PREFIX . '/' . $key);
+        return $this->_ht->exists(self::PREFIX, $key);
     }
 
     /**
      */
     public function clear()
     {
-        return $GLOBALS['session']->remove('horde', self::PREFIX . '/');
+        $this->_ht->clear();
     }
 
 }

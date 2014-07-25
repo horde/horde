@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-07-12</date>
+ <date>2014-07-25</date>
  <version>
   <release>2.13.0</release>
   <api>2.13.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
 * [mms] Add method to allow any code to register tasks to run on logout.
 * [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
 * [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
@@ -491,6 +492,7 @@
        <file name="Ldap.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Group -->
       <dir name="HashTable">
+       <file name="PersistentSession.php" role="php" />
        <file name="Wrapper.php" role="php" />
       </dir> <!-- /lib/Horde/Core/HashTable -->
       <dir name="Imsp">
@@ -1459,7 +1461,7 @@
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1879,6 +1881,7 @@
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
+   <install as="Horde/Core/HashTable/PersistentSession.php" name="lib/Horde/Core/HashTable/PersistentSession.php" />
    <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
@@ -3573,9 +3576,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-12</date>
+   <date>2014-07-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
+* [mms] Add method to allow any code to register tasks to run on logout.
 * [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
 * [mjr] Fix fatal error when executing a FOLDERDELETE command on certain collections.
    </notes>
