@@ -131,4 +131,13 @@ extends Horde_HashTable_Base
         } catch (Horde_Vfs_Exception $e) {}
     }
 
+    /**
+     */
+    public function hkey($key)
+    {
+        /* Key is SHA-1 encoded (can't use FNV1-32 here, since key must be
+         * the same if upgrading from PHP 5.3 -> 5.4+). */
+        return hash('sha1', $this->_prefix . $key);
+    }
+
 }
