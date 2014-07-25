@@ -54,7 +54,7 @@ function removePair()
  <?php printf(_("Import, Step %d"), (int)$import_step) ?>
 </h1>
 <div class="horde-content">
- <?php echo _("In the lists below select both, a field imported from the source file at the left, and the matching field available in your address book at the right. Then hit \"Add pair\" to mark them for the import. Once your are finished hit \"Next\".") ?><br /><br />
+ <?php echo _("In the lists below select both a field imported from the source file at the left and the matching field available in your address book at the right. Then click \"Add pair\" to mark them for the import. Once you are finished, click \"Next\".") ?><br /><br />
  <div class="leftFloat">
   <?php echo Horde::label('select1', _("Imported fields:")) ?> <br />
   <select id="select1" name="select1" size="10">
