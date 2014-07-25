@@ -79,7 +79,9 @@ if ($vars->check_versions) {
     }
     foreach (glob(__DIR__ . '/../../../framework/*/package.xml') as $packagexml) {
         $package = $packageFile->fromPackageFile($packagexml, PEAR_VALIDATE_NORMAL);
-        $packages[$package->getName()] = $package->getVersion();
+        if (!($package instanceof PEAR_Error)) {
+            $packages[$package->getName()] = $package->getVersion();
+        }
     }
 
     try {
