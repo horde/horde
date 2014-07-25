@@ -27,7 +27,7 @@
  * @since     2.13.0
  */
 class Horde_Core_HashTable_PersistentSession
-extends Horde_HashTable_Vfs
+extends Horde_Core_HashTable_Vfs
 implements Horde_Registry_Logout_Task
 {
     /** Session data storage key. */
@@ -40,23 +40,9 @@ implements Horde_Registry_Logout_Task
      */
     public function __construct(array $params = array())
     {
-        global $injector;
+        parent::__construct(array('vfspath' => self::VFS_PATH));
 
-        try {
-            $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (Horde_Vfs_Exception $e) {}
-
-        if (!isset($vfs) || ($vfs instanceof Horde_Vfs_Null)) {
-            $vfs = new Horde_Vfs_File(array('vfsroot' => Horde::getTempDir()));
-        }
-
-        Horde_Vfs_Gc::gc($vfs, self::VFS_PATH, 86400);
-
-        parent::__construct(array(
-            'logger' => $injector->getInstance('Horde_Core_Log_Wrapper'),
-            'vfs' => $vfs,
-            'vfspath' => self::VFS_PATH
-        ));
+        $this->gc(86400);
     }
 
     /**

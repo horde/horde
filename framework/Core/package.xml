@@ -493,6 +493,7 @@
       </dir> <!-- /lib/Horde/Core/Group -->
       <dir name="HashTable">
        <file name="PersistentSession.php" role="php" />
+       <file name="Vfs.php" role="php" />
        <file name="Wrapper.php" role="php" />
       </dir> <!-- /lib/Horde/Core/HashTable -->
       <dir name="Imsp">
@@ -1882,6 +1883,7 @@
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/HashTable/PersistentSession.php" name="lib/Horde/Core/HashTable/PersistentSession.php" />
+   <install as="Horde/Core/HashTable/Vfs.php" name="lib/Horde/Core/HashTable/Vfs.php" />
    <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
