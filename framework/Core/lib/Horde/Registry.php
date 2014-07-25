@@ -2041,12 +2041,17 @@ class Horde_Registry implements Horde_Shutdown_Task
     {
         global $session;
 
-        /* Do logout tasks. */
+        /* Do application logout tasks. */
+        /* @todo: Replace with exclusively registered logout tasks. */
         foreach ($this->getAuthApps() as $app) {
             try {
                 $this->callAppMethod($app, 'logout');
             } catch (Horde_Exception $e) {}
         }
+
+        /* Do registered logout tasks. */
+        $logout = new Horde_Registry_Logout();
+        $logout->run();
 
         $session->remove('horde', 'auth');
         $session->remove('horde', 'auth_app/');
