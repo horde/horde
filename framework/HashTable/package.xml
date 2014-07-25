@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-07-25</date>
  <version>
-  <release>1.1.4</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Vfs driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +42,7 @@
       <file name="Memory.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Predis.php" role="php" />
+      <file name="Vfs.php" role="php" />
      </dir> <!-- /lib/Horde/HashTable -->
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -94,6 +95,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Vfs</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Predis</name>
     <channel>pear.nrk.io</channel>
     <min>0.8.3</min>
@@ -110,6 +118,7 @@
    <install as="Horde/HashTable/Memory.php" name="lib/Horde/HashTable/Memory.php" />
    <install as="Horde/HashTable/Null.php" name="lib/Horde/HashTable/Null.php" />
    <install as="Horde/HashTable/Predis.php" name="lib/Horde/HashTable/Predis.php" />
+   <install as="Horde/HashTable/Vfs.php" name="lib/Horde/HashTable/Vfs.php" />
    <install as="Horde/HashTable/AllTests.php" name="test/Horde/HashTable/AllTests.php" />
    <install as="Horde/HashTable/bootstrap.php" name="test/Horde/HashTable/bootstrap.php" />
    <install as="Horde/HashTable/phpunit.xml" name="test/Horde/HashTable/phpunit.xml" />
@@ -242,15 +251,15 @@
   </release>
   <release>
    <version>
-    <release>1.1.4</release>
-    <api>1.1.0</api></version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-07-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Vfs driver.
    </notes>
   </release>
  </changelog>
