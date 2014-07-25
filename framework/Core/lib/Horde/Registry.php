@@ -2059,9 +2059,6 @@ class Horde_Registry implements Horde_Shutdown_Task
         $this->_cache['auth'] = null;
         $this->_cache['existing'] = $this->_cache['isauth'] = array();
 
-        /* Remove the user's cached preferences if they are present. */
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-
         if ($destroy) {
             $session->destroy();
         }
@@ -2510,7 +2507,6 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
-        $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs($this->getApp());
 
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);

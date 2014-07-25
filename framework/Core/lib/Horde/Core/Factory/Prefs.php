@@ -110,7 +110,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         ksort($sig_opts);
         $sig = hash(
             (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            serialize($sig_opts)
+            serialize($sig_opts) . '|' . $registry->getAuth()
         );
 
         if (isset($this->_instances[$sig])) {
@@ -207,6 +207,8 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
 
     /**
      * Clear the instances cache.
+     *
+     * @deprecated
      */
     public function clearCache()
     {
