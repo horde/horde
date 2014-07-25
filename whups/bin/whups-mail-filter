@@ -56,6 +56,13 @@ function _dump($hash)
     return $dump;
 }
 
+function _error()
+{
+    foreach (imap_errors() as $error) {
+        $GLOBALS['cli']->message($error, 'cli.warning');
+    }
+}
+
 if (file_exists(__DIR__ . '/../../whups/lib/Application.php')) {
     $baseDir = __DIR__ . '/../';
 } else {

@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Fix whups-mail-filter binary.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1115,7 +1115,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Fix whups-mail-filter binary.
    </notes>
   </release>
  </changelog>
