@@ -12,6 +12,8 @@ v6.3.0-git
 v6.2.1
 ------
 
+[mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are
+      defined.
 [mms] Fix advanced search in all mailboxes if virtual folders or remote
       accounts exist (Bug #13384).
 [mms] Fix regression in automatically expanding deeply nested mailboxes in the
