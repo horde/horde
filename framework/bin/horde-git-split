@@ -1,16 +1,21 @@
 #!/usr/bin/env php
 <?php
 /**
- * Usage: horde-git-split [tag-prefix] [subdirectory]
- * Example: horde-git-split horde_imap_client framework/Imap_Client
+ * Usage: ./horde-git-split package_directory [temp_dir]
  */
 
-if ($argc != 3) {
-    exit;
+if (!isset($argv[1])) {
+    exit ("Missing arguments.\n");
 }
 
 $base = dirname(realpath(dirname(__FILE__) . '/../'));
+$package = basename($argv[1]);
+$tag_prefix = strtr('horde_' . strtolower($package), '-', '_') . '-';
 $tmp = sys_get_temp_dir() . '/' . mt_rand();
+
+print "Package: " . $package . "\n";
+print "Tag prefix: " . $tag_prefix . "\n";
+print "Temporary directory: " . $tmp . "\n\n";
 
 mkdir($tmp);
 chdir($tmp);
@@ -20,21 +25,54 @@ system('git remote rm origin');
 
 $delete = array();
 foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
-    if (strpos($val, $argv[1] . '-') === false) {
-        $delete[] = escapeshellarg($val);
+    if (strpos($val, $tag_prefix) !== false) {
+        $version = preg_replace('/^' . $tag_prefix . '/', '', $val);
+        system('git tag ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
     }
+    $delete[] = escapeshellarg($val);
 }
 if (count($delete)) {
     system('git tag -d ' . implode(' ', $delete));
 }
 
-system("git filter-branch --prune-empty --subdirectory-filter " . $argv[2] . " --tag-name-filter cat -- --all");
+$delete = array();
+foreach (array_filter(explode("\n", shell_exec('git branch --no-color'))) as $val) {
+    $val = trim(preg_replace("/^\s*\*\s/", '', $val));
+    if ($val !== 'master') {
+        $delete[] = $val;
+    }
+}
+if (count($delete)) {
+    system('git branch -D ' . implode(' ', $delete));
+}
+
+/* Using tmpfs filesystem for filter-branch reportedly provides much faster
+ * performance. */
+if (!isset($argv[2])) {
+    $argv[2] = $tmp;
+}
+$argv[2] .= '/' . mt_rand();
+
+system("git filter-branch -d " . escapeshellarg($argv[2]) . " --prune-empty --subdirectory-filter framework/" . $package . " --tag-name-filter cat -- --all");
 system('git update-ref -d refs/original/refs/heads/master');
 system('git reflog expire --expire=now --all');
-system('git gc --aggressive --prune=now');
 chdir($tmp);
 system('git clone --bare file://' . $tmp . '/tmp split');
-chdir($tmp . '/split');
-system('git gc --aggressive --prune=now');
 
-print "Split repo in: " . $tmp . "/split\n";
+/* Delete temporary directory. */
+delTree($tmp . '/tmp');
+
+print "\nSplit repo in: " . $tmp . "/split\n";
+
+
+function delTree($dir) {
+    $files = array_diff(scandir($dir), array('.', '..'));
+    foreach ($files as $file) {
+        if (is_dir("$dir/$file") && !is_link($dir)) {
+            delTree("$dir/$file");
+        } else {
+            unlink("$dir/$file");
+        }
+    }
+    rmdir($dir);
+}
