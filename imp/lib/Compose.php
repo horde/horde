@@ -1628,12 +1628,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     )
                 )
             );
+
+            $base = $textpart;
         } else {
-            $textpart = $textBody;
+            $base = $textpart = strlen(trim($text_contents))
+                ? $textBody
+                : null;
         }
 
         /* Add attachments. */
-        $base = $textpart;
         if (empty($options['noattach'])) {
             $parts = array();
 
@@ -1662,13 +1665,27 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             if (!empty($parts)) {
-                $base = new Horde_Mime_Part();
-                $base->setType('multipart/mixed');
-                $base->addPart($textpart);
-                foreach ($parts as $val) {
-                    $base->addPart($val);
+                if (is_null($base) && (count($parts) === 1)) {
+                    /* If this is a single attachment with no text, the
+                     * attachment IS the message. */
+                    $base = reset($parts);
+                } else {
+                    $base = new Horde_Mime_Part();
+                    $base->setType('multipart/mixed');
+                    if (!is_null($textpart)) {
+                        $base->addPart($textpart);
+                    }
+                    foreach ($parts as $val) {
+                        $base->addPart($val);
+                    }
                 }
             }
+        }
+
+        /* If we reach this far with no base, we are sending a blank message.
+         * Assume this is what the user wants. */
+        if (is_null($base)) {
+            $base = $textBody;
         }
 
         /* Set up the base message now. */

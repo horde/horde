@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Don&apos;t send empty text part if a message contains attachments.
 * [mms] Add button to allow folder tree to be rebuilt in smartmobile view.
 * [mms] Add option to poll mailbox for new mailbox when creating a mailbox (Request #13227).
  </notes>
