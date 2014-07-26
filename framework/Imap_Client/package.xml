@@ -1399,12 +1399,6 @@
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Improved handling of server write errors in the Socket driver.
-* [mms] Add support for IMAP MOVE command.
-* [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
-* [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
-* [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
-* [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
 * [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
 * [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
 * [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
