@@ -53,8 +53,6 @@ extends Horde_HashTable_Vfs
             $vfs = new Horde_Vfs_File(array('vfsroot' => Horde::getTempDir()));
         }
 
-                    Horde_Vfs_Gc::gc($vfs, self::VFS_PATH, 86400);
-
         parent::__construct(array_merge($params, array(
             'logger' => $injector->getInstance('Horde_Core_Log_Wrapper'),
             'vfs' => $vfs
