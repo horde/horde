@@ -27,7 +27,7 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
      *
      * @var string
      */
-    public $classAtc = 'IMP_Compose_Attachment_Storage_Vfs';
+    public $classAtc = 'IMP_Compose_Attachment_Storage_Temp';
 
     /**
      * The class to use for linked storage.
@@ -58,9 +58,15 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
     {
         global $conf;
 
-        $classname = (($type == 'linked') || (is_null($type) && !empty($conf['compose']['link_attachments'])))
-            ? $this->classLinked
-            : $this->classAtc;
+
+        if (($type == 'linked') ||
+            (is_null($type) && !empty($conf['compose']['link_attachments']))) {
+            $classname = empty($conf['compose']['link_attach_threshold'])
+                ? $this->classLinked
+                : 'IMP_Compose_Attachment_Storage_AutoDetermine';
+        } else {
+            $classname = $this->classAtc;
+        }'IMP_Compose_Attachment_Storage_Temp';
 
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
