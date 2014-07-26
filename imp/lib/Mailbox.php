@@ -1568,19 +1568,8 @@ class IMP_Mailbox
                 break;
 
             case self::SPECIAL_SENT:
-                if (count($val) == 1) {
-                    if (strval(reset($val)) == $this->_mbox) {
-                        $out = _("Sent");
-                    }
-                } else {
-                    $sent = self::getPref(self::MBOX_SENT);
-                    foreach ($val as $mbox) {
-                        if (($mbox == $sent) &&
-                            (strval($mbox) == $this->_mbox)) {
-                            $out = _("Sent");
-                            break;
-                        }
-                    }
+                if (in_array($this->_mbox, $val)) {
+                    $out = _("Sent");
                 }
                 break;
 
