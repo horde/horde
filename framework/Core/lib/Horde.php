@@ -402,6 +402,17 @@ class Horde
         }
 
         $puri = parse_url($uri);
+        /* @todo Fix for PHP < 5.3.6 */
+        if (isset($puri['fragment']) && !isset($puri['path'])) {
+            $pos = strpos(
+                $uri,
+                '/',
+                strpos($uri, $puri['host']) + strlen($puri['host'])
+            );
+            $puri['path'] = substr($uri, $pos, strpos($uri, '#', $pos) - $pos);
+        }
+        /* End fix */
+
         $url = '';
         $schemeRegexp = '|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://|';
         $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');

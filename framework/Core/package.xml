@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix broken parse_url() behavior for PHP &lt; 5.3.6.
 * [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
 * [mms] Add method to allow any code to register tasks to run on logout.
 * [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
@@ -3581,6 +3582,7 @@
    <date>2014-07-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix broken parse_url() behavior for PHP &lt; 5.3.6.
 * [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
 * [mms] Add method to allow any code to register tasks to run on logout.
 * [mjr] Ensure EAS client created collections are requested to be added to the application&apos;s sync preference (Bug #13359).
