@@ -300,13 +300,13 @@ class Horde_Prefs_Identity
      *
      * @return boolean  True if the $value was found in $key.
      */
-    public function hasValue($key, $valueA)
+    public function hasValue($key, $value)
     {
         $list = $this->getAll($key);
 
         foreach ($list as $valueB) {
             if (!empty($valueB) &&
-                strpos(Horde_String::lower($valueA), Horde_String::lower($valueB)) !== false) {
+                strpos(Horde_String::lower($value), Horde_String::lower($valueB)) !== false) {
                 return true;
             }
         }
