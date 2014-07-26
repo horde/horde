@@ -1570,6 +1570,17 @@ class IMP_Mailbox
             case self::SPECIAL_SENT:
                 if (in_array($this->_mbox, $val)) {
                     $out = _("Sent");
+
+                    /* Add identity information to label, if sent-mail mailbox
+                     * is unique to an identity. */
+                    $identity = $injector->getInstance('IMP_Identity');
+                    $sm = array_keys(
+                        $identity->getAllSentmail(false),
+                        $this->_mbox
+                    );
+                    if (count($sm) === 1) {
+                        $out .= ' (' . $identity->getValue('id', reset($sm)) . ')';
+                    }
                 }
                 break;
 

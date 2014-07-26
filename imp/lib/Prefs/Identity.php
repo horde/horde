@@ -544,19 +544,26 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
     /**
      * Returns an array with the sent-mail mailboxes from all identities.
      *
+     * @param boolean $unique  If true, return the unique list of sent-mail
+     *                         mailboxes. If false, returns list of
+     *                         sent-mail mailboxes, with the key corresponding
+     *                         to the identity.
+     *
      * @return array  The array with the sent-mail IMP_Mailbox objects.
      */
-    public function getAllSentmail()
+    public function getAllSentmail($unique = true)
     {
         $list = array();
 
         foreach (array_keys($this->_identities) as $key) {
             if ($mbox = $this->getValue(IMP_Mailbox::MBOX_SENT, $key)) {
-                $list[strval($mbox)] = 1;
+                $list[$key] = $mbox;
             }
         }
 
-        return IMP_Mailbox::get(array_keys($list));
+        return $unique
+            ? array_unique($list)
+            : $list;
     }
 
     /**
