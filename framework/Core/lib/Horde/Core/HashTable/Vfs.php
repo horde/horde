@@ -101,8 +101,10 @@ extends Horde_HashTable_Vfs
                     );
                 }
             } catch (Horde_Vfs_Exception $e) {
-                $out[$key] = false;
+                $data = false;
             }
+
+            $out[$key] = $data;
         }
 
         return $out;
