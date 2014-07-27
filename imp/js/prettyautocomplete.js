@@ -46,6 +46,7 @@ var IMP_PrettyAutocompleter = Class.create({
             // This function should *always* return escaped HTML
             displayFilter: function(t) { return t.escapeHTML(); },
             filterCallback: this.filterChoices.bind(this),
+            maxItemSize: 50,
             onAdd: Prototype.K,
             onRemove: Prototype.K,
             processValueCallback: this.processValueCallback.bind(this),
@@ -196,7 +197,7 @@ var IMP_PrettyAutocompleter = Class.create({
             return false;
         }
 
-        displayValue = this.p.displayFilter(value);
+        displayValue = this.p.displayFilter(value.truncate(this.p.maxItemSize));
 
         this.input.up('LI').insert({
             before: new Element('LI', {
