@@ -919,7 +919,8 @@ class Horde_Core_ActiveSync_Connector
             throw new InvalidArgumentException('collection must be one of calendar, contacts, tasks or notes');
         }
 
-        if (!$this->_registry->hasInterface($collection)) {
+        $app = $this->_registry->horde_hasInterface($collection);
+        if (!$app || $this->_registry->isInactive($app)) {
             throw new Horde_Exception(sprintf('The %s interface is not active in Horde.', $collection));
         }
 
