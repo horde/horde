@@ -7,6 +7,8 @@ v4.3.0-git
 v4.2.1
 ----------
 
+[mjr] Ensure default share attribute is set when auto determining a default
+      share.
 [mjr] Fix showing the notepad name in list view when show_notepad preference is
       set (Bug #13352).
 [mjr] Add EAS client created shares to the sync_notpads preference (Bug
