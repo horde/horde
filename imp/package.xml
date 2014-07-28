@@ -142,10 +142,6 @@
       <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
-      <dir name="AutoCompleter">
-       <file name="Pretty.php" role="horde" />
-      </dir> <!-- /lib/Ajax/Imple/AutoCompleter -->
-      <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
@@ -488,6 +484,7 @@
     <dir name="Script">
      <dir name="Package">
       <file name="ComposeBase.php" role="horde" />
+      <file name="ContactAutocomplete.php" role="horde" />
       <file name="Editor.php" role="horde" />
       <file name="Imp.php" role="horde" />
      </dir> <!-- /lib/Script/Package -->
@@ -1625,12 +1622,10 @@
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Application/Viewport/Error.php" name="lib/Ajax/Application/Viewport/Error.php" />
-   <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Ajax/Imple/VcardImport.php" name="lib/Ajax/Imple/VcardImport.php" />
-   <install as="imp/lib/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
@@ -1861,6 +1856,7 @@
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Remote/Account.php" name="lib/Remote/Account.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
+   <install as="imp/lib/Script/Package/ContactAutocomplete.php" name="lib/Script/Package/ContactAutocomplete.php" />
    <install as="imp/lib/Script/Package/Editor.php" name="lib/Script/Package/Editor.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />

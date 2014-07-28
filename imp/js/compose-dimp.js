@@ -1378,6 +1378,26 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
+        /* Initialize autocompleters. */
+        $('to', 'cc', 'bcc', 'redirect_to').compact().each(function(a) {
+            ImpComposeBase.ac.set(
+                a.identify(),
+                new IMP_PrettyAutocompleter(a.identify(), {
+                    boxClass: 'hordeACBox impACBox',
+                    boxClassFocus: 'impACBoxFocus',
+                    deleteIcon: DimpCore.conf.ac_delete,
+                    displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
+                    growingInputClass: 'hordeACTrigger impACTrigger',
+                    listClass: 'hordeACList impACList',
+                    minChars: DimpCore.conf.ac_minchars,
+                    processValueCallback: ImpComposeBase.autocompleteValue.bind(ImpComposeBase),
+                    removeClass: 'hordeACItemRemove impACItemRemove',
+                    trigger: a.identify(),
+                    triggerContainer: Math.random().toString()
+                })
+            );
+        });
+
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);

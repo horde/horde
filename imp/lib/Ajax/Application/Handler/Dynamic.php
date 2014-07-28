@@ -1285,4 +1285,18 @@ extends Horde_Core_Ajax_Application_Handler
         return $ret;
     }
 
+    /**
+     * TODO
+     */
+    public function autocompleteSearch()
+    {
+        return array_map(
+            'strval',
+            $GLOBALS['injector']->getInstance('IMP_Contacts')->searchEmail(
+                $this->vars->search,
+                array('levenshtein' => true)
+            )->base_addresses
+        );
+    }
+
 }

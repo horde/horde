@@ -30,26 +30,6 @@ class IMP_Compose_Ui
     protected $_spellInit = false;
 
     /**
-     * Attach the auto-completer to the current compose form.
-     *
-     * @param array $fields  The list of DOM IDs to attach the autocompleter
-     *                       to.
-     */
-    public function attachAutoCompleter($fields)
-    {
-        /* Attach autocompleters to the compose form elements. */
-        if ($GLOBALS['registry']->hasMethod('contacts/search')) {
-            foreach ($fields as $val) {
-                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
-                    ->create(
-                        'IMP_Ajax_Imple_ContactAutoCompleter',
-                        array('id' => $val)
-                    );
-            }
-        }
-    }
-
-    /**
      * Attach the spellchecker to the current compose form.
      *
      * @return boolean  True if spellchecker is active.

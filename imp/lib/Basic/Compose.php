@@ -616,11 +616,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Get the message cache ID. */
         $composeCacheID = filter_var($imp_compose->getCacheId(), FILTER_SANITIZE_STRING);
 
-        /* Attach autocompleters to the compose form elements. */
-        if ($redirect) {
-            $imp_ui->attachAutoCompleter(array('to'));
-        } else {
-            $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
+        $page_output->addScriptPackage('IMP_Script_Package_ContactAutocomplete');
+        if (!$redirect) {
             $spellcheck = $imp_ui->attachSpellChecker();
             $page_output->addScriptFile('ieescguard.js', 'horde');
         }
