@@ -24,9 +24,6 @@
 class Horde_HashTable_Vfs
 extends Horde_HashTable_Base
 {
-    /* The virtual path to use for VFS data (temporary storage). */
-    const VFS_PATH = '.horde/core/psession_data';
-
     /**
      */
     protected $_persistent = true;
