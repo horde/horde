@@ -33,20 +33,20 @@ print "Temporary git directory: " . $tmp . "\n\n";
 
 mkdir($tmp);
 chdir($tmp);
-system('git clone --bare ' . escapeshellarg($base) . ' tmp');
+passthru('git clone --bare ' . escapeshellarg($base) . ' tmp');
 chdir($tmp . '/tmp');
-system('git remote rm origin');
+passthru('git remote rm origin');
 
 $delete = array();
 foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
     if (strpos($val, $tag_prefix) !== false) {
         $version = preg_replace('/^' . $tag_prefix . '/', '', $val);
-        system('git tag ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
+        passthru('git tag ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
     }
     $delete[] = escapeshellarg($val);
 }
 if (count($delete)) {
-    system('git tag -d ' . implode(' ', $delete));
+    passthru('git tag -d ' . implode(' ', $delete));
 }
 
 $delete = array();
@@ -57,7 +57,7 @@ foreach (array_filter(explode("\n", shell_exec('git branch --no-color'))) as $va
     }
 }
 if (count($delete)) {
-    system('git branch -D ' . implode(' ', $delete));
+    passthru('git branch -D ' . implode(' ', $delete));
 }
 
 /* Using tmpfs filesystem for filter-branch reportedly provides much faster
@@ -67,11 +67,11 @@ if (!isset($argv[2])) {
 }
 $argv[2] .= '/' . mt_rand();
 
-system("git filter-branch -d " . escapeshellarg($argv[2]) . " --prune-empty --subdirectory-filter " . $package_path . " --tag-name-filter cat -- --all");
-system('git update-ref -d refs/original/refs/heads/master');
-system('git reflog expire --expire=now --all');
+passthru("git filter-branch -d " . escapeshellarg($argv[2]) . " --prune-empty --subdirectory-filter " . $package_path . " --tag-name-filter cat -- --all");
+passthru('git update-ref -d refs/original/refs/heads/master');
+passthru('git reflog expire --expire=now --all');
 chdir($tmp);
-system('git clone --bare file://' . $tmp . '/tmp split');
+passthru('git clone --bare file://' . $tmp . '/tmp split');
 
 /* Delete temporary directory. */
 delTree($tmp . '/tmp');
