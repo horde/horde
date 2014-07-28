@@ -27,17 +27,14 @@
  * @package   Core
  * @since     2.13.0
  */
-class Horde_Core_Script_Package_Autocomplete extends Horde_Script_Package
+class Horde_Core_Script_Package_Autocomplete extends Horde_Core_Script_Package_Keynavlist
 {
     /**
      * Constructor.
      */
     public function __construct()
     {
-        global $page_output;
-
-        $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
-
+        parent::__construct();
         $this->_files[] = new Horde_Script_File_JsDir('autocomplete.js', 'horde');
         $this->_files[] = new Horde_Script_File_JsDir('liquidmetal.js', 'horde');
     }
