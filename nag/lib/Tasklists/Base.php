@@ -111,5 +111,7 @@ abstract class Nag_Tasklists_Base
      */
     protected function _prepareDefaultShare($share)
     {
+        $share->set('default', true);
     }
+
 }
