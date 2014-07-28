@@ -407,44 +407,14 @@ class IMP_Ajax_Application_ShowMessage
         $addrlist = ($header == 'reply-to')
             ? $this->_envelope->reply_to
             : $this->_envelope->$header;
-        $addr_array = $out = array();
-        $count = 0;
-
         $addrlist->unique();
 
-        foreach ($addrlist->base_addresses as $ob) {
-            if ($ob instanceof Horde_Mail_Rfc822_Group) {
-                $ob->addresses->unique();
+        $addr_ob = new IMP_Ajax_Addresses($addrlist);
+        $addr_array = $addr_ob->toArray($limit);
 
-                $tmp = array(
-                    'a' => array(),
-                    'g' => $ob->groupname
-                );
-
-                foreach ($ob->addresses as $val) {
-                    $tmp['a'][] = array_filter(array(
-                        'b' => $val->bare_address,
-                        'p' => $val->personal
-                    ));
-
-                    if (!is_null($limit) && ($count++ > $limit)) {
-                        break;
-                    }
-                }
-            } else {
-                $tmp = array_filter(array(
-                    'b' => $ob->bare_address,
-                    'p' => $ob->personal
-                ));
-                ++$count;
-            }
-
-            $addr_array[] = $tmp;
-
-            if (!is_null($limit) && ($count > $limit)) {
-                $out['limit'] = count($addrlist);
-                break;
-            }
+        $out = array();
+        if (!is_null($limit) && (($cnt = count($addrlist)) > $limit)) {
+            $out['limit'] = $cnt;
         }
 
         if (!empty($addr_array)) {

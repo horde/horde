@@ -147,6 +147,7 @@
       <file name="PassphraseDialog.php" role="horde" />
       <file name="VcardImport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Addresses.php" role="horde" />
      <file name="Application.php" role="horde" />
      <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -1604,6 +1605,7 @@
    <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
+   <install as="imp/lib/Ajax/Addresses.php" name="lib/Ajax/Addresses.php" />
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
