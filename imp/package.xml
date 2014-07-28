@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-07-26</date>
+ <date>2014-07-28</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -235,6 +235,7 @@
      <file name="AuthImap.php" role="horde" />
      <file name="Compose.php" role="horde" />
      <file name="ComposeAtc.php" role="horde" />
+     <file name="Contacts.php" role="horde" />
      <file name="Contents.php" role="horde" />
      <file name="Flags.php" role="horde" />
      <file name="Ftree.php" role="horde" />
@@ -1680,6 +1681,7 @@
    <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
    <install as="imp/lib/Factory/Compose.php" name="lib/Factory/Compose.php" />
    <install as="imp/lib/Factory/ComposeAtc.php" name="lib/Factory/ComposeAtc.php" />
+   <install as="imp/lib/Factory/Contacts.php" name="lib/Factory/Contacts.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
    <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
    <install as="imp/lib/Factory/Ftree.php" name="lib/Factory/Ftree.php" />

@@ -225,10 +225,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $result = null;
         try {
-            $result = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
+            $result = $registry->call(
+                'contacts/getField',
+                array(
+                    $address,
+                    self::PUBKEY_FIELD,
+                    $injector->getInstance('IMP_Contacts')->sources,
+                    true,
+                    true
+                )
+            );
         } catch (Horde_Exception $e) {}
 
         if (is_null($result)) {
@@ -290,11 +298,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function listPublicKeys()
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $sources = $GLOBALS['injector']->getInstance('IMP_Contacts')->sources;
 
-        return empty($params['sources'])
+        return empty($sources)
             ? array()
-            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $sources));
     }
 
     /**
@@ -306,8 +314,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function deletePublicKey($email)
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
-        return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
+        return $GLOBALS['registry']->call(
+            'contacts/deleteField',
+            array(
+                $email,
+                self::PUBKEY_FIELD,
+                $GLOBALS['injector']->getInstance('IMP_Contacts')->sources
+            )
+        );
     }
 
     /**

@@ -220,10 +220,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $contacts = $injector->getInstance('IMP_Contacts');
 
         try {
-            $key = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
+            $key = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $contacts->sources, true, true));
         } catch (Horde_Exception $e) {
             /* See if the address points to the user's public key. */
             $personal_pubkey = $this->getPersonalPublicKey();
@@ -249,11 +249,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $sources = $GLOBALS['injector']->getInstance('IMP_Contacts')->sources;
 
-        return empty($params['sources'])
+        return empty($sources)
             ? array()
-            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $sources));
     }
 
     /**
@@ -265,8 +265,15 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
-        $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
+        $GLOBALS['registry']->call(
+            'contacts/deleteField',
+            array(
+                $email,
+                self::PUBKEY_FIELD,
+                $injector->getInstance('IMP_Contacts')->sources,
+                $params['sources']
+            )
+        );
     }
 
     /**

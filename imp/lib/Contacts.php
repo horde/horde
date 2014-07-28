@@ -19,9 +19,72 @@
  * @copyright 2012-2014 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
+ *
+ * @property-read boolean $changed  Has the internal data changed?
+ * @property-read array $fields  The list of configured search fields.
+ * @property-read array $sources  The list of configured sources.
+ * @property-read array $source_list  The list of sources in the contacts
+ *                                    backend.
  */
-class IMP_Contacts
+class IMP_Contacts implements Serializable
 {
+    /**
+     * Has the internal data changed?
+     *
+     * @var boolean
+     */
+    private $_changed = false;
+
+    /**
+     * The list of search fields.
+     *
+     * @var array
+     */
+    private $_fields;
+
+    /**
+     * The list of sources.
+     *
+     * @var array
+     */
+    private $_sources;
+
+    /**
+     */
+    public function __get($name)
+    {
+        global $registry;
+
+        switch ($name) {
+        case 'changed':
+            return $this->_changed;
+
+        case 'fields':
+        case 'sources':
+            if (!isset($this->_fields)) {
+                $this->_init();
+            }
+            return $this->_{$name};
+
+        case 'source_list':
+            if ($registry->hasMethod('contacts/sources')) {
+                try {
+                    return $registry->call('contacts/sources');
+                } catch (Horde_Exception $e) {}
+            }
+            return array();
+        }
+    }
+
+    /**
+     * Clear cached contacts data.
+     */
+    public function clearCache()
+    {
+        unset($this->_fields, $this->_sources);
+        $this->_changed = true;
+    }
+
     /**
      * Adds a contact to the user defined address book.
      *
@@ -74,15 +137,13 @@ class IMP_Contacts
             return new Horde_Mail_Rfc822_List();
         }
 
-        $spref = $this->getAddressbookSearchParams();
-
         try {
             $search = $registry->call('contacts/search', array($str, array(
                 'customStrict' => empty($opts['email_exact']) ? array() : array('email'),
-                'fields' => $spref['fields'],
+                'fields' => $this->fields,
                 'returnFields' => array('email', 'name'),
                 'rfc822Return' => true,
-                'sources' => empty($opts['sources']) ? $spref['sources'] : $opts['sources']
+                'sources' => empty($opts['sources']) ? $this->sources : $opts['sources']
             )));
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
@@ -103,21 +164,38 @@ class IMP_Contacts
     }
 
     /**
-     * Determines parameters needed to do an address search
-     *
-     * @return array  An array with two keys: 'fields' and 'sources'.
+     * Initializes parameters needed to do an address search.
      */
-    public function getAddressbookSearchParams()
+    private function _init()
     {
         global $prefs;
 
         $fields = json_decode($prefs->getValue('search_fields'), true);
         $src = json_decode($prefs->getValue('search_sources'));
 
-        return array(
-            'fields' => empty($fields) ? array() : $fields,
-            'sources' => empty($src) ? array() : $src
-        );
+        $this->_fields = empty($fields) ? array() : $fields;
+        $this->_sources = empty($src) ? array() : $src;
+
+        $this->_changed = true;
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return json_encode(array(
+            $this->_fields,
+            $this->_sources
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        list($this->_fields, $this->_sources) = json_decode($data, true);
     }
 
 }

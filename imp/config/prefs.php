@@ -889,7 +889,7 @@ $prefGroups['addressbooks'] = array(
     'column' => _("Compose"),
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding/searching."),
-   'members' => array(
+    'members' => array(
         'save_recipients', 'display_contact', 'sourceselect', 'add_source'
     ),
     'suppress' => function() {
@@ -929,7 +929,10 @@ $_prefs['sourceselect'] = array(
 // You can provide default values this way:
 //   'value' => json_encode(array('source_one', 'source_two'))
 $_prefs['search_sources'] = array(
-    'value' => ''
+    'value' => '',
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Contacts')->clearCache();
+    }
 );
 
 // Field(s) to use when expanding addresses
@@ -944,7 +947,10 @@ $_prefs['search_sources'] = array(
 // will search the fields 'field_one' and 'field_two' in source_one and
 // 'field_three' in source_two.
 $_prefs['search_fields'] = array(
-    'value' => ''
+    'value' => '',
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Contacts')->clearCache();
+    }
 );
 
 // If NOT using shared address books in Turba, you can put a $cfgSources array

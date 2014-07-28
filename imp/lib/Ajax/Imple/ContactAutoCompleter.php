@@ -46,11 +46,11 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
      */
     protected function _getAddressbookSearchParams()
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $contacts = $GLOBALS['injector']->getInstance('IMP_Contacts');
 
         $ob = new stdClass;
-        $ob->fields = $params['fields'];
-        $ob->sources = $params['sources'];
+        $ob->fields = $contacts->fields;
+        $ob->sources = $contacts->sources;
 
         return $ob;
     }
