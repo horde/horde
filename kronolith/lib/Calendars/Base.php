@@ -105,5 +105,6 @@ abstract class Kronolith_Calendars_Base
      */
     protected function _prepareDefaultShare($share)
     {
+        $share->set('default', true);
     }
 }

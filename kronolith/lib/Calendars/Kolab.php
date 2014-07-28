@@ -41,13 +41,4 @@ class Kronolith_Calendars_Kolab extends Kronolith_Calendars_Base
         return _("Calendar");
     }
 
-    /**
-     * Add any modifiers required to the share in order to mark it as default.
-     *
-     * @param Horde_Share_Object $share The new default share.
-     */
-    protected function _prepareDefaultShare($share)
-    {
-        $share->set('default', true);
-    }
 }
