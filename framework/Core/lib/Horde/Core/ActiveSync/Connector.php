@@ -911,12 +911,16 @@ class Horde_Core_ActiveSync_Connector
      *                            multiplexed.
      *
      * @return array  A hash of add, modify, and delete uids
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException, Horde_Exception
      */
     public function getChanges($collection, $from_ts, $to_ts, $server_id)
     {
         if (!in_array($collection, array('calendar', 'contacts', 'tasks', 'notes'))) {
             throw new InvalidArgumentException('collection must be one of calendar, contacts, tasks or notes');
+        }
+
+        if (!$this->_registry->hasInterface($collection)) {
+            throw new Horde_Exception(sprintf('The %s interface is not active in Horde.', $collection));
         }
 
         // We can use modification sequences.
