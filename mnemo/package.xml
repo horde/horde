@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Ensure default share attribute is set when auto determining a default share.
 * [mjr] Fix showing the notepad name in list view when show_notepad preference is set (Bug #13352).
 * [mjr] Add EAS client created shares to the sync_notpads preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13361).
@@ -1219,6 +1220,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Ensure default share attribute is set when auto determining a default share.
 * [mjr] Fix showing the notepad name in list view when show_notepad preference is set (Bug #13352).
 * [mjr] Add EAS client created shares to the sync_notpads preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13361).
