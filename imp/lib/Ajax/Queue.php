@@ -581,7 +581,6 @@ class IMP_Ajax_Queue
      *
      * @return mixed  The element object, or null if the element is not
      *                active. Object contains the following properties:
-     * <pre>
      *   - ch: (boolean) [children] Does the mailbox contain children?
      *         DEFAULT: no
      *   - cl: (string) [class] The CSS class.
@@ -616,7 +615,6 @@ class IMP_Ajax_Queue
      *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
      *        vfolder, 2 = user vfolder
      *        DEFAULT: 0
-     *  </pre>
      */
     protected function _ftreeElt($id)
     {

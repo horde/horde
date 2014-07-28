@@ -222,7 +222,6 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Parse a list of flag information.
      *
      * @param array $opts  Options:
-     * <pre>
      *   - flags: (array) IMAP flag info. A lowercase list of flags returned
      *            by the IMAP server.
      *   - headers: (Horde_Mime_Headers) Determines message information
@@ -232,7 +231,6 @@ class IMP_Flags implements ArrayAccess, Serializable
      *   - personal: (mixed) Personal message info. Either a list of To
      *               addresses (Horde_Mail_Rfc822_List object) or the identity
      *               that matched the address list.
-     * </pre>
      *
      * @return array  A list of IMP_Flag_Base objects.
      */

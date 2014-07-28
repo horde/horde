@@ -106,7 +106,7 @@ class IMP
      * @param mixed $in    The address string or an address list object.
      * @param array $opts  Options to override the default.
      *
-     * @return array  See Horde_Mail_Rfc822#parseAddressList().
+     * @return Horde_Mail_Rfc822_List  See Horde_Mail_Rfc822#parseAddressList().
      *
      * @throws Horde_Mail_Exception
      */
@@ -138,10 +138,8 @@ class IMP
      * Returns the initial page for IMP.
      *
      * @return object  Object with the following properties:
-     * <pre>
      *   - mbox (IMP_Mailbox)
      *   - url (Horde_Url)
-     * </pre>
      */
     static public function getInitialPage()
     {

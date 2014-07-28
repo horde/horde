@@ -422,14 +422,12 @@ class IMP_Imap implements Serializable
      *
      * @param integer $right  Access right.
      * @param integer $data   Data required to check the rights:
-     * <pre>
      *   - ACCESS_COMPOSE_BODYSIZE
      *     The size of the body data.
      *
      *   - ACCESS_COMPOSE_RECIPIENTS
      *   - ACCESS_COMPOSE_TIMELIMIT
      *     The number of e-mail recipients.
-     * </pre>
      *
      * @return boolean  Is the access allowed?
      */

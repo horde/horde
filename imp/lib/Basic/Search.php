@@ -27,7 +27,6 @@ class IMP_Basic_Search extends IMP_Basic_Base
 {
     /**
      * URL Parameters:
-     * <pre>
      *   - criteria_form: (string) JSON representation of the search query.
      *   - edit_query: (integer) If true, edit a search query (contained in
      *                 'mailbox' parameter).
@@ -45,7 +44,6 @@ class IMP_Basic_Search extends IMP_Basic_Base
      *                 'vfolder'). If empty, the search should not be saved.
      *   - subfolder: (boolean) If set, search mailbox will default to
      *                subfolder search.
-     * </pre>
      */
     protected function _init()
     {

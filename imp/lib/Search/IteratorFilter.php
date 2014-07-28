@@ -59,13 +59,11 @@ class IMP_Search_IteratorFilter extends FilterIterator
      * Set the iterator filter and reset the internal pointer.
      *
      * @param integer $mask  A mask with the following possible elements:
-     * <pre>
      *   - self::DISABLED: List even if disabled.
      *   - self::FILTER: List filters.
      *   - self::QUERY: List search queries.
      *   - self::VFOLDER: List virtual folders.
      *   - self::ALL: List filter, search queries, and virtual folders.
-     * </pre>
      */
     public function setFilter($mask = 0)
     {

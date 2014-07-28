@@ -195,12 +195,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                        Horde_Mime_Part object that contains the text
      *                        to send.
      * @param array $opts     An array of options w/the following keys:
-     * <pre>
      *   - autosave: (boolean) Is this an auto-saved draft?
      *   - html: (boolean) Is this an HTML message?
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *   - readreceipt: (boolean) Add return receipt headers?
-     * </pre>
      *
      * @return string  Notification text on success (not HTML encoded).
      *

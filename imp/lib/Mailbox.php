@@ -897,9 +897,7 @@ class IMP_Mailbox
      *
      * @param boolean $sub  True to subscribe, false to unsubscribe.
      * @param array $opts   Additional options:
-     * <pre>
      *   - subfolders: (boolean) If true, applies actions to all subfolders.
-     * </pre>
      *
      * @return boolean  True on success.
      */

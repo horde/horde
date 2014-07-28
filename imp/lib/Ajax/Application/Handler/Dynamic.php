@@ -1090,9 +1090,7 @@ extends Horde_Core_Ajax_Application_Handler
      *   - flagname: (string) Flag name.
      *
      * @return object  An object with the following properties:
-     * <pre>
      *   - success: (boolean) True if successful.
-     * </pre>
      */
     public function createFlag()
     {
@@ -1135,9 +1133,7 @@ extends Horde_Core_Ajax_Application_Handler
      * Variables used: NONE
      *
      * @return object  An object with the following properties:
-     * <pre>
      *   - flist: (array) TODO
-     * </pre>
      */
     public function sentMailList()
     {
@@ -1183,9 +1179,7 @@ extends Horde_Core_Ajax_Application_Handler
      * Requires EITHER 'addr' -or- mailbox/indices from form params.
      *
      * Variables used:
-     * <pre>
      *   - addr: (string) The e-mail address to use.
-     * </pre>
      *
      * @return Horde_Core_Ajax_Response_HordeCore_Reload  Object with URL to
      *                                                    redirect to.
@@ -1233,16 +1227,12 @@ extends Horde_Core_Ajax_Application_Handler
      * AJAX action: Return the contacts images for a given e-mail address.
      *
      * Variables used:
-     * <pre>
      *   - addr: (string) The e-mail address.
-     * </pre>
      *
      * @return object  An object with the following properties:
-     * <pre>
      *   - avatar: (string) The URL of the avatar image.
      *   - flag: (string) The URL of the sender's country flag image.
      *   - flagname: (string) The name of the country of the sender.
-     * </pre>
      */
     public function getContactsImage()
     {
@@ -1271,9 +1261,7 @@ extends Horde_Core_Ajax_Application_Handler
      *           encoded).
      *
      * @return object  An object with the following properties:
-     * <pre>
      *   - size: (string) Formatted size string.
-     * </pre>
      */
     public function mailboxSize()
     {

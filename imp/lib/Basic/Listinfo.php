@@ -68,11 +68,9 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
 
     /**
      * @param array $opts  Options:
-     * <pre>
      *   - buid: (string) BUID of message.
      *   - full: (boolean) Full URL?
      *   - mailbox: (string) Mailbox of message.
-     * </pre>
      */
     static public function url(array $opts = array())
     {

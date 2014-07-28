@@ -209,12 +209,10 @@ class IMP_Contents
      *             DEFAULT: No
      *
      * @return object  Object with the following properties:
-     * <pre>
      *   - data: (mixed) The text of the part or a stream resource if 'stream'
      *           option is true.
      *   - decode: (string) If 'decode' option is true, and bodypart decoded
      *             on server, the content-type of the decoded data.
-     * </pre>
      */
     public function getBodyPart($id, $options = array())
     {

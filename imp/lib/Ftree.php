@@ -758,11 +758,9 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      * Insert an element into the tree.
      *
      * @param array $elt  Element data. Keys:
-     * <pre>
      *   - a: (integer) Attributes.
      *   - p: (string) Parent element ID.
      *   - v: (string) Mailbox ID.
-     * </pre>
      */
     protected function _insertElt($elt)
     {
@@ -935,7 +933,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      * @param string|Horde_Tree $name  Either the tree name, or a Horde_Tree
      *                                 object to add nodes to.
      * @param array $opts              Additional options:
-     * <pre>
      *   - basename: (boolean) Use raw basename instead of abbreviated label?
      *               DEFAULT: false
      *   - checkbox: (boolean) Display checkboxes?
@@ -956,7 +953,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      *                             are passed in with true values.
      *   - render_type: (string) The renderer name.
      *                  DEFAULT: Javascript
-     * </pre>
      *
      * @return Horde_Tree  The tree object.
      */

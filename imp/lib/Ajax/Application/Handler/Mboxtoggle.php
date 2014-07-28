@@ -27,14 +27,12 @@ extends Horde_Core_Ajax_Application_Handler
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
-     * <pre>
      *   - action: (string) [REQUIRED] Either 'collapse' or 'expand'.
      *   - all: (integer) 1 to toggle all mailboxes (mailbox information
      *          will not be returned).
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
      *             array; mailboxes are base64url encoded); required if 'all'
      *             is 0.
-     * </pre>
      *
      * @return boolean  True.
      */

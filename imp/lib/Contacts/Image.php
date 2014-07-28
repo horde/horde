@@ -49,10 +49,8 @@ class IMP_Contacts_Image
      * @param integer $type  The image type.
      *
      * @return array  Array with the following keys:
-     * <pre>
      *   - desc: (string) Description.
      *   - url: (Horde_Url|Horde_Url_Data) URL object.
-     * </pre>
      *
      * @throws IMP_Exception
      */

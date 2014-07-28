@@ -14,18 +14,6 @@
 /**
  * This class provides authentication for IMP.
  *
- * The following is the list of IMP session variables:
- *   - compose_ob: (array) Active compose objects.
- *   - file_upload: (integer) If file uploads are allowed, the max size.
- *   - filteravail: (boolean) Can we apply filters manually?
- *   - imap_ob: (IMP_Imap) The IMAP client object.
- *   - pgp: (array) Cached PGP passhprase values.
- *   - rteavail: (boolean) Is the HTML editor available?
- *   - search: (IMP_Search) The IMP_Search object.
- *   - smime: (array) Settings related to the S/MIME viewer.
- *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
- *                screen.
- *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
@@ -230,6 +218,10 @@ class IMP_Auth
     /**
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
+     *
+     * The following global IMP session variables are created by this method:
+     *   - file_upload: (integer) If file uploads are allowed, the max size.
+     *   - rteavail: (boolean) Is the HTML editor available?
      *
      * @throws Horde_Exception
      */
