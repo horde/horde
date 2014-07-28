@@ -73,7 +73,7 @@ class IMP_Prefs_AttribText
             '/%%/' => '%',
 
             /* Name and email address of original sender. */
-            '/%f/' => $from,
+            '/%f/' => $from->writeAddress(array('noquote' => true)),
 
             /* Senders email address(es). */
             '/%a/' => implode(', ', $addressList),
