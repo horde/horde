@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-07-25</date>
+ <date>2014-07-28</date>
  <version>
   <release>2.13.0</release>
   <api>2.13.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Core_Script_Package_Autocomplete.
 * [mms] Fix broken parse_url() behavior for PHP &lt; 5.3.6.
 * [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
 * [mms] Add method to allow any code to register tasks to run on logout.
@@ -560,6 +561,7 @@
       </dir> <!-- /lib/Horde/Core/Prefs -->
       <dir name="Script">
        <dir name="Package">
+        <file name="Autocomplete.php" role="php" />
         <file name="Datejs.php" role="php" />
         <file name="Dialog.php" role="php" />
         <file name="Keynavlist.php" role="php" />
@@ -1911,6 +1913,7 @@
    <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
    <install as="Horde/Core/Prefs/Ui/Special.php" name="lib/Horde/Core/Prefs/Ui/Special.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Script/Package/Autocomplete.php" name="lib/Horde/Core/Script/Package/Autocomplete.php" />
    <install as="Horde/Core/Script/Package/Datejs.php" name="lib/Horde/Core/Script/Package/Datejs.php" />
    <install as="Horde/Core/Script/Package/Dialog.php" name="lib/Horde/Core/Script/Package/Dialog.php" />
    <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
@@ -3579,9 +3582,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-25</date>
+   <date>2014-07-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Core_Script_Package_Autocomplete.
 * [mms] Fix broken parse_url() behavior for PHP &lt; 5.3.6.
 * [mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data persists and that it doesn&apos;t overload session storage (Request #11335).
 * [mms] Add method to allow any code to register tasks to run on logout.
