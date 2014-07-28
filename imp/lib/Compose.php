@@ -2092,7 +2092,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         $h = $contents->getHeader();
 
-        $from = strval($h->getOb('from'));
+        $from = $h->getOb('from');
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $msg_pre = '----- ' .

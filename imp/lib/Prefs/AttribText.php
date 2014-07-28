@@ -32,18 +32,16 @@ class IMP_Prefs_AttribText
     /**
      * Constructor.
      *
-     * @param string $from           The email address of the original sender.
-     * @param Horde_Mime_Headers $h  The headers object for the message.
+     * @param string|Horde_Mail_Rfc822_Object $from  The email address of the
+     *                                               original sender.
+     * @param Horde_Mime_Headers $h           The headers object for the
+     *                                        message.
      */
     public function __construct($from, Horde_Mime_Headers $h)
     {
         global $prefs;
 
         $addressList = $nameList = array();
-
-        /* First we'll get a comma separated list of email addresses
-         * and a comma separated list of personal names out of $from
-         * (there just might be more than one of each). */
         $addr_list = IMP::parseAddressList($from);
 
         foreach ($addr_list as $addr) {
