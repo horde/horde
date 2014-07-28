@@ -46,6 +46,9 @@ abstract class Horde_Mail_Rfc822_Object
      *          (Punycode/RFC 3490).
      *          Requires the idn or intl PHP module.
      *          DEFAULT: false
+     *   - noquote: (boolean) If true, don't quote personal part. [@since
+     *              2.4.0]
+     *              DEFAULT: false
      *
      * @return string  The correctly escaped/quoted address.
      */

@@ -109,11 +109,13 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Counta
         if (!empty($opts['encode'])) {
             $groupname = Horde_Mime::encode($groupname, $opts['encode']);
         }
+        if (empty($opts['noquote'])) {
+            $groupname = $rfc822->encode($groupname, 'personal');
+        }
 
         $rfc822 = new Horde_Mail_Rfc822();
 
-        return $rfc822->encode($groupname, 'personal') . ':' .
-            (strlen($addr) ? (' ' . $addr) : '') . ';';
+        return $groupname . ':' . (strlen($addr) ? (' ' . $addr) : '') . ';';
     }
 
     /**
