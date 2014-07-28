@@ -1894,6 +1894,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Only include e-mail addresses that match the search string in the return from the search() API call (Request #12480).
 * [mjr] Fix exporting tags via vCard and ActiveSync (Bug #13393).
 * [mjr] Add EAS client created shares to the sync_books preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13362).
