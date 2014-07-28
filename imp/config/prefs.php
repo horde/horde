@@ -924,7 +924,7 @@ $_prefs['sourceselect'] = array(
 );
 
 // Address book(s) to use when expanding addresses
-// Refer to turba/config/backends.php for possible source values
+// Refer to Turba's config/backends.php for possible source values
 //
 // You can provide default values this way:
 //   'value' => json_encode(array('source_one', 'source_two'))
@@ -933,7 +933,7 @@ $_prefs['search_sources'] = array(
 );
 
 // Field(s) to use when expanding addresses
-// Refer to turba/config/backends.php for possible source and field values
+// Refer to Turba's config/backends.php for possible source and field values
 //
 // If you want to provide a default value, this field depends on the
 // search_sources preference. For example:
