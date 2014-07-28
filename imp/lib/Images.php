@@ -60,7 +60,7 @@ class IMP_Images
      */
     protected function _showInlineImage(IMP_Contents $contents)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs;
 
         if ($this->alwaysShow || !$prefs->getValue('image_replacement')) {
             return true;
@@ -71,32 +71,20 @@ class IMP_Images
             return false;
         }
 
-        if ($registry->hasMethod('contacts/search')) {
-            $sparams = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+        $res = $injector->getInstance('IMP_Contacts')->searchEmail($from->bare->addresses, array(
+            'email_exact' => true
+        ));
 
-            try {
-                $res = $registry->call('contacts/search', array($from->bare_addresses, array(
-                    'customStrict' => array('email'),
-                    'fields' => array_fill_keys($sparams['sources'], array('email')),
-                    'returnFields' => array('email'),
-                    'rfc822Return' => true,
-                    'sources' => $sparams['sources']
-                )));
+        if (count($res)) {
+            /* Don't allow personal addresses by default - this is the only
+             * e-mail address a Spam sender for sure knows you will recognize
+             * so it is too much of a loophole. */
+            $res->setIteratorFilter(0, $injector->getInstance('IMP_Identity')->getAllFromAddresses());
 
-                // Don't allow personal addresses by default - this is the
-                // only e-mail address a Spam sender for sure knows you will
-                // recognize so it is too much of a loophole.
-                $res->setIteratorFilter(0, $injector->getInstance('IMP_Identity')->getAllFromAddresses());
-
-                foreach ($from as $val) {
-                    if ($res->contains($val)) {
-                        return true;
-                    }
+            foreach ($from as $val) {
+                if ($res->contains($val)) {
+                    return true;
                 }
-            } catch (Horde_Exception $e) {
-                // Ignore errors from the search - default to not showing
-                // images.
-                Horde::log($e, 'INFO');
             }
         }
 

@@ -55,13 +55,9 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
         }
 
         if ($this->vars->searched || $prefs->getValue('display_contact')) {
-            $search_params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
-            $a_list = iterator_to_array($registry->call('contacts/search', array($this->vars->get('search', ''), array(
-                'fields' => $search_params['fields'],
-                'returnFields' => array('email', 'name'),
-                'rfc822Return' => true,
+            $a_list = iterator_to_array($injector->getInstance('IMP_Contacts')->searchEmail($this->vars->get('search', ''), array(
                 'sources' => array($this->vars->source)
-            ))));
+            )));
         } else {
             $a_list = array();
         }
