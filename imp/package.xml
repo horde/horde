@@ -3704,6 +3704,8 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix iTip handling  when recurrence exceptions are present (Bug #13399).
+* [mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are defined.
 * [mms] Fix advanced search in all mailboxes if virtual folders or remote accounts exist (Bug #13384).
 * [mms] Fix regression in automatically expanding deeply nested mailboxes in the dynamic folder list.
 * [mms] Fix regression where containers could not be moved via drag/drop in dynamic view.
