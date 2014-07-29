@@ -1135,13 +1135,16 @@ class Kronolith
             ->getInstance('Kronolith_Factory_Calendars')
             ->create()
             ->getDefaultShare();
-        if (isset($calendars[$default_share])) {
-            $GLOBALS['prefs']->setValue('default_share', $default_share);
-            return $default_share;
+
+        // If no default share identified via share backend, use the
+        // first found share, and set it in the prefs to make it stick.
+        if (!isset($calendars[$default_share])) {
+            reset($calendars);
+            $default_share = key($calendars);
         }
 
-        reset($calendars);
-        return key($calendars);
+        $GLOBALS['prefs']->setValue('default_share', $default_share);
+        return $default_share;
     }
 
     /**
