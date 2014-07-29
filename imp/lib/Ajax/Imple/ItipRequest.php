@@ -142,74 +142,20 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vJournal publish.
                 switch ($components[$key]->getType()) {
                 case 'vEvent':
-                    try {
-                        $guid = $components[$key]->getAttribute('UID');
-                    } catch (Horde_Icalendar_Exception $e) {
-                        /* If required UID parameter doesn't exist, make one
-                         * up so the user can at least add the event to the
-                         * calendar. */
-                        $guid = strval(new Horde_Support_Guid());
-                    }
-
-                    // Check if this is an update.
-                    try {
-                        $registry->call('calendar/export', array($guid, 'text/calendar'));
-                        $success = true;
-                    } catch (Horde_Exception $e) {
-                        $success = false;
-                    }
-
-                    // Try to update in calendar.
-                    if ($success && $registry->hasMethod('calendar/replace')) {
+                    $result = $this->_handlevEvent($key, $components, $mime_part);
+                    // Must check for exceptions.
+                    foreach ($components as $k => $component) {
                         try {
-                            $registry->call('calendar/replace', array(
-                                $guid,
-                                $components[$key],
-                                $mime_part->getType()
-                            ));
-                            $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                            $notification->push(
-                                _("The event was updated in your calendar.") . '&nbsp;' .
-                                    Horde::link($url, _("View event"), null, '_blank') .
-                                    Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
-                                    '</a>',
-                                'horde.success',
-                                array('content.raw')
-                            );
-                            $result = true;
-                            break;
-                        } catch (Horde_Exception $e) {
-                            // Could be a missing permission.
-                            $notification->push(sprintf(_("There was an error updating the event: %s Trying to import the event instead."), $e->getMessage()), 'horde.warning');
-                        }
+                            if ($component->getType() == 'vEvent' && $component->getAttribute('RECURRENCE-ID')) {
+                                $uid = $component->getAttribute('UID');
+                                if ($uid == $components[$key]->getAttribute('UID')) {
+                                    $this->_handlevEvent($k, $components, $mime_part);
+                                }
+                            }
+                        } catch (Horde_Icalendar_Exception $e) {}
                     }
 
-                    if ($registry->hasMethod('calendar/import')) {
-                        // Import into calendar.
-                        try {
-                            $guid = $registry->call('calendar/import', array(
-                                $components[$key],
-                                $mime_part->getType()
-                            ));
-                            $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                            $notification->push(
-                                _("The event was added to your calendar.") . '&nbsp;' .
-                                    Horde::link($url, _("View event"), null, '_blank') .
-                                    Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
-                                    '</a>',
-                                'horde.success',
-                                array('content.raw')
-                            );
-                            $result = true;
-                            break;
-                        } catch (Horde_Exception $e) {
-                            $notification->push(sprintf(_("There was an error importing the event: %s"), $e->getMessage()), 'horde.error');
-                        }
-                    }
-
-                    $notification->push(_("This action is not supported."), 'horde.warning');
                     break;
-
                 case 'vFreebusy':
                     // Import into Kronolith.
                     if ($registry->hasMethod('calendar/import_vfreebusy')) {
@@ -433,6 +379,79 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
         }
 
         return $result;
+    }
+
+    protected function _handlevEvent($key, array $components, $mime_part)
+    {
+        global $notification, $registry;
+
+        try {
+            $guid = $components[$key]->getAttribute('UID');
+        } catch (Horde_Icalendar_Exception $e) {
+            /* If required UID parameter doesn't exist, make one
+             * up so the user can at least add the event to the
+             * calendar. */
+            $guid = strval(new Horde_Support_Guid());
+        }
+
+        // Check if this is an update.
+        try {
+            $registry->call('calendar/export', array($guid, 'text/calendar'));
+            $success = true;
+        } catch (Horde_Exception $e) {
+            $success = false;
+        }
+
+        // Try to update in calendar.
+        if ($success && $registry->hasMethod('calendar/replace')) {
+            try {
+                $registry->call('calendar/replace', array(
+                    $guid,
+                    $components[$key],
+                    $mime_part->getType()
+                ));
+                $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
+                $notification->push(
+                    _("The event was updated in your calendar.") . '&nbsp;' .
+                        Horde::link($url, _("View event"), null, '_blank') .
+                        Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
+                        '</a>',
+                    'horde.success',
+                    array('content.raw')
+                );
+                return true;
+            } catch (Horde_Exception $e) {
+                // Could be a missing permission.
+                $notification->push(sprintf(_("There was an error updating the event: %s Trying to import the event instead."), $e->getMessage()), 'horde.warning');
+            }
+        }
+
+        if ($registry->hasMethod('calendar/import')) {
+            // Import into calendar.
+            try {
+                $guid = $registry->call('calendar/import', array(
+                    $components[$key],
+                    $mime_part->getType()
+                ));
+                $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
+                $notification->push(
+                    _("The event was added to your calendar.") . '&nbsp;' .
+                        Horde::link($url, _("View event"), null, '_blank') .
+                        Horde_Themes_Image::tag('mime/icalendar.png', array('alt' => _("View event"))) .
+                        '</a>',
+                    'horde.success',
+                    array('content.raw')
+                );
+                return true;
+
+            } catch (Horde_Exception $e) {
+                $notification->push(sprintf(_("There was an error importing the event: %s"), $e->getMessage()), 'horde.error');
+            }
+        }
+
+        $notification->push(_("This action is not supported."), 'horde.warning');
+
+        return false;
     }
 
 }
