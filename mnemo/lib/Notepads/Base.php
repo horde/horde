@@ -129,7 +129,6 @@ abstract class Mnemo_Notepads_Base
      */
     protected function _prepareDefaultShare($share)
     {
-        $share->set('default', true);
     }
 
 }
