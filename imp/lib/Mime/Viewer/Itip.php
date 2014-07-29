@@ -403,7 +403,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $view->loc = $vevent->getAttribute('LOCATION');
         } catch (Horde_Icalendar_Exception $e) {}
 
-        $rrule = $vevent->getAttribute('RRULE');
+        try {
+            $rrule = $vevent->getAttribute('RRULE');
+        } catch (Horde_Icalendar_Exception $e) {
+            $rrule = array();
+        }
         if (!is_array($rrule)) {
             $recurrence = new Horde_Date_Recurrence(new Horde_Date($view->start));
             if (strpos($rrule, '=') !== false) {
