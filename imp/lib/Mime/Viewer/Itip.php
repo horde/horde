@@ -436,7 +436,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             foreach ($components as $key => $component) {
                 try {
                     if ($component->getAttribute('RECURRENCE-ID') && $component->getAttribute('UID') == $vevent->getAttribute('UID')) {
-                        $view->exceptions[] = $this->_vEventException($component, $key, $method);
+                        if ($ex = $this->_vEventException($component, $key, $method)) {
+                            $view->exceptions[] = $ex;
+                        }
                     }
                 } catch (Horde_Icalendar_Exception $e) {}
             }
@@ -545,6 +547,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         try {
             $end = $vevent->getAttribute('DTEND');
+            // Check for exceptions that are over and done with.
+            $d = new Horde_Date($end);
+            if ($d->timestamp() < time()) {
+                return false;
+            }
             $view->end = is_array($end)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
                 : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
