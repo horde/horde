@@ -2,6 +2,9 @@
 v4.2.1-git
 ----------
 
+[mjr] Fix exporting to ics file when event contains exceptions and an explicit
+      timezone (Bug #13369).
+[mjr] Fix importing iCalendar data that contains timezone parameters.
 [mjr] Fix both importing and replacing text/calendar data via the API when
       recurrence exceptions are present (Bug #13399).
 [mjr] Ensure default share attribute is set when auto determining a default
