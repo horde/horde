@@ -2,6 +2,7 @@
 v6.2.1-git
 ----------
 
+[mjr] Fix iTip handling  when recurrence exceptions are present (Bug #13399).
 [mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are
       defined.
 [mms] Fix advanced search in all mailboxes if virtual folders or remote
