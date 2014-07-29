@@ -120,6 +120,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         foreach ($vCal->getComponents() as $key => $component) {
             switch ($component->getType()) {
             case 'vEvent':
+                try {
+                    if ($component->getAttribute('RECURRENCE-ID')) {
+                        continue;
+                    }
+                } catch (Horde_ICalendar_Exception $e) {}
                 $out[] = $this->_vEvent($component, $key, $method);
                 break;
 
