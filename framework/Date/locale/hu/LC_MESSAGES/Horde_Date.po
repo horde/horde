@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Horde_Date \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Date/Utils.php:105
+#, php-format
 msgid "%d days ago"
 msgstr "%d nappal ezelőtt"
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-22 13:08+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -342,7 +342,7 @@ msgstr "Bezárás"
 
 #: lib/Horde/Core/Perms/Ui.php:498
 msgid "Do not delete"
-msgstr "Ne töröljük"
+msgstr "Ne legyen törlés"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:207
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:271
@@ -374,7 +374,7 @@ msgstr "A megerősítendő email cím nem található."
 msgid "Emoticons"
 msgstr "Hangulatjelek"
 
-#: lib/Horde/Core/ActiveSync/Mail.php:446
+#: lib/Horde/Core/ActiveSync/Mail.php:455
 msgid "End forwarded message"
 msgstr "Vége a továbbított levélnek"
 
@@ -414,11 +414,11 @@ msgstr "Változatlan méretarány"
 msgid "Flip"
 msgstr "Tükrözés (föl-le)"
 
-#: lib/Horde/Core/ActiveSync/Mail.php:444
+#: lib/Horde/Core/ActiveSync/Mail.php:453
 msgid "Forwarded message"
 msgstr "Továbbított levél"
 
-#: lib/Horde/Core/ActiveSync/Mail.php:444
+#: lib/Horde/Core/ActiveSync/Mail.php:453
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Továbbított levél %s címről"
@@ -468,7 +468,7 @@ msgstr "Otthoni cím"
 msgid "Home Phone"
 msgstr "Otthoni telefon"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2778
+#: lib/Horde/Core/ActiveSync/Driver.php:2802
 msgid "Inbox"
 msgstr "Beérkezett"
 
@@ -622,7 +622,7 @@ msgstr "Ehhez a jogosultsághoz nem hozható létre jogosultsági alcsoport."
 msgid "No configuration information specified for %s."
 msgstr "Hiányoznak a konfigurációs adatok %s-hez."
 
-#: lib/Horde/Core/ActiveSync/Mail.php:472
+#: lib/Horde/Core/ActiveSync/Mail.php:481
 msgid "No message body text"
 msgstr "A levéltörzs üres"
 
@@ -733,11 +733,11 @@ msgstr "Betekintés"
 msgid "Problem"
 msgstr "Hibabejelentés"
 
-#: lib/Horde/Core/ActiveSync/Mail.php:466
+#: lib/Horde/Core/ActiveSync/Mail.php:475
 msgid "Quoted"
 msgstr "Idézett"
 
-#: lib/Horde/Core/ActiveSync/Mail.php:466
+#: lib/Horde/Core/ActiveSync/Mail.php:475
 #, php-format
 msgid "Quoting %s"
 msgstr "%s idézése"
@@ -827,7 +827,7 @@ msgstr "A kiválasztott címjegyzék:"
 msgid "Send SMS"
 msgstr "SMS küldése"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2773
+#: lib/Horde/Core/ActiveSync/Driver.php:2797
 msgid "Sent"
 msgstr "Elküldött"
 
@@ -915,7 +915,7 @@ msgstr "A %s állományban szerepelnie kell egy %s beállításnak."
 msgid "The file %s should contain some %s settings."
 msgstr "A %s állományban szerepelnie kellene valamilyen %s beállításnak."
 
-#: lib/Horde/Registry.php:2631
+#: lib/Horde/Registry.php:2632
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A %s alkalmazás hibába ütközött a felhasználói adatok törlése során."
@@ -1016,7 +1016,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Emlékeztető napló"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2768
+#: lib/Horde/Core/ActiveSync/Driver.php:2792
 msgid "Trash"
 msgstr "Szemetes"
 
@@ -1108,7 +1108,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Nincs jogosultsága több, mint %d blokk létrehozására"
 msgstr[1] "Nincs jogosultsága több, mint %d blokk létrehozására"
 
-#: lib/Horde/Registry.php:2598
+#: lib/Horde/Registry.php:2599
 msgid "You are not allowed to remove user data."
 msgstr "Nincs jogosultsága felhasználói adatok törlésére."
 
@@ -1159,22 +1159,22 @@ msgstr "Meg kell adnia \"%s\" beállítását."
 #: lib/Horde/Core/Auth/Application.php:706
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr ""
-"A böngészőprogramja nem futtat Javascriptet. A minimális nézetet használjuk."
+"A böngészőprogramja nem futtat Javascriptet. A minimális nézet beállítva."
 
 #: lib/Horde/Core/Auth/Application.php:714
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
-"A böngészőprogramja nem támogatja a dinamikus nézetet. Az egyszerű nézetet "
-"használjuk."
+"A böngészőprogramja nem támogatja a dinamikus nézetet. Az egyszerű nézet "
+"beállítva."
 
 #: lib/Horde/Core/Auth/Application.php:717
 #: lib/Horde/Core/Auth/Application.php:725
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
-"A böngészőprogramja nem támogatja a dinamikus nézetet. Az minimális nézetet "
-"használjuk."
+"A böngészőprogramja nem támogatja a dinamikus nézetet. Az minimális nézet "
+"beállítva."
 
 #: lib/Horde/Core/Prefs/Ui.php:963
 msgid "Your default identity has been changed."

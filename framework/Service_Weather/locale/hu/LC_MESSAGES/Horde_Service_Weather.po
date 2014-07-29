@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -594,9 +594,12 @@ msgstr "Leginkább napos"
 msgid "N"
 msgstr "É"
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:128
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:73
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:81
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:91
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:96
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:105
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:128
 msgid "N/A"
 msgstr "N/A"
 
@@ -629,8 +632,8 @@ msgstr "Felhős"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
 #: lib/Horde/Service/Weather/Wwo_Strings.php:54
-#: test/Horde/Service/Weather/WundergroundTest.php:74
 #: test/Horde/Service/Weather/WwoTest.php:31
+#: test/Horde/Service/Weather/WundergroundTest.php:74
 msgid "Partly Cloudy"
 msgstr "Részben felhős"
 

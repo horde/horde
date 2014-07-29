@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-22 13:30+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -162,7 +162,7 @@ msgstr "24 órás formátum"
 msgid "24 hours"
 msgstr "24 óra"
 
-#: config/prefs.php:483 config/prefs.php:485
+#: config/prefs.php:484 config/prefs.php:495
 msgid "24-hour format"
 msgstr "24 órás formátum"
 
@@ -205,15 +205,15 @@ msgstr "Bejelentkezési információ"
 msgid "Account Password"
 msgstr "Jelszóemlékeztető"
 
-#: templates/activesync/device_table.html.php:8
+#: templates/activesync/device_table.html.php:9
 msgid "Actions"
 msgstr "Opciók"
 
-#: config/prefs.php:732 lib/Application.php:213
+#: config/prefs.php:742 lib/Application.php:213
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:100
+#: admin/activesync.php:112
 msgid "ActiveSync Administration"
 msgstr "ActiveSync adminisztráció"
 
@@ -236,7 +236,7 @@ msgstr "Tartalom hozzáadása"
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Adjuk hozzá itt:"
+msgstr "Hozzáadás itt:"
 
 #: templates/admin/groups/edit.inc:55
 msgid "Add Members"
@@ -360,15 +360,15 @@ msgstr "Minden eszköz engedélyezése"
 msgid "Allow only numeric"
 msgstr "Csak számok engedélyezése"
 
-#: config/prefs.php:687
+#: config/prefs.php:697
 msgid "Alternate IMSP Login"
 msgstr "IMSP bejelentkezési paraméterek"
 
-#: config/prefs.php:704
+#: config/prefs.php:714
 msgid "Alternate IMSP Password"
 msgstr "Másik, IMSP jelszó"
 
-#: config/prefs.php:698
+#: config/prefs.php:708
 msgid "Alternate IMSP Username"
 msgstr "Másik, IMSP bejelentkezési név"
 
@@ -497,7 +497,7 @@ msgstr "Balti (ISO-8859-13)"
 msgid "Basic"
 msgstr "Varázslat"
 
-#: templates/activesync/device_table.html.php:43
+#: templates/activesync/device_table.html.php:54
 msgid "Block"
 msgstr "Tiltás"
 
@@ -521,7 +521,7 @@ msgstr "Könyvjelzők"
 msgid "Both"
 msgstr "Mindkettő"
 
-#: config/prefs.php:748
+#: config/prefs.php:758
 msgid "Bottom"
 msgstr "Mindkettő"
 
@@ -529,8 +529,12 @@ msgstr "Mindkettő"
 msgid "Browser"
 msgstr "Böngészőprogram:"
 
-#: templates/prefs/activesync.html.php:56
-#: templates/activesync/device_table.html.php:29
+#: templates/activesync/device_table.html.php:8
+msgid "Cached Collectons"
+msgstr "Gyorsítótárazott lekérések"
+
+#: templates/prefs/activesync.html.php:58
+#: templates/activesync/device_table.html.php:32
 msgid "Cached Heartbeat (seconds)"
 msgstr "Gyorsítótárazott Heartbeat (másodperc)"
 
@@ -552,7 +556,7 @@ msgid "Cancel Problem Report"
 msgstr "Mégse küldök hibajelentést"
 
 #: templates/prefs/activesync.html.php:41
-#: templates/activesync/device_table.html.php:36
+#: templates/activesync/device_table.html.php:47
 msgid "Cancel Wipe"
 msgstr "Mégse"
 
@@ -560,7 +564,7 @@ msgstr "Mégse"
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "A jelszó nem állítható át automatikusan, keresse meg a rendszergazdát."
 
-#: config/prefs.php:507
+#: config/prefs.php:517
 msgid "Categories and Labels"
 msgstr "Kategóriák és jelölésük"
 
@@ -621,17 +625,27 @@ msgstr "kínai, hagyományos (Big5)"
 msgid "Choose %s"
 msgstr "Válasszuk %s-t"
 
-#: config/prefs.php:475
+#: config/prefs.php:476
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Válassza ki a dátumok megjelenítési formáját (rövidített):"
 
-#: config/prefs.php:451
+#: config/prefs.php:452
 msgid "Choose how to display dates (full format):"
 msgstr "Válassza ki a dátumok megjelenítési formáját (hosszú):"
 
-#: config/prefs.php:488
-msgid "Choose how to display times:"
-msgstr "Válassza ki az idő megjelenítési formáját:"
+#: config/prefs.php:498
+#, fuzzy
+msgid "Choose how to display times (abbreviated format):"
+msgstr "Válassza ki a dátumok megjelenítési formáját (rövidített):"
+
+#: config/prefs.php:487
+#, fuzzy
+msgid "Choose how to display times (full format):"
+msgstr "Válassza ki a dátumok megjelenítési formáját (hosszú):"
+
+#: admin/activesync.php:101
+msgid "Class"
+msgstr ""
 
 #: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
@@ -682,6 +696,11 @@ msgstr "Kódszó gyakoriság"
 msgid "Collapse"
 msgstr "Becsukás"
 
+#: admin/activesync.php:100
+#, fuzzy
+msgid "Collection id"
+msgstr "A kapcsolódás nem sikerült"
+
 #: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
 #: templates/prefs/category.html.php:35
 msgid "Color Picker"
@@ -728,7 +747,7 @@ msgstr "Konfiguráció"
 msgid "Configuration Differences"
 msgstr "Különbségek a konfigurációban"
 
-#: config/prefs.php:714
+#: config/prefs.php:724
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 "Kéziszámítógépekkel, okostelefonokkal, Outlookal való adatszinkronizálás "
@@ -746,10 +765,6 @@ msgstr "Friss beállítások elérhetők"
 #, php-format
 msgid "Configure %s"
 msgstr "%s konfigurációja"
-
-#: lib/Prefs/Special/Activesync.php:64
-msgid "Configured Horde Default"
-msgstr "Horde alapértelmezett"
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
@@ -898,7 +913,7 @@ msgstr "cirill-ukrán (KOI8-U)"
 
 #: admin/config/index.php:265 admin/config/index.php:317
 msgid "DB access is not configured."
-msgstr "Nincs mentett DB konfiguráció."
+msgstr "Nincs mentett adatbázis konfiguráció."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -932,8 +947,8 @@ msgstr "Dátum: %s; idő: %s"
 msgid "Day"
 msgstr "nappal"
 
-#: config/prefs.php:379 config/prefs.php:400 config/prefs.php:413
-#: config/prefs.php:482 themes/default/info.php:2
+#: config/prefs.php:380 config/prefs.php:401 config/prefs.php:414
+#: config/prefs.php:483 config/prefs.php:494 themes/default/info.php:2
 msgid "Default"
 msgstr "Alapértelmezett"
 
@@ -945,7 +960,7 @@ msgstr "Az alapértelmezés szerinti szín"
 msgid "Default Shell"
 msgstr "Az alapértelmezett parancsértelmező"
 
-#: config/prefs.php:403
+#: config/prefs.php:404
 msgid "Default charset for sending e-mail messages:"
 msgstr "Alapértelmezett karakter készlet a küldéshez:"
 
@@ -1028,7 +1043,7 @@ msgstr "Eszköz típus"
 msgid "Device encryption"
 msgstr "Eszköz titkosítás"
 
-#: templates/activesync/device_table.html.php:16
+#: templates/activesync/device_table.html.php:17
 msgid "Device is Blocked."
 msgstr "Az eszköz blokkolva."
 
@@ -1036,7 +1051,7 @@ msgstr "Az eszköz blokkolva."
 msgid "Device is Wiped"
 msgstr "Eszköz megtisztítva"
 
-#: templates/activesync/device_table.html.php:14
+#: templates/activesync/device_table.html.php:15
 msgid "Device is Wiped. Remove device state to allow device to reconnect."
 msgstr ""
 "Az eszköz törölve. Törölje az eszköz állapotát, ha újra szeretne csatlakozni "
@@ -1071,11 +1086,11 @@ msgstr "Letiltva"
 msgid "Disable (not recommended)"
 msgstr "Kikapcsolás (nem ajánlott)"
 
-#: config/prefs.php:421
+#: config/prefs.php:422
 msgid "Display 24-hour times?"
 msgstr "Az időpontokat 24 órás formátumban jelenítsük meg?"
 
-#: config/prefs.php:532
+#: config/prefs.php:542
 msgid "Display Preferences"
 msgstr "Megjelenítési beállítások"
 
@@ -1221,23 +1236,23 @@ msgstr "Nemzetiségek"
 msgid "Event Invites:"
 msgstr "Esemény meghívás:"
 
-#: config/prefs.php:591 templates/portal/layout.inc:101
+#: config/prefs.php:601 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15 percenként"
 
-#: config/prefs.php:610
+#: config/prefs.php:620
 msgid "Every 2 minutes"
 msgstr "2 percenként"
 
-#: config/prefs.php:588 config/prefs.php:608 templates/portal/layout.inc:98
+#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30 másodpercenként"
 
-#: config/prefs.php:590 config/prefs.php:611 templates/portal/layout.inc:100
+#: config/prefs.php:600 config/prefs.php:621 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5 percenként"
 
-#: config/prefs.php:592 templates/portal/layout.inc:102
+#: config/prefs.php:602 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "félóránként"
 
@@ -1245,7 +1260,7 @@ msgstr "félóránként"
 msgid "Every hour"
 msgstr "óránként"
 
-#: config/prefs.php:589 config/prefs.php:609 templates/portal/layout.inc:99
+#: config/prefs.php:599 config/prefs.php:619 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "percenként"
 
@@ -1270,7 +1285,7 @@ msgstr "Extra nagy"
 msgid "FTP upload of configuration"
 msgstr "FTP feltöltés beállítása"
 
-#: config/prefs.php:635
+#: config/prefs.php:645
 msgid "Facebook Integration"
 msgstr "Facebook integráció"
 
@@ -1691,6 +1706,10 @@ msgstr "Utolsó bejelentkezés: %s, %s címről"
 msgid "Last login: Never"
 msgstr "Utolsó bejelentkezés: még soha nem volt"
 
+#: admin/activesync.php:103
+msgid "Last synckey"
+msgstr "Utolsó szinkronizálási kulcs"
+
 #: templates/block/twitter-layout.html.php:19
 msgid "Latest"
 msgstr "Legutolsó"
@@ -1833,7 +1852,7 @@ msgstr "Levelezés"
 msgid "Mail Admin"
 msgstr "Email domain kezelés"
 
-#: config/prefs.php:508
+#: config/prefs.php:518
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1841,7 +1860,7 @@ msgstr ""
 "Adatait kategóriákba sorolhatja. Ezek itt definiálhatók, módosíthatók, "
 "továbbá színek rendelhetők hozzájuk."
 
-#: config/prefs.php:733
+#: config/prefs.php:743
 msgid "Manage your ActiveSync devices."
 msgstr "ActiveSync eszközök kezelése."
 
@@ -1950,7 +1969,7 @@ msgstr "Model"
 msgid "Module is up-to-date."
 msgstr "A modul a legfrissebb verziójú."
 
-#: config/prefs.php:496
+#: config/prefs.php:506
 msgid "Monday"
 msgstr "hétfő"
 
@@ -1988,7 +2007,7 @@ msgstr "Ismeretlen"
 msgid "NO, I Do NOT Agree"
 msgstr "NEM, nem egyezem bele."
 
-#: templates/prefs/activesync.html.php:69
+#: templates/prefs/activesync.html.php:71
 #: templates/admin/activesync.html.php:37
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
@@ -2001,7 +2020,7 @@ msgstr ""
 msgid "Name"
 msgstr "Név"
 
-#: config/prefs.php:587 config/prefs.php:607 templates/portal/layout.inc:97
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Soha"
 
@@ -2115,10 +2134,10 @@ msgstr "NoSQL indexek ehhez: %s"
 msgid "NoSQL indices out of date."
 msgstr "A NoSQL indexek elavultak."
 
-#: templates/prefs/activesync.html.php:50
-#: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
+#: templates/prefs/activesync.html.php:52
+#: templates/prefs/activesync.html.php:65 templates/prefs/syncml.html.php:34
 #: templates/admin/activesync.html.php:28
-#: templates/activesync/device_table.html.php:23
+#: templates/activesync/device_table.html.php:26
 msgid "None"
 msgstr "nincs"
 
@@ -2131,7 +2150,7 @@ msgid "Northern Hemisphere"
 msgstr "Északi félteke"
 
 #: templates/prefs/activesync.html.php:45
-#: templates/activesync/device_table.html.php:18
+#: templates/activesync/device_table.html.php:19
 msgid "Not Provisioned"
 msgstr "Nem felügyelt"
 
@@ -2203,8 +2222,8 @@ msgstr "Operációs rendszer"
 msgid "Or enter a user name:"
 msgstr "Válasszon egy felhasználónevet:"
 
-#: config/prefs.php:531 config/prefs.php:634 config/prefs.php:660
-#: config/prefs.php:686 config/prefs.php:712 config/prefs.php:731
+#: config/prefs.php:541 config/prefs.php:644 config/prefs.php:670
+#: config/prefs.php:696 config/prefs.php:722 config/prefs.php:741
 msgid "Other Information"
 msgstr "Egyéb információ"
 
@@ -2344,7 +2363,7 @@ msgstr "Viccek"
 msgid "Politics"
 msgstr "Politika"
 
-#: config/prefs.php:747
+#: config/prefs.php:757
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2396,7 +2415,7 @@ msgid "Problem Description"
 msgstr "A hiba leírása"
 
 #: templates/prefs/activesync.html.php:45
-#: templates/activesync/device_table.html.php:18
+#: templates/activesync/device_table.html.php:19
 msgid "Provisioned"
 msgstr "Felügyelet"
 
@@ -2438,21 +2457,22 @@ msgstr "Olvasás engedélyezve."
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr ""
-"Tényleg töröljük \"%s\" felhasználót? Ez a változtatás nem fordítható vissza."
+"A \"%s\" felhasználó végleges törlése? Ez a változtatás nem fordítható "
+"vissza."
 
 #: templates/admin/user/clear.inc:10
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Tényleg töröljük \"%s\" felhasználó adatait? Ez a változtatás nem fordítható "
-"vissza."
+"A \"%s\" felhasználó adatainak végleges törlése? Ez a változtatás nem "
+"fordítható vissza."
 
-#: config/prefs.php:613
+#: config/prefs.php:623
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "A menü dinamikus elemeinek frissítési gyakorisága:"
 
-#: config/prefs.php:594
+#: config/prefs.php:604
 msgid "Refresh Portal View:"
 msgstr "Az indulóoldal frissítésének gyakorisága:"
 
@@ -2475,7 +2495,7 @@ msgstr "Távoli számítógép"
 #: templates/prefs/activesync.html.php:47
 #: templates/admin/user/removequeued.inc:13
 #: templates/admin/user/approve.inc:41 templates/admin/groups/edit.inc:25
-#: templates/activesync/device_table.html.php:38
+#: templates/activesync/device_table.html.php:49
 msgid "Remove"
 msgstr "Törlés"
 
@@ -2486,8 +2506,8 @@ msgstr "A pár törlése"
 #: admin/config/index.php:433
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
-"Töröljük az elmentett programot a szerver ideiglenes állományokat tartalmazó "
-"alkönyvtárából."
+"Az elmentett program törlése a szerver ideiglenes állományokat tartalmazó "
+"mappájából."
 
 #: templates/admin/user/remove.inc:14
 msgid "Remove user"
@@ -2589,11 +2609,11 @@ msgstr "SMS üzenetek"
 
 #: admin/config/index.php:271 admin/config/index.php:324
 msgid "SQL DB schema is out of date."
-msgstr "A DB konfiguráció elavult."
+msgstr "Az adatbázis ELAVULT."
 
 #: admin/config/index.php:276 admin/config/index.php:329
 msgid "SQL DB schema is ready."
-msgstr "A DB konfiguráció kész."
+msgstr "Adatbázis OK."
 
 #: admin/sqlshell.php:23
 msgid "SQL Shell"
@@ -2698,11 +2718,11 @@ msgstr "Válassza ki az időelválasztó karaktert:"
 msgid "Select the time format:"
 msgstr "Válassza ki az idő formátumát:"
 
-#: config/prefs.php:580
+#: config/prefs.php:590
 msgid "Select your color scheme."
 msgstr "Válassza ki a kívánt színegyüttest."
 
-#: config/prefs.php:376
+#: config/prefs.php:377
 msgid "Select your preferred language:"
 msgstr "Válassza ki az Önnek megfelelő nyelvet:"
 
@@ -2713,6 +2733,10 @@ msgstr "Hibajelentés küldése"
 #: lib/Block/Metar.php:290
 msgid "Sensor: "
 msgstr "Érzékelő: "
+
+#: admin/activesync.php:102
+msgid "Server Id"
+msgstr "Szerver ID"
 
 #: templates/prefs/syncml.html.php:12
 msgid "Server Time"
@@ -2735,11 +2759,11 @@ msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "Állítsa be, arra az esetre, ha jelszavát elfelejtené."
 
-#: config/prefs.php:636
+#: config/prefs.php:646
 msgid "Set up integration with your Facebook account."
 msgstr "Facebook integráció beállítása"
 
-#: config/prefs.php:662
+#: config/prefs.php:672
 msgid "Set up integration with your Twitter account."
 msgstr "Twitter integráció beállítsa."
 
@@ -2747,7 +2771,7 @@ msgstr "Twitter integráció beállítsa."
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "A kívánt nyelv, időzóna és dátumformátum beállítása."
 
-#: config/prefs.php:533
+#: config/prefs.php:543
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2765,7 +2789,7 @@ msgstr "A megadott paraméter több helységet is jelöl: %s"
 msgid "Short Summary"
 msgstr "Rövid összefoglalás"
 
-#: config/prefs.php:620
+#: config/prefs.php:630
 msgid "Should access keys be defined for most links?"
 msgstr "El kívánja érni az egyes funkciókat Alt-billentyű-kombinációkkal is?"
 
@@ -2798,7 +2822,7 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Részletek megjelenítése"
 
-#: config/prefs.php:565
+#: config/prefs.php:575
 msgid "Show last login time when logging in?"
 msgstr ""
 "Minden bejelentkezéskor íródjék ki a korábbi utolsó bejelentkezés ideje?"
@@ -2940,7 +2964,7 @@ msgstr "Napkelte"
 msgid "Sun Set"
 msgstr "Napnyugta"
 
-#: config/prefs.php:495
+#: config/prefs.php:505
 msgid "Sunday"
 msgstr "vasárnap"
 
@@ -2960,7 +2984,7 @@ msgstr "Napnyugta"
 msgid "Sync all"
 msgstr "Minden szinkronizálása"
 
-#: config/prefs.php:713
+#: config/prefs.php:723
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -3223,7 +3247,7 @@ msgstr "Ma"
 msgid "Tomorrow"
 msgstr "Holnap"
 
-#: config/prefs.php:748
+#: config/prefs.php:758
 msgid "Top"
 msgstr "Legfölül"
 
@@ -3239,7 +3263,7 @@ msgstr "Török (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:661
+#: config/prefs.php:671
 msgid "Twitter Integration"
 msgstr "Twitter integráció"
 
@@ -3273,11 +3297,11 @@ msgstr "Nem lehet beállítani"
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "Nem lehet érvényesíteni a kérés jelet. Kérem próbálja újra."
 
-#: admin/activesync.php:90 lib/Prefs/Special/Activesync.php:54
+#: admin/activesync.php:91 lib/Prefs/Special/Activesync.php:54
 msgid "Unavailable"
 msgstr "Elérhetetlen"
 
-#: templates/activesync/device_table.html.php:41
+#: templates/activesync/device_table.html.php:52
 msgid "Unblock"
 msgstr "Feloldás"
 
@@ -3357,7 +3381,11 @@ msgstr "Feltöltés"
 msgid "Uploaded all application configuration files to the server."
 msgstr "Az összes alkalmazás konfigurációja feltöltötve a szerverre."
 
-#: config/prefs.php:688
+#: lib/Prefs/Special/Activesync.php:64
+msgid "Use Horde Default"
+msgstr "Alapértelmezés használata"
+
+#: config/prefs.php:698
 msgid "Use if name/password is different for IMSP server."
 msgstr "Arra az esetre, ha az IMSP szerveren más a login/jelszó páros."
 
@@ -3490,7 +3518,7 @@ msgstr "nyugat-európai (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "nyugat-európai (ISO-8859-15)"
 
-#: config/prefs.php:545
+#: config/prefs.php:555
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Milyen alkalmazást mutasson %s a bejelentkezés után?"
@@ -3507,7 +3535,7 @@ msgstr "Mi az elválasztó karakter?"
 msgid "What is the quote character?"
 msgstr "Mi az idézetkarakter?"
 
-#: config/prefs.php:498
+#: config/prefs.php:508
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Melyik napot szeretné a hét első napjaként megjeleníttetni?"
 
@@ -3515,7 +3543,7 @@ msgstr "Melyik napot szeretné a hét első napjaként megjeleníttetni?"
 msgid "Which phases"
 msgstr "Mely fázisok"
 
-#: config/prefs.php:600
+#: config/prefs.php:610
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "A %s menü szélessége a bal oldalon:"
@@ -3541,12 +3569,12 @@ msgid "Wind:"
 msgstr "Szél:"
 
 #: templates/prefs/activesync.html.php:37
-#: templates/activesync/device_table.html.php:33
+#: templates/activesync/device_table.html.php:44
 msgid "Wipe"
 msgstr "Tisztítás"
 
 #: templates/prefs/activesync.html.php:40
-#: templates/activesync/device_table.html.php:12
+#: templates/activesync/device_table.html.php:13
 msgid "Wipe Pending"
 msgstr "Tisztítás folyamatban"
 
@@ -3703,7 +3731,7 @@ msgid "Your Email Address"
 msgstr "Az Ön email címe"
 
 #: config/prefs.php:262 config/prefs.php:324 config/prefs.php:362
-#: config/prefs.php:506
+#: config/prefs.php:516
 msgid "Your Information"
 msgstr "Személyes információ"
 
@@ -3749,7 +3777,7 @@ msgstr ""
 msgid "Your browser does not support this feature."
 msgstr "Az Ön böngészőprogramja nem támogatja ezt a lehetőséget."
 
-#: config/prefs.php:410
+#: config/prefs.php:411
 msgid "Your current time zone:"
 msgstr "A jelenleg érvényes időzóna:"
 

@@ -213,7 +213,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!empty($this->_init['imapproxy']) &&
             ($subject instanceof Horde_Imap_Client_Data_Capability_Imap)) {
-            $this->_setInit('enabled', $c->isEnabled());
+            $this->_setInit('enabled', $subject->isEnabled());
         }
 
         return parent::update($subject);

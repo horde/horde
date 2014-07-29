@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Turba H5 (4.3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-22 13:30+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -94,7 +94,7 @@ msgstr "Fájl hozzáadása"
 
 #: templates/browse/actions.inc:27
 msgid "Add to"
-msgstr "Adjuk hozzá"
+msgstr "Hozzáadás"
 
 #: lib/Api.php:1619
 #, php-format
@@ -261,11 +261,11 @@ msgstr "Jogosultságok módosítása"
 
 #: templates/browse/column_headers.inc:9
 msgid "Check All/None"
-msgstr "Jelöljük ki mind/egyiket sem"
+msgstr "Mind/egyik sem kijelölése"
 
 #: templates/browse/column_headers.inc:9
 msgid "Check _All/None"
-msgstr "Jelöljük ki mind/egyiket sem"
+msgstr "_Mind/egyik sem kijelölése"
 
 #: config/attributes.php:128
 msgid "Children"
@@ -617,11 +617,11 @@ msgstr "Címjegyzék exportálása"
 
 #: templates/data/export.inc:23
 msgid "Export only the selected contacts."
-msgstr "Csak a kijelölt névjegyeket exportáljuk."
+msgstr "A kijelölt névjegyek exportálása."
 
 #: templates/data/export.inc:29
 msgid "Export the following address book completely."
-msgstr "A teljes címjegyzéket exportáljuk."
+msgstr "A teljes címjegyzék exportálása."
 
 #: config/backends.php:804
 msgid "Facebook Friends"
@@ -1144,7 +1144,7 @@ msgstr "Személyhívó"
 
 #: lib/View/DeleteContact.php:57
 msgid "Permanently delete this contact?"
-msgstr "Véglegesen töröljük ezt a névjegyet?"
+msgstr "A névjegy végleges törlése?"
 
 #: deletefile.php:32 lib/Api.php:686 lib/Api.php:1647 lib/Driver.php:967
 #: lib/Driver/Sql.php:667 lib/Driver/Share.php:328
@@ -1228,13 +1228,13 @@ msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"Írjuk felül a kiválasztott címjegyzéket az importálttal? "
+"A kiválasztott címjegyzék felülírása az importálttal? "
 "<strong>Figyelmeztetés: ez kitörli az összes adatot a jelenlegi "
 "címjegyzékből!</strong>"
 
 #: templates/search/advanced.html.php:6
 msgid "Reset to Defaults"
-msgstr "Kezdjük újra a kitöltést"
+msgstr "Újrakezdés"
 
 #: config/attributes.php:492
 msgid "S/MIME Public Certificate"
@@ -1885,7 +1885,7 @@ msgstr "Ú_j névjegy"
 
 #: templates/browse/actions.inc:5
 msgid "_Remove from this list"
-msgstr "Töröljük a partnerlistáról"
+msgstr "Törlés a partnerlistáról"
 
 #: lib/Application.php:201
 msgid "_Search"

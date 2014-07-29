@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-05-28 13:59+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -38,7 +38,7 @@ msgstr "Érvénytelen email cím: %s"
 msgid "%d users with login %s found, one expected."
 msgstr "%d felhasználó létezik a %s azonosítóval, de egy szükséges."
 
-#: lib/Script/Util.php:48
+#: lib/Script/Util.php:51
 #, php-format
 msgid "%s The driver said: %s"
 msgstr "%s A meghajtó üzenete: %s"
@@ -370,7 +370,7 @@ msgstr "Szűrési szabály"
 msgid "Filter Rules"
 msgstr "Szűrési szabályok"
 
-#: lib/Basic/Script.php:108
+#: lib/Basic/Script.php:101
 msgid "Filter Script Display"
 msgstr "A szűrőprogram megjelenítése"
 
@@ -676,11 +676,11 @@ msgstr "Küldjön figyelmeztetést erre a címre..."
 
 #: lib/Form/Vacation.php:76
 msgid "Number of days between vacation replies:"
-msgstr "Ennyi naponként küldjünk csak újból üzenetet:"
+msgstr "Napok száma a vakáció üzenetek között:"
 
 #: lib/Storage.php:236
 msgid "Only flag the message"
-msgstr "Csak jelöljük meg a levelet"
+msgstr "Csak megjelölés"
 
 #: config/prefs.php:14
 msgid "Other Preferences"
@@ -858,16 +858,16 @@ msgstr "Szűrőlista frissítés"
 msgid "Script name:"
 msgstr "A szkript neve"
 
-#: lib/Script/Util.php:81
+#: lib/Script/Util.php:84
 #, php-format
 msgid "Script not updated: %s"
 msgstr "A szkript nem lett frissítve: %s"
 
-#: lib/Script/Util.php:55
+#: lib/Script/Util.php:58
 msgid "Script successfully activated."
 msgstr "A szkript sikeresen bekapcsolva."
 
-#: lib/Script/Util.php:54
+#: lib/Script/Util.php:57
 msgid "Script successfully deactivated."
 msgstr "A szkript sikeresen kikapcsolva."
 
@@ -967,11 +967,11 @@ msgstr "A \"%s\" cím hozzáadva a feketelistához."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "A \"%s\" cím hozzáadva az engedélyezési listákoz."
 
-#: lib/Script/Util.php:46
+#: lib/Script/Util.php:49
 msgid "There was an error activating the script."
 msgstr "Hiba történt a szűrőlista engedélyezése során."
 
-#: lib/Script/Util.php:45
+#: lib/Script/Util.php:48
 msgid "There was an error deactivating the script."
 msgstr "Hiba történt a szűrőlista kikapcsolása során."
 
@@ -1114,7 +1114,7 @@ msgstr "_Tiltott címek"
 
 #: templates/basic/blacklist/blacklist.html.php:19
 msgid "_Delete message completely"
-msgstr "_Végérvényesen töröljük a levelet"
+msgstr "_Végérvényes törlés"
 
 #: templates/basic/blacklist/blacklist.html.php:33
 msgid "_Enter each address on a new line:"
