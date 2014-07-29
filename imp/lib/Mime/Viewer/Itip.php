@@ -274,7 +274,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             // Check if this is an update.
             try {
                 $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar'));
-
                 $desc = _("%s wants to notify you about changes in \"%s\".");
                 $is_update = true;
             } catch (Horde_Exception $e) {
