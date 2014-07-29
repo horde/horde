@@ -779,13 +779,11 @@ class Kronolith_Api extends Horde_Registry_Api
 
             if (count($ids) == 0) {
                 throw new Kronolith_Exception(_("No iCalendar data was found."));
-            } else if (count($ids) == 1) {
-                return $ids[0];
             }
 
             // Now add all the exception instances
             foreach ($recurrences as $recurrence) {
-                $ids[] = $this->_addiCalEvent($recurrence, $kronolith_driver);
+                $ids[] = $this->_addiCalEvent($recurrence, $kronolith_driver, true);
             }
 
             return $ids;
@@ -805,20 +803,24 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param Horde_Icalendar_Vevent $content  The vEvent part
      * @param Kronolith_Driver $driver         The kronolith driver
+     * @param boolean $exception               Content represents an exception
+     *                                         in a recurrence series.
      *
      * @return string  The new event's uid
      */
-    protected function _addiCalEvent($content, $driver)
+    protected function _addiCalEvent($content, $driver, $exception = false)
     {
         $event = $driver->getEvent();
         $event->fromiCalendar($content);
         // Check if the entry already exists in the data source,
         // first by UID.
-        $uid = $event->uid;
-        try {
-            $driver->getByUID($uid, array($driver->calendar));
-            throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $uid));
-        } catch (Horde_Exception $e) {}
+        if (!$exception) {
+            try {
+                $driver->getByUID($uid, array($driver->calendar));
+                throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $event->uid));
+            } catch (Horde_Exception $e) {}
+        }
+
         $result = $driver->search($event);
         // Check if the match really is an exact match:
         if (is_array($result) && count($result) > 0) {
