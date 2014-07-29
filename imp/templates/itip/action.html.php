@@ -58,13 +58,6 @@
 <?php endif; ?>
 </table>
 
-<?php if (!empty($this->exceptions)): ?>
-  <h2 class="smallheader"><?php echo _("Exceptions") ?>:</h2>
-  <?php foreach ($this->exceptions as $exception): ?>
-    <?php echo $exception ?><br />
-  <?php endforeach; ?>
-<?php endif; ?>
-
 <?php if (isset($this->attendees)): ?>
 <h2 class="smallheader"><?php echo _("Attendees") ?>:</h2>
 
@@ -99,6 +92,13 @@
  </tr>
 <?php endforeach; ?>
 </table>
+<?php endif; ?>
+
+<?php if (!empty($this->exceptions)): ?>
+  <h2 class="header"><?php echo _("Exceptions") ?>:</h2>
+  <?php foreach ($this->exceptions as $exception): ?>
+    <?php echo $exception ?><div class="linedRow">&nbsp;</div><br />
+  <?php endforeach; ?>
 <?php endif; ?>
 
 <?php if (isset($this->options)): ?>
