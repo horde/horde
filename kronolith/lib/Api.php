@@ -1118,11 +1118,16 @@ class Kronolith_Api extends Horde_Registry_Api
             }
         }
 
-        $event->fromiCalendar($component);
-        // Ensure we keep the original UID, even when content does not
-        // contain one and fromiCalendar creates a new one.
-        $event->uid = $uid;
-        $event->save();
+        try {
+            $rid = $component->getAttribute('RECURRENCE-ID');
+            $this->_addiCalEvent($component, Kronolith::getDriver(null, $calendar), true);
+        } catch (Horde_Icalendar_Exception $e) {
+            $event->fromiCalendar($component);
+            // Ensure we keep the original UID, even when content does not
+            // contain one and fromiCalendar creates a new one.
+            $event->uid = $uid;
+            $event->save();
+        }
     }
 
     /**
