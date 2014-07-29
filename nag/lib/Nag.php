@@ -562,13 +562,14 @@ class Nag
             ->getInstance('Nag_Factory_Tasklists')
             ->create()
             ->getDefaultShare();
-        if (isset($tasklists[$default_tasklist])) {
-            $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
-            return $default_tasklist;
+
+        if (!isset($tasklists[$default_tasklist])) {
+            reset($tasklists);
+            $default_tasklist = key($tasklists);
         }
 
-        reset($tasklists);
-        return key($tasklists);
+        $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
+        return $default_tasklist;
     }
 
     /**

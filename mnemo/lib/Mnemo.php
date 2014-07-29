@@ -237,13 +237,14 @@ class Mnemo
             ->getInstance('Mnemo_Factory_Notepads')
             ->create()
             ->getDefaultShare();
-        if (isset($notepads[$default_notepad])) {
-            $GLOBALS['prefs']->setValue('default_notepad', $default_notepad);
-            return $default_notepad;
+
+        if (!isset($notepads[$default_notepad])) {
+            reset($notepads);
+            $default_notepad = key($notepads);
         }
 
-        reset($notepads);
-        return key($notepads);
+        $GLOBALS['prefs']->setValue('default_notepad', $default_notepad);
+        return $default_notepad;
     }
 
     /**
