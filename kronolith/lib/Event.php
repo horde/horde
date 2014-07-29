@@ -1160,9 +1160,6 @@ abstract class Kronolith_Event
                     new DateTimeZone($tz);
                     $this->timezone = $tzid = $tz;
                 } catch (Exception $e) {
-                    // // Reset to default timezone.
-                    // $this->start->timezone = null;
-                    // $
                 }
             }
             if (!is_array($start)) {
